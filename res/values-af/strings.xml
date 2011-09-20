@@ -18,38 +18,26 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Horlosie"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Wekkers"</string>
-    <!-- no translation found for add_alarm (5976616107390962899) -->
-    <skip />
+    <string name="add_alarm" msgid="5976616107390962899">"Voeg wekker by"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Skermhorlosie"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Redigeer wekker"</string>
-    <!-- no translation found for delete_alarm (3457780990646206817) -->
-    <skip />
+    <string name="delete_alarm" msgid="3457780990646206817">"Vee wekker uit"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Skakel wekker aan"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Skakel wekker af"</string>
     <string name="delete_alarm_confirm" msgid="4237696873219106907">"Hierdie wekker sal uitgevee word."</string>
-    <!-- no translation found for show_clock (8358759982675616915) -->
-    <skip />
-    <!-- no translation found for hide_clock (3217727306480505694) -->
-    <skip />
+    <string name="show_clock" msgid="8358759982675616915">"Vertoon klok"</string>
+    <string name="hide_clock" msgid="3217727306480505694">"Versteek horlosie"</string>
     <string name="label" msgid="162189613902857319">"Etiket"</string>
     <string name="default_label" msgid="5590025289805630372">"Wekker"</string>
-    <!-- no translation found for set_alarm (9148359866152726808) -->
-    <skip />
-    <!-- no translation found for alarm_vibrate (3476686921490362230) -->
-    <skip />
-    <!-- no translation found for alarm_repeat (7242985466344233206) -->
-    <skip />
-    <!-- no translation found for alert (6539852766423700221) -->
-    <skip />
-    <!-- no translation found for time (8067216534232296518) -->
-    <skip />
-    <!-- no translation found for alarm_alert_dismiss_text (4942914605480888820) -->
-    <skip />
+    <string name="set_alarm" msgid="9148359866152726808">"Stel wekker"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreer"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"Herhaal"</string>
+    <string name="alert" msgid="6539852766423700221">"Luitoon"</string>
+    <string name="time" msgid="8067216534232296518">"Tyd"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Maak toe"</string>
     <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"Wekker na <xliff:g id="MINUTES">%d</xliff:g> minute stil gemaak"</string>
-    <!-- no translation found for alarm_alert_snooze_text (1774416052207651584) -->
-    <skip />
-    <!-- no translation found for alarm_alert_snooze_set (656470966696912087) -->
-    <skip />
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Sluimer"</string>
+    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Sluimer vir <xliff:g id="MINUTES">%d</xliff:g> minute."</string>
   <string-array name="alarm_set">
     <item msgid="5163476010406761625">"Hierdie wekker is vir minder as 1 minuut van nou af gestel."</item>
     <item msgid="7110525731259629055">"Hierdie wekker is vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af gestel."</item>
@@ -62,19 +50,14 @@
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 dag"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> dae"</string>
-    <!-- no translation found for hour (2546819039651509323) -->
-    <skip />
-    <!-- no translation found for hours (2071487018566991613) -->
-    <skip />
+    <string name="hour" msgid="2546819039651509323">"1 uur"</string>
+    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> uur"</string>
     <string name="minute" msgid="2486157997434653710">"1 minuut"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minute"</string>
-    <!-- no translation found for every_day (1058994798884544691) -->
-    <skip />
-    <!-- no translation found for never (54104287800571769) -->
-    <skip />
+    <string name="every_day" msgid="1058994798884544691">"elke dag"</string>
+    <string name="never" msgid="54104287800571769">"Nooit"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <!-- no translation found for clock_instructions (3118560284915857690) -->
-    <skip />
+    <string name="clock_instructions" msgid="3118560284915857690">"Kies \'n klok om te vertoon."</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Wyserhorlosie"</string>
     <string name="settings" msgid="5849739030579520686">"Instellings"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Wekker in stilmodus"</string>
@@ -142,8 +125,6 @@
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Dok-instellings"</string>
     <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Klankterugspeel-diens vir wekkers wat in DeskClock gestel is."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Laai tans luitoon…"</string>
-    <!-- no translation found for control_set_alarm (2194676418924016327) -->
-    <skip />
-    <!-- no translation found for control_set_alarm_with_existing (1128169496817859490) -->
-    <skip />
+    <string name="control_set_alarm" msgid="2194676418924016327">"Stel wekker"</string>
+    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Wekker gestel: <xliff:g id="TIME">%s</xliff:g>"</string>
 </resources>
