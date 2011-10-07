@@ -561,12 +561,6 @@ public class DeskClock extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_alarms:
-                startActivity(new Intent(DeskClock.this, AlarmClock.class));
-                return true;
-            case R.id.menu_item_add_alarm:
-                startActivity(new Intent(this, SetAlarm.class));
-                return true;
             case R.id.menu_item_dock_settings:
                 startActivity(new Intent(DOCK_SETTINGS_ACTION));
                 return true;

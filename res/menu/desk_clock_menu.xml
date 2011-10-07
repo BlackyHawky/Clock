@@ -15,12 +15,6 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_item_alarms"
-        android:title="@string/alarm_list_title"
-        android:icon="@drawable/ic_menu_alarms"/>
-    <item android:id="@+id/menu_item_add_alarm"
-        android:title="@string/add_alarm"
-        android:icon="@drawable/ic_menu_add"/>
     <item android:id="@+id/menu_item_dock_settings"
         android:title="@string/menu_item_dock_settings"
         android:icon="@android:drawable/ic_menu_preferences"/>
