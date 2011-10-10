@@ -36,8 +36,8 @@
     <string name="time" msgid="8067216534232296518">"Isikhathi"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Cashisa"</string>
     <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"I-alamu ithuliswe emva kwamaminithi angu-<xliff:g id="MINUTES">%d</xliff:g>"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ukozela"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Iyozela <xliff:g id="MINUTES">%d</xliff:g> imizuzu"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ukusnuza"</string>
+    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Iyozela <xliff:g id="MINUTES">%d</xliff:g> amaminithi"</string>
   <string-array name="alarm_set">
     <item msgid="5163476010406761625">"Le-alamu ihlelelwe ngaphansi kweminithi engu-1 kusukela manje."</item>
     <item msgid="7110525731259629055">"Le alamu ihlelelwe <xliff:g id="DAYS">%1$s</xliff:g> kusukela manje."</item>
@@ -50,7 +50,7 @@
   </string-array>
     <string name="day" msgid="7984755014526510295">"Usuku olungu-1"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> izinsuku"</string>
-    <string name="hour" msgid="2546819039651509323">"ihora elingui-1"</string>
+    <string name="hour" msgid="2546819039651509323">"1 ihora"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> amahora"</string>
     <string name="minute" msgid="2486157997434653710">"Iminithi elingu-1"</string>
     <string name="minutes" msgid="6115838729146292526">"Amaminithi angu-<xliff:g id="MINUTES">%s</xliff:g>"</string>
@@ -126,5 +126,5 @@
     <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Insizakalo yokuphinda kudlala komsindo yama-alamu ahlelwe Kwiwashi Ledeski."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Ilayisha iringithoni..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Hlela i-alamu"</string>
-    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"I-alamu lihlelwe: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"I-alamu ihleliwe: <xliff:g id="TIME">%s</xliff:g>"</string>
 </resources>

@@ -126,5 +126,5 @@
     <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"በጠረጴዛ ሰዓት ለተዘጋጁ ማንቂያ ደውሎች የዳግም አጫዋት አገልግሎት ድምፅ አሰማ።"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"የስልክ ጥሪ ድምፅ በመስቀል ላይ...."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"የማንቂያ ደወልአዘጋጅ"</string>
-    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"የማንቂያ ደወልአዘጋጅ፡<xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"የማንቂያ ደወል ተዘጋጅቷል፡<xliff:g id="TIME">%s</xliff:g>"</string>
 </resources>
