@@ -41,7 +41,7 @@
     <string name="disable_alarm">Turn alarm off</string>
 
     <!-- Delete alarm confirmation dialog message. -->
-    <string name="delete_alarm_confirm">This alarm will be deleted.</string>
+    <string name="delete_alarm_confirm">Delete this alarm?</string>
 
     <!-- Menu item on Alarm Clock screen: Show clock -->
     <string name="show_clock">Show clock</string>
@@ -98,14 +98,14 @@
     <!-- Alarm confirmation toast: Describes how long from now until
          alarm fires -->
     <string-array name="alarm_set">
-        <item>This alarm is set for less than 1 minute from now.</item>
-        <item>This alarm is set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g> from now.</item>
-        <item>This alarm is set for <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g> from now.</item>
-        <item>This alarm is set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g> and <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g> from now.</item>
-        <item>This alarm is set for <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
-        <item>This alarm is set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g> and <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
-        <item>This alarm is set for <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g> and <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
-        <item>This alarm is set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g>, <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g>, and <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
+        <item>Alarm set for less than 1 minute from now.</item>
+        <item>Alarm set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g> from now.</item>
+        <item>Alarm set for <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g> from now.</item>
+        <item>Alarm set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g> and <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g> from now.</item>
+        <item>alarm set for <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
+        <item>Alarm set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g> and <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
+        <item>Alarm set for <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g> and <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
+        <item>Alarm set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g>, <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g>, and <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
     </string-array>
 
     <!-- Alarm confirmation toast: singular day -->
@@ -143,7 +143,7 @@
 
     <!-- Appears at the top of the Clock Picker screen: Tell user to
          select a clock to display -->
-    <string name="clock_instructions">Select a clock to display.</string>
+    <string name="clock_instructions">Choose a clock</string>
 
     <!-- Label for analog clock gadget, shown in list of all gadgets -->
     <string name="analog_gadget">Analog clock</string>
@@ -185,7 +185,7 @@
     </string-array>
 
     <!-- Auto silence preference title -->
-    <string name="auto_silence_title">Auto silence</string>
+    <string name="auto_silence_title">Auto-silence</string>
 
     <!-- Auto silence summary string set based on the preference value. -->
     <string name="auto_silence_summary">Alarms will silence after
@@ -237,13 +237,13 @@
     <string name="silent_alarm_summary">Silent</string>
 
     <!-- Text to display in the small text of the notification -->
-    <string name="alarm_notify_text">Select to snooze or dismiss this alarm.</string>
+    <string name="alarm_notify_text">Snooze or dismiss alarm.</string>
 
     <!-- Text to display in the notification ticker and label -->
     <string name="alarm_notify_snooze_label"><xliff:g id="label">%s</xliff:g> (snoozed)</string>
 
     <!-- Text to display in the notification when the alarm has been snoozed -->
-    <string name="alarm_notify_snooze_text">Alarm set for <xliff:g id="time">%s</xliff:g>. Select to cancel.</string>
+    <string name="alarm_notify_snooze_text">Alarm set for <xliff:g id="time">%s</xliff:g>. Touch to cancel.</string>
 
     <!-- Title of the setting to change hardware button behavior. This string
          should be changed for each piece of hardware. [CHAR LIMIT=20] -->
@@ -278,7 +278,7 @@
     <string name="music_button_description">Music</string>
     <string name="nightmode_button_description">Dim</string>
     <string name="home_button_description">Launcher</string>
-    <string name="desk_clock_button_description">Clock Display</string>
+    <string name="desk_clock_button_description">Clock display</string>
 
     <!-- A short representation of charging information, e.g "34%" -->
     <string name="battery_charging_level"><xliff:g id="number">%d</xliff:g><xliff:g id="percent">%%</xliff:g></string>
@@ -286,7 +286,7 @@
     <!-- What to show the user if the weather widget exists but fails to
          respond. This is a sign of an error; if the weather widget is not
          present on the device, we show nothing at all. -->
-    <string name="weather_fetch_failure">Weather information currently unavailable.</string>
+    <string name="weather_fetch_failure">Weather information isn\'t available right now.</string>
 
     <string name="menu_item_dock_settings" msgid="9161438664257429372">Dock settings</string>
 
