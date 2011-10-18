@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"ลบการปลุก"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"เปิดการปลุก"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"ปิดการปลุก"</string>
-    <string name="delete_alarm_confirm" msgid="4237696873219106907">"การปลุกนี้จะถูกลบ"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"ลบการตั้งเวลาปลุกนี้หรือไม่"</string>
     <string name="show_clock" msgid="8358759982675616915">"แสดงนาฬิกา"</string>
     <string name="hide_clock" msgid="3217727306480505694">"ซ่อนนาฬิกา"</string>
     <string name="label" msgid="162189613902857319">"ป้ายกำกับ"</string>
@@ -39,14 +39,14 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ปิดเสียงเตือนชั่วคราว"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"ปิดเสียงเตือน <xliff:g id="MINUTES">%d</xliff:g> นาที"</string>
   <string-array name="alarm_set">
-    <item msgid="5163476010406761625">"การปลุกนี้ตั้งไว้สำหรับอีกไม่ถึง 1 นาทีนับจากตอนนี้"</item>
-    <item msgid="7110525731259629055">"การปลุกนี้ตั้งไว้สำหรับอีก <xliff:g id="DAYS">%1$s</xliff:g> นับจากตอนนี้"</item>
-    <item msgid="7003982794086186185">"การปลุกนี้ตั้งไว้สำหรับอีก <xliff:g id="HOURS">%2$s</xliff:g> นับจากตอนนี้"</item>
-    <item msgid="7311021123230077742">"การปลุกนี้ตั้งไว้สำหรับ <xliff:g id="DAYS">%1$s</xliff:g> กับอีก <xliff:g id="HOURS">%2$s</xliff:g> นับจากตอนนี้"</item>
-    <item msgid="8431715191823114872">"การปลุกนี้ตั้งไว้สำหรับอีก <xliff:g id="MINUTES">%3$s</xliff:g> นับจากตอนนี้"</item>
-    <item msgid="3244151088673185428">"การปลุกนี้ตั้งไว้สำหรับ <xliff:g id="DAYS">%1$s</xliff:g> กับอีก <xliff:g id="MINUTES">%3$s</xliff:g> นับจากตอนนี้"</item>
-    <item msgid="3663661342600168814">"การปลุกนี้ตั้งไว้สำหรับ <xliff:g id="HOURS">%2$s</xliff:g> กับอีก <xliff:g id="MINUTES">%3$s</xliff:g> นับจากตอนนี้"</item>
-    <item msgid="7779544127785487304">"การปลุกนี้ตั้งไว้สำหรับ <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> กับอีก<xliff:g id="MINUTES">%3$s</xliff:g> นับจากตอนนี้"</item>
+    <item msgid="6450913786084215050">"ตั้งเวลาปลุกในอีกไม่ถึง 1 นาทีต่อจากนี้"</item>
+    <item msgid="6002066367368421848">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="8824719306247973774">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="8182406852935468862">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="HOURS">%2$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="5825415085802813833">"ตั้งเวลาปลุกในอีก <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="5936557894247187717">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="9115697840826129603">"ตั้งเวลาปลุกในอีก <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
+    <item msgid="2332583385137381060">"ตั้งเวลาปลุกในอีก <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> และ <xliff:g id="MINUTES">%3$s</xliff:g> ต่อจากนี้"</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 วัน"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> วัน"</string>
@@ -57,7 +57,7 @@
     <string name="every_day" msgid="1058994798884544691">"ทุกวัน"</string>
     <string name="never" msgid="54104287800571769">"ไม่ใช้"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="3118560284915857690">"เลือกนาฬิกาที่จะแสดง"</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"เลือกนาฬิกา"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"นาฬิกาแอนะล็อก"</string>
     <string name="settings" msgid="5849739030579520686">"การตั้งค่า"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"การปลุกเมื่อปิดเสียงเรียกเข้า"</string>
@@ -79,7 +79,7 @@
     <item msgid="6048861883552402852">"25"</item>
     <item msgid="2740866721232379791">"30"</item>
   </string-array>
-    <string name="auto_silence_title" msgid="8000666766495360928">"ปิดเสียงอัตโนมัติ"</string>
+    <string name="auto_silence_title" msgid="6940612987809171112">"ปิดเสียงอัตโนมัติ"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"เสียงปลุกจะเงียบลงหลังจาก <xliff:g id="MINUTES">%d</xliff:g> นาที"</string>
     <string name="auto_silence_never" msgid="4302257878142130807">"ปิด"</string>
   <string-array name="auto_silence_entries">
@@ -97,9 +97,9 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"ระดับเสียงปลุก"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"ตั้งระดับเสียงปลุก"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"ปิดเสียง"</string>
-    <string name="alarm_notify_text" msgid="4146350965933990093">"เลือกปิดเสียงเตือนชั่วคราวหรือปิดการปลุกนี้"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"ปิดเสียงเตือนชั่วคราวหรือปิดการปลุก"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ปิดเสียงเตือนชั่วคราว)"</string>
-    <string name="alarm_notify_snooze_text" msgid="8004830999152609519">"ตั้งปลุกไว้สำหรับ <xliff:g id="TIME">%s</xliff:g> เลือกเพื่อยกเลิก"</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ตั้งปลุกไว้ในเวลา <xliff:g id="TIME">%s</xliff:g> แตะเพื่อยกเลิก"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ปุ่มระดับเสียง"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"การทำงานของปุ่ม"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"ตั้งค่าการทำงานของปุ่มเหล่านี้เมื่อกดปุ่มในระหว่างการปลุก"</string>
@@ -119,9 +119,9 @@
     <string name="music_button_description" msgid="1626593420810117999">"เพลง"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"หรี่แสง"</string>
     <string name="home_button_description" msgid="3383859096809056157">"ตัวเรียกใช้งาน"</string>
-    <string name="desk_clock_button_description" msgid="968868045496561043">"การแสดงนาฬิกา"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"การแสดงนาฬิกา"</string>
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <string name="weather_fetch_failure" msgid="7517010911981312358">"ขณะนี้ไม่มีข้อมูลสภาพอากาศ"</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"ข้อมูลสภาพอากาศไม่พร้อมใช้งานในขณะนี้"</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"การตั้งค่าแท่นชาร์จ"</string>
     <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"บริการเล่นเสียงสำหรับการปลุกที่ตั้งไว้ใน DeskClock"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"กำลังโหลดเสียงเรียกเข้า..."</string>

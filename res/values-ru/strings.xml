@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Удалить будильник"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Включить будильник"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Выключить будильник"</string>
-    <string name="delete_alarm_confirm" msgid="4237696873219106907">"Сигнал будет удален."</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Удалить будильник?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Показать часы"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Спрятать часы"</string>
     <string name="label" msgid="162189613902857319">"Описание"</string>
@@ -39,14 +39,14 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Отложить"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Повтор сигнала через <xliff:g id="MINUTES">%d</xliff:g> мин."</string>
   <string-array name="alarm_set">
-    <item msgid="5163476010406761625">"До срабатывания будильника осталось меньше одной минуты."</item>
-    <item msgid="7110525731259629055">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g>"</item>
-    <item msgid="7003982794086186185">"Будильник зазвонит через <xliff:g id="HOURS">%2$s</xliff:g>"</item>
-    <item msgid="7311021123230077742">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g>"</item>
-    <item msgid="8431715191823114872">"Будильник зазвонит через <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
-    <item msgid="3244151088673185428">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
-    <item msgid="3663661342600168814">"Будильник зазвонит через <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
-    <item msgid="7779544127785487304">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="6450913786084215050">"Будильник зазвонит менее чем через минуту."</item>
+    <item msgid="6002066367368421848">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g>"</item>
+    <item msgid="8824719306247973774">"Будильник зазвонит через <xliff:g id="HOURS">%2$s</xliff:g>"</item>
+    <item msgid="8182406852935468862">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g>"</item>
+    <item msgid="5825415085802813833">"Будильник зазвонит через <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="5936557894247187717">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="9115697840826129603">"Будильник зазвонит через <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="2332583385137381060">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 день"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> дн."</string>
@@ -57,7 +57,7 @@
     <string name="every_day" msgid="1058994798884544691">"каждый день"</string>
     <string name="never" msgid="54104287800571769">"Не выбрано"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="3118560284915857690">"Выберите вид часов."</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"Выберите вид часов"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Часы со стрелками"</string>
     <string name="settings" msgid="5849739030579520686">"Настройки"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Включать всегда"</string>
@@ -79,7 +79,7 @@
     <item msgid="6048861883552402852">"25"</item>
     <item msgid="2740866721232379791">"30"</item>
   </string-array>
-    <string name="auto_silence_title" msgid="8000666766495360928">"Автовыключение"</string>
+    <string name="auto_silence_title" msgid="6940612987809171112">"Автовыключение"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"Сигнал отключится через <xliff:g id="MINUTES">%d</xliff:g> мин."</string>
     <string name="auto_silence_never" msgid="4302257878142130807">"Выкл."</string>
   <string-array name="auto_silence_entries">
@@ -97,9 +97,9 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Громкость будильника"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Настройка громкости будильника"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Без звука"</string>
-    <string name="alarm_notify_text" msgid="4146350965933990093">"Нажмите, чтобы прервать или отключить."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Отложить или выключить будильник."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (отложено)"</string>
-    <string name="alarm_notify_snooze_text" msgid="8004830999152609519">"Будильник зазвонит в <xliff:g id="TIME">%s</xliff:g>. Отменить?"</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Будильник зазвонит в <xliff:g id="TIME">%s</xliff:g>. Нажмите, чтобы отменить."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Громкость"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Функция кнопок"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Определить функцию этой кнопки во время звонка будильника"</string>
@@ -119,9 +119,9 @@
     <string name="music_button_description" msgid="1626593420810117999">"Музыка"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Затемнить"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
-    <string name="desk_clock_button_description" msgid="968868045496561043">"Вид часов"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Вид часов"</string>
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <string name="weather_fetch_failure" msgid="7517010911981312358">"Сейчас информация о погоде недоступна."</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Информация о погоде сейчас недоступна."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Настройки док-станции"</string>
     <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Служба воспроизведения сигналов в DeskClock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Загрузка мелодии звонка..."</string>

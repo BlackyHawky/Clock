@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Vee wekker uit"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Skakel wekker aan"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Skakel wekker af"</string>
-    <string name="delete_alarm_confirm" msgid="4237696873219106907">"Hierdie wekker sal uitgevee word."</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Vee hierdie alarm uit?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Vertoon klok"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Versteek horlosie"</string>
     <string name="label" msgid="162189613902857319">"Etiket"</string>
@@ -39,14 +39,14 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Sluimer"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Sluimer vir <xliff:g id="MINUTES">%d</xliff:g> minute."</string>
   <string-array name="alarm_set">
-    <item msgid="5163476010406761625">"Hierdie wekker is vir minder as 1 minuut van nou af gestel."</item>
-    <item msgid="7110525731259629055">"Hierdie wekker is vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af gestel."</item>
-    <item msgid="7003982794086186185">"Hierdie wekker is vir <xliff:g id="HOURS">%2$s</xliff:g> van nou af gestel."</item>
-    <item msgid="7311021123230077742">"Hierdie wekker is vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> van nou af gestel."</item>
-    <item msgid="8431715191823114872">"Hierdie wekker is vir <xliff:g id="MINUTES">%3$s</xliff:g> van nou af gestel."</item>
-    <item msgid="3244151088673185428">"Hierdie wekker is vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af gestel."</item>
-    <item msgid="3663661342600168814">"Hierdie wekker is vir <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af gestel."</item>
-    <item msgid="7779544127785487304">"Hierdie wekker is vir <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af gestel."</item>
+    <item msgid="6450913786084215050">"Alarm gestel vir minder as 1 minuut van nou af."</item>
+    <item msgid="6002066367368421848">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</item>
+    <item msgid="8824719306247973774">"Alarm gestel vir <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
+    <item msgid="8182406852935468862">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
+    <item msgid="5825415085802813833">"alarm gestel vir<xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
+    <item msgid="5936557894247187717">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en  <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
+    <item msgid="9115697840826129603">"Alarm gestel vir <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
+    <item msgid="2332583385137381060">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 dag"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> dae"</string>
@@ -57,7 +57,7 @@
     <string name="every_day" msgid="1058994798884544691">"elke dag"</string>
     <string name="never" msgid="54104287800571769">"Nooit"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="3118560284915857690">"Kies \'n klok om te vertoon."</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"Kies \'n horlosie"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Wyserhorlosie"</string>
     <string name="settings" msgid="5849739030579520686">"Instellings"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Wekker in stilmodus"</string>
@@ -79,7 +79,7 @@
     <item msgid="6048861883552402852">"25"</item>
     <item msgid="2740866721232379791">"30"</item>
   </string-array>
-    <string name="auto_silence_title" msgid="8000666766495360928">"Outostilmaak"</string>
+    <string name="auto_silence_title" msgid="6940612987809171112">"Outostilmaak"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"Wekkers sal na <xliff:g id="MINUTES">%d</xliff:g> minute stil word"</string>
     <string name="auto_silence_never" msgid="4302257878142130807">"Af"</string>
   <string-array name="auto_silence_entries">
@@ -97,9 +97,9 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Wekkervolume"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Stel die wekkervolume"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Stil"</string>
-    <string name="alarm_notify_text" msgid="4146350965933990093">"Kies om te sluimer, of maak hierdie wekker toe."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Sluimer of sit alarm uit."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (sluimerend)"</string>
-    <string name="alarm_notify_snooze_text" msgid="8004830999152609519">"Wekker vir <xliff:g id="TIME">%s</xliff:g> gestel. Kies om te kanselleer."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm is vir <xliff:g id="TIME">%s</xliff:g> gestel. Raak om te kanselleer."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumeknoppies"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knoppie-effek"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Stel wat hierdie knoppies doen as jy hulle druk terwyl die wekker lui"</string>
@@ -119,9 +119,9 @@
     <string name="music_button_description" msgid="1626593420810117999">"Musiek"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Verdof"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Lanseerpoort"</string>
-    <string name="desk_clock_button_description" msgid="968868045496561043">"Horlosieskerm"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Horlosieskerm"</string>
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <string name="weather_fetch_failure" msgid="7517010911981312358">"Weerinligting tans nie beskikbaar nie."</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Weerinligting is nie nou beskikbaar nie."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Dok-instellings"</string>
     <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Klankterugspeel-diens vir wekkers wat in DeskClock gestel is."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Laai tans luitoon…"</string>

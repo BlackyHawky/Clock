@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Smazat budík"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Zapnout budík"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Vypnout budík"</string>
-    <string name="delete_alarm_confirm" msgid="4237696873219106907">"Tento budík bude smazán."</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Smazat tento budík?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Zobrazit hodiny"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Skrýt hodiny"</string>
     <string name="label" msgid="162189613902857319">"Štítek"</string>
@@ -39,14 +39,14 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložit"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Upozornění odloženo o <xliff:g id="MINUTES">%d</xliff:g> min."</string>
   <string-array name="alarm_set">
-    <item msgid="5163476010406761625">"Tento budík se spustí za méně než 1 minutu."</item>
-    <item msgid="7110525731259629055">"Tento budík se spustí za několik dní: <xliff:g id="DAYS">%1$s</xliff:g>"</item>
-    <item msgid="7003982794086186185">"Tento budík se spustí za <xliff:g id="HOURS">%2$s</xliff:g> hod."</item>
-    <item msgid="7311021123230077742">"Tento budík se spustí za: <xliff:g id="DAYS">%1$s</xliff:g> d. <xliff:g id="HOURS">%2$s</xliff:g> hod."</item>
-    <item msgid="8431715191823114872">"Tento budík se spustí za <xliff:g id="MINUTES">%3$s</xliff:g> min."</item>
-    <item msgid="3244151088673185428">"Tento budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g> hod. a <xliff:g id="MINUTES">%3$s</xliff:g> min."</item>
-    <item msgid="3663661342600168814">"Tento budík se spustí za <xliff:g id="HOURS">%2$s</xliff:g> hod. a <xliff:g id="MINUTES">%3$s</xliff:g> min."</item>
-    <item msgid="7779544127785487304">"Tento budík se spustí za: <xliff:g id="DAYS">%1$s</xliff:g> d. <xliff:g id="HOURS">%2$s</xliff:g> hod. <xliff:g id="MINUTES">%3$s</xliff:g> min."</item>
+    <item msgid="6450913786084215050">"Budík se spustí za méně než 1 minutu."</item>
+    <item msgid="6002066367368421848">"Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"Budík se spustí za <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8182406852935468862">"Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g> a <xliff:g id="HOURS">%2$s</xliff:g>"</item>
+    <item msgid="5825415085802813833">"Budík se spustí za <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="5936557894247187717">"Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"Budík se spustí za <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g> d <xliff:g id="HOURS">%2$s</xliff:g> h <xliff:g id="MINUTES">%3$s</xliff:g> min."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 den"</string>
     <string name="days" msgid="2070509222727852210">"dní: <xliff:g id="DAYS">%s</xliff:g>"</string>
@@ -57,7 +57,7 @@
     <string name="every_day" msgid="1058994798884544691">"Každý den"</string>
     <string name="never" msgid="54104287800571769">"Nikdy"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="3118560284915857690">"Vyberte hodiny, které mají být zobrazeny."</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"Vyberte hodiny"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Analogové hodiny"</string>
     <string name="settings" msgid="5849739030579520686">"Nastavení"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Budík v tichém režimu"</string>
@@ -79,7 +79,7 @@
     <item msgid="6048861883552402852">"25"</item>
     <item msgid="2740866721232379791">"30"</item>
   </string-array>
-    <string name="auto_silence_title" msgid="8000666766495360928">"Automatické ztišení"</string>
+    <string name="auto_silence_title" msgid="6940612987809171112">"Automatické ztišení"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"Budíky budou ztišeny po <xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="auto_silence_never" msgid="4302257878142130807">"Vypnuto"</string>
   <string-array name="auto_silence_entries">
@@ -97,9 +97,9 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Hlasitost budíku"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Nastavení hlasitosti budíků"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Tichý"</string>
-    <string name="alarm_notify_text" msgid="4146350965933990093">"Vyberte, zda budík chcete ukončit nebo odložit."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Odložit nebo odmítnout budík"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (odloženo)"</string>
-    <string name="alarm_notify_snooze_text" msgid="8004830999152609519">"Budík byl nastaven na <xliff:g id="TIME">%s</xliff:g>. Výběrem jej zrušíte."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Budík je nastaven na <xliff:g id="TIME">%s</xliff:g>. Dotykem jej zrušíte."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tlačítka hlasitosti"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Funkce tlačítek"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Nastavte funkci těchto tlačítek, pokud jsou stisknuta během vyzvánění budíku."</string>
@@ -119,9 +119,9 @@
     <string name="music_button_description" msgid="1626593420810117999">"Hudba"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Ztlumit"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
-    <string name="desk_clock_button_description" msgid="968868045496561043">"Zobrazení hodin"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Zobrazení hodin"</string>
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g> <xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <string name="weather_fetch_failure" msgid="7517010911981312358">"Informace o počasí aktuálně nejsou k dispozici."</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Informace o počasí nejsou momentálně k dispozici."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Nastavení doku"</string>
     <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Služba přehrávání zvuku budíků nastavených v aplikaci DeskClock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Načítání vyzváněcího tónu..."</string>

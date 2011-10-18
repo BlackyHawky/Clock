@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"घड़ी"</string>
+    <string name="alarm_list_title" msgid="7589940465292950600">"अलार्म"</string>
+    <string name="add_alarm" msgid="5976616107390962899">"अलार्म जोड़ें"</string>
+    <string name="menu_desk_clock" msgid="3241995064554071588">"मेज घड़ी"</string>
+    <string name="menu_edit_alarm" msgid="7204602994918829751">"अलार्म संपादित करें"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"अलार्म हटाएं"</string>
+    <string name="enable_alarm" msgid="1834599140632142536">"अलार्म चालू करें"</string>
+    <string name="disable_alarm" msgid="5889378670229554109">"अलार्म बंद करें"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"यह अलार्म हटाएं?"</string>
+    <string name="show_clock" msgid="8358759982675616915">"घड़ी दिखाएं"</string>
+    <string name="hide_clock" msgid="3217727306480505694">"घड़ी छुपाएं"</string>
+    <string name="label" msgid="162189613902857319">"लेबल"</string>
+    <string name="default_label" msgid="5590025289805630372">"अलार्म"</string>
+    <string name="set_alarm" msgid="9148359866152726808">"अलार्म सेट करें"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"कंपन"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"दोहराएं"</string>
+    <string name="alert" msgid="6539852766423700221">"रिंगटोन"</string>
+    <string name="time" msgid="8067216534232296518">"समय"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ख़ारिज करें"</string>
+    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"<xliff:g id="MINUTES">%d</xliff:g> मिनटों के बाद अलार्म मौन"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"स्नूज़ करें"</string>
+    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"<xliff:g id="MINUTES">%d</xliff:g> मिनट के लिए स्नूज़ कर रहा है."</string>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"अलार्म अब से 1 मिनट से कम के लिए सेट."</item>
+    <item msgid="6002066367368421848">"अलार्म अब से <xliff:g id="DAYS">%1$s</xliff:g> के लिए सेट."</item>
+    <item msgid="8824719306247973774">"अलार्म अब से <xliff:g id="HOURS">%2$s</xliff:g> के लिए सेट."</item>
+    <item msgid="8182406852935468862">"अलार्म अब से <xliff:g id="DAYS">%1$s</xliff:g> और <xliff:g id="HOURS">%2$s</xliff:g> के लिए सेट."</item>
+    <item msgid="5825415085802813833">"अलार्म अब से <xliff:g id="MINUTES">%3$s</xliff:g> के लिए सेट."</item>
+    <item msgid="5936557894247187717">"अलार्म अब से <xliff:g id="DAYS">%1$s</xliff:g> और <xliff:g id="MINUTES">%3$s</xliff:g> के लिए सेट."</item>
+    <item msgid="9115697840826129603">"अलार्म अब से <xliff:g id="HOURS">%2$s</xliff:g> और <xliff:g id="MINUTES">%3$s</xliff:g> के लिए सेट."</item>
+    <item msgid="2332583385137381060">"अलार्म अब से <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, और <xliff:g id="MINUTES">%3$s</xliff:g> के लिए सेट."</item>
+  </string-array>
+    <string name="day" msgid="7984755014526510295">"1 दिन"</string>
+    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> दिन"</string>
+    <string name="hour" msgid="2546819039651509323">"1 घंटा"</string>
+    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> घंटे"</string>
+    <string name="minute" msgid="2486157997434653710">"1 मिनट"</string>
+    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> मिनट"</string>
+    <string name="every_day" msgid="1058994798884544691">"हर दिन"</string>
+    <string name="never" msgid="54104287800571769">"कभी नहीं"</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"कोई घड़ी चुनें"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"एनालॉग घड़ी"</string>
+    <string name="settings" msgid="5849739030579520686">"सेटिंग"</string>
+    <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"मौन मोड में अलार्म"</string>
+    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"जब फ़ोन मौन मोड में हो, तब भी अलार्म बजाएं"</string>
+    <string name="snooze_duration_title" msgid="1471249885139952670">"स्नूज़ की अवधि"</string>
+  <string-array name="snooze_duration_entries">
+    <item msgid="8337408933053603125">"5 मिनट"</item>
+    <item msgid="5294206441496024610">"10 मिनट"</item>
+    <item msgid="2165904039211935470">"15 मिनट"</item>
+    <item msgid="7248236967714374250">"20 मिनट"</item>
+    <item msgid="738394723625179423">"25 मिनट"</item>
+    <item msgid="1180222611308391616">"30 मिनट"</item>
+  </string-array>
+  <string-array name="snooze_duration_values">
+    <item msgid="3655014754453084122">"5"</item>
+    <item msgid="8939029597449573449">"10"</item>
+    <item msgid="3922647341176353315">"15"</item>
+    <item msgid="5821804105985044459">"20"</item>
+    <item msgid="6048861883552402852">"25"</item>
+    <item msgid="2740866721232379791">"30"</item>
+  </string-array>
+    <string name="auto_silence_title" msgid="6940612987809171112">"स्वतः मौन"</string>
+    <string name="auto_silence_summary" msgid="5757272454196171758">"<xliff:g id="MINUTES">%d</xliff:g> मिनट बाद अलार्म मौन हो जाएगा"</string>
+    <string name="auto_silence_never" msgid="4302257878142130807">"बंद"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="7718972982871612080">"बंद"</item>
+    <item msgid="5431906692406316549">"5 मिनट"</item>
+    <item msgid="7742728812068919959">"10 मिनट"</item>
+    <item msgid="2855948657259647629">"15 मिनट"</item>
+    <item msgid="6330196381284475079">"20 मिनट"</item>
+    <item msgid="7809240121716151904">"25 मिनट"</item>
+    <item msgid="2807487305575255986">"30 मिनट"</item>
+  </string-array>
+    <string name="done" msgid="6509722361933858451">"पूर्ण"</string>
+    <string name="revert" msgid="9100911171235162926">"पहले जैसा करें"</string>
+    <string name="delete" msgid="5732434972457000541">"हटाएं"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"अलार्म वॉल्यूम"</string>
+    <string name="alarm_volume_summary" msgid="8957440373896242438">"अलार्म का वॉल्यूम सेट करें"</string>
+    <string name="silent_alarm_summary" msgid="8605302849408279221">"मौन"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"अलार्म स्‍नूज़ या खा़रिज करें."</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (स्नूज़ किया गया)"</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"अलार्म <xliff:g id="TIME">%s</xliff:g> के लिए सेट. रद्द करने के लिए स्‍पर्श करें."</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"वॉल्यूम बटन"</string>
+    <string name="volume_button_dialog_title" msgid="8768042543750036853">"बटन प्रभाव"</string>
+    <string name="volume_button_setting_summary" msgid="4776447991226047070">"अलार्म के दौरान दबाए जाने पर ये बटन क्या कार्य करें, यह सेट करें"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="4520420953175098625">"कोई नहीं"</item>
+    <item msgid="7111908302622811168">"स्नूज़ करें"</item>
+    <item msgid="8573552194573068996">"ख़ारिज करें"</item>
+  </string-array>
+  <string-array name="volume_button_setting_values">
+    <item msgid="4851033050639608752">"0"</item>
+    <item msgid="3204893476515513084">"1"</item>
+    <item msgid="7687709558968154577">"2"</item>
+  </string-array>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"डिफ़ॉल्ट रिंगटोन सेट करें"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"अलार्म"</string>
+    <string name="gallery_button_description" msgid="1151743663255257668">"गैलरी"</string>
+    <string name="music_button_description" msgid="1626593420810117999">"संगीत"</string>
+    <string name="nightmode_button_description" msgid="990894208217576381">"मद्धिम करें"</string>
+    <string name="home_button_description" msgid="3383859096809056157">"लॉन्चर"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"घड़ी का प्रदर्शन"</string>
+    <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"मौसम की जानकारी अभी उपलब्ध नहीं है."</string>
+    <string name="menu_item_dock_settings" msgid="3524235151132971114">"डॉक सेटिंग"</string>
+    <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"मेज घड़ी में सेट अलार्म के लिए ध्वनि प्लेबैक सेवा"</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"रिंगटोन लोड कर रहा है…"</string>
+    <string name="control_set_alarm" msgid="2194676418924016327">"अलार्म सेट करें"</string>
+    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"अलार्म सेट: <xliff:g id="TIME">%s</xliff:g>"</string>
+</resources>
