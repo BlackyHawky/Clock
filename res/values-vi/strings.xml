@@ -35,7 +35,7 @@
     <string name="alert" msgid="6539852766423700221">"Nhạc chuông"</string>
     <string name="time" msgid="8067216534232296518">"Giờ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Loại bỏ"</string>
-    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"Báo thức im lặng sau <xliff:g id="MINUTES">%d</xliff:g> phút"</string>
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Báo thức im lặng sau <xliff:g id="MINUTES">%d</xliff:g> phút"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Báo lại"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Báo lại trong <xliff:g id="MINUTES">%d</xliff:g> phút."</string>
   <string-array name="alarm_set">
@@ -43,7 +43,7 @@
     <item msgid="6002066367368421848">"Báo thức được đặt cho <xliff:g id="DAYS">%1$s</xliff:g> tính từ bây giờ."</item>
     <item msgid="8824719306247973774">"Báo thức được đặt cho <xliff:g id="HOURS">%2$s</xliff:g> tính từ bây giờ."</item>
     <item msgid="8182406852935468862">"Báo thức được đặt cho <xliff:g id="DAYS">%1$s</xliff:g> và <xliff:g id="HOURS">%2$s</xliff:g> tính từ bây giờ."</item>
-    <item msgid="5825415085802813833">"báo thức được đặt cho <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
+    <item msgid="2532279224777213194">"Báo thức được đặt cho <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
     <item msgid="5936557894247187717">"Báo thức được đặt cho <xliff:g id="DAYS">%1$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
     <item msgid="9115697840826129603">"Báo thức được đặt cho <xliff:g id="HOURS">%2$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
     <item msgid="2332583385137381060">"Báo thức được đặt cho <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
@@ -54,7 +54,7 @@
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> giờ"</string>
     <string name="minute" msgid="2486157997434653710">"1 phút"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> phút"</string>
-    <string name="every_day" msgid="1058994798884544691">"hàng ngày"</string>
+    <string name="every_day" msgid="4100909974923444602">"Hàng ngày"</string>
     <string name="never" msgid="54104287800571769">"Chưa bao giờ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Chọn đồng hồ"</string>
@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Hiện không có thông tin thời tiết."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Cài đặt đế"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Dịch vụ phát âm thanh cho báo thức đã đặt trong DeskClock."</string>
+    <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Dịch vụ phát âm thanh cho báo thức đã đặt trong Desk Clock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Đang tải nhạc chuông…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Đặt báo thức"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Báo thức đã đặt: <xliff:g id="TIME">%s</xliff:g>"</string>

@@ -35,7 +35,7 @@
     <string name="alert" msgid="6539852766423700221">"Ton de apel"</string>
     <string name="time" msgid="8067216534232296518">"Ora"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Renunţaţi"</string>
-    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"Alarmă oprită după <xliff:g id="MINUTES">%d</xliff:g> (de) minute"</string>
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarmă oprită după <xliff:g id="MINUTES">%d</xliff:g> (de) minute."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Amânaţi"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Se amână pentru <xliff:g id="MINUTES">%d</xliff:g> (de) minute."</string>
   <string-array name="alarm_set">
@@ -43,7 +43,7 @@
     <item msgid="6002066367368421848">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> din acest moment."</item>
     <item msgid="8824719306247973774">"Alarmă setată peste <xliff:g id="HOURS">%2$s</xliff:g> din acest moment."</item>
     <item msgid="8182406852935468862">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> şi <xliff:g id="HOURS">%2$s</xliff:g> din acest moment."</item>
-    <item msgid="5825415085802813833">"alarmă setată peste <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
+    <item msgid="2532279224777213194">"Alarmă setată peste <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
     <item msgid="5936557894247187717">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> şi <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
     <item msgid="9115697840826129603">"Alarmă setată peste <xliff:g id="HOURS">%2$s</xliff:g> şi <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
     <item msgid="2332583385137381060">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> şi <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
@@ -54,7 +54,7 @@
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> (de) ore"</string>
     <string name="minute" msgid="2486157997434653710">"1 minut"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minute"</string>
-    <string name="every_day" msgid="1058994798884544691">"în fiecare zi"</string>
+    <string name="every_day" msgid="4100909974923444602">"În fiecare zi"</string>
     <string name="never" msgid="54104287800571769">"Niciodată"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Alegeţi un ceas"</string>
@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Informaţiile meteo nu sunt disponibile în acest moment."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Setări de andocare"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Serviciul de redare a sunetului pentru setarea alarmelor cu DeskClock."</string>
+    <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Serviciul de redare a sunetului pentru setarea alarmelor cu Ceas de birou."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Se încarcă tonul soneriei..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Setaţi alarma"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Alarmă setată: <xliff:g id="TIME">%s</xliff:g>"</string>
