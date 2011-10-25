@@ -35,13 +35,14 @@
     <string name="alert" msgid="6539852766423700221">"Tun da scalin"</string>
     <string name="time" msgid="8067216534232296518">"Ura"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Annullar"</string>
-    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"Il svegliarin ha tschessà suenter <xliff:g id="MINUTES">%d</xliff:g> minutas"</string>
+    <!-- no translation found for alarm_alert_alert_silenced (2704775170733835993) -->
+    <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Repeter"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Repetiziun en <xliff:g id="MINUTES">%d</xliff:g> minutas."</string>
     <!-- no translation found for alarm_set:1 (6002066367368421848) -->
     <!-- no translation found for alarm_set:2 (8824719306247973774) -->
     <!-- no translation found for alarm_set:3 (8182406852935468862) -->
-    <!-- no translation found for alarm_set:4 (5825415085802813833) -->
+    <!-- no translation found for alarm_set:4 (2532279224777213194) -->
     <!-- no translation found for alarm_set:5 (5936557894247187717) -->
     <!-- no translation found for alarm_set:6 (9115697840826129603) -->
     <!-- no translation found for alarm_set:7 (2332583385137381060) -->
@@ -51,7 +52,7 @@
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> uras"</string>
     <string name="minute" msgid="2486157997434653710">"1 minuta"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minutas"</string>
-    <string name="every_day" msgid="1058994798884544691">"mintga di"</string>
+    <!-- outdated translation 1058994798884544691 -->     <string name="every_day" msgid="4100909974923444602">"mintga di"</string>
     <string name="never" msgid="54104287800571769">"Mai"</string>
     <string name="day_concat" msgid="971998564991636532">"\",\" "</string>
     <!-- outdated translation 3118560284915857690 -->     <string name="clock_instructions" msgid="2656876819515011590">"Tscherni l\'ura che duai vegnir mussada."</string>
@@ -122,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <!-- outdated translation 7517010911981312358 -->     <string name="weather_fetch_failure" msgid="3425804832021006835">"Infurmaziuns davart l\'aura n\'èn betg disponiblas en il mument."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Parameters da la basa"</string>
-    <!-- no translation found for alarm_klaxon_service_desc (2153290655559916468) -->
+    <!-- no translation found for alarm_klaxon_service_desc (3900885253055070760) -->
     <skip />
     <!-- no translation found for loading_ringtone (6523322777415268044) -->
     <skip />

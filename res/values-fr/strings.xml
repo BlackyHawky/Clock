@@ -35,26 +35,18 @@
     <string name="alert" msgid="6539852766423700221">"Sonnerie"</string>
     <string name="time" msgid="8067216534232296518">"Heure"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Quitter"</string>
-    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"Alarme interrompue après <xliff:g id="MINUTES">%d</xliff:g> minutes"</string>
+    <!-- no translation found for alarm_alert_alert_silenced (2704775170733835993) -->
+    <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Répéter"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Répétition dans <xliff:g id="MINUTES">%d</xliff:g> minutes."</string>
-  <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"La prochaine alarme est prévue dans moins d\'une minute."</item>
-    <item msgid="6002066367368421848">"La prochaine alarme est prévue dans <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-    <item msgid="8824719306247973774">"La prochaine alarme est prévue dans <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="8182406852935468862">"La prochaine alarme est prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="5825415085802813833">"La prochaine alarme est prévue dans <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="5936557894247187717">"La prochaine alarme est prévue dans <xliff:g id="DAYS">%1$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="9115697840826129603">"La prochaine alarme est prévue dans <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="2332583385137381060">"La prochaine alarme est prévue dans <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> et <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-  </string-array>
+    <!-- no translation found for alarm_set:4 (2532279224777213194) -->
     <string name="day" msgid="7984755014526510295">"1 jour"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> jours"</string>
     <string name="hour" msgid="2546819039651509323">"1 heure"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> heures"</string>
     <string name="minute" msgid="2486157997434653710">"1 minute"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minutes"</string>
-    <string name="every_day" msgid="1058994798884544691">"Tous les jours"</string>
+    <!-- outdated translation 1058994798884544691 -->     <string name="every_day" msgid="4100909974923444602">"Tous les jours"</string>
     <string name="never" msgid="54104287800571769">"Jamais"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Sélectionner une horloge"</string>
@@ -99,7 +91,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silencieuse"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Répétez ou ignorez l\'alarme."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (répétition)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"La prochaine alarme est prévue à <xliff:g id="TIME">%s</xliff:g>. Appuyez pour annuler."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Prochaine alarme à <xliff:g id="TIME">%s</xliff:g>. Appuyez pour annuler."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Effet des boutons"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Définir les actions de ces boutons lorsqu\'ils sont utilisés pendant une alarme"</string>
@@ -123,7 +115,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g> <xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Les informations météo ne sont pas disponibles actuellement."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Paramètres station d\'accueil"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Lancer le service de lecture pour les alarmes définies via l\'Horloge de bureau"</string>
+    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Lancer le service de lecture pour les alarmes définies via l\'Horloge de bureau"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Chargement de la sonnerie..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Régler l\'alarme"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Alarme réglée : <xliff:g id="TIME">%s</xliff:g>"</string>

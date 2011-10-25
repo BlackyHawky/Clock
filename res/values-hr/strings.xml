@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Izbriši alarm"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Uključi alarm"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Isključi alarm"</string>
-    <!-- outdated translation 4237696873219106907 -->     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Ovaj će alarm biti izbrisan."</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Izbrisati ovaj alarm?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Prikaži sat"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Sakrij sat"</string>
     <string name="label" msgid="162189613902857319">"Oznaka"</string>
@@ -35,26 +35,21 @@
     <string name="alert" msgid="6539852766423700221">"Zvuk zvona"</string>
     <string name="time" msgid="8067216534232296518">"Vrijeme"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Odbaci"</string>
-    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"Alarm utišan nakon <xliff:g id="MINUTES">%d</xliff:g> min."</string>
+    <!-- no translation found for alarm_alert_alert_silenced (2704775170733835993) -->
+    <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odgoda alarma"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Odgoda alarma na <xliff:g id="MINUTES">%d</xliff:g> min."</string>
-    <!-- no translation found for alarm_set:1 (6002066367368421848) -->
-    <!-- no translation found for alarm_set:2 (8824719306247973774) -->
-    <!-- no translation found for alarm_set:3 (8182406852935468862) -->
-    <!-- no translation found for alarm_set:4 (5825415085802813833) -->
-    <!-- no translation found for alarm_set:5 (5936557894247187717) -->
-    <!-- no translation found for alarm_set:6 (9115697840826129603) -->
-    <!-- no translation found for alarm_set:7 (2332583385137381060) -->
+    <!-- no translation found for alarm_set:4 (2532279224777213194) -->
     <string name="day" msgid="7984755014526510295">"1 dan"</string>
     <string name="days" msgid="2070509222727852210">"Broj dana: <xliff:g id="DAYS">%s</xliff:g>"</string>
     <string name="hour" msgid="2546819039651509323">"1 sat"</string>
     <string name="hours" msgid="2071487018566991613">"Sati: <xliff:g id="HOURS">%s</xliff:g>"</string>
     <string name="minute" msgid="2486157997434653710">"1 minuta"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minuta"</string>
-    <string name="every_day" msgid="1058994798884544691">"svaki dan"</string>
+    <!-- outdated translation 1058994798884544691 -->     <string name="every_day" msgid="4100909974923444602">"svaki dan"</string>
     <string name="never" msgid="54104287800571769">"Nikad"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <!-- outdated translation 3118560284915857690 -->     <string name="clock_instructions" msgid="2656876819515011590">"Odaberite sat za prikaz."</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"Odaberite sat"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Analogni sat"</string>
     <string name="settings" msgid="5849739030579520686">"Postavke"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarm u bešumnom načinu rada"</string>
@@ -76,7 +71,7 @@
     <item msgid="6048861883552402852">"25"</item>
     <item msgid="2740866721232379791">"30"</item>
   </string-array>
-    <!-- outdated translation 8000666766495360928 -->     <string name="auto_silence_title" msgid="6940612987809171112">"Automatsko utišavanje"</string>
+    <string name="auto_silence_title" msgid="6940612987809171112">"Automatsko utišavanje"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"Alarmi će se utišati nakon <xliff:g id="MINUTES">%d</xliff:g> min"</string>
     <string name="auto_silence_never" msgid="4302257878142130807">"Isključeno"</string>
   <string-array name="auto_silence_entries">
@@ -94,10 +89,9 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Glasnoća alarma"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Postavi glasnoću alarma"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Bešumno"</string>
-    <!-- outdated translation 4146350965933990093 -->     <string name="alarm_notify_text" msgid="4891014685945904766">"Odaberite odgodu ili odbacivanje alarma."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Odgodite ili obustavite alarm."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (odgoda alarma)"</string>
-    <!-- no translation found for alarm_notify_snooze_text (4819324081410990368) -->
-    <skip />
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm je postavljen na vrijeme: <xliff:g id="TIME">%s</xliff:g>. Dodirnite za poništavanje."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Gumbi za glasnoću"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Efekt gumba"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Postavi što rade ovi gumbi kad se pritisnu tijekom alarma"</string>
@@ -117,11 +111,11 @@
     <string name="music_button_description" msgid="1626593420810117999">"Glazba"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Zatamni"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Pokretač"</string>
-    <!-- outdated translation 968868045496561043 -->     <string name="desk_clock_button_description" msgid="4207371097361657274">"Prikaz sata"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Prikaz sata"</string>
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <!-- outdated translation 7517010911981312358 -->     <string name="weather_fetch_failure" msgid="3425804832021006835">"Informacije o vremenu trenutno su nedostupne."</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Trenutačno nisu dostupne informacije o prognozi vremena."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Postavke priključne stanice"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Usluga reprodukcije zvuka za alarme koja se postavlja u DeskClocku."</string>
+    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Usluga reprodukcije zvuka za alarme koja se postavlja u DeskClocku."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Učitavanje melodije zvona…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Postavi alarm"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Alarm postavljen na: <xliff:g id="TIME">%s</xliff:g>"</string>
