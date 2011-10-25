@@ -35,18 +35,18 @@
     <string name="alert" msgid="6539852766423700221">"벨소리"</string>
     <string name="time" msgid="8067216534232296518">"시간"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"해제"</string>
-    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"<xliff:g id="MINUTES">%d</xliff:g>분 후 알람이 중지됨"</string>
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"<xliff:g id="MINUTES">%d</xliff:g>분 후 알람이 중지됩니다."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"다시 울림"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"<xliff:g id="MINUTES">%d</xliff:g>분 동안 알람 일시 중지"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"지금부터 1분 미만 후로 알람이 설정됩니다."</item>
+    <item msgid="6450913786084215050">"지금부터 1분 이내로 알람이 설정됩니다."</item>
     <item msgid="6002066367368421848">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> 후로 알람이 설정됩니다."</item>
     <item msgid="8824719306247973774">"지금부터 <xliff:g id="HOURS">%2$s</xliff:g> 후로 알람이 설정됩니다."</item>
     <item msgid="8182406852935468862">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> 후로 알람이 설정됩니다."</item>
-    <item msgid="5825415085802813833">"지금부터 <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</item>
+    <item msgid="2532279224777213194">"지금부터 <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</item>
     <item msgid="5936557894247187717">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</item>
     <item msgid="9115697840826129603">"지금부터 <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</item>
-    <item msgid="2332583385137381060">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</item>
+    <item msgid="2332583385137381060">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정되었습니다."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1일"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g>일"</string>
@@ -54,7 +54,7 @@
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g>시간"</string>
     <string name="minute" msgid="2486157997434653710">"1분"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g>분"</string>
-    <string name="every_day" msgid="1058994798884544691">"매일"</string>
+    <string name="every_day" msgid="4100909974923444602">"매일"</string>
     <string name="never" msgid="54104287800571769">"반복 안함"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"시계 선택"</string>
@@ -97,7 +97,7 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"알람 볼륨"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"알람 볼륨 설정"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"무음"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"알람을 일시 중지하거나 해제합니다."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"알람을 스누즈 또는 해제합니다."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g>(알람 일시 중지됨)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> 후로 알람이 설정되었습니다. 취소하려면 터치하세요."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"현재 날씨 정보를 이용할 수 없습니다."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"도킹 설정"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"DeskClock에서 설정한 알람에 대한 사운드 재생 서비스"</string>
+    <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"DeskClock에서 설정한 알람에 대한 사운드 재생 서비스"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"벨소리 로드 중…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"알람 설정"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"알람 설정: <xliff:g id="TIME">%s</xliff:g>"</string>

@@ -35,26 +35,18 @@
     <string name="alert" msgid="6539852766423700221">"የስልክ ጥሪ ድምፅ"</string>
     <string name="time" msgid="8067216534232296518">"ጊዜ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"አጥፋ"</string>
-    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"ማንቂያ ከ<xliff:g id="MINUTES">%d</xliff:g> ደቂቃዎች በኋላ ፀጥ ብሏል።"</string>
+    <!-- no translation found for alarm_alert_alert_silenced (2704775170733835993) -->
+    <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"አቆይ"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"ለ<xliff:g id="MINUTES">%d</xliff:g> ደቂቃዎች አቆይ"</string>
-  <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"ማንቂያ ከአሁን ወዲያ ከ1 ደቂቃ በታች  የተዘጋጀ ነው፡፡"</item>
-    <item msgid="6002066367368421848">" ማንቂያ ከአሁን ጀምሮ ለ<xliff:g id="DAYS">%1$s</xliff:g> የተዘጋጀ ነው።"</item>
-    <item msgid="8824719306247973774">" ማንቂያ ከአሁን ጀምሮ ለ<xliff:g id="HOURS">%2$s</xliff:g> የተዘጋጀ ነው።"</item>
-    <item msgid="8182406852935468862">" ማንቂያ ከአሁን ጀምሮ ለ <xliff:g id="DAYS">%1$s</xliff:g> እና <xliff:g id="HOURS">%2$s</xliff:g> የተዘጋጀ ነው።"</item>
-    <item msgid="5825415085802813833">" ማንቂያ ከአሁን ጀምሮ ለ<xliff:g id="MINUTES">%3$s</xliff:g> የተዘጋጀ ነው።"</item>
-    <item msgid="5936557894247187717">" ማንቂያ ከአሁን ጀምሮ ለ <xliff:g id="DAYS">%1$s</xliff:g> እና <xliff:g id="MINUTES">%3$s</xliff:g> የተዘጋጀ ነው።"</item>
-    <item msgid="9115697840826129603">" ማንቂያ ከአሁን ጀምሮ ለ <xliff:g id="HOURS">%2$s</xliff:g> እና <xliff:g id="MINUTES">%3$s</xliff:g> የተዘጋጀ ነው።"</item>
-    <item msgid="2332583385137381060">"ይህ ማንቂያ ከአሁን ጀምሮ ለ<xliff:g id="DAYS">%1$s</xliff:g><xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>  የተዘጋጀ ነው።"</item>
-  </string-array>
+    <!-- no translation found for alarm_set:4 (2532279224777213194) -->
     <string name="day" msgid="7984755014526510295">"1"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> ቀን"</string>
     <string name="hour" msgid="2546819039651509323">"1 ሰዓት"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> ሰዓቶች"</string>
     <string name="minute" msgid="2486157997434653710">"1"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> ደቂቃዎች"</string>
-    <string name="every_day" msgid="1058994798884544691">"በየቀኑ"</string>
+    <!-- outdated translation 1058994798884544691 -->     <string name="every_day" msgid="4100909974923444602">"በየቀኑ"</string>
     <string name="never" msgid="54104287800571769">"በፍፁም"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ሰዓት ምረጥ"</string>
@@ -123,7 +115,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"የአየር ጠባይ መረጃ አሁን አይገኝም፡፡"</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"ቅንብሮችን ትከል"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"በጠረጴዛ ሰዓት ለተዘጋጁ ማንቂያ ደውሎች የዳግም አጫዋት አገልግሎት ድምፅ አሰማ።"</string>
+    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"በጠረጴዛ ሰዓት ለተዘጋጁ ማንቂያ ደውሎች የዳግም አጫዋት አገልግሎት ድምፅ አሰማ።"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"የስልክ ጥሪ ድምፅ በመስቀል ላይ...."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"የማንቂያ ደወልአዘጋጅ"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"የማንቂያ ደወል ተዘጋጅቷል፡<xliff:g id="TIME">%s</xliff:g>"</string>

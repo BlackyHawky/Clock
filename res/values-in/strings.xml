@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Hapus alarm"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Hidupkan alarm"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Matikan alarm"</string>
-    <!-- outdated translation 4237696873219106907 -->     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Alarm ini tidak dapat dihapus."</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Hapus alarm ini?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Tampilkan jam"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Sembunyikan jam"</string>
     <string name="label" msgid="162189613902857319">"Label"</string>
@@ -35,26 +35,29 @@
     <string name="alert" msgid="6539852766423700221">"Nada dering"</string>
     <string name="time" msgid="8067216534232296518">"Waktu"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Tolak"</string>
-    <string name="alarm_alert_alert_silenced" msgid="7918075929961104202">"Alarm disenyapkan setelah <xliff:g id="MINUTES">%d</xliff:g> menit"</string>
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarm disenyapkan setelah <xliff:g id="MINUTES">%d</xliff:g> menit."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Tunda"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Menunda selama <xliff:g id="MINUTES">%d</xliff:g> menit."</string>
-    <!-- no translation found for alarm_set:1 (6002066367368421848) -->
-    <!-- no translation found for alarm_set:2 (8824719306247973774) -->
-    <!-- no translation found for alarm_set:3 (8182406852935468862) -->
-    <!-- no translation found for alarm_set:4 (5825415085802813833) -->
-    <!-- no translation found for alarm_set:5 (5936557894247187717) -->
-    <!-- no translation found for alarm_set:6 (9115697840826129603) -->
-    <!-- no translation found for alarm_set:7 (2332583385137381060) -->
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"Alarm disetel untuk kurang dari 1 menit dari sekarang."</item>
+    <item msgid="6002066367368421848">"Alarm disetel untuk <xliff:g id="DAYS">%1$s</xliff:g> dari sekarang."</item>
+    <item msgid="8824719306247973774">"Alarm disetel untuk <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</item>
+    <item msgid="8182406852935468862">"Alarm disetel untuk <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="HOURS">%2$s</xliff:g> dari sekarang."</item>
+    <item msgid="2532279224777213194">"Alarm disetel untuk <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
+    <item msgid="5936557894247187717">"Alarm disetel untuk <xliff:g id="DAYS">%1$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
+    <item msgid="9115697840826129603">"Alarm disetel untuk <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
+    <item msgid="2332583385137381060">"Alarm disetel untuk <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
+  </string-array>
     <string name="day" msgid="7984755014526510295">"1 hari"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> hari"</string>
     <string name="hour" msgid="2546819039651509323">"1 jam"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> jam"</string>
     <string name="minute" msgid="2486157997434653710">"1 menit"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> menit"</string>
-    <string name="every_day" msgid="1058994798884544691">"setiap hari"</string>
+    <string name="every_day" msgid="4100909974923444602">"Setiap hari"</string>
     <string name="never" msgid="54104287800571769">"Tidak pernah"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <!-- outdated translation 3118560284915857690 -->     <string name="clock_instructions" msgid="2656876819515011590">"Pilih jam untuk ditampilkan."</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"Pilih jam"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Jam analog"</string>
     <string name="settings" msgid="5849739030579520686">"Setelan"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarm dalam mode senyap"</string>
@@ -76,7 +79,7 @@
     <item msgid="6048861883552402852">"25"</item>
     <item msgid="2740866721232379791">"30"</item>
   </string-array>
-    <!-- outdated translation 8000666766495360928 -->     <string name="auto_silence_title" msgid="6940612987809171112">"Otomatis senyap"</string>
+    <string name="auto_silence_title" msgid="6940612987809171112">"Senyap otomatis"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"Alarm akan disenyapkan setelah <xliff:g id="MINUTES">%d</xliff:g> menit"</string>
     <string name="auto_silence_never" msgid="4302257878142130807">"Mati"</string>
   <string-array name="auto_silence_entries">
@@ -94,10 +97,9 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volume alarm"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Setel volume alarm"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Senyap"</string>
-    <!-- outdated translation 4146350965933990093 -->     <string name="alarm_notify_text" msgid="4891014685945904766">"Pilih untuk menunda atau menyingkirkan alarm ini."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Tunda atau singkirkan alarm."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ditunda)"</string>
-    <!-- no translation found for alarm_notify_snooze_text (4819324081410990368) -->
-    <skip />
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm disetel untuk <xliff:g id="TIME">%s</xliff:g>. Sentuh untuk membatalkan."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tombol volume"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Efek tombol"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Setel apa yang dilakukan tombol berikut ketika ditekan selama alarm aktif"</string>
@@ -117,11 +119,11 @@
     <string name="music_button_description" msgid="1626593420810117999">"Musik"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Redup"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Peluncur"</string>
-    <!-- outdated translation 968868045496561043 -->     <string name="desk_clock_button_description" msgid="4207371097361657274">"Tampilan Jam"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Tampilan jam"</string>
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <!-- outdated translation 7517010911981312358 -->     <string name="weather_fetch_failure" msgid="3425804832021006835">"Saat ini informasi cuaca tidak tersedia."</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Saat ini informasi cuaca tidak tersedia."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Setelan dok"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2153290655559916468">"Layanan pemutaran suara untuk alarm yang disetel di DeskClock."</string>
+    <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Layanan pemutaran suara untuk alarm disetel di DeskClock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Memuat nada dering…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Setel alarm"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Alarm disetel: <xliff:g id="TIME">%s</xliff:g>"</string>
