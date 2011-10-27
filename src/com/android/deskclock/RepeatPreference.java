@@ -56,6 +56,8 @@ public class RepeatPreference extends ListPreference {
             mDaysOfWeek.set(mNewDaysOfWeek);
             setSummary(mDaysOfWeek.toString(getContext(), true));
             callChangeListener(mDaysOfWeek);
+        } else {
+            mNewDaysOfWeek.set(mDaysOfWeek);
         }
     }
 
