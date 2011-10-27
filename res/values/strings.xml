@@ -292,7 +292,7 @@
 
     <!-- A description for the DeskClock alarm sound playback service.
          [CHAR LIMIT=NONE] -->
-    <string name="alarm_klaxon_service_desc">Sound playback service for alarms set in Desk Clock.</string>
+    <string name="alarm_klaxon_service_desc">Sound playback service for alarms set in Clock.</string>
 
     <!-- String displayed as the alert summary while loading the alert name from
          the media player. [CHAR LIMIT=NONE] -->
