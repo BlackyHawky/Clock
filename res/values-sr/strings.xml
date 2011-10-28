@@ -35,18 +35,26 @@
     <string name="alert" msgid="6539852766423700221">"Звук звона"</string>
     <string name="time" msgid="8067216534232296518">"Време"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Одбаци"</string>
-    <!-- no translation found for alarm_alert_alert_silenced (2704775170733835993) -->
-    <skip />
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Аларм је искључен након <xliff:g id="MINUTES">%d</xliff:g> минута."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Одложи"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Одлагање за <xliff:g id="MINUTES">%d</xliff:g> минута."</string>
-    <!-- no translation found for alarm_set:4 (2532279224777213194) -->
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"Аларм ће се укључити за мање од 1 минут."</item>
+    <item msgid="6002066367368421848">"Аларм ће се укључити за <xliff:g id="DAYS">%1$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"Аларм ће се укључити за <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8182406852935468862">"Аларм ће се укључити за <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="2532279224777213194">"Аларм ће се укључити за <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="5936557894247187717">"Аларм ће се укључити за <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"Аларм ће се укључити за <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"Аларм ће се укључити за <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> и <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+  </string-array>
     <string name="day" msgid="7984755014526510295">"1 дан"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> дана"</string>
     <string name="hour" msgid="2546819039651509323">"1 сат"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> сата(и)"</string>
     <string name="minute" msgid="2486157997434653710">"1 минут"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> минута"</string>
-    <!-- outdated translation 1058994798884544691 -->     <string name="every_day" msgid="4100909974923444602">"сваког дана"</string>
+    <string name="every_day" msgid="4100909974923444602">"Сваког дана"</string>
     <string name="never" msgid="54104287800571769">"Никад"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Изаберите сат"</string>
@@ -115,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Информације о времену тренутно нису доступне."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Подешавања базне станице"</string>
-    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Услуга репродукције звука за аларме подешене у Стоном сату"</string>
+    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Услуга репродукције звука за аларме подешене у Стоном сату"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Учитавање звука звона..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Подеси аларм"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Подешени аларм: <xliff:g id="TIME">%s</xliff:g>"</string>

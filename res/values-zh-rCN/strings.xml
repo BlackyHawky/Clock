@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"取消闹钟"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"启用闹钟"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"停用闹钟"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"要删除此闹钟吗？"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"要取消此闹钟吗？"</string>
     <string name="show_clock" msgid="8358759982675616915">"显示时钟"</string>
     <string name="hide_clock" msgid="3217727306480505694">"隐藏时钟"</string>
     <string name="label" msgid="162189613902857319">"标签"</string>
@@ -35,18 +35,26 @@
     <string name="alert" msgid="6539852766423700221">"铃声"</string>
     <string name="time" msgid="8067216534232296518">"时间"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"取消"</string>
-    <!-- no translation found for alarm_alert_alert_silenced (2704775170733835993) -->
-    <skip />
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"闹钟响铃时长为 <xliff:g id="MINUTES">%d</xliff:g> 分钟。"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"暂停再响"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"暂停 <xliff:g id="MINUTES">%d</xliff:g> 分钟。"</string>
-    <!-- no translation found for alarm_set:4 (2532279224777213194) -->
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"已将闹钟设置为从现在起不到 1 分钟后提醒。"</item>
+    <item msgid="6002066367368421848">"已将闹钟设置为从现在起 <xliff:g id="DAYS">%1$s</xliff:g>后提醒。"</item>
+    <item msgid="8824719306247973774">"已将闹钟设置为从现在起 <xliff:g id="HOURS">%2$s</xliff:g>后提醒。"</item>
+    <item msgid="8182406852935468862">"已将闹钟设置为从现在起 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>后提醒。"</item>
+    <item msgid="2532279224777213194">"已将闹钟设置为从现在起 <xliff:g id="MINUTES">%3$s</xliff:g>后提醒。"</item>
+    <item msgid="5936557894247187717">"已将闹钟设置为从现在起 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>后提醒。"</item>
+    <item msgid="9115697840826129603">"已将闹钟设置为从现在起 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>后提醒。"</item>
+    <item msgid="2332583385137381060">"已将闹钟设置为从现在起 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>后提醒。"</item>
+  </string-array>
     <string name="day" msgid="7984755014526510295">"1 天"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> 天"</string>
     <string name="hour" msgid="2546819039651509323">"1 小时"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> 小时"</string>
     <string name="minute" msgid="2486157997434653710">"1 分钟"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> 分钟"</string>
-    <!-- outdated translation 1058994798884544691 -->     <string name="every_day" msgid="4100909974923444602">"每天"</string>
+    <string name="every_day" msgid="4100909974923444602">"每天"</string>
     <string name="never" msgid="54104287800571769">"一律不"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"选择时钟"</string>
@@ -73,9 +81,9 @@
   </string-array>
     <string name="auto_silence_title" msgid="6940612987809171112">"自动停止闹铃"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"闹钟将会在 <xliff:g id="MINUTES">%d</xliff:g> 分钟后停止闹铃"</string>
-    <string name="auto_silence_never" msgid="4302257878142130807">"关"</string>
+    <string name="auto_silence_never" msgid="4302257878142130807">"关闭"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="7718972982871612080">"关"</item>
+    <item msgid="7718972982871612080">"关闭"</item>
     <item msgid="5431906692406316549">"5 分钟"</item>
     <item msgid="7742728812068919959">"10 分钟"</item>
     <item msgid="2855948657259647629">"15 分钟"</item>
@@ -115,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"目前无法提供天气信息。"</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"底座设置"</string>
-    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"在 DeskClock 中设置的闹钟铃声播放服务。"</string>
+    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"在 DeskClock 中设置的闹钟铃声播放服务。"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"正在载入铃声..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"设置闹钟"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"设置的闹钟时间：<xliff:g id="TIME">%s</xliff:g>"</string>

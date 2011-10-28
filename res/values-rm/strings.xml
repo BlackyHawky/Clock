@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <!-- outdated translation 7517010911981312358 -->     <string name="weather_fetch_failure" msgid="3425804832021006835">"Infurmaziuns davart l\'aura n\'èn betg disponiblas en il mument."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Parameters da la basa"</string>
-    <!-- no translation found for alarm_klaxon_service_desc (3900885253055070760) -->
+    <!-- no translation found for alarm_klaxon_service_desc (2147506334302260256) -->
     <skip />
     <!-- no translation found for loading_ringtone (6523322777415268044) -->
     <skip />
