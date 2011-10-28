@@ -60,8 +60,8 @@
     <string name="clock_instructions" msgid="2656876819515011590">"Uhr wählen"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Analoguhr"</string>
     <string name="settings" msgid="5849739030579520686">"Einstellungen"</string>
-    <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Auch im Lautlosmodus"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Wecker klingelt auch im Lautlosmodus"</string>
+    <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Auch im Lautlos-Modus"</string>
+    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Wecker klingelt auch im Lautlos-Modus"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"Snooze-Dauer"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 Minuten"</item>
@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g> <xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Wetterinformationen sind derzeit nicht verfügbar."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Dock-Einstellungen"</string>
-    <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Tonwiedergabedienst für in DeskClock eingestellte Alarme"</string>
+    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Tonwiedergabedienst für in DeskClock eingestellte Wecker"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Klingelton wird geladen..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Wecker einstellen"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Wecker eingestellt: <xliff:g id="TIME">%s</xliff:g>"</string>

@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Weather information isn\'t available at the moment."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Dock settings"</string>
-    <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Sound playback service for alarms set in Desk Clock."</string>
+    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Sound playback service for alarms set in DeskClock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Loading ringtone…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Set alarm"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Alarm set: <xliff:g id="TIME">%s</xliff:g>"</string>
