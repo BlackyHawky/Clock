@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Hiện không có thông tin thời tiết."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Cài đặt đế"</string>
-    <string name="alarm_klaxon_service_desc" msgid="3900885253055070760">"Dịch vụ phát âm thanh cho báo thức đã đặt trong Desk Clock."</string>
+    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Dịch vụ phát âm thanh cho báo thức đã đặt trong DeskClock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Đang tải nhạc chuông…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Đặt báo thức"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Báo thức đã đặt: <xliff:g id="TIME">%s</xliff:g>"</string>
