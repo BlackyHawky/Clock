@@ -39,13 +39,13 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ukusnuza"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Iyozela <xliff:g id="MINUTES">%d</xliff:g> amaminithi"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"I-alamu ihlelwe imizuzu engaphansi kuka- 1 imizuzu kusukela manje."</item>
-    <item msgid="6002066367368421848">"I-alamu ihlelwe i- <xliff:g id="DAYS">%1$s</xliff:g> ukusuka manje."</item>
-    <item msgid="8824719306247973774">"I-alamu ihlelelwe i-<xliff:g id="HOURS">%2$s</xliff:g> ukusuka manje."</item>
-    <item msgid="8182406852935468862">"I-alamu ihlelelwe i- <xliff:g id="DAYS">%1$s</xliff:g> kanye <xliff:g id="HOURS">%2$s</xliff:g> ukusuka manje."</item>
+    <item msgid="6450913786084215050">"I-alamu ihlelwe umzuzu ongaphansi ko-1 kusukela manje."</item>
+    <item msgid="6002066367368421848">"I-alamu ihlelwe i-<xliff:g id="DAYS">%1$s</xliff:g> ukusuka manje."</item>
+    <item msgid="8824719306247973774">"I-alamu ihlelelwe angu-<xliff:g id="HOURS">%2$s</xliff:g> ukusuka manje."</item>
+    <item msgid="8182406852935468862">"I-alamu ihlelelwe i-<xliff:g id="DAYS">%1$s</xliff:g> nangu <xliff:g id="HOURS">%2$s</xliff:g> ukusuka manje."</item>
     <item msgid="2532279224777213194">"i-alamu ihlelwe <xliff:g id="MINUTES">%3$s</xliff:g> ukusuka manje."</item>
     <item msgid="5936557894247187717">"I-Alamu ihlelelwe i-<xliff:g id="DAYS">%1$s</xliff:g> kanye <xliff:g id="MINUTES">%3$s</xliff:g> ukusuka manje."</item>
-    <item msgid="9115697840826129603">"I-alamu ihlelelwe u- <xliff:g id="HOURS">%2$s</xliff:g> kanye no- <xliff:g id="MINUTES">%3$s</xliff:g> ukusuka manje."</item>
+    <item msgid="9115697840826129603">"I-alamu ihlelelwe u-<xliff:g id="HOURS">%2$s</xliff:g> kanye no-<xliff:g id="MINUTES">%3$s</xliff:g> ukusuka manje."</item>
     <item msgid="2332583385137381060">"I-alamu ihlelelwe u- <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, kanye no- <xliff:g id="MINUTES">%3$s</xliff:g> kusuka manje."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"Usuku olungu-1"</string>
@@ -97,9 +97,9 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Ivoliyumu ye-alamu"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Hlela ivoliyumu yama-alamu"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Thulile"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Ayikhale noma cima i-alamu."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Misa okwesikhashana  noma cima i-alamu."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (snuziwe)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"I-alamu ihlelelwe <xliff:g id="TIME">%s</xliff:g>. Thinta ukukhansela."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"I-alamu ihlelelwe u-<xliff:g id="TIME">%s</xliff:g>. Thinta ukukhansela."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Izinkinobho zevolumu"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Umphumela wenkinobho"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Hlela ukuthi lezi zinkinobho zenzani uma zicindezelwa phakathi ne-alamu"</string>
@@ -119,11 +119,11 @@
     <string name="music_button_description" msgid="1626593420810117999">"Umculo"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Fiphaza"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Isiqalsii"</string>
-    <string name="desk_clock_button_description" msgid="4207371097361657274">"Bonisa Iwashi"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Ukuboniswa kwewashi"</string>
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Ulwazi lwesimo sezulu alukho okwamanje."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Bophela zedokhu"</string>
-    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Insizakalo yokuphinda kudlala komsindo yama-alamu ahlelwe Kwiwashi Ledeski."</string>
+    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Insiza yokudlala komsindo we-alamu usethwe ku-Desk Clock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Ilayisha iringithoni..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Hlela i-alamu"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"I-alamu ihleliwe: <xliff:g id="TIME">%s</xliff:g>"</string>
