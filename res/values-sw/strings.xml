@@ -35,7 +35,7 @@
     <string name="alert" msgid="6539852766423700221">"Mlio wa simu"</string>
     <string name="time" msgid="8067216534232296518">"Saa"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Kataa"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Kengele ilinyamazishwa baada ya dakika <xliff:g id="MINUTES">%d</xliff:g>."</string>
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Kengele ilinyamazishwa baada ya <xliff:g id="MINUTES">%d</xliff:g>."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Sinzia"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Inasinzia kwa dakika <xliff:g id="MINUTES">%d</xliff:g>"</string>
   <string-array name="alarm_set">
@@ -54,7 +54,7 @@
     <string name="hours" msgid="2071487018566991613">"Masaa<xliff:g id="HOURS">%s</xliff:g>"</string>
     <string name="minute" msgid="2486157997434653710">"Dakika 1"</string>
     <string name="minutes" msgid="6115838729146292526">"Dakika <xliff:g id="MINUTES">%s</xliff:g>"</string>
-    <string name="every_day" msgid="4100909974923444602">"kila siku"</string>
+    <string name="every_day" msgid="4100909974923444602">"Kila siku"</string>
     <string name="never" msgid="54104287800571769">"Katu"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Chagua saa"</string>
@@ -79,7 +79,7 @@
     <item msgid="6048861883552402852">"25"</item>
     <item msgid="2740866721232379791">"30"</item>
   </string-array>
-    <string name="auto_silence_title" msgid="6940612987809171112">"Kimya oto"</string>
+    <string name="auto_silence_title" msgid="6940612987809171112">"Jinyamazisha kiotomatiki"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"Kengele zitanyamaza baada ya dakika <xliff:g id="MINUTES">%d</xliff:g>"</string>
     <string name="auto_silence_never" msgid="4302257878142130807">"Zima"</string>
   <string-array name="auto_silence_entries">
@@ -97,7 +97,7 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Sauti ya kengele"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Weka sauti ya kengele"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Kimya"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Sinzisha au ondoa kengele."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Pumzisha au ondoa kengele."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (imesinzia)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Kengele imewekwa ya <xliff:g id="TIME">%s</xliff:g>. Gusa ili kughairi."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Vitufe vya sauti"</string>
@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"Kishika nafasi<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Taarifa ya hali ya hewa haipatikani hivi sasa."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Mipangilio ya gati"</string>
-    <!-- outdated translation 2153290655559916468 -->     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Huduma ya kuchezesha sauti ya kengele zilizowekwa katika Saa ya Eneo kazi"</string>
+    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Huduma ya kuchezesha tena za kengele imewekwa kwa Saa."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Inapakia mlio..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Weka kengele"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Kengele imewekwa: <xliff:g id="TIME">%s</xliff:g>"</string>
