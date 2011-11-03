@@ -28,9 +28,6 @@
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation">
                 >
 
-            <!-- while docked, this is our home application -->
-            <meta-data android:name="android.dock_home" android:value="true" />
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
