@@ -32,7 +32,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.DESK_DOCK" />
             </intent-filter>
         </activity>
 
@@ -85,13 +84,6 @@
                 <action android:name="com.android.deskclock.ALARM_ALERT" />
                 <action android:name="alarm_killed" />
                 <action android:name="cancel_snooze" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name="DeskClock$DeskClockReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.DOCK_EVENT" />
             </intent-filter>
         </receiver>
 
