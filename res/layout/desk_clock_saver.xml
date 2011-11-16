@@ -18,17 +18,10 @@
 <AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FF000000"
     >
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_x="0dip"
-        android:layout_y="0dip"
-        android:background="#FF000000"
-        />
-
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/saver_view">
@@ -36,6 +29,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
-    </RelativeLayout>
+    </FrameLayout>
 
 </AbsoluteLayout>

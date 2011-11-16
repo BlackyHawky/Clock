@@ -35,7 +35,7 @@ import java.lang.Runnable;
 import android.util.Log;
 
 public class Screensaver extends Activity {
-    View mContainer;
+    View mContentView, mSaverView;
 
     static int CLOCK_COLOR = 0xFF66AAFF;
 
@@ -59,42 +59,44 @@ public class Screensaver extends Activity {
         public void run() {
             long delay = MOVE_DELAY;
 
-            View parent = (View)mContainer.getParent();
-            //Log.d("DeskClock/Screensaver", String.format("parent=(%d x %d)",
-//                        parent.getWidth(), parent.getHeight()));
-            final float xrange = parent.getWidth() - mContainer.getWidth();
-            final float yrange = parent.getHeight() - mContainer.getHeight();
+//            Log.d("DeskClock/Screensaver",
+//                    String.format("mContentView=(%d x %d) container=(%d x %d)",
+//                        mContentView.getWidth(), mContentView.getHeight(),
+//                        mSaverView.getWidth(), mSaverView.getHeight()
+//                        ));
+            final float xrange = mContentView.getWidth() - mSaverView.getWidth();
+            final float yrange = mContentView.getHeight() - mSaverView.getHeight();
 
-            if (xrange == 0) {
+            if (xrange == 0 && yrange == 0) {
                 delay = 500; // back in a split second
             } else {
                 final int nextx = (int) (Math.random() * xrange);
                 final int nexty = (int) (Math.random() * yrange);
 
-                if (mContainer.getAlpha() == 0f) {
+                if (mSaverView.getAlpha() == 0f) {
                     // jump right there
-                    mContainer.setX(nextx);
-                    mContainer.setY(nexty);
-                    ObjectAnimator.ofFloat(mContainer, "alpha", 0f, 1f)
+                    mSaverView.setX(nextx);
+                    mSaverView.setY(nexty);
+                    ObjectAnimator.ofFloat(mSaverView, "alpha", 0f, 1f)
                         .setDuration(FADE_TIME)
                         .start();
                 } else {
                     AnimatorSet s = new AnimatorSet();
-                    Animator xMove   = ObjectAnimator.ofFloat(mContainer,
-                                         "x", mContainer.getX(), nextx);
-                    Animator yMove   = ObjectAnimator.ofFloat(mContainer,
-                                         "y", mContainer.getY(), nexty);
+                    Animator xMove   = ObjectAnimator.ofFloat(mSaverView,
+                                         "x", mSaverView.getX(), nextx);
+                    Animator yMove   = ObjectAnimator.ofFloat(mSaverView,
+                                         "y", mSaverView.getY(), nexty);
 
-                    Animator xShrink = ObjectAnimator.ofFloat(mContainer, "scaleX", 1f, 0.75f);
-                    Animator xGrow   = ObjectAnimator.ofFloat(mContainer, "scaleX", 0.75f, 1f);
+                    Animator xShrink = ObjectAnimator.ofFloat(mSaverView, "scaleX", 1f, 0.75f);
+                    Animator xGrow   = ObjectAnimator.ofFloat(mSaverView, "scaleX", 0.75f, 1f);
 
-                    Animator yShrink = ObjectAnimator.ofFloat(mContainer, "scaleY", 1f, 0.75f);
-                    Animator yGrow   = ObjectAnimator.ofFloat(mContainer, "scaleY", 0.75f, 1f);
+                    Animator yShrink = ObjectAnimator.ofFloat(mSaverView, "scaleY", 1f, 0.75f);
+                    Animator yGrow   = ObjectAnimator.ofFloat(mSaverView, "scaleY", 0.75f, 1f);
                     AnimatorSet shrink = new AnimatorSet(); shrink.play(xShrink).with(yShrink);
                     AnimatorSet grow = new AnimatorSet(); grow.play(xGrow).with(yGrow);
 
-                    Animator fadeout = ObjectAnimator.ofFloat(mContainer, "alpha", 1f, 0f);
-                    Animator fadein = ObjectAnimator.ofFloat(mContainer, "alpha", 0f, 1f);
+                    Animator fadeout = ObjectAnimator.ofFloat(mSaverView, "alpha", 1f, 0f);
+                    Animator fadein = ObjectAnimator.ofFloat(mSaverView, "alpha", 0f, 1f);
 
 
                     if (SLIDE) {
@@ -128,7 +130,7 @@ public class Screensaver extends Activity {
                         + (MOVE_DELAY - adjust) // minute aligned
                         - (SLIDE ? 0 : FADE_TIME) // start moving before the fade
                         ;
-                //Log.d("DeskClock/Screensaver", "will move again in " + delay + " now=" + now + " adjusted by " + adjust);
+//                Log.d("DeskClock/Screensaver", "will move again in " + delay + " now=" + now + " adjusted by " + adjust);
             }
 
             mHandler.removeCallbacks(this);
@@ -141,10 +143,10 @@ public class Screensaver extends Activity {
         super.onStart();
         CLOCK_COLOR = getResources().getColor(R.color.screen_saver_color);
         setContentView(R.layout.desk_clock_saver);
-        mContainer = findViewById(R.id.saver_view);
-        mContainer.setAlpha(0);
-        mContainer.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-        mContainer.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+        mSaverView = findViewById(R.id.saver_view);
+        mContentView = (View) mSaverView.getParent();
+        mSaverView.setAlpha(0);
+        mSaverView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
         AndroidClockTextView timeDisplay = (AndroidClockTextView) findViewById(R.id.timeDisplay);
         if (timeDisplay != null) {
@@ -163,8 +165,8 @@ public class Screensaver extends Activity {
     @Override
     public void onResume() {
         super.onResume();
-
-        mMoveSaverRunnable.run();
+//        Log.d("DeskClock/Screensaver", "resume");
+        mHandler.post(mMoveSaverRunnable);
     }
 
     @Override

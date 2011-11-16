@@ -34,18 +34,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="@dimen/time_margin_right"
-            android:layout_alignParentRight="true"
             android:singleLine="true"
             android:ellipsize="none"
             android:textSize="@dimen/time_text_size"
             android:textColor="@color/time_text_color"
+            android:gravity="left"
             />
 
         <com.android.deskclock.AndroidClockTextView 
             android:id="@+id/am_pm"
             android:layout_width="@dimen/time_margin_right"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
+            android:layout_alignRight="@id/timeDisplay"
             android:layout_alignBaseline="@id/timeDisplay"
             android:paddingLeft="4dip"
             android:layout_marginTop="@dimen/ampm_margin_top"
