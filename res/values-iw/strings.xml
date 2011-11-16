@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"מחק התראה"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"הפעל התראה"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"כבה את ההתראה"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"למחוק התראה זו?"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"למחוק צלצול זה?"</string>
     <string name="show_clock" msgid="8358759982675616915">"הצג שעון"</string>
     <string name="hide_clock" msgid="3217727306480505694">"הסתר שעון"</string>
     <string name="label" msgid="162189613902857319">"תווית"</string>
@@ -124,7 +124,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"לא זמינים כרגע נתונים על מזג האוויר."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"הגדרות עגינה"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"שירות השמעת צלילים עבור התראות נקבע ב-Clock."</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"טוען צלצול…"</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"טוען צלצול..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"הגדר צלצול"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"הוגדרה התראה: <xliff:g id="TIME">%s</xliff:g>"</string>
 </resources>
