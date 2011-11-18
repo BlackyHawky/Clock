@@ -74,6 +74,8 @@ public class DeskClock extends Activity {
 
     // Alarm action for midnight (so we can update the date display).
     private static final String ACTION_MIDNIGHT = "com.android.deskclock.MIDNIGHT";
+    private static final String KEY_DIMMED = "dimmed";
+    private static final String KEY_SCREEN_SAVER = "screen_saver";
 
     // This controls whether or not we will show a battery display when plugged
     // in.
@@ -419,16 +421,17 @@ public class DeskClock extends Activity {
             + " ms from now) repeating every "
             + AlarmManager.INTERVAL_DAY + " with intent: " + mMidnightIntent);
 
-        // If we weren't previously visible but now we are, it's because we're
-        // being started from another activity. So it's OK to un-dim.
-        if (mTime != null && mTime.getWindowVisibility() != View.VISIBLE) {
-            mDimmed = false;
-        }
-
         // Adjust the display to reflect the currently chosen dim mode.
         doDim(false);
 
-        restoreScreen(); // disable screen saver
+        if (!mScreenSaverMode) {
+            restoreScreen(); // disable screen saver
+        } else {
+            // we have to set it to false because savescreen returns early if
+            // it's true
+            mScreenSaverMode = false;
+            saveScreen();
+        }
         refreshAll(); // will schedule periodic weather fetch
 
         setWakeLock(mPluggedIn);
@@ -443,7 +446,6 @@ public class DeskClock extends Activity {
         // Turn off the screen saver and cancel any pending timeouts.
         // (But don't un-dim.)
         mHandy.removeMessages(SCREEN_SAVER_TIMEOUT_MSG);
-        restoreScreen();
 
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         am.cancel(mMidnightIntent);
@@ -516,7 +518,17 @@ public class DeskClock extends Activity {
         super.onCreate(icicle);
 
         mRNG = new Random();
+        if (icicle != null) {
+            mDimmed = icicle.getBoolean(KEY_DIMMED, false);
+            mScreenSaverMode = icicle.getBoolean(KEY_SCREEN_SAVER, false);
+        }
 
         initViews();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(KEY_DIMMED, mDimmed);
+        outState.putBoolean(KEY_SCREEN_SAVER, mScreenSaverMode);
     }
 }
