@@ -21,7 +21,7 @@
     <string name="add_alarm" msgid="5976616107390962899">"Thêm báo thức"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Đồng hồ để bàn"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Chỉnh sửa báo thức"</string>
-    <string name="delete_alarm" msgid="3457780990646206817">"Xoá báo thức"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"Xóa báo thức"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Bật báo thức"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Tắt báo thức"</string>
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Xóa báo thức này?"</string>
@@ -93,7 +93,7 @@
   </string-array>
     <string name="done" msgid="6509722361933858451">"Xong"</string>
     <string name="revert" msgid="9100911171235162926">"Hoàn nguyên"</string>
-    <string name="delete" msgid="5732434972457000541">"Xoá"</string>
+    <string name="delete" msgid="5732434972457000541">"Xóa"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Âm lượng báo thức"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Đặt âm lượng báo thức"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Im lặng"</string>
