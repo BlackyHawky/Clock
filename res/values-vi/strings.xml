@@ -20,14 +20,14 @@
     <string name="alarm_list_title" msgid="7589940465292950600">"Báo thức"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Thêm báo thức"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Đồng hồ để bàn"</string>
-    <string name="menu_edit_alarm" msgid="7204602994918829751">"Chỉnh sửa báo thức"</string>
-    <string name="delete_alarm" msgid="3457780990646206817">"Xoá báo thức"</string>
+    <string name="menu_edit_alarm" msgid="7204602994918829751">"Chỉnh sửa báo thức"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"Xóa báo thức"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Bật báo thức"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Tắt báo thức"</string>
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Xóa báo thức này?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Hiển thị đồng hồ"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Ẩn đồng hồ"</string>
-    <string name="label" msgid="162189613902857319">"Nhãn"</string>
+    <string name="label" msgid="162189613902857319">"Nhãn"</string>
     <string name="default_label" msgid="5590025289805630372">"Báo thức"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Đặt báo thức"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Rung"</string>
@@ -52,7 +52,7 @@
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> ngày"</string>
     <string name="hour" msgid="2546819039651509323">"1 giờ"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> giờ"</string>
-    <string name="minute" msgid="2486157997434653710">"1 phút"</string>
+    <string name="minute" msgid="2486157997434653710">"1 phút"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> phút"</string>
     <string name="every_day" msgid="4100909974923444602">"Hàng ngày"</string>
     <string name="never" msgid="54104287800571769">"Chưa bao giờ"</string>
@@ -64,12 +64,12 @@
     <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Phát báo thức ngay cả khi điện thoại ở chế độ im lặng"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"Thời gian báo lại"</string>
   <string-array name="snooze_duration_entries">
-    <item msgid="8337408933053603125">"5 phút"</item>
-    <item msgid="5294206441496024610">"10 phút"</item>
-    <item msgid="2165904039211935470">"15 phút"</item>
-    <item msgid="7248236967714374250">"20 phút"</item>
-    <item msgid="738394723625179423">"25 phút"</item>
-    <item msgid="1180222611308391616">"30 phút"</item>
+    <item msgid="8337408933053603125">"5 phút"</item>
+    <item msgid="5294206441496024610">"10 phút"</item>
+    <item msgid="2165904039211935470">"15 phút"</item>
+    <item msgid="7248236967714374250">"20 phút"</item>
+    <item msgid="738394723625179423">"25 phút"</item>
+    <item msgid="1180222611308391616">"30 phút"</item>
   </string-array>
   <string-array name="snooze_duration_values">
     <item msgid="3655014754453084122">"5"</item>
@@ -93,7 +93,7 @@
   </string-array>
     <string name="done" msgid="6509722361933858451">"Xong"</string>
     <string name="revert" msgid="9100911171235162926">"Hoàn nguyên"</string>
-    <string name="delete" msgid="5732434972457000541">"Xoá"</string>
+    <string name="delete" msgid="5732434972457000541">"Xóa"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Âm lượng báo thức"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Đặt âm lượng báo thức"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Im lặng"</string>

@@ -123,7 +123,7 @@
     <string name="battery_charging_level" msgid="4391767951302394083">"Kishika nafasi<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Taarifa ya hali ya hewa haipatikani hivi sasa."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Mipangilio ya gati"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Huduma ya kuchezesha tena za kengele imewekwa kwa Saa."</string>
+    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Huduma ya kuchezesha tena za kengele iliyowekwa kwenye Saa."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Inapakia mlio..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Weka kengele"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Kengele imewekwa: <xliff:g id="TIME">%s</xliff:g>"</string>
