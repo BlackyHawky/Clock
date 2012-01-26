@@ -227,7 +227,10 @@ public class DeskClock extends Activity {
         // quickly stash away the x/y of the current date
         final View oldTimeDate = findViewById(R.id.time_date);
         int oldLoc[] = new int[2];
-        oldTimeDate.getLocationOnScreen(oldLoc);
+        oldLoc[0] = oldLoc[1] = -1;
+        if (oldTimeDate != null) { // monkeys tell us this is not always around
+            oldTimeDate.getLocationOnScreen(oldLoc);
+        }
 
         mScreenSaverMode = true;
         Window win = getWindow();
@@ -257,7 +260,11 @@ public class DeskClock extends Activity {
         refreshDate();
         refreshAlarm();
 
-        moveScreenSaverTo(oldLoc[0], oldLoc[1]);
+        if (oldLoc[0] >= 0) {
+            moveScreenSaverTo(oldLoc[0], oldLoc[1]);
+        } else {
+            moveScreenSaver();
+        }
     }
 
     @Override
