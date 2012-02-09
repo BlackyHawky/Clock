@@ -18,7 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Hodiny"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Budíky"</string>
-    <string name="add_alarm" msgid="5976616107390962899">"Přidat upozornění"</string>
+    <string name="add_alarm" msgid="5976616107390962899">"Přidat budík"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Stolní hodiny"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Upravit budík"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Smazat budík"</string>
@@ -27,9 +27,9 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Smazat tento budík?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Zobrazit hodiny"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Skrýt hodiny"</string>
-    <string name="label" msgid="162189613902857319">"Štítek"</string>
+    <string name="label" msgid="162189613902857319">"Popis"</string>
     <string name="default_label" msgid="5590025289805630372">"Budík"</string>
-    <string name="set_alarm" msgid="9148359866152726808">"Nastavit upozornění"</string>
+    <string name="set_alarm" msgid="9148359866152726808">"Nastavit budík"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrace"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Opakovat"</string>
     <string name="alert" msgid="6539852766423700221">"Vyzváněcí tón"</string>
