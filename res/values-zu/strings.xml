@@ -53,7 +53,7 @@
     <string name="hour" msgid="2546819039651509323">"1 ihora"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> amahora"</string>
     <string name="minute" msgid="2486157997434653710">"Iminithi elingu-1"</string>
-    <string name="minutes" msgid="6115838729146292526">"Amaminithi angu-<xliff:g id="MINUTES">%s</xliff:g>"</string>
+    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> amaminithi"</string>
     <string name="every_day" msgid="4100909974923444602">"Nsuku zonke"</string>
     <string name="never" msgid="54104287800571769">"Akusoze"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -64,12 +64,12 @@
     <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Dlala i-alamu ngisho noma ifoni ikwimodi ethulile."</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"Ubude bokusnuza"</string>
   <string-array name="snooze_duration_entries">
-    <item msgid="8337408933053603125">"amaminithi angu-5"</item>
-    <item msgid="5294206441496024610">"amaminithi angu-10"</item>
-    <item msgid="2165904039211935470">"amaminithi angu-15"</item>
-    <item msgid="7248236967714374250">"amaminithi angu-20"</item>
-    <item msgid="738394723625179423">"amaminithi angu-25"</item>
-    <item msgid="1180222611308391616">"amaminithi angu-30"</item>
+    <item msgid="8337408933053603125">"5 amaminithi"</item>
+    <item msgid="5294206441496024610">"10 amaminithi"</item>
+    <item msgid="2165904039211935470">"15 amaminithi"</item>
+    <item msgid="7248236967714374250">"20 amaminithi"</item>
+    <item msgid="738394723625179423">"25 amaminithi"</item>
+    <item msgid="1180222611308391616">"30 amaminithi"</item>
   </string-array>
   <string-array name="snooze_duration_values">
     <item msgid="3655014754453084122">"5"</item>
@@ -84,12 +84,12 @@
     <string name="auto_silence_never" msgid="4302257878142130807">"Valiwe"</string>
   <string-array name="auto_silence_entries">
     <item msgid="7718972982871612080">"Valiwe"</item>
-    <item msgid="5431906692406316549">"amaminithi angu-5"</item>
-    <item msgid="7742728812068919959">"amaminithi angu-10"</item>
-    <item msgid="2855948657259647629">"amaminithi angu-15"</item>
-    <item msgid="6330196381284475079">"amaminithi angu-20"</item>
-    <item msgid="7809240121716151904">"amaminithi angu-25"</item>
-    <item msgid="2807487305575255986">"amaminithi angu-30"</item>
+    <item msgid="5431906692406316549">"5 amaminithi"</item>
+    <item msgid="7742728812068919959">"10 amaminithi"</item>
+    <item msgid="2855948657259647629">"15 amaminithi"</item>
+    <item msgid="6330196381284475079">"20 amaminithi"</item>
+    <item msgid="7809240121716151904">"25 amaminithi"</item>
+    <item msgid="2807487305575255986">"30 amaminithi"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Kwenziwe"</string>
     <string name="revert" msgid="9100911171235162926">"Buyela emuva"</string>
