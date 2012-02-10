@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Vee wekker uit"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Skakel wekker aan"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Skakel wekker af"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Vee hierdie wekker uit?"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Vee hierdie alarm uit?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Vertoon klok"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Versteek horlosie"</string>
     <string name="label" msgid="162189613902857319">"Etiket"</string>
