@@ -59,7 +59,7 @@
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Seleccionar un reloj"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Reloj analógico"</string>
-    <string name="settings" msgid="5849739030579520686">"Config."</string>
+    <string name="settings" msgid="5849739030579520686">"Configuración"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarma en modo silencio"</string>
     <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Reproducir alarma cuando el teléfono está en modo silencioso"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"Duración de la repetición de alarma"</string>
@@ -81,9 +81,9 @@
   </string-array>
     <string name="auto_silence_title" msgid="6940612987809171112">"Silenciar automáticamente"</string>
     <string name="auto_silence_summary" msgid="5757272454196171758">"Las alarmas se silenciarán después de <xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
-    <string name="auto_silence_never" msgid="4302257878142130807">"Apagado"</string>
+    <string name="auto_silence_never" msgid="4302257878142130807">"Desactivado"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="7718972982871612080">"Apagado"</item>
+    <item msgid="7718972982871612080">"Desactivado"</item>
     <item msgid="5431906692406316549">"5 minutos"</item>
     <item msgid="7742728812068919959">"10 minutos"</item>
     <item msgid="2855948657259647629">"15 minutos"</item>
@@ -94,14 +94,14 @@
     <string name="done" msgid="6509722361933858451">"Listo"</string>
     <string name="revert" msgid="9100911171235162926">"Revertir"</string>
     <string name="delete" msgid="5732434972457000541">"Eliminar"</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"Volumen de la alarma"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Volumen"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Establecer el volumen de las alarmas"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silencioso"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Posponer o ignorar alarma"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (pospuesta)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"La alarma sonará a las <xliff:g id="TIME">%s</xliff:g>. Toca para cancelarla."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botones de volumen"</string>
-    <string name="volume_button_dialog_title" msgid="8768042543750036853">"Efecto del botón"</string>
+    <string name="volume_button_dialog_title" msgid="8768042543750036853">"Acción de los botones"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Configurar las acciones de los botones durante una alarma"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="4520420953175098625">"Ninguno"</item>
@@ -125,6 +125,6 @@
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Configuración de la base"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Servicio de reproducción de sonidos para alarmas configuradas en Reloj"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Cargando tono..."</string>
-    <string name="control_set_alarm" msgid="2194676418924016327">"Fijar alarma"</string>
-    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Se fijó la alarma: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="control_set_alarm" msgid="2194676418924016327">"Establecer alarma"</string>
+    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Alarma: <xliff:g id="TIME">%s</xliff:g>"</string>
 </resources>
