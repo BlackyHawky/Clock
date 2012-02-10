@@ -20,7 +20,7 @@
     <string name="alarm_list_title" msgid="7589940465292950600">"Будильник"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Добавить будильник"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Настольные часы"</string>
-    <string name="menu_edit_alarm" msgid="7204602994918829751">"Изменить настройки будильника"</string>
+    <string name="menu_edit_alarm" msgid="7204602994918829751">"Изменить настройки"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Удалить будильник"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Включить будильник"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Выключить будильник"</string>
