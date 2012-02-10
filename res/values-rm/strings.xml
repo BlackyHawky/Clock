@@ -24,7 +24,8 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Stizzar il svegliarin"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Activar il svegliarin"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Deactivar il svegliarin"</string>
-    <!-- outdated translation 4237696873219106907 -->     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Quest svegliarin vegn stizzà."</string>
+    <!-- no translation found for delete_alarm_confirm (6578572637340860840) -->
+    <skip />
     <string name="show_clock" msgid="8358759982675616915">"Mussar l\'ura"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Zuppentar l\'ura"</string>
     <string name="label" msgid="162189613902857319">"Etichetta"</string>
@@ -39,6 +40,7 @@
     <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Repeter"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Repetiziun en <xliff:g id="MINUTES">%d</xliff:g> minutas."</string>
+    <!-- no translation found for alarm_set:0 (6450913786084215050) -->
     <!-- no translation found for alarm_set:1 (6002066367368421848) -->
     <!-- no translation found for alarm_set:2 (8824719306247973774) -->
     <!-- no translation found for alarm_set:3 (8182406852935468862) -->
@@ -52,10 +54,12 @@
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> uras"</string>
     <string name="minute" msgid="2486157997434653710">"1 minuta"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minutas"</string>
-    <!-- outdated translation 1058994798884544691 -->     <string name="every_day" msgid="4100909974923444602">"mintga di"</string>
+    <!-- no translation found for every_day (4100909974923444602) -->
+    <skip />
     <string name="never" msgid="54104287800571769">"Mai"</string>
-    <string name="day_concat" msgid="971998564991636532">"\",\" "</string>
-    <!-- outdated translation 3118560284915857690 -->     <string name="clock_instructions" msgid="2656876819515011590">"Tscherni l\'ura che duai vegnir mussada."</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <!-- no translation found for clock_instructions (2656876819515011590) -->
+    <skip />
     <string name="analog_gadget" msgid="1670505720837152766">"Ura analoga"</string>
     <string name="settings" msgid="5849739030579520686">"Parameters"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Svegliarin en il modus silenzius"</string>
@@ -92,15 +96,17 @@
     <!-- no translation found for auto_silence_entries:6 (2807487305575255986) -->
     <string name="done" msgid="6509722361933858451">"Finì"</string>
     <string name="revert" msgid="9100911171235162926">"Reinizialisar"</string>
-    <string name="delete" msgid="5732434972457000541">"\"Stizzar"</string>
+    <string name="delete" msgid="5732434972457000541">"Stizzar"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volumen dal svegliarin"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Reglar il volumen dal svegliarin"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silenzius"</string>
-    <!-- outdated translation 4146350965933990093 -->     <string name="alarm_notify_text" msgid="4891014685945904766">"Tscherni da repeter u da deactivar quest svegliarin."</string>
+    <!-- no translation found for alarm_notify_text (4891014685945904766) -->
+    <skip />
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (repetiziun)"</string>
     <!-- no translation found for alarm_notify_snooze_text (4819324081410990368) -->
     <skip />
-    <!-- outdated translation 8155275533660105161 -->     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumen e Camera"</string>
+    <!-- no translation found for volume_button_setting_title (6937131248843413357) -->
+    <skip />
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Effect dal buttun"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Defini las acziuns da quests buttuns sch\'els vegnan smatgads durant ch\'il svegliarin scalina."</string>
   <string-array name="volume_button_setting_entries">
@@ -119,9 +125,11 @@
     <string name="music_button_description" msgid="1626593420810117999">"Musica"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Stgirentar"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Lantschader"</string>
-    <!-- outdated translation 968868045496561043 -->     <string name="desk_clock_button_description" msgid="4207371097361657274">"Visualisaziun da l\'ura"</string>
+    <!-- no translation found for desk_clock_button_description (4207371097361657274) -->
+    <skip />
     <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <!-- outdated translation 7517010911981312358 -->     <string name="weather_fetch_failure" msgid="3425804832021006835">"Infurmaziuns davart l\'aura n\'èn betg disponiblas en il mument."</string>
+    <!-- no translation found for weather_fetch_failure (3425804832021006835) -->
+    <skip />
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Parameters da la basa"</string>
     <!-- no translation found for alarm_klaxon_service_desc (2147506334302260256) -->
     <skip />
