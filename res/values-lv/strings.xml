@@ -120,11 +120,12 @@
     <string name="nightmode_button_description" msgid="990894208217576381">"Aptumšot"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Palaidējs"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Pulksteņa attēlojums"</string>
-    <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
+    <!-- no translation found for battery_charging_level (5550305149422476941) -->
+    <skip />
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Informācija par laikapstākļiem pašlaik nav pieejama."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Doka iestatījumi"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Skaņas atskaņošanas pakalpojums lietotnē Pulkstenis iestatītajiem signāliem"</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"Notiek zvana signāla ielāde..."</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"Notiek zvana signāla ielāde…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Iestatīt signālu"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"Signāls ir iestatīts uz: <xliff:g id="TIME">%s</xliff:g>"</string>
 </resources>

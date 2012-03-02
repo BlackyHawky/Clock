@@ -127,7 +127,8 @@
     <string name="home_button_description" msgid="3383859096809056157">"Lantschader"</string>
     <!-- no translation found for desk_clock_button_description (4207371097361657274) -->
     <skip />
-    <string name="battery_charging_level" msgid="4391767951302394083">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
+    <!-- no translation found for battery_charging_level (5550305149422476941) -->
+    <skip />
     <!-- no translation found for weather_fetch_failure (3425804832021006835) -->
     <skip />
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Parameters da la basa"</string>
