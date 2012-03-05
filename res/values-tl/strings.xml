@@ -120,8 +120,7 @@
     <string name="nightmode_button_description" msgid="990894208217576381">"Dim"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Display ng orasan"</string>
-    <!-- no translation found for battery_charging_level (5550305149422476941) -->
-    <skip />
+    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Hindi available sa ngayon ang impormasyon ng panahon."</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"Mga setting ng dock"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Serbisyo sa pag-playback ng tunog para sa mga alarm na nakatakda sa Clock."</string>
