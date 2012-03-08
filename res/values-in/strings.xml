@@ -97,7 +97,7 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volume alarm"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Setel volume alarm"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Senyap"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Tunda atau singkirkan alarm."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Tunda atau tutup alarm."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ditunda)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm disetel untuk <xliff:g id="TIME">%s</xliff:g>. Sentuh untuk membatalkan."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tombol volume"</string>
