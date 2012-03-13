@@ -113,7 +113,7 @@
     <item msgid="3204893476515513084">"1"</item>
     <item msgid="7687709558968154577">"2"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Setel nada dering bawaan"</string>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Setel nada dering default"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Alarm"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"Galeri"</string>
     <string name="music_button_description" msgid="1626593420810117999">"Musik"</string>
