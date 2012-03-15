@@ -97,7 +97,7 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"알람 볼륨"</string>
     <string name="alarm_volume_summary" msgid="8957440373896242438">"알람 볼륨 설정"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"무음"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"알람을 스누즈 또는 해제합니다."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"알람을 일시 중지하거나 해제합니다."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g>(알람 일시 중지됨)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> 후로 알람이 설정되었습니다. 취소하려면 터치하세요."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
