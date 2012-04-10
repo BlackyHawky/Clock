@@ -65,7 +65,7 @@ import java.util.Date;
 import java.util.Random;
 
 /**
- * A clock. On your desk.
+ * DeskClock clock view for desk docks.
  */
 public class DeskClock extends Activity {
     private static final boolean DEBUG = false;
@@ -80,6 +80,9 @@ public class DeskClock extends Activity {
     // This controls whether or not we will show a battery display when plugged
     // in.
     private static final boolean USE_BATTERY_DISPLAY = false;
+
+    // Intent to broadcast for dock settings.
+    private static final String DOCK_SETTINGS_ACTION = "com.android.settings.DOCK_SETTINGS";
 
     // Delay before engaging the burn-in protection mode (green-on-black).
     private final long SCREEN_SAVER_TIMEOUT = 5 * 60 * 1000; // 5 min
@@ -113,6 +116,8 @@ public class DeskClock extends Activity {
     private int mBatteryLevel = -1;
     private boolean mPluggedIn = false;
 
+    private boolean mLaunchedFromDock = false;
+
     private Random mRNG;
 
     private PendingIntent mMidnightIntent;
@@ -129,6 +134,20 @@ public class DeskClock extends Activity {
                     intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0),
                     intent.getIntExtra(BatteryManager.EXTRA_STATUS, BATTERY_STATUS_UNKNOWN),
                     intent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0));
+            } else if (UiModeManager.ACTION_EXIT_DESK_MODE.equals(action)) {
+                if (mLaunchedFromDock) {
+                    // moveTaskToBack(false);
+                    finish();
+                }
+                mLaunchedFromDock = false;
+            } else if (Intent.ACTION_DOCK_EVENT.equals(action)) {
+                if (DEBUG) Log.d(LOG_TAG, "dock event extra "
+                        + intent.getExtras().getInt(Intent.EXTRA_DOCK_STATE));
+                if (mLaunchedFromDock && intent.getExtras().getInt(Intent.EXTRA_DOCK_STATE,
+                        Intent.EXTRA_DOCK_STATE_UNDOCKED) == Intent.EXTRA_DOCK_STATE_UNDOCKED) {
+                    finish();
+                    mLaunchedFromDock = false;
+                }
             }
         }
     };
@@ -391,6 +410,8 @@ public class DeskClock extends Activity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_DATE_CHANGED);
         filter.addAction(Intent.ACTION_BATTERY_CHANGED);
+        filter.addAction(Intent.ACTION_DOCK_EVENT);
+        filter.addAction(UiModeManager.ACTION_EXIT_DESK_MODE);
         filter.addAction(ACTION_MIDNIGHT);
         registerReceiver(mIntentReceiver, filter);
     }
@@ -444,6 +465,11 @@ public class DeskClock extends Activity {
         setWakeLock(mPluggedIn);
 
         scheduleScreenSaver();
+
+        final boolean launchedFromDock
+            = getIntent().hasCategory(Intent.CATEGORY_DESK_DOCK);
+
+        mLaunchedFromDock = launchedFromDock;
     }
 
     @Override
@@ -520,6 +546,33 @@ public class DeskClock extends Activity {
             doDim(false);
             refreshAll();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_dock_settings:
+                startActivity(new Intent(DOCK_SETTINGS_ACTION));
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.desk_clock_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Only show the "Dock settings" menu item if the device supports it.
+        boolean isDockSupported =
+                (getPackageManager().resolveActivity(new Intent(DOCK_SETTINGS_ACTION), 0) != null);
+        menu.findItem(R.id.menu_item_dock_settings).setVisible(isDockSupported);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
