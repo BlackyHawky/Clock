@@ -503,8 +503,10 @@ public class DeskClock extends Activity {
         final View.OnClickListener alarmClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDimmed = false;
-                doDim(true);
+                if (mDimmed) {
+                    mDimmed = false;
+                    doDim(true);
+                }
                 startActivity(new Intent(DeskClock.this, AlarmClock.class));
             }
         };
