@@ -230,7 +230,7 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
             } else {
                 Log.e("mTimePickerDialog is not null");
             }
-            mTimePickerDialog.dismiss();
+            mTimePickerDialog = null;
         }
 
         mTimePickerDialog = new TimePickerDialog(this, this, mHour, mMinute,
