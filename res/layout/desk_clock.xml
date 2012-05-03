@@ -60,14 +60,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/time_margin_right"
-                android:paddingRight="@dimen/font_margin_adjust"
+                android:padding="@dimen/font_margin_adjust"
                 android:gravity="right"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="@dimen/next_alarm_text_size"
                 android:layout_marginTop="@dimen/next_alarm_margin_top"
                 android:drawablePadding="4dip"
                 android:drawableLeft="@drawable/ic_lock_idle_alarm"
-                android:textColor="@color/ampm_text_color"
+                android:textColor="@color/white"
+                android:background="?android:attr/listChoiceBackgroundIndicator"
                 />
         </LinearLayout>
 
