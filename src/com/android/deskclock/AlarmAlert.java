@@ -24,6 +24,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 
 /**
  * Full screen alarm alert: pops visible indicator and plays alarm tone. This
@@ -57,6 +58,9 @@ public class AlarmAlert extends AlarmAlertFullScreen {
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+
+        /* Disable custom title, this will already be shown as a dialog */
+        findViewById(R.id.topPanel).setVisibility(View.GONE);
 
         // Listen for the screen turning off so that when the screen comes back
         // on, the user does not need to unlock the phone to dismiss the alarm.

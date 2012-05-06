@@ -24,15 +24,18 @@
     <style name="AlarmClockTheme" parent="android:Theme.Holo.DialogWhenLarge"/>
     <style name="SetAlarmTheme" parent="android:Theme.Holo.DialogWhenLarge"/>
 
-    <!-- This theme is similar to the Theme.Dialog.Alert but does not rely on a
-         non-public resource. -->
-    <style name="AlarmAlertTheme" parent="android:Theme.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
+    <style name="AlarmAlertFullScreenWindowTitle">
+        <item name="android:maxLines">1</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@android:color/holo_blue_light</item>
     </style>
-
+    
     <!-- NOTE: This must be a fullscreen theme, or else the fullscreen alarm will 
          be unable to turn the screen on. -->
-    <style name="AlarmAlertFullScreenTheme" parent="android:Theme.Holo.Wallpaper.NoTitleBar"/>
+    <style name="AlarmAlertFullScreenTheme" parent="android:Theme.Holo.Wallpaper.NoTitleBar">
+        <item name="android:windowTitleStyle">@style/AlarmAlertFullScreenWindowTitle</item>
+    </style>
 
     <style name="RoundTouchButton">
         <item name="android:gravity">center</item>

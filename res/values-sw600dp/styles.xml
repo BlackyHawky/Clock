@@ -19,12 +19,6 @@
     <style name="AlarmClockTheme" parent="android:Theme.Holo.Dialog"/>
     <style name="SetAlarmTheme" parent="android:Theme.Holo.Dialog"/>
 
-    <!-- This theme is similar to the Theme.Dialog.Alert but does not rely on a
-         non-public resource. -->
-    <style name="AlarmAlertTheme" parent="android:Theme.Holo.Dialog">
-        <item name="android:windowBackground">@android:color/transparent</item>
-    </style>
-
     <!-- NOTE: This must be a fullscreen theme, or else the fullscreen alarm will 
          be unable to turn the screen on. -->
     <style name="AlarmAlertFullScreenTheme" parent="android:Theme.Holo.Wallpaper.NoTitleBar"/>
