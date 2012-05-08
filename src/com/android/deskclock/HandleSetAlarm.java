@@ -111,6 +111,7 @@ public class HandleSetAlarm extends Activity {
             Alarm alarm = new Alarm(c);
             if (enable) {
                 Alarms.enableAlarm(this, alarm.id, true);
+                alarm.enabled = true;
             }
             SetAlarm.popAlarmSetToast(this, timeInMillis);
             if (!skipUi) {
