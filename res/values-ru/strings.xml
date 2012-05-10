@@ -98,8 +98,8 @@
     <string name="alarm_volume_summary" msgid="8957440373896242438">"Настройка громкости будильника"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Без звука"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Отложить/выключить будильник"</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (отложено)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Будильник зазвонит в <xliff:g id="TIME">%s</xliff:g>. Нажмите, чтобы отменить."</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (отложен)"</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Повтор в <xliff:g id="TIME">%s</xliff:g>. Нажмите, чтобы отменить."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Громкость"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Функция кнопок"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Определить функцию этой кнопки во время звонка будильника"</string>
