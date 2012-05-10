@@ -40,9 +40,9 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                 // Remove the snooze alarm after a boot.
                 if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
                     Alarms.saveSnoozeAlert(context, Alarms.INVALID_ALARM_ID, -1);
+                    Alarms.disableExpiredAlarms(context);
                 }
 
-                Alarms.disableExpiredAlarms(context);
                 Alarms.setNextAlert(context);
                 result.finish();
                 Log.v("AlarmInitReceiver finished");
