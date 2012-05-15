@@ -15,19 +15,14 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_item_desk_clock"
-        android:title="@string/menu_desk_clock"
-        android:icon="@drawable/ic_menu_desk_clock"/>
     <item android:id="@+id/menu_item_add_alarm"
         android:title="@string/add_alarm"
-        android:icon="@drawable/ic_menu_add"/>
+        android:icon="@drawable/ic_menu_add"
+        android:showAsAction="always"/>
     <item android:id="@+id/menu_item_settings"
         android:title="@string/settings"
-        android:icon="@android:drawable/ic_menu_preferences"/>
-    <item android:id="@+id/menu_item_done"
-        android:title="@string/done"
-        android:icon="?android:attr/actionModeCloseDrawable"
-        android:showAsAction="ifRoom|withText" />
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:showAsAction="never"/>
 </menu>
 
 
