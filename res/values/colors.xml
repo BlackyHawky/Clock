@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,8 +21,10 @@
     <color name="ampm_text_color">#99FFFFFF</color>
     <color name="screen_saver_color">#FF006688</color>
     <color name="screen_saver_dim_color">#FF001634</color>
+    <color name="action_bar_button_text_color">#FFFFFF</color>
 
     <color name="white">#ffffffff</color>
     <color name="red">#ffee0000</color>
     <color name="grey">#ffaaaaaa</color>
+    <color name="transparent">#00000000</color>
 </resources>
