@@ -26,38 +26,25 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.database.ContentObserver;
-import android.database.Cursor;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsoluteLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -225,6 +212,10 @@ public class DeskClock extends Activity {
             SCREEN_SAVER_TIMEOUT);
     }
 
+    /**
+     * Restores the screen by quitting the screensaver. This should be called only when
+     * {@link #mScreenSaverMode} is true.
+     */
     private void restoreScreen() {
         if (!mScreenSaverMode) return;
         if (DEBUG) Log.d(LOG_TAG, "restoreScreen");
@@ -234,11 +225,13 @@ public class DeskClock extends Activity {
         doDim(false); // restores previous dim mode
 
         scheduleScreenSaver();
-
         refreshAll();
     }
 
-    // Special screen-saver mode for OLED displays that burn in quickly
+    /**
+     * Start the screen-saver mode. This is useful for OLED displays that burn in quickly.
+     * This should only be called when {@link #mScreenSaverMode} is false;
+     */
     private void saveScreen() {
         if (mScreenSaverMode) return;
         if (DEBUG) Log.d(LOG_TAG, "saveScreen");
@@ -451,7 +444,6 @@ public class DeskClock extends Activity {
 
         // Adjust the display to reflect the currently chosen dim mode.
         doDim(false);
-
         if (!mScreenSaverMode) {
             restoreScreen(); // disable screen saver
         } else {
@@ -460,15 +452,12 @@ public class DeskClock extends Activity {
             mScreenSaverMode = false;
             saveScreen();
         }
-        refreshAll(); // will schedule periodic weather fetch
-
+        refreshAll();
         setWakeLock(mPluggedIn);
-
         scheduleScreenSaver();
 
         final boolean launchedFromDock
             = getIntent().hasCategory(Intent.CATEGORY_DESK_DOCK);
-
         mLaunchedFromDock = launchedFromDock;
     }
 
