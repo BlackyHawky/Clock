@@ -132,7 +132,44 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
                 }
             });
         }
-    }
+
+        // Attach actions to each button.
+        Button b = (Button) findViewById(R.id.alarm_save);
+        if (b != null) {
+            b.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        long time = saveAlarm(null);
+                        if(mEnabledPref.isChecked()) {
+                            popAlarmSetToast(SetAlarm.this, time);
+                        }
+                        finish();
+                    }
+            });
+        }
+        b = (Button) findViewById(R.id.alarm_revert);
+        if (b != null) {
+            b.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    revert();
+                    finish();
+                }
+            });
+        }
+        b = (Button) findViewById(R.id.alarm_delete);
+        if (b != null) {
+            if (mId == -1) {
+                b.setEnabled(false);
+                b.setVisibility(View.GONE);
+            } else {
+                b.setVisibility(View.VISIBLE);
+                b.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        deleteAlarm();
+                    }
+                });
+            }
+        }
+}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -316,6 +353,16 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
                             })
                     .setNegativeButton(android.R.string.cancel, null)
                     .show();
+        }
+    }
+
+    private void revert() {
+        int newId = mId;
+        // "Revert" on a newly created alarm should delete it.
+        if (mOriginalAlarm.id == -1) {
+            Alarms.deleteAlarm(SetAlarm.this, newId);
+        } else {
+            saveAlarm(mOriginalAlarm);
         }
     }
 
