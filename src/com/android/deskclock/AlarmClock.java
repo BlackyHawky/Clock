@@ -38,7 +38,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -230,6 +229,16 @@ public class AlarmClock extends Activity implements OnItemClickListener {
         if (doneButton != null) {
             doneButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+
+        View settingsButton = findViewById(R.id.settings);
+        if (settingsButton != null) {
+            settingsButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    startActivity(new Intent(AlarmClock.this, SettingsActivity.class));
                     finish();
                 }
             });
