@@ -58,7 +58,7 @@
     <ListView
         android:id="@+id/alarms_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:layout_marginLeft="16dip"
         android:layout_marginRight="16dip" />
@@ -76,12 +76,21 @@
         android:orientation="horizontal"
         style="?android:attr/buttonBarStyle">
 
+        <Button android:id="@+id/settings"
+            style="?android:attr/buttonBarButtonStyle"
+            android:focusable="true"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="@string/settings"/>
+
         <Button android:id="@+id/done"
             style="?android:attr/buttonBarButtonStyle"
             android:focusable="true"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:text="@string/done"/>
-    </LinearLayout>
+        </LinearLayout>
 
 </LinearLayout>
