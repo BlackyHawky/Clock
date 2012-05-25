@@ -62,7 +62,7 @@
     <string name="settings" msgid="5849739030579520686">"Ajustes"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarma en modo silencio"</string>
     <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Reproducir alarma aunque el teléfono esté en modo silencio"</string>
-    <string name="snooze_duration_title" msgid="1471249885139952670">"Repetición de alarmas"</string>
+    <string name="snooze_duration_title" msgid="1471249885139952670">"Repetir alarma cada"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 minutos"</item>
     <item msgid="5294206441496024610">"10 minutos"</item>
@@ -102,7 +102,7 @@
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"La alarma sonará a las <xliff:g id="TIME">%s</xliff:g>. Toca para cancelar."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botones de volumen"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Acción de los botones"</string>
-    <string name="volume_button_setting_summary" msgid="4776447991226047070">"Establecer la función de los botones de volumen durante una alarma"</string>
+    <string name="volume_button_setting_summary" msgid="4776447991226047070">"Qué harán los botones de volumen al sonar una alarma"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="4520420953175098625">"Ninguno"</item>
     <item msgid="7111908302622811168">"Posponer"</item>
