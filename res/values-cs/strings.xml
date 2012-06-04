@@ -104,7 +104,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Funkce tlačítek"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Nastavte funkci těchto tlačítek, pokud jsou stisknuta během vyzvánění budíku."</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="4520420953175098625">"Žádné"</item>
+    <item msgid="4520420953175098625">"Žádná"</item>
     <item msgid="7111908302622811168">"Odložit"</item>
     <item msgid="8573552194573068996">"Ukončit"</item>
   </string-array>
