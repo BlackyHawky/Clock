@@ -49,7 +49,7 @@
     <item msgid="2332583385137381060">"Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 den"</string>
-    <string name="days" msgid="2070509222727852210">"dní: <xliff:g id="DAYS">%s</xliff:g>"</string>
+    <string name="days" msgid="2070509222727852210">"dny: <xliff:g id="DAYS">%s</xliff:g>"</string>
     <string name="hour" msgid="2546819039651509323">"1 hodina"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> hod."</string>
     <string name="minute" msgid="2486157997434653710">"1 minuta"</string>
