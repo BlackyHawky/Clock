@@ -157,7 +157,7 @@
     <string name="alarm_in_silent_mode_title">Alarm in silent mode</string>
 
     <!-- Setting summary for whether the alarm should play in silent mode. -->
-    <string name="alarm_in_silent_mode_summary">Play alarm even when the phone is in silent mode</string>
+    <string name="alarm_in_silent_mode_summary">Play alarm even when the device is in silent mode</string>
 
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze duration</string>
