@@ -61,7 +61,8 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Zegar analogowy"</string>
     <string name="settings" msgid="5849739030579520686">"Ustawienia"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarm w trybie cichym"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Odtwórz alarm, nawet gdy telefon jest w trybie cichym"</string>
+    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
+    <skip />
     <string name="snooze_duration_title" msgid="1471249885139952670">"Czas drzemki"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 minut"</item>
@@ -102,7 +103,7 @@
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm ustawiony na <xliff:g id="TIME">%s</xliff:g>. Dotknij, aby anulować."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Przyciski głośności"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Działanie przycisku"</string>
-    <string name="volume_button_setting_summary" msgid="4776447991226047070">"Ustaw funkcje przycisków głośności po naciśnięciu podczas alarmu"</string>
+    <string name="volume_button_setting_summary" msgid="4776447991226047070">"Ustaw funkcje przycisków głośności podczas alarmu"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="4520420953175098625">"Brak"</item>
     <item msgid="7111908302622811168">"Uśpij"</item>

@@ -32,7 +32,7 @@
     <string name="set_alarm" msgid="9148359866152726808">"Set alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrate"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repeat"</string>
-    <string name="alert" msgid="6539852766423700221">"Ring tone"</string>
+    <string name="alert" msgid="6539852766423700221">"Ringtone"</string>
     <string name="time" msgid="8067216534232296518">"Time"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Dismiss"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarm silenced after <xliff:g id="MINUTES">%d</xliff:g> minutes."</string>
@@ -61,7 +61,8 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analogue clock"</string>
     <string name="settings" msgid="5849739030579520686">"Settings"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarm in silent mode"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Play alarm even when the device is in silent mode"</string>
+    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
+    <skip />
     <string name="snooze_duration_title" msgid="1471249885139952670">"Snooze duration"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 minutes"</item>
@@ -113,7 +114,7 @@
     <item msgid="3204893476515513084">"1"</item>
     <item msgid="7687709558968154577">"2"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Set default ring tone"</string>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Set default ringtone"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Alarms"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"Gallery"</string>
     <string name="music_button_description" msgid="1626593420810117999">"Music"</string>

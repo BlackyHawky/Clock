@@ -61,7 +61,8 @@
     <string name="analog_gadget" msgid="1670505720837152766">"類比時鐘"</string>
     <string name="settings" msgid="5849739030579520686">"設定"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"靜音模式下的鬧鐘"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"手機處於靜音模式時，鬧鐘仍會響"</string>
+    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
+    <skip />
     <string name="snooze_duration_title" msgid="1471249885139952670">"貪睡時間"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 分鐘"</item>
