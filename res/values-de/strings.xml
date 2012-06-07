@@ -36,10 +36,10 @@
     <string name="time" msgid="8067216534232296518">"Uhrzeit"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ausschalten"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Der Wecker verstummte nach <xliff:g id="MINUTES">%d</xliff:g> Minuten."</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze-Funktion"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Snooze-Funktion für <xliff:g id="MINUTES">%d</xliff:g> Minuten aktiviert"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Der Wecker klingelt in weniger als 1 Minute."</item>
+    <item msgid="6450913786084215050">"Der Wecker klingelt in weniger als einer Minute."</item>
     <item msgid="6002066367368421848">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>."</item>
     <item msgid="8824719306247973774">"Der Wecker klingelt in <xliff:g id="HOURS">%2$s</xliff:g>."</item>
     <item msgid="8182406852935468862">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g> und <xliff:g id="HOURS">%2$s</xliff:g>."</item>
@@ -49,7 +49,7 @@
     <item msgid="2332583385137381060">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> und <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 Tag"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> Tage"</string>
+    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> Tagen"</string>
     <string name="hour" msgid="2546819039651509323">"1 Stunde"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> Stunden"</string>
     <string name="minute" msgid="2486157997434653710">"1 Minute"</string>
@@ -61,7 +61,8 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analoguhr"</string>
     <string name="settings" msgid="5849739030579520686">"Einstellungen"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Auch im Lautlos-Modus"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Wecker klingelt auch im Lautlos-Modus"</string>
+    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
+    <skip />
     <string name="snooze_duration_title" msgid="1471249885139952670">"Snooze-Dauer"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 Minuten"</item>
@@ -105,7 +106,7 @@
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Verhalten dieser Tasten während des Weckerklingelns"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="4520420953175098625">"Keine"</item>
-    <item msgid="7111908302622811168">"Snooze-Funktion"</item>
+    <item msgid="7111908302622811168">"Snooze"</item>
     <item msgid="8573552194573068996">"Beenden"</item>
   </string-array>
   <string-array name="volume_button_setting_values">

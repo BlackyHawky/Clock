@@ -49,7 +49,7 @@
     <item msgid="2332583385137381060">"Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 den"</string>
-    <string name="days" msgid="2070509222727852210">"dní: <xliff:g id="DAYS">%s</xliff:g>"</string>
+    <string name="days" msgid="2070509222727852210">"dny: <xliff:g id="DAYS">%s</xliff:g>"</string>
     <string name="hour" msgid="2546819039651509323">"1 hodina"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> hod."</string>
     <string name="minute" msgid="2486157997434653710">"1 minuta"</string>
@@ -61,7 +61,8 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analogové hodiny"</string>
     <string name="settings" msgid="5849739030579520686">"Nastavení"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Budík v tichém režimu"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Aktivovat budík i v případě, že je telefon v tichém režimu."</string>
+    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
+    <skip />
     <string name="snooze_duration_title" msgid="1471249885139952670">"Doba odložení"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 min"</item>
@@ -104,7 +105,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Funkce tlačítek"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"Nastavte funkci těchto tlačítek, pokud jsou stisknuta během vyzvánění budíku."</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="4520420953175098625">"Žádné"</item>
+    <item msgid="4520420953175098625">"Žádná"</item>
     <item msgid="7111908302622811168">"Odložit"</item>
     <item msgid="8573552194573068996">"Ukončit"</item>
   </string-array>

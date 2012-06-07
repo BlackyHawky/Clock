@@ -61,7 +61,8 @@
     <string name="analog_gadget" msgid="1670505720837152766">"アナログ時計"</string>
     <string name="settings" msgid="5849739030579520686">"設定"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"マナーモード中のアラーム"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"マナーモード中もアラームを鳴らす"</string>
+    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
+    <skip />
     <string name="snooze_duration_title" msgid="1471249885139952670">"スヌーズ間隔"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5分"</item>

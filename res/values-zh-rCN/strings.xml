@@ -55,13 +55,14 @@
     <string name="minute" msgid="2486157997434653710">"1 分钟"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> 分钟"</string>
     <string name="every_day" msgid="4100909974923444602">"每天"</string>
-    <string name="never" msgid="54104287800571769">"一律不"</string>
+    <string name="never" msgid="54104287800571769">"永不"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"选择时钟"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"模拟时钟"</string>
     <string name="settings" msgid="5849739030579520686">"设置"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"静音模式下闹钟响"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"手机处于静音模式时，闹钟仍会响"</string>
+    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
+    <skip />
     <string name="snooze_duration_title" msgid="1471249885139952670">"再响间隔"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 分钟"</item>
