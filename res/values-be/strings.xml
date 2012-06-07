@@ -61,7 +61,8 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Аналагавы гадзіннік"</string>
     <string name="settings" msgid="5849739030579520686">"Налады"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Будзільнік у бязгучным рэжыме"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="6042500263899922832">"Будзільнік гучыць, нават калі тэлефон у бязгучным рэжыме"</string>
+    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
+    <skip />
     <string name="snooze_duration_title" msgid="1471249885139952670">"Тэрмін адкладання"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 хвілін"</item>
