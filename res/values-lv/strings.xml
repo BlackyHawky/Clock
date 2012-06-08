@@ -61,8 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analogais pulkstenis"</string>
     <string name="settings" msgid="5849739030579520686">"Iestatījumi"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Signāls klusuma režīmā"</string>
-    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
-    <skip />
+    <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"Atskaņot signālu arī tad, ja ierīcē iestatīts klusuma režīms"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"Snaudas ilgums"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 minūtes"</item>
