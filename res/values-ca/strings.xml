@@ -61,8 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Rellotge analògic"</string>
     <string name="settings" msgid="5849739030579520686">"Configuració"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarma en mode silenciós"</string>
-    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
-    <skip />
+    <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"Reprodueix l\'alarma fins i tot quan el dispositiu està en mode silenciós"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"Durada de la repetició"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 minuts"</item>

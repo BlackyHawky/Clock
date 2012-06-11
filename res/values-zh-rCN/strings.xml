@@ -61,8 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"模拟时钟"</string>
     <string name="settings" msgid="5849739030579520686">"设置"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"静音模式下闹钟响"</string>
-    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
-    <skip />
+    <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"设备处于静音模式时，闹钟仍会响"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"再响间隔"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 分钟"</item>
@@ -123,7 +122,7 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"时钟显示"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"目前无法提供天气信息。"</string>
-    <string name="menu_item_dock_settings" msgid="3524235151132971114">"底座设置"</string>
+    <string name="menu_item_dock_settings" msgid="3524235151132971114">"基座设置"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"在“时钟”内设置的闹钟铃声播放服务。"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"正在载入铃声..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"设置闹钟"</string>

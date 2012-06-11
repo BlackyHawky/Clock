@@ -61,8 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analogt ur"</string>
     <string name="settings" msgid="5849739030579520686">"Indstillinger"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarm i lydløs tilstand"</string>
-    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
-    <skip />
+    <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"Afspil alarm, selvom enheden er i lydløs tilstand"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"Slumretilstands varighed"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 minutter"</item>
@@ -92,7 +91,7 @@
     <item msgid="7809240121716151904">"25 minutter"</item>
     <item msgid="2807487305575255986">"30 minutter"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"Udfør"</string>
+    <string name="done" msgid="6509722361933858451">"OK"</string>
     <string name="revert" msgid="9100911171235162926">"Annuller"</string>
     <string name="delete" msgid="5732434972457000541">"Slet"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lydstyrke for alarm"</string>
