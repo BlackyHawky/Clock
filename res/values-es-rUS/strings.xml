@@ -61,8 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Reloj analógico"</string>
     <string name="settings" msgid="5849739030579520686">"Configuración"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"Alarma en modo silencio"</string>
-    <!-- no translation found for alarm_in_silent_mode_summary (123772279768441207) -->
-    <skip />
+    <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"Reproducir alarma aun cuando el dispositivo se encuentre en modo silencioso"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"Duración de la repetición de alarma"</string>
   <string-array name="snooze_duration_entries">
     <item msgid="8337408933053603125">"5 minutos"</item>
