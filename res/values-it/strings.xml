@@ -106,7 +106,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="4520420953175098625">"Nessuno"</item>
     <item msgid="7111908302622811168">"Sospendi"</item>
-    <item msgid="8573552194573068996">"Elimina"</item>
+    <item msgid="8573552194573068996">"Spegni"</item>
   </string-array>
   <string-array name="volume_button_setting_values">
     <item msgid="4851033050639608752">"0"</item>
