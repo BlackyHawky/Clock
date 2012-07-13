@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"ساعت"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"زنگ های ساعت"</string>
+    <string name="alarm_list_title" msgid="7589940465292950600">"زنگ‌های ساعت"</string>
     <string name="add_alarm" msgid="5976616107390962899">"افزودن زنگ ساعت"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ساعت رومیزی"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"ویرایش زنگ ساعت"</string>
@@ -39,20 +39,20 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"تعویق"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"هشدار برای کمتر از 1 دقیقه از حالا تنظیم شد."</item>
+    <item msgid="6450913786084215050">"هشدار برای کمتر از ۱ دقیقه از حالا تنظیم شد."</item>
     <item msgid="6002066367368421848">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> از حالا تنظیم شد."</item>
-    <item msgid="8824719306247973774">"هشدار از هم اکنون برای <xliff:g id="HOURS">%2$s</xliff:g> تنظیم شد."</item>
+    <item msgid="8824719306247973774">"هشدار از هم‌اکنون برای <xliff:g id="HOURS">%2$s</xliff:g> تنظیم شد."</item>
     <item msgid="8182406852935468862">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> از حالا تنظیم شد."</item>
     <item msgid="2532279224777213194">"هشدار به مدت <xliff:g id="MINUTES">%3$s</xliff:g> دقیقه از هم‌اکنون تنظیم شد."</item>
     <item msgid="5936557894247187717">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> از حالا تنظیم شد."</item>
-    <item msgid="9115697840826129603">"هشدار از هم اکنون برای <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> تنظیم شد."</item>
+    <item msgid="9115697840826129603">"هشدار از هم‌اکنون برای <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> تنظیم شد."</item>
     <item msgid="2332583385137381060">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> از حالا تنظیم شد."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 روز"</string>
+    <string name="day" msgid="7984755014526510295">"۱ روز"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> روز"</string>
-    <string name="hour" msgid="2546819039651509323">"1 ساعت"</string>
+    <string name="hour" msgid="2546819039651509323">"۱ ساعت"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> ساعت"</string>
-    <string name="minute" msgid="2486157997434653710">"1 دقیقه"</string>
+    <string name="minute" msgid="2486157997434653710">"۱ دقیقه"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> دقیقه"</string>
     <string name="every_day" msgid="4100909974923444602">"هر روز"</string>
     <string name="never" msgid="54104287800571769">"هرگز"</string>
@@ -64,12 +64,12 @@
     <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"پخش زنگ هشدار حتی در زمانی که تلفن در حالت ساکت است"</string>
     <string name="snooze_duration_title" msgid="1471249885139952670">"مدت تعویق"</string>
   <string-array name="snooze_duration_entries">
-    <item msgid="8337408933053603125">"5 دقیقه"</item>
-    <item msgid="5294206441496024610">"10 دقیقه"</item>
-    <item msgid="2165904039211935470">"15 دقیقه"</item>
-    <item msgid="7248236967714374250">"20 دقیقه"</item>
-    <item msgid="738394723625179423">"25 دقیقه"</item>
-    <item msgid="1180222611308391616">"30 دقیقه"</item>
+    <item msgid="8337408933053603125">"۵ دقیقه"</item>
+    <item msgid="5294206441496024610">"۱۰ دقیقه"</item>
+    <item msgid="2165904039211935470">"۱۵ دقیقه"</item>
+    <item msgid="7248236967714374250">"۲۰ دقیقه"</item>
+    <item msgid="738394723625179423">"۲۵ دقیقه"</item>
+    <item msgid="1180222611308391616">"۳۰ دقیقه"</item>
   </string-array>
   <string-array name="snooze_duration_values">
     <item msgid="3655014754453084122">"5"</item>
@@ -80,29 +80,29 @@
     <item msgid="2740866721232379791">"30"</item>
   </string-array>
     <string name="auto_silence_title" msgid="6940612987809171112">"سکوت خودکار"</string>
-    <string name="auto_silence_summary" msgid="5757272454196171758">"هشدارها پس از <xliff:g id="MINUTES">%d</xliff:g> دقیقه بیصدا می شوند"</string>
+    <string name="auto_silence_summary" msgid="5757272454196171758">"هشدارها پس از <xliff:g id="MINUTES">%d</xliff:g> دقیقه بیصدا می‌شوند"</string>
     <string name="auto_silence_never" msgid="4302257878142130807">"خاموش"</string>
   <string-array name="auto_silence_entries">
     <item msgid="7718972982871612080">"خاموش"</item>
-    <item msgid="5431906692406316549">"5 دقیقه"</item>
-    <item msgid="7742728812068919959">"10 دقیقه"</item>
-    <item msgid="2855948657259647629">"15 دقیقه"</item>
-    <item msgid="6330196381284475079">"20 دقیقه"</item>
-    <item msgid="7809240121716151904">"25 دقیقه"</item>
-    <item msgid="2807487305575255986">"30 دقیقه"</item>
+    <item msgid="5431906692406316549">"۵ دقیقه"</item>
+    <item msgid="7742728812068919959">"۱۰ دقیقه"</item>
+    <item msgid="2855948657259647629">"۱۵ دقیقه"</item>
+    <item msgid="6330196381284475079">"۲۰ دقیقه"</item>
+    <item msgid="7809240121716151904">"۲۵ دقیقه"</item>
+    <item msgid="2807487305575255986">"۳۰ دقیقه"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"انجام شد"</string>
     <string name="revert" msgid="9100911171235162926">"برگشت"</string>
     <string name="delete" msgid="5732434972457000541">"حذف"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"میزان صدای زنگ ساعت"</string>
-    <string name="alarm_volume_summary" msgid="8957440373896242438">"تنظیم میزان صدای زنگ های ساعت"</string>
+    <string name="alarm_volume_summary" msgid="8957440373896242438">"تنظیم میزان صدای زنگ‌های ساعت"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"ساکت"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"هشدار را موقتاً یا به طور کامل قطع کنید."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (معوق)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"زنگ هشدار برای <xliff:g id="TIME">%s</xliff:g> تنظیم شد. جهت لغو لمس کنید."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"دکمه های تنظیم صدا"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"تأثیر دکمه"</string>
-    <string name="volume_button_setting_summary" msgid="4776447991226047070">"تنظیم عملکرد این دکمه ها، هنگامی که در طول فعال بودن یک زنگ ساعت فشرده می شوند"</string>
+    <string name="volume_button_setting_summary" msgid="4776447991226047070">"تنظیم عملکرد این دکمه ها، هنگامی که در طول فعال بودن یک زنگ ساعت فشرده می‌شوند"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="4520420953175098625">"هیچکدام"</item>
     <item msgid="7111908302622811168">"تعویق"</item>
@@ -113,8 +113,8 @@
     <item msgid="3204893476515513084">"1"</item>
     <item msgid="7687709558968154577">"2"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"تنظیم صدای زنگ پیش فرض"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"زنگ های ساعت"</string>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"تنظیم صدای زنگ پیش‌فرض"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"زنگ‌های ساعت"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"گالری"</string>
     <string name="music_button_description" msgid="1626593420810117999">"موسیقی"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"کم شدن صدا"</string>
