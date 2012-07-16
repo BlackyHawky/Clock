@@ -100,7 +100,7 @@
     <string name="alarm_notify_text" msgid="4891014685945904766">"هشدار را موقتاً یا به طور کامل قطع کنید."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (معوق)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"زنگ هشدار برای <xliff:g id="TIME">%s</xliff:g> تنظیم شد. جهت لغو لمس کنید."</string>
-    <string name="volume_button_setting_title" msgid="6937131248843413357">"دکمه های تنظیم صدا"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"دکمه‌های تنظیم صدا"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"تأثیر دکمه"</string>
     <string name="volume_button_setting_summary" msgid="4776447991226047070">"تنظیم عملکرد این دکمه ها، هنگامی که در طول فعال بودن یک زنگ ساعت فشرده می‌شوند"</string>
   <string-array name="volume_button_setting_entries">
