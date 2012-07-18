@@ -35,7 +35,7 @@
     <string name="alert" msgid="6539852766423700221">"アラーム音"</string>
     <string name="time" msgid="8067216534232296518">"時刻"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"停止"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"アラームは<xliff:g id="MINUTES">%d</xliff:g>間鳴って止まりました。"</string>
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"アラームは<xliff:g id="MINUTES">%d</xliff:g>分間鳴って止まりました。"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"スヌーズ"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"<xliff:g id="MINUTES">%d</xliff:g>分後に再通知します"</string>
   <string-array name="alarm_set">
