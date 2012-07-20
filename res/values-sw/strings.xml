@@ -51,7 +51,7 @@
     <string name="day" msgid="7984755014526510295">"siku 1"</string>
     <string name="days" msgid="2070509222727852210">"siku <xliff:g id="DAYS">%s</xliff:g>"</string>
     <string name="hour" msgid="2546819039651509323">"Saa 1"</string>
-    <string name="hours" msgid="2071487018566991613">"Masaa<xliff:g id="HOURS">%s</xliff:g>"</string>
+    <string name="hours" msgid="2071487018566991613">"Saa<xliff:g id="HOURS">%s</xliff:g>"</string>
     <string name="minute" msgid="2486157997434653710">"Dakika 1"</string>
     <string name="minutes" msgid="6115838729146292526">"Dakika <xliff:g id="MINUTES">%s</xliff:g>"</string>
     <string name="every_day" msgid="4100909974923444602">"Kila siku"</string>
