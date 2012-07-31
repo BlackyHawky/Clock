@@ -16,29 +16,25 @@
 
 package com.android.deskclock;
 
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.animation.TimeInterpolator;
-import android.animation.ObjectAnimator;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.app.Activity;
-import android.os.BatteryManager;
-import android.os.Handler;
+import android.animation.ObjectAnimator;
+import android.animation.TimeInterpolator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.util.AttributeSet;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import java.lang.Runnable;
+import android.content.res.Configuration;
+import android.os.BatteryManager;
+import android.os.Handler;
+import android.service.dreams.Dream;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
-public class Screensaver extends Activity {
+public class Screensaver extends Dream {
     static final boolean DEBUG = false;
     static final String TAG = "DeskClock/Screensaver";
 
@@ -87,11 +83,11 @@ public class Screensaver extends Activity {
         public void run() {
             long delay = MOVE_DELAY;
 
-//            Log.d("DeskClock/Screensaver",
-//                    String.format("mContentView=(%d x %d) container=(%d x %d)",
-//                        mContentView.getWidth(), mContentView.getHeight(),
-//                        mSaverView.getWidth(), mSaverView.getHeight()
-//                        ));
+            if (DEBUG) Log.d(TAG,
+                    String.format("mContentView=(%d x %d) container=(%d x %d)",
+                        mContentView.getWidth(), mContentView.getHeight(),
+                        mSaverView.getWidth(), mSaverView.getHeight()
+                        ));
             final float xrange = mContentView.getWidth() - mSaverView.getWidth();
             final float yrange = mContentView.getHeight() - mSaverView.getHeight();
 
@@ -167,10 +163,64 @@ public class Screensaver extends Activity {
         }
     };
 
+    public Screensaver() {
+        if (DEBUG) Log.d(TAG, "Screensaver allocated");
+    }
+
+    @Override
+    public void onCreate() {
+        if (DEBUG) Log.d(TAG, "Screensaver created");
+        super.onCreate();
+        setInteractive(false);
+    }
+
     @Override
     public void onStart() {
+        if (DEBUG) Log.d(TAG, "Screensaver started");
         super.onStart();
+
         CLOCK_COLOR = getResources().getColor(R.color.screen_saver_color);
+        layoutClockSaver();
+
+        final IntentFilter filter = new IntentFilter();
+        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
+        registerReceiver(mPowerIntentReceiver, filter);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        if (DEBUG) Log.d(TAG, "Screensaver configuration changed");
+        super.onConfigurationChanged(newConfig);
+        mHandler.removeCallbacks(mMoveSaverRunnable);
+        layoutClockSaver();
+        mHandler.post(mMoveSaverRunnable);
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        if (DEBUG) Log.d(TAG, "Screensaver attached to window");
+        super.onAttachedToWindow();
+
+        mHandler.post(mMoveSaverRunnable);
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        if (DEBUG) Log.d(TAG, "Screensaver detached from window");
+        super.onDetachedFromWindow();
+
+        mHandler.removeCallbacks(mMoveSaverRunnable);
+    }
+
+    @Override
+    public void onDestroy() {
+        if (DEBUG) Log.d(TAG, "Screensaver destroyed");
+        super.onDestroy();
+
+        unregisterReceiver(mPowerIntentReceiver);
+    }
+
+    private void layoutClockSaver() {
         setContentView(R.layout.desk_clock_saver);
         mSaverView = findViewById(R.id.saver_view);
         mContentView = (View) mSaverView.getParent();
@@ -182,42 +232,6 @@ public class Screensaver extends Activity {
             AndroidClockTextView amPm = (AndroidClockTextView)findViewById(R.id.am_pm);
             if (amPm != null) amPm.setTextColor(CLOCK_COLOR);
         }
-
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
-        registerReceiver(mPowerIntentReceiver, filter);
     }
 
-    @Override
-    public void onAttachedToWindow() {
-        getWindow().addFlags(
-                WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
-              | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-              );
-        mSaverView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-    }
-
-
-    @Override
-    public void onStop() {
-        unregisterReceiver(mPowerIntentReceiver);
-        super.onStop();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mHandler.post(mMoveSaverRunnable);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mHandler.removeCallbacks(mMoveSaverRunnable);
-    }
-
-    @Override
-    public void onUserInteraction() {
-        finish();
-    }
 }

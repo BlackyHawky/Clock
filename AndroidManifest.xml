@@ -131,17 +131,15 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/analog_appwidget" />
         </receiver>
 
-        <activity android:name=".Screensaver"
-            android:label="@string/app_label"
-            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
-            android:hardwareAccelerated="true"
-            >
+        <service android:name="Screensaver"
+            android:exported="true"
+            android:label="@string/app_label">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.DREAM" />
             </intent-filter>
-        </activity>
+        </service>
     </application>
 </manifest>
 
