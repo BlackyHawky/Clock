@@ -25,14 +25,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
+import android.graphics.PorterDuff;
 import android.os.BatteryManager;
 import android.os.Handler;
+import android.provider.Settings;
 import android.service.dreams.Dream;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.TextView;
 
 public class Screensaver extends Dream {
     static final boolean DEBUG = false;
@@ -47,9 +52,11 @@ public class Screensaver extends Dream {
     static final boolean SLIDE = false;
 
     private View mContentView, mSaverView;
+    private TextView mAlarmButton;
 
     private static TimeInterpolator mSlowStartWithBrakes =
         new TimeInterpolator() {
+            @Override
             public float getInterpolation(float x) {
                 return (float)(Math.cos((Math.pow(x,3) + 1) * Math.PI) / 2.0f) + 0.5f;
             }
@@ -154,7 +161,7 @@ public class Screensaver extends Dream {
                         + (MOVE_DELAY - adjust) // minute aligned
                         - (SLIDE ? 0 : FADE_TIME) // start moving before the fade
                         ;
-                if (DEBUG) Log.d(TAG, 
+                if (DEBUG) Log.d(TAG,
                         "will move again in " + delay + " now=" + now + " adjusted by " + adjust);
             }
 
@@ -171,7 +178,15 @@ public class Screensaver extends Dream {
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Screensaver created");
         super.onCreate();
-        setInteractive(false);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        // Hack: we want this to be *mostly* non-interactive, but still allow the user to click 
+        // on the alarms button. The Dream class doesn't make this super easy right now, so 
+        // we want to skip over Dream.dispatchTouchEvent() (which would finish() the saver 
+        // immediately in non-interactive mode) and handle touches ourself.
+        return getWindow().superDispatchTouchEvent(event);
     }
 
     @Override
@@ -179,9 +194,12 @@ public class Screensaver extends Dream {
         if (DEBUG) Log.d(TAG, "Screensaver started");
         super.onStart();
 
-        CLOCK_COLOR = getResources().getColor(R.color.screen_saver_color);
-        layoutClockSaver();
+        // We want the screen saver to exit upon user interaction.
+        setInteractive(false);
+        // However, we *do* actually want to trap some touch events, so
+        // see dispatchTouchEvent above
 
+        // XXX: should be done by Dream base class
         final IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_BATTERY_CHANGED);
         registerReceiver(mPowerIntentReceiver, filter);
@@ -200,6 +218,11 @@ public class Screensaver extends Dream {
     public void onAttachedToWindow() {
         if (DEBUG) Log.d(TAG, "Screensaver attached to window");
         super.onAttachedToWindow();
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        CLOCK_COLOR = getResources().getColor(R.color.screen_saver_color);
+        layoutClockSaver();
 
         mHandler.post(mMoveSaverRunnable);
     }
@@ -220,17 +243,57 @@ public class Screensaver extends Dream {
         unregisterReceiver(mPowerIntentReceiver);
     }
 
+    private void refreshAlarm() {
+        if (mAlarmButton == null) return;
+
+        String nextAlarm = Settings.System.getString(getContentResolver(),
+                Settings.System.NEXT_ALARM_FORMATTED);
+        mAlarmButton.setText(nextAlarm);
+        mAlarmButton.setAlpha("".equals(nextAlarm) ? 0.5f : 1.0f);
+    }
+
     private void layoutClockSaver() {
         setContentView(R.layout.desk_clock_saver);
-        mSaverView = findViewById(R.id.saver_view);
+        mSaverView = findViewById(R.id.time_date);
         mContentView = (View) mSaverView.getParent();
         mSaverView.setAlpha(0);
+        // Here's where we get back our touch-to-dismiss functionality,
+        // unless you click on the alarm button.
+        mContentView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent e) {
+                finish();
+                return false;
+            }
+        });
+
+        mAlarmButton = (TextView) findViewById(R.id.saverAlarm);
+        refreshAlarm();
 
         AndroidClockTextView timeDisplay = (AndroidClockTextView) findViewById(R.id.timeDisplay);
         if (timeDisplay != null) {
             timeDisplay.setTextColor(CLOCK_COLOR);
             AndroidClockTextView amPm = (AndroidClockTextView)findViewById(R.id.am_pm);
             if (amPm != null) amPm.setTextColor(CLOCK_COLOR);
+        }
+
+        Drawable alarmClock = getResources().getDrawable(R.drawable.stat_notify_alarm);
+        alarmClock.setColorFilter(CLOCK_COLOR, PorterDuff.Mode.MULTIPLY);
+        TextView alarmText = (TextView) findViewById(R.id.saverAlarm);
+        if (DEBUG) Log.d(TAG, "alarmText:" + alarmText);
+        if (alarmText != null) {
+            alarmText.setCompoundDrawablesWithIntrinsicBounds(alarmClock, null, null, null);
+
+            alarmText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(
+                        new Intent(Screensaver.this, AlarmClock.class)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                    finish();
+                }
+            });
+
         }
     }
 

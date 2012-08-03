@@ -44,7 +44,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.widget.AbsoluteLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -158,7 +157,7 @@ public class DeskClock extends Activity {
     private void moveScreenSaverTo(int x, int y) {
         if (!mScreenSaverMode) return;
 
-        final View saver_view = findViewById(R.id.saver_view);
+        final View saver_view = findViewById(R.id.time_date);
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -173,11 +172,8 @@ public class DeskClock extends Activity {
         if (DEBUG) Log.d(LOG_TAG, String.format("screen saver: %d: jumping to (%d,%d)",
                 System.currentTimeMillis(), x, y));
 
-        saver_view.setLayoutParams(new AbsoluteLayout.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            x,
-            y));
+        saver_view.setX(x);
+        saver_view.setY(y);
 
         // Synchronize our jumping so that it happens exactly on the second.
         mHandy.sendEmptyMessageDelayed(SCREEN_SAVER_MOVE_MSG,

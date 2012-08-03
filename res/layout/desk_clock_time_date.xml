@@ -68,6 +68,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textSize="@dimen/date_text_size"
         android:textColor="@color/time_text_color"
+        android:visibility="gone"
         />
 
 </LinearLayout>
