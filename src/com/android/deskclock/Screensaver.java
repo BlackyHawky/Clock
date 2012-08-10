@@ -219,8 +219,8 @@ public class Screensaver extends Dream {
         if (DEBUG) Log.d(TAG, "Screensaver attached to window");
         super.onAttachedToWindow();
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
+        lightsOut(); // lights out, fullscreen
+
         CLOCK_COLOR = getResources().getColor(R.color.screen_saver_color);
         layoutClockSaver();
 
