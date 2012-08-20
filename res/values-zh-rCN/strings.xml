@@ -36,7 +36,7 @@
     <string name="time" msgid="8067216534232296518">"时间"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"取消"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"闹钟响铃时长为 <xliff:g id="MINUTES">%d</xliff:g> 分钟。"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"暂停再响"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"稍后再响"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"暂停 <xliff:g id="MINUTES">%d</xliff:g> 分钟。"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"已将闹钟设置为从现在起不到 1 分钟后提醒。"</item>
