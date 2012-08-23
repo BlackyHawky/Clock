@@ -53,7 +53,7 @@
         android:entries="@array/volume_button_setting_entries"
         android:entryValues="@array/volume_button_setting_values"
         android:summary="@string/volume_button_setting_summary"
-        android:defaultValue="2" />
+        android:defaultValue="1" />
 
     <com.android.deskclock.AlarmPreference
         android:key="default_ringtone"
