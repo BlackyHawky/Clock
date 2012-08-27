@@ -18,8 +18,12 @@ package com.android.deskclock;
 
 import static android.os.BatteryManager.BATTERY_STATUS_UNKNOWN;
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.ActionBar.TabListener;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.app.UiModeManager;
 import android.content.BroadcastReceiver;
@@ -53,7 +57,7 @@ import java.util.Random;
 /**
  * DeskClock clock view for desk docks.
  */
-public class DeskClock extends Activity {
+public class DeskClock extends Activity implements TabListener {
     private static final boolean DEBUG = false;
 
     private static final String LOG_TAG = "DeskClock";
@@ -62,6 +66,7 @@ public class DeskClock extends Activity {
     private static final String ACTION_MIDNIGHT = "com.android.deskclock.MIDNIGHT";
     private static final String KEY_DIMMED = "dimmed";
     private static final String KEY_SCREEN_SAVER = "screen_saver";
+    private static final String KEY_SELECTED_TAB = "selected_tab";
 
     // This controls whether or not we will show a battery display when plugged
     // in.
@@ -76,6 +81,9 @@ public class DeskClock extends Activity {
     // Repositioning delay in screen saver.
     public static final long SCREEN_SAVER_MOVE_DELAY = 60 * 1000; // 1 min
 
+    // Delay before dimming the screen
+    private static final long DIM_TIMEOUT = 10 * 1000; // 10 seconds
+
     // Color to use for text & graphics in screen saver mode.
     private int SCREEN_SAVER_COLOR = 0xFF006688;
     private int SCREEN_SAVER_COLOR_DIM = 0xFF001634;
@@ -86,6 +94,7 @@ public class DeskClock extends Activity {
 
     private final int SCREEN_SAVER_TIMEOUT_MSG   = 0x2000;
     private final int SCREEN_SAVER_MOVE_MSG      = 0x2001;
+    private final int DIM_TIMEOUT_MSG            = 0x2002;
 
     // State variables follow.
     private DigitalClock mTime;
@@ -107,6 +116,15 @@ public class DeskClock extends Activity {
     private Random mRNG;
 
     private PendingIntent mMidnightIntent;
+
+    private ActionBar mActionBar;
+    private Tab mTimerTab;
+    private Tab mClockTab;
+    private Tab mStopwatchTab;
+
+    private static final int TIMER_TAB_INDEX = 0;
+    private static final int CLOCK_TAB_INDEX = 1;
+    private static final int STOPWATCH_TAB_INDEX = 2;
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -145,6 +163,9 @@ public class DeskClock extends Activity {
                 saveScreen();
             } else if (m.what == SCREEN_SAVER_MOVE_MSG) {
                 moveScreenSaver();
+            } else if (m.what == DIM_TIMEOUT_MSG) {
+                mDimmed = !mDimmed;
+                doDim(true);
             }
         }
     };
@@ -208,6 +229,13 @@ public class DeskClock extends Activity {
             SCREEN_SAVER_TIMEOUT);
     }
 
+    private void scheduleDim() {
+        mHandy.removeMessages(DIM_TIMEOUT_MSG);
+        mHandy.sendMessageDelayed(
+            Message.obtain(mHandy, DIM_TIMEOUT_MSG),
+            DIM_TIMEOUT);
+    }
+
     /**
      * Restores the screen by quitting the screensaver. This should be called only when
      * {@link #mScreenSaverMode} is true.
@@ -218,7 +246,9 @@ public class DeskClock extends Activity {
         mScreenSaverMode = false;
 
         initViews();
-        doDim(false); // restores previous dim mode
+        // When quitting the screen saver, un-dim the screen.
+        mDimmed = false;
+        doDim(true);
 
         scheduleScreenSaver();
         refreshAll();
@@ -277,8 +307,15 @@ public class DeskClock extends Activity {
 
     @Override
     public void onUserInteraction() {
-        if (mScreenSaverMode)
+        if (mScreenSaverMode) {
             restoreScreen();
+        } else {
+            if (mDimmed) {
+                mDimmed = !mDimmed;
+                doDim(true);
+            }
+            scheduleDim();
+        }
     }
 
     // Adapted from KeyguardUpdateMonitor.java
@@ -350,9 +387,6 @@ public class DeskClock extends Activity {
         Window win = getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
 
-        winParams.flags |= (WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
-        winParams.flags |= (WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
         // dim the wallpaper somewhat (how much is determined below)
         winParams.flags |= (WindowManager.LayoutParams.FLAG_DIM_BEHIND);
 
@@ -365,6 +399,7 @@ public class DeskClock extends Activity {
             tintView.startAnimation(AnimationUtils.loadAnimation(this,
                 fade ? R.anim.dim
                      : R.anim.dim_instant));
+            mActionBar.hide();
         } else {
             winParams.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
             winParams.dimAmount = DIM_BEHIND_AMOUNT_NORMAL;
@@ -374,8 +409,9 @@ public class DeskClock extends Activity {
             tintView.startAnimation(AnimationUtils.loadAnimation(this,
                 fade ? R.anim.undim
                      : R.anim.undim_instant));
+            mActionBar.show();
+            scheduleDim();
         }
-
         win.setAttributes(winParams);
     }
 
@@ -450,6 +486,7 @@ public class DeskClock extends Activity {
         }
         refreshAll();
         setWakeLock(mPluggedIn);
+        scheduleDim();
         scheduleScreenSaver();
 
         final boolean launchedFromDock
@@ -464,6 +501,7 @@ public class DeskClock extends Activity {
         // Turn off the screen saver and cancel any pending timeouts.
         // (But don't un-dim.)
         mHandy.removeMessages(SCREEN_SAVER_TIMEOUT_MSG);
+        mHandy.removeMessages(DIM_TIMEOUT_MSG);
 
         AlarmManager am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         am.cancel(mMidnightIntent);
@@ -504,23 +542,37 @@ public class DeskClock extends Activity {
         alarmControl.setOnClickListener(alarmClickListener);
 
         View touchView = findViewById(R.id.window_touch);
-        touchView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // If the screen saver is on let onUserInteraction handle it
-                if (!mScreenSaverMode) {
-                    mDimmed = !mDimmed;
-                    doDim(true);
-                }
-            }
-        });
-        touchView.setOnLongClickListener(new View.OnLongClickListener() {
+        // TODO: have UI decide if we need the long press - until decision this is removed
+        // since it is not in the wireframe
+    /*    touchView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 saveScreen();
                 return true;
             }
-        });
+        });*/
+    }
+
+    private void createTabs(int selectedIndex) {
+        mActionBar = getActionBar();
+
+        mActionBar.setDisplayOptions(0);
+        if (mActionBar != null) {
+            mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+            mTimerTab = mActionBar.newTab();
+            mTimerTab.setText(getString(R.string.menu_timer));
+            mTimerTab.setTabListener(this);
+            mActionBar.addTab(mTimerTab);
+            mClockTab = mActionBar.newTab();
+            mClockTab.setText(getString(R.string.menu_clock));
+            mClockTab.setTabListener(this);
+            mActionBar.addTab(mClockTab);
+            mStopwatchTab = mActionBar.newTab();
+            mStopwatchTab.setText(getString(R.string.menu_stopwatch));
+            mStopwatchTab.setTabListener(this);
+            mActionBar.addTab(mStopwatchTab);
+            mActionBar.setSelectedNavigationItem(selectedIndex);
+        }
     }
 
     @Override
@@ -556,9 +608,10 @@ public class DeskClock extends Activity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         // Only show the "Dock settings" menu item if the device supports it.
-        boolean isDockSupported =
-                (getPackageManager().resolveActivity(new Intent(DOCK_SETTINGS_ACTION), 0) != null);
-        menu.findItem(R.id.menu_item_dock_settings).setVisible(isDockSupported);
+//        boolean isDockSupported =
+//                (getPackageManager().resolveActivity(new Intent(DOCK_SETTINGS_ACTION), 0) != null);
+        // Hide to dock support - not removing it completely until UI final decision
+        menu.findItem(R.id.menu_item_dock_settings).setVisible(false);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -567,17 +620,33 @@ public class DeskClock extends Activity {
         super.onCreate(icicle);
 
         mRNG = new Random();
+        int selectedTab = CLOCK_TAB_INDEX;
         if (icicle != null) {
             mDimmed = icicle.getBoolean(KEY_DIMMED, false);
             mScreenSaverMode = icicle.getBoolean(KEY_SCREEN_SAVER, false);
+            selectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
         }
 
         initViews();
+        createTabs(selectedTab);
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(KEY_DIMMED, mDimmed);
         outState.putBoolean(KEY_SCREEN_SAVER, mScreenSaverMode);
+        outState.putInt(KEY_SELECTED_TAB, mActionBar.getSelectedNavigationIndex());
+    }
+
+    @Override
+    public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+
+    }
+    @Override
+    public void onTabSelected(Tab arg0, FragmentTransaction arg1) {
+    }
+
+    @Override
+    public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
     }
 }
