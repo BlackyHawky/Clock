@@ -148,7 +148,10 @@
     <!-- Label for analog clock gadget, shown in list of all gadgets -->
     <string name="analog_gadget">Analog clock</string>
 
-    <!-- Menu item title for general Alarm Clock Settings -->
+    <!-- Help activity name -->
+    <string name="help">help</string>
+
+    <!-- Settings activity name -->
     <string name="settings">Settings</string>
 
     <!-- Setting title for whether the alarm should play in silent mode.
@@ -288,8 +291,6 @@
          present on the device, we show nothing at all. -->
     <string name="weather_fetch_failure">Weather information isn\'t available right now.</string>
 
-    <string name="menu_item_dock_settings" msgid="9161438664257429372">Dock settings</string>
-
     <!-- A description for the DeskClock alarm sound playback service.
          [CHAR LIMIT=NONE] -->
     <string name="alarm_klaxon_service_desc">Sound playback service for alarms set in Clock.</string>
@@ -308,6 +309,31 @@
     <string name="menu_timer">Timer</string>
     <string name="menu_clock">Clock</string>
     <string name="menu_stopwatch">Stopwatch</string>
-</resources>
 
+    <!--- Clock view buttons strings-->
+    <string name="button_alarms">Alarms</string>
+    <string name="button_cities">Cities</string>
+    <string name="button_menu">Menu</string>
+    <string name="menu_item_settings">Settings</string>
+    <string name="menu_item_help">Help</string>
+
+    <!-- Stop Watch strings -->
+    <string name="sw_pause_button">Pause</string>
+    <string name="sw_resume_button">Resume</string>
+    <string name="sw_start_button">Start</string>
+    <string name="sw_stop_button">Stop</string>
+    <string name="sw_lap_button">Lap</string>
+    <string name="sw_reset_button">Reset</string>
+    <string name="sw_share_button">Share</string>
+    <string name="sw_lap_number">\#</string>
+    <string name="sw_lap_time">Lap Time</string>
+    <string name="sw_lap_total">Total</string>
+    <string name="sw_current_lap_number"><xliff:g id="number">%d</xliff:g></string>
+
+    <!-- timer strings -->
+    <string name="timer_add_one_button">Add 1 minute</string>
+    <string name="timer_dismiss_button">Cancel</string>
+    <string name="timer_times_up">Time\'s up.</string>
+
+</resources>
 

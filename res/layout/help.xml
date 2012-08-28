@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!-- Copyright (C) 2012 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,14 +13,15 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_item_settings"
-        android:title="@string/menu_item_settings"
-        android:icon="@android:drawable/ic_menu_preferences"/>
-    <item android:id="@+id/menu_item_help"
-        android:title="@string/menu_item_help"
-        android:icon="@android:drawable/ic_menu_preferences"/>
-</menu>
-
-
+        <TextView
+            android:text="@string/menu_item_help"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textSize="36dip"
+            android:layout_height="match_parent"/>
+</LinearLayout>

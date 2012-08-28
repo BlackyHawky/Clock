@@ -27,4 +27,6 @@
     <color name="red">#ffee0000</color>
     <color name="grey">#ffaaaaaa</color>
     <color name="transparent">#00000000</color>
+
+    <color name="clock_red">#ff4444</color>
 </resources>
