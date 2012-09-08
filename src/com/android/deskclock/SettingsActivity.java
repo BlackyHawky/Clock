@@ -16,18 +16,17 @@
 
 package com.android.deskclock;
 
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.media.AudioManager;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.preference.RingtonePreference;
 import android.provider.Settings;
+import android.view.Menu;
+import android.view.MenuItem;
 
 /**
  * Settings for the Alarm Clock.
@@ -44,30 +43,54 @@ public class SettingsActivity extends PreferenceActivity
             "snooze_duration";
     static final String KEY_VOLUME_BEHAVIOR =
             "volume_button_setting";
-    static final String KEY_DEFAULT_RINGTONE =
-            "default_ringtone";
     static final String KEY_AUTO_SILENCE =
             "auto_silence";
-
+    static final String KEY_CLOCK_STYLE =
+            "clock_style";
+    static final String KEY_HOME_TZ =
+            "home_time_zone";
+    static final String KEY_AUTO_HOME_CLOCK =
+            "automatic_home_clock";
+    static final String KEY_VOLUME_BUTTONS =
+            "volume_button_setting";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
 
-        final AlarmPreference ringtone =
+    /*    final AlarmPreference ringtone =
                 (AlarmPreference) findPreference(KEY_DEFAULT_RINGTONE);
         Uri alert = RingtoneManager.getActualDefaultRingtoneUri(this,
                 RingtoneManager.TYPE_ALARM);
         if (alert != null) {
             ringtone.setAlert(alert);
         }
-        ringtone.setChangeDefault();
+        ringtone.setChangeDefault();*/
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         refresh();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_help:
+                startActivity(new Intent(this, HelpActivity.class));
+                return true;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu (Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -95,15 +118,28 @@ public class SettingsActivity extends PreferenceActivity
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
+    @Override
     public boolean onPreferenceChange(Preference pref, Object newValue) {
-        if (KEY_ALARM_SNOOZE.equals(pref.getKey())) {
-            final ListPreference listPref = (ListPreference) pref;
-            final int idx = listPref.findIndexOfValue((String) newValue);
-            listPref.setSummary(listPref.getEntries()[idx]);
-        } else if (KEY_AUTO_SILENCE.equals(pref.getKey())) {
+        if (KEY_AUTO_SILENCE.equals(pref.getKey())) {
             final ListPreference listPref = (ListPreference) pref;
             String delay = (String) newValue;
             updateAutoSnoozeSummary(listPref, delay);
+        } else if (KEY_CLOCK_STYLE.equals(pref.getKey())) {
+            final ListPreference listPref = (ListPreference) pref;
+            final int idx = listPref.findIndexOfValue((String) newValue);
+            listPref.setSummary(listPref.getEntries()[idx]);
+        } else if (KEY_HOME_TZ.equals(pref.getKey())) {
+            final ListPreference listPref = (ListPreference) pref;
+            final int idx = listPref.findIndexOfValue((String) newValue);
+            listPref.setSummary(listPref.getEntries()[idx]);
+        } else if (KEY_AUTO_HOME_CLOCK.equals(pref.getKey())) {
+            boolean state =((CheckBoxPreference) pref).isChecked();
+            Preference homeTimeZone = findPreference(KEY_HOME_TZ);
+            homeTimeZone.setEnabled(!state);
+        } else if (KEY_VOLUME_BUTTONS.equals(pref.getKey())) {
+            final ListPreference listPref = (ListPreference) pref;
+            final int idx = listPref.findIndexOfValue((String) newValue);
+            listPref.setSummary(listPref.getEntries()[idx]);
         }
         return true;
     }
@@ -118,24 +154,34 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-
     private void refresh() {
-        final CheckBoxPreference alarmInSilentModePref =
-                (CheckBoxPreference) findPreference(KEY_ALARM_IN_SILENT_MODE);
-        final int silentModeStreams =
-                Settings.System.getInt(getContentResolver(),
-                        Settings.System.MODE_RINGER_STREAMS_AFFECTED, 0);
-        alarmInSilentModePref.setChecked(
-                (silentModeStreams & ALARM_STREAM_TYPE_BIT) == 0);
-
-        ListPreference listPref =
-                (ListPreference) findPreference(KEY_ALARM_SNOOZE);
-        listPref.setSummary(listPref.getEntry());
-        listPref.setOnPreferenceChangeListener(this);
-
-        listPref = (ListPreference) findPreference(KEY_AUTO_SILENCE);
+        ListPreference listPref = (ListPreference) findPreference(KEY_AUTO_SILENCE);
         String delay = listPref.getValue();
         updateAutoSnoozeSummary(listPref, delay);
         listPref.setOnPreferenceChangeListener(this);
+
+        listPref = (ListPreference) findPreference(KEY_CLOCK_STYLE);
+        listPref.setSummary(listPref.getEntry());
+        listPref.setOnPreferenceChangeListener(this);
+
+        listPref = (ListPreference) findPreference(KEY_HOME_TZ);
+        listPref.setSummary(listPref.getEntry());
+        listPref.setOnPreferenceChangeListener(this);
+
+        Preference pref = findPreference(KEY_AUTO_HOME_CLOCK);
+        boolean state =((CheckBoxPreference) pref).isChecked();
+        pref.setOnPreferenceChangeListener(this);
+
+        listPref = (ListPreference)findPreference(KEY_HOME_TZ);
+        listPref.setEnabled(state);
+        listPref.setSummary(listPref.getEntry());
+
+        listPref = (ListPreference) findPreference(KEY_VOLUME_BUTTONS);
+        listPref.setSummary(listPref.getEntry());
+        listPref.setOnPreferenceChangeListener(this);
+
+        SnoozeLengthDialog snoozePref = (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
+        snoozePref.setSummary();
     }
+
 }

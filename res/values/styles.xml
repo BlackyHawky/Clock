@@ -20,6 +20,11 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
+    
+    <style name="DeskClock" parent="android:Theme.Holo">
+        <item name="android:windowActionBarOverlay">true</item>
+    </style>
+    
 
     <style name="AlarmClockTheme" parent="android:Theme.Holo.DialogWhenLarge"/>
     <style name="SetAlarmTheme" parent="android:Theme.Holo.DialogWhenLarge"/>
@@ -66,5 +71,52 @@
     <style name="alarm_list_left_column">
         <item name="android:layout_width">68dip</item>
         <item name="android:layout_height">68dip</item>
+    </style>
+    
+    <style name="small_bold">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="small_light">
+        <item name="android:textSize">48sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="label">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="header">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="big_bold">
+        <item name="android:textSize">120sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="big_thin">
+        <item name="android:textSize">120sp</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="body">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="body_bold">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 </resources>

@@ -23,7 +23,7 @@
 
         <activity android:name="DeskClock"
                 android:label="@string/app_label"
-                android:theme="@android:style/Theme.Holo"
+                android:theme="@style/DeskClock"
                 android:icon="@mipmap/ic_launcher_alarmclock"
                 android:launchMode="singleInstance"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation">
