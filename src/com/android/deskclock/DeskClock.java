@@ -35,6 +35,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.Settings;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -66,6 +67,7 @@ public class DeskClock extends Activity {
 
     // Alarm action for midnight (so we can update the date display).
     private static final String KEY_SELECTED_TAB = "selected_tab";
+    private static final String KEY_CLOCK_STATE = "clock_state";
 
     private ActionBar mActionBar;
     private Tab mTimerTab;
@@ -80,6 +82,68 @@ public class DeskClock extends Activity {
     private static final int STOPWATCH_TAB_INDEX = 2;
 
     private int mSselectedTab;
+    private final boolean mDimmed = false;
+
+    private int mClockState = CLOCK_NORMAL;
+    private static final int CLOCK_NORMAL = 0;
+    private static final int CLOCK_LIGHTS_OUT = 1;
+    private static final int CLOCK_DIMMED = 2;
+
+
+
+    // Delay before hiding the action bar and buttons
+    private static final long LIGHTSOUT_TIMEOUT = 10 * 1000; // 10 seconds
+    // Delay before dimming the screen
+    private static final long DIM_TIMEOUT = 10 * 1000; // 10 seconds
+
+    // Opacity of black layer between clock display and wallpaper.
+    private final float DIM_BEHIND_AMOUNT_NORMAL = 0.4f;
+    private final float DIM_BEHIND_AMOUNT_DIMMED = 0.8f; // higher contrast when display dimmed
+
+    private final int SCREEN_SAVER_TIMEOUT_MSG   = 0x2000;
+    private final int SCREEN_SAVER_MOVE_MSG      = 0x2001;
+    private final int DIM_TIMEOUT_MSG            = 0x2002;
+    private final int LIGHTSOUT_TIMEOUT_MSG      = 0x2003;
+    private final int BACK_TO_NORMAL_MSG         = 0x2004;
+
+
+
+    private final Handler mHandy = new Handler() {
+        @Override
+        public void handleMessage(Message m) {
+            if (m.what == LIGHTSOUT_TIMEOUT_MSG) {
+                doLightsOut(true);
+                mClockState = CLOCK_LIGHTS_OUT;
+                // Only dim if clock fragment is visible
+                if (mViewPager.getCurrentItem() ==  CLOCK_TAB_INDEX) {
+                    scheduleDim();
+                }
+            }  else if (m.what == DIM_TIMEOUT_MSG) {
+                mClockState = CLOCK_DIMMED;
+                doDim(true);
+            } else if (m.what == BACK_TO_NORMAL_MSG){
+                // ignore user interaction and do not go back to normal if a button was clicked
+                DeskClockFragment f =
+                        (DeskClockFragment) mTabsAdapter.getFragment(mViewPager.getCurrentItem());
+                if (f != null && f.isButtonClicked()) {
+                    return;
+                }
+
+                int oldState = mClockState;
+                mClockState = CLOCK_NORMAL;
+
+                switch (oldState) {
+                    case CLOCK_LIGHTS_OUT:
+                        doLightsOut(false);
+                        break;
+                    case CLOCK_DIMMED:
+                        doLightsOut(false);
+                        doDim(true);
+                        break;
+                }
+            }
+        }
+    };
 
     @Override
     public void onNewIntent(Intent newIntent) {
@@ -93,9 +157,6 @@ public class DeskClock extends Activity {
 
 
     private void initViews() {
-        // give up any internal focus before we switch layouts
-        final View focused = getCurrentFocus();
-        if (focused != null) focused.clearFocus();
 
         if (mTabsAdapter == null) {
             mViewPager = new ViewPager(this);
@@ -132,13 +193,36 @@ public class DeskClock extends Activity {
         mSselectedTab = CLOCK_TAB_INDEX;
         if (icicle != null) {
             mSselectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
+            mClockState = icicle.getInt(KEY_CLOCK_STATE, CLOCK_NORMAL);
         }
         initViews();
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setClockState(false);
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putInt(KEY_SELECTED_TAB, mActionBar.getSelectedNavigationIndex());
+        outState.putInt(KEY_CLOCK_STATE, mClockState);
+    }
+
+    private void setClockState(boolean fade) {
+        doDim(fade);
+        switch(mClockState) {
+            case CLOCK_NORMAL:
+                doLightsOut(false);
+                break;
+            case CLOCK_LIGHTS_OUT:
+            case CLOCK_DIMMED:
+                doLightsOut(true);
+                break;
+            default:
+                break;
+        }
     }
 
     public void clockButtonsOnClick(View v) {
@@ -181,16 +265,68 @@ public class DeskClock extends Activity {
         menu.show();
     }
 
+    private void scheduleLightsOut() {
+        mHandy.removeMessages(LIGHTSOUT_TIMEOUT_MSG);
+        mHandy.sendMessageDelayed(Message.obtain(mHandy, LIGHTSOUT_TIMEOUT_MSG), LIGHTSOUT_TIMEOUT);
+    }
+
+    public void doLightsOut(boolean state) {
+
+        if (state) {
+            mViewPager.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
+            mActionBar.hide();
+        } else {
+            mViewPager.setSystemUiVisibility(View.STATUS_BAR_VISIBLE);
+            mActionBar.show();
+        }
+
+        // in clock view show/hide the buttons at the bottom
+        if (mViewPager.getCurrentItem() ==  CLOCK_TAB_INDEX) {
+            Fragment f = mTabsAdapter.getFragment(CLOCK_TAB_INDEX);
+            if (f != null) {
+                ((ClockFragment)f).showButtons(!state);
+            }
+        }
+        if (!state) {
+            // Make sure dim will not start before lights out
+            mHandy.removeMessages(DIM_TIMEOUT_MSG);
+            scheduleLightsOut();
+        }
+    }
+
+    private void doDim(boolean fade) {
+        if (mClockState == CLOCK_DIMMED) {
+            mViewPager.startAnimation(
+                    AnimationUtils.loadAnimation(this, fade ? R.anim.dim : R.anim.dim_instant));
+        } else {
+            mViewPager.startAnimation(
+                    AnimationUtils.loadAnimation(this, fade ? R.anim.undim : R.anim.undim_instant));
+        }
+    }
+
+    private void scheduleDim() {
+        mHandy.removeMessages(DIM_TIMEOUT_MSG);
+        mHandy.sendMessageDelayed(Message.obtain(mHandy, DIM_TIMEOUT_MSG), DIM_TIMEOUT);
+    }
+
+    @Override
+    public void onUserInteraction() {
+        super.onUserInteraction();
+        mHandy.removeMessages(BACK_TO_NORMAL_MSG);
+        mHandy.sendMessage(Message.obtain(mHandy, BACK_TO_NORMAL_MSG));
+        Log.v("deskclock","---------------------------- on user interaction");
+    }
+
     /***
      * Adapter for wrapping together the ActionBar's tab with the ViewPager
      */
 
-    public static class TabsAdapter extends FragmentPagerAdapter
+    private class TabsAdapter extends FragmentPagerAdapter
             implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
         private static final String KEY_TAB_POSITION = "tab_position";
 
-        static final class TabInfo {
+        final class TabInfo {
             private final Class<?> clss;
             private final Bundle args;
 
@@ -206,14 +342,15 @@ public class DeskClock extends Activity {
         }
 
         private final ArrayList<TabInfo> mTabs = new ArrayList <TabInfo>();
-        ActionBar mActionBar;
-        Context mContext;;
+        private final Fragment [] mFragments = new Fragment[3];
+        ActionBar mMainActionBar;
+        Context mContext;
         ViewPager mPager;
 
         public TabsAdapter(Activity activity, ViewPager pager) {
             super(activity.getFragmentManager());
             mContext = activity;
-            mActionBar = activity.getActionBar();
+            mMainActionBar = activity.getActionBar();
             mPager = pager;
             mPager.setAdapter(this);
             mPager.setOnPageChangeListener(this);
@@ -222,8 +359,15 @@ public class DeskClock extends Activity {
         @Override
         public Fragment getItem(int position) {
             TabInfo info = mTabs.get(position);
-            Log.d("DeskClock","---------------------------- getting fragment for postiion " + position);
-            return Fragment.instantiate(mContext, info.clss.getName(), info.args);
+            DeskClockFragment f = (DeskClockFragment) Fragment.instantiate(
+                    mContext, info.clss.getName(), info.args);
+            f.setContext(mContext);
+            mFragments [position] = f;
+            return f;
+        }
+
+        public Fragment getFragment(int position) {
+            return mFragments [position];
         }
 
         @Override
@@ -236,7 +380,7 @@ public class DeskClock extends Activity {
             tab.setTag(info);
             tab.setTabListener(this);
             mTabs.add(info);
-            mActionBar.addTab(tab);
+            mMainActionBar.addTab(tab);
             notifyDataSetChanged();
         }
 
@@ -247,7 +391,8 @@ public class DeskClock extends Activity {
 
         @Override
         public void onPageSelected(int position) {
-            mActionBar.setSelectedNavigationItem(position);
+            mMainActionBar.setSelectedNavigationItem(position);
+            onUserInteraction();
         }
 
         @Override
@@ -264,6 +409,7 @@ public class DeskClock extends Activity {
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
             TabInfo info = (TabInfo)tab.getTag();
             mPager.setCurrentItem(info.getPosition());
+            onUserInteraction();
         }
 
         @Override

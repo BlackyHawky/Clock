@@ -32,7 +32,7 @@ public class CircleTimerView extends View {
     private boolean mPaused = false;
     private boolean mBlink = false;
     private String mTimeStr;
-    private static float mTextSize = 48;
+    private static float mTextSize = 64;
     private static float mStrokeSize = 20;
     private final Rect mTextBounds = new Rect();
     private final Paint mPaint = new Paint();
@@ -141,6 +141,10 @@ public class CircleTimerView extends View {
         mTimerMode = mode;
     }
 
+    public String getTimeString() {
+        return mTimeStr;
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
 
@@ -153,7 +157,7 @@ public class CircleTimerView extends View {
             canvas.drawText(mTimeStr, xCenter, yCenter + textHeight / 2  + 1, mTextPaint);
         }
 
-        float radius = Math.min(xCenter, yCenter) - mStrokeSize;
+  /*      float radius = Math.min(xCenter, yCenter) - mStrokeSize;
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             xCenter = (int) (radius + mStrokeSize);
@@ -191,7 +195,7 @@ public class CircleTimerView extends View {
                 canvas.drawArc (mArcRect, 265 + percent * 360, 10 , false, mPaint);
             }
             mPaint.setStrokeWidth(mStrokeSize);
-        }
+        }*/
     }
 
     @Override
@@ -280,4 +284,5 @@ public class CircleTimerView extends View {
                     }
         };
     }
+
 }

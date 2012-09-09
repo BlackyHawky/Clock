@@ -14,7 +14,10 @@
      limitations under the License.
 -->
 
-<android.support.v4.view.ViewPager  xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/desk_clock_pager" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_item_help"
+        android:title="@string/menu_item_help"
+        android:icon="@android:drawable/ic_menu_preferences"/>
+</menu>
+
+

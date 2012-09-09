@@ -14,111 +14,87 @@
      limitations under the License.
 -->
 
-<!-- This is the alarm clock in desk dock mode. It shows the time in large
-     type, plus information about active alarms and charge status.  It can
-     also show some additional status information (e.g. weather data).
-     Buttons are provided to access alarms, music, and other useful functions.
-     -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-    <FrameLayout
+    android:layout_height="match_parent" >
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/window_touch"
+        android:layout_height="match_parent"
+        android:background="#00000000"
+        android:visibility="visible"
+        android:clickable="false"
+        />
+
+    <!-- the top padding accounts for the status bar area -->
+    
+    <LinearLayout
+        android:id="@+id/desk_clock"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         >
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#00000000"
-            android:visibility="visible"
-            android:clickable="false"
-            />
-
-        <!-- the top padding accounts for the status bar area -->
+        <!-- nightmode button, the time, the date, and the next alarm -->
         <LinearLayout
-            android:id="@+id/desk_clock"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="25dip"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/time_margin_left"
             >
-
-            <!-- nightmode button, the time, the date, and the next alarm -->
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
+            <TextView android:id="@+id/nextAlarm"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical|right"
-                >
-                <include layout="@layout/desk_clock_time_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/time_margin_top"
-                    android:layout_marginBottom="@dimen/time_margin_bottom"
-                    android:gravity="right"
-                    />
-                <TextView android:id="@+id/nextAlarm"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/time_margin_right"
-                    android:padding="@dimen/font_margin_adjust"
-                    android:gravity="right"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="@dimen/next_alarm_text_size"
-                    android:layout_marginTop="@dimen/next_alarm_margin_top"
-                    android:drawablePadding="4dip"
-                    android:drawableLeft="@drawable/ic_lock_idle_alarm"
-                    android:textColor="@color/white"
-                    android:background="?android:attr/listChoiceBackgroundIndicator"
-                    />
-            </LinearLayout>
-
-            <include layout="@layout/desk_clock_battery"
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:layout_weight="0"
-                android:layout_marginLeft="4dip"
+                android:padding="@dimen/font_margin_adjust"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="@dimen/next_alarm_text_size"
+                android:layout_marginTop="@dimen/next_alarm_margin_top"
+                android:drawablePadding="4dip"
+                android:drawableLeft="@drawable/ic_lock_idle_alarm"
+                android:textColor="@color/white"
+                android:background="?android:attr/listChoiceBackgroundIndicator"
                 />
+            <include layout="@layout/desk_clock_time_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/time_margin_top"
+                android:layout_marginBottom="@dimen/time_margin_bottom"
+                />
+            <ListView
+                android:id="@+id/cities"
+                android:layout_width="match_parent"
+                android:layout_height="1dip" />
         </LinearLayout>
 
-        <View android:id="@+id/window_tint"
+        <LinearLayout
+            android:id="@+id/clock_buttons"
+            android:gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#CC000000"
-            android:visibility="visible"
-            android:clickable="false"
-            />
-    </FrameLayout>
-
-    <LinearLayout
-        android:gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <Button
-            android:id="@+id/alarms_button"
-            android:text="@string/button_alarms"
-            android:onClick="clockButtonsOnClick"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/cities_button"
-            android:text="@string/button_cities"
-            android:onClick="clockButtonsOnClick"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/menu_button"
-            android:text="@string/button_menu"
-            android:onClick="clockButtonsOnClick"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" >
+            <Button
+                android:id="@+id/alarms_button"
+                android:text="@string/button_alarms"
+                android:onClick="clockButtonsOnClick"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/cities_button"
+                android:text="@string/button_cities"
+                android:onClick="clockButtonsOnClick"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+            <ImageButton
+                android:id="@+id/menu_button"
+                android:contentDescription="@string/button_menu"
+                android:src="@android:drawable/ic_menu_preferences"
+                android:text="@string/button_menu"
+                android:onClick="clockButtonsOnClick"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

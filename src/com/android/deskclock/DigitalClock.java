@@ -26,7 +26,8 @@ import android.provider.Settings;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -34,13 +35,14 @@ import java.util.Calendar;
 /**
  * Displays the time
  */
-public class DigitalClock extends RelativeLayout {
+public class DigitalClock extends LinearLayout {
 
-    private final static String M12 = "h:mm";
+    private final static String HOURS = "hh";
+    private final static String MINUTES = "mm";
 
     private Calendar mCalendar;
     private String mFormat;
-    private AndroidClockTextView mTimeDisplay;
+    private TextView mTimeDisplayHours, mTimeDisplayMinutes;
     private AmPm mAmPm;
     private ContentObserver mFormatChangeObserver;
     private boolean mLive = true;
@@ -65,11 +67,11 @@ public class DigitalClock extends RelativeLayout {
         };
 
     static class AmPm {
-        private AndroidClockTextView mAmPm;
-        private String mAmString, mPmString;
+        private final TextView mAmPm;
+        private final String mAmString, mPmString;
 
         AmPm(View parent) {
-            mAmPm = (AndroidClockTextView) parent.findViewById(R.id.am_pm);
+            mAmPm = (TextView) parent.findViewById(R.id.am_pm);
 
             String[] ampm = new DateFormatSymbols().getAmPmStrings();
             mAmString = ampm[0];
@@ -108,7 +110,8 @@ public class DigitalClock extends RelativeLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mTimeDisplay = (AndroidClockTextView) findViewById(R.id.timeDisplay);
+        mTimeDisplayHours = (TextView)findViewById(R.id.timeDisplayHours);
+        mTimeDisplayMinutes = (TextView)findViewById(R.id.timeDisplayMinutes);
         mAmPm = new AmPm(this);
         mCalendar = Calendar.getInstance();
 
@@ -166,14 +169,16 @@ public class DigitalClock extends RelativeLayout {
             mCalendar.setTimeInMillis(System.currentTimeMillis());
         }
 
-        CharSequence newTime = DateFormat.format(mFormat, mCalendar);
-        mTimeDisplay.setText(newTime);
+        CharSequence newTime = DateFormat.format(HOURS, mCalendar);
+        mTimeDisplayHours.setText(newTime);
+        newTime = DateFormat.format(MINUTES, mCalendar);
+        mTimeDisplayMinutes.setText(newTime);
         mAmPm.setIsMorning(mCalendar.get(Calendar.AM_PM) == 0);
     }
 
     private void setDateFormat() {
-        mFormat = Alarms.get24HourMode(getContext()) ? Alarms.M24 : M12;
-        mAmPm.setShowAmPm(mFormat == M12);
+//        mFormat = Alarms.get24HourMode(getContext()) ? Alarms.M24 : M12;
+        mAmPm.setShowAmPm(Alarms.get24HourMode(getContext()));
     }
 
     void setLive(boolean live) {
