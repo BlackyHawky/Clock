@@ -124,7 +124,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"目前無法取得天氣資訊。"</string>
     <string name="menu_item_dock_settings" msgid="3524235151132971114">"座架設定"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"在「時鐘」設定的鬧鐘鈴聲播放服務。"</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"正在載入鈴聲..."</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"正在載入鈴聲…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"設定鬧鐘"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"鬧鐘已設定為：<xliff:g id="TIME">%s</xliff:g>"</string>
 </resources>
