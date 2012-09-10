@@ -12,6 +12,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.android.deskclock.CircleTimerView.SavedState;
 
@@ -32,8 +33,8 @@ public class CircleTimerView extends View {
     private boolean mPaused = false;
     private boolean mBlink = false;
     private String mTimeStr;
-    private static float mTextSize = 64;
-    private static float mStrokeSize = 20;
+    private static float mTextSize = 96;
+    private static float mStrokeSize = 4;
     private final Rect mTextBounds = new Rect();
     private final Paint mPaint = new Paint();
     private final Paint mTextPaint = new Paint();
@@ -146,18 +147,17 @@ public class CircleTimerView extends View {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
-
+    public void onDraw(Canvas canvas) {    	
         int xCenter = getWidth() / 2;
         int yCenter = getHeight() / 2;
 
-        if (mTimeStr != null && !mTimeStr.isEmpty() && mShowTimeStr) {
+ /*       if (mTimeStr != null && !mTimeStr.isEmpty() && mShowTimeStr) {
             mTextPaint.getTextBounds(mTimeStr, 0, mTimeStr.length(), mTextBounds);
             int textHeight = mTextBounds.bottom - mTextBounds.top;
             canvas.drawText(mTimeStr, xCenter, yCenter + textHeight / 2  + 1, mTextPaint);
         }
-
-  /*      float radius = Math.min(xCenter, yCenter) - mStrokeSize;
+*/
+        float radius = Math.min(xCenter, yCenter) - mStrokeSize;
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             xCenter = (int) (radius + mStrokeSize);
@@ -172,9 +172,9 @@ public class CircleTimerView extends View {
             mArcRect.left =  xCenter - radius;
             mArcRect.right = xCenter + radius;
             float percent = (float)mCurrentIntervalTime / (float)mIntervalTime;
-            if (mTimerMode) {
+    //        if (mTimerMode) {
                 mPaint.setColor(mAlertColor);
-            } else {
+      /*      } else {
                 if (percent > 1) {
                     mPaint.setColor(mAlertColor);
                 } else if (percent > 0.80) {
@@ -182,7 +182,7 @@ public class CircleTimerView extends View {
                 } else {
                     mPaint.setColor(mGoodColor);
                 }
-            }
+            }*/
             if (mTimerMode){
                 canvas.drawArc (mArcRect, 270, - percent * 360 , false, mPaint);
             } else {
@@ -195,7 +195,7 @@ public class CircleTimerView extends View {
                 canvas.drawArc (mArcRect, 265 + percent * 360, 10 , false, mPaint);
             }
             mPaint.setStrokeWidth(mStrokeSize);
-        }*/
+        }
     }
 
     @Override

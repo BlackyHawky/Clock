@@ -32,6 +32,7 @@ public class StopwatchFragment extends DeskClockFragment {
     // Stopwatch views that are accessed by the activity
     Button mLeftButton, mRightButton;
     CircleTimerView mTime;
+    TimerView mTimeText;
     View mLapsTitle;
     ListView mLapsList;
     Button mShareButton;
@@ -184,7 +185,7 @@ public class StopwatchFragment extends DeskClockFragment {
                         mLapsAdapter.clearLaps();
                         showLaps();
                         mTime.stopIntervalAnimation();
-                        mTime.setTimeString(getTimeText(mAccumulatedTime));
+                        mTimeText.setTime(mAccumulatedTime);
                         mTime.blinkTimeStr(false);
                         setButtons(STOPWATCH_RESET);
                         mState = STOPWATCH_RESET;
@@ -253,8 +254,10 @@ public class StopwatchFragment extends DeskClockFragment {
         });
 
         mTime = (CircleTimerView)v.findViewById(R.id.stopwatch_time);
+        mTimeText = (TimerView)v.findViewById(R.id.stopwatch_time_text);        
         mLapsTitle = v.findViewById(R.id.laps_title);
         mLapsList = (ListView)v.findViewById(R.id.laps_list);
+        mLapsList.setDividerHeight(0);
         mLapsAdapter = new LapsListAdapter(getActivity());
         if (mLapsList != null) {
             mLapsList.setAdapter(mLapsAdapter);
@@ -273,7 +276,7 @@ public class StopwatchFragment extends DeskClockFragment {
     public void onResume() {
         Log.e("----------------------- state in on resume is " + mState);
         setButtons(mState);
-        mTime.setTimeString(getTimeText(mAccumulatedTime));
+        mTimeText.setTime(mAccumulatedTime);
         if (mState == STOPWATCH_RUNNING) {
             startUpdateThread();
         }
@@ -371,8 +374,20 @@ public class StopwatchFragment extends DeskClockFragment {
             hours = 0;
         }
         // TODO: must build to account for localization
-        String timeStr =
-                String.format("%02dh %02dm %02ds .%02d", hours, minutes, seconds, hundreds);
+    	String timeStr;
+		if (hours >= 10) {
+			timeStr = String.format("%02dh %02dm %02ds .%02d", hours, minutes,
+					seconds, hundreds);
+		} else if (hours > 0) {
+			timeStr = String.format("%01dh %02dm %02ds .%02d", hours, minutes,
+					seconds, hundreds);
+		} else if (minutes >= 10) {
+			timeStr = String.format("%02dm %02ds .%02d", minutes, seconds,
+					hundreds);
+		} else {
+			timeStr = String.format("%02dm %02ds .%02d", minutes, seconds,
+					hundreds);
+		}
         return timeStr;
     }
 
@@ -432,8 +447,7 @@ public class StopwatchFragment extends DeskClockFragment {
             long curTime = System.currentTimeMillis()/10;
             long totalTime = mAccumulatedTime + (curTime - mStartTime);
             if (mTime != null) {
-                mTime.setTimeString(
-                        getTimeText(totalTime));
+            	mTimeText.setTime(totalTime);
             }
             if (mLapsAdapter.getCount() > 0) {
                 updateCurrentLap(curTime, totalTime);

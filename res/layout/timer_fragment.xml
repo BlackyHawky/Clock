@@ -16,47 +16,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <FrameLayout
+    android:orientation="vertical"
+    android:paddingTop="72dip">
+    
+    <ListView
+        android:id="@+id/timers_list"
         android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="2" >
-        <com.android.deskclock.CircleTimerView
-            android:id="@+id/timer_time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <TextView
-            android:id="@+id/times_up"
-            android:text="@string/timer_times_up"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:textSize="36dip"
-            android:visibility="invisible"
-            android:layout_height="match_parent"/>
-    </FrameLayout>
+        android:layout_weight="1" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:layout_weight="1"
+	<LinearLayout
+        android:id="@+id/new_timer_page"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <Button
-            android:id="@+id/timer_add_button"
-            android:onClick="timerOnClick"
-            android:text="@string/timer_add_one_button"
-            android:layout_margin="16dip"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        </LinearLayout>
-        <Button
-            android:id="@+id/timer_dismiss_button"
-            android:onClick="timerOnClick"
-            android:layout_margin="16dip"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:text="@string/timer_dismiss_button"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_weight="1" 
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/timer_add_timer"/>       
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#28ffffff" />
+
+     <Button
+          android:id="@+id/timer_add_timer"
+          android:text="@string/timer_add_timer"
+          android:layout_width="match_parent"
+          style="@style/button"
+          android:background="?android:attr/selectableItemBackground"
+          android:layout_height="wrap_content" />
 </LinearLayout>
+	

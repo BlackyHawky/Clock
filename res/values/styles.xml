@@ -104,7 +104,7 @@
 
     <style name="big_thin">
         <item name="android:textSize">120sp</item>
-        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="body">
@@ -117,6 +117,12 @@
         <item name="android:textSize">16sp</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="button">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 </resources>

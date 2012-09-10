@@ -264,7 +264,7 @@ public class DeskClock extends Activity {
         menu.inflate(R.menu.desk_clock_menu);
         menu.show();
     }
-
+    
     private void scheduleLightsOut() {
         mHandy.removeMessages(LIGHTSOUT_TIMEOUT_MSG);
         mHandy.sendMessageDelayed(Message.obtain(mHandy, LIGHTSOUT_TIMEOUT_MSG), LIGHTSOUT_TIMEOUT);

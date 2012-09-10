@@ -306,6 +306,14 @@
     <string name="sw_lap_time">Lap Time</string>
     <string name="sw_lap_total">Total</string>
     <string name="sw_current_lap_number"><xliff:g id="number">%d</xliff:g></string>
+
+    <string name="hours_label">h</string>
+    <string name="minutes_label">m</string>
+    <string name="seconds_label">s</string>
+    
+    <string name="zero">00</string>
+    
+        
     
     <!--  Stopwatch share strings -->
     <string name="sw_share_title">Sharing my times:</string>
@@ -316,6 +324,7 @@
     <string name="timer_add_one_button">Add 1 minute</string>
     <string name="timer_dismiss_button">Cancel</string>
     <string name="timer_times_up">Time\'s up.</string>
+    <string name="timer_add_timer">Add Timer</string>
     
     <!-- Settings strings -->
     <string name="clock_settings">CLOCK</string>
