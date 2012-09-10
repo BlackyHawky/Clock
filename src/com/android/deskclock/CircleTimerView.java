@@ -40,7 +40,6 @@ public class CircleTimerView extends View {
     private final Paint mTextPaint = new Paint();
     private final RectF mArcRect = new RectF();
 
-    private boolean mShowTimeStr = true;
     // Class has 2 modes:
     // Timer mode - counting down. in this mode the animation is counter-clockwise and stops at 0
     // Stop watch mode - counting up - in this mode the animation is clockwise and will keep the
@@ -58,18 +57,6 @@ public class CircleTimerView extends View {
         }
 
     };
-
-    Runnable mBlinkThread = new Runnable() {
-
-        @Override
-        public void run() {
-            mShowTimeStr = !mShowTimeStr;
-            invalidate();
-            postDelayed(mBlinkThread, 1000);
-        }
-
-    };
-
 
     public CircleTimerView(Context context) {
         super(context);
@@ -106,16 +93,6 @@ public class CircleTimerView extends View {
         mPaused = true;
     }
 
-    public void blinkTimeStr(boolean blink) {
-        mBlink = blink;
-        if (blink) {
-            postDelayed(mBlinkThread, 1000);
-        } else {
-            removeCallbacks(mBlinkThread);
-            mShowTimeStr = true;
-            invalidate();
-        }
-    }
 
     public CircleTimerView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -147,7 +124,7 @@ public class CircleTimerView extends View {
     }
 
     @Override
-    public void onDraw(Canvas canvas) {    	
+    public void onDraw(Canvas canvas) {
         int xCenter = getWidth() / 2;
         int yCenter = getHeight() / 2;
 
@@ -211,7 +188,6 @@ public class CircleTimerView extends View {
       ss.mBlink = this.mBlink;
       ss.mTimerMode = this.mTimerMode;
 
-      removeCallbacks(mBlinkThread);
       removeCallbacks(mAnimationThread);
       return ss;
     }
@@ -236,7 +212,6 @@ public class CircleTimerView extends View {
           this.post(mAnimationThread);
       }
       this.mBlink = ss.mBlink;
-      blinkTimeStr(mBlink);
     }
 
     static class SavedState extends BaseSavedState {

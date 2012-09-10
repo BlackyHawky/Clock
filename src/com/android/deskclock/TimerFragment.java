@@ -35,7 +35,8 @@ public class TimerFragment extends DeskClockFragment {
 	private int mTimersNum;
 	ListView mTimersList;
 	View mNewTimerPage;
-	
+	View mTimersListPage;
+
 	public TimerFragment() {
     }
 
@@ -46,6 +47,7 @@ public class TimerFragment extends DeskClockFragment {
         View v = inflater.inflate(R.layout.timer_fragment, container, false);
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
+        mTimersListPage = v.findViewById(R.id.timers_list_page);
         return v;
     }
 
@@ -66,12 +68,12 @@ public class TimerFragment extends DeskClockFragment {
     }
 
     public void setPage() {
-        if (mTimersNum == 0) {
-        	mTimersList.setVisibility(View.GONE);
+        if (mTimersNum != 0) {
+            mTimersListPage.setVisibility(View.GONE);
         	mNewTimerPage.setVisibility(View.VISIBLE);
         } else {
         	mTimersList.setVisibility(View.VISIBLE);
-        	mNewTimerPage.setVisibility(View.GONE);
+        	mTimersListPage.setVisibility(View.GONE);
         }
     }
 }

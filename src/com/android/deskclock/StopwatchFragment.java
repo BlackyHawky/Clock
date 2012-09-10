@@ -36,6 +36,7 @@ public class StopwatchFragment extends DeskClockFragment {
     View mLapsTitle;
     ListView mLapsList;
     Button mShareButton;
+    View mButtonSeperator;
 
     // Used for calculating the time from the start taking into account the pause times
     long mStartTime = 0;
@@ -186,7 +187,7 @@ public class StopwatchFragment extends DeskClockFragment {
                         showLaps();
                         mTime.stopIntervalAnimation();
                         mTimeText.setTime(mAccumulatedTime);
-                        mTime.blinkTimeStr(false);
+                        mTimeText.blinkTimeStr(false);
                         setButtons(STOPWATCH_RESET);
                         mState = STOPWATCH_RESET;
                         break;
@@ -213,7 +214,7 @@ public class StopwatchFragment extends DeskClockFragment {
                         long curTime = System.currentTimeMillis()/10;
                         mAccumulatedTime += (curTime - mStartTime);
                         mTime.setTimeString(getTimeText(mAccumulatedTime));
-                        mTime.blinkTimeStr(true);
+                        mTimeText.blinkTimeStr(true);
                         updateCurrentLap(curTime, mAccumulatedTime);
                         setButtons(STOPWATCH_STOPPED);
                         mState = STOPWATCH_STOPPED;
@@ -223,7 +224,7 @@ public class StopwatchFragment extends DeskClockFragment {
                         // do start
                         mStartTime = System.currentTimeMillis()/10;
                         startUpdateThread();
-                        mTime.blinkTimeStr(false);
+                        mTimeText.blinkTimeStr(false);
                         if (mTime.isAnimating()) {
                             mTime.startIntervalAnimation();
                         }
@@ -238,6 +239,7 @@ public class StopwatchFragment extends DeskClockFragment {
             }
         });
         mShareButton = (Button)v.findViewById(R.id.stopwatch_share_button);
+        mButtonSeperator = v.findViewById(R.id.stopwatch_button_seperator);
 
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,7 +256,7 @@ public class StopwatchFragment extends DeskClockFragment {
         });
 
         mTime = (CircleTimerView)v.findViewById(R.id.stopwatch_time);
-        mTimeText = (TimerView)v.findViewById(R.id.stopwatch_time_text);        
+        mTimeText = (TimerView)v.findViewById(R.id.stopwatch_time_text);
         mLapsTitle = v.findViewById(R.id.laps_title);
         mLapsList = (ListView)v.findViewById(R.id.laps_list);
         mLapsList.setDividerHeight(0);
@@ -309,7 +311,8 @@ public class StopwatchFragment extends DeskClockFragment {
 
     private void showShareButton(boolean show) {
         if (mShareButton != null) {
-            mShareButton.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+            mShareButton.setVisibility(show ? View.VISIBLE : View.GONE);
+            mButtonSeperator.setVisibility(show ? View.VISIBLE : View.GONE);
             mShareButton.setEnabled(show);
         }
     }

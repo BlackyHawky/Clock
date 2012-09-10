@@ -26,6 +26,18 @@ import android.widget.TextView;
 public class TimerView extends LinearLayout {
 	TextView mHours, mMinutes, mSeconds, mHunderdths;
 	TextView mHoursLabel, mMinutesLabel, mSecondsLabel;
+	boolean mShowTimeStr = true;
+
+    Runnable mBlinkThread = new Runnable() {
+        @Override
+        public void run() {
+            mShowTimeStr = !mShowTimeStr;
+            TimerView.this.setVisibility(mShowTimeStr ? View.VISIBLE : View.INVISIBLE);
+            postDelayed(mBlinkThread, 1000);
+        }
+
+    };
+
 
     public TimerView(Context context) {
         this(context, null);
@@ -38,16 +50,16 @@ public class TimerView extends LinearLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        
-        
-     
+
+
+
     	mHours = (TextView)findViewById(R.id.hours);
     	mMinutes = (TextView)findViewById(R.id.minutes);
     	mSeconds = (TextView)findViewById(R.id.seconds);
     	mHunderdths = (TextView)findViewById(R.id.hundreds_seconds);
     	mHoursLabel = (TextView)findViewById(R.id.hours_label);
     }
-    
+
     public void setTime(long time) {
         if (time < 0) {
             time = 0;
@@ -74,15 +86,26 @@ public class TimerView extends LinearLayout {
 		} else {
 			mHours.setVisibility(View.GONE);
 			mHoursLabel.setVisibility(View.GONE);
-		} 
-		
+		}
+
 		if (minutes >= 10) {
 			mMinutes.setText(String.format("%02d",minutes));
 		} else {
 			mMinutes.setText(String.format("%01d",minutes));
-		} 
-		
+		}
+
 		mSeconds.setText(String.format("%02d",seconds));
 		mHunderdths.setText(String.format("%02d",hundreds));
     }
+
+    public void blinkTimeStr(boolean blink) {
+        if (blink) {
+            postDelayed(mBlinkThread, 1000);
+        } else {
+            removeCallbacks(mBlinkThread);
+            mShowTimeStr = true;
+            this.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

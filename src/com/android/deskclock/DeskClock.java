@@ -174,13 +174,13 @@ public class DeskClock extends Activity {
         if (mActionBar != null) {
             mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
             mTimerTab = mActionBar.newTab();
-            mTimerTab.setText(getString(R.string.menu_timer));
+            mTimerTab.setIcon(R.drawable.ic_tab_timer);
             mTabsAdapter.addTab(mTimerTab, TimerFragment.class,TIMER_TAB_INDEX);
             mClockTab = mActionBar.newTab();
-            mClockTab.setText(getString(R.string.menu_clock));
+            mClockTab.setIcon(R.drawable.ic_tab_clock);
             mTabsAdapter.addTab(mClockTab, ClockFragment.class,CLOCK_TAB_INDEX);
             mStopwatchTab = mActionBar.newTab();
-            mStopwatchTab.setText(getString(R.string.menu_stopwatch));
+            mStopwatchTab.setIcon(R.drawable.ic_tab_stopwatch);
             mTabsAdapter.addTab(mStopwatchTab, StopwatchFragment.class,STOPWATCH_TAB_INDEX);
             mActionBar.setSelectedNavigationItem(selectedIndex);
         }
@@ -264,7 +264,7 @@ public class DeskClock extends Activity {
         menu.inflate(R.menu.desk_clock_menu);
         menu.show();
     }
-    
+
     private void scheduleLightsOut() {
         mHandy.removeMessages(LIGHTSOUT_TIMEOUT_MSG);
         mHandy.sendMessageDelayed(Message.obtain(mHandy, LIGHTSOUT_TIMEOUT_MSG), LIGHTSOUT_TIMEOUT);
