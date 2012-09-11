@@ -16,19 +16,20 @@
 
 <!-- timer item in the list of active timers -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
      <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="300dip">
         <com.android.deskclock.CircleTimerView
             android:id="@+id/timer_time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
         <com.android.deskclock.TimerView
-            android:id="@+id/stopwatch_time_text"
+            android:id="@+id/timer_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
@@ -36,8 +37,7 @@
                 android:id="@+id/hours"
                 android:singleLine="true"
                 android:ellipsize="none"
-                style="@style/big_bold"
-                android:text="@string/zero"
+                style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
 
             <TextView
@@ -53,8 +53,7 @@
                 android:id="@+id/minutes"
                 android:singleLine="true"
                 android:ellipsize="none"
-                android:text="@string/zero"
-                style="@style/big_thin"
+                style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
 
             <TextView
@@ -69,8 +68,7 @@
                 android:id="@+id/seconds"
                 android:singleLine="true"
                 android:ellipsize="none"
-                style="@style/big_thin"
-                android:text="@string/zero"
+                style="@style/medium_light"
                 android:textColor="@color/clock_white"/>
         
             <TextView
@@ -87,34 +85,39 @@
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/small_light"
-                android:text="@string/zero"
+                android:visibility="gone"
                 android:textColor="@color/clock_white"/>
             
         </com.android.deskclock.TimerView>
     </FrameLayout>
-   <LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
         <Button
             android:id="@+id/timer_delete"
+            android:tag="delete"
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/button"
-            android:background="@null"
+            android:background="?android:attr/selectableItemBackground"
+            android:text="@string/timer_delete"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/timer_plus_one"
-            android:background="@null"
+            android:tag="plus_one"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/button"
-            android:text="@string/sw_share_button"
+            android:text="@string/timer_plus_one"
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/timer_stop"
-            android:background="@null"
+            android:tag="stop"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:layout_width="0dip"
+            android:text="@string/timer_stop"
             style="@style/button"
             android:layout_height="wrap_content" />
     </LinearLayout>

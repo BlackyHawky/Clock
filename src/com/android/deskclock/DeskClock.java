@@ -81,7 +81,7 @@ public class DeskClock extends Activity {
     private static final int CLOCK_TAB_INDEX = 1;
     private static final int STOPWATCH_TAB_INDEX = 2;
 
-    private int mSselectedTab;
+    private int mSelectedTab;
     private final boolean mDimmed = false;
 
     private int mClockState = CLOCK_NORMAL;
@@ -111,7 +111,7 @@ public class DeskClock extends Activity {
     private final Handler mHandy = new Handler() {
         @Override
         public void handleMessage(Message m) {
-            if (m.what == LIGHTSOUT_TIMEOUT_MSG) {
+     /*       if (m.what == LIGHTSOUT_TIMEOUT_MSG) {
                 doLightsOut(true);
                 mClockState = CLOCK_LIGHTS_OUT;
                 // Only dim if clock fragment is visible
@@ -141,7 +141,7 @@ public class DeskClock extends Activity {
                         doDim(true);
                         break;
                 }
-            }
+            }*/
         }
     };
 
@@ -162,9 +162,10 @@ public class DeskClock extends Activity {
             mViewPager = new ViewPager(this);
             mViewPager.setId(R.id.desk_clock_pager);
             mTabsAdapter = new TabsAdapter(this, mViewPager);
-            createTabs(mSselectedTab);
+            createTabs(mSelectedTab);
         }
         setContentView(mViewPager);
+        mActionBar.setSelectedNavigationItem(mSelectedTab);
     }
 
     private void createTabs(int selectedIndex) {
@@ -190,9 +191,9 @@ public class DeskClock extends Activity {
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        mSselectedTab = CLOCK_TAB_INDEX;
+        mSelectedTab = CLOCK_TAB_INDEX;
         if (icicle != null) {
-            mSselectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
+            mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
             mClockState = icicle.getInt(KEY_CLOCK_STATE, CLOCK_NORMAL);
         }
         initViews();
@@ -314,14 +315,13 @@ public class DeskClock extends Activity {
         super.onUserInteraction();
         mHandy.removeMessages(BACK_TO_NORMAL_MSG);
         mHandy.sendMessage(Message.obtain(mHandy, BACK_TO_NORMAL_MSG));
-        Log.v("deskclock","---------------------------- on user interaction");
     }
 
     /***
      * Adapter for wrapping together the ActionBar's tab with the ViewPager
      */
 
-    private class TabsAdapter extends FragmentPagerAdapter
+    private class TabsAdapter extends FragmentStatePagerAdapter
             implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
         private static final String KEY_TAB_POSITION = "tab_position";

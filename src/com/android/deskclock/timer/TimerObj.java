@@ -18,12 +18,14 @@ package com.android.deskclock.timer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.view.View;
 
 public class TimerObj implements Parcelable {
     public int mTimerId;             // Unique id
     public long mStartTime;          // With mTimeLeft , used to calculate the correct time
     public long mTimeLeft;           // in the timer.
     public long mOriginalLength;
+    public View mView;
 
     // Private actions processed by the receiver
     public static final String START_TIMER = "start_timer";
@@ -65,7 +67,17 @@ public class TimerObj implements Parcelable {
         mOriginalLength = p.readLong();
     }
 
-
     public TimerObj() {
+        init(0);
+    }
+
+    public TimerObj(long timerLength) {
+      init(timerLength);
+    }
+
+    private void init (long length) {
+        mTimerId = (int) System.currentTimeMillis();
+        mStartTime = System.currentTimeMillis();
+        mTimeLeft = mOriginalLength = length;
     }
 }

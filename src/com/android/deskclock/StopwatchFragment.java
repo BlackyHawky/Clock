@@ -171,7 +171,6 @@ public class StopwatchFragment extends DeskClockFragment {
         mLeftButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("---------------------------- on click");
                 buttonClicked(true);
                 switch (mState) {
                     case STOPWATCH_RUNNING:
@@ -205,7 +204,6 @@ public class StopwatchFragment extends DeskClockFragment {
         mRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("---------------------------- on click");
                 buttonClicked(true);
                 switch (mState) {
                     case STOPWATCH_RUNNING:

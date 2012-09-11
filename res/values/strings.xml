@@ -326,8 +326,10 @@
     <string name="timer_add_timer">Add Timer</string>
     <string name="timer_clear">Clear</string>
     <string name="timer_start">Start</string>
-    <string name="timer_delete">Del</string>
-
+    <string name="timer_delete">Delete</string>
+    <string name="timer_plus_one">+1 Min</string>
+    <string name="timer_stop">Stop</string>
+        
     <string-array name="key_pad_numbers" translatable="true">
       <item>0</item>
       <item>1</item>

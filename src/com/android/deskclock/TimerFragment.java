@@ -16,6 +16,7 @@
 
 package com.android.deskclock;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,7 @@ import com.android.deskclock.timer.TimerObj;
 import java.util.ArrayList;
 
 
-public class TimerFragment extends DeskClockFragment {
+public class TimerFragment extends DeskClockFragment implements OnClickListener {
 
 
 	private int mTimersNum;
@@ -45,9 +46,30 @@ public class TimerFragment extends DeskClockFragment {
 	public TimerFragment() {
     }
 
+	class ClickAction {
+	    public static final int ACTION_STOP = 1;
+	    public static final int ACTION_PLUS_ONE = 2;
+	    public static final int ACTION_DELETE = 3;
+
+	    public int mAction;
+	    public TimerObj mTimer;
+
+	    public ClickAction(int action, TimerObj t) {
+	        mAction = action;
+	        mTimer = t;
+	    }
+	}
+
 	class TimersListAdapter extends BaseAdapter {
 
 	    ArrayList<TimerObj> mTimers = new ArrayList<TimerObj> ();
+	    private final LayoutInflater mInflater;
+	    Context mContext;
+
+        public TimersListAdapter(Context context) {
+            mContext = context;
+            mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
 
 	    @Override
         public int getCount() {
@@ -56,7 +78,7 @@ public class TimerFragment extends DeskClockFragment {
 
         @Override
         public Object getItem(int p) {
-            return null;
+            return mTimers.get(p);
         }
 
         @Override
@@ -67,18 +89,43 @@ public class TimerFragment extends DeskClockFragment {
             return 0;
         }
 
+        public void deleteTimer(int id) {
+            for (int i = 0; i < mTimers.size(); i++) {
+                TimerObj t = mTimers.get(i);
+                if (t.mTimerId == id) {
+                    mTimers.remove(i);
+                    notifyDataSetChanged();
+                    return;
+                }
+            }
+        }
+
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            TextView v;
+            View v;
 
-            if (convertView != null) {
-                v = (TextView) convertView;
-            } else {
-                v = new TextView(getActivity());
+/*            if (convertView != null) {
+                v = convertView;
+            } else {*/
+                v = mInflater.inflate(R.layout.timer_list_item, parent, false);
+            //}
+            TimerView tv = (TimerView) v.findViewById(R.id.timer_time_text);
+            TimerObj o = (TimerObj)getItem(position);
+            o.mView = v;
+            if (tv != null) {
+                tv.setTime(o.mTimeLeft / 10);
+                tv.setTag(o);
             }
-            v.setText("Nothing here yet");
-            v.setTextSize(40);
+            Button delete = (Button)v.findViewById(R.id.timer_delete);
+            delete.setOnClickListener(TimerFragment.this);
+            delete.setTag(new ClickAction(ClickAction.ACTION_DELETE, o));
+            Button plusOne = (Button)v. findViewById(R.id.timer_plus_one);
+            plusOne.setOnClickListener(TimerFragment.this);
+            plusOne.setTag(new ClickAction(ClickAction.ACTION_PLUS_ONE, o));
+            Button stop = (Button)v. findViewById(R.id.timer_stop);
+            stop.setOnClickListener(TimerFragment.this);
+            stop.setTag(new ClickAction(ClickAction.ACTION_STOP, o));
             return v;
         }
 
@@ -96,7 +143,7 @@ public class TimerFragment extends DeskClockFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.timer_fragment, container, false);
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
-        mAdapter = new TimersListAdapter();
+        mAdapter = new TimersListAdapter(mContext);
         mTimersList.setAdapter(mAdapter);
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
         mTimersListPage = v.findViewById(R.id.timers_list_page);
@@ -117,10 +164,7 @@ public class TimerFragment extends DeskClockFragment {
                 if (timerLength == 0) {
                     return;
                 }
-                TimerObj t = new TimerObj();
-                t.mStartTime = System.currentTimeMillis();
-                t.mOriginalLength = mTimerSetup.getTime() * 1000;
-                t.mTimerId = (int) System.currentTimeMillis();
+                TimerObj t = new TimerObj(mTimerSetup.getTime() * 1000);
                 mAdapter.addTimer(t);
                 gotoTimersView();
             }
@@ -168,5 +212,26 @@ public class TimerFragment extends DeskClockFragment {
     private void gotoTimersView() {
         mNewTimerPage.setVisibility(View.GONE);
         mTimersListPage.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        ClickAction tag = (ClickAction)v.getTag();
+        switch (tag.mAction) {
+            case ClickAction.ACTION_DELETE:
+                mAdapter.deleteTimer(tag.mTimer.mTimerId);
+                if (mAdapter.getCount() == 0) {
+                    gotoSetupView();
+                }
+                break;
+            case ClickAction.ACTION_PLUS_ONE:
+                tag.mTimer.mTimeLeft += 60000; //60 seconds in millis
+                tag.mTimer.mView.invalidate();
+                break;
+            case ClickAction.ACTION_STOP:
+                break;
+            default:
+                break;
+        }
     }
 }
