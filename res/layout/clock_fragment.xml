@@ -59,6 +59,7 @@
             <include layout="@layout/desk_clock_time_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/time_margin_top"
                 android:layout_marginBottom="@dimen/time_margin_bottom"
                 />
