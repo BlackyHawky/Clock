@@ -19,10 +19,11 @@ package com.android.deskclock.timer;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-class Timer implements Parcelable {
+public class TimerObj implements Parcelable {
     public int mTimerId;             // Unique id
     public long mStartTime;          // With mTimeLeft , used to calculate the correct time
     public long mTimeLeft;           // in the timer.
+    public long mOriginalLength;
 
     // Private actions processed by the receiver
     public static final String START_TIMER = "start_timer";
@@ -32,15 +33,15 @@ class Timer implements Parcelable {
 
     public static final String TIMER_INTENT_EXTRA = "timer.intent.extra";
 
-    public static final Parcelable.Creator<Timer> CREATOR = new Parcelable.Creator<Timer>() {
+    public static final Parcelable.Creator<TimerObj> CREATOR = new Parcelable.Creator<TimerObj>() {
         @Override
-        public Timer createFromParcel(Parcel p) {
-            return new Timer(p);
+        public TimerObj createFromParcel(Parcel p) {
+            return new TimerObj(p);
         }
 
         @Override
-        public Timer[] newArray(int size) {
-            return new Timer[size];
+        public TimerObj[] newArray(int size) {
+            return new TimerObj[size];
         }
     };
 
@@ -54,15 +55,17 @@ class Timer implements Parcelable {
         dest.writeInt(mTimerId);
         dest.writeLong(mStartTime);
         dest.writeLong(mTimeLeft);
+        dest.writeLong(mOriginalLength);
     }
 
-    public Timer(Parcel p) {
+    public TimerObj(Parcel p) {
         mTimerId = p.readInt();
         mStartTime = p.readLong();
         mTimeLeft = p.readLong();
+        mOriginalLength = p.readLong();
     }
 
 
-    public Timer() {
+    public TimerObj() {
     }
 }

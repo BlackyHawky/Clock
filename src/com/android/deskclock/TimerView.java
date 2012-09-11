@@ -17,6 +17,7 @@
 package com.android.deskclock;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -27,6 +28,7 @@ public class TimerView extends LinearLayout {
 	TextView mHours, mMinutes, mSeconds, mHunderdths;
 	TextView mHoursLabel, mMinutesLabel, mSecondsLabel;
 	boolean mShowTimeStr = true;
+	Typeface mRobotoThin;
 
     Runnable mBlinkThread = new Runnable() {
         @Override
@@ -45,17 +47,18 @@ public class TimerView extends LinearLayout {
 
     public TimerView(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        mRobotoThin = Typeface.createFromAsset(context.getAssets(),"fonts/Roboto-Thin.ttf");
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-
-
     	mHours = (TextView)findViewById(R.id.hours);
     	mMinutes = (TextView)findViewById(R.id.minutes);
     	mSeconds = (TextView)findViewById(R.id.seconds);
+    	mSeconds.setTypeface(mRobotoThin);
     	mHunderdths = (TextView)findViewById(R.id.hundreds_seconds);
     	mHoursLabel = (TextView)findViewById(R.id.hours_label);
     }
@@ -98,6 +101,31 @@ public class TimerView extends LinearLayout {
 		mHunderdths.setText(String.format("%02d",hundreds));
     }
 
+    public void setTime(String hours, String minutes, String seconds, String hundreds) {
+        if (hours != null) {
+            mHours.setText(hours);
+        } else {
+            mHours.setText("0");
+        }
+        if (minutes != null) {
+            mMinutes.setText(minutes);
+        } else {
+            mMinutes.setText("00");
+        }
+        if (seconds != null) {
+            mSeconds.setText(seconds);
+        } else {
+            mSeconds.setText("00");
+        }
+        if (hundreds != null) {
+            mHunderdths.setText(hundreds);
+            mHunderdths.setVisibility(View.VISIBLE);
+        } else {
+            mHunderdths.setVisibility(View.GONE);
+        }
+
+    }
+
     public void blinkTimeStr(boolean blink) {
         if (blink) {
             postDelayed(mBlinkThread, 1000);
@@ -106,6 +134,11 @@ public class TimerView extends LinearLayout {
             mShowTimeStr = true;
             this.setVisibility(View.VISIBLE);
         }
+    }
+
+    public String getTimeString() {
+        return String.format("%s:%s:%s.%s",mHours.getText(), mMinutes.getText(), mSeconds.getText(),
+                mHunderdths.getText());
     }
 
 }

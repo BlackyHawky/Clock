@@ -16,7 +16,8 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize">
 
     <View
         android:layout_width="match_parent"

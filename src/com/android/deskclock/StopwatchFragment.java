@@ -186,6 +186,7 @@ public class StopwatchFragment extends DeskClockFragment {
                         mLapsAdapter.clearLaps();
                         showLaps();
                         mTime.stopIntervalAnimation();
+                        mTime.reset();
                         mTimeText.setTime(mAccumulatedTime);
                         mTimeText.blinkTimeStr(false);
                         setButtons(STOPWATCH_RESET);
@@ -213,7 +214,7 @@ public class StopwatchFragment extends DeskClockFragment {
                         mTime.pauseIntervalAnimation();
                         long curTime = System.currentTimeMillis()/10;
                         mAccumulatedTime += (curTime - mStartTime);
-                        mTime.setTimeString(getTimeText(mAccumulatedTime));
+                        mTimeText.setTime(mAccumulatedTime);
                         mTimeText.blinkTimeStr(true);
                         updateCurrentLap(curTime, mAccumulatedTime);
                         setButtons(STOPWATCH_STOPPED);
@@ -276,7 +277,6 @@ public class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void onResume() {
-        Log.e("----------------------- state in on resume is " + mState);
         setButtons(mState);
         mTimeText.setTime(mAccumulatedTime);
         if (mState == STOPWATCH_RUNNING) {
@@ -296,7 +296,6 @@ public class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void onSaveInstanceState (Bundle outState) {
-        Log.e("----------------------- state in save instance state  is " + mState);
         outState.putInt(STATE_KEY, mState);
         outState.putLong(START_TIME_KEY, mStartTime);
         outState.putLong(ACCUM_TIME_KEY, mAccumulatedTime);
@@ -394,6 +393,10 @@ public class StopwatchFragment extends DeskClockFragment {
         return timeStr;
     }
 
+    /***
+     *
+     * @param time - in hundredths of a second
+     */
     private void addLapTime(long time) {
         int size = mLapsAdapter.getCount();
         long curTime = time - mStartTime + mAccumulatedTime;
@@ -407,7 +410,8 @@ public class StopwatchFragment extends DeskClockFragment {
             ((Lap)mLapsAdapter.getItem(0)).mLapTime = lapTime;
             ((Lap)mLapsAdapter.getItem(0)).mTotalTime = curTime;
             mLapsAdapter.addLap(new Lap(0, 0));
-            mTime.setIntervalTime(lapTime * 10);
+            mTime.setMarkerTime(lapTime * 10);
+        //    mTime.setIntervalTime(lapTime * 10);
         }
         mLapsAdapter.notifyDataSetChanged();
         // Start lap animation starting from the second lap
@@ -460,7 +464,7 @@ public class StopwatchFragment extends DeskClockFragment {
     };
 
     private String buildShareResults() {
-        return getString(R.string.sw_share_main, mTime.getTimeString());
+        return getString(R.string.sw_share_main, mTimeText.getTimeString());
     }
 
 }

@@ -16,7 +16,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="72dip"
+    android:paddingTop="?android:attr/actionBarSize"
     android:orientation="vertical">
 
     <FrameLayout
@@ -53,7 +53,7 @@
 		        android:singleLine="true"
 		        android:ellipsize="none"
 		        android:text="@string/zero"
-		        style="@style/big_thin"
+		        style="@style/big_bold"
 		        android:textColor="@color/clock_white"/>
 
 		    <TextView
@@ -92,10 +92,10 @@
         </com.android.deskclock.TimerView>
         <com.android.deskclock.CircleTimerView
             android:id="@+id/stopwatch_time" 
+            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </FrameLayout>
-
+        </FrameLayout>
     <LinearLayout
         android:id="@+id/laps_title"
         android:layout_width="match_parent"

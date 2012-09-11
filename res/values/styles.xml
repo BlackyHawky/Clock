@@ -23,7 +23,13 @@
     
     <style name="DeskClock" parent="android:Theme.Holo">
         <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:background">@android:color/black</item>
+        <item name="android:actionBarTabBarStyle">@style/DeskClockBarStyle</item>
     </style>
+    
+    <style name="DeskClockBarStyle" parent="@android:style/Theme.Holo">
+        <item name="android:color">@android:color/black</item>
+        </style>
     
 
     <style name="AlarmClockTheme" parent="android:Theme.Holo.DialogWhenLarge"/>
@@ -79,11 +85,22 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="medium_bold">
+        <item name="android:textSize">60sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    
     <style name="small_light">
         <item name="android:textSize">48sp</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <style name="medium_light">
+        <item name="android:textSize">60sp</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+    
     <style name="label">
         <item name="android:textSize">12sp</item>
         <item name="android:textAllCaps">true</item>
@@ -104,7 +121,7 @@
 
     <style name="big_thin">
         <item name="android:textSize">120sp</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
     <style name="body">

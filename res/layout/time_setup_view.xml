@@ -20,43 +20,117 @@
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/entered_time"
-            android:text="@string/zero"
-            android:layout_width="0dip"
-            android:layout_weight="3"
-            style="@style/header"
-            android:gravity="center"
-            android:layout_height="wrap_content"/>
-       <Button
+        <com.android.deskclock.TimerView
+            android:id="@+id/timer_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dip"
+            android:layout_gravity="center">
+            <TextView
+                android:id="@+id/hours"
+                android:singleLine="true"
+                android:ellipsize="none"
+                style="@style/medium_bold"
+                android:textColor="@color/clock_white"/>
+
+            <TextView
+                android:id="@+id/hours_label"
+                android:singleLine="true"
+                android:ellipsize="none"
+                style="@style/label"
+                android:layout_gravity="top"
+                android:text="@string/hours_label"
+                android:textColor="@color/clock_white"/>
+            
+            <TextView
+                android:id="@+id/minutes"
+                android:singleLine="true"
+                android:ellipsize="none"
+                style="@style/medium_bold"
+                android:textColor="@color/clock_white"/>
+
+            <TextView
+                android:id="@+id/minutes_label"
+                android:singleLine="true"
+                android:ellipsize="none"
+                style="@style/label"
+                android:text="@string/minutes_label"
+                android:textColor="@color/clock_white"/>
+        
+            <TextView
+                android:id="@+id/seconds"
+                android:singleLine="true"
+                android:ellipsize="none"
+                style="@style/medium_light"
+                android:textColor="@color/clock_white"/>
+        
+            <TextView
+                android:id="@+id/seconds_label"
+                android:singleLine="true"
+                android:ellipsize="none"
+                style="@style/label"
+                android:layout_gravity="top"
+                android:text="@string/seconds_label"
+                android:textColor="@color/clock_white"/>
+        
+            <TextView
+                android:id="@+id/hundreds_seconds"
+                android:singleLine="true"
+                android:ellipsize="none"
+                style="@style/small_light"
+                android:text="@string/zero"
+                android:textColor="@color/clock_white"/>
+            
+        </com.android.deskclock.TimerView>
+       <ImageButton
             android:id="@+id/delete"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_width="wrap_content"
-            android:text="@string/timer_delete"
-            android:layout_weight="1"
-            style="@style/button"
-            android:layout_height="wrap_content" />            
+            android:layout_width="0dip"
+            android:gravity="center"
+            android:src="@drawable/ic_backspace_normal"
+            android:contentDescription="@string/timer_delete"
+            android:layout_weight="2"
+            android:layout_height="match_parent" />            
     </LinearLayout>
-    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#28ffffff" />
+    <Space
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        />
     <include layout="@layout/three_keys_view"
         android:id="@+id/first" />
-    <View
+    <Space
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="#28ffffff" />
+        android:layout_height="0dip"
+        />
+    
     <include layout="@layout/three_keys_view"
         android:id="@+id/second"/>
-    <View
+    <Space
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="#28ffffff" />
+        android:layout_height="0dip"
+        />
+    
     <include layout="@layout/three_keys_view"
         android:id="@+id/third"/>
-    <View
+    <Space
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="#28ffffff" />
+        android:layout_height="0dip"
+        />
+    
     <include layout="@layout/three_keys_view"
         android:id="@+id/fourth" />
+     <Space
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        />
  </LinearLayout>
 	

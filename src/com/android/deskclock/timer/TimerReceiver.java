@@ -31,12 +31,12 @@ public class TimerReceiver extends BroadcastReceiver {
      @Override
     public void onReceive(final Context context, final Intent intent) {
 
-         Timer timer;
+         TimerObj timer;
          Log.d(TAG, " got intent");
 
-         if (intent.hasExtra(Timer.TIMER_INTENT_EXTRA)) {
+         if (intent.hasExtra(TimerObj.TIMER_INTENT_EXTRA)) {
              // Get the alarm out of the Intent
-             timer = intent.getParcelableExtra(Timer.TIMER_INTENT_EXTRA);
+             timer = intent.getParcelableExtra(TimerObj.TIMER_INTENT_EXTRA);
          } else {
              // No data to work with, do nothing
              Log.d(TAG, " got intent without Timer data");
@@ -46,43 +46,43 @@ public class TimerReceiver extends BroadcastReceiver {
         NotificationManager nm =
                 (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
-         if (Timer.START_TIMER.equals(intent.getAction())) {
+         if (TimerObj.START_TIMER.equals(intent.getAction())) {
              // Start intent is send by the timer activity, show timer notification and set an alarm
              Log.d(TAG," got start intent");
              PendingIntent i = createTimerActivityIntent(context, timer);
              nm.notify(timer.mTimerId, buildTimerNotification(context, timer, false, i));
 
-         } else if (Timer.CANCEL_TIMER.equals(intent.getAction())) {
+         } else if (TimerObj.CANCEL_TIMER.equals(intent.getAction())) {
              // Cancel intent can be sent by either the app or from the notification
              // Remove notification, cancel alarm and tell timer app the timer was canceled,
              //
              Log.d(TAG ," got cancel intent");
              nm.cancel(timer.mTimerId);
 
-         } else if (Timer.TIMES_UP.equals(intent.getAction())) {
+         } else if (TimerObj.TIMES_UP.equals(intent.getAction())) {
              // Times up comes as an alarm notification, update the notification, timer activity and
              // play the alarm ring tone.
              Log.d(TAG," got timesup intent");
 
 
-         } else if (Timer.TIMER_RESET.equals(intent.getAction())) {
+         } else if (TimerObj.TIMER_RESET.equals(intent.getAction())) {
              // Reset can come with the times up notification is swiped or from the activity
              // Remove the notification, stop playing the alarm, tell timer activity to reset
          }
     }
 
 
-     private static PendingIntent createTimerActivityIntent(Context context, Timer t) {
+     private static PendingIntent createTimerActivityIntent(Context context, TimerObj t) {
          Intent clickIntent = new Intent();
      //    clickIntent.setClass(context, TimerActivity.class);
          clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-         clickIntent.putExtra(Timer.TIMER_INTENT_EXTRA, t);
+         clickIntent.putExtra(TimerObj.TIMER_INTENT_EXTRA, t);
          return PendingIntent.getActivity(context, 0, clickIntent,
                      PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
      }
 
     private static Notification buildTimerNotification(
-            Context context, Timer t, Boolean onGoing, PendingIntent contentIntent) {
+            Context context, TimerObj t, Boolean onGoing, PendingIntent contentIntent) {
          Notification.Builder builder = new Notification.Builder(context);
          builder.setContentIntent(contentIntent);
          builder.setContentTitle("Timer");

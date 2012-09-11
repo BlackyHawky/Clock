@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.graphics.Typeface;
 import android.os.Handler;
 import android.provider.Settings;
 import android.text.format.DateFormat;
@@ -37,16 +38,19 @@ import java.util.Calendar;
  */
 public class DigitalClock extends LinearLayout {
 
+    private final static String HOURS_24 = "kk";
     private final static String HOURS = "hh";
-    private final static String MINUTES = "mm";
+    private final static String MINUTES = ":mm";
 
     private Calendar mCalendar;
-    private String mFormat;
+    private String mHoursFormat;
     private TextView mTimeDisplayHours, mTimeDisplayMinutes;
     private AmPm mAmPm;
     private ContentObserver mFormatChangeObserver;
     private boolean mLive = true;
     private boolean mAttached;
+    private final Typeface mRobotoThin;
+
 
     /* called by system on minute ticks */
     private final Handler mHandler = new Handler();
@@ -104,6 +108,7 @@ public class DigitalClock extends LinearLayout {
 
     public DigitalClock(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mRobotoThin = Typeface.createFromAsset(context.getAssets(),"fonts/Roboto-Thin.ttf");
     }
 
     @Override
@@ -112,6 +117,7 @@ public class DigitalClock extends LinearLayout {
 
         mTimeDisplayHours = (TextView)findViewById(R.id.timeDisplayHours);
         mTimeDisplayMinutes = (TextView)findViewById(R.id.timeDisplayMinutes);
+        mTimeDisplayMinutes.setTypeface(mRobotoThin);
         mAmPm = new AmPm(this);
         mCalendar = Calendar.getInstance();
 
@@ -169,7 +175,7 @@ public class DigitalClock extends LinearLayout {
             mCalendar.setTimeInMillis(System.currentTimeMillis());
         }
 
-        CharSequence newTime = DateFormat.format(HOURS, mCalendar);
+        CharSequence newTime = DateFormat.format(mHoursFormat, mCalendar);
         mTimeDisplayHours.setText(newTime);
         newTime = DateFormat.format(MINUTES, mCalendar);
         mTimeDisplayMinutes.setText(newTime);
@@ -177,8 +183,8 @@ public class DigitalClock extends LinearLayout {
     }
 
     private void setDateFormat() {
-//        mFormat = Alarms.get24HourMode(getContext()) ? Alarms.M24 : M12;
-        mAmPm.setShowAmPm(Alarms.get24HourMode(getContext()));
+        mHoursFormat = Alarms.get24HourMode(getContext()) ? HOURS_24 : HOURS;
+        mAmPm.setShowAmPm(!Alarms.get24HourMode(getContext()));
     }
 
     void setLive(boolean live) {

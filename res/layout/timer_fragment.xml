@@ -17,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingTop="72dip">
+    android:paddingTop="?android:attr/actionBarSize">
     
     <LinearLayout
         android:id="@+id/timers_list_page"
@@ -46,8 +46,11 @@
         android:id="@+id/new_timer_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
         android:orientation="vertical">
         <com.android.deskclock.TimerSetupView
+            android:id="@+id/timer_setup"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1" />

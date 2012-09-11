@@ -174,13 +174,13 @@ public class DeskClock extends Activity {
         if (mActionBar != null) {
             mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
             mTimerTab = mActionBar.newTab();
-            mTimerTab.setIcon(R.drawable.ic_tab_timer);
+            mTimerTab.setIcon(R.drawable.timer_tab);
             mTabsAdapter.addTab(mTimerTab, TimerFragment.class,TIMER_TAB_INDEX);
             mClockTab = mActionBar.newTab();
-            mClockTab.setIcon(R.drawable.ic_tab_clock);
+            mClockTab.setIcon(R.drawable.clock_tab);
             mTabsAdapter.addTab(mClockTab, ClockFragment.class,CLOCK_TAB_INDEX);
             mStopwatchTab = mActionBar.newTab();
-            mStopwatchTab.setIcon(R.drawable.ic_tab_stopwatch);
+            mStopwatchTab.setIcon(R.drawable.stopwatch_tab);
             mTabsAdapter.addTab(mStopwatchTab, StopwatchFragment.class,STOPWATCH_TAB_INDEX);
             mActionBar.setSelectedNavigationItem(selectedIndex);
         }
