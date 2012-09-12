@@ -133,6 +133,9 @@ public class CircleTimerView extends View {
             mArcRect.left =  xCenter - radius;
             mArcRect.right = xCenter + radius;
             float percent = (float)mCurrentIntervalTime / (float)mIntervalTime;
+            // prevent timer from doing more than one full circle
+            percent = (percent > 1 && mTimerMode) ? 1 : percent;
+
             if (mTimerMode){
                 canvas.drawArc (mArcRect, 270, - percent * 360 , false, mPaint);
             } else {

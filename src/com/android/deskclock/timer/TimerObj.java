@@ -26,6 +26,11 @@ public class TimerObj implements Parcelable {
     public long mTimeLeft;           // in the timer.
     public long mOriginalLength;
     public View mView;
+    public int mState;
+
+    public static final int STATE_RUNNING = 1;
+    public static final int STATE_STOPPED = 2;
+    public static final int STATE_DONE = 3;
 
     // Private actions processed by the receiver
     public static final String START_TIMER = "start_timer";

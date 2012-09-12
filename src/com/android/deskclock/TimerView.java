@@ -123,7 +123,6 @@ public class TimerView extends LinearLayout {
         } else {
             mHunderdths.setVisibility(View.GONE);
         }
-
     }
 
     public void blinkTimeStr(boolean blink) {

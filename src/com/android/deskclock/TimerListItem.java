@@ -68,7 +68,9 @@ public class TimerListItem extends LinearLayout {
     }
 
     public void setLength(long timerLength) {
+        mTimerLength = timerLength;
         mCircleView.setIntervalTime(mTimerLength);
+        mTimerText.invalidate();
     }
 
     public void setTime(long time) {

@@ -122,6 +122,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             o.mView = v;
             v.start(o.mOriginalLength);
             v.setTime(o.mTimeLeft / 10);
+            o.mState = TimerObj.STATE_RUNNING;
             Button delete = (Button)v.findViewById(R.id.timer_delete);
             delete.setOnClickListener(TimerFragment.this);
             delete.setTag(new ClickAction(ClickAction.ACTION_DELETE, o));
