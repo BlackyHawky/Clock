@@ -28,7 +28,7 @@
         />
 
     <!-- the top padding accounts for the status bar area -->
-    
+
     <LinearLayout
         android:id="@+id/desk_clock"
         android:layout_width="match_parent"
@@ -69,12 +69,12 @@
                 android:layout_width="@dimen/analog_clock_diameter"
                 android:layout_height="@dimen/analog_clock_diameter"
                 android:layout_gravity="center"
-                android:dial="@drawable/appwidget_clock_dial"
-                android:hand_hour="@drawable/appwidget_clock_hour"
-                android:hand_minute="@drawable/appwidget_clock_minute"
+                android:dial="@drawable/clock_analog_dial"
+                android:hand_hour="@drawable/clock_analog_hour"
+                android:hand_minute="@drawable/clock_analog_minute"
                 android:layout_marginTop="@dimen/time_margin_top"
                 android:layout_marginBottom="@dimen/time_margin_bottom"/>
-                
+
             <ListView
                 android:id="@+id/cities"
                 android:layout_width="match_parent"

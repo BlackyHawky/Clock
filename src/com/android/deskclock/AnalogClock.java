@@ -71,10 +71,10 @@ public class AnalogClock extends View {
         mContext = context;
         Resources r = mContext.getResources();
 
-        mDial = r.getDrawable(R.drawable.appwidget_clock_dial);
-        mHourHand = r.getDrawable(R.drawable.appwidget_clock_hour);
-        mMinuteHand = r.getDrawable(R.drawable.appwidget_clock_minute);
-        mSecondHand = r.getDrawable(R.drawable.appwidget_clock_second);
+        mDial = r.getDrawable(R.drawable.clock_analog_dial);
+        mHourHand = r.getDrawable(R.drawable.clock_analog_hour);
+        mMinuteHand = r.getDrawable(R.drawable.clock_analog_minute);
+        mSecondHand = r.getDrawable(R.drawable.clock_analog_second);
 
         mCalendar = new Time();
 

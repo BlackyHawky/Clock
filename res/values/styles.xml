@@ -20,24 +20,24 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
-    
+
     <style name="DeskClock" parent="android:Theme.Holo">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@color/black</item>
         <item name="android:actionBarTabStyle">@style/DeskClockTabStyle</item>
         <item name="android:actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
     </style>
-    
+
     <style name="DeskClockTabStyle" parent="@android:style/Theme.Holo">
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:gravity">center</item>
     </style>
-    
+
     <style name="DeskClockTabBarStyle" parent="@android:style/Theme.Holo">
         <item name="android:background">@color/black</item>
         <item name="android:showDividers">middle</item>
         <item name="android:divider">?android:attr/dividerVertical</item>
-        <item name="android:dividerPadding">12dp</item>        
+        <item name="android:dividerPadding">12dp</item>
         <item name="android:gravity">center</item>
     </style>
 
@@ -87,7 +87,7 @@
         <item name="android:layout_width">68dip</item>
         <item name="android:layout_height">68dip</item>
     </style>
-    
+
     <style name="small_bold">
         <item name="android:textSize">48sp</item>
         <item name="android:textStyle">bold</item>
@@ -99,7 +99,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
-    
+
     <style name="small_light">
         <item name="android:textSize">48sp</item>
         <item name="android:fontFamily">sans-serif-light</item>
@@ -109,7 +109,7 @@
         <item name="android:textSize">60sp</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
-    
+
     <style name="label">
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">bold</item>
