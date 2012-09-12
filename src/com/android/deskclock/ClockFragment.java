@@ -16,7 +16,9 @@
 
 package com.android.deskclock;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -42,6 +44,7 @@ public class ClockFragment extends DeskClockFragment {
     TextView mNextAlarm;
     private TextView mDateDisplay;
     boolean mButtonsHidden = false;
+    View mDigitalClock, mAnalogClock;
 
     public ClockFragment() {
     }
@@ -54,6 +57,8 @@ public class ClockFragment extends DeskClockFragment {
         mButtons = v.findViewById(R.id.clock_buttons);
         mNextAlarm = (TextView)v.findViewById(R.id.nextAlarm);
         mDateDisplay = (TextView) v.findViewById(R.id.date);
+        mDigitalClock = v.findViewById(R.id.digital_clock);
+        mAnalogClock = v.findViewById(R.id.analog_clock);
         if (icicle != null) {
             mButtonsHidden = icicle.getBoolean(BUTTONS_HIDDEN_KEY, false);
         }
@@ -67,6 +72,9 @@ public class ClockFragment extends DeskClockFragment {
         refreshAlarm();
   //      updateDate();   // No date at this point
         mButtons.setAlpha(mButtonsHidden ? 0 : 1);
+        setClockStyle();
+
+
     }
 
 
@@ -74,6 +82,18 @@ public class ClockFragment extends DeskClockFragment {
     public void onSaveInstanceState (Bundle outState) {
         outState.putBoolean(BUTTONS_HIDDEN_KEY, mButtonsHidden);
         super.onSaveInstanceState(outState);
+    }
+
+    private void setClockStyle() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String style = sharedPref.getString(SettingsActivity.KEY_CLOCK_STYLE, "analog");
+        if (style.equals("analog")) {
+            mDigitalClock.setVisibility(View.GONE);
+            mAnalogClock.setVisibility(View.VISIBLE);
+        } else if (style.equals("digital")) {
+            mDigitalClock.setVisibility(View.VISIBLE);
+            mAnalogClock.setVisibility(View.GONE);
+        }
     }
 
     private void refreshAlarm() {

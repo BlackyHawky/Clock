@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,7 +27,11 @@ import android.widget.LinearLayout;
 
 public class TimerListItem extends LinearLayout {
 
+    TimerView mTimerText;
+    CircleTimerView mCircleView;
     Button mDelete, mPlusOne, mStop;
+
+    long mTimerLength;
 
     public TimerListItem(Context context) {
         this(context, null);
@@ -34,15 +39,46 @@ public class TimerListItem extends LinearLayout {
 
     public TimerListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
+        LayoutInflater layoutInflater =
+                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        layoutInflater.inflate(R.layout.timer_list_item, this);
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-
-        mDelete = (Button)findViewById(R.id.hours);
-        mPlusOne = (Button)findViewById(R.id.minutes);
-        mStop = (Button)findViewById(R.id.seconds);
+        mTimerText = (TimerView)findViewById(R.id.timer_time_text);
+        mCircleView = (CircleTimerView)findViewById(R.id.timer_time);
+        mCircleView.setTimerMode(true);
     }
 
+    public void start(long timerLength) {
+        mTimerLength = timerLength;
+
+        if (mCircleView == null) {
+            mCircleView = (CircleTimerView)findViewById(R.id.timer_time);
+            mCircleView.setTimerMode(true);
+        }
+        mCircleView.setIntervalTime(mTimerLength);
+        mCircleView.startIntervalAnimation();
+    }
+
+    public void stop() {
+        mCircleView.stopIntervalAnimation();
+    }
+
+    public void setLength(long timerLength) {
+        mCircleView.setIntervalTime(mTimerLength);
+    }
+
+    public void setTime(long time) {
+        if (time <= 0) {
+            time = 0;
+            mCircleView.stopIntervalAnimation();
+        }
+        if (mTimerText == null) {
+            mTimerText = (TimerView)findViewById(R.id.timer_time_text);
+        }
+        mTimerText.setTime(time);
+    }
 }

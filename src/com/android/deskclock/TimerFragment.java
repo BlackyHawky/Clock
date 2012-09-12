@@ -16,8 +16,12 @@
 
 package com.android.deskclock;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +34,7 @@ import android.widget.TextView;
 import com.android.deskclock.timer.TimerObj;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class TimerFragment extends DeskClockFragment implements OnClickListener {
@@ -42,6 +47,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
 	Button mClear, mStart, mAddTimer;
 	TimerSetupView mTimerSetup;
 	TimersListAdapter mAdapter;
+	boolean mTicking = false;
 
 	public TimerFragment() {
     }
@@ -93,6 +99,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             for (int i = 0; i < mTimers.size(); i++) {
                 TimerObj t = mTimers.get(i);
                 if (t.mTimerId == id) {
+                    ((TimerListItem)t.mView).stop();
                     mTimers.remove(i);
                     notifyDataSetChanged();
                     return;
@@ -103,20 +110,18 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View v;
+            TimerListItem v;
 
-/*            if (convertView != null) {
-                v = convertView;
-            } else {*/
-                v = mInflater.inflate(R.layout.timer_list_item, parent, false);
-            //}
-            TimerView tv = (TimerView) v.findViewById(R.id.timer_time_text);
+   //         if (convertView != null) {
+     //           v = (TimerListItem) convertView;
+       //     } else {
+                v = new TimerListItem (mContext);
+         //   }
+
             TimerObj o = (TimerObj)getItem(position);
             o.mView = v;
-            if (tv != null) {
-                tv.setTime(o.mTimeLeft / 10);
-                tv.setTag(o);
-            }
+            v.start(o.mOriginalLength);
+            v.setTime(o.mTimeLeft / 10);
             Button delete = (Button)v.findViewById(R.id.timer_delete);
             delete.setOnClickListener(TimerFragment.this);
             delete.setTag(new ClickAction(ClickAction.ACTION_DELETE, o));
@@ -136,6 +141,18 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
 
 	}
 
+	private final Runnable mClockTick = new Runnable() {
+        @Override
+        public void run() {
+            long now =  System.currentTimeMillis();
+            for (int i = 0; i < mAdapter.getCount(); i ++) {
+                TimerObj t = (TimerObj) mAdapter.getItem(i);
+                t.mTimeLeft = t.mOriginalLength - (now - t.mStartTime);
+                ((TimerListItem)(t.mView)).setTime(t.mTimeLeft/10);
+            }
+            mTimersList.postDelayed(mClockTick, 1000 - (System.currentTimeMillis() % 1000));
+        }
+	};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -208,10 +225,12 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
     private void gotoSetupView() {
         mNewTimerPage.setVisibility(View.VISIBLE);
         mTimersListPage.setVisibility(View.GONE);
+        stopClockTicks();
     }
     private void gotoTimersView() {
         mNewTimerPage.setVisibility(View.GONE);
         mTimersListPage.setVisibility(View.VISIBLE);
+        startClockTicks();
     }
 
     @Override
@@ -221,17 +240,30 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             case ClickAction.ACTION_DELETE:
                 mAdapter.deleteTimer(tag.mTimer.mTimerId);
                 if (mAdapter.getCount() == 0) {
+                    mTimerSetup.reset();
                     gotoSetupView();
                 }
                 break;
             case ClickAction.ACTION_PLUS_ONE:
-                tag.mTimer.mTimeLeft += 60000; //60 seconds in millis
+                tag.mTimer.mOriginalLength += 60000; //60 seconds in millis
+                ((TimerListItem)(tag.mTimer.mView)).setLength(tag.mTimer.mOriginalLength);
                 tag.mTimer.mView.invalidate();
                 break;
             case ClickAction.ACTION_STOP:
                 break;
             default:
                 break;
+        }
+    }
+
+    private void startClockTicks() {
+        mTimersList.postDelayed(mClockTick, 1000 - (System.currentTimeMillis() % 1000));
+        mTicking = true;
+    }
+    private void stopClockTicks() {
+        if (mTicking) {
+            mTimersList.removeCallbacks(mClockTick);
+            mTicking = false;
         }
     }
 }

@@ -37,7 +37,7 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ALARM_STREAM_TYPE_BIT =
             1 << AudioManager.STREAM_ALARM;
 
-    private static final String KEY_ALARM_IN_SILENT_MODE =
+    static final String KEY_ALARM_IN_SILENT_MODE =
             "alarm_in_silent_mode";
     static final String KEY_ALARM_SNOOZE =
             "snooze_duration";
