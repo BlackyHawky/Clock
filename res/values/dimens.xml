@@ -27,10 +27,12 @@
     <dimen name="time_margin_right">8dip</dimen>
     <dimen name="time_margin_left">8dip</dimen>
     <dimen name="time_margin_bottom">14dip</dimen>
-    <dimen name="time_margin_top">160dip</dimen>
+    <dimen name="time_margin_top">40dip</dimen>
     <dimen name="ampm_margin_top">8dip</dimen>
     <dimen name="font_margin_adjust">4dip</dimen>
     <dimen name="next_alarm_margin_top">-4dip</dimen>
     <dimen name="alarm_label_padding">8dip</dimen>
     <dimen name="alert_dialog_title_height">64dip</dimen>
+
+    <dimen name="analog_clock_diameter">236dip</dimen>
 </resources>

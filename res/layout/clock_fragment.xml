@@ -57,12 +57,24 @@
                 android:background="?android:attr/listChoiceBackgroundIndicator"
                 />
             <include layout="@layout/desk_clock_time_date"
+                android:id="@+id/digital_clock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/time_margin_top"
                 android:layout_marginBottom="@dimen/time_margin_bottom"
                 />
+            <com.android.deskclock.AnalogClock
+                android:id="@+id/analog_clock"
+                android:layout_width="@dimen/analog_clock_diameter"
+                android:layout_height="@dimen/analog_clock_diameter"
+                android:layout_gravity="center"
+                android:dial="@drawable/appwidget_clock_dial"
+                android:hand_hour="@drawable/appwidget_clock_hour"
+                android:hand_minute="@drawable/appwidget_clock_minute"
+                android:layout_marginTop="@dimen/time_margin_top"
+                android:layout_marginBottom="@dimen/time_margin_bottom"/>
+                
             <ListView
                 android:id="@+id/cities"
                 android:layout_width="match_parent"

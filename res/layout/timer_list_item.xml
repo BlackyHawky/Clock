@@ -95,7 +95,6 @@
         android:layout_height="wrap_content" >
         <Button
             android:id="@+id/timer_delete"
-            android:tag="delete"
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/button"
@@ -104,7 +103,6 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/timer_plus_one"
-            android:tag="plus_one"
             android:background="?android:attr/selectableItemBackground"
             android:layout_width="0dip"
             android:layout_weight="1"
@@ -113,7 +111,6 @@
             android:layout_height="wrap_content" />
         <Button
             android:id="@+id/timer_stop"
-            android:tag="stop"
             android:background="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:layout_width="0dip"

@@ -27,10 +27,8 @@ public class CircleTimerView extends View {
     private long mCurrentIntervalTime = 0;
     private long mAccumulatedTime = 0;
     private boolean mPaused = false;
-    private static float mTextSize = 96;
     private static float mStrokeSize = 4;
     private final Paint mPaint = new Paint();
-    private final Paint mTextPaint = new Paint();
     private final RectF mArcRect = new RectF();
     private Resources mResources;
 
@@ -104,12 +102,6 @@ public class CircleTimerView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(mStrokeSize);
-
-        mTextPaint.setColor(Color.WHITE);
-        mTextPaint.setAntiAlias(true);
-        mTextPaint.setTypeface(Typeface.DEFAULT_BOLD);
-        mTextPaint.setTextSize(mTextSize);
-        mTextPaint.setTextAlign(Paint.Align.CENTER);
 
         mWhiteColor = mResources.getColor(R.color.clock_white);
         mRedColor = mResources.getColor(R.color.clock_red);
