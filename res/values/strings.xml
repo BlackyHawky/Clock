@@ -313,8 +313,6 @@
     
     <string name="zero">00:00:00</string>
     
-        
-    
     <!--  Stopwatch share strings -->
     <string name="sw_share_title">Sharing my times:</string>
     <string name="sw_share_main">My time is <xliff:g id="time">%s</xliff:g></string>
@@ -329,7 +327,8 @@
     <string name="timer_delete">Delete</string>
     <string name="timer_plus_one">+1 Min</string>
     <string name="timer_stop">Stop</string>
-        
+    <string name="timer_reset">Reset</string>
+
     <string-array name="key_pad_numbers" translatable="true">
       <item>0</item>
       <item>1</item>

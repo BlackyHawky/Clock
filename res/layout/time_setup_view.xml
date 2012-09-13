@@ -20,7 +20,7 @@
     <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <com.android.deskclock.TimerView
+        <com.android.deskclock.timer.TimerView
             android:id="@+id/timer_time_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                 android:text="@string/zero"
                 android:textColor="@color/clock_white"/>
             
-        </com.android.deskclock.TimerView>
+        </com.android.deskclock.timer.TimerView>
        <ImageButton
             android:id="@+id/delete"
             android:background="?android:attr/selectableItemBackground"
