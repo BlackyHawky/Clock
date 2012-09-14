@@ -51,7 +51,7 @@
 
     </LinearLayout>
 
-    <com.android.deskclock.DigitalClock
+    <com.android.deskclock.OldDigitalClock
         android:id="@+id/digitalClock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -85,7 +85,7 @@
             android:layout_alignBaseline="@id/timeDisplay"
             android:textColor="?android:attr/textColorPrimary"/>
 
-    </com.android.deskclock.DigitalClock>
+    </com.android.deskclock.OldDigitalClock>
 
     <Button
         android:id="@+id/snooze"
