@@ -20,7 +20,7 @@ import android.app.Fragment;
 import android.content.Context;
 
 public class DeskClockFragment extends Fragment {
-    Context mContext;
+    protected Context mContext;
     private boolean mButtonClicked = false;
 
     public void setContext(Context c) {
@@ -32,10 +32,13 @@ public class DeskClockFragment extends Fragment {
     }
 
     public boolean isButtonClicked() {
-        Log.v("---------------------------- button status" + mButtonClicked);
         boolean res = mButtonClicked;
         mButtonClicked = false;
         return res;
+    }
+
+    public void saveGlobalState() {
+
     }
 
 }

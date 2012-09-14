@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.deskclock.timer.TimerView;
+
 import java.util.ArrayList;
 
 

@@ -19,43 +19,25 @@ package com.android.deskclock;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.app.PendingIntent;
-import android.app.UiModeManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.res.Configuration;
-import android.os.BatteryManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.PopupMenu;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.deskclock.timer.TimerFragment;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
 
 /**
  * DeskClock clock view for desk docks.
@@ -206,9 +188,21 @@ public class DeskClock extends Activity {
     }
 
     @Override
+    public void onPause() {
+        if (mTabsAdapter != null) {
+            mTabsAdapter.saveGlobalState();
+        }
+        super.onPause();
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putInt(KEY_SELECTED_TAB, mActionBar.getSelectedNavigationIndex());
         outState.putInt(KEY_CLOCK_STATE, mClockState);
+        if (mTabsAdapter != null) {
+            mTabsAdapter.onSaveInstanceState(outState);
+        }
     }
 
     private void setClockState(boolean fade) {
@@ -342,7 +336,7 @@ public class DeskClock extends Activity {
         }
 
         private final ArrayList<TabInfo> mTabs = new ArrayList <TabInfo>();
-        private final Fragment [] mFragments = new Fragment[3];
+        private final DeskClockFragment [] mFragments = new DeskClockFragment[3];
         ActionBar mMainActionBar;
         Context mContext;
         ViewPager mPager;
@@ -417,5 +411,26 @@ public class DeskClock extends Activity {
             // Do nothing
 
         }
+
+        /***
+         *
+         * @param outState - can be null since it may be called from Activity's onPause
+         */
+        protected void onSaveInstanceState(Bundle outState) {
+            for (int i = 0; i < mFragments.length; i++) {
+                if (mFragments[i] != null) {
+                    mFragments[i].onSaveInstanceState(outState);
+                }
+            }
+        }
+
+        protected void saveGlobalState() {
+            for (int i = 0; i < mFragments.length; i++) {
+                if (mFragments[i] != null) {
+                    mFragments[i].saveGlobalState();
+                }
+            }
+        }
+
     }
 }

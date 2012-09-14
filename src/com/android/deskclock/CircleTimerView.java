@@ -93,6 +93,10 @@ public class CircleTimerView extends View {
         mPaused = true;
     }
 
+    public void setPassedTime(long time) {
+        mAccumulatedTime = time;
+    }
+
 
 
     private void init(Context c) {
