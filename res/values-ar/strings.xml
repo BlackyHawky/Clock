@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-  
+
           http://www.apache.org/licenses/LICENSE-2.0
-  
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -59,6 +59,7 @@
     <string name="day_concat" msgid="971998564991636532">"، "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"اختيار ساعة"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ساعة عادية"</string>
+    <string name="help" msgid="7786263119482654015">"مساعدة"</string>
     <string name="settings" msgid="5849739030579520686">"الإعدادات"</string>
     <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"المنبه في الوضع صامت"</string>
     <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"تشغيل المنبه حتى ولو كان الجهاز في الوضع صامت"</string>
@@ -122,9 +123,31 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"عرض الساعة"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"معلومات الطقس غير متاحة في الوقت الحالي."</string>
-    <string name="menu_item_dock_settings" msgid="3524235151132971114">"إعدادات الإرساء"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"خدمة تشغيل الصوت بالنسبة إلى التنبيهات التي تم تعيينها في الساعة."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"جارٍ تحميل نغمة الرنين…"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"ضبط المنبه"</string>
     <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"ضبط المنبه: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"موقت"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"الساعة"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"ساعة توقيف"</string>
+    <string name="button_alarms" msgid="8016103479617020265">"التنبيهات"</string>
+    <string name="button_cities" msgid="4555761857494501363">"المدن"</string>
+    <string name="button_menu" msgid="3258774294299940405">"القائمة"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"الإعدادات"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"مساعدة"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"إيقاف مؤقت"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"استئناف"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"بدء"</string>
+    <string name="sw_stop_button" msgid="8322958613123274451">"إيقاف"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"المختبر"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"إعادة ضبط"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"مشاركة"</string>
+    <string name="sw_lap_number" msgid="5284147827135227231">"#"</string>
+    <string name="sw_lap_time" msgid="8445539225664675846">"وقت المختبر"</string>
+    <string name="sw_lap_total" msgid="2575384748273693584">"إجمالاً"</string>
+    <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
+    <skip />
+    <string name="timer_add_one_button" msgid="1963943621548063189">"إضافة دقيقة واحدة"</string>
+    <string name="timer_dismiss_button" msgid="6161488380194869207">"إلغاء"</string>
+    <string name="timer_times_up" msgid="6157697208606617213">"انتهى الوقت."</string>
 </resources>

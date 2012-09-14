@@ -55,7 +55,7 @@ public class AlarmAlertFullScreen extends Activity {
 
     // Receives the ALARM_KILLED action from the AlarmKlaxon,
     // and also ALARM_SNOOZE_ACTION / ALARM_DISMISS_ACTION from other applications
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -117,7 +117,7 @@ public class AlarmAlertFullScreen extends Activity {
     protected int getLayoutResId() {
         return R.layout.alarm_alert_fullscreen;
     }
-    
+
     private void updateLayout() {
         LayoutInflater inflater = LayoutInflater.from(this);
 

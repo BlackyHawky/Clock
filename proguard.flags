@@ -1,0 +1,8 @@
+-keepclassmembers class com.android.deskclock.StopwatchFragment {
+  *** stopWatchOnClickRight(...);
+  *** stopWatchOnClickLeft(...);
+}
+
+-keepclassmembers class com.android.deskclock.DeskClock {
+  *** clockButtonsOnClick(...);
+}
