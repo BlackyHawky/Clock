@@ -349,9 +349,13 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
     }
 
     private void setTimerButtons(TimerObj t) {
+        Context a = getActivity();
+        if (a == null) {
+            return;
+        }
         Button plusOne = (Button) t.mView.findViewById(R.id.timer_plus_one);
         Button stop = (Button) t.mView.findViewById(R.id.timer_stop);
-        Resources r = getActivity().getResources();
+        Resources r = a.getResources();
         switch (t.mState) {
             case TimerObj.STATE_RUNNING:
                 plusOne.setVisibility(View.VISIBLE);
