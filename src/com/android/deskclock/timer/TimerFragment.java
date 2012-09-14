@@ -186,6 +186,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        mContext = getActivity();
         View v = inflater.inflate(R.layout.timer_fragment, container, false);
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
         mAdapter = new TimersListAdapter(mContext);
