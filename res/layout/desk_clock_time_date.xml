@@ -48,6 +48,7 @@
         <TextView 
             android:id="@+id/am_pm"
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/label"
             android:singleLine="true"
             android:ellipsize="none"
