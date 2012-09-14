@@ -62,6 +62,7 @@
 
         <activity android:name="SettingsActivity"
                 android:label="@string/settings"
+                android:theme="@style/SettingsTheme"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
                 >
@@ -77,7 +78,7 @@
 
         <activity android:name="AlarmAlert"
                 android:excludeFromRecents="true"
-                android:theme="@android:style/Theme.Holo.Dialog"
+                android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"/>

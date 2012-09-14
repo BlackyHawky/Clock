@@ -41,7 +41,14 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="AlarmClockTheme" parent="android:Theme.Holo.DialogWhenLarge"/>
+    <style name="AlarmClockTheme" parent="android:Theme.Holo.DialogWhenLarge">
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
+    <style name="SettingsTheme" parent="android:Theme.Holo">
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
     <style name="SetAlarmTheme" parent="android:Theme.Holo.DialogWhenLarge"/>
 
     <style name="AlarmAlertFullScreenWindowTitle">

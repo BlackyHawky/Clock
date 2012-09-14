@@ -60,7 +60,7 @@ public class AlarmAlert extends AlarmAlertFullScreen {
         super.onCreate(icicle);
 
         /* Disable custom title, this will already be shown as a dialog */
-        findViewById(R.id.topPanel).setVisibility(View.GONE);
+    //    findViewById(R.id.topPanel).setVisibility(View.GONE);
 
         // Listen for the screen turning off so that when the screen comes back
         // on, the user does not need to unlock the phone to dismiss the alarm.
@@ -85,7 +85,7 @@ public class AlarmAlert extends AlarmAlertFullScreen {
     protected int getLayoutResId() {
         return R.layout.alarm_alert;
     }
-    
+
     private boolean checkRetryCount() {
         if (mKeyguardRetryCount++ >= MAX_KEYGUARD_CHECKS) {
             Log.e("Tried to read keyguard status too many times, bailing...");
