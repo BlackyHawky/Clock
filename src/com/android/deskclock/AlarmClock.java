@@ -77,8 +77,8 @@ public class AlarmClock extends Activity implements OnItemClickListener {
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             View ret = mFactory.inflate(R.layout.alarm_time, parent, false);
 
-            DigitalClock digitalClock =
-                    (DigitalClock) ret.findViewById(R.id.digitalClock);
+            OldDigitalClock digitalClock =
+                    (OldDigitalClock) ret.findViewById(R.id.digitalClock);
             digitalClock.setLive(false);
             return ret;
         }
@@ -102,8 +102,8 @@ public class AlarmClock extends Activity implements OnItemClickListener {
                 }
             });
 
-            DigitalClock digitalClock =
-                    (DigitalClock) view.findViewById(R.id.digitalClock);
+            OldDigitalClock digitalClock =
+                    (OldDigitalClock) view.findViewById(R.id.digitalClock);
 
             // set the alarm text
             final Calendar c = Calendar.getInstance();
