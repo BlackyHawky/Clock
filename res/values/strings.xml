@@ -163,7 +163,7 @@
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> minutes</item>
     </plurals>
-    
+
     <plurals name="snooze_picker_label">
         <!-- Duration for one minute -->
         <item quantity="one">minute</item>
@@ -310,14 +310,14 @@
     <string name="hours_label">h</string>
     <string name="minutes_label">m</string>
     <string name="seconds_label">s</string>
-    
+
     <string name="zero">00:00:00</string>
-    
+
     <!--  Stopwatch share strings -->
     <string name="sw_share_title">Sharing my times:</string>
     <string name="sw_share_main">My time is <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps">Lap times:</string>
-    
+
     <!-- timer strings -->
     <string name="timer_add_one_button">Add 1 minute</string>
     <string name="timer_dismiss_button">Cancel</string>
@@ -336,39 +336,37 @@
       <item>3</item>
       <item>4</item>
       <item>5</item>
-      <item>6</item> 
-      <item>7</item> 
-      <item>8</item> 
-      <item>9</item> 
+      <item>6</item>
+      <item>7</item>
+      <item>8</item>
+      <item>9</item>
     </string-array>
-    
+
     <!-- Settings strings -->
     <string name="clock_settings">CLOCK</string>
     <string name="clock_style">Style</string>
     <string name="clock_style_title">Clock style</string>
-    
+
     <!-- Entries listed in the ListPreference when invoking the clock style
          preference. -->
     <string-array name="clock_style_entries">
       <item>Analog</item>
       <item>Digital</item>
-      <item>Text</item>
     </string-array>
-    
+
     <!-- Values that are retrieved from the ListPreference. These must match
          the clock_style_entries above. -->
     <string-array name="clock_style_values">
       <item>analog</item>
       <item>digital</item>
-      <item>text</item>
     </string-array>
-    
-     <string name="automatic_home_clock">Automatic home clock</string>
+
+    <string name="automatic_home_clock">Automatic home clock</string>
      <string name="automatic_home_clock_summary">While traveling outside regular time zone, add a clock for home</string>
      <string name="home_time_zone">Home time zone</string>
      <string name="home_time_zone_title">Home time zone</string>
-     
-    <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
+
+     <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
     <string-array name="timezone_labels">
         <item>"Marshall Islands"</item>
         <item>"Midway Island"</item>
@@ -544,8 +542,8 @@
         <item>"Pacific/Fiji"</item>
         <item>"Pacific/Tongatapu"</item>
     </string-array>
-     
+
      <string name="alarm_settings">ALARMS</string>
-     
+
 </resources>
 
