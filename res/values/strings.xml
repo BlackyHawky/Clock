@@ -50,7 +50,7 @@
     <string name="hide_clock">Hide clock</string>
 
     <!-- Setting label on Set alarm screen: Label -->
-    <string name="label">Label</string>
+    <string name="label">Label (Optional)</string>
 
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
@@ -65,7 +65,7 @@
     <string name="alarm_repeat">Repeat</string>
 
     <!-- Setting labels on Set alarm screen: Select alarm ringtone  -->
-    <string name="alert">Ringtone</string>
+    <string name="alert">Alarm Ringtone</string>
 
     <!-- Setting labels on Set alarm screen: Set time  -->
     <string name="time">Time</string>
@@ -317,6 +317,9 @@
     <string name="sw_share_title">Sharing my times:</string>
     <string name="sw_share_main">My time is <xliff:g id="time">%s</xliff:g></string>
     <string name="sw_share_laps">Lap times:</string>
+    <string name="sw_notification_label">Stopwatch</string>
+    <string name="sw_notification_lap">Lap <xliff:g id="number">%d</xliff:g> - <xliff:g id="time">%s</xliff:g></string>
+    <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
 
     <!-- timer strings -->
     <string name="timer_add_one_button">Add 1 minute</string>
@@ -328,7 +331,21 @@
     <string name="timer_plus_one">+1 Min</string>
     <string name="timer_stop">Stop</string>
     <string name="timer_reset">Reset</string>
-
+    <string name="timer_cancel">Cancel</string>
+    <string name="timer_delete_question">Delete this timer?</string>
+    <string name="timer_times_up">Time\'s up</string>
+    <string name="timer_notification_label">Timer</string>
+    <string name="next_timer">>Next Timer: <xliff:g id="time">%s</xliff:g></string>
+    <string name="more_timers">>And <xliff:g id="number">%d</xliff:g> timers</string>
+    <string name="stopped_at">>Stopped at <xliff:g id="time">%s</xliff:g></string>
+    
+    <plurals name="timers_num">
+        <!-- 1 timer -->
+        <item quantity="one">1 minute</item>
+        <!-- more -->
+        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> timers</item>
+    </plurals>
+    
     <string-array name="key_pad_numbers" translatable="true">
       <item>0</item>
       <item>1</item>
@@ -342,6 +359,26 @@
       <item>9</item>
     </string-array>
 
+    <string name="home_label">Home</string>
+    <string name="remove_question">Remove this city?</string>
+    <string name="sort_by_name">By name</string>
+    <string name="sort_by_time">By time</string>
+    <string name="search_results">Results</string>
+    <string name="no_cities_found">No cities found</string>
+
+
+    <string name="alarm_setup_music">Music</string>
+
+    <string name="alarm_on">On</string>
+    <string name="alarm_off">Off</string>
+
+    <string name="alarm_night">Every night</string>
+    <string name="Delete_selected_alarm">Delete selected alarm?</string>
+    <string name="selected">Selected</string>
+    <string name="alarm_dismiss_question">>Dismiss alarm now instead of at <xliff:g id="time">%s</xliff:g>?</string>
+    <string name="alarm_snooze_until">>Snoozing until</string>
+    
+    
     <!-- Settings strings -->
     <string name="clock_settings">CLOCK</string>
     <string name="clock_style">Style</string>
