@@ -25,6 +25,7 @@
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_right">154dip</dimen>
+    <dimen name="time_margin_left">154dip</dimen>
     <dimen name="time_margin_bottom">14dip</dimen>
     <dimen name="time_margin_top">14dip</dimen>
     <dimen name="ampm_margin_top">28dip</dimen>

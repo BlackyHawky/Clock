@@ -18,18 +18,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    >
-    <FrameLayout
+    android:background="@color/black"
+    android:layout_gravity="center">
+    <include layout="@layout/alarm_alert"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/alarm_alert_fullscreen_bg"
-        >
-        <include layout="@layout/alarm_alert"
-        	android:layout_width="match_parent"
-        	android:layout_height="wrap_content"
-        	/>
-    </FrameLayout>
+        android:layout_height="match_parent" />
 </FrameLayout>

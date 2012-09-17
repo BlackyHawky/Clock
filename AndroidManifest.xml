@@ -23,9 +23,10 @@
 
         <activity android:name="DeskClock"
                 android:label="@string/app_label"
-                android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar"
+                android:theme="@style/DeskClock"
                 android:icon="@mipmap/ic_launcher_alarmclock"
                 android:launchMode="singleInstance"
+                android:screenOrientation="portrait"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation">
                 >
 
@@ -49,8 +50,8 @@
                 android:targetActivity="com.android.deskclock.AlarmClock"
                 android:exported="true" />
 
-        <activity android:name="SettingsActivity"
-                android:label="@string/settings"
+        <activity android:name="HelpActivity"
+                android:label="@string/help"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
                 >
@@ -59,19 +60,30 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="SetAlarm" 
+        <activity android:name="SettingsActivity"
+                android:label="@string/settings"
+                android:theme="@style/SettingsTheme"
+                android:taskAffinity=""
+                android:excludeFromRecents="true"
+                >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="SetAlarm"
                 android:label="@string/set_alarm"
                 android:theme="@style/SetAlarmTheme"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation" />
 
         <activity android:name="AlarmAlert"
                 android:excludeFromRecents="true"
-                android:theme="@android:style/Theme.Holo.Dialog"
+                android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"/>
 
-        <!-- This activity is basically the same as AlarmAlert 
+        <!-- This activity is basically the same as AlarmAlert
              but full-screen so that it can turn the display on. -->
         <activity android:name="AlarmAlertFullScreen"
                 android:excludeFromRecents="true"
@@ -123,7 +135,7 @@
         </receiver>
 
         <receiver android:name="com.android.alarmclock.AnalogAppWidgetProvider" android:label="@string/analog_gadget"
-        	android:icon="@mipmap/ic_widget_analog_clock">
+           android:icon="@mipmap/ic_widget_analog_clock">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

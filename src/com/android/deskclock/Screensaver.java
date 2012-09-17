@@ -30,7 +30,7 @@ import android.graphics.PorterDuff;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.provider.Settings;
-import android.service.dreams.Dream;
+//import android.service.dreams.Dream;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -39,7 +39,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
-public class Screensaver extends Dream {
+public class Screensaver { //extends Dream {
     static final boolean DEBUG = false;
     static final String TAG = "DeskClock/Screensaver";
 
@@ -62,7 +62,7 @@ public class Screensaver extends Dream {
             }
         };
 
-    private Handler mHandler = new Handler();
+    private final Handler mHandler = new Handler();
 
     private boolean mPlugged = false;
     private final BroadcastReceiver mPowerIntentReceiver = new BroadcastReceiver() {
@@ -76,15 +76,15 @@ public class Screensaver extends Dream {
                     if (DEBUG) Log.v(TAG, plugged ? "plugged in" : "unplugged");
                     mPlugged = plugged;
                     if (mPlugged) {
-                        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     } else {
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+                  //      getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
                     }
                 }
             }
         }
     };
-
+/*
     private final Runnable mMoveSaverRunnable = new Runnable() {
         @Override
         public void run() {
@@ -169,11 +169,11 @@ public class Screensaver extends Dream {
             mHandler.postDelayed(this, delay);
         }
     };
-
+*/
     public Screensaver() {
         if (DEBUG) Log.d(TAG, "Screensaver allocated");
     }
-
+/*
     @Override
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Screensaver created");
@@ -182,9 +182,9 @@ public class Screensaver extends Dream {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        // Hack: we want this to be *mostly* non-interactive, but still allow the user to click 
-        // on the alarms button. The Dream class doesn't make this super easy right now, so 
-        // we want to skip over Dream.dispatchTouchEvent() (which would finish() the saver 
+        // Hack: we want this to be *mostly* non-interactive, but still allow the user to click
+        // on the alarms button. The Dream class doesn't make this super easy right now, so
+        // we want to skip over Dream.dispatchTouchEvent() (which would finish() the saver
         // immediately in non-interactive mode) and handle touches ourself.
         return getWindow().superDispatchTouchEvent(event);
     }
@@ -296,5 +296,5 @@ public class Screensaver extends Dream {
 
         }
     }
-
+*/
 }

@@ -20,16 +20,19 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <dimen name="time_text_size">92dip</dimen>
+    <dimen name="time_text_size">120dip</dimen>
     <dimen name="ampm_text_size">20dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
-    <dimen name="time_margin_right">48dip</dimen>
+    <dimen name="time_margin_right">8dip</dimen>
+    <dimen name="time_margin_left">8dip</dimen>
     <dimen name="time_margin_bottom">14dip</dimen>
-    <dimen name="time_margin_top">16dip</dimen>
+    <dimen name="time_margin_top">40dip</dimen>
     <dimen name="ampm_margin_top">8dip</dimen>
     <dimen name="font_margin_adjust">4dip</dimen>
     <dimen name="next_alarm_margin_top">-4dip</dimen>
     <dimen name="alarm_label_padding">8dip</dimen>
     <dimen name="alert_dialog_title_height">64dip</dimen>
+
+    <dimen name="analog_clock_diameter">236dip</dimen>
 </resources>
