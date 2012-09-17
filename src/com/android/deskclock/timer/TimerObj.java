@@ -51,16 +51,6 @@ public class TimerObj implements Parcelable {
 
     private static final String PREF_TIMERS_LIST = "timers_list";
 
-
-
-    // Private actions processed by the receiver
-    public static final String START_TIMER = "start_timer";
-    public static final String CANCEL_TIMER = "cancel_timer";
-    public static final String TIMES_UP = "times_up";
-    public static final String TIMER_RESET = "timer_reset";
-
-    public static final String TIMER_INTENT_EXTRA = "timer.intent.extra";
-
     public static final Parcelable.Creator<TimerObj> CREATOR = new Parcelable.Creator<TimerObj>() {
         @Override
         public TimerObj createFromParcel(Parcel p) {
@@ -137,6 +127,7 @@ public class TimerObj implements Parcelable {
         dest.writeLong(mStartTime);
         dest.writeLong(mTimeLeft);
         dest.writeLong(mOriginalLength);
+        dest.writeInt(mState);
     }
 
     public TimerObj(Parcel p) {
@@ -144,6 +135,7 @@ public class TimerObj implements Parcelable {
         mStartTime = p.readLong();
         mTimeLeft = p.readLong();
         mOriginalLength = p.readLong();
+        mState = p.readInt();
     }
 
     public TimerObj() {
@@ -164,6 +156,11 @@ public class TimerObj implements Parcelable {
         mTimeLeft = mOriginalLength - (System.currentTimeMillis() - mStartTime);
         return mTimeLeft;
     }
+
+    public long getTimesupTime() {
+        return mStartTime + mOriginalLength;
+    }
+
 
     public static void getTimersFromSharedPrefs(
             SharedPreferences prefs, ArrayList<TimerObj> timers) {
