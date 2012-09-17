@@ -82,7 +82,6 @@
                 android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
-                android:screenOrientation="portrait"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation"/>
 
         <!-- This activity is basically the same as AlarmAlert
