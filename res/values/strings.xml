@@ -338,14 +338,27 @@
     <string name="next_timer">>Next Timer: <xliff:g id="time">%s</xliff:g></string>
     <string name="more_timers">>And <xliff:g id="number">%d</xliff:g> timers</string>
     <string name="stopped_at">>Stopped at <xliff:g id="time">%s</xliff:g></string>
-    
+
+    <string-array name="sw_share_strings" translatable="true">
+        <item>Your\'e quite the speed demon.</item>
+        <item>Enjoy the fruits of your labor.</item>
+        <item>Androids are known to be fast, but not as fast as you!</item>
+        <item>Phew.</item>
+        <item>L33t times.</item>
+        <item>Such prodigious velocity.</item>
+        <item>Let\'s do the time warp again.</item>
+        <item>Just a jump to the left.</item>
+        <item>You have a palette for haste.</item>
+        <item>Photonic velocity.</item>
+    </string-array>
+
     <plurals name="timers_num">
         <!-- 1 timer -->
         <item quantity="one">1 minute</item>
         <!-- more -->
         <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> timers</item>
     </plurals>
-    
+
     <string-array name="key_pad_numbers" translatable="true">
       <item>0</item>
       <item>1</item>
@@ -377,8 +390,8 @@
     <string name="selected">Selected</string>
     <string name="alarm_dismiss_question">>Dismiss alarm now instead of at <xliff:g id="time">%s</xliff:g>?</string>
     <string name="alarm_snooze_until">>Snoozing until</string>
-    
-    
+
+
     <!-- Settings strings -->
     <string name="clock_settings">CLOCK</string>
     <string name="clock_style">Style</string>
@@ -403,7 +416,7 @@
      <string name="home_time_zone">Home time zone</string>
      <string name="home_time_zone_title">Home time zone</string>
 
-     <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
+    <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
     <string-array name="timezone_labels">
         <item>"Marshall Islands"</item>
         <item>"Midway Island"</item>
