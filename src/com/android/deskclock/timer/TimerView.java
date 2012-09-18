@@ -37,7 +37,7 @@ public class TimerView extends LinearLayout {
         public void run() {
             mShowTimeStr = !mShowTimeStr;
             TimerView.this.setVisibility(mShowTimeStr ? View.VISIBLE : View.INVISIBLE);
-            postDelayed(mBlinkThread, 1000);
+            postDelayed(mBlinkThread, 500);
         }
 
     };
@@ -129,6 +129,7 @@ public class TimerView extends LinearLayout {
 
     public void blinkTimeStr(boolean blink) {
         if (blink) {
+            removeCallbacks(mBlinkThread);
             postDelayed(mBlinkThread, 1000);
         } else {
             removeCallbacks(mBlinkThread);

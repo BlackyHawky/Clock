@@ -24,6 +24,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
+import com.android.deskclock.timer.TimerView;
+
 
 public class TimerSetupView extends LinearLayout implements Button.OnClickListener{
 
