@@ -19,10 +19,10 @@ package com.android.deskclock;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+
+import com.android.deskclock.timer.TimerView;
 
 
 public class TimerListItem extends LinearLayout {
