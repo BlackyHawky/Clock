@@ -27,12 +27,14 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"このアラームを削除しますか？"</string>
     <string name="show_clock" msgid="8358759982675616915">"時計を表示"</string>
     <string name="hide_clock" msgid="3217727306480505694">"時計を隠す"</string>
-    <string name="label" msgid="162189613902857319">"ラベル"</string>
+    <!-- no translation found for label (2407986483260935828) -->
+    <skip />
     <string name="default_label" msgid="5590025289805630372">"アラーム"</string>
     <string name="set_alarm" msgid="9148359866152726808">"アラームを設定"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"バイブレーション"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"繰り返し"</string>
-    <string name="alert" msgid="6539852766423700221">"アラーム音"</string>
+    <!-- no translation found for alert (6506982899651975645) -->
+    <skip />
     <string name="time" msgid="8067216534232296518">"時刻"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"停止"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"アラームは<xliff:g id="MINUTES">%d</xliff:g>分間鳴って止まりました。"</string>
@@ -61,58 +63,46 @@
     <string name="analog_gadget" msgid="1670505720837152766">"アナログ時計"</string>
     <string name="help" msgid="7786263119482654015">"ヘルプ"</string>
     <string name="settings" msgid="5849739030579520686">"設定"</string>
-    <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"マナーモード中のアラーム"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"マナーモード中もアラームを鳴らす"</string>
-    <string name="snooze_duration_title" msgid="1471249885139952670">"スヌーズ間隔"</string>
-  <string-array name="snooze_duration_entries">
-    <item msgid="8337408933053603125">"5分"</item>
-    <item msgid="5294206441496024610">"10分"</item>
-    <item msgid="2165904039211935470">"15分"</item>
-    <item msgid="7248236967714374250">"20分"</item>
-    <item msgid="738394723625179423">"25分"</item>
-    <item msgid="1180222611308391616">"30分"</item>
-  </string-array>
-  <string-array name="snooze_duration_values">
-    <item msgid="3655014754453084122">"5"</item>
-    <item msgid="8939029597449573449">"10"</item>
-    <item msgid="3922647341176353315">"15"</item>
-    <item msgid="5821804105985044459">"20"</item>
-    <item msgid="6048861883552402852">"25"</item>
-    <item msgid="2740866721232379791">"30"</item>
-  </string-array>
-    <string name="auto_silence_title" msgid="6940612987809171112">"自動消音"</string>
-    <string name="auto_silence_summary" msgid="5757272454196171758">"<xliff:g id="MINUTES">%d</xliff:g>分後にアラームを消音"</string>
-    <string name="auto_silence_never" msgid="4302257878142130807">"OFF"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"スヌーズの長さ"</string>
+  <plurals name="snooze_duration">
+    <item quantity="one" msgid="7406963706727564418">"1分"</item>
+    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g>分"</item>
+  </plurals>
+  <plurals name="snooze_picker_label">
+    <item quantity="one" msgid="3783171637798575068">"分"</item>
+    <item quantity="other" msgid="1304056759541595077">"分"</item>
+  </plurals>
+    <string name="auto_silence_title" msgid="2012754009554434544">"消音までの時間"</string>
+    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g>分"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"なし"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="7718972982871612080">"OFF"</item>
-    <item msgid="5431906692406316549">"5分"</item>
-    <item msgid="7742728812068919959">"10分"</item>
-    <item msgid="2855948657259647629">"15分"</item>
-    <item msgid="6330196381284475079">"20分"</item>
-    <item msgid="7809240121716151904">"25分"</item>
-    <item msgid="2807487305575255986">"30分"</item>
+    <item msgid="3693401222993867634">"5分"</item>
+    <item msgid="3663730603519549990">"10分"</item>
+    <item msgid="1385481095199681200">"15分"</item>
+    <item msgid="420479821767342125">"20分"</item>
+    <item msgid="2107936130151066746">"25分"</item>
+    <item msgid="7219791437023378544">"30分"</item>
+    <item msgid="4278641338024561333">"なし"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"完了"</string>
     <string name="revert" msgid="9100911171235162926">"キャンセル"</string>
     <string name="delete" msgid="5732434972457000541">"削除"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"アラームの音量"</string>
-    <string name="alarm_volume_summary" msgid="8957440373896242438">"アラームの音量を設定する"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"マナーモード"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"アラームをスヌーズ/解除します。"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g>（スヌーズ）"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"アラームは<xliff:g id="TIME">%s</xliff:g>に設定されています。選択すると解除されます。"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量ボタン"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"ボタンの設定"</string>
-    <string name="volume_button_setting_summary" msgid="4776447991226047070">"アラームが鳴っているときにこれらのボタンを押した場合の動作を設定する"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="4520420953175098625">"なし"</item>
-    <item msgid="7111908302622811168">"スヌーズ"</item>
-    <item msgid="8573552194573068996">"解除"</item>
+    <item msgid="7972756698723318690">"スヌーズ"</item>
+    <item msgid="3450979320164769576">"解除"</item>
+    <item msgid="6302517608411378024">"何もしない"</item>
   </string-array>
   <string-array name="volume_button_setting_values">
-    <item msgid="4851033050639608752">"0"</item>
-    <item msgid="3204893476515513084">"1"</item>
-    <item msgid="7687709558968154577">"2"</item>
+    <item msgid="7438326931744812183">"1"</item>
+    <item msgid="6360488263896848967">"2"</item>
+    <item msgid="1944820890481615263">"0"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"デフォルトの着信音を設定"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"アラーム"</string>
@@ -126,7 +116,7 @@
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"時計で設定したアラーム用のサウンド再生サービスです。"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"着信音を読み込み中..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"アラームを設定"</string>
-    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"アラーム設定時刻: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"次のアラーム: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"タイマー"</string>
     <string name="menu_clock" msgid="5612760670606829805">"時計"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"ストップウォッチ"</string>
@@ -147,7 +137,195 @@
     <string name="sw_lap_total" msgid="2575384748273693584">"合計時間"</string>
     <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
     <skip />
+    <string name="hours_label" msgid="3393478155635368097">"h"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
+    <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="zero" msgid="2874056158816410009">"00:00:00"</string>
+    <string name="sw_share_title" msgid="2960856389203349">"自分の時間の共有:"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"私の時間は<xliff:g id="TIME">%s</xliff:g>です"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"ラップ時間:"</string>
+    <!-- no translation found for sw_notification_label (3860960768913061020) -->
+    <skip />
+    <!-- no translation found for sw_notification_lap (3178438408027457979) -->
+    <skip />
+    <!-- no translation found for sw_notification_lap_number (3535420316052647126) -->
+    <skip />
     <string name="timer_add_one_button" msgid="1963943621548063189">"1分延長"</string>
     <string name="timer_dismiss_button" msgid="6161488380194869207">"キャンセル"</string>
-    <string name="timer_times_up" msgid="6157697208606617213">"タイムアップ"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"タイマーを追加"</string>
+    <string name="timer_clear" msgid="3496971445784089796">"クリア"</string>
+    <string name="timer_start" msgid="6158486445614356442">"開始"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"削除"</string>
+    <string name="timer_plus_one" msgid="3889719909524490658">"あと1分"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
+    <!-- no translation found for timer_reset (7848424809190171640) -->
+    <skip />
+    <!-- no translation found for timer_cancel (3572868404230815644) -->
+    <skip />
+    <!-- no translation found for timer_delete_question (7658546868533913049) -->
+    <skip />
+    <!-- no translation found for timer_times_up (9190440395938519009) -->
+    <skip />
+    <!-- no translation found for timer_notification_label (4933184831583137249) -->
+    <skip />
+    <!-- no translation found for next_timer (561264099702200805) -->
+    <skip />
+    <!-- no translation found for more_timers (7600207278228744856) -->
+    <skip />
+    <!-- no translation found for stopped_at (3640387409683991793) -->
+    <skip />
+    <!-- no translation found for sw_share_strings:0 (6974174544581991076) -->
+    <!-- no translation found for sw_share_strings:1 (6332879039890727169) -->
+    <!-- no translation found for sw_share_strings:2 (815382761274660130) -->
+    <!-- no translation found for sw_share_strings:3 (7916250650982813737) -->
+    <!-- no translation found for sw_share_strings:4 (6836603904515182333) -->
+    <!-- no translation found for sw_share_strings:5 (7508085100680861631) -->
+    <!-- no translation found for sw_share_strings:6 (5961245252909589573) -->
+    <!-- no translation found for sw_share_strings:7 (5211891900854545940) -->
+    <!-- no translation found for sw_share_strings:8 (9071353477103826053) -->
+    <!-- no translation found for sw_share_strings:9 (3785193933691117181) -->
+    <!-- no translation found for timers_num:one (6764708652976799977) -->
+    <!-- no translation found for timers_num:other (3799129667336330616) -->
+  <string-array name="key_pad_numbers">
+    <item msgid="3790799928094478129">"0"</item>
+    <item msgid="1158268715173398623">"1"</item>
+    <item msgid="5123981712003258295">"2"</item>
+    <item msgid="7151111844056508651">"3"</item>
+    <item msgid="254052406891028409">"4"</item>
+    <item msgid="3822256979378218671">"5"</item>
+    <item msgid="7555205990176249549">"6"</item>
+    <item msgid="3287963013853335472">"7"</item>
+    <item msgid="2859322766548004670">"8"</item>
+    <item msgid="555979188652757544">"9"</item>
+  </string-array>
+    <!-- no translation found for home_label (4436139365695453870) -->
+    <skip />
+    <!-- no translation found for remove_question (716296469879431612) -->
+    <skip />
+    <!-- no translation found for sort_by_name (7825123427213807895) -->
+    <skip />
+    <!-- no translation found for sort_by_time (3588583060192569857) -->
+    <skip />
+    <!-- no translation found for search_results (3940223188208445245) -->
+    <skip />
+    <!-- no translation found for no_cities_found (5076277409409268915) -->
+    <skip />
+    <!-- no translation found for alarm_setup_music (6140596565783696650) -->
+    <skip />
+    <!-- no translation found for alarm_on (3898994909321344263) -->
+    <skip />
+    <!-- no translation found for alarm_off (7220973271168254762) -->
+    <skip />
+    <!-- no translation found for alarm_night (2685913727476024929) -->
+    <skip />
+    <!-- no translation found for Delete_selected_alarm (4162534388267929249) -->
+    <skip />
+    <!-- no translation found for selected (154434067032592597) -->
+    <skip />
+    <!-- no translation found for alarm_dismiss_question (604777874801795423) -->
+    <skip />
+    <!-- no translation found for alarm_snooze_until (3368784551097340338) -->
+    <skip />
+    <string name="clock_settings" msgid="8887845806151785393">"時刻"</string>
+    <string name="clock_style" msgid="2265011060429742344">"スタイル"</string>
+    <string name="clock_style_title" msgid="32660784968818521">"時刻のスタイル"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"アナログ"</item>
+    <item msgid="8483930821046925592">"デジタル"</item>
+  </string-array>
+  <string-array name="clock_style_values">
+    <item msgid="5353805556644220918">"アナログ"</item>
+    <item msgid="1814605819692210671">"デジタル"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"自宅の時計を自動表示"</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"通常のタイムゾーン外を移動している場合にホームの時刻を追加する"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"自宅タイムゾーン"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"自宅タイムゾーン"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"マーシャル諸島"</item>
+    <item msgid="4196408495909011020">"ミッドウェー諸島"</item>
+    <item msgid="1414384194857730006">"ハワイ"</item>
+    <item msgid="2687091371581931926">"アラスカ"</item>
+    <item msgid="1922100269679049660">"太平洋時間"</item>
+    <item msgid="7156402158716866161">"ティフアナ"</item>
+    <item msgid="1144117502254612241">"アリゾナ"</item>
+    <item msgid="101284182011722637">"チワワ"</item>
+    <item msgid="689121094232986897">"山岳部時間"</item>
+    <item msgid="5445331923942302756">"中央アメリカ"</item>
+    <item msgid="2749806434052452351">"中部時間"</item>
+    <item msgid="3997138870229703753">"メキシコシティ"</item>
+    <item msgid="5425567073027744888">"サスカチュワン"</item>
+    <item msgid="2877342865396629368">"ボゴタ"</item>
+    <item msgid="568682398893899670">"東部時間"</item>
+    <item msgid="668135984541863866">"ベネズエラ"</item>
+    <item msgid="3737474220861486223">"大西洋時間（バルバドス）"</item>
+    <item msgid="6279116051273436870">"大西洋時間（カナダ）"</item>
+    <item msgid="8513382867172014244">"マナウス"</item>
+    <item msgid="7776299003105932407">"サンチアゴ"</item>
+    <item msgid="8636989494746218677">"ニューファンドランド"</item>
+    <item msgid="4402541016410147505">"ブラジリア"</item>
+    <item msgid="2251184440733164084">"ブエノスアイレス"</item>
+    <item msgid="6202926618569004969">"グリーンランド"</item>
+    <item msgid="2355275037115290628">"モンテビデオ"</item>
+    <item msgid="1377549694711708945">"中部大西洋"</item>
+    <item msgid="3457671272126347981">"アゾレス諸島"</item>
+    <item msgid="3659315141063710840">"カーボヴェルデ諸島"</item>
+    <item msgid="1260941741802367635">"カサブランカ"</item>
+    <item msgid="8275203689687954762">"ロンドン、ダブリン"</item>
+    <item msgid="5970179539479320905">"アムステルダム、ベルリン"</item>
+    <item msgid="5396319478750517962">"ベオグラード"</item>
+    <item msgid="8688787475056663004">"ブリュッセル"</item>
+    <item msgid="3415827874921681622">"サラエボ"</item>
+    <item msgid="402008965928320066">"ウィントフック"</item>
+    <item msgid="6436942724959275569">"西アフリカ標準時"</item>
+    <item msgid="954536568417204026">"アンマン、ヨルダン"</item>
+    <item msgid="8932745482008902551">"アテネ、イスタンブール"</item>
+    <item msgid="320025725949024510">"ベイルート、レバノン"</item>
+    <item msgid="7242083112551905970">"カイロ"</item>
+    <item msgid="7241520146011450419">"ヘルシンキ"</item>
+    <item msgid="2717065017510546526">"エルサレム"</item>
+    <item msgid="8698556287741466553">"ミンスク"</item>
+    <item msgid="1797598357342084506">"ハラーレ"</item>
+    <item msgid="5169119919905066998">"バグダッド"</item>
+    <item msgid="2615788116201065182">"モスクワ"</item>
+    <item msgid="9084354867885584646">"クウェート"</item>
+    <item msgid="1351570519986178268">"ナイロビ"</item>
+    <item msgid="7094569580635877460">"テヘラン"</item>
+    <item msgid="3953138772617909704">"バクー"</item>
+    <item msgid="2868893113598800752">"トビリシ"</item>
+    <item msgid="7088581865802476373">"エレバン"</item>
+    <item msgid="1941122257623887992">"ドバイ"</item>
+    <item msgid="9194797225058249720">"カブール"</item>
+    <item msgid="6486569254364577332">"イスラマーバード、カラチ"</item>
+    <item msgid="5487724896895412089">"ウラリスク"</item>
+    <item msgid="364906869710826982">"エカテリンブルグ"</item>
+    <item msgid="2106505051751383358">"コルカタ"</item>
+    <item msgid="6851586621581501447">"スリランカ"</item>
+    <item msgid="800438544128213134">"カトマンズ"</item>
+    <item msgid="6173621471007643021">"アスタナ"</item>
+    <item msgid="8645125891971581128">"ヤンゴン"</item>
+    <item msgid="2886407505119737794">"クラスノヤルスク"</item>
+    <item msgid="3408222398188107090">"バンコク"</item>
+    <item msgid="4441612937172851228">"北京"</item>
+    <item msgid="4936715789028996930">"香港"</item>
+    <item msgid="4261031143777385525">"イルクーツク"</item>
+    <item msgid="3538060959338191835">"クアラルンプール"</item>
+    <item msgid="1438847562643099201">"パース"</item>
+    <item msgid="3063913827688244383">"台北"</item>
+    <item msgid="3502757135046564209">"ソウル"</item>
+    <item msgid="6107588684519111669">"東京、大阪"</item>
+    <item msgid="4350769099755608471">"ヤクーツク"</item>
+    <item msgid="2422707004533526462">"アデレード"</item>
+    <item msgid="1292192084554134339">"ダーウィン"</item>
+    <item msgid="1320883699470001716">"ブリズベーン"</item>
+    <item msgid="5137198806146386527">"ホバート"</item>
+    <item msgid="5920063686933941174">"シドニー、キャンベラ"</item>
+    <item msgid="615906039696009425">"ウラジオストク"</item>
+    <item msgid="7738680449356275374">"グアム"</item>
+    <item msgid="2882915026380778227">"マガダン"</item>
+    <item msgid="8255615641810148152">"オークランド"</item>
+    <item msgid="3027153773466391728">"フィジー"</item>
+    <item msgid="5911600083231840181">"トンガ"</item>
+  </string-array>
+    <string name="alarm_settings" msgid="6049627772103646753">"アラーム"</string>
 </resources>
