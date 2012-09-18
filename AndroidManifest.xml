@@ -153,6 +153,19 @@
                 <category android:name="android.intent.category.DREAM" />
             </intent-filter>
         </service>
+
+        <receiver android:name="com.android.deskclock.timer.TimerReceiver"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="start_timer" />
+                <action android:name="delete_timer" />
+                <action android:name="times_up" />
+                <action android:name="timer_stop" />
+                <action android:name="timer_reset" />
+                <action android:name="timer_done" />
+                <action android:name="timer_update" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>
 

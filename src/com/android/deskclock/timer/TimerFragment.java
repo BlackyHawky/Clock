@@ -17,6 +17,8 @@
 package com.android.deskclock.timer;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -37,7 +39,7 @@ import java.util.ArrayList;
 
 public class TimerFragment extends DeskClockFragment implements OnClickListener {
 
-
+    private static final String TAG = "TimerFragment";
 	private ListView mTimersList;
 	private View mNewTimerPage;
 	private View mTimersListPage;
@@ -214,6 +216,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 TimerObj t = new TimerObj(mTimerSetup.getTime() * 1000);
                 t.mState = TimerObj.STATE_RUNNING;
                 mAdapter.addTimer(t);
+                updateTimersState(t, Timers.START_TIMER);
                 gotoTimersView();
             }
 
@@ -280,11 +283,13 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
         ClickAction tag = (ClickAction)v.getTag();
         switch (tag.mAction) {
             case ClickAction.ACTION_DELETE:
-                mAdapter.deleteTimer(tag.mTimer.mTimerId);
+                TimerObj t = tag.mTimer;
+                mAdapter.deleteTimer(t.mTimerId);
                 if (mAdapter.getCount() == 0) {
                     mTimerSetup.reset();
                     gotoSetupView();
                 }
+                updateTimersState(t, Timers.DELETE_TIMER);
                 break;
             case ClickAction.ACTION_PLUS_ONE:
                 onPlusOneButtonPressed(tag.mTimer);
@@ -303,6 +308,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
         switch(t.mState) {
             case TimerObj.STATE_RUNNING:
                  t.mStartTime += 60000; //60 seconds in millis
+                 updateTimersState(t, Timers.TIMER_UPDATE);
                 break;
             case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_TIMESUP:
@@ -310,6 +316,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 t.mState = TimerObj.STATE_RESTART;
                 t.mTimeLeft = t.mOriginalLength;
                 ((TimerListItem)t.mView).setTime(t.mTimeLeft / 10);
+                updateTimersState(t, Timers.TIMER_RESET);
                 break;
             default:
                 break;
@@ -326,15 +333,18 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 t.mState = TimerObj.STATE_STOPPED;
                 ((TimerListItem) t.mView).pause();
                 t.updateTimeLeft();
+                updateTimersState(t, Timers.TIMER_STOP);
                 break;
             case TimerObj.STATE_STOPPED:
                 // Reset the remaining time and continue timer
                 t.mState = TimerObj.STATE_RUNNING;
                 t.mStartTime = System.currentTimeMillis() - (t.mOriginalLength - t.mTimeLeft);
                 ((TimerListItem) t.mView).start();
+                updateTimersState(t, Timers.START_TIMER);
                 break;
             case TimerObj.STATE_TIMESUP:
                 t.mState = TimerObj.STATE_DONE;
+                updateTimersState(t, Timers.TIMER_DONE);
                 break;
             case TimerObj.STATE_DONE:
                 break;
@@ -342,6 +352,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 t.mState = TimerObj.STATE_RUNNING;
                 t.mStartTime = System.currentTimeMillis() - (t.mOriginalLength - t.mTimeLeft);
                 ((TimerListItem) t.mView).start();
+                updateTimersState(t, Timers.START_TIMER);
                 break;
             default:
                 break;
@@ -399,5 +410,16 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             mTimersList.removeCallbacks(mClockTick);
             mTicking = false;
         }
+    }
+
+    private void updateTimersState(TimerObj t, String action) {
+        if (!Timers.DELETE_TIMER.equals(action)) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            t.writeToSharedPref(prefs);
+        }
+        Intent i = new Intent();
+        i.setAction(action);
+        i.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
+        getActivity().sendBroadcast(i);
     }
 }

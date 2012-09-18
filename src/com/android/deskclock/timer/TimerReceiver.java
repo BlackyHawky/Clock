@@ -16,68 +16,107 @@
 
 package com.android.deskclock.timer;
 
+import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.android.deskclock.Alarm;
+import com.android.deskclock.AlarmKlaxon;
+import com.android.deskclock.Alarms;
+import com.android.deskclock.DeskClock;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class TimerReceiver extends BroadcastReceiver {
     private static final String TAG = "TimerReceiver";
 
-     @Override
+    ArrayList<TimerObj> mTimers;
+
+    @Override
     public void onReceive(final Context context, final Intent intent) {
 
-         TimerObj timer;
-         Log.d(TAG, " got intent");
+         int timer;
+         Log.d(TAG, " got intent with action " + intent.getAction());
 
-         if (intent.hasExtra(TimerObj.TIMER_INTENT_EXTRA)) {
+         if (intent.hasExtra(Timers.TIMER_INTENT_EXTRA)) {
              // Get the alarm out of the Intent
-             timer = intent.getParcelableExtra(TimerObj.TIMER_INTENT_EXTRA);
+             timer = intent.getIntExtra(Timers.TIMER_INTENT_EXTRA, -1);
+             if (timer == -1) {
+                 Log.d(TAG, " got intent without Timer data");
+             }
          } else {
              // No data to work with, do nothing
              Log.d(TAG, " got intent without Timer data");
              return;
          }
 
-        NotificationManager nm =
-                (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
-         if (TimerObj.START_TIMER.equals(intent.getAction())) {
-             // Start intent is send by the timer activity, show timer notification and set an alarm
-             Log.d(TAG," got start intent");
-             PendingIntent i = createTimerActivityIntent(context, timer);
-             nm.notify(timer.mTimerId, buildTimerNotification(context, timer, false, i));
+//        NotificationManager nm =
+  //              (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
 
-         } else if (TimerObj.CANCEL_TIMER.equals(intent.getAction())) {
-             // Cancel intent can be sent by either the app or from the notification
-             // Remove notification, cancel alarm and tell timer app the timer was canceled,
-             //
-             Log.d(TAG ," got cancel intent");
-             nm.cancel(timer.mTimerId);
-
-         } else if (TimerObj.TIMES_UP.equals(intent.getAction())) {
-             // Times up comes as an alarm notification, update the notification, timer activity and
-             // play the alarm ring tone.
-             Log.d(TAG," got timesup intent");
-
-
-         } else if (TimerObj.TIMER_RESET.equals(intent.getAction())) {
-             // Reset can come with the times up notification is swiped or from the activity
-             // Remove the notification, stop playing the alarm, tell timer activity to reset
+         // Get the updated timers data.
+         if (mTimers == null) {
+             mTimers = new ArrayList<TimerObj> ();
          }
+         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+         TimerObj.getTimersFromSharedPrefs(prefs, mTimers);
+
+         // TODO: Update notifications
+
+        if (Timers.TIMES_UP.equals(intent.getAction())) {
+            // Find the timer (if it doesn't exists, it was probably deleted).
+            TimerObj t = Timers.findTimer(mTimers, timer);
+            if (t == null) {
+                Log.d(TAG, " timer not found in list - do nothing");
+                return;
+            }
+
+            t.mState = TimerObj.STATE_TIMESUP;
+            t.writeToSharedPref(prefs);
+            // Play ringtone by using AlarmKlaxon service with a default alarm.
+            Log.d(TAG, "playing ringtone");
+            Alarm a = new Alarm();
+            Intent si = new Intent();
+            si.setClass(context, AlarmKlaxon.class);
+            si.putExtra(Alarms.ALARM_INTENT_EXTRA, a);
+            context.startService(si);
+
+            // Start the DeskClock Activity
+            Intent i = new Intent();
+            i.setClass(context, DeskClock.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+
+        } else if (Timers.TIMER_RESET.equals(intent.getAction())
+                || Timers.DELETE_TIMER.equals(intent.getAction())
+                || Timers.TIMER_DONE.equals(intent.getAction())) {
+            // Stop Ringtone if all tiemrs are not in timesup status
+            if (Timers.findExpiredTimer(mTimers) == null) {
+                // Stop ringtone
+                Log.d(TAG, "stopping ringtone");
+                Intent si = new Intent();
+                si.setClass(context, AlarmKlaxon.class);
+                context.startService(si);
+                context.stopService(si);
+            }
+        }
+        // Update the next "Times up" alarm
+        updateNextTimesup(context) ;
     }
-
-
-     private static PendingIntent createTimerActivityIntent(Context context, TimerObj t) {
-         Intent clickIntent = new Intent();
-     //    clickIntent.setClass(context, TimerActivity.class);
-         clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-         clickIntent.putExtra(TimerObj.TIMER_INTENT_EXTRA, t);
-         return PendingIntent.getActivity(context, 0, clickIntent,
+     private static PendingIntent createTimerActivityIntent(Context context, TimerObj t, String action) {
+         Intent i = new Intent();
+         i.setClass(context, TimerReceiver.class);
+         i.setAction(action);
+         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+         i.putExtra(Timers.TIMER_INTENT_EXTRA, t);
+         return PendingIntent.getActivity(context, 0, i,
                      PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
      }
 
@@ -98,4 +137,42 @@ public class TimerReceiver extends BroadcastReceiver {
          return builder.build();
 
      }
+
+    // Scan all timers and find the one that will expire next.
+    // Tell AlarmManager to send a "Time's up" message to this receiver when this timer expires.
+    // If no timer exists, clear "time's up" message.
+    private void updateNextTimesup(Context context) {
+        long nextTimesup = Long.MAX_VALUE;
+        boolean nextTimerfound = false;
+        Iterator<TimerObj> i = mTimers.iterator();
+        TimerObj t = null;
+        while(i.hasNext()) {
+            t = i.next();
+            if (t.mState == TimerObj.STATE_RUNNING) {
+                long timesupTime = t.getTimesupTime();
+                if (timesupTime < nextTimesup) {
+                    nextTimesup = timesupTime;
+                    nextTimerfound = true;
+                }
+            }
+        }
+
+        Intent intent = new Intent();
+        intent.setAction(Timers.TIMES_UP);
+        intent.setClass(context, TimerReceiver.class);
+        if (t != null) {
+            intent.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
+        }
+        AlarmManager mngr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent p = PendingIntent.getBroadcast(context,
+                0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+        if (nextTimerfound) {
+            mngr.set(AlarmManager.RTC_WAKEUP, nextTimesup, p);
+            Log.d(TAG,"Setting times up to " + nextTimesup);
+        } else {
+            Log.d(TAG,"canceling times up");
+            mngr.cancel(p);
+        }
+    }
+
 }
