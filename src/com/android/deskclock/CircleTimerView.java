@@ -1,6 +1,7 @@
 package com.android.deskclock;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -160,84 +161,35 @@ public class CircleTimerView extends View {
         }
     }
 
-    @Override
-    public Parcelable onSaveInstanceState() {
-      Parcelable superState = super.onSaveInstanceState();
-      SavedState ss = new SavedState(superState);
+    private static final String PREF_CTV_PAUSED  = "_ctv_paused";
+    private static final String PREF_CTV_INTERVAL  = "_ctv_interval";
+    private static final String PREF_CTV_INTERVAL_START = "_ctv_interval_start";
+    private static final String PREF_CTV_CURRENT_INTERVAL = "_ctv_current_interval";
+    private static final String PREF_CTV_ACCUM_TIME = "_ctv_accum_time";
+    private static final String PREF_CTV_TIMER_MODE = "_ctv_timer_mode";
 
-      ss.mIntervalTime = this.mIntervalTime;
-      ss.mIntervalStartTime = this.mIntervalStartTime;
-      ss.mCurrentIntervalTime = this.mCurrentIntervalTime;
-      ss.mAccumulatedTime = this.mAccumulatedTime;
-      ss.mPaused = this.mPaused;
-      ss.mTimerMode = this.mTimerMode;
-
-      removeCallbacks(mAnimationThread);
-      return ss;
+    // Since this view is used in multiple places, use the key to save different instances
+    public void writeToSharedPref(SharedPreferences prefs, String key) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean (key + PREF_CTV_PAUSED, mPaused);
+        editor.putLong (key + PREF_CTV_INTERVAL, mIntervalTime);
+        editor.putLong (key + PREF_CTV_INTERVAL_START, mIntervalStartTime);
+        editor.putLong (key + PREF_CTV_CURRENT_INTERVAL, mCurrentIntervalTime);
+        editor.putLong (key + PREF_CTV_ACCUM_TIME, mAccumulatedTime);
+        editor.putBoolean (key + PREF_CTV_TIMER_MODE, mTimerMode);
+        editor.apply();
     }
 
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-      if(!(state instanceof SavedState)) {
-        super.onRestoreInstanceState(state);
-        return;
-      }
-
-      SavedState ss = (SavedState)state;
-      super.onRestoreInstanceState(ss.getSuperState());
-
-      this.mIntervalTime = ss.mIntervalTime;
-      this.mIntervalStartTime = ss.mIntervalStartTime;
-      this.mCurrentIntervalTime = ss.mCurrentIntervalTime;
-      this.mAccumulatedTime = ss.mAccumulatedTime;
-      this.mPaused = ss.mPaused;
-      this.mTimerMode = ss.mTimerMode;
-      if (mIntervalStartTime != -1 && !mPaused) {
-          this.post(mAnimationThread);
-      }
-    }
-
-    static class SavedState extends BaseSavedState {
-        public boolean mPaused = false;
-        public long mIntervalTime = 0;
-        public long mIntervalStartTime = -1;
-        public long mCurrentIntervalTime = 0;
-        public long mAccumulatedTime = 0;
-        public boolean mTimerMode;
-
-        SavedState(Parcelable superState) {
-            super(superState);
+    public void readFromSharedPref(SharedPreferences prefs, String key) {
+        mPaused = prefs.getBoolean(key + PREF_CTV_PAUSED, false);
+        mIntervalTime = prefs.getLong(key + PREF_CTV_INTERVAL, 0);
+        mIntervalStartTime = prefs.getLong(key + PREF_CTV_INTERVAL_START, 0);
+        mCurrentIntervalTime = prefs.getLong(key + PREF_CTV_CURRENT_INTERVAL, 0);
+        mAccumulatedTime = prefs.getLong(key + PREF_CTV_ACCUM_TIME, 0);
+        mTimerMode = prefs.getBoolean(key + PREF_CTV_TIMER_MODE, false);
+        if (mIntervalStartTime != -1 && !mPaused) {
+            this.post(mAnimationThread);
         }
-
-        private SavedState(Parcel in) {
-            super(in);
-            this.mIntervalTime = in.readLong();
-            this.mIntervalStartTime = in.readLong();
-            this.mCurrentIntervalTime = in.readLong();
-            this.mAccumulatedTime = in.readLong();
-            this.mPaused = (in.readInt() == 1);
-        }
-
-        @Override
-        public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeLong(this.mIntervalTime);
-            out.writeLong(this.mIntervalStartTime);
-            out.writeLong(this.mCurrentIntervalTime);
-            out.writeLong(this.mAccumulatedTime);
-            out.writeInt(this.mPaused?1:0);
-        }
-
-        //required field that makes Parcelables from a Parcel
-        public static final Parcelable.Creator<SavedState> CREATOR =
-                new Parcelable.Creator<SavedState>() {
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-        };
     }
 
 }

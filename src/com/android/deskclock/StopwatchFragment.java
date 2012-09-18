@@ -2,7 +2,9 @@ package com.android.deskclock;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.TextView;
 import com.android.deskclock.timer.TimerView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -153,6 +157,14 @@ public class StopwatchFragment extends DeskClockFragment {
         }
     }
 
+    // Since the stopwatch need to run even if the app is closed, save data to shared prefs.
+    private static final String PREF_START_TIME  = "sw_start_time";
+    private static final String PREF_ACCUM_TIME = "sw_accum_time";
+    private static final String PREF_STATE = "sw_state";
+    private static final String PREF_LAP_NUM = "sw_lap_num";
+    private static final String PREF_LAP_TIME = "sw_lap_time_";
+
+
     // Keys for data stored in the activity's bundle
     private static final String START_TIME_KEY = "start_time";
     private static final String ACCUM_TIME_KEY = "accum_time";
@@ -183,6 +195,9 @@ public class StopwatchFragment extends DeskClockFragment {
                         break;
                     case STOPWATCH_STOPPED:
                         // do reset
+                        SharedPreferences prefs =
+                                PreferenceManager.getDefaultSharedPreferences(mContext);
+                        clearSharedPref(prefs);
                         mAccumulatedTime = 0;
                         mLapsAdapter.clearLaps();
                         showLaps();
@@ -267,21 +282,20 @@ public class StopwatchFragment extends DeskClockFragment {
             mLapsList.setAdapter(mLapsAdapter);
         }
 
-        if (savedInstanceState != null) {
-            mState = savedInstanceState.getInt(STATE_KEY, STOPWATCH_RESET);
-            mStartTime = savedInstanceState.getLong(START_TIME_KEY, 0);
-            mAccumulatedTime = savedInstanceState.getLong(ACCUM_TIME_KEY, 0);
-            mLapsAdapter.setLapTimes(savedInstanceState.getLongArray(LAPS_KEY));
-        }
         return v;
     }
 
     @Override
     public void onResume() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        readFromSharedPref(prefs);
+        mTime.readFromSharedPref(prefs, "sw");
         setButtons(mState);
         mTimeText.setTime(mAccumulatedTime);
         if (mState == STOPWATCH_RUNNING) {
             startUpdateThread();
+        } else if (mState == STOPWATCH_STOPPED && mAccumulatedTime != 0) {
+            mTimeText.blinkTimeStr(true);
         }
         showLaps();
         super.onResume();
@@ -292,21 +306,12 @@ public class StopwatchFragment extends DeskClockFragment {
         if (mState == STOPWATCH_RUNNING) {
             stopUpdateThread();
         }
+        // The stopwatch must keep running even if the user closes the app so save stopwatch state
+        // in shared prefs
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        writeToSharedPref(prefs);
+        mTime.writeToSharedPref(prefs, "sw");
         super.onPause();
-    }
-
-    @Override
-    public void onSaveInstanceState (Bundle outState) {
-        outState.putInt(STATE_KEY, mState);
-        outState.putLong(START_TIME_KEY, mStartTime);
-        outState.putLong(ACCUM_TIME_KEY, mAccumulatedTime);
-        if (mLapsAdapter != null) {
-            long [] laps = mLapsAdapter.getLapTimes();
-            if (laps != null) {
-                outState.putLongArray(LAPS_KEY, laps);
-            }
-        }
-        super.onSaveInstanceState(outState);
     }
 
     private void showShareButton(boolean show) {
@@ -468,4 +473,50 @@ public class StopwatchFragment extends DeskClockFragment {
         return getString(R.string.sw_share_main, mTimeText.getTimeString());
     }
 
+    private void writeToSharedPref(SharedPreferences prefs) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putLong (PREF_START_TIME, mStartTime);
+        editor.putLong (PREF_ACCUM_TIME, mAccumulatedTime);
+        editor.putInt (PREF_STATE, mState);
+        if (mLapsAdapter != null) {
+            long [] laps = mLapsAdapter.getLapTimes();
+            if (laps != null) {
+                editor.putInt (PREF_LAP_NUM, laps.length);
+                for (int i = 0; i < laps.length; i++) {
+                    String key = PREF_LAP_TIME + Integer.toString(i);
+                    editor.putLong (key, laps[i]);
+                }
+            }
+        }
+        editor.apply();
+    }
+
+    private void readFromSharedPref(SharedPreferences prefs) {
+        mStartTime = prefs.getLong(PREF_START_TIME, 0);
+        mAccumulatedTime = prefs.getLong(PREF_ACCUM_TIME, 0);
+        mState = prefs.getInt(PREF_STATE, STOPWATCH_RESET);
+        if (mLapsAdapter != null) {
+            int lapNum = prefs.getInt(PREF_LAP_NUM, STOPWATCH_RESET);
+            long[] laps = new long[lapNum];
+            for (int i = 0; i < lapNum; i++) {
+                String key = PREF_LAP_TIME + Integer.toString(i);
+                laps[i] = prefs.getLong(key, 0);
+            }
+            mLapsAdapter.setLapTimes(laps);
+        }
+    }
+
+    private void clearSharedPref(SharedPreferences prefs) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove (PREF_START_TIME);
+        editor.remove (PREF_ACCUM_TIME);
+        editor.remove (PREF_STATE);
+        int lapNum = prefs.getInt(PREF_LAP_NUM, STOPWATCH_RESET);
+        for (int i = 0; i < lapNum; i++) {
+            String key = PREF_LAP_TIME + Integer.toString(i);
+            editor.remove(key);
+        }
+        editor.remove(PREF_LAP_NUM);
+        editor.apply();
+    }
 }
