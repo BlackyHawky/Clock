@@ -250,7 +250,8 @@ public class StopwatchFragment extends DeskClockFragment {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                 // Add data to the intent, the receiving app will decide what to
                 // do with it.
-                intent.putExtra(Intent.EXTRA_SUBJECT, mContext.getResources().getString(R.string.sw_share_title));
+                intent.putExtra(Intent.EXTRA_SUBJECT,
+                        getActivity().getResources().getString(R.string.sw_share_title));
                 intent.putExtra(Intent.EXTRA_TEXT, buildShareResults());
                 startActivity(Intent.createChooser(intent, null));
             }
