@@ -27,12 +27,14 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"این هشدار حذف شود؟"</string>
     <string name="show_clock" msgid="8358759982675616915">"نمایش ساعت"</string>
     <string name="hide_clock" msgid="3217727306480505694">"پنهان کردن ساعت"</string>
-    <string name="label" msgid="162189613902857319">"برچسب"</string>
+    <!-- no translation found for label (2407986483260935828) -->
+    <skip />
     <string name="default_label" msgid="5590025289805630372">"زنگ ساعت"</string>
     <string name="set_alarm" msgid="9148359866152726808">"تنظیم زنگ ساعت"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"لرزش"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"تکرار"</string>
-    <string name="alert" msgid="6539852766423700221">"آهنگ زنگ"</string>
+    <!-- no translation found for alert (6506982899651975645) -->
+    <skip />
     <string name="time" msgid="8067216534232296518">"زمان"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"رد کردن"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"هشدار پس از <xliff:g id="MINUTES">%d</xliff:g> دقیقه بیصدا شد."</string>
@@ -61,58 +63,46 @@
     <string name="analog_gadget" msgid="1670505720837152766">"ساعت آنالوگ"</string>
     <string name="help" msgid="7786263119482654015">"راهنما"</string>
     <string name="settings" msgid="5849739030579520686">"تنظیمات"</string>
-    <string name="alarm_in_silent_mode_title" msgid="3892612644543516705">"زنگ ساعت در حالت بی صدا"</string>
-    <string name="alarm_in_silent_mode_summary" msgid="123772279768441207">"پخش زنگ هشدار حتی در زمانی که تلفن در حالت ساکت است"</string>
-    <string name="snooze_duration_title" msgid="1471249885139952670">"مدت تعویق"</string>
-  <string-array name="snooze_duration_entries">
-    <item msgid="8337408933053603125">"۵ دقیقه"</item>
-    <item msgid="5294206441496024610">"۱۰ دقیقه"</item>
-    <item msgid="2165904039211935470">"۱۵ دقیقه"</item>
-    <item msgid="7248236967714374250">"۲۰ دقیقه"</item>
-    <item msgid="738394723625179423">"۲۵ دقیقه"</item>
-    <item msgid="1180222611308391616">"۳۰ دقیقه"</item>
-  </string-array>
-  <string-array name="snooze_duration_values">
-    <item msgid="3655014754453084122">"5"</item>
-    <item msgid="8939029597449573449">"10"</item>
-    <item msgid="3922647341176353315">"15"</item>
-    <item msgid="5821804105985044459">"20"</item>
-    <item msgid="6048861883552402852">"25"</item>
-    <item msgid="2740866721232379791">"30"</item>
-  </string-array>
-    <string name="auto_silence_title" msgid="6940612987809171112">"سکوت خودکار"</string>
-    <string name="auto_silence_summary" msgid="5757272454196171758">"هشدارها پس از <xliff:g id="MINUTES">%d</xliff:g> دقیقه بیصدا می‌شوند"</string>
-    <string name="auto_silence_never" msgid="4302257878142130807">"خاموش"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"طول تعویق"</string>
+  <plurals name="snooze_duration">
+    <item quantity="one" msgid="7406963706727564418">"۱ دقیقه"</item>
+    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> دقیقه"</item>
+  </plurals>
+  <plurals name="snooze_picker_label">
+    <item quantity="one" msgid="3783171637798575068">"دقیقه"</item>
+    <item quantity="other" msgid="1304056759541595077">"دقیقه"</item>
+  </plurals>
+    <string name="auto_silence_title" msgid="2012754009554434544">"سکوت پس از"</string>
+    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> دقیقه"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"هیچوقت"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="7718972982871612080">"خاموش"</item>
-    <item msgid="5431906692406316549">"۵ دقیقه"</item>
-    <item msgid="7742728812068919959">"۱۰ دقیقه"</item>
-    <item msgid="2855948657259647629">"۱۵ دقیقه"</item>
-    <item msgid="6330196381284475079">"۲۰ دقیقه"</item>
-    <item msgid="7809240121716151904">"۲۵ دقیقه"</item>
-    <item msgid="2807487305575255986">"۳۰ دقیقه"</item>
+    <item msgid="3693401222993867634">"۵ دقیقه"</item>
+    <item msgid="3663730603519549990">"۱۰ دقیقه"</item>
+    <item msgid="1385481095199681200">"۱۵ دقیقه"</item>
+    <item msgid="420479821767342125">"۲۰ دقیقه"</item>
+    <item msgid="2107936130151066746">"۲۵ دقیقه"</item>
+    <item msgid="7219791437023378544">"۳۰ دقیقه"</item>
+    <item msgid="4278641338024561333">"هیچوقت"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"انجام شد"</string>
     <string name="revert" msgid="9100911171235162926">"برگشت"</string>
     <string name="delete" msgid="5732434972457000541">"حذف"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"میزان صدای زنگ ساعت"</string>
-    <string name="alarm_volume_summary" msgid="8957440373896242438">"تنظیم میزان صدای زنگ‌های ساعت"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"ساکت"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"هشدار را موقتاً یا به طور کامل قطع کنید."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (معوق)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"زنگ هشدار برای <xliff:g id="TIME">%s</xliff:g> تنظیم شد. جهت لغو لمس کنید."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"دکمه‌های تنظیم صدا"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"تأثیر دکمه"</string>
-    <string name="volume_button_setting_summary" msgid="4776447991226047070">"تنظیم عملکرد این دکمه ها، هنگامی که در طول فعال بودن یک زنگ ساعت فشرده می‌شوند"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="4520420953175098625">"هیچکدام"</item>
-    <item msgid="7111908302622811168">"تعویق"</item>
-    <item msgid="8573552194573068996">"رد کردن"</item>
+    <item msgid="7972756698723318690">"تعویق"</item>
+    <item msgid="3450979320164769576">"رد کردن"</item>
+    <item msgid="6302517608411378024">"كاری انجام نشود"</item>
   </string-array>
   <string-array name="volume_button_setting_values">
-    <item msgid="4851033050639608752">"0"</item>
-    <item msgid="3204893476515513084">"1"</item>
-    <item msgid="7687709558968154577">"2"</item>
+    <item msgid="7438326931744812183">"۱"</item>
+    <item msgid="6360488263896848967">"۲"</item>
+    <item msgid="1944820890481615263">"۰"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"تنظیم صدای زنگ پیش‌فرض"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"زنگ‌های ساعت"</string>
@@ -126,7 +116,7 @@
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"نمظیم سرویس بازپخش صدا برای هشدارها در \"ساعت رومیزی\"."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"در حال بارگیری آهنگ زنگ..."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"تنظیم زنگ ساعت"</string>
-    <string name="control_set_alarm_with_existing" msgid="1128169496817859490">"تنظیم زنگ ساعت: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"زنگ ساعت بعدی: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"تایمر"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ساعت"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"کرونومتر"</string>
@@ -147,7 +137,195 @@
     <string name="sw_lap_total" msgid="2575384748273693584">"مجموع"</string>
     <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
     <skip />
+    <string name="hours_label" msgid="3393478155635368097">"ساعت"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"متر"</string>
+    <string name="seconds_label" msgid="124655952824003246">"ثانیه"</string>
+    <string name="zero" msgid="2874056158816410009">"۰۰:۰۰:۰۰"</string>
+    <string name="sw_share_title" msgid="2960856389203349">"اشتراک‌گذاری زمان‌های من:"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"زمان من <xliff:g id="TIME">%s</xliff:g> است"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"زمان‌های دور:"</string>
+    <!-- no translation found for sw_notification_label (3860960768913061020) -->
+    <skip />
+    <!-- no translation found for sw_notification_lap (3178438408027457979) -->
+    <skip />
+    <!-- no translation found for sw_notification_lap_number (3535420316052647126) -->
+    <skip />
     <string name="timer_add_one_button" msgid="1963943621548063189">"افزودن ۱ دقیقه"</string>
     <string name="timer_dismiss_button" msgid="6161488380194869207">"لغو"</string>
-    <string name="timer_times_up" msgid="6157697208606617213">"وقت تمام است!"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"افزودن تایمر"</string>
+    <string name="timer_clear" msgid="3496971445784089796">"پاک کردن"</string>
+    <string name="timer_start" msgid="6158486445614356442">"شروع"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"حذف"</string>
+    <string name="timer_plus_one" msgid="3889719909524490658">"+۱ دقیقه"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"توقف"</string>
+    <!-- no translation found for timer_reset (7848424809190171640) -->
+    <skip />
+    <!-- no translation found for timer_cancel (3572868404230815644) -->
+    <skip />
+    <!-- no translation found for timer_delete_question (7658546868533913049) -->
+    <skip />
+    <!-- no translation found for timer_times_up (9190440395938519009) -->
+    <skip />
+    <!-- no translation found for timer_notification_label (4933184831583137249) -->
+    <skip />
+    <!-- no translation found for next_timer (561264099702200805) -->
+    <skip />
+    <!-- no translation found for more_timers (7600207278228744856) -->
+    <skip />
+    <!-- no translation found for stopped_at (3640387409683991793) -->
+    <skip />
+    <!-- no translation found for sw_share_strings:0 (6974174544581991076) -->
+    <!-- no translation found for sw_share_strings:1 (6332879039890727169) -->
+    <!-- no translation found for sw_share_strings:2 (815382761274660130) -->
+    <!-- no translation found for sw_share_strings:3 (7916250650982813737) -->
+    <!-- no translation found for sw_share_strings:4 (6836603904515182333) -->
+    <!-- no translation found for sw_share_strings:5 (7508085100680861631) -->
+    <!-- no translation found for sw_share_strings:6 (5961245252909589573) -->
+    <!-- no translation found for sw_share_strings:7 (5211891900854545940) -->
+    <!-- no translation found for sw_share_strings:8 (9071353477103826053) -->
+    <!-- no translation found for sw_share_strings:9 (3785193933691117181) -->
+    <!-- no translation found for timers_num:one (6764708652976799977) -->
+    <!-- no translation found for timers_num:other (3799129667336330616) -->
+  <string-array name="key_pad_numbers">
+    <item msgid="3790799928094478129">"۰"</item>
+    <item msgid="1158268715173398623">"۱"</item>
+    <item msgid="5123981712003258295">"۲"</item>
+    <item msgid="7151111844056508651">"۳"</item>
+    <item msgid="254052406891028409">"۴"</item>
+    <item msgid="3822256979378218671">"۵"</item>
+    <item msgid="7555205990176249549">"۶"</item>
+    <item msgid="3287963013853335472">"۷"</item>
+    <item msgid="2859322766548004670">"۸"</item>
+    <item msgid="555979188652757544">"۹"</item>
+  </string-array>
+    <!-- no translation found for home_label (4436139365695453870) -->
+    <skip />
+    <!-- no translation found for remove_question (716296469879431612) -->
+    <skip />
+    <!-- no translation found for sort_by_name (7825123427213807895) -->
+    <skip />
+    <!-- no translation found for sort_by_time (3588583060192569857) -->
+    <skip />
+    <!-- no translation found for search_results (3940223188208445245) -->
+    <skip />
+    <!-- no translation found for no_cities_found (5076277409409268915) -->
+    <skip />
+    <!-- no translation found for alarm_setup_music (6140596565783696650) -->
+    <skip />
+    <!-- no translation found for alarm_on (3898994909321344263) -->
+    <skip />
+    <!-- no translation found for alarm_off (7220973271168254762) -->
+    <skip />
+    <!-- no translation found for alarm_night (2685913727476024929) -->
+    <skip />
+    <!-- no translation found for Delete_selected_alarm (4162534388267929249) -->
+    <skip />
+    <!-- no translation found for selected (154434067032592597) -->
+    <skip />
+    <!-- no translation found for alarm_dismiss_question (604777874801795423) -->
+    <skip />
+    <!-- no translation found for alarm_snooze_until (3368784551097340338) -->
+    <skip />
+    <string name="clock_settings" msgid="8887845806151785393">"ساعت"</string>
+    <string name="clock_style" msgid="2265011060429742344">"سبک"</string>
+    <string name="clock_style_title" msgid="32660784968818521">"سبک ساعت"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"آنالوگ"</item>
+    <item msgid="8483930821046925592">"دیجیتال"</item>
+  </string-array>
+  <string-array name="clock_style_values">
+    <item msgid="5353805556644220918">"آنالوگ"</item>
+    <item msgid="1814605819692210671">"دیجیتال"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"ساعت خودکار مبدأ"</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"هنگام مسافرت به خارج از منطقه زمانی عادی خود، ساعتی برای مبدأ اضافه کنید"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"منطقهٔ زمانی مبدأ"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"منطقهٔ زمانی مبدأ"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"جزایر مارشال"</item>
+    <item msgid="4196408495909011020">"جزیره میدوی"</item>
+    <item msgid="1414384194857730006">"هاوایی"</item>
+    <item msgid="2687091371581931926">"آلاسکا"</item>
+    <item msgid="1922100269679049660">"وقت اقیانوس آرام"</item>
+    <item msgid="7156402158716866161">"تیجوانا"</item>
+    <item msgid="1144117502254612241">"آریزونا"</item>
+    <item msgid="101284182011722637">"چی هواهوا"</item>
+    <item msgid="689121094232986897">"وقت کوهستانی"</item>
+    <item msgid="5445331923942302756">"آمریکای مرکزی"</item>
+    <item msgid="2749806434052452351">"وقت مرکزی"</item>
+    <item msgid="3997138870229703753">"مکزیکوسیتی"</item>
+    <item msgid="5425567073027744888">"ساسکاچوان"</item>
+    <item msgid="2877342865396629368">"بوگوتا"</item>
+    <item msgid="568682398893899670">"وقت شرقی"</item>
+    <item msgid="668135984541863866">"ونزوئلا"</item>
+    <item msgid="3737474220861486223">"زمان اقیانوس اطلس (باربادوس)"</item>
+    <item msgid="6279116051273436870">"زمان اقیانوس اطلس (کانادا)"</item>
+    <item msgid="8513382867172014244">"ماناوس"</item>
+    <item msgid="7776299003105932407">"سانتیاگو"</item>
+    <item msgid="8636989494746218677">"نیوفوندلند"</item>
+    <item msgid="4402541016410147505">"برازیلیا"</item>
+    <item msgid="2251184440733164084">"بوینوس آیرس"</item>
+    <item msgid="6202926618569004969">"گرینلند"</item>
+    <item msgid="2355275037115290628">"مونته ویدئو"</item>
+    <item msgid="1377549694711708945">"آتلانتیک میانی"</item>
+    <item msgid="3457671272126347981">"آزورس"</item>
+    <item msgid="3659315141063710840">"جزایر کیپ ورد"</item>
+    <item msgid="1260941741802367635">"کازابلانکا"</item>
+    <item msgid="8275203689687954762">"لندن، دوبلین"</item>
+    <item msgid="5970179539479320905">"آمستردام، برلین"</item>
+    <item msgid="5396319478750517962">"بلگراد"</item>
+    <item msgid="8688787475056663004">"بروکسل"</item>
+    <item msgid="3415827874921681622">"سارایه وو"</item>
+    <item msgid="402008965928320066">"ويندهوک"</item>
+    <item msgid="6436942724959275569">"وقت غرب آفریقا"</item>
+    <item msgid="954536568417204026">"عمان، اردن"</item>
+    <item msgid="8932745482008902551">"آتن، استانبول"</item>
+    <item msgid="320025725949024510">"بیروت، لبنان"</item>
+    <item msgid="7242083112551905970">"قاهره"</item>
+    <item msgid="7241520146011450419">"هلسینکی"</item>
+    <item msgid="2717065017510546526">"بیت‌المقدس"</item>
+    <item msgid="8698556287741466553">"مينسک"</item>
+    <item msgid="1797598357342084506">"هراره"</item>
+    <item msgid="5169119919905066998">"بغداد"</item>
+    <item msgid="2615788116201065182">"مسکو"</item>
+    <item msgid="9084354867885584646">"کویت"</item>
+    <item msgid="1351570519986178268">"نایروبی"</item>
+    <item msgid="7094569580635877460">"تهران"</item>
+    <item msgid="3953138772617909704">"باکو"</item>
+    <item msgid="2868893113598800752">"تفلیس"</item>
+    <item msgid="7088581865802476373">"ایروان"</item>
+    <item msgid="1941122257623887992">"دبی"</item>
+    <item msgid="9194797225058249720">"کابل"</item>
+    <item msgid="6486569254364577332">"اسلام آباد، کراچی"</item>
+    <item msgid="5487724896895412089">"اورالسک"</item>
+    <item msgid="364906869710826982">"یکاترینبورگ"</item>
+    <item msgid="2106505051751383358">"کلکته"</item>
+    <item msgid="6851586621581501447">"سری لانکا"</item>
+    <item msgid="800438544128213134">"کاتماندو"</item>
+    <item msgid="6173621471007643021">"آستانا"</item>
+    <item msgid="8645125891971581128">"یانگون"</item>
+    <item msgid="2886407505119737794">"کراسنویارسک"</item>
+    <item msgid="3408222398188107090">"بانکوک"</item>
+    <item msgid="4441612937172851228">"پکن"</item>
+    <item msgid="4936715789028996930">"هنگ کنگ"</item>
+    <item msgid="4261031143777385525">"ایرکوتسک"</item>
+    <item msgid="3538060959338191835">"کوالالامپور"</item>
+    <item msgid="1438847562643099201">"پرث"</item>
+    <item msgid="3063913827688244383">"تایپه"</item>
+    <item msgid="3502757135046564209">"سئول"</item>
+    <item msgid="6107588684519111669">"توکیو، اوزاکا"</item>
+    <item msgid="4350769099755608471">"یاکوتسک"</item>
+    <item msgid="2422707004533526462">"آدلاید"</item>
+    <item msgid="1292192084554134339">"داروین"</item>
+    <item msgid="1320883699470001716">"بریسبین"</item>
+    <item msgid="5137198806146386527">"هوبارت"</item>
+    <item msgid="5920063686933941174">"سیدنی، کانبرا"</item>
+    <item msgid="615906039696009425">"ولادی ووستوک"</item>
+    <item msgid="7738680449356275374">"گوام"</item>
+    <item msgid="2882915026380778227">"ماگادان"</item>
+    <item msgid="8255615641810148152">"اوکلند"</item>
+    <item msgid="3027153773466391728">"فیجی"</item>
+    <item msgid="5911600083231840181">"تونگا"</item>
+  </string-array>
+    <string name="alarm_settings" msgid="6049627772103646753">"زنگ‌ها"</string>
 </resources>
