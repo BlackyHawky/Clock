@@ -62,16 +62,18 @@ public class CircleTimerView extends View {
 
     public void setIntervalTime(long t) {
         mIntervalTime = t;
+        postInvalidate();
     }
 
     public void setMarkerTime(long t) {
         mMarkerTime = mCurrentIntervalTime;
+        postInvalidate();
     }
 
     public void reset() {
         mIntervalStartTime = -1;
         mMarkerTime = -1;
-        invalidate();
+        postInvalidate();
     }
     public void startIntervalAnimation() {
         mIntervalStartTime = System.currentTimeMillis();
@@ -96,6 +98,7 @@ public class CircleTimerView extends View {
 
     public void setPassedTime(long time) {
         mAccumulatedTime = time;
+        postInvalidate();
     }
 
 
@@ -167,6 +170,7 @@ public class CircleTimerView extends View {
     private static final String PREF_CTV_CURRENT_INTERVAL = "_ctv_current_interval";
     private static final String PREF_CTV_ACCUM_TIME = "_ctv_accum_time";
     private static final String PREF_CTV_TIMER_MODE = "_ctv_timer_mode";
+    private static final String PREF_CTV_MARKER_TIME = "_ctv_marker_time";
 
     // Since this view is used in multiple places, use the key to save different instances
     public void writeToSharedPref(SharedPreferences prefs, String key) {
@@ -176,6 +180,7 @@ public class CircleTimerView extends View {
         editor.putLong (key + PREF_CTV_INTERVAL_START, mIntervalStartTime);
         editor.putLong (key + PREF_CTV_CURRENT_INTERVAL, mCurrentIntervalTime);
         editor.putLong (key + PREF_CTV_ACCUM_TIME, mAccumulatedTime);
+        editor.putLong (key + PREF_CTV_MARKER_TIME, mMarkerTime);
         editor.putBoolean (key + PREF_CTV_TIMER_MODE, mTimerMode);
         editor.apply();
     }
@@ -186,6 +191,7 @@ public class CircleTimerView extends View {
         mIntervalStartTime = prefs.getLong(key + PREF_CTV_INTERVAL_START, 0);
         mCurrentIntervalTime = prefs.getLong(key + PREF_CTV_CURRENT_INTERVAL, 0);
         mAccumulatedTime = prefs.getLong(key + PREF_CTV_ACCUM_TIME, 0);
+        mMarkerTime = prefs.getLong(key + PREF_CTV_MARKER_TIME, -1);
         mTimerMode = prefs.getBoolean(key + PREF_CTV_TIMER_MODE, false);
         if (mIntervalStartTime != -1 && !mPaused) {
             this.post(mAnimationThread);
