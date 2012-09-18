@@ -66,13 +66,11 @@ public class StopwatchFragment extends DeskClockFragment {
     // Adapter for the ListView that shows the lap times.
     class LapsListAdapter extends BaseAdapter {
 
-        Context mContext;
         ArrayList<Lap> mLaps = new ArrayList<Lap>();
         private final LayoutInflater mInflater;
 
         public LapsListAdapter(Context context) {
-            mContext = context;
-            mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
         @Override
@@ -196,7 +194,7 @@ public class StopwatchFragment extends DeskClockFragment {
                     case STOPWATCH_STOPPED:
                         // do reset
                         SharedPreferences prefs =
-                                PreferenceManager.getDefaultSharedPreferences(mContext);
+                                PreferenceManager.getDefaultSharedPreferences(getActivity());
                         clearSharedPref(prefs);
                         mAccumulatedTime = 0;
                         mLapsAdapter.clearLaps();
@@ -287,7 +285,7 @@ public class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void onResume() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         readFromSharedPref(prefs);
         mTime.readFromSharedPref(prefs, "sw");
         setButtons(mState);
@@ -308,7 +306,7 @@ public class StopwatchFragment extends DeskClockFragment {
         }
         // The stopwatch must keep running even if the user closes the app so save stopwatch state
         // in shared prefs
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         writeToSharedPref(prefs);
         mTime.writeToSharedPref(prefs, "sw");
         super.onPause();
