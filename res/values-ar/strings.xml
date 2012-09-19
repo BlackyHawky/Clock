@@ -143,7 +143,7 @@
     <string name="zero" msgid="2874056158816410009">"00:00:00"</string>
     <string name="sw_share_title" msgid="2960856389203349">"مشاركة أوقاتي:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"وقتي هو <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"أوقات اللف:"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"مرات الدوران:"</string>
     <!-- no translation found for sw_notification_label (3860960768913061020) -->
     <skip />
     <!-- no translation found for sw_notification_lap (3178438408027457979) -->
@@ -237,10 +237,10 @@
     <item msgid="5353805556644220918">"تناظري"</item>
     <item msgid="1814605819692210671">"رقمي"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"ساعة أساسية آلية"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"عند السفر خارج المنطقة الزمنية العادية، أضف ساعة للمنزل"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"المنطقة الزمنية الأساسية"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"المنطقة الزمنية الأساسية"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"ساعة آلية للبلد الأم"</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"عند السفر خارج المنطقة الزمنية العادية، أضف ساعة تمثل التوقيت في البلد الأم"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"المنطقة الزمنية للبلد الأم"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"المنطقة الزمنية للبلد الأم"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"جزر مارشال"</item>
     <item msgid="4196408495909011020">"جزيرة ميدواي"</item>
