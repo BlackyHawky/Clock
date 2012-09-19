@@ -263,8 +263,7 @@ public class StopwatchFragment extends DeskClockFragment {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
                 // Add data to the intent, the receiving app will decide what to
                 // do with it.
-                intent.putExtra(Intent.EXTRA_SUBJECT,
-                        getActivity().getResources().getString(R.string.sw_share_title));
+                intent.putExtra(Intent.EXTRA_SUBJECT,getShareTitle());
                 intent.putExtra(Intent.EXTRA_TEXT, buildShareResults());
                 startActivity(Intent.createChooser(intent, null));
             }
@@ -467,8 +466,19 @@ public class StopwatchFragment extends DeskClockFragment {
         }
     };
 
+    private String getShareTitle() {
+        String [] mLabels = getActivity().getResources().getStringArray(R.array.sw_share_strings);
+        return mLabels[(int)(Math.random() * mLabels.length)];
+    }
     private String buildShareResults() {
-        return getString(R.string.sw_share_main, mTimeText.getTimeString());
+        String results = getString(R.string.sw_share_main, mTimeText.getTimeString() + "\n") +
+                getString(R.string.sw_share_laps) + "\n";
+        int lapsNum = mLapsAdapter.getCount();
+        for (int i = 1; i <= lapsNum; i ++) {
+            results += String.format(
+                    "%d. %s\n", i, getTimeText(((Lap) mLapsAdapter.getItem(lapsNum - i)).mLapTime));
+        }
+        return results;
     }
 
     private void writeToSharedPref(SharedPreferences prefs) {
