@@ -142,5 +142,4 @@ public class TimerView extends LinearLayout {
         return String.format("%s:%s:%s.%s",mHours.getText(), mMinutes.getText(), mSeconds.getText(),
                 mHunderdths.getText());
     }
-
 }
