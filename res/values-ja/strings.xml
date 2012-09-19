@@ -238,7 +238,7 @@
     <item msgid="1814605819692210671">"デジタル"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"自宅の時計を自動表示"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"通常のタイムゾーン外を移動している場合にホームの時刻を追加する"</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"通常のタイムゾーン外を移動している場合に自宅の時刻を追加する"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"自宅タイムゾーン"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"自宅タイムゾーン"</string>
   <string-array name="timezone_labels">

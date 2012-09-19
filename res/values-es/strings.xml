@@ -63,7 +63,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Reloj analógico"</string>
     <string name="help" msgid="7786263119482654015">"ayuda"</string>
     <string name="settings" msgid="5849739030579520686">"Ajustes"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Repetición de alarma"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Repetición de la alarma"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minuto"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> minutos"</item>
