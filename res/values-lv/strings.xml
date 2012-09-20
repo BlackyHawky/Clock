@@ -231,12 +231,12 @@
     <string name="clock_style" msgid="2265011060429742344">"Stils"</string>
     <string name="clock_style_title" msgid="32660784968818521">"Pulksteņa stils"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"Analogs"</item>
-    <item msgid="8483930821046925592">"Digitāls"</item>
+    <item msgid="917900462224167608">"Analogais"</item>
+    <item msgid="8483930821046925592">"Elektroniskais"</item>
   </string-array>
   <string-array name="clock_style_values">
-    <item msgid="5353805556644220918">"analogs"</item>
-    <item msgid="1814605819692210671">"digitāls"</item>
+    <item msgid="5353805556644220918">"analogais"</item>
+    <item msgid="1814605819692210671">"elektroniskais"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automātiski rādīt dzīvesvietas laiku"</string>
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Ceļojot ārpus ierastās laika joslas, rādīt arī dzīvesvietas laiku"</string>
@@ -269,7 +269,7 @@
     <item msgid="6202926618569004969">"Grenlande"</item>
     <item msgid="2355275037115290628">"Montevideo"</item>
     <item msgid="1377549694711708945">"Vidusatlantijas laiks"</item>
-    <item msgid="3457671272126347981">"Azoru Salas"</item>
+    <item msgid="3457671272126347981">"Azoru salas"</item>
     <item msgid="3659315141063710840">"Kaboverdes salas"</item>
     <item msgid="1260941741802367635">"Kasablanka"</item>
     <item msgid="8275203689687954762">"Londona, Dublina"</item>
@@ -300,7 +300,7 @@
     <item msgid="6486569254364577332">"Islāmābāda, Karāči"</item>
     <item msgid="5487724896895412089">"Uraļska"</item>
     <item msgid="364906869710826982">"Jekaterinburga"</item>
-    <item msgid="2106505051751383358">"Kalkāta"</item>
+    <item msgid="2106505051751383358">"Kolkata"</item>
     <item msgid="6851586621581501447">"Šrilanka"</item>
     <item msgid="800438544128213134">"Katmandu"</item>
     <item msgid="6173621471007643021">"Astana"</item>
