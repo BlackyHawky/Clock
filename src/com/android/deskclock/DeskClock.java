@@ -52,17 +52,19 @@ public class DeskClock extends Activity {
     private static final String KEY_SELECTED_TAB = "selected_tab";
     private static final String KEY_CLOCK_STATE = "clock_state";
 
+    public static final String SELECT_TAB_INTENT_EXTRA = "deskclock.select.tab";
+
     private ActionBar mActionBar;
     private Tab mTimerTab;
     private Tab mClockTab;
     private Tab mStopwatchTab;
 
-    ViewPager mViewPager;
-    TabsAdapter mTabsAdapter;
+    private ViewPager mViewPager;
+    private TabsAdapter mTabsAdapter;
 
-    private static final int TIMER_TAB_INDEX = 0;
-    private static final int CLOCK_TAB_INDEX = 1;
-    private static final int STOPWATCH_TAB_INDEX = 2;
+    public static final int TIMER_TAB_INDEX = 0;
+    public static final int CLOCK_TAB_INDEX = 1;
+    public static final int STOPWATCH_TAB_INDEX = 2;
 
     private int mSelectedTab;
     private final boolean mDimmed = false;
@@ -136,8 +138,15 @@ public class DeskClock extends Activity {
         // update our intent so that we can consult it to determine whether or
         // not the most recent launch was via a dock event
         setIntent(newIntent);
-    }
 
+        // Timer receiver may ask to go to the timers fragment if a timer expired.
+        int tab = newIntent.getIntExtra(SELECT_TAB_INTENT_EXTRA, -1);
+        if (tab != -1) {
+            if (mActionBar != null) {
+                mActionBar.setSelectedNavigationItem(tab);
+            }
+        }
+    }
 
     private void initViews() {
 
@@ -178,6 +187,15 @@ public class DeskClock extends Activity {
         if (icicle != null) {
             mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
             mClockState = icicle.getInt(KEY_CLOCK_STATE, CLOCK_NORMAL);
+        }
+
+        // Timer receiver may ask the app to go to the timer fragment if a timer expired
+        Intent i = getIntent();
+        if (i != null) {
+            int tab = i.getIntExtra(SELECT_TAB_INTENT_EXTRA, -1);
+            if (tab != -1) {
+                mSelectedTab = tab;
+            }
         }
         initViews();
     }
