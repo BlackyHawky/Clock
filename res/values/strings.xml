@@ -311,7 +311,7 @@
     <string name="minutes_label">m</string>
     <string name="seconds_label">s</string>
 
-    <string name="zero">00:00:00</string>
+    <string name="zero">0</string>
 
     <!--  Stopwatch share strings -->
     <string name="sw_share_title">Sharing my times:</string>
@@ -340,7 +340,7 @@
     <string name="stopped_at">>Stopped at <xliff:g id="time">%s</xliff:g></string>
 
     <string-array name="sw_share_strings" translatable="true">
-        <item>Your\'e quite the speed demon.</item>
+        <item>You\'re quite the speed demon.</item>
         <item>Enjoy the fruits of your labor.</item>
         <item>Androids are known to be fast, but not as fast as you!</item>
         <item>Phew.</item>
