@@ -26,7 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v13.app.FragmentStatePagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
@@ -169,6 +169,7 @@ public class DeskClock extends Activity {
             mTimerTab = mActionBar.newTab();
             mTimerTab.setIcon(R.drawable.timer_tab);
             mTabsAdapter.addTab(mTimerTab, TimerFragment.class,TIMER_TAB_INDEX);
+
             mClockTab = mActionBar.newTab();
             mClockTab.setIcon(R.drawable.clock_tab);
             mTabsAdapter.addTab(mClockTab, ClockFragment.class,CLOCK_TAB_INDEX);
@@ -208,9 +209,6 @@ public class DeskClock extends Activity {
 
     @Override
     public void onPause() {
-        if (mTabsAdapter != null) {
-            mTabsAdapter.saveGlobalState();
-        }
         super.onPause();
     }
 
@@ -219,9 +217,6 @@ public class DeskClock extends Activity {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_SELECTED_TAB, mActionBar.getSelectedNavigationIndex());
         outState.putInt(KEY_CLOCK_STATE, mClockState);
-        if (mTabsAdapter != null) {
-            mTabsAdapter.onSaveInstanceState(outState);
-        }
     }
 
     private void setClockState(boolean fade) {
@@ -302,10 +297,11 @@ public class DeskClock extends Activity {
 
         // in clock view show/hide the buttons at the bottom
         if (mViewPager.getCurrentItem() ==  CLOCK_TAB_INDEX) {
-            Fragment f = mTabsAdapter.getFragment(CLOCK_TAB_INDEX);
+            // TODO: switch to listeners
+/*            Fragment f = mTabsAdapter.getFragment(CLOCK_TAB_INDEX);
             if (f != null) {
                 ((ClockFragment)f).showButtons(!state);
-            }
+            }*/
         }
         if (!state) {
             // Make sure dim will not start before lights out
@@ -340,7 +336,7 @@ public class DeskClock extends Activity {
      * Adapter for wrapping together the ActionBar's tab with the ViewPager
      */
 
-    private class TabsAdapter extends FragmentStatePagerAdapter
+    private class TabsAdapter extends FragmentPagerAdapter
             implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
         private static final String KEY_TAB_POSITION = "tab_position";
@@ -361,7 +357,6 @@ public class DeskClock extends Activity {
         }
 
         private final ArrayList<TabInfo> mTabs = new ArrayList <TabInfo>();
-        private final DeskClockFragment [] mFragments = new DeskClockFragment[3];
         ActionBar mMainActionBar;
         Context mContext;
         ViewPager mPager;
@@ -380,13 +375,7 @@ public class DeskClock extends Activity {
             TabInfo info = mTabs.get(position);
             DeskClockFragment f = (DeskClockFragment) Fragment.instantiate(
                     mContext, info.clss.getName(), info.args);
-            f.setContext(mContext);
-            mFragments [position] = f;
             return f;
-        }
-
-        public Fragment getFragment(int position) {
-            return mFragments [position];
         }
 
         @Override
@@ -436,26 +425,5 @@ public class DeskClock extends Activity {
             // Do nothing
 
         }
-
-        /***
-         *
-         * @param outState - can be null since it may be called from Activity's onPause
-         */
-        protected void onSaveInstanceState(Bundle outState) {
-            for (int i = 0; i < mFragments.length; i++) {
-                if (mFragments[i] != null) {
-                    mFragments[i].onSaveInstanceState(outState);
-                }
-            }
-        }
-
-        protected void saveGlobalState() {
-            for (int i = 0; i < mFragments.length; i++) {
-                if (mFragments[i] != null) {
-                    mFragments[i].saveGlobalState();
-                }
-            }
-        }
-
     }
 }

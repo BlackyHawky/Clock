@@ -35,4 +35,5 @@
     <dimen name="alert_dialog_title_height">64dip</dimen>
     <dimen name="popup_window_width">196dip</dimen>
     <dimen name="analog_clock_diameter">236dip</dimen>
+    <dimen name="timer_circle_diameter">300dip</dimen>
 </resources>
