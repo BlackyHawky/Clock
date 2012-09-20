@@ -27,6 +27,8 @@
         <ListView
             android:id="@+id/timers_list"
             android:layout_weight="1"
+            android:divider="@null"
+            android:dividerHeight="24dp"
             android:layout_width="match_parent"
             android:layout_height="0dip"/>
         <View
@@ -42,7 +44,7 @@
               android:background="?android:attr/selectableItemBackground"
               android:layout_height="wrap_content" />
     </LinearLayout>
-	<LinearLayout
+    <LinearLayout
         android:id="@+id/new_timer_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
