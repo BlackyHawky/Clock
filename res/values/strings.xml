@@ -594,6 +594,7 @@
     </string-array>
 
      <string name="alarm_settings">ALARMS</string>
+     <string name="see_all">See all&#8230;</string>
 
 </resources>
 
