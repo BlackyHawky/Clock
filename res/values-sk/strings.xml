@@ -239,7 +239,7 @@
     <item msgid="1814605819692210671">"digitálne"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatické domáce hodiny"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Pri cestovaní mimo zvyčajné časové pásmo pridať domáci čas"</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Pri cestovaní mimo zvyčajné časové pásmo pridať hodiny s domácim časom"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domovské časové pásmo"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domovské časové pásmo"</string>
   <string-array name="timezone_labels">
@@ -264,7 +264,7 @@
     <item msgid="8513382867172014244">"Manaus"</item>
     <item msgid="7776299003105932407">"Santiago"</item>
     <item msgid="8636989494746218677">"Newfoundland"</item>
-    <item msgid="4402541016410147505">"Brasília"</item>
+    <item msgid="4402541016410147505">"Brazília"</item>
     <item msgid="2251184440733164084">"Buenos Aires"</item>
     <item msgid="6202926618569004969">"Grónsko"</item>
     <item msgid="2355275037115290628">"Montevideo"</item>
@@ -314,7 +314,7 @@
     <item msgid="1438847562643099201">"Perth"</item>
     <item msgid="3063913827688244383">"Taipei"</item>
     <item msgid="3502757135046564209">"Soul"</item>
-    <item msgid="6107588684519111669">"Tokio, Ósaka"</item>
+    <item msgid="6107588684519111669">"Tokio, Osaka"</item>
     <item msgid="4350769099755608471">"Yakutsk"</item>
     <item msgid="2422707004533526462">"Adelaide"</item>
     <item msgid="1292192084554134339">"Darwin"</item>
@@ -329,4 +329,6 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"BUDÍKY"</string>
+    <!-- no translation found for see_all (775983396630163739) -->
+    <skip />
 </resources>

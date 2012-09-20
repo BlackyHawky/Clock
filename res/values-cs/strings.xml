@@ -259,7 +259,7 @@
     <item msgid="2877342865396629368">"Bogotá"</item>
     <item msgid="568682398893899670">"Východní čas"</item>
     <item msgid="668135984541863866">"Venezuela"</item>
-    <item msgid="3737474220861486223">"Atlant. čas (Barbados)"</item>
+    <item msgid="3737474220861486223">"Atlantický čas (Barbados)"</item>
     <item msgid="6279116051273436870">"Atlantický čas (Kanada)"</item>
     <item msgid="8513382867172014244">"Manaus"</item>
     <item msgid="7776299003105932407">"Santiago"</item>
@@ -329,4 +329,6 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"BUDÍKY"</string>
+    <!-- no translation found for see_all (775983396630163739) -->
+    <skip />
 </resources>
