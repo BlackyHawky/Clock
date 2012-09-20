@@ -321,6 +321,10 @@ public class AlarmClock extends Activity implements OnItemClickListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.alarm_list_menu, menu);
+        MenuItem help = menu.findItem(R.id.menu_item_help);
+        if (help != null) {
+            Utils.prepareHelpMenuItem(this, help);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
