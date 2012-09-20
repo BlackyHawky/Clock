@@ -198,18 +198,6 @@ public class AnalogClock extends View {
         canvas.restore();
 
         canvas.save();
-        canvas.rotate(mMinutes / 60.0f * 360.0f, x, y);
-
-        final Drawable minuteHand = mMinuteHand;
-        if (changed) {
-            w = minuteHand.getIntrinsicWidth();
-            h = minuteHand.getIntrinsicHeight();
-            minuteHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
-        }
-        minuteHand.draw(canvas);
-        canvas.restore();
-
-        canvas.save();
         canvas.rotate(mSeconds / 60.0f * 360.0f, x, y);
 
         final Drawable secondHand = mSecondHand;
@@ -219,6 +207,18 @@ public class AnalogClock extends View {
             secondHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
         }
         secondHand.draw(canvas);
+        canvas.restore();
+
+        canvas.save();
+        canvas.rotate(mMinutes / 60.0f * 360.0f, x, y);
+
+        final Drawable minuteHand = mMinuteHand;
+        if (changed) {
+            w = minuteHand.getIntrinsicWidth();
+            h = minuteHand.getIntrinsicHeight();
+            minuteHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
+        }
+        minuteHand.draw(canvas);
         canvas.restore();
 
         if (scaled) {
