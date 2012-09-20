@@ -383,30 +383,31 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             case TimerObj.STATE_RUNNING:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setText(r.getString(R.string.timer_plus_one));
-                stop.setVisibility(View.VISIBLE);
                 stop.setText(r.getString(R.string.timer_stop));
+                stop.setEnabled(true);
                 break;
             case TimerObj.STATE_STOPPED:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setText(r.getString(R.string.timer_reset));
-                stop.setVisibility(View.VISIBLE);
                 stop.setText(r.getString(R.string.timer_start));
+                stop.setEnabled(true);
                 break;
             case TimerObj.STATE_TIMESUP:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setText(r.getString(R.string.timer_reset));
-                stop.setVisibility(View.VISIBLE);
                 stop.setText(r.getString(R.string.timer_stop));
+                stop.setEnabled(true);
                 break;
             case TimerObj.STATE_DONE:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setText(r.getString(R.string.timer_reset));
-                stop.setVisibility(View.INVISIBLE);
+                stop.setText(r.getString(R.string.timer_start));
+                stop.setEnabled(false);
                 break;
             case TimerObj.STATE_RESTART:
                 plusOne.setVisibility(View.INVISIBLE);
-                stop.setVisibility(View.VISIBLE);
                 stop.setText(r.getString(R.string.timer_start));
+                stop.setEnabled(true);
                 break;
             default:
                 break;
