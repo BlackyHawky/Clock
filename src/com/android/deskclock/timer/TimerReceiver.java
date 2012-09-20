@@ -92,6 +92,7 @@ public class TimerReceiver extends BroadcastReceiver {
             Intent i = new Intent();
             i.setClass(context, DeskClock.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
             context.startActivity(i);
 
         } else if (Timers.TIMER_RESET.equals(intent.getAction())
