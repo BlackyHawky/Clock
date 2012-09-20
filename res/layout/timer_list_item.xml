@@ -92,7 +92,9 @@
     </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp" >
         <Button
             android:id="@+id/timer_delete"
             android:layout_width="0dip"
