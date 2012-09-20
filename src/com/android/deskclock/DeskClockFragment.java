@@ -23,10 +23,6 @@ public class DeskClockFragment extends Fragment {
     protected Context mContext;
     private boolean mButtonClicked = false;
 
-    public void setContext(Context c) {
-        mContext = c;
-    }
-
     protected void buttonClicked(boolean state) {
         mButtonClicked = state;
     }
