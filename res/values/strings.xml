@@ -593,7 +593,9 @@
         <item>"Pacific/Tongatapu"</item>
     </string-array>
 
-     <string name="alarm_settings">ALARMS</string>
+    <string name="alarm_settings">ALARMS</string>
+
+    <string name="desk_clock_help_url" translatable="false"></string>
 
 </resources>
 

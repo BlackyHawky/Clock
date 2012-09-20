@@ -29,6 +29,7 @@ import android.os.Message;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -239,8 +240,8 @@ public class DeskClock extends Activity {
     }
 
     private void showMenu(View v) {
-        PopupMenu menu = new PopupMenu(this, v);
-        menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener () {
+        PopupMenu popupMenu = new PopupMenu(this, v);
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener () {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
@@ -256,8 +257,14 @@ public class DeskClock extends Activity {
                 return true;
             }
         });
-        menu.inflate(R.menu.desk_clock_menu);
-        menu.show();
+        popupMenu.inflate(R.menu.desk_clock_menu);
+
+        Menu menu = popupMenu.getMenu();
+        MenuItem help = menu.findItem(R.id.menu_item_help);
+        if (help != null) {
+            Utils.prepareHelpMenuItem(this, help);
+        }
+        popupMenu.show();
     }
 
     private void scheduleLightsOut() {
