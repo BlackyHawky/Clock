@@ -27,14 +27,12 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"¿Deseas eliminar esta alarma?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Mostrar reloj"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Ocultar reloj"</string>
-    <!-- no translation found for label (2407986483260935828) -->
-    <skip />
+    <string name="label" msgid="2407986483260935828">"Etiqueta (opcional)"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Establecer alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrar"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repetir"</string>
-    <!-- no translation found for alert (6506982899651975645) -->
-    <skip />
+    <string name="alert" msgid="6506982899651975645">"Tono de alarma"</string>
     <string name="time" msgid="8067216534232296518">"Hora"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarma silenciada después de <xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
@@ -63,7 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Reloj analógico"</string>
     <string name="help" msgid="7786263119482654015">"ayuda"</string>
     <string name="settings" msgid="5849739030579520686">"Configuración"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Duración al posponer la alarma"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Repetición de alarma"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minuto"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> minutos"</item>
@@ -142,51 +140,33 @@
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <!-- no translation found for zero (7102083421938355017) -->
     <skip />
-    <string name="sw_share_title" msgid="2960856389203349">"Compartir mis tiempos:"</string>
-    <string name="sw_share_main" msgid="7703563468204234405">"Mi tiempo es <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"Tiempo de cada vuelta:"</string>
-    <!-- no translation found for sw_notification_label (3860960768913061020) -->
-    <skip />
-    <!-- no translation found for sw_notification_lap (3178438408027457979) -->
-    <skip />
-    <!-- no translation found for sw_notification_lap_number (3535420316052647126) -->
-    <skip />
+    <string name="sw_share_title" msgid="2960856389203349">"Compartir mi hora:"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"Mi hora es <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Duración:"</string>
+    <string name="sw_notification_label" msgid="3860960768913061020">"Cronómetro"</string>
+    <string name="sw_notification_lap" msgid="3178438408027457979">"Duración <xliff:g id="NUMBER">%d</xliff:g> - <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Duración <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_add_one_button" msgid="1963943621548063189">"Agregar 1 minuto"</string>
     <string name="timer_dismiss_button" msgid="6161488380194869207">"Cancelar"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"Agregar temporizador"</string>
     <string name="timer_clear" msgid="3496971445784089796">"Borrar"</string>
-    <string name="timer_start" msgid="6158486445614356442">"Inicio"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Iniciar"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Eliminar"</string>
     <string name="timer_plus_one" msgid="3889719909524490658">"Más de un minuto"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Detener"</string>
-    <!-- no translation found for timer_reset (7848424809190171640) -->
-    <skip />
-    <!-- no translation found for timer_cancel (3572868404230815644) -->
-    <skip />
-    <!-- no translation found for timer_delete_question (7658546868533913049) -->
-    <skip />
-    <!-- no translation found for timer_times_up (9190440395938519009) -->
-    <skip />
-    <!-- no translation found for timer_notification_label (4933184831583137249) -->
-    <skip />
-    <!-- no translation found for next_timer (561264099702200805) -->
-    <skip />
-    <!-- no translation found for more_timers (7600207278228744856) -->
-    <skip />
-    <!-- no translation found for stopped_at (3640387409683991793) -->
-    <skip />
+    <string name="timer_reset" msgid="7848424809190171640">"Restablecer"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"Cancelar"</string>
+    <string name="timer_delete_question" msgid="7658546868533913049">"¿Eliminar este temporizador?"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"Se acabó el tiempo"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Temporizador"</string>
+    <string name="next_timer" msgid="561264099702200805">"&gt;Próximo temporizador: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="more_timers" msgid="7600207278228744856">"&gt;Y <xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
+    <string name="stopped_at" msgid="3640387409683991793">"&gt;Detenido a las <xliff:g id="TIME">%s</xliff:g>"</string>
     <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
-    <!-- no translation found for sw_share_strings:1 (6332879039890727169) -->
-    <!-- no translation found for sw_share_strings:2 (815382761274660130) -->
-    <!-- no translation found for sw_share_strings:3 (7916250650982813737) -->
-    <!-- no translation found for sw_share_strings:4 (6836603904515182333) -->
-    <!-- no translation found for sw_share_strings:5 (7508085100680861631) -->
-    <!-- no translation found for sw_share_strings:6 (5961245252909589573) -->
-    <!-- no translation found for sw_share_strings:7 (5211891900854545940) -->
-    <!-- no translation found for sw_share_strings:8 (9071353477103826053) -->
-    <!-- no translation found for sw_share_strings:9 (3785193933691117181) -->
-    <!-- no translation found for timers_num:one (6764708652976799977) -->
-    <!-- no translation found for timers_num:other (3799129667336330616) -->
+  <plurals name="timers_num">
+    <item quantity="one" msgid="6764708652976799977">"1 minuto"</item>
+    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</item>
+  </plurals>
   <string-array name="key_pad_numbers">
     <item msgid="3790799928094478129">"0"</item>
     <item msgid="1158268715173398623">"1"</item>
@@ -199,34 +179,20 @@
     <item msgid="2859322766548004670">"8"</item>
     <item msgid="555979188652757544">"9"</item>
   </string-array>
-    <!-- no translation found for home_label (4436139365695453870) -->
-    <skip />
-    <!-- no translation found for remove_question (716296469879431612) -->
-    <skip />
-    <!-- no translation found for sort_by_name (7825123427213807895) -->
-    <skip />
-    <!-- no translation found for sort_by_time (3588583060192569857) -->
-    <skip />
-    <!-- no translation found for search_results (3940223188208445245) -->
-    <skip />
-    <!-- no translation found for no_cities_found (5076277409409268915) -->
-    <skip />
-    <!-- no translation found for alarm_setup_music (6140596565783696650) -->
-    <skip />
-    <!-- no translation found for alarm_on (3898994909321344263) -->
-    <skip />
-    <!-- no translation found for alarm_off (7220973271168254762) -->
-    <skip />
-    <!-- no translation found for alarm_night (2685913727476024929) -->
-    <skip />
-    <!-- no translation found for Delete_selected_alarm (4162534388267929249) -->
-    <skip />
-    <!-- no translation found for selected (154434067032592597) -->
-    <skip />
-    <!-- no translation found for alarm_dismiss_question (604777874801795423) -->
-    <skip />
-    <!-- no translation found for alarm_snooze_until (3368784551097340338) -->
-    <skip />
+    <string name="home_label" msgid="4436139365695453870">"Inicio"</string>
+    <string name="remove_question" msgid="716296469879431612">"¿Eliminar esta ciudad?"</string>
+    <string name="sort_by_name" msgid="7825123427213807895">"Por nombre"</string>
+    <string name="sort_by_time" msgid="3588583060192569857">"Por hora"</string>
+    <string name="search_results" msgid="3940223188208445245">"Resultados"</string>
+    <string name="no_cities_found" msgid="5076277409409268915">"No se encontró ninguna ciudad."</string>
+    <string name="alarm_setup_music" msgid="6140596565783696650">"Música"</string>
+    <string name="alarm_on" msgid="3898994909321344263">"Encendido"</string>
+    <string name="alarm_off" msgid="7220973271168254762">"Apagado"</string>
+    <string name="alarm_night" msgid="2685913727476024929">"Todas las noches"</string>
+    <string name="Delete_selected_alarm" msgid="4162534388267929249">"¿Eliminar alarma seleccionada?"</string>
+    <string name="selected" msgid="154434067032592597">"Seleccionados"</string>
+    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;¿Descartar alarma ahora en lugar de a las <xliff:g id="TIME">%s</xliff:g>?"</string>
+    <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Posponer hasta"</string>
     <string name="clock_settings" msgid="8887845806151785393">"RELOJ"</string>
     <string name="clock_style" msgid="2265011060429742344">"Estilo"</string>
     <string name="clock_style_title" msgid="32660784968818521">"Estilo del reloj"</string>
@@ -259,9 +225,9 @@
     <item msgid="2877342865396629368">"Bogotá"</item>
     <item msgid="568682398893899670">"Hora del este"</item>
     <item msgid="668135984541863866">"Venezuela"</item>
-    <item msgid="3737474220861486223">"H. Atlán. (Barbados)"</item>
-    <item msgid="6279116051273436870">"H. Atlán. (Canadá)"</item>
-    <item msgid="8513382867172014244">"Manaus"</item>
+    <item msgid="3737474220861486223">"Hora Atlántico (Barbados)"</item>
+    <item msgid="6279116051273436870">"Hora Atlántico (Canadá)"</item>
+    <item msgid="8513382867172014244">"Manaos"</item>
     <item msgid="7776299003105932407">"Santiago"</item>
     <item msgid="8636989494746218677">"Terranova"</item>
     <item msgid="4402541016410147505">"Brasilia"</item>
@@ -278,7 +244,7 @@
     <item msgid="8688787475056663004">"Bruselas"</item>
     <item msgid="3415827874921681622">"Sarajevo"</item>
     <item msgid="402008965928320066">"Windhoek"</item>
-    <item msgid="6436942724959275569">"Tiempo de África Occidental"</item>
+    <item msgid="6436942724959275569">"Hora de África Occidental"</item>
     <item msgid="954536568417204026">"Amán, Jordania"</item>
     <item msgid="8932745482008902551">"Atenas, Estambul"</item>
     <item msgid="320025725949024510">"Beirut, Líbano"</item>
