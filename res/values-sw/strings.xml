@@ -61,7 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Saa ya analojia"</string>
     <string name="help" msgid="7786263119482654015">"msaada"</string>
     <string name="settings" msgid="5849739030579520686">"Mipangilio"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Urefu wa kupumzisha"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Urefu wa kusinzisha"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"Dakika 1"</item>
     <item quantity="other" msgid="568504136093419703">"Dakika <xliff:g id="NUMBER">%d</xliff:g>"</item>
@@ -72,7 +72,7 @@
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Kimya baada ya"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> dakika"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Kamwe"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"Katu"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3693401222993867634">"Dakika 5"</item>
     <item msgid="3663730603519549990">"Dakika 10"</item>
@@ -80,7 +80,7 @@
     <item msgid="420479821767342125">"Dakika 20"</item>
     <item msgid="2107936130151066746">"Dakika 25"</item>
     <item msgid="7219791437023378544">"Dakika 30"</item>
-    <item msgid="4278641338024561333">"Kamwe"</item>
+    <item msgid="4278641338024561333">"Katu"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Kwisha"</string>
     <string name="revert" msgid="9100911171235162926">"Rudi"</string>
@@ -135,12 +135,12 @@
     <string name="sw_lap_total" msgid="2575384748273693584">"Jumla"</string>
     <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
     <skip />
-    <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
+    <string name="hours_label" msgid="3393478155635368097">"sa"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"dk"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <!-- no translation found for zero (7102083421938355017) -->
     <skip />
-    <string name="sw_share_title" msgid="2960856389203349">"Inashiriki muda wangu:"</string>
+    <string name="sw_share_title" msgid="2960856389203349">"Inashiriki saa wangu:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Muda wangu ni <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Muda wa mzunguko:"</string>
     <string name="sw_notification_label" msgid="3860960768913061020">"Saamsito"</string>
@@ -205,9 +205,9 @@
     <item msgid="1814605819692210671">"dijito"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Saa otomatiki ya nyumbani"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Unaposafiri nje ya ukunda wakati wa kawaida,  ongeza saa ya nyumbani"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Ukanda wa saa ya nyumbani"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Ukanda wa saa ya nyumbani"</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Unaposafiri nje ya ukunda wa kawaida wa saa, ongeza saa ya nyumbani"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Saa za eneo nyumbani"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Saa za eneo nyumbani"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Visiwa vya Marshall"</item>
     <item msgid="4196408495909011020">"Kisiwa cha Midway"</item>
@@ -220,7 +220,7 @@
     <item msgid="689121094232986897">"Saa za Mountain"</item>
     <item msgid="5445331923942302756">"Amerika ya Kati"</item>
     <item msgid="2749806434052452351">"Saa za Kati"</item>
-    <item msgid="3997138870229703753">"Mji wa Mexico"</item>
+    <item msgid="3997138870229703753">"Jji la Mexico"</item>
     <item msgid="5425567073027744888">"Saskatchewan"</item>
     <item msgid="2877342865396629368">"Bogota"</item>
     <item msgid="568682398893899670">"Saa za Mashariki"</item>
@@ -232,12 +232,12 @@
     <item msgid="8636989494746218677">"Newfoundland"</item>
     <item msgid="4402541016410147505">"Brasilia"</item>
     <item msgid="2251184440733164084">"Buenos Aires"</item>
-    <item msgid="6202926618569004969">"Greenlandi"</item>
+    <item msgid="6202926618569004969">"Grinlandi"</item>
     <item msgid="2355275037115290628">"Montevideo"</item>
     <item msgid="1377549694711708945">"Atlantiki ya Kati"</item>
     <item msgid="3457671272126347981">"Azores"</item>
-    <item msgid="3659315141063710840">"Visiwa vya Cape Verde"</item>
-    <item msgid="1260941741802367635">"Casablanca"</item>
+    <item msgid="3659315141063710840">"Visiwa vya Kepuvade"</item>
+    <item msgid="1260941741802367635">"Kasablanka"</item>
     <item msgid="8275203689687954762">"London, Dublin"</item>
     <item msgid="5970179539479320905">"Amsterdam, Berlin"</item>
     <item msgid="5396319478750517962">"Belgrade"</item>
@@ -267,7 +267,7 @@
     <item msgid="5487724896895412089">"Ural\'sk"</item>
     <item msgid="364906869710826982">"Yekaterinburg"</item>
     <item msgid="2106505051751383358">"Kolkata"</item>
-    <item msgid="6851586621581501447">"Sri Lanka"</item>
+    <item msgid="6851586621581501447">"Srilanka"</item>
     <item msgid="800438544128213134">"Kathmandu"</item>
     <item msgid="6173621471007643021">"Astana"</item>
     <item msgid="8645125891971581128">"Yangon"</item>
