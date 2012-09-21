@@ -246,6 +246,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
     @Override
     public void onPause() {
         super.onPause();
+        stopClockTicks();
     }
 
     @Override
@@ -372,7 +373,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
 
     private void setTimerButtons(TimerObj t) {
         Context a = getActivity();
-        if (a == null) {
+        if (a == null || t == null) {
             return;
         }
         Button plusOne = (Button) t.mView.findViewById(R.id.timer_plus_one);
