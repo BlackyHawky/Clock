@@ -204,8 +204,8 @@
     <item msgid="5353805556644220918">"analogno"</item>
     <item msgid="1814605819692210671">"digitalno"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Automatski kući sat"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Tijekom putovanja izvan uobičajene vremenske zone, dodaj sat za domaću vremensku zonu"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Automatski kućni sat"</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Tijekom putovanja izvan uobičajene vremenske zone dodaj sat za domaću vremensku zonu"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domaća vremenska zona"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domaća vremenska zona"</string>
   <string-array name="timezone_labels">
@@ -295,4 +295,6 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMI"</string>
+    <!-- no translation found for see_all (775983396630163739) -->
+    <skip />
 </resources>
