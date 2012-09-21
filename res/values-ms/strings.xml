@@ -63,7 +63,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Jam analog"</string>
     <string name="help" msgid="7786263119482654015">"bantuan"</string>
     <string name="settings" msgid="5849739030579520686">"Tetapan"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Panjang tidur sekejap"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Tempoh tidur sekejap"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minit"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> minit"</item>
@@ -253,7 +253,7 @@
     <item msgid="101284182011722637">"Chihuahua"</item>
     <item msgid="689121094232986897">"Waktu Pergunungan"</item>
     <item msgid="5445331923942302756">"Amerika Tengah"</item>
-    <item msgid="2749806434052452351">"Waktu Pusat"</item>
+    <item msgid="2749806434052452351">"Waktu Zon Tengah"</item>
     <item msgid="3997138870229703753">"Kota Mexico"</item>
     <item msgid="5425567073027744888">"Saskatchewan"</item>
     <item msgid="2877342865396629368">"Bogota"</item>
