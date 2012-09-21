@@ -140,7 +140,8 @@
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"min"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <string name="zero" msgid="2874056158816410009">"00:00:00"</string>
+    <!-- no translation found for zero (7102083421938355017) -->
+    <skip />
     <string name="sw_share_title" msgid="2960856389203349">"Mana laika kopīgošana:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mans laiks ir: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Intervāla laiki:"</string>
@@ -174,7 +175,7 @@
     <skip />
     <!-- no translation found for stopped_at (3640387409683991793) -->
     <skip />
-    <!-- no translation found for sw_share_strings:0 (6974174544581991076) -->
+    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
     <!-- no translation found for sw_share_strings:1 (6332879039890727169) -->
     <!-- no translation found for sw_share_strings:2 (815382761274660130) -->
     <!-- no translation found for sw_share_strings:3 (7916250650982813737) -->
@@ -230,12 +231,12 @@
     <string name="clock_style" msgid="2265011060429742344">"Stils"</string>
     <string name="clock_style_title" msgid="32660784968818521">"Pulksteņa stils"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"Analogs"</item>
-    <item msgid="8483930821046925592">"Digitāls"</item>
+    <item msgid="917900462224167608">"Analogais"</item>
+    <item msgid="8483930821046925592">"Elektroniskais"</item>
   </string-array>
   <string-array name="clock_style_values">
-    <item msgid="5353805556644220918">"analogs"</item>
-    <item msgid="1814605819692210671">"digitāls"</item>
+    <item msgid="5353805556644220918">"analogais"</item>
+    <item msgid="1814605819692210671">"elektroniskais"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automātiski rādīt dzīvesvietas laiku"</string>
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Ceļojot ārpus ierastās laika joslas, rādīt arī dzīvesvietas laiku"</string>
@@ -268,7 +269,7 @@
     <item msgid="6202926618569004969">"Grenlande"</item>
     <item msgid="2355275037115290628">"Montevideo"</item>
     <item msgid="1377549694711708945">"Vidusatlantijas laiks"</item>
-    <item msgid="3457671272126347981">"Azoru Salas"</item>
+    <item msgid="3457671272126347981">"Azoru salas"</item>
     <item msgid="3659315141063710840">"Kaboverdes salas"</item>
     <item msgid="1260941741802367635">"Kasablanka"</item>
     <item msgid="8275203689687954762">"Londona, Dublina"</item>
@@ -299,7 +300,7 @@
     <item msgid="6486569254364577332">"Islāmābāda, Karāči"</item>
     <item msgid="5487724896895412089">"Uraļska"</item>
     <item msgid="364906869710826982">"Jekaterinburga"</item>
-    <item msgid="2106505051751383358">"Kalkāta"</item>
+    <item msgid="2106505051751383358">"Kolkata"</item>
     <item msgid="6851586621581501447">"Šrilanka"</item>
     <item msgid="800438544128213134">"Katmandu"</item>
     <item msgid="6173621471007643021">"Astana"</item>
