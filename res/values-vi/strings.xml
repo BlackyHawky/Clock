@@ -95,7 +95,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Báo lại"</item>
     <item msgid="3450979320164769576">"Loại bỏ"</item>
-    <item msgid="6302517608411378024">"Không thực hiện hành động nào"</item>
+    <item msgid="6302517608411378024">"Không làm gì"</item>
   </string-array>
   <string-array name="volume_button_setting_values">
     <item msgid="7438326931744812183">"1"</item>
