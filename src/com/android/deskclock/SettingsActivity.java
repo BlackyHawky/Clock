@@ -16,6 +16,7 @@
 
 package com.android.deskclock;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -66,6 +67,10 @@ public class SettingsActivity extends PreferenceActivity
             ringtone.setAlert(alert);
         }
         ringtone.setChangeDefault();*/
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        }
     }
 
     @Override
@@ -79,6 +84,9 @@ public class SettingsActivity extends PreferenceActivity
         switch (item.getItemId()) {
             case R.id.menu_item_help:
                 startActivity(new Intent(this, HelpActivity.class));
+                return true;
+            case android.R.id.home:
+                finish();
                 return true;
             default:
                 break;
