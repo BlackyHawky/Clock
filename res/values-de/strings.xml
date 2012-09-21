@@ -156,7 +156,7 @@
     <string name="timer_stop" msgid="3361154678667736722">"Anhalten"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Zurücksetzen"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Abbrechen"</string>
-    <string name="timer_delete_question" msgid="7658546868533913049">"Diesen Timer löschen?"</string>
+    <string name="timer_delete_question" msgid="7658546868533913049">"Timer löschen?"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Zeit ist abgelaufen."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
     <string name="next_timer" msgid="561264099702200805">"&gt;Nächster Timer: <xliff:g id="TIME">%s</xliff:g>"</string>
@@ -295,4 +295,6 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"Wecker"</string>
+    <!-- no translation found for see_all (775983396630163739) -->
+    <skip />
 </resources>
