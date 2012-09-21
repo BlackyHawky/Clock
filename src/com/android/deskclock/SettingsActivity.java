@@ -90,6 +90,10 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
         getMenuInflater().inflate(R.menu.settings_menu, menu);
+        MenuItem help = menu.findItem(R.id.menu_item_help);
+        if (help != null) {
+            Utils.prepareHelpMenuItem(this, help);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
