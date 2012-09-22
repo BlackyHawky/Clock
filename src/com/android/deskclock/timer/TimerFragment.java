@@ -40,43 +40,43 @@ import java.util.ArrayList;
 public class TimerFragment extends DeskClockFragment implements OnClickListener {
 
     private static final String TAG = "TimerFragment";
-	private ListView mTimersList;
-	private View mNewTimerPage;
-	private View mTimersListPage;
-	private Button mCancel, mStart, mAddTimer;
-	private TimerSetupView mTimerSetup;
-	private TimersListAdapter mAdapter;
-	private boolean mTicking = false;
+    private ListView mTimersList;
+    private View mNewTimerPage;
+    private View mTimersListPage;
+    private Button mCancel, mStart, mAddTimer;
+    private TimerSetupView mTimerSetup;
+    private TimersListAdapter mAdapter;
+    private boolean mTicking = false;
 
-	public TimerFragment() {
+    public TimerFragment() {
     }
 
-	class ClickAction {
-	    public static final int ACTION_STOP = 1;
-	    public static final int ACTION_PLUS_ONE = 2;
-	    public static final int ACTION_DELETE = 3;
+    class ClickAction {
+        public static final int ACTION_STOP = 1;
+        public static final int ACTION_PLUS_ONE = 2;
+        public static final int ACTION_DELETE = 3;
 
-	    public int mAction;
-	    public TimerObj mTimer;
+        public int mAction;
+        public TimerObj mTimer;
 
-	    public ClickAction(int action, TimerObj t) {
-	        mAction = action;
-	        mTimer = t;
-	    }
-	}
+        public ClickAction(int action, TimerObj t) {
+            mAction = action;
+            mTimer = t;
+        }
+    }
 
-	class TimersListAdapter extends BaseAdapter {
+    class TimersListAdapter extends BaseAdapter {
 
-	    ArrayList<TimerObj> mTimers = new ArrayList<TimerObj> ();
-	    private final LayoutInflater mInflater;
-	    Context mContext;
+        ArrayList<TimerObj> mTimers = new ArrayList<TimerObj> ();
+        private final LayoutInflater mInflater;
+        Context mContext;
 
         public TimersListAdapter(Context context) {
             mContext = context;
             mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
-	    @Override
+        @Override
         public int getCount() {
             return mTimers.size();
         }
@@ -158,9 +158,9 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             TimerObj.putTimersInSharedPrefs(
                     PreferenceManager.getDefaultSharedPreferences(mContext), mTimers);
         }
-	}
+    }
 
-	private final Runnable mClockTick = new Runnable() {
+    private final Runnable mClockTick = new Runnable() {
         @Override
         public void run() {
             for (int i = 0; i < mAdapter.getCount(); i ++) {
@@ -182,7 +182,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             }
             mTimersList.postDelayed(mClockTick, 1000 - (System.currentTimeMillis() % 1000));
         }
-	};
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
