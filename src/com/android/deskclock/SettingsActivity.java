@@ -82,9 +82,6 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     public boolean onOptionsItemSelected (MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_help:
-                startActivity(new Intent(this, HelpActivity.class));
-                return true;
             case android.R.id.home:
                 finish();
                 return true;
