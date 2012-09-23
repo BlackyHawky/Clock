@@ -29,11 +29,14 @@ import java.util.Set;
 public class TimerObj implements Parcelable {
 
     private static final String TAG = "TimerObj";
+    // Max timer length is 9 hours + 99 minutes + 9 seconds
+    private static final long MAX_TIMER_LENGTH = (9 * 3600 + 99 * 60  + 60) * 1000;
 
     public int mTimerId;             // Unique id
     public long mStartTime;          // With mTimeLeft , used to calculate the correct time
     public long mTimeLeft;           // in the timer.
-    public long mOriginalLength;
+    public long mOriginalLength;     // length set at start of timer and by +1 min after times up
+    public long mSetupLength;        // length set at start of timer
     public View mView;
     public int mState;
 
@@ -47,6 +50,7 @@ public class TimerObj implements Parcelable {
     private static final String PREF_START_TIME  = "timer_start_time_";
     private static final String PREF_TIME_LEFT = "timer_time_left_";
     private static final String PREF_ORIGINAL_TIME = "timer_original_timet_";
+    private static final String PREF_SETUP_TIME = "timer_setup_timet_";
     private static final String PREF_STATE = "timer_state_";
 
     private static final String PREF_TIMERS_LIST = "timers_list";
@@ -74,6 +78,8 @@ public class TimerObj implements Parcelable {
         editor.putLong (key, mTimeLeft);
         key = PREF_ORIGINAL_TIME + id;
         editor.putLong (key, mOriginalLength);
+        key = PREF_SETUP_TIME + id;
+        editor.putLong (key, mSetupLength);
         key = PREF_STATE + id;
         editor.putInt (key, mState);
         Set <String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
@@ -91,6 +97,8 @@ public class TimerObj implements Parcelable {
         mTimeLeft = prefs.getLong(key, 0);
         key = PREF_ORIGINAL_TIME + id;
         mOriginalLength = prefs.getLong(key, 0);
+        key = PREF_SETUP_TIME + id;
+        mSetupLength = prefs.getLong(key, 0);
         key = PREF_STATE + id;
         mState = prefs.getInt(key, 0);
     }
@@ -127,6 +135,7 @@ public class TimerObj implements Parcelable {
         dest.writeLong(mStartTime);
         dest.writeLong(mTimeLeft);
         dest.writeLong(mOriginalLength);
+        dest.writeLong(mSetupLength);
         dest.writeInt(mState);
     }
 
@@ -135,6 +144,7 @@ public class TimerObj implements Parcelable {
         mStartTime = p.readLong();
         mTimeLeft = p.readLong();
         mOriginalLength = p.readLong();
+        mSetupLength = p.readLong();
         mState = p.readInt();
     }
 
@@ -149,12 +159,19 @@ public class TimerObj implements Parcelable {
     private void init (long length) {
         mTimerId = (int) System.currentTimeMillis();
         mStartTime = System.currentTimeMillis();
-        mTimeLeft = mOriginalLength = length;
+        mTimeLeft = mOriginalLength = mSetupLength = length;
     }
 
     public long updateTimeLeft() {
         mTimeLeft = mOriginalLength - (System.currentTimeMillis() - mStartTime);
         return mTimeLeft;
+    }
+
+    public void addTime(long time) {
+        mTimeLeft = mOriginalLength - (System.currentTimeMillis() - mStartTime);
+        if (mTimeLeft < MAX_TIMER_LENGTH - time) {
+                mStartTime += time;
+        }
     }
 
     public long getTimesupTime() {
