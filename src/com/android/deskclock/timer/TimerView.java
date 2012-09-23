@@ -27,10 +27,16 @@ import com.android.deskclock.R;
 
 
 public class TimerView extends LinearLayout {
-	TextView mHours, mMinutes, mSeconds, mHunderdths;
-	TextView mHoursLabel, mMinutesLabel, mSecondsLabel;
-	boolean mShowTimeStr = true;
-	Typeface mRobotoThin;
+    private static final String TWO_DIGITS = "%02d";
+    private static final String ONE_DIGIT = "%01d";
+    private static final String NEG_TWO_DIGITS = "-%02d";
+    private static final String NEG_ONE_DIGIT = "-%01d";
+
+
+    TextView mHours, mMinutes, mSeconds, mHunderdths;
+    TextView mHoursLabel, mMinutesLabel, mSecondsLabel;
+    boolean mShowTimeStr = true;
+    Typeface mRobotoThin;
 
     Runnable mBlinkThread = new Runnable() {
         @Override
@@ -57,17 +63,20 @@ public class TimerView extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-    	mHours = (TextView)findViewById(R.id.hours);
-    	mMinutes = (TextView)findViewById(R.id.minutes);
-    	mSeconds = (TextView)findViewById(R.id.seconds);
-    	mSeconds.setTypeface(mRobotoThin);
-    	mHunderdths = (TextView)findViewById(R.id.hundreds_seconds);
-    	mHoursLabel = (TextView)findViewById(R.id.hours_label);
+        mHours = (TextView)findViewById(R.id.hours);
+        mMinutes = (TextView)findViewById(R.id.minutes);
+        mSeconds = (TextView)findViewById(R.id.seconds);
+        mSeconds.setTypeface(mRobotoThin);
+        mHunderdths = (TextView)findViewById(R.id.hundreds_seconds);
+        mHoursLabel = (TextView)findViewById(R.id.hours_label);
     }
 
     public void setTime(long time) {
+        boolean neg = false;
+        String format = null;
         if (time < 0) {
-            time = 0;
+            time = -time - 1;
+            neg = true;
         }
         long hundreds, seconds, minutes, hours;
         seconds = time / 100;
@@ -80,27 +89,31 @@ public class TimerView extends LinearLayout {
             hours = 0;
         }
         // TODO: must build to account for localization
-		if (hours >= 10) {
-			mHours.setText(String.format("%02d",hours));
-			mHours.setVisibility(View.VISIBLE);
-			mHoursLabel.setVisibility(View.VISIBLE);
-		} else if (hours > 0) {
-			mHours.setText(String.format("%01d",hours));
-			mHours.setVisibility(View.VISIBLE);
-			mHoursLabel.setVisibility(View.VISIBLE);
-		} else {
-			mHours.setVisibility(View.GONE);
-			mHoursLabel.setVisibility(View.GONE);
-		}
+        if (hours >= 10) {
+            format = neg ? NEG_TWO_DIGITS : TWO_DIGITS;
+            mHours.setText(String.format(format, hours));
+            mHours.setVisibility(View.VISIBLE);
+            mHoursLabel.setVisibility(View.VISIBLE);
+        } else if (hours > 0) {
+            format = neg ? NEG_ONE_DIGIT : ONE_DIGIT;
+            mHours.setText(String.format(format, hours));
+            mHours.setVisibility(View.VISIBLE);
+            mHoursLabel.setVisibility(View.VISIBLE);
+        } else {
+            mHours.setVisibility(View.GONE);
+            mHoursLabel.setVisibility(View.GONE);
+        }
 
-		if (minutes >= 10) {
-			mMinutes.setText(String.format("%02d",minutes));
-		} else {
-			mMinutes.setText(String.format("%01d",minutes));
-		}
+        if (minutes >= 10 || hours > 0) {
+            format = (neg && hours == 0) ? NEG_TWO_DIGITS : TWO_DIGITS;
+            mMinutes.setText(String.format(format, minutes));
+        } else {
+            format = (neg && hours == 0) ? NEG_ONE_DIGIT : ONE_DIGIT;
+            mMinutes.setText(String.format(format, minutes));
+        }
 
-		mSeconds.setText(String.format("%02d",seconds));
-		mHunderdths.setText(String.format("%02d",hundreds));
+        mSeconds.setText(String.format(TWO_DIGITS, seconds));
+        mHunderdths.setText(String.format(TWO_DIGITS, hundreds));
     }
 
     public void setTime(String hours, String minutes, String seconds, String hundreds) {
