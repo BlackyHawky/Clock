@@ -42,4 +42,12 @@
     <dimen name="circletimer_diamond_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">2dip</dimen>
+
+    <dimen name="big_font_size">120sp</dimen>
+    <dimen name="small_font_size">48sp</dimen>
+    <dimen name="medium_font_size">60sp</dimen>
+    <dimen name="label_font_size">12sp</dimen>
+    <dimen name="header_font_size">24sp</dimen>
+    <dimen name="body_font_size">18sp</dimen>
+    <dimen name="button_font_size">22sp</dimen>
 </resources>
