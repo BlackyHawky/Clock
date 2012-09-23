@@ -188,7 +188,7 @@ public class CircleTimerView extends View {
     public void readFromSharedPref(SharedPreferences prefs, String key) {
         mPaused = prefs.getBoolean(key + PREF_CTV_PAUSED, false);
         mIntervalTime = prefs.getLong(key + PREF_CTV_INTERVAL, 0);
-        mIntervalStartTime = prefs.getLong(key + PREF_CTV_INTERVAL_START, 0);
+        mIntervalStartTime = prefs.getLong(key + PREF_CTV_INTERVAL_START, -1);
         mCurrentIntervalTime = prefs.getLong(key + PREF_CTV_CURRENT_INTERVAL, 0);
         mAccumulatedTime = prefs.getLong(key + PREF_CTV_ACCUM_TIME, 0);
         mMarkerTime = prefs.getLong(key + PREF_CTV_MARKER_TIME, -1);
