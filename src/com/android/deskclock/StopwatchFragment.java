@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
-import com.android.deskclock.timer.TimerView;
+import com.android.deskclock.timer.CountingTimerView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,7 +49,7 @@ public class StopwatchFragment extends DeskClockFragment {
     // Stopwatch views that are accessed by the activity
     private Button mLeftButton, mRightButton;
     private CircleTimerView mTime;
-    private TimerView mTimeText;
+    private CountingTimerView mTimeText;
     private View mLapsTitle;
     private ListView mLapsList;
     private Button mShareButton;
@@ -213,7 +213,7 @@ public class StopwatchFragment extends DeskClockFragment {
                         showLaps();
                         mTime.stopIntervalAnimation();
                         mTime.reset();
-                        mTimeText.setTime(mAccumulatedTime);
+                        mTimeText.setTime(mAccumulatedTime, true);
                         mTimeText.blinkTimeStr(false);
                         setButtons(STOPWATCH_RESET);
                         mState = STOPWATCH_RESET;
@@ -239,7 +239,7 @@ public class StopwatchFragment extends DeskClockFragment {
                         mTime.pauseIntervalAnimation();
                         long curTime = System.currentTimeMillis()/10;
                         mAccumulatedTime += (curTime - mStartTime);
-                        mTimeText.setTime(mAccumulatedTime);
+                        mTimeText.setTime(mAccumulatedTime, true);
                         mTimeText.blinkTimeStr(true);
                         updateCurrentLap(curTime, mAccumulatedTime);
                         setButtons(STOPWATCH_STOPPED);
@@ -275,7 +275,7 @@ public class StopwatchFragment extends DeskClockFragment {
         });
 
         mTime = (CircleTimerView)v.findViewById(R.id.stopwatch_time);
-        mTimeText = (TimerView)v.findViewById(R.id.stopwatch_time_text);
+        mTimeText = (CountingTimerView)v.findViewById(R.id.stopwatch_time_text);
         mLapsTitle = v.findViewById(R.id.laps_title);
         mLapsList = (ListView)v.findViewById(R.id.laps_list);
         mLapsList.setDividerHeight(0);
@@ -293,7 +293,7 @@ public class StopwatchFragment extends DeskClockFragment {
         readFromSharedPref(prefs);
         mTime.readFromSharedPref(prefs, "sw");
         setButtons(mState);
-        mTimeText.setTime(mAccumulatedTime);
+        mTimeText.setTime(mAccumulatedTime, true);
         if (mState == STOPWATCH_RUNNING) {
             startUpdateThread();
         } else if (mState == STOPWATCH_STOPPED && mAccumulatedTime != 0) {
@@ -558,7 +558,7 @@ public class StopwatchFragment extends DeskClockFragment {
             long curTime = System.currentTimeMillis()/10;
             long totalTime = mAccumulatedTime + (curTime - mStartTime);
             if (mTime != null) {
-                mTimeText.setTime(totalTime);
+                mTimeText.setTime(totalTime, true);
             }
             if (mLapsAdapter.getCount() > 0) {
                 updateCurrentLap(curTime, totalTime);
