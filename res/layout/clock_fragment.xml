@@ -126,8 +126,8 @@
                 style="?android:attr/actionOverflowButtonStyle"
                 android:background="?android:attr/selectableItemBackground"
                 android:onClick="clockButtonsOnClick"
-                android:layout_width="0dip"
-                android:layout_weight="1"
+                android:minWidth="56dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
     </LinearLayout>
