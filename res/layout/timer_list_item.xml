@@ -22,7 +22,7 @@
 
      <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="300dip">
+        android:layout_height="@dimen/timer_circle_diameter">
         <com.android.deskclock.CircleTimerView
             android:id="@+id/timer_time"
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                 android:layout_gravity="top"
                 android:text="@string/hours_label"
                 android:textColor="@color/clock_white"/>
-            
+
             <TextView
                 android:id="@+id/minutes"
                 android:singleLine="true"
@@ -63,14 +63,14 @@
                 style="@style/label"
                 android:text="@string/minutes_label"
                 android:textColor="@color/clock_white"/>
-        
+
             <TextView
                 android:id="@+id/seconds"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_light"
                 android:textColor="@color/clock_white"/>
-        
+
             <TextView
                 android:id="@+id/seconds_label"
                 android:singleLine="true"
@@ -79,7 +79,7 @@
                 android:layout_gravity="top"
                 android:text="@string/seconds_label"
                 android:textColor="@color/clock_white"/>
-        
+
             <TextView
                 android:id="@+id/hundreds_seconds"
                 android:singleLine="true"
@@ -87,7 +87,7 @@
                 style="@style/small_light"
                 android:visibility="gone"
                 android:textColor="@color/clock_white"/>
-            
+
         </com.android.deskclock.timer.TimerView>
     </FrameLayout>
     <LinearLayout

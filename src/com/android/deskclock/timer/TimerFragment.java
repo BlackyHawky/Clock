@@ -188,10 +188,9 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mContext = getActivity();
         View v = inflater.inflate(R.layout.timer_fragment, container, false);
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
-        mAdapter = new TimersListAdapter(mContext);
+        mAdapter = new TimersListAdapter(getActivity());
         mAdapter.onRestoreInstanceState(savedInstanceState);
         mTimersList.setAdapter(mAdapter);
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
@@ -247,6 +246,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
     public void onPause() {
         super.onPause();
         stopClockTicks();
+        saveGlobalState();
     }
 
     @Override
@@ -427,7 +427,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
 
     private void updateTimersState(TimerObj t, String action) {
         if (!Timers.DELETE_TIMER.equals(action)) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
             t.writeToSharedPref(prefs);
         }
         Intent i = new Intent();
