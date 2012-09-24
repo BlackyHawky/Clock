@@ -102,66 +102,66 @@
     </style>
 
     <style name="small_bold">
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">@dimen/small_font_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="medium_bold">
-        <item name="android:textSize">60sp</item>
+        <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="small_light">
-        <item name="android:textSize">48sp</item>
+        <item name="android:textSize">@dimen/small_font_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="medium_light">
-        <item name="android:textSize">60sp</item>
+        <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="label">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">@dimen/label_font_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="header">
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/header_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="big_bold">
-        <item name="android:textSize">120sp</item>
+        <item name="android:textSize">@dimen/big_font_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="big_thin">
-        <item name="android:textSize">120sp</item>
+        <item name="android:textSize">@dimen/big_font_size</item>
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
     <style name="body">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/body_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="body_bold">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">@dimen/body_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="button">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">@dimen/button_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>

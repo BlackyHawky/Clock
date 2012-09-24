@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2008 The Android Open Source Project
+ * Copyright (C) 2012 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ import com.android.deskclock.R;
 
 public class TimerListItem extends LinearLayout {
 
-    TimerView mTimerText;
+    CountingTimerView mTimerText;
     CircleTimerView mCircleView;
     Button mDelete, mPlusOne, mStop;
 
@@ -48,7 +48,7 @@ public class TimerListItem extends LinearLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mTimerText = (TimerView)findViewById(R.id.timer_time_text);
+        mTimerText = (CountingTimerView)findViewById(R.id.timer_time_text);
         mCircleView = (CircleTimerView)findViewById(R.id.timer_time);
         mCircleView.setTimerMode(true);
     }
@@ -87,9 +87,9 @@ public class TimerListItem extends LinearLayout {
 
     public void setTime(long time) {
         if (mTimerText == null) {
-            mTimerText = (TimerView)findViewById(R.id.timer_time_text);
+            mTimerText = (CountingTimerView)findViewById(R.id.timer_time_text);
         }
-        mTimerText.setTime(time);
+        mTimerText.setTime(time, false);
         mTimerText.invalidate();
     }
 }
