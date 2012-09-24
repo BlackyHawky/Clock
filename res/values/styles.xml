@@ -29,8 +29,8 @@
         <item name="android:actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
     </style>
     <style name="DeskClockTabStyle" parent="@android:style/Theme.Holo">
-        <item name="android:paddingLeft">50dip</item>
-        <item name="android:paddingRight">50dip</item>
+        <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
+        <item name="android:paddingRight">@dimen/actionbar_tab_padding</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:gravity">center</item>
     </style>
