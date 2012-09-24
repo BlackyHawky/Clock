@@ -392,7 +392,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
 
     private void setTimerButtons(TimerObj t) {
         Context a = getActivity();
-        if (a == null || t == null) {
+        if (a == null || t == null || t.mView == null) {
             return;
         }
         Button plusOne = (Button) t.mView.findViewById(R.id.timer_plus_one);
