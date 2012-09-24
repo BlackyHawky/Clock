@@ -21,6 +21,7 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -262,7 +263,14 @@ public class DeskClock extends Activity {
                         startActivity(new Intent(DeskClock.this, SettingsActivity.class));
                         return true;
                     case R.id.menu_item_help:
-                        startActivity(new Intent(DeskClock.this, HelpActivity.class));
+                        Intent i = item.getIntent();
+                        if (i != null) {
+                            try {
+                                startActivity(i);
+                            } catch (ActivityNotFoundException e) {
+                                // No activity found to match the intent - ignore
+                            }
+                        }
                         return true;
                     default:
                         break;
