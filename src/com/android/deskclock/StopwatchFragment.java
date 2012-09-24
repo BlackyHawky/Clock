@@ -313,7 +313,7 @@ public class StopwatchFragment extends DeskClockFragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         writeToSharedPref(prefs);
         mTime.writeToSharedPref(prefs, "sw");
-
+        mTimeText.blinkTimeStr(false);
         if (mSharePopup != null) {
             mSharePopup.dismiss();
             mSharePopup = null;
@@ -484,20 +484,16 @@ public class StopwatchFragment extends DeskClockFragment {
             hours = 0;
         }
         // TODO: must build to account for localization
-    	String timeStr;
-		if (hours >= 10) {
-			timeStr = String.format("%02dh %02dm %02ds .%02d", hours, minutes,
-					seconds, hundreds);
-		} else if (hours > 0) {
-			timeStr = String.format("%01dh %02dm %02ds .%02d", hours, minutes,
-					seconds, hundreds);
-		} else if (minutes >= 10) {
-			timeStr = String.format("%02dm %02ds .%02d", minutes, seconds,
-					hundreds);
-		} else {
-			timeStr = String.format("%02dm %02ds .%02d", minutes, seconds,
-					hundreds);
-		}
+        String timeStr;
+        if (hours >= 10) {
+            timeStr = String.format("%02dh %02dm %02ds .%02d", hours, minutes, seconds, hundreds);
+        } else if (hours > 0) {
+            timeStr = String.format("%01dh %02dm %02ds .%02d", hours, minutes, seconds, hundreds);
+        } else if (minutes >= 10) {
+            timeStr = String.format("%02dm %02ds .%02d", minutes, seconds, hundreds);
+        } else {
+            timeStr = String.format("%02dm %02ds .%02d", minutes, seconds, hundreds);
+        }
         return timeStr;
     }
 
@@ -562,7 +558,7 @@ public class StopwatchFragment extends DeskClockFragment {
             long curTime = System.currentTimeMillis()/10;
             long totalTime = mAccumulatedTime + (curTime - mStartTime);
             if (mTime != null) {
-            	mTimeText.setTime(totalTime);
+                mTimeText.setTime(totalTime);
             }
             if (mLapsAdapter.getCount() > 0) {
                 updateCurrentLap(curTime, totalTime);

@@ -27,7 +27,6 @@
                 android:theme="@style/DeskClock"
                 android:icon="@mipmap/ic_launcher_alarmclock"
                 android:launchMode="singleInstance"
-                android:screenOrientation="portrait"
                 android:configChanges="orientation|keyboardHidden|keyboard|navigation">
                 >
 
