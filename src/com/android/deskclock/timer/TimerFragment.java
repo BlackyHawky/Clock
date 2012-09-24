@@ -212,11 +212,14 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
         mStart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                // New timer create if timer length is not zero
+                // Create a new timer object to track the timer and
+                // switch to the timers view.
                 int timerLength = mTimerSetup.getTime();
                 if (timerLength == 0) {
                     return;
                 }
-                TimerObj t = new TimerObj(mTimerSetup.getTime() * 1000);
+                TimerObj t = new TimerObj(timerLength * 1000);
                 t.mState = TimerObj.STATE_RUNNING;
                 mAdapter.addTimer(t);
                 updateTimersState(t, Timers.START_TIMER);
@@ -299,6 +302,8 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                     mTimerSetup.reset();
                     gotoSetupView();
                 }
+                // Tell receiver the timer was deleted.
+                // It will stop all activity related to the timer
                 updateTimersState(t, Timers.DELETE_TIMER);
                 break;
             case ClickAction.ACTION_PLUS_ONE:
@@ -317,15 +322,28 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
     private void onPlusOneButtonPressed(TimerObj t) {
         switch(t.mState) {
             case TimerObj.STATE_RUNNING:
-                 t.mStartTime += 60000; //60 seconds in millis
-                 ((TimerListItem)(t.mView)).setTime(t.updateTimeLeft()/10);
+                 t.addTime(60000); //60 seconds in millis
+                 long timeLeft = t.updateTimeLeft();
+                 ((TimerListItem)(t.mView)).setTime(timeLeft/10);
+                 ((TimerListItem)(t.mView)).setLength(timeLeft);
                  updateTimersState(t, Timers.TIMER_UPDATE);
                 break;
-            case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_TIMESUP:
+                // +1 min when the time is up will restart the timer with 1 minute left.
+                t.mState = TimerObj.STATE_RUNNING;
+                t.mStartTime = System.currentTimeMillis();
+                t.mTimeLeft = t. mOriginalLength = 60000;
+                ((TimerListItem)t.mView).setTime(t.mTimeLeft / 10);
+                ((TimerListItem)t.mView).set(t.mOriginalLength, t.mTimeLeft);
+                ((TimerListItem) t.mView).start();
+                updateTimersState(t, Timers.TIMER_RESET);
+                updateTimersState(t, Timers.START_TIMER);
+                break;
+            case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_DONE:
                 t.mState = TimerObj.STATE_RESTART;
-                t.mTimeLeft = t.mOriginalLength;
+                t.mTimeLeft = t.mSetupLength;
+                ((TimerListItem)t.mView).stop();
                 ((TimerListItem)t.mView).setTime(t.mTimeLeft / 10);
                 ((TimerListItem)t.mView).set(t.mOriginalLength, t.mTimeLeft);
                 updateTimersState(t, Timers.TIMER_RESET);
@@ -356,6 +374,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 break;
             case TimerObj.STATE_TIMESUP:
                 t.mState = TimerObj.STATE_DONE;
+                ((TimerListItem) t.mView).stop();
                 updateTimersState(t, Timers.TIMER_DONE);
                 break;
             case TimerObj.STATE_DONE:
@@ -394,7 +413,6 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 break;
             case TimerObj.STATE_TIMESUP:
                 plusOne.setVisibility(View.VISIBLE);
-                plusOne.setText(r.getString(R.string.timer_reset));
                 stop.setText(r.getString(R.string.timer_stop));
                 stop.setEnabled(true);
                 break;

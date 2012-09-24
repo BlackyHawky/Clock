@@ -29,9 +29,12 @@ public class CircleTimerView extends View {
     private long mAccumulatedTime = 0;
     private boolean mPaused = false;
     private static float mStrokeSize = 4;
+    private static float mDiamondStrokeSize = 12;
+    private static float mMarkerStrokeSize = 2;
     private final Paint mPaint = new Paint();
     private final RectF mArcRect = new RectF();
     private Resources mResources;
+    private float mRadiusOffset;   // amount to remove from radius to account for markers on circle
 
     // Class has 2 modes:
     // Timer mode - counting down. in this mode the animation is counter-clockwise and stops at 0
@@ -106,13 +109,16 @@ public class CircleTimerView extends View {
     private void init(Context c) {
 
         mResources = c.getResources();
-
+        mStrokeSize = mResources.getDimension(R.dimen.circletimer_circle_size);
+        mDiamondStrokeSize = mResources.getDimension(R.dimen.circletimer_diamond_size);
+        mMarkerStrokeSize =
+                mResources.getDimension(R.dimen.circletimer_marker_size) * 2 + mStrokeSize;
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(mStrokeSize);
-
         mWhiteColor = mResources.getColor(R.color.clock_white);
         mRedColor = mResources.getColor(R.color.clock_red);
+
+        mRadiusOffset = Math.max(mStrokeSize, Math.max(mDiamondStrokeSize, mMarkerStrokeSize));
     }
 
     public void setTimerMode(boolean mode) {
@@ -125,10 +131,10 @@ public class CircleTimerView extends View {
         int yCenter = getHeight() / 2;
 
         mPaint.setStrokeWidth(mStrokeSize);
-        float radius = Math.min(xCenter, yCenter) - mStrokeSize;
+        float radius = Math.min(xCenter, yCenter) - mRadiusOffset;
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            xCenter = (int) (radius + mStrokeSize);
+            xCenter = (int) (radius + mRadiusOffset);
         }
 
         mPaint.setColor(mWhiteColor);
@@ -141,15 +147,13 @@ public class CircleTimerView extends View {
             mArcRect.left =  xCenter - radius;
             mArcRect.right = xCenter + radius;
             float percent = (float)mCurrentIntervalTime / (float)mIntervalTime;
-            // prevent timer from doing more than one full circle
-            percent = (percent > 1 && mTimerMode) ? 1 : percent;
 
             if (mTimerMode){
                 canvas.drawArc (mArcRect, 270, - percent * 360 , false, mPaint);
             } else {
                 canvas.drawArc (mArcRect, 270, + percent * 360 , false, mPaint);
             }
-            mPaint.setStrokeWidth(mStrokeSize + 10);
+            mPaint.setStrokeWidth(mDiamondStrokeSize);
             if (mTimerMode){
                 canvas.drawArc (mArcRect, 265 - percent * 360, 10 , false, mPaint);
             } else {
@@ -157,7 +161,7 @@ public class CircleTimerView extends View {
             }
          }
         if (mMarkerTime != -1) {
-            mPaint.setStrokeWidth(mStrokeSize + 30);
+            mPaint.setStrokeWidth(mMarkerStrokeSize);
             mPaint.setColor(mWhiteColor);
             float angle = (float)(mMarkerTime % mIntervalTime) / (float)mIntervalTime * 360;
             canvas.drawArc (mArcRect, 270 + angle, 1 , false, mPaint);
