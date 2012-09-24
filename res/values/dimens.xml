@@ -39,4 +39,7 @@
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
 
+    <dimen name="circletimer_diamond_size">12dip</dimen>
+    <dimen name="circletimer_circle_size">4dip</dimen>
+    <dimen name="circletimer_marker_size">2dip</dimen>
 </resources>

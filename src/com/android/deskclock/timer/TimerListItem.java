@@ -61,34 +61,35 @@ public class TimerListItem extends LinearLayout {
         mTimerLength = timerLength;
         mCircleView.setIntervalTime(mTimerLength);
         mCircleView.setPassedTime(timerLength - timeLeft);
+        invalidate();
     }
 
     public void start() {
         mCircleView.startIntervalAnimation();
+        mTimerText.blinkTimeStr(false);
     }
 
     public void pause() {
         mCircleView.pauseIntervalAnimation();
+        mTimerText.blinkTimeStr(true);
     }
 
     public void stop() {
         mCircleView.stopIntervalAnimation();
+        mTimerText.blinkTimeStr(false);
     }
 
     public void setLength(long timerLength) {
         mTimerLength = timerLength;
         mCircleView.setIntervalTime(mTimerLength);
-        mTimerText.invalidate();
+        mCircleView.invalidate();
     }
 
     public void setTime(long time) {
-        if (time <= 0) {
-            time = 0;
-            mCircleView.stopIntervalAnimation();
-        }
         if (mTimerText == null) {
             mTimerText = (TimerView)findViewById(R.id.timer_time_text);
         }
         mTimerText.setTime(time);
+        mTimerText.invalidate();
     }
 }
