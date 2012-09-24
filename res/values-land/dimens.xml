@@ -5,7 +5,7 @@
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at 
+** You may obtain a copy of the License at
 **
 **     http://www.apache.org/licenses/LICENSE-2.0
 **
@@ -32,5 +32,6 @@
     <dimen name="next_alarm_margin_top">-5dip</dimen>
 
     <dimen name="timer_circle_diameter">240dip</dimen>
+    <dimen name="actionbar_tab_padding">50dip</dimen>
 
 </resources>
