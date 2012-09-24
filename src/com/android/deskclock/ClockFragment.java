@@ -101,7 +101,7 @@ public class ClockFragment extends DeskClockFragment {
 
         mNextAlarm.setVisibility(View.GONE);
 /* No next alarm at this point
-        String nextAlarm = Settings.System.getString(mContext.getContentResolver(),
+        String nextAlarm = Settings.System.getString(getActivity().getContentResolver(),
                 Settings.System.NEXT_ALARM_FORMATTED);
         if (!TextUtils.isEmpty(nextAlarm)) {
             mNextAlarm.setText(getString(R.string.control_set_alarm_with_existing, nextAlarm));
@@ -126,11 +126,11 @@ public class ClockFragment extends DeskClockFragment {
         }
         if (show && mButtonsHidden) {
             mButtons.startAnimation(
-                    AnimationUtils.loadAnimation(mContext, R.anim.unhide));
+                    AnimationUtils.loadAnimation(getActivity(), R.anim.unhide));
             mButtonsHidden = false;
         } else if (!show && !mButtonsHidden) {
             mButtons.startAnimation(
-                    AnimationUtils.loadAnimation(mContext, R.anim.hide));
+                    AnimationUtils.loadAnimation(getActivity(), R.anim.hide));
             mButtonsHidden = true;
         }
     }
