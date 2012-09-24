@@ -50,16 +50,6 @@
                 android:targetActivity="com.android.deskclock.AlarmClock"
                 android:exported="true" />
 
-        <activity android:name="HelpActivity"
-                android:label="@string/help"
-                android:taskAffinity=""
-                android:excludeFromRecents="true"
-                >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-            </intent-filter>
-        </activity>
-
         <activity android:name="SettingsActivity"
                 android:label="@string/settings"
                 android:theme="@style/SettingsTheme"
