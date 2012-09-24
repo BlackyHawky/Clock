@@ -86,7 +86,7 @@ public class ClockFragment extends DeskClockFragment {
 
     private void setClockStyle() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        String style = sharedPref.getString(SettingsActivity.KEY_CLOCK_STYLE, "analog");
+        String style = sharedPref.getString(SettingsActivity.KEY_CLOCK_STYLE, "digital");
         if (style.equals("analog")) {
             mDigitalClock.setVisibility(View.GONE);
             mAnalogClock.setVisibility(View.VISIBLE);
