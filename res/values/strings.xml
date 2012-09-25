@@ -276,6 +276,10 @@
          the media player. [CHAR LIMIT=NONE] -->
     <string name="loading_ringtone">Loading ringtone\u2026</string>
 
+    <!-- A description for the DeskClock timer sound playback service.
+         [CHAR LIMIT=NONE] -->
+    <string name="timer_ring_service_desc">Sound playback service for timers set in Clock.</string>
+
     <!-- Label on the main screen control used to set alarm [CHAR LIMIT=30]-->
     <string name="control_set_alarm">Set alarm</string>
 
