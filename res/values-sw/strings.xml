@@ -138,8 +138,7 @@
     <string name="hours_label" msgid="3393478155635368097">"sa"</string>
     <string name="minutes_label" msgid="3568098128251438588">"dk"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Inashiriki saa wangu:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Muda wangu ni <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Muda wa mzunguko:"</string>
@@ -162,7 +161,18 @@
     <string name="next_timer" msgid="561264099702200805">"&gt;Kipima Wakati Kifuatacho: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;Na vipima wakati <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Ilikoma saa <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Una kasi ya ajabu."</item>
+    <item msgid="6332879039890727169">"Furahia matunda ya kazi yako."</item>
+    <item msgid="815382761274660130">"Androids zinajulikana kwa kasi, lakini si kasi kama wewe!"</item>
+    <item msgid="7916250650982813737">"Pumua."</item>
+    <item msgid="6836603904515182333">"Nyakati za L33t."</item>
+    <item msgid="7508085100680861631">"Kasi hiyo ya kupendeza."</item>
+    <item msgid="5961245252909589573">"Hebu tufanye mabadiliko ya muda tena."</item>
+    <item msgid="5211891900854545940">"Ruka tu kushoto."</item>
+    <item msgid="9071353477103826053">"Una safu ya rangi ya kasi."</item>
+    <item msgid="3785193933691117181">"Kasi ya picha."</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"Dakika 1"</item>
     <item quantity="other" msgid="3799129667336330616">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g>"</item>
@@ -295,6 +305,5 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"KENGELE"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
-    <skip />
+    <string name="see_all" msgid="775983396630163739">"Ona zote..."</string>
 </resources>
