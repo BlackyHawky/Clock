@@ -143,6 +143,14 @@
             </intent-filter>
         </service>
 
+        <service android:name="TimerRingService"
+                android:exported="false"
+                android:description="@string/timer_ring_service_desc">
+            <intent-filter>
+                <action android:name="com.android.deskclock.TIMER_ALERT" />
+            </intent-filter>
+        </service>
+
         <receiver android:name="com.android.deskclock.timer.TimerReceiver"
                 android:exported="false">
             <intent-filter>
