@@ -30,6 +30,7 @@ import com.android.deskclock.Alarm;
 import com.android.deskclock.AlarmKlaxon;
 import com.android.deskclock.Alarms;
 import com.android.deskclock.DeskClock;
+import com.android.deskclock.TimerRingService;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -82,10 +83,8 @@ public class TimerReceiver extends BroadcastReceiver {
             t.writeToSharedPref(prefs);
             // Play ringtone by using AlarmKlaxon service with a default alarm.
             Log.d(TAG, "playing ringtone");
-            Alarm a = new Alarm();
             Intent si = new Intent();
-            si.setClass(context, AlarmKlaxon.class);
-            si.putExtra(Alarms.ALARM_INTENT_EXTRA, a);
+            si.setClass(context, TimerRingService.class);
             context.startService(si);
 
             // Start the DeskClock Activity
@@ -103,8 +102,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 // Stop ringtone
                 Log.d(TAG, "stopping ringtone");
                 Intent si = new Intent();
-                si.setClass(context, AlarmKlaxon.class);
-                context.startService(si);
+                si.setClass(context, TimerRingService.class);
                 context.stopService(si);
             }
         }
