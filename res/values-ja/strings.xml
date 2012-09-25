@@ -113,6 +113,8 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"現在、天気情報をご利用いただけません。"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"時計で設定したアラーム用のサウンド再生サービスです。"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"着信音を読み込み中..."</string>
+    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
+    <skip />
     <string name="control_set_alarm" msgid="2194676418924016327">"アラームを設定"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"次のアラーム: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"タイマー"</string>

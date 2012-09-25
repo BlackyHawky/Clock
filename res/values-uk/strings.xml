@@ -113,6 +113,8 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Інформація про погоду зараз не доступна."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Служба відтворення звуків для набору сигналів у Годиннику."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Завантаж. мелодії…"</string>
+    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
+    <skip />
     <string name="control_set_alarm" msgid="2194676418924016327">"Установити сигнал"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Наступний сигнал: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
@@ -138,8 +140,7 @@
     <string name="hours_label" msgid="3393478155635368097">"год"</string>
     <string name="minutes_label" msgid="3568098128251438588">"хв"</string>
     <string name="seconds_label" msgid="124655952824003246">"с"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Доступ до мого часу"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Мій час – <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Час кола:"</string>
@@ -162,7 +163,18 @@
     <string name="next_timer" msgid="561264099702200805">"&amp;gtНаступний таймер: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;І стільки таймерів: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Зупинено о <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Ну ви й швидкі!"</item>
+    <item msgid="6332879039890727169">"Насолоджуйтесь плодами своєї праці."</item>
+    <item msgid="815382761274660130">"Пристрої Android швидкі, але ви – швидші!"</item>
+    <item msgid="7916250650982813737">"Фу."</item>
+    <item msgid="6836603904515182333">"Стільки разів: L33t."</item>
+    <item msgid="7508085100680861631">"Неймовірна швидкість."</item>
+    <item msgid="5961245252909589573">"Повторімо \"викривлення часу\"."</item>
+    <item msgid="5211891900854545940">"Просто стрибніть ліворуч."</item>
+    <item msgid="9071353477103826053">"Ви дуже поспішаєте."</item>
+    <item msgid="3785193933691117181">"Швидкість світла."</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1 хвилина"</item>
     <item quantity="other" msgid="3799129667336330616">"Таймерів: <xliff:g id="NUMBER">%d</xliff:g>"</item>
@@ -295,6 +307,5 @@
     <item msgid="5911600083231840181">"Тонга"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"СИГНАЛИ"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
-    <skip />
+    <string name="see_all" msgid="775983396630163739">"Показати всі…"</string>
 </resources>

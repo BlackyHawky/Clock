@@ -113,6 +113,8 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Weather information isn\'t available at the moment."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Sound playback service for alarms set in Clock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Loading ringtone…"</string>
+    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
+    <skip />
     <string name="control_set_alarm" msgid="2194676418924016327">"Set alarm"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Next alarm: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
@@ -138,8 +140,7 @@
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Sharing my times:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"My time is <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Lap times:"</string>
@@ -162,7 +163,18 @@
     <string name="next_timer" msgid="561264099702200805">"&gt;Next Timer: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;And <xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Stopped at <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"You\'re quite the speed demon."</item>
+    <item msgid="6332879039890727169">"Enjoy the fruits of your labour."</item>
+    <item msgid="815382761274660130">"Androids are known to be fast, but not as fast as you!"</item>
+    <item msgid="7916250650982813737">"Phew."</item>
+    <item msgid="6836603904515182333">"L33t times."</item>
+    <item msgid="7508085100680861631">"Such prodigious velocity."</item>
+    <item msgid="5961245252909589573">"Let\'s do the time warp again."</item>
+    <item msgid="5211891900854545940">"Just a jump to the left."</item>
+    <item msgid="9071353477103826053">"You have a palette for haste."</item>
+    <item msgid="3785193933691117181">"Photonic velocity."</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1 minute"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> timers"</item>
@@ -295,6 +307,5 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"Alarms"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
-    <skip />
+    <string name="see_all" msgid="775983396630163739">"See all…"</string>
 </resources>
