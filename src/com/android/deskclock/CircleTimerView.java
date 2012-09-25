@@ -137,30 +137,49 @@ public class CircleTimerView extends View {
             xCenter = (int) (radius + mRadiusOffset);
         }
 
-        mPaint.setColor(mWhiteColor);
-        canvas.drawCircle (xCenter, yCenter, radius, mPaint);
-
-        mPaint.setColor(mRedColor);
-        if (mIntervalStartTime != -1) {
+        if (mIntervalStartTime == -1) {
+            // just draw a complete white circle, no red arc needed
+            mPaint.setColor(mWhiteColor);
+            canvas.drawCircle (xCenter, yCenter, radius, mPaint);
+        } else {
+            //draw a combination of red and white arcs to create a circle
             mArcRect.top = yCenter - radius;
             mArcRect.bottom = yCenter + radius;
             mArcRect.left =  xCenter - radius;
             mArcRect.right = xCenter + radius;
-            float percent = (float)mCurrentIntervalTime / (float)mIntervalTime;
+            float redPercent = (float)mCurrentIntervalTime / (float)mIntervalTime;
             // prevent timer from doing more than one full circle
-            percent = (percent > 1 && mTimerMode) ? 1 : percent;
+            redPercent = (redPercent > 1 && mTimerMode) ? 1 : redPercent;
 
+            float whitePercent = 1 - (redPercent > 1 ? 1 : redPercent);
+            // draw red arc here
+            mPaint.setColor(mRedColor);
             if (mTimerMode){
-                canvas.drawArc (mArcRect, 270, - percent * 360 , false, mPaint);
+                canvas.drawArc (mArcRect, 270, - redPercent * 360 , false, mPaint);
             } else {
-                canvas.drawArc (mArcRect, 270, + percent * 360 , false, mPaint);
+                canvas.drawArc (mArcRect, 270, + redPercent * 360 , false, mPaint);
             }
+
+            // draw white arc here
+            mPaint.setStrokeWidth(mStrokeSize);
+            mPaint.setColor(mWhiteColor);
+            if (mTimerMode) {
+                canvas.drawArc(mArcRect, 270, + whitePercent * 360, false, mPaint);
+            } else {
+                canvas.drawArc(mArcRect, 270 + (1 - whitePercent) * 360,
+                        whitePercent * 360, false, mPaint);
+            }
+
+            // draw red diamond here
+            mPaint.setColor(mRedColor);
             mPaint.setStrokeWidth(mDiamondStrokeSize);
             if (mTimerMode){
-                canvas.drawArc (mArcRect, 265 - percent * 360, 10 , false, mPaint);
+                canvas.drawArc (mArcRect, 265 - redPercent * 360, 10 , false, mPaint);
             } else {
-                canvas.drawArc (mArcRect, 265 + percent * 360, 10 , false, mPaint);
+                canvas.drawArc (mArcRect, 265 + redPercent * 360, 10 , false, mPaint);
             }
+
+
          }
         if (mMarkerTime != -1) {
             mPaint.setStrokeWidth(mMarkerStrokeSize);
