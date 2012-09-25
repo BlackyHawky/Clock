@@ -138,8 +138,7 @@
     <string name="hours_label" msgid="3393478155635368097">"ساعة"</string>
     <string name="minutes_label" msgid="3568098128251438588">"دقيقة"</string>
     <string name="seconds_label" msgid="124655952824003246">"ثانية"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"مشاركة أوقاتي:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"وقتي هو <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"مرات الدوران:"</string>
@@ -162,7 +161,18 @@
     <string name="next_timer" msgid="561264099702200805">"&gt;المؤقت التالي: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;و<xliff:g id="NUMBER">%d</xliff:g> من المؤقتات"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;تم الإيقاف عند <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"يمكنك إجراء كل شيء بسرعة البرق."</item>
+    <item msgid="6332879039890727169">"استمتع بحصاد ثمار تعبك."</item>
+    <item msgid="815382761274660130">"مشهور أن أجهزة Android سريعة، لكن ليس بسرعتك!"</item>
+    <item msgid="7916250650982813737">"فو"</item>
+    <item msgid="6836603904515182333">"L33t أوقات"</item>
+    <item msgid="7508085100680861631">"هذه السرعة المذهلة."</item>
+    <item msgid="5961245252909589573">"هيا بنا نجري التحريف الزمني مرة أخرى."</item>
+    <item msgid="5211891900854545940">"الانتقال إلى اليمين."</item>
+    <item msgid="9071353477103826053">"لديك لوحة للإسراع."</item>
+    <item msgid="3785193933691117181">"السرعة الضوئية"</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"دقيقة واحدة"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> من المؤقتات"</item>
@@ -295,6 +305,5 @@
     <item msgid="5911600083231840181">"تونغا"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"التنبيهات"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
-    <skip />
+    <string name="see_all" msgid="775983396630163739">"عرض الكل..."</string>
 </resources>
