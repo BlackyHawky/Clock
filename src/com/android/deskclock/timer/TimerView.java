@@ -27,27 +27,12 @@ import com.android.deskclock.R;
 
 
 public class TimerView extends LinearLayout {
-    private static final String TWO_DIGITS = "%02d";
-    private static final String ONE_DIGIT = "%01d";
-    private static final String NEG_TWO_DIGITS = "-%02d";
-    private static final String NEG_ONE_DIGIT = "-%01d";
 
-
-    TextView mHours, mMinutes, mSeconds, mHunderdths;
-    TextView mHoursLabel, mMinutesLabel, mSecondsLabel;
-    boolean mShowTimeStr = true;
-    Typeface mRobotoThin;
-
-    Runnable mBlinkThread = new Runnable() {
-        @Override
-        public void run() {
-            mShowTimeStr = !mShowTimeStr;
-            TimerView.this.setVisibility(mShowTimeStr ? View.VISIBLE : View.INVISIBLE);
-            postDelayed(mBlinkThread, 500);
-        }
-
-    };
-
+    private TextView mHoursOnes, mMinutesOnes, mSeconds;
+    private TextView mHoursTens, mMinutesTens;
+    private final Typeface mRobotoThin;
+    private Typeface mOriginalHoursTypeface;
+    private final int mWhiteColor, mGrayColor;
 
     public TimerView(Context context) {
         this(context, null);
@@ -57,102 +42,77 @@ public class TimerView extends LinearLayout {
         super(context, attrs);
 
         mRobotoThin = Typeface.createFromAsset(context.getAssets(),"fonts/Roboto-Thin.ttf");
+        mWhiteColor = context.getResources().getColor(R.color.clock_white);
+        mGrayColor = context.getResources().getColor(R.color.clock_gray);
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mHours = (TextView)findViewById(R.id.hours);
-        mMinutes = (TextView)findViewById(R.id.minutes);
+        mHoursTens = (TextView)findViewById(R.id.hours_tens);
+        mMinutesTens = (TextView)findViewById(R.id.minutes_tens);
+        mHoursOnes = (TextView)findViewById(R.id.hours_ones);
+        mMinutesOnes = (TextView)findViewById(R.id.minutes_ones);
         mSeconds = (TextView)findViewById(R.id.seconds);
-        mSeconds.setTypeface(mRobotoThin);
-        mHunderdths = (TextView)findViewById(R.id.hundreds_seconds);
-        mHoursLabel = (TextView)findViewById(R.id.hours_label);
+        if (mHoursOnes != null) {
+            mOriginalHoursTypeface = mHoursOnes.getTypeface();
+        }
+        // Set the lowest time unit with thin font (excluding hundredths)
+        if (mSeconds != null) {
+            mSeconds.setTypeface(mRobotoThin);
+        } else  {
+            if (mMinutesTens != null) {
+                mMinutesTens.setTypeface(mRobotoThin);
+            }
+            if (mMinutesOnes != null) {
+                mMinutesOnes.setTypeface(mRobotoThin);
+            }
+        }
     }
 
-    public void setTime(long time) {
-        boolean neg = false;
-        String format = null;
-        if (time < 0) {
-            time = -time - 1;
-            neg = true;
+
+    public void setTime(String hoursTensDigit, String hoursOnesDigit, String minutesTensDigit,
+            String minutesOnesDigit, String seconds, String hundreds) {
+        if (mHoursTens != null && hoursTensDigit != null) {
+            mHoursTens.setText(hoursTensDigit);
+            if (hoursTensDigit == "-") {
+                mHoursTens.setTypeface(mRobotoThin);
+                mHoursTens.setTextColor(mGrayColor);
+            } else {
+                mHoursTens.setTypeface(mOriginalHoursTypeface);
+                mHoursTens.setTextColor(mWhiteColor);
+            }
         }
-        long hundreds, seconds, minutes, hours;
-        seconds = time / 100;
-        hundreds = (time - seconds * 100);
-        minutes = seconds / 60;
-        seconds = seconds - minutes * 60;
-        hours = minutes / 60;
-        minutes = minutes - hours * 60;
-        if (hours > 99) {
-            hours = 0;
+        if (mHoursOnes != null && hoursOnesDigit != null) {
+            mHoursOnes.setText(hoursOnesDigit);
+            if (hoursOnesDigit == "-") {
+                mHoursOnes.setTypeface(mRobotoThin);
+                mHoursOnes.setTextColor(mGrayColor);
+            } else {
+                mHoursOnes.setTypeface(mOriginalHoursTypeface);
+                mHoursOnes.setTextColor(mWhiteColor);
+            }
         }
-        // TODO: must build to account for localization
-        if (hours >= 10) {
-            format = neg ? NEG_TWO_DIGITS : TWO_DIGITS;
-            mHours.setText(String.format(format, hours));
-            mHours.setVisibility(View.VISIBLE);
-            mHoursLabel.setVisibility(View.VISIBLE);
-        } else if (hours > 0) {
-            format = neg ? NEG_ONE_DIGIT : ONE_DIGIT;
-            mHours.setText(String.format(format, hours));
-            mHours.setVisibility(View.VISIBLE);
-            mHoursLabel.setVisibility(View.VISIBLE);
-        } else {
-            mHours.setVisibility(View.GONE);
-            mHoursLabel.setVisibility(View.GONE);
+        if (mMinutesTens != null && minutesTensDigit != null) {
+            mMinutesTens.setText(minutesTensDigit);
+            if (minutesTensDigit == "-") {
+                mMinutesTens.setTextColor(mGrayColor);
+            } else {
+                mMinutesTens.setTextColor(mWhiteColor);
+            }
+        }
+        if (mMinutesOnes != null && minutesOnesDigit != null) {
+            mMinutesOnes.setText(minutesOnesDigit);
+            if (minutesOnesDigit == "-") {
+                mMinutesOnes.setTextColor(mGrayColor);
+            } else {
+                mMinutesOnes.setTextColor(mWhiteColor);
+            }
         }
 
-        if (minutes >= 10 || hours > 0) {
-            format = (neg && hours == 0) ? NEG_TWO_DIGITS : TWO_DIGITS;
-            mMinutes.setText(String.format(format, minutes));
-        } else {
-            format = (neg && hours == 0) ? NEG_ONE_DIGIT : ONE_DIGIT;
-            mMinutes.setText(String.format(format, minutes));
-        }
-
-        mSeconds.setText(String.format(TWO_DIGITS, seconds));
-        mHunderdths.setText(String.format(TWO_DIGITS, hundreds));
-    }
-
-    public void setTime(String hours, String minutes, String seconds, String hundreds) {
-        if (hours != null) {
-            mHours.setText(hours);
-        } else {
-            mHours.setText("0");
-        }
-        if (minutes != null) {
-            mMinutes.setText(minutes);
-        } else {
-            mMinutes.setText("00");
-        }
-        if (seconds != null) {
+        if (mSeconds != null && seconds != null) {
             mSeconds.setText(seconds);
-        } else {
-            mSeconds.setText("00");
         }
-        if (hundreds != null) {
-            mHunderdths.setText(hundreds);
-            mHunderdths.setVisibility(View.VISIBLE);
-        } else {
-            mHunderdths.setVisibility(View.GONE);
-        }
-    }
-
-    public void blinkTimeStr(boolean blink) {
-        if (blink) {
-            removeCallbacks(mBlinkThread);
-            postDelayed(mBlinkThread, 1000);
-        } else {
-            removeCallbacks(mBlinkThread);
-            mShowTimeStr = true;
-            this.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public String getTimeString() {
-        return String.format("%s:%s:%s.%s",mHours.getText(), mMinutes.getText(), mSeconds.getText(),
-                mHunderdths.getText());
     }
 }
