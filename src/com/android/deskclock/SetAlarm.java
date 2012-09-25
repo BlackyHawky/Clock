@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -46,7 +47,7 @@ import android.widget.Toast;
  * Manages each alarm
  */
 public class SetAlarm extends PreferenceActivity implements Preference.OnPreferenceChangeListener,
-        TimePickerDialog.OnTimeSetListener, OnCancelListener {
+        AlarmTimePickerDialog.OnTimeSetListener, OnCancelListener {
 
     private static final String KEY_CURRENT_ALARM = "currentAlarm";
     private static final String KEY_ORIGINAL_ALARM = "originalAlarm";
@@ -62,7 +63,7 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
     private int     mId;
     private int     mHour;
     private int     mMinute;
-    private TimePickerDialog mTimePickerDialog;
+    private AlarmTimePickerDialog mTimePickerDialog;
     private Alarm   mOriginalAlarm;
 
     @Override
@@ -279,13 +280,14 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
             mTimePickerDialog = null;
         }
 
-        mTimePickerDialog = new TimePickerDialog(this, this, mHour, mMinute,
-                DateFormat.is24HourFormat(this));
+        mTimePickerDialog = new AlarmTimePickerDialog(this);
         mTimePickerDialog.setOnCancelListener(this);
+        mTimePickerDialog.setOnTimeSetlListener(this);
         mTimePickerDialog.show();
     }
 
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    @Override
+    public void onTimeSet(int hourOfDay, int minute) {
         // onTimeSet is called when the user clicks "Set"
         mTimePickerDialog = null;
         mHour = hourOfDay;

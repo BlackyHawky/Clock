@@ -40,12 +40,11 @@
                 android:textColor="@color/clock_white"/>
 
             <TextView
-                android:id="@+id/hours_label"
+                android:id="@+id/hours_seperator"
                 android:singleLine="true"
                 android:ellipsize="none"
-                style="@style/label"
-                android:layout_gravity="top"
-                android:text="@string/hours_label"
+                style="@style/medium_light"
+                android:text="@string/time_picker_time_seperator"
                 android:textColor="@color/clock_white"/>
 
             <TextView
@@ -54,34 +53,21 @@
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
-
             <TextView
                 android:id="@+id/minutes_ones"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
+
             <TextView
-                android:id="@+id/minutes_label"
+                android:id="@+id/ampm_label"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/label"
-                android:text="@string/minutes_label"
-                android:textColor="@color/clock_white"/>
-
-            <TextView
-                android:id="@+id/seconds"
-                android:singleLine="true"
-                android:ellipsize="none"
-                style="@style/medium_light"
-                android:textColor="@color/clock_white"/>
-
-            <TextView
-                android:id="@+id/seconds_label"
-                android:singleLine="true"
-                android:ellipsize="none"
-                style="@style/label"
-                android:layout_gravity="top"
+                android:gravity="top"
                 android:text="@string/seconds_label"
                 android:textColor="@color/clock_white"/>
 

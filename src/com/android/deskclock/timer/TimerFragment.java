@@ -33,6 +33,7 @@ import android.widget.ListView;
 
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
+import com.android.deskclock.TimerSetupView;
 
 import java.util.ArrayList;
 
