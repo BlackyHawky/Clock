@@ -29,16 +29,16 @@ import com.android.deskclock.timer.TimerView;
 
 public class TimerSetupView extends LinearLayout implements Button.OnClickListener{
 
-    private static final int INPUT_SIZE = 5;
+    protected int mInputSize = 5;
 
-    private final Button mNumbers [] = new Button [10];
-    private final int mInput [] = new int [INPUT_SIZE];
-    private int mInputPointer = -1;
-    private String mLabels [];
-    private Button mLeft, mRight;
-    private ImageButton mDelete;
-    private TimerView mEnteredTime;
-    private final Context mContext;
+    protected final Button mNumbers [] = new Button [10];
+    protected int mInput [] = new int [mInputSize];
+    protected int mInputPointer = -1;
+    protected String mLabels [];
+    protected Button mLeft, mRight;
+    protected ImageButton mDelete;
+    protected TimerView mEnteredTime;
+    protected final Context mContext;
 
     public TimerSetupView(Context context) {
         this(context, null);
@@ -49,7 +49,11 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         mContext = context;
         LayoutInflater layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(R.layout.time_setup_view, this);
+        layoutInflater.inflate(getLayoutId(), this);
+    }
+
+    protected int getLayoutId() {
+        return R.layout.time_setup_view;
     }
 
     @Override
@@ -93,6 +97,10 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
     @Override
     public void onClick(View v) {
+        doOnClick(v);
+    }
+
+    protected void doOnClick(View v) {
 
         Integer val = (Integer) v.getTag(R.id.numbers_key);
         // A number was pressed
@@ -101,7 +109,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             if (mInputPointer == -1 && val == 0) {
                 return;
             }
-            if (mInputPointer < INPUT_SIZE - 1) {
+            if (mInputPointer < mInputSize - 1) {
                 for (int i = mInputPointer; i >= 0; i--) {
                     mInput[i+1] = mInput[i];
                 }
@@ -125,13 +133,13 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         }
     }
 
-    private void updateTime() {
-        mEnteredTime.setTime(mLabels[mInput[4]], mLabels[mInput[3]] + mLabels[mInput[2]],
+    protected void updateTime() {
+        mEnteredTime.setTime(null, mLabels[mInput[4]], mLabels[mInput[3]], mLabels[mInput[2]],
                 mLabels[mInput[1]]+ mLabels[mInput[0]], null);
     }
 
     public void reset() {
-        for (int i = 0; i < INPUT_SIZE; i ++) {
+        for (int i = 0; i < mInputSize; i ++) {
             mInput[i] = 0;
         }
         mInputPointer = -1;
