@@ -93,7 +93,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Lautstärketasten"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Tasteneffekt"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Snooze-Funktion"</item>
+    <item msgid="7972756698723318690">"Snooze"</item>
     <item msgid="3450979320164769576">"Schließen"</item>
     <item msgid="6302517608411378024">"Keine Aktion"</item>
   </string-array>
