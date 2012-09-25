@@ -113,6 +113,8 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Ulwazi lwesimo sezulu alukho okwamanje."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Insiza yokudlala komsindo we-alamu usethwe ku-Desk Clock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Ilayisha iringithoni..."</string>
+    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
+    <skip />
     <string name="control_set_alarm" msgid="2194676418924016327">"Setha i-alamu"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"I-alamu elandelayo: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Isikali sesikhathi"</string>
@@ -186,7 +188,7 @@
     <string name="search_results" msgid="3940223188208445245">"Imiphumela"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"Awekho amadolobha atholakele"</string>
     <string name="alarm_setup_music" msgid="6140596565783696650">"Umculo"</string>
-    <string name="alarm_on" msgid="3898994909321344263">"Kuyakhanya"</string>
+    <string name="alarm_on" msgid="3898994909321344263">"Vuliwe"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Kucishile"</string>
     <string name="alarm_night" msgid="2685913727476024929">"Njalo ngobusuku"</string>
     <string name="Delete_selected_alarm" msgid="4162534388267929249">"Susa i-alamu ekhethiwe?"</string>

@@ -113,6 +113,8 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"현재 날씨 정보를 이용할 수 없습니다."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"시계에서 설정한 알람 사운드 재생 서비스"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"벨소리 로드 중…"</string>
+    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
+    <skip />
     <string name="control_set_alarm" msgid="2194676418924016327">"알람 설정"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"다음 알람: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"타이머"</string>
@@ -138,8 +140,7 @@
     <string name="hours_label" msgid="3393478155635368097">"시"</string>
     <string name="minutes_label" msgid="3568098128251438588">"분"</string>
     <string name="seconds_label" msgid="124655952824003246">"초"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"내 시간 공유:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"내 시간: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"랩 타임:"</string>
@@ -162,7 +163,18 @@
     <string name="next_timer" msgid="561264099702200805">"&gt;다음 타이머: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;및 <xliff:g id="NUMBER">%d</xliff:g>개의 타이머"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;<xliff:g id="TIME">%s</xliff:g>에 중단"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"속도광이시군요."</item>
+    <item msgid="6332879039890727169">"결과를 확인하세요."</item>
+    <item msgid="815382761274660130">"Android의 속도도 아주 빠르지만 당신이 더 빠르군요."</item>
+    <item msgid="7916250650982813737">"휴..."</item>
+    <item msgid="6836603904515182333">"엄청나게 많군요."</item>
+    <item msgid="7508085100680861631">"엄청난 속도군요."</item>
+    <item msgid="5961245252909589573">"다시 타임 와프를 하세요."</item>
+    <item msgid="5211891900854545940">"왼쪽으로 점프하세요."</item>
+    <item msgid="9071353477103826053">"서두르세요."</item>
+    <item msgid="3785193933691117181">"엄청난 속도입니다."</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1분"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g>개의 타이머"</item>
@@ -295,6 +307,5 @@
     <item msgid="5911600083231840181">"통가"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"알람"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
-    <skip />
+    <string name="see_all" msgid="775983396630163739">"전체 보기..."</string>
 </resources>
