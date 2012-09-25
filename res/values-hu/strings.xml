@@ -113,6 +113,8 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Most nem érhetők el időjárási adatok."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Hanglejátszó szolgáltatás az Órában beállított riasztásokhoz."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Csengőhang betöltése..."</string>
+    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
+    <skip />
     <string name="control_set_alarm" msgid="2194676418924016327">"Ébresztés beállítása"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Következő ébresztés: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Időzítő"</string>
@@ -138,8 +140,7 @@
     <string name="hours_label" msgid="3393478155635368097">"ó"</string>
     <string name="minutes_label" msgid="3568098128251438588">"p"</string>
     <string name="seconds_label" msgid="124655952824003246">"mp"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Időim megosztása:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Az én időm: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Köridők:"</string>
@@ -162,7 +163,18 @@
     <string name="next_timer" msgid="561264099702200805">"&gt;Következő időzítő: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;És <xliff:g id="NUMBER">%d</xliff:g> időzítő"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Leállítva ekkor: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Ön valósággal a sebesség ördöge."</item>
+    <item msgid="6332879039890727169">"Élvezze a munkája gyümölcsét."</item>
+    <item msgid="815382761274660130">"Az androidok köztudottan gyorsak, de nem annyira, mint Ön!"</item>
+    <item msgid="7916250650982813737">"Tyű."</item>
+    <item msgid="6836603904515182333">"L33t idő."</item>
+    <item msgid="7508085100680861631">"Micsoda bődületes sebesség."</item>
+    <item msgid="5961245252909589573">"Állítsuk meg újra az időt."</item>
+    <item msgid="5211891900854545940">"Csak egy ugrás balra."</item>
+    <item msgid="9071353477103826053">"Van érzéke a sietséghez."</item>
+    <item msgid="3785193933691117181">"Fotonikus sebesség!"</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1 perc"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> időzítő"</item>
@@ -295,6 +307,5 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ÉBRESZTÉS"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
-    <skip />
+    <string name="see_all" msgid="775983396630163739">"Összes megtekintése..."</string>
 </resources>

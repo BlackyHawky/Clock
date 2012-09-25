@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Klok"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"Alarmen"</string>
+    <string name="alarm_list_title" msgid="7589940465292950600">"Wekkers"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Alarm toevoegen"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Bureauklok"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Alarm bewerken"</string>
@@ -103,7 +103,7 @@
     <item msgid="1944820890481615263">"0"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Standaardbeltoon instellen"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"Alarmen"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"Wekkers"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"Galerij"</string>
     <string name="music_button_description" msgid="1626593420810117999">"Muziek"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Dimmen"</string>
@@ -113,12 +113,14 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Weersinformatie is momenteel niet beschikbaar."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Service geluidsweergave voor alarmen ingesteld in Klok."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Beltoon laden…"</string>
+    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
+    <skip />
     <string name="control_set_alarm" msgid="2194676418924016327">"Alarm instellen"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Volgend alarm: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Klok"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopwatch"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Alarmen"</string>
+    <string name="button_alarms" msgid="8016103479617020265">"Wekkers"</string>
     <string name="button_cities" msgid="4555761857494501363">"Plaatsen"</string>
     <string name="button_menu" msgid="3258774294299940405">"Menu"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Instellingen"</string>
@@ -138,8 +140,7 @@
     <string name="hours_label" msgid="3393478155635368097">"u"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Mijn tijden delen:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mijn tijd is <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Rondetijden:"</string>
@@ -162,7 +163,18 @@
     <string name="next_timer" msgid="561264099702200805">"&gt;Volgende timer: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;En <xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Gestopt om <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"U bent wel erg snel."</item>
+    <item msgid="6332879039890727169">"Profiteer van uw inspanningen."</item>
+    <item msgid="815382761274660130">"Androids staan bekend om hun snelheid, maar u bent nog sneller."</item>
+    <item msgid="7916250650982813737">"Oef."</item>
+    <item msgid="6836603904515182333">"Mooie tijden."</item>
+    <item msgid="7508085100680861631">"Wat een wonderbaarlijke snelheid."</item>
+    <item msgid="5961245252909589573">"Laten we weer gaan tijdreizen."</item>
+    <item msgid="5211891900854545940">"Spring gewoon naar links."</item>
+    <item msgid="9071353477103826053">"Haast zit in uw aard."</item>
+    <item msgid="3785193933691117181">"Lichtsnelheid."</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1 minuut"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> timers"</item>
@@ -295,6 +307,5 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMEN"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
-    <skip />
+    <string name="see_all" msgid="775983396630163739">"Alles weergeven…"</string>
 </resources>
