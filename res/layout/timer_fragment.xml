@@ -51,7 +51,7 @@
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
         android:orientation="vertical">
-        <com.android.deskclock.timer.TimerSetupView
+        <com.android.deskclock.TimerSetupView
             android:id="@+id/timer_setup"
             android:layout_width="match_parent"
             android:layout_height="0dip"
