@@ -114,7 +114,7 @@ public class CountingTimerView extends View {
         boolean neg = false;
         String format = null;
         if (time < 0) {
-            time = -time - 1;
+            time = -time;
             neg = true;
         }
         long hundreds, seconds, minutes, hours;
@@ -126,6 +126,11 @@ public class CountingTimerView extends View {
         minutes = minutes - hours * 60;
         if (hours > 99) {
             hours = 0;
+        }
+        // time may less than a second below zero, since we do not show fractions of seconds
+        // when counting down, do not show the minus sign.
+        if (hours ==0 && minutes == 0 && seconds == 0) {
+            neg = false;
         }
         // TODO: must build to account for localization
         if (hours >= 10) {
