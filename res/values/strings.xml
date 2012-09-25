@@ -416,9 +416,13 @@
     </string-array>
 
     <string name="automatic_home_clock">Automatic home clock</string>
-     <string name="automatic_home_clock_summary">While traveling outside regular time zone, add a clock for home</string>
-     <string name="home_time_zone">Home time zone</string>
-     <string name="home_time_zone_title">Home time zone</string>
+    <string name="automatic_home_clock_summary">While traveling outside regular time zone, add a clock for home</string>
+    <string name="home_time_zone">Home time zone</string>
+    <string name="home_time_zone_title">Home time zone</string>
+
+    <string name="time_picker_cancel">Cancel</string>
+    <string name="time_picker_set">Set</string>
+    <string name="time_picker_time_seperator">:</string>
 
     <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
     <string-array name="timezone_labels">
