@@ -310,7 +310,9 @@ public class AlarmClock extends Activity implements OnItemClickListener {
                 addNewAlarm();
                 return true;
             case android.R.id.home:
-                finish();
+                Intent intent = new Intent(this, DeskClock.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
                 return true;
             default:
                 break;
