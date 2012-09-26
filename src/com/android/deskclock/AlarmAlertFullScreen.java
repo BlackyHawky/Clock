@@ -141,9 +141,10 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
     }
 
     private void updateLayout() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-
-        setContentView(inflater.inflate(getLayoutResId(), null));
+        final LayoutInflater inflater = LayoutInflater.from(this);
+        final View view = inflater.inflate(getLayoutResId(), null);
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+        setContentView(view);
 
         /* Set the title from the passed in alarm */
         setTitle();
