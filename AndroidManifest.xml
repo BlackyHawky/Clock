@@ -163,6 +163,18 @@
                 <action android:name="timer_update" />
             </intent-filter>
         </receiver>
+
+        <service android:name="com.android.deskclock.stopwatch.StopwatchService"
+                android:exported="false"
+                android:description="@string/stopwatch_service_desc">
+            <intent-filter>
+                <action android:name="start_stopwatch" />
+                <action android:name="lap_stopwatch" />
+                <action android:name="stop_stopwatch" />
+                <action android:name="reset_stopwatch" />
+                <action android:name="share_stopwatch" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>
 

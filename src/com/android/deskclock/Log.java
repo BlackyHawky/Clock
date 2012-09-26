@@ -25,32 +25,32 @@ import android.os.SystemClock;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-class Log {
+public class Log {
     public final static String LOGTAG = "AlarmClock";
 
     static final boolean LOGV = AlarmClock.DEBUG ? false : false;
 
-    static void v(String logMe) {
+    public static void v(String logMe) {
         android.util.Log.v(LOGTAG, /* SystemClock.uptimeMillis() + " " + */ logMe);
     }
 
-    static void i(String logMe) {
+    public static void i(String logMe) {
         android.util.Log.i(LOGTAG, logMe);
     }
 
-    static void e(String logMe) {
+    public static void e(String logMe) {
         android.util.Log.e(LOGTAG, logMe);
     }
 
-    static void e(String logMe, Exception ex) {
+    public static void e(String logMe, Exception ex) {
         android.util.Log.e(LOGTAG, logMe, ex);
     }
 
-    static void wtf(String logMe) {
+    public static void wtf(String logMe) {
         android.util.Log.wtf(LOGTAG, logMe);
     }
 
-    static String formatTime(long millis) {
+    public static String formatTime(long millis) {
         return new SimpleDateFormat("HH:mm:ss.SSS aaa").format(new Date(millis));
     }
 }

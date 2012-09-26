@@ -32,4 +32,5 @@
     <color name="clock_red">#ff4444</color>
     <color name="clock_white">#ffffff</color>
     <color name="clock_gray">#4dffffff</color>
+    <color name="notification_bg">#ff15444F</color>
 </resources>

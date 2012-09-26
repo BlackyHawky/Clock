@@ -602,8 +602,11 @@
     </string-array>
 
     <string name="alarm_settings">ALARMS</string>
-    <string name="desk_clock_help_url" translatable="false"></string>
     <string name="see_all">See all&#8230;</string>
+    <string name="desk_clock_help_url" translatable="false"></string>
+    <string name="stopwatch_service_desc">Stopwatch service to run the notification.</string>
+    <string name="stopwatch_title">Stopwatch</string>
+    <string name="swn_collapsed_laps_divider">" - "</string>
 
 </resources>
 
