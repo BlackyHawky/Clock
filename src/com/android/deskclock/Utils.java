@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.MenuItem;
 
@@ -100,6 +101,10 @@ public class Utils {
 
         // Build the full uri and return it
         return builder.build();
+    }
+
+    public static long getTimeNow() {
+        return SystemClock.elapsedRealtime();
     }
 
 }
