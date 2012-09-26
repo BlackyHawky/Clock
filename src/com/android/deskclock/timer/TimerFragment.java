@@ -123,9 +123,9 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             o.mView = v;
             long timeLeft =  o.updateTimeLeft();
             v.set(o.mOriginalLength, timeLeft);
-            v.setTime(timeLeft / 10);
+            v.setTime(timeLeft);
             v.start();
-            v.setTime(timeLeft / 10);
+            v.setTime(timeLeft);
             Button delete = (Button)v.findViewById(R.id.timer_delete);
             delete.setOnClickListener(TimerFragment.this);
             delete.setTag(new ClickAction(ClickAction.ACTION_DELETE, o));
@@ -169,7 +169,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 if (t.mState == TimerObj.STATE_RUNNING || t.mState == TimerObj.STATE_TIMESUP) {
                     long timeLeft = t.updateTimeLeft();
                     if ((TimerListItem)(t.mView) != null) {
-                        ((TimerListItem)(t.mView)).setTime(timeLeft/10);
+                        ((TimerListItem)(t.mView)).setTime(timeLeft);
                     } else {
                         Log.v("timer fragment"," timer view is null");
                     }
@@ -325,7 +325,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             case TimerObj.STATE_RUNNING:
                  t.addTime(60000); //60 seconds in millis
                  long timeLeft = t.updateTimeLeft();
-                 ((TimerListItem)(t.mView)).setTime(timeLeft/10);
+                 ((TimerListItem)(t.mView)).setTime(timeLeft);
                  ((TimerListItem)(t.mView)).setLength(timeLeft);
                  updateTimersState(t, Timers.TIMER_UPDATE);
                 break;
@@ -334,7 +334,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 t.mState = TimerObj.STATE_RUNNING;
                 t.mStartTime = System.currentTimeMillis();
                 t.mTimeLeft = t. mOriginalLength = 60000;
-                ((TimerListItem)t.mView).setTime(t.mTimeLeft / 10);
+                ((TimerListItem)t.mView).setTime(t.mTimeLeft);
                 ((TimerListItem)t.mView).set(t.mOriginalLength, t.mTimeLeft);
                 ((TimerListItem) t.mView).start();
                 updateTimersState(t, Timers.TIMER_RESET);
@@ -345,7 +345,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 t.mState = TimerObj.STATE_RESTART;
                 t.mTimeLeft = t.mSetupLength;
                 ((TimerListItem)t.mView).stop();
-                ((TimerListItem)t.mView).setTime(t.mTimeLeft / 10);
+                ((TimerListItem)t.mView).setTime(t.mTimeLeft);
                 ((TimerListItem)t.mView).set(t.mOriginalLength, t.mTimeLeft);
                 updateTimersState(t, Timers.TIMER_RESET);
                 break;
