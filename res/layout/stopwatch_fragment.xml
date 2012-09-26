@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"/>
         <com.android.deskclock.CircleTimerView
-            android:id="@+id/stopwatch_time" 
+            android:id="@+id/stopwatch_time"
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
@@ -121,5 +121,5 @@
             style="@style/button"
             android:layout_height="wrap_content" />
     </LinearLayout>
-    
+
 </LinearLayout>
