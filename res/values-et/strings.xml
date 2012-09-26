@@ -113,8 +113,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Ilmateade ei ole praegu saadaval."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Kellas äratuste jaoks määratud heli taasesitamise teenus."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Helina laadimine ..."</string>
-    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
-    <skip />
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Määratud ajastite heli taasesitamise teenus."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Äratuse määramine"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Järgmine äratus: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Taimer"</string>
@@ -220,6 +219,9 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Väljaspool tavapärast ajavööndit reisides lisa kell koduse aja jaoks"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Kodune ajavöönd"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Kodune ajavöönd"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"Tühista"</string>
+    <string name="time_picker_set" msgid="277860606472289828">"Määra"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshalli saared"</item>
     <item msgid="4196408495909011020">"Midway saared"</item>
@@ -308,4 +310,18 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMID"</string>
     <string name="see_all" msgid="775983396630163739">"Kuva kõik ..."</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <skip />
+    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <skip />
+    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <skip />
+    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <skip />
 </resources>

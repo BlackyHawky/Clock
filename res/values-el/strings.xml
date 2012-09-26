@@ -113,8 +113,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Οι πληροφορίες καιρού δεν είναι διαθέσιμες αυτήν τη στιγμή."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Η υπηρεσία αναπαραγωγής ήχου για ειδοποιήσεις έχει ρυθμιστεί στο Ρολόι."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Φόρτωση ήχου κλήσης"</string>
-    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
-    <skip />
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Η υπηρεσία αναπαραγωγής ήχου για ξυπνητήρια έχει ρυθμιστεί στο Ρολόι."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Ορισμός ξυπνητηριού"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Επόμενο ξυπνητήρι: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Χρονόμετρο"</string>
@@ -203,7 +202,7 @@
     <string name="alarm_night" msgid="2685913727476024929">"Κάθε βράδυ"</string>
     <string name="Delete_selected_alarm" msgid="4162534388267929249">"Να διαγραφεί το επιλεγμένο ξυπνητήρι;"</string>
     <string name="selected" msgid="154434067032592597">"Επιλεγμένο"</string>
-    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Να παραβλεφθεί το ξυπνητήρι τώρα αντί για τις <xliff:g id="TIME">%s</xliff:g>;"</string>
+    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Να αγνοηθεί το ξυπνητήρι τώρα αντί για τις <xliff:g id="TIME">%s</xliff:g>;"</string>
     <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Αναβολή έως"</string>
     <string name="clock_settings" msgid="8887845806151785393">"ΡΟΛΟΙ"</string>
     <string name="clock_style" msgid="2265011060429742344">"Στυλ"</string>
@@ -220,6 +219,9 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Όταν ταξιδεύετε εκτός της συνηθισμένης ζώνης ώρας, προσθέστε ένα ρολόι για τη χώρα προέλευσης"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Βασική ζώνη ώρας"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Βασική ζώνη ώρας"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"Ακύρωση"</string>
+    <string name="time_picker_set" msgid="277860606472289828">"Ρύθμιση"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Νήσοι Μάρσαλ"</item>
     <item msgid="4196408495909011020">"Νήσος Μιντγουέι"</item>
@@ -308,4 +310,18 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ΞΥΠΝΗΤΗΡΙΑ"</string>
     <string name="see_all" msgid="775983396630163739">"Εμφάνιση όλων…"</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <skip />
+    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <skip />
+    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <skip />
+    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <skip />
 </resources>
