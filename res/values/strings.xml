@@ -609,12 +609,12 @@
     <string name="swn_collapsed_laps_divider">" - "</string>
 
     <!-- Description of the right direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_right">Slide right to sooze</string>
+    <string name="description_direction_right">Slide right to dismiss</string>
     <!-- Description of the left direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_left">Slide left to dismiss</string>
+    <string name="description_direction_left">Slide left to snooze</string>
     <!-- Description of the up direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_up">Slide up to sooze</string>
+    <string name="description_direction_up">Slide up to dismiss</string>
     <!-- Description of the down direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_down">Slide down to dismiss</string>
+    <string name="description_direction_down">Slide down to snooze</string>
 </resources>
 
