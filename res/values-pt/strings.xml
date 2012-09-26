@@ -140,8 +140,7 @@
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Compartilhando meus tempos:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Meu tempo é <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Tempos de volta:"</string>
@@ -164,7 +163,18 @@
     <string name="next_timer" msgid="561264099702200805">"&gt;Próximo temporizador: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;E <xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Interrompido às <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Você é o rei da velocidade."</item>
+    <item msgid="6332879039890727169">"Colha os frutos de seu trabalho."</item>
+    <item msgid="815382761274660130">"Os androides são rápidos, mas não tão rápidos quanto você!"</item>
+    <item msgid="7916250650982813737">"Ufa."</item>
+    <item msgid="6836603904515182333">"L33t vezes."</item>
+    <item msgid="7508085100680861631">"Que velocidade prodigiosa."</item>
+    <item msgid="5961245252909589573">"Vamos gerar mais uma fenda temporal."</item>
+    <item msgid="5211891900854545940">"É só pular para a esquerda."</item>
+    <item msgid="9071353477103826053">"Você tem um fraco pela correria."</item>
+    <item msgid="3785193933691117181">"Velocidade fotônica."</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"Um minuto"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</item>
@@ -210,6 +220,12 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Ao viajar para fora do fuso horário normal, adicionar um relógio com a hora de casa"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Fuso horário de casa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Fuso horário de casa"</string>
+    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
+    <skip />
+    <!-- no translation found for time_picker_set (277860606472289828) -->
+    <skip />
+    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Ilhas Marshall"</item>
     <item msgid="4196408495909011020">"Ilhas Midway"</item>
@@ -297,6 +313,11 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMES"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
+    <string name="see_all" msgid="775983396630163739">"Ver todos..."</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
     <skip />
 </resources>

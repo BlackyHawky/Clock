@@ -206,8 +206,8 @@
     <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Chcesz odrzucić alarm teraz zamiast o <xliff:g id="TIME">%s</xliff:g>?"</string>
     <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Drzemka do"</string>
     <string name="clock_settings" msgid="8887845806151785393">"ZEGAR"</string>
-    <string name="clock_style" msgid="2265011060429742344">"Styl"</string>
-    <string name="clock_style_title" msgid="32660784968818521">"Styl zegara"</string>
+    <string name="clock_style" msgid="2265011060429742344">"Wygląd"</string>
+    <string name="clock_style_title" msgid="32660784968818521">"Wygląd zegara"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analogowy"</item>
     <item msgid="8483930821046925592">"Cyfrowy"</item>
@@ -216,10 +216,16 @@
     <item msgid="5353805556644220918">"analogowy"</item>
     <item msgid="1814605819692210671">"cyfrowy"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Automatyczny zegar z czasem domowym"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Zegar dla mojej strefy czasowej"</string>
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Podczas podróży poza zwykłą strefę czasową dodawaj zegar z czasem domowym"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domowa strefa czasowa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domowa strefa czasowa"</string>
+    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
+    <skip />
+    <!-- no translation found for time_picker_set (277860606472289828) -->
+    <skip />
+    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Wyspy Marshalla"</item>
     <item msgid="4196408495909011020">"Midway"</item>
@@ -308,4 +314,10 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMY"</string>
     <string name="see_all" msgid="775983396630163739">"Zobacz wszystkie..."</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
 </resources>

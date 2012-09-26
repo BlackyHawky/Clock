@@ -165,7 +165,7 @@
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Stannade kl. <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Du är snabbheten personifierad."</item>
-    <item msgid="6332879039890727169">"Njut frukterna av ditt arbete."</item>
+    <item msgid="6332879039890727169">"Njut av frukterna av ditt arbete."</item>
     <item msgid="815382761274660130">"Androider är kända för att vara snabba, men inte lika snabba som du!"</item>
     <item msgid="7916250650982813737">"Puh."</item>
     <item msgid="6836603904515182333">"Blixtsnabbt."</item>
@@ -220,6 +220,12 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Lägg till en klocka med tiden hemma när du reser utanför din standardtidszon"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Standardtidszon"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Standardtidszon"</string>
+    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
+    <skip />
+    <!-- no translation found for time_picker_set (277860606472289828) -->
+    <skip />
+    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshallöarna"</item>
     <item msgid="4196408495909011020">"Midwayöarna"</item>
@@ -308,4 +314,10 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARM"</string>
     <string name="see_all" msgid="775983396630163739">"Visa alla …"</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
 </resources>
