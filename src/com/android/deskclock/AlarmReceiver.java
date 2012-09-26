@@ -16,15 +16,12 @@
 
 package com.android.deskclock;
 
-import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ContentUris;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.BroadcastReceiver;
-import android.database.Cursor;
 import android.os.Parcel;
 import android.os.PowerManager.WakeLock;
 
@@ -132,13 +129,15 @@ public class AlarmReceiver extends BroadcastReceiver {
         context.sendBroadcast(closeDialogs);
 
         // Decide which activity to start based on the state of the keyguard.
-        Class c = AlarmAlert.class;
+        Class c = AlarmAlertFullScreen.class;
+        /*
         KeyguardManager km = (KeyguardManager) context.getSystemService(
                 Context.KEYGUARD_SERVICE);
         if (km.inKeyguardRestrictedInputMode()) {
             // Use the full screen activity for security.
             c = AlarmAlertFullScreen.class;
         }
+        */
 
         // Play the alarm alert and vibrate the device.
         Intent playAlarm = new Intent(Alarms.ALARM_ALERT_ACTION);
@@ -148,7 +147,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Trigger a notification that, when clicked, will show the alarm alert
         // dialog. No need to check for fullscreen since this will always be
         // launched from a user action.
-        Intent notify = new Intent(context, AlarmAlert.class);
+        Intent notify = new Intent(context, AlarmAlertFullScreen.class);
         notify.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         PendingIntent pendingNotify = PendingIntent.getActivity(context,
                 alarm.id, notify, 0);

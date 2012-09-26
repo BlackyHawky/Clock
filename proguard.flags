@@ -6,3 +6,7 @@
 -keepclassmembers class com.android.deskclock.DeskClock {
   *** clockButtonsOnClick(...);
 }
+
+-keep class com.android.deskclock.widget.multiwaveview.* {
+  *;
+}
