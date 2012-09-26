@@ -37,6 +37,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
+import com.android.deskclock.stopwatch.StopwatchFragment;
+import com.android.deskclock.stopwatch.StopwatchService;
+import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFragment;
 
 import java.util.ArrayList;
@@ -209,10 +212,16 @@ public class DeskClock extends Activity {
     protected void onResume() {
         super.onResume();
         setClockState(false);
+        Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
+        intent.setAction(Stopwatches.KILL_NOTIF);
+        startService(intent);
     }
 
     @Override
     public void onPause() {
+        Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
+        intent.setAction(Stopwatches.SHOW_NOTIF);
+        startService(intent);
         super.onPause();
     }
 

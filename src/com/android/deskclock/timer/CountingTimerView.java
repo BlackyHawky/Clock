@@ -118,8 +118,8 @@ public class CountingTimerView extends View {
             neg = true;
         }
         long hundreds, seconds, minutes, hours;
-        seconds = time / 100;
-        hundreds = (time - seconds * 100);
+        seconds = time / 1000;
+        hundreds = (time - seconds * 1000) / 10;
         minutes = seconds / 60;
         seconds = seconds - minutes * 60;
         hours = minutes / 60;
