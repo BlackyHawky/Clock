@@ -85,6 +85,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         mLeft = (Button)v4.findViewById(R.id.key_left);
         mNumbers[0] = (Button)v4.findViewById(R.id.key_middle);
         mRight = (Button)v4.findViewById(R.id.key_right);
+        setLeftRightEnabled(false);
 
         for (int i = 0; i < 10; i++) {
             mNumbers[i].setOnClickListener(this);
@@ -148,5 +149,10 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
     public int getTime() {
         return mInput[4] * 3600 + mInput[3] * 600 + mInput[2] * 60 + mInput[1] * 10 + mInput[0];
+    }
+
+    protected void setLeftRightEnabled(boolean enabled) {
+        mLeft.setEnabled(enabled);
+        mRight.setEnabled(enabled);
     }
 }

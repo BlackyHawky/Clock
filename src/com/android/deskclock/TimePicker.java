@@ -112,6 +112,7 @@ public class TimePicker extends TimerSetupView implements Button.OnClickListener
     }
 
     private void showAmPm() {
+        setLeftRightEnabled(true);
         if (!Alarms.get24HourMode(mContext)) {
             mLeft.setVisibility(View.VISIBLE);
             mRight.setVisibility(View.VISIBLE);
