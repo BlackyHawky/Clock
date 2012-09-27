@@ -19,6 +19,7 @@ package com.android.deskclock;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -302,10 +303,16 @@ public class AlarmClock extends Activity implements OnItemClickListener {
             case R.id.menu_item_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
-            case R.id.menu_item_desk_clock:
-                startActivity(new Intent(this, DeskClock.class));
-                finish();
-                return true;
+            case R.id.menu_item_help:
+                Intent i = item.getIntent();
+                if (i != null) {
+                    try {
+                        startActivity(i);
+                    } catch (ActivityNotFoundException e) {
+                        // No activity found to match the intent - ignore
+                    }
+                }
+               return true;
             case R.id.menu_item_add_alarm:
                 addNewAlarm();
                 return true;

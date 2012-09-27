@@ -380,7 +380,8 @@
     <string name="sort_by_time">By time</string>
     <string name="search_results">Results</string>
     <string name="no_cities_found">No cities found</string>
-
+    <string name="search_city">Search</string>
+    <string name="cities_activity_title">Cities</string>
 
     <string name="alarm_setup_music">Music</string>
 

@@ -173,6 +173,18 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <style name="city_name">
+        <item name="android:textSize">@dimen/city_name_font_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="city_time">
+        <item name="android:textSize">@dimen/city_time_font_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
     <style name="tablet_dialpad">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>
         <item name="android:textAllCaps">true</item>
