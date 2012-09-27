@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.app.Notification.Builder;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -28,6 +29,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -179,26 +181,34 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         // Get the display time for the snooze and update the notification.
         final Calendar c = Calendar.getInstance();
         c.setTimeInMillis(snoozeTime);
-
-        // Append (snoozed) to the label.
+        String snoozeTimeStr = Alarms.formatTime(this, c);
         String label = mAlarm.getLabelOrDefault(this);
-        label = getString(R.string.alarm_notify_snooze_label, label);
 
         // Notify the user that the alarm has been snoozed.
-        Intent cancelSnooze = new Intent(this, AlarmReceiver.class);
-        cancelSnooze.setAction(Alarms.CANCEL_SNOOZE);
-        cancelSnooze.putExtra(Alarms.ALARM_INTENT_EXTRA, mAlarm);
-        PendingIntent broadcast =
-                PendingIntent.getBroadcast(this, mAlarm.id, cancelSnooze, 0);
+        Intent dismissIntent = new Intent(this, AlarmReceiver.class);
+        dismissIntent.setAction(Alarms.CANCEL_SNOOZE);
+        dismissIntent.putExtra(Alarms.ALARM_INTENT_EXTRA, mAlarm);
+
+        Intent openAlarm = new Intent(this, DeskClock.class);
+        openAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        openAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, mAlarm);
+        openAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.CLOCK_TAB_INDEX);
+
         NotificationManager nm = getNotificationManager();
-        Notification n = new Notification(R.drawable.stat_notify_alarm,
-                label, 0);
-        n.setLatestEventInfo(this, label,
-                getString(R.string.alarm_notify_snooze_text,
-                    Alarms.formatTime(this, c)), broadcast);
-        n.flags |= Notification.FLAG_AUTO_CANCEL
-                | Notification.FLAG_ONGOING_EVENT;
-        nm.notify(mAlarm.id, n);
+        Notification notif = new Notification.Builder(getApplicationContext())
+        .setContentTitle(label)
+        .setContentText(getResources().getString(R.string.alarm_alert_snooze_until, snoozeTimeStr))
+        .setSmallIcon(R.drawable.stat_notify_alarm)
+        .setOngoing(true)
+        .setAutoCancel(false)
+        .setPriority(Notification.PRIORITY_MAX)
+        .setWhen(0)
+        .addAction(android.R.drawable.ic_menu_close_clear_cancel, 
+                getResources().getString(R.string.alarm_alert_dismiss_text), 
+                PendingIntent.getBroadcast(this, mAlarm.id, dismissIntent, 0))
+        .build();
+        notif.contentIntent = PendingIntent.getActivity(this, mAlarm.id, openAlarm, 0);
+        nm.notify(mAlarm.id, notif);
 
         String displayTime = getString(R.string.alarm_alert_snooze_set,
                 snoozeMinutes);
