@@ -25,6 +25,8 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.PowerManager.WakeLock;
 
+import java.util.Calendar;
+
 /**
  * Glue class: connects AlarmAlert IntentReceiver to AlarmAlert
  * activity.  Passes through Alarm ID.
@@ -152,17 +154,40 @@ public class AlarmReceiver extends BroadcastReceiver {
         PendingIntent pendingNotify = PendingIntent.getActivity(context,
                 alarm.id, notify, 0);
 
-        // Use the alarm's label or the default label as the ticker text and
-        // main text of the notification.
+        // These two notifications will be used for the action buttons on the notification.
+        Intent snoozeIntent = new Intent(Alarms.ALARM_SNOOZE_ACTION);
+        snoozeIntent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+        PendingIntent pendingSnooze = PendingIntent.getBroadcast(context,
+                alarm.id, snoozeIntent, 0);
+        Intent dismissIntent = new Intent(Alarms.ALARM_DISMISS_ACTION);
+        dismissIntent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+        PendingIntent pendingDismiss = PendingIntent.getBroadcast(context,
+                alarm.id, dismissIntent, 0);
+
+        final Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(alarm.time);
+        String alarmTime = Alarms.formatTime(context, cal);
+
+        // Use the alarm's label or the default label main text of the notification.
         String label = alarm.getLabelOrDefault(context);
-        Notification n = new Notification(R.drawable.stat_notify_alarm,
-                label, alarm.time);
-        n.setLatestEventInfo(context, label,
-                context.getString(R.string.alarm_notify_text),
-                pendingNotify);
-        n.flags |= Notification.FLAG_SHOW_LIGHTS
-                | Notification.FLAG_ONGOING_EVENT;
-        n.defaults |= Notification.DEFAULT_LIGHTS;
+
+        Notification n = new Notification.Builder(context)
+        .setContentTitle(label)
+        .setContentText(alarmTime)
+        .setSmallIcon(R.drawable.stat_notify_alarm)
+        .setOngoing(true)
+        .setAutoCancel(false)
+        .setPriority(Notification.PRIORITY_MAX)
+        .setDefaults(Notification.DEFAULT_LIGHTS)
+        .setWhen(0)
+        .addAction(R.drawable.stat_notify_alarm,
+                context.getResources().getString(R.string.alarm_alert_snooze_text),
+                pendingSnooze)
+        .addAction(android.R.drawable.ic_menu_close_clear_cancel,
+                context.getResources().getString(R.string.alarm_alert_dismiss_text),
+                pendingDismiss)
+        .build();
+        n.contentIntent = pendingNotify;
 
         // NEW: Embed the full-screen UI here. The notification manager will
         // take care of displaying it if it's OK to do so.
