@@ -27,12 +27,6 @@
             android:layout_marginLeft="16dip"
             android:layout_gravity="center">
             <TextView
-                android:id="@+id/hours_tens"
-                android:singleLine="true"
-                android:ellipsize="none"
-                style="@style/medium_bold"
-                android:textColor="@color/clock_white"/>
-            <TextView
                 android:id="@+id/hours_ones"
                 android:singleLine="true"
                 android:ellipsize="none"

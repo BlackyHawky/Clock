@@ -366,19 +366,6 @@
         <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> timers</item>
     </plurals>
 
-    <string-array name="key_pad_numbers" translatable="true">
-      <item>0</item>
-      <item>1</item>
-      <item>2</item>
-      <item>3</item>
-      <item>4</item>
-      <item>5</item>
-      <item>6</item>
-      <item>7</item>
-      <item>8</item>
-      <item>9</item>
-    </string-array>
-
     <string name="home_label">Home</string>
     <string name="remove_question">Remove this city?</string>
     <string name="sort_by_name">By name</string>
