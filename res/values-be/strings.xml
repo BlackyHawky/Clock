@@ -220,6 +220,12 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Падчас падарожжа за межамі рэгулярных гадзінных паясоў дадаць хатнi гадзіннiк"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Хатні гадзінны пояс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Хатні гадзінны пояс"</string>
+    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
+    <skip />
+    <!-- no translation found for time_picker_set (277860606472289828) -->
+    <skip />
+    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Маршалавы астравы"</item>
     <item msgid="4196408495909011020">"Востраў Мідуэй"</item>
@@ -308,4 +314,18 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"БУДЗIЛЬНIКI"</string>
     <string name="see_all" msgid="775983396630163739">"Глядзець усе..."</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <skip />
+    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <skip />
+    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <skip />
+    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <skip />
 </resources>
