@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Wecker löschen"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Wecker einschalten"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Wecker ausschalten"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Diese Weckzeit löschen?"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Diesen Wecker löschen?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Uhr anzeigen"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Uhr ausblenden"</string>
     <string name="label" msgid="2407986483260935828">"Label (optional)"</string>
@@ -36,8 +36,8 @@
     <string name="time" msgid="8067216534232296518">"Uhrzeit"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ausschalten"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Der Wecker verstummte nach <xliff:g id="MINUTES">%d</xliff:g> Minuten."</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Snooze-Funktion für <xliff:g id="MINUTES">%d</xliff:g> Minuten aktiviert"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Schlummern"</string>
+    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Schlummerfunktion für <xliff:g id="MINUTES">%d</xliff:g> Minuten aktiv"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Der Wecker klingelt in weniger als einer Minute."</item>
     <item msgid="6002066367368421848">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -61,7 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analoguhr"</string>
     <string name="help" msgid="7786263119482654015">"Hilfe"</string>
     <string name="settings" msgid="5849739030579520686">"Einstellungen"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Dauer der Snooze-Funktion"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Dauer der Schlummerfunktion"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 Minute"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> Minuten"</item>
@@ -87,13 +87,13 @@
     <string name="delete" msgid="5732434972457000541">"Löschen"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lautstärke für Wecker"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Lautlos-Modus"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Snooze oder Beenden"</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (Snooze)"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Schlummern oder Beenden"</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (Schlummern)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Wecker für <xliff:g id="TIME">%s</xliff:g> gestellt. Zum Abbrechen berühren."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Lautstärketasten"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Tasteneffekt"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Snooze"</item>
+    <item msgid="7972756698723318690">"Schlummern"</item>
     <item msgid="3450979320164769576">"Schließen"</item>
     <item msgid="6302517608411378024">"Keine Aktion"</item>
   </string-array>
@@ -204,7 +204,7 @@
     <string name="Delete_selected_alarm" msgid="4162534388267929249">"Ausgewählten Wecker löschen?"</string>
     <string name="selected" msgid="154434067032592597">"Ausgewählt"</string>
     <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Wecker jetzt statt um <xliff:g id="TIME">%s</xliff:g> beenden?"</string>
-    <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Snooze bis"</string>
+    <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Schlummern bis"</string>
     <string name="clock_settings" msgid="8887845806151785393">"Uhr"</string>
     <string name="clock_style" msgid="2265011060429742344">"Design"</string>
     <string name="clock_style_title" msgid="32660784968818521">"Uhrendesign"</string>
@@ -220,6 +220,12 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"In einer anderen Zeitzone eine Uhr mit Heimatzeitzone hinzufügen"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Heimatzeitzone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Heimatzeitzone"</string>
+    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
+    <skip />
+    <!-- no translation found for time_picker_set (277860606472289828) -->
+    <skip />
+    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshallinseln"</item>
     <item msgid="4196408495909011020">"Midwayinseln"</item>
@@ -308,4 +314,18 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"Wecker"</string>
     <string name="see_all" msgid="775983396630163739">"Alle anzeigen…"</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <skip />
+    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <skip />
+    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <skip />
+    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <skip />
 </resources>

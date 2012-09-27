@@ -27,7 +27,7 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"¿Eliminar esta alarma?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Mostrar reloj"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Ocultar reloj"</string>
-    <string name="label" msgid="2407986483260935828">"Etiqueta (opcional)"</string>
+    <string name="label" msgid="2407986483260935828">"Nombre (opcional)"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Establecer alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibración"</string>
@@ -61,7 +61,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Reloj analógico"</string>
     <string name="help" msgid="7786263119482654015">"ayuda"</string>
     <string name="settings" msgid="5849739030579520686">"Ajustes"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Repetición de la alarma"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Repetir alarma después de"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minuto"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> minutos"</item>
@@ -70,7 +70,7 @@
     <item quantity="one" msgid="3783171637798575068">"minuto"</item>
     <item quantity="other" msgid="1304056759541595077">"minutos"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar automáticamente"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar después de"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
   <string-array name="auto_silence_entries">
@@ -129,11 +129,11 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Reanudar"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Iniciar"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Detener"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Duración"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Restablecer"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Añadir vuelta"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Borrar"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Compartir"</string>
     <string name="sw_lap_number" msgid="5284147827135227231">"#"</string>
-    <string name="sw_lap_time" msgid="8445539225664675846">"Duración"</string>
+    <string name="sw_lap_time" msgid="8445539225664675846">"Duración de la vuelta"</string>
     <string name="sw_lap_total" msgid="2575384748273693584">"Total"</string>
     <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
     <skip />
@@ -143,7 +143,7 @@
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Compartir mi hora:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Hora: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"Duración:"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Duración de las vueltas:"</string>
     <string name="sw_notification_label" msgid="3860960768913061020">"Cronómetro"</string>
     <string name="sw_notification_lap" msgid="3178438408027457979">"Fase <xliff:g id="NUMBER">%d</xliff:g> - <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Fase <xliff:g id="NUMBER">%d</xliff:g>"</string>
@@ -153,9 +153,9 @@
     <string name="timer_clear" msgid="3496971445784089796">"Borrar"</string>
     <string name="timer_start" msgid="6158486445614356442">"Iniciar"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Eliminar"</string>
-    <string name="timer_plus_one" msgid="3889719909524490658">"Más de un minuto"</string>
+    <string name="timer_plus_one" msgid="3889719909524490658">"+1 MINUTO"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Detener"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Restablecer"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Borrar"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Cancelar"</string>
     <string name="timer_delete_question" msgid="7658546868533913049">"¿Eliminar este temporizador?"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tiempo agotado"</string>
@@ -217,9 +217,15 @@
     <item msgid="1814605819692210671">"digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Reloj de tu ciudad automático"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Cuando viajes fuera de tu zona horaria habitual, añade un reloj para la hora de tu ciudad."</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Al viajar fuera de tu zona horaria habitual, añadir un reloj para la hora de tu ciudad"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horaria local"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zona horaria local"</string>
+    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
+    <skip />
+    <!-- no translation found for time_picker_set (277860606472289828) -->
+    <skip />
+    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Islas Marshall"</item>
     <item msgid="4196408495909011020">"Islas Midway"</item>
@@ -308,4 +314,18 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMAS"</string>
     <string name="see_all" msgid="775983396630163739">"Ver todo…"</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <skip />
+    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <skip />
+    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <skip />
+    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <skip />
 </resources>
