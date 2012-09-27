@@ -90,7 +90,7 @@
     <string name="alarm_notify_text" msgid="4891014685945904766">"Отложить/выключить будильник"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (отложен)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Повтор в <xliff:g id="TIME">%s</xliff:g>. Нажмите для отмены."</string>
-    <string name="volume_button_setting_title" msgid="6937131248843413357">"Громкость"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Кнопки громкости"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Функция кнопок"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Отложить"</item>
@@ -127,11 +127,11 @@
     <string name="menu_item_help" msgid="4570953476186849841">"Справка"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Приостановить"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Продолжить"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"Начать"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Остановить"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Старт"</string>
+    <string name="sw_stop_button" msgid="8322958613123274451">"Стоп"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Круг"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Сбросить"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"Поделиться"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Отправить"</string>
     <string name="sw_lap_number" msgid="5284147827135227231">"№"</string>
     <string name="sw_lap_time" msgid="8445539225664675846">"Время круга"</string>
     <string name="sw_lap_total" msgid="2575384748273693584">"Всего"</string>
@@ -139,7 +139,7 @@
     <skip />
     <string name="hours_label" msgid="3393478155635368097">"ч."</string>
     <string name="minutes_label" msgid="3568098128251438588">"мин."</string>
-    <string name="seconds_label" msgid="124655952824003246">"сек."</string>
+    <string name="seconds_label" msgid="124655952824003246">"сек"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Отправить время:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Мое время: <xliff:g id="TIME">%s</xliff:g>"</string>
@@ -149,12 +149,12 @@
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Круг <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_add_one_button" msgid="1963943621548063189">"Добавить 1 минуту"</string>
     <string name="timer_dismiss_button" msgid="6161488380194869207">"Отмена"</string>
-    <string name="timer_add_timer" msgid="862733633862574752">"Создать таймер"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Добавить таймер"</string>
     <string name="timer_clear" msgid="3496971445784089796">"Сбросить"</string>
-    <string name="timer_start" msgid="6158486445614356442">"Начать"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Старт"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Удалить"</string>
-    <string name="timer_plus_one" msgid="3889719909524490658">"+ 1 мин"</string>
-    <string name="timer_stop" msgid="3361154678667736722">"Остановить"</string>
+    <string name="timer_plus_one" msgid="3889719909524490658">"+ 1 мин."</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Стоп"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Сбросить"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Отмена"</string>
     <string name="timer_delete_question" msgid="7658546868533913049">"Удалить этот таймер?"</string>
@@ -216,10 +216,16 @@
     <item msgid="5353805556644220918">"стрелки"</item>
     <item msgid="1814605819692210671">"цифры"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Показывать время в родном городе"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Показывать время в родном городе при перемещении в другой часовой пояс"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Показывать время дома"</string>
+    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Всегда показывать время в родном часовом поясе"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Мой часовой пояс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Мой часовой пояс"</string>
+    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
+    <skip />
+    <!-- no translation found for time_picker_set (277860606472289828) -->
+    <skip />
+    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Маршалловы Острова"</item>
     <item msgid="4196408495909011020">"Остров Мидуэй"</item>
@@ -308,4 +314,18 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"БУДИЛЬНИК"</string>
     <string name="see_all" msgid="775983396630163739">"Просмотреть все…"</string>
+    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
+    <skip />
+    <!-- no translation found for stopwatch_title (3246663609895204068) -->
+    <skip />
+    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <skip />
+    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <skip />
+    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <skip />
+    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <skip />
 </resources>
