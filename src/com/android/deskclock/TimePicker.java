@@ -104,11 +104,11 @@ public class TimePicker extends TimerSetupView implements Button.OnClickListener
     protected void updateTime() {
 
         // Put "-" in digits that was not entered
-        String hours1 = (mInputPointer < 3) ? "-" :  mLabels[mInput[3]];
-        String hours2 = (mInputPointer < 2) ? "-" :  mLabels[mInput[2]];
-        String minutes1 = (mInputPointer < 1) ? "-" :  mLabels[mInput[1]];
-        String minutes2 = (mInputPointer < 0) ? "-" :  mLabels[mInput[0]];
-        mEnteredTime.setTime(hours1, hours2, minutes1, minutes2, null, null);
+        int  hours1 = (mInputPointer < 3) ? -1 :  mInput[3];
+        int hours2 = (mInputPointer < 2) ? -1 :  mInput[2];
+        int minutes1 = (mInputPointer < 1) ? -1 :  mInput[1];
+        int minutes2 = (mInputPointer < 0) ? -1 :  mInput[0];
+        mEnteredTime.setTime(hours1, hours2, minutes1, minutes2, -1);
     }
 
     private void showAmPm() {
