@@ -72,47 +72,51 @@ public class TimerView extends LinearLayout {
     }
 
 
-    public void setTime(String hoursTensDigit, String hoursOnesDigit, String minutesTensDigit,
-            String minutesOnesDigit, String seconds, String hundreds) {
-        if (mHoursTens != null && hoursTensDigit != null) {
-            mHoursTens.setText(hoursTensDigit);
-            if (hoursTensDigit == "-") {
+    public void setTime(int hoursTensDigit, int hoursOnesDigit, int minutesTensDigit,
+            int minutesOnesDigit, int seconds) {
+        if (mHoursTens != null) {
+            if (hoursTensDigit == -1) {
+                mHoursTens.setText("-");
                 mHoursTens.setTypeface(mRobotoThin);
                 mHoursTens.setTextColor(mGrayColor);
             } else {
+                mHoursTens.setText(String.format("%d",hoursTensDigit));
                 mHoursTens.setTypeface(mOriginalHoursTypeface);
                 mHoursTens.setTextColor(mWhiteColor);
             }
         }
-        if (mHoursOnes != null && hoursOnesDigit != null) {
-            mHoursOnes.setText(hoursOnesDigit);
-            if (hoursOnesDigit == "-") {
+        if (mHoursOnes != null) {
+            if (hoursOnesDigit == -1) {
+                mHoursOnes.setText("-");
                 mHoursOnes.setTypeface(mRobotoThin);
                 mHoursOnes.setTextColor(mGrayColor);
             } else {
+                mHoursOnes.setText(String.format("%d",hoursOnesDigit));
                 mHoursOnes.setTypeface(mOriginalHoursTypeface);
                 mHoursOnes.setTextColor(mWhiteColor);
             }
         }
-        if (mMinutesTens != null && minutesTensDigit != null) {
-            mMinutesTens.setText(minutesTensDigit);
-            if (minutesTensDigit == "-") {
+        if (mMinutesTens != null) {
+            if (minutesTensDigit == -1) {
+                mMinutesTens.setText("-");
                 mMinutesTens.setTextColor(mGrayColor);
             } else {
                 mMinutesTens.setTextColor(mWhiteColor);
+                mMinutesTens.setText(String.format("%d",minutesTensDigit));
             }
         }
-        if (mMinutesOnes != null && minutesOnesDigit != null) {
-            mMinutesOnes.setText(minutesOnesDigit);
-            if (minutesOnesDigit == "-") {
+        if (mMinutesOnes != null) {
+            if (minutesOnesDigit == -1) {
+                mMinutesOnes.setText("-");
                 mMinutesOnes.setTextColor(mGrayColor);
             } else {
+                mMinutesOnes.setText(String.format("%d",minutesOnesDigit));
                 mMinutesOnes.setTextColor(mWhiteColor);
             }
         }
 
-        if (mSeconds != null && seconds != null) {
-            mSeconds.setText(seconds);
+        if (mSeconds != null) {
+            mSeconds.setText(String.format("%02d",seconds));
         }
     }
 }

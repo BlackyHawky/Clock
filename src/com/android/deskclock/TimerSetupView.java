@@ -34,7 +34,6 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     protected final Button mNumbers [] = new Button [10];
     protected int mInput [] = new int [mInputSize];
     protected int mInputPointer = -1;
-    protected String mLabels [];
     protected Button mLeft, mRight;
     protected ImageButton mDelete;
     protected TimerView mEnteredTime;
@@ -59,8 +58,6 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mLabels = mContext.getResources().getStringArray(R.array.key_pad_numbers);
-
 
         View v1 = findViewById(R.id.first);
         View v2 = findViewById(R.id.second);
@@ -88,7 +85,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
         for (int i = 0; i < 10; i++) {
             mNumbers[i].setOnClickListener(this);
-            mNumbers [i].setText(mLabels[i]);
+            mNumbers [i].setText(String.format("%d",i));
             mNumbers [i].setTag(R.id.numbers_key,new Integer(i));
         }
         updateTime();
@@ -134,8 +131,8 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     }
 
     protected void updateTime() {
-        mEnteredTime.setTime(null, mLabels[mInput[4]], mLabels[mInput[3]], mLabels[mInput[2]],
-                mLabels[mInput[1]]+ mLabels[mInput[0]], null);
+        mEnteredTime.setTime(-1, mInput[4], mInput[3], mInput[2],
+                mInput[1] * 10 + mInput[0]);
     }
 
     public void reset() {
