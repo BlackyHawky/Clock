@@ -624,7 +624,7 @@ public class Alarms {
     /**
      * @return true if clock is set to 24-hour mode
      */
-    static boolean get24HourMode(final Context context) {
+    public static boolean get24HourMode(final Context context) {
         return android.text.format.DateFormat.is24HourFormat(context);
     }
 }

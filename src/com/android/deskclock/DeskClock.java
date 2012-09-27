@@ -44,6 +44,7 @@ import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFragment;
 import com.android.deskclock.timer.Timers;
+import com.android.deskclock.worldclock.CitiesActivity;
 
 import java.util.ArrayList;
 import java.util.TimeZone;
@@ -277,7 +278,7 @@ public class DeskClock extends Activity {
                 startActivity(new Intent(this, AlarmClock.class));
                 break;
             case R.id.cities_button:
-                Toast.makeText(this, "Not implemented yet", 2).show();
+                startActivity(new Intent(this, CitiesActivity.class));
                 break;
             case R.id.menu_button:
                 showMenu(v);
