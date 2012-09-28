@@ -24,12 +24,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
+import com.android.deskclock.ZeroTopPaddingTextView;
 
 
 public class TimerView extends LinearLayout {
 
-    private TextView mHoursOnes, mMinutesOnes, mSeconds;
-    private TextView mHoursTens, mMinutesTens;
+    private ZeroTopPaddingTextView mHoursOnes, mMinutesOnes;
+    private ZeroTopPaddingTextView mHoursTens, mMinutesTens;
+    private TextView mSeconds;
     private final Typeface mRobotoThin;
     private Typeface mOriginalHoursTypeface;
     private final int mWhiteColor, mGrayColor;
@@ -50,10 +52,10 @@ public class TimerView extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mHoursTens = (TextView)findViewById(R.id.hours_tens);
-        mMinutesTens = (TextView)findViewById(R.id.minutes_tens);
-        mHoursOnes = (TextView)findViewById(R.id.hours_ones);
-        mMinutesOnes = (TextView)findViewById(R.id.minutes_ones);
+        mHoursTens = (ZeroTopPaddingTextView)findViewById(R.id.hours_tens);
+        mMinutesTens = (ZeroTopPaddingTextView)findViewById(R.id.minutes_tens);
+        mHoursOnes = (ZeroTopPaddingTextView)findViewById(R.id.hours_ones);
+        mMinutesOnes = (ZeroTopPaddingTextView)findViewById(R.id.minutes_ones);
         mSeconds = (TextView)findViewById(R.id.seconds);
         if (mHoursOnes != null) {
             mOriginalHoursTypeface = mHoursOnes.getTypeface();
@@ -64,9 +66,11 @@ public class TimerView extends LinearLayout {
         } else  {
             if (mMinutesTens != null) {
                 mMinutesTens.setTypeface(mRobotoThin);
+                mMinutesTens.updatePadding();
             }
             if (mMinutesOnes != null) {
                 mMinutesOnes.setTypeface(mRobotoThin);
+                mMinutesOnes.updatePadding();
             }
         }
     }
@@ -82,11 +86,13 @@ public class TimerView extends LinearLayout {
                 mHoursTens.setText("-");
                 mHoursTens.setTypeface(mRobotoThin);
                 mHoursTens.setTextColor(mGrayColor);
+                mHoursTens.updatePadding();
                 mHoursTens.setVisibility(View.VISIBLE);
             } else {
                 mHoursTens.setText(String.format("%d",hoursTensDigit));
                 mHoursTens.setTypeface(mOriginalHoursTypeface);
                 mHoursTens.setTextColor(mWhiteColor);
+                mHoursTens.updatePadding();
                 mHoursTens.setVisibility(View.VISIBLE);
             }
         }
@@ -95,10 +101,12 @@ public class TimerView extends LinearLayout {
                 mHoursOnes.setText("-");
                 mHoursOnes.setTypeface(mRobotoThin);
                 mHoursOnes.setTextColor(mGrayColor);
+                mHoursOnes.updatePadding();
             } else {
                 mHoursOnes.setText(String.format("%d",hoursOnesDigit));
                 mHoursOnes.setTypeface(mOriginalHoursTypeface);
                 mHoursOnes.setTextColor(mWhiteColor);
+                mHoursOnes.updatePadding();
             }
         }
         if (mMinutesTens != null) {
