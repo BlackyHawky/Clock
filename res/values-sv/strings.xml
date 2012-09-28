@@ -38,6 +38,8 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarmet tystnar efter <xliff:g id="MINUTES">%d</xliff:g> minuter."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Snoozar i <xliff:g id="MINUTES">%d</xliff:g> minuter."</string>
+    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
+    <skip />
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarmet ringer om mindre än 1 minut från och med nu."</item>
     <item msgid="6002066367368421848">"Alarmet ringer om <xliff:g id="DAYS">%1$s</xliff:g> från och med nu."</item>
@@ -179,18 +181,6 @@
     <item quantity="one" msgid="6764708652976799977">"1 minut"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> timer"</item>
   </plurals>
-  <string-array name="key_pad_numbers">
-    <item msgid="3790799928094478129">"0"</item>
-    <item msgid="1158268715173398623">"1"</item>
-    <item msgid="5123981712003258295">"2"</item>
-    <item msgid="7151111844056508651">"3"</item>
-    <item msgid="254052406891028409">"4"</item>
-    <item msgid="3822256979378218671">"5"</item>
-    <item msgid="7555205990176249549">"6"</item>
-    <item msgid="3287963013853335472">"7"</item>
-    <item msgid="2859322766548004670">"8"</item>
-    <item msgid="555979188652757544">"9"</item>
-  </string-array>
     <string name="home_label" msgid="4436139365695453870">"Startsida"</string>
     <string name="remove_question" msgid="716296469879431612">"Vill du ta bort den här staden?"</string>
     <string name="sort_by_name" msgid="7825123427213807895">"Efter namn"</string>
@@ -320,12 +310,12 @@
     <skip />
     <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
     <skip />
-    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <!-- no translation found for description_direction_right (1615911557926085934) -->
     <skip />
-    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <!-- no translation found for description_direction_left (6328816971226781776) -->
     <skip />
-    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <!-- no translation found for description_direction_up (7875287578324520904) -->
     <skip />
-    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <!-- no translation found for description_direction_down (8240473964024874053) -->
     <skip />
 </resources>
