@@ -115,8 +115,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Väderinformationen är inte tillgänglig just nu."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Ljuduppspelningstjänst för alarm som ställts in i DeskClock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Läser in ringsignal..."</string>
-    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
-    <skip />
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Ljuduppspelningstjänst för timer som ställts in i DeskClock."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Ställ alarm"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Nästa alarm: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
@@ -210,12 +209,9 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Lägg till en klocka med tiden hemma när du reser utanför din standardtidszon"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Standardtidszon"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Standardtidszon"</string>
-    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
-    <skip />
-    <!-- no translation found for time_picker_set (277860606472289828) -->
-    <skip />
-    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
-    <skip />
+    <string name="time_picker_cancel" msgid="7437106489606013077">"Avbryt"</string>
+    <string name="time_picker_set" msgid="277860606472289828">"Ange"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshallöarna"</item>
     <item msgid="4196408495909011020">"Midwayöarna"</item>
