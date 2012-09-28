@@ -21,4 +21,5 @@
      for different hardware and product builds. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <bool name="config_requiresScreenSaver">true</bool>
+    <bool name="config_dockAppEnabled">true</bool>
 </resources>
