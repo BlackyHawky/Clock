@@ -189,6 +189,17 @@ public class CircleTimerView extends View {
                         whitePercent * 360, false, mPaint);
             }
 
+            if (mMarkerTime != -1 && radius > 0 && mIntervalTime != 0) {
+                mPaint.setStrokeWidth(mMarkerStrokeSize);
+                float angle = (float)(mMarkerTime % mIntervalTime) / (float)mIntervalTime * 360;
+                // draw 2dips thick marker
+                // the formula to draw the marker 1 unit thick is:
+                // 180 / (radius * Math.PI)
+                // after that we have to scale it by the screen density
+                canvas.drawArc (mArcRect, 270 + angle, mScreenDensity *
+                        (float) (360 / (radius * Math.PI)) , false, mPaint);
+            }
+
             // draw red diamond here
             float diamondPercent;
             if (mTimerMode) {
@@ -210,19 +221,9 @@ public class CircleTimerView extends View {
             final float diamondYPos =
                     (float) (yCenter + radius * Math.sin(diamondRadians)) -
                             rotatedDiamondBitmap.getHeight() / 2;
-             canvas.drawBitmap(rotatedDiamondBitmap, diamondXPos, diamondYPos, mPaint);
+            canvas.drawBitmap(rotatedDiamondBitmap, diamondXPos, diamondYPos, mPaint);
          }
-        if (mMarkerTime != -1 && radius > 0 && mIntervalTime != 0) {
-            mPaint.setStrokeWidth(mMarkerStrokeSize);
-            mPaint.setColor(mWhiteColor);
-            float angle = (float)(mMarkerTime % mIntervalTime) / (float)mIntervalTime * 360;
-            // draw 2dips thick marker
-            // the formula to draw the marker 1 unit thick is:
-            // 180 / (radius * Math.PI)
-            // after that we have to scale it by the screen density
-            canvas.drawArc (mArcRect, 270 + angle, mScreenDensity *
-                    (float) (360 / (radius * Math.PI)) , false, mPaint);
-        }
+
     }
 
     public static final String PREF_CTV_PAUSED  = "_ctv_paused";
