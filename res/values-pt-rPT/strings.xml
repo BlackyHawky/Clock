@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarme silenciado após <xliff:g id="MINUTES">%d</xliff:g> minutos."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Suspender"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Suspenso por <xliff:g id="MINUTES">%d</xliff:g> minutos."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Em suspensão até <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarme definido para daqui a menos de 1 minuto."</item>
     <item msgid="6002066367368421848">"Alarme definido para daqui a <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -300,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMES"</string>
     <string name="see_all" msgid="775983396630163739">"Ver tudo..."</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Serviço de cronómetro para executar a notificação."</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Cronómetro"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Deslizar lentamente para a direita para ignorar"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Deslizar lentamente para a esquerda para suspender"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Deslizar lentamente para cima para ignorar"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Deslizar lentamente para baixo para suspender"</string>
 </resources>
