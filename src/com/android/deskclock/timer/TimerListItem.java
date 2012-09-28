@@ -53,14 +53,14 @@ public class TimerListItem extends LinearLayout {
         mCircleView.setTimerMode(true);
     }
 
-    public void set(long timerLength, long timeLeft) {
+    public void set(long timerLength, long timeLeft, boolean drawRed) {
         if (mCircleView == null) {
             mCircleView = (CircleTimerView)findViewById(R.id.timer_time);
             mCircleView.setTimerMode(true);
         }
         mTimerLength = timerLength;
         mCircleView.setIntervalTime(mTimerLength);
-        mCircleView.setPassedTime(timerLength - timeLeft);
+        mCircleView.setPassedTime(timerLength - timeLeft, drawRed);
         invalidate();
     }
 
@@ -85,11 +85,14 @@ public class TimerListItem extends LinearLayout {
         mCircleView.invalidate();
     }
 
-    public void setTime(long time) {
+    public void setBlink(boolean blink) {
+        mTimerText.blinkTimeStr(blink);
+    }
+
+    public void setTime(long time, boolean forceUpdate) {
         if (mTimerText == null) {
             mTimerText = (CountingTimerView)findViewById(R.id.timer_time_text);
         }
-        mTimerText.setTime(time, false);
-        mTimerText.invalidate();
+        mTimerText.setTime(time, false, forceUpdate);
     }
 }

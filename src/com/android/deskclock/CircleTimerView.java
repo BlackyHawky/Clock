@@ -106,8 +106,19 @@ public class CircleTimerView extends View {
         mPaused = true;
     }
 
-    public void setPassedTime(long time) {
-        mAccumulatedTime = time;
+    public void setPassedTime(long time, boolean drawRed) {
+        // The onDraw() method checks if mIntervalStartTime has been set before drawing any red.
+        // Without drawRed, mIntervalStartTime should not be set here at all, and would remain at -1
+        // when the state is reconfigured after exiting and re-entering the application.
+        // If the timer is currently running, this drawRed will not be set, and will have no effect
+        // because mIntervalStartTime will be set when the thread next runs.
+        // When the timer is not running, mIntervalStartTime will not be set upon loading the state,
+        // and no red will be drawn, so drawRed is used to force onDraw() to draw the red portion,
+        // despite the timer not running.
+        mCurrentIntervalTime = mAccumulatedTime = time;
+        if (drawRed) {
+            mIntervalStartTime = Utils.getTimeNow();
+        }
         postInvalidate();
     }
 

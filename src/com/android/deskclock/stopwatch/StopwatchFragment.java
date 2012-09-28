@@ -279,7 +279,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
         mTime.postInvalidate();
 
         setButtons(mState);
-        mTimeText.setTime(mAccumulatedTime, true);
+        mTimeText.setTime(mAccumulatedTime, true, true);
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
             startUpdateThread();
         } else if (mState == Stopwatches.STOPWATCH_STOPPED && mAccumulatedTime != 0) {
@@ -313,7 +313,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
     private void doStop() {
         stopUpdateThread();
         mTime.pauseIntervalAnimation();
-        mTimeText.setTime(mAccumulatedTime, true);
+        mTimeText.setTime(mAccumulatedTime, true, true);
         mTimeText.blinkTimeStr(true);
         updateCurrentLap(mAccumulatedTime);
         setButtons(Stopwatches.STOPWATCH_STOPPED);
@@ -346,7 +346,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
         showLaps();
         mTime.stopIntervalAnimation();
         mTime.reset();
-        mTimeText.setTime(mAccumulatedTime, true);
+        mTimeText.setTime(mAccumulatedTime, true, true);
         mTimeText.blinkTimeStr(false);
         setButtons(Stopwatches.STOPWATCH_RESET);
         mState = Stopwatches.STOPWATCH_RESET;
@@ -578,7 +578,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
             long curTime = Utils.getTimeNow();
             long totalTime = mAccumulatedTime + (curTime - mStartTime);
             if (mTime != null) {
-                mTimeText.setTime(totalTime, true);
+                mTimeText.setTime(totalTime, true, true);
             }
             if (mLapsAdapter.getCount() > 0) {
                 updateCurrentLap(totalTime);
