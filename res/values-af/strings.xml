@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Wekker sal na <xliff:g id="MINUTES">%d</xliff:g> minute stil word."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Sluimer"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Sluimer vir <xliff:g id="MINUTES">%d</xliff:g> minute."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Sluimer tot <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarm gestel vir minder as 1 minuut van nou af."</item>
     <item msgid="6002066367368421848">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</item>
@@ -163,35 +162,23 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Tydhouer"</string>
     <string name="next_timer" msgid="561264099702200805">"&gt;Volgende tydhouer: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;En <xliff:g id="NUMBER">%d</xliff:g> tydhouers"</string>
-    <string name="stopped_at" msgid="3640387409683991793">"&gt;Gestop by <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="stopped_at" msgid="3640387409683991793">"&gt;Gestop om <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Jy\'s \'n regte spoedduiwel."</item>
     <item msgid="6332879039890727169">"Geniet die vrugte van jou arbeid."</item>
-    <item msgid="815382761274660130">"Androids is bekend om vinnig te wees, maar nie so vinnig soos jy nie!"</item>
+    <item msgid="815382761274660130">"Androids is bekend daarvoor om vinnig te wees, maar nie so vinnig soos jy nie!"</item>
     <item msgid="7916250650982813737">"Sjoe."</item>
     <item msgid="6836603904515182333">"L33t keer."</item>
     <item msgid="7508085100680861631">"Sulke ontsaglike snelheid."</item>
     <item msgid="5961245252909589573">"Kom ons doen die tydverwringing weer."</item>
     <item msgid="5211891900854545940">"Net \'n sprong na links."</item>
-    <item msgid="9071353477103826053">"Jy het \'n smaak vir die haas."</item>
+    <item msgid="9071353477103826053">"Jy het \'n smaak vir haastigheid."</item>
     <item msgid="3785193933691117181">"Fototoniese snelheid."</item>
   </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1 minuut"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> tydhouers"</item>
   </plurals>
-  <string-array name="key_pad_numbers">
-    <item msgid="3790799928094478129">"0"</item>
-    <item msgid="1158268715173398623">"1"</item>
-    <item msgid="5123981712003258295">"2"</item>
-    <item msgid="7151111844056508651">"3"</item>
-    <item msgid="254052406891028409">"4"</item>
-    <item msgid="3822256979378218671">"5"</item>
-    <item msgid="7555205990176249549">"6"</item>
-    <item msgid="3287963013853335472">"7"</item>
-    <item msgid="2859322766548004670">"8"</item>
-    <item msgid="555979188652757544">"9"</item>
-  </string-array>
     <string name="home_label" msgid="4436139365695453870">"Tuis"</string>
     <string name="remove_question" msgid="716296469879431612">"Moet hierdie stad verwyder word?"</string>
     <string name="sort_by_name" msgid="7825123427213807895">"Volgens naam"</string>
@@ -201,10 +188,10 @@
     <string name="alarm_setup_music" msgid="6140596565783696650">"Musiek"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Aan"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Af"</string>
-    <string name="alarm_night" msgid="2685913727476024929">"Elke nag"</string>
+    <string name="alarm_night" msgid="2685913727476024929">"Elke aand"</string>
     <string name="Delete_selected_alarm" msgid="4162534388267929249">"Moet die gekose alarm uitgevee word?"</string>
-    <string name="selected" msgid="154434067032592597">"Gekies"</string>
-    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Sit alarm nou af in plaas van later <xliff:g id="TIME">%s</xliff:g>?"</string>
+    <string name="selected" msgid="154434067032592597">"Gekose"</string>
+    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Sit alarm nou af in plaas van om <xliff:g id="TIME">%s</xliff:g>?"</string>
     <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Sluimer tot"</string>
     <string name="clock_settings" msgid="8887845806151785393">"HORLOSIE"</string>
     <string name="clock_style" msgid="2265011060429742344">"Styl"</string>
@@ -312,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"WEKKERS"</string>
     <string name="see_all" msgid="775983396630163739">"Sien almal..."</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stophorlosie-diens om die kennisgewing te laat loop"</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Stophorlosie"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Gly regs om toe te maak"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Gly links na sluimer"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Gly op om toe te maak"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Gly af na sluimer"</string>
 </resources>

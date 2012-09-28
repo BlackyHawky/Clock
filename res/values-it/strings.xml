@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Allarme disattivato dopo <xliff:g id="MINUTES">%d</xliff:g> minuti."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posponi"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Sospensione per <xliff:g id="MINUTES">%d</xliff:g> minuti."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ripetizione allarme fino alle <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"L\'allarme sarà attivato tra meno di 1 minuto."</item>
     <item msgid="6002066367368421848">"L\'allarme sarà attivato tra <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -180,18 +179,6 @@
     <item quantity="one" msgid="6764708652976799977">"1 minuto"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> timer"</item>
   </plurals>
-  <string-array name="key_pad_numbers">
-    <item msgid="3790799928094478129">"0"</item>
-    <item msgid="1158268715173398623">"1"</item>
-    <item msgid="5123981712003258295">"2"</item>
-    <item msgid="7151111844056508651">"3"</item>
-    <item msgid="254052406891028409">"4"</item>
-    <item msgid="3822256979378218671">"5"</item>
-    <item msgid="7555205990176249549">"6"</item>
-    <item msgid="3287963013853335472">"7"</item>
-    <item msgid="2859322766548004670">"8"</item>
-    <item msgid="555979188652757544">"9"</item>
-  </string-array>
     <string name="home_label" msgid="4436139365695453870">"Home"</string>
     <string name="remove_question" msgid="716296469879431612">"Rimuovere questa città?"</string>
     <string name="sort_by_name" msgid="7825123427213807895">"Per nome"</string>
@@ -312,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALLARMI"</string>
     <string name="see_all" msgid="775983396630163739">"Visualizza tutto…"</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servizio cronometro per pubblicare la notifica."</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Cronometro"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Fai scorrere il dito verso destra per eliminare"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Fai scorrere il dito verso sinistra per ripetizione allarme attiva"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Fai scorrere il dito verso l\'alto per eliminare"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Fai scorrere il dito verso il basso per ripetizione allarme attiva"</string>
 </resources>

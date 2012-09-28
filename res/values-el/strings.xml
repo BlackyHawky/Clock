@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Σιγή ξυπνητηριού μετά από <xliff:g id="MINUTES">%d</xliff:g> λεπτά"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Αναβολή αφύπνισης"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Αναβολή αφύπνισης για <xliff:g id="MINUTES">%d</xliff:g> λεπτά."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Αναβολή έως τις <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Το ξυπνητήρι έχει οριστεί σε λιγότερο από 1 λεπτό από τώρα."</item>
     <item msgid="6002066367368421848">"Το ξυπνητήρι έχει οριστεί σε <xliff:g id="DAYS">%1$s</xliff:g> από τώρα."</item>
@@ -180,18 +179,6 @@
     <item quantity="one" msgid="6764708652976799977">"1 λεπτό"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> ξυπνητήρια"</item>
   </plurals>
-  <string-array name="key_pad_numbers">
-    <item msgid="3790799928094478129">"0"</item>
-    <item msgid="1158268715173398623">"1"</item>
-    <item msgid="5123981712003258295">"2"</item>
-    <item msgid="7151111844056508651">"3"</item>
-    <item msgid="254052406891028409">"4"</item>
-    <item msgid="3822256979378218671">"5"</item>
-    <item msgid="7555205990176249549">"6"</item>
-    <item msgid="3287963013853335472">"7"</item>
-    <item msgid="2859322766548004670">"8"</item>
-    <item msgid="555979188652757544">"9"</item>
-  </string-array>
     <string name="home_label" msgid="4436139365695453870">"Αρχική σελίδα"</string>
     <string name="remove_question" msgid="716296469879431612">"Να διαγραφεί αυτή η πόλη;"</string>
     <string name="sort_by_name" msgid="7825123427213807895">"Κατά όνομα"</string>
@@ -312,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ΞΥΠΝΗΤΗΡΙΑ"</string>
     <string name="see_all" msgid="775983396630163739">"Εμφάνιση όλων…"</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Υπηρεσία χρονόμετρου για την εκτέλεση της ειδοποίησης."</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Χρονόμετρο"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Ολίσθηση δεξιά για παράλειψη"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Ολίσθηση αριστερά για αναβολή"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Ολίσθηση επάνω για παράλειψη"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Ολίσθηση κάτω για αναβολή"</string>
 </resources>

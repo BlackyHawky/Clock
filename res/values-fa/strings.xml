@@ -180,18 +180,6 @@
     <item quantity="one" msgid="6764708652976799977">"۱ دقیقه"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> تایمر‌"</item>
   </plurals>
-  <string-array name="key_pad_numbers">
-    <item msgid="3790799928094478129">"۰"</item>
-    <item msgid="1158268715173398623">"۱"</item>
-    <item msgid="5123981712003258295">"۲"</item>
-    <item msgid="7151111844056508651">"۳"</item>
-    <item msgid="254052406891028409">"۴"</item>
-    <item msgid="3822256979378218671">"۵"</item>
-    <item msgid="7555205990176249549">"۶"</item>
-    <item msgid="3287963013853335472">"۷"</item>
-    <item msgid="2859322766548004670">"۸"</item>
-    <item msgid="555979188652757544">"۹"</item>
-  </string-array>
     <string name="home_label" msgid="4436139365695453870">"صفحه اصلی"</string>
     <string name="remove_question" msgid="716296469879431612">"این شهر حذف شود؟"</string>
     <string name="sort_by_name" msgid="7825123427213807895">"بر اساس نام"</string>
