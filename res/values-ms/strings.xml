@@ -38,6 +38,8 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Penggera disenyapkan selepas <xliff:g id="MINUTES">%d</xliff:g> minit"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Tidur sekejap"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Tidur sekejap untuk <xliff:g id="MINUTES">%d</xliff:g> minit."</string>
+    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
+    <skip />
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Penggera ditetapkan pada kurang dari 1 minit dari sekarang."</item>
     <item msgid="6002066367368421848">"Penggera ditetapkan pada <xliff:g id="DAYS">%1$s</xliff:g> dari sekarang."</item>
@@ -113,8 +115,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Maklumat cuaca tidak tersedia sekarang."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Perkhidmatan main balik bunyi untuk penggera ditetapkan dalam Jam."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Memuatkan nada dering..."</string>
-    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
-    <skip />
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Perkhidmatan main balik bunyi untuk pemasa ditetapkan dalam Jam."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Tetapkan penggera"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Penggera seterusnya: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Pemasa"</string>
@@ -140,8 +141,7 @@
     <string name="hours_label" msgid="3393478155635368097">"j"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <!-- no translation found for zero (7102083421938355017) -->
-    <skip />
+    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Berkongsi masa saya:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Masa saya ialah <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Masa pusingan:"</string>
@@ -164,7 +164,18 @@
     <string name="next_timer" msgid="561264099702200805">"&gt;Pemasa Seterusnya: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="more_timers" msgid="7600207278228744856">"&gt;Dan <xliff:g id="NUMBER">%d</xliff:g> pemasa"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Dihentikan pada <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for sw_share_strings:0 (842841032273927988) -->
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Anda memang laju."</item>
+    <item msgid="6332879039890727169">"Nikmati hasil usaha anda."</item>
+    <item msgid="815382761274660130">"Android memang diketahui cepat, tetapi tidak secepat anda!"</item>
+    <item msgid="7916250650982813737">"Huh."</item>
+    <item msgid="6836603904515182333">"L33t kali."</item>
+    <item msgid="7508085100680861631">"Halaju yang luar biasa."</item>
+    <item msgid="5961245252909589573">"Mari kita buat pelompatan masa lagi."</item>
+    <item msgid="5211891900854545940">"Hanya melompat ke kiri."</item>
+    <item msgid="9071353477103826053">"Anda suka tergesa-gesa."</item>
+    <item msgid="3785193933691117181">"Halaju fotonik."</item>
+  </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1 minit"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> pemasa"</item>
@@ -210,12 +221,9 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Semasa mengembara di luar zon masa biasa, tambahkan jam untuk rumah"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zon waktu rumah"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zon waktu rumah"</string>
-    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
-    <skip />
-    <!-- no translation found for time_picker_set (277860606472289828) -->
-    <skip />
-    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
-    <skip />
+    <string name="time_picker_cancel" msgid="7437106489606013077">"Batalkan"</string>
+    <string name="time_picker_set" msgid="277860606472289828">"Tetapkan"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Kepulauan Marshall"</item>
     <item msgid="4196408495909011020">"Pulau Midway"</item>
@@ -303,12 +311,19 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"PENGGERA"</string>
-    <!-- no translation found for see_all (775983396630163739) -->
-    <skip />
+    <string name="see_all" msgid="775983396630163739">"Lihat semua..."</string>
     <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
     <skip />
     <!-- no translation found for stopwatch_title (3246663609895204068) -->
     <skip />
     <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1615911557926085934) -->
+    <skip />
+    <!-- no translation found for description_direction_left (6328816971226781776) -->
+    <skip />
+    <!-- no translation found for description_direction_up (7875287578324520904) -->
+    <skip />
+    <!-- no translation found for description_direction_down (8240473964024874053) -->
     <skip />
 </resources>

@@ -38,6 +38,8 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarm <xliff:g id="MINUTES">%d</xliff:g> dakika sonra susturuldu."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ertele"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"<xliff:g id="MINUTES">%d</xliff:g> dakika duraklatılıyor."</string>
+    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
+    <skip />
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarmın çalmasına şu andan itibaren bir dakikadan az var."</item>
     <item msgid="6002066367368421848">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> var."</item>
@@ -113,8 +115,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Hava durumu bilgileri şu anda kullanılamıyor."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Clock\'ta ayarlanmış alarmlar için ses çalma hizmeti"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Zil sesi yükleniyor..."</string>
-    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
-    <skip />
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Clock\'ta ayarlanmış alarmlar için ses çalma hizmeti."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Alarmı ayarla"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Sonraki alarm: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Zamanlayıcı"</string>
@@ -165,7 +166,7 @@
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Durduruldu: <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Oldukça yüksek hız tutkunusunuz."</item>
-    <item msgid="6332879039890727169">"Çalışmanızın meyvesini yiyebilirsiniz."</item>
+    <item msgid="6332879039890727169">"Çalışmanızın meyvesini toplayabilirsiniz."</item>
     <item msgid="815382761274660130">"Android\'ler hızlarıyla bilinir, ancak sizin kadar hızlı değiller!"</item>
     <item msgid="7916250650982813737">"Vay canına."</item>
     <item msgid="6836603904515182333">"L33t kez."</item>
@@ -204,7 +205,7 @@
     <string name="Delete_selected_alarm" msgid="4162534388267929249">"Seçilen alarm silinsin mi?"</string>
     <string name="selected" msgid="154434067032592597">"Seçildi"</string>
     <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Alarm, <xliff:g id="TIME">%s</xliff:g> yerine şimdi kapatılsın mı?"</string>
-    <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Şu saate kadar erteleniyor"</string>
+    <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Şu saate kadar erteleniyor:"</string>
     <string name="clock_settings" msgid="8887845806151785393">"SAAT"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stil"</string>
     <string name="clock_style_title" msgid="32660784968818521">"Saat stili"</string>
@@ -220,12 +221,9 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Normal saat dilimi dışında seyahat ederken ev için bir saat ekleyin"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Ev saat dilimi"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Ev saat dilimi"</string>
-    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
-    <skip />
-    <!-- no translation found for time_picker_set (277860606472289828) -->
-    <skip />
-    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
-    <skip />
+    <string name="time_picker_cancel" msgid="7437106489606013077">"İptal"</string>
+    <string name="time_picker_set" msgid="277860606472289828">"Ayarla"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshall Adaları"</item>
     <item msgid="4196408495909011020">"Midway Adası"</item>
@@ -319,5 +317,13 @@
     <!-- no translation found for stopwatch_title (3246663609895204068) -->
     <skip />
     <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1615911557926085934) -->
+    <skip />
+    <!-- no translation found for description_direction_left (6328816971226781776) -->
+    <skip />
+    <!-- no translation found for description_direction_up (7875287578324520904) -->
+    <skip />
+    <!-- no translation found for description_direction_down (8240473964024874053) -->
     <skip />
 </resources>

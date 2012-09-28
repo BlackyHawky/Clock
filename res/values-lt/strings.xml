@@ -38,6 +38,8 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Signalas nutildytas po <xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snausti"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Snaudžiama <xliff:g id="MINUTES">%d</xliff:g> min."</string>
+    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
+    <skip />
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Signalas nustatytas skambėti po mažiau nei 1 min. nuo dabar."</item>
     <item msgid="6002066367368421848">"Signalas nustatytas skambėti po <xliff:g id="DAYS">%1$s</xliff:g> nuo dabar."</item>
@@ -195,7 +197,7 @@
     <string name="sort_by_name" msgid="7825123427213807895">"Pagal pavadinimą"</string>
     <string name="sort_by_time" msgid="3588583060192569857">"Pagal laiką"</string>
     <string name="search_results" msgid="3940223188208445245">"Rezultatai"</string>
-    <string name="no_cities_found" msgid="5076277409409268915">"Nerasta miestų"</string>
+    <string name="no_cities_found" msgid="5076277409409268915">"Miestų nerasta"</string>
     <string name="alarm_setup_music" msgid="6140596565783696650">"Muzika"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Įjungta"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Išjungta"</string>
@@ -315,5 +317,13 @@
     <!-- no translation found for stopwatch_title (3246663609895204068) -->
     <skip />
     <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1615911557926085934) -->
+    <skip />
+    <!-- no translation found for description_direction_left (6328816971226781776) -->
+    <skip />
+    <!-- no translation found for description_direction_up (7875287578324520904) -->
+    <skip />
+    <!-- no translation found for description_direction_down (8240473964024874053) -->
     <skip />
 </resources>

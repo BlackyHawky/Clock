@@ -38,6 +38,8 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"鬧鐘在 <xliff:g id="MINUTES">%d</xliff:g> 分鐘後已靜音。"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"貪睡"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"再貪睡 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。"</string>
+    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
+    <skip />
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"已將鬧鐘設定在 1 分鐘內啟動。"</item>
     <item msgid="6002066367368421848">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後啟動。"</item>
@@ -113,8 +115,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"目前無法取得天氣資訊。"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"在「時鐘」設定的鬧鐘鈴聲播放服務。"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"正在載入鈴聲…"</string>
-    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
-    <skip />
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"在「時鐘」設定的計時器音效播放服務。"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"設定鬧鐘"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"下次鬧鐘時間：<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"計時器"</string>
@@ -220,12 +221,9 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"旅行至其他時區時新增居住地時鐘"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"居住地時區"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"居住地時區"</string>
-    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
-    <skip />
-    <!-- no translation found for time_picker_set (277860606472289828) -->
-    <skip />
-    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
-    <skip />
+    <string name="time_picker_cancel" msgid="7437106489606013077">"取消"</string>
+    <string name="time_picker_set" msgid="277860606472289828">"設定"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"馬歇爾群島"</item>
     <item msgid="4196408495909011020">"中途島"</item>
@@ -319,5 +317,13 @@
     <!-- no translation found for stopwatch_title (3246663609895204068) -->
     <skip />
     <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
+    <skip />
+    <!-- no translation found for description_direction_right (1615911557926085934) -->
+    <skip />
+    <!-- no translation found for description_direction_left (6328816971226781776) -->
+    <skip />
+    <!-- no translation found for description_direction_up (7875287578324520904) -->
+    <skip />
+    <!-- no translation found for description_direction_down (8240473964024874053) -->
     <skip />
 </resources>
