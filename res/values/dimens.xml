@@ -41,7 +41,7 @@
 
     <dimen name="circletimer_diamond_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
-    <dimen name="circletimer_marker_size">2dip</dimen>
+    <dimen name="circletimer_marker_size">16dip</dimen>
 
     <dimen name="big_font_size">120dp</dimen>
     <dimen name="small_font_size">48sp</dimen>

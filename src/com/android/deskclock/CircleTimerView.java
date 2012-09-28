@@ -42,6 +42,7 @@ public class CircleTimerView extends View {
     private Bitmap mDiamondBitmap = null;
     private Resources mResources;
     private float mRadiusOffset;   // amount to remove from radius to account for markers on circle
+    private float mScreenDensity;
 
     // Class has 2 modes:
     // Timer mode - counting down. in this mode the animation is counter-clockwise and stops at 0
@@ -118,13 +119,13 @@ public class CircleTimerView extends View {
         mResources = c.getResources();
         mStrokeSize = mResources.getDimension(R.dimen.circletimer_circle_size);
         mDiamondStrokeSize = mResources.getDimension(R.dimen.circletimer_diamond_size);
-        mMarkerStrokeSize =
-                mResources.getDimension(R.dimen.circletimer_marker_size) * 2 + mStrokeSize;
+        mMarkerStrokeSize = mResources.getDimension(R.dimen.circletimer_marker_size);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mWhiteColor = mResources.getColor(R.color.clock_white);
         mRedColor = mResources.getColor(R.color.clock_red);
         mDiamondBitmap = BitmapFactory.decodeResource(mResources, R.drawable.ic_diamond_red);
+        mScreenDensity = mResources.getDisplayMetrics().density;
         mRadiusOffset = Math.max(mStrokeSize, Math.max(mDiamondStrokeSize, mMarkerStrokeSize));
     }
 
@@ -199,13 +200,17 @@ public class CircleTimerView extends View {
                     (float) (yCenter + radius * Math.sin(diamondRadians)) -
                             rotatedDiamondBitmap.getHeight() / 2;
             canvas.drawBitmap(rotatedDiamondBitmap, diamondXPos, diamondYPos, mPaint);
-
-         }
-        if (mMarkerTime != -1) {
+        }
+        if (mMarkerTime != -1 && radius > 0 && mIntervalTime != 0) {
             mPaint.setStrokeWidth(mMarkerStrokeSize);
             mPaint.setColor(mWhiteColor);
             float angle = (float)(mMarkerTime % mIntervalTime) / (float)mIntervalTime * 360;
-            canvas.drawArc (mArcRect, 270 + angle, 1 , false, mPaint);
+            // draw 2dips thick marker
+            // the formula to draw the marker 1 unit thick is:
+            // 180 / (radius * Math.PI)
+            // after that we have to scale it by the screen density
+            canvas.drawArc (mArcRect, 270 + angle, mScreenDensity *
+                    (float) (360 / (radius * Math.PI)) , false, mPaint);
         }
     }
 
