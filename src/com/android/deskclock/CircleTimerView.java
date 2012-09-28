@@ -4,11 +4,15 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -35,6 +39,7 @@ public class CircleTimerView extends View {
     private static float mMarkerStrokeSize = 2;
     private final Paint mPaint = new Paint();
     private final RectF mArcRect = new RectF();
+    private Bitmap mDiamondBitmap = null;
     private Resources mResources;
     private float mRadiusOffset;   // amount to remove from radius to account for markers on circle
 
@@ -119,7 +124,7 @@ public class CircleTimerView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mWhiteColor = mResources.getColor(R.color.clock_white);
         mRedColor = mResources.getColor(R.color.clock_red);
-
+        mDiamondBitmap = BitmapFactory.decodeResource(mResources, R.drawable.ic_diamond_red);
         mRadiusOffset = Math.max(mStrokeSize, Math.max(mDiamondStrokeSize, mMarkerStrokeSize));
     }
 
@@ -173,14 +178,27 @@ public class CircleTimerView extends View {
             }
 
             // draw red diamond here
-            mPaint.setColor(mRedColor);
-            mPaint.setStrokeWidth(mDiamondStrokeSize);
-            if (mTimerMode){
-                canvas.drawArc (mArcRect, 265 - redPercent * 360, 10 , false, mPaint);
+            float diamondPercent;
+            if (mTimerMode) {
+                diamondPercent = 270 - redPercent * 360;
             } else {
-                canvas.drawArc (mArcRect, 265 + redPercent * 360, 10 , false, mPaint);
+                diamondPercent = 270 + redPercent * 360;
             }
 
+            Matrix rotator = new Matrix();
+            final int width = mDiamondBitmap.getWidth();
+            final int height = mDiamondBitmap.getHeight();
+            rotator.setRotate(diamondPercent, (float) width / 2, (float) height / 2);
+            Bitmap rotatedDiamondBitmap =
+                    Bitmap.createBitmap(mDiamondBitmap, 0, 0, width, height, rotator, true);
+            final double diamondRadians = Math.toRadians(diamondPercent);
+            final float diamondXPos =
+                    (float) (xCenter + radius * Math.cos(diamondRadians)) -
+                            rotatedDiamondBitmap.getWidth() / 2;
+            final float diamondYPos =
+                    (float) (yCenter + radius * Math.sin(diamondRadians)) -
+                            rotatedDiamondBitmap.getHeight() / 2;
+            canvas.drawBitmap(rotatedDiamondBitmap, diamondXPos, diamondYPos, mPaint);
 
          }
         if (mMarkerTime != -1) {
