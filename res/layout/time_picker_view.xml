@@ -19,28 +19,33 @@
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
         <com.android.deskclock.timer.TimerView
             android:id="@+id/timer_time_text"
             android:layout_width="0dip"
             android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dip"
+            android:layout_marginBottom="7dip"
             android:paddingLeft="@dimen/timer_padding_left"
-            android:gravity="left">
-            <TextView
+            android:layout_gravity="center"
+            android:baselineAligned="false"
+            android:gravity="top">
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/hours_tens"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/hours_ones"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
 
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/hours_seperator"
                 android:singleLine="true"
                 android:ellipsize="none"
@@ -48,20 +53,20 @@
                 android:text="@string/time_picker_time_seperator"
                 android:textColor="@color/clock_white"/>
 
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/minutes_tens"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/minutes_ones"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
 
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/ampm_label"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"

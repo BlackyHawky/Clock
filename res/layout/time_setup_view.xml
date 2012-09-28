@@ -26,15 +26,17 @@
             android:layout_weight="2"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/timer_padding_left"
-            android:gravity="left">
-            <TextView
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:baselineAligned="false">
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/hours_ones"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
 
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/hours_label"
                 android:singleLine="true"
                 android:ellipsize="none"
@@ -43,20 +45,20 @@
                 android:text="@string/hours_label"
                 android:textColor="@color/clock_white"/>
 
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/minutes_tens"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
 
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/minutes_ones"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
                 android:textColor="@color/clock_white"/>
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/minutes_label"
                 android:singleLine="true"
                 android:ellipsize="none"
@@ -64,14 +66,14 @@
                 android:text="@string/minutes_label"
                 android:textColor="@color/clock_white"/>
 
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/seconds"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_light"
                 android:textColor="@color/clock_white"/>
 
-            <TextView
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/seconds_label"
                 android:singleLine="true"
                 android:ellipsize="none"
