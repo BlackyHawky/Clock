@@ -32,12 +32,14 @@
     <string name="set_alarm" msgid="9148359866152726808">"Nastaviť budík"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrovať"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Opakovanie"</string>
-    <string name="alert" msgid="6506982899651975645">"Tón zvonenia budenia"</string>
+    <string name="alert" msgid="6506982899651975645">"Tón zvonenia budíka"</string>
     <string name="time" msgid="8067216534232296518">"Čas"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Zrušiť"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Budík stíšený po uplynutí <xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložiť"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Upozornenie odložené o <xliff:g id="MINUTES">%d</xliff:g> min."</string>
+    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
+    <skip />
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Budík sa spustí o menej než 1 minútu."</item>
     <item msgid="6002066367368421848">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -113,8 +115,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Informácie o počasí nie sú momentálne k dispozícii."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Služba prehrávania zvuku budíkov nastavených v aplikácii Hodiny."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Prebieha načítavanie vyzváňacieho tónu..."</string>
-    <!-- no translation found for timer_ring_service_desc (2620214305660322415) -->
-    <skip />
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Služba prehrávania zvuku časovačov nastavených v aplikácii Hodiny."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Nastaviť budík"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Ďalší budík: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Časomiera"</string>
@@ -166,7 +167,7 @@
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Ste pánom rýchlosti."</item>
     <item msgid="6332879039890727169">"Užite si plody svojej práce."</item>
-    <item msgid="815382761274660130">"Androidi sú veľmi rýchli, ale nie sú takí rýchli ako vy."</item>
+    <item msgid="815382761274660130">"Androidy sú veľmi rýchle, ale nie sú také rýchle ako vy."</item>
     <item msgid="7916250650982813737">"Uf."</item>
     <item msgid="6836603904515182333">"Rekordné časy."</item>
     <item msgid="7508085100680861631">"Aká neuveriteľná rýchlosť."</item>
@@ -179,29 +180,17 @@
     <item quantity="one" msgid="6764708652976799977">"1 minúta"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> časovačov"</item>
   </plurals>
-  <string-array name="key_pad_numbers">
-    <item msgid="3790799928094478129">"0"</item>
-    <item msgid="1158268715173398623">"1"</item>
-    <item msgid="5123981712003258295">"2"</item>
-    <item msgid="7151111844056508651">"3"</item>
-    <item msgid="254052406891028409">"4"</item>
-    <item msgid="3822256979378218671">"5"</item>
-    <item msgid="7555205990176249549">"6"</item>
-    <item msgid="3287963013853335472">"7"</item>
-    <item msgid="2859322766548004670">"8"</item>
-    <item msgid="555979188652757544">"9"</item>
-  </string-array>
     <string name="home_label" msgid="4436139365695453870">"Domov"</string>
     <string name="remove_question" msgid="716296469879431612">"Chcete odstrániť toto mesto?"</string>
     <string name="sort_by_name" msgid="7825123427213807895">"Podľa názvu"</string>
     <string name="sort_by_time" msgid="3588583060192569857">"Podľa času"</string>
     <string name="search_results" msgid="3940223188208445245">"Výsledky"</string>
-    <string name="no_cities_found" msgid="5076277409409268915">"Neboli nájdené žiadne mestá"</string>
+    <string name="no_cities_found" msgid="5076277409409268915">"Nenašli sa žiadne mestá"</string>
     <string name="alarm_setup_music" msgid="6140596565783696650">"Hudba"</string>
     <string name="alarm_on" msgid="3898994909321344263">"O"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Vypnuté"</string>
     <string name="alarm_night" msgid="2685913727476024929">"Každú noc"</string>
-    <string name="Delete_selected_alarm" msgid="4162534388267929249">"Chcete odstrániť vybraté budenie?"</string>
+    <string name="Delete_selected_alarm" msgid="4162534388267929249">"Chcete odstrániť vybratý budík?"</string>
     <string name="selected" msgid="154434067032592597">"Vybraté"</string>
     <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Chcete zrušiť budenie teraz miesto o <xliff:g id="TIME">%s</xliff:g>?"</string>
     <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Odložené do"</string>
@@ -220,12 +209,9 @@
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Pri cestovaní mimo zvyčajné časové pásmo pridať hodiny s domácim časom"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domovské časové pásmo"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domovské časové pásmo"</string>
-    <!-- no translation found for time_picker_cancel (7437106489606013077) -->
-    <skip />
-    <!-- no translation found for time_picker_set (277860606472289828) -->
-    <skip />
-    <!-- no translation found for time_picker_time_seperator (7484926510054777041) -->
-    <skip />
+    <string name="time_picker_cancel" msgid="7437106489606013077">"Zrušiť"</string>
+    <string name="time_picker_set" msgid="277860606472289828">"Nastaviť"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshallove ostrovy"</item>
     <item msgid="4196408495909011020">"Midwayské ostrovy"</item>
@@ -320,12 +306,12 @@
     <skip />
     <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
     <skip />
-    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <!-- no translation found for description_direction_right (1615911557926085934) -->
     <skip />
-    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <!-- no translation found for description_direction_left (6328816971226781776) -->
     <skip />
-    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <!-- no translation found for description_direction_up (7875287578324520904) -->
     <skip />
-    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <!-- no translation found for description_direction_down (8240473964024874053) -->
     <skip />
 </resources>

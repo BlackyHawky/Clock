@@ -42,6 +42,8 @@
     <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Repeter"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Repetiziun en <xliff:g id="MINUTES">%d</xliff:g> minutas."</string>
+    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
+    <skip />
     <!-- no translation found for alarm_set:0 (6450913786084215050) -->
     <!-- no translation found for alarm_set:1 (6002066367368421848) -->
     <!-- no translation found for alarm_set:2 (8824719306247973774) -->
@@ -228,16 +230,6 @@
     <!-- no translation found for sw_share_strings:9 (3785193933691117181) -->
     <!-- no translation found for timers_num:one (6764708652976799977) -->
     <!-- no translation found for timers_num:other (3799129667336330616) -->
-    <!-- no translation found for key_pad_numbers:0 (3790799928094478129) -->
-    <!-- no translation found for key_pad_numbers:1 (1158268715173398623) -->
-    <!-- no translation found for key_pad_numbers:2 (5123981712003258295) -->
-    <!-- no translation found for key_pad_numbers:3 (7151111844056508651) -->
-    <!-- no translation found for key_pad_numbers:4 (254052406891028409) -->
-    <!-- no translation found for key_pad_numbers:5 (3822256979378218671) -->
-    <!-- no translation found for key_pad_numbers:6 (7555205990176249549) -->
-    <!-- no translation found for key_pad_numbers:7 (3287963013853335472) -->
-    <!-- no translation found for key_pad_numbers:8 (2859322766548004670) -->
-    <!-- no translation found for key_pad_numbers:9 (555979188652757544) -->
     <!-- no translation found for home_label (4436139365695453870) -->
     <skip />
     <!-- no translation found for remove_question (716296469879431612) -->
@@ -384,12 +376,12 @@
     <skip />
     <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
     <skip />
-    <!-- no translation found for description_direction_right (1686529163560222749) -->
+    <!-- no translation found for description_direction_right (1615911557926085934) -->
     <skip />
-    <!-- no translation found for description_direction_left (5924823005889549060) -->
+    <!-- no translation found for description_direction_left (6328816971226781776) -->
     <skip />
-    <!-- no translation found for description_direction_up (6207978885710180976) -->
+    <!-- no translation found for description_direction_up (7875287578324520904) -->
     <skip />
-    <!-- no translation found for description_direction_down (9058074073705037818) -->
+    <!-- no translation found for description_direction_down (8240473964024874053) -->
     <skip />
 </resources>
