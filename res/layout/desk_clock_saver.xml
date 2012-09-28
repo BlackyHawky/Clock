@@ -15,7 +15,9 @@
 -->
 
 <!-- Special "screen saver mode" with just the time/date on black. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:dc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF000000">
@@ -36,5 +38,9 @@
          android:hand_hour="@drawable/clock_analog_hour"
          android:hand_minute="@drawable/clock_analog_minute"
          android:layout_marginTop="@dimen/time_margin_top"
-         android:layout_marginBottom="@dimen/time_margin_bottom"/>
+         android:layout_marginBottom="@dimen/time_margin_bottom"
+         dc:jewelRadius="5dp"
+         dc:jewelOffset="23dp"
+         dc:jewelColor="@color/clock_white"
+         />
  </LinearLayout>
