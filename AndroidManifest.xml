@@ -132,6 +132,7 @@
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/analog_appwidget" />
         </receiver>
 
+        <!-- Dream (screensaver) implementation -->
         <service android:name="Screensaver"
             android:exported="true"
             android:label="@string/app_label">
@@ -139,7 +140,23 @@
                 <action android:name="android.service.dreams.DreamService" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <meta-data
+                android:name="android.service.dream"
+                android:resource="@xml/dream_info" />
         </service>
+
+        <!-- Settings activity for screensaver -->
+        <activity android:name=".ScreensaverSettingsActivity"
+                android:label="@string/screensaver_settings"
+                android:theme="@style/SettingsTheme"
+                android:taskAffinity=""
+                android:excludeFromRecents="true"
+                android:exported="true"
+                >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
 
         <service android:name="TimerRingService"
                 android:exported="false"
