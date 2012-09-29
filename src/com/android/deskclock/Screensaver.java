@@ -32,7 +32,7 @@ import android.os.BatteryManager;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.service.dreams.Dream;
+import android.service.dreams.DreamService;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,7 +41,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
-public class Screensaver extends Dream {
+public class Screensaver extends DreamService {
     static final boolean DEBUG = false;
     static final String TAG = "DeskClock/Screensaver";
 
