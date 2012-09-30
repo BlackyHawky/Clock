@@ -49,6 +49,7 @@ public class Timers {
     public static final String FROM_NOTIFICATION = "from_notification";
     public static final String UPDATE_NOTIFICATION = "update_notification";
 
+    public static final String TIMESUP_MODE = "times_up";
 
     public static TimerObj findTimer(ArrayList<TimerObj> timers, int timerId) {
         Iterator<TimerObj> i = timers.iterator();
