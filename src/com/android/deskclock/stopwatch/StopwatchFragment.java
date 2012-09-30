@@ -46,7 +46,6 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
     private Button mLeftButton, mRightButton;
     private CircleTimerView mTime;
     private CountingTimerView mTimeText;
-    private View mLapsTitle;
     private ListView mLapsList;
     private Button mShareButton;
     private View mButtonSeperator;
@@ -259,7 +258,6 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
 
         mTime = (CircleTimerView)v.findViewById(R.id.stopwatch_time);
         mTimeText = (CountingTimerView)v.findViewById(R.id.stopwatch_time_text);
-        mLapsTitle = v.findViewById(R.id.laps_title);
         mLapsList = (ListView)v.findViewById(R.id.laps_list);
         mLapsList.setDividerHeight(0);
         mLapsAdapter = new LapsListAdapter(getActivity());
@@ -557,10 +555,8 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
     private void showLaps() {
         if (mLapsAdapter.getCount() > 0) {
             mLapsList.setVisibility(View.VISIBLE);
-            mLapsTitle.setVisibility(View.VISIBLE);
         } else {
             mLapsList.setVisibility(View.INVISIBLE);
-            mLapsTitle.setVisibility(View.INVISIBLE);
         }
     }
 
