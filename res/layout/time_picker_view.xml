@@ -69,7 +69,7 @@
                 android:ellipsize="none"
                 style="@style/label"
                 android:gravity="top"
-                android:text="@string/seconds_label"
+                android:text="@string/time_picker_ampm_label"
                 android:textColor="@color/clock_white"/>
 
         </com.android.deskclock.timer.TimerView>
