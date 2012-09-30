@@ -419,7 +419,7 @@
     <string name="time_picker_00_label">:00</string>
     <!-- add 30 as minutes to the time when pressing this button -->
     <string name="time_picker_30_label">:30</string>
-    
+
     <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
     <string-array name="timezone_labels">
         <item>"Marshall Islands"</item>
