@@ -26,8 +26,8 @@
                 android:label="@string/app_label"
                 android:theme="@style/DeskClock"
                 android:icon="@mipmap/ic_launcher_alarmclock"
-                android:launchMode="singleInstance"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation">
+                android:launchMode="singleTask"
                 >
 
             <intent-filter>
