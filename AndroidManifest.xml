@@ -27,7 +27,7 @@
                 android:theme="@style/DeskClock"
                 android:icon="@mipmap/ic_launcher_alarmclock"
                 android:launchMode="singleTask"
-                android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation">
                 >
 
             <intent-filter>
@@ -57,7 +57,7 @@
                 android:theme="@style/AlarmClockTheme"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
-                android:configChanges="orientation|keyboardHidden|keyboard|navigation"
+                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"
                 android:exported="true" />
 
         <activity-alias android:name="com.android.alarmclock.AlarmClock"
@@ -78,14 +78,14 @@
         <activity android:name="SetAlarm"
                 android:label="@string/set_alarm"
                 android:theme="@style/SetAlarmTheme"
-                android:configChanges="orientation|keyboardHidden|keyboard|navigation" />
+                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation" />
 
         <activity android:name="AlarmAlert"
                 android:excludeFromRecents="true"
                 android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
-                android:configChanges="orientation|keyboardHidden|keyboard|navigation"/>
+                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
         <!-- This activity is basically the same as AlarmAlert
              but full-screen so that it can turn the display on. -->
@@ -94,7 +94,7 @@
                 android:theme="@style/AlarmAlertFullScreenTheme"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
-                android:configChanges="orientation|keyboardHidden|keyboard|navigation"/>
+                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
         <receiver android:name="AlarmReceiver"
                 android:exported="false">
