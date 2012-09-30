@@ -216,6 +216,20 @@ public class TimerObj implements Parcelable {
         }
     }
 
+    public static void getTimersFromSharedPrefs(SharedPreferences prefs, ArrayList<TimerObj> timers, int match) {
+        Object[] timerStrings = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>()).toArray();
+        if (timerStrings.length > 0) {
+            for (int i = 0; i < timerStrings.length; i++) {
+                TimerObj t = new TimerObj();
+                t.mTimerId = Integer.parseInt((String) timerStrings[i]);
+                t.readFromSharedPref(prefs);
+                if (t.mState == match) {
+                    timers.add(t);
+                }
+            }
+        }
+    }
+
     public static void putTimersInSharedPrefs(
             SharedPreferences prefs, ArrayList<TimerObj> timers) {
         if (timers.size() > 0) {
