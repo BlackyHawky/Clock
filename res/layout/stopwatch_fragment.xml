@@ -41,8 +41,8 @@
     <ListView
         android:id="@+id/laps_list"
         android:layout_weight="2"
-        android:layout_marginLeft="32dip"
-        android:layout_marginRight="32dip"
+        android:layout_marginLeft="52dip"
+        android:layout_marginRight="52dip"
         android:layout_width="match_parent"
         android:layout_height="0dip" />
     <View
