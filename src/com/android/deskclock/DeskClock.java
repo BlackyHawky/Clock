@@ -24,9 +24,11 @@ import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -43,6 +45,7 @@ import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFragment;
 
 import java.util.ArrayList;
+import java.util.TimeZone;
 
 /**
  * DeskClock clock view for desk docks.
@@ -206,6 +209,7 @@ public class DeskClock extends Activity {
             }
         }
         initViews();
+        setHomeTimeZone();
     }
 
     @Override
@@ -298,6 +302,22 @@ public class DeskClock extends Activity {
             Utils.prepareHelpMenuItem(this, help);
         }
         popupMenu.show();
+    }
+
+    /***
+     * Insert the local time zone as the Home Time Zone if one is not set
+     */
+    private void setHomeTimeZone() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String homeTimeZone = prefs.getString(SettingsActivity.KEY_HOME_TZ, "");
+        if (!homeTimeZone.isEmpty()) {
+        return;
+        }
+        homeTimeZone = TimeZone.getDefault().getID();
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(SettingsActivity.KEY_HOME_TZ, homeTimeZone);
+        editor.apply();
+        Log.v(LOG_TAG, "Setting home time zone to " + homeTimeZone);
     }
 
     private void scheduleLightsOut() {
