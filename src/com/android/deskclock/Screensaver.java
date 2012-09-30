@@ -207,7 +207,7 @@ public class Screensaver extends DreamService {
             mDigitalClock.setVisibility(View.GONE);
             mAnalogClock.setVisibility(View.VISIBLE);
             mSaverView = mAnalogClock;
-        } else if (style.equals("digital")) {
+        } else {
             mDigitalClock.setVisibility(View.VISIBLE);
             mAnalogClock.setVisibility(View.GONE);
             mSaverView = mDigitalClock;

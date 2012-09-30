@@ -90,7 +90,7 @@ public class ClockFragment extends DeskClockFragment {
         if (style.equals("analog")) {
             mDigitalClock.setVisibility(View.GONE);
             mAnalogClock.setVisibility(View.VISIBLE);
-        } else if (style.equals("digital")) {
+        } else {
             mDigitalClock.setVisibility(View.VISIBLE);
             mAnalogClock.setVisibility(View.GONE);
         }
