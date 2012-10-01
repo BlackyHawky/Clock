@@ -211,6 +211,12 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Avbryt"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Still"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
+    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
+    <skip />
+    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
+    <skip />
+    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshalløyene"</item>
     <item msgid="4196408495909011020">"Midwayøyene"</item>
@@ -299,7 +305,7 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMER"</string>
     <string name="see_all" msgid="775983396630163739">"Se alle"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stoppeklokketjenesten som skal kjøre varselet."</string>
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stoppeklokke for å kjøre varslet."</string>
     <string name="stopwatch_title" msgid="3246663609895204068">"Stoppeklokke"</string>
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" – "</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Dra til høyre for å avvise"</string>
