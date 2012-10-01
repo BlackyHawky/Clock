@@ -164,7 +164,7 @@
     <string name="more_timers" msgid="7600207278228744856">"&gt;E <xliff:g id="NUMBER">%d</xliff:g> timer"</string>
     <string name="stopped_at" msgid="3640387409683991793">"&gt;Fermato alle <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="sw_share_strings">
-    <item msgid="842841032273927988">"Sei proprio un demone della velocità."</item>
+    <item msgid="842841032273927988">"Sei davvero un fulmine."</item>
     <item msgid="6332879039890727169">"Goditi i frutti del tuo lavoro."</item>
     <item msgid="815382761274660130">"Si sa che gli androidi sono veloci, ma non quanto te."</item>
     <item msgid="7916250650982813737">"Fiuuu!"</item>

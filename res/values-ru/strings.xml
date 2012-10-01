@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Будильник звонил <xliff:g id="MINUTES">%d</xliff:g> мин."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Отложить"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Повтор сигнала через <xliff:g id="MINUTES">%d</xliff:g> мин."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Отсрочка сигнала до <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Будильник зазвонит менее чем через минуту."</item>
     <item msgid="6002066367368421848">"Будильник зазвонит через <xliff:g id="DAYS">%1$s</xliff:g>"</item>
@@ -115,7 +114,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Информация о погоде сейчас недоступна."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Служба воспроизведения сигналов в Часах."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Загрузка мелодии звонка..."</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Служба воспроизведения сигналов таймера"</string>
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Модуль воспроизведения сигналов таймера"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Установить будильник"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Следующий сигнал: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
@@ -140,7 +139,7 @@
     <skip />
     <string name="hours_label" msgid="3393478155635368097">"ч."</string>
     <string name="minutes_label" msgid="3568098128251438588">"мин."</string>
-    <string name="seconds_label" msgid="124655952824003246">"сек"</string>
+    <string name="seconds_label" msgid="124655952824003246">"сек."</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_title" msgid="2960856389203349">"Отправить время:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Мое время: <xliff:g id="TIME">%s</xliff:g>"</string>
@@ -300,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"БУДИЛЬНИК"</string>
     <string name="see_all" msgid="775983396630163739">"Просмотреть все…"</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Секундомер для запуска уведомлений"</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Секундомер"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" – "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Чтобы отключить будильник, проведите пальцем вправо"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Чтобы отложить сигнал, проведите пальцем влево"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Чтобы отключить будильник, проведите пальцем вверх"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Чтобы отложить сигнал, проведите пальцем вниз"</string>
 </resources>

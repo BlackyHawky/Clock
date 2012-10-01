@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"鬧鐘在 <xliff:g id="MINUTES">%d</xliff:g> 分鐘後已靜音。"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"貪睡"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"再貪睡 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。"</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"延後到 <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"已將鬧鐘設定在 1 分鐘內啟動。"</item>
     <item msgid="6002066367368421848">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後啟動。"</item>
@@ -162,12 +161,12 @@
     <string name="timer_times_up" msgid="9190440395938519009">"時間到"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"計時器"</string>
     <string name="next_timer" msgid="561264099702200805">"&gt;下一個計時器：<xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="more_timers" msgid="7600207278228744856">"&gt;和 <xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
-    <string name="stopped_at" msgid="3640387409683991793">"&gt;在 <xliff:g id="TIME">%s</xliff:g> 停止"</string>
+    <string name="more_timers" msgid="7600207278228744856">"&gt;還有 <xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
+    <string name="stopped_at" msgid="3640387409683991793">"&gt;停止時間：<xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"您簡直就像閃電俠。"</item>
     <item msgid="6332879039890727169">"盡情享受辛勞過後的果實。"</item>
-    <item msgid="815382761274660130">"Android 以快速著稱，但還跟不上您！"</item>
+    <item msgid="815382761274660130">"Android 的速度這麼快，但還跟不上您！"</item>
     <item msgid="7916250650982813737">"差強人意。"</item>
     <item msgid="6836603904515182333">"果然是高手。"</item>
     <item msgid="7508085100680861631">"迅雷不及掩耳。"</item>
@@ -192,7 +191,7 @@
     <string name="alarm_night" msgid="2685913727476024929">"每晚"</string>
     <string name="Delete_selected_alarm" msgid="4162534388267929249">"刪除選取的鬧鐘？"</string>
     <string name="selected" msgid="154434067032592597">"已選取"</string>
-    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;現在就關閉 <xliff:g id="TIME">%s</xliff:g> 鈴響的鬧鐘？"</string>
+    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;現在就關閉 <xliff:g id="TIME">%s</xliff:g> 響鈴的鬧鐘？"</string>
     <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;延後到"</string>
     <string name="clock_settings" msgid="8887845806151785393">"時鐘"</string>
     <string name="clock_style" msgid="2265011060429742344">"樣式"</string>
@@ -300,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"鬧鐘"</string>
     <string name="see_all" msgid="775983396630163739">"全部顯示…"</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"使用碼表服務執行通知功能。"</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"碼表"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"向右滑動即可關閉鈴響"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"向左滑動即可延後鈴響"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"向上滑動即可關閉鈴響"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"向下滑動即可延後鈴響"</string>
 </resources>

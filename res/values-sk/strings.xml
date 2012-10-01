@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Budík stíšený po uplynutí <xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložiť"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Upozornenie odložené o <xliff:g id="MINUTES">%d</xliff:g> min."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Odložené do <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Budík sa spustí o menej než 1 minútu."</item>
     <item msgid="6002066367368421848">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -300,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"BUDÍKY"</string>
     <string name="see_all" msgid="775983396630163739">"Zobraziť všetko..."</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Služba Stopky na spúšťanie upozornenia."</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Stopky"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" – "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Prejdením prstom doprava zrušíte"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Prejdením prstom doľava zvonenie odložíte"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Prejdením prstom hore zrušíte"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Prejdením prstom dole zvonenie odložíte"</string>
 </resources>

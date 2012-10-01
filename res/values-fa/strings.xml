@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"هشدار پس از <xliff:g id="MINUTES">%d</xliff:g> دقیقه بیصدا شد."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"تعویق"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه"</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"تعویق تا <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"هشدار برای کمتر از ۱ دقیقه از حالا تنظیم شد."</item>
     <item msgid="6002066367368421848">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> از حالا تنظیم شد."</item>
@@ -146,8 +145,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"زمان من <xliff:g id="TIME">%s</xliff:g> است"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"زمان‌های دور:"</string>
     <string name="sw_notification_label" msgid="3860960768913061020">"کرونومتر"</string>
-    <string name="sw_notification_lap" msgid="3178438408027457979">"همپوشی <xliff:g id="NUMBER">%d</xliff:g> - <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"همپوشی <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap" msgid="3178438408027457979">"دور <xliff:g id="NUMBER">%d</xliff:g> - <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"دور <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_add_one_button" msgid="1963943621548063189">"افزودن ۱ دقیقه"</string>
     <string name="timer_dismiss_button" msgid="6161488380194869207">"لغو"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"افزودن تایمر"</string>
@@ -169,9 +168,9 @@
     <item msgid="6332879039890727169">"از ثمره زحمات خود لذت ببرید."</item>
     <item msgid="815382761274660130">"Androidها به چالاکی معروفند، اما نه به اندازه شما!"</item>
     <item msgid="7916250650982813737">"اوف."</item>
-    <item msgid="6836603904515182333">"۱۳۳۷ بار."</item>
+    <item msgid="6836603904515182333">"L33t بار."</item>
     <item msgid="7508085100680861631">"عجب سرعت حیرت‌آوری."</item>
-    <item msgid="5961245252909589573">"بیایید پیچش زمان را دوباره انجام دهیم."</item>
+    <item msgid="5961245252909589573">"بیایید توقف زمان را دوباره انجام دهیم."</item>
     <item msgid="5211891900854545940">"فقط یک پرش به چپ."</item>
     <item msgid="9071353477103826053">"شما پالتی برای سرعت دارید."</item>
     <item msgid="3785193933691117181">"سرعت فوتونی."</item>
@@ -300,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"زنگ‌ها"</string>
     <string name="see_all" msgid="775983396630163739">"مشاهده همه..."</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"سرویس کرنومتر برای اجرای اعلان."</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"کرونومتر"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"برای رد کردن، انگشت خود را به سمت راست بکشید"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"برای تعویق انگشت خود را به سمت چپ بکشید"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"برای رد کردن، انگشت خود را به سمت بالا بکشید"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"برای تعویق انگشت خود را به سمت پایین بکشید"</string>
 </resources>

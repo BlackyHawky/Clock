@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Der Wecker verstummte nach <xliff:g id="MINUTES">%d</xliff:g> Minuten."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Schlummern"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Schlummerfunktion für <xliff:g id="MINUTES">%d</xliff:g> Minuten aktiv"</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Schlummern bis <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Der Wecker klingelt in weniger als einer Minute."</item>
     <item msgid="6002066367368421848">"Der Wecker klingelt in <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -92,11 +91,11 @@
     <string name="alarm_notify_text" msgid="4891014685945904766">"Schlummern oder Beenden"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (Schlummern)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Wecker für <xliff:g id="TIME">%s</xliff:g> gestellt. Zum Abbrechen berühren."</string>
-    <string name="volume_button_setting_title" msgid="6937131248843413357">"Lautstärketasten"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Lautstärketaste"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Tasteneffekt"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Schlummern"</item>
-    <item msgid="3450979320164769576">"Schließen"</item>
+    <item msgid="3450979320164769576">"Beenden"</item>
     <item msgid="6302517608411378024">"Keine Aktion"</item>
   </string-array>
   <string-array name="volume_button_setting_values">
@@ -131,7 +130,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"Starten"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stoppen"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Runde"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Zurücksetzen"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Reset"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Teilen"</string>
     <string name="sw_lap_number" msgid="5284147827135227231">"Nr."</string>
     <string name="sw_lap_time" msgid="8445539225664675846">"Rundenzeit"</string>
@@ -156,7 +155,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"Löschen"</string>
     <string name="timer_plus_one" msgid="3889719909524490658">"+ 1 Min."</string>
     <string name="timer_stop" msgid="3361154678667736722">"Anhalten"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Zurücksetzen"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Reset"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Abbrechen"</string>
     <string name="timer_delete_question" msgid="7658546868533913049">"Timer löschen?"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Zeit ist abgelaufen."</string>
@@ -205,7 +204,7 @@
     <item msgid="5353805556644220918">"analog"</item>
     <item msgid="1814605819692210671">"digital"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Automatische Uhr mit Heimatzeitzone"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Uhr mit Heimatzeitzone"</string>
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"In einer anderen Zeitzone eine Uhr mit Heimatzeitzone hinzufügen"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Heimatzeitzone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Heimatzeitzone"</string>
@@ -300,18 +299,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"Wecker"</string>
     <string name="see_all" msgid="775983396630163739">"Alle anzeigen…"</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Benachrichtigung über Stoppuhr-Dienst"</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Stoppuhr"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Zum Schließen nach rechts bewegen"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Zum Schlummern nach links bewegen"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Zum Schließen nach oben bewegen"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Zum Schlummern nach unten bewegen"</string>
 </resources>
