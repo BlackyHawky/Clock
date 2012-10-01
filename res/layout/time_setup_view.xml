@@ -22,10 +22,11 @@
         android:layout_height="wrap_content">
         <com.android.deskclock.timer.TimerView
             android:id="@+id/timer_time_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
+            android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dip"
-            android:layout_gravity="center">
+            android:paddingLeft="@dimen/timer_padding_left"
+            android:gravity="left">
             <TextView
                 android:id="@+id/hours_ones"
                 android:singleLine="true"
@@ -80,17 +81,13 @@
                 android:textColor="@color/clock_white"/>
 
         </com.android.deskclock.timer.TimerView>
-        <Space
-            android:layout_width="0dip"
-            android:layout_height="1dip"
-            android:layout_weight="1"/>
         <ImageButton
             android:id="@+id/delete"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
+            android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginRight="20dip"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="center"
             android:src="@drawable/ic_backspace_normal"
             android:contentDescription="@string/timer_delete"
             android:layout_height="match_parent" />
