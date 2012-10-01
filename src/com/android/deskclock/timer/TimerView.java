@@ -75,14 +75,19 @@ public class TimerView extends LinearLayout {
     public void setTime(int hoursTensDigit, int hoursOnesDigit, int minutesTensDigit,
             int minutesOnesDigit, int seconds) {
         if (mHoursTens != null) {
-            if (hoursTensDigit == -1) {
+            // Hide digit
+            if (hoursTensDigit == -2) {
+                mHoursTens.setVisibility(View.INVISIBLE);
+            } else if (hoursTensDigit == -1) {
                 mHoursTens.setText("-");
                 mHoursTens.setTypeface(mRobotoThin);
                 mHoursTens.setTextColor(mGrayColor);
+                mHoursTens.setVisibility(View.VISIBLE);
             } else {
                 mHoursTens.setText(String.format("%d",hoursTensDigit));
                 mHoursTens.setTypeface(mOriginalHoursTypeface);
                 mHoursTens.setTextColor(mWhiteColor);
+                mHoursTens.setVisibility(View.VISIBLE);
             }
         }
         if (mHoursOnes != null) {
