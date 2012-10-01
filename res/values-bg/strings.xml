@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Будилникът спря да звъни след <xliff:g id="MINUTES">%d</xliff:g> минути."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Отлагане"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Отложен за <xliff:g id="MINUTES">%d</xliff:g> минути."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Отлагане до <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Будилникът e настроен за след по-малко от минута."</item>
     <item msgid="6002066367368421848">"Будилникът е настроен за след <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -212,6 +211,12 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Отказ"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Задаване"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
+    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
+    <skip />
+    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
+    <skip />
+    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Маршалови острови"</item>
     <item msgid="4196408495909011020">"Мидуей, о-в"</item>
@@ -300,18 +305,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"БУДИЛНИЦИ"</string>
     <string name="see_all" msgid="775983396630163739">"Вижте всички…"</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Услуга на хронометъра за пускане на известието."</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Хронометър"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" – "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Плъзнете надясно за отхвърляне"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Плъзнете наляво за отлагане"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Плъзнете нагоре за отхвърляне"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Плъзнете надолу за отлагане"</string>
 </resources>
