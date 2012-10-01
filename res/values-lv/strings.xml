@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Signāls tika izslēgts pēc <xliff:g id="MINUTES">%d</xliff:g> minūtes(-ēm)."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snauda"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Atlikts par <xliff:g id="MINUTES">%d</xliff:g> minūtēm."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Atlikts līdz: <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: mazāk nekā 1 minūte."</item>
     <item msgid="6002066367368421848">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -212,6 +211,12 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Atcelt"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Iestatīt"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
+    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
+    <skip />
+    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
+    <skip />
+    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Māršala Salas"</item>
     <item msgid="4196408495909011020">"Midveja sala"</item>
@@ -300,18 +305,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"SIGNĀLI"</string>
     <string name="see_all" msgid="775983396630163739">"Skatīt visu..."</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Hronometra pakalpojums paziņojuma darbībai."</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Hronometrs"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" – "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Velciet pa labi, lai nerādītu."</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Velciet pa kreisi, lai atliktu."</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Velciet uz augšu, lai nerādītu."</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Velciet uz leju, lai atliktu."</string>
 </resources>
