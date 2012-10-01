@@ -114,7 +114,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Les informations météo ne sont pas disponibles actuellement."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Service de retour audio pour les alarmes définies via l\'Horloge de bureau."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Chargement de la sonnerie..."</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Service de retour audio pour les minuteurs définis via l\'Horloge."</string>
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Service de lecture audio pour les minuteurs définis via l\'Horloge."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Régler l\'alarme"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Prochaine alarme : <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Minuteur"</string>
@@ -211,6 +211,12 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Annuler"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Définir"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">" :"</string>
+    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
+    <skip />
+    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
+    <skip />
+    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Îles Marshall"</item>
     <item msgid="4196408495909011020">"Atoll de Midway"</item>

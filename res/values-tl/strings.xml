@@ -38,8 +38,7 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Pinatahimik ang alarm pagkatapos ng <xliff:g id="MINUTES">%d</xliff:g> (na) minuto."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"I-snooze"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Pag-snooze hanggang <xliff:g id="MINUTES">%d</xliff:g> (na) minuto."</string>
-    <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
-    <skip />
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Nag-i-snooze hanggang <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Nakatakda ang alarm nang mas maikli sa 1 minuto mula ngayon."</item>
     <item msgid="6002066367368421848">"Nakatakda ang alarm sa <xliff:g id="DAYS">%1$s</xliff:g> mula ngayon."</item>
@@ -212,6 +211,12 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Kanselahin"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Itakda"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
+    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
+    <skip />
+    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
+    <skip />
+    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshall Islands"</item>
     <item msgid="4196408495909011020">"Midway Island"</item>
@@ -300,18 +305,11 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"MGA ALARMA"</string>
     <string name="see_all" msgid="775983396630163739">"Tingnan lahat…"</string>
-    <!-- no translation found for stopwatch_service_desc (8416624630388063996) -->
-    <skip />
-    <!-- no translation found for stopwatch_title (3246663609895204068) -->
-    <skip />
-    <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
-    <skip />
-    <!-- no translation found for description_direction_right (1615911557926085934) -->
-    <skip />
-    <!-- no translation found for description_direction_left (6328816971226781776) -->
-    <skip />
-    <!-- no translation found for description_direction_up (7875287578324520904) -->
-    <skip />
-    <!-- no translation found for description_direction_down (8240473964024874053) -->
-    <skip />
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Serbisyo ng stopwatch upang patakbuhin ang notification."</string>
+    <string name="stopwatch_title" msgid="3246663609895204068">"Stopwatch"</string>
+    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Mag-slide pakanan upang i-dismiss"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Mag-slide pakaliwa upang mag-snooze"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Mag-slide pataas upang i-dismiss"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Mag-slide pababa upang mag-snooze"</string>
 </resources>
