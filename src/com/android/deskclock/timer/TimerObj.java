@@ -179,7 +179,7 @@ public class TimerObj implements Parcelable {
     public void addTime(long time) {
         mTimeLeft = mOriginalLength - (System.currentTimeMillis() - mStartTime);
         if (mTimeLeft < MAX_TIMER_LENGTH - time) {
-                mStartTime += time;
+                mOriginalLength += time;
         }
     }
 
