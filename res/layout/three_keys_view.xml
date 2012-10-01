@@ -22,7 +22,7 @@
         android:id="@+id/key_left"
         android:layout_width="0dip"
         android:layout_weight="1"
-        style="@style/button"
+        style="@style/dialpad"
         android:background="?android:attr/selectableItemBackground"
         android:layout_height="match_parent" />
     <Button
@@ -30,13 +30,13 @@
         android:background="?android:attr/selectableItemBackground"
         android:layout_width="0dip"
         android:layout_weight="1"
-        style="@style/button"
+        style="@style/dialpad"
         android:layout_height="match_parent" />
     <Button
         android:id="@+id/key_right"
         android:background="?android:attr/selectableItemBackground"
         android:layout_weight="1"
         android:layout_width="0dip"
-        style="@style/button"
+        style="@style/dialpad"
         android:layout_height="match_parent" />
 </LinearLayout>

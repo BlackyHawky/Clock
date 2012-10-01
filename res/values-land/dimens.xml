@@ -31,6 +31,8 @@
     <dimen name="font_margin_adjust">8dip</dimen>
     <dimen name="next_alarm_margin_top">-5dip</dimen>
 
+    <dimen name="dialpad_font_size">24sp</dimen>
+
     <dimen name="timer_circle_diameter">240dip</dimen>
     <dimen name="actionbar_tab_padding">50dip</dimen>
 
