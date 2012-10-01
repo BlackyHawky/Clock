@@ -167,6 +167,12 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
+    <style name="dialpad">
+        <item name="android:textSize">@dimen/dialpad_font_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
     <style name="tablet_dialpad">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>
         <item name="android:textAllCaps">true</item>
