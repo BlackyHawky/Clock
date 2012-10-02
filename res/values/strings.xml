@@ -611,6 +611,7 @@
      <string name="stopwatch_service_desc">Stopwatch service to run the notification.</string>
      <string name="stopwatch_title">Stopwatch</string>
      <string name="swn_collapsed_laps_divider">" - "</string>
+     <string name="swn_stopped">Stopped</string>
 
     <!-- Description of the right direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
     <string name="description_direction_right">Slide right to dismiss</string>
