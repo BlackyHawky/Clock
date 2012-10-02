@@ -39,6 +39,17 @@ public class Timers {
 
     public static final String TIMER_INTENT_EXTRA = "timer.intent.extra";
 
+    public static final String NOTIF_UPDATE = "notif_update";
+    public static final String NOTIF_TIME = "timer_notif_time";
+    public static final String NOTIF_ID = "timer_notif_id";
+    public static final String NOTIF_LABEL = "timer_notif_label";
+    public static final String NOTIF_IN_USE_SHOW = "notif_in_use_show";
+    public static final String NOTIF_IN_USE_CANCEL = "notif_in_use_cancel";
+    public static final String NOTIF_APP_OPEN = "notif_app_open";
+    public static final String FROM_NOTIFICATION = "from_notification";
+    public static final String UPDATE_NOTIFICATION = "update_notification";
+
+
     public static TimerObj findTimer(ArrayList<TimerObj> timers, int timerId) {
         Iterator<TimerObj> i = timers.iterator();
         while(i.hasNext()) {
@@ -58,5 +69,17 @@ public class Timers {
             }
         }
         return null;
+    }
+
+    public static ArrayList<TimerObj> timersInUse(ArrayList<TimerObj> timers) {
+        ArrayList<TimerObj> result = (ArrayList<TimerObj>) timers.clone();
+        Iterator<TimerObj> it = result.iterator();
+        while(it.hasNext()) {
+            TimerObj timer = it.next();
+            if (!timer.isInUse()) {
+                it.remove();
+            }
+        }
+        return result;
     }
 }

@@ -43,6 +43,7 @@ import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFragment;
+import com.android.deskclock.timer.Timers;
 
 import java.util.ArrayList;
 import java.util.TimeZone;
@@ -216,9 +217,17 @@ public class DeskClock extends Activity {
     protected void onResume() {
         super.onResume();
         setClockState(false);
-        Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
-        intent.setAction(Stopwatches.KILL_NOTIF);
-        startService(intent);
+        Intent stopwatchIntent = new Intent(getApplicationContext(), StopwatchService.class);
+        stopwatchIntent.setAction(Stopwatches.KILL_NOTIF);
+        startService(stopwatchIntent);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(Timers.NOTIF_APP_OPEN, true);
+        editor.apply();
+        Intent timerIntent = new Intent();
+        timerIntent.setAction(Timers.NOTIF_IN_USE_CANCEL);
+        sendBroadcast(timerIntent);
     }
 
     @Override
@@ -226,6 +235,15 @@ public class DeskClock extends Activity {
         Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
         intent.setAction(Stopwatches.SHOW_NOTIF);
         startService(intent);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean(Timers.NOTIF_APP_OPEN, false);
+        editor.apply();
+        Intent timerIntent = new Intent();
+        timerIntent.setAction(Timers.NOTIF_IN_USE_SHOW);
+        sendBroadcast(timerIntent);
+
         super.onPause();
     }
 
