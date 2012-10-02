@@ -20,26 +20,19 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PorterDuff;
-import android.os.BatteryManager;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.service.dreams.DreamService;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.TextView;
 
 public class Screensaver extends DreamService {
     static final boolean DEBUG = false;
@@ -202,7 +195,7 @@ public class Screensaver extends DreamService {
 
     private void setClockStyle() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String style = sharedPref.getString(SettingsActivity.KEY_CLOCK_STYLE, "analog");
+        String style = sharedPref.getString(ScreensaverSettingsActivity.KEY_CLOCK_STYLE, "analog");
         if (style.equals("analog")) {
             mDigitalClock.setVisibility(View.GONE);
             mAnalogClock.setVisibility(View.VISIBLE);
@@ -212,8 +205,15 @@ public class Screensaver extends DreamService {
             mAnalogClock.setVisibility(View.GONE);
             mSaverView = mDigitalClock;
         }
-    }
+        boolean night = sharedPref.getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
 
+        if (night) {
+            Paint paint = new Paint();
+            paint.setColor(Color.WHITE);
+            paint.setColorFilter(new PorterDuffColorFilter(0x60FFFFFF, PorterDuff.Mode.MULTIPLY));
+            mSaverView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+        }
+    }
 
     private void layoutClockSaver() {
         setContentView(R.layout.desk_clock_saver);
@@ -223,5 +223,4 @@ public class Screensaver extends DreamService {
         mContentView = (View) mSaverView.getParent();
         mSaverView.setAlpha(0);
     }
-
 }
