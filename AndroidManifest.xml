@@ -173,6 +173,8 @@
                 <action android:name="timer_reset" />
                 <action android:name="timer_done" />
                 <action android:name="timer_update" />
+                <action android:name="notif_in_use_show" />
+                <action android:name="notif_in_use_cancel" />
             </intent-filter>
         </receiver>
 
