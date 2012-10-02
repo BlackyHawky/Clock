@@ -16,9 +16,11 @@
 
 package com.android.deskclock.timer;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -34,11 +36,12 @@ import android.widget.ListView;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
+import com.android.deskclock.stopwatch.Stopwatches;
 
 import java.util.ArrayList;
 
 
-public class TimerFragment extends DeskClockFragment implements OnClickListener {
+public class TimerFragment extends DeskClockFragment implements OnClickListener, OnSharedPreferenceChangeListener {
 
     private static final String TAG = "TimerFragment";
     private ListView mTimersList;
@@ -48,6 +51,8 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
     private TimerSetupView mTimerSetup;
     private TimersListAdapter mAdapter;
     private boolean mTicking = false;
+    private SharedPreferences mPrefs;
+    private NotificationManager mNotificationManager;
 
     public TimerFragment() {
     }
@@ -71,10 +76,12 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
         ArrayList<TimerObj> mTimers = new ArrayList<TimerObj> ();
         private final LayoutInflater mInflater;
         Context mContext;
+        SharedPreferences mmPrefs;
 
-        public TimersListAdapter(Context context) {
+        public TimersListAdapter(Context context, SharedPreferences prefs) {
             mContext = context;
             mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mmPrefs = prefs;
         }
 
         @Override
@@ -100,7 +107,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 TimerObj t = mTimers.get(i);
                 if (t.mTimerId == id) {
                     ((TimerListItem)t.mView).stop();
-                    t.deleteFromSharedPref(PreferenceManager.getDefaultSharedPreferences(mContext));
+                    t.deleteFromSharedPref(mmPrefs);
                     mTimers.remove(i);
                     notifyDataSetChanged();
                     return;
@@ -145,19 +152,16 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
         }
 
         public void onSaveInstanceState(Bundle outState) {
-            TimerObj.putTimersInSharedPrefs(
-                    PreferenceManager.getDefaultSharedPreferences(mContext), mTimers);
+            TimerObj.putTimersInSharedPrefs(mmPrefs, mTimers);
         }
 
         public void onRestoreInstanceState(Bundle outState) {
-            TimerObj.getTimersFromSharedPrefs(
-                    PreferenceManager.getDefaultSharedPreferences(mContext), mTimers);
+            TimerObj.getTimersFromSharedPrefs(mmPrefs, mTimers);
             notifyDataSetChanged();
         }
 
         public void saveGlobalState() {
-            TimerObj.putTimersInSharedPrefs(
-                    PreferenceManager.getDefaultSharedPreferences(mContext), mTimers);
+            TimerObj.putTimersInSharedPrefs(mmPrefs, mTimers);
         }
     }
 
@@ -191,9 +195,6 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.timer_fragment, container, false);
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
-        mAdapter = new TimersListAdapter(getActivity());
-        mAdapter.onRestoreInstanceState(savedInstanceState);
-        mTimersList.setAdapter(mAdapter);
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
         mTimersListPage = v.findViewById(R.id.timers_list_page);
         mTimerSetup = (TimerSetupView)v.findViewById(R.id.timer_setup);
@@ -206,9 +207,6 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 }
             }
         });
-        if (mAdapter.getCount() == 0) {
-            mCancel.setVisibility(View.INVISIBLE);
-        }
         mStart = (Button)v.findViewById(R.id.timer_start);
         mStart.setOnClickListener(new OnClickListener() {
             @Override
@@ -237,12 +235,42 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
             }
 
         });
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mNotificationManager = (NotificationManager)
+                getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        mPrefs.registerOnSharedPreferenceChangeListener(this);
+
+        mAdapter = new TimersListAdapter(getActivity(), mPrefs);
+        mAdapter.onRestoreInstanceState(null);
+
+        if (mPrefs.getBoolean(Timers.FROM_NOTIFICATION, false)) {
+            // We need to know if this onresume is being called by the user clicking a
+            // buzzing timer notification. If so, we need to set that timer to have "stopped"
+            // at the moment the notification was hit.
+            long now = mPrefs.getLong(Timers.NOTIF_TIME, System.currentTimeMillis());
+            int timerId = mPrefs.getInt(Timers.NOTIF_ID, -1);
+            if (timerId != -1) {
+                TimerObj t = Timers.findTimer(mAdapter.mTimers, timerId);
+                t.mTimeLeft = t.mOriginalLength - (now - t.mStartTime);
+                cancelTimerNotification(timerId);
+            }
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(Timers.FROM_NOTIFICATION, false);
+            editor.apply();
+        }
+
+        mTimersList.setAdapter(mAdapter);
+        if (mAdapter.getCount() == 0) {
+            mCancel.setVisibility(View.INVISIBLE);
+        }
+
         setPage();
     }
 
@@ -251,6 +279,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
         super.onPause();
         stopClockTicks();
         saveGlobalState();
+        mPrefs.unregisterOnSharedPreferenceChangeListener(this);
     }
 
     @Override
@@ -377,6 +406,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
                 t.mState = TimerObj.STATE_DONE;
                 ((TimerListItem) t.mView).stop();
                 updateTimersState(t, Timers.TIMER_DONE);
+                cancelTimerNotification(t.mTimerId);
                 break;
             case TimerObj.STATE_DONE:
                 break;
@@ -446,12 +476,46 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener 
 
     private void updateTimersState(TimerObj t, String action) {
         if (!Timers.DELETE_TIMER.equals(action)) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            t.writeToSharedPref(prefs);
+            t.writeToSharedPref(mPrefs);
         }
         Intent i = new Intent();
         i.setAction(action);
         i.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
         getActivity().sendBroadcast(i);
     }
+
+    private void cancelTimerNotification(int timerId) {
+        mNotificationManager.cancel(timerId);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+        if (prefs.equals(mPrefs)) {
+            if ( (key.equals(Timers.FROM_NOTIFICATION) || key.equals(Timers.NOTIF_ID)
+                    || key.equals(Timers.NOTIF_TIME)) &&
+                    prefs.getBoolean(Timers.FROM_NOTIFICATION, false) ) {
+                // We need to know if the user has clicked the buzzing timer notification
+                // while the fragment is still open. If so, this listener will catch that event,
+                // and allow the timers to be re-instated based on the updated stop time.
+                // Because this method gets called with every change to the sharedprefs, we ensure
+                // that we only recalculate the timers if the change was specifically set by the
+                // user interacting with the notification.
+                long now = prefs.getLong(Timers.NOTIF_TIME, System.currentTimeMillis());
+                int timerId = prefs.getInt(Timers.NOTIF_ID, -1);
+                mAdapter = new TimersListAdapter(getActivity(), mPrefs);
+                mAdapter.onRestoreInstanceState(null);
+                if (timerId != -1) {
+                    TimerObj t = Timers.findTimer(mAdapter.mTimers, timerId);
+                    t.mTimeLeft = t.mOriginalLength - (now - t.mStartTime);
+                    cancelTimerNotification(timerId);
+                }
+                mTimersList.setAdapter(mAdapter);
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(Timers.FROM_NOTIFICATION, false);
+                editor.apply();
+            }
+        }
+    }
+
+
 }

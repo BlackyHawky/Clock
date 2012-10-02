@@ -98,6 +98,14 @@
          7: days hours minutes
     --><skip />
 
+    <!-- Timer notification: how long from now until timer goes off. -->
+    <string-array name="timer_notifications">
+        <item>Less than a minute remaining</item>
+        <item><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> remaining</item>
+        <item><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</item>
+        <item><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</item>
+    </string-array>
+
     <!-- Alarm confirmation toast: Describes how long from now until
          alarm fires -->
     <string-array name="alarm_set">
@@ -612,5 +620,16 @@
     <string name="description_direction_up">Slide up to dismiss</string>
     <!-- Description of the down direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
     <string name="description_direction_down">Slide down to snooze</string>
+
+    <!-- Notification title when timer is stopped. -->
+    <string name="timer_stopped">Timer stopped</string>
+    <!-- Notification title when multiple timers are stopped. -->
+    <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers stopped</string>
+    <!-- Notification text when multiple timers are stopped. -->
+    <string name="all_timers_stopped_notif">Touch to see your timers</string>
+    <!-- Notification title when at least one timer, of those in use, is counting down. -->
+    <string name="timers_in_use"><xliff:g id="number" example="7">%d</xliff:g> timers</string>
+    <!-- Notification text when at least one timer, of those in use, is counting down. -->
+    <string name="next_timer_notif">Next Timer: <xliff:g id="time_remaining" example="2 minutes remaining">%s</xliff:g></string>
 </resources>
 
