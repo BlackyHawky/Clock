@@ -87,6 +87,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
         android:background="#28ffffff" />
     <include layout="@layout/three_keys_view"
         android:id="@+id/first" />
