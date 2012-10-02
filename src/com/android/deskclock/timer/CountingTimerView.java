@@ -22,7 +22,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.android.deskclock.R;
@@ -33,8 +32,10 @@ public class CountingTimerView extends View {
     private static final String ONE_DIGIT = "%01d";
     private static final String NEG_TWO_DIGITS = "-%02d";
     private static final String NEG_ONE_DIGIT = "-%01d";
-    private static final float TEXT_SIZE_TO_WIDTH_RATIO = 0.7f;
-
+    private static final float TEXT_SIZE_TO_WIDTH_RATIO = 0.75f;
+    // This is the ratio of the font typeface we need to offset the font by vertically to align it
+    // vertically center.
+    private static final float FONT_VERTICAL_OFFSET = 0.14f;
 
     private String mHours, mMinutes, mSeconds, mHunderdths;
     private final String mHoursLabel, mMinutesLabel, mSecondsLabel;
@@ -47,7 +48,7 @@ public class CountingTimerView extends View {
     private final Paint mPaintBigThin = new Paint();
     private final Paint mPaintMed = new Paint();
     private final Paint mPaintLabel = new Paint();
-    private float mHalfTextHeight = 0;
+    private float mTextHeight = 0;
     private float mTotalTextWidth;
     private static final String HUNDREDTH_SEPERATOR = ".";
     private boolean mRemeasureText = true;
@@ -84,9 +85,9 @@ public class CountingTimerView extends View {
         mPaintBig.setColor(r.getColor(R.color.clock_white));
         mPaintBig.setTextAlign(Paint.Align.LEFT);
         mPaintBig.setTypeface(mRobotoBold);
-        mPaintBig.setTextSize(r.getDimension(R.dimen.big_font_size));
-        mHalfTextHeight = 60;
-
+        float bigFontSize = r.getDimension(R.dimen.big_font_size);
+        mPaintBig.setTextSize(bigFontSize);
+        mTextHeight = bigFontSize;
         mPaintBigThin.setAntiAlias(true);
         mPaintBigThin.setStyle(Paint.Style.STROKE);
         mPaintBigThin.setColor(r.getColor(R.color.clock_white));
@@ -216,7 +217,10 @@ public class CountingTimerView extends View {
         }
 
         // This is a hack: if the text is too wide, reduce all the paint text sizes
-        int width = getWidth();
+        // To determine the maximum width, we find the minimum of the height and width (since the
+        // circle we are trying to fit the text into has its radius sized to the smaller of the
+        // two.
+        int width = Math.min(getWidth(), getHeight());
         if (width != 0) {
             float ratio = mTotalTextWidth / width;
             if (ratio > TEXT_SIZE_TO_WIDTH_RATIO) {
@@ -224,16 +228,17 @@ public class CountingTimerView extends View {
                 mPaintBig.setTextSize( mPaintBig.getTextSize() * sizeRatio);
                 mPaintBigThin.setTextSize( mPaintBigThin.getTextSize() * sizeRatio);
                 mPaintMed.setTextSize( mPaintMed.getTextSize() * sizeRatio);
-                mPaintLabel.setTextSize( mPaintLabel.getTextSize() * sizeRatio);
                 mTotalTextWidth *= sizeRatio;
                 mMinutesWidth *= sizeRatio;
                 mHoursWidth *= sizeRatio;
                 mSecondsWidth *= sizeRatio;
                 mHundredthsWidth *= sizeRatio;
-                mHoursLabelWidth *= sizeRatio;
-                mMinutesLabelWidth *= sizeRatio;
-                mSecondsLabelWidth *= sizeRatio;
                 mHundredthsSepWidth *= sizeRatio;
+                //recalculate the new total text width and half text height
+                mTotalTextWidth = mHoursWidth + mMinutesWidth + mSecondsWidth +
+                        mHundredthsWidth + mHundredthsSepWidth + mHoursLabelWidth +
+                        mMinutesLabelWidth + mSecondsLabelWidth;
+                mTextHeight = mPaintBig.getTextSize();
             }
         }
     }
@@ -267,10 +272,10 @@ public class CountingTimerView extends View {
 
     @Override
     public void onDraw(Canvas canvas) {
-
         int width = getWidth();
         if (mRemeasureText && width != 0) {
             setTotalTextWidth();
+            width = getWidth();
             mRemeasureText = false;
         }
 
@@ -278,23 +283,26 @@ public class CountingTimerView extends View {
         int yCenter = getHeight() / 2;
 
         float textXstart = xCenter - mTotalTextWidth / 2;
-        float textYstart = yCenter + mHalfTextHeight;
+        float textYstart = yCenter + mTextHeight/2 - (mTextHeight * FONT_VERTICAL_OFFSET);
+        // align the labels vertically to the top of the rest of the text
+        float labelYStart = textYstart - (mTextHeight * (1 - 2 * FONT_VERTICAL_OFFSET))
+                + (1 - 2 * FONT_VERTICAL_OFFSET) * mPaintLabel.getTextSize();
         if (mHours != null) {
             canvas.drawText(mHours, textXstart, textYstart, mPaintBig);
             textXstart += mHoursWidth;
-            canvas.drawText(mHoursLabel, textXstart, textYstart, mPaintLabel);
+            canvas.drawText(mHoursLabel, textXstart, labelYStart, mPaintLabel);
             textXstart += mHoursLabelWidth;
         }
         if (mMinutes != null) {
             canvas.drawText(mMinutes, textXstart, textYstart, mPaintBig);
             textXstart += mMinutesWidth;
-            canvas.drawText(mMinutesLabel, textXstart, textYstart, mPaintLabel);
+            canvas.drawText(mMinutesLabel, textXstart, labelYStart, mPaintLabel);
             textXstart += mMinutesLabelWidth;
         }
         if (mSeconds != null) {
             canvas.drawText(mSeconds, textXstart, textYstart, mPaintBigThin);
             textXstart += mSecondsWidth;
-            canvas.drawText(mSecondsLabel, textXstart, textYstart, mPaintLabel);
+            canvas.drawText(mSecondsLabel, textXstart, labelYStart, mPaintLabel);
             textXstart += mSecondsLabelWidth;
         }
         if (mHunderdths != null) {
@@ -302,5 +310,6 @@ public class CountingTimerView extends View {
             textXstart += mHundredthsSepWidth;
             canvas.drawText(mHunderdths, textXstart, textYstart, mPaintMed);
         }
+
     }
 }
