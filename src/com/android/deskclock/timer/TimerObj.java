@@ -173,8 +173,11 @@ public class TimerObj implements Parcelable {
         mLabel = "";
     }
 
-    public long updateTimeLeft() {
-        mTimeLeft = mOriginalLength - (System.currentTimeMillis() - mStartTime);
+    public long updateTimeLeft(boolean forceUpdate) {
+        if (isTicking() || forceUpdate) {
+            long millis = System.currentTimeMillis();
+            mTimeLeft = mOriginalLength - (millis - mStartTime);
+        }
         return mTimeLeft;
     }
 
