@@ -133,6 +133,23 @@ public class CountingTimerView extends View {
             neg = false;
         }
         // TODO: must build to account for localization
+        if (!showHundredths) {
+            if (!neg && hundreds != 0) {
+                seconds++;
+                if (seconds == 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes == 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                }
+            }
+            if (hundreds < 10 || hundreds > 90) {
+                update = true;
+            }
+        }
+
         if (hours >= 10) {
             format = neg ? NEG_TWO_DIGITS : TWO_DIGITS;
             mHours = String.format(format, hours);
