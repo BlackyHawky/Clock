@@ -18,8 +18,6 @@ package com.android.deskclock;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -31,7 +29,6 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,8 +37,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TimePicker;
-import android.widget.Toast;
 
 /**
  * Manages each alarm
@@ -141,7 +136,7 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
                     public void onClick(View v) {
                         long time = saveAlarm(null);
                         if(mEnabledPref.isChecked()) {
-                            popAlarmSetToast(SetAlarm.this, time);
+                            AlarmUtils.popAlarmSetToast(SetAlarm.this, time);
                         }
                         finish();
                     }
@@ -375,27 +370,9 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
     private void saveAndExit() {
         long time = saveAlarm(null);
         if(mEnabledPref.isChecked()) {
-            popAlarmSetToast(SetAlarm.this, time);
+            AlarmUtils.popAlarmSetToast(SetAlarm.this, time);
         }
         finish();
-    }
-
-    /**
-     * Display a toast that tells the user how long until the alarm
-     * goes off.  This helps prevent "am/pm" mistakes.
-     */
-    static void popAlarmSetToast(Context context, int hour, int minute,
-                                 Alarm.DaysOfWeek daysOfWeek) {
-        popAlarmSetToast(context,
-                Alarms.calculateAlarm(hour, minute, daysOfWeek)
-                .getTimeInMillis());
-    }
-
-    static void popAlarmSetToast(Context context, long timeInMillis) {
-        String toastText = formatToast(context, timeInMillis);
-        Toast toast = Toast.makeText(context, toastText, Toast.LENGTH_LONG);
-        ToastMaster.setToast(toast);
-        toast.show();
     }
 
     /**
