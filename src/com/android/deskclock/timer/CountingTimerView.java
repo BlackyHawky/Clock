@@ -110,12 +110,12 @@ public class CountingTimerView extends View {
 
     }
 
-    public void setTime(long time, boolean showHundredths) {
-        boolean neg = false;
+    public void setTime(long time, boolean showHundredths, boolean update) {
+        boolean neg = false, showNeg = false;
         String format = null;
         if (time < 0) {
             time = -time;
-            neg = true;
+            neg = showNeg = true;
         }
         long hundreds, seconds, minutes, hours;
         seconds = time / 1000;
@@ -130,7 +130,7 @@ public class CountingTimerView extends View {
         // time may less than a second below zero, since we do not show fractions of seconds
         // when counting down, do not show the minus sign.
         if (hours ==0 && minutes == 0 && seconds == 0) {
-            neg = false;
+            showNeg = false;
         }
         // TODO: must build to account for localization
         if (!showHundredths) {
@@ -151,23 +151,31 @@ public class CountingTimerView extends View {
         }
 
         if (hours >= 10) {
-            format = neg ? NEG_TWO_DIGITS : TWO_DIGITS;
+            format = showNeg ? NEG_TWO_DIGITS : TWO_DIGITS;
             mHours = String.format(format, hours);
         } else if (hours > 0) {
-            format = neg ? NEG_ONE_DIGIT : ONE_DIGIT;
+            format = showNeg ? NEG_ONE_DIGIT : ONE_DIGIT;
             mHours = String.format(format, hours);
         } else {
             mHours = null;
         }
 
         if (minutes >= 10 || hours > 0) {
-            format = (neg && hours == 0) ? NEG_TWO_DIGITS : TWO_DIGITS;
+            format = (showNeg && hours == 0) ? NEG_TWO_DIGITS : TWO_DIGITS;
             mMinutes = String.format(format, minutes);
         } else {
-            format = (neg && hours == 0) ? NEG_ONE_DIGIT : ONE_DIGIT;
+            format = (showNeg && hours == 0) ? NEG_ONE_DIGIT : ONE_DIGIT;
             mMinutes = String.format(format, minutes);
         }
 
+        if (!showHundredths) {
+            if (!neg && hundreds != 0) {
+                seconds++;
+            }
+            if (hundreds < 10 || hundreds > 90) {
+                update = true;
+            }
+        }
         mSeconds = String.format(TWO_DIGITS, seconds);
         if (showHundredths) {
             mHunderdths = String.format(TWO_DIGITS, hundreds);
@@ -175,7 +183,10 @@ public class CountingTimerView extends View {
             mHunderdths = null;
         }
         mRemeasureText = true;
-        invalidate();
+
+        if (update) {
+            invalidate();
+        }
     }
     private void setTotalTextWidth() {
         mTotalTextWidth = 0;
