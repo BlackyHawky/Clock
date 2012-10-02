@@ -39,6 +39,12 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Snoozar i <xliff:g id="MINUTES">%d</xliff:g> minuter."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Viloläge till <xliff:g id="TIME">%s</xliff:g>"</string>
+  <string-array name="timer_notifications">
+    <item msgid="7760558912503484257">"Mindre än en minut kvar"</item>
+    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> timmar kvar"</item>
+    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> minuter kvar"</item>
+    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> kvar"</item>
+  </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarmet ringer om mindre än 1 minut från och med nu."</item>
     <item msgid="6002066367368421848">"Alarmet ringer om <xliff:g id="DAYS">%1$s</xliff:g> från och med nu."</item>
@@ -211,6 +217,9 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Avbryt"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Ange"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
+    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
+    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
+    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshallöarna"</item>
     <item msgid="4196408495909011020">"Midwayöarna"</item>
@@ -306,4 +315,15 @@
     <string name="description_direction_left" msgid="6328816971226781776">"Dra åt vänster om du vill sätta alarmet i viloläge"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Dra uppåt om du vill stänga av alarmet"</string>
     <string name="description_direction_down" msgid="8240473964024874053">"Dra nedåt om du vill sätta alarmet i viloläge"</string>
+    <string name="timer_stopped" msgid="2730331837832462008">"Timern stannade"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> timer stannade"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Visa timer genom att trycka"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
+    <string name="next_timer_notif" msgid="5372774263467787736">"Näst timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <!-- no translation found for screensaver_settings (7013450738357352801) -->
+    <skip />
+    <!-- no translation found for night_mode_title (5983813889469616299) -->
+    <skip />
+    <!-- no translation found for night_mode_summary (1017350187324162631) -->
+    <skip />
 </resources>
