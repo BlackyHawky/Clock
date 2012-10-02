@@ -114,7 +114,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"የአየር ጠባይ መረጃ አሁን አይገኝም፡፡"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"በጠረጴዛ ሰዓት ለተዘጋጁ ማንቂያ ደውሎች የዳግም አጫዋት አገልግሎት ድምፅ አሰማ።"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"የስልክ ጥሪ ድምፅ በመስቀል ላይ...."</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"በሰዓት ውስጥ ለተዘጋጁ የሰዓት ቆጣሪዎች ማንቂያ ደውሎች መልሶ ማጫወት አሰማ።"</string>
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"ድምጽ መልሶ የማጫወት አገልግሎት በሰዓት ውስጥ ለተዘጋጁ የሰዓት ቆጣሪዎች።"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"የማንቂያ ደወልአዘጋጅ"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"ቀጣዩ የማንቂያ ደወል፦ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"ሰዓት ቆጣሪ"</string>

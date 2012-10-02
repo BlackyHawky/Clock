@@ -299,7 +299,7 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMER"</string>
     <string name="see_all" msgid="775983396630163739">"Se alle"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stoppeklokketjenesten som skal kjøre varselet."</string>
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stoppeklokke for å kjøre varslet."</string>
     <string name="stopwatch_title" msgid="3246663609895204068">"Stoppeklokke"</string>
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" – "</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Dra til høyre for å avvise"</string>
