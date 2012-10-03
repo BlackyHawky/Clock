@@ -75,26 +75,34 @@
         </com.android.deskclock.DigitalClock>
     </LinearLayout>
 
-    <com.android.deskclock.widget.multiwaveview.GlowPadView
-        android:id="@+id/glow_pad_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/glowpadview_margin_bottom"
-        android:focusable="true"
-        android:layout_alignParentBottom="true"
+    <Button
+        android:id="@+id/snooze"
+        style="@style/button"
         android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/alarm_alert_display_width"
+        android:layout_height="96dip"
+        android:layout_above="@+id/ok"
+        android:background="@+drawable/btn_alarm_alert"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:text="@string/alarm_alert_snooze_text"
+        android:textColor="@color/black" />
 
-        dc:targetDrawables="@array/snooze_dismiss_drawables"
-        dc:targetDescriptions="@array/snooze_dismiss_descriptions"
-        dc:directionDescriptions="@array/snooze_dismiss_direction_descriptions"
-        dc:handleDrawable="@drawable/ic_alarm_alert_touch_handle"
-        dc:outerRingDrawable="@null"
-        dc:outerRadius="@dimen/glowpadview_target_placement_radius"
-        dc:innerRadius="@dimen/glowpadview_inner_radius"
-        dc:snapMargin="@dimen/glowpadview_snap_margin"
-        dc:feedbackCount="1"
-        dc:vibrationDuration="20"
-        dc:glowRadius="@dimen/glowpadview_glow_radius"
-        dc:pointDrawable="@drawable/ic_lockscreen_glowdot"
-        />
+    <Button
+        android:id="@+id/ok"
+        style="@style/button"
+        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/alarm_alert_display_width"
+        android:layout_height="48dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="24dip"
+        android:layout_marginTop="24dip"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:background="@+drawable/btn_alarm_alert"
+        android:gravity="center"
+        android:text="@android:string/ok"
+        android:textColor="@color/black" />
+
 </RelativeLayout>
