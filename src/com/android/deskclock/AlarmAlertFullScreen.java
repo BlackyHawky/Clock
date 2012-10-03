@@ -18,18 +18,17 @@ package com.android.deskclock;
 
 import android.app.Activity;
 import android.app.Notification;
-import android.app.Notification.Builder;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,8 +202,8 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         .setAutoCancel(false)
         .setPriority(Notification.PRIORITY_MAX)
         .setWhen(0)
-        .addAction(android.R.drawable.ic_menu_close_clear_cancel, 
-                getResources().getString(R.string.alarm_alert_dismiss_text), 
+        .addAction(android.R.drawable.ic_menu_close_clear_cancel,
+                getResources().getString(R.string.alarm_alert_dismiss_text),
                 PendingIntent.getBroadcast(this, mAlarm.id, dismissIntent, 0))
         .build();
         notif.contentIntent = PendingIntent.getActivity(this, mAlarm.id, openAlarm, 0);
@@ -253,6 +252,12 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         mAlarm = intent.getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
 
         setTitle();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        updateLayout();
+        super.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -349,4 +354,5 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
     @Override
     public void onFinishFinalAnimation() {
     }
+
 }
