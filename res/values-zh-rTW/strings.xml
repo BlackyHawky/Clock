@@ -39,6 +39,10 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"貪睡"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"再貪睡 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。"</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"延後到 <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for timer_notifications:0 (7760558912503484257) -->
+    <!-- no translation found for timer_notifications:1 (83197792732433351) -->
+    <!-- no translation found for timer_notifications:2 (8919698220200894252) -->
+    <!-- no translation found for timer_notifications:3 (8458069283817013813) -->
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"已將鬧鐘設定在 1 分鐘內啟動。"</item>
     <item msgid="6002066367368421848">"已將鬧鐘設定在 <xliff:g id="DAYS">%1$s</xliff:g>後啟動。"</item>
@@ -114,7 +118,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"目前無法取得天氣資訊。"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"在「時鐘」設定的鬧鐘鈴聲播放服務。"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"正在載入鈴聲…"</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"在「時鐘」設定的計時器音效播放服務。"</string>
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"「時鐘」設定的計時器音效播放服務。"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"設定鬧鐘"</string>
     <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"下次鬧鐘時間：<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="menu_timer" msgid="6459070074762877114">"計時器"</string>
@@ -211,6 +215,12 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"取消"</string>
     <string name="time_picker_set" msgid="277860606472289828">"設定"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
+    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
+    <skip />
+    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
+    <skip />
+    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
+    <skip />
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"馬歇爾群島"</item>
     <item msgid="4196408495909011020">"中途島"</item>
@@ -306,4 +316,20 @@
     <string name="description_direction_left" msgid="6328816971226781776">"向左滑動即可延後鈴響"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"向上滑動即可關閉鈴響"</string>
     <string name="description_direction_down" msgid="8240473964024874053">"向下滑動即可延後鈴響"</string>
+    <!-- no translation found for timer_stopped (2730331837832462008) -->
+    <skip />
+    <!-- no translation found for timers_stopped (2393640808691864520) -->
+    <skip />
+    <!-- no translation found for all_timers_stopped_notif (278532320068394600) -->
+    <skip />
+    <!-- no translation found for timers_in_use (5570729467344408506) -->
+    <skip />
+    <!-- no translation found for next_timer_notif (5372774263467787736) -->
+    <skip />
+    <!-- no translation found for screensaver_settings (7013450738357352801) -->
+    <skip />
+    <!-- no translation found for night_mode_title (5983813889469616299) -->
+    <skip />
+    <!-- no translation found for night_mode_summary (1017350187324162631) -->
+    <skip />
 </resources>
