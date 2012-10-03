@@ -17,30 +17,24 @@
 package com.android.deskclock.timer;
 
 import android.app.AlarmManager;
+import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.android.deskclock.Alarm;
-import com.android.deskclock.AlarmKlaxon;
-import com.android.deskclock.Alarms;
+import com.android.deskclock.AlarmAlertFullScreen;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerRingService;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 public class TimerReceiver extends BroadcastReceiver {
     private static final String TAG = "TimerReceiver";
@@ -116,7 +110,7 @@ public class TimerReceiver extends BroadcastReceiver {
 
             t.mState = TimerObj.STATE_TIMESUP;
             t.writeToSharedPref(prefs);
-            // Play ringtone by using AlarmKlaxon service with a default alarm.
+            // Play ringtone by using TimerRingService service with a default alarm.
             Log.d(TAG, "playing ringtone");
             Intent si = new Intent();
             si.setClass(context, TimerRingService.class);
@@ -135,12 +129,20 @@ public class TimerReceiver extends BroadcastReceiver {
             showCollapsedNotification(context, label, contentText, Notification.PRIORITY_MAX,
                     pendingBroadcastIntent, t.mTimerId);
 
-            // Start the DeskClock Activity
-            Intent i = new Intent();
-            i.setClass(context, DeskClock.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
-            context.startActivity(i);
+            KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+            if (!km.inKeyguardRestrictedInputMode()) {
+                // Start the DeskClock Activity
+                Intent i = new Intent();
+                i.setClass(context, DeskClock.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                i.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
+                context.startActivity(i);
+            } else {
+                // Start the TimerAlertFullScreen activity.
+                Intent timersAlert = new Intent(context, TimerAlertFullScreen.class);
+                timersAlert.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                context.startActivity(timersAlert);
+            }
 
             // Cancel the inuse notification if none are inuse.
             if (getNextRunningTimer(mTimers, false, System.currentTimeMillis()) == null) {

@@ -169,6 +169,15 @@
             </intent-filter>
         </activity>
 
+        <!-- This activity is basically like the TimerFragment in DeskClock
+         but only during lock screen
+         so that is only has the fired timers -->
+        <activity android:name="com.android.deskclock.timer.TimerAlertFullScreen"
+                android:excludeFromRecents="true"
+                android:theme="@style/AlarmAlertFullScreenTheme"
+                android:launchMode="singleInstance"
+                android:taskAffinity=""/>
+
         <service android:name="TimerRingService"
                 android:exported="false"
                 android:description="@string/timer_ring_service_desc">
