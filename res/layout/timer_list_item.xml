@@ -22,7 +22,10 @@
 
      <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/timer_circle_diameter">
+        android:layout_height="@dimen/timer_circle_diameter"
+        android:layout_marginLeft="@dimen/circle_margin"
+        android:layout_marginRight="@dimen/circle_margin">
+
         <com.android.deskclock.CircleTimerView
             android:id="@+id/timer_time"
             android:layout_width="match_parent"

@@ -27,11 +27,22 @@
     <dimen name="time_margin_right">8dip</dimen>
     <dimen name="time_margin_left">8dip</dimen>
     <dimen name="time_margin_bottom">14dip</dimen>
-    <dimen name="time_margin_top">14dip</dimen>
+    <dimen name="time_margin_top">96dip</dimen>
     <dimen name="ampm_margin_top">15dip</dimen>
     <dimen name="font_margin_adjust">8dip</dimen>
     <dimen name="next_alarm_margin_top">-5dip</dimen>
     <dimen name="alarm_label_padding">64dip</dimen>
+
+    <dimen name="big_font_size">220dp</dimen>
+    <dimen name="label_font_size">18sp</dimen>
+    <dimen name="body_font_size">24sp</dimen>
+    <dimen name="body_font_padding">8dp</dimen>
+
+    <dimen name="timer_circle_diameter">480dip</dimen>
+
+    <!-- Size of margin for circles. -->
+    <dimen name="circle_margin">96dp</dimen>
+    <dimen name="laps_margin">144dp</dimen>
 
     <!-- Size of alarm alert outer ring. -->
     <dimen name="glowpadview_outerring_diameter">364dip</dimen>
