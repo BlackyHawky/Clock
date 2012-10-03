@@ -18,8 +18,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_marginTop="4dip"
     android:layout_marginBottom="4dip"
-    android:paddingTop="4dp"
-    android:paddingBottom="4dp"
+    android:paddingTop="@dimen/body_font_padding"
+    android:paddingBottom="@dimen/body_font_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <TextView

@@ -50,6 +50,7 @@
     <dimen name="label_font_size">12sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
+    <dimen name="body_font_padding">4dp</dimen>
     <dimen name="button_font_size">22sp</dimen>
 
     <dimen name="dialpad_font_size">48sp</dimen>
@@ -59,6 +60,10 @@
     <dimen name="tablet_dialpad_font_size">60sp</dimen>
 
     <dimen name="cities_list_item_height">64dip</dimen>
+
+    <!-- Size of margin for circles. -->
+    <dimen name="circle_margin">32dp</dimen>
+    <dimen name="laps_margin">52dp</dimen>
 
     <!-- Size of alarm alert outer ring. -->
     <dimen name="glowpadview_outerring_diameter">270dip</dimen>

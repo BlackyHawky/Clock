@@ -27,8 +27,8 @@
         <FrameLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
-            android:layout_marginLeft="16dip"
-            android:layout_marginRight="16dip"
+            android:layout_marginLeft="@dimen/circle_margin"
+            android:layout_marginRight="@dimen/circle_margin"
             android:layout_weight="1" >
 
             <com.android.deskclock.timer.CountingTimerView
@@ -45,11 +45,11 @@
         <ListView
             android:id="@+id/laps_list"
             android:layout_weight="1"
-            android:layout_marginLeft="16dip"
-            android:layout_marginRight="32dip"
+            android:layout_marginLeft="@dimen/laps_margin"
+            android:layout_marginRight="@dimen/laps_margin"
             android:layout_gravity="center"
             android:layout_width="0dip"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
