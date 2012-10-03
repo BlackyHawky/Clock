@@ -36,9 +36,11 @@ import android.widget.ListView;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
-import com.android.deskclock.stopwatch.Stopwatches;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
 
 
 public class TimerFragment extends DeskClockFragment implements OnClickListener, OnSharedPreferenceChangeListener {
@@ -53,6 +55,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
     private boolean mTicking = false;
     private SharedPreferences mPrefs;
     private NotificationManager mNotificationManager;
+    private OnEmptyListListener mOnEmptyListListener;
 
     public TimerFragment() {
     }
@@ -68,6 +71,19 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
         public ClickAction(int action, TimerObj t) {
             mAction = action;
             mTimer = t;
+        }
+    }
+
+    // Container Activity that requests TIMESUP_MODE must implement this interface
+    public interface OnEmptyListListener {
+        public void onEmptyList();
+    }
+
+    TimersListAdapter createAdapter(Context context, SharedPreferences prefs) {
+        if (mOnEmptyListListener == null) {
+            return new TimersListAdapter(context, prefs);
+        } else {
+            return new TimesUpListAdapter(context, prefs);
         }
     }
 
@@ -115,6 +131,23 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
             }
         }
 
+        protected int findTimerPositionById(int id) {
+            for (int i = 0; i < mTimers.size(); i++) {
+                TimerObj t = mTimers.get(i);
+                if (t.mTimerId == id) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        public void removeTimer(TimerObj timerObj) {
+            int position = findTimerPositionById(timerObj.mTimerId);
+            if (position >= 0) {
+                mTimers.remove(position);
+                notifyDataSetChanged();
+            }
+        }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -170,6 +203,42 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
         }
     }
 
+    class TimesUpListAdapter extends TimersListAdapter {
+
+        public TimesUpListAdapter(Context context, SharedPreferences prefs) {
+            super(context, prefs);
+        }
+
+        @Override
+        public void onSaveInstanceState(Bundle outState) {
+            // This adapter has a data subset and never updates entire database
+            // Individual timers are updated in button handlers.
+        }
+
+        @Override
+        public void saveGlobalState() {
+            // This adapter has a data subset and never updates entire database
+            // Individual timers are updated in button handlers.
+        }
+
+        @Override
+        public void onRestoreInstanceState(Bundle outState) {
+            // This adapter loads a subset
+            TimerObj.getTimersFromSharedPrefs(mmPrefs, mTimers, TimerObj.STATE_TIMESUP);
+
+            if (getCount() == 0) {
+                mOnEmptyListListener.onEmptyList();
+            } else {
+                Collections.sort(mTimers, new Comparator<TimerObj>() {
+                    @Override
+                    public int compare(TimerObj o1, TimerObj o2) {
+                       return (int)(o1.mTimeLeft - o2.mTimeLeft);
+                    }
+                });
+            }
+        }
+    }
+
     private final Runnable mClockTick = new Runnable() {
         @Override
         public void run() {
@@ -199,6 +268,19 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.timer_fragment, container, false);
+
+        // Handle arguments from parent
+        Bundle bundle = getArguments();
+        if (bundle != null && bundle.containsKey(Timers.TIMESUP_MODE)) {
+            if (bundle.getBoolean(Timers.TIMESUP_MODE, false)) {
+                try {
+                    mOnEmptyListListener = (OnEmptyListListener) getActivity();
+                } catch (ClassCastException e) {
+                    Log.wtf(TAG, getActivity().toString() + " must implement OnEmptyListListener");
+                }
+            }
+        }
+
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
         mTimersListPage = v.findViewById(R.id.timers_list_page);
@@ -252,7 +334,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
 
-        mAdapter = new TimersListAdapter(getActivity(), mPrefs);
+        mAdapter = createAdapter(getActivity(), mPrefs);
         mAdapter.onRestoreInstanceState(null);
 
         if (mPrefs.getBoolean(Timers.FROM_NOTIFICATION, false)) {
@@ -310,6 +392,16 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
             gotoSetupView();
         }
     }
+
+    public void stopAllTimesUpTimers() {
+        while (0 < mAdapter.getCount()) {
+            TimerObj timerObj = (TimerObj) mAdapter.getItem(0);
+            if (timerObj.mState == TimerObj.STATE_TIMESUP) {
+                onStopButtonPressed(timerObj);
+            }
+        }
+    }
+
     private void gotoSetupView() {
         mNewTimerPage.setVisibility(View.VISIBLE);
         mTimersListPage.setVisibility(View.GONE);
@@ -334,8 +426,12 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
                 TimerObj t = tag.mTimer;
                 mAdapter.deleteTimer(t.mTimerId);
                 if (mAdapter.getCount() == 0) {
-                    mTimerSetup.reset();
-                    gotoSetupView();
+                    if (mOnEmptyListListener == null) {
+                        mTimerSetup.reset();
+                        gotoSetupView();
+                    } else {
+                        mOnEmptyListListener.onEmptyList();
+                    }
                 }
                 // Tell receiver the timer was deleted.
                 // It will stop all activity related to the timer
@@ -374,6 +470,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
                 ((TimerListItem) t.mView).start();
                 updateTimersState(t, Timers.TIMER_RESET);
                 updateTimersState(t, Timers.START_TIMER);
+                updateTimesUpMode(t);
                 break;
             case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_DONE:
@@ -413,6 +510,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
                 ((TimerListItem) t.mView).stop();
                 updateTimersState(t, Timers.TIMER_DONE);
                 cancelTimerNotification(t.mTimerId);
+                updateTimesUpMode(t);
                 break;
             case TimerObj.STATE_DONE:
                 break;
@@ -494,6 +592,20 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
         mNotificationManager.cancel(timerId);
     }
 
+    private void updateTimesUpMode(TimerObj timerObj) {
+        if (mOnEmptyListListener != null && timerObj.mState != TimerObj.STATE_TIMESUP) {
+            mAdapter.removeTimer(timerObj);
+            if (mAdapter.getCount() == 0) {
+                mOnEmptyListListener.onEmptyList();
+            }
+        }
+    }
+
+    public void restartAdapter() {
+        mAdapter = createAdapter(getActivity(), mPrefs);
+        mAdapter.onRestoreInstanceState(null);
+    }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (prefs.equals(mPrefs)) {
@@ -508,7 +620,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
                 // user interacting with the notification.
                 long now = prefs.getLong(Timers.NOTIF_TIME, System.currentTimeMillis());
                 int timerId = prefs.getInt(Timers.NOTIF_ID, -1);
-                mAdapter = new TimersListAdapter(getActivity(), mPrefs);
+                mAdapter = createAdapter(getActivity(), mPrefs);
                 mAdapter.onRestoreInstanceState(null);
                 if (timerId != -1) {
                     TimerObj t = Timers.findTimer(mAdapter.mTimers, timerId);
