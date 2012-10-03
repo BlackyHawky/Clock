@@ -4,9 +4,9 @@
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
- 
+
           http://www.apache.org/licenses/LICENSE-2.0
- 
+
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,93 +14,182 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<com.android.deskclock.widget.swipeablelistview.SwipeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:minHeight="80dp"
+    android:gravity="center">
 
-    <com.android.deskclock.DontPressWithParentLayout
-        android:id="@+id/indicator"
-        style="@style/alarm_list_left_column"
-        android:gravity="center"
-        android:orientation="vertical">
-        <CheckBox
-            android:id="@+id/clock_onoff"
-            android:focusable="false"
-            android:clickable="false"
-            android:duplicateParentState="true"
-            android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp">
+        <com.android.deskclock.DigitalClock
+            android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
-            android:layout_gravity="center" />
-    </com.android.deskclock.DontPressWithParentLayout>
-
-    <ImageView
-        android:src="?android:attr/dividerVertical"
-        android:layout_width="1dip"
-        android:layout_height="match_parent"
-        android:paddingTop="4dip"
-        android:paddingBottom="4dip"
-        android:scaleType="fitXY"
-        android:gravity="fill_vertical" />
-
-    <!-- A layout that displays the time.  Shows time, am/pm (if 12-hour),
-         and an optional line below, used for day/days of week -->
-    <com.android.deskclock.OldDigitalClock android:id="@+id/digitalClock"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:layout_weight="1"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip">
-
-        <LinearLayout
-            android:id="@+id/time_wrapper"
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="true">
-
-            <com.android.deskclock.AndroidClockTextView
-                android:id="@+id/timeDisplay"
+            android:gravity="top"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:baselineAligned="false">
+            <com.android.deskclock.ZeroTopPaddingTextView
+                android:id="@+id/timeDisplayHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="6dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                useClockTypeface="false"/>
-
-            <com.android.deskclock.AndroidClockTextView
+                android:paddingRight="@dimen/time_margin_right"
+                android:singleLine="true"
+                android:ellipsize="none"
+                style="@style/small_bold"
+                android:textColor="@color/clock_white"/>
+            <com.android.deskclock.ZeroTopPaddingTextView
+                android:id="@+id/timeDisplayMinutes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/small_light"
+                android:singleLine="true"
+                android:ellipsize="none"
+                android:textColor="@color/clock_white" />
+            <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/am_pm"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:paddingRight="10dip"
-                android:textStyle="bold"
-                useClockTypeface="false"/>
-
-            <TextView android:id="@+id/label"
-                android:layout_width="0dip"
+                android:layout_width="wrap_content"
+                style="@style/label"
+                android:singleLine="true"
+                android:ellipsize="none"
+                android:layout_gravity="top"
+                android:textColor="@color/clock_white"/>
+        </com.android.deskclock.DigitalClock>
+        <Space
+            android:layout_height="1dip"
+            android:layout_width="0dip"
+            android:layout_weight="1"/>
+        <com.android.deskclock.widget.TextToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            style="@style/button"
+            android:background="?android:attr/selectableItemBackground"
+            android:id="@+id/onoff"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/info_area"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_vertical">
+        <TextView android:id="@+id/label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/label"
+            android:textColor="@color/clock_gray"/>
+        <TextView android:id="@+id/daysOfWeek"
+            android:layout_height="wrap_content"
+            style="@style/label"
+            android:textColor="@color/clock_white"/>
+        <Space
+            android:layout_height="1dip"
+            android:layout_width="0dip"
+            android:layout_weight="1"/>
+        <ImageButton
+            android:id="@+id/expand"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/expand_alarm"
+            android:src="@drawable/ic_expand_down"
+            android:background="?android:attr/selectableItemBackground"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/expand_area"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:id="@+id/edit_label"
+                style="@style/body"
+                android:textColor="@color/clock_gray"
+                android:inputType="text"
+                android:hint="@string/label"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingLeft="8dip"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textStyle="bold"
-                android:gravity="right"
-                android:singleLine="true"/>
-
+                android:background="?android:attr/selectableItemBackground"/>
+            <CheckBox
+                android:id="@+id/repeat_onoff"
+                android:text="@string/alarm_repeat"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/body"
+                android:textColor="@color/clock_gray"/>
         </LinearLayout>
 
-        <TextView android:id="@+id/daysOfWeek"
+        <LinearLayout
+            android:id="@+id/repeat_days"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/time_wrapper"
-            android:paddingTop="2dip"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="?android:attr/textColorTertiary"
-            />
-
-    </com.android.deskclock.OldDigitalClock>
-
-</LinearLayout>
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+            <!-- Day buttons are put here programatically -->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:gravity="center_vertical">
+            <ImageView
+                android:src="@drawable/ic_ringtone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/choose_ringtone"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/body"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:textColor="@color/clock_white"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:minHeight="48dp"
+            android:gravity="center_vertical">
+            <CheckBox
+                android:id="@+id/vibrate_onoff"
+                android:text="@string/alarm_vibrate"
+                android:textColor="@color/clock_gray"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+            <Space
+                android:layout_height="1dip"
+                android:layout_width="0dip"
+                android:layout_weight="1"/>
+            <ImageButton
+                android:id="@+id/collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/collapse_alarm"
+                android:src="@drawable/ic_expand_up"
+                android:background="?android:attr/selectableItemBackground"/>
+            </LinearLayout>
+    </LinearLayout>
+</com.android.deskclock.widget.swipeablelistview.SwipeLayout>

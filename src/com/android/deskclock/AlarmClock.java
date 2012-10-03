@@ -18,283 +18,125 @@ package com.android.deskclock;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.app.LoaderManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.Loader;
 import android.database.Cursor;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
-import android.widget.ListView;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import com.android.deskclock.widget.TextToggleButton;
+import com.android.deskclock.widget.swipeablelistview.SwipeableListView;
+
+import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.util.HashSet;
 
 /**
  * AlarmClock application.
  */
-public class AlarmClock extends Activity implements OnItemClickListener {
+public class AlarmClock extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    static final String PREFERENCES = "AlarmClock";
+    private static final String KEY_EXPANDED_IDS = "expandedIds";
+    private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
 
-    /** This must be false for production.  If true, turns on logging,
-        test code, etc. */
-    static final boolean DEBUG = false;
+    private static final int REQUEST_CODE_RINGTONE = 1;
 
-    private SharedPreferences mPrefs;
-    private LayoutInflater mFactory;
-    private ListView mAlarmsList;
-    private Cursor mCursor;
+    private SwipeableListView mAlarmsList;
+    private AlarmItemAdapter mAdapter;
 
-    private void updateAlarm(boolean enabled,
-            Alarm alarm) {
-        Alarms.enableAlarm(this, alarm.id, enabled);
-        if (enabled) {
-            SetAlarm.popAlarmSetToast(this, alarm.hour, alarm.minutes,
-                    alarm.daysOfWeek);
-        }
-    }
-
-    private class AlarmTimeAdapter extends CursorAdapter {
-        public AlarmTimeAdapter(Context context, Cursor cursor) {
-            super(context, cursor);
-        }
-
-        @Override
-        public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            View ret = mFactory.inflate(R.layout.alarm_time, parent, false);
-
-            OldDigitalClock digitalClock =
-                    (OldDigitalClock) ret.findViewById(R.id.digitalClock);
-            digitalClock.setLive(false);
-            return ret;
-        }
-
-        @Override
-        public void bindView(View view, Context context, Cursor cursor) {
-            final Alarm alarm = new Alarm(cursor);
-
-            View indicator = view.findViewById(R.id.indicator);
-
-            // Set the initial state of the clock "checkbox"
-            final CheckBox clockOnOff =
-                    (CheckBox) indicator.findViewById(R.id.clock_onoff);
-            clockOnOff.setChecked(alarm.enabled);
-
-            // Clicking outside the "checkbox" should also change the state.
-            indicator.setOnClickListener(new OnClickListener() {
-                public void onClick(View v) {
-                    clockOnOff.toggle();
-                    updateAlarm(clockOnOff.isChecked(), alarm);
-                }
-            });
-
-            OldDigitalClock digitalClock =
-                    (OldDigitalClock) view.findViewById(R.id.digitalClock);
-
-            // set the alarm text
-            final Calendar c = Calendar.getInstance();
-            c.set(Calendar.HOUR_OF_DAY, alarm.hour);
-            c.set(Calendar.MINUTE, alarm.minutes);
-            digitalClock.updateTime(c);
-
-            // Set the repeat text or leave it blank if it does not repeat.
-            TextView daysOfWeekView =
-                    (TextView) digitalClock.findViewById(R.id.daysOfWeek);
-            final String daysOfWeekStr =
-                    alarm.daysOfWeek.toString(AlarmClock.this, false);
-            if (daysOfWeekStr != null && daysOfWeekStr.length() != 0) {
-                daysOfWeekView.setText(daysOfWeekStr);
-                daysOfWeekView.setVisibility(View.VISIBLE);
-            } else {
-                daysOfWeekView.setVisibility(View.GONE);
-            }
-
-            // Display the label
-            TextView labelView =
-                    (TextView) view.findViewById(R.id.label);
-            if (alarm.label != null && alarm.label.length() != 0) {
-                labelView.setText(alarm.label);
-                labelView.setVisibility(View.VISIBLE);
-            } else {
-                labelView.setVisibility(View.GONE);
-            }
-        }
-    };
+    private Alarm mSelectedAlarm;
 
     @Override
-    public boolean onContextItemSelected(final MenuItem item) {
-        final AdapterContextMenuInfo info =
-                (AdapterContextMenuInfo) item.getMenuInfo();
-        final int id = (int) info.id;
-        // Error check just in case.
-        if (id == -1) {
-            return super.onContextItemSelected(item);
-        }
-        switch (item.getItemId()) {
-            case R.id.delete_alarm: {
-                // Confirm that the alarm will be deleted.
-                new AlertDialog.Builder(this)
-                        .setTitle(getString(R.string.delete_alarm))
-                        .setMessage(getString(R.string.delete_alarm_confirm))
-                        .setPositiveButton(android.R.string.ok,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface d,
-                                            int w) {
-                                        Alarms.deleteAlarm(AlarmClock.this, id);
-                                    }
-                                })
-                        .setNegativeButton(android.R.string.cancel, null)
-                        .show();
-                return true;
-            }
-
-            case R.id.enable_alarm: {
-                final Cursor c = (Cursor) mAlarmsList.getAdapter()
-                        .getItem(info.position);
-                final Alarm alarm = new Alarm(c);
-                Alarms.enableAlarm(this, alarm.id, !alarm.enabled);
-                if (!alarm.enabled) {
-                    SetAlarm.popAlarmSetToast(this, alarm.hour, alarm.minutes,
-                            alarm.daysOfWeek);
-                }
-                return true;
-            }
-
-            case R.id.edit_alarm: {
-                final Cursor c = (Cursor) mAlarmsList.getAdapter()
-                        .getItem(info.position);
-                final Alarm alarm = new Alarm(c);
-                Intent intent = new Intent(this, SetAlarm.class);
-                intent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-                startActivity(intent);
-                return true;
-            }
-
-            default:
-                break;
-        }
-        return super.onContextItemSelected(item);
-    }
-
-    @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-
-        mFactory = LayoutInflater.from(this);
-        mPrefs = getSharedPreferences(PREFERENCES, 0);
-        mCursor = Alarms.getAlarmsCursor(getContentResolver());
-
+    protected void onCreate(Bundle savedState) {
+        super.onCreate(savedState);
+        initialize(savedState);
         updateLayout();
+        getLoaderManager().initLoader(0, null, this);
+    }
+
+    private void initialize(Bundle savedState) {
+        setContentView(R.layout.alarm_clock);
+        int[] expandedIds = null;
+        int[] repeatCheckedIds = null;
+        if (savedState != null) {
+            expandedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
+            repeatCheckedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
+        }
+        mAdapter = new AlarmItemAdapter(this, expandedIds, repeatCheckedIds);
+
+        mAlarmsList = (SwipeableListView) findViewById(R.id.alarms_list);
+        mAlarmsList.setAdapter(mAdapter);
+        mAlarmsList.setVerticalScrollBarEnabled(true);
+        mAlarmsList.enableSwipe(true);
+        mAlarmsList.setOnCreateContextMenuListener(this);
+        mAlarmsList.setOnItemSwipeListener(new SwipeableListView.OnItemSwipeListener() {
+            @Override
+            public void onSwipe(View view) {
+                final AlarmItemAdapter.ItemHolder itemHolder =
+                        (AlarmItemAdapter.ItemHolder) view.getTag();
+                // TODO: async
+                Alarms.deleteAlarm(AlarmClock.this, itemHolder.alarm.id);
+            }
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putIntArray(KEY_EXPANDED_IDS, mAdapter.getExpandedArray());
+        outState.putIntArray(KEY_REPEAT_CHECKED_IDS, mAdapter.getRepeatArray());
     }
 
     private void updateLayout() {
-        setContentView(R.layout.alarm_clock);
-        mAlarmsList = (ListView) findViewById(R.id.alarms_list);
-        AlarmTimeAdapter adapter = new AlarmTimeAdapter(this, mCursor);
-        mAlarmsList.setAdapter(adapter);
-        mAlarmsList.setVerticalScrollBarEnabled(true);
-        mAlarmsList.setOnItemClickListener(this);
-        mAlarmsList.setOnCreateContextMenuListener(this);
 
-        View addAlarm = findViewById(R.id.add_alarm);
+        // This only exists on sw600dp and above screens
+        final View addAlarm = findViewById(R.id.add_alarm);
         if (addAlarm != null) {
             addAlarm.setOnClickListener(new View.OnClickListener() {
-                    public void onClick(View v) {
-                        addNewAlarm();
-                    }
-                });
+                public void onClick(View v) {
+                    addNewAlarm();
+                }
+            });
             // Make the entire view selected when focused.
             addAlarm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                    public void onFocusChange(View v, boolean hasFocus) {
-                        v.setSelected(hasFocus);
-                    }
-            });
-        }
-
-        View doneButton = findViewById(R.id.done);
-        if (doneButton != null) {
-            doneButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    finish();
+                public void onFocusChange(View v, boolean hasFocus) {
+                    v.setSelected(hasFocus);
                 }
             });
         }
 
-        View settingsButton = findViewById(R.id.settings);
-        if (settingsButton != null) {
-            settingsButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    startActivity(new Intent(AlarmClock.this, SettingsActivity.class));
-                    finish();
-                }
-            });
-        }
-
-        ActionBar actionBar = getActionBar();
+        final ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         }
     }
 
     private void addNewAlarm() {
-        startActivity(new Intent(this, SetAlarm.class));
+        // TODO: change to async
+        mAdapter.setNewAlarmCreated(true);
+        Alarms.addAlarm(this, new Alarm());
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         ToastMaster.cancelToast();
-        if (mCursor != null) {
-            mCursor.close();
-        }
-    }
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View view,
-            ContextMenuInfo menuInfo) {
-        // Inflate the menu from xml.
-        getMenuInflater().inflate(R.menu.context_menu, menu);
-
-        // Use the current item to create a custom view for the header.
-        final AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-        final Cursor c =
-                (Cursor) mAlarmsList.getAdapter().getItem(info.position);
-        final Alarm alarm = new Alarm(c);
-
-        // Construct the Calendar to compute the time.
-        final Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, alarm.hour);
-        cal.set(Calendar.MINUTE, alarm.minutes);
-        final String time = Alarms.formatTime(this, cal);
-
-        // Inflate the custom view and set each TextView's text.
-        final View v = mFactory.inflate(R.layout.context_menu_header, null);
-        TextView textView = (TextView) v.findViewById(R.id.header_time);
-        textView.setText(time);
-        textView = (TextView) v.findViewById(R.id.header_label);
-        textView.setText(alarm.label);
-
-        // Set the custom view on the menu.
-        menu.setHeaderView(v);
-        // Change the text based on the state of the alarm.
-        if (alarm.enabled) {
-            menu.findItem(R.id.enable_alarm).setTitle(R.string.disable_alarm);
-        }
     }
 
     @Override
@@ -303,16 +145,6 @@ public class AlarmClock extends Activity implements OnItemClickListener {
             case R.id.menu_item_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
-            case R.id.menu_item_help:
-                Intent i = item.getIntent();
-                if (i != null) {
-                    try {
-                        startActivity(i);
-                    } catch (ActivityNotFoundException e) {
-                        // No activity found to match the intent - ignore
-                    }
-                }
-               return true;
             case R.id.menu_item_add_alarm:
                 addNewAlarm();
                 return true;
@@ -337,13 +169,453 @@ public class AlarmClock extends Activity implements OnItemClickListener {
         return super.onCreateOptionsMenu(menu);
     }
 
+    private void showTimeEditDialog(final DigitalClock clock, final Alarm alarm) {
+        AlarmTimePickerDialogFragment fragment = new AlarmTimePickerDialogFragment(
+                new AlarmTimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(int hourOfDay, int minute) {
+                        alarm.hour = hourOfDay;
+                        alarm.minutes = minute;
+                        // TODO: async
+                        Alarms.setAlarm(AlarmClock.this, alarm);
+                        AlarmClock.this.getLoaderManager().restartLoader(0, null, AlarmClock.this);
+                    }
+                });
+        fragment.show(getFragmentManager(), "dialog");
+    }
+
+    private void showLabelDialog(final Alarm alarm) {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        Fragment prev = getFragmentManager().findFragmentByTag("label_dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        AlarmLabelDialogFragment newFragment = AlarmLabelDialogFragment.newInstance(alarm.label);
+        newFragment.setListener(new AlarmLabelDialogFragment.OnLabelSetListener() {
+            @Override
+            public void onLabelSet(String label) {
+                alarm.label = label;
+                Alarms.setAlarm(AlarmClock.this, alarm);
+            }
+        });
+        newFragment.show(ft, "label_dialog");
+    }
+
     @Override
-    public void onItemClick(AdapterView parent, View v, int pos, long id) {
-        final Cursor c = (Cursor) mAlarmsList.getAdapter()
-                .getItem(pos);
-        final Alarm alarm = new Alarm(c);
-        Intent intent = new Intent(this, SetAlarm.class);
-        intent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-        startActivity(intent);
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return Alarms.getAlarmsCursorLoader(this);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> cursorLoader, final Cursor data) {
+        mAdapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> cursorLoader) {
+        mAdapter.swapCursor(null);
+    }
+
+    private void launchRingTonePicker(Alarm alarm) {
+        mSelectedAlarm = alarm;
+        final Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, alarm.alert);
+        startActivityForResult(intent, REQUEST_CODE_RINGTONE);
+    }
+
+    private void saveRingtoneUri(Intent intent) {
+        final Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+        mSelectedAlarm.alert = uri;
+        Alarms.setAlarm(this, mSelectedAlarm);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_CODE_RINGTONE:
+                    saveRingtoneUri(data);
+                    break;
+                default:
+                    Log.w("Unhandled request code in onActivityResult: " + requestCode);
+            }
+        }
+    }
+
+    public class AlarmItemAdapter extends CursorAdapter {
+
+        private Context mContext;
+        private LayoutInflater mFactory;
+        private String[] mShortWeekDayStrings;
+        private int mColorLit;
+        private int mColorDim;
+        private int mColorRed;
+
+        private HashSet<Integer> mExpanded = new HashSet<Integer>();
+        private HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
+        private boolean mNewAlarmCreated = false;
+
+        // This determines the order in which it is shown and processed in the UI.
+        private final int[] DAY_ORDER = new int[] {
+                Calendar.SUNDAY,
+                Calendar.MONDAY,
+                Calendar.TUESDAY,
+                Calendar.WEDNESDAY,
+                Calendar.THURSDAY,
+                Calendar.FRIDAY,
+                Calendar.SATURDAY,
+        };
+
+        private class ItemHolder {
+
+            // views for optimization
+            DigitalClock clock;
+            TextToggleButton onoff;
+            TextView daysOfWeek;
+            TextView label;
+            ImageButton expand;
+            View expandArea;
+            View infoArea;
+            TextView clickableLabel;
+            CheckBox repeat;
+            LinearLayout repeatDays;
+            ToggleButton[] daysButtons = new ToggleButton[7];
+            CheckBox vibrate;
+            ImageButton collapse;
+            Button ringtone;
+
+            // Other states
+            Alarm alarm;
+        }
+
+        public AlarmItemAdapter(Context context, int[] expandedIds, int[] repeatCheckedIds) {
+            super(context, null, 0);
+            mContext = context;
+            mFactory = LayoutInflater.from(context);
+
+            DateFormatSymbols dfs = new DateFormatSymbols();
+            mShortWeekDayStrings = dfs.getShortWeekdays();
+
+            mColorLit = mContext.getResources().getColor(R.color.clock_white);
+            mColorDim = mContext.getResources().getColor(R.color.clock_gray);
+            mColorRed = mContext.getResources().getColor(R.color.clock_red);
+
+            if (expandedIds != null) {
+                buildHashSetFromArray(expandedIds, mExpanded);
+            }
+            if (repeatCheckedIds != null) {
+                buildHashSetFromArray(repeatCheckedIds, mRepeatChecked);
+            }
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (!getCursor().moveToPosition(position)) {
+                throw new IllegalStateException("couldn't move cursor to position " + position);
+            }
+            View v;
+            if (convertView == null) {
+                v = newView(mContext, getCursor(), parent);
+            } else {
+                // Do a translation check to test for animation. Change this to something more
+                // reliable and robust in the future.
+                if (convertView.getTranslationX() != 0 || convertView.getTranslationY() != 0) {
+                    // view was animated, reset
+                    v = newView(mContext, getCursor(), parent);
+                } else {
+                    v = convertView;
+                }
+            }
+            bindView(v, mContext, getCursor());
+            return v;
+        }
+
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+            final View view = mFactory.inflate(R.layout.alarm_time, parent, false);
+
+            // standard view holder optimization
+            final ItemHolder holder = new ItemHolder();
+            holder.clock = (DigitalClock) view.findViewById(R.id.digital_clock);
+            holder.clock.setLive(false);
+            holder.onoff = (TextToggleButton) view.findViewById(R.id.onoff);
+            holder.onoff.setOnText("On");
+            holder.onoff.setOffText("Off");
+
+            holder.daysOfWeek = (TextView) view.findViewById(R.id.daysOfWeek);
+            holder.label = (TextView) view.findViewById(R.id.label);
+            holder.expand = (ImageButton) view.findViewById(R.id.expand);
+            holder.expandArea = view.findViewById(R.id.expand_area);
+            holder.infoArea = view.findViewById(R.id.info_area);
+            holder.repeat = (CheckBox) view.findViewById(R.id.repeat_onoff);
+            holder.clickableLabel = (TextView) view.findViewById(R.id.edit_label);
+            holder.repeatDays = (LinearLayout) view.findViewById(R.id.repeat_days);
+
+            // Build button for each day.
+            for (int i = 0; i < 7; i++) {
+                final ToggleButton button = (ToggleButton) mFactory.inflate(R.layout.day_button,
+                        holder.repeatDays, false);
+                final int dayToShowIndex = DAY_ORDER[i];
+                button.setText(mShortWeekDayStrings[dayToShowIndex]);
+                button.setTextOn(mShortWeekDayStrings[dayToShowIndex]);
+                button.setTextOff(mShortWeekDayStrings[dayToShowIndex]);
+                holder.repeatDays.addView(button);
+                holder.daysButtons[i] = button;
+            }
+            holder.vibrate = (CheckBox) view.findViewById(R.id.vibrate_onoff);
+            holder.collapse = (ImageButton) view.findViewById(R.id.collapse);
+            holder.ringtone = (Button) view.findViewById(R.id.choose_ringtone);
+
+            view.setTag(holder);
+            return view;
+        }
+
+        @Override
+        public void bindView(View view, Context context, final Cursor cursor) {
+            final Alarm alarm = new Alarm(cursor);
+            final ItemHolder itemHolder = (ItemHolder) view.getTag();
+            itemHolder.alarm = alarm;
+
+            boolean forceExpand = false;
+            if (mNewAlarmCreated && cursor.getPosition() == 0) {
+                mNewAlarmCreated = false;
+                forceExpand = true;
+            }
+
+            itemHolder.onoff.setChecked(alarm.enabled);
+            final View.OnClickListener onOffListener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    alarm.enabled = !alarm.enabled;
+                    updateAlarm(alarm.enabled, alarm);
+                }
+            };
+            itemHolder.onoff.setOnClickListener(onOffListener);
+
+            itemHolder.clock.updateTime(alarm.hour, alarm.minutes);
+            itemHolder.clock.setClickable(true);
+            itemHolder.clock.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showTimeEditDialog(itemHolder.clock, alarm);
+                    expandAlarm(itemHolder, alarm);
+                }
+            });
+
+            itemHolder.expandArea.setVisibility(isAlarmExpanded(alarm) ? View.VISIBLE : View.GONE);
+            itemHolder.infoArea.setVisibility(!isAlarmExpanded(alarm) ? View.VISIBLE : View.GONE);
+
+            String colons = "";
+            // Set the repeat text or leave it blank if it does not repeat.
+            final String daysOfWeekStr = alarm.daysOfWeek.toString(AlarmClock.this, false);
+            if (daysOfWeekStr != null && daysOfWeekStr.length() != 0) {
+                itemHolder.daysOfWeek.setText(daysOfWeekStr);
+                itemHolder.daysOfWeek.setVisibility(View.VISIBLE);
+                colons = ": ";
+            } else {
+                itemHolder.daysOfWeek.setVisibility(View.GONE);
+            }
+
+            if (alarm.label != null && alarm.label.length() != 0) {
+                itemHolder.label.setText(alarm.label + colons);
+                itemHolder.label.setVisibility(View.VISIBLE);
+            } else {
+                itemHolder.label.setVisibility(View.GONE);
+            }
+
+            itemHolder.expand.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    expandAlarm(itemHolder, alarm);
+                }
+            });
+
+            if (isAlarmExpanded(alarm) || forceExpand) {
+                expandAlarm(itemHolder, alarm);
+            }
+        }
+
+        private void bindExpandArea(final ItemHolder itemHolder, final Alarm alarm) {
+            // Views in here are not bound until the item is expanded.
+
+            if (alarm.label != null && alarm.label.length() > 0) {
+                itemHolder.clickableLabel.setText(alarm.label);
+                itemHolder.clickableLabel.setTextColor(mColorLit);
+            } else {
+                itemHolder.clickableLabel.setText(R.string.label);
+                itemHolder.clickableLabel.setTextColor(mColorDim);
+            }
+            itemHolder.clickableLabel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showLabelDialog(alarm);
+                }
+            });
+
+            if (mRepeatChecked.contains(alarm.id)) {
+                itemHolder.repeat.setChecked(true);
+                itemHolder.repeat.setTextColor(mColorLit);
+                itemHolder.repeatDays.setVisibility(View.VISIBLE);
+            } else {
+                itemHolder.repeat.setChecked(false);
+                itemHolder.repeat.setTextColor(mColorDim);
+                itemHolder.repeatDays.setVisibility(View.GONE);
+            }
+            itemHolder.repeat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final boolean checked = ((CheckBox) view).isChecked();
+                    if (checked) {
+                        // Show days
+                        itemHolder.repeatDays.setVisibility(View.VISIBLE);
+                        itemHolder.repeat.setTextColor(mColorLit);
+                        mRepeatChecked.add(alarm.id);
+                    } else {
+                        itemHolder.repeatDays.setVisibility(View.GONE);
+                        itemHolder.repeat.setTextColor(mColorDim);
+                        mRepeatChecked.remove(alarm.id);
+                    }
+                }
+            });
+
+            HashSet<Integer> setDays = alarm.daysOfWeek.getSetDays();
+            for (int i = 0; i < 7; i++) {
+                final ToggleButton button = itemHolder.daysButtons[i];
+                if (setDays.contains(DAY_ORDER[i])) {
+                    button.setChecked(true);
+                    button.setTextColor(mColorLit);
+                } else {
+                    button.setChecked(false);
+                    button.setTextColor(mColorDim);
+                }
+                final int buttonIndex = i;
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        final boolean checked = ((ToggleButton) view).isChecked();
+                        if (checked) {
+                            button.setTextColor(mColorLit);
+                        } else {
+                            button.setTextColor(mColorDim);
+                        }
+                        int day = DAY_ORDER[buttonIndex];
+                        alarm.daysOfWeek.setDayOfWeek(day, checked);
+                        Alarms.setAlarm(AlarmClock.this, alarm);
+                    }
+                });
+            }
+
+            if (alarm.vibrate) {
+                itemHolder.vibrate.setChecked(true);
+                itemHolder.vibrate.setTextColor(mColorLit);
+            } else {
+                itemHolder.vibrate.setChecked(false);
+                itemHolder.vibrate.setTextColor(mColorDim);
+            }
+            itemHolder.vibrate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final boolean checked = ((CheckBox) v).isChecked();
+                    if (checked) {
+                        itemHolder.vibrate.setTextColor(mColorLit);
+                    } else {
+                        itemHolder.vibrate.setTextColor(mColorDim);
+                    }
+                    alarm.vibrate = checked;
+                    Alarms.setAlarm(AlarmClock.this, alarm);
+                }
+            });
+
+            itemHolder.collapse.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemHolder.expandArea.setVisibility(LinearLayout.GONE);
+                    itemHolder.infoArea.setVisibility(View.VISIBLE);
+                    collapseAlarm(alarm);
+                }
+            });
+
+            final String ringtone;
+            if (alarm.alert == null) {
+                ringtone = mContext.getResources().getString(R.string.silent_alarm_summary);
+            } else {
+                ringtone = RingtoneManager.getRingtone(mContext, alarm.alert).getTitle(mContext);
+            }
+            itemHolder.ringtone.setText(ringtone);
+            itemHolder.ringtone.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    launchRingTonePicker(alarm);
+                }
+            });
+        }
+
+        /**
+         * Expands the alarm for editing.
+         *
+         * @param itemHolder The item holder instance.
+         * @param alarm The alarm.
+         */
+        private void expandAlarm(ItemHolder itemHolder, Alarm alarm) {
+            itemHolder.expandArea.setVisibility(View.VISIBLE);
+            itemHolder.infoArea.setVisibility(View.GONE);
+
+            mExpanded.add(alarm.id);
+            bindExpandArea(itemHolder, alarm);
+        }
+
+        private boolean isAlarmExpanded(Alarm alarm) {
+            return mExpanded.contains(alarm.id);
+        }
+
+        private void collapseAlarm(Alarm alarm) {
+            mExpanded.remove(alarm.id);
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 1;
+        }
+
+        public void setNewAlarmCreated(boolean newAlarmCreated) {
+            mNewAlarmCreated = newAlarmCreated;
+        }
+
+        public int[] getExpandedArray() {
+            final int[] ids = new int[mExpanded.size()];
+            int index = 0;
+            for (int id : mExpanded) {
+                ids[index] = id;
+                index++;
+            }
+            return ids;
+        }
+
+        public int[] getRepeatArray() {
+            final int[] ids = new int[mRepeatChecked.size()];
+            int index = 0;
+            for (int id : mRepeatChecked) {
+                ids[index] = id;
+                index++;
+            }
+            return ids;
+        }
+
+        private void buildHashSetFromArray(int[] ids, HashSet<Integer> set) {
+            for (int id : ids) {
+                set.add(id);
+            }
+        }
+
+        private void updateAlarm(boolean enabled,
+                Alarm alarm) {
+            Alarms.enableAlarm(mContext, alarm.id, enabled);
+            if (enabled) {
+                AlarmUtils.popAlarmSetToast(mContext, alarm.hour, alarm.minutes, alarm.daysOfWeek);
+            }
+        }
     }
 }

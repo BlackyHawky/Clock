@@ -92,7 +92,7 @@
 
         <activity android:name="AlarmAlert"
                 android:excludeFromRecents="true"
-                android:theme="@android:style/Theme.Holo.Wallpaper.NoTitleBar"
+                android:theme="@android:style/Theme.Holo"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>

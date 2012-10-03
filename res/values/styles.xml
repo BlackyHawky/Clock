@@ -48,7 +48,7 @@
         <item name="android:displayOptions"></item>
     </style>
 
-    <style name="AlarmClockTheme" parent="android:Theme.Holo.DialogWhenLarge">
+    <style name="AlarmClockTheme" parent="@android:style/Theme.Holo.DialogWhenLarge">
         <item name="android:windowBackground">@color/black</item>
     </style>
 

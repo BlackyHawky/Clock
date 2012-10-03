@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2010 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
-
+<!--
+  ~ Copyright (C) 2012 The Android Open Source Project
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License
+  -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/base_layout"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     android:orientation="vertical">
 
     <LinearLayout
@@ -37,61 +36,30 @@
             android:gravity="center"
             android:scaleType="center"
             android:src="@drawable/ic_menu_add"
-            android:contentDescription="@string/add_alarm" />
-
+            android:contentDescription="@string/add_alarm"/>
         <TextView
             android:duplicateParentState="true"
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/add_alarm" />
-
+            android:text="@string/add_alarm"/>
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:layout_marginLeft="16dip"
-        android:layout_marginRight="16dip"
-        android:background="?android:attr/dividerHorizontal" />
+        android:layout_height="1dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="?android:attr/dividerHorizontal"/>
 
-    <ListView
+    <com.android.deskclock.widget.swipeablelistview.SwipeableListView
         android:id="@+id/alarms_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginLeft="16dip"
-        android:layout_marginRight="16dip" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:layout_marginLeft="16dip"
-        android:layout_marginRight="16dip"
-        android:background="?android:attr/dividerHorizontal" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        style="?android:attr/buttonBarStyle">
-
-        <Button android:id="@+id/settings"
-            style="?android:attr/buttonBarButtonStyle"
-            android:focusable="true"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/settings"/>
-
-        <Button android:id="@+id/done"
-            style="?android:attr/buttonBarButtonStyle"
-            android:focusable="true"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/done"/>
-        </LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="?android:attr/dividerVertical"/>
 
 </LinearLayout>
