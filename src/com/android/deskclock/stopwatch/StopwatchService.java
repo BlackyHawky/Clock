@@ -90,7 +90,12 @@ public class StopwatchService extends Service {
                 saveNotification(mElapsedTime, false, mNumLaps);
             }
         } else if (actionType.equals(Stopwatches.RESET_STOPWATCH)) {
-            mLoadApp = intent.getBooleanExtra(Stopwatches.LOAD_ACTIVITY, false);
+            mLoadApp = false;
+            writeSharedPrefsReset(updateCircle);
+            clearSavedNotification();
+            stopSelf();
+        } else if (actionType.equals(Stopwatches.RESET_AND_LAUNCH_STOPWATCH)) {
+            mLoadApp = true;
             writeSharedPrefsReset(updateCircle);
             clearSavedNotification();
             closeNotificationShade();
@@ -149,11 +154,13 @@ public class StopwatchService extends Service {
         remoteViewsCollapsed.setOnClickPendingIntent(R.id.swn_collapsed_hitspace, pendingIntent);
         remoteViewsCollapsed.setChronometer(
                 R.id.swn_collapsed_chronometer, clockBaseTime, null, clockRunning);
+        remoteViewsCollapsed.setImageViewResource(R.id.notification_icon, R.drawable.stat_notify_stopwatch);
         RemoteViews remoteViewsExpanded = new RemoteViews(getPackageName(),
                 R.layout.stopwatch_notif_expanded);
         remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_expanded_hitspace, pendingIntent);
         remoteViewsExpanded.setChronometer(
                 R.id.swn_expanded_chronometer, clockBaseTime, null, clockRunning);
+        remoteViewsExpanded.setImageViewResource(R.id.notification_icon, R.drawable.stat_notify_stopwatch);
 
         if (clockRunning) {
             // Left button: lap
@@ -163,10 +170,7 @@ public class StopwatchService extends Service {
             leftButtonIntent.setAction(Stopwatches.LAP_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
                     PendingIntent.getService(context, 0, leftButtonIntent, 0));
-
-            // Center button: don't show while running
-            remoteViewsExpanded.setViewVisibility(R.id.stopwatch_button_seperator, View.INVISIBLE);
-            remoteViewsExpanded.setViewVisibility(R.id.swn_share_button, View.INVISIBLE);
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_lap_normal, 0, 0, 0);
 
             // Right button: stop clock
             remoteViewsExpanded.setTextViewText(
@@ -175,26 +179,29 @@ public class StopwatchService extends Service {
             rightButtonIntent.setAction(Stopwatches.STOP_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_right_button,
                     PendingIntent.getService(context, 0, rightButtonIntent, 0));
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_right_button, R.drawable.ic_stop_normal, 0, 0, 0);
+
+            // Show the laps if applicable.
+            if (numLaps > 0) {
+                String lapText = String.format(
+                        context.getString(R.string.sw_notification_lap_number), numLaps);
+                remoteViewsCollapsed.setTextViewText(R.id.swn_collapsed_laps, lapText);
+                remoteViewsCollapsed.setViewVisibility(R.id.swn_collapsed_laps, View.VISIBLE);
+                remoteViewsExpanded.setTextViewText(R.id.swn_expanded_laps, lapText);
+                remoteViewsExpanded.setViewVisibility(R.id.swn_expanded_laps, View.VISIBLE);
+            } else {
+                remoteViewsCollapsed.setViewVisibility(R.id.swn_collapsed_laps, View.GONE);
+                remoteViewsExpanded.setViewVisibility(R.id.swn_expanded_laps, View.GONE);
+            }
         } else {
             // Left button: reset clock
             remoteViewsExpanded.setTextViewText(
                     R.id.swn_left_button, getResources().getText(R.string.sw_reset_button));
             Intent leftButtonIntent = new Intent(context, StopwatchService.class);
-            leftButtonIntent.setAction(Stopwatches.RESET_STOPWATCH);
-            leftButtonIntent.putExtra(Stopwatches.LOAD_ACTIVITY, true);
+            leftButtonIntent.setAction(Stopwatches.RESET_AND_LAUNCH_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
                     PendingIntent.getService(context, 0, leftButtonIntent, 0));
-
-            // Center button: share times
-            remoteViewsExpanded.setViewVisibility(R.id.stopwatch_button_seperator, View.VISIBLE);
-            remoteViewsExpanded.setViewVisibility(R.id.swn_share_button, View.VISIBLE);
-            remoteViewsExpanded.setTextViewText(
-                    R.id.swn_share_button, getResources().getText(R.string.sw_share_button));
-            Intent shareButtonIntent = new Intent(context, StopwatchService.class);
-            shareButtonIntent.setAction(Stopwatches.SHARE_STOPWATCH);
-            shareButtonIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_share_button,
-                    PendingIntent.getService(context, 0, shareButtonIntent, 0));
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_reset_normal, 0, 0, 0);
 
             // Right button: start clock
             remoteViewsExpanded.setTextViewText(
@@ -203,23 +210,25 @@ public class StopwatchService extends Service {
             rightButtonIntent.setAction(Stopwatches.START_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_right_button,
                     PendingIntent.getService(context, 0, rightButtonIntent, 0));
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_right_button, R.drawable.ic_start_normal, 0, 0, 0);
+
+            // Show stopped string.
+            remoteViewsCollapsed.setTextViewText(R.id.swn_collapsed_laps, getString(R.string.swn_stopped));
+            remoteViewsCollapsed.setViewVisibility(R.id.swn_collapsed_laps, View.VISIBLE);
+            remoteViewsExpanded.setTextViewText(R.id.swn_expanded_laps, getString(R.string.swn_stopped));
+            remoteViewsExpanded.setViewVisibility(R.id.swn_expanded_laps, View.VISIBLE);
         }
 
-        if (numLaps > 0) {
-            String lapText = "Lap " + numLaps;
-            remoteViewsCollapsed.setTextViewText(R.id.swn_collapsed_laps, lapText);
-            remoteViewsCollapsed.setViewVisibility(R.id.swn_collapsed_laps_divider, View.VISIBLE);
-            remoteViewsExpanded.setTextViewText(R.id.swn_expanded_laps, lapText);
-        } else {
-            remoteViewsCollapsed.setViewVisibility(R.id.swn_collapsed_laps_divider, View.GONE);
-        }
+        Intent dismissIntent = new Intent(context, StopwatchService.class);
+        dismissIntent.setAction(Stopwatches.RESET_STOPWATCH);
 
         Notification notification = new Notification.Builder(context)
-                .setAutoCancel(false)
-                        .setContent(remoteViewsCollapsed)
-                        .setOngoing(true)
-                        .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
-                        .setPriority(Notification.PRIORITY_MAX).build();
+                .setAutoCancel(!clockRunning)
+                .setContent(remoteViewsCollapsed)
+                .setOngoing(clockRunning)
+                .setDeleteIntent(PendingIntent.getService(context, 0, dismissIntent, 0))
+                .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
+                .setPriority(Notification.PRIORITY_MAX).build();
         notification.bigContentView = remoteViewsExpanded;
         mNotificationManager.notify(NOTIFICATION_ID, notification);
     }
