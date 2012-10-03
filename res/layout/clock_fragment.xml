@@ -66,13 +66,15 @@
                 />
             <com.android.deskclock.AnalogClock
                 android:id="@+id/analog_clock"
-                android:layout_width="@dimen/analog_clock_diameter"
-                android:layout_height="@dimen/analog_clock_diameter"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/circle_margin"
+                android:layout_marginLeft="@dimen/circle_margin"
+                android:layout_marginRight="@dimen/circle_margin"
+                android:layout_gravity="center_horizontal"
                 android:dial="@drawable/clock_analog_dial"
                 android:hand_hour="@drawable/clock_analog_hour"
                 android:hand_minute="@drawable/clock_analog_minute"
-                android:layout_marginTop="@dimen/time_margin_top"
                 android:layout_marginBottom="@dimen/time_margin_bottom"/>
 
             <ListView
