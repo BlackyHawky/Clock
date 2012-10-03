@@ -26,7 +26,7 @@
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_right">8dip</dimen>
     <dimen name="time_margin_bottom">14dip</dimen>
-    <dimen name="time_margin_top">7dip</dimen>
+    <dimen name="time_margin_top">8dip</dimen>
     <dimen name="ampm_margin_top">16dip</dimen>
     <dimen name="font_margin_adjust">8dip</dimen>
     <dimen name="next_alarm_margin_top">-5dip</dimen>
@@ -35,6 +35,10 @@
 
     <dimen name="timer_circle_diameter">240dip</dimen>
     <dimen name="actionbar_tab_padding">50dip</dimen>
+
+    <!-- Size of margin for circles. -->
+    <dimen name="circle_margin">8dp</dimen>
+    <dimen name="laps_margin">16dp</dimen>
 
     <dimen name="glowpadview_margin_bottom">0dip</dimen>
     <dimen name="glowpadview_margin_right">-64dip</dimen>
