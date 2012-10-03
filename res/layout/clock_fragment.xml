@@ -77,8 +77,9 @@
 
             <ListView
                 android:id="@+id/cities"
+                android:clickable="false"
                 android:layout_width="match_parent"
-                android:layout_height="1dip" />
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
         <View
@@ -114,12 +115,12 @@
                 style="@style/button"
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_height="wrap_content" />
-	        <View
-	            android:layout_height="match_parent"
-	            android:layout_marginTop="8dip"
-	            android:layout_marginBottom="8dip"
-	            android:layout_width="1dip"
-	            android:background="#28ffffff" />
+            <View
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dip"
+                android:layout_marginBottom="8dip"
+                android:layout_width="1dip"
+                android:background="#28ffffff" />
             <ImageButton
                 android:id="@+id/menu_button"
                 android:contentDescription="@string/button_menu"

@@ -53,7 +53,12 @@
     <dimen name="button_font_size">22sp</dimen>
 
     <dimen name="dialpad_font_size">48sp</dimen>
+    <dimen name="city_name_font_size">22sp</dimen>
+    <dimen name="city_time_font_size">14sp</dimen>
+
     <dimen name="tablet_dialpad_font_size">60sp</dimen>
+
+    <dimen name="cities_list_item_height">64dip</dimen>
 
     <!-- Size of alarm alert outer ring. -->
     <dimen name="glowpadview_outerring_diameter">270dip</dimen>
