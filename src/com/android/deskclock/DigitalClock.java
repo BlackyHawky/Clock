@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Displays the time
@@ -50,6 +51,7 @@ public class DigitalClock extends LinearLayout {
     private boolean mLive = true;
     private boolean mAttached;
     private final Typeface mRobotoThin;
+    private String mTimeZoneId;
 
 
     /* called by system on minute ticks */
@@ -175,6 +177,9 @@ public class DigitalClock extends LinearLayout {
             mCalendar.setTimeInMillis(System.currentTimeMillis());
         }
 
+        if (mTimeZoneId != null) {
+            mCalendar.setTimeZone(TimeZone.getTimeZone(mTimeZoneId));
+        }
         CharSequence newTime = DateFormat.format(mHoursFormat, mCalendar);
         mTimeDisplayHours.setText(newTime);
         newTime = DateFormat.format(MINUTES, mCalendar);
@@ -189,5 +194,10 @@ public class DigitalClock extends LinearLayout {
 
     void setLive(boolean live) {
         mLive = live;
+    }
+
+    public void setTimeZone(String id) {
+        mTimeZoneId = id;
+        updateTime();
     }
 }

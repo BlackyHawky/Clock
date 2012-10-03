@@ -60,6 +60,17 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".worldclock.CitiesActivity"
+                android:label="@string/cities_activity_title"
+                android:theme="@style/SettingsTheme"
+                android:taskAffinity=""
+                android:excludeFromRecents="true"
+                >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="SetAlarm"
                 android:label="@string/set_alarm"
                 android:theme="@style/SetAlarmTheme"
