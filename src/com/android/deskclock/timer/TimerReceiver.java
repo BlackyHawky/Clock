@@ -39,7 +39,7 @@ import java.util.Iterator;
 public class TimerReceiver extends BroadcastReceiver {
     private static final String TAG = "TimerReceiver";
 
-    private static final int IN_USE_NOTIFICATION_ID = 1;
+    private static final int IN_USE_NOTIFICATION_ID = 2;
 
     ArrayList<TimerObj> mTimers;
 
@@ -47,7 +47,6 @@ public class TimerReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
         int timer;
         String actionType = intent.getAction();
-        Log.d(TAG, " got intent with action " + intent.getAction());
 
         // Get the updated timers data.
         if (mTimers == null) {
@@ -128,6 +127,7 @@ public class TimerReceiver extends BroadcastReceiver {
             String contentText = context.getString(R.string.timer_times_up);
             showCollapsedNotification(context, label, contentText, Notification.PRIORITY_MAX,
                     pendingBroadcastIntent, t.mTimerId);
+            cancelInUseNotification(context);
 
             KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
             if (!km.inKeyguardRestrictedInputMode()) {
@@ -208,7 +208,7 @@ public class TimerReceiver extends BroadcastReceiver {
 
         String title, contentText;
         Long nextBroadcastTime = null;
-        long now = System.currentTimeMillis(); // TODO(sblitz): change all these to use utils.gettimenow(). EVERYWHERE.
+        long now = System.currentTimeMillis();
         if (timersInUse.size() == 1) {
             TimerObj timer = timersInUse.get(0);
             String label = timer.mLabel == "" ? context.getString(R.string.timer_notification_label)

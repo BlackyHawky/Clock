@@ -632,7 +632,7 @@
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
     <string name="timers_in_use"><xliff:g id="number" example="7">%d</xliff:g> timers</string>
     <!-- Notification text when at least one timer, of those in use, is counting down. -->
-    <string name="next_timer_notif">Next Timer: <xliff:g id="time_remaining" example="2 minutes remaining">%s</xliff:g></string>
+    <string name="next_timer_notif">Next timer: <xliff:g id="time_remaining" example="2 minutes remaining">%s</xliff:g></string>
 
     <!-- screensaver settings strings -->
     <string name="screensaver_settings">Dream settings</string>
