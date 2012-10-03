@@ -34,10 +34,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.deskclock.widget.multiwaveview.GlowPadView;
 
 import java.util.Calendar;
 
@@ -46,7 +45,7 @@ import java.util.Calendar;
  * tone. This activity is the full screen version which shows over the lock
  * screen with the wallpaper as the background.
  */
-public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTriggerListener {
+public class AlarmAlertFullScreen extends Activity {
 
     // These defaults must match the values in res/xml/settings.xml
     private static final String DEFAULT_SNOOZE = "10";
@@ -56,7 +55,6 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
     protected Alarm mAlarm;
     private int mVolumeBehavior;
     boolean mFullscreenStyle;
-    private GlowPadView mGlowPadView;
 
     // Parameters for the GlowPadView "ping" animation; see triggerPing().
     private static final int PING_MESSAGE_WHAT = 101;
@@ -80,17 +78,6 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
                 if (alarm != null && mAlarm.id == alarm.id) {
                     dismiss(true);
                 }
-            }
-        }
-    };
-
-    private final Handler mPingHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case PING_MESSAGE_WHAT:
-                    triggerPing();
-                    break;
             }
         }
     };
@@ -147,22 +134,26 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         setContentView(view);
 
+        /* snooze behavior: pop a snooze confirmation view, kick alarm
+        manager. */
+        Button snooze = (Button) findViewById(R.id.snooze);
+        snooze.requestFocus();
+        snooze.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                snooze();
+            }
+        });
+
+        /* dismiss button: close notification */
+        findViewById(R.id.ok).setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        dismiss(false);
+                    }
+                });
+
         /* Set the title from the passed in alarm */
         setTitle();
-
-        mGlowPadView = (GlowPadView) findViewById(R.id.glow_pad_view);
-        mGlowPadView.setOnTriggerListener(this);
-        triggerPing();
-    }
-
-    private void triggerPing() {
-        if (mPingEnabled) {
-            mGlowPadView.ping();
-
-            if (ENABLE_PING_AUTO_REPEAT) {
-                mPingHandler.sendEmptyMessageDelayed(PING_MESSAGE_WHAT, PING_AUTO_REPEAT_DELAY_MSEC);
-            }
-        }
     }
 
     // Attempt to snooze this alert.
@@ -265,9 +256,8 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         super.onResume();
         // If the alarm was deleted at some point, disable snooze.
         if (Alarms.getAlarm(getContentResolver(), mAlarm.id) == null) {
-            mGlowPadView.setTargetResources(R.array.dismiss_drawables);
-            mGlowPadView.setTargetDescriptionsResourceId(R.array.dismiss_descriptions);
-            mGlowPadView.setDirectionDescriptionsResourceId(R.array.dismiss_direction_descriptions);
+            Button snooze = (Button) findViewById(R.id.snooze);
+            snooze.setEnabled(false);
         }
     }
 
@@ -317,42 +307,4 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         // so that the dialog is dismissed.
         return;
     }
-
-
-    @Override
-    public void onGrabbed(View v, int handle) {
-        mPingEnabled = false;
-    }
-
-    @Override
-    public void onReleased(View v, int handle) {
-        mPingEnabled = true;
-        triggerPing();
-    }
-
-    @Override
-    public void onTrigger(View v, int target) {
-        final int resId = mGlowPadView.getResourceIdForTarget(target);
-        switch (resId) {
-            case R.drawable.ic_alarm_alert_snooze:
-                snooze();
-                break;
-
-            case R.drawable.ic_alarm_alert_dismiss:
-                dismiss(false);
-                break;
-            default:
-                // Code should never reach here.
-                Log.e("Trigger detected on unhandled resource. Skipping.");
-        }
-    }
-
-    @Override
-    public void onGrabbedStateChange(View v, int handle) {
-    }
-
-    @Override
-    public void onFinishFinalAnimation() {
-    }
-
 }
