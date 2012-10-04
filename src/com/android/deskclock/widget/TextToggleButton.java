@@ -59,8 +59,6 @@ public class TextToggleButton extends LinearLayout implements View.OnClickListen
 
         mOnText = new ZeroTopPaddingTextView(context, attrs, defStyle);
         mOffText = new ZeroTopPaddingTextView(context, attrs, defStyle);
-        mOnText.setDuplicateParentStateEnabled(true);
-        mOffText.setDuplicateParentStateEnabled(true);
 
         mOffText.setPaddingRight(20);
         addView(mOffText);
@@ -70,7 +68,7 @@ public class TextToggleButton extends LinearLayout implements View.OnClickListen
         setClickable(true);
         super.setOnClickListener(this);
     }
-
+    
     public void setOnText(String text) {
         mOnText.setText(text);
     }
