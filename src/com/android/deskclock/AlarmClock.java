@@ -25,8 +25,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,11 +57,13 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
     private static final String KEY_EXPANDED_IDS = "expandedIds";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
+    private static final String KEY_RINGTONE_TITLE_CACHE = "ringtoneTitleCache";
 
     private static final int REQUEST_CODE_RINGTONE = 1;
 
     private SwipeableListView mAlarmsList;
     private AlarmItemAdapter mAdapter;
+    private Bundle mRingtoneTitleCache; // Key: ringtone uri, value: ringtone title
 
     private Alarm mSelectedAlarm;
 
@@ -78,8 +82,14 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         if (savedState != null) {
             expandedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
             repeatCheckedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
+            mRingtoneTitleCache = savedState.getBundle(KEY_RINGTONE_TITLE_CACHE);
         }
+
         mAdapter = new AlarmItemAdapter(this, expandedIds, repeatCheckedIds);
+
+        if (mRingtoneTitleCache == null) {
+            mRingtoneTitleCache = new Bundle();
+        }
 
         mAlarmsList = (SwipeableListView) findViewById(R.id.alarms_list);
         mAlarmsList.setAdapter(mAdapter);
@@ -91,8 +101,17 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             public void onSwipe(View view) {
                 final AlarmItemAdapter.ItemHolder itemHolder =
                         (AlarmItemAdapter.ItemHolder) view.getTag();
-                // TODO: async
-                Alarms.deleteAlarm(AlarmClock.this, itemHolder.alarm.id);
+                final AsyncTask<Alarm, Void, Void> deleteTask = new AsyncTask<Alarm, Void, Void>() {
+
+                    @Override
+                    protected Void doInBackground(Alarm... alarms) {
+                        for (final Alarm alarm : alarms) {
+                            Alarms.deleteAlarm(AlarmClock.this, alarm.id);
+                        }
+                        return null;
+                    }
+                };
+                deleteTask.execute(itemHolder.alarm);
             }
         });
     }
@@ -101,6 +120,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     protected void onSaveInstanceState(Bundle outState) {
         outState.putIntArray(KEY_EXPANDED_IDS, mAdapter.getExpandedArray());
         outState.putIntArray(KEY_REPEAT_CHECKED_IDS, mAdapter.getRepeatArray());
+        outState.putBundle(KEY_RINGTONE_TITLE_CACHE, mRingtoneTitleCache);
     }
 
     private void updateLayout() {
@@ -176,8 +196,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                     public void onTimeSet(int hourOfDay, int minute) {
                         alarm.hour = hourOfDay;
                         alarm.minutes = minute;
-                        // TODO: async
-                        Alarms.setAlarm(AlarmClock.this, alarm);
+                        asyncUpdateAlarm(alarm);
                         AlarmClock.this.getLoaderManager().restartLoader(0, null, AlarmClock.this);
                     }
                 });
@@ -198,7 +217,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             @Override
             public void onLabelSet(String label) {
                 alarm.label = label;
-                Alarms.setAlarm(AlarmClock.this, alarm);
+                asyncUpdateAlarm(alarm);
             }
         });
         newFragment.show(ft, "label_dialog");
@@ -229,7 +248,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private void saveRingtoneUri(Intent intent) {
         final Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
         mSelectedAlarm.alert = uri;
-        Alarms.setAlarm(this, mSelectedAlarm);
+        asyncUpdateAlarm(mSelectedAlarm);
     }
 
     @Override
@@ -455,7 +474,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 }
             });
 
-            if (mRepeatChecked.contains(alarm.id)) {
+            if (mRepeatChecked.contains(alarm.id) || itemHolder.alarm.daysOfWeek.isRepeatSet()) {
                 itemHolder.repeat.setChecked(true);
                 itemHolder.repeat.setTextColor(mColorLit);
                 itemHolder.repeatDays.setVisibility(View.VISIBLE);
@@ -503,7 +522,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         }
                         int day = DAY_ORDER[buttonIndex];
                         alarm.daysOfWeek.setDayOfWeek(day, checked);
-                        Alarms.setAlarm(AlarmClock.this, alarm);
+                        asyncUpdateAlarm(alarm);
                     }
                 });
             }
@@ -525,7 +544,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         itemHolder.vibrate.setTextColor(mColorDim);
                     }
                     alarm.vibrate = checked;
-                    Alarms.setAlarm(AlarmClock.this, alarm);
+                    asyncUpdateAlarm(alarm);
                 }
             });
 
@@ -542,7 +561,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             if (alarm.alert == null) {
                 ringtone = mContext.getResources().getString(R.string.silent_alarm_summary);
             } else {
-                ringtone = RingtoneManager.getRingtone(mContext, alarm.alert).getTitle(mContext);
+                ringtone = getRingToneTitle(alarm.alert);
             }
             itemHolder.ringtone.setText(ringtone);
             itemHolder.ringtone.setOnClickListener(new View.OnClickListener() {
@@ -551,6 +570,26 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                     launchRingTonePicker(alarm);
                 }
             });
+        }
+
+        /**
+         * Does a read-through cache for ringtone titles.
+         *
+         * @param uri The uri of the ringtone.
+         * @return The ringtone title. {@literal null} if no matching ringtone found.
+         */
+        private String getRingToneTitle(Uri uri) {
+            // Try the cache first
+            String title = mRingtoneTitleCache.getString(uri.toString());
+            if (title == null) {
+                // This is slow because a media player is created during Ringtone object creation.
+                Ringtone ringTone = RingtoneManager.getRingtone(mContext, uri);
+                title = ringTone.getTitle(mContext);
+                if (title != null) {
+                    mRingtoneTitleCache.putString(uri.toString(), title);
+                }
+            }
+            return title;
         }
 
         /**
@@ -618,4 +657,19 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             }
         }
     }
+
+    private void asyncUpdateAlarm(Alarm alarm) {
+        final AsyncTask<Alarm, Void, Void> updateTask = new AsyncTask<Alarm, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Alarm... alarms) {
+                for (final Alarm alarm : alarms) {
+                    Alarms.setAlarm(AlarmClock.this, alarm);
+                }
+                return null;
+            }
+        };
+        updateTask.execute(alarm);
+    }
+
 }
