@@ -27,7 +27,8 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Eliminare questo allarme?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Mostra orologio"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Nascondi orologio"</string>
-    <string name="label" msgid="2407986483260935828">"Etichetta (facoltativa)"</string>
+    <!-- no translation found for label (7713131021574533921) -->
+    <skip />
     <string name="default_label" msgid="5590025289805630372">"Allarme"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Imposta allarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrazione"</string>
@@ -39,10 +40,12 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posponi"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Sospensione per <xliff:g id="MINUTES">%d</xliff:g> minuti."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ripetizione allarme fino alle <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for timer_notifications:0 (7760558912503484257) -->
-    <!-- no translation found for timer_notifications:1 (83197792732433351) -->
-    <!-- no translation found for timer_notifications:2 (8919698220200894252) -->
-    <!-- no translation found for timer_notifications:3 (8458069283817013813) -->
+  <string-array name="timer_notifications">
+    <item msgid="7760558912503484257">"Resta meno di un minuto"</item>
+    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> rimanenti"</item>
+    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> rimanenti"</item>
+    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> e <xliff:g id="MINUTES">%2$s</xliff:g> rimanenti"</item>
+  </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"L\'allarme sarà attivato tra meno di 1 minuto."</item>
     <item msgid="6002066367368421848">"L\'allarme sarà attivato tra <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -66,7 +69,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Orologio analogico"</string>
     <string name="help" msgid="7786263119482654015">"guida"</string>
     <string name="settings" msgid="5849739030579520686">"Impostazioni"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Durata ripetizione allarme"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Intervallo ripetizione allarme"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minuto"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> minuti"</item>
@@ -98,7 +101,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Pulsanti volume"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Effetto pulsante"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Ripetizione allarme attiva"</item>
+    <item msgid="7972756698723318690">"Attiva ripetizione allarme"</item>
     <item msgid="3450979320164769576">"Ignora"</item>
     <item msgid="6302517608411378024">"Nessuna azione"</item>
   </string-array>
@@ -189,6 +192,10 @@
     <string name="sort_by_time" msgid="3588583060192569857">"Per orario"</string>
     <string name="search_results" msgid="3940223188208445245">"Risultati"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"Nessuna città trovata"</string>
+    <!-- no translation found for search_city (5167756899726176174) -->
+    <skip />
+    <!-- no translation found for cities_activity_title (8552462751129256730) -->
+    <skip />
     <string name="alarm_setup_music" msgid="6140596565783696650">"Musica"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Attivo"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Non attivo"</string>
@@ -208,19 +215,16 @@
     <item msgid="5353805556644220918">"analogico"</item>
     <item msgid="1814605819692210671">"digitale"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Orologio da casa automatico"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Orologio di casa automatico"</string>
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Durante un viaggio fuori dal fuso orario normale, aggiungi un orologio per il fuso orario di casa tua"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Fuso orario di casa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Fuso orario di casa"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Annulla"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Imposta"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
-    <skip />
-    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
-    <skip />
-    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
-    <skip />
+    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
+    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
+    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Isole Marshall"</item>
     <item msgid="4196408495909011020">"Isola di Midway"</item>
@@ -312,24 +316,23 @@
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servizio cronometro per pubblicare la notifica."</string>
     <string name="stopwatch_title" msgid="3246663609895204068">"Cronometro"</string>
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <!-- no translation found for swn_stopped (783124901663086172) -->
+    <skip />
     <string name="description_direction_right" msgid="1615911557926085934">"Fai scorrere il dito verso destra per eliminare"</string>
     <string name="description_direction_left" msgid="6328816971226781776">"Fai scorrere il dito verso sinistra per ripetizione allarme attiva"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Fai scorrere il dito verso l\'alto per eliminare"</string>
     <string name="description_direction_down" msgid="8240473964024874053">"Fai scorrere il dito verso il basso per ripetizione allarme attiva"</string>
-    <!-- no translation found for timer_stopped (2730331837832462008) -->
+    <string name="timer_stopped" msgid="2730331837832462008">"Timer fermato"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> timer fermati"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tocca per visualizzare i timer"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
+    <!-- no translation found for next_timer_notif (6136454740115613653) -->
     <skip />
-    <!-- no translation found for timers_stopped (2393640808691864520) -->
+    <string name="screensaver_settings" msgid="7013450738357352801">"Impostazioni Dream"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Modalità Notte"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Display molto scuro (per stanze buie)"</string>
+    <!-- no translation found for expand_alarm (7392616528943305020) -->
     <skip />
-    <!-- no translation found for all_timers_stopped_notif (278532320068394600) -->
-    <skip />
-    <!-- no translation found for timers_in_use (5570729467344408506) -->
-    <skip />
-    <!-- no translation found for next_timer_notif (5372774263467787736) -->
-    <skip />
-    <!-- no translation found for screensaver_settings (7013450738357352801) -->
-    <skip />
-    <!-- no translation found for night_mode_title (5983813889469616299) -->
-    <skip />
-    <!-- no translation found for night_mode_summary (1017350187324162631) -->
+    <!-- no translation found for collapse_alarm (3561772046433483980) -->
     <skip />
 </resources>

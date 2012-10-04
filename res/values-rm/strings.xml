@@ -28,7 +28,7 @@
     <skip />
     <string name="show_clock" msgid="8358759982675616915">"Mussar l\'ura"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Zuppentar l\'ura"</string>
-    <!-- no translation found for label (2407986483260935828) -->
+    <!-- no translation found for label (7713131021574533921) -->
     <skip />
     <string name="default_label" msgid="5590025289805630372">"Svegliarin"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Drizzar il svegliarin"</string>
@@ -246,6 +246,10 @@
     <skip />
     <!-- no translation found for no_cities_found (5076277409409268915) -->
     <skip />
+    <!-- no translation found for search_city (5167756899726176174) -->
+    <skip />
+    <!-- no translation found for cities_activity_title (8552462751129256730) -->
+    <skip />
     <!-- no translation found for alarm_setup_music (6140596565783696650) -->
     <skip />
     <!-- no translation found for alarm_on (3898994909321344263) -->
@@ -386,6 +390,8 @@
     <skip />
     <!-- no translation found for swn_collapsed_laps_divider (7431727909332216831) -->
     <skip />
+    <!-- no translation found for swn_stopped (783124901663086172) -->
+    <skip />
     <!-- no translation found for description_direction_right (1615911557926085934) -->
     <skip />
     <!-- no translation found for description_direction_left (6328816971226781776) -->
@@ -402,12 +408,16 @@
     <skip />
     <!-- no translation found for timers_in_use (5570729467344408506) -->
     <skip />
-    <!-- no translation found for next_timer_notif (5372774263467787736) -->
+    <!-- no translation found for next_timer_notif (6136454740115613653) -->
     <skip />
     <!-- no translation found for screensaver_settings (7013450738357352801) -->
     <skip />
     <!-- no translation found for night_mode_title (5983813889469616299) -->
     <skip />
     <!-- no translation found for night_mode_summary (1017350187324162631) -->
+    <skip />
+    <!-- no translation found for expand_alarm (7392616528943305020) -->
+    <skip />
+    <!-- no translation found for collapse_alarm (3561772046433483980) -->
     <skip />
 </resources>
