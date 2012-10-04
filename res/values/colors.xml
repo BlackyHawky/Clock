@@ -33,4 +33,7 @@
     <color name="clock_white">#ffffff</color>
     <color name="clock_gray">#80ffffff</color>
     <color name="notification_bg">#ff15444F</color>
+
+    <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
+    <drawable name="notification_template_icon_low_bg">#0cffffff</drawable>
 </resources>
