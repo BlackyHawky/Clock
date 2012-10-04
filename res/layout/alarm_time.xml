@@ -76,7 +76,6 @@
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             style="@style/button"
-            android:background="?android:attr/selectableItemBackground"
             android:id="@+id/onoff"/>
     </LinearLayout>
     <LinearLayout
