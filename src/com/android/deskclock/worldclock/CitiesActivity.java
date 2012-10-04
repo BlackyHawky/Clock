@@ -21,32 +21,34 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.android.deskclock.Alarms;
 import com.android.deskclock.DeskClock;
+import com.android.deskclock.Log;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TimeZone;
 
@@ -58,6 +60,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
     /** This must be false for production.  If true, turns on logging,
         test code, etc. */
     static final boolean DEBUG = false;
+    static final String TAG = "CitiesActivity";
 
     private LayoutInflater mFactory;
     private ListView mCitiesList;
@@ -66,20 +69,23 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
     private Calendar mCalendar;
 
 
-    private class CityAdapter extends BaseAdapter {
-        ArrayList<CityObj> mAllTheCitiesList;
-        HashMap<String, CityObj> mSelectedCitiesList;
-        LayoutInflater mInflater;
-        private boolean mIs24HoursMode;
+/***
+* Adapter for a list of cities with the respected time zone.
+* The Adapter sorts the list alphabetically and create an indexer.
+***/
+
+    private class CityAdapter extends BaseAdapter implements SectionIndexer {
+        private CityObj [] mAllTheCitiesList;                      // full list of the cities
+        private final HashMap<String, CityObj> mSelectedCitiesList; // Selected cities by the use
+        private final LayoutInflater mInflater;
+        private boolean mIs24HoursMode;                            // AM/PM or 24 hours mode
+        private Object [] mSectionHeaders;
+        private Object [] mSectionPositions;
 
         public CityAdapter(
                 Context context,  HashMap<String, CityObj> selectedList, LayoutInflater factory) {
             super();
-            mAllTheCitiesList = new ArrayList<CityObj> ();
-            mAllTheCitiesList.add(new CityObj("San Farncisco", "America/Los_Angeles"));
-            mAllTheCitiesList.add(new CityObj("New York", "America/New_York"));
-            mAllTheCitiesList.add(new CityObj("London", "Europe/London"));
-            mAllTheCitiesList.add(new CityObj("Tel Aviv", "Asia/Jerusalem"));
+            loadCitiesDataBase(context);
             mSelectedCitiesList = selectedList;
             mInflater = factory;
             mCalendar = Calendar.getInstance();
@@ -89,13 +95,13 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
 
         @Override
         public int getCount() {
-            return mAllTheCitiesList.size();
+            return mAllTheCitiesList.length;
         }
 
         @Override
         public Object getItem(int p) {
-            if (p >=0 && p < mAllTheCitiesList.size()) {
-                return mAllTheCitiesList.get(p);
+            if (p >=0 && p < mAllTheCitiesList.length) {
+                return mAllTheCitiesList [p];
             }
             return null;
         }
@@ -107,18 +113,18 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
 
         @Override
         public View getView(int position, View view, ViewGroup parent) {
-            if (position < 0 || position >=  mAllTheCitiesList.size()) {
+            if (position < 0 || position >=  mAllTheCitiesList.length) {
                 return null;
             }
             if (view == null) {
                 view = mInflater.inflate(R.layout.city_list_item, parent, false);
             }
-            CityObj c = mAllTheCitiesList.get(position);
+            CityObj c = mAllTheCitiesList [position];
             TextView name = (TextView)view.findViewById(R.id.city_name);
             TextView tz = (TextView)view.findViewById(R.id.city_time);
             CheckBox cb = (CheckBox)view.findViewById(R.id.city_onoff);
             cb.setTag(c);
-            cb.setChecked(mSelectedCitiesList.containsKey(c.mCityName));
+            cb.setChecked(mSelectedCitiesList.containsKey(c.mCityId));
             cb.setOnCheckedChangeListener(CitiesActivity.this);
             name.setText(c.mCityName);
             mCalendar.setTimeZone(TimeZone.getTimeZone(c.mTimeZone));
@@ -130,21 +136,81 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
             mIs24HoursMode = Alarms.get24HourMode(c);
             notifyDataSetChanged();
         }
+
+        private void loadCitiesDataBase(Context c) {
+            Resources r = c.getResources();
+            // Read strings array of name,timezone, id
+            // make sure the list are the same length
+            String [] cities = r.getStringArray(R.array.cities_names);
+            String [] timezones = r.getStringArray(R.array.cities_tz);
+            String [] ids = r.getStringArray(R.array.cities_id);
+            if (cities.length != timezones.length || ids.length != cities.length) {
+                Log.wtf("City lists sizes are not the same, cannot use the data");
+                return;
+             }
+             mAllTheCitiesList = new CityObj [cities.length];
+             for (int i = 0; i < cities.length; i++) {
+                mAllTheCitiesList[i] = new CityObj(cities[i], timezones[i], ids[i]);
+             }
+             // Sort alphabetically
+            Arrays.sort(mAllTheCitiesList, new Comparator<CityObj> () {
+                @Override
+                public int compare(CityObj c1, CityObj c2) {
+                    return c1.mCityName.compareTo(c2.mCityName);
+                }
+            });
+            //Create section indexer
+            String val = null;
+            ArrayList<String> sections = new ArrayList<String> ();
+            ArrayList<Integer> positions = new ArrayList<Integer> ();
+            for (int i = 0; i <  mAllTheCitiesList.length; i++) {
+                CityObj city = mAllTheCitiesList[i];
+                 if (!city.mCityName.substring(0,1).equals(val)) {
+                    val = city.mCityName.substring(0,1);
+                    sections.add((new String(val)).toUpperCase());
+                    positions.add(i);
+                 }
+            }
+            mSectionHeaders = sections.toArray();
+            mSectionPositions = positions.toArray();
+         }
+
+        @Override
+        public int getPositionForSection(int section) {
+            return (Integer) mSectionPositions[section];
+        }
+
+        @Override
+        public int getSectionForPosition(int p) {
+            for (int i = 0; i < mSectionPositions.length - 1; i++) {
+                if (p >= (Integer)mSectionPositions[i] && p < (Integer)mSectionPositions[i + 1]) {
+                    return i;
+                }
+            }
+            if (p >= (Integer)mSectionPositions[mSectionPositions.length - 1]) {
+                return mSectionPositions.length - 1;
+            }
+            return 0;
+        }
+
+        @Override
+        public Object[] getSections() {
+            return mSectionHeaders;
+        }
     }
 
 
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-
         mFactory = LayoutInflater.from(this);
-
         updateLayout();
     }
 
     private void updateLayout() {
         setContentView(R.layout.cities_activity);
         mCitiesList = (ListView) findViewById(R.id.cities_list);
+        mCitiesList.setFastScrollEnabled(true);
         mUserSelectedCities = Cities.readCitiesFromSharedPrefs(
                 PreferenceManager.getDefaultSharedPreferences(this));
         mAdapter = new CityAdapter(this, mUserSelectedCities, mFactory);
@@ -212,9 +278,9 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
     public void onCheckedChanged(CompoundButton b, boolean checked) {
         CityObj c = (CityObj)b.getTag();
         if (checked) {
-            mUserSelectedCities.put(c.mCityName, c);
+            mUserSelectedCities.put(c.mCityId, c);
         } else {
-            mUserSelectedCities.remove(c.mCityName);
+            mUserSelectedCities.remove(c.mCityId);
         }
         mAdapter.notifyDataSetChanged();
     }
