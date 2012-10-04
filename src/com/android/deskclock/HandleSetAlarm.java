@@ -16,19 +16,19 @@
 
 package com.android.deskclock;
 
+import static android.provider.AlarmClock.ACTION_SET_ALARM;
+import static android.provider.AlarmClock.EXTRA_HOUR;
+import static android.provider.AlarmClock.EXTRA_MESSAGE;
+import static android.provider.AlarmClock.EXTRA_MINUTES;
+import static android.provider.AlarmClock.EXTRA_SKIP_UI;
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import static android.provider.AlarmClock.ACTION_SET_ALARM;
-import static android.provider.AlarmClock.EXTRA_HOUR;
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
-import static android.provider.AlarmClock.EXTRA_MINUTES;
-import static android.provider.AlarmClock.EXTRA_SKIP_UI;
 
 import java.util.Calendar;
 
@@ -113,7 +113,7 @@ public class HandleSetAlarm extends Activity {
                 Alarms.enableAlarm(this, alarm.id, true);
                 alarm.enabled = true;
             }
-            SetAlarm.popAlarmSetToast(this, timeInMillis);
+            AlarmUtils.popAlarmSetToast(this, timeInMillis);
             if (skipUi) {
                 Alarms.setAlarm(this, alarm);
             } else {

@@ -20,15 +20,15 @@
 
 package com.android.deskclock;
 
-import android.os.SystemClock;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Log {
     public final static String LOGTAG = "AlarmClock";
 
-    static final boolean LOGV = AlarmClock.DEBUG ? false : false;
+    /** This must be false for production.  If true, turns on logging,
+     test code, etc. */
+    static final boolean LOGV = false;
 
     public static void v(String logMe) {
         android.util.Log.v(LOGTAG, /* SystemClock.uptimeMillis() + " " + */ logMe);
@@ -44,6 +44,10 @@ public class Log {
 
     public static void e(String logMe, Exception ex) {
         android.util.Log.e(LOGTAG, logMe, ex);
+    }
+
+    public static void w(String logMe) {
+        android.util.Log.w(LOGTAG, logMe);
     }
 
     public static void wtf(String logMe) {

@@ -14,9 +14,12 @@
      limitations under the License.
 -->
 
-<ListView
+<com.android.deskclock.widget.swipeablelistview.SwipeableListView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/alarms_list"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_weight="1" />
+    android:layout_height="match_parent"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:descendantFocusability="beforeDescendants"
+    android:divider="?android:attr/dividerVertical"/>

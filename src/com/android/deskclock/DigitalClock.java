@@ -172,6 +172,15 @@ public class DigitalClock extends LinearLayout {
         updateTime();
     }
 
+    public void updateTime(int hour, int minute) {
+        // set the alarm text
+        final Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        mCalendar = c;
+        updateTime();
+    }
+
     private void updateTime() {
         if (mLive) {
             mCalendar.setTimeInMillis(System.currentTimeMillis());
