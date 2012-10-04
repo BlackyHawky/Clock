@@ -14,111 +14,118 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/black"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:internal="http://schemas.android.com/apk/prv/res/android"
         android:id="@+id/swn_expanded_hitspace"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:layout_height="64dp"
+        internal:layout_maxHeight="64dp"
+        internal:layout_minHeight="64dp"
+        android:background="@+drawable/notification_bg" >
+
+        <ImageView
+            android:id="@+id/notification_icon"
+            android:layout_width="@dimen/notification_large_icon_width"
+            android:layout_height="@dimen/notification_large_icon_height"
+            android:background="@+drawable/notification_template_icon_bg"
+            android:scaleType="center" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground" >
+            android:layout_gravity="fill_vertical"
+            android:layout_marginStart="@dimen/notification_large_icon_width"
+            android:gravity="center"
+            android:minHeight="@dimen/notification_large_icon_height"
+            android:orientation="vertical"
+            android:paddingBottom="2dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="2dp" >
 
-            <ImageView
-                android:layout_width="63dip"
-                android:layout_height="63dip"
-                android:background="@drawable/notification_icon"
-                android:scaleType="centerInside" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dip"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_gravity="center_vertical"
-                android:text="@string/stopwatch_title" />
-        </LinearLayout>
+                android:layout_marginStart="8dp"
+                android:orientation="horizontal" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:background="?android:attr/selectableItemBackground"
-            android:paddingBottom="30dip"
-            android:paddingLeft="45dip"
-            android:paddingRight="45dip"
-            android:paddingTop="30dip"
-            android:layout_weight="1" >
+                <Chronometer
+                    android:id="@+id/swn_expanded_chronometer"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Title" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/swn_expanded_laps"
-                style="@style/small_light"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+                android:layout_marginStart="8dp"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:singleLine="true"
+                android:textAppearance="@style/TextAppearance.StatusBar.EventContent"
+                android:visibility="gone" />
+        </LinearLayout>
+    </FrameLayout>
 
-            <Chronometer
-                android:id="@+id/swn_expanded_chronometer"
-                style="@style/small_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-        </RelativeLayout>
-    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#28ffffff" />
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:background="@drawable/notification_bg_normal" >
 
-        <Button
-            android:id="@+id/swn_left_button"
-            style="@style/button"
-            android:layout_width="0dip"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground" />
+            android:layout_marginStart="@dimen/notification_large_icon_width"
+            android:divider="?android:attr/listDivider"
+            android:dividerPadding="12dp"
+            android:orientation="horizontal"
+            android:showDividers="middle" >
 
-        <ImageView
-            android:layout_width="1dip"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dip"
-            android:layout_marginTop="8dip"
-            android:background="#28ffffff" />
+            <TextView
+                android:id="@+id/swn_left_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical"
+                android:paddingStart="8dp"
+                android:singleLine="true"
+                android:textColor="#ccc"
+                android:textSize="14dp" />
 
-        <Button
-            android:id="@+id/swn_share_button"
-            style="@style/button"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground"
-            android:text="@string/sw_share_button" />
-
-        <ImageView
-            android:id="@+id/stopwatch_button_seperator"
-            android:layout_width="1dip"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dip"
-            android:layout_marginTop="8dip"
-            android:background="#28ffffff" />
-
-        <Button
-            android:id="@+id/swn_right_button"
-            style="@style/button"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="?android:attr/selectableItemBackground" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/swn_right_button"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:drawablePadding="8dp"
+                android:ellipsize="end"
+                android:gravity="start|center_vertical"
+                android:paddingStart="8dp"
+                android:singleLine="true"
+                android:textColor="#ccc"
+                android:textSize="14dp" />
+        </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
