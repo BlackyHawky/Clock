@@ -107,4 +107,13 @@ public class Utils {
         return SystemClock.elapsedRealtime();
     }
 
+    /**
+     * Calculate the amount by which the radius of a CircleTimerView should be offset by the any
+     * of the extra painted objects.
+     */
+    public static float calculateRadiusOffset(
+            float strokeSize, float diamondStrokeSize, float markerStrokeSize) {
+        return Math.max(strokeSize, Math.max(diamondStrokeSize, markerStrokeSize));
+    }
+
 }

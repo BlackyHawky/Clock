@@ -66,7 +66,7 @@ public class TimerListItem extends LinearLayout {
     public void start() {
         mCircleView.startIntervalAnimation();
         mTimerText.redTimeStr(false, true);
-        mTimerText.setVisibility(VISIBLE);
+        mTimerText.showTime(true);
         mCircleView.setVisibility(VISIBLE);
     }
 
@@ -78,7 +78,7 @@ public class TimerListItem extends LinearLayout {
     public void stop() {
         mCircleView.stopIntervalAnimation();
         mTimerText.redTimeStr(false, true);
-        mTimerText.setVisibility(VISIBLE);
+        mTimerText.showTime(true);
         mCircleView.setVisibility(VISIBLE);
     }
 
@@ -92,7 +92,6 @@ public class TimerListItem extends LinearLayout {
         mCircleView.setVisibility(VISIBLE);
         mCircleView.invalidate();
         mTimerText.redTimeStr(true, false);
-        setTime(0, true);
     }
 
     public void setLength(long timerLength) {
@@ -102,7 +101,7 @@ public class TimerListItem extends LinearLayout {
     }
 
     public void setTextBlink(boolean blink) {
-        mTimerText.setVisibility(blink ? INVISIBLE : VISIBLE);
+        mTimerText.showTime(!blink);
     }
 
     public void setCircleBlink(boolean blink) {

@@ -27,6 +27,7 @@ public class CircleTimerView extends View {
     private long mAccumulatedTime = 0;
     private boolean mPaused = false;
     private boolean mAnimate = false;
+    private static float mCircleXCenterLeftPadding = 0;
     private static float mStrokeSize = 4;
     private static float mDiamondStrokeSize = 12;
     private static float mMarkerStrokeSize = 2;
@@ -115,15 +116,18 @@ public class CircleTimerView extends View {
     private void init(Context c) {
 
         mResources = c.getResources();
+        mCircleXCenterLeftPadding = (mResources.getDimension(R.dimen.timer_circle_width)
+                - mResources.getDimension(R.dimen.timer_circle_diameter)) / 2;
         mStrokeSize = mResources.getDimension(R.dimen.circletimer_circle_size);
         mDiamondStrokeSize = mResources.getDimension(R.dimen.circletimer_diamond_size);
         mMarkerStrokeSize = mResources.getDimension(R.dimen.circletimer_marker_size);
+        mRadiusOffset = Utils.calculateRadiusOffset(
+                mStrokeSize, mDiamondStrokeSize, mMarkerStrokeSize);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mWhiteColor = mResources.getColor(R.color.clock_white);
         mRedColor = mResources.getColor(R.color.clock_red);
         mScreenDensity = mResources.getDisplayMetrics().density;
-        mRadiusOffset = Math.max(mStrokeSize, Math.max(mDiamondStrokeSize, mMarkerStrokeSize));
         mFill.setAntiAlias(true);
         mFill.setStyle(Paint.Style.FILL);
         mFill.setColor(mRedColor);
@@ -144,6 +148,9 @@ public class CircleTimerView extends View {
 
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             xCenter = (int) (radius + mRadiusOffset);
+            if (mTimerMode) {
+                xCenter += mCircleXCenterLeftPadding;
+            }
         }
 
         if (mIntervalStartTime == -1) {
