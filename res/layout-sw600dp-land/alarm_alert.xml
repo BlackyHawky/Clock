@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="24dp" >
+        android:paddingLeft="32dip" >
 
         <TextView
             android:id="@+id/alertTitle"
@@ -68,6 +68,7 @@
             <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/am_pm"
                 style="@style/label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="none"
                 android:singleLine="true"
@@ -80,8 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:paddingLeft="24dip"
-        android:paddingRight="24dip" >
+        android:paddingLeft="32dip"
+        android:paddingRight="32dip" >
 
         <Button
             android:id="@+id/snooze"
