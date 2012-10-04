@@ -191,6 +191,10 @@
     <string name="sort_by_time" msgid="3588583060192569857">"Κατά ώρα"</string>
     <string name="search_results" msgid="3940223188208445245">"Αποτελέσματα"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"Δεν βρέθηκαν πόλεις"</string>
+    <!-- no translation found for search_city (5167756899726176174) -->
+    <skip />
+    <!-- no translation found for cities_activity_title (8552462751129256730) -->
+    <skip />
     <string name="alarm_setup_music" msgid="6140596565783696650">"Μουσική"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Ενεργό"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Ανενεργό"</string>
@@ -320,10 +324,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Αγγίξτε για να δείτε τα ξυπνητήρια σας"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ξυπνητήρια"</string>
     <string name="next_timer_notif" msgid="5372774263467787736">"Επόμενο ξυπνητήρι: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <!-- no translation found for screensaver_settings (7013450738357352801) -->
-    <skip />
-    <!-- no translation found for night_mode_title (5983813889469616299) -->
-    <skip />
-    <!-- no translation found for night_mode_summary (1017350187324162631) -->
-    <skip />
+    <string name="screensaver_settings" msgid="7013450738357352801">"Ρυθμίσεις λειτουργίας Dream"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Λειτουργία νύχτας"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Πολύ χαμηλή φωτεινότητα οθόνης (για σκοτεινά δωμάτια)"</string>
 </resources>

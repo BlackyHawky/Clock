@@ -39,10 +39,12 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Drzemka"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Drzemka przez <xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Drzemka do <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for timer_notifications:0 (7760558912503484257) -->
-    <!-- no translation found for timer_notifications:1 (83197792732433351) -->
-    <!-- no translation found for timer_notifications:2 (8919698220200894252) -->
-    <!-- no translation found for timer_notifications:3 (8458069283817013813) -->
+  <string-array name="timer_notifications">
+    <item msgid="7760558912503484257">"Jeszcze niecała minuta"</item>
+    <item msgid="83197792732433351">"Jeszcze <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"Jeszcze <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"Jeszcze <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+  </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarm włączy się za mniej niż 1 minutę."</item>
     <item msgid="6002066367368421848">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -189,6 +191,10 @@
     <string name="sort_by_time" msgid="3588583060192569857">"Wg czasu"</string>
     <string name="search_results" msgid="3940223188208445245">"Wyniki"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"Nie znaleziono miast"</string>
+    <!-- no translation found for search_city (5167756899726176174) -->
+    <skip />
+    <!-- no translation found for cities_activity_title (8552462751129256730) -->
+    <skip />
     <string name="alarm_setup_music" msgid="6140596565783696650">"Muzyka"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Wł."</string>
     <string name="alarm_off" msgid="7220973271168254762">"Wył."</string>
@@ -215,12 +221,9 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Anuluj"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Ustaw"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
-    <skip />
-    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
-    <skip />
-    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
-    <skip />
+    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
+    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
+    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Wyspy Marshalla"</item>
     <item msgid="4196408495909011020">"Midway"</item>
@@ -316,16 +319,11 @@
     <string name="description_direction_left" msgid="6328816971226781776">"Przesuń w lewo, by włączyć drzemkę"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Przesuń w górę, by zamknąć"</string>
     <string name="description_direction_down" msgid="8240473964024874053">"Przesuń w dół, by włączyć drzemkę"</string>
-    <!-- no translation found for timer_stopped (2730331837832462008) -->
-    <skip />
-    <!-- no translation found for timers_stopped (2393640808691864520) -->
-    <skip />
-    <!-- no translation found for all_timers_stopped_notif (278532320068394600) -->
-    <skip />
-    <!-- no translation found for timers_in_use (5570729467344408506) -->
-    <skip />
-    <!-- no translation found for next_timer_notif (5372774263467787736) -->
-    <skip />
+    <string name="timer_stopped" msgid="2730331837832462008">"Minutnik zatrzymany"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"Zatrzymane minutniki: <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Kliknij, by zobaczyć minutniki"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"Minutniki: <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="5372774263467787736">"Następny minutnik: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <!-- no translation found for screensaver_settings (7013450738357352801) -->
     <skip />
     <!-- no translation found for night_mode_title (5983813889469616299) -->
