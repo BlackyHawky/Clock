@@ -50,7 +50,7 @@
     <string name="hide_clock">Hide clock</string>
 
     <!-- Setting label on Set alarm screen: Label -->
-    <string name="label">Label (Optional)</string>
+    <string name="label">Label (optional)</string>
 
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
@@ -638,6 +638,9 @@
     <string name="screensaver_settings">Dream settings</string>
     <string name="night_mode_title">Night mode</string>
     <string name="night_mode_summary">Very dim display (for dark rooms)</string>
+
+    <string name="expand_alarm">Expand alarm</string>
+    <string name="collapse_alarm">Collapse alarm</string>
 
 </resources>
 

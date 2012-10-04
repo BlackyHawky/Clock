@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License.
+ * limitations under the License
  */
 
 package com.android.deskclock;
@@ -63,7 +63,11 @@ public class AlarmTimePickerDialog extends Dialog implements android.view.View.O
     @Override
     public void onClick(View v) {
         if (v == mSet) {
-            mOnSetTimeListener.onTimeSet(mPicker.getHours(), mPicker.getMinutes());
+            if (mOnSetTimeListener == null) {
+                Log.w("AlarmTimePickerDialog was clicked but no listener is set to handle it!");
+            } else {
+                mOnSetTimeListener.onTimeSet(mPicker.getHours(), mPicker.getMinutes());
+            }
         }
         dismiss();
     }
