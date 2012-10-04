@@ -36,13 +36,14 @@
             android:layout_height="1dip"
             android:background="#28ffffff" />
 
-         <Button
+         <ImageButton
               android:id="@+id/timer_add_timer"
-              android:text="@string/timer_add_timer"
+              android:contentDescription="@string/timer_add_timer"
               android:layout_width="match_parent"
+              android:src="@drawable/ic_add"
               style="@style/button"
               android:background="?android:attr/selectableItemBackground"
-              android:layout_height="wrap_content" />
+              android:layout_height="48dip" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/new_timer_page"
