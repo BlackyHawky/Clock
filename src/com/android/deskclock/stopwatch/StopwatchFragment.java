@@ -201,7 +201,6 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
                         // do reset
                         doReset();
                         intent.setAction(Stopwatches.RESET_STOPWATCH);
-                        intent.putExtra(Stopwatches.LOAD_ACTIVITY, false);
                         context.startService(intent);
                         break;
                     default:

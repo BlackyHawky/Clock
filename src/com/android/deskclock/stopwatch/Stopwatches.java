@@ -28,8 +28,8 @@ public class Stopwatches {
     public static final String STOP_STOPWATCH = "stop_stopwatch";
     public static final String RESET_STOPWATCH = "reset_stopwatch";
     public static final String SHARE_STOPWATCH = "share_stopwatch";
+    public static final String RESET_AND_LAUNCH_STOPWATCH = "reset_and_launch_stopwatch";
     public static final String MESSAGE_TIME = "message_time";
-    public static final String LOAD_ACTIVITY = "load_activity";
     public static final String SHOW_NOTIF = "show_notification";
     public static final String KILL_NOTIF = "kill_notification";
     public static final String PREF_START_TIME  = "sw_start_time";
