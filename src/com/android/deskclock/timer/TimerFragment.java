@@ -31,6 +31,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.android.deskclock.DeskClockFragment;
@@ -40,7 +41,6 @@ import com.android.deskclock.TimerSetupView;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 
 
 public class TimerFragment extends DeskClockFragment implements OnClickListener, OnSharedPreferenceChangeListener {
@@ -49,7 +49,8 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
     private ListView mTimersList;
     private View mNewTimerPage;
     private View mTimersListPage;
-    private Button mCancel, mStart, mAddTimer;
+    private Button mCancel, mStart;
+    private ImageButton mAddTimer;
     private TimerSetupView mTimerSetup;
     private TimersListAdapter mAdapter;
     private boolean mTicking = false;
@@ -171,13 +172,13 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
                 v.start();
             }
 
-            Button delete = (Button)v.findViewById(R.id.timer_delete);
+            ImageButton delete = (ImageButton)v.findViewById(R.id.timer_delete);
             delete.setOnClickListener(TimerFragment.this);
             delete.setTag(new ClickAction(ClickAction.ACTION_DELETE, o));
-            Button plusOne = (Button)v. findViewById(R.id.timer_plus_one);
+            ImageButton plusOne = (ImageButton)v. findViewById(R.id.timer_plus_one);
             plusOne.setOnClickListener(TimerFragment.this);
             plusOne.setTag(new ClickAction(ClickAction.ACTION_PLUS_ONE, o));
-            Button stop = (Button)v. findViewById(R.id.timer_stop);
+            ImageButton stop = (ImageButton)v. findViewById(R.id.timer_stop);
             stop.setOnClickListener(TimerFragment.this);
             stop.setTag(new ClickAction(ClickAction.ACTION_STOP, o));
             TimerFragment.this.setTimerButtons(o);
@@ -313,7 +314,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
             }
 
         });
-        mAddTimer = (Button)v.findViewById(R.id.timer_add_timer);
+        mAddTimer = (ImageButton)v.findViewById(R.id.timer_add_timer);
         mAddTimer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -534,36 +535,44 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
         if (a == null || t == null || t.mView == null) {
             return;
         }
-        Button plusOne = (Button) t.mView.findViewById(R.id.timer_plus_one);
-        Button stop = (Button) t.mView.findViewById(R.id.timer_stop);
+        ImageButton plusOne = (ImageButton) t.mView.findViewById(R.id.timer_plus_one);
+        ImageButton stop = (ImageButton) t.mView.findViewById(R.id.timer_stop);
         Resources r = a.getResources();
         switch (t.mState) {
             case TimerObj.STATE_RUNNING:
                 plusOne.setVisibility(View.VISIBLE);
-                plusOne.setText(r.getString(R.string.timer_plus_one));
-                stop.setText(r.getString(R.string.timer_stop));
+                plusOne.setContentDescription(r.getString(R.string.timer_plus_one));
+                plusOne.setImageResource(R.drawable.ic_plusone_normal);
+                stop.setContentDescription(r.getString(R.string.timer_stop));
+                stop.setImageResource(R.drawable.ic_stop_normal);
                 stop.setEnabled(true);
                 break;
             case TimerObj.STATE_STOPPED:
                 plusOne.setVisibility(View.VISIBLE);
-                plusOne.setText(r.getString(R.string.timer_reset));
-                stop.setText(r.getString(R.string.timer_start));
+                plusOne.setContentDescription(r.getString(R.string.timer_reset));
+                plusOne.setImageResource(R.drawable.ic_reset_normal);
+                stop.setContentDescription(r.getString(R.string.timer_start));
+                stop.setImageResource(R.drawable.ic_start_normal);
                 stop.setEnabled(true);
                 break;
             case TimerObj.STATE_TIMESUP:
                 plusOne.setVisibility(View.VISIBLE);
-                stop.setText(r.getString(R.string.timer_stop));
+                plusOne.setImageResource(R.drawable.ic_plusone_normal);
+                stop.setContentDescription(r.getString(R.string.timer_stop));
                 stop.setEnabled(true);
                 break;
             case TimerObj.STATE_DONE:
                 plusOne.setVisibility(View.VISIBLE);
-                plusOne.setText(r.getString(R.string.timer_reset));
-                stop.setText(r.getString(R.string.timer_start));
+                plusOne.setContentDescription(r.getString(R.string.timer_reset));
+                plusOne.setImageResource(R.drawable.ic_reset_normal);
+                stop.setContentDescription(r.getString(R.string.timer_start));
+                stop.setImageResource(R.drawable.ic_start_disabled);
                 stop.setEnabled(false);
                 break;
             case TimerObj.STATE_RESTART:
                 plusOne.setVisibility(View.INVISIBLE);
-                stop.setText(r.getString(R.string.timer_start));
+                stop.setContentDescription(r.getString(R.string.timer_start));
+                stop.setImageResource(R.drawable.ic_start_normal);
                 stop.setEnabled(true);
                 break;
             default:
