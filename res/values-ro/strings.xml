@@ -189,6 +189,10 @@
     <string name="sort_by_time" msgid="3588583060192569857">"După oră"</string>
     <string name="search_results" msgid="3940223188208445245">"Rezultate"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"Nu au fost găsite oraşe"</string>
+    <!-- no translation found for search_city (5167756899726176174) -->
+    <skip />
+    <!-- no translation found for cities_activity_title (8552462751129256730) -->
+    <skip />
     <string name="alarm_setup_music" msgid="6140596565783696650">"Muzică"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Activată"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Dezactivată"</string>
@@ -309,7 +313,7 @@
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARME"</string>
     <string name="see_all" msgid="775983396630163739">"Afişaţi-le pe toate…"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Serviciul Cronometru pentru rularea notificării."</string>
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Serviciul Cronometru pentru notificări."</string>
     <string name="stopwatch_title" msgid="3246663609895204068">"Cronometru"</string>
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Glisaţi uşor spre dreapta pentru a închide"</string>
