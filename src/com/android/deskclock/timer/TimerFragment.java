@@ -424,6 +424,9 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
         switch (tag.mAction) {
             case ClickAction.ACTION_DELETE:
                 TimerObj t = tag.mTimer;
+                if (t.mState == TimerObj.STATE_TIMESUP) {
+                    cancelTimerNotification(t.mTimerId);
+                }
                 mAdapter.deleteTimer(t.mTimerId);
                 if (mAdapter.getCount() == 0) {
                     if (mOnEmptyListListener == null) {
@@ -471,6 +474,7 @@ public class TimerFragment extends DeskClockFragment implements OnClickListener,
                 updateTimersState(t, Timers.TIMER_RESET);
                 updateTimersState(t, Timers.START_TIMER);
                 updateTimesUpMode(t);
+                cancelTimerNotification(t.mTimerId);
                 break;
             case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_DONE:
