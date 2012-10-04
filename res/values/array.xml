@@ -529,7 +529,7 @@
         <item>Milan</item>
         <item>Frankfurt</item>
     </array>
-    <array name="cities_tz">
+    <array name="cities_tz" translatable="false">
         <item>Africa/Abidjan</item>
         <item>Africa/Accra</item>
         <item>Africa/Addis_Ababa</item>
@@ -1043,7 +1043,7 @@
         <item>Europe/Berlin</item>
     </array>
 
-    <array name="cities_id">
+    <array name="cities_id" translatable="false">
         <item>C1</item>
         <item>C2</item>
         <item>C3</item>
