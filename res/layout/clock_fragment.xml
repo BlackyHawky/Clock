@@ -92,46 +92,45 @@
             android:id="@+id/clock_buttons"
             android:gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-            <Button
+            android:layout_height="48dip" >
+            <ImageButton
                 android:id="@+id/alarms_button"
-                android:text="@string/button_alarms"
+                android:contentDescription="@string/button_alarms"
                 android:onClick="clockButtonsOnClick"
-                android:layout_width="0dip"
-                android:layout_weight="1"
+                android:layout_width="56dip"
                 style="@style/button"
+                android:layout_gravity="left"
+                android:src="@drawable/ic_alarm"
                 android:background="?android:attr/selectableItemBackground"
-                android:layout_height="wrap_content" />
-            <View
+                android:layout_height="match_parent" />
+            <Space
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dip"
-                android:layout_marginBottom="8dip"
-                android:layout_width="1dip"
-                android:background="#28ffffff" />
-            <Button
+                android:layout_width="0dip"
+                android:layout_weight="1"/>
+            <ImageButton
                 android:id="@+id/cities_button"
-                android:text="@string/button_cities"
+                android:contentDescription="@string/button_cities"
                 android:onClick="clockButtonsOnClick"
-                android:layout_width="0dip"
-                android:layout_weight="1"
+                android:layout_width="56dip"
+                android:src="@drawable/ic_location"
                 style="@style/button"
+                android:layout_gravity="center"
                 android:background="?android:attr/selectableItemBackground"
-                android:layout_height="wrap_content" />
-            <View
+                android:layout_height="match_parent" />
+            <Space
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dip"
-                android:layout_marginBottom="8dip"
-                android:layout_width="1dip"
-                android:background="#28ffffff" />
+                android:layout_width="0dip"
+                android:layout_weight="1"/>
             <ImageButton
                 android:id="@+id/menu_button"
                 android:contentDescription="@string/button_menu"
                 style="?android:attr/actionOverflowButtonStyle"
                 android:background="?android:attr/selectableItemBackground"
                 android:onClick="clockButtonsOnClick"
-                android:minWidth="56dp"
+                android:layout_gravity="right"
+                android:width="56dip"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
 </FrameLayout>
