@@ -100,6 +100,10 @@ public class CircleTimerView extends View {
         mPaused = true;
     }
 
+    public void abortIntervalAnimation() {
+        this.removeCallbacks(mAnimationThread);
+    }
+
     public void setPassedTime(long time, boolean drawRed) {
         // The onDraw() method checks if mIntervalStartTime has been set before drawing any red.
         // Without drawRed, mIntervalStartTime should not be set here at all, and would remain at -1
@@ -156,6 +160,9 @@ public class CircleTimerView extends View {
             // just draw a complete white circle, no red arc needed
             mPaint.setColor(mWhiteColor);
             canvas.drawCircle (xCenter, yCenter, radius, mPaint);
+            if (mTimerMode) {
+                drawRedDiamond(canvas, 0f, xCenter, yCenter, radius);
+            }
         } else {
             //draw a combination of red and white arcs to create a circle
             mArcRect.top = yCenter - radius;
@@ -196,23 +203,27 @@ public class CircleTimerView extends View {
                         (float) (360 / (radius * Math.PI)) , false, mPaint);
             }
 
-            // draw red diamond here
-            float diamondPercent;
-            if (mTimerMode) {
-                diamondPercent = 270 - redPercent * 360;
-            } else {
-                diamondPercent = 270 + redPercent * 360;
-            }
+            drawRedDiamond(canvas, redPercent, xCenter, yCenter, radius);
+        }
+   }
 
-            canvas.save();
-            final double diamondRadians = Math.toRadians(diamondPercent);
-            canvas.translate(xCenter + (float) (radius * Math.cos(diamondRadians)),
-                    yCenter + (float) (radius * Math.sin(diamondRadians)));
-            canvas.rotate(diamondPercent + 45f);
-            canvas.drawRect(-mRectHalfWidth, -mRectHalfWidth, mRectHalfWidth, mRectHalfWidth, mFill);
-            canvas.restore();
-         }
+    protected void drawRedDiamond(
+            Canvas canvas, float degrees, int xCenter, int yCenter, float radius) {
+        mPaint.setColor(mRedColor);
+        float diamondPercent;
+        if (mTimerMode) {
+            diamondPercent = 270 - degrees * 360;
+        } else {
+            diamondPercent = 270 + degrees * 360;
+        }
 
+        canvas.save();
+        final double diamondRadians = Math.toRadians(diamondPercent);
+        canvas.translate(xCenter + (float) (radius * Math.cos(diamondRadians)),
+                yCenter + (float) (radius * Math.sin(diamondRadians)));
+        canvas.rotate(diamondPercent + 45f);
+        canvas.drawRect(-mRectHalfWidth, -mRectHalfWidth, mRectHalfWidth, mRectHalfWidth, mFill);
+        canvas.restore();
     }
 
     public static final String PREF_CTV_PAUSED  = "_ctv_paused";
