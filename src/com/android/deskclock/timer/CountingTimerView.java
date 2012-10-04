@@ -24,7 +24,9 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
+import com.android.deskclock.Log;
 import com.android.deskclock.R;
 
 
@@ -58,17 +60,18 @@ public class CountingTimerView extends View {
     private final int mPressedColor;
     private final int mWhiteColor;
     private final int mRedColor;
+    private TextView mStopStartTextView;
 
     // Fields for the text serving as a virtual button.
     private boolean mVirtualButtonEnabled = false;
     private boolean mVirtualButtonPressedOn = false;
 
     Runnable mBlinkThread = new Runnable() {
+        private boolean mVisible = true;
         @Override
         public void run() {
-            mShowTimeStr = !mShowTimeStr;
-            CountingTimerView.this.invalidate();
-            mRemeasureText = true;
+            mVisible = !mVisible;
+            CountingTimerView.this.showTime(mVisible);
             postDelayed(mBlinkThread, 500);
         }
 
@@ -90,7 +93,7 @@ public class CountingTimerView extends View {
         mSecondsLabel = r.getString(R.string.seconds_label).toUpperCase();
         mWhiteColor = r.getColor(R.color.clock_white);
         mDefaultColor = mWhiteColor;
-        mPressedColor = r.getColor(R.color.clock_blue);
+        mPressedColor = r.getColor(R.color.clock_red);
         mRedColor = r.getColor(R.color.clock_red);
 
         mPaintBig.setAntiAlias(true);
@@ -268,9 +271,14 @@ public class CountingTimerView extends View {
             postDelayed(mBlinkThread, 1000);
         } else {
             removeCallbacks(mBlinkThread);
-            mShowTimeStr = true;
-            this.setVisibility(View.VISIBLE);
+            showTime(true);
         }
+    }
+
+    public void showTime(boolean visible) {
+        mShowTimeStr = visible;
+        invalidate();
+        mRemeasureText = true;
     }
 
     public void redTimeStr(boolean red, boolean forceUpdate) {
@@ -294,6 +302,7 @@ public class CountingTimerView extends View {
 
     private void virtualButtonPressed(boolean pressedOn) {
         mVirtualButtonPressedOn = pressedOn;
+        mStopStartTextView.setTextColor(pressedOn ? mPressedColor : mWhiteColor);
         invalidate();
     }
 
@@ -369,6 +378,7 @@ public class CountingTimerView extends View {
         int textColor;
         if (mVirtualButtonPressedOn) {
             textColor = mPressedColor;
+            mStopStartTextView.setTextColor(mPressedColor);
         } else {
             textColor = mDefaultColor;
         }
@@ -400,6 +410,9 @@ public class CountingTimerView extends View {
             textXstart += mHundredthsSepWidth;
             canvas.drawText(mHunderdths, textXstart, textYstart, mPaintMed);
         }
+    }
 
+    public void registerStopTextView(TextView stopStartTextView) {
+        mStopStartTextView = stopStartTextView;
     }
 }

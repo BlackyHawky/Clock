@@ -34,12 +34,13 @@
     <dimen name="dialpad_font_size">24sp</dimen>
 
     <dimen name="timer_circle_diameter">240dip</dimen>
+    <dimen name="timer_circle_width">400dip</dimen>
     <dimen name="actionbar_tab_padding">50dip</dimen>
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin">8dp</dimen>
     <dimen name="laps_margin">16dp</dimen>
 
-    <dimen name="glowpadview_margin_bottom">0dip</dimen>
-    <dimen name="glowpadview_margin_right">-64dip</dimen>
+    <!-- Extra offset for timer button paddings. Only nonzero for non-tablets. -->
+    <dimen name="timer_button_extra_offset">45dip</dimen>
 </resources>

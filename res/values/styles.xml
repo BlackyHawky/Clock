@@ -182,6 +182,10 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
+    <style name="bold_button" parent="button">
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size</item>
         <item name="android:textAllCaps">true</item>

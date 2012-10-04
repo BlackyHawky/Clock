@@ -15,12 +15,16 @@
 -->
 
 <!-- timer item in the list of active timers -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.android.deskclock.CircleButtonsLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/timer_circle"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:gravity="center"
     android:orientation="vertical">
 
-     <FrameLayout
+    <FrameLayout
+        android:id="@+id/timer_frame"
         android:layout_width="match_parent"
         android:layout_height="@dimen/timer_circle_diameter"
         android:layout_marginLeft="@dimen/circle_margin"
@@ -36,38 +40,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"/>
-    </FrameLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp" >
-        <ImageButton
-            android:id="@+id/timer_delete"
-            android:src="@drawable/ic_delete"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            style="@style/button"
-            android:background="@null"
-            android:contentDescription="@string/timer_delete"
-            android:layout_height="48dip" />
+
         <ImageButton
             android:id="@+id/timer_plus_one"
             android:src="@drawable/ic_plusone"
             android:background="@null"
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="56dip"
+            android:layout_gravity="bottom|left"
             style="@style/button"
             android:contentDescription="@string/timer_plus_one"
-            android:layout_height="48dip" />
-        <ImageButton
+            android:layout_height="56dip" />
+
+        <TextView
             android:id="@+id/timer_stop"
-            android:src="@drawable/ic_stop_normal"
-            android:background="?android:attr/selectableItemBackground"
-            android:layout_weight="1"
-            android:layout_width="0dip"
+            android:layout_gravity="bottom|center_horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="0dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingBottom="5dip"
+            android:paddingTop="5dip"
+            android:text="@string/timer_stop"
+            android:layout_width="wrap_content"
+            style="@style/bold_button"
             android:contentDescription="@string/timer_stop"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/timer_delete"
+            android:src="@drawable/ic_delete"
+            android:background="@null"
+            android:layout_gravity="bottom|right"
+            android:layout_width="56dip"
+            android:contentDescription="@string/timer_delete"
             style="@style/button"
-            android:layout_height="48dip" />
-    </LinearLayout>
-</LinearLayout>
+            android:layout_height="56dip" />
+    </FrameLayout>
+
+</com.android.deskclock.CircleButtonsLinearLayout>
