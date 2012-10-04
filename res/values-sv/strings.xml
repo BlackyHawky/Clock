@@ -191,6 +191,10 @@
     <string name="sort_by_time" msgid="3588583060192569857">"Efter tid"</string>
     <string name="search_results" msgid="3940223188208445245">"Resultat"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"Inga städer hittades"</string>
+    <!-- no translation found for search_city (5167756899726176174) -->
+    <skip />
+    <!-- no translation found for cities_activity_title (8552462751129256730) -->
+    <skip />
     <string name="alarm_setup_music" msgid="6140596565783696650">"Musik"</string>
     <string name="alarm_on" msgid="3898994909321344263">"På"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Av"</string>

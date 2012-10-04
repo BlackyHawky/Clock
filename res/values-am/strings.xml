@@ -191,6 +191,10 @@
     <string name="sort_by_time" msgid="3588583060192569857">"በጊዜ"</string>
     <string name="search_results" msgid="3940223188208445245">"ውጤቶች"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"ምንም ከተማዎች አልተገኙም"</string>
+    <!-- no translation found for search_city (5167756899726176174) -->
+    <skip />
+    <!-- no translation found for cities_activity_title (8552462751129256730) -->
+    <skip />
     <string name="alarm_setup_music" msgid="6140596565783696650">"ሙዚቃ"</string>
     <string name="alarm_on" msgid="3898994909321344263">"በርቷል"</string>
     <string name="alarm_off" msgid="7220973271168254762">"ጠፍቷል"</string>
@@ -320,10 +324,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"የሰዓት ቆጣሪዎችዎን ለማየት ይንኩ"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ሰዓት ቆጣሪዎች"</string>
     <string name="next_timer_notif" msgid="5372774263467787736">"ቀጣዩ የሰዓት ቆጣሪ፦ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <!-- no translation found for screensaver_settings (7013450738357352801) -->
-    <skip />
-    <!-- no translation found for night_mode_title (5983813889469616299) -->
-    <skip />
-    <!-- no translation found for night_mode_summary (1017350187324162631) -->
-    <skip />
+    <string name="screensaver_settings" msgid="7013450738357352801">"የህልም ቅንብሮች"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"የማታ ሁነታ"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"ብርሃኑ በጣም የፈዘዘ ማሳያ (ለጨለሙ ክፍሎች)"</string>
 </resources>
