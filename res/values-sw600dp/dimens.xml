@@ -34,9 +34,15 @@
     <dimen name="alarm_label_padding">64dip</dimen>
 
     <dimen name="big_font_size">220dp</dimen>
+    <dimen name="medium_font_size">100dp</dimen>
     <dimen name="label_font_size">18sp</dimen>
     <dimen name="body_font_size">24sp</dimen>
+
     <dimen name="body_font_padding">8dp</dimen>
+    <dimen name="medium_font_padding">24dp</dimen>
+
+    <dimen name="small_space">32dp</dimen>
+    <dimen name="medium_space">64dp</dimen>
 
     <dimen name="timer_circle_diameter">480dip</dimen>
 

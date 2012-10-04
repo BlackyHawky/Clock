@@ -26,8 +26,8 @@
             android:layout_width="0dip"
             android:layout_weight="2"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dip"
-            android:layout_marginBottom="7dip"
+            android:paddingTop="@dimen/medium_font_padding"
+            android:paddingBottom="@dimen/medium_font_padding"
             android:paddingLeft="@dimen/timer_padding_left"
             android:layout_gravity="center"
             android:baselineAligned="false"
@@ -92,8 +92,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dip"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
         android:background="#28ffffff" />
     <include layout="@layout/three_keys_view"
         android:id="@+id/first" />
