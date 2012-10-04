@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/time_margin_top"
-                android:layout_marginBottom="@dimen/time_margin_bottom"
+                android:layout_marginBottom="@dimen/medium_space"
                 />
             <com.android.deskclock.AnalogClock
                 android:id="@+id/analog_clock"
