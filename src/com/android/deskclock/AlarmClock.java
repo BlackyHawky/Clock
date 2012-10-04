@@ -104,23 +104,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     }
 
     private void updateLayout() {
-
-        // This only exists on sw600dp and above screens
-        final View addAlarm = findViewById(R.id.add_alarm);
-        if (addAlarm != null) {
-            addAlarm.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    addNewAlarm();
-                }
-            });
-            // Make the entire view selected when focused.
-            addAlarm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                public void onFocusChange(View v, boolean hasFocus) {
-                    v.setSelected(hasFocus);
-                }
-            });
-        }
-
         final ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
