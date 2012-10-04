@@ -16,23 +16,79 @@
 
 package com.android.deskclock;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
-/** Change me */
+/**
+ * Dialog to set alarm time.
+ */
 public class AlarmTimePickerDialogFragment extends DialogFragment {
 
-    private AlarmTimePickerDialog.OnTimeSetListener mListener;
+    private static final String KEY_ALARM = "alarm";
 
-    public AlarmTimePickerDialogFragment(AlarmTimePickerDialog.OnTimeSetListener listener) {
-        mListener = listener;
+    private Button mSet, mCancel;
+    private TimePicker mPicker;
+
+    public static AlarmTimePickerDialogFragment newInstance(Alarm alarm) {
+        final AlarmTimePickerDialogFragment frag = new AlarmTimePickerDialogFragment();
+        Bundle args = new Bundle();
+        args.putParcelable(KEY_ALARM, alarm);
+        frag.setArguments(args);
+        return frag;
     }
 
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final AlarmTimePickerDialog dialog = new AlarmTimePickerDialog(getActivity());
-        dialog.setOnTimeSetlListener(mListener);
-        return dialog;
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
+        final Alarm alarm = getArguments().getParcelable(KEY_ALARM);
+
+        View v = inflater.inflate(R.layout.time_picker_dialog, null);
+        mSet = (Button) v.findViewById(R.id.set_button);
+        mCancel = (Button) v.findViewById(R.id.cancel_button);
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+        mPicker = (TimePicker) v.findViewById(R.id.time_picker);
+        mPicker.setSetButton(mSet);
+        mSet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Activity activity = getActivity();
+                if (activity instanceof AlarmTimePickerDialogHandler) {
+                    final AlarmTimePickerDialogHandler act =
+                            (AlarmTimePickerDialogHandler) activity;
+                    act.onDialogTimeSet(alarm, mPicker.getHours(), mPicker.getMinutes());
+                } else {
+                    Log.e("Error! Activities that use AlarmTimePickerDialogFragment must implement "
+                            + "AlarmTimePickerDialogHandler");
+                }
+                dismiss();
+            }
+        });
+
+        return v;
+    }
+
+    interface AlarmTimePickerDialogHandler {
+        void onDialogTimeSet(Alarm alarm, int hourOfDay, int minute);
     }
 }
