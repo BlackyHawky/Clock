@@ -178,7 +178,8 @@
                 android:text="@string/alarm_vibrate"
                 android:textColor="@color/clock_gray"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content" />
+                android:layout_width="wrap_content"
+                style="@style/body"/>
             <Space
                 android:layout_height="1dip"
                 android:layout_width="0dip"
