@@ -19,7 +19,7 @@ package com.android.deskclock.timer;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
 import com.android.deskclock.CircleTimerView;
@@ -30,7 +30,6 @@ public class TimerListItem extends LinearLayout {
 
     CountingTimerView mTimerText;
     CircleTimerView mCircleView;
-    Button mDelete, mPlusOne, mStop;
 
     long mTimerLength;
 

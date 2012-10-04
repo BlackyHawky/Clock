@@ -51,42 +51,37 @@
         android:background="#28ffffff" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-        <Button
+        android:layout_height="48dip" >
+        <ImageButton
             android:id="@+id/stopwatch_left_button"
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="56dip"
             style="@style/button"
+            android:src="@drawable/ic_lap_normal"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_height="wrap_content" />
-        <View
+            android:layout_height="match_parent" />
+        <Space
             android:layout_height="match_parent"
-            android:layout_marginTop="8dip"
-            android:layout_marginBottom="8dip"
-            android:layout_width="1dip"
-            android:background="#28ffffff" />
-        <Button
+            android:layout_width="0dip"
+            android:layout_weight="1"/>
+        <ImageButton
             android:id="@+id/stopwatch_share_button"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:src="@drawable/ic_share_normal"
+            android:layout_width="56dip"
             style="@style/button"
-            android:text="@string/sw_share_button"
-            android:layout_height="wrap_content" />
-        <View
-            android:id="@+id/stopwatch_button_seperator"
+            android:contentDescription="@string/sw_share_button"
+            android:layout_height="match_parent" />
+        <Space
             android:layout_height="match_parent"
-            android:layout_width="1dip"
-            android:layout_marginTop="8dip"
-            android:layout_marginBottom="8dip"
-            android:background="#28ffffff" />
-        <Button
+            android:layout_width="0dip"
+            android:layout_weight="1"/>
+        <ImageButton
             android:id="@+id/stopwatch_right_button"
             android:background="?android:attr/selectableItemBackground"
-            android:layout_weight="1"
-            android:layout_width="0dip"
+            android:layout_width="56dip"
+            android:src="@drawable/ic_start_normal"
             style="@style/button"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 </LinearLayout>
