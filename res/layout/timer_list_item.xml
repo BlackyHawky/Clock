@@ -42,29 +42,32 @@
         android:layout_height="wrap_content"
         android:paddingTop="12dp"
         android:paddingBottom="12dp" >
-        <Button
+        <ImageButton
             android:id="@+id/timer_delete"
+            android:src="@drawable/ic_delete_normal"
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/button"
             android:background="?android:attr/selectableItemBackground"
-            android:text="@string/timer_delete"
-            android:layout_height="wrap_content" />
-        <Button
+            android:contentDescription="@string/timer_delete"
+            android:layout_height="48dip" />
+        <ImageButton
             android:id="@+id/timer_plus_one"
+            android:src="@drawable/ic_plusone_normal"
             android:background="?android:attr/selectableItemBackground"
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/button"
-            android:text="@string/timer_plus_one"
-            android:layout_height="wrap_content" />
-        <Button
+            android:contentDescription="@string/timer_plus_one"
+            android:layout_height="48dip" />
+        <ImageButton
             android:id="@+id/timer_stop"
+            android:src="@drawable/ic_stop_normal"
             android:background="?android:attr/selectableItemBackground"
             android:layout_weight="1"
             android:layout_width="0dip"
-            android:text="@string/timer_stop"
+            android:contentDescription="@string/timer_stop"
             style="@style/button"
-            android:layout_height="wrap_content" />
+            android:layout_height="48dip" />
     </LinearLayout>
 </LinearLayout>
