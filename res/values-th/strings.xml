@@ -328,12 +328,9 @@
     <string name="timers_in_use" msgid="5570729467344408506">"นาฬิกาจับเวลา <xliff:g id="NUMBER">%d</xliff:g> ตัว"</string>
     <!-- no translation found for next_timer_notif (6136454740115613653) -->
     <skip />
-    <!-- no translation found for screensaver_settings (7013450738357352801) -->
-    <skip />
-    <!-- no translation found for night_mode_title (5983813889469616299) -->
-    <skip />
-    <!-- no translation found for night_mode_summary (1017350187324162631) -->
-    <skip />
+    <string name="screensaver_settings" msgid="7013450738357352801">"การตั้งค่า Dream"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"โหมดกลางคืน"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"หน้าจอมืดมาก (สำหรับห้องมืด)"</string>
     <!-- no translation found for expand_alarm (7392616528943305020) -->
     <skip />
     <!-- no translation found for collapse_alarm (3561772046433483980) -->

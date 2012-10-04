@@ -319,9 +319,9 @@
     <!-- no translation found for swn_stopped (783124901663086172) -->
     <skip />
     <string name="description_direction_right" msgid="1615911557926085934">"Gly regs om toe te maak"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Gly links na sluimer"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Gly links om te sluimer"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Gly op om toe te maak"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Gly af na sluimer"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Gly af om te sluimer"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Afteller gestop"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> aftellers gestop"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Raak om jou aftellers te sien"</string>

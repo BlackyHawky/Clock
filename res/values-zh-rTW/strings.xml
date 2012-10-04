@@ -318,22 +318,19 @@
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
     <!-- no translation found for swn_stopped (783124901663086172) -->
     <skip />
-    <string name="description_direction_right" msgid="1615911557926085934">"向右滑動即可關閉鈴響"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"向左滑動即可延後鈴響"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"向上滑動即可關閉鈴響"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"向下滑動即可延後鈴響"</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"向右滑動可關閉鈴響"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"向左滑動可延後鈴響"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"向上滑動可關閉鈴響"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"向下滑動可延後鈴響"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"計時器已停止"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器已停止"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"輕觸即可查看您的計時器"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器"</string>
     <!-- no translation found for next_timer_notif (6136454740115613653) -->
     <skip />
-    <!-- no translation found for screensaver_settings (7013450738357352801) -->
-    <skip />
-    <!-- no translation found for night_mode_title (5983813889469616299) -->
-    <skip />
-    <!-- no translation found for night_mode_summary (1017350187324162631) -->
-    <skip />
+    <string name="screensaver_settings" msgid="7013450738357352801">"Dream 設定"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"夜間模式"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"非常暗淡的顯示畫面 (適用於昏暗的室內)"</string>
     <!-- no translation found for expand_alarm (7392616528943305020) -->
     <skip />
     <!-- no translation found for collapse_alarm (3561772046433483980) -->

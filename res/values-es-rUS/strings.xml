@@ -39,11 +39,13 @@
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarma silenciada después de <xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posponer"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"La alarma volverá a sonar en <xliff:g id="MINUTES">%d</xliff:g> minutos."</string>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posponer hasta las <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for timer_notifications:0 (7760558912503484257) -->
-    <!-- no translation found for timer_notifications:1 (83197792732433351) -->
-    <!-- no translation found for timer_notifications:2 (8919698220200894252) -->
-    <!-- no translation found for timer_notifications:3 (8458069283817013813) -->
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posponer hasta la hora <xliff:g id="TIME">%s</xliff:g>"</string>
+  <string-array name="timer_notifications">
+    <item msgid="7760558912503484257">"Queda menos de 1 minuto"</item>
+    <item msgid="83197792732433351">"Quedan <xliff:g id="HOURS">%1$s</xliff:g> horas."</item>
+    <item msgid="8919698220200894252">"Quedan <xliff:g id="MINUTES">%2$s</xliff:g> minutos."</item>
+    <item msgid="8458069283817013813">"Quedan <xliff:g id="HOURS">%1$s</xliff:g> y <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+  </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"La alarma sonará en menos de un minuto."</item>
     <item msgid="6002066367368421848">"La alarma sonará en <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -220,12 +222,9 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancelar"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Definir"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
-    <skip />
-    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
-    <skip />
-    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
-    <skip />
+    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
+    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
+    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Islas Marshall"</item>
     <item msgid="4196408495909011020">"Islas Midway"</item>
@@ -319,26 +318,19 @@
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
     <!-- no translation found for swn_stopped (783124901663086172) -->
     <skip />
-    <string name="description_direction_right" msgid="1615911557926085934">"Desliza a la derecha para rechazar"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Desliza a la izquierda para posponer"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Desliza hacia arriba para rechazar"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Desliza hacia abajo para posponer"</string>
-    <!-- no translation found for timer_stopped (2730331837832462008) -->
-    <skip />
-    <!-- no translation found for timers_stopped (2393640808691864520) -->
-    <skip />
-    <!-- no translation found for all_timers_stopped_notif (278532320068394600) -->
-    <skip />
-    <!-- no translation found for timers_in_use (5570729467344408506) -->
-    <skip />
+    <string name="description_direction_right" msgid="1615911557926085934">"Desliza a la derecha para descartar."</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Desliza a la izquierda para posponer."</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Desliza hacia arriba para descartar."</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Desliza hacia abajo para posponer."</string>
+    <string name="timer_stopped" msgid="2730331837832462008">"Temporizador detenido"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores detenidos"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca para ver tus temporizadores."</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <!-- no translation found for next_timer_notif (6136454740115613653) -->
     <skip />
-    <!-- no translation found for screensaver_settings (7013450738357352801) -->
-    <skip />
-    <!-- no translation found for night_mode_title (5983813889469616299) -->
-    <skip />
-    <!-- no translation found for night_mode_summary (1017350187324162631) -->
-    <skip />
+    <string name="screensaver_settings" msgid="7013450738357352801">"Configuración de protectores de pantalla"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Modo nocturno"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy oscura (para ambientes poco iluminados)"</string>
     <!-- no translation found for expand_alarm (7392616528943305020) -->
     <skip />
     <!-- no translation found for collapse_alarm (3561772046433483980) -->
