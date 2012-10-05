@@ -16,6 +16,9 @@
 
 package com.android.deskclock;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.widget.Toast;
 
@@ -23,6 +26,19 @@ import android.widget.Toast;
  * Static utility methods for Alarms.
  */
 public class AlarmUtils {
+
+    public static void showTimeEditDialog(FragmentManager manager, final Alarm alarm) {
+        final FragmentTransaction ft = manager.beginTransaction();
+        final Fragment prev = manager.findFragmentByTag("time_dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        final AlarmTimePickerDialogFragment fragment = AlarmTimePickerDialogFragment.newInstance(
+                alarm);
+        fragment.show(ft, "time_dialog");
+    }
 
     public static void popAlarmSetToast(Context context, long timeInMillis) {
         String toastText = SetAlarm.formatToast(context, timeInMillis);
