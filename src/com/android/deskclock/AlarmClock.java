@@ -33,6 +33,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +44,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.android.deskclock.widget.ActionableToastBar;
 import com.android.deskclock.widget.TextToggleButton;
 import com.android.deskclock.widget.swipeablelistview.SwipeableListView;
 
@@ -60,14 +62,22 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private static final String KEY_EXPANDED_IDS = "expandedIds";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
     private static final String KEY_RINGTONE_TITLE_CACHE = "ringtoneTitleCache";
+    private static final String KEY_DELETED_ALARM = "deletedAlarm";
+    private static final String KEY_UNDO_SHOWING = "undoShowing";
+    private static final String KEY_HIGHEST_ALARM_ID = "highestAlarmId";
 
     private static final int REQUEST_CODE_RINGTONE = 1;
 
     private SwipeableListView mAlarmsList;
     private AlarmItemAdapter mAdapter;
     private Bundle mRingtoneTitleCache; // Key: ringtone uri, value: ringtone title
+    private ActionableToastBar mUndoBar;
 
     private Alarm mSelectedAlarm;
+
+    // Saved states for undo
+    private Alarm mDeletedAlarm;
+    private boolean mUndoShowing = false;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -81,13 +91,18 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         setContentView(R.layout.alarm_clock);
         int[] expandedIds = null;
         int[] repeatCheckedIds = null;
+        int highestAlarmId = 0;
         if (savedState != null) {
             expandedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
             repeatCheckedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
             mRingtoneTitleCache = savedState.getBundle(KEY_RINGTONE_TITLE_CACHE);
+            mDeletedAlarm = savedState.getParcelable(KEY_DELETED_ALARM);
+            mUndoShowing = savedState.getBoolean(KEY_UNDO_SHOWING);
+            highestAlarmId = savedState.getInt(KEY_HIGHEST_ALARM_ID);
         }
 
         mAdapter = new AlarmItemAdapter(this, expandedIds, repeatCheckedIds);
+        mAdapter.setHighestAlarmId(highestAlarmId);
 
         if (mRingtoneTitleCache == null) {
             mRingtoneTitleCache = new Bundle();
@@ -103,19 +118,32 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             public void onSwipe(View view) {
                 final AlarmItemAdapter.ItemHolder itemHolder =
                         (AlarmItemAdapter.ItemHolder) view.getTag();
-                final AsyncTask<Alarm, Void, Void> deleteTask = new AsyncTask<Alarm, Void, Void>() {
-
-                    @Override
-                    protected Void doInBackground(Alarm... alarms) {
-                        for (final Alarm alarm : alarms) {
-                            Alarms.deleteAlarm(AlarmClock.this, alarm.id);
-                        }
-                        return null;
-                    }
-                };
-                deleteTask.execute(itemHolder.alarm);
+                asyncDeleteAlarm(itemHolder.alarm);
             }
         });
+        mAlarmsList.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                mDeletedAlarm = null;
+                mUndoShowing = false;
+                if (mUndoBar != null && !mUndoBar.isEventInToastBar(event)) {
+                    mUndoBar.hide(true);
+                }
+                return false;
+            }
+        });
+
+        mUndoBar = (ActionableToastBar) findViewById(R.id.undo_bar);
+
+        if (mUndoShowing) {
+            mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
+                @Override
+                public void onActionClicked() {
+                    asyncAddAlarm(mDeletedAlarm);
+                }
+            }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo,
+                    true);
+        }
     }
 
     @Override
@@ -124,6 +152,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         outState.putIntArray(KEY_EXPANDED_IDS, mAdapter.getExpandedArray());
         outState.putIntArray(KEY_REPEAT_CHECKED_IDS, mAdapter.getRepeatArray());
         outState.putBundle(KEY_RINGTONE_TITLE_CACHE, mRingtoneTitleCache);
+        outState.putParcelable(KEY_DELETED_ALARM, mDeletedAlarm);
+        outState.putBoolean(KEY_UNDO_SHOWING, mUndoShowing);
+        outState.putInt(KEY_HIGHEST_ALARM_ID, mAdapter.getHighestAlarmId());
     }
 
     private void updateLayout() {
@@ -136,7 +167,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private void addNewAlarm() {
         // TODO: change to async
         mAdapter.setNewAlarmCreated(true);
-        Alarms.addAlarm(this, new Alarm());
+        asyncAddAlarm();
     }
 
     @Override
@@ -175,6 +206,18 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         return super.onCreateOptionsMenu(menu);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        // When the user places the app in the background by pressing "home",
+        // dismiss the toast bar. However, since there is no way to determine if
+        // home was pressed, just dismiss any existing toast bar when restarting
+        // the app.
+        if (mUndoBar != null) {
+            mUndoBar.hide(false);
+        }
+    }
+
     // Callback used by AlarmTimePickerDialogFragment
     @Override
     public void onDialogTimeSet(Alarm alarm, int hourOfDay, int minute) {
@@ -182,6 +225,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         alarm.minutes = minute;
         alarm.enabled = true;
         asyncUpdateAlarm(alarm);
+
     }
 
     private void showLabelDialog(final Alarm alarm) {
@@ -254,6 +298,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         private int mColorLit;
         private int mColorDim;
         private int mColorRed;
+        private int mHighestAlarmId;
 
         private HashSet<Integer> mExpanded = new HashSet<Integer>();
         private HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
@@ -381,9 +426,15 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             itemHolder.alarm = alarm;
 
             boolean forceExpand = false;
-            if (mNewAlarmCreated && cursor.getPosition() == 0) {
-                mNewAlarmCreated = false;
-                forceExpand = true;
+            if (cursor.getPosition() == 0) {
+
+                if (mNewAlarmCreated) {
+                    mNewAlarmCreated = false;
+                    forceExpand = true;
+                }
+
+                // Save the alarm id for the first item.  We need the highest id for undo.
+                mHighestAlarmId = alarm.id;
             }
 
             itemHolder.onoff.setChecked(alarm.enabled);
@@ -642,11 +693,62 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 AlarmUtils.popAlarmSetToast(mContext, alarm.hour, alarm.minutes, alarm.daysOfWeek);
             }
         }
+
+        public int getHighestAlarmId() {
+            return mHighestAlarmId;
+        }
+
+        public void setHighestAlarmId(int id) {
+            mHighestAlarmId = id;
+        }
+    }
+
+    private void asyncAddAlarm() {
+        asyncAddAlarm(new Alarm());
+    }
+
+    private void asyncDeleteAlarm(final Alarm alarm) {
+        final AsyncTask<Alarm, Void, Void> deleteTask = new AsyncTask<Alarm, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Alarm... alarms) {
+                for (final Alarm alarm : alarms) {
+                    Alarms.deleteAlarm(AlarmClock.this, alarm.id);
+                }
+                return null;
+            }
+        };
+        mDeletedAlarm = alarm;
+        mUndoShowing = true;
+        deleteTask.execute(alarm);
+        mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
+            @Override
+            public void onActionClicked() {
+                asyncAddAlarm(alarm);
+            }
+        }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo, true);
+    }
+
+    private void asyncAddAlarm(final Alarm alarm) {
+        int highestId = mAdapter.getHighestAlarmId();
+        if (alarm.id >= highestId) {
+            // Create a new alarm because the existing alarm id could have been re-used by
+            // a background insert. If not, this would not hurt because it would be at the top of
+            // the list anyways.
+            alarm.id = -1;
+        }
+        final AsyncTask<Void, Void, Void> updateTask = new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Alarms.addAlarm(AlarmClock.this, alarm);
+                return null;
+            }
+        };
+        updateTask.execute();
     }
 
     private void asyncUpdateAlarm(Alarm alarm) {
         final AsyncTask<Alarm, Void, Void> updateTask = new AsyncTask<Alarm, Void, Void>() {
-
             @Override
             protected Void doInBackground(Alarm... alarms) {
                 for (final Alarm alarm : alarms) {

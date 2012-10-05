@@ -14,13 +14,30 @@
      limitations under the License.
 -->
 
-<com.android.deskclock.widget.swipeablelistview.SwipeableListView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/alarms_list"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:clipToPadding="false"
-    android:descendantFocusability="beforeDescendants"
-    android:divider="?android:attr/dividerVertical"/>
+    android:layout_height="match_parent">
+
+    <com.android.deskclock.widget.swipeablelistview.SwipeableListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/alarms_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:clipToPadding="false"
+        android:descendantFocusability="beforeDescendants"
+        android:divider="?android:attr/dividerVertical"
+        />
+
+    <com.android.deskclock.widget.ActionableToastBar
+        android:id="@+id/undo_bar"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        style="@style/ToastBarStyle"
+        />
+</FrameLayout>
