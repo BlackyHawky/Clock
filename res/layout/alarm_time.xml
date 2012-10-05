@@ -82,8 +82,7 @@
         android:id="@+id/info_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginLeft="7dp"
         android:gravity="center_vertical">
         <TextView android:id="@+id/label"
             android:layout_width="wrap_content"
@@ -100,11 +99,11 @@
             android:layout_weight="1"/>
         <ImageButton
             android:id="@+id/expand"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
             android:contentDescription="@string/expand_alarm"
             android:src="@drawable/ic_expand_down"
-            android:background="?android:attr/selectableItemBackground"
-            android:layout_height="wrap_content"/>
+            android:background="?android:attr/selectableItemBackground"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/expand_area"
@@ -117,24 +116,30 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:minHeight="48dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
+            android:paddingTop="8dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="8dp"
             android:gravity="center_vertical"
             >
             <TextView
                 android:id="@+id/edit_label"
                 style="@style/body"
+                android:gravity="center_vertical"
                 android:textColor="@color/clock_gray"
                 android:inputType="text"
                 android:hint="@string/label"
+                android:drawableLeft="@drawable/ic_label_small"
+                android:drawablePadding="2dp"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="?android:attr/selectableItemBackground"/>
             <CheckBox
                 android:id="@+id/repeat_onoff"
                 android:text="@string/alarm_repeat"
                 android:layout_height="wrap_content"
+                android:paddingLeft="4dp"
+                android:paddingBottom="2dp"
                 android:layout_width="wrap_content"
                 style="@style/body"
                 android:textColor="@color/clock_gray"/>
@@ -145,6 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:minHeight="48dp"
+            android:paddingBottom="8dp"
             android:orientation="horizontal"
             android:visibility="gone">
             <!-- Day buttons are put here programatically -->
@@ -153,16 +159,16 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:minHeight="48dp"
+            android:paddingLeft="4dp"
             android:gravity="center_vertical">
-            <ImageView
-                android:src="@drawable/ic_ringtone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
             <Button
                 android:id="@+id/choose_ringtone"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 style="@style/body"
+                android:paddingRight="8dp"
+                android:drawableLeft="@drawable/ic_ringtone"
+                android:drawablePadding="2dp"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:textColor="@color/clock_white"/>
@@ -171,10 +177,17 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:minHeight="48dp"
+            android:paddingLeft="2dp"
+            android:paddingTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:clipToPadding="false"
             android:gravity="center_vertical">
             <CheckBox
                 android:id="@+id/vibrate_onoff"
                 android:text="@string/alarm_vibrate"
+                android:includeFontPadding="false"
+                android:paddingLeft="4dp"
+                android:paddingBottom="2dp"
                 android:textColor="@color/clock_gray"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -185,8 +198,8 @@
                 android:layout_weight="1"/>
             <ImageButton
                 android:id="@+id/collapse"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:contentDescription="@string/collapse_alarm"
                 android:src="@drawable/ic_expand_up"
                 android:background="?android:attr/selectableItemBackground"/>
