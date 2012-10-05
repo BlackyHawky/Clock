@@ -170,7 +170,7 @@ public class StopwatchService extends Service {
             leftButtonIntent.setAction(Stopwatches.LAP_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
                     PendingIntent.getService(context, 0, leftButtonIntent, 0));
-            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_lap_normal, 0, 0, 0);
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_lap, 0, 0, 0);
 
             // Right button: stop clock
             remoteViewsExpanded.setTextViewText(
@@ -201,7 +201,7 @@ public class StopwatchService extends Service {
             leftButtonIntent.setAction(Stopwatches.RESET_AND_LAUNCH_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
                     PendingIntent.getService(context, 0, leftButtonIntent, 0));
-            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_reset_normal, 0, 0, 0);
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_reset, 0, 0, 0);
 
             // Right button: start clock
             remoteViewsExpanded.setTextViewText(
