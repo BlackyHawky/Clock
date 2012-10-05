@@ -75,7 +75,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
 ***/
 
     private class CityAdapter extends BaseAdapter implements SectionIndexer {
-        private CityObj [] mAllTheCitiesList;                      // full list of the cities
+        private Object [] mAllTheCitiesList;                      // full list of the cities
         private final HashMap<String, CityObj> mSelectedCitiesList; // Selected cities by the use
         private final LayoutInflater mInflater;
         private boolean mIs24HoursMode;                            // AM/PM or 24 hours mode
@@ -119,16 +119,25 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
             if (view == null) {
                 view = mInflater.inflate(R.layout.city_list_item, parent, false);
             }
-            CityObj c = mAllTheCitiesList [position];
+            CityObj c = (CityObj)mAllTheCitiesList [position];
             TextView name = (TextView)view.findViewById(R.id.city_name);
             TextView tz = (TextView)view.findViewById(R.id.city_time);
             CheckBox cb = (CheckBox)view.findViewById(R.id.city_onoff);
-            cb.setTag(c);
-            cb.setChecked(mSelectedCitiesList.containsKey(c.mCityId));
-            cb.setOnCheckedChangeListener(CitiesActivity.this);
+            // Header view (A CityObj with nothing but the first letter as the name
+            if (c.mCityId == null) {
+                cb.setVisibility(View.GONE);
+                tz.setVisibility(View.GONE);
+            } else {
+            // City view
+                cb.setVisibility(View.VISIBLE);
+                tz.setVisibility(View.VISIBLE);
+                cb.setTag(c);
+                cb.setChecked(mSelectedCitiesList.containsKey(c.mCityId));
+                cb.setOnCheckedChangeListener(CitiesActivity.this);
+                mCalendar.setTimeZone(TimeZone.getTimeZone(c.mTimeZone));
+                tz.setText(DateFormat.format(mIs24HoursMode ? "k:mm" : "h:mmaa", mCalendar));
+            }
             name.setText(c.mCityName);
-            mCalendar.setTimeZone(TimeZone.getTimeZone(c.mTimeZone));
-            tz.setText(DateFormat.format(mIs24HoursMode ? "k:mm" : "h:mmaa", mCalendar));
             return view;
         }
 
@@ -148,31 +157,39 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
                 Log.wtf("City lists sizes are not the same, cannot use the data");
                 return;
              }
-             mAllTheCitiesList = new CityObj [cities.length];
+             CityObj[] tempList = new CityObj [cities.length];
              for (int i = 0; i < cities.length; i++) {
-                mAllTheCitiesList[i] = new CityObj(cities[i], timezones[i], ids[i]);
+                tempList[i] = new CityObj(cities[i], timezones[i], ids[i]);
              }
              // Sort alphabetically
-            Arrays.sort(mAllTheCitiesList, new Comparator<CityObj> () {
+            Arrays.sort(tempList, new Comparator<CityObj> () {
                 @Override
                 public int compare(CityObj c1, CityObj c2) {
                     return c1.mCityName.compareTo(c2.mCityName);
                 }
             });
-            //Create section indexer
+            //Create section indexer and add headers to the cities list
             String val = null;
             ArrayList<String> sections = new ArrayList<String> ();
             ArrayList<Integer> positions = new ArrayList<Integer> ();
-            for (int i = 0; i <  mAllTheCitiesList.length; i++) {
-                CityObj city = mAllTheCitiesList[i];
+            ArrayList<CityObj> items = new ArrayList<CityObj>();
+            int count = 0;
+            for (int i = 0; i <  tempList.length; i++) {
+                CityObj city = tempList[i];
                  if (!city.mCityName.substring(0,1).equals(val)) {
                     val = city.mCityName.substring(0,1);
                     sections.add((new String(val)).toUpperCase());
-                    positions.add(i);
+                    positions.add(count);
+                    // Add a header
+                    items.add(new CityObj(val, null, null));
+                    count++;
                  }
+                 items.add(city);
+                 count++;
             }
             mSectionHeaders = sections.toArray();
             mSectionPositions = positions.toArray();
+            mAllTheCitiesList = items.toArray();
          }
 
         @Override
