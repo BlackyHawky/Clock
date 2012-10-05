@@ -31,8 +31,20 @@
         android:ellipsize="none"
         android:textColor="@color/clock_white"
         />
-    <include layout="@layout/desk_clock_time_small"
-        android:id="@+id/digital_clock"
+    <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content">
+        <include layout="@layout/desk_clock_time_small"
+            android:id="@+id/digital_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <com.android.deskclock.AnalogClock
+            android:id="@+id/analog_clock"
+            android:layout_width="@dimen/world_clock_analog_size"
+            android:layout_height="@dimen/world_clock_analog_size"
+            android:layout_gravity="center_horizontal"
+            android:dial="@drawable/clock_analog_dial"
+            android:hand_hour="@drawable/clock_analog_hour"
+            android:hand_minute="@drawable/clock_analog_minute"/>
+    </FrameLayout>
 </LinearLayout>
