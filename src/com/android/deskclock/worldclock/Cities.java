@@ -51,7 +51,7 @@ public class Cities {
                 for (int i = 0; i < size; i++) {
                     CityObj o = new CityObj(prefs, i);
                     if (o.mCityName != null && o.mTimeZone != null) {
-                        c.put(o.mCityName, o);
+                        c.put(o.mCityId, o);
                     }
                 }
             }
