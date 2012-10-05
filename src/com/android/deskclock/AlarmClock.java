@@ -180,6 +180,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     public void onDialogTimeSet(Alarm alarm, int hourOfDay, int minute) {
         alarm.hour = hourOfDay;
         alarm.minutes = minute;
+        alarm.enabled = true;
         asyncUpdateAlarm(alarm);
     }
 
@@ -477,6 +478,10 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         itemHolder.repeatDays.setVisibility(View.GONE);
                         itemHolder.repeat.setTextColor(mColorDim);
                         mRepeatChecked.remove(alarm.id);
+
+                        // Remove all repeat days
+                        alarm.daysOfWeek.set(new Alarm.DaysOfWeek(0));
+                        asyncUpdateAlarm(alarm);
                     }
                 }
             });
