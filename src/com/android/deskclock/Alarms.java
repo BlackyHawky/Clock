@@ -163,6 +163,11 @@ public class Alarms {
             time = calculateAlarm(alarm);
         }
 
+        // -1 means generate new id.
+        if (alarm.id != -1) {
+            values.put(Alarm.Columns._ID, alarm.id);
+        }
+
         values.put(Alarm.Columns.ENABLED, alarm.enabled ? 1 : 0);
         values.put(Alarm.Columns.HOUR, alarm.hour);
         values.put(Alarm.Columns.MINUTES, alarm.minutes);
