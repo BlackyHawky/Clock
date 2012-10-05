@@ -58,6 +58,8 @@ public class AnalogClock extends View {
     private float mHour;
     private boolean mChanged;
     private final Context mContext;
+    private String mTimeZoneId;
+    private boolean mNoSeconds = false;
 
     private float mDotRadius;
     private float mDotOffset;
@@ -216,18 +218,19 @@ public class AnalogClock extends View {
         hourHand.draw(canvas);
         canvas.restore();
 
-        canvas.save();
-        canvas.rotate(mSeconds / 60.0f * 360.0f, x, y);
+        if (!mNoSeconds) {
+            canvas.save();
+            canvas.rotate(mSeconds / 60.0f * 360.0f, x, y);
 
-        final Drawable secondHand = mSecondHand;
-        if (changed) {
-            w = secondHand.getIntrinsicWidth();
-            h = secondHand.getIntrinsicHeight();
-            secondHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
+            final Drawable secondHand = mSecondHand;
+            if (changed) {
+                w = secondHand.getIntrinsicWidth();
+                h = secondHand.getIntrinsicHeight();
+                secondHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
+            }
+            secondHand.draw(canvas);
+            canvas.restore();
         }
-        secondHand.draw(canvas);
-        canvas.restore();
-
         canvas.save();
         canvas.rotate(mMinutes / 60.0f * 360.0f, x, y);
 
@@ -247,6 +250,10 @@ public class AnalogClock extends View {
 
     private void onTimeChanged() {
         mCalendar.setToNow();
+
+        if (mTimeZoneId != null) {
+            mCalendar.switchTimezone(mTimeZoneId);
+        }
 
         int hour = mCalendar.hour;
         int minute = mCalendar.minute;
@@ -289,5 +296,15 @@ public class AnalogClock extends View {
                 time.toMillis(false), flags);
         setContentDescription(contentDescription);
     }
+
+    public void setTimeZone(String id) {
+        mTimeZoneId = id;
+        onTimeChanged();
+    }
+
+    public void enableSeconds(boolean enable) {
+        mNoSeconds = !enable;
+    }
+
 }
 
