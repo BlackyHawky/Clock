@@ -642,5 +642,8 @@
     <string name="expand_alarm">Expand alarm</string>
     <string name="collapse_alarm">Collapse alarm</string>
 
+    <string name="alarm_undo">undo</string>
+    <string name="alarm_deleted">Alarm deleted</string>
+
 </resources>
 
