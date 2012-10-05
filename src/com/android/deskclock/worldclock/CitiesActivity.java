@@ -75,6 +75,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
 ***/
 
     private class CityAdapter extends BaseAdapter implements SectionIndexer {
+        private static final String DELETED_ENTRY = "C0";
         private Object [] mAllTheCitiesList;                      // full list of the cities
         private final HashMap<String, CityObj> mSelectedCitiesList; // Selected cities by the use
         private final LayoutInflater mInflater;
@@ -175,18 +176,21 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
             ArrayList<Integer> positions = new ArrayList<Integer> ();
             ArrayList<CityObj> items = new ArrayList<CityObj>();
             int count = 0;
-            for (int i = 0; i <  tempList.length; i++) {
+            for (int i = 0; i < tempList.length; i++) {
                 CityObj city = tempList[i];
-                 if (!city.mCityName.substring(0,1).equals(val)) {
-                    val = city.mCityName.substring(0,1);
+                if (city.mCityId.equals(DELETED_ENTRY)) {
+                    continue;
+                }
+                if (!city.mCityName.substring(0, 1).equals(val)) {
+                    val = city.mCityName.substring(0, 1);
                     sections.add((new String(val)).toUpperCase());
                     positions.add(count);
                     // Add a header
                     items.add(new CityObj(val, null, null));
                     count++;
-                 }
-                 items.add(city);
-                 count++;
+                }
+                items.add(city);
+                count++;
             }
             mSectionHeaders = sections.toArray();
             mSectionPositions = positions.toArray();

@@ -528,6 +528,7 @@
         <item>Munich</item>
         <item>Milan</item>
         <item>Frankfurt</item>
+        <item>Hanoi</item>
     </array>
     <array name="cities_tz" translatable="false">
         <item>Africa/Abidjan</item>
@@ -1041,6 +1042,7 @@
         <item>Europe/Berlin</item>
         <item>Europe/Rome</item>
         <item>Europe/Berlin</item>
+        <item>Asia/Bangkok</item>
     </array>
 
     <array name="cities_id" translatable="false">
@@ -1102,11 +1104,11 @@
         <item>C56</item>
         <item>C57</item>
         <item>C58</item>
-        <item>C59</item>
-        <item>C60</item>
+        <item>C0</item>
+        <item>C0</item>
         <item>C61</item>
-        <item>C62</item>
-        <item>C63</item>
+        <item>C0</item>
+        <item>C0</item>
         <item>C64</item>
         <item>C65</item>
         <item>C66</item>
@@ -1168,7 +1170,7 @@
         <item>C122</item>
         <item>C123</item>
         <item>C124</item>
-        <item>C125</item>
+        <item>C0</item>
         <item>C126</item>
         <item>C127</item>
         <item>C128</item>
@@ -1182,7 +1184,7 @@
         <item>C136</item>
         <item>C137</item>
         <item>C138</item>
-        <item>C139</item>
+        <item>C0</item>
         <item>C140</item>
         <item>C141</item>
         <item>C142</item>
@@ -1304,7 +1306,7 @@
         <item>C258</item>
         <item>C259</item>
         <item>C260</item>
-        <item>C261</item>
+        <item>C0</item>
         <item>C262</item>
         <item>C263</item>
         <item>C264</item>
@@ -1318,13 +1320,13 @@
         <item>C272</item>
         <item>C273</item>
         <item>C274</item>
-        <item>C275</item>
+        <item>C0</item>
         <item>C276</item>
         <item>C277</item>
         <item>C278</item>
         <item>C279</item>
         <item>C280</item>
-        <item>C281</item>
+        <item>C0</item>
         <item>C282</item>
         <item>C283</item>
         <item>C284</item>
@@ -1555,5 +1557,6 @@
         <item>C509</item>
         <item>C510</item>
         <item>C511</item>
+        <item>C512</item>
     </array>
 </resources>
