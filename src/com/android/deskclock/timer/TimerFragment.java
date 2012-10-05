@@ -562,7 +562,7 @@ public class TimerFragment extends DeskClockFragment
             case TimerObj.STATE_RUNNING:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setContentDescription(r.getString(R.string.timer_plus_one));
-                plusOne.setImageResource(R.drawable.ic_plusone_normal);
+                plusOne.setImageResource(R.drawable.ic_plusone);
                 stop.setContentDescription(r.getString(R.string.timer_stop));
                 stop.setImageResource(R.drawable.ic_stop_normal);
                 stop.setEnabled(true);
@@ -571,7 +571,7 @@ public class TimerFragment extends DeskClockFragment
             case TimerObj.STATE_STOPPED:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setContentDescription(r.getString(R.string.timer_reset));
-                plusOne.setImageResource(R.drawable.ic_reset_normal);
+                plusOne.setImageResource(R.drawable.ic_reset);
                 stop.setContentDescription(r.getString(R.string.timer_start));
                 stop.setImageResource(R.drawable.ic_start_normal);
                 stop.setEnabled(true);
@@ -579,7 +579,7 @@ public class TimerFragment extends DeskClockFragment
                 break;
             case TimerObj.STATE_TIMESUP:
                 plusOne.setVisibility(View.VISIBLE);
-                plusOne.setImageResource(R.drawable.ic_plusone_normal);
+                plusOne.setImageResource(R.drawable.ic_plusone);
                 stop.setContentDescription(r.getString(R.string.timer_stop));
                 stop.setEnabled(true);
                 countingTimerView.setVirtualButtonEnabled(true);
@@ -587,7 +587,7 @@ public class TimerFragment extends DeskClockFragment
             case TimerObj.STATE_DONE:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setContentDescription(r.getString(R.string.timer_reset));
-                plusOne.setImageResource(R.drawable.ic_reset_normal);
+                plusOne.setImageResource(R.drawable.ic_reset);
                 stop.setContentDescription(r.getString(R.string.timer_start));
                 stop.setImageResource(R.drawable.ic_start_disabled);
                 stop.setEnabled(false);

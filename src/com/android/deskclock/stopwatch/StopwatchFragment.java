@@ -490,21 +490,21 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
     private void setButtons(int state) {
         switch (state) {
             case Stopwatches.STOPWATCH_RESET:
-                setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap_normal, false,
+                setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap, false,
                         View.INVISIBLE);
                 setButton(mRightButton, R.string.sw_start_button, R.drawable.ic_start_normal, true,
                         View.VISIBLE);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_RUNNING:
-                setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap_normal,
+                setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap,
                         !reachedMaxLaps(), View.VISIBLE);
                 setButton(mRightButton, R.string.sw_stop_button, R.drawable.ic_stop_normal, true,
                         View.VISIBLE);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_STOPPED:
-                setButton(mLeftButton, R.string.sw_reset_button, R.drawable.ic_reset_normal, true,
+                setButton(mLeftButton, R.string.sw_reset_button, R.drawable.ic_reset, true,
                         View.VISIBLE);
                 setButton(mRightButton, R.string.sw_start_button, R.drawable.ic_start_normal, true,
                         View.VISIBLE);
