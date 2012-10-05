@@ -86,4 +86,7 @@
 
     <!-- Size of analog clock in world clock. -->
     <dimen name="world_clock_analog_size">100dip</dimen>
+
+    <dimen name="toast_bar_bottom_margin_in_conversation">24dip</dimen>
+
 </resources>
