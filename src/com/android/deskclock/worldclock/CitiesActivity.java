@@ -116,28 +116,29 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
             if (position < 0 || position >=  mAllTheCitiesList.length) {
                 return null;
             }
-            if (view == null) {
-                view = mInflater.inflate(R.layout.city_list_item, parent, false);
-            }
             CityObj c = (CityObj)mAllTheCitiesList [position];
-            TextView name = (TextView)view.findViewById(R.id.city_name);
-            TextView tz = (TextView)view.findViewById(R.id.city_time);
-            CheckBox cb = (CheckBox)view.findViewById(R.id.city_onoff);
             // Header view (A CityObj with nothing but the first letter as the name
             if (c.mCityId == null) {
-                cb.setVisibility(View.GONE);
-                tz.setVisibility(View.GONE);
-            } else {
-            // City view
-                cb.setVisibility(View.VISIBLE);
-                tz.setVisibility(View.VISIBLE);
+                if (view == null || view.findViewById(R.id.header) == null) {
+                    view =  mInflater.inflate(R.layout.city_list_header, parent, false);
+                }
+                TextView header = (TextView)view.findViewById(R.id.header);
+                header.setText(c.mCityName);
+            } else { // City view
+                // Make sure to recycle a City view only
+                if (view == null || view.findViewById(R.id.city_name) == null) {
+                    view = mInflater.inflate(R.layout.city_list_item, parent, false);
+                }
+                TextView name = (TextView)view.findViewById(R.id.city_name);
+                TextView tz = (TextView)view.findViewById(R.id.city_time);
+                CheckBox cb = (CheckBox)view.findViewById(R.id.city_onoff);
                 cb.setTag(c);
                 cb.setChecked(mSelectedCitiesList.containsKey(c.mCityId));
                 cb.setOnCheckedChangeListener(CitiesActivity.this);
                 mCalendar.setTimeZone(TimeZone.getTimeZone(c.mTimeZone));
                 tz.setText(DateFormat.format(mIs24HoursMode ? "k:mm" : "h:mmaa", mCalendar));
+                name.setText(c.mCityName);
             }
-            name.setText(c.mCityName);
             return view;
         }
 
