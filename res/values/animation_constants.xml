@@ -21,13 +21,14 @@
     <integer name="activity_collapse_duration">125</integer>
     <integer name="expand_cc_bcc_dur">150</integer>
     <integer name="fadein_cc_bcc_dur">150</integer>
-    <integer name="fade_duration">250</integer>
+
     <integer name="dialog_animationDefaultDur">220</integer>
     <integer name="dialog_animationShortDur">150</integer>
     <integer name="shrink_animation_duration">350</integer>
     <integer name="slide_animation_duration">320</integer>
     <integer name="fade_in_animation_duration">350</integer>
     -->
+    <integer name="fade_duration">250</integer>
 
     <!-- Swipe constants -->
     <integer name="swipe_escape_velocity">100</integer>
