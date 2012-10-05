@@ -27,7 +27,8 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"このアラームを削除しますか？"</string>
     <string name="show_clock" msgid="8358759982675616915">"時計を表示"</string>
     <string name="hide_clock" msgid="3217727306480505694">"時計を隠す"</string>
-    <string name="label" msgid="2407986483260935828">"ラベル（オプション）"</string>
+    <!-- no translation found for label (7713131021574533921) -->
+    <skip />
     <string name="default_label" msgid="5590025289805630372">"アラーム"</string>
     <string name="set_alarm" msgid="9148359866152726808">"アラームを設定"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"バイブレーション"</string>
@@ -39,10 +40,12 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"スヌーズ"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"<xliff:g id="MINUTES">%d</xliff:g>分後に再通知します"</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"スヌーズ終了時刻: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for timer_notifications:0 (7760558912503484257) -->
-    <!-- no translation found for timer_notifications:1 (83197792732433351) -->
-    <!-- no translation found for timer_notifications:2 (8919698220200894252) -->
-    <!-- no translation found for timer_notifications:3 (8458069283817013813) -->
+  <string-array name="timer_notifications">
+    <item msgid="7760558912503484257">"残り1分未満"</item>
+    <item msgid="83197792732433351">"残り<xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"残り<xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"残り<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+  </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"アラームは今から1分以内に設定されています。"</item>
     <item msgid="6002066367368421848">"アラームは<xliff:g id="DAYS">%1$s</xliff:g>後に設定されています。"</item>
@@ -219,12 +222,9 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"キャンセル"</string>
     <string name="time_picker_set" msgid="277860606472289828">"設定"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
-    <skip />
-    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
-    <skip />
-    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
-    <skip />
+    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
+    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
+    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"マーシャル諸島"</item>
     <item msgid="4196408495909011020">"ミッドウェー諸島"</item>
@@ -316,24 +316,23 @@
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"通知を行うためのストップウォッチサービスです。"</string>
     <string name="stopwatch_title" msgid="3246663609895204068">"ストップウォッチ"</string>
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
+    <!-- no translation found for swn_stopped (783124901663086172) -->
+    <skip />
     <string name="description_direction_right" msgid="1615911557926085934">"右にスライドすると解除できます"</string>
     <string name="description_direction_left" msgid="6328816971226781776">"左にスライドするとスヌーズを設定できます"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"上にスライドすると解除できます"</string>
     <string name="description_direction_down" msgid="8240473964024874053">"下にスライドするとスヌーズを設定できます"</string>
-    <!-- no translation found for timer_stopped (2730331837832462008) -->
+    <string name="timer_stopped" msgid="2730331837832462008">"タイマーが停止しました"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g>件のタイマーが停止しました"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"タップしてタイマーを表示"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g>件のタイマー"</string>
+    <!-- no translation found for next_timer_notif (6136454740115613653) -->
     <skip />
-    <!-- no translation found for timers_stopped (2393640808691864520) -->
+    <string name="screensaver_settings" msgid="7013450738357352801">"スクリーンセーバーの設定"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"夜間モード"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"薄暗い表示（暗い部屋用）"</string>
+    <!-- no translation found for expand_alarm (7392616528943305020) -->
     <skip />
-    <!-- no translation found for all_timers_stopped_notif (278532320068394600) -->
-    <skip />
-    <!-- no translation found for timers_in_use (5570729467344408506) -->
-    <skip />
-    <!-- no translation found for next_timer_notif (5372774263467787736) -->
-    <skip />
-    <!-- no translation found for screensaver_settings (7013450738357352801) -->
-    <skip />
-    <!-- no translation found for night_mode_title (5983813889469616299) -->
-    <skip />
-    <!-- no translation found for night_mode_summary (1017350187324162631) -->
+    <!-- no translation found for collapse_alarm (3561772046433483980) -->
     <skip />
 </resources>
