@@ -18,7 +18,7 @@ package com.android.deskclock;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Bundle;
+import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -477,30 +477,72 @@ public class TimePicker extends TimerSetupView implements Button.OnClickListener
     }
 
     @Override
-    public Bundle onSaveInstanceState () {
-        Bundle b = new Bundle();
-        b.putInt(TIME_PICKER_SAVED_BUFFER_POINTER, mInputPointer);
-        b.putIntArray(TIME_PICKER_SAVED_INPUT, mInput);
-        b.putInt(TIME_PICKER_SAVED_AMPM, mAmPmState);
-        return b;
+    public Parcelable onSaveInstanceState () {
+        final Parcelable parcel = super.onSaveInstanceState();
+        final SavedState state = new SavedState(parcel);
+        state.mInput = mInput;
+        state.mAmPmState = mAmPmState;
+        state.mInputPointer = mInputPointer;
+        return state;
     }
 
     @Override
     protected void onRestoreInstanceState (Parcelable state) {
-        if (state != null) {
-            Bundle b = (Bundle)state;
-            mInputPointer = b.getInt(TIME_PICKER_SAVED_BUFFER_POINTER, -1);
-            mInput = b.getIntArray(TIME_PICKER_SAVED_INPUT);
-            if (mInput == null) {
-                mInput = new int [mInputSize];
-                mInputPointer = -1;
-            }
-            mAmPmState = b.getInt(TIME_PICKER_SAVED_AMPM, AMPM_NOT_SELECTED);
+        if (!(state instanceof SavedState)) {
+            super.onRestoreInstanceState(state);
+            return;
         }
+
+        final SavedState savedState = (SavedState) state;
+        super.onRestoreInstanceState(savedState.getSuperState());
+
+        mInputPointer = savedState.mInputPointer;
+        mInput = savedState.mInput;
+        if (mInput == null) {
+            mInput = new int[mInputSize];
+            mInputPointer = -1;
+        }
+        mAmPmState = savedState.mAmPmState;
         showAmPm();
         updateNumericKeys();
         updateLeftRightButtons();
         enableSetButton();
         updateTime();
+    }
+
+    private static class SavedState extends BaseSavedState {
+        int mInputPointer;
+        int[] mInput;
+        int mAmPmState;
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            mInputPointer = in.readInt();
+            in.readIntArray(mInput);
+            mAmPmState = in.readInt();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(mInputPointer);
+            dest.writeIntArray(mInput);
+            dest.writeInt(mAmPmState);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR
+                = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 }

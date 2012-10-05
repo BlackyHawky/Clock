@@ -16,6 +16,7 @@
 
 package com.android.deskclock;
 
+import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,19 +31,22 @@ import android.widget.EditText;
 public class AlarmLabelDialogFragment extends DialogFragment {
 
     private static final String KEY_LABEL = "label";
+    private static final String KEY_ALARM = "alarm";
 
-    private OnLabelSetListener mListener;
     private EditText mLabelBox;
 
-    public static AlarmLabelDialogFragment newInstance(String label) {
+    public static AlarmLabelDialogFragment newInstance(Alarm alarm, String label) {
         final AlarmLabelDialogFragment frag = new AlarmLabelDialogFragment();
         Bundle args = new Bundle();
         args.putString(KEY_LABEL, label);
+        args.putParcelable(KEY_ALARM, alarm);
         frag.setArguments(args);
         return frag;
     }
 
-    AlarmLabelDialogFragment() {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setStyle(DialogFragment.STYLE_NO_TITLE, 0);
     }
 
@@ -50,6 +54,7 @@ public class AlarmLabelDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         final String label = getArguments().getString(KEY_LABEL);
+        final Alarm alarm = getArguments().getParcelable(KEY_ALARM);
 
         final View view = inflater.inflate(R.layout.alarm_label_dialog, container, false);
 
@@ -68,21 +73,22 @@ public class AlarmLabelDialogFragment extends DialogFragment {
         setButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mListener != null) {
-                    mListener.onLabelSet(mLabelBox.getText().toString());
-                    dismiss();
+                final Activity activity = getActivity();
+                if (activity instanceof AlarmLabelDialogHandler) {
+                    ((AlarmClock) getActivity()).onDialogLabelSet(alarm,
+                            mLabelBox.getText().toString());
+                } else {
+                    Log.e("Error! Activities that use AlarmLabelDialogFragment must implement "
+                            + "AlarmLabelDialogHandler");
                 }
+                dismiss();
             }
         });
 
         return view;
     }
 
-    public void setListener(OnLabelSetListener listener) {
-        mListener = listener;
-    }
-
-    public interface OnLabelSetListener {
-        void onLabelSet(String label);
+    interface AlarmLabelDialogHandler {
+        void onDialogLabelSet(Alarm alarm, String label);
     }
 }

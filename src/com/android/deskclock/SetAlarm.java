@@ -20,7 +20,6 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,7 +41,7 @@ import android.widget.ListView;
  * Manages each alarm
  */
 public class SetAlarm extends PreferenceActivity implements Preference.OnPreferenceChangeListener,
-        AlarmTimePickerDialog.OnTimeSetListener, OnCancelListener {
+        AlarmTimePickerDialogFragment.AlarmTimePickerDialogHandler {
 
     private static final String KEY_CURRENT_ALARM = "currentAlarm";
     private static final String KEY_ORIGINAL_ALARM = "originalAlarm";
@@ -58,7 +57,6 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
     private int     mId;
     private int     mHour;
     private int     mMinute;
-    private AlarmTimePickerDialog mTimePickerDialog;
     private Alarm   mOriginalAlarm;
 
     @Override
@@ -187,14 +185,6 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_ORIGINAL_ALARM, mOriginalAlarm);
         outState.putParcelable(KEY_CURRENT_ALARM, buildAlarmFromUi());
-        if (mTimePickerDialog != null) {
-            if (mTimePickerDialog.isShowing()) {
-                outState.putParcelable(KEY_TIME_PICKER_BUNDLE, mTimePickerDialog
-                        .onSaveInstanceState());
-                mTimePickerDialog.dismiss();
-            }
-            mTimePickerDialog = null;
-        }
     }
 
     @Override
@@ -214,7 +204,6 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
         Bundle b = state.getParcelable(KEY_TIME_PICKER_BUNDLE);
         if (b != null) {
             showTimePicker();
-            mTimePickerDialog.onRestoreInstanceState(b);
         }
     }
 
@@ -265,37 +254,18 @@ public class SetAlarm extends PreferenceActivity implements Preference.OnPrefere
     }
 
     private void showTimePicker() {
-        if (mTimePickerDialog != null) {
-            if (mTimePickerDialog.isShowing()) {
-                Log.e("mTimePickerDialog is already showing.");
-                mTimePickerDialog.dismiss();
-            } else {
-                Log.e("mTimePickerDialog is not null");
-            }
-            mTimePickerDialog = null;
-        }
-
-        mTimePickerDialog = new AlarmTimePickerDialog(this);
-        mTimePickerDialog.setOnCancelListener(this);
-        mTimePickerDialog.setOnTimeSetlListener(this);
-        mTimePickerDialog.show();
+        AlarmUtils.showTimeEditDialog(getFragmentManager(), null);
     }
 
     @Override
-    public void onTimeSet(int hourOfDay, int minute) {
+    public void onDialogTimeSet(Alarm alarm, int hourOfDay, int minute) {
         // onTimeSet is called when the user clicks "Set"
-        mTimePickerDialog = null;
         mHour = hourOfDay;
         mMinute = minute;
         updateTime();
         // If the time has been changed, enable the alarm.
         mEnabledPref.setChecked(true);
         saveAlarm(null);
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        mTimePickerDialog = null;
     }
 
     private void updateTime() {
