@@ -171,6 +171,36 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
     public StopwatchFragment() {
     }
 
+    private void rightButtonAction() {
+        long time = Utils.getTimeNow();
+        Context context = getActivity().getApplicationContext();
+        Intent intent = new Intent(context, StopwatchService.class);
+        intent.putExtra(Stopwatches.MESSAGE_TIME, time);
+        intent.putExtra(Stopwatches.SHOW_NOTIF, false);
+        buttonClicked(true);
+        switch (mState) {
+            case Stopwatches.STOPWATCH_RUNNING:
+                // do stop
+                long curTime = Utils.getTimeNow();
+                mAccumulatedTime += (curTime - mStartTime);
+                doStop();
+                intent.setAction(Stopwatches.STOP_STOPWATCH);
+                context.startService(intent);
+                break;
+            case Stopwatches.STOPWATCH_RESET:
+            case Stopwatches.STOPWATCH_STOPPED:
+                // do start
+                doStart(time);
+                intent.setAction(Stopwatches.START_STOPWATCH);
+                context.startService(intent);
+                break;
+            default:
+                Log.wtf("Illegal state " + mState
+                        + " while pressing the right stopwatch button");
+                break;
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -214,33 +244,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
         mRightButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                long time = Utils.getTimeNow();
-                Context context = getActivity().getApplicationContext();
-                Intent intent = new Intent(context, StopwatchService.class);
-                intent.putExtra(Stopwatches.MESSAGE_TIME, time);
-                intent.putExtra(Stopwatches.SHOW_NOTIF, false);
-                buttonClicked(true);
-                switch (mState) {
-                    case Stopwatches.STOPWATCH_RUNNING:
-                        // do stop
-                        long curTime = Utils.getTimeNow();
-                        mAccumulatedTime += (curTime - mStartTime);
-                        doStop();
-                        intent.setAction(Stopwatches.STOP_STOPWATCH);
-                        context.startService(intent);
-                        break;
-                    case Stopwatches.STOPWATCH_RESET:
-                    case Stopwatches.STOPWATCH_STOPPED:
-                        // do start
-                        doStart(time);
-                        intent.setAction(Stopwatches.START_STOPWATCH);
-                        context.startService(intent);
-                        break;
-                    default:
-                        Log.wtf("Illegal state " + mState
-                                + " while pressing the right stopwatch button");
-                        break;
-                }
+                rightButtonAction();
             }
         });
         mShareButton = (ImageButton)v.findViewById(R.id.stopwatch_share_button);
@@ -251,6 +255,17 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
                 showSharePopup();
             }
         });
+
+        // Timer text serves as a virtual start/stop button.
+        final CountingTimerView countingTimerView = (CountingTimerView)
+                v.findViewById(R.id.stopwatch_time_text);
+        countingTimerView.registerVirtualButtonAction(new Runnable() {
+            @Override
+            public void run() {
+                rightButtonAction();
+            }
+        });
+        countingTimerView.setVirtualButtonEnabled(true);
 
         mTime = (CircleTimerView)v.findViewById(R.id.stopwatch_time);
         mTimeText = (CountingTimerView)v.findViewById(R.id.stopwatch_time_text);
