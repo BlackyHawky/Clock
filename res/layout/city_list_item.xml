@@ -18,8 +18,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:gravity="center_vertical"
-    android:layout_marginLeft="8dip"
-    android:layout_marginRight="8dip"
+    android:paddingLeft="8dip"
+    android:paddingRight="8dip"
     android:layout_height="@dimen/cities_list_item_height"
     android:orientation="horizontal">
     <LinearLayout
@@ -29,14 +29,13 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/city_name"
-            style="city_name"
+            style="@style/city_name"
             android:textColor="@color/clock_white"
-            android:textAllCaps="true"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
         <TextView
             android:id="@+id/city_time"
-            style="city_time"
+            style="@style/city_time"
             android:textColor="@color/clock_gray"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"/>
