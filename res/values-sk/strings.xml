@@ -40,10 +40,12 @@
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložiť"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Upozornenie odložené o <xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Odložené do <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for timer_notifications:0 (7760558912503484257) -->
-    <!-- no translation found for timer_notifications:1 (83197792732433351) -->
-    <!-- no translation found for timer_notifications:2 (8919698220200894252) -->
-    <!-- no translation found for timer_notifications:3 (8458069283817013813) -->
+  <string-array name="timer_notifications">
+    <item msgid="7760558912503484257">"Zostáva menej ako minúta"</item>
+    <item msgid="83197792732433351">"Zostávajúci čas: <xliff:g id="HOURS">%1$s</xliff:g> h"</item>
+    <item msgid="8919698220200894252">"Zostávajúci čas: <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
+    <item msgid="8458069283817013813">"Zostávajúci čas: <xliff:g id="HOURS">%1$s</xliff:g> h <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
+  </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Budík sa spustí o menej než 1 minútu."</item>
     <item msgid="6002066367368421848">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -220,12 +222,9 @@
     <string name="time_picker_cancel" msgid="7437106489606013077">"Zrušiť"</string>
     <string name="time_picker_set" msgid="277860606472289828">"Nastaviť"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <!-- no translation found for time_picker_ampm_label (6754113715199751083) -->
-    <skip />
-    <!-- no translation found for time_picker_00_label (6001006474735281911) -->
-    <skip />
-    <!-- no translation found for time_picker_30_label (1027250857384838129) -->
-    <skip />
+    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
+    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
+    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshallove ostrovy"</item>
     <item msgid="4196408495909011020">"Midwayské ostrovy"</item>
@@ -323,22 +322,15 @@
     <string name="description_direction_left" msgid="6328816971226781776">"Prejdením prstom doľava zvonenie odložíte"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Prejdením prstom hore zrušíte"</string>
     <string name="description_direction_down" msgid="8240473964024874053">"Prejdením prstom dole zvonenie odložíte"</string>
-    <!-- no translation found for timer_stopped (2730331837832462008) -->
-    <skip />
-    <!-- no translation found for timers_stopped (2393640808691864520) -->
-    <skip />
-    <!-- no translation found for all_timers_stopped_notif (278532320068394600) -->
-    <skip />
-    <!-- no translation found for timers_in_use (5570729467344408506) -->
-    <skip />
+    <string name="timer_stopped" msgid="2730331837832462008">"Časovač sa zastavil"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"Počet zastavených časovačov: <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dotykom zobrazíte časovače"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"Počet časovačov: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <!-- no translation found for next_timer_notif (6136454740115613653) -->
     <skip />
-    <!-- no translation found for screensaver_settings (7013450738357352801) -->
-    <skip />
-    <!-- no translation found for night_mode_title (5983813889469616299) -->
-    <skip />
-    <!-- no translation found for night_mode_summary (1017350187324162631) -->
-    <skip />
+    <string name="screensaver_settings" msgid="7013450738357352801">"Nastavenia funkcie Sny"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Nočný režim"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Veľmi stlmený jas displeja (pre tmavé miestnosti)"</string>
     <!-- no translation found for expand_alarm (7392616528943305020) -->
     <skip />
     <!-- no translation found for collapse_alarm (3561772046433483980) -->
