@@ -27,8 +27,7 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Видалити цей сигнал?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Показ. годинник"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Схов. годинник"</string>
-    <!-- no translation found for label (7713131021574533921) -->
-    <skip />
+    <string name="label" msgid="7713131021574533921">"Мітка (необов’язково)"</string>
     <string name="default_label" msgid="5590025289805630372">"Сигнал"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Налашт. сигнал"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вібросигнал"</string>
@@ -192,10 +191,8 @@
     <string name="sort_by_time" msgid="3588583060192569857">"За часом"</string>
     <string name="search_results" msgid="3940223188208445245">"Результати"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"Міста не знайдено"</string>
-    <!-- no translation found for search_city (5167756899726176174) -->
-    <skip />
-    <!-- no translation found for cities_activity_title (8552462751129256730) -->
-    <skip />
+    <string name="search_city" msgid="5167756899726176174">"Пошук"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"Міста"</string>
     <string name="alarm_setup_music" msgid="6140596565783696650">"Музика"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Увімкнено"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Вимкнено"</string>
@@ -316,8 +313,7 @@
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Послуга \"Секундомір\" для запуску сповіщення."</string>
     <string name="stopwatch_title" msgid="3246663609895204068">"Секундомір"</string>
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" – "</string>
-    <!-- no translation found for swn_stopped (783124901663086172) -->
-    <skip />
+    <string name="swn_stopped" msgid="783124901663086172">"Зупинено"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Проведіть пальцем праворуч, щоб відхилити"</string>
     <string name="description_direction_left" msgid="6328816971226781776">"Проведіть пальцем ліворуч, щоб відкласти"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Проведіть пальцем угору, щоб відхилити"</string>
@@ -326,13 +322,10 @@
     <string name="timers_stopped" msgid="2393640808691864520">"Зупинилося таймерів: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Торкніться, щоб переглянути свої таймери"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Таймерів: <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <!-- no translation found for next_timer_notif (6136454740115613653) -->
-    <skip />
+    <string name="next_timer_notif" msgid="6136454740115613653">"Наступний таймер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Налаштування режиму сну"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Нічний режим"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Дуже тьмяний дисплей (для темних приміщень)"</string>
-    <!-- no translation found for expand_alarm (7392616528943305020) -->
-    <skip />
-    <!-- no translation found for collapse_alarm (3561772046433483980) -->
-    <skip />
+    <string name="expand_alarm" msgid="7392616528943305020">"Посилити сигнал"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Стишити сигнал"</string>
 </resources>
