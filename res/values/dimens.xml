@@ -39,6 +39,7 @@
     <dimen name="timer_circle_diameter">300dip</dimen>
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
+    <dimen name="actionbar_title_font_size">22sp</dimen>
 
     <dimen name="circletimer_diamond_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
