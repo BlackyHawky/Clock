@@ -56,7 +56,7 @@
                 android:theme="@style/AlarmClockTheme"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
-                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"
+
                 android:exported="true" />
 
         <activity-alias android:name="com.android.alarmclock.AlarmClock"
@@ -87,8 +87,7 @@
 
         <activity android:name="SetAlarm"
                 android:label="@string/set_alarm"
-                android:theme="@style/SetAlarmTheme"
-                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation" />
+                android:theme="@style/SetAlarmTheme"/>
 
         <activity android:name="AlarmAlert"
                 android:excludeFromRecents="true"

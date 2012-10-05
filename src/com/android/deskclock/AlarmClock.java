@@ -53,7 +53,9 @@ import java.util.HashSet;
 /**
  * AlarmClock application.
  */
-public class AlarmClock extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class AlarmClock extends Activity implements LoaderManager.LoaderCallbacks<Cursor>,
+        AlarmTimePickerDialogFragment.AlarmTimePickerDialogHandler,
+        AlarmLabelDialogFragment.AlarmLabelDialogHandler {
 
     private static final String KEY_EXPANDED_IDS = "expandedIds";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
@@ -118,6 +120,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putIntArray(KEY_EXPANDED_IDS, mAdapter.getExpandedArray());
         outState.putIntArray(KEY_REPEAT_CHECKED_IDS, mAdapter.getRepeatArray());
         outState.putBundle(KEY_RINGTONE_TITLE_CACHE, mRingtoneTitleCache);
@@ -172,38 +175,33 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void showTimeEditDialog(final DigitalClock clock, final Alarm alarm) {
-        AlarmTimePickerDialogFragment fragment = new AlarmTimePickerDialogFragment(
-                new AlarmTimePickerDialog.OnTimeSetListener() {
-                    @Override
-                    public void onTimeSet(int hourOfDay, int minute) {
-                        alarm.hour = hourOfDay;
-                        alarm.minutes = minute;
-                        asyncUpdateAlarm(alarm);
-                        AlarmClock.this.getLoaderManager().restartLoader(0, null, AlarmClock.this);
-                    }
-                });
-        fragment.show(getFragmentManager(), "dialog");
+    // Callback used by AlarmTimePickerDialogFragment
+    @Override
+    public void onDialogTimeSet(Alarm alarm, int hourOfDay, int minute) {
+        alarm.hour = hourOfDay;
+        alarm.minutes = minute;
+        asyncUpdateAlarm(alarm);
     }
 
     private void showLabelDialog(final Alarm alarm) {
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-        Fragment prev = getFragmentManager().findFragmentByTag("label_dialog");
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        final Fragment prev = getFragmentManager().findFragmentByTag("label_dialog");
         if (prev != null) {
             ft.remove(prev);
         }
         ft.addToBackStack(null);
 
         // Create and show the dialog.
-        AlarmLabelDialogFragment newFragment = AlarmLabelDialogFragment.newInstance(alarm.label);
-        newFragment.setListener(new AlarmLabelDialogFragment.OnLabelSetListener() {
-            @Override
-            public void onLabelSet(String label) {
-                alarm.label = label;
-                asyncUpdateAlarm(alarm);
-            }
-        });
+        final AlarmLabelDialogFragment newFragment = AlarmLabelDialogFragment.newInstance(alarm,
+                alarm.label);
         newFragment.show(ft, "label_dialog");
+    }
+
+    // Callback used by AlarmLabelDialogFragment.
+    @Override
+    public void onDialogLabelSet(Alarm alarm, String label) {
+        alarm.label = label;
+        asyncUpdateAlarm(alarm);
     }
 
     @Override
@@ -402,7 +400,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             itemHolder.clock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showTimeEditDialog(itemHolder.clock, alarm);
+                    AlarmUtils.showTimeEditDialog(AlarmClock.this.getFragmentManager(), alarm);
                     expandAlarm(itemHolder, alarm);
                 }
             });
