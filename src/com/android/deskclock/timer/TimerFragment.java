@@ -52,6 +52,9 @@ public class TimerFragment extends DeskClockFragment
         implements OnClickListener, OnSharedPreferenceChangeListener {
 
     private static final String TAG = "TimerFragment";
+    private static final String KEY_SETUP_SELECTED = "_setup_selected";
+    private static final String KEY_ENTRY_STATE = "entry_state";
+    private Bundle mViewState = null;
     private ListView mTimersList;
     private View mNewTimerPage;
     private View mTimersListPage;
@@ -310,6 +313,16 @@ public class TimerFragment extends DeskClockFragment
     };
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        // Cache instance data and consume in first call to setupPage()
+        if (savedInstanceState != null) {
+            mViewState = savedInstanceState;
+        }
+
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -378,6 +391,13 @@ public class TimerFragment extends DeskClockFragment
     }
 
     @Override
+    public void onDestroyView() {
+        mViewState = new Bundle();
+        saveViewState(mViewState);
+        super.onDestroyView();
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
@@ -413,7 +433,9 @@ public class TimerFragment extends DeskClockFragment
     public void onPause() {
         super.onPause();
         stopClockTicks();
-        saveGlobalState();
+        if (mAdapter != null) {
+            mAdapter.saveGlobalState ();
+        }
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
     }
 
@@ -423,21 +445,29 @@ public class TimerFragment extends DeskClockFragment
         if (mAdapter != null) {
             mAdapter.onSaveInstanceState (outState);
         }
-    }
-
-    @Override
-    public void saveGlobalState () {
-        super.saveGlobalState();
-        if (mAdapter != null) {
-            mAdapter.saveGlobalState ();
+        if (mNewTimerPage != null) {
+            saveViewState(outState);
+        } else if (mViewState != null) {
+            outState.putAll(mViewState);
         }
     }
 
+    private void saveViewState(Bundle outState) {
+        outState.putBoolean(KEY_SETUP_SELECTED, mNewTimerPage.getVisibility() == View.VISIBLE);
+        mTimerSetup.saveEntryState(outState, KEY_ENTRY_STATE);
+    }
+
     public void setPage() {
-        if (mAdapter.getCount() != 0) {
-            gotoTimersView();
-        } else {
+        boolean switchToSetupView = mAdapter.getCount() == 0;
+        if (mViewState != null) {
+            switchToSetupView |= mViewState.getBoolean(KEY_SETUP_SELECTED, false);
+            mTimerSetup.restoreEntryState(mViewState, KEY_ENTRY_STATE);
+            mViewState = null;
+        }
+        if (switchToSetupView) {
             gotoSetupView();
+        } else {
+            gotoTimersView();
         }
     }
 
