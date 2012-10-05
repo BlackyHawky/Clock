@@ -45,17 +45,17 @@
             android:id="@+id/timer_delete"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_delete_normal"
+            android:src="@drawable/ic_delete"
             style="@style/button"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@null"
             android:contentDescription="@string/timer_delete"
             android:layout_height="48dip" />
         <ImageButton
             android:id="@+id/timer_plus_one"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@null"
             android:layout_width="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/ic_plusone_normal"
+            android:src="@drawable/ic_plusone"
             style="@style/button"
             android:contentDescription="@string/timer_plus_one"
             android:layout_height="48dip" />
