@@ -26,8 +26,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -161,7 +163,7 @@ public class TimerFragment extends DeskClockFragment
                 v = new TimerListItem (mContext);
          //   }
 
-            TimerObj o = (TimerObj)getItem(position);
+            final TimerObj o = (TimerObj)getItem(position);
             o.mView = v;
             long timeLeft =  o.updateTimeLeft(false);
             boolean drawRed = o.mState != TimerObj.STATE_RESTART;
@@ -172,6 +174,17 @@ public class TimerFragment extends DeskClockFragment
             } else if (o.mState == TimerObj.STATE_RUNNING) {
                 v.start();
             }
+
+            // Timer text serves as a virtual start/stop button.
+            final CountingTimerView countingTimerView = (CountingTimerView)
+                    v.findViewById(R.id.timer_time_text);
+            countingTimerView.registerVirtualButtonAction(new Runnable() {
+                @Override
+                public void run() {
+                    TimerFragment.this.onClickHelper(
+                            new ClickAction(ClickAction.ACTION_STOP, o));
+                }
+            });
 
             ImageButton delete = (ImageButton)v.findViewById(R.id.timer_delete);
             delete.setOnClickListener(TimerFragment.this);
@@ -422,10 +435,14 @@ public class TimerFragment extends DeskClockFragment
 
     @Override
     public void onClick(View v) {
-        ClickAction tag = (ClickAction)v.getTag();
-        switch (tag.mAction) {
+        ClickAction tag = (ClickAction) v.getTag();
+        onClickHelper(tag);
+    }
+
+    private void onClickHelper(ClickAction clickAction) {
+        switch (clickAction.mAction) {
             case ClickAction.ACTION_DELETE:
-                TimerObj t = tag.mTimer;
+                TimerObj t = clickAction.mTimer;
                 if (t.mState == TimerObj.STATE_TIMESUP) {
                     cancelTimerNotification(t.mTimerId);
                 }
@@ -443,12 +460,12 @@ public class TimerFragment extends DeskClockFragment
                 updateTimersState(t, Timers.DELETE_TIMER);
                 break;
             case ClickAction.ACTION_PLUS_ONE:
-                onPlusOneButtonPressed(tag.mTimer);
-                setTimerButtons(tag.mTimer);
+                onPlusOneButtonPressed(clickAction.mTimer);
+                setTimerButtons(clickAction.mTimer);
                 break;
             case ClickAction.ACTION_STOP:
-                onStopButtonPressed(tag.mTimer);
-                setTimerButtons(tag.mTimer);
+                onStopButtonPressed(clickAction.mTimer);
+                setTimerButtons(clickAction.mTimer);
                 break;
             default:
                 break;
@@ -538,6 +555,8 @@ public class TimerFragment extends DeskClockFragment
         }
         ImageButton plusOne = (ImageButton) t.mView.findViewById(R.id.timer_plus_one);
         ImageButton stop = (ImageButton) t.mView.findViewById(R.id.timer_stop);
+        CountingTimerView countingTimerView = (CountingTimerView)
+                t.mView.findViewById(R.id.timer_time_text);
         Resources r = a.getResources();
         switch (t.mState) {
             case TimerObj.STATE_RUNNING:
@@ -547,6 +566,7 @@ public class TimerFragment extends DeskClockFragment
                 stop.setContentDescription(r.getString(R.string.timer_stop));
                 stop.setImageResource(R.drawable.ic_stop_normal);
                 stop.setEnabled(true);
+                countingTimerView.setVirtualButtonEnabled(true);
                 break;
             case TimerObj.STATE_STOPPED:
                 plusOne.setVisibility(View.VISIBLE);
@@ -555,12 +575,14 @@ public class TimerFragment extends DeskClockFragment
                 stop.setContentDescription(r.getString(R.string.timer_start));
                 stop.setImageResource(R.drawable.ic_start_normal);
                 stop.setEnabled(true);
+                countingTimerView.setVirtualButtonEnabled(true);
                 break;
             case TimerObj.STATE_TIMESUP:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setImageResource(R.drawable.ic_plusone_normal);
                 stop.setContentDescription(r.getString(R.string.timer_stop));
                 stop.setEnabled(true);
+                countingTimerView.setVirtualButtonEnabled(true);
                 break;
             case TimerObj.STATE_DONE:
                 plusOne.setVisibility(View.VISIBLE);
@@ -569,12 +591,14 @@ public class TimerFragment extends DeskClockFragment
                 stop.setContentDescription(r.getString(R.string.timer_start));
                 stop.setImageResource(R.drawable.ic_start_disabled);
                 stop.setEnabled(false);
+                countingTimerView.setVirtualButtonEnabled(false);
                 break;
             case TimerObj.STATE_RESTART:
                 plusOne.setVisibility(View.INVISIBLE);
                 stop.setContentDescription(r.getString(R.string.timer_start));
                 stop.setImageResource(R.drawable.ic_start_normal);
                 stop.setEnabled(true);
+                countingTimerView.setVirtualButtonEnabled(true);
                 break;
             default:
                 break;

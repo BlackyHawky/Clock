@@ -22,6 +22,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import com.android.deskclock.R;
@@ -52,12 +53,17 @@ public class CountingTimerView extends View {
     private float mTotalTextWidth;
     private static final String HUNDREDTH_SEPERATOR = ".";
     private boolean mRemeasureText = true;
+    private final int mDefaultColor;
+    private final int mPressedColor;
+
+    // Fields for the text serving as a virtual button.
+    private boolean mVirtualButtonEnabled = false;
+    private boolean mVirtualButtonPressedOn = false;
 
     Runnable mBlinkThread = new Runnable() {
         @Override
         public void run() {
             mShowTimeStr = !mShowTimeStr;
-            CountingTimerView.this.setVisibility(mShowTimeStr ? View.VISIBLE : View.INVISIBLE);
             CountingTimerView.this.invalidate();
             mRemeasureText = true;
             postDelayed(mBlinkThread, 500);
@@ -79,10 +85,12 @@ public class CountingTimerView extends View {
         mHoursLabel = r.getString(R.string.hours_label).toUpperCase();
         mMinutesLabel = r.getString(R.string.minutes_label).toUpperCase();
         mSecondsLabel = r.getString(R.string.seconds_label).toUpperCase();
+        mDefaultColor = r.getColor(R.color.clock_white);
+        mPressedColor = r.getColor(R.color.clock_blue);
 
         mPaintBig.setAntiAlias(true);
         mPaintBig.setStyle(Paint.Style.STROKE);
-        mPaintBig.setColor(r.getColor(R.color.clock_white));
+        mPaintBig.setColor(mDefaultColor);
         mPaintBig.setTextAlign(Paint.Align.LEFT);
         mPaintBig.setTypeface(mRobotoBold);
         float bigFontSize = r.getDimension(R.dimen.big_font_size);
@@ -90,21 +98,21 @@ public class CountingTimerView extends View {
         mTextHeight = bigFontSize;
         mPaintBigThin.setAntiAlias(true);
         mPaintBigThin.setStyle(Paint.Style.STROKE);
-        mPaintBigThin.setColor(r.getColor(R.color.clock_white));
+        mPaintBigThin.setColor(mDefaultColor);
         mPaintBigThin.setTextAlign(Paint.Align.LEFT);
         mPaintBigThin.setTypeface(mRobotoThin);
         mPaintBigThin.setTextSize(r.getDimension(R.dimen.big_font_size));
 
         mPaintMed.setAntiAlias(true);
         mPaintMed.setStyle(Paint.Style.STROKE);
-        mPaintMed.setColor(r.getColor(R.color.clock_white));
+        mPaintMed.setColor(mDefaultColor);
         mPaintMed.setTextAlign(Paint.Align.LEFT);
         mPaintMed.setTypeface(mRobotoThin);
         mPaintMed.setTextSize(r.getDimension(R.dimen.small_font_size));
 
         mPaintLabel.setAntiAlias(true);
         mPaintLabel.setStyle(Paint.Style.STROKE);
-        mPaintLabel.setColor(r.getColor(R.color.clock_white));
+        mPaintLabel.setColor(mDefaultColor);
         mPaintLabel.setTextAlign(Paint.Align.LEFT);
         mPaintLabel.setTypeface(mRobotoLabel);
         mPaintLabel.setTextSize(r.getDimension(R.dimen.label_font_size));
@@ -262,8 +270,67 @@ public class CountingTimerView extends View {
         return String.format("%s:%s:%s.%s",mHours, mMinutes, mSeconds,  mHunderdths);
     }
 
+    public void setVirtualButtonEnabled(boolean enabled) {
+        mVirtualButtonEnabled = enabled;
+    }
+
+    private void virtualButtonPressed(boolean pressedOn) {
+        mVirtualButtonPressedOn = pressedOn;
+        invalidate();
+    }
+
+    private boolean withinVirtualButtonBounds(float x, float y) {
+        int width = getWidth();
+        int height = getHeight();
+        float centerX = width / 2;
+        float centerY = height / 2;
+        float radius = Math.min(width, height) / 2;
+
+        // Within the circle button if distance to the center is less than the radius.
+        double distance = Math.sqrt(Math.pow(centerX - x, 2) + Math.pow(centerY - y, 2));
+        return distance < radius;
+    }
+
+    public void registerVirtualButtonAction(final Runnable runnable) {
+        this.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (mVirtualButtonEnabled) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            if (withinVirtualButtonBounds(event.getX(), event.getY())) {
+                                virtualButtonPressed(true);
+                                return true;
+                            } else {
+                                virtualButtonPressed(false);
+                                return false;
+                            }
+                        case MotionEvent.ACTION_CANCEL:
+                            virtualButtonPressed(false);
+                            return true;
+                        case MotionEvent.ACTION_OUTSIDE:
+                            virtualButtonPressed(false);
+                            return false;
+                        case MotionEvent.ACTION_UP:
+                            virtualButtonPressed(false);
+                            if (withinVirtualButtonBounds(event.getX(), event.getY())) {
+                                runnable.run();
+                            }
+                            return true;
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
+        // Blink functionality.
+        if (!mShowTimeStr && !mVirtualButtonPressedOn) {
+            return;
+        }
+
         int width = getWidth();
         if (mRemeasureText && width != 0) {
             setTotalTextWidth();
@@ -279,6 +346,19 @@ public class CountingTimerView extends View {
         // align the labels vertically to the top of the rest of the text
         float labelYStart = textYstart - (mTextHeight * (1 - 2 * FONT_VERTICAL_OFFSET))
                 + (1 - 2 * FONT_VERTICAL_OFFSET) * mPaintLabel.getTextSize();
+
+        // Text color differs based on pressed state.
+        int textColor;
+        if (mVirtualButtonPressedOn) {
+            textColor = mPressedColor;
+        } else {
+            textColor = mDefaultColor;
+        }
+        mPaintBig.setColor(textColor);
+        mPaintBigThin.setColor(textColor);
+        mPaintLabel.setColor(textColor);
+        mPaintMed.setColor(textColor);
+
         if (mHours != null) {
             canvas.drawText(mHours, textXstart, textYstart, mPaintBig);
             textXstart += mHoursWidth;
