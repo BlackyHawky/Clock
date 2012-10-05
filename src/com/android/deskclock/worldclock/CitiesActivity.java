@@ -282,6 +282,5 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
         } else {
             mUserSelectedCities.remove(c.mCityId);
         }
-        mAdapter.notifyDataSetChanged();
     }
 }
