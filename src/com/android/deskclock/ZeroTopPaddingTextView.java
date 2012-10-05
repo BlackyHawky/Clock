@@ -25,15 +25,8 @@ import android.widget.TextView;
  * Displays text with no padding at the top.
  */
 public class ZeroTopPaddingTextView extends TextView {
-    private static final float NORMAL_FONT_PADDING_RATIO = 0.328f;
-    // the bold fontface has less empty space on the top
-    private static final float BOLD_FONT_PADDING_RATIO = 0.208f;
-
-    private static final float NORMAL_FONT_BOTTOM_PADDING_RATIO = 0.25f;
-    // the bold fontface has less empty space on the top
-    private static final float BOLD_FONT_BOTTOM_PADDING_RATIO = 0.208f;
-
-    private static final Typeface SAN_SERIF_BOLD = Typeface.create("san-serif", Typeface.BOLD);
+    private static final float FONT_TOP_PADDING_RATIO = 0.328f;
+    private static final float FONT_BOTTOM_PADDING_RATIO = 0.25f;
 
     private int mPaddingRight = 0;
 
@@ -52,16 +45,10 @@ public class ZeroTopPaddingTextView extends TextView {
     }
 
     public void updatePadding() {
-        float paddingRatio = NORMAL_FONT_PADDING_RATIO;
-        float bottomPaddingRatio = NORMAL_FONT_BOTTOM_PADDING_RATIO;
-        if (getTypeface().equals(SAN_SERIF_BOLD)) {
-            paddingRatio = BOLD_FONT_PADDING_RATIO;
-            bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
-        }
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
-        setPadding(0, (int) (-paddingRatio * getTextSize()), mPaddingRight,
-                (int) (-bottomPaddingRatio * getTextSize()));
+        setPadding(0, (int) (-FONT_TOP_PADDING_RATIO * getTextSize()), mPaddingRight,
+                (int) (-FONT_BOTTOM_PADDING_RATIO * getTextSize()));
     }
 
     public void setPaddingRight(int padding) {
