@@ -23,6 +23,8 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -213,11 +215,19 @@ public class TimerObj implements Parcelable {
                 t.readFromSharedPref(prefs);
                 timers.add(t);
             }
+            Collections.sort(timers, new Comparator<TimerObj>() {
+                @Override
+                public int compare(TimerObj timerObj1, TimerObj timerObj2) {
+                   return timerObj2.mTimerId - timerObj1.mTimerId;
+                }
+            });
         }
     }
 
-    public static void getTimersFromSharedPrefs(SharedPreferences prefs, ArrayList<TimerObj> timers, int match) {
-        Object[] timerStrings = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>()).toArray();
+    public static void getTimersFromSharedPrefs(
+            SharedPreferences prefs, ArrayList<TimerObj> timers, int match) {
+        Object[] timerStrings = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>())
+                .toArray();
         if (timerStrings.length > 0) {
             for (int i = 0; i < timerStrings.length; i++) {
                 TimerObj t = new TimerObj();
