@@ -23,6 +23,8 @@ import android.content.BroadcastReceiver;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.text.format.DateUtils;
@@ -57,6 +59,10 @@ public class AnalogClock extends View {
     private boolean mChanged;
     private final Context mContext;
 
+    private float mDotRadius;
+    private float mDotOffset;
+    private Paint mDotPaint;
+
     public AnalogClock(Context context) {
         this(context, null);
     }
@@ -75,6 +81,15 @@ public class AnalogClock extends View {
         mHourHand = r.getDrawable(R.drawable.clock_analog_hour);
         mMinuteHand = r.getDrawable(R.drawable.clock_analog_minute);
         mSecondHand = r.getDrawable(R.drawable.clock_analog_second);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
+        mDotRadius = a.getDimension(R.styleable.AnalogClock_jewelRadius, 0);
+        mDotOffset = a.getDimension(R.styleable.AnalogClock_jewelOffset, 0);
+        final int dotColor = a.getColor(R.styleable.AnalogClock_jewelColor, Color.WHITE);
+        if (dotColor != 0) {
+            mDotPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mDotPaint.setColor(dotColor);
+        }
 
         mCalendar = new Time();
 
@@ -185,6 +200,10 @@ public class AnalogClock extends View {
             dial.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
         }
         dial.draw(canvas);
+
+        if (mDotRadius > 0f && mDotPaint != null) {
+            canvas.drawCircle(x, y - (h / 2) + mDotOffset, mDotRadius, mDotPaint);
+        }
 
         canvas.save();
         canvas.rotate(mHour / 12.0f * 360.0f, x, y);
