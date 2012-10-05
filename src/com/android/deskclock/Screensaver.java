@@ -153,17 +153,6 @@ public class Screensaver extends DreamService {
         super.onCreate();
     }
 
-
-    @Override
-    public void onStart() {
-        if (DEBUG) Log.d(TAG, "Screensaver started");
-        super.onStart();
-
-        // We want the screen saver to exit upon user interaction.
-        setInteractive(false);
-
-    }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         if (DEBUG) Log.d(TAG, "Screensaver configuration changed");
@@ -177,6 +166,9 @@ public class Screensaver extends DreamService {
     public void onAttachedToWindow() {
         if (DEBUG) Log.d(TAG, "Screensaver attached to window");
         super.onAttachedToWindow();
+
+        // We want the screen saver to exit upon user interaction.
+        setInteractive(false);
 
         setFullscreen(true);
 
