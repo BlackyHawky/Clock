@@ -176,7 +176,8 @@
     <style name="city_name">
         <item name="android:textSize">@dimen/city_name_font_size</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="city_time">
