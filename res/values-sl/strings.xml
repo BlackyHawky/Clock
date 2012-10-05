@@ -328,7 +328,7 @@
     <string name="timers_in_use" msgid="5570729467344408506">"Št. časovnikov: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <!-- no translation found for next_timer_notif (6136454740115613653) -->
     <skip />
-    <string name="screensaver_settings" msgid="7013450738357352801">"Nastavitve za Dream"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Nastavitve za spanje"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nočni način"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Zatemnjen zaslon (za temne prostore)"</string>
     <!-- no translation found for expand_alarm (7392616528943305020) -->
