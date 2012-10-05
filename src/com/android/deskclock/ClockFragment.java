@@ -182,7 +182,7 @@ public class ClockFragment extends DeskClockFragment {
                 String homeTZ = sharedPref.getString(SettingsActivity.KEY_HOME_TZ, "");
                 if (!TimeZone.getDefault().getID().equals(homeTZ)) {
                     CityObj c = new CityObj(
-                            mContext.getResources().getString(R.string.home_label), homeTZ);
+                            mContext.getResources().getString(R.string.home_label), homeTZ, null);
                     Object[] temp = new Object[mCitiesList.length + 1];
                     temp[0] = c;
                     for (int i = 0; i < mCitiesList.length; i++) {
