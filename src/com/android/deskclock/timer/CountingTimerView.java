@@ -53,8 +53,11 @@ public class CountingTimerView extends View {
     private float mTotalTextWidth;
     private static final String HUNDREDTH_SEPERATOR = ".";
     private boolean mRemeasureText = true;
-    private final int mDefaultColor;
+
+    private int mDefaultColor;
     private final int mPressedColor;
+    private final int mWhiteColor;
+    private final int mRedColor;
 
     // Fields for the text serving as a virtual button.
     private boolean mVirtualButtonEnabled = false;
@@ -85,38 +88,45 @@ public class CountingTimerView extends View {
         mHoursLabel = r.getString(R.string.hours_label).toUpperCase();
         mMinutesLabel = r.getString(R.string.minutes_label).toUpperCase();
         mSecondsLabel = r.getString(R.string.seconds_label).toUpperCase();
-        mDefaultColor = r.getColor(R.color.clock_white);
+        mWhiteColor = r.getColor(R.color.clock_white);
+        mDefaultColor = mWhiteColor;
         mPressedColor = r.getColor(R.color.clock_blue);
+        mRedColor = r.getColor(R.color.clock_red);
 
         mPaintBig.setAntiAlias(true);
         mPaintBig.setStyle(Paint.Style.STROKE);
-        mPaintBig.setColor(mDefaultColor);
         mPaintBig.setTextAlign(Paint.Align.LEFT);
         mPaintBig.setTypeface(mRobotoBold);
         float bigFontSize = r.getDimension(R.dimen.big_font_size);
         mPaintBig.setTextSize(bigFontSize);
         mTextHeight = bigFontSize;
+
         mPaintBigThin.setAntiAlias(true);
         mPaintBigThin.setStyle(Paint.Style.STROKE);
-        mPaintBigThin.setColor(mDefaultColor);
         mPaintBigThin.setTextAlign(Paint.Align.LEFT);
         mPaintBigThin.setTypeface(mRobotoThin);
         mPaintBigThin.setTextSize(r.getDimension(R.dimen.big_font_size));
 
         mPaintMed.setAntiAlias(true);
         mPaintMed.setStyle(Paint.Style.STROKE);
-        mPaintMed.setColor(mDefaultColor);
         mPaintMed.setTextAlign(Paint.Align.LEFT);
         mPaintMed.setTypeface(mRobotoThin);
         mPaintMed.setTextSize(r.getDimension(R.dimen.small_font_size));
 
         mPaintLabel.setAntiAlias(true);
         mPaintLabel.setStyle(Paint.Style.STROKE);
-        mPaintLabel.setColor(mDefaultColor);
         mPaintLabel.setTextAlign(Paint.Align.LEFT);
         mPaintLabel.setTypeface(mRobotoLabel);
         mPaintLabel.setTextSize(r.getDimension(R.dimen.label_font_size));
 
+        setTextColor(mDefaultColor);
+    }
+
+    protected void setTextColor(int textColor) {
+        mPaintBig.setColor(textColor);
+        mPaintBigThin.setColor(textColor);
+        mPaintMed.setColor(textColor);
+        mPaintLabel.setColor(textColor);
     }
 
     public void setTime(long time, boolean showHundredths, boolean update) {
@@ -260,6 +270,14 @@ public class CountingTimerView extends View {
             removeCallbacks(mBlinkThread);
             mShowTimeStr = true;
             this.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void redTimeStr(boolean red, boolean forceUpdate) {
+        mDefaultColor = red ? mRedColor : mWhiteColor;
+        setTextColor(mDefaultColor);
+        if (forceUpdate) {
+            invalidate();
         }
     }
 
