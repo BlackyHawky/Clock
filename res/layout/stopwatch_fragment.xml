@@ -54,8 +54,8 @@
             android:id="@+id/stopwatch_left_button"
             android:layout_width="56dip"
             style="@style/button"
-            android:src="@drawable/ic_lap_normal"
-            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_lap"
+            android:background="@null"
             android:layout_height="match_parent" />
         <Space
             android:layout_height="match_parent"
@@ -63,8 +63,8 @@
             android:layout_weight="1"/>
         <ImageButton
             android:id="@+id/stopwatch_share_button"
-            android:background="?android:attr/selectableItemBackground"
-            android:src="@drawable/ic_share_normal"
+            android:background="@null"
+            android:src="@drawable/ic_share"
             android:layout_width="56dip"
             style="@style/button"
             android:contentDescription="@string/sw_share_button"

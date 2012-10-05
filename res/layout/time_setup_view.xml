@@ -87,13 +87,13 @@
         </com.android.deskclock.timer.TimerView>
         <ImageButton
             android:id="@+id/delete"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@null"
             android:layout_width="0dip"
             android:layout_weight="1"
             android:gravity="center"
             android:layout_gravity="center"
             android:paddingBottom="@dimen/body_font_padding"
-            android:src="@drawable/ic_backspace_normal"
+            android:src="@drawable/ic_backspace"
             android:contentDescription="@string/timer_delete"
             android:layout_height="match_parent" />
     </LinearLayout>
