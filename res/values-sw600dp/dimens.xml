@@ -52,4 +52,7 @@
 
      <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">550dip</dimen>
+
+    <!-- Size of analog clock in world clock. -->
+    <dimen name="world_clock_analog_size">200dip</dimen>
 </resources>
