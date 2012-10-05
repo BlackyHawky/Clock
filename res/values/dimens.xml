@@ -47,7 +47,7 @@
     <dimen name="big_font_size">120dp</dimen>
     <dimen name="small_font_size">48sp</dimen>
     <dimen name="medium_font_size">60dp</dimen>
-    <dimen name="label_font_size">12sp</dimen>
+    <dimen name="label_font_size">14sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
     <dimen name="body_font_padding">4dp</dimen>
