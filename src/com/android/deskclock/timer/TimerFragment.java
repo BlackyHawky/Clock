@@ -43,7 +43,8 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
-public class TimerFragment extends DeskClockFragment implements OnClickListener, OnSharedPreferenceChangeListener {
+public class TimerFragment extends DeskClockFragment
+        implements OnClickListener, OnSharedPreferenceChangeListener {
 
     private static final String TAG = "TimerFragment";
     private ListView mTimersList;
