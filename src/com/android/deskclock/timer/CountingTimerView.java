@@ -169,14 +169,6 @@ public class CountingTimerView extends View {
             mMinutes = String.format(format, minutes);
         }
 
-        if (!showHundredths) {
-            if (!neg && hundreds != 0) {
-                seconds++;
-            }
-            if (hundreds < 10 || hundreds > 90) {
-                update = true;
-            }
-        }
         mSeconds = String.format(TWO_DIGITS, seconds);
         if (showHundredths) {
             mHunderdths = String.format(TWO_DIGITS, hundreds);
