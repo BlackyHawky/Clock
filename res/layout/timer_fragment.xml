@@ -73,6 +73,7 @@
                 android:background="?android:attr/selectableItemBackground"
                 android:layout_height="wrap_content" />
             <View
+                android:id="@+id/timer_button_sep"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dip"
                 android:layout_marginBottom="8dip"
