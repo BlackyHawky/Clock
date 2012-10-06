@@ -36,7 +36,7 @@
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin">48dp</dimen>
-    <dimen name="laps_margin">96dp</dimen>
+    <dimen name="laps_margin">36dp</dimen>
 
     <dimen name="glowpadview_margin_right">0dip</dimen>
 </resources>
