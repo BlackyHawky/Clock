@@ -19,6 +19,7 @@ package com.android.deskclock;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -71,7 +72,29 @@ class AlarmDatabaseHelper extends SQLiteOpenHelper {
 
     Uri commonInsert(ContentValues values) {
         SQLiteDatabase db = getWritableDatabase();
-        long rowId = db.insert("alarms", Alarm.Columns.MESSAGE, values);
+        db.beginTransaction();
+        long rowId = -1;
+        try {
+            // Check if we are trying to re-use an existing id.
+            Object value = values.get(Alarm.Columns._ID);
+            if (value != null) {
+                int id = (Integer) value;
+                if (id > -1) {
+                    final Cursor cursor = db
+                            .query("alarms", new String[]{Alarm.Columns._ID}, "_id = ?",
+                                    new String[]{id + ""}, null, null, null);
+                    if (cursor.moveToFirst()) {
+                        // Record exists. Remove the id so sqlite can generate a new one.
+                        values.putNull(Alarm.Columns._ID);
+                    }
+                }
+            }
+
+            rowId = db.insert("alarms", Alarm.Columns.MESSAGE, values);
+            db.setTransactionSuccessful();
+        } finally {
+            db.endTransaction();
+        }
         if (rowId < 0) {
             throw new SQLException("Failed to insert row");
         }
