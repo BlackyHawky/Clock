@@ -36,53 +36,13 @@
         android:orientation="vertical"
         >
 
-        <!-- nightmode button, the time, the date, and the next alarm -->
-        <LinearLayout
-            android:orientation="vertical"
+        <ListView
+            android:id="@+id/cities"
+            android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:layout_marginLeft="@dimen/time_margin_left"
-            >
-            <TextView android:id="@+id/nextAlarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/font_margin_adjust"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="@dimen/next_alarm_text_size"
-                android:layout_marginTop="@dimen/next_alarm_margin_top"
-                android:drawablePadding="4dip"
-                android:drawableLeft="@drawable/ic_lock_idle_alarm"
-                android:textColor="@color/white"
-                android:background="?android:attr/listChoiceBackgroundIndicator"
-                />
-            <include layout="@layout/desk_clock_time_date"
-                android:id="@+id/digital_clock"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/time_margin_top"
-                android:layout_marginBottom="@dimen/medium_space"
-                />
-            <com.android.deskclock.AnalogClock
-                android:id="@+id/analog_clock"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/circle_margin"
-                android:layout_marginLeft="@dimen/circle_margin"
-                android:layout_marginRight="@dimen/circle_margin"
-                android:layout_gravity="center_horizontal"
-                android:dial="@drawable/clock_analog_dial"
-                android:hand_hour="@drawable/clock_analog_hour"
-                android:hand_minute="@drawable/clock_analog_minute"
-                android:layout_marginBottom="@dimen/time_margin_bottom"/>
-
-            <ListView
-                android:id="@+id/cities"
-                android:clickable="false"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:layout_marginLeft="@dimen/time_margin_left"/>
 
         <View
             android:layout_width="match_parent"
