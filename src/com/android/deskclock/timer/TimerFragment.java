@@ -54,6 +54,7 @@ public class TimerFragment extends DeskClockFragment
     private View mNewTimerPage;
     private View mTimersListPage;
     private Button mCancel, mStart;
+    private View mSeperator;
     private ImageButton mAddTimer;
     private TimerSetupView mTimerSetup;
     private TimersListAdapter mAdapter;
@@ -327,6 +328,7 @@ public class TimerFragment extends DeskClockFragment
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
         mTimersListPage = v.findViewById(R.id.timers_list_page);
         mTimerSetup = (TimerSetupView)v.findViewById(R.id.timer_setup);
+        mSeperator = v.findViewById(R.id.timer_button_sep);
         mCancel = (Button)v.findViewById(R.id.timer_cancel);
         mCancel.setOnClickListener(new OnClickListener() {
             @Override
@@ -397,9 +399,9 @@ public class TimerFragment extends DeskClockFragment
 
         mTimersList.setAdapter(mAdapter);
         if (mAdapter.getCount() == 0) {
-            mCancel.setVisibility(View.INVISIBLE);
+            mCancel.setVisibility(View.GONE);
+            mSeperator.setVisibility(View.GONE);
         }
-
         setPage();
     }
 
@@ -449,8 +451,10 @@ public class TimerFragment extends DeskClockFragment
         mTimersListPage.setVisibility(View.GONE);
         stopClockTicks();
         if (mAdapter.getCount() == 0) {
-            mCancel.setVisibility(View.INVISIBLE);
+            mCancel.setVisibility(View.GONE);
+            mSeperator.setVisibility(View.GONE);
         } else {
+            mSeperator.setVisibility(View.VISIBLE);
             mCancel.setVisibility(View.VISIBLE);
         }
     }
