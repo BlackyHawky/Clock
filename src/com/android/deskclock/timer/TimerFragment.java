@@ -39,6 +39,7 @@ import android.widget.ListView;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
+import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -169,10 +170,18 @@ public class TimerFragment extends DeskClockFragment
             boolean drawRed = o.mState != TimerObj.STATE_RESTART;
             v.set(o.mOriginalLength, timeLeft, drawRed);
             v.setTime(timeLeft, true);
-            if (o.mState == TimerObj.STATE_STOPPED) {
-                v.setBlink(true);
-            } else if (o.mState == TimerObj.STATE_RUNNING) {
+            switch (o.mState) {
+            case TimerObj.STATE_RUNNING:
                 v.start();
+                break;
+            case TimerObj.STATE_TIMESUP:
+                v.timesUp();
+                break;
+            case TimerObj.STATE_DONE:
+                v.done();
+                break;
+            default:
+                break;
             }
 
             // Timer text serves as a virtual start/stop button.
@@ -255,24 +264,42 @@ public class TimerFragment extends DeskClockFragment
     }
 
     private final Runnable mClockTick = new Runnable() {
+        boolean mVisible = true;
+        final static int TIME_PERIOD_MS = 1000;
+        final static int SPLIT = TIME_PERIOD_MS / 2;
+
         @Override
         public void run() {
+            // Setup for blinking
+            boolean visible = Utils.getTimeNow() % TIME_PERIOD_MS < SPLIT;
+            boolean toggle = mVisible != visible;
+            mVisible = visible;
             for (int i = 0; i < mAdapter.getCount(); i ++) {
                 TimerObj t = (TimerObj) mAdapter.getItem(i);
                 if (t.mState == TimerObj.STATE_RUNNING || t.mState == TimerObj.STATE_TIMESUP) {
                     long timeLeft = t.updateTimeLeft(false);
                     if ((TimerListItem)(t.mView) != null) {
                         ((TimerListItem)(t.mView)).setTime(timeLeft, false);
-                    } else {
-                        Log.v("timer fragment"," timer view is null");
                     }
                 }
                 if (t.mTimeLeft <= 0 && t.mState != TimerObj.STATE_DONE
                         && t.mState != TimerObj.STATE_RESTART) {
                     t.mState = TimerObj.STATE_TIMESUP;
                     TimerFragment.this.setTimerButtons(t);
+                    if ((TimerListItem)(t.mView) != null) {
+                        ((TimerListItem)(t.mView)).timesUp();
+                    }
                 }
 
+                // The blinking
+                if (toggle && (TimerListItem)(t.mView) != null) {
+                    if (t.mState == TimerObj.STATE_TIMESUP) {
+                        ((TimerListItem)(t.mView)).setCircleBlink(mVisible);
+                    }
+                    if (t.mState == TimerObj.STATE_STOPPED) {
+                        ((TimerListItem)(t.mView)).setTextBlink(mVisible);
+                    }
+                }
             }
             mTimersList.postDelayed(mClockTick, 20);
         }
@@ -530,7 +557,7 @@ public class TimerFragment extends DeskClockFragment
                 break;
             case TimerObj.STATE_TIMESUP:
                 t.mState = TimerObj.STATE_DONE;
-                ((TimerListItem) t.mView).stop();
+                ((TimerListItem) t.mView).done();
                 updateTimersState(t, Timers.TIMER_DONE);
                 cancelTimerNotification(t.mTimerId);
                 updateTimesUpMode(t);
