@@ -24,6 +24,7 @@
     <color name="action_bar_button_text_color">#FFFFFF</color>
 
     <color name="black">#ff000000</color>
+    <color name="blackish">#ff1c1e20</color>
     <color name="white">#ffffffff</color>
     <color name="red">#ffee0000</color>
     <color name="grey">#ffaaaaaa</color>
