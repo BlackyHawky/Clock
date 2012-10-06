@@ -65,17 +65,34 @@ public class TimerListItem extends LinearLayout {
 
     public void start() {
         mCircleView.startIntervalAnimation();
-        mTimerText.blinkTimeStr(false);
+        mTimerText.redTimeStr(false, true);
+        mTimerText.setVisibility(VISIBLE);
+        mCircleView.setVisibility(VISIBLE);
     }
 
     public void pause() {
         mCircleView.pauseIntervalAnimation();
-        mTimerText.blinkTimeStr(true);
+        mTimerText.redTimeStr(false, true);
     }
 
     public void stop() {
         mCircleView.stopIntervalAnimation();
-        mTimerText.blinkTimeStr(false);
+        mTimerText.redTimeStr(false, true);
+        mTimerText.setVisibility(VISIBLE);
+        mCircleView.setVisibility(VISIBLE);
+    }
+
+    public void timesUp() {
+        mCircleView.abortIntervalAnimation();
+        mTimerText.redTimeStr(true, true);
+    }
+
+    public void done() {
+        mCircleView.stopIntervalAnimation();
+        mCircleView.setVisibility(VISIBLE);
+        mCircleView.invalidate();
+        mTimerText.redTimeStr(true, false);
+        setTime(0, true);
     }
 
     public void setLength(long timerLength) {
@@ -84,8 +101,12 @@ public class TimerListItem extends LinearLayout {
         mCircleView.invalidate();
     }
 
-    public void setBlink(boolean blink) {
-        mTimerText.blinkTimeStr(blink);
+    public void setTextBlink(boolean blink) {
+        mTimerText.setVisibility(blink ? INVISIBLE : VISIBLE);
+    }
+
+    public void setCircleBlink(boolean blink) {
+        mCircleView.setVisibility(blink ? INVISIBLE : VISIBLE);
     }
 
     public void setTime(long time, boolean forceUpdate) {
