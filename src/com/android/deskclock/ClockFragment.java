@@ -27,16 +27,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.deskclock.worldclock.Cities;
-import com.android.deskclock.worldclock.CitiesActivity;
 import com.android.deskclock.worldclock.CityObj;
 
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.TimeZone;
 
 
@@ -53,7 +51,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     TextView mNextAlarm;
     private TextView mDateDisplay;
     boolean mButtonsHidden = false;
-    View mDigitalClock, mAnalogClock;
+    View mDigitalClock, mAnalogClock, mClockFrame;
     WorldClockAdapter mAdapter;
     ListView mList;
     String mClockStyle;
@@ -71,13 +69,15 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         mButtons = v.findViewById(R.id.clock_buttons);
         mNextAlarm = (TextView)v.findViewById(R.id.nextAlarm);
         mDateDisplay = (TextView) v.findViewById(R.id.date);
-        mDigitalClock = v.findViewById(R.id.digital_clock);
-        mAnalogClock = v.findViewById(R.id.analog_clock);
         if (icicle != null) {
             mButtonsHidden = icicle.getBoolean(BUTTONS_HIDDEN_KEY, false);
         }
         mList = (ListView)v.findViewById(R.id.cities);
         mList.setDivider(null);
+        mClockFrame = inflater.inflate(R.layout.main_clock_frame, mList, false);
+        mDigitalClock = mClockFrame.findViewById(R.id.main_digital_clock);
+        mAnalogClock = mClockFrame.findViewById(R.id.main_analog_clock);
+        mList.addHeaderView(mClockFrame, null, false);
         mAdapter = new WorldClockAdapter(getActivity());
         mList.setAdapter(mAdapter);
         refreshAlarm();
@@ -122,6 +122,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             mDigitalClock.setVisibility(View.VISIBLE);
             mAnalogClock.setVisibility(View.GONE);
         }
+        mAdapter.notifyDataSetChanged();
     }
 
     private void refreshAlarm() {
