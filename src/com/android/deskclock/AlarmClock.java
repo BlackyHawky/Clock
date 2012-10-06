@@ -223,6 +223,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         mSelectedAlarm = alarm;
         final Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, alarm.alert);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
         startActivityForResult(intent, REQUEST_CODE_RINGTONE);
     }
 
