@@ -29,7 +29,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -55,7 +58,7 @@ import java.util.TimeZone;
 /**
  * Cities chooser for the world clock
  */
-public class CitiesActivity extends Activity implements OnCheckedChangeListener {
+public class CitiesActivity extends Activity implements OnCheckedChangeListener, View.OnClickListener {
 
     /** This must be false for production.  If true, turns on logging,
         test code, etc. */
@@ -113,6 +116,11 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
         }
 
         @Override
+        public boolean isEnabled(int p) {
+            return ((CityObj)mAllTheCitiesList[p]).mCityId != null;
+        }
+
+        @Override
         public View getView(int position, View view, ViewGroup parent) {
             if (position < 0 || position >=  mAllTheCitiesList.length) {
                 return null;
@@ -130,6 +138,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
                 if (view == null || view.findViewById(R.id.city_name) == null) {
                     view = mInflater.inflate(R.layout.city_list_item, parent, false);
                 }
+                view.setOnClickListener(CitiesActivity.this);
                 TextView name = (TextView)view.findViewById(R.id.city_name);
                 TextView tz = (TextView)view.findViewById(R.id.city_time);
                 CheckBox cb = (CheckBox)view.findViewById(R.id.city_onoff);
@@ -304,5 +313,13 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener 
         } else {
             mUserSelectedCities.remove(c.mCityId);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        CompoundButton b = (CompoundButton)v.findViewById(R.id.city_onoff);
+        boolean checked = b.isChecked();
+        onCheckedChanged(b, checked);
+        b.setChecked(!checked);
     }
 }
