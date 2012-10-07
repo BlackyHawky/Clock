@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -45,7 +46,6 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.android.deskclock.widget.ActionableToastBar;
-import com.android.deskclock.widget.TextToggleButton;
 import com.android.deskclock.widget.swipeablelistview.SwipeableListView;
 
 import java.text.DateFormatSymbols;
@@ -320,7 +320,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
             // views for optimization
             DigitalClock clock;
-            TextToggleButton onoff;
+            ToggleButton onoff;
             TextView daysOfWeek;
             TextView label;
             ImageButton expand;
@@ -388,10 +388,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             final ItemHolder holder = new ItemHolder();
             holder.clock = (DigitalClock) view.findViewById(R.id.digital_clock);
             holder.clock.setLive(false);
-            holder.onoff = (TextToggleButton) view.findViewById(R.id.onoff);
-            holder.onoff.setOnText("On");
-            holder.onoff.setOffText("Off");
-
+            holder.onoff = (ToggleButton) view.findViewById(R.id.onoff);
             holder.daysOfWeek = (TextView) view.findViewById(R.id.daysOfWeek);
             holder.label = (TextView) view.findViewById(R.id.label);
             holder.expand = (ImageButton) view.findViewById(R.id.expand);
@@ -439,9 +436,24 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             }
 
             itemHolder.onoff.setChecked(alarm.enabled);
+            if (itemHolder.onoff.isChecked()) {
+                itemHolder.onoff.setTextColor(mColorRed);
+                itemHolder.onoff.setTypeface(null, Typeface.BOLD);
+            } else {
+                itemHolder.onoff.setTextColor(mColorDim);
+                itemHolder.onoff.setTypeface(null, Typeface.NORMAL);
+            }
             final View.OnClickListener onOffListener = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //boolean checked = ((ToggleButton) v).isChecked();
+                    if (itemHolder.onoff.isChecked()) {
+                        itemHolder.onoff.setTextColor(mColorRed);
+                        itemHolder.onoff.setTypeface(null, Typeface.BOLD);
+                    } else {
+                        itemHolder.onoff.setTextColor(mColorDim);
+                        itemHolder.onoff.setTypeface(null, Typeface.NORMAL);
+                    }
                     alarm.enabled = !alarm.enabled;
                     updateAlarm(alarm.enabled, alarm);
                 }

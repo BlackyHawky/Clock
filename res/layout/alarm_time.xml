@@ -68,15 +68,19 @@
             android:layout_height="1dip"
             android:layout_width="0dip"
             android:layout_weight="1"/>
-        <com.android.deskclock.widget.TextToggleButton
+        <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             style="@style/button"
-            android:id="@+id/onoff"/>
+            android:background="@null"
+            android:id="@+id/onoff"
+            android:textOn="@string/alarm_on"
+            android:textOff="@string/alarm_off"
+            android:gravity="top|right"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/info_area"
