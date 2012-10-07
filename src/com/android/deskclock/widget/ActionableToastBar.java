@@ -142,7 +142,8 @@ public class ActionableToastBar extends LinearLayout {
      */
     public void hide(boolean animate) {
         // Prevent multiple call to hide.
-        if (!mHidden) {
+        // Also prevent hiding if show animation is going on.
+        if (!mHidden && !getShowAnimation().isRunning()) {
             mHidden = true;
             if (getVisibility() == View.VISIBLE) {
                 mActionDescriptionView.setText("");
@@ -169,6 +170,10 @@ public class ActionableToastBar extends LinearLayout {
                 }
                 @Override
                 public void onAnimationEnd(Animator animation) {
+                    // There is a tiny change that and hide animation could have finished right
+                    // before the show animation finished.  In that case, the hide will mark the
+                    // view as GONE.  We need to make sure the last one wins.
+                    setVisibility(View.VISIBLE);
                 }
                 @Override
                 public void onAnimationCancel(Animator animation) {
