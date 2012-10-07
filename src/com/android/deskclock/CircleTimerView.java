@@ -26,6 +26,7 @@ public class CircleTimerView extends View {
     private long mCurrentIntervalTime = 0;
     private long mAccumulatedTime = 0;
     private boolean mPaused = false;
+    private boolean mAnimate = false;
     private static float mStrokeSize = 4;
     private static float mDiamondStrokeSize = 12;
     private static float mMarkerStrokeSize = 2;
@@ -42,18 +43,6 @@ public class CircleTimerView extends View {
     // Stop watch mode - counting up - in this mode the animation is clockwise and will keep the
     //                   animation until stopped.
     private boolean mTimerMode = false; // default is stop watch view
-
-    Runnable mAnimationThread = new Runnable() {
-
-        @Override
-        public void run() {
-            mCurrentIntervalTime =
-                    Utils.getTimeNow() - mIntervalStartTime + mAccumulatedTime;
-            invalidate();
-            postDelayed(mAnimationThread, 20);
-        }
-
-    };
 
     public CircleTimerView(Context context) {
         this(context, null);
@@ -81,11 +70,12 @@ public class CircleTimerView extends View {
     }
     public void startIntervalAnimation() {
         mIntervalStartTime = Utils.getTimeNow();
-        this.post(mAnimationThread);
+        mAnimate = true;
+        invalidate();
         mPaused = false;
     }
     public void stopIntervalAnimation() {
-        this.removeCallbacks(mAnimationThread);
+        mAnimate = false;
         mIntervalStartTime = -1;
         mAccumulatedTime = 0;
     }
@@ -95,13 +85,13 @@ public class CircleTimerView extends View {
     }
 
     public void pauseIntervalAnimation() {
-        this.removeCallbacks(mAnimationThread);
+        mAnimate = false;
         mAccumulatedTime += Utils.getTimeNow() - mIntervalStartTime;
         mPaused = true;
     }
 
     public void abortIntervalAnimation() {
-        this.removeCallbacks(mAnimationThread);
+        mAnimate = false;
     }
 
     public void setPassedTime(long time, boolean drawRed) {
@@ -164,6 +154,9 @@ public class CircleTimerView extends View {
                 drawRedDiamond(canvas, 0f, xCenter, yCenter, radius);
             }
         } else {
+            if (mAnimate) {
+                mCurrentIntervalTime = Utils.getTimeNow() - mIntervalStartTime + mAccumulatedTime;
+            }
             //draw a combination of red and white arcs to create a circle
             mArcRect.top = yCenter - radius;
             mArcRect.bottom = yCenter + radius;
@@ -203,6 +196,9 @@ public class CircleTimerView extends View {
                         (float) (360 / (radius * Math.PI)) , false, mPaint);
             }
             drawRedDiamond(canvas, redPercent, xCenter, yCenter, radius);
+        }
+        if (mAnimate) {
+            invalidate();
         }
    }
 
@@ -254,9 +250,7 @@ public class CircleTimerView extends View {
         mAccumulatedTime = prefs.getLong(key + PREF_CTV_ACCUM_TIME, 0);
         mMarkerTime = prefs.getLong(key + PREF_CTV_MARKER_TIME, -1);
         mTimerMode = prefs.getBoolean(key + PREF_CTV_TIMER_MODE, false);
-        if (mIntervalStartTime != -1 && !mPaused) {
-            this.post(mAnimationThread);
-        }
+        mAnimate = (mIntervalStartTime != -1 && !mPaused);
     }
 
     public void clearSharedPref(SharedPreferences prefs, String key) {
