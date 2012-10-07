@@ -32,4 +32,9 @@ public class DeskClockFragment extends Fragment {
         mButtonClicked = false;
         return res;
     }
+
+    public void saveGlobalState() {
+
+    }
+
 }

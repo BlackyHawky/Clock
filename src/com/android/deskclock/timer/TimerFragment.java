@@ -50,9 +50,6 @@ public class TimerFragment extends DeskClockFragment
         implements OnClickListener, OnSharedPreferenceChangeListener {
 
     private static final String TAG = "TimerFragment";
-    private static final String KEY_SETUP_SELECTED = "_setup_selected";
-    private static final String KEY_ENTRY_STATE = "entry_state";
-    private Bundle firstSetPage = null;
     private ListView mTimersList;
     private View mNewTimerPage;
     private View mTimersListPage;
@@ -315,11 +312,6 @@ public class TimerFragment extends DeskClockFragment
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.timer_fragment, container, false);
 
-        // Cache instance data and consume in first call to setupPage()
-        if (savedInstanceState != null) {
-            firstSetPage = savedInstanceState;
-        }
-
         // Handle arguments from parent
         Bundle bundle = getArguments();
         if (bundle != null && bundle.containsKey(Timers.TIMESUP_MODE)) {
@@ -382,13 +374,6 @@ public class TimerFragment extends DeskClockFragment
     }
 
     @Override
-    public void onDestroyView() {
-        firstSetPage = new Bundle();
-        saveViewState(firstSetPage);
-        super.onDestroyView();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
@@ -424,9 +409,7 @@ public class TimerFragment extends DeskClockFragment
     public void onPause() {
         super.onPause();
         stopClockTicks();
-        if (mAdapter != null) {
-            mAdapter.saveGlobalState ();
-        }
+        saveGlobalState();
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
     }
 
@@ -436,25 +419,21 @@ public class TimerFragment extends DeskClockFragment
         if (mAdapter != null) {
             mAdapter.onSaveInstanceState (outState);
         }
-        saveViewState(outState);
     }
 
-    private void saveViewState(Bundle outState) {
-        outState.putBoolean(KEY_SETUP_SELECTED, mNewTimerPage.getVisibility() == View.VISIBLE);
-        mTimerSetup.saveEntryState(outState, KEY_ENTRY_STATE);
+    @Override
+    public void saveGlobalState () {
+        super.saveGlobalState();
+        if (mAdapter != null) {
+            mAdapter.saveGlobalState ();
+        }
     }
 
     public void setPage() {
-        boolean switchToSetupView = mAdapter.getCount() == 0;
-        if (firstSetPage != null) {
-            switchToSetupView |= firstSetPage.getBoolean(KEY_SETUP_SELECTED, false);
-            mTimerSetup.restoreEntryState(firstSetPage, KEY_ENTRY_STATE);
-            firstSetPage = null;
-        }
-        if (switchToSetupView) {
-            gotoSetupView();
-        } else {
+        if (mAdapter.getCount() != 0) {
             gotoTimersView();
+        } else {
+            gotoSetupView();
         }
     }
 
