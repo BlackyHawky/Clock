@@ -63,7 +63,7 @@ public class TimerRingService extends Service {
                 (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         mTelephonyManager.listen(
                 mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-        AlarmAlertWakeLock.acquireCpuWakeLock(this);
+        AlarmAlertWakeLock.acquireScreenCpuWakeLock(this);
     }
 
     @Override
