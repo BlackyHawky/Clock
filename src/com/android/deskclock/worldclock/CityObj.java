@@ -17,18 +17,9 @@
 package com.android.deskclock.worldclock;
 
 import android.content.SharedPreferences;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.View;
-
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 public class CityObj {
 
-    private static final String TAG = "CityObj";
     private static final String CITY_NAME = "city_name_";
     private static final String CITY_TIME_ZONE = "city_tz_";
     private static final String CITY_ID = "city_id_";
