@@ -37,6 +37,7 @@
     <dimen name="popup_window_width">196dip</dimen>
     <dimen name="analog_clock_diameter">236dip</dimen>
     <dimen name="timer_circle_diameter">300dip</dimen>
+    <dimen name="timer_circle_width">350dip</dimen>
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
     <dimen name="actionbar_title_font_size">22sp</dimen>
@@ -90,4 +91,14 @@
 
     <dimen name="toast_bar_bottom_margin_in_conversation">24dip</dimen>
 
+    <!-- Empty space at the edges of the +1 and reset button icons. Based off of 56dip width, only nonzero for tablets.-->
+    <dimen name="plusone_reset_button_padding">0dip</dimen>
+    <!-- Empty space at the edges of the delete button icons. Based off of 56dip width, only nonzero for tablets. -->
+    <dimen name="delete_button_padding">0dip</dimen>
+    <!-- Empty space at the edges of the lap button icon. Based off of 56dip width, only nonzero for tablets.-->
+    <dimen name="lap_button_padding">0dip</dimen> <!-- 11 -->
+    <!-- Empty space at the edges of the delete button icons. Based off of 56dip width, only nonzero for tablets. -->
+    <dimen name="share_button_padding">0dip</dimen> <!-- 16 -->
+    <!-- Extra offset for timer button paddings. Only nonzero for non-tablets. -->
+    <dimen name="timer_button_extra_offset">14dip</dimen>
 </resources>
