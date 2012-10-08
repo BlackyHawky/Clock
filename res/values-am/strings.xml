@@ -122,7 +122,8 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"የስልክ ጥሪ ድምፅ በመስቀል ላይ...."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"ድምጽ መልሶ የማጫወት አገልግሎት በሰዓት ውስጥ ለተዘጋጁ የሰዓት ቆጣሪዎች።"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"የማንቂያ ደወልአዘጋጅ"</string>
-    <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"ቀጣዩ የማንቂያ ደወል፦ <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
     <string name="menu_timer" msgid="6459070074762877114">"ሰዓት ቆጣሪ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ሰዓት"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"የሩጫ ሰዓት"</string>
@@ -328,4 +329,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"ብርሃኑ በጣም የፈዘዘ ማሳያ (ለጨለሙ ክፍሎች)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ማንቂያ ዘርጋ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ማንቂያ ሰብስብ"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"ቀልብስ"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"ማንቂያ ተሰርዟል።"</string>
+    <string name="slash" msgid="2077577763821006919">"/"</string>
 </resources>

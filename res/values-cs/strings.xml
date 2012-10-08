@@ -122,7 +122,8 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Načítání vyzváněcího tónu..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Služba přehrávání zvuku časovačů nastavených v aplikaci Hodiny."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Nastavit budík"</string>
-    <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Další budík: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
     <string name="menu_timer" msgid="6459070074762877114">"Časovač"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Hodiny"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopky"</string>
@@ -328,4 +329,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"Velmi ztlumený jas displeje (pro tmavé místnosti)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Rozbalit budík"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sbalit budík"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"vrátit zpět"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Budík byl smazán."</string>
+    <string name="slash" msgid="2077577763821006919">"/"</string>
 </resources>
