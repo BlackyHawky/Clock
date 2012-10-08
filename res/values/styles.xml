@@ -150,6 +150,7 @@
         <item name="android:textSize">@dimen/header_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="big_bold">

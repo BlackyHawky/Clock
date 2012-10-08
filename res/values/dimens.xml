@@ -26,8 +26,8 @@
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_right">8dip</dimen>
     <dimen name="time_margin_left">8dip</dimen>
-    <dimen name="time_margin_bottom">14dip</dimen>
-    <dimen name="time_margin_top">8dip</dimen>
+    <dimen name="time_margin_bottom">8dip</dimen>
+    <dimen name="time_margin_top">16dip</dimen>
     <dimen name="timer_padding_left">16dip</dimen>
     <dimen name="ampm_margin_top">8dip</dimen>
     <dimen name="font_margin_adjust">4dip</dimen>
@@ -60,6 +60,9 @@
     <dimen name="small_space">16dp</dimen>
     <dimen name="medium_space">32dp</dimen>
 
+    <dimen name="label_margin_big">4dp</dimen>
+    <dimen name="label_margin_small">2dp</dimen>
+
     <dimen name="dialpad_font_size">48sp</dimen>
     <dimen name="city_name_font_size">24sp</dimen>
     <dimen name="city_time_font_size">14sp</dimen>
@@ -69,6 +72,7 @@
     <dimen name="cities_list_item_height">64dip</dimen>
 
     <!-- Size of margin for circles. -->
+    <dimen name="circle_margin_top">16dp</dimen>
     <dimen name="circle_margin">32dp</dimen>
     <dimen name="laps_margin">52dp</dimen>
 

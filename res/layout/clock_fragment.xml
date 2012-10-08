@@ -41,8 +41,7 @@
             android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="0dip"
-            android:layout_weight="1"
-            android:layout_marginLeft="@dimen/time_margin_left"/>
+            android:layout_weight="1" />
 
         <View
             android:layout_width="match_parent"
