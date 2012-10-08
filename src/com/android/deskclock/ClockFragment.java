@@ -30,7 +30,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -193,19 +192,22 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
         public WorldClockAdapter(Context context) {
             super();
-            mCitiesList = Cities.readCitiesFromSharedPrefs(
-                    PreferenceManager.getDefaultSharedPreferences(context)).values().toArray();
             mContext = context;
-            mCitiesList = addHomeCity();
+            loadData(context);
             mInflater = LayoutInflater.from(context);
             set24HoursMode(context);
         }
 
         public void reloadData(Context context) {
+            loadData(context);
+            notifyDataSetChanged();
+        }
+
+        private void loadData(Context context) {
             mCitiesList = Cities.readCitiesFromSharedPrefs(
                     PreferenceManager.getDefaultSharedPreferences(context)).values().toArray();
+            sortList();
             mCitiesList = addHomeCity();
-            notifyDataSetChanged();
         }
 
         /***
@@ -229,6 +231,9 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 }
             }
             return mCitiesList;
+        }
+
+        private void sortList() {
         }
 
         @Override
