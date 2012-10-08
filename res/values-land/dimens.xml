@@ -38,7 +38,7 @@
     <dimen name="actionbar_tab_padding">50dip</dimen>
 
     <!-- Size of margin for circles. -->
-    <dimen name="circle_margin">8dp</dimen>
+    <dimen name="circle_margin">200dp</dimen>
     <dimen name="laps_margin">16dp</dimen>
 
     <!-- Extra offset for timer button paddings. Only nonzero for non-tablets. -->
