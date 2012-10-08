@@ -25,6 +25,7 @@ import android.widget.ListView;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
+import com.android.deskclock.CircleButtonsLinearLayout;
 import com.android.deskclock.CircleTimerView;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.Log;
@@ -42,7 +43,8 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
     int mState = Stopwatches.STOPWATCH_RESET;
 
     // Stopwatch views that are accessed by the activity
-    private ImageButton mLeftButton, mRightButton;
+    private ImageButton mLeftButton;
+    private TextView mCenterButton;
     private CircleTimerView mTime;
     private CountingTimerView mTimeText;
     private ListView mLapsList;
@@ -240,13 +242,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
         });
 
 
-        mRightButton = (ImageButton)v.findViewById(R.id.stopwatch_right_button);
-        mRightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rightButtonAction();
-            }
-        });
+        mCenterButton = (TextView)v.findViewById(R.id.stopwatch_stop);
         mShareButton = (ImageButton)v.findViewById(R.id.stopwatch_share_button);
 
         mShareButton.setOnClickListener(new View.OnClickListener() {
@@ -265,6 +261,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
                 rightButtonAction();
             }
         });
+        countingTimerView.registerStopTextView(mCenterButton);
         countingTimerView.setVirtualButtonEnabled(true);
 
         mTime = (CircleTimerView)v.findViewById(R.id.stopwatch_time);
@@ -275,6 +272,12 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
         if (mLapsList != null) {
             mLapsList.setAdapter(mLapsAdapter);
         }
+
+        CircleButtonsLinearLayout circleLayout =
+                (CircleButtonsLinearLayout)v.findViewById(R.id.stopwatch_circle);
+        circleLayout.setCircleTimerViewIds(R.id.stopwatch_time, R.id.stopwatch_left_button,
+                R.id.stopwatch_share_button, R.id.stopwatch_stop,
+                R.dimen.plusone_reset_button_padding, R.dimen.share_button_padding);
 
         return v;
     }
@@ -492,22 +495,19 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
             case Stopwatches.STOPWATCH_RESET:
                 setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap, false,
                         View.INVISIBLE);
-                setButton(mRightButton, R.string.sw_start_button, R.drawable.ic_start_normal, true,
-                        View.VISIBLE);
+                setStartStopText(mCenterButton, R.string.sw_start_button);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_RUNNING:
                 setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap,
                         !reachedMaxLaps(), View.VISIBLE);
-                setButton(mRightButton, R.string.sw_stop_button, R.drawable.ic_stop_normal, true,
-                        View.VISIBLE);
+                setStartStopText(mCenterButton, R.string.sw_stop_button);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_STOPPED:
                 setButton(mLeftButton, R.string.sw_reset_button, R.drawable.ic_reset, true,
                         View.VISIBLE);
-                setButton(mRightButton, R.string.sw_start_button, R.drawable.ic_start_normal, true,
-                        View.VISIBLE);
+                setStartStopText(mCenterButton, R.string.sw_start_button);
                 showShareButton(true);
                 break;
             default:
@@ -531,6 +531,11 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
         b.setImageResource(drawableId);
         b.setVisibility(visibility);
         b.setEnabled(enabled);
+    }
+
+    private void setStartStopText(TextView v, int text) {
+        String textStr = getActivity().getResources().getString(text);
+        v.setText(textStr);
     }
 
     /***
