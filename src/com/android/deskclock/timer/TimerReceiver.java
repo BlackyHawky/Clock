@@ -126,7 +126,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 t.mLabel;
             String contentText = context.getString(R.string.timer_times_up);
             showCollapsedNotification(context, label, contentText, Notification.PRIORITY_MAX,
-                    pendingBroadcastIntent, t.mTimerId);
+                    pendingBroadcastIntent, t.mTimerId, true);
             cancelInUseNotification(context);
 
             KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
@@ -263,7 +263,7 @@ public class TimerReceiver extends BroadcastReceiver {
         PendingIntent pendingActivityIntent = PendingIntent.getActivity(context, 0, activityIntent,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         showCollapsedNotification(context, title, text, Notification.PRIORITY_HIGH,
-                pendingActivityIntent, IN_USE_NOTIFICATION_ID);
+                pendingActivityIntent, IN_USE_NOTIFICATION_ID, false);
 
         if (nextBroadcastTime == null) {
             return;
@@ -278,8 +278,8 @@ public class TimerReceiver extends BroadcastReceiver {
     }
 
     private void showCollapsedNotification(final Context context, String title, String text,
-            int priority, PendingIntent pendingIntent, int notificationId) {
-        Notification notification = new Notification.Builder(context)
+            int priority, PendingIntent pendingIntent, int notificationId, boolean showTicker) {
+        Notification.Builder builder = new Notification.Builder(context)
         .setAutoCancel(false)
         .setContentTitle(title)
         .setContentText(text)
@@ -287,7 +287,12 @@ public class TimerReceiver extends BroadcastReceiver {
         .setOngoing(true)
         .setPriority(priority)
         .setShowWhen(false)
-        .setSmallIcon(R.drawable.stat_notify_timer).build();
+        .setSmallIcon(R.drawable.stat_notify_timer);
+        if (showTicker) {
+            builder.setTicker(text);
+        }
+
+        Notification notification = builder.build();
         notification.contentIntent = pendingIntent;
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
