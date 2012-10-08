@@ -646,6 +646,8 @@
     <string name="alarm_deleted">Alarm deleted.</string>
     <!-- slash between date and next alarm in the clock -->
     <string name="slash"> / </string>
+    <!-- slash between date and next alarm in the clock -->
+    <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
 
 </resources>
 
