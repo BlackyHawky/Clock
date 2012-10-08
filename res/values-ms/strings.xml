@@ -41,7 +41,7 @@
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Tidur sekejap untuk <xliff:g id="MINUTES">%d</xliff:g> minit."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ditunda sehingga <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"Tinggal kurang daripada satu minit"</item>
+    <item msgid="7760558912503484257">"Tinggal kurang satu minit"</item>
     <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> yang tinggal"</item>
     <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> yang tinggal"</item>
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> yang tinggal"</item>
@@ -123,7 +123,8 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Memuatkan nada dering..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Perkhidmatan main balik bunyi untuk pemasa ditetapkan dalam Jam."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Tetapkan penggera"</string>
-    <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Penggera seterusnya: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
     <string name="menu_timer" msgid="6459070074762877114">"Pemasa"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Jam"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Jam randik"</string>
@@ -334,5 +335,11 @@
     <!-- no translation found for expand_alarm (7392616528943305020) -->
     <skip />
     <!-- no translation found for collapse_alarm (3561772046433483980) -->
+    <skip />
+    <!-- no translation found for alarm_undo (5710042601177655254) -->
+    <skip />
+    <!-- no translation found for alarm_deleted (5017075127290219443) -->
+    <skip />
+    <!-- no translation found for slash (2077577763821006919) -->
     <skip />
 </resources>
