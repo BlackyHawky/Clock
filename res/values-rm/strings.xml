@@ -130,7 +130,7 @@
     <skip />
     <!-- no translation found for control_set_alarm (2194676418924016327) -->
     <skip />
-    <!-- no translation found for control_set_alarm_with_existing (5599064656698379576) -->
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
     <!-- no translation found for menu_timer (6459070074762877114) -->
     <skip />
@@ -419,5 +419,11 @@
     <!-- no translation found for expand_alarm (7392616528943305020) -->
     <skip />
     <!-- no translation found for collapse_alarm (3561772046433483980) -->
+    <skip />
+    <!-- no translation found for alarm_undo (5710042601177655254) -->
+    <skip />
+    <!-- no translation found for alarm_deleted (5017075127290219443) -->
+    <skip />
+    <!-- no translation found for slash (2077577763821006919) -->
     <skip />
 </resources>

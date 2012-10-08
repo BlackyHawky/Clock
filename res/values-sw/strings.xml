@@ -41,9 +41,9 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Inapumzisha hadi <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Imesalia chini ya dakika moja"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> zilizosalia"</item>
-    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> zilizosalia"</item>
-    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> zilizosalia"</item>
+    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> zinasalia"</item>
+    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> zinasalia"</item>
+    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> zinasalia"</item>
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Kengele imewekwa chini ya dakika 1 kutoka sasa."</item>
@@ -122,7 +122,8 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Inapakia mlio..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Huduma ya kuchezesha tena kengele iliyowekwa kwenye Saa."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Weka kengele"</string>
-    <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Kengele ijayo: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
     <string name="menu_timer" msgid="6459070074762877114">"Kipima wakati"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Saa"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Saa ya kusitisha"</string>
@@ -328,4 +329,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"Onyesho hafifu sana (kwa vyumba vyenye giza)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Panua kengele"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Kunja kengele"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"tendua"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Kengele ilifutwa."</string>
+    <string name="slash" msgid="2077577763821006919">"/"</string>
 </resources>
