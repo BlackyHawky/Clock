@@ -117,7 +117,7 @@ public class HandleSetAlarm extends Activity {
             if (skipUi) {
                 Alarms.setAlarm(this, alarm);
             } else {
-                Intent i = new Intent(this, SetAlarm.class);
+                Intent i = new Intent(this, AlarmClock.class);
                 i.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
                 startActivity(i);
             }
