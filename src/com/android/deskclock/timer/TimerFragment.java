@@ -35,7 +35,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.android.deskclock.CircleButtonsLinearLayout;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
@@ -157,13 +159,7 @@ public class TimerFragment extends DeskClockFragment
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            TimerListItem v;
-
-   //         if (convertView != null) {
-     //           v = (TimerListItem) convertView;
-       //     } else {
-                v = new TimerListItem (mContext);
-         //   }
+            TimerListItem v = new TimerListItem (mContext); // TODO: Need to recycle convertView.
 
             final TimerObj o = (TimerObj)getItem(position);
             o.mView = v;
@@ -202,10 +198,17 @@ public class TimerFragment extends DeskClockFragment
             ImageButton plusOne = (ImageButton)v. findViewById(R.id.timer_plus_one);
             plusOne.setOnClickListener(TimerFragment.this);
             plusOne.setTag(new ClickAction(ClickAction.ACTION_PLUS_ONE, o));
-            ImageButton stop = (ImageButton)v. findViewById(R.id.timer_stop);
-            stop.setOnClickListener(TimerFragment.this);
+            TextView stop = (TextView)v. findViewById(R.id.timer_stop);
             stop.setTag(new ClickAction(ClickAction.ACTION_STOP, o));
             TimerFragment.this.setTimerButtons(o);
+
+            countingTimerView.registerStopTextView(stop);
+            CircleButtonsLinearLayout circleLayout =
+                    (CircleButtonsLinearLayout)v.findViewById(R.id.timer_circle);
+            circleLayout.setCircleTimerViewIds(
+                    R.id.timer_time, R.id.timer_plus_one, R.id.timer_delete, R.id.timer_stop,
+                    R.dimen.plusone_reset_button_padding, R.dimen.delete_button_padding);
+
             return v;
         }
 
@@ -366,6 +369,7 @@ public class TimerFragment extends DeskClockFragment
             }
 
         });
+        mAddTimer.setVisibility(mOnEmptyListListener == null ? View.VISIBLE : View.GONE);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mNotificationManager = (NotificationManager)
                 getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -585,9 +589,9 @@ public class TimerFragment extends DeskClockFragment
             return;
         }
         ImageButton plusOne = (ImageButton) t.mView.findViewById(R.id.timer_plus_one);
-        ImageButton stop = (ImageButton) t.mView.findViewById(R.id.timer_stop);
         CountingTimerView countingTimerView = (CountingTimerView)
                 t.mView.findViewById(R.id.timer_time_text);
+        TextView stop = (TextView) t.mView.findViewById(R.id.timer_stop);
         Resources r = a.getResources();
         switch (t.mState) {
             case TimerObj.STATE_RUNNING:
@@ -595,8 +599,8 @@ public class TimerFragment extends DeskClockFragment
                 plusOne.setContentDescription(r.getString(R.string.timer_plus_one));
                 plusOne.setImageResource(R.drawable.ic_plusone);
                 stop.setContentDescription(r.getString(R.string.timer_stop));
-                stop.setImageResource(R.drawable.ic_stop_normal);
-                stop.setEnabled(true);
+                stop.setText(R.string.timer_stop);
+                stop.setTextColor(getResources().getColor(R.color.clock_white));
                 countingTimerView.setVirtualButtonEnabled(true);
                 break;
             case TimerObj.STATE_STOPPED:
@@ -604,15 +608,15 @@ public class TimerFragment extends DeskClockFragment
                 plusOne.setContentDescription(r.getString(R.string.timer_reset));
                 plusOne.setImageResource(R.drawable.ic_reset);
                 stop.setContentDescription(r.getString(R.string.timer_start));
-                stop.setImageResource(R.drawable.ic_start_normal);
-                stop.setEnabled(true);
+                stop.setText(R.string.timer_start);
+                stop.setTextColor(getResources().getColor(R.color.clock_white));
                 countingTimerView.setVirtualButtonEnabled(true);
                 break;
             case TimerObj.STATE_TIMESUP:
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setImageResource(R.drawable.ic_plusone);
                 stop.setContentDescription(r.getString(R.string.timer_stop));
-                stop.setEnabled(true);
+                stop.setTextColor(getResources().getColor(R.color.clock_white));
                 countingTimerView.setVirtualButtonEnabled(true);
                 break;
             case TimerObj.STATE_DONE:
@@ -620,15 +624,15 @@ public class TimerFragment extends DeskClockFragment
                 plusOne.setContentDescription(r.getString(R.string.timer_reset));
                 plusOne.setImageResource(R.drawable.ic_reset);
                 stop.setContentDescription(r.getString(R.string.timer_start));
-                stop.setImageResource(R.drawable.ic_start_disabled);
-                stop.setEnabled(false);
+                stop.setText(R.string.timer_start);
+                stop.setTextColor(getResources().getColor(R.color.clock_gray));
                 countingTimerView.setVirtualButtonEnabled(false);
                 break;
             case TimerObj.STATE_RESTART:
                 plusOne.setVisibility(View.INVISIBLE);
                 stop.setContentDescription(r.getString(R.string.timer_start));
-                stop.setImageResource(R.drawable.ic_start_normal);
-                stop.setEnabled(true);
+                stop.setText(R.string.timer_start);
+                stop.setTextColor(getResources().getColor(R.color.clock_white));
                 countingTimerView.setVirtualButtonEnabled(true);
                 break;
             default:
