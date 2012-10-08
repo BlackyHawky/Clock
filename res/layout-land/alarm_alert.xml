@@ -28,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/header_font_size"
         android:paddingLeft="24dp" >
 
         <TextView
@@ -36,7 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:paddingLeft="6dp"
+            android:textColor="@color/clock_white"
+            android:paddingLeft="@dimen/label_margin_big"
+            android:paddingBottom="@dimen/label_margin_small"
             android:singleLine="true" />
 
         <com.android.deskclock.DigitalClock
@@ -85,7 +88,7 @@
 
         <Button
             android:id="@+id/snooze"
-            style="@style/button"
+            style="@style/bold_button"
             android:layout_width="match_parent"
             android:layout_height="96dip"
             android:layout_marginBottom="10dip"
@@ -98,7 +101,7 @@
 
         <Button
             android:id="@+id/ok"
-            style="@style/button"
+            style="@style/bold_button"
             android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_marginBottom="@dimen/label_font_size"
