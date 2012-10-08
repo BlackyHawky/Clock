@@ -42,18 +42,18 @@
               android:layout_width="match_parent"
               android:src="@drawable/ic_add"
               style="@style/button"
-              android:background="?android:attr/selectableItemBackground"
+              android:background="@drawable/item_background"
               android:layout_height="48dip" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/new_timer_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
         android:orientation="vertical">
         <com.android.deskclock.TimerSetupView
             android:id="@+id/timer_setup"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
             android:layout_width="match_parent"
             android:layout_height="0dip"
             android:layout_weight="1" />
@@ -62,15 +62,15 @@
             android:layout_height="1dip"
             android:background="#28ffffff" />
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
            <Button
                 android:id="@+id/timer_cancel"
                 android:text="@string/timer_cancel"
                 android:layout_width="match_parent"
                 style="@style/button"
                 android:layout_weight="1"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/item_background"
                 android:layout_height="wrap_content" />
             <View
                 android:id="@+id/timer_button_sep"
@@ -85,7 +85,7 @@
                 android:layout_width="match_parent"
                 style="@style/button"
                 android:layout_weight="1"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/item_background"
                 android:layout_height="wrap_content" />
            </LinearLayout>
     </LinearLayout>
