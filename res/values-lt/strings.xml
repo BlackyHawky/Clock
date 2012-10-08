@@ -122,7 +122,8 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Įkeliamas skambėjimo tonas..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Garso atkūrimo paslauga, skirta laikrodžio nustatytiems laikmačiams."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Nustatyti signalą"</string>
-    <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Kitas signalas: <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
     <string name="menu_timer" msgid="6459070074762877114">"Laikmatis"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Laikrodis"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Chronometras"</string>
@@ -320,7 +321,7 @@
     <string name="description_direction_down" msgid="8240473964024874053">"Slysti žemyn, norint įjungti snaudimą"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Laikmatis sustabdytas"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Sustabdytų laikmačių: <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Paleiskite, jei norite peržiūrėti laikmačius"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Palieskite, jei norite peržiūrėti laikmačius"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Laikmačių: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Kitas laikmatis: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Režimo „Svajonė“ nustatymai"</string>
@@ -328,4 +329,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"Labai blankus rodinys (skirta tamsioms patalpoms)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Išskleisti signalą"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sutraukti signalą"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"anuliuoti"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Įspėjimas ištrintas."</string>
+    <string name="slash" msgid="2077577763821006919">"/"</string>
 </resources>
