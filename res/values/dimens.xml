@@ -74,8 +74,9 @@
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">16dp</dimen>
-    <dimen name="circle_margin">60dp</dimen>
+    <dimen name="circle_margin">32dp</dimen>
     <dimen name="laps_margin">52dp</dimen>
+    <dimen name="analog_clock_margin">60dp</dimen>
 
     <!-- The width of the big icons in notifications. -->
     <dimen name="notification_large_icon_width">64dp</dimen>
