@@ -37,7 +37,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/button"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/item_background"
             android:layout_height="wrap_content" />
         <View
             android:layout_height="match_parent"
@@ -51,7 +51,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/button"
-            android:background="?android:attr/selectableItemBackground"
+            android:background="@drawable/item_background"
             android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>
