@@ -132,6 +132,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 @Override
                 public void onActionClicked() {
                     asyncAddAlarm(mDeletedAlarm);
+                    mDeletedAlarm = null;
+                    mUndoShowing = false;
                 }
             }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo,
                     true);
@@ -722,6 +724,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             @Override
             public void onActionClicked() {
                 asyncAddAlarm(alarm);
+                mDeletedAlarm = null;
+                mUndoShowing = false;
             }
         }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo, true);
     }
