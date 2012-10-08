@@ -27,8 +27,7 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Supprimer cette alarme ?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Afficher l\'horloge"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Masquer l\'horloge"</string>
-    <!-- no translation found for label (7713131021574533921) -->
-    <skip />
+    <string name="label" msgid="7713131021574533921">"Libellé (facultatif)"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Régler l\'alarme"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreur"</string>
@@ -123,7 +122,8 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Chargement de la sonnerie..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Service de lecture audio pour les minuteurs définis via l\'Horloge."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Régler l\'alarme"</string>
-    <string name="control_set_alarm_with_existing" msgid="5599064656698379576">"Prochaine alarme : <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
     <string name="menu_timer" msgid="6459070074762877114">"Minuteur"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Horloge"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Chronomètre"</string>
@@ -192,10 +192,8 @@
     <string name="sort_by_time" msgid="3588583060192569857">"Par heure"</string>
     <string name="search_results" msgid="3940223188208445245">"Résultats"</string>
     <string name="no_cities_found" msgid="5076277409409268915">"Aucune ville trouvée"</string>
-    <!-- no translation found for search_city (5167756899726176174) -->
-    <skip />
-    <!-- no translation found for cities_activity_title (8552462751129256730) -->
-    <skip />
+    <string name="search_city" msgid="5167756899726176174">"Rechercher"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"Villes"</string>
     <string name="alarm_setup_music" msgid="6140596565783696650">"Musique"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Activée"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Désactivée"</string>
@@ -316,23 +314,23 @@
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Chronomètre pour exécuter la notification"</string>
     <string name="stopwatch_title" msgid="3246663609895204068">"Chronomètre"</string>
     <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" – "</string>
-    <!-- no translation found for swn_stopped (783124901663086172) -->
-    <skip />
+    <string name="swn_stopped" msgid="783124901663086172">"Arrêtée"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Faire glisser votre doigt vers la droite pour ignorer"</string>
     <string name="description_direction_left" msgid="6328816971226781776">"Faire glisser votre doigt vers la gauche pour répéter"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Faire glisser votre doigt vers le haut pour ignorer"</string>
     <string name="description_direction_down" msgid="8240473964024874053">"Faire glisser votre doigt vers le bas pour répéter"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Arrêt du minuteur"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Arrêt de <xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Appuyer ici pour afficher les minuteurs."</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Appuyer ici pour afficher les minuteurs"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
-    <!-- no translation found for next_timer_notif (6136454740115613653) -->
-    <skip />
-    <string name="screensaver_settings" msgid="7013450738357352801">"Paramètres des Rêves"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Paramètres de l\'écran de veille"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Mode Nuit"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Affichage peu lumineux (pour les pièces sombres)"</string>
-    <!-- no translation found for expand_alarm (7392616528943305020) -->
-    <skip />
-    <!-- no translation found for collapse_alarm (3561772046433483980) -->
+    <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Réduire l\'alarme"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"Annuler"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Alarme supprimée."</string>
+    <!-- no translation found for slash (2077577763821006919) -->
     <skip />
 </resources>
