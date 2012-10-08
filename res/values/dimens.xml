@@ -35,6 +35,7 @@
     <dimen name="alarm_label_padding">8dip</dimen>
     <dimen name="alert_dialog_title_height">64dip</dimen>
     <dimen name="popup_window_width">196dip</dimen>
+    <!-- Analog clock size in the the screen saver -->
     <dimen name="analog_clock_diameter">236dip</dimen>
     <dimen name="timer_circle_diameter">300dip</dimen>
     <dimen name="timer_circle_width">350dip</dimen>
@@ -73,7 +74,7 @@
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">16dp</dimen>
-    <dimen name="circle_margin">32dp</dimen>
+    <dimen name="circle_margin">60dp</dimen>
     <dimen name="laps_margin">52dp</dimen>
 
     <!-- The width of the big icons in notifications. -->

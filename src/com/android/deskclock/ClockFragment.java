@@ -272,8 +272,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             View leftClock = view.findViewById(R.id.city_left);
             View rightClock = view.findViewById(R.id.city_right);
             CityObj c = (CityObj)mCitiesList[index];
-            TextView name = ((TextView)leftClock.findViewById(R.id.city_name));
-            name.setText(c.mCityName);
+            TextView nameDigital= ((TextView)leftClock.findViewById(R.id.city_name_digital));
+            TextView nameAnalog = ((TextView)leftClock.findViewById(R.id.city_name_analog));
             DigitalClock dclock = (DigitalClock)(leftClock.findViewById(R.id.digital_clock));
             AnalogClock aclock = (AnalogClock)(leftClock.findViewById(R.id.analog_clock));
             if (mClockStyle.equals("analog")) {
@@ -281,9 +281,13 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 aclock.setVisibility(View.VISIBLE);
                 aclock.setTimeZone(c.mTimeZone);
                 aclock.enableSeconds(false);
-                name.setGravity(Gravity.CENTER_HORIZONTAL);
+                nameAnalog.setText(c.mCityName);
+                nameAnalog.setVisibility(View.VISIBLE);
+                nameDigital.setVisibility(View.GONE);
             } else {
-                name.setGravity(Gravity.LEFT);
+                nameDigital.setText(c.mCityName);
+                nameDigital.setVisibility(View.VISIBLE);
+                nameAnalog.setVisibility(View.GONE);
                 aclock.setVisibility(View.GONE);
                 dclock.setVisibility(View.VISIBLE);
                 dclock.setTimeZone(c.mTimeZone);
@@ -291,18 +295,22 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             if (index + 1 < mCitiesList.length) {
                 rightClock.setVisibility(View.VISIBLE);
                 c = (CityObj)mCitiesList[index + 1];
-                name = ((TextView)rightClock.findViewById(R.id.city_name));
-                name.setText(c.mCityName);
                 dclock = (DigitalClock)(rightClock.findViewById(R.id.digital_clock));
                 aclock = (AnalogClock)(rightClock.findViewById(R.id.analog_clock));
+                nameDigital= ((TextView)rightClock.findViewById(R.id.city_name_digital));
+                nameAnalog = ((TextView)rightClock.findViewById(R.id.city_name_analog));
                 if (mClockStyle.equals("analog")) {
-                    name.setGravity(Gravity.CENTER_HORIZONTAL);
+                    nameAnalog.setText(c.mCityName);
+                    nameAnalog.setVisibility(View.VISIBLE);
+                    nameDigital.setVisibility(View.GONE);
                     dclock.setVisibility(View.GONE);
                     aclock.setVisibility(View.VISIBLE);
                     aclock.setTimeZone(c.mTimeZone);
                     aclock.enableSeconds(false);
                 } else {
-                    name.setGravity(Gravity.LEFT);
+                    nameDigital.setText(c.mCityName);
+                    nameDigital.setVisibility(View.VISIBLE);
+                    nameAnalog.setVisibility(View.GONE);
                     aclock.setVisibility(View.GONE);
                     dclock.setVisibility(View.VISIBLE);
                     dclock.setTimeZone(c.mTimeZone);
