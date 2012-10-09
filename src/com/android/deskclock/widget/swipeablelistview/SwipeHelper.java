@@ -68,9 +68,9 @@ public class SwipeHelper {
     private float mMinAlpha = 0.5f;
 
     private float mPagingTouchSlop;
-    private Callback mCallback;
-    private int mSwipeDirection;
-    private VelocityTracker mVelocityTracker;
+    private final Callback mCallback;
+    private final int mSwipeDirection;
+    private final VelocityTracker mVelocityTracker;
 
     private float mInitialTouchPosX;
     private boolean mDragging;
@@ -398,7 +398,7 @@ public class SwipeHelper {
                     float currAnimViewSize = getSize(mCurrAnimView);
                     // Long swipe = translation of .4 * width
                     boolean childSwipedFarEnough = DISMISS_IF_SWIPED_FAR_ENOUGH
-                            && translation > 0.4 * currAnimViewSize;
+                            && translation > 0.55 * currAnimViewSize;
                     // Fast swipe = > escapeVelocity and translation of .1 *
                     // width
                     boolean childSwipedFastEnough = (Math.abs(velocity) > escapeVelocity)
