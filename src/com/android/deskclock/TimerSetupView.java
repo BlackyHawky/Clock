@@ -17,6 +17,7 @@
 package com.android.deskclock;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -146,6 +147,23 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
     public int getTime() {
         return mInput[4] * 3600 + mInput[3] * 600 + mInput[2] * 60 + mInput[1] * 10 + mInput[0];
+    }
+
+    public void saveEntryState(Bundle outState, String key) {
+        outState.putIntArray(key, mInput);
+    }
+
+    public void restoreEntryState(Bundle inState, String key) {
+        int[] input = inState.getIntArray(key);
+        if (input != null && mInputSize == input.length) {
+            for (int i = 0; i < mInputSize; i++) {
+                mInput[i] = input[i];
+                if (mInput[i] != 0) {
+                    mInputPointer = i;
+                }
+            }
+            updateTime();
+        }
     }
 
     protected void setLeftRightEnabled(boolean enabled) {
