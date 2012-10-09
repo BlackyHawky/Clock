@@ -27,12 +27,14 @@ import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.deskclock.DeskClock.OnTapListener;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CityObj;
 
@@ -73,12 +75,29 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
         mList = (ListView)v.findViewById(R.id.cities);
         mList.setDivider(null);
+        View headerView = inflater.inflate(R.layout.blank_header_view, mList, false);
+        headerView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((DeskClock) getActivity()).clockOnViewClick(v);
+            }
+        });
+        mList.addHeaderView(headerView);
         mClockFrame = inflater.inflate(R.layout.main_clock_frame, mList, false);
         mDigitalClock = mClockFrame.findViewById(R.id.main_digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.main_analog_clock);
         mList.addHeaderView(mClockFrame, null, false);
+        View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
+        footerView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((DeskClock) getActivity()).clockOnViewClick(v);
+            }
+        });
+        mList.addFooterView(footerView);
         mAdapter = new WorldClockAdapter(getActivity());
         mList.setAdapter(mAdapter);
+        mList.setOnTouchListener(new OnTapListener(getActivity()));
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         return v;
     }
@@ -329,6 +348,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 }
                 rightClock.setVisibility(View.INVISIBLE);
             }
+
             return view;
         }
 
