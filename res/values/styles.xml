@@ -27,11 +27,13 @@
         <item name="android:actionBarTabStyle">@style/DeskClockTabStyle</item>
         <item name="android:actionBarStyle">@style/DeskClockBarStyle</item>
         <item name="android:actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
+        <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
+        <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
     <style name="DeskClockTabStyle" parent="@android:style/Theme.Holo">
         <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
         <item name="android:paddingRight">@dimen/actionbar_tab_padding</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:background">@drawable/item_background</item>
         <item name="android:gravity">center</item>
     </style>
     <style name="DeskClockTabBarStyle" parent="@android:style/Theme.Holo">
@@ -48,20 +50,29 @@
         <item name="android:displayOptions"></item>
     </style>
 
+    <style name="DeskClockDropDownListView" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:listSelector">@drawable/item_background</item>
+    </style>
+
     <style name="AlarmClockTheme" parent="@android:style/Theme.Holo">
         <item name="android:windowBackground">@color/blackish</item>
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
+        <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
+        <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
 
     <style name="SettingsTheme" parent="android:Theme.Holo">
         <item name="android:windowBackground">@color/blackish</item>
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
+        <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
+        <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
 
     <style name="SettingsTheme.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:titleTextStyle">@style/SettingsTheme.TextAppearance.ActionBar.Title</item>
         <item name="android:displayOptions">useLogo|showTitle</item>
         <item name="android:background">@drawable/ab_hairline</item>
+
     </style>
 
     <style name="SettingsTheme.TextAppearance.ActionBar.Title" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
