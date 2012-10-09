@@ -29,10 +29,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -48,6 +45,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 
+import java.text.Collator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -70,6 +68,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
     private CityAdapter mAdapter;
     private HashMap<String, CityObj> mUserSelectedCities;
     private Calendar mCalendar;
+    private final Collator mCollator = Collator.getInstance();
 
 
 /***
@@ -176,7 +175,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             Arrays.sort(tempList, new Comparator<CityObj> () {
                 @Override
                 public int compare(CityObj c1, CityObj c2) {
-                    return c1.mCityName.compareTo(c2.mCityName);
+                    return mCollator.compare(c1.mCityName, c2.mCityName);
                 }
             });
             //Create section indexer and add headers to the cities list
