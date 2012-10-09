@@ -558,9 +558,11 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 if (setDays.contains(DAY_ORDER[i])) {
                     button.setChecked(true);
                     button.setTextColor(mColorLit);
+                    button.setTypeface(null, Typeface.BOLD);
                 } else {
                     button.setChecked(false);
                     button.setTextColor(mColorDim);
+                    button.setTypeface(null, Typeface.NORMAL);
                 }
                 final int buttonIndex = i;
                 button.setOnClickListener(new View.OnClickListener() {
@@ -569,8 +571,10 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         final boolean checked = ((ToggleButton) view).isChecked();
                         if (checked) {
                             button.setTextColor(mColorLit);
+                            button.setTypeface(null, Typeface.BOLD);
                         } else {
                             button.setTextColor(mColorDim);
+                            button.setTypeface(null, Typeface.NORMAL);
                         }
                         int day = DAY_ORDER[buttonIndex];
                         alarm.daysOfWeek.setDayOfWeek(day, checked);
