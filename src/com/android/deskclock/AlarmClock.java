@@ -31,6 +31,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -342,6 +343,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         private HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
         private boolean mNewAlarmCreated = false;
 
+        private boolean mHasVibrator;
+
         // This determines the order in which it is shown and processed in the UI.
         private final int[] DAY_ORDER = new int[] {
                 Calendar.SUNDAY,
@@ -393,6 +396,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             if (repeatCheckedIds != null) {
                 buildHashSetFromArray(repeatCheckedIds, mRepeatChecked);
             }
+
+            mHasVibrator = ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE))
+                    .hasVibrator();
         }
 
         @Override
@@ -615,13 +621,20 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 });
             }
 
-            if (alarm.vibrate) {
-                itemHolder.vibrate.setChecked(true);
-                itemHolder.vibrate.setTextColor(mColorLit);
+
+            if (!mHasVibrator) {
+                itemHolder.vibrate.setVisibility(View.INVISIBLE);
             } else {
-                itemHolder.vibrate.setChecked(false);
-                itemHolder.vibrate.setTextColor(mColorDim);
+                itemHolder.vibrate.setVisibility(View.VISIBLE);
+                if (!alarm.vibrate) {
+                    itemHolder.vibrate.setChecked(false);
+                    itemHolder.vibrate.setTextColor(mColorDim);
+                } else {
+                    itemHolder.vibrate.setChecked(true);
+                    itemHolder.vibrate.setTextColor(mColorLit);
+                }
             }
+
             itemHolder.vibrate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
