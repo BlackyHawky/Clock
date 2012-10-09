@@ -60,7 +60,7 @@
                 style="@style/button"
                 android:layout_gravity="left"
                 android:src="@drawable/ic_alarm"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/item_background"
                 android:layout_height="match_parent" />
             <Space
                 android:layout_height="match_parent"
@@ -74,7 +74,7 @@
                 android:src="@drawable/ic_location"
                 style="@style/button"
                 android:layout_gravity="center"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/item_background"
                 android:layout_height="match_parent" />
             <Space
                 android:layout_height="match_parent"
@@ -84,7 +84,7 @@
                 android:id="@+id/menu_button"
                 android:contentDescription="@string/button_menu"
                 style="?android:attr/actionOverflowButtonStyle"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="@drawable/item_background"
                 android:onClick="clockButtonsOnClick"
                 android:layout_gravity="right"
                 android:layout_width="64dip"

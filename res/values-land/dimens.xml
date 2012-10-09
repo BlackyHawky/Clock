@@ -35,7 +35,7 @@
 
     <dimen name="timer_circle_diameter">240dip</dimen>
     <dimen name="timer_circle_width">400dip</dimen>
-    <dimen name="actionbar_tab_padding">50dip</dimen>
+    <dimen name="actionbar_tab_padding">32dip</dimen>
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin">8dp</dimen>
