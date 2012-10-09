@@ -24,7 +24,10 @@
     <color name="action_bar_button_text_color">#FFFFFF</color>
 
     <color name="black">#ff000000</color>
+    <!-- If this color is changed or no longer used as the primary background, ensure that blackish_trans is changed as well. -->
     <color name="blackish">#ff1c1e20</color>
+    <!-- Transparent background for use in the footer. 80% opacity. The color must remain the same as "blackish" above. -->
+    <color name="blackish_trans">#cc1c1e20</color>
     <color name="white">#ffffffff</color>
     <color name="red">#ffee0000</color>
     <color name="grey">#ffaaaaaa</color>
