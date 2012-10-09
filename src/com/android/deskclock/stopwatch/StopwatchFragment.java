@@ -545,6 +545,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
     private void setStartStopText(TextView v, int text) {
         String textStr = getActivity().getResources().getString(text);
         v.setText(textStr);
+        v.setContentDescription(textStr);
     }
 
     /***

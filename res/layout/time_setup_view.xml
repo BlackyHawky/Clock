@@ -44,6 +44,7 @@
                 android:ellipsize="none"
                 style="@style/label"
                 android:layout_gravity="top"
+                android:contentDescription="@string/hours_label_description"
                 android:text="@string/hours_label"
                 android:textColor="@color/clock_white"/>
 
@@ -65,6 +66,7 @@
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/label"
+                android:contentDescription="@string/minutes_label_description"
                 android:text="@string/minutes_label"
                 android:textColor="@color/clock_white"/>
 
@@ -81,6 +83,7 @@
                 android:ellipsize="none"
                 style="@style/label"
                 android:layout_gravity="top"
+                android:contentDescription="@string/seconds_label_description"
                 android:text="@string/seconds_label"
                 android:textColor="@color/clock_white"/>
 
