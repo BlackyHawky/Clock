@@ -107,4 +107,11 @@
     <dimen name="share_button_padding">0dip</dimen> <!-- 16 -->
     <!-- Extra offset for timer button paddings. Only nonzero for non-tablets. -->
     <dimen name="timer_button_extra_offset">14dip</dimen>
+
+    <!-- Height of the button footers. -->
+    <dimen name="button_footer_height">48dip</dimen>
+    <!-- Negative value of the height of the button footers, for use with lightsout. -->
+    <dimen name="button_footer_height_neg">-48dip</dimen>
+    <!-- Height of space between timers. -->
+    <dimen name="timer_divider_height">24dip</dimen>
 </resources>

@@ -26,6 +26,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.deskclock.DeskClock;
 import com.android.deskclock.Log;
 import com.android.deskclock.R;
 
@@ -61,6 +62,7 @@ public class CountingTimerView extends View {
     private final int mWhiteColor;
     private final int mRedColor;
     private TextView mStopStartTextView;
+    private DeskClock mActivity;
 
     // Fields for the text serving as a virtual button.
     private boolean mVirtualButtonEnabled = false;
@@ -327,6 +329,9 @@ public class CountingTimerView extends View {
                         case MotionEvent.ACTION_DOWN:
                             if (withinVirtualButtonBounds(event.getX(), event.getY())) {
                                 virtualButtonPressed(true);
+                                if (mActivity != null) {
+                                    mActivity.removeLightsMessages();
+                                }
                                 return true;
                             } else {
                                 virtualButtonPressed(false);
@@ -341,6 +346,9 @@ public class CountingTimerView extends View {
                         case MotionEvent.ACTION_UP:
                             virtualButtonPressed(false);
                             if (withinVirtualButtonBounds(event.getX(), event.getY())) {
+                                if (mActivity != null) {
+                                    mActivity.scheduleLightsOut();
+                                }
                                 runnable.run();
                             }
                             return true;
@@ -410,6 +418,10 @@ public class CountingTimerView extends View {
             textXstart += mHundredthsSepWidth;
             canvas.drawText(mHunderdths, textXstart, textYstart, mPaintMed);
         }
+    }
+
+    public void registerActivity(DeskClock activity) {
+        mActivity = activity;
     }
 
     public void registerStopTextView(TextView stopStartTextView) {

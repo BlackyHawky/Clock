@@ -17,8 +17,9 @@
     android:id="@+id/stopwatch_circle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?android:attr/actionBarSize"
-    android:orientation="vertical">
+    android:onClick="clockOnViewClick"
+    android:orientation="vertical"
+    android:paddingTop="?android:attr/actionBarSize" >
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -77,5 +78,4 @@
         android:layout_weight="2"
         android:layout_width="match_parent"
         android:layout_height="0dip" />
-
 </com.android.deskclock.CircleButtonsLinearLayout>
