@@ -232,6 +232,7 @@ public final class Alarm implements Parcelable {
         minutes = 0;
         vibrate = true;
         daysOfWeek = new DaysOfWeek(0);
+        label = "";
         alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     }
 
