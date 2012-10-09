@@ -270,6 +270,18 @@
     <!-- Title of the ringtone setting. -->
     <string name="default_ringtone_setting_title">Set default ringtone</string>
 
+    <!-- Accessibility labels for Clock activity buttons --><skip/>
+    <string name="alarm_button_description">Alarms</string>
+    <string name="gallery_button_description">Gallery</string>
+    <string name="music_button_description">Music</string>
+    <string name="nightmode_button_description">Dim</string>
+    <string name="home_button_description">Launcher</string>
+    <string name="desk_clock_button_description">Clock display</string>
+
+    <!-- Accessibility labels for alarm buttons -->
+    <string name="label_description">Label</string>
+    <string name="ringtone_description">Ringtone</string>
+
     <!-- A short representation of charging information, e.g "34%" -->
     <string name="battery_charging_level"><xliff:g id="number">%d</xliff:g><xliff:g id="percent">%%</xliff:g></string>
 
@@ -310,7 +322,7 @@
     <!-- Describes the purpose of the button which provides a list of cities for the world clock settings -->
     <string name="button_cities">Cities</string>
     <!-- Describes the purpose of the button which pops up a menu of setting choices -->
-    <string name="button_menu">Menu</string>
+    <string name="button_menu">More options</string>
     <!-- Menu item on most screens to get to more settings -->
     <string name="menu_item_settings">Settings</string>
     <!-- Menu item on most screens to get to the help information -->
@@ -327,6 +339,8 @@
     <string name="sw_lap_button">Lap</string>
     <!-- Describes the purpose of the button to return the stopwatch to zero and remove the lap times. -->
     <string name="sw_reset_button">Reset</string>
+    <!-- Describes the purpose of the button to share the stopwatch value. -->
+    <string name="sw_share_button">Share</string>
     <string name="sw_current_lap_number"><xliff:g id="number">%d</xliff:g></string>
 
     <!-- Abbreviation for temporal hours -->
@@ -335,6 +349,10 @@
     <string name="minutes_label">m</string>
     <!-- Abbreviation for temporal seconds -->
     <string name="seconds_label">s</string>
+    <!-- Accessibility strings -->
+    <string name="hours_label_description">hours</string>
+    <string name="minutes_label_description">minutes</string>
+    <string name="seconds_label_description">seconds</string>
 
     <string name="zero">0</string>
 
@@ -346,6 +364,26 @@
     <!-- Label to enumerate the number of laps the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
 
+    <!-- Stopwatch accessibility strings -->
+    <plurals name="Nhours_description">
+        <!-- 1 hour -->
+        <item quantity="one">1 hour</item>
+        <!-- more -->
+        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> hours</item>
+    </plurals>
+    <plurals name="Nminutes_description">
+        <!-- 1 minute -->
+        <item quantity="one">1 minute</item>
+        <!-- more -->
+        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> minutes</item>
+    </plurals>
+    <plurals name="Nseconds_description">
+        <!-- 1 second -->
+        <item quantity="one">1 second</item>
+        <!-- more -->
+        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> seconds</item>
+    </plurals>
+
     <!-- timer strings -->
     <!-- Describes the purpose of the button to add a new timer -->
     <string name="timer_add_timer">Add Timer</string>
@@ -354,8 +392,7 @@
     <!-- Describes the purpose of the button to delete a timer. -->
     <string name="timer_delete">Delete</string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
-    <string name="timer_plus_one">+1 Min</string>
-    <!-- Describes the purpose of the button to pause a timer. -->
+    <string name="timer_plus_one">Add 1 Minute</string>
     <string name="timer_stop">Stop</string>
     <!-- Describes the purpose of the button to return the timer to it's original starting value. -->
     <string name="timer_reset">Reset</string>
@@ -666,6 +703,8 @@
     <string name="slash"> / </string>
     <!-- slash between date and next alarm in the clock -->
     <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
-
+    <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
+    <string name="next_alarm_description">Next alarm: <xliff:g id="alarm_time" example="Wed 8:00am">%s</xliff:g></string>
+    
 </resources>
 

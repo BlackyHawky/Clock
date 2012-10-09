@@ -61,7 +61,8 @@
             android:paddingRight="10dip"
             android:paddingBottom="5dip"
             android:paddingTop="5dip"
-            android:text="@string/timer_stop" />
+            android:text="@string/timer_stop"
+            android:focusable="true" />
 
         <ImageButton
             android:id="@+id/stopwatch_share_button"
@@ -69,6 +70,7 @@
             android:layout_width="56dip"
             android:layout_height="56dip"
             android:layout_gravity="bottom|right"
+            android:contentDescription="@string/sw_share_button"
             android:background="@null"
             android:src="@drawable/ic_share" />
     </FrameLayout>
