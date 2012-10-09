@@ -31,17 +31,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.deskclock.DeskClock;
 import com.android.deskclock.CircleButtonsLinearLayout;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
 import com.android.deskclock.Utils;
+import com.android.deskclock.DeskClock.OnTapListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -205,7 +209,9 @@ public class TimerFragment extends DeskClockFragment
             stop.setTag(new ClickAction(ClickAction.ACTION_STOP, o));
             TimerFragment.this.setTimerButtons(o);
 
+            v.setBackgroundColor(getResources().getColor(R.color.blackish));
             countingTimerView.registerStopTextView(stop);
+            countingTimerView.registerActivity((DeskClock) getActivity());
             CircleButtonsLinearLayout circleLayout =
                     (CircleButtonsLinearLayout)v.findViewById(R.id.timer_circle);
             circleLayout.setCircleTimerViewIds(
@@ -341,6 +347,32 @@ public class TimerFragment extends DeskClockFragment
         }
 
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
+        mTimersList.setOnTouchListener(new OnTapListener(getActivity()));
+
+        float dividerHeight = getResources().getDimension(R.dimen.timer_divider_height);
+        View footerView = inflater.inflate(R.layout.blank_footer_view, mTimersList, false);
+        LayoutParams params = footerView.getLayoutParams();
+        params.height -= dividerHeight;
+        footerView.setLayoutParams(params);
+        footerView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((DeskClock) getActivity()).clockOnViewClick(v);
+            }
+        });
+        mTimersList.addFooterView(footerView);
+        View headerView = inflater.inflate(R.layout.blank_header_view, mTimersList, false);
+        params = headerView.getLayoutParams();
+        params.height -= dividerHeight;
+        headerView.setLayoutParams(params);
+        headerView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((DeskClock) getActivity()).clockOnViewClick(v);
+            }
+        });
+        mTimersList.addHeaderView(headerView);
+
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
         mTimersListPage = v.findViewById(R.id.timers_list_page);
         mTimerSetup = (TimerSetupView)v.findViewById(R.id.timer_setup);
@@ -377,6 +409,11 @@ public class TimerFragment extends DeskClockFragment
         mAddTimer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                DeskClock activity = ((DeskClock) getActivity());
+                if (!activity.isClockStateNormal()) {
+                    activity.bringLightsUp(true);
+                    return;
+                }
                 mTimerSetup.reset();
                 gotoSetupView();
             }
@@ -491,15 +528,20 @@ public class TimerFragment extends DeskClockFragment
             mSeperator.setVisibility(View.VISIBLE);
             mCancel.setVisibility(View.VISIBLE);
         }
+        ((DeskClock) getActivity()).setTimerAddingTimerState(true);
+        ((DeskClock) getActivity()).bringLightsUp(false);
     }
     private void gotoTimersView() {
         mNewTimerPage.setVisibility(View.GONE);
         mTimersListPage.setVisibility(View.VISIBLE);
         startClockTicks();
+        ((DeskClock) getActivity()).setTimerAddingTimerState(false);
+        ((DeskClock) getActivity()).bringLightsUp(false);
     }
 
     @Override
     public void onClick(View v) {
+        ((DeskClock) getActivity()).scheduleLightsOut();
         ClickAction tag = (ClickAction) v.getTag();
         onClickHelper(tag);
     }

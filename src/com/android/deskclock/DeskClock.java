@@ -25,6 +25,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,8 +35,17 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.Transformation;
+import android.view.animation.TranslateAnimation;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -77,6 +87,14 @@ public class DeskClock extends Activity {
 
     private int mSelectedTab;
     private final boolean mDimmed = false;
+    private boolean mAddingTimer;
+    private int[] mClockButtonIds;
+    private int[] mTimerButtonId;
+    private int mFooterHeight;
+    private int mDimAnimationDuration;
+    private View mClockBackground;
+    private View mClockForeground;
+    private boolean mIsBlackBackground;
 
     private int mClockState = CLOCK_NORMAL;
     private static final int CLOCK_NORMAL = 0;
@@ -86,7 +104,8 @@ public class DeskClock extends Activity {
 
 
     // Delay before hiding the action bar and buttons
-    private static final long LIGHTSOUT_TIMEOUT = 10 * 1000; // 10 seconds
+    private static final long CLOCK_LIGHTSOUT_TIMEOUT = 10 * 1000; // 10 seconds
+    private static final long TIMER_SW_LIGHTSOUT_TIMEOUT = 3 * 1000; // 10 seconds
     // Delay before dimming the screen
     private static final long DIM_TIMEOUT = 10 * 1000; // 10 seconds
 
@@ -105,37 +124,19 @@ public class DeskClock extends Activity {
     private final Handler mHandy = new Handler() {
         @Override
         public void handleMessage(Message m) {
-     /*       if (m.what == LIGHTSOUT_TIMEOUT_MSG) {
-                doLightsOut(true);
-                mClockState = CLOCK_LIGHTS_OUT;
-                // Only dim if clock fragment is visible
-                if (mViewPager.getCurrentItem() ==  CLOCK_TAB_INDEX) {
-                    scheduleDim();
-                }
-            }  else if (m.what == DIM_TIMEOUT_MSG) {
-                mClockState = CLOCK_DIMMED;
-                doDim(true);
-            } else if (m.what == BACK_TO_NORMAL_MSG){
-                // ignore user interaction and do not go back to normal if a button was clicked
-                DeskClockFragment f =
-                        (DeskClockFragment) mTabsAdapter.getFragment(mViewPager.getCurrentItem());
-                if (f != null && f.isButtonClicked()) {
-                    return;
-                }
-
-                int oldState = mClockState;
-                mClockState = CLOCK_NORMAL;
-
-                switch (oldState) {
-                    case CLOCK_LIGHTS_OUT:
-                        doLightsOut(false);
+            switch(m.what) {
+                case LIGHTSOUT_TIMEOUT_MSG:
+                    if (mViewPager.getCurrentItem() == TIMER_TAB_INDEX && mAddingTimer) {
                         break;
-                    case CLOCK_DIMMED:
-                        doLightsOut(false);
-                        doDim(true);
-                        break;
-                }
-            }*/
+                    }
+                    mClockState = CLOCK_LIGHTS_OUT;
+                    setClockState(true);
+                    break;
+                case DIM_TIMEOUT_MSG:
+                    mClockState = CLOCK_DIMMED;
+                    doDim(true);
+                    break;
+            }
         }
     };
 
@@ -212,12 +213,24 @@ public class DeskClock extends Activity {
         }
         initViews();
         setHomeTimeZone();
+
+        int[] buttonIds = {R.id.alarms_button, R.id.cities_button, R.id.menu_button};
+        mClockButtonIds = buttonIds;
+        int[] button = {R.id.timer_add_timer};
+        mTimerButtonId = button;
+        mFooterHeight = (int) getResources().getDimension(R.dimen.button_footer_height);
+        mDimAnimationDuration = getResources().getInteger(R.integer.dim_animation_duration);
+        mClockBackground = findViewById(R.id.clock_background);
+        mClockForeground = findViewById(R.id.clock_foreground);
+        mIsBlackBackground = false;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        mAddingTimer = true;
         setClockState(false);
+
         Intent stopwatchIntent = new Intent(getApplicationContext(), StopwatchService.class);
         stopwatchIntent.setAction(Stopwatches.KILL_NOTIF);
         startService(stopwatchIntent);
@@ -233,6 +246,8 @@ public class DeskClock extends Activity {
 
     @Override
     public void onPause() {
+        removeLightsMessages();
+
         Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
         intent.setAction(Stopwatches.SHOW_NOTIF);
         startService(intent);
@@ -255,22 +270,11 @@ public class DeskClock extends Activity {
         outState.putInt(KEY_CLOCK_STATE, mClockState);
     }
 
-    private void setClockState(boolean fade) {
-        doDim(fade);
-        switch(mClockState) {
-            case CLOCK_NORMAL:
-                doLightsOut(false);
-                break;
-            case CLOCK_LIGHTS_OUT:
-            case CLOCK_DIMMED:
-                doLightsOut(true);
-                break;
-            default:
-                break;
-        }
-    }
-
     public void clockButtonsOnClick(View v) {
+        if (!isClockStateNormal()) {
+            bringLightsUp(true);
+            return;
+        }
         if (v == null)
             return;
         switch (v.getId()) {
@@ -339,56 +343,194 @@ public class DeskClock extends Activity {
         Log.v(LOG_TAG, "Setting home time zone to " + homeTimeZone);
     }
 
-    private void scheduleLightsOut() {
-        mHandy.removeMessages(LIGHTSOUT_TIMEOUT_MSG);
-        mHandy.sendMessageDelayed(Message.obtain(mHandy, LIGHTSOUT_TIMEOUT_MSG), LIGHTSOUT_TIMEOUT);
+    public boolean isClockStateNormal() {
+        return mClockState == CLOCK_NORMAL;
     }
 
-    public void doLightsOut(boolean state) {
+    private boolean isClockStateDimmed() {
+        return mClockState == CLOCK_DIMMED;
+    }
 
-        if (state) {
-            mViewPager.setSystemUiVisibility(View.STATUS_BAR_HIDDEN);
-            mActionBar.hide();
-        } else {
-            mViewPager.setSystemUiVisibility(View.STATUS_BAR_VISIBLE);
-            mActionBar.show();
+    public void clockOnViewClick(View view) {
+        // Toggle lights
+        switch(mClockState) {
+            case CLOCK_NORMAL:
+                mClockState = CLOCK_LIGHTS_OUT;
+                break;
+            case CLOCK_LIGHTS_OUT:
+            case CLOCK_DIMMED:
+                mClockState = CLOCK_NORMAL;
+                break;
+            default:
+                Log.v(LOG_TAG, "in a bad state. setting to normal.");
+                mClockState = CLOCK_NORMAL;
+                break;
         }
+        setClockState(true);
+    }
 
-        // in clock view show/hide the buttons at the bottom
-        if (mViewPager.getCurrentItem() ==  CLOCK_TAB_INDEX) {
-            // TODO: switch to listeners
-/*            Fragment f = mTabsAdapter.getFragment(CLOCK_TAB_INDEX);
-            if (f != null) {
-                ((ClockFragment)f).showButtons(!state);
-            }*/
-        }
-        if (!state) {
-            // Make sure dim will not start before lights out
-            mHandy.removeMessages(DIM_TIMEOUT_MSG);
-            scheduleLightsOut();
+    private void setClockState(boolean fade) {
+        doDim(fade);
+        switch(mClockState) {
+            case CLOCK_NORMAL:
+                doLightsOut(false, fade);
+                break;
+            case CLOCK_LIGHTS_OUT:
+                doLightsOut(true, fade);
+                if (mViewPager.getCurrentItem() == CLOCK_TAB_INDEX) {
+                    scheduleDim();
+                }
+                break;
+            case CLOCK_DIMMED:
+                doLightsOut(true, fade);
+                break;
+            default:
+                break;
         }
     }
 
     private void doDim(boolean fade) {
+        if (mClockBackground == null) {
+            mClockBackground = findViewById(R.id.clock_background);
+            mClockForeground = findViewById(R.id.clock_foreground);
+            if (mClockBackground == null || mClockForeground == null) {
+                return;
+            }
+        }
         if (mClockState == CLOCK_DIMMED) {
-            mViewPager.startAnimation(
+            mClockForeground.startAnimation(
                     AnimationUtils.loadAnimation(this, fade ? R.anim.dim : R.anim.dim_instant));
+            TransitionDrawable backgroundFade =
+                    (TransitionDrawable) mClockBackground.getBackground();
+            TransitionDrawable foregroundFade =
+                    (TransitionDrawable) mClockForeground.getBackground();
+            backgroundFade.startTransition(fade ? mDimAnimationDuration : 0);
+            foregroundFade.startTransition(fade ? mDimAnimationDuration : 0);
+            mIsBlackBackground = true;
         } else {
-            mViewPager.startAnimation(
-                    AnimationUtils.loadAnimation(this, fade ? R.anim.undim : R.anim.undim_instant));
+            if (mIsBlackBackground) {
+                mClockForeground.startAnimation(
+                        AnimationUtils.loadAnimation(this, R.anim.undim));
+                TransitionDrawable backgroundFade =
+                        (TransitionDrawable) mClockBackground.getBackground();
+                TransitionDrawable foregroundFade =
+                        (TransitionDrawable) mClockForeground.getBackground();
+                backgroundFade.reverseTransition(0);
+                foregroundFade.reverseTransition(0);
+                mIsBlackBackground = false;
+            }
+        }
+    }
+
+    public void doLightsOut(boolean lightsOut, boolean fade) {
+        if (lightsOut) {
+            mActionBar.hide();
+            mViewPager.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+            hideAnimated(fade, R.id.clock_footer, mFooterHeight, mClockButtonIds);
+            if (mViewPager.getCurrentItem() != STOPWATCH_TAB_INDEX) {
+                hideAnimated(fade, R.id.timer_footer, mFooterHeight, mTimerButtonId);
+            }
+        } else {
+            mActionBar.show();
+            mViewPager.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
+            unhideAnimated(fade, R.id.clock_footer, mFooterHeight, mClockButtonIds);
+            if (mViewPager.getCurrentItem() != STOPWATCH_TAB_INDEX) {
+                unhideAnimated(fade, R.id.timer_footer, mFooterHeight, mTimerButtonId);
+            }
+            // Make sure dim will not start before lights out
+            removeLightsMessages();
+            scheduleLightsOut();
+        }
+    }
+
+    private void hideAnimated(boolean fade, int viewId, int toYDelta, final int[] buttonIds) {
+        View view = findViewById(viewId);
+        if (view != null) {
+            Animation hideAnimation = new TranslateAnimation(0, 0, 0, toYDelta);
+            hideAnimation.setDuration(fade ? 350 : 0);
+            hideAnimation.setFillAfter(true);
+            hideAnimation.setInterpolator(AnimationUtils.loadInterpolator(this,
+                    android.R.interpolator.decelerate_cubic));
+            hideAnimation.setAnimationListener(new AnimationListener() {
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    if (buttonIds != null) {
+                        for (int buttonId : buttonIds) {
+                            View button = findViewById(buttonId);
+                            if (button != null) {
+                                button.setVisibility(View.GONE);
+                            }
+                        }
+                    }
+                }
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+                }
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+            });
+            view.startAnimation(hideAnimation);
+        }
+    }
+
+    private void unhideAnimated(boolean fade, int viewId, int fromYDelta, final int[] buttonIds) {
+        View view = findViewById(viewId);
+        if (view != null) {
+            Animation unhideAnimation = new TranslateAnimation(0, 0, fromYDelta, 0);
+            unhideAnimation.setDuration(fade ? 350 : 0);
+            unhideAnimation.setFillAfter(true);
+            unhideAnimation.setInterpolator(AnimationUtils.loadInterpolator(this,
+                    android.R.interpolator.decelerate_cubic));
+            if (buttonIds != null) {
+                for (int buttonId : buttonIds) {
+                    View button = findViewById(buttonId);
+                    if (button != null) {
+                        button.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+            view.startAnimation(unhideAnimation);
+        }
+    }
+
+    public void removeLightsMessages() {
+        mHandy.removeMessages(BACK_TO_NORMAL_MSG);
+        mHandy.removeMessages(LIGHTSOUT_TIMEOUT_MSG);
+        mHandy.removeMessages(DIM_TIMEOUT_MSG);
+    }
+
+    public void scheduleLightsOut() {
+        removeLightsMessages();
+        long timeout;
+        if (mViewPager.getCurrentItem() == CLOCK_TAB_INDEX) {
+            timeout = CLOCK_LIGHTSOUT_TIMEOUT;
+        } else {
+            timeout = TIMER_SW_LIGHTSOUT_TIMEOUT;
+        }
+        mHandy.sendMessageDelayed(Message.obtain(mHandy, LIGHTSOUT_TIMEOUT_MSG), timeout);
+    }
+
+    public void bringLightsUp(boolean fade) {
+        removeLightsMessages();
+        if (mClockState != CLOCK_NORMAL) {
+            mClockState = CLOCK_NORMAL;
+            setClockState(fade);
+        } else {
+            scheduleLightsOut();
         }
     }
 
     private void scheduleDim() {
-        mHandy.removeMessages(DIM_TIMEOUT_MSG);
+        removeLightsMessages();
         mHandy.sendMessageDelayed(Message.obtain(mHandy, DIM_TIMEOUT_MSG), DIM_TIMEOUT);
     }
 
-    @Override
-    public void onUserInteraction() {
-        super.onUserInteraction();
-        mHandy.removeMessages(BACK_TO_NORMAL_MSG);
-        mHandy.sendMessage(Message.obtain(mHandy, BACK_TO_NORMAL_MSG));
+    public void setTimerAddingTimerState(boolean addingTimer) {
+        mAddingTimer = addingTimer;
+        if (addingTimer && mViewPager.getCurrentItem() == TIMER_TAB_INDEX) {
+            removeLightsMessages();
+        }
     }
 
     /***
@@ -453,13 +595,15 @@ public class DeskClock extends Activity {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            // Do nothing
+            boolean fade = !isClockStateNormal();
+            bringLightsUp(fade);
         }
 
         @Override
         public void onPageSelected(int position) {
             mMainActionBar.setSelectedNavigationItem(position);
-            onUserInteraction();
+            boolean fade = !isClockStateNormal();
+            bringLightsUp(fade);
         }
 
         @Override
@@ -476,7 +620,8 @@ public class DeskClock extends Activity {
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
             TabInfo info = (TabInfo)tab.getTag();
             mPager.setCurrentItem(info.getPosition());
-            onUserInteraction();
+            boolean fade = !isClockStateNormal();
+            bringLightsUp(fade);
         }
 
         @Override
@@ -485,4 +630,62 @@ public class DeskClock extends Activity {
 
         }
     }
+
+    public static class OnTapListener implements OnTouchListener {
+        private DeskClock mActivity;
+        private float mLastTouchX;
+        private float mLastTouchY;
+        private long mLastTouchTime;
+        private float MAX_MOVEMENT_ALLOWED = 20;
+        private long MAX_TIME_ALLOWED = 500;
+
+        public OnTapListener(Activity activity) {
+            mActivity = (DeskClock) activity;
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent e) {
+            switch (e.getAction()) {
+                case (MotionEvent.ACTION_DOWN):
+                    if (mActivity.isClockStateDimmed()) {
+                        mActivity.clockOnViewClick(v);
+                        resetValues();
+                        break;
+                    }
+                    mLastTouchX = e.getX();
+                    mLastTouchY = e.getY();
+                    mLastTouchTime = Utils.getTimeNow();
+                    mActivity.removeLightsMessages();
+                    break;
+                case (MotionEvent.ACTION_UP):
+                    float xDiff = Math.abs(e.getX()-mLastTouchX);
+                    float yDiff = Math.abs(e.getY()-mLastTouchY);
+                    long timeDiff = (Utils.getTimeNow() - mLastTouchTime);
+                    if (xDiff < MAX_MOVEMENT_ALLOWED && yDiff < MAX_MOVEMENT_ALLOWED
+                            && timeDiff < MAX_TIME_ALLOWED) {
+                        mActivity.clockOnViewClick(v);
+                        return true;
+                    } else {
+                        if (mActivity.isClockStateNormal()){
+                            mActivity.scheduleLightsOut();
+                        } else if (!mActivity.isClockStateDimmed()) {
+                            mActivity.scheduleDim();
+                        }
+                    }
+                    break;
+                case (MotionEvent.ACTION_MOVE):
+                    break;
+                default:
+                    resetValues();
+            }
+            return false;
+        }
+
+        private void resetValues() {
+            mLastTouchX = -1*MAX_MOVEMENT_ALLOWED + 1;
+            mLastTouchY = -1*MAX_MOVEMENT_ALLOWED + 1;
+            mLastTouchTime = -1*MAX_TIME_ALLOWED + 1;
+        }
+    }
+
 }

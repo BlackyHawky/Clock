@@ -41,4 +41,6 @@
     <dimen name="min_swipe">10dip</dimen>
     <dimen name="min_vert">10dip</dimen>
     <dimen name="min_lock">20dip</dimen>
+    <integer name="hide_animation_duration">200</integer>
+    <integer name="dim_animation_duration">500</integer>
 </resources>
