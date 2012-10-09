@@ -56,7 +56,7 @@
                 android:theme="@style/AlarmClockTheme"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
-
+                android:launchMode="standard"
                 android:exported="true" />
 
         <activity-alias android:name="com.android.alarmclock.AlarmClock"

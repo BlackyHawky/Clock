@@ -74,6 +74,10 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
     private Alarm mSelectedAlarm;
 
+    // This flag relies on the activity having a "standard" launchMode and a new instance of this
+    // activity being created when launched.
+    private boolean mFirstLoad = true;
+
     // Saved states for undo
     private Alarm mDeletedAlarm;
     private boolean mUndoShowing = false;
@@ -263,6 +267,34 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, final Cursor data) {
         mAdapter.swapCursor(data);
+        gotoAlarmIfSpecified();
+    }
+
+    /**
+     * Checks if an alarm was passed in.  If so, go to that particular alarm in the list.
+     */
+    private void gotoAlarmIfSpecified() {
+        final Intent intent = getIntent();
+        if (mFirstLoad && intent != null) {
+            final Alarm alarm = (Alarm) intent.getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
+            if (alarm != null) {
+                for (int i = 0; i < mAdapter.getCount(); i++) {
+                    long id = mAdapter.getItemId(i);
+                    if (id == alarm.id) {
+                        mAdapter.setNewAlarm(alarm.id);
+                        mAlarmsList.setSelection(i);
+
+                        final int firstPositionId = mAlarmsList.getFirstVisiblePosition();
+                        final int childId = i - firstPositionId;
+
+                        final View view = mAlarmsList.getChildAt(childId);
+                        mAdapter.getView(i, view, mAlarmsList);
+                        break;
+                    }
+                }
+            }
+        }
+        mFirstLoad = false;
     }
 
     @Override
@@ -468,7 +500,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 @Override
                 public void onClick(View view) {
                     AlarmUtils.showTimeEditDialog(AlarmClock.this.getFragmentManager(), alarm);
-                    expandAlarm(itemHolder, alarm);
+                    expandAlarm(itemHolder);
                 }
             });
 
@@ -496,12 +528,12 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             itemHolder.expand.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    expandAlarm(itemHolder, alarm);
+                    expandAlarm(itemHolder);
                 }
             });
 
             if (isAlarmExpanded(alarm) || forceExpand) {
-                expandAlarm(itemHolder, alarm);
+                expandAlarm(itemHolder);
             }
         }
 
@@ -644,18 +676,21 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             return title;
         }
 
+        public void setNewAlarm(int alarmId) {
+            mExpanded.add(alarmId);
+        }
+
         /**
          * Expands the alarm for editing.
          *
          * @param itemHolder The item holder instance.
-         * @param alarm The alarm.
          */
-        private void expandAlarm(ItemHolder itemHolder, Alarm alarm) {
+        private void expandAlarm(ItemHolder itemHolder) {
             itemHolder.expandArea.setVisibility(View.VISIBLE);
             itemHolder.infoArea.setVisibility(View.GONE);
 
-            mExpanded.add(alarm.id);
-            bindExpandArea(itemHolder, alarm);
+            mExpanded.add(itemHolder.alarm.id);
+            bindExpandArea(itemHolder, itemHolder.alarm);
         }
 
         private boolean isAlarmExpanded(Alarm alarm) {
