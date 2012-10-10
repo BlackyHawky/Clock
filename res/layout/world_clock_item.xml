@@ -20,17 +20,15 @@
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/medium_space"
     android:orientation="vertical">
-    <TextView
+    <LinearLayout
         android:id="@+id/city_name_digital"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginBottom="@dimen/label_margin_small"
         android:layout_marginLeft="@dimen/label_margin_small"
-        style="@style/label"
-        android:singleLine="true"
-        android:ellipsize="none"
-        android:textColor="@color/clock_white"
-        />
+        >
+        <include layout="@layout/world_clock_label"/>
+    </LinearLayout>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -47,16 +45,14 @@
             android:hand_hour="@drawable/clock_analog_hour"
             android:hand_minute="@drawable/clock_analog_minute"/>
     </FrameLayout>
-    <TextView
+    <LinearLayout
         android:id="@+id/city_name_analog"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/label_margin_small"
         android:layout_marginLeft="@dimen/label_margin_small"
-        style="@style/label"
-        android:singleLine="true"
-        android:ellipsize="none"
         android:gravity="center"
-        android:textColor="@color/clock_white"
-        />
+        >
+        <include layout="@layout/world_clock_label"/>
+    </LinearLayout>
 </LinearLayout>

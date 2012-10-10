@@ -16,7 +16,12 @@
 
 package com.android.deskclock;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
@@ -24,7 +29,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +43,11 @@ import com.android.deskclock.DeskClock.OnTapListener;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CityObj;
 
+import java.text.Collator;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.TimeZone;
 
 
@@ -49,8 +58,9 @@ import java.util.TimeZone;
 public class ClockFragment extends DeskClockFragment implements OnSharedPreferenceChangeListener {
 
     private static final String BUTTONS_HIDDEN_KEY = "buttons_hidden";
-
+    private static final String ACTION_ON_QUARTER_HOUR = "com.android.deskclock.ON_QUARTER_HOUR";
     private final static String DATE_FORMAT = "MMMM d";
+    private final static String TAG = "ClockFragment";
 
     private View mButtons;
     private boolean mButtonsHidden = false;
@@ -59,7 +69,26 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private ListView mList;
     private String mClockStyle;
     private SharedPreferences mPrefs;
+    private final Collator mCollator = Collator.getInstance();
 
+    private PendingIntent mQuarterlyIntent;
+    private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
+            @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals(ACTION_ON_QUARTER_HOUR)
+                    || intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
+                    || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                updateDate();
+                if (mAdapter != null) {
+                    mAdapter.notifyDataSetChanged();
+                }
+                if (intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
+                        || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                    refreshAlarm();
+                }
+            }
+        }
+    };
 
     public ClockFragment() {
     }
@@ -106,7 +135,29 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     public void onResume () {
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
+
+        // Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45)
+        Calendar nextQuarter = Calendar.getInstance();
+        //  Set 1 second to ensure quarter-hour threshold passed.
+        nextQuarter.set(Calendar.SECOND, 1);
+        int minute = nextQuarter.get(Calendar.MINUTE);
+        nextQuarter.add(Calendar.MINUTE, 15 - (minute % 15));
+        long alarmOnQuarterHour = nextQuarter.getTimeInMillis();
+        if (0 >= (alarmOnQuarterHour - System.currentTimeMillis())
+                || (alarmOnQuarterHour - System.currentTimeMillis()) > 901000) {
+            Log.wtf(TAG, "quarterly alarm calculation error");
+        }
+        mQuarterlyIntent = PendingIntent.getBroadcast(getActivity(), 0, new Intent(ACTION_ON_QUARTER_HOUR), 0);
+        ((AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE)).setRepeating(
+                AlarmManager.RTC, alarmOnQuarterHour, AlarmManager.INTERVAL_FIFTEEN_MINUTES, mQuarterlyIntent);
+        // Besides monitoring when quarter-hour changes, monitor other actions that effect clock time
+        IntentFilter filter = new IntentFilter(ACTION_ON_QUARTER_HOUR);
+        filter.addAction(Intent.ACTION_TIME_CHANGED);
+        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        getActivity().registerReceiver(mIntentReceiver, filter);
+
         mButtons.setAlpha(mButtonsHidden ? 0 : 1);
+
         // Resume can invoked after changing the cities list.
         if (mAdapter != null) {
             mAdapter.reloadData(getActivity());
@@ -122,6 +173,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     public void onPause() {
         super.onPause();
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
+        ((AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE)).cancel(mQuarterlyIntent);
+        getActivity().unregisterReceiver(mIntentReceiver);
     }
 
     @Override
@@ -205,7 +258,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private class WorldClockAdapter extends BaseAdapter {
         Object [] mCitiesList;
         LayoutInflater mInflater;
-        private boolean mIs24HoursMode;
         @SuppressWarnings("hiding")
         Context mContext;
 
@@ -214,7 +266,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             mContext = context;
             loadData(context);
             mInflater = LayoutInflater.from(context);
-            set24HoursMode(context);
         }
 
         public void reloadData(Context context) {
@@ -253,6 +304,53 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
 
         private void sortList() {
+            final Calendar now = Calendar.getInstance();
+
+            // Sort by the Offset from GMT taking DST into account
+            // and if the same sort by City Name
+            Arrays.sort(mCitiesList, new Comparator<Object>() {
+                private int safeCityNameCompare(CityObj city1, CityObj city2) {
+                    if (city1.mCityName == null && city2.mCityName == null) {
+                        return 0;
+                    } else if (city1.mCityName == null) {
+                        return -1;
+                    } else if (city2.mCityName == null) {
+                        return 1;
+                    } else {
+                        return mCollator.compare(city1.mCityName, city2.mCityName);
+                    }
+                }
+
+                @Override
+                public int compare(Object object1, Object object2) {
+                    CityObj city1 = (CityObj) object1;
+                    CityObj city2 = (CityObj) object2;
+
+                    if (city1.mTimeZone == null && city2.mTimeZone == null) {
+                        return safeCityNameCompare(city1, city2);
+                    } else if (city1.mTimeZone == null) {
+                        return -1;
+                    } else if (city2.mTimeZone == null) {
+                        return 1;
+                    }
+
+                    int gmOffset1 = TimeZone.getTimeZone(city1.mTimeZone).getOffset(
+                            now.get(Calendar.ERA), now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH),
+                            now.get(Calendar.DAY_OF_WEEK),
+                            now.get(Calendar.MILLISECOND));
+                    int gmOffset2 = TimeZone.getTimeZone(city2.mTimeZone).getOffset(
+                            now.get(Calendar.ERA), now.get(Calendar.YEAR),
+                            now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH),
+                            now.get(Calendar.DAY_OF_WEEK),
+                            now.get(Calendar.MILLISECOND));
+                    if (gmOffset1 == gmOffset2) {
+                        return safeCityNameCompare(city1, city2);
+                    } else {
+                        return gmOffset1 - gmOffset2;
+                    }
+                }
+            });
         }
 
         @Override
@@ -288,57 +386,16 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 view = mInflater.inflate(R.layout.world_clock_list_item, parent, false);
             }
             // The world clock list item can hold two world clocks
-            View leftClock = view.findViewById(R.id.city_left);
             View rightClock = view.findViewById(R.id.city_right);
-            CityObj c = (CityObj)mCitiesList[index];
-            TextView nameDigital= ((TextView)leftClock.findViewById(R.id.city_name_digital));
-            TextView nameAnalog = ((TextView)leftClock.findViewById(R.id.city_name_analog));
-            DigitalClock dclock = (DigitalClock)(leftClock.findViewById(R.id.digital_clock));
-            AnalogClock aclock = (AnalogClock)(leftClock.findViewById(R.id.analog_clock));
-            if (mClockStyle.equals("analog")) {
-                dclock.setVisibility(View.GONE);
-                aclock.setVisibility(View.VISIBLE);
-                aclock.setTimeZone(c.mTimeZone);
-                aclock.enableSeconds(false);
-                nameAnalog.setText(c.mCityName);
-                nameAnalog.setVisibility(View.VISIBLE);
-                nameDigital.setVisibility(View.GONE);
-            } else {
-                nameDigital.setText(c.mCityName);
-                nameDigital.setVisibility(View.VISIBLE);
-                nameAnalog.setVisibility(View.GONE);
-                aclock.setVisibility(View.GONE);
-                dclock.setVisibility(View.VISIBLE);
-                dclock.setTimeZone(c.mTimeZone);
-            }
+            updateView(view.findViewById(R.id.city_left), (CityObj)mCitiesList[index]);
             if (index + 1 < mCitiesList.length) {
                 rightClock.setVisibility(View.VISIBLE);
-                c = (CityObj)mCitiesList[index + 1];
-                dclock = (DigitalClock)(rightClock.findViewById(R.id.digital_clock));
-                aclock = (AnalogClock)(rightClock.findViewById(R.id.analog_clock));
-                nameDigital= ((TextView)rightClock.findViewById(R.id.city_name_digital));
-                nameAnalog = ((TextView)rightClock.findViewById(R.id.city_name_analog));
-                if (mClockStyle.equals("analog")) {
-                    nameAnalog.setText(c.mCityName);
-                    nameAnalog.setVisibility(View.VISIBLE);
-                    nameDigital.setVisibility(View.GONE);
-                    dclock.setVisibility(View.GONE);
-                    aclock.setVisibility(View.VISIBLE);
-                    aclock.setTimeZone(c.mTimeZone);
-                    aclock.enableSeconds(false);
-                } else {
-                    nameDigital.setText(c.mCityName);
-                    nameDigital.setVisibility(View.VISIBLE);
-                    nameAnalog.setVisibility(View.GONE);
-                    aclock.setVisibility(View.GONE);
-                    dclock.setVisibility(View.VISIBLE);
-                    dclock.setTimeZone(c.mTimeZone);
-                }
+                updateView(rightClock, (CityObj)mCitiesList[index + 1]);
             } else {
                 // To make sure the spacing is right , make sure that the right clock style is selected
                 // even if the clock is invisible.
-                dclock = (DigitalClock)(rightClock.findViewById(R.id.digital_clock));
-                aclock = (AnalogClock)(rightClock.findViewById(R.id.analog_clock));
+                DigitalClock dclock = (DigitalClock)(rightClock.findViewById(R.id.digital_clock));
+                AnalogClock aclock = (AnalogClock)(rightClock.findViewById(R.id.analog_clock));
                 if (mClockStyle.equals("analog")) {
                     dclock.setVisibility(View.GONE);
                     aclock.setVisibility(View.INVISIBLE);
@@ -352,9 +409,45 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             return view;
         }
 
-        public void set24HoursMode(Context c) {
-            mIs24HoursMode = Alarms.get24HourMode(c);
-            notifyDataSetChanged();
+        private void updateView(View clock, CityObj cityObj) {
+            View nameDigital= clock.findViewById(R.id.city_name_digital);
+            View nameAnalog = clock.findViewById(R.id.city_name_analog);
+            TextView name;
+            TextView dayOfWeek;
+            DigitalClock dclock = (DigitalClock)(clock.findViewById(R.id.digital_clock));
+            AnalogClock aclock = (AnalogClock)(clock.findViewById(R.id.analog_clock));
+
+            if (mClockStyle.equals("analog")) {
+                dclock.setVisibility(View.GONE);
+                nameDigital.setVisibility(View.GONE);
+                aclock.setVisibility(View.VISIBLE);
+                nameAnalog.setVisibility(View.VISIBLE);
+                aclock.setTimeZone(cityObj.mTimeZone);
+                aclock.enableSeconds(false);
+                name = (TextView)(nameAnalog.findViewById(R.id.city_name));
+                dayOfWeek = (TextView)(nameAnalog.findViewById(R.id.city_day));
+            } else {
+                dclock.setVisibility(View.VISIBLE);
+                nameDigital.setVisibility(View.VISIBLE);
+                dclock.setTimeZone(cityObj.mTimeZone);
+                aclock.setVisibility(View.GONE);
+                nameAnalog.setVisibility(View.GONE);
+                name = (TextView)(nameDigital.findViewById(R.id.city_name));
+                dayOfWeek = (TextView)(nameDigital.findViewById(R.id.city_day));
+            }
+            name.setText(cityObj.mCityName);
+            final Calendar now = Calendar.getInstance();
+            now.setTimeZone(TimeZone.getDefault());
+            int myDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+            now.setTimeZone(TimeZone.getTimeZone(cityObj.mTimeZone));
+            int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
+            if (myDayOfWeek != cityDayOfWeek) {
+                dayOfWeek.setText(getString(R.string.world_day_of_week_label, now.getDisplayName(
+                        Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())));
+                dayOfWeek.setVisibility(View.VISIBLE);
+            } else {
+                dayOfWeek.setVisibility(View.GONE);
+            }
         }
     }
 

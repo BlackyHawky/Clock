@@ -85,7 +85,7 @@ public class DigitalClock extends LinearLayout {
         }
 
         void setShowAmPm(boolean show) {
-            mAmPm.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+            mAmPm.setVisibility(show ? View.VISIBLE : View.GONE);
         }
 
         void setIsMorning(boolean isMorning) {

@@ -60,6 +60,7 @@
 
     <dimen name="small_space">16dp</dimen>
     <dimen name="medium_space">32dp</dimen>
+    <dimen name="style_label_space">4dip</dimen>
 
     <dimen name="label_margin_big">4dp</dimen>
     <dimen name="label_margin_small">2dp</dimen>
