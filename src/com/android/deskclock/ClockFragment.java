@@ -59,7 +59,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
     private static final String BUTTONS_HIDDEN_KEY = "buttons_hidden";
     private static final String ACTION_ON_QUARTER_HOUR = "com.android.deskclock.ON_QUARTER_HOUR";
-    private final static String DATE_FORMAT = "MMMM d";
     private final static String TAG = "ClockFragment";
 
     private View mButtons;
@@ -70,6 +69,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private String mClockStyle;
     private SharedPreferences mPrefs;
     private final Collator mCollator = Collator.getInstance();
+    private String mDateFormat;
 
     private PendingIntent mQuarterlyIntent;
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
@@ -135,6 +135,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     public void onResume () {
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
+        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
 
         // Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45)
         Calendar nextQuarter = Calendar.getInstance();
@@ -220,7 +221,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
 
-        CharSequence newDate = DateFormat.format(DATE_FORMAT, cal);
+        CharSequence newDate = DateFormat.format(mDateFormat, cal);
         TextView dateDisplay;
         if (mClockStyle.equals("analog")) {
             dateDisplay = (TextView)mAnalogClock.findViewById(R.id.date);
