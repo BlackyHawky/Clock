@@ -47,7 +47,7 @@ public class CountingTimerView extends View {
     private float mHoursLabelWidth, mMinutesLabelWidth, mSecondsLabelWidth, mHundredthsSepWidth;
 
     private boolean mShowTimeStr = true;
-    private final Typeface mRobotoThin, mRobotoBold, mRobotoLabel;
+    private final Typeface mAndroidClockMonoThin, mAndroidClockMonoBold, mRobotoLabel, mAndroidClockMonoLight;
     private final Paint mPaintBig = new Paint();
     private final Paint mPaintBigThin = new Paint();
     private final Paint mPaintMed = new Paint();
@@ -86,8 +86,9 @@ public class CountingTimerView extends View {
 
     public CountingTimerView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mRobotoThin = Typeface.createFromAsset(context.getAssets(),"fonts/Roboto-Thin.ttf");
-        mRobotoBold = Typeface.create("sans-serif", Typeface.BOLD);
+        mAndroidClockMonoThin = Typeface.createFromAsset(context.getAssets(),"fonts/AndroidClockMono-Thin.ttf");
+        mAndroidClockMonoBold = Typeface.createFromAsset(context.getAssets(),"fonts/AndroidClockMono-Bold.ttf");
+        mAndroidClockMonoLight = Typeface.createFromAsset(context.getAssets(),"fonts/AndroidClockMono-Light.ttf");
         mRobotoLabel= Typeface.create("sans-serif-condensed", Typeface.BOLD);
         Resources r = context.getResources();
         mHoursLabel = r.getString(R.string.hours_label).toUpperCase();
@@ -101,7 +102,7 @@ public class CountingTimerView extends View {
         mPaintBig.setAntiAlias(true);
         mPaintBig.setStyle(Paint.Style.STROKE);
         mPaintBig.setTextAlign(Paint.Align.LEFT);
-        mPaintBig.setTypeface(mRobotoBold);
+        mPaintBig.setTypeface(mAndroidClockMonoBold);
         float bigFontSize = r.getDimension(R.dimen.big_font_size);
         mPaintBig.setTextSize(bigFontSize);
         mTextHeight = bigFontSize;
@@ -109,13 +110,13 @@ public class CountingTimerView extends View {
         mPaintBigThin.setAntiAlias(true);
         mPaintBigThin.setStyle(Paint.Style.STROKE);
         mPaintBigThin.setTextAlign(Paint.Align.LEFT);
-        mPaintBigThin.setTypeface(mRobotoThin);
+        mPaintBigThin.setTypeface(mAndroidClockMonoThin);
         mPaintBigThin.setTextSize(r.getDimension(R.dimen.big_font_size));
 
         mPaintMed.setAntiAlias(true);
         mPaintMed.setStyle(Paint.Style.STROKE);
         mPaintMed.setTextAlign(Paint.Align.LEFT);
-        mPaintMed.setTypeface(mRobotoThin);
+        mPaintMed.setTypeface(mAndroidClockMonoLight);
         mPaintMed.setTextSize(r.getDimension(R.dimen.small_font_size));
 
         mPaintLabel.setAntiAlias(true);
