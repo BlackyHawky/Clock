@@ -32,7 +32,7 @@ public class TimerView extends LinearLayout {
     private ZeroTopPaddingTextView mHoursOnes, mMinutesOnes;
     private ZeroTopPaddingTextView mHoursTens, mMinutesTens;
     private TextView mSeconds;
-    private final Typeface mRobotoThin;
+    private final Typeface mAndroidClockMonoThin;
     private Typeface mOriginalHoursTypeface;
     private final int mWhiteColor, mGrayColor;
 
@@ -43,7 +43,7 @@ public class TimerView extends LinearLayout {
     public TimerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        mRobotoThin = Typeface.createFromAsset(context.getAssets(),"fonts/Roboto-Thin.ttf");
+        mAndroidClockMonoThin = Typeface.createFromAsset(context.getAssets(),"fonts/AndroidClockMono-Thin.ttf");
         mWhiteColor = context.getResources().getColor(R.color.clock_white);
         mGrayColor = context.getResources().getColor(R.color.clock_gray);
     }
@@ -62,14 +62,14 @@ public class TimerView extends LinearLayout {
         }
         // Set the lowest time unit with thin font (excluding hundredths)
         if (mSeconds != null) {
-            mSeconds.setTypeface(mRobotoThin);
+            mSeconds.setTypeface(mAndroidClockMonoThin);
         } else  {
             if (mMinutesTens != null) {
-                mMinutesTens.setTypeface(mRobotoThin);
+                mMinutesTens.setTypeface(mAndroidClockMonoThin);
                 mMinutesTens.updatePadding();
             }
             if (mMinutesOnes != null) {
-                mMinutesOnes.setTypeface(mRobotoThin);
+                mMinutesOnes.setTypeface(mAndroidClockMonoThin);
                 mMinutesOnes.updatePadding();
             }
         }
@@ -84,7 +84,7 @@ public class TimerView extends LinearLayout {
                 mHoursTens.setVisibility(View.INVISIBLE);
             } else if (hoursTensDigit == -1) {
                 mHoursTens.setText("-");
-                mHoursTens.setTypeface(mRobotoThin);
+                mHoursTens.setTypeface(mAndroidClockMonoThin);
                 mHoursTens.setTextColor(mGrayColor);
                 mHoursTens.updatePadding();
                 mHoursTens.setVisibility(View.VISIBLE);
@@ -99,7 +99,7 @@ public class TimerView extends LinearLayout {
         if (mHoursOnes != null) {
             if (hoursOnesDigit == -1) {
                 mHoursOnes.setText("-");
-                mHoursOnes.setTypeface(mRobotoThin);
+                mHoursOnes.setTypeface(mAndroidClockMonoThin);
                 mHoursOnes.setTextColor(mGrayColor);
                 mHoursOnes.updatePadding();
             } else {
