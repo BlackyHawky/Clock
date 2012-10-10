@@ -34,6 +34,15 @@ public class CityObj {
         mCityId = id;
     }
 
+    @Override
+    public String toString() {
+        return "CityObj{" +
+                "name=" + mCityName +
+                ", timezone=" + mTimeZone +
+                ", id=" + mCityId +
+                '}';
+    }
+
 
     public CityObj(SharedPreferences prefs, int index) {
         mCityName = prefs.getString(CITY_NAME + index, null);
