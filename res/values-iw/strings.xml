@@ -327,9 +327,11 @@
     <string name="screensaver_settings" msgid="7013450738357352801">"הגדרות Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"מצב לילה"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"תצוגה עמומה מאוד (לחדרים חשוכים)"</string>
-    <string name="expand_alarm" msgid="7392616528943305020">"פתח התראה"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"סגור התראה"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"הרחב התראה"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"כווץ התראה"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"בטל"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"ההתראה נמחקה."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
+    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
+    <skip />
 </resources>
