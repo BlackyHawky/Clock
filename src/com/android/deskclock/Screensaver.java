@@ -199,12 +199,14 @@ public class Screensaver extends DreamService {
         }
         boolean night = sharedPref.getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
 
-        if (night) {
-            Paint paint = new Paint();
-            paint.setColor(Color.WHITE);
-            paint.setColorFilter(new PorterDuffColorFilter(0x60FFFFFF, PorterDuff.Mode.MULTIPLY));
-            mSaverView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
-        }
+        Paint paint = new Paint();
+        paint.setColor(Color.WHITE);
+        paint.setColorFilter(new PorterDuffColorFilter(
+                        (night ? 0x60FFFFFF : 0xC0FFFFFF),
+                PorterDuff.Mode.MULTIPLY));
+        mSaverView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+
+        setScreenBright(!night);
     }
 
     private void layoutClockSaver() {
