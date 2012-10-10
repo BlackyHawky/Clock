@@ -286,7 +286,8 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
                 (CircleButtonsLinearLayout)v.findViewById(R.id.stopwatch_circle);
         circleLayout.setCircleTimerViewIds(R.id.stopwatch_time, R.id.stopwatch_left_button,
                 R.id.stopwatch_share_button, R.id.stopwatch_stop,
-                R.dimen.plusone_reset_button_padding, R.dimen.share_button_padding);
+                R.dimen.plusone_reset_button_padding, R.dimen.share_button_padding,
+                0, 0); /** No label for a stopwatch**/
 
         return v;
     }

@@ -27,7 +27,9 @@
         android:layout_marginRight="8dip"
         android:inputType="textCapSentences"
         android:padding="8dp"
+        android:selectAllOnFocus="true"
         android:layout_height="wrap_content"
+        android:hint="@string/label"
         android:layout_width="match_parent"/>
 
     <View
@@ -47,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
-            style="@style/button"
+            style="@style/dialog_button"
             android:background="@drawable/item_background"
             android:text="@string/time_picker_cancel"
             />
@@ -62,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_weight="1"
-            style="@style/button"
+            style="@style/dialog_button"
             android:background="@drawable/item_background"
             android:text="@string/time_picker_set"/>
     </LinearLayout>
