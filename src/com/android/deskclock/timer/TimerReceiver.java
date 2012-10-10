@@ -116,17 +116,7 @@ public class TimerReceiver extends BroadcastReceiver {
             context.startService(si);
 
             // Start notification for buzzing alarm.
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
-            broadcastIntent.setAction(Timers.TIMER_STOP);
-            broadcastIntent.putExtra(Timers.UPDATE_NOTIFICATION, true);
-            PendingIntent pendingBroadcastIntent = PendingIntent.getBroadcast(
-                    context, 0, broadcastIntent, 0);
-            String label = t.mLabel == "" ? context.getString(R.string.timer_notification_label) :
-                t.mLabel;
-            String contentText = context.getString(R.string.timer_times_up);
-            showCollapsedNotification(context, label, contentText, Notification.PRIORITY_MAX,
-                    pendingBroadcastIntent, t.mTimerId, true);
+            showExpiredAlarmNotification(context, t);
             cancelInUseNotification(context);
 
             KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
@@ -211,8 +201,8 @@ public class TimerReceiver extends BroadcastReceiver {
         long now = System.currentTimeMillis();
         if (timersInUse.size() == 1) {
             TimerObj timer = timersInUse.get(0);
-            String label = timer.mLabel == "" ? context.getString(R.string.timer_notification_label)
-                    : timer.mLabel;
+            String label = timer.mLabel.equals("") ?
+                    context.getString(R.string.timer_notification_label) : timer.mLabel;
             title = timer.isTicking() ? label : context.getString(R.string.timer_stopped);
             long timeLeft = timer.isTicking() ? timer.getTimesupTime() - now : timer.mTimeLeft;
             contentText = buildTimeRemaining(context, timeLeft);
@@ -255,6 +245,21 @@ public class TimerReceiver extends BroadcastReceiver {
         return now + (seconds * 1000);
     }
 
+    /** Public and static to allow timer fragment to update notification with new label. **/
+    public static void showExpiredAlarmNotification(Context context, TimerObj t) {
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
+        broadcastIntent.setAction(Timers.TIMER_STOP);
+        broadcastIntent.putExtra(Timers.UPDATE_NOTIFICATION, true);
+        PendingIntent pendingBroadcastIntent = PendingIntent.getBroadcast(
+                context, 0, broadcastIntent, 0);
+        String label = t.mLabel.equals("") ? context.getString(R.string.timer_notification_label) :
+            t.mLabel;
+        String contentText = context.getString(R.string.timer_times_up);
+        showCollapsedNotification(context, label, contentText, Notification.PRIORITY_MAX,
+                pendingBroadcastIntent, t.mTimerId, true);
+    }
+
     private void showCollapsedNotificationWithNext(
             final Context context, String title, String text, Long nextBroadcastTime) {
         Intent activityIntent = new Intent(context, DeskClock.class);
@@ -277,7 +282,7 @@ public class TimerReceiver extends BroadcastReceiver {
         alarmManager.set(AlarmManager.RTC, nextBroadcastTime, pendingNextBroadcast);
     }
 
-    private void showCollapsedNotification(final Context context, String title, String text,
+    private static void showCollapsedNotification(final Context context, String title, String text,
             int priority, PendingIntent pendingIntent, int notificationId, boolean showTicker) {
         Notification.Builder builder = new Notification.Builder(context)
         .setAutoCancel(false)

@@ -58,7 +58,7 @@ import java.util.HashSet;
  */
 public class AlarmClock extends Activity implements LoaderManager.LoaderCallbacks<Cursor>,
         AlarmTimePickerDialogFragment.AlarmTimePickerDialogHandler,
-        AlarmLabelDialogFragment.AlarmLabelDialogHandler {
+        LabelDialogFragment.AlarmLabelDialogHandler {
 
     private static final String KEY_EXPANDED_IDS = "expandedIds";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
@@ -247,8 +247,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         ft.addToBackStack(null);
 
         // Create and show the dialog.
-        final AlarmLabelDialogFragment newFragment = AlarmLabelDialogFragment.newInstance(alarm,
-                alarm.label);
+        final LabelDialogFragment newFragment = LabelDialogFragment.newInstance(alarm, alarm.label);
         newFragment.show(ft, "label_dialog");
     }
 
