@@ -65,6 +65,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private static final String KEY_RINGTONE_TITLE_CACHE = "ringtoneTitleCache";
     private static final String KEY_DELETED_ALARM = "deletedAlarm";
     private static final String KEY_UNDO_SHOWING = "undoShowing";
+    private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
 
     private static final int REQUEST_CODE_RINGTONE = 1;
 
@@ -95,15 +96,17 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         setContentView(R.layout.alarm_clock);
         int[] expandedIds = null;
         int[] repeatCheckedIds = null;
+        Bundle previousDayMap = null;
         if (savedState != null) {
             expandedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
-            repeatCheckedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
+            repeatCheckedIds = savedState.getIntArray(KEY_REPEAT_CHECKED_IDS);
             mRingtoneTitleCache = savedState.getBundle(KEY_RINGTONE_TITLE_CACHE);
             mDeletedAlarm = savedState.getParcelable(KEY_DELETED_ALARM);
             mUndoShowing = savedState.getBoolean(KEY_UNDO_SHOWING);
+            previousDayMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
         }
 
-        mAdapter = new AlarmItemAdapter(this, expandedIds, repeatCheckedIds);
+        mAdapter = new AlarmItemAdapter(this, expandedIds, repeatCheckedIds, previousDayMap);
 
         if (mRingtoneTitleCache == null) {
             mRingtoneTitleCache = new Bundle();
@@ -165,6 +168,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         outState.putBundle(KEY_RINGTONE_TITLE_CACHE, mRingtoneTitleCache);
         outState.putParcelable(KEY_DELETED_ALARM, mDeletedAlarm);
         outState.putBoolean(KEY_UNDO_SHOWING, mUndoShowing);
+        outState.putBundle(KEY_PREVIOUS_DAY_MAP, mAdapter.getPreviousDaysOfWeekMap());
     }
 
     private void updateLayout() {
@@ -338,9 +342,12 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         private int mColorLit;
         private int mColorDim;
         private int mColorRed;
+        private Typeface mRobotoNormal;
+        private Typeface mRobotoBold;
 
         private HashSet<Integer> mExpanded = new HashSet<Integer>();
         private HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
+        private Bundle mPreviousDaysOfWeekMap = new Bundle();
         private boolean mNewAlarmCreated = false;
 
         private boolean mHasVibrator;
@@ -378,7 +385,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             Alarm alarm;
         }
 
-        public AlarmItemAdapter(Context context, int[] expandedIds, int[] repeatCheckedIds) {
+        public AlarmItemAdapter(Context context, int[] expandedIds, int[] repeatCheckedIds,
+                Bundle previousDaysOfWeekMap) {
             super(context, null, 0);
             mContext = context;
             mFactory = LayoutInflater.from(context);
@@ -390,11 +398,17 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             mColorDim = mContext.getResources().getColor(R.color.clock_gray);
             mColorRed = mContext.getResources().getColor(R.color.clock_red);
 
+            mRobotoBold = Typeface.create("sans-serif-condensed", Typeface.BOLD);
+            mRobotoNormal = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
+
             if (expandedIds != null) {
                 buildHashSetFromArray(expandedIds, mExpanded);
             }
             if (repeatCheckedIds != null) {
                 buildHashSetFromArray(repeatCheckedIds, mRepeatChecked);
+            }
+            if (previousDaysOfWeekMap != null) {
+                mPreviousDaysOfWeekMap = previousDaysOfWeekMap;
             }
 
             mHasVibrator = ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE))
@@ -578,44 +592,59 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         itemHolder.repeatDays.setVisibility(View.VISIBLE);
                         itemHolder.repeat.setTextColor(mColorLit);
                         mRepeatChecked.add(alarm.id);
+
+                        // Set all previously set days
+                        // or
+                        // Set all days if no previous.
+                        final int daysOfWeekCoded = mPreviousDaysOfWeekMap.getInt("" + alarm.id);
+                        if (daysOfWeekCoded == 0) {
+                            for (int day : DAY_ORDER) {
+                                alarm.daysOfWeek.setDayOfWeek(day, true);
+                            }
+                        } else {
+                            alarm.daysOfWeek.set(new Alarm.DaysOfWeek(daysOfWeekCoded));
+                        }
+                        updateDaysOfWeekButtons(itemHolder, alarm.daysOfWeek);
                     } else {
                         itemHolder.repeatDays.setVisibility(View.GONE);
                         itemHolder.repeat.setTextColor(mColorDim);
                         mRepeatChecked.remove(alarm.id);
 
+                        // Remember the set days in case the user wants it back.
+                        final int daysOfWeekCoded = alarm.daysOfWeek.getCoded();
+                        mPreviousDaysOfWeekMap.putInt("" + alarm.id, daysOfWeekCoded);
+
                         // Remove all repeat days
                         alarm.daysOfWeek.set(new Alarm.DaysOfWeek(0));
-                        asyncUpdateAlarm(alarm, false);
                     }
+                    asyncUpdateAlarm(alarm, false);
                 }
             });
 
-            HashSet<Integer> setDays = alarm.daysOfWeek.getSetDays();
+            updateDaysOfWeekButtons(itemHolder, alarm.daysOfWeek);
             for (int i = 0; i < 7; i++) {
-                final ToggleButton button = itemHolder.daysButtons[i];
-                if (setDays.contains(DAY_ORDER[i])) {
-                    button.setChecked(true);
-                    button.setTextColor(mColorLit);
-                    button.setTypeface(null, Typeface.BOLD);
-                } else {
-                    button.setChecked(false);
-                    button.setTextColor(mColorDim);
-                    button.setTypeface(null, Typeface.NORMAL);
-                }
                 final int buttonIndex = i;
-                button.setOnClickListener(new View.OnClickListener() {
+                itemHolder.daysButtons[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         final boolean checked = ((ToggleButton) view).isChecked();
-                        if (checked) {
-                            button.setTextColor(mColorLit);
-                            button.setTypeface(null, Typeface.BOLD);
-                        } else {
-                            button.setTextColor(mColorDim);
-                            button.setTypeface(null, Typeface.NORMAL);
-                        }
                         int day = DAY_ORDER[buttonIndex];
                         alarm.daysOfWeek.setDayOfWeek(day, checked);
+                        if (checked) {
+                            turnOnDayOfWeek(itemHolder, buttonIndex);
+                        } else {
+                            turnOffDayOfWeek(itemHolder, buttonIndex);
+
+                            // See if this was the last day, if so, un-check the repeat box.
+                            if (alarm.daysOfWeek.getCoded() == 0) {
+                                itemHolder.repeatDays.setVisibility(View.GONE);
+                                itemHolder.repeat.setTextColor(mColorDim);
+                                mRepeatChecked.remove(alarm.id);
+
+                                // Remember the set days in case the user wants it back.
+                                mPreviousDaysOfWeekMap.putInt("" + alarm.id, 0);
+                            }
+                        }
                         asyncUpdateAlarm(alarm, false);
                     }
                 });
@@ -672,6 +701,30 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 }
             });
         }
+
+        private void updateDaysOfWeekButtons(ItemHolder holder, Alarm.DaysOfWeek daysOfWeek) {
+            HashSet<Integer> setDays = daysOfWeek.getSetDays();
+            for (int i = 0; i < 7; i++) {
+                if (setDays.contains(DAY_ORDER[i])) {
+                    turnOnDayOfWeek(holder, i);
+                } else {
+                    turnOffDayOfWeek(holder, i);
+                }
+            }
+        }
+
+        private void turnOffDayOfWeek(ItemHolder holder, int dayIndex) {
+            holder.daysButtons[dayIndex].setChecked(false);
+            holder.daysButtons[dayIndex].setTextColor(mColorDim);
+            holder.daysButtons[dayIndex].setTypeface(mRobotoNormal);
+        }
+
+        private void turnOnDayOfWeek(ItemHolder holder, int dayIndex) {
+            holder.daysButtons[dayIndex].setChecked(true);
+            holder.daysButtons[dayIndex].setTextColor(mColorLit);
+            holder.daysButtons[dayIndex].setTypeface(mRobotoBold);
+        }
+
 
         /**
          * Does a read-through cache for ringtone titles.
@@ -745,6 +798,10 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 index++;
             }
             return ids;
+        }
+
+        public Bundle getPreviousDaysOfWeekMap() {
+            return mPreviousDaysOfWeekMap;
         }
 
         private void buildHashSetFromArray(int[] ids, HashSet<Integer> set) {
