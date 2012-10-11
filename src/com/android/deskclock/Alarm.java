@@ -128,7 +128,7 @@ public final class Alarm implements Parcelable {
          * The default sort order for this table
          */
         public static final String DEFAULT_SORT_ORDER =
-                _ID + " DESC";
+                HOUR + ", " + MINUTES + " ASC" + ", " + _ID + " DESC";
 
         // Used when filtering enabled alarms.
         public static final String WHERE_ENABLED = ENABLED + "=1";
@@ -228,7 +228,7 @@ public final class Alarm implements Parcelable {
     // Creates a default alarm at the current time.
     public Alarm() {
         id = -1;
-        hour = 6;
+        hour = 0;
         minutes = 0;
         vibrate = true;
         daysOfWeek = new DaysOfWeek(0);
