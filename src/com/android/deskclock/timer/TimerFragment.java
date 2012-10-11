@@ -65,6 +65,7 @@ public class TimerFragment extends DeskClockFragment
     private Button mCancel, mStart;
     private View mSeperator;
     private ImageButton mAddTimer;
+    private View mTimerFooter;
     private TimerSetupView mTimerSetup;
     private TimersListAdapter mAdapter;
     private boolean mTicking = false;
@@ -211,7 +212,10 @@ public class TimerFragment extends DeskClockFragment
 
             v.setBackgroundColor(getResources().getColor(R.color.blackish));
             countingTimerView.registerStopTextView(stop);
-            countingTimerView.registerActivity((DeskClock) getActivity());
+            // Use light's out setup when this fragment is within the DeskClock
+            if (getActivity() instanceof DeskClock) {
+                countingTimerView.registerActivity((DeskClock) getActivity());
+            }
             CircleButtonsLinearLayout circleLayout =
                     (CircleButtonsLinearLayout)v.findViewById(R.id.timer_circle);
             circleLayout.setCircleTimerViewIds(
@@ -347,31 +351,36 @@ public class TimerFragment extends DeskClockFragment
         }
 
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
-        mTimersList.setOnTouchListener(new OnTapListener(getActivity()));
 
-        float dividerHeight = getResources().getDimension(R.dimen.timer_divider_height);
-        View footerView = inflater.inflate(R.layout.blank_footer_view, mTimersList, false);
-        LayoutParams params = footerView.getLayoutParams();
-        params.height -= dividerHeight;
-        footerView.setLayoutParams(params);
-        footerView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((DeskClock) getActivity()).clockOnViewClick(v);
-            }
-        });
-        mTimersList.addFooterView(footerView);
-        View headerView = inflater.inflate(R.layout.blank_header_view, mTimersList, false);
-        params = headerView.getLayoutParams();
-        params.height -= dividerHeight;
-        headerView.setLayoutParams(params);
-        headerView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((DeskClock) getActivity()).clockOnViewClick(v);
-            }
-        });
-        mTimersList.addHeaderView(headerView);
+        // Use light's out if this fragment is within the DeskClock
+        if (getActivity() instanceof DeskClock) {
+            float dividerHeight = getResources().getDimension(R.dimen.timer_divider_height);
+            View footerView = inflater.inflate(R.layout.blank_footer_view, mTimersList, false);
+            LayoutParams params = footerView.getLayoutParams();
+            params.height -= dividerHeight;
+            footerView.setLayoutParams(params);
+            mTimersList.addFooterView(footerView);
+            View headerView = inflater.inflate(R.layout.blank_header_view, mTimersList, false);
+            params = headerView.getLayoutParams();
+            params.height -= dividerHeight;
+            headerView.setLayoutParams(params);
+            mTimersList.addHeaderView(headerView);
+            mTimersList.setOnTouchListener(new OnTapListener(getActivity()));
+            footerView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((DeskClock) getActivity()).clockOnViewClick(v);
+                }
+            });
+            headerView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((DeskClock) getActivity()).clockOnViewClick(v);
+                }
+            });
+        } else {
+            mTimersList.setBackgroundColor(getResources().getColor(R.color.blackish));
+        }
 
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
         mTimersListPage = v.findViewById(R.id.timers_list_page);
@@ -409,6 +418,7 @@ public class TimerFragment extends DeskClockFragment
         mAddTimer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                // This is unchecked because mAddTimer only used within DeskClock
                 DeskClock activity = ((DeskClock) getActivity());
                 if (!activity.isClockStateNormal()) {
                     activity.bringLightsUp(true);
@@ -419,7 +429,8 @@ public class TimerFragment extends DeskClockFragment
             }
 
         });
-        mAddTimer.setVisibility(mOnEmptyListListener == null ? View.VISIBLE : View.GONE);
+        mTimerFooter = v.findViewById(R.id.timer_footer);
+        mTimerFooter.setVisibility(mOnEmptyListListener == null ? View.VISIBLE : View.GONE);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mNotificationManager = (NotificationManager)
                 getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
@@ -528,20 +539,29 @@ public class TimerFragment extends DeskClockFragment
             mSeperator.setVisibility(View.VISIBLE);
             mCancel.setVisibility(View.VISIBLE);
         }
-        ((DeskClock) getActivity()).setTimerAddingTimerState(true);
-        ((DeskClock) getActivity()).bringLightsUp(false);
+        // Use light's out setup when this fragment is within the DeskClock
+        if (getActivity() instanceof DeskClock) {
+            ((DeskClock) getActivity()).setTimerAddingTimerState(true);
+            ((DeskClock) getActivity()).bringLightsUp(false);
+        }
     }
     private void gotoTimersView() {
         mNewTimerPage.setVisibility(View.GONE);
         mTimersListPage.setVisibility(View.VISIBLE);
         startClockTicks();
-        ((DeskClock) getActivity()).setTimerAddingTimerState(false);
-        ((DeskClock) getActivity()).bringLightsUp(false);
+        // Use light's out setup when this fragment is within the DeskClock
+        if (getActivity() instanceof DeskClock) {
+            ((DeskClock) getActivity()).setTimerAddingTimerState(false);
+            ((DeskClock) getActivity()).bringLightsUp(false);
+        }
     }
 
     @Override
     public void onClick(View v) {
-        ((DeskClock) getActivity()).scheduleLightsOut();
+        // Use light's out setup when this fragment is within the DeskClock
+        if (getActivity() instanceof DeskClock) {
+            ((DeskClock) getActivity()).scheduleLightsOut();
+        }
         ClickAction tag = (ClickAction) v.getTag();
         onClickHelper(tag);
     }
