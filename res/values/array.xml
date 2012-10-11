@@ -16,7 +16,7 @@
   -->
 
 <resources>
-    <array name="cities_names">
+    <string-array name="cities_names">
 		<item>Abidjan</item>
 		<item>Accra</item>
 		<item>Addis Ababa</item>
@@ -288,8 +288,8 @@
 		<item>Brasilia</item>
 		<item>Cape Town</item>
 		<item>Islamabad</item>
-    </array>
-    <array name="cities_tz" translatable="false">
+    </string-array>
+    <string-array name="cities_tz" translatable="false">
 		<item>Africa/Abidjan</item>
 		<item>Africa/Accra</item>
 		<item>Africa/Addis_Ababa</item>
@@ -561,9 +561,9 @@
 		<item>America/Sao_Paulo</item>
 		<item>Africa/Johannesburg</item>
 		<item>Asia/Karachi</item>
-    </array>
+    </string-array>
 
-    <array name="cities_id" translatable="false">
+    <string-array name="cities_id" translatable="false">
 		<item>C1</item>
 		<item>C2</item>
 		<item>C3</item>
@@ -835,5 +835,5 @@
 		<item>C269</item>
 		<item>C270</item>
 		<item>C271</item>
-    </array>
+    </string-array>
 </resources>
