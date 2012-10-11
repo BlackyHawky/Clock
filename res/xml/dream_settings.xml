@@ -14,7 +14,7 @@
 
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:title="@string/settings">
+    android:title="@string/app_label">
     <ListPreference
         android:key="screensaver_clock_style"
         android:title="@string/clock_style"
