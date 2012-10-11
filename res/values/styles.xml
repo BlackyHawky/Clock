@@ -175,6 +175,19 @@
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
+    <style name="alarm_label">
+        <item name="android:textSize">@dimen/alarm_label_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="alarm_label_bold">
+        <item name="android:textSize">@dimen/alarm_label_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
     <style name="body">
         <item name="android:textSize">@dimen/body_font_size</item>
         <item name="android:textAllCaps">true</item>
