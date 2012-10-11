@@ -186,7 +186,7 @@
     <item quantity="one" msgid="6764708652976799977">"1 Minute"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> Timer"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"Startbildschirm"</string>
+    <string name="home_label" msgid="4436139365695453870">"Heimatzeitzone"</string>
     <string name="remove_question" msgid="716296469879431612">"Diese Stadt entfernen?"</string>
     <string name="sort_by_name" msgid="7825123427213807895">"Nach Namen"</string>
     <string name="sort_by_time" msgid="3588583060192569857">"Nach Uhrzeit"</string>
@@ -332,4 +332,6 @@
     <string name="alarm_undo" msgid="5710042601177655254">"Rückgängig machen"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"Weckzeit gelöscht"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
+    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
+    <skip />
 </resources>

@@ -328,8 +328,10 @@
     <string name="night_mode_title" msgid="5983813889469616299">"Нічний режим"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Дуже тьмяний дисплей (для темних приміщень)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Посилити сигнал"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Стишити сигнал"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Згорнути"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"відмінити"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"Сигнал видалено."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
+    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
+    <skip />
 </resources>
