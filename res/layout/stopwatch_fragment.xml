@@ -61,6 +61,7 @@
             android:paddingRight="10dip"
             android:paddingBottom="5dip"
             android:paddingTop="5dip"
+            android:textColor="@color/clock_white"
             android:text="@string/timer_stop"
             android:focusable="true" />
 
