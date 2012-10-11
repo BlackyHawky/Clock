@@ -261,7 +261,7 @@
       </string-array>
 
     <!-- Values for the side-button setting. -->
-    <string-array name="volume_button_setting_values">
+    <string-array name="volume_button_setting_values" translatable="false">
       <item>1</item>
       <item>2</item>
       <item>0</item>
@@ -449,7 +449,7 @@
 
     <!-- Values that are retrieved from the ListPreference. These must match
          the clock_style_entries above. -->
-    <string-array name="clock_style_values">
+    <string-array name="clock_style_values" translatable="false">
       <item>analog</item>
       <item>digital</item>
     </string-array>
