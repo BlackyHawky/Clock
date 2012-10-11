@@ -308,6 +308,10 @@
     <string name="button_cities">Cities</string>
     <!-- Describes the purpose of the button which pops up a menu of setting choices -->
     <string name="button_menu">Menu</string>
+    <!-- Menu item on most screens to get to more settings -->
+    <string name="menu_item_settings">Settings</string>
+    <!-- Menu item on most screens to get to the help information -->
+    <string name="menu_item_help">Help</string>
 
     <!-- Stop Watch strings -->
     <!-- Describes the purpose of the button to resume running a stopwatch -->
