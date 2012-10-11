@@ -331,6 +331,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"アラームを折りたたむ"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"元に戻す"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"アラームを削除しました。"</string>
-    <!-- no translation found for slash (2077577763821006919) -->
+    <string name="slash" msgid="2077577763821006919">"/"</string>
+    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
     <skip />
 </resources>

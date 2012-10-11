@@ -324,13 +324,14 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"المس للاطلاع على الموقتات"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> من الموقتات"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"الموقت التالي: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"إعدادات شاشة التوقف"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"إعدادات Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"وضع ليلي"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"شاشة معتمة جدًا (للغرف المظلمة)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"توسيع المنبه"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"تصغير المنبه"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"تراجع"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"تم حذف المنبه."</string>
-    <!-- no translation found for slash (2077577763821006919) -->
+    <string name="slash" msgid="2077577763821006919">"/"</string>
+    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
     <skip />
 </resources>

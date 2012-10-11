@@ -330,6 +330,8 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Panua kengele"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Kunja kengele"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"tendua"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Kengele ilifutwa."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Kengele imefutwa."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
+    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
+    <skip />
 </resources>
