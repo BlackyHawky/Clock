@@ -329,10 +329,9 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"Тусклый дисплей (для темных помещений)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Развернуть"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Свернуть"</string>
-    <!-- no translation found for alarm_undo (5710042601177655254) -->
-    <skip />
-    <!-- no translation found for alarm_deleted (5017075127290219443) -->
-    <skip />
-    <!-- no translation found for slash (2077577763821006919) -->
+    <string name="alarm_undo" msgid="5710042601177655254">"отмена"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Будильник удален"</string>
+    <string name="slash" msgid="2077577763821006919">"/"</string>
+    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
     <skip />
 </resources>
