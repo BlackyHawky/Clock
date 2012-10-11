@@ -91,6 +91,10 @@ public class DigitalClock extends LinearLayout {
         void setIsMorning(boolean isMorning) {
             mAmPm.setText(isMorning ? mAmString : mPmString);
         }
+
+        CharSequence getAmPmText() {
+            return mAmPm.getText();
+        }
     }
 
     private class FormatChangeObserver extends ContentObserver {
@@ -185,15 +189,26 @@ public class DigitalClock extends LinearLayout {
         if (mLive) {
             mCalendar.setTimeInMillis(System.currentTimeMillis());
         }
-
         if (mTimeZoneId != null) {
             mCalendar.setTimeZone(TimeZone.getTimeZone(mTimeZoneId));
         }
+
+        StringBuilder fullTimeStr = new StringBuilder();
         CharSequence newTime = DateFormat.format(mHoursFormat, mCalendar);
         mTimeDisplayHours.setText(newTime);
+        fullTimeStr.append(newTime);
         newTime = DateFormat.format(MINUTES, mCalendar);
+        fullTimeStr.append(newTime);
         mTimeDisplayMinutes.setText(newTime);
-        mAmPm.setIsMorning(mCalendar.get(Calendar.AM_PM) == 0);
+
+        boolean isMorning = mCalendar.get(Calendar.AM_PM) == 0;
+        mAmPm.setIsMorning(isMorning);
+        if (!Alarms.get24HourMode(getContext())) {
+            fullTimeStr.append(mAmPm.getAmPmText());
+        }
+
+        // Update accessibility string.
+        setContentDescription(fullTimeStr);
     }
 
     private void setDateFormat() {
