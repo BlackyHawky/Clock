@@ -174,7 +174,7 @@ public class StopwatchService extends Service {
             leftButtonIntent.setAction(Stopwatches.LAP_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
                     PendingIntent.getService(context, 0, leftButtonIntent, 0));
-            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_lap, 0, 0, 0);
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_notify_lap, 0, 0, 0);
 
             // Right button: stop clock
             remoteViewsExpanded.setTextViewText(
@@ -183,7 +183,7 @@ public class StopwatchService extends Service {
             rightButtonIntent.setAction(Stopwatches.STOP_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_right_button,
                     PendingIntent.getService(context, 0, rightButtonIntent, 0));
-            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_right_button, R.drawable.ic_stop_normal, 0, 0, 0);
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_right_button, R.drawable.ic_notify_stop, 0, 0, 0);
 
             // Show the laps if applicable.
             if (numLaps > 0) {
@@ -205,7 +205,7 @@ public class StopwatchService extends Service {
             leftButtonIntent.setAction(Stopwatches.RESET_AND_LAUNCH_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
                     PendingIntent.getService(context, 0, leftButtonIntent, 0));
-            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_reset, 0, 0, 0);
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_left_button, R.drawable.ic_notify_reset, 0, 0, 0);
 
             // Right button: start clock
             remoteViewsExpanded.setTextViewText(
@@ -214,7 +214,7 @@ public class StopwatchService extends Service {
             rightButtonIntent.setAction(Stopwatches.START_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_right_button,
                     PendingIntent.getService(context, 0, rightButtonIntent, 0));
-            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_right_button, R.drawable.ic_start_normal, 0, 0, 0);
+            remoteViewsExpanded.setTextViewCompoundDrawables(R.id.swn_right_button, R.drawable.ic_notify_start, 0, 0, 0);
 
             // Show stopped string.
             remoteViewsCollapsed.setTextViewText(R.id.swn_collapsed_laps, getString(R.string.swn_stopped));
