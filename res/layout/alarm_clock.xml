@@ -21,15 +21,13 @@
     android:layout_height="match_parent">
 
     <com.android.deskclock.widget.swipeablelistview.SwipeableListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/alarms_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:clipToPadding="false"
         android:descendantFocusability="beforeDescendants"
-        android:divider="?android:attr/dividerVertical"
+        android:divider="@null"
+        android:dividerHeight="6dp"
         />
 
     <com.android.deskclock.widget.ActionableToastBar

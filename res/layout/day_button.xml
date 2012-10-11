@@ -21,6 +21,7 @@
     android:layout_width="0dp"
     android:layout_height="48dp"
     android:layout_weight="1"
+    android:gravity="center"
     style="@style/body"
     android:textColor="@color/clock_gray"
     android:background="@null"/>
