@@ -312,6 +312,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         final Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, alarm.alert);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, false);
         startActivityForResult(intent, REQUEST_CODE_RINGTONE);
     }
 
@@ -336,21 +337,21 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
     public class AlarmItemAdapter extends CursorAdapter {
 
-        private Context mContext;
-        private LayoutInflater mFactory;
-        private String[] mShortWeekDayStrings;
-        private int mColorLit;
-        private int mColorDim;
-        private int mColorRed;
-        private Typeface mRobotoNormal;
-        private Typeface mRobotoBold;
+        private final Context mContext;
+        private final LayoutInflater mFactory;
+        private final String[] mShortWeekDayStrings;
+        private final int mColorLit;
+        private final int mColorDim;
+        private final int mColorRed;
+        private final Typeface mRobotoNormal;
+        private final Typeface mRobotoBold;
 
-        private HashSet<Integer> mExpanded = new HashSet<Integer>();
-        private HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
+        private final HashSet<Integer> mExpanded = new HashSet<Integer>();
+        private final HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
         private Bundle mPreviousDaysOfWeekMap = new Bundle();
         private boolean mNewAlarmCreated = false;
 
-        private boolean mHasVibrator;
+        private final boolean mHasVibrator;
 
         // This determines the order in which it is shown and processed in the UI.
         private final int[] DAY_ORDER = new int[] {
