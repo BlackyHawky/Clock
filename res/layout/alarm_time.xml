@@ -103,7 +103,7 @@
             <TextView android:id="@+id/label"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
-                      style="@style/alarm_label"
+                      style="@style/alarm_label_not_caps"
                       android:textColor="@color/clock_gray"
                       android:ellipsize="end"
                       android:singleLine="true"/>
@@ -132,10 +132,9 @@
 
         <TextView
             android:id="@+id/edit_label"
-            style="@style/body"
+            style="@style/body_not_caps"
             android:gravity="center_vertical"
             android:textColor="@color/clock_gray"
-            android:inputType="text"
             android:hint="@string/label"
             android:layout_width="wrap_content"
             android:layout_height="64dp"

@@ -52,7 +52,7 @@
     <string name="hide_clock">Hide clock</string>
 
     <!-- Setting label on Set alarm screen: Label -->
-    <string name="label">Label (optional)</string>
+    <string name="label">Label</string>
 
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
@@ -466,7 +466,7 @@
     <!-- Textual content of the button to discard the current dialog values and close the dialog -->
     <string name="time_picker_cancel">Cancel</string>
     <!-- Textual content of the button to update an alarm with the current dialog values -->
-    <string name="time_picker_set">Set</string>
+    <string name="time_picker_set">OK</string>
     <string name="time_picker_time_seperator">:</string>
     <!--  place holder for am/pm label when it is not set -->
     <string name="time_picker_ampm_label">--</string>
@@ -705,6 +705,6 @@
     <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
     <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
     <string name="next_alarm_description">Next alarm: <xliff:g id="alarm_time" example="Wed 8:00am">%s</xliff:g></string>
-    
+    <string name="label_unlabeled"></string>
 </resources>
 

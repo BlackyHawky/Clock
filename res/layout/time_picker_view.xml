@@ -102,6 +102,6 @@
     <include layout="@layout/three_keys_view"
         android:id="@+id/third"/>
 
-    <include layout="@layout/three_keys_view"
+    <include layout="@layout/three_keys_view_ampm"
         android:id="@+id/fourth" />
  </LinearLayout>

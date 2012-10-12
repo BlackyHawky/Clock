@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/alertTitle"
-            style="@style/header"
+            style="@style/header_not_caps"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
