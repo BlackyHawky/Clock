@@ -381,7 +381,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             TextView clickableLabel;
             CheckBox repeat;
             LinearLayout repeatDays;
-            ToggleButton[] daysButtons = new ToggleButton[7];
+            ViewGroup[] dayButtonParents = new ViewGroup[7];
+            ToggleButton[] dayButtons = new ToggleButton[7];
             CheckBox vibrate;
             ViewGroup collapse;
             TextView ringtone;
@@ -464,15 +465,17 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
             // Build button for each day.
             for (int i = 0; i < 7; i++) {
-                final ToggleButton button = (ToggleButton) mFactory.inflate(R.layout.day_button,
+                final ViewGroup viewgroup = (ViewGroup) mFactory.inflate(R.layout.day_button,
                         holder.repeatDays, false);
+                final ToggleButton button = (ToggleButton) viewgroup.getChildAt(0);
                 final int dayToShowIndex = DAY_ORDER[i];
                 button.setText(mShortWeekDayStrings[dayToShowIndex]);
                 button.setTextOn(mShortWeekDayStrings[dayToShowIndex]);
                 button.setTextOff(mShortWeekDayStrings[dayToShowIndex]);
                 button.setContentDescription(mLongWeekDayStrings[dayToShowIndex]);
-                holder.repeatDays.addView(button);
-                holder.daysButtons[i] = button;
+                holder.repeatDays.addView(viewgroup);
+                holder.dayButtons[i] = button;
+                holder.dayButtonParents[i] = viewgroup;
             }
             holder.vibrate = (CheckBox) view.findViewById(R.id.vibrate_onoff);
             holder.collapse = (ViewGroup) view.findViewById(R.id.collapse);
@@ -626,10 +629,12 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             updateDaysOfWeekButtons(itemHolder, alarm.daysOfWeek);
             for (int i = 0; i < 7; i++) {
                 final int buttonIndex = i;
-                itemHolder.daysButtons[i].setOnClickListener(new View.OnClickListener() {
+
+                itemHolder.dayButtonParents[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final boolean checked = ((ToggleButton) view).isChecked();
+                        itemHolder.dayButtons[buttonIndex].toggle();
+                        final boolean checked = itemHolder.dayButtons[buttonIndex].isChecked();
                         int day = DAY_ORDER[buttonIndex];
                         alarm.daysOfWeek.setDayOfWeek(day, checked);
                         if (checked) {
@@ -698,7 +703,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             itemHolder.ringtone.setText(ringtone);
             itemHolder.ringtone.setContentDescription(
                     mContext.getResources().getString(R.string.ringtone_description) + " "
-                    + ringtone);
+                            + ringtone);
             itemHolder.ringtone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -719,15 +724,15 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         }
 
         private void turnOffDayOfWeek(ItemHolder holder, int dayIndex) {
-            holder.daysButtons[dayIndex].setChecked(false);
-            holder.daysButtons[dayIndex].setTextColor(mColorDim);
-            holder.daysButtons[dayIndex].setTypeface(mRobotoNormal);
+            holder.dayButtons[dayIndex].setChecked(false);
+            holder.dayButtons[dayIndex].setTextColor(mColorDim);
+            holder.dayButtons[dayIndex].setTypeface(mRobotoNormal);
         }
 
         private void turnOnDayOfWeek(ItemHolder holder, int dayIndex) {
-            holder.daysButtons[dayIndex].setChecked(true);
-            holder.daysButtons[dayIndex].setTextColor(mColorLit);
-            holder.daysButtons[dayIndex].setTypeface(mRobotoBold);
+            holder.dayButtons[dayIndex].setChecked(true);
+            holder.dayButtons[dayIndex].setTextColor(mColorLit);
+            holder.dayButtons[dayIndex].setTypeface(mRobotoBold);
         }
 
 
