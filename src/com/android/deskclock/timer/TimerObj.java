@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public class TimerObj implements Parcelable {
@@ -265,5 +266,13 @@ public class TimerObj implements Parcelable {
         }
     }
 
+    public static void cleanTimersFromSharedPrefs(SharedPreferences prefs) {
+        ArrayList<TimerObj> timers = new  ArrayList<TimerObj>();
+        getTimersFromSharedPrefs(prefs, timers);
+        Iterator<TimerObj> i = timers.iterator();
+        while(i.hasNext()) {
+            i.next().deleteFromSharedPref(prefs);
+        }
+    }
 
 }
