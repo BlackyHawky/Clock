@@ -70,6 +70,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private SharedPreferences mPrefs;
     private final Collator mCollator = Collator.getInstance();
     private String mDateFormat;
+    private String mDateFormatForAccessibility;
 
     private PendingIntent mQuarterlyIntent;
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
@@ -136,6 +137,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
         // Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45)
         Calendar nextQuarter = Calendar.getInstance();
@@ -209,6 +211,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
         if (!TextUtils.isEmpty(nextAlarm) && nextAlarmView != null) {
             nextAlarmView.setText(getString(R.string.control_set_alarm_with_existing, nextAlarm));
+            nextAlarmView.setContentDescription(getResources().getString(
+                    R.string.next_alarm_description, nextAlarm));
             nextAlarmView.setVisibility(View.VISIBLE);
             slash.setVisibility(View.VISIBLE);
         } else  {
@@ -231,6 +235,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         if (dateDisplay != null) {
             dateDisplay.setVisibility(View.VISIBLE);
             dateDisplay.setText(newDate);
+            dateDisplay.setContentDescription(DateFormat.format(mDateFormatForAccessibility, cal));
         }
     }
 
