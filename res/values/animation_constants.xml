@@ -31,7 +31,7 @@
     <integer name="fade_duration">250</integer>
 
     <!-- Swipe constants -->
-    <integer name="swipe_escape_velocity">4000</integer>
+    <integer name="swipe_escape_velocity">100</integer>
     <integer name="escape_animation_duration">200</integer>
     <integer name="max_escape_animation_duration">400</integer>
     <integer name="max_dismiss_velocity">2000</integer>

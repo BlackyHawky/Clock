@@ -65,7 +65,7 @@ public class SwipeHelper {
     static final float ALPHA_FADE_END = 0.7f; // fraction of thumbnail width
                                               // beyond which alpha->0
     private static final float FACTOR = 1.2f;
-    private float mMinAlpha = 0.5f;
+    private float mMinAlpha = 0.3f;
 
     private float mPagingTouchSlop;
     private final Callback mCallback;
@@ -80,6 +80,8 @@ public class SwipeHelper {
     private float mDensityScale;
     private float mLastY;
     private float mInitialTouchPosY;
+
+    private float mStartAlpha;
 
     public SwipeHelper(Context context, int swipeDirection, Callback callback, float densityScale,
             float pagingTouchSlop) {
@@ -154,12 +156,12 @@ public class SwipeHelper {
     private float getAlphaForOffset(View view) {
         float viewSize = getSize(view);
         final float fadeSize = ALPHA_FADE_END * viewSize;
-        float result = 1.0f;
+        float result = mStartAlpha;
         float pos = view.getTranslationX();
         if (pos >= viewSize * ALPHA_FADE_START) {
-            result = 1.0f - (pos - viewSize * ALPHA_FADE_START) / fadeSize;
-        } else if (pos < viewSize * (1.0f - ALPHA_FADE_START)) {
-            result = 1.0f + (viewSize * ALPHA_FADE_START + pos) / fadeSize;
+            result = mStartAlpha - (pos - viewSize * ALPHA_FADE_START) / fadeSize;
+        } else if (pos < viewSize * (mStartAlpha - ALPHA_FADE_START)) {
+            result = mStartAlpha + (viewSize * ALPHA_FADE_START + pos) / fadeSize;
         }
         return Math.max(mMinAlpha, result);
     }
@@ -203,6 +205,7 @@ public class SwipeHelper {
                 mVelocityTracker.clear();
                 if (mCurrView != null) {
                     mCurrAnimView = mCallback.getChildContentView(mCurrView);
+                    mStartAlpha = mCurrAnimView.getAlpha();
                     mCanCurrViewBeDimissed = mCallback.canChildBeDismissed(mCurrView);
                     mVelocityTracker.addMovement(ev);
                     mInitialTouchPosX = ev.getX();
@@ -324,7 +327,7 @@ public class SwipeHelper {
             }
             @Override
             public void onAnimationEnd(Animator animation) {
-                animView.setAlpha(1.0f);
+                animView.setAlpha(mStartAlpha);
                 mCallback.onDragCancelled(mCurrView);
             }
             @Override
@@ -398,7 +401,7 @@ public class SwipeHelper {
                     float currAnimViewSize = getSize(mCurrAnimView);
                     // Long swipe = translation of .4 * width
                     boolean childSwipedFarEnough = DISMISS_IF_SWIPED_FAR_ENOUGH
-                            && translation > 0.55 * currAnimViewSize;
+                            && translation > 0.4 * currAnimViewSize;
                     // Fast swipe = > escapeVelocity and translation of .1 *
                     // width
                     boolean childSwipedFastEnough = (Math.abs(velocity) > escapeVelocity)
