@@ -112,7 +112,11 @@ public class StopwatchService extends Service {
             chooserIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             getApplication().startActivity(chooserIntent);
         } else if (actionType.equals(Stopwatches.SHOW_NOTIF)) {
-            showSavedNotification();
+            // SHOW_NOTIF sent from the DeskClock.onPause
+            // If a notification is not displayed, this service's work is over
+            if (!showSavedNotification()) {
+                stopSelf();
+            }
         } else if (actionType.equals(Stopwatches.KILL_NOTIF)) {
             mNotificationManager.cancel(NOTIFICATION_ID);
         }
@@ -252,7 +256,7 @@ public class StopwatchService extends Service {
     }
 
     /** Show the most recently saved notification. **/
-    private void showSavedNotification() {
+    private boolean showSavedNotification() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
                 getApplicationContext());
         long clockBaseTime = prefs.getLong(Stopwatches.NOTIF_CLOCK_BASE, -1);
@@ -261,7 +265,7 @@ public class StopwatchService extends Service {
         int numLaps = prefs.getInt(Stopwatches.PREF_LAP_NUM, -1);
         if (clockBaseTime == -1) {
             if (clockElapsedTime == -1) {
-                return;
+                return false;
             } else {
                 // We don't have a clock base time, so the clock is stopped.
                 // Use the elapsed time to figure out what time to show.
@@ -270,6 +274,7 @@ public class StopwatchService extends Service {
             }
         }
         setNotification(clockBaseTime, clockRunning, numLaps);
+        return true;
     }
 
     private void clearSavedNotification() {
