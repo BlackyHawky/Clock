@@ -295,6 +295,14 @@ public final class Alarm implements Parcelable {
         }
 
         public String toString(Context context, boolean showNever) {
+            return toString(context, showNever, false);
+        }
+
+        public String toAccessibilityString(Context context) {
+            return toString(context, false, true);
+        }
+
+        private String toString(Context context, boolean showNever, boolean forAccessibility) {
             StringBuilder ret = new StringBuilder();
 
             // no days
@@ -317,9 +325,9 @@ public final class Alarm implements Parcelable {
 
             // short or long form?
             DateFormatSymbols dfs = new DateFormatSymbols();
-            String[] dayList = (dayCount > 1) ?
-                    dfs.getShortWeekdays() :
-                    dfs.getWeekdays();
+            String[] dayList = (forAccessibility || dayCount <= 1) ?
+                            dfs.getWeekdays() :
+                            dfs.getShortWeekdays();
 
             // selected days
             for (int i = 0; i < 7; i++) {

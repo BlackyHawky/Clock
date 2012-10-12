@@ -24,10 +24,10 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 
 import com.android.deskclock.DeskClock;
-import com.android.deskclock.Log;
 import com.android.deskclock.R;
 
 
@@ -63,6 +63,7 @@ public class CountingTimerView extends View {
     private final int mRedColor;
     private TextView mStopStartTextView;
     private DeskClock mActivity;
+    private final AccessibilityManager mAccessibilityManager;
 
     // Fields for the text serving as a virtual button.
     private boolean mVirtualButtonEnabled = false;
@@ -89,6 +90,8 @@ public class CountingTimerView extends View {
         mAndroidClockMonoThin = Typeface.createFromAsset(context.getAssets(),"fonts/AndroidClockMono-Thin.ttf");
         mAndroidClockMonoBold = Typeface.createFromAsset(context.getAssets(),"fonts/AndroidClockMono-Bold.ttf");
         mAndroidClockMonoLight = Typeface.createFromAsset(context.getAssets(),"fonts/AndroidClockMono-Light.ttf");
+        mAccessibilityManager =
+                (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         mRobotoLabel= Typeface.create("sans-serif-condensed", Typeface.BOLD);
         Resources r = context.getResources();
         mHoursLabel = r.getString(R.string.hours_label).toUpperCase();
@@ -202,6 +205,8 @@ public class CountingTimerView extends View {
         mRemeasureText = true;
 
         if (update) {
+            setContentDescription(getTimeStringForAccessibility((int) hours, (int) minutes,
+                    (int) seconds, showNeg, getResources()));
             invalidate();
         }
     }
@@ -259,15 +264,6 @@ public class CountingTimerView extends View {
         }
     }
 
-    public void setTime(String hours, String minutes, String seconds, String hundreds) {
-            mHours = hours;
-            mMinutes = minutes;
-            mSeconds = seconds;
-            mHunderdths = hundreds;
-            mRemeasureText = true;
-            invalidate();
-    }
-
     public void blinkTimeStr(boolean blink) {
         if (blink) {
             removeCallbacks(mBlinkThread);
@@ -299,6 +295,44 @@ public class CountingTimerView extends View {
         return String.format("%s:%s:%s.%s",mHours, mMinutes, mSeconds,  mHunderdths);
     }
 
+    private static String getTimeStringForAccessibility(int hours, int minutes, int seconds,
+            boolean showNeg, Resources r) {
+        StringBuilder s = new StringBuilder();
+        if (showNeg) {
+            // This must be followed by a non-zero number or it will be audible as "hyphen"
+            // instead of "minus".
+            s.append("-");
+        }
+        if (showNeg && hours == 0 && minutes == 0) {
+            // Non-negative time will always have minutes, eg. "0 minutes 7 seconds", but negative
+            // time must start with non-zero digit, eg. -0m7s will be audible as just "-7 seconds"
+            s.append(String.format(
+                    r.getQuantityText(R.plurals.Nseconds_description, seconds).toString(),
+                    seconds));
+        } else if (hours == 0) {
+            s.append(String.format(
+                    r.getQuantityText(R.plurals.Nminutes_description, minutes).toString(),
+                    minutes));
+            s.append(" ");
+            s.append(String.format(
+                    r.getQuantityText(R.plurals.Nseconds_description, seconds).toString(),
+                    seconds));
+        } else {
+            s.append(String.format(
+                    r.getQuantityText(R.plurals.Nhours_description, hours).toString(),
+                    hours));
+            s.append(" ");
+            s.append(String.format(
+                    r.getQuantityText(R.plurals.Nminutes_description, minutes).toString(),
+                    minutes));
+            s.append(" ");
+            s.append(String.format(
+                    r.getQuantityText(R.plurals.Nseconds_description, seconds).toString(),
+                    seconds));
+        }
+        return s.toString();
+    }
+
     public void setVirtualButtonEnabled(boolean enabled) {
         mVirtualButtonEnabled = enabled;
     }
@@ -322,42 +356,51 @@ public class CountingTimerView extends View {
     }
 
     public void registerVirtualButtonAction(final Runnable runnable) {
-        this.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (mVirtualButtonEnabled) {
-                    switch (event.getAction()) {
-                        case MotionEvent.ACTION_DOWN:
-                            if (withinVirtualButtonBounds(event.getX(), event.getY())) {
-                                virtualButtonPressed(true);
-                                if (mActivity != null) {
-                                    mActivity.removeLightsMessages();
+        if (!mAccessibilityManager.isEnabled()) {
+            this.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (mVirtualButtonEnabled) {
+                        switch (event.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                if (withinVirtualButtonBounds(event.getX(), event.getY())) {
+                                    virtualButtonPressed(true);
+                                    if (mActivity != null) {
+                                        mActivity.removeLightsMessages();
+                                    }
+                                    return true;
+                                } else {
+                                    virtualButtonPressed(false);
+                                    return false;
                                 }
+                            case MotionEvent.ACTION_CANCEL:
+                                virtualButtonPressed(false);
                                 return true;
-                            } else {
+                            case MotionEvent.ACTION_OUTSIDE:
                                 virtualButtonPressed(false);
                                 return false;
-                            }
-                        case MotionEvent.ACTION_CANCEL:
-                            virtualButtonPressed(false);
-                            return true;
-                        case MotionEvent.ACTION_OUTSIDE:
-                            virtualButtonPressed(false);
-                            return false;
-                        case MotionEvent.ACTION_UP:
-                            virtualButtonPressed(false);
-                            if (withinVirtualButtonBounds(event.getX(), event.getY())) {
-                                if (mActivity != null) {
-                                    mActivity.scheduleLightsOut();
+                            case MotionEvent.ACTION_UP:
+                                virtualButtonPressed(false);
+                                if (withinVirtualButtonBounds(event.getX(), event.getY())) {
+                                    if (mActivity != null) {
+                                        mActivity.scheduleLightsOut();
+                                    }
+                                    runnable.run();
                                 }
-                                runnable.run();
-                            }
-                            return true;
+                                return true;
+                        }
                     }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        } else {
+            this.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    runnable.run();
+                }
+            });
+        }
     }
 
     @Override

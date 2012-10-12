@@ -340,6 +340,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         private final Context mContext;
         private final LayoutInflater mFactory;
         private final String[] mShortWeekDayStrings;
+        private final String[] mLongWeekDayStrings;
         private final int mColorLit;
         private final int mColorDim;
         private final int mColorRed;
@@ -394,6 +395,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
             DateFormatSymbols dfs = new DateFormatSymbols();
             mShortWeekDayStrings = dfs.getShortWeekdays();
+            mLongWeekDayStrings = dfs.getWeekdays();
 
             mColorLit = mContext.getResources().getColor(R.color.clock_white);
             mColorDim = mContext.getResources().getColor(R.color.clock_gray);
@@ -465,6 +467,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 button.setText(mShortWeekDayStrings[dayToShowIndex]);
                 button.setTextOn(mShortWeekDayStrings[dayToShowIndex]);
                 button.setTextOff(mShortWeekDayStrings[dayToShowIndex]);
+                button.setContentDescription(mLongWeekDayStrings[dayToShowIndex]);
                 holder.repeatDays.addView(button);
                 holder.daysButtons[i] = button;
             }
@@ -543,6 +546,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             final String daysOfWeekStr = alarm.daysOfWeek.toString(AlarmClock.this, false);
             if (daysOfWeekStr != null && daysOfWeekStr.length() != 0) {
                 itemHolder.daysOfWeek.setText(daysOfWeekStr);
+                itemHolder.daysOfWeek.setContentDescription(
+                        alarm.daysOfWeek.toAccessibilityString(AlarmClock.this));
                 itemHolder.daysOfWeek.setVisibility(View.VISIBLE);
                 colons = ": ";
             } else {
@@ -552,6 +557,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             if (alarm.label != null && alarm.label.length() != 0) {
                 itemHolder.label.setText(alarm.label + colons);
                 itemHolder.label.setVisibility(View.VISIBLE);
+                itemHolder.label.setContentDescription(
+                        mContext.getResources().getString(R.string.label_description) + " "
+                        + alarm.label);
             } else {
                 itemHolder.label.setVisibility(View.GONE);
             }
@@ -694,6 +702,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 ringtone = getRingToneTitle(alarm.alert);
             }
             itemHolder.ringtone.setText(ringtone);
+            itemHolder.ringtone.setContentDescription(
+                    mContext.getResources().getString(R.string.ringtone_description) + " "
+                    + ringtone);
             itemHolder.ringtone.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
