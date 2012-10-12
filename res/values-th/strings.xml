@@ -27,7 +27,7 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"ลบการตั้งเวลาปลุกนี้หรือไม่"</string>
     <string name="show_clock" msgid="8358759982675616915">"แสดงนาฬิกา"</string>
     <string name="hide_clock" msgid="3217727306480505694">"ซ่อนนาฬิกา"</string>
-    <string name="label" msgid="7713131021574533921">"ป้ายกำกับ (ตัวเลือก)"</string>
+    <string name="label" msgid="162189613902857319">"ป้ายกำกับ"</string>
     <string name="default_label" msgid="5590025289805630372">"ปลุก"</string>
     <string name="set_alarm" msgid="9148359866152726808">"ตั้งปลุก"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"สั่น"</string>
@@ -204,7 +204,8 @@
     <string name="home_time_zone" msgid="9199730676287974501">"เขตเวลาท้องถิ่น"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"เขตเวลาท้องถิ่น"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"ยกเลิก"</string>
-    <string name="time_picker_set" msgid="277860606472289828">"ตั้ง"</string>
+    <!-- no translation found for time_picker_set (331153175471468051) -->
+    <skip />
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -316,8 +317,8 @@
     <string name="alarm_undo" msgid="5710042601177655254">"เลิกทำ"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"ลบการแจ้งเตือนแล้ว"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
-    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
-    <skip />
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <!-- no translation found for next_alarm_description (2650244835760747046) -->
     <skip />
+    <string name="label_unlabeled" msgid="4699506713571930740"></string>
 </resources>
