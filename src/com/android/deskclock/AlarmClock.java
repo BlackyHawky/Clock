@@ -75,6 +75,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private ActionableToastBar mUndoBar;
 
     private Alarm mSelectedAlarm;
+    private int mScrollToAlarmId = -1;
 
     // This flag relies on the activity having a "standard" launchMode and a new instance of this
     // activity being created when launched.
@@ -178,12 +179,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         }
     }
 
-    private void addNewAlarm() {
-        // TODO: change to async
-        mAdapter.setNewAlarmCreated(true);
-        asyncAddAlarm();
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -198,7 +193,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
             case R.id.menu_item_add_alarm:
-                addNewAlarm();
+                asyncAddAlarm();
                 return true;
             case android.R.id.home:
                 Intent intent = new Intent(this, DeskClock.class);
@@ -239,8 +234,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         alarm.hour = hourOfDay;
         alarm.minutes = minute;
         alarm.enabled = true;
+        mScrollToAlarmId = alarm.id;
         asyncUpdateAlarm(alarm, true);
-
     }
 
     private void showLabelDialog(final Alarm alarm) {
@@ -275,31 +270,41 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         gotoAlarmIfSpecified();
     }
 
-    /**
-     * Checks if an alarm was passed in.  If so, go to that particular alarm in the list.
-     */
+    /** If an alarm was passed in via intent and goes to that particular alarm in the list. */
     private void gotoAlarmIfSpecified() {
         final Intent intent = getIntent();
         if (mFirstLoad && intent != null) {
             final Alarm alarm = (Alarm) intent.getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
             if (alarm != null) {
-                for (int i = 0; i < mAdapter.getCount(); i++) {
-                    long id = mAdapter.getItemId(i);
-                    if (id == alarm.id) {
-                        mAdapter.setNewAlarm(alarm.id);
-                        mAlarmsList.setSelection(i);
-
-                        final int firstPositionId = mAlarmsList.getFirstVisiblePosition();
-                        final int childId = i - firstPositionId;
-
-                        final View view = mAlarmsList.getChildAt(childId);
-                        mAdapter.getView(i, view, mAlarmsList);
-                        break;
-                    }
-                }
+                scrollToAlarm(alarm.id);
             }
+        } else if (mScrollToAlarmId != -1) {
+            scrollToAlarm(mScrollToAlarmId);
+            mScrollToAlarmId = -1;
         }
         mFirstLoad = false;
+    }
+
+    /**
+     * Scroll to alarm with given alarm id.
+     *
+     * @param alarmId The alarm id to scroll to.
+     */
+    private void scrollToAlarm(int alarmId) {
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            long id = mAdapter.getItemId(i);
+            if (id == alarmId) {
+                mAdapter.setNewAlarm(alarmId);
+                mAlarmsList.smoothScrollToPositionFromTop(i, 0);
+
+                final int firstPositionId = mAlarmsList.getFirstVisiblePosition();
+                final int childId = i - firstPositionId;
+
+                final View view = mAlarmsList.getChildAt(childId);
+                mAdapter.getView(i, view, mAlarmsList);
+                break;
+            }
+        }
     }
 
     @Override
@@ -350,7 +355,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         private final HashSet<Integer> mExpanded = new HashSet<Integer>();
         private final HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
         private Bundle mPreviousDaysOfWeekMap = new Bundle();
-        private boolean mNewAlarmCreated = false;
 
         private final boolean mHasVibrator;
 
@@ -485,15 +489,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             final ItemHolder itemHolder = (ItemHolder) view.getTag();
             itemHolder.alarm = alarm;
 
-            boolean forceExpand = false;
-            if (cursor.getPosition() == 0) {
-
-                if (mNewAlarmCreated) {
-                    mNewAlarmCreated = false;
-                    forceExpand = true;
-                }
-            }
-
             // We must unset the listener first because this maybe a recycled view so changing the
             // state would affect the wrong alarm.
             itemHolder.onoff.setOnCheckedChangeListener(null);
@@ -564,7 +559,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 itemHolder.label.setVisibility(View.GONE);
             }
 
-            if (isAlarmExpanded(alarm) || forceExpand) {
+            if (isAlarmExpanded(alarm)) {
                 expandAlarm(itemHolder);
             }
         }
@@ -787,10 +782,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             return 1;
         }
 
-        public void setNewAlarmCreated(boolean newAlarmCreated) {
-            mNewAlarmCreated = newAlarmCreated;
-        }
-
         public int[] getExpandedArray() {
             final int[] ids = new int[mExpanded.size()];
             int index = 0;
@@ -863,6 +854,14 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 if (alarm.enabled) {
                     popToast(alarm);
                 }
+                mAdapter.setNewAlarm(alarm.id);
+                scrollToAlarm(alarm.id);
+
+                // We need to refresh the first view item because bindView may have been called
+                // before setNewAlarm took effect. In that case, the newly created alarm will not be
+                // expanded.
+                View view = mAlarmsList.getChildAt(0);
+                mAdapter.getView(0, view, mAlarmsList);
             }
         };
         updateTask.execute();
