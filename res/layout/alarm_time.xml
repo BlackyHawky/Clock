@@ -94,7 +94,7 @@
         android:gravity="center_vertical"
         android:clickable="true"
         android:background="@drawable/item_background">
-        <LinearLayout
+        <com.android.deskclock.widget.EllipsizeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="48dp"
@@ -112,8 +112,9 @@
                       android:layout_width="wrap_content"
                       style="@style/alarm_label_bold"
                       android:textColor="@color/clock_white"
+                      android:ellipsize="none"
                       android:singleLine="true"/>
-        </LinearLayout>
+        </com.android.deskclock.widget.EllipsizeLayout>
         <ImageView
             android:id="@+id/expand"
             android:layout_width="48dp"
