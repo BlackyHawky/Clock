@@ -17,7 +17,6 @@
 package com.android.deskclock;
 
 import android.app.ActionBar;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -69,14 +68,6 @@ public class SettingsActivity extends PreferenceActivity
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
 
-    /*    final AlarmPreference ringtone =
-                (AlarmPreference) findPreference(KEY_DEFAULT_RINGTONE);
-        Uri alert = RingtoneManager.getActualDefaultRingtoneUri(this,
-                RingtoneManager.TYPE_ALARM);
-        if (alert != null) {
-            ringtone.setAlert(alert);
-        }
-        ringtone.setChangeDefault();*/
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
