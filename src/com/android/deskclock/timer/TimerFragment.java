@@ -715,13 +715,12 @@ public class TimerFragment extends DeskClockFragment
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setContentDescription(r.getString(R.string.timer_reset));
                 plusOne.setImageResource(R.drawable.ic_reset);
-                stop.setContentDescription(r.getString(R.string.timer_start));
-                stop.setText(R.string.timer_start);
-                stop.setTextColor(getResources().getColor(R.color.clock_gray));
+                stop.setVisibility(View.INVISIBLE);
                 countingTimerView.setVirtualButtonEnabled(false);
                 break;
             case TimerObj.STATE_RESTART:
                 plusOne.setVisibility(View.INVISIBLE);
+                stop.setVisibility(View.VISIBLE);
                 stop.setContentDescription(r.getString(R.string.timer_start));
                 stop.setText(R.string.timer_start);
                 stop.setTextColor(getResources().getColor(R.color.clock_white));
