@@ -110,12 +110,6 @@
     <item msgid="1944820890481615263">"0"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Stel verstek luitoon"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"Wekkers"</string>
-    <string name="gallery_button_description" msgid="1151743663255257668">"Galery"</string>
-    <string name="music_button_description" msgid="1626593420810117999">"Musiek"</string>
-    <string name="nightmode_button_description" msgid="990894208217576381">"Verdof"</string>
-    <string name="home_button_description" msgid="3383859096809056157">"Lanseerpoort"</string>
-    <string name="desk_clock_button_description" msgid="4207371097361657274">"Horlosieskerm"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Weerinligting is nie nou beskikbaar nie."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Klankterugspeel-diens vir wekkers word in Clock gestel."</string>
@@ -132,44 +126,29 @@
     <string name="button_menu" msgid="3258774294299940405">"Kieslys"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Instellings"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Hulp"</string>
-    <string name="sw_pause_button" msgid="2422084453454138042">"Laat wag"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Hervat"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Begin"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stop"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Rondte"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Stel terug"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"Deel"</string>
-    <string name="sw_lap_number" msgid="5284147827135227231">"#"</string>
-    <string name="sw_lap_time" msgid="8445539225664675846">"Rondtetyd"</string>
-    <string name="sw_lap_total" msgid="2575384748273693584">"Totaal"</string>
     <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
     <skip />
     <string name="hours_label" msgid="3393478155635368097">"u."</string>
     <string name="minutes_label" msgid="3568098128251438588">"min."</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
-    <string name="sw_share_title" msgid="2960856389203349">"Deel van my tye:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"My tyd is <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Rondtetye:"</string>
-    <string name="sw_notification_label" msgid="3860960768913061020">"Stophorlosie"</string>
-    <string name="sw_notification_lap" msgid="3178438408027457979">"Rondte <xliff:g id="NUMBER">%d</xliff:g> - <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Rondte <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_one_button" msgid="1963943621548063189">"Voeg 1 minuut by"</string>
-    <string name="timer_dismiss_button" msgid="6161488380194869207">"Kanselleer"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"Voeg teller by"</string>
-    <string name="timer_clear" msgid="3496971445784089796">"Vee skoon"</string>
     <string name="timer_start" msgid="6158486445614356442">"Begin"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Vee uit"</string>
     <string name="timer_plus_one" msgid="3889719909524490658">"+1 min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Stel terug"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Kanselleer"</string>
-    <string name="timer_delete_question" msgid="7658546868533913049">"Moet hierdie tydhouer verwyder word?"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tyd is op"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Tydhouer"</string>
-    <string name="next_timer" msgid="561264099702200805">"&gt;Volgende tydhouer: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="more_timers" msgid="7600207278228744856">"&gt;En <xliff:g id="NUMBER">%d</xliff:g> tydhouers"</string>
-    <string name="stopped_at" msgid="3640387409683991793">"&gt;Gestop om <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Jy\'s \'n regte spoedduiwel."</item>
     <item msgid="6332879039890727169">"Geniet die vrugte van jou arbeid."</item>
@@ -187,24 +166,11 @@
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> tydhouers"</item>
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Tuis"</string>
-    <string name="remove_question" msgid="716296469879431612">"Moet hierdie stad verwyder word?"</string>
-    <string name="sort_by_name" msgid="7825123427213807895">"Volgens naam"</string>
-    <string name="sort_by_time" msgid="3588583060192569857">"Volgens tyd"</string>
-    <string name="search_results" msgid="3940223188208445245">"Resultate"</string>
-    <string name="no_cities_found" msgid="5076277409409268915">"Geen stede gevind nie"</string>
-    <string name="search_city" msgid="5167756899726176174">"Soek"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Stede"</string>
-    <string name="alarm_setup_music" msgid="6140596565783696650">"Musiek"</string>
     <string name="alarm_on" msgid="3898994909321344263">"Aan"</string>
     <string name="alarm_off" msgid="7220973271168254762">"Af"</string>
-    <string name="alarm_night" msgid="2685913727476024929">"Elke aand"</string>
-    <string name="Delete_selected_alarm" msgid="4162534388267929249">"Moet die gekose alarm uitgevee word?"</string>
-    <string name="selected" msgid="154434067032592597">"Gekose"</string>
-    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;Sit alarm nou af in plaas van om <xliff:g id="TIME">%s</xliff:g>?"</string>
-    <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;Sluimer tot"</string>
     <string name="clock_settings" msgid="8887845806151785393">"HORLOSIE"</string>
     <string name="clock_style" msgid="2265011060429742344">"Styl"</string>
-    <string name="clock_style_title" msgid="32660784968818521">"Horlosiestyl"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analoog"</item>
     <item msgid="8483930821046925592">"Digitaal"</item>
@@ -312,8 +278,6 @@
     <string name="alarm_settings" msgid="6049627772103646753">"WEKKERS"</string>
     <string name="see_all" msgid="775983396630163739">"Sien almal..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stophorlosie-diens om die kennisgewing te laat loop"</string>
-    <string name="stopwatch_title" msgid="3246663609895204068">"Stophorlosie"</string>
-    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
     <string name="swn_stopped" msgid="783124901663086172">"Gestop"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Gly regs om toe te maak"</string>
     <string name="description_direction_left" msgid="6328816971226781776">"Gly links om te sluimer"</string>

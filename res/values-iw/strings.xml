@@ -110,12 +110,6 @@
     <item msgid="1944820890481615263">"0"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"קבע צלצול ברירת מחדל"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"התראות"</string>
-    <string name="gallery_button_description" msgid="1151743663255257668">"גלריה"</string>
-    <string name="music_button_description" msgid="1626593420810117999">"מוסיקה"</string>
-    <string name="nightmode_button_description" msgid="990894208217576381">"עמעם"</string>
-    <string name="home_button_description" msgid="3383859096809056157">"מפעיל"</string>
-    <string name="desk_clock_button_description" msgid="4207371097361657274">"תצוגת שעון"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"לא זמינים כרגע נתונים על מזג האוויר."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"שירות השמעת צלילים עבור התראות נקבע ב-Clock."</string>
@@ -132,44 +126,29 @@
     <string name="button_menu" msgid="3258774294299940405">"תפריט"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"הגדרות"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"עזרה"</string>
-    <string name="sw_pause_button" msgid="2422084453454138042">"השהה"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"המשך"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"התחל"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"עצור"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"הקפה"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"אפס"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"שתף"</string>
-    <string name="sw_lap_number" msgid="5284147827135227231">"#"</string>
-    <string name="sw_lap_time" msgid="8445539225664675846">"זמן הקפה"</string>
-    <string name="sw_lap_total" msgid="2575384748273693584">"סה\"כ"</string>
     <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
     <skip />
     <string name="hours_label" msgid="3393478155635368097">"ש\'"</string>
     <string name="minutes_label" msgid="3568098128251438588">"ד\'"</string>
     <string name="seconds_label" msgid="124655952824003246">"שנ\'"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
-    <string name="sw_share_title" msgid="2960856389203349">"שיתוף השעות שלי:"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"השעה שלי הוא <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"זמני הקפה:"</string>
-    <string name="sw_notification_label" msgid="3860960768913061020">"שעון עצר"</string>
-    <string name="sw_notification_lap" msgid="3178438408027457979">"הקפה <xliff:g id="NUMBER">%d</xliff:g> - <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"הקפה <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="timer_add_one_button" msgid="1963943621548063189">"הוסף דקה"</string>
-    <string name="timer_dismiss_button" msgid="6161488380194869207">"בטל"</string>
     <string name="timer_add_timer" msgid="862733633862574752">"הוסף טיימר"</string>
-    <string name="timer_clear" msgid="3496971445784089796">"נקה"</string>
     <string name="timer_start" msgid="6158486445614356442">"התחל"</string>
     <string name="timer_delete" msgid="8699122001991909302">"מחק"</string>
     <string name="timer_plus_one" msgid="3889719909524490658">"+ דקה"</string>
     <string name="timer_stop" msgid="3361154678667736722">"עצור"</string>
     <string name="timer_reset" msgid="7848424809190171640">"אפס"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"בטל"</string>
-    <string name="timer_delete_question" msgid="7658546868533913049">"האם למחוק את הטיימר הזה?"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"הזמן נגמר"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"טיימר"</string>
-    <string name="next_timer" msgid="561264099702200805">"&gt;הטיימר הבא: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="more_timers" msgid="7600207278228744856">"&gt;ו-<xliff:g id="NUMBER">%d</xliff:g> טיימרים"</string>
-    <string name="stopped_at" msgid="3640387409683991793">"&gt;הופסק ב-<xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"אתה מהיר כשד משחת."</item>
     <item msgid="6332879039890727169">"תיהנה מפירות עמלך."</item>
@@ -187,24 +166,11 @@
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> טיימרים"</item>
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"דף הבית"</string>
-    <string name="remove_question" msgid="716296469879431612">"האם להסיר עיר זאת?"</string>
-    <string name="sort_by_name" msgid="7825123427213807895">"לפי שם"</string>
-    <string name="sort_by_time" msgid="3588583060192569857">"לפי שעה"</string>
-    <string name="search_results" msgid="3940223188208445245">"תוצאות"</string>
-    <string name="no_cities_found" msgid="5076277409409268915">"לא נמצאו ערים"</string>
-    <string name="search_city" msgid="5167756899726176174">"חיפוש"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"ערים"</string>
-    <string name="alarm_setup_music" msgid="6140596565783696650">"מוסיקה"</string>
     <string name="alarm_on" msgid="3898994909321344263">"פועל"</string>
     <string name="alarm_off" msgid="7220973271168254762">"כבוי"</string>
-    <string name="alarm_night" msgid="2685913727476024929">"בכל לילה"</string>
-    <string name="Delete_selected_alarm" msgid="4162534388267929249">"האם למחוק את ההתראה שנבחרה?"</string>
-    <string name="selected" msgid="154434067032592597">"נבחר"</string>
-    <string name="alarm_dismiss_question" msgid="604777874801795423">"&gt;האם לסגור את השעון המעורר כעת במקום ב-<xliff:g id="TIME">%s</xliff:g>?"</string>
-    <string name="alarm_snooze_until" msgid="3368784551097340338">"&gt;נמנום עד"</string>
     <string name="clock_settings" msgid="8887845806151785393">"שעון"</string>
     <string name="clock_style" msgid="2265011060429742344">"סגנון"</string>
-    <string name="clock_style_title" msgid="32660784968818521">"סגנון שעון"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"אנלוגי"</item>
     <item msgid="8483930821046925592">"דיגיטלי"</item>
@@ -312,8 +278,6 @@
     <string name="alarm_settings" msgid="6049627772103646753">"התראות"</string>
     <string name="see_all" msgid="775983396630163739">"הצג הכל…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"שירות שעון עצר להפעלת ההתראה."</string>
-    <string name="stopwatch_title" msgid="3246663609895204068">"שעון עצר"</string>
-    <string name="swn_collapsed_laps_divider" msgid="7431727909332216831">" - "</string>
     <string name="swn_stopped" msgid="783124901663086172">"נעצר"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"החלק ימינה כדי לסגור"</string>
     <string name="description_direction_left" msgid="6328816971226781776">"החלק שמאלה כדי להעביר למצב נמנום"</string>
