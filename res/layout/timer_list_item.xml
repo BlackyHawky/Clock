@@ -41,7 +41,41 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"/>
 
-        <ImageButton
+         <FrameLayout
+             android:id="@+id/timer_label"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="0dip"
+             android:layout_gravity="top|center_horizontal"
+             android:enabled="true"
+             android:clickable="true"
+             android:contentDescription="@string/label"
+             >
+             <TextView
+                android:id="@+id/timer_label_text"
+                android:layout_height="56dip"
+                android:layout_width="wrap_content"
+                android:background="@null"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center"
+                style="@style/timer_label"
+                android:enabled="false"
+                android:clickable="false"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="@string/label_unlabeled"/>
+             <ImageButton
+                android:id="@+id/timer_label_icon"
+                android:layout_height="56dip"
+                android:layout_width="56dip"
+                android:background="@null"
+                android:layout_gravity="center_horizontal"
+                android:enabled="false"
+                android:clickable="false"
+                style="@style/button"
+                android:src="@drawable/ic_label" />
+         </FrameLayout>
+         <ImageButton
             android:id="@+id/timer_plus_one"
             android:src="@drawable/ic_plusone"
             android:background="@null"

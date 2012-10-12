@@ -47,12 +47,14 @@ import android.view.animation.Transformation;
 import android.view.animation.TranslateAnimation;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFragment;
+import com.android.deskclock.timer.TimerObj;
 import com.android.deskclock.timer.Timers;
 import com.android.deskclock.worldclock.CitiesActivity;
 
@@ -62,7 +64,7 @@ import java.util.TimeZone;
 /**
  * DeskClock clock view for desk docks.
  */
-public class DeskClock extends Activity {
+public class DeskClock extends Activity implements LabelDialogFragment.TimerLabelDialogHandler {
     private static final boolean DEBUG = false;
 
     private static final String LOG_TAG = "DeskClock";
@@ -347,8 +349,12 @@ public class DeskClock extends Activity {
         return mClockState == CLOCK_NORMAL;
     }
 
-    private boolean isClockStateDimmed() {
+    public boolean isClockStateDimmed() {
         return mClockState == CLOCK_DIMMED;
+    }
+
+    public boolean isClockTab() {
+        return mViewPager.getCurrentItem() == CLOCK_TAB_INDEX;
     }
 
     public void clockOnViewClick(View view) {
@@ -377,7 +383,7 @@ public class DeskClock extends Activity {
                 break;
             case CLOCK_LIGHTS_OUT:
                 doLightsOut(true, fade);
-                if (mViewPager.getCurrentItem() == CLOCK_TAB_INDEX) {
+                if (isClockTab()) {
                     scheduleDim();
                 }
                 break;
@@ -423,14 +429,14 @@ public class DeskClock extends Activity {
     }
 
     public void doLightsOut(boolean lightsOut, boolean fade) {
-        if (lightsOut) {
+        if (lightsOut && mActionBar.isShowing()) {
             mActionBar.hide();
             mViewPager.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
             hideAnimated(fade, R.id.clock_footer, mFooterHeight, mClockButtonIds);
             if (mViewPager.getCurrentItem() != STOPWATCH_TAB_INDEX) {
                 hideAnimated(fade, R.id.timer_footer, mFooterHeight, mTimerButtonId);
             }
-        } else {
+        } else if (!lightsOut && !mActionBar.isShowing()){
             mActionBar.show();
             mViewPager.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
             unhideAnimated(fade, R.id.clock_footer, mFooterHeight, mClockButtonIds);
@@ -503,7 +509,7 @@ public class DeskClock extends Activity {
     public void scheduleLightsOut() {
         removeLightsMessages();
         long timeout;
-        if (mViewPager.getCurrentItem() == CLOCK_TAB_INDEX) {
+        if (isClockTab()) {
             timeout = CLOCK_LIGHTSOUT_TIMEOUT;
         } else {
             timeout = TIMER_SW_LIGHTSOUT_TIMEOUT;
@@ -636,17 +642,27 @@ public class DeskClock extends Activity {
         private float mLastTouchX;
         private float mLastTouchY;
         private long mLastTouchTime;
-        private float MAX_MOVEMENT_ALLOWED = 20;
-        private long MAX_TIME_ALLOWED = 500;
+        private TextView mMakePressedTextView;
+        private int mPressedColor, mGrayColor;
+        private final float MAX_MOVEMENT_ALLOWED = 20;
+        private final long MAX_TIME_ALLOWED = 500;
 
         public OnTapListener(Activity activity) {
             mActivity = (DeskClock) activity;
+        }
+
+        public OnTapListener(Activity activity, TextView makePressedView) {
+            mActivity = (DeskClock) activity;
+            mMakePressedTextView = makePressedView;
+            mPressedColor = activity.getResources().getColor(Utils.getPressedColorId());
+            mGrayColor = activity.getResources().getColor(Utils.getGrayColorId());
         }
 
         @Override
         public boolean onTouch(View v, MotionEvent e) {
             switch (e.getAction()) {
                 case (MotionEvent.ACTION_DOWN):
+                    mLastTouchTime = Utils.getTimeNow();
                     if (mActivity.isClockStateDimmed()) {
                         mActivity.clockOnViewClick(v);
                         resetValues();
@@ -654,8 +670,10 @@ public class DeskClock extends Activity {
                     }
                     mLastTouchX = e.getX();
                     mLastTouchY = e.getY();
-                    mLastTouchTime = Utils.getTimeNow();
                     mActivity.removeLightsMessages();
+                    if (mMakePressedTextView != null) {
+                        mMakePressedTextView.setTextColor(mPressedColor);
+                    }
                     break;
                 case (MotionEvent.ACTION_UP):
                     float xDiff = Math.abs(e.getX()-mLastTouchX);
@@ -663,17 +681,26 @@ public class DeskClock extends Activity {
                     long timeDiff = (Utils.getTimeNow() - mLastTouchTime);
                     if (xDiff < MAX_MOVEMENT_ALLOWED && yDiff < MAX_MOVEMENT_ALLOWED
                             && timeDiff < MAX_TIME_ALLOWED) {
-                        mActivity.clockOnViewClick(v);
+                        if (mMakePressedTextView != null) {
+                            v = mMakePressedTextView;
+                        }
+                        processClick(v);
                         return true;
                     } else {
                         if (mActivity.isClockStateNormal()){
                             mActivity.scheduleLightsOut();
-                        } else if (!mActivity.isClockStateDimmed()) {
+                        } else if (mActivity.isClockTab() && !mActivity.isClockStateDimmed()) {
                             mActivity.scheduleDim();
                         }
                     }
+                    resetValues();
                     break;
                 case (MotionEvent.ACTION_MOVE):
+                    xDiff = Math.abs(e.getX()-mLastTouchX);
+                    yDiff = Math.abs(e.getY()-mLastTouchY);
+                    if (xDiff >= MAX_MOVEMENT_ALLOWED || yDiff >= MAX_MOVEMENT_ALLOWED) {
+                        resetValues();
+                    }
                     break;
                 default:
                     resetValues();
@@ -685,7 +712,25 @@ public class DeskClock extends Activity {
             mLastTouchX = -1*MAX_MOVEMENT_ALLOWED + 1;
             mLastTouchY = -1*MAX_MOVEMENT_ALLOWED + 1;
             mLastTouchTime = -1*MAX_TIME_ALLOWED + 1;
+            if (mMakePressedTextView != null) {
+                mMakePressedTextView.setTextColor(mGrayColor);
+            }
+        }
+
+        protected void processClick(View v) {
+            mActivity.clockOnViewClick(v);
         }
     }
 
+    /** Called by the LabelDialogFormat class after the dialog is finished. **/
+    @Override
+    public void onDialogLabelSet(TimerObj timer, String label, String tag) {
+        if (isClockStateNormal()) {
+            scheduleLightsOut();
+        }
+        Fragment frag = getFragmentManager().findFragmentByTag(tag);
+        if (frag instanceof TimerFragment) {
+            ((TimerFragment) frag).setLabel(timer, label);
+        }
+    }
 }

@@ -55,6 +55,8 @@
     <dimen name="body_font_size">18sp</dimen>
     <dimen name="body_font_padding">4dp</dimen>
     <dimen name="button_font_size">24sp</dimen>
+    <dimen name="timer_label_font_size">24sp</dimen>
+    <dimen name="dialog_button_font_size">14sp</dimen>
 
     <dimen name="alarm_label_size">12sp</dimen>
 
@@ -68,10 +70,12 @@
     <dimen name="label_margin_small">2dp</dimen>
 
     <dimen name="dialpad_font_size">48sp</dimen>
+    <dimen name="dialpad_font_size_ampm">24sp</dimen>
     <dimen name="city_name_font_size">24sp</dimen>
     <dimen name="city_time_font_size">14sp</dimen>
 
     <dimen name="tablet_dialpad_font_size">60sp</dimen>
+    <dimen name="tablet_dialpad_font_size_ampm">30sp</dimen>
 
     <dimen name="cities_list_item_height">64dip</dimen>
 

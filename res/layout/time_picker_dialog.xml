@@ -36,7 +36,7 @@
             android:text="@string/time_picker_cancel"
             android:layout_width="0dip"
             android:layout_weight="1"
-            style="@style/button"
+            style="@style/dialog_button"
             android:background="@drawable/item_background"
             android:layout_height="wrap_content" />
         <View
@@ -50,7 +50,7 @@
             android:text="@string/time_picker_set"
             android:layout_width="0dip"
             android:layout_weight="1"
-            style="@style/button"
+            style="@style/dialog_button"
             android:background="@drawable/item_background"
             android:layout_height="wrap_content" />
     </LinearLayout>
