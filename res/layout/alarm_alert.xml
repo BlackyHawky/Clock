@@ -33,7 +33,7 @@
         <TextView android:id="@+id/alertTitle"
             android:singleLine="true"
             android:ellipsize="end"
-            style="@style/header"
+            style="@style/header_not_caps"
             android:paddingLeft="@dimen/label_margin_big"
             android:paddingBottom="@dimen/label_margin_small"
             android:textColor="@color/clock_white"
