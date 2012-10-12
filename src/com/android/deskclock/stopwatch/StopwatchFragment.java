@@ -77,7 +77,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
 
         ArrayList<Lap> mLaps = new ArrayList<Lap>();
         private final LayoutInflater mInflater;
-        private int mBackgroundColor;
+        private final int mBackgroundColor;
 
         public LapsListAdapter(Context context) {
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -361,7 +361,7 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
     private void doReset() {
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getActivity());
-        clearSharedPref(prefs);
+        Utils.clearSwSharedPref(prefs);
         mTime.clearSharedPref(prefs, "sw");
         mAccumulatedTime = 0;
         mLapsAdapter.clearLaps();
@@ -677,20 +677,6 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
                 doReset();
             }
         }
-    }
-
-    private void clearSharedPref(SharedPreferences prefs) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.remove (Stopwatches.PREF_START_TIME);
-        editor.remove (Stopwatches.PREF_ACCUM_TIME);
-        editor.remove (Stopwatches.PREF_STATE);
-        int lapNum = prefs.getInt(Stopwatches.PREF_LAP_NUM, Stopwatches.STOPWATCH_RESET);
-        for (int i = 0; i < lapNum; i++) {
-            String key = Stopwatches.PREF_LAP_TIME + Integer.toString(i);
-            editor.remove(key);
-        }
-        editor.remove(Stopwatches.PREF_LAP_NUM);
-        editor.apply();
     }
 
     public class ImageLabelAdapter extends ArrayAdapter<CharSequence> {
