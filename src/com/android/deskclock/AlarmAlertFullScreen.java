@@ -65,6 +65,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
     private static final long PING_AUTO_REPEAT_DELAY_MSEC = 1200;
 
     private boolean mPingEnabled = true;
+    boolean mCallSnoozeonStop = true;
 
     // Receives the ALARM_KILLED action from the AlarmKlaxon,
     // and also ALARM_SNOOZE_ACTION / ALARM_DISMISS_ACTION from other applications
@@ -185,6 +186,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         if (LOG) {
             Log.v("AlarmAlertFullScreen - snooze");
         }
+        mCallSnoozeonStop = false;
 
         final String snooze =
                 PreferenceManager.getDefaultSharedPreferences(this)
@@ -249,6 +251,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         if (LOG) {
             Log.v("AlarmAlertFullScreen - dismiss");
         }
+        mCallSnoozeonStop = false;
 
         Log.i(killed ? "Alarm killed" : "Alarm dismissed by user");
         // The service told us that the alarm has been killed, do not modify
@@ -301,6 +304,17 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
     }
 
     @Override
+    protected void onStop() {
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - onStop snooze=" + mCallSnoozeonStop);
+        }
+        if (mCallSnoozeonStop) {
+            snooze();
+        }
+        super.onStop();
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (LOG) Log.v("AlarmAlert.onDestroy()");
@@ -342,16 +356,6 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
                 break;
         }
         return super.dispatchKeyEvent(event);
-    }
-
-    @Override
-    public void onBackPressed() {
-        // Don't allow back to dismiss. This method is overriden by AlarmAlert
-        // so that the dialog is dismissed.
-        if (LOG) {
-            Log.v("AlarmAlertFullScreen - onBackPressed");
-        }
-        return;
     }
 
 
