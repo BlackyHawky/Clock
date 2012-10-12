@@ -16,6 +16,8 @@
 
 package com.android.deskclock.timer;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +36,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -42,6 +45,7 @@ import android.widget.TextView;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.CircleButtonsLinearLayout;
 import com.android.deskclock.DeskClockFragment;
+import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
 import com.android.deskclock.Utils;
@@ -220,8 +224,30 @@ public class TimerFragment extends DeskClockFragment
                     (CircleButtonsLinearLayout)v.findViewById(R.id.timer_circle);
             circleLayout.setCircleTimerViewIds(
                     R.id.timer_time, R.id.timer_plus_one, R.id.timer_delete, R.id.timer_stop,
-                    R.dimen.plusone_reset_button_padding, R.dimen.delete_button_padding);
+                    R.dimen.plusone_reset_button_padding, R.dimen.delete_button_padding,
+                    R.id.timer_label, R.id.timer_label_text);
 
+            FrameLayout label = (FrameLayout)v. findViewById(R.id.timer_label);
+            ImageButton labelIcon = (ImageButton)v. findViewById(R.id.timer_label_icon);
+            TextView labelText = (TextView)v. findViewById(R.id.timer_label_text);
+            if (o.mLabel.equals("")) {
+                labelText.setVisibility(View.GONE);
+                labelIcon.setVisibility(View.VISIBLE);
+            } else {
+                labelText.setText(o.mLabel);
+                labelText.setVisibility(View.VISIBLE);
+                labelIcon.setVisibility(View.GONE);
+            }
+            if (getActivity() instanceof DeskClock) {
+                label.setOnTouchListener(new OnTapListener(getActivity(), labelText) {
+                    @Override
+                    protected void processClick(View v) {
+                        onLabelPressed(o);
+                    }
+                });
+            } else {
+                labelIcon.setVisibility(View.INVISIBLE);
+            }
             return v;
         }
 
@@ -672,6 +698,34 @@ public class TimerFragment extends DeskClockFragment
                 break;
             default:
                 break;
+        }
+    }
+
+    private void onLabelPressed(TimerObj t) {
+        if(getActivity() instanceof DeskClock) {
+            ((DeskClock) getActivity()).removeLightsMessages();
+        }
+
+        final FragmentTransaction ft = getFragmentManager().beginTransaction();
+        final Fragment prev = getFragmentManager().findFragmentByTag("label_dialog");
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        final LabelDialogFragment newFragment =
+                LabelDialogFragment.newInstance(t, t.mLabel, getTag());
+        newFragment.show(ft, "label_dialog");
+    }
+
+    public void setLabel(TimerObj timer, String label) {
+        ((TimerObj) mAdapter.getItem(
+                mAdapter.findTimerPositionById(timer.mTimerId))).mLabel = label;
+        if (timer.mState == TimerObj.STATE_TIMESUP) {
+            // Timer is in timesup mode.
+            TimerReceiver.showExpiredAlarmNotification(
+                    getActivity().getApplicationContext(), timer);
         }
     }
 

@@ -116,4 +116,17 @@ public class Utils {
         return Math.max(strokeSize, Math.max(diamondStrokeSize, markerStrokeSize));
     }
 
+    /**  The pressed color used throughout the app. If this method is changed, it will not have
+     *   any effect on the button press states, and those must be changed separately.
+    **/
+    public static int getPressedColorId() {
+        return R.color.clock_red;
+    }
+
+    /**  The un-pressed color used throughout the app. If this method is changed, it will not have
+     *   any effect on the button press states, and those must be changed separately.
+    **/
+    public static int getGrayColorId() {
+        return R.color.clock_gray;
+    }
 }

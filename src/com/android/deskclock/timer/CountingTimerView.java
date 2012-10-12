@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 
 
 public class CountingTimerView extends View {
@@ -99,7 +100,7 @@ public class CountingTimerView extends View {
         mSecondsLabel = r.getString(R.string.seconds_label).toUpperCase();
         mWhiteColor = r.getColor(R.color.clock_white);
         mDefaultColor = mWhiteColor;
-        mPressedColor = r.getColor(R.color.clock_red);
+        mPressedColor = r.getColor(Utils.getPressedColorId());
         mRedColor = r.getColor(R.color.clock_red);
 
         mPaintBig.setAntiAlias(true);

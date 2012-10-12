@@ -157,11 +157,19 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
+    <style name="label_not_caps" parent="label">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
     <style name="header">
         <item name="android:textSize">@dimen/header_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="header_not_caps" parent ="header">
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="big_bold">
@@ -181,6 +189,10 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
+    <style name="alarm_label_not_caps" parent="alarm_label">
+        <item name="android:textAllCaps">false</item>
+    </style>
+
     <style name="alarm_label_bold">
         <item name="android:textSize">@dimen/alarm_label_size</item>
         <item name="android:textAllCaps">true</item>
@@ -192,6 +204,10 @@
         <item name="android:textSize">@dimen/body_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="body_not_caps" parent="body">
+        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="body_bold">
@@ -207,6 +223,16 @@
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
+    <style name="timer_label">
+        <item name="android:textSize">@dimen/timer_label_font_size</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="dialog_button">
+        <item name="android:textSize">@dimen/dialog_button_font_size</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
     <style name="bold_button" parent="button">
         <item name="android:textStyle">bold</item>
     </style>
@@ -215,6 +241,10 @@
         <item name="android:textSize">@dimen/dialpad_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="dialpad_ampm" parent="dialpad">
+        <item name="android:textSize">@dimen/dialpad_font_size_ampm</item>
     </style>
 
     <style name="city_name">
@@ -232,6 +262,12 @@
 
     <style name="tablet_dialpad">
         <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
+    <style name="tablet_dialpad_ampm">
+        <item name="android:textSize">@dimen/tablet_dialpad_font_size_ampm</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
