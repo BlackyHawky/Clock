@@ -38,11 +38,11 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -367,11 +367,11 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         private class ItemHolder {
 
             // views for optimization
+            LinearLayout alarmItem;
             DigitalClock clock;
-            ToggleButton onoff;
+            Switch onoff;
             TextView daysOfWeek;
             TextView label;
-            ImageButton expand;
             View expandArea;
             View infoArea;
             TextView clickableLabel;
@@ -379,8 +379,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             LinearLayout repeatDays;
             ToggleButton[] daysButtons = new ToggleButton[7];
             CheckBox vibrate;
-            ImageButton collapse;
-            Button ringtone;
+            ViewGroup collapse;
+            TextView ringtone;
 
             // Other states
             Alarm alarm;
@@ -444,12 +444,13 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
             // standard view holder optimization
             final ItemHolder holder = new ItemHolder();
+            holder.alarmItem = (LinearLayout) view.findViewById(R.id.alarm_item);
             holder.clock = (DigitalClock) view.findViewById(R.id.digital_clock);
             holder.clock.setLive(false);
-            holder.onoff = (ToggleButton) view.findViewById(R.id.onoff);
+            holder.onoff = (Switch) view.findViewById(R.id.onoff);
+            holder.onoff.setTypeface(mRobotoNormal);
             holder.daysOfWeek = (TextView) view.findViewById(R.id.daysOfWeek);
             holder.label = (TextView) view.findViewById(R.id.label);
-            holder.expand = (ImageButton) view.findViewById(R.id.expand);
             holder.expandArea = view.findViewById(R.id.expand_area);
             holder.infoArea = view.findViewById(R.id.info_area);
             holder.repeat = (CheckBox) view.findViewById(R.id.repeat_onoff);
@@ -468,8 +469,8 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 holder.daysButtons[i] = button;
             }
             holder.vibrate = (CheckBox) view.findViewById(R.id.vibrate_onoff);
-            holder.collapse = (ImageButton) view.findViewById(R.id.collapse);
-            holder.ringtone = (Button) view.findViewById(R.id.choose_ringtone);
+            holder.collapse = (ViewGroup) view.findViewById(R.id.collapse);
+            holder.ringtone = (TextView) view.findViewById(R.id.choose_ringtone);
 
             view.setTag(holder);
             return view;
@@ -490,30 +491,33 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 }
             }
 
+            // We must unset the listener first because this maybe a recycled view so changing the
+            // state would affect the wrong alarm.
+            itemHolder.onoff.setOnCheckedChangeListener(null);
             itemHolder.onoff.setChecked(alarm.enabled);
             if (itemHolder.onoff.isChecked()) {
-                itemHolder.onoff.setTextColor(mColorRed);
-                itemHolder.onoff.setTypeface(null, Typeface.BOLD);
+                itemHolder.alarmItem.setAlpha(1f);
             } else {
-                itemHolder.onoff.setTextColor(mColorDim);
-                itemHolder.onoff.setTypeface(null, Typeface.NORMAL);
+                itemHolder.alarmItem.setAlpha(0.5f);
             }
-            final View.OnClickListener onOffListener = new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //boolean checked = ((ToggleButton) v).isChecked();
-                    if (itemHolder.onoff.isChecked()) {
-                        itemHolder.onoff.setTextColor(mColorRed);
-                        itemHolder.onoff.setTypeface(null, Typeface.BOLD);
-                    } else {
-                        itemHolder.onoff.setTextColor(mColorDim);
-                        itemHolder.onoff.setTypeface(null, Typeface.NORMAL);
-                    }
-                    alarm.enabled = !alarm.enabled;
-                    asyncUpdateAlarm(alarm, alarm.enabled);
-                }
-            };
-            itemHolder.onoff.setOnClickListener(onOffListener);
+            final CompoundButton.OnCheckedChangeListener onOffListener =
+                    new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton,
+                                boolean checked) {
+                            if (checked != alarm.enabled) {
+                                if (checked) {
+                                    itemHolder.alarmItem.setAlpha(1f);
+                                } else {
+                                    itemHolder.alarmItem.setAlpha(0.5f);
+                                }
+                                alarm.enabled = checked;
+                                asyncUpdateAlarm(alarm, alarm.enabled);
+                            }
+                        }
+                    };
+
+            itemHolder.onoff.setOnCheckedChangeListener(onOffListener);
 
             itemHolder.clock.updateTime(alarm.hour, alarm.minutes);
             itemHolder.clock.setClickable(true);
@@ -527,6 +531,12 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
             itemHolder.expandArea.setVisibility(isAlarmExpanded(alarm) ? View.VISIBLE : View.GONE);
             itemHolder.infoArea.setVisibility(!isAlarmExpanded(alarm) ? View.VISIBLE : View.GONE);
+            itemHolder.infoArea.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    expandAlarm(itemHolder);
+                }
+            });
 
             String colons = "";
             // Set the repeat text or leave it blank if it does not repeat.
@@ -545,13 +555,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             } else {
                 itemHolder.label.setVisibility(View.GONE);
             }
-
-            itemHolder.expand.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    expandAlarm(itemHolder);
-                }
-            });
 
             if (isAlarmExpanded(alarm) || forceExpand) {
                 expandAlarm(itemHolder);
@@ -577,11 +580,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
             if (mRepeatChecked.contains(alarm.id) || itemHolder.alarm.daysOfWeek.isRepeatSet()) {
                 itemHolder.repeat.setChecked(true);
-                itemHolder.repeat.setTextColor(mColorLit);
                 itemHolder.repeatDays.setVisibility(View.VISIBLE);
             } else {
                 itemHolder.repeat.setChecked(false);
-                itemHolder.repeat.setTextColor(mColorDim);
                 itemHolder.repeatDays.setVisibility(View.GONE);
             }
             itemHolder.repeat.setOnClickListener(new View.OnClickListener() {
@@ -591,7 +592,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                     if (checked) {
                         // Show days
                         itemHolder.repeatDays.setVisibility(View.VISIBLE);
-                        itemHolder.repeat.setTextColor(mColorLit);
                         mRepeatChecked.add(alarm.id);
 
                         // Set all previously set days
@@ -608,7 +608,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         updateDaysOfWeekButtons(itemHolder, alarm.daysOfWeek);
                     } else {
                         itemHolder.repeatDays.setVisibility(View.GONE);
-                        itemHolder.repeat.setTextColor(mColorDim);
                         mRepeatChecked.remove(alarm.id);
 
                         // Remember the set days in case the user wants it back.
