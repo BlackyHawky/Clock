@@ -97,6 +97,7 @@ public class TimerFragment extends DeskClockFragment
     // Container Activity that requests TIMESUP_MODE must implement this interface
     public interface OnEmptyListListener {
         public void onEmptyList();
+        public void onListChanged();
     }
 
     TimersListAdapter createAdapter(Context context, SharedPreferences prefs) {
@@ -495,6 +496,13 @@ public class TimerFragment extends DeskClockFragment
             editor.putBoolean(Timers.FROM_NOTIFICATION, false);
             editor.apply();
         }
+        if (mPrefs.getBoolean(Timers.FROM_ALERT, false)) {
+            // Clear the flag set in the alert because the adapter was just
+            // created and thusly in sync with the database
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(Timers.FROM_ALERT, false);
+            editor.apply();
+        }
 
         mTimersList.setAdapter(mAdapter);
         if (mAdapter.getCount() == 0) {
@@ -547,11 +555,17 @@ public class TimerFragment extends DeskClockFragment
     }
 
     public void stopAllTimesUpTimers() {
+        boolean notifyChange = 0 < mAdapter.getCount();
         while (0 < mAdapter.getCount()) {
             TimerObj timerObj = (TimerObj) mAdapter.getItem(0);
             if (timerObj.mState == TimerObj.STATE_TIMESUP) {
                 onStopButtonPressed(timerObj);
             }
+        }
+        if (notifyChange) {
+            SharedPreferences.Editor editor = mPrefs.edit();
+            editor.putBoolean(Timers.FROM_ALERT, true);
+            editor.apply();
         }
     }
 
@@ -821,6 +835,8 @@ public class TimerFragment extends DeskClockFragment
             mAdapter.removeTimer(timerObj);
             if (mAdapter.getCount() == 0) {
                 mOnEmptyListListener.onEmptyList();
+            } else {
+                mOnEmptyListListener.onListChanged();
             }
         }
     }
@@ -855,6 +871,16 @@ public class TimerFragment extends DeskClockFragment
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean(Timers.FROM_NOTIFICATION, false);
                 editor.apply();
+            }
+            if (key.equals(Timers.FROM_ALERT) && prefs.getBoolean(Timers.FROM_ALERT, false)) {
+                // The flag was set in the alert so the adapter needs to re-sync
+                // with the database
+                SharedPreferences.Editor editor = prefs.edit();
+                editor.putBoolean(Timers.FROM_ALERT, false);
+                editor.apply();
+                mAdapter = createAdapter(getActivity(), mPrefs);
+                mAdapter.onRestoreInstanceState(null);
+                mTimersList.setAdapter(mAdapter);
             }
         }
     }

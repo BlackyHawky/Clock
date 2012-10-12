@@ -27,6 +27,7 @@ import android.text.TextUtils;
 import android.view.MenuItem;
 
 import com.android.deskclock.stopwatch.Stopwatches;
+import com.android.deskclock.timer.Timers;
 
 import java.util.Locale;
 
@@ -148,5 +149,14 @@ public class Utils {
         }
         editor.remove(Stopwatches.PREF_LAP_NUM);
         editor.apply();
+    }
+
+    /**
+     * Broadcast a message to show the in-use timers in the notifications
+     */
+    public static void showInUseNotifications(Context context) {
+        Intent timerIntent = new Intent();
+        timerIntent.setAction(Timers.NOTIF_IN_USE_SHOW);
+        context.sendBroadcast(timerIntent);
     }
 }
