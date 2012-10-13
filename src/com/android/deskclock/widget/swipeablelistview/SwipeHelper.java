@@ -65,6 +65,9 @@ public class SwipeHelper {
     static final float ALPHA_FADE_END = 0.7f; // fraction of thumbnail width
                                               // beyond which alpha->0
     private static final float FACTOR = 1.2f;
+
+    private static final int PROTECTION_PADDING = 50;
+
     private float mMinAlpha = 0.3f;
 
     private float mPagingTouchSlop;
@@ -82,6 +85,7 @@ public class SwipeHelper {
     private float mInitialTouchPosY;
 
     private float mStartAlpha;
+    private boolean mProtected = false;
 
     public SwipeHelper(Context context, int swipeDirection, Callback callback, float densityScale,
             float pagingTouchSlop) {
@@ -204,6 +208,38 @@ public class SwipeHelper {
                 mCurrView = mCallback.getChildAtPosition(ev);
                 mVelocityTracker.clear();
                 if (mCurrView != null) {
+
+                    View button = mCurrView.findViewById(R.id.onoff);
+
+                    // Find raw top and left positions for button.
+                    int left = button.getLeft();
+                    int top = button.getTop();
+                    View parent = (View) button.getParent();
+                    while (parent != null) {
+                        left += parent.getLeft();
+                        top += parent.getTop();
+                        if (parent.getParent() == parent.getRootView()) {
+                            parent = null;
+                        } else {
+                            parent = (View) parent.getParent();
+                        }
+                    }
+
+                    // Add protection.
+                    int bottom = top + button.getHeight() + PROTECTION_PADDING;
+                    top -= PROTECTION_PADDING;
+                    left -= PROTECTION_PADDING;
+
+                    float rawX = ev.getRawX();
+                    float rawY = ev.getRawY();
+
+                    // Check if we are in the protected no-op area.
+                    if (rawX > left && rawY > top && rawY < bottom) {
+                        mProtected = true;
+                    } else {
+                        mProtected = false;
+                    }
+
                     mCurrAnimView = mCallback.getChildContentView(mCurrView);
                     mStartAlpha = mCurrAnimView.getAlpha();
                     mCanCurrViewBeDimissed = mCallback.canChildBeDismissed(mCurrView);
@@ -341,7 +377,7 @@ public class SwipeHelper {
     }
 
     public boolean onTouchEvent(MotionEvent ev) {
-        if (!mDragging) {
+        if (!mDragging || mProtected) {
             return false;
         }
         mVelocityTracker.addMovement(ev);
