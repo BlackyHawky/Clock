@@ -241,6 +241,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         setContentView(R.layout.cities_activity);
         mCitiesList = (ListView) findViewById(R.id.cities_list);
         mCitiesList.setFastScrollEnabled(true);
+        mCitiesList.setFastScrollAlwaysVisible(true);
+        mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mUserSelectedCities = Cities.readCitiesFromSharedPrefs(
                 PreferenceManager.getDefaultSharedPreferences(this));
         mAdapter = new CityAdapter(this, mUserSelectedCities, mFactory);
