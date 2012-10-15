@@ -483,7 +483,7 @@ public class TimerFragment extends DeskClockFragment
             // We need to know if this onresume is being called by the user clicking a
             // buzzing timer notification. If so, we need to set that timer to have "stopped"
             // at the moment the notification was hit.
-            long now = mPrefs.getLong(Timers.NOTIF_TIME, System.currentTimeMillis());
+            long now = mPrefs.getLong(Timers.NOTIF_TIME, Utils.getTimeNow());
             int timerId = mPrefs.getInt(Timers.NOTIF_ID, -1);
             if (timerId != -1) {
                 TimerObj t = Timers.findTimer(mAdapter.mTimers, timerId);
@@ -638,7 +638,7 @@ public class TimerFragment extends DeskClockFragment
             case TimerObj.STATE_TIMESUP:
                 // +1 min when the time is up will restart the timer with 1 minute left.
                 t.mState = TimerObj.STATE_RUNNING;
-                t.mStartTime = System.currentTimeMillis();
+                t.mStartTime = Utils.getTimeNow();
                 t.mTimeLeft = t. mOriginalLength = 60000;
                 ((TimerListItem)t.mView).setTime(t.mTimeLeft, false);
                 ((TimerListItem)t.mView).set(t.mOriginalLength, t.mTimeLeft, true);
@@ -677,7 +677,7 @@ public class TimerFragment extends DeskClockFragment
             case TimerObj.STATE_STOPPED:
                 // Reset the remaining time and continue timer
                 t.mState = TimerObj.STATE_RUNNING;
-                t.mStartTime = System.currentTimeMillis() - (t.mOriginalLength - t.mTimeLeft);
+                t.mStartTime = Utils.getTimeNow() - (t.mOriginalLength - t.mTimeLeft);
                 ((TimerListItem) t.mView).start();
                 updateTimersState(t, Timers.START_TIMER);
                 break;
@@ -692,7 +692,7 @@ public class TimerFragment extends DeskClockFragment
                 break;
             case TimerObj.STATE_RESTART:
                 t.mState = TimerObj.STATE_RUNNING;
-                t.mStartTime = System.currentTimeMillis() - (t.mOriginalLength - t.mTimeLeft);
+                t.mStartTime = Utils.getTimeNow() - (t.mOriginalLength - t.mTimeLeft);
                 ((TimerListItem) t.mView).start();
                 updateTimersState(t, Timers.START_TIMER);
                 break;
@@ -836,7 +836,7 @@ public class TimerFragment extends DeskClockFragment
                 // Because this method gets called with every change to the sharedprefs, we ensure
                 // that we only recalculate the timers if the change was specifically set by the
                 // user interacting with the notification.
-                long now = prefs.getLong(Timers.NOTIF_TIME, System.currentTimeMillis());
+                long now = prefs.getLong(Timers.NOTIF_TIME, Utils.getTimeNow());
                 int timerId = prefs.getInt(Timers.NOTIF_ID, -1);
                 mAdapter = createAdapter(getActivity(), mPrefs);
                 mAdapter.onRestoreInstanceState(null);

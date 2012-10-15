@@ -32,6 +32,7 @@ import com.android.deskclock.AlarmAlertFullScreen;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerRingService;
+import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -86,7 +87,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 t.writeToSharedPref(prefs);
                 SharedPreferences.Editor editor = prefs.edit();
                 editor.putBoolean(Timers.FROM_NOTIFICATION, true);
-                editor.putLong(Timers.NOTIF_TIME, System.currentTimeMillis());
+                editor.putLong(Timers.NOTIF_TIME, Utils.getTimeNow());
                 editor.putInt(Timers.NOTIF_ID, timer);
                 editor.apply();
 
@@ -135,7 +136,7 @@ public class TimerReceiver extends BroadcastReceiver {
             }
 
             // Cancel the inuse notification if none are inuse.
-            if (getNextRunningTimer(mTimers, false, System.currentTimeMillis()) == null) {
+            if (getNextRunningTimer(mTimers, false, Utils.getTimeNow()) == null) {
                 // Found no running timers.
                 cancelInUseNotification(context);
             }
@@ -164,7 +165,7 @@ public class TimerReceiver extends BroadcastReceiver {
     // Tell AlarmManager to send a "Time's up" message to this receiver when this timer expires.
     // If no timer exists, clear "time's up" message.
     private void updateNextTimesup(Context context) {
-        TimerObj t = getNextRunningTimer(mTimers, false, System.currentTimeMillis());
+        TimerObj t = getNextRunningTimer(mTimers, false, Utils.getTimeNow());
         long nextTimesup = (t == null) ? -1 : t.getTimesupTime();
         int timerId = (t == null) ? -1 : t.mTimerId;
 
@@ -178,7 +179,7 @@ public class TimerReceiver extends BroadcastReceiver {
         PendingIntent p = PendingIntent.getBroadcast(context,
                 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         if (t != null) {
-            mngr.set(AlarmManager.RTC_WAKEUP, nextTimesup, p);
+            mngr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
             Log.d(TAG,"Setting times up to " + nextTimesup);
         } else {
             Log.d(TAG,"canceling times up");
@@ -198,7 +199,7 @@ public class TimerReceiver extends BroadcastReceiver {
 
         String title, contentText;
         Long nextBroadcastTime = null;
-        long now = System.currentTimeMillis();
+        long now = Utils.getTimeNow();
         if (timersInUse.size() == 1) {
             TimerObj timer = timersInUse.get(0);
             String label = timer.mLabel.equals("") ?
@@ -279,7 +280,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 PendingIntent.getBroadcast(context, 0, nextBroadcast, 0);
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC, nextBroadcastTime, pendingNextBroadcast);
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
     }
 
     private static void showCollapsedNotification(final Context context, String title, String text,
