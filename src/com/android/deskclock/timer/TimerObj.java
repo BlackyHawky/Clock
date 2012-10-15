@@ -22,6 +22,8 @@ import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
+import com.android.deskclock.Utils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -169,15 +171,15 @@ public class TimerObj implements Parcelable {
     }
 
     private void init (long length) {
-        mTimerId = (int) System.currentTimeMillis();
-        mStartTime = System.currentTimeMillis();
+        mTimerId = (int) Utils.getTimeNow();
+        mStartTime = Utils.getTimeNow();
         mTimeLeft = mOriginalLength = mSetupLength = length;
         mLabel = "";
     }
 
     public long updateTimeLeft(boolean forceUpdate) {
         if (isTicking() || forceUpdate) {
-            long millis = System.currentTimeMillis();
+            long millis = Utils.getTimeNow();
             mTimeLeft = mOriginalLength - (millis - mStartTime);
         }
         return mTimeLeft;
@@ -192,7 +194,7 @@ public class TimerObj implements Parcelable {
     }
 
     public void addTime(long time) {
-        mTimeLeft = mOriginalLength - (System.currentTimeMillis() - mStartTime);
+        mTimeLeft = mOriginalLength - (Utils.getTimeNow() - mStartTime);
         if (mTimeLeft < MAX_TIMER_LENGTH - time) {
                 mOriginalLength += time;
         }
