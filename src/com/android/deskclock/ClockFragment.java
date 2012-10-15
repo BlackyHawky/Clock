@@ -47,6 +47,7 @@ import java.text.Collator;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -76,17 +77,21 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
             @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(ACTION_ON_QUARTER_HOUR)
-                    || intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
-                    || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+            boolean changed = intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
+                    || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED);
+            if (intent.getAction().equals(ACTION_ON_QUARTER_HOUR) || changed) {
                 updateDate();
                 if (mAdapter != null) {
-                    mAdapter.notifyDataSetChanged();
+                    // *CHANGED may modify the need for showing the Home City
+                    if (changed && (mAdapter.hasHomeCity() != mAdapter.needHomeCity())) {
+                        mAdapter.loadData(context);
+                    } else {
+                        mAdapter.notifyDataSetChanged();
+                    }
                 }
-                if (intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
-                        || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                    refreshAlarm();
-                }
+            }
+            if (changed) {
+                refreshAlarm();
             }
         }
     };
@@ -292,25 +297,41 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
          * return the list of cities.
          */
         private Object[] addHomeCity() {
+            if (needHomeCity()) {
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+                String homeTZ = sharedPref.getString(SettingsActivity.KEY_HOME_TZ, "");
+                CityObj c = new CityObj(
+                        mContext.getResources().getString(R.string.home_label), homeTZ, null);
+                Object[] temp = new Object[mCitiesList.length + 1];
+                temp[0] = c;
+                for (int i = 0; i < mCitiesList.length; i++) {
+                    temp[i + 1] = mCitiesList[i];
+                }
+                return temp;
+            } else {
+                return mCitiesList;
+            }
+        }
+
+        public boolean needHomeCity() {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
             if (sharedPref.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, false)) {
-                String homeTZ = sharedPref.getString(SettingsActivity.KEY_HOME_TZ, "");
-                if (!TimeZone.getDefault().getID().equals(homeTZ)) {
-                    CityObj c = new CityObj(
-                            mContext.getResources().getString(R.string.home_label), homeTZ, null);
-                    Object[] temp = new Object[mCitiesList.length + 1];
-                    temp[0] = c;
-                    for (int i = 0; i < mCitiesList.length; i++) {
-                        temp[i + 1] = mCitiesList[i];
-                    }
-                    return temp;
-                }
+                String homeTZ = sharedPref.getString(
+                        SettingsActivity.KEY_HOME_TZ, TimeZone.getDefault().getID());
+                final Date now = new Date();
+                return TimeZone.getTimeZone(homeTZ).getOffset(now.getTime())
+                        != TimeZone.getDefault().getOffset(now.getTime());
+            } else {
+                return false;
             }
-            return mCitiesList;
+        }
+
+        public boolean hasHomeCity() {
+            return (mCitiesList != null) && mCitiesList.length > 0 && ((CityObj)mCitiesList[0]).mCityId == null;
         }
 
         private void sortList() {
-            final Calendar now = Calendar.getInstance();
+            final Date now = new Date();
 
             // Sort by the Offset from GMT taking DST into account
             // and if the same sort by City Name
@@ -331,7 +352,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 public int compare(Object object1, Object object2) {
                     CityObj city1 = (CityObj) object1;
                     CityObj city2 = (CityObj) object2;
-
                     if (city1.mTimeZone == null && city2.mTimeZone == null) {
                         return safeCityNameCompare(city1, city2);
                     } else if (city1.mTimeZone == null) {
@@ -340,16 +360,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                         return 1;
                     }
 
-                    int gmOffset1 = TimeZone.getTimeZone(city1.mTimeZone).getOffset(
-                            now.get(Calendar.ERA), now.get(Calendar.YEAR),
-                            now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH),
-                            now.get(Calendar.DAY_OF_WEEK),
-                            now.get(Calendar.MILLISECOND));
-                    int gmOffset2 = TimeZone.getTimeZone(city2.mTimeZone).getOffset(
-                            now.get(Calendar.ERA), now.get(Calendar.YEAR),
-                            now.get(Calendar.MONTH), now.get(Calendar.DAY_OF_MONTH),
-                            now.get(Calendar.DAY_OF_WEEK),
-                            now.get(Calendar.MILLISECOND));
+                    int gmOffset1 = TimeZone.getTimeZone(city1.mTimeZone).getOffset(now.getTime());
+                    int gmOffset2 = TimeZone.getTimeZone(city2.mTimeZone).getOffset(now.getTime());
                     if (gmOffset1 == gmOffset2) {
                         return safeCityNameCompare(city1, city2);
                     } else {
