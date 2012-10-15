@@ -16,10 +16,14 @@
 
 package com.android.deskclock;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.BroadcastReceiver;
+import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
+
+import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
 
@@ -30,7 +34,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         final String action = intent.getAction();
-        if (Log.LOGV) Log.v("AlarmInitReceiver" + action);
+        if (Log.LOGV) Log.v("AlarmInitReceiver " + action);
 
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
@@ -41,8 +45,14 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                 if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
                     Alarms.saveSnoozeAlert(context, Alarms.INVALID_ALARM_ID, -1);
                     Alarms.disableExpiredAlarms(context);
-                }
 
+                    // Clear stopwatch and timers data
+                    SharedPreferences prefs =
+                            PreferenceManager.getDefaultSharedPreferences(context);
+                    Log.v("AlarmInitReceiver - Cleaning old timer and stopwatch data");
+                    TimerObj.cleanTimersFromSharedPrefs(prefs);
+                    Utils.clearSwSharedPref(prefs);
+                }
                 Alarms.setNextAlert(context);
                 result.finish();
                 Log.v("AlarmInitReceiver finished");
