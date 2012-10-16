@@ -18,12 +18,15 @@ package com.android.deskclock;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.MenuItem;
+
+import com.android.deskclock.stopwatch.Stopwatches;
 
 import java.util.Locale;
 
@@ -128,5 +131,22 @@ public class Utils {
     **/
     public static int getGrayColorId() {
         return R.color.clock_gray;
+    }
+
+    /**
+     * Clears the persistent data of stopwatch (start time, state, laps, etc...).
+     */
+    public static void clearSwSharedPref(SharedPreferences prefs) {
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.remove (Stopwatches.PREF_START_TIME);
+        editor.remove (Stopwatches.PREF_ACCUM_TIME);
+        editor.remove (Stopwatches.PREF_STATE);
+        int lapNum = prefs.getInt(Stopwatches.PREF_LAP_NUM, Stopwatches.STOPWATCH_RESET);
+        for (int i = 0; i < lapNum; i++) {
+            String key = Stopwatches.PREF_LAP_TIME + Integer.toString(i);
+            editor.remove(key);
+        }
+        editor.remove(Stopwatches.PREF_LAP_NUM);
+        editor.apply();
     }
 }
