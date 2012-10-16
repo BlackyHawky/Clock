@@ -28,7 +28,8 @@ import android.widget.LinearLayout;
 import com.android.deskclock.timer.TimerView;
 
 
-public class TimerSetupView extends LinearLayout implements Button.OnClickListener{
+public class TimerSetupView extends LinearLayout implements Button.OnClickListener,
+        Button.OnLongClickListener{
 
     protected int mInputSize = 5;
 
@@ -36,6 +37,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     protected int mInput [] = new int [mInputSize];
     protected int mInputPointer = -1;
     protected Button mLeft, mRight;
+    protected Button mStart;
     protected ImageButton mDelete;
     protected TimerView mEnteredTime;
     protected final Context mContext;
@@ -67,6 +69,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         mEnteredTime = (TimerView)findViewById(R.id.timer_time_text);
         mDelete = (ImageButton)findViewById(R.id.delete);
         mDelete.setOnClickListener(this);
+        mDelete.setOnLongClickListener(this);
 
         mNumbers[1] = (Button)v1.findViewById(R.id.key_left);
         mNumbers[2] = (Button)v1.findViewById(R.id.key_middle);
@@ -93,10 +96,29 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         updateTime();
     }
 
+    public void registerStartButton(Button start) {
+        mStart = start;
+    }
+
+    public void updateStartButton() {
+        boolean enabled = mInputPointer != -1;
+        if (mStart != null) {
+            mStart.setEnabled(enabled);
+        }
+    }
+
+    public void updateDeleteButton() {
+        boolean enabled = mInputPointer != -1;
+        if (mDelete != null) {
+            mDelete.setEnabled(enabled);
+        }
+    }
 
     @Override
     public void onClick(View v) {
         doOnClick(v);
+        updateStartButton();
+        updateDeleteButton();
     }
 
     protected void doOnClick(View v) {
@@ -130,6 +152,17 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
                 updateTime();
             }
         }
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (v == mDelete) {
+            reset();
+            updateStartButton();
+            updateDeleteButton();
+            return true;
+        }
+        return false;
     }
 
     protected void updateTime() {
