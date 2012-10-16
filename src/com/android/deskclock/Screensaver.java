@@ -37,6 +37,9 @@ import android.view.animation.DecelerateInterpolator;
 public class Screensaver extends DreamService {
     static final boolean DEBUG = false;
     static final String TAG = "DeskClock/Screensaver";
+    // This value must match android:defaultValue of
+    // android:key="screensaver_clock_style" in dream_settings.xml
+    static final String DEFAULT_CLOCK_STYLE = "digital";
 
     static final long MOVE_DELAY = 60000; // DeskClock.SCREEN_SAVER_MOVE_DELAY;
     static final long SLIDE_TIME = 10000;
@@ -187,7 +190,8 @@ public class Screensaver extends DreamService {
 
     private void setClockStyle() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String style = sharedPref.getString(ScreensaverSettingsActivity.KEY_CLOCK_STYLE, "analog");
+        String style = sharedPref.getString(
+                ScreensaverSettingsActivity.KEY_CLOCK_STYLE, DEFAULT_CLOCK_STYLE);
         if (style.equals("analog")) {
             mDigitalClock.setVisibility(View.GONE);
             mAnalogClock.setVisibility(View.VISIBLE);
