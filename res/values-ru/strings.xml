@@ -27,7 +27,7 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Удалить будильник?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Показать часы"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Спрятать часы"</string>
-    <string name="label" msgid="7713131021574533921">"Ярлык (необязательно)"</string>
+    <string name="label" msgid="162189613902857319">"Описание"</string>
     <string name="default_label" msgid="5590025289805630372">"Будильник"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Установить будильник"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вибросигнал"</string>
@@ -204,7 +204,8 @@
     <string name="home_time_zone" msgid="9199730676287974501">"Мой часовой пояс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Мой часовой пояс"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Отмена"</string>
-    <string name="time_picker_set" msgid="277860606472289828">"Настроить"</string>
+    <!-- no translation found for time_picker_set (331153175471468051) -->
+    <skip />
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"–"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -320,4 +321,5 @@
     <skip />
     <!-- no translation found for next_alarm_description (2650244835760747046) -->
     <skip />
+    <string name="label_unlabeled" msgid="4699506713571930740"></string>
 </resources>
