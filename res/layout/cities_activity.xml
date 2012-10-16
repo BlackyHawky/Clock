@@ -21,5 +21,5 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:paddingLeft="8dip"
-    android:paddingRight="12dip"
+    android:paddingRight="32dip"
     android:clipToPadding="false" />
