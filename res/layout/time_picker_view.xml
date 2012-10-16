@@ -84,7 +84,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:layout_gravity="center"
-            android:src="@drawable/ic_backspace_normal"
+            android:src="@drawable/ic_backspace"
             android:background="@drawable/item_background"
             android:contentDescription="@string/timer_delete"
             android:layout_height="match_parent" />
