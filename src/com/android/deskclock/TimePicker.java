@@ -79,11 +79,7 @@ public class TimePicker extends TimerSetupView implements Button.OnClickListener
         mRight.setOnClickListener(this);
         mAmPmLabel = (TextView)findViewById(R.id.ampm_label);
         mAmPmState = AMPM_NOT_SELECTED;
-        showAmPm();
-        updateLeftRightButtons();
-        updateNumericKeys();
-        enableSetButton();
-        updateTime();
+        updateKeypad();
     }
 
 
@@ -115,6 +111,21 @@ public class TimePicker extends TimerSetupView implements Button.OnClickListener
         } else if (v == mRight) {
             onRightClicked();
         }
+        updateKeypad();
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        if (v == mDelete) {
+            mAmPmState = AMPM_NOT_SELECTED;
+            reset();
+            updateKeypad();
+            return true;
+        }
+        return false;
+    }
+
+    private void updateKeypad() {
         // Update state of keypad
         // Set the correct AM/PM state
         showAmPm();
@@ -125,6 +136,9 @@ public class TimePicker extends TimerSetupView implements Button.OnClickListener
         updateNumericKeys();
         // enable/disable the "set" key
         enableSetButton();
+        // Update the backspace button
+        updateDeleteButton();
+
     }
 
     // Update the time displayed in the picker:
@@ -503,11 +517,7 @@ public class TimePicker extends TimerSetupView implements Button.OnClickListener
             mInputPointer = -1;
         }
         mAmPmState = savedState.mAmPmState;
-        showAmPm();
-        updateNumericKeys();
-        updateLeftRightButtons();
-        enableSetButton();
-        updateTime();
+        updateKeypad();
     }
 
     private static class SavedState extends BaseSavedState {

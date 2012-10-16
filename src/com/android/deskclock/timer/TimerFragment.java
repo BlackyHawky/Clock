@@ -440,6 +440,7 @@ public class TimerFragment extends DeskClockFragment
             }
 
         });
+        mTimerSetup.registerStartButton(mStart);
         mAddTimer = (ImageButton)v.findViewById(R.id.timer_add_timer);
         mAddTimer.setOnClickListener(new OnClickListener() {
             @Override
@@ -565,6 +566,8 @@ public class TimerFragment extends DeskClockFragment
             mSeperator.setVisibility(View.VISIBLE);
             mCancel.setVisibility(View.VISIBLE);
         }
+        mTimerSetup.updateStartButton();
+        mTimerSetup.updateDeleteButton();
         // Use light's out setup when this fragment is within the DeskClock
         if (getActivity() instanceof DeskClock) {
             ((DeskClock) getActivity()).setTimerAddingTimerState(true);
