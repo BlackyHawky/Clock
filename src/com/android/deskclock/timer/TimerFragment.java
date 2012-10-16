@@ -683,7 +683,10 @@ public class TimerFragment extends DeskClockFragment
                 break;
             case TimerObj.STATE_TIMESUP:
                 t.mState = TimerObj.STATE_DONE;
-                ((TimerListItem) t.mView).done();
+                // Used in a context where the timer could be off-screen and without a view
+                if (t.mView != null) {
+                    ((TimerListItem) t.mView).done();
+                }
                 updateTimersState(t, Timers.TIMER_DONE);
                 cancelTimerNotification(t.mTimerId);
                 updateTimesUpMode(t);
