@@ -33,6 +33,8 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"اهتزاز"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"تكرار"</string>
     <string name="alert" msgid="6506982899651975645">"نغمة رنين المنبه"</string>
+    <!-- no translation found for ringtone (9110746249688559579) -->
+    <skip />
     <string name="time" msgid="8067216534232296518">"الوقت"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"تجاهل"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"يتم جعل المنبه صامتًا بعد <xliff:g id="MINUTES">%d</xliff:g> من الدقائق"</string>
@@ -104,12 +106,17 @@
     <item msgid="3450979320164769576">"تجاهل"</item>
     <item msgid="6302517608411378024">"عدم إجراء شيء"</item>
   </string-array>
-  <string-array name="volume_button_setting_values">
-    <item msgid="7438326931744812183">"1"</item>
-    <item msgid="6360488263896848967">"2"</item>
-    <item msgid="1944820890481615263">"0"</item>
-  </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"تعيين نغمة الرنين الافتراضية"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"التنبيهات"</string>
+    <string name="gallery_button_description" msgid="1151743663255257668">"المعرض"</string>
+    <string name="music_button_description" msgid="1626593420810117999">"موسيقى"</string>
+    <string name="nightmode_button_description" msgid="990894208217576381">"خافت"</string>
+    <string name="home_button_description" msgid="3383859096809056157">"المشغل"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"عرض الساعة"</string>
+    <!-- no translation found for label_description (8736179296142915727) -->
+    <skip />
+    <!-- no translation found for ringtone_description (7580922112921069925) -->
+    <skip />
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"معلومات الطقس غير متاحة في الوقت الحالي."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"خدمة تشغيل الصوت بالنسبة إلى التنبيهات التي تم تعيينها في الساعة."</string>
@@ -123,7 +130,8 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"ساعة توقيف"</string>
     <string name="button_alarms" msgid="8016103479617020265">"التنبيهات"</string>
     <string name="button_cities" msgid="4555761857494501363">"المدن"</string>
-    <string name="button_menu" msgid="3258774294299940405">"القائمة"</string>
+    <!-- no translation found for button_menu (6050484561842120282) -->
+    <skip />
     <string name="menu_item_settings" msgid="1413723516369078665">"الإعدادات"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"مساعدة"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"استئناف"</string>
@@ -131,19 +139,33 @@
     <string name="sw_stop_button" msgid="8322958613123274451">"إيقاف"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"المختبر"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"إعادة ضبط"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"مشاركة"</string>
     <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
     <skip />
     <string name="hours_label" msgid="3393478155635368097">"ساعة"</string>
     <string name="minutes_label" msgid="3568098128251438588">"دقيقة"</string>
     <string name="seconds_label" msgid="124655952824003246">"ثانية"</string>
+    <!-- no translation found for hours_label_description (8652842524970971830) -->
+    <skip />
+    <!-- no translation found for minutes_label_description (965686733490357796) -->
+    <skip />
+    <!-- no translation found for seconds_label_description (3821620053141299692) -->
+    <skip />
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"وقتي هو <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"مرات الدوران:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"معمل <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for Nhours_description:one (371227238759147245) -->
+    <!-- no translation found for Nhours_description:other (7018184076091344797) -->
+    <!-- no translation found for Nminutes_description:one (1001391305885322059) -->
+    <!-- no translation found for Nminutes_description:other (6948360065351547776) -->
+    <!-- no translation found for Nseconds_description:one (6589853086641485725) -->
+    <!-- no translation found for Nseconds_description:other (7583230315175387547) -->
     <string name="timer_add_timer" msgid="862733633862574752">"إضافة موقت"</string>
     <string name="timer_start" msgid="6158486445614356442">"بدء"</string>
     <string name="timer_delete" msgid="8699122001991909302">"حذف"</string>
-    <string name="timer_plus_one" msgid="3889719909524490658">"+دقيقة واحدة"</string>
+    <!-- no translation found for timer_plus_one (6631211310420106116) -->
+    <skip />
     <string name="timer_stop" msgid="3361154678667736722">"إيقاف"</string>
     <string name="timer_reset" msgid="7848424809190171640">"إعادة تعيين"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"إلغاء"</string>
@@ -167,17 +189,15 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"الصفحة الرئيسية"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"مدن"</string>
-    <string name="alarm_on" msgid="3898994909321344263">"تشغيل"</string>
-    <string name="alarm_off" msgid="7220973271168254762">"إيقاف"</string>
+    <!-- no translation found for alarm_on (4344630320756422804) -->
+    <skip />
+    <!-- no translation found for alarm_off (6478058633710013612) -->
+    <skip />
     <string name="clock_settings" msgid="8887845806151785393">"الساعة"</string>
     <string name="clock_style" msgid="2265011060429742344">"النمط"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"تناظري"</item>
     <item msgid="8483930821046925592">"رقمي"</item>
-  </string-array>
-  <string-array name="clock_style_values">
-    <item msgid="5353805556644220918">"تناظري"</item>
-    <item msgid="1814605819692210671">"رقمي"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"ساعة آلية للبلد الأم"</string>
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"عند السفر خارج المنطقة الزمنية العادية، أضف ساعة تمثل التوقيت في البلد الأم"</string>
@@ -296,6 +316,7 @@
     <string name="alarm_undo" msgid="5710042601177655254">"تراجع"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"تم حذف المنبه."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
-    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <!-- no translation found for next_alarm_description (2650244835760747046) -->
     <skip />
 </resources>

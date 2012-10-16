@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrozvans"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Atkārtošana"</string>
     <string name="alert" msgid="6506982899651975645">"Modinātāja signāls"</string>
+    <string name="ringtone" msgid="9110746249688559579">"Zvana signāls"</string>
     <string name="time" msgid="8067216534232296518">"Laiks"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Noraidīt"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Signāls tika izslēgts pēc <xliff:g id="MINUTES">%d</xliff:g> minūtes(-ēm)."</string>
@@ -104,12 +105,15 @@
     <item msgid="3450979320164769576">"Nerādīt"</item>
     <item msgid="6302517608411378024">"Neveikt nekādas darbības"</item>
   </string-array>
-  <string-array name="volume_button_setting_values">
-    <item msgid="7438326931744812183">"1"</item>
-    <item msgid="6360488263896848967">"2"</item>
-    <item msgid="1944820890481615263">"0"</item>
-  </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Noklusējuma zvana signāla iestatīšana"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"Signāli"</string>
+    <string name="gallery_button_description" msgid="1151743663255257668">"Galerija"</string>
+    <string name="music_button_description" msgid="1626593420810117999">"Mūzika"</string>
+    <string name="nightmode_button_description" msgid="990894208217576381">"Aptumšot"</string>
+    <string name="home_button_description" msgid="3383859096809056157">"Palaidējs"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Pulksteņa attēlojums"</string>
+    <string name="label_description" msgid="8736179296142915727">"Iezīme"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Zvana signāls"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Informācija par laikapstākļiem pašlaik nav pieejama."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Skaņas atskaņošanas pakalpojums lietotnē Pulkstenis iestatītajiem signāliem"</string>
@@ -123,7 +127,7 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"Hronometrs"</string>
     <string name="button_alarms" msgid="8016103479617020265">"Signāli"</string>
     <string name="button_cities" msgid="4555761857494501363">"Pilsētas"</string>
-    <string name="button_menu" msgid="3258774294299940405">"Izvēlne"</string>
+    <string name="button_menu" msgid="6050484561842120282">"Citas opcijas"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Iestatījumi"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Palīdzība"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Atsākt"</string>
@@ -131,19 +135,35 @@
     <string name="sw_stop_button" msgid="8322958613123274451">"Apturēt"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Aplis"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Atiestatīt"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Kopīgot"</string>
     <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
     <skip />
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"min"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="hours_label_description" msgid="8652842524970971830">"stundas"</string>
+    <string name="minutes_label_description" msgid="965686733490357796">"minūtes"</string>
+    <string name="seconds_label_description" msgid="3821620053141299692">"sekundes"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mans laiks ir: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Intervāla laiki:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. intervāls"</string>
+  <plurals name="Nhours_description">
+    <item quantity="one" msgid="371227238759147245">"1 stunda"</item>
+    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> stundas"</item>
+  </plurals>
+  <plurals name="Nminutes_description">
+    <item quantity="one" msgid="1001391305885322059">"1 minūte"</item>
+    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> minūtes"</item>
+  </plurals>
+  <plurals name="Nseconds_description">
+    <item quantity="one" msgid="6589853086641485725">"1 sekunde"</item>
+    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> sekundes"</item>
+  </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Pievienot taimeri"</string>
     <string name="timer_start" msgid="6158486445614356442">"Sākt"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Dzēst"</string>
-    <string name="timer_plus_one" msgid="3889719909524490658">"vēl 1 min"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Pievienot 1 minūti"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Apturēt"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Atiestatīt"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Atcelt"</string>
@@ -167,17 +187,13 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Sākums"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Pilsētas"</string>
-    <string name="alarm_on" msgid="3898994909321344263">"Ieslēgts"</string>
-    <string name="alarm_off" msgid="7220973271168254762">"Izslēgts"</string>
+    <string name="alarm_on" msgid="4344630320756422804">"IESLĒGTS"</string>
+    <string name="alarm_off" msgid="6478058633710013612">"IZSLĒGTS"</string>
     <string name="clock_settings" msgid="8887845806151785393">"PULKSTENIS"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stils"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analogais"</item>
     <item msgid="8483930821046925592">"Digitālais"</item>
-  </string-array>
-  <string-array name="clock_style_values">
-    <item msgid="5353805556644220918">"analogais"</item>
-    <item msgid="1814605819692210671">"digitālais"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automātiski rādīt dzīvesvietas laiku"</string>
     <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Ceļojot ārpus ierastās laika joslas, rādīt arī dzīvesvietas laiku"</string>
@@ -298,4 +314,5 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
     <skip />
+    <string name="next_alarm_description" msgid="2650244835760747046">"Nākamais signāls: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
 </resources>
