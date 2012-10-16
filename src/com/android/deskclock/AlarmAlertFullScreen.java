@@ -45,6 +45,7 @@ import java.util.Calendar;
  */
 public class AlarmAlertFullScreen extends Activity {
 
+    private final boolean LOG = true;
     // These defaults must match the values in res/xml/settings.xml
     private static final String DEFAULT_SNOOZE = "10";
     private static final String DEFAULT_VOLUME_BEHAVIOR = "2";
@@ -54,19 +55,15 @@ public class AlarmAlertFullScreen extends Activity {
     private int mVolumeBehavior;
     boolean mFullscreenStyle;
 
-    // Parameters for the GlowPadView "ping" animation; see triggerPing().
-    private static final int PING_MESSAGE_WHAT = 101;
-    private static final boolean ENABLE_PING_AUTO_REPEAT = true;
-    private static final long PING_AUTO_REPEAT_DELAY_MSEC = 1200;
-
-    private boolean mPingEnabled = true;
-
     // Receives the ALARM_KILLED action from the AlarmKlaxon,
     // and also ALARM_SNOOZE_ACTION / ALARM_DISMISS_ACTION from other applications
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            if (LOG) {
+                Log.v("AlarmAlertFullScreen - onReceive " + action);
+            }
             if (action.equals(Alarms.ALARM_SNOOZE_ACTION)) {
                 snooze();
             } else if (action.equals(Alarms.ALARM_DISMISS_ACTION)) {
@@ -85,6 +82,13 @@ public class AlarmAlertFullScreen extends Activity {
         super.onCreate(icicle);
 
         mAlarm = getIntent().getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
+
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - onCreate");
+            if (mAlarm != null) {
+                Log.v("AlarmAlertFullScreen - Alarm Id " + mAlarm.toString());
+            }
+        }
 
         // Get the volume/camera button behavior setting
         final String vol =
@@ -127,6 +131,10 @@ public class AlarmAlertFullScreen extends Activity {
     }
 
     private void updateLayout() {
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - updateLayout");
+        }
+
         final LayoutInflater inflater = LayoutInflater.from(this);
         final View view = inflater.inflate(getLayoutResId(), null);
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
@@ -156,6 +164,10 @@ public class AlarmAlertFullScreen extends Activity {
 
     // Attempt to snooze this alert.
     private void snooze() {
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - snooze");
+        }
+
         final String snooze =
                 PreferenceManager.getDefaultSharedPreferences(this)
                 .getString(SettingsActivity.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE);
@@ -216,6 +228,10 @@ public class AlarmAlertFullScreen extends Activity {
 
     // Dismiss the alarm.
     private void dismiss(boolean killed) {
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - dismiss");
+        }
+
         Log.i(killed ? "Alarm killed" : "Alarm dismissed by user");
         // The service told us that the alarm has been killed, do not modify
         // the notification or stop the service.
@@ -236,7 +252,7 @@ public class AlarmAlertFullScreen extends Activity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        if (Log.LOGV) Log.v("AlarmAlert.OnNewIntent()");
+        if (LOG) Log.v("AlarmAlert.OnNewIntent()");
 
         mAlarm = intent.getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
 
@@ -245,6 +261,9 @@ public class AlarmAlertFullScreen extends Activity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - onConfigChanged");
+        }
         updateLayout();
         super.onConfigurationChanged(newConfig);
     }
@@ -252,6 +271,9 @@ public class AlarmAlertFullScreen extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - onResume");
+        }
         // If the alarm was deleted at some point, disable snooze.
         if (Alarms.getAlarm(getContentResolver(), mAlarm.id) == null) {
             Button snooze = (Button) findViewById(R.id.snooze);
@@ -262,7 +284,7 @@ public class AlarmAlertFullScreen extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (Log.LOGV) Log.v("AlarmAlert.onDestroy()");
+        if (LOG) Log.v("AlarmAlert.onDestroy()");
         // No longer care about the alarm being killed.
         unregisterReceiver(mReceiver);
     }
@@ -271,6 +293,9 @@ public class AlarmAlertFullScreen extends Activity {
     public boolean dispatchKeyEvent(KeyEvent event) {
         // Do this on key down to handle a few of the system keys.
         boolean up = event.getAction() == KeyEvent.ACTION_UP;
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - dispatchKeyEvent " + event.getKeyCode());
+        }
         switch (event.getKeyCode()) {
             // Volume keys and camera keys dismiss the alarm
             case KeyEvent.KEYCODE_POWER:
@@ -304,6 +329,9 @@ public class AlarmAlertFullScreen extends Activity {
     public void onBackPressed() {
         // Don't allow back to dismiss. This method is overriden by AlarmAlert
         // so that the dialog is dismissed.
+        if (LOG) {
+            Log.v("AlarmAlertFullScreen - onBackPressed");
+        }
         return;
     }
 }
