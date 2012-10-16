@@ -108,13 +108,6 @@ public class TimerRingService extends Service {
             Log.v("TimerRingSErvice.play()");
         }
 
-        Uri alert;
-        alert = RingtoneManager.getDefaultUri(
-                RingtoneManager.TYPE_ALARM);
-        if (Log.LOGV) {
-            Log.v("Using default alarm: " + alert.toString());
-        }
-
         // TODO: Reuse mMediaPlayer instead of creating a new one and/or use
         // RingtoneManager.
         mMediaPlayer = new MediaPlayer();
@@ -139,7 +132,9 @@ public class TimerRingService extends Service {
                 setDataSourceFromResource(getResources(), mMediaPlayer,
                         R.raw.in_call_alarm);
             } else {
-                mMediaPlayer.setDataSource(this, alert);
+                AssetFileDescriptor afd = getAssets().openFd("sounds/Timer_Expire.ogg");
+                mMediaPlayer.setDataSource(
+                        afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
             }
             startAlarm(mMediaPlayer);
         } catch (Exception ex) {
