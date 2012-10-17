@@ -72,4 +72,5 @@
         <attr name="jewelOffset" format="dimension"/>
         <attr name="jewelColor" format="color"/>
     </declare-styleable>
+
 </resources>

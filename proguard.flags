@@ -5,4 +5,3 @@
 -keep class com.android.deskclock.widget.multiwaveview.* {
   *;
 }
-
