@@ -706,5 +706,6 @@
     <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
     <string name="next_alarm_description">Next alarm: <xliff:g id="alarm_time" example="Wed 8:00am">%s</xliff:g></string>
     <string name="label_unlabeled"></string>
+
 </resources>
 

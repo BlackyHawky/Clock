@@ -15,7 +15,8 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,12 +29,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
         android:paddingBottom="@dimen/header_font_size"
-        android:paddingLeft="24dp" >
+        android:paddingLeft="@dimen/alarm_alert_clock_padding_left" >
 
         <TextView
             android:id="@+id/alertTitle"
-            style="@style/header_not_caps"
+            style="@style/header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -71,6 +74,7 @@
             <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/am_pm"
                 style="@style/label"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="none"
                 android:singleLine="true"
@@ -78,40 +82,30 @@
         </com.android.deskclock.DigitalClock>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dip"
+    <com.android.deskclock.widget.multiwaveview.GlowPadView
+        android:id="@+id/glow_pad_view"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingLeft="24dip"
-        android:paddingRight="24dip" >
+        android:focusable="true"
+        android:layout_marginRight="@dimen/glowpadview_margin_right"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_gravity="center_vertical"
 
-        <Button
-            android:id="@+id/snooze"
-            style="@style/bold_button"
-            android:layout_width="match_parent"
-            android:layout_height="96dip"
-            android:layout_marginBottom="10dip"
-            android:background="@+drawable/btn_alarm_alert"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@string/alarm_alert_snooze_text"
-            android:textColor="@color/black" />
+        dc:targetDrawables="@array/snooze_dismiss_drawables"
+        dc:targetDescriptions="@array/snooze_dismiss_descriptions"
+        dc:directionDescriptions="@array/snooze_dismiss_direction_descriptions"
+        dc:handleDrawable="@drawable/ic_alarm_alert_touch_handle"
+        dc:outerRingDrawable="@drawable/ic_alarm_alert_outerring"
+        dc:outerRadius="@dimen/glowpadview_target_placement_radius"
+        dc:innerRadius="@dimen/glowpadview_inner_radius"
+        dc:snapMargin="@dimen/glowpadview_snap_margin"
+        dc:feedbackCount="1"
+        dc:vibrationDuration="20"
+        dc:glowRadius="@dimen/glowpadview_glow_radius"
+        dc:pointDrawable="@drawable/ic_lockscreen_glowdot"
+        />
 
-        <Button
-            android:id="@+id/ok"
-            style="@style/bold_button"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_marginBottom="@dimen/label_font_size"
-            android:layout_marginTop="10dip"
-            android:background="@+drawable/btn_alarm_alert"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="@android:string/ok"
-            android:textColor="@color/black" />
-    </LinearLayout>
+</RelativeLayout>
 
-</LinearLayout>
