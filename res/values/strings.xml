@@ -707,5 +707,8 @@
     <string name="next_alarm_description">Next alarm: <xliff:g id="alarm_time" example="Wed 8:00am">%s</xliff:g></string>
     <string name="label_unlabeled"></string>
 
+    <!-- Displays the number of alarms selected from the list of alarms. -->
+    <string name="alarms_selected"><xliff:g id="alarms">%d</xliff:g> selected</string>
+
 </resources>
 
