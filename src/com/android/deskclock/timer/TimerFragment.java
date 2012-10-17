@@ -128,7 +128,7 @@ public class TimerFragment extends DeskClockFragment
         }
 
         @Override
-        public Object getItem(int p) {
+        public TimerObj getItem(int p) {
             return mTimers.get(p);
         }
 
@@ -176,9 +176,21 @@ public class TimerFragment extends DeskClockFragment
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            TimerListItem v = new TimerListItem (mContext); // TODO: Need to recycle convertView.
+            final TimerObj o = getItem(position);
+            TimerListItem v;
+            if (convertView instanceof TimerListItem) {
+                v = (TimerListItem) convertView;
+                // Re-using the view and need to remove the link from the Timer to this view
+                TimerObj old = (TimerObj) v.getTag(R.id.timer_key);
+                if (old != null && old.mView == convertView) {
+                    old.mView = null;
+                }
+                v.reset();
+            } else {
+                v = new TimerListItem(mContext);
+            }
+            v.setTag(R.id.timer_key, o);
 
-            final TimerObj o = (TimerObj)getItem(position);
             o.mView = v;
             long timeLeft =  o.updateTimeLeft(false);
             boolean drawRed = o.mState != TimerObj.STATE_RESTART;
@@ -365,10 +377,10 @@ public class TimerFragment extends DeskClockFragment
             boolean toggle = mVisible != visible;
             mVisible = visible;
             for (int i = 0; i < mAdapter.getCount(); i ++) {
-                TimerObj t = (TimerObj) mAdapter.getItem(i);
+                TimerObj t = mAdapter.getItem(i);
                 if (t.mState == TimerObj.STATE_RUNNING || t.mState == TimerObj.STATE_TIMESUP) {
                     long timeLeft = t.updateTimeLeft(false);
-                    if ((TimerListItem)(t.mView) != null) {
+                    if (t.mView != null) {
                         ((TimerListItem)(t.mView)).setTime(timeLeft, false);
                     }
                 }
@@ -376,13 +388,13 @@ public class TimerFragment extends DeskClockFragment
                         && t.mState != TimerObj.STATE_RESTART) {
                     t.mState = TimerObj.STATE_TIMESUP;
                     TimerFragment.this.setTimerButtons(t);
-                    if ((TimerListItem)(t.mView) != null) {
+                    if (t.mView != null) {
                         ((TimerListItem)(t.mView)).timesUp();
                     }
                 }
 
                 // The blinking
-                if (toggle && (TimerListItem)(t.mView) != null) {
+                if (toggle && t.mView != null) {
                     if (t.mState == TimerObj.STATE_TIMESUP) {
                         ((TimerListItem)(t.mView)).setCircleBlink(mVisible);
                     }
@@ -602,7 +614,7 @@ public class TimerFragment extends DeskClockFragment
     public void stopAllTimesUpTimers() {
         boolean notifyChange = 0 < mAdapter.getCount();
         while (0 < mAdapter.getCount()) {
-            TimerObj timerObj = (TimerObj) mAdapter.getItem(0);
+            TimerObj timerObj = mAdapter.getItem(0);
             if (timerObj.mState == TimerObj.STATE_TIMESUP) {
                 onStopButtonPressed(timerObj);
             }
@@ -834,10 +846,9 @@ public class TimerFragment extends DeskClockFragment
     }
 
     public void setLabel(TimerObj timer, String label) {
-        ((TimerObj) mAdapter.getItem(
-                mAdapter.findTimerPositionById(timer.mTimerId))).mLabel = label;
+        mAdapter.getItem(mAdapter.findTimerPositionById(timer.mTimerId)).mLabel = label;
         if (timer.mState == TimerObj.STATE_TIMESUP) {
-            // Timer is in timesup mode.
+            // Timer is in times-up mode.
             TimerReceiver.showExpiredAlarmNotification(
                     getActivity().getApplicationContext(), timer);
         }
@@ -859,6 +870,7 @@ public class TimerFragment extends DeskClockFragment
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setContentDescription(r.getString(R.string.timer_plus_one));
                 plusOne.setImageResource(R.drawable.ic_plusone);
+                stop.setVisibility(View.VISIBLE);
                 stop.setContentDescription(r.getString(R.string.timer_stop));
                 stop.setText(R.string.timer_stop);
                 stop.setTextColor(getResources().getColor(R.color.clock_white));
@@ -868,6 +880,7 @@ public class TimerFragment extends DeskClockFragment
                 plusOne.setVisibility(View.VISIBLE);
                 plusOne.setContentDescription(r.getString(R.string.timer_reset));
                 plusOne.setImageResource(R.drawable.ic_reset);
+                stop.setVisibility(View.VISIBLE);
                 stop.setContentDescription(r.getString(R.string.timer_start));
                 stop.setText(R.string.timer_start);
                 stop.setTextColor(getResources().getColor(R.color.clock_white));
@@ -875,8 +888,11 @@ public class TimerFragment extends DeskClockFragment
                 break;
             case TimerObj.STATE_TIMESUP:
                 plusOne.setVisibility(View.VISIBLE);
+                plusOne.setContentDescription(r.getString(R.string.timer_plus_one));
                 plusOne.setImageResource(R.drawable.ic_plusone);
+                stop.setVisibility(View.VISIBLE);
                 stop.setContentDescription(r.getString(R.string.timer_stop));
+                stop.setText(R.string.timer_stop);
                 stop.setTextColor(getResources().getColor(R.color.clock_white));
                 countingTimerView.setVirtualButtonEnabled(true);
                 break;

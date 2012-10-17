@@ -71,6 +71,16 @@ public class StopwatchFragment extends DeskClockFragment
         }
         public long mLapTime;
         public long mTotalTime;
+        public View mView;
+
+        public void updateView() {
+            if (mView != null) {
+                TextView lapTime = (TextView) mView.findViewById(R.id.lap_time);
+                TextView toalTime = (TextView) mView.findViewById(R.id.lap_total);
+                lapTime.setText(Stopwatches.getTimeText(mLapTime));
+                toalTime.setText(Stopwatches.getTimeText(mTotalTime));
+            }
+        }
     }
 
     // Adapter for the ListView that shows the lap times.
@@ -95,12 +105,21 @@ public class StopwatchFragment extends DeskClockFragment
             if (mLaps.size() == 0 || position >= mLaps.size()) {
                 return null;
             }
+            Lap lap = getItem(position);
             View lapInfo;
             if (convertView != null) {
+                // Re-using the view and need to remove the link from the Lap to this view
                 lapInfo = convertView;
+                Lap oldLap = (Lap)lapInfo.getTag(R.id.lap_key);
+                if (oldLap != null && oldLap.mView == lapInfo) {
+                    oldLap.mView = null;
+                }
             } else {
-                lapInfo =  mInflater.inflate(R.layout.lap_view, parent, false);
+                lapInfo = mInflater.inflate(R.layout.lap_view, parent, false);
+                lapInfo.setBackgroundColor(mBackgroundColor);
             }
+            lapInfo.setTag(R.id.lap_key, lap);
+            lap.mView = lapInfo;
             TextView count = (TextView)lapInfo.findViewById(R.id.lap_number);
             TextView lapTime = (TextView)lapInfo.findViewById(R.id.lap_time);
             TextView toalTime = (TextView)lapInfo.findViewById(R.id.lap_total);
@@ -109,7 +128,6 @@ public class StopwatchFragment extends DeskClockFragment
             count.setText(getString(R.string.sw_notification_lap_number, mLaps.size() - position)
                     .toUpperCase());
 
-            lapInfo.setBackgroundColor(mBackgroundColor);
             return lapInfo;
         }
 
@@ -119,7 +137,7 @@ public class StopwatchFragment extends DeskClockFragment
         }
 
         @Override
-        public Object getItem(int position) {
+        public Lap getItem(int position) {
             if (mLaps.size() == 0 || position >= mLaps.size()) {
                 return null;
             }
@@ -128,7 +146,7 @@ public class StopwatchFragment extends DeskClockFragment
 
         public void addLap(Lap l) {
             mLaps.add(0, l);
-            notifyDataSetChanged();
+            // for efficiency caller also calls notifyDataSetChanged()
         }
 
         public void clearLaps() {
@@ -168,12 +186,6 @@ public class StopwatchFragment extends DeskClockFragment
             notifyDataSetChanged();
         }
     }
-
-    // Keys for data stored in the activity's bundle
-    private static final String START_TIME_KEY = "start_time";
-    private static final String ACCUM_TIME_KEY = "accum_time";
-    private static final String STATE_KEY = "state";
-    private static final String LAPS_KEY = "laps";
 
     LapsListAdapter mLapsAdapter;
 
@@ -561,7 +573,7 @@ public class StopwatchFragment extends DeskClockFragment
 
     /***
      *
-     * @param time - in hundredths of a second
+     * @param time - in hundredth of a second
      */
     private void addLapTime(long time) {
         int size = mLapsAdapter.getCount();
@@ -572,27 +584,26 @@ public class StopwatchFragment extends DeskClockFragment
             mLapsAdapter.addLap(new Lap(0, curTime));
             mTime.setIntervalTime(curTime);
         } else {
-            long lapTime = curTime - ((Lap) mLapsAdapter.getItem(1)).mTotalTime;
-            ((Lap)mLapsAdapter.getItem(0)).mLapTime = lapTime;
-            ((Lap)mLapsAdapter.getItem(0)).mTotalTime = curTime;
+            long lapTime = curTime - mLapsAdapter.getItem(1).mTotalTime;
+            mLapsAdapter.getItem(0).mLapTime = lapTime;
+            mLapsAdapter.getItem(0).mTotalTime = curTime;
             mLapsAdapter.addLap(new Lap(0, 0));
             mTime.setMarkerTime(lapTime);
-        //    mTime.setIntervalTime(lapTime * 10);
         }
         mLapsAdapter.notifyDataSetChanged();
         // Start lap animation starting from the second lap
-         mTime.stopIntervalAnimation();
-         if (!reachedMaxLaps()) {
-             mTime.startIntervalAnimation();
-         }
+        mTime.stopIntervalAnimation();
+        if (!reachedMaxLaps()) {
+            mTime.startIntervalAnimation();
+        }
     }
 
     private void updateCurrentLap(long totalTime) {
         if (mLapsAdapter.getCount() > 0) {
-            Lap curLap = (Lap)mLapsAdapter.getItem(0);
-            curLap.mLapTime = totalTime - ((Lap)mLapsAdapter.getItem(1)).mTotalTime;
+            Lap curLap = mLapsAdapter.getItem(0);
+            curLap.mLapTime = totalTime - mLapsAdapter.getItem(1).mTotalTime;
             curLap.mTotalTime = totalTime;
-            mLapsAdapter.notifyDataSetChanged();
+            curLap.updateView();
         }
     }
 
