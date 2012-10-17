@@ -427,7 +427,10 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             if (!getCursor().moveToPosition(position)) {
-                throw new IllegalStateException("couldn't move cursor to position " + position);
+                // May happen if the last alarm was deleted and the cursor refreshed while the
+                // list is updated.
+                Log.v("couldn't move cursor to position " + position);
+                return null;
             }
             View v;
             if (convertView == null) {
