@@ -20,7 +20,7 @@
         style="@style/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ellipsize="none"
+        android:ellipsize="end"
         android:singleLine="true"
         android:textColor="@color/clock_white"/>
 
