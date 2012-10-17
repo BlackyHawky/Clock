@@ -32,6 +32,8 @@
 
     <com.android.deskclock.widget.ActionableToastBar
         android:id="@+id/undo_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginBottom="40dp"
         android:layout_marginLeft="8dp"
