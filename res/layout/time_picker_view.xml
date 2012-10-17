@@ -37,12 +37,16 @@
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:textColor="@color/clock_white"/>
             <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/hours_ones"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:textColor="@color/clock_white"/>
 
             <com.android.deskclock.ZeroTopPaddingTextView
@@ -51,6 +55,8 @@
                 android:ellipsize="none"
                 style="@style/medium_light"
                 android:text="@string/time_picker_time_seperator"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:textColor="@color/clock_white"/>
 
             <com.android.deskclock.ZeroTopPaddingTextView
@@ -58,12 +64,16 @@
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:textColor="@color/clock_white"/>
             <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/minutes_ones"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/medium_bold"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:textColor="@color/clock_white"/>
 
             <com.android.deskclock.ZeroTopPaddingTextView
