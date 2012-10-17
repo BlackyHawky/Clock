@@ -152,8 +152,14 @@
     <item quantity="one" msgid="371227238759147245">"1 hour"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> hours"</item>
   </plurals>
-    <!-- no translation found for Nminutes_description:other (6948360065351547776) -->
-    <!-- no translation found for Nseconds_description:other (7583230315175387547) -->
+  <plurals name="Nminutes_description">
+    <item quantity="one" msgid="1001391305885322059">"1 minute"</item>
+    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> minutes"</item>
+  </plurals>
+  <plurals name="Nseconds_description">
+    <item quantity="one" msgid="6589853086641485725">"1 second"</item>
+    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> seconds"</item>
+  </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Add Timer"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Delete"</string>
