@@ -457,7 +457,7 @@
     <!-- Title for an option that will automtically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
     <string name="automatic_home_clock">Automatic home clock</string>
     <!-- Describes the functionality provided by the automatic_home_clock option -->
-    <string name="automatic_home_clock_summary">While traveling outside regular time zone, add a clock for home</string>
+    <string name="automatic_home_clock_summary">While traveling in an area where the time is different, add a clock for home</string>
     <!-- Title in the preferences change the time zone for the user's home -->
     <string name="home_time_zone">Home time zone</string>
     <!-- Title in a list dialog box to pick a time zone for the user's home -->
