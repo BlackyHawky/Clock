@@ -33,7 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrar"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repetir"</string>
     <string name="alert" msgid="6506982899651975645">"Tono de alarma"</string>
-    <string name="ringtone" msgid="9110746249688559579">"Tono de llamada"</string>
+    <string name="ringtone" msgid="9110746249688559579">"Tono"</string>
     <string name="time" msgid="8067216534232296518">"Hora"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarma silenciada después de <xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
@@ -113,7 +113,7 @@
     <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Visualización del reloj"</string>
     <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">"Tono de llamada"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Tono"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"La información meteorológica no está disponible en este momento."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Servicio de reproducción de sonidos para alarmas configuradas en Reloj"</string>
@@ -196,7 +196,8 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Reloj local automático"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Cuando viajes fuera de tu zona horaria habitual, agrega un reloj para tu hora local."</string>
+    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
+    <skip />
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horaria local"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zona horaria local"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancelar"</string>

@@ -196,7 +196,8 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatisk ur for egen tidszone"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Tilføj et ur med din egen tidszone, når du rejser uden for din normale tidszone"</string>
+    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
+    <skip />
     <string name="home_time_zone" msgid="9199730676287974501">"Egen tidszone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Egen tidszone"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Annuller"</string>

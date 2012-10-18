@@ -196,7 +196,8 @@
     <item msgid="8483930821046925592">"Дигитални"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Аутоматски сат са временом код куће"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Када путујете изван уобичајене временске зоне, додајте сат са временом код куће"</string>
+    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
+    <skip />
     <string name="home_time_zone" msgid="9199730676287974501">"Матична временска зона"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Матична временска зона"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Откажи"</string>

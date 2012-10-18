@@ -187,8 +187,8 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Home"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Città"</string>
-    <string name="alarm_on" msgid="4344630320756422804">"ATTIVO"</string>
-    <string name="alarm_off" msgid="6478058633710013612">"DISATTIVATO"</string>
+    <string name="alarm_on" msgid="4344630320756422804">"ON"</string>
+    <string name="alarm_off" msgid="6478058633710013612">"OFF"</string>
     <string name="clock_settings" msgid="8887845806151785393">"OROLOGIO"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stile"</string>
   <string-array name="clock_style_entries">
@@ -196,7 +196,8 @@
     <item msgid="8483930821046925592">"Digitale"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Orologio di casa automatico"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Durante un viaggio fuori dal fuso orario normale, aggiungi un orologio per il fuso orario di casa tua"</string>
+    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
+    <skip />
     <string name="home_time_zone" msgid="9199730676287974501">"Fuso orario di casa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Fuso orario di casa"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Annulla"</string>

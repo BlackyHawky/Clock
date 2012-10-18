@@ -196,7 +196,8 @@
     <item msgid="8483930821046925592">"數位"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"自動增加居住地時鐘"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"旅行至其他時區時新增居住地時鐘"</string>
+    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
+    <skip />
     <string name="home_time_zone" msgid="9199730676287974501">"居住地時區"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"居住地時區"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"取消"</string>

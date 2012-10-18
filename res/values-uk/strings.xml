@@ -196,7 +196,8 @@
     <item msgid="8483930821046925592">"Цифровий"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Автоматичний годинник для рідного часового поясу"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Подорожуючи за межі звичного часового поясу, додайте годинник для рідного часового поясу"</string>
+    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
+    <skip />
     <string name="home_time_zone" msgid="9199730676287974501">"Рідний часовий пояс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Рідний часовий пояс"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Скасувати"</string>
