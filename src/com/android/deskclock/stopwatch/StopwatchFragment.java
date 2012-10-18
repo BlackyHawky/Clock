@@ -219,7 +219,6 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
             @Override
             public void onClick(View v) {
                 long time = Utils.getTimeNow();
-                ((DeskClock) getActivity()).scheduleLightsOut();
                 Context context = getActivity().getApplicationContext();
                 Intent intent = new Intent(context, StopwatchService.class);
                 intent.putExtra(Stopwatches.MESSAGE_TIME, time);
@@ -254,7 +253,6 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((DeskClock) getActivity()).bringLightsUp(false);
                 showSharePopup();
             }
         });
@@ -269,14 +267,12 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
             }
         });
         countingTimerView.registerStopTextView(mCenterButton);
-        countingTimerView.registerActivity((DeskClock) getActivity());
         countingTimerView.setVirtualButtonEnabled(true);
 
         mTime = (CircleTimerView)v.findViewById(R.id.stopwatch_time);
         mTimeText = (CountingTimerView)v.findViewById(R.id.stopwatch_time_text);
         mLapsList = (ListView)v.findViewById(R.id.laps_list);
         mLapsList.setDividerHeight(0);
-        mLapsList.setOnTouchListener(new OnTapListener(getActivity()));
         mLapsAdapter = new LapsListAdapter(getActivity());
         if (mLapsList != null) {
             mLapsList.setAdapter(mLapsAdapter);

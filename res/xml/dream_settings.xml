@@ -20,7 +20,7 @@
         android:title="@string/clock_style"
         android:entries="@array/clock_style_entries"
         android:entryValues="@array/clock_style_values"
-        android:defaultValue="digital"
+        android:defaultValue="@string/default_clock_style"
         android:dialogTitle="@string/clock_style" />
     <CheckBoxPreference
         android:key="screensaver_night_mode"

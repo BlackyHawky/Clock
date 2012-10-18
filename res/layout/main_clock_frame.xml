@@ -38,7 +38,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/medium_space"
             android:gravity="center">
             <TextView android:id="@+id/date"
                 android:layout_width="wrap_content"
@@ -114,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/medium_space"
+            android:layout_marginBottom="@dimen/medium_space_bottom"
             />
     </LinearLayout>
 </FrameLayout>

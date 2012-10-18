@@ -17,7 +17,6 @@
     android:id="@+id/stopwatch_circle"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:onClick="clockOnViewClick"
     android:orientation="horizontal"
     android:paddingTop="?android:attr/actionBarSize" >
 
