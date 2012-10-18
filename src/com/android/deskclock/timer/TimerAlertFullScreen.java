@@ -16,12 +16,16 @@ package com.android.deskclock.timer;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.timer.TimerFragment.OnEmptyListListener;
 
 /**
@@ -38,6 +42,9 @@ public class TimerAlertFullScreen extends Activity implements OnEmptyListListene
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.timer_alert_full_screen);
+        final View view = findViewById(R.id.fragment_container);
+        view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
+
         final Window win = getWindow();
         win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         // Turn on the screen unless we are being launched from the AlarmAlert
@@ -96,6 +103,19 @@ public class TimerAlertFullScreen extends Activity implements OnEmptyListListene
         super.onNewIntent(intent);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        ViewGroup viewContainer = (ViewGroup)findViewById(R.id.fragment_container);
+        viewContainer.requestLayout();
+        super.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onStop() {
+        stopAllTimesUpTimers();
+        super.onStop();
+    }
+
     protected void stopAllTimesUpTimers() {
         TimerFragment timerFragment = getFragment();
         if (timerFragment != null) {
@@ -105,7 +125,13 @@ public class TimerAlertFullScreen extends Activity implements OnEmptyListListene
 
     @Override
     public void onEmptyList() {
+        onListChanged();
         finish();
+    }
+
+    @Override
+    public void onListChanged() {
+        Utils.showInUseNotifications(this);
     }
 
     private TimerFragment getFragment() {

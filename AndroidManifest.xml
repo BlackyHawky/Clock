@@ -191,7 +191,8 @@
                 android:theme="@style/AlarmAlertFullScreenTheme"
                 android:launchMode="singleInstance"
                 showOnLockScreen="true"
-                android:taskAffinity=""/>
+                android:taskAffinity=""
+                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
         <service android:name="TimerRingService"
                 android:exported="false"

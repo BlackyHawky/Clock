@@ -27,7 +27,6 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.IBinder;
-import android.os.Vibrator;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 
@@ -105,7 +104,7 @@ public class TimerRingService extends Service {
         }
 
         if (Log.LOGV) {
-            Log.v("TimerRingSErvice.play()");
+            Log.v("TimerRingService.play()");
         }
 
         // TODO: Reuse mMediaPlayer instead of creating a new one and/or use
