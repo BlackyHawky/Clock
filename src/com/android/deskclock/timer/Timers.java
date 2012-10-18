@@ -48,6 +48,7 @@ public class Timers {
     public static final String NOTIF_APP_OPEN = "notif_app_open";
     public static final String FROM_NOTIFICATION = "from_notification";
     public static final String UPDATE_NOTIFICATION = "update_notification";
+    public static final String FROM_ALERT = "from_alert";
 
     public static final String TIMESUP_MODE = "times_up";
 

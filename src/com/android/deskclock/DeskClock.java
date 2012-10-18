@@ -38,17 +38,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.Transformation;
 import android.view.animation.TranslateAnimation;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.stopwatch.StopwatchService;
@@ -258,9 +253,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Timers.NOTIF_APP_OPEN, false);
         editor.apply();
-        Intent timerIntent = new Intent();
-        timerIntent.setAction(Timers.NOTIF_IN_USE_SHOW);
-        sendBroadcast(timerIntent);
+        Utils.showInUseNotifications(this);
 
         super.onPause();
     }
