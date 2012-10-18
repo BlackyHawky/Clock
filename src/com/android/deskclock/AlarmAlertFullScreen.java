@@ -303,7 +303,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (LOG) Log.v("AlarmAlert.onDestroy()");
+        if (LOG) Log.v("AlarmAlertFullScreen.onDestroy()");
         // No longer care about the alarm being killed.
         unregisterReceiver(mReceiver);
     }

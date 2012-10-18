@@ -98,6 +98,9 @@ public class AlarmKlaxon extends Service {
     @Override
     public void onDestroy() {
         stop();
+        Intent alarmDone = new Intent(Alarms.ALARM_DONE_ACTION);
+        sendBroadcast(alarmDone);
+
         // Stop listening for incoming calls.
         mTelephonyManager.listen(mPhoneStateListener, 0);
         AlarmAlertWakeLock.releaseCpuLock();
@@ -259,9 +262,6 @@ public class AlarmKlaxon extends Service {
         if (Log.LOGV) Log.v("AlarmKlaxon.stop()");
         if (mPlaying) {
             mPlaying = false;
-
-            Intent alarmDone = new Intent(Alarms.ALARM_DONE_ACTION);
-            sendBroadcast(alarmDone);
 
             // Stop audio playing
             if (mMediaPlayer != null) {
