@@ -150,7 +150,7 @@
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Circuitul <xliff:g id="NUMBER">%d</xliff:g>"</string>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 oră"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> (de) ore"</item>
+    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ore"</item>
   </plurals>
   <plurals name="Nminutes_description">
     <item quantity="one" msgid="1001391305885322059">"1 minut"</item>
