@@ -200,8 +200,7 @@
     <string name="home_time_zone" msgid="9199730676287974501">"የቤት ሰዓት ሰቅ"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"የቤት ሰዓት ሰቅ"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"ሰርዝ"</string>
-    <!-- no translation found for time_picker_set (331153175471468051) -->
-    <skip />
+    <string name="time_picker_set" msgid="331153175471468051">"እሺ"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
