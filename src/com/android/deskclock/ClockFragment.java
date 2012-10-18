@@ -79,7 +79,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         public void onReceive(Context context, Intent intent) {
             boolean changed = intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
                     || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED);
-            if (intent.getAction().equals(ACTION_ON_QUARTER_HOUR) || changed) {
+            if (changed || intent.getAction().equals(ACTION_ON_QUARTER_HOUR)) {
                 updateDate();
                 if (mAdapter != null) {
                     // *CHANGED may modify the need for showing the Home City
@@ -90,7 +90,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                     }
                 }
             }
-            if (changed) {
+            if (changed || intent.getAction().equals(Alarms.ALARM_DONE_ACTION)
+                    || intent.getAction().equals(Alarms.ALARM_SNOOZE_CANCELLED)) {
                 refreshAlarm();
             }
         }
@@ -160,6 +161,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 AlarmManager.RTC, alarmOnQuarterHour, AlarmManager.INTERVAL_FIFTEEN_MINUTES, mQuarterlyIntent);
         // Besides monitoring when quarter-hour changes, monitor other actions that effect clock time
         IntentFilter filter = new IntentFilter(ACTION_ON_QUARTER_HOUR);
+        filter.addAction(Alarms.ALARM_DONE_ACTION);
+        filter.addAction(Alarms.ALARM_SNOOZE_CANCELLED);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         getActivity().registerReceiver(mIntentReceiver, filter);

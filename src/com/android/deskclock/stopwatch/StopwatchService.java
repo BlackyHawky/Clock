@@ -33,7 +33,9 @@ public class StopwatchService extends Service {
     private NotificationManager mNotificationManager;
 
     // Constants for intent information
-    private static final int NOTIFICATION_ID = 1;
+    // Make this a large number to avoid the alarm ID's which seem to be 1, 2, ...
+    // Must also be different than TimerReceiver.IN_USE_NOTIFICATION_ID
+    private static final int NOTIFICATION_ID = Integer.MAX_VALUE - 1;
 
     @Override
     public IBinder onBind(Intent intent) {
