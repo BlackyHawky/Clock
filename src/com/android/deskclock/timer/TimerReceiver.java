@@ -17,7 +17,6 @@
 package com.android.deskclock.timer;
 
 import android.app.AlarmManager;
-import android.app.KeyguardManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -28,7 +27,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.android.deskclock.AlarmAlertFullScreen;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerRingService;
@@ -116,35 +114,23 @@ public class TimerReceiver extends BroadcastReceiver {
             si.setClass(context, TimerRingService.class);
             context.startService(si);
 
-            // Start notification for buzzing alarm.
-            showExpiredAlarmNotification(context, t);
-            cancelInUseNotification(context);
-
-            KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
-            if (!km.inKeyguardRestrictedInputMode()) {
-                // Start the DeskClock Activity
-                Intent i = new Intent();
-                i.setClass(context, DeskClock.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                i.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
-                context.startActivity(i);
-            } else {
-                // Start the TimerAlertFullScreen activity.
-                Intent timersAlert = new Intent(context, TimerAlertFullScreen.class);
-                timersAlert.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-                context.startActivity(timersAlert);
-            }
-
-            // Cancel the inuse notification if none are inuse.
+            // Update the in-use notification
             if (getNextRunningTimer(mTimers, false, Utils.getTimeNow()) == null) {
                 // Found no running timers.
                 cancelInUseNotification(context);
+            } else {
+                showInUseNotification(context);
             }
 
+            // Start the TimerAlertFullScreen activity.
+            Intent timersAlert = new Intent(context, TimerAlertFullScreen.class);
+            timersAlert.setFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+            context.startActivity(timersAlert);
         } else if (Timers.TIMER_RESET.equals(actionType)
                 || Timers.DELETE_TIMER.equals(actionType)
                 || Timers.TIMER_DONE.equals(actionType)) {
-            // Stop Ringtone if all timers are not in timesup status
+            // Stop Ringtone if all timers are not in times-up status
             stopRingtoneIfNoTimesup(context);
         }
         // Update the next "Times up" alarm
