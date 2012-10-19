@@ -256,7 +256,6 @@ public class SettingsActivity extends PreferenceActivity
         if (mUseDaylightTime && SHOW_DAYLIGHT_SAVINGS_INDICATOR) {
             name.append(" \u2600"); // Sun symbol
         }
-        Log.e(name.toString());
         return name.toString();
     }
 }

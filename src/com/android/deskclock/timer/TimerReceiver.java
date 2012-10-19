@@ -38,7 +38,9 @@ import java.util.Iterator;
 public class TimerReceiver extends BroadcastReceiver {
     private static final String TAG = "TimerReceiver";
 
-    private static final int IN_USE_NOTIFICATION_ID = 2;
+    // Make this a large number to avoid the alarm ID's which seem to be 1, 2, ...
+    // Must also be different than StopwatchService.NOTIFICATION_ID
+    private static final int IN_USE_NOTIFICATION_ID = Integer.MAX_VALUE - 2;
 
     ArrayList<TimerObj> mTimers;
 

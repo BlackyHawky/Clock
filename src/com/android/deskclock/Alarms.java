@@ -61,6 +61,10 @@ public class Alarms {
     // can dismiss the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
     public static final String ALARM_DISMISS_ACTION = "com.android.deskclock.ALARM_DISMISS";
 
+    // A public action sent by AlarmAlertFullScreen when a snoozed alarm was dismissed due
+    // to it handling ALARM_DISMISS_ACTION cancelled
+    public static final String ALARM_SNOOZE_CANCELLED = "com.android.deskclock.ALARM_SNOOZE_CANCELLED";
+
     // This is a private action used by the AlarmKlaxon to update the UI to
     // show the alarm has been killed.
     public static final String ALARM_KILLED = "alarm_killed";
@@ -448,7 +452,7 @@ public class Alarms {
     }
 
     /**
-     * Disables alert in AlarmManger and StatusBar.
+     * Disables alert in AlarmManager and StatusBar.
      *
      * @param context The context
      */

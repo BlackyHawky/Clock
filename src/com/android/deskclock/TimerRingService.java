@@ -181,16 +181,12 @@ public class TimerRingService extends Service {
     }
 
     /**
-     * Stops alarm audio and disables alarm if it not snoozed and not
-     * repeating
+     * Stops timer audio
      */
     public void stop() {
         if (Log.LOGV) Log.v("AlarmKlaxon.stop()");
         if (mPlaying) {
             mPlaying = false;
-
-            Intent alarmDone = new Intent(Alarms.ALARM_DONE_ACTION);
-            sendBroadcast(alarmDone);
 
             // Stop audio playing
             if (mMediaPlayer != null) {
