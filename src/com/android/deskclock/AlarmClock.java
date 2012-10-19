@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -46,11 +47,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.android.deskclock.Alarm.Columns;
 import com.android.deskclock.widget.ActionableToastBar;
 import com.android.deskclock.widget.swipeablelistview.SwipeableListView;
 
@@ -117,15 +118,15 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             previousDayMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
         }
 
+        mAlarmsList = (SwipeableListView) findViewById(R.id.alarms_list);
         mAdapter = new AlarmItemAdapter(
-                this, expandedIds, repeatCheckedIds, selectedAlarms, previousDayMap);
+                this, expandedIds, repeatCheckedIds, selectedAlarms, previousDayMap, mAlarmsList);
         mAdapter.setLongClickListener(this);
 
         if (mRingtoneTitleCache == null) {
             mRingtoneTitleCache = new Bundle();
         }
 
-        mAlarmsList = (SwipeableListView) findViewById(R.id.alarms_list);
         mAlarmsList.setAdapter(mAdapter);
         mAlarmsList.setVerticalScrollBarEnabled(true);
         mAlarmsList.enableSwipe(true);
@@ -423,6 +424,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         private final Typeface mRobotoNormal;
         private final Typeface mRobotoBold;
         private OnLongClickListener mLongClickListener;
+        private final ListView mList;
 
         private final HashSet<Integer> mExpanded = new HashSet<Integer>();
         private final HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
@@ -465,11 +467,26 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             Alarm alarm;
         }
 
+        // Used for scrolling an expanded item in the list to make sure it is fully visible.
+        private int mScrollAlarmId = -1;
+        private final Runnable mScrollRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (mScrollAlarmId != -1) {
+                    View v = getViewById(mScrollAlarmId);
+                    Rect rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                    mList.requestChildRectangleOnScreen(v, rect, false);
+                    mScrollAlarmId = -1;
+                }
+            }
+        };
+
         public AlarmItemAdapter(Context context, int[] expandedIds, int[] repeatCheckedIds,
-                int[] selectedAlarms, Bundle previousDaysOfWeekMap) {
+                int[] selectedAlarms, Bundle previousDaysOfWeekMap, ListView list) {
             super(context, null, 0);
             mContext = context;
             mFactory = LayoutInflater.from(context);
+            mList = list;
 
             DateFormatSymbols dfs = new DateFormatSymbols();
             mShortWeekDayStrings = dfs.getShortWeekdays();
@@ -973,6 +990,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
             mExpanded.add(itemHolder.alarm.id);
             bindExpandArea(itemHolder, itemHolder.alarm);
+            // Scroll the view to make sure it is fully viewed
+            mScrollAlarmId = itemHolder.alarm.id;
+            itemHolder.alarmItem.post(mScrollRunnable);
         }
 
         private boolean isAlarmExpanded(Alarm alarm) {
@@ -986,6 +1006,17 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         @Override
         public int getViewTypeCount() {
             return 1;
+        }
+
+        private View getViewById(int id) {
+            for (int i = 0; i < mList.getCount(); i++) {
+                View v = mList.getChildAt(i);
+                ItemHolder h = (ItemHolder)(v.getTag());
+                if (h.alarm.id == id) {
+                    return v;
+                }
+            }
+            return null;
         }
 
         public int[] getExpandedArray() {
@@ -1109,6 +1140,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 // expanded.
                 View view = mAlarmsList.getChildAt(0);
                 mAdapter.getView(0, view, mAlarmsList);
+                AlarmUtils.showTimeEditDialog(AlarmClock.this.getFragmentManager(), alarm);
             }
         };
         updateTask.execute();
