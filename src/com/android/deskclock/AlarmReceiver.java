@@ -74,6 +74,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 Log.wtf("Unable to parse Alarm from intent.");
                 Alarms.saveSnoozeAlert(context, Alarms.INVALID_ALARM_ID, -1);
             }
+            // Inform any active UI that alarm snooze was cancelled
+            context.sendBroadcast(new Intent(Alarms.ALARM_SNOOZE_CANCELLED));
             return;
         } else if (!Alarms.ALARM_ALERT_ACTION.equals(intent.getAction())) {
             // Unknown intent, bail.
@@ -114,7 +116,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Intentionally verbose: always log the alarm time to provide useful
         // information in bug reports.
         long now = System.currentTimeMillis();
-        Log.v("Recevied alarm set for " + Log.formatTime(alarm.time));
+        Log.v("Received alarm set for " + Log.formatTime(alarm.time));
 
         // Always verbose to track down time change problems.
         if (now > alarm.time + STALE_WINDOW) {
