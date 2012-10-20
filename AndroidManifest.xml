@@ -104,6 +104,7 @@
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
                 showOnLockScreen="true"
+                android:screenOrientation="nosensor"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
         <receiver android:name="AlarmReceiver"
