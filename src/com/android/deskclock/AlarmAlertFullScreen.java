@@ -24,6 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
@@ -58,6 +59,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
     private int mVolumeBehavior;
     boolean mFullscreenStyle;
     private GlowPadView mGlowPadView;
+    private boolean mIsDocked = false;
 
     // Parameters for the GlowPadView "ping" animation; see triggerPing().
     private static final int PING_MESSAGE_WHAT = 101;
@@ -131,6 +133,14 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         }
 
         updateLayout();
+
+        // Check the docking status , if the device is docked , do not limit rotation
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_DOCK_EVENT);
+        Intent dockStatus = registerReceiver(null, ifilter);
+        if (dockStatus != null) {
+            mIsDocked = dockStatus.getIntExtra(Intent.EXTRA_DOCK_STATE, -1)
+                    != Intent.EXTRA_DOCK_STATE_UNDOCKED;
+        }
 
         // Register to get the alarm killed/snooze/dismiss intent.
         IntentFilter filter = new IntentFilter(Alarms.ALARM_KILLED);
@@ -297,6 +307,11 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
             mGlowPadView.setTargetResources(R.array.dismiss_drawables);
             mGlowPadView.setTargetDescriptionsResourceId(R.array.dismiss_descriptions);
             mGlowPadView.setDirectionDescriptionsResourceId(R.array.dismiss_direction_descriptions);
+        }
+        // The activity is locked to the default orientation as a default set in the manifest
+        // Override this settings if the device is docked or config set it differently
+        if (getResources().getBoolean(R.bool.config_rotateAlarmAlert) || mIsDocked) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
     }
 
