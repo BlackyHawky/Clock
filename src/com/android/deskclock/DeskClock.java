@@ -83,59 +83,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     public static final int STOPWATCH_TAB_INDEX = 2;
 
     private int mSelectedTab;
-    private final boolean mDimmed = false;
-    private boolean mAddingTimer;
-    private int[] mClockButtonIds;
-    private int[] mTimerButtonId;
-    private int mFooterHeight;
-    private int mDimAnimationDuration;
-    private View mClockBackground;
-    private View mClockForeground;
-    private boolean mIsBlackBackground;
-
-    private int mClockState = CLOCK_NORMAL;
-    private static final int CLOCK_NORMAL = 0;
-    private static final int CLOCK_LIGHTS_OUT = 1;
-    private static final int CLOCK_DIMMED = 2;
-
-
-
-    // Delay before hiding the action bar and buttons
-    private static final long CLOCK_LIGHTSOUT_TIMEOUT = 10 * 1000; // 10 seconds
-    private static final long TIMER_SW_LIGHTSOUT_TIMEOUT = 3 * 1000; // 10 seconds
-    // Delay before dimming the screen
-    private static final long DIM_TIMEOUT = 10 * 1000; // 10 seconds
-
-    // Opacity of black layer between clock display and wallpaper.
-    private final float DIM_BEHIND_AMOUNT_NORMAL = 0.4f;
-    private final float DIM_BEHIND_AMOUNT_DIMMED = 0.8f; // higher contrast when display dimmed
-
-    private final int SCREEN_SAVER_TIMEOUT_MSG   = 0x2000;
-    private final int SCREEN_SAVER_MOVE_MSG      = 0x2001;
-    private final int DIM_TIMEOUT_MSG            = 0x2002;
-    private final int LIGHTSOUT_TIMEOUT_MSG      = 0x2003;
-    private final int BACK_TO_NORMAL_MSG         = 0x2004;
-
-
-
-    private final Handler mHandy = new Handler() {
-        @Override
-        public void handleMessage(Message m) {
-            switch(m.what) {
-                case LIGHTSOUT_TIMEOUT_MSG:
-                    if (mViewPager.getCurrentItem() == TIMER_TAB_INDEX && mAddingTimer) {
-                        break;
-                    }
-                    mClockState = CLOCK_LIGHTS_OUT;
-                    setClockState(true);
-                    break;
-                case DIM_TIMEOUT_MSG:
-                    mClockState = CLOCK_DIMMED;
-                    doDim(true);
-                    break;
-            }
-        }
-    };
 
     @Override
     public void onNewIntent(Intent newIntent) {
@@ -197,7 +144,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         mSelectedTab = CLOCK_TAB_INDEX;
         if (icicle != null) {
             mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
-            mClockState = icicle.getInt(KEY_CLOCK_STATE, CLOCK_NORMAL);
         }
 
         // Timer receiver may ask the app to go to the timer fragment if a timer expired
@@ -210,23 +156,11 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         }
         initViews();
         setHomeTimeZone();
-
-        int[] buttonIds = {R.id.alarms_button, R.id.cities_button, R.id.menu_button};
-        mClockButtonIds = buttonIds;
-        int[] button = {R.id.timer_add_timer};
-        mTimerButtonId = button;
-        mFooterHeight = (int) getResources().getDimension(R.dimen.button_footer_height);
-        mDimAnimationDuration = getResources().getInteger(R.integer.dim_animation_duration);
-        mClockBackground = findViewById(R.id.clock_background);
-        mClockForeground = findViewById(R.id.clock_foreground);
-        mIsBlackBackground = false;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mAddingTimer = true;
-        setClockState(false);
 
         Intent stopwatchIntent = new Intent(getApplicationContext(), StopwatchService.class);
         stopwatchIntent.setAction(Stopwatches.KILL_NOTIF);
@@ -243,7 +177,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
     @Override
     public void onPause() {
-        removeLightsMessages();
 
         Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
         intent.setAction(Stopwatches.SHOW_NOTIF);
@@ -262,14 +195,9 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_SELECTED_TAB, mActionBar.getSelectedNavigationIndex());
-        outState.putInt(KEY_CLOCK_STATE, mClockState);
     }
 
     public void clockButtonsOnClick(View v) {
-        if (!isClockStateNormal()) {
-            bringLightsUp(true);
-            return;
-        }
         if (v == null)
             return;
         switch (v.getId()) {
@@ -306,6 +234,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
                             }
                         }
                         return true;
+                    case R.id.menu_item_night_mode:
+                        startActivity(new Intent(DeskClock.this, ScreensaverActivity.class));
                     default:
                         break;
                 }
@@ -338,198 +268,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         Log.v(LOG_TAG, "Setting home time zone to " + homeTimeZone);
     }
 
-    public boolean isClockStateNormal() {
-        return mClockState == CLOCK_NORMAL;
-    }
-
-    public boolean isClockStateDimmed() {
-        return mClockState == CLOCK_DIMMED;
-    }
-
     public boolean isClockTab() {
         return mViewPager.getCurrentItem() == CLOCK_TAB_INDEX;
-    }
-
-    public void clockOnViewClick(View view) {
-        // Toggle lights
-        switch(mClockState) {
-            case CLOCK_NORMAL:
-                mClockState = CLOCK_LIGHTS_OUT;
-                break;
-            case CLOCK_LIGHTS_OUT:
-            case CLOCK_DIMMED:
-                mClockState = CLOCK_NORMAL;
-                break;
-            default:
-                Log.v(LOG_TAG, "in a bad state. setting to normal.");
-                mClockState = CLOCK_NORMAL;
-                break;
-        }
-        setClockState(true);
-    }
-
-    private void setClockState(boolean fade) {
-        doDim(fade);
-        switch(mClockState) {
-            case CLOCK_NORMAL:
-                doLightsOut(false, fade);
-                break;
-            case CLOCK_LIGHTS_OUT:
-                doLightsOut(true, fade);
-                if (isClockTab()) {
-                    scheduleDim();
-                }
-                break;
-            case CLOCK_DIMMED:
-                doLightsOut(true, fade);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void doDim(boolean fade) {
-        if (mClockBackground == null) {
-            mClockBackground = findViewById(R.id.clock_background);
-            mClockForeground = findViewById(R.id.clock_foreground);
-            if (mClockBackground == null || mClockForeground == null) {
-                return;
-            }
-        }
-        if (mClockState == CLOCK_DIMMED) {
-            mClockForeground.startAnimation(
-                    AnimationUtils.loadAnimation(this, fade ? R.anim.dim : R.anim.dim_instant));
-            TransitionDrawable backgroundFade =
-                    (TransitionDrawable) mClockBackground.getBackground();
-            TransitionDrawable foregroundFade =
-                    (TransitionDrawable) mClockForeground.getBackground();
-            backgroundFade.startTransition(fade ? mDimAnimationDuration : 0);
-            foregroundFade.startTransition(fade ? mDimAnimationDuration : 0);
-            mIsBlackBackground = true;
-        } else {
-            if (mIsBlackBackground) {
-                mClockForeground.startAnimation(
-                        AnimationUtils.loadAnimation(this, R.anim.undim));
-                TransitionDrawable backgroundFade =
-                        (TransitionDrawable) mClockBackground.getBackground();
-                TransitionDrawable foregroundFade =
-                        (TransitionDrawable) mClockForeground.getBackground();
-                backgroundFade.reverseTransition(0);
-                foregroundFade.reverseTransition(0);
-                mIsBlackBackground = false;
-            }
-        }
-    }
-
-    public void doLightsOut(boolean lightsOut, boolean fade) {
-        if (lightsOut && mActionBar.isShowing()) {
-            mActionBar.hide();
-            mViewPager.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-            hideAnimated(fade, R.id.clock_footer, mFooterHeight, mClockButtonIds);
-            if (mViewPager.getCurrentItem() != STOPWATCH_TAB_INDEX) {
-                hideAnimated(fade, R.id.timer_footer, mFooterHeight, mTimerButtonId);
-            }
-        } else if (!lightsOut && !mActionBar.isShowing()){
-            mActionBar.show();
-            mViewPager.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-            unhideAnimated(fade, R.id.clock_footer, mFooterHeight, mClockButtonIds);
-            if (mViewPager.getCurrentItem() != STOPWATCH_TAB_INDEX) {
-                unhideAnimated(fade, R.id.timer_footer, mFooterHeight, mTimerButtonId);
-            }
-            // Make sure dim will not start before lights out
-            removeLightsMessages();
-            scheduleLightsOut();
-        }
-    }
-
-    private void hideAnimated(boolean fade, int viewId, int toYDelta, final int[] buttonIds) {
-        View view = findViewById(viewId);
-        if (view != null) {
-            Animation hideAnimation = new TranslateAnimation(0, 0, 0, toYDelta);
-            hideAnimation.setDuration(fade ? 350 : 0);
-            hideAnimation.setFillAfter(true);
-            hideAnimation.setInterpolator(AnimationUtils.loadInterpolator(this,
-                    android.R.interpolator.decelerate_cubic));
-            hideAnimation.setAnimationListener(new AnimationListener() {
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    if (buttonIds != null) {
-                        for (int buttonId : buttonIds) {
-                            View button = findViewById(buttonId);
-                            if (button != null) {
-                                button.setVisibility(View.GONE);
-                            }
-                        }
-                    }
-                }
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-            });
-            view.startAnimation(hideAnimation);
-        }
-    }
-
-    private void unhideAnimated(boolean fade, int viewId, int fromYDelta, final int[] buttonIds) {
-        View view = findViewById(viewId);
-        if (view != null) {
-            Animation unhideAnimation = new TranslateAnimation(0, 0, fromYDelta, 0);
-            unhideAnimation.setDuration(fade ? 350 : 0);
-            unhideAnimation.setFillAfter(true);
-            unhideAnimation.setInterpolator(AnimationUtils.loadInterpolator(this,
-                    android.R.interpolator.decelerate_cubic));
-            if (buttonIds != null) {
-                for (int buttonId : buttonIds) {
-                    View button = findViewById(buttonId);
-                    if (button != null) {
-                        button.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-            view.startAnimation(unhideAnimation);
-        }
-    }
-
-    public void removeLightsMessages() {
-        mHandy.removeMessages(BACK_TO_NORMAL_MSG);
-        mHandy.removeMessages(LIGHTSOUT_TIMEOUT_MSG);
-        mHandy.removeMessages(DIM_TIMEOUT_MSG);
-    }
-
-    public void scheduleLightsOut() {
-        removeLightsMessages();
-        long timeout;
-        if (isClockTab()) {
-            timeout = CLOCK_LIGHTSOUT_TIMEOUT;
-        } else {
-            timeout = TIMER_SW_LIGHTSOUT_TIMEOUT;
-        }
-        mHandy.sendMessageDelayed(Message.obtain(mHandy, LIGHTSOUT_TIMEOUT_MSG), timeout);
-    }
-
-    public void bringLightsUp(boolean fade) {
-        removeLightsMessages();
-        if (mClockState != CLOCK_NORMAL) {
-            mClockState = CLOCK_NORMAL;
-            setClockState(fade);
-        } else {
-            scheduleLightsOut();
-        }
-    }
-
-    private void scheduleDim() {
-        removeLightsMessages();
-        mHandy.sendMessageDelayed(Message.obtain(mHandy, DIM_TIMEOUT_MSG), DIM_TIMEOUT);
-    }
-
-    public void setTimerAddingTimerState(boolean addingTimer) {
-        mAddingTimer = addingTimer;
-        if (addingTimer && mViewPager.getCurrentItem() == TIMER_TAB_INDEX) {
-            removeLightsMessages();
-        }
     }
 
     /***
@@ -594,15 +334,12 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            boolean fade = !isClockStateNormal();
-            bringLightsUp(fade);
+            // Do nothing
         }
 
         @Override
         public void onPageSelected(int position) {
             mMainActionBar.setSelectedNavigationItem(position);
-            boolean fade = !isClockStateNormal();
-            bringLightsUp(fade);
         }
 
         @Override
@@ -619,8 +356,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
             TabInfo info = (TabInfo)tab.getTag();
             mPager.setCurrentItem(info.getPosition());
-            boolean fade = !isClockStateNormal();
-            bringLightsUp(fade);
         }
 
         @Override
@@ -630,8 +365,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         }
     }
 
-    public static class OnTapListener implements OnTouchListener {
-        private DeskClock mActivity;
+    public static abstract class OnTapListener implements OnTouchListener {
         private float mLastTouchX;
         private float mLastTouchY;
         private long mLastTouchTime;
@@ -640,12 +374,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         private final float MAX_MOVEMENT_ALLOWED = 20;
         private final long MAX_TIME_ALLOWED = 500;
 
-        public OnTapListener(Activity activity) {
-            mActivity = (DeskClock) activity;
-        }
-
         public OnTapListener(Activity activity, TextView makePressedView) {
-            mActivity = (DeskClock) activity;
             mMakePressedTextView = makePressedView;
             mPressedColor = activity.getResources().getColor(Utils.getPressedColorId());
             mGrayColor = activity.getResources().getColor(Utils.getGrayColorId());
@@ -656,14 +385,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             switch (e.getAction()) {
                 case (MotionEvent.ACTION_DOWN):
                     mLastTouchTime = Utils.getTimeNow();
-                    if (mActivity.isClockStateDimmed()) {
-                        mActivity.clockOnViewClick(v);
-                        resetValues();
-                        break;
-                    }
                     mLastTouchX = e.getX();
                     mLastTouchY = e.getY();
-                    mActivity.removeLightsMessages();
                     if (mMakePressedTextView != null) {
                         mMakePressedTextView.setTextColor(mPressedColor);
                     }
@@ -678,13 +401,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
                             v = mMakePressedTextView;
                         }
                         processClick(v);
+                        resetValues();
                         return true;
-                    } else {
-                        if (mActivity.isClockStateNormal()){
-                            mActivity.scheduleLightsOut();
-                        } else if (mActivity.isClockTab() && !mActivity.isClockStateDimmed()) {
-                            mActivity.scheduleDim();
-                        }
                     }
                     resetValues();
                     break;
@@ -710,17 +428,12 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             }
         }
 
-        protected void processClick(View v) {
-            mActivity.clockOnViewClick(v);
-        }
+        protected abstract void processClick(View v);
     }
 
     /** Called by the LabelDialogFormat class after the dialog is finished. **/
     @Override
     public void onDialogLabelSet(TimerObj timer, String label, String tag) {
-        if (isClockStateNormal()) {
-            scheduleLightsOut();
-        }
         Fragment frag = getFragmentManager().findFragmentByTag(tag);
         if (frag instanceof TimerFragment) {
             ((TimerFragment) frag).setLabel(timer, label);

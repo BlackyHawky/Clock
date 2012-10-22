@@ -15,6 +15,9 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_item_night_mode"
+        android:title="@string/menu_item_night_mode"
+        android:icon="@android:drawable/ic_menu_preferences"/>
     <item android:id="@+id/menu_item_settings"
         android:title="@string/menu_item_settings"
         android:icon="@android:drawable/ic_menu_preferences"/>

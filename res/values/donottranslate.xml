@@ -19,4 +19,6 @@
     <string name="abbrev_wday_month_day_no_year">EEE, MMMM d</string>
     <!-- Format for describing the date, for accessibility. -->
     <string name="full_wday_month_day_no_year">EEEE, MMMM d</string>
+    <!-- Default clock style. -->
+    <string name="default_clock_style">digital</string>
 </resources>
