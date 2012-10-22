@@ -185,7 +185,7 @@
     <item quantity="one" msgid="6764708652976799977">"دقيقة واحدة"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> من المؤقتات"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"الصفحة الرئيسية"</string>
+    <string name="home_label" msgid="4436139365695453870">"المنزل"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"مدن"</string>
     <string name="alarm_on" msgid="4344630320756422804">"تشغيل"</string>
     <string name="alarm_off" msgid="6478058633710013612">"إيقاف"</string>
@@ -196,13 +196,11 @@
     <item msgid="8483930821046925592">"رقمي"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"ساعة آلية للبلد الأم"</string>
-    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
-    <skip />
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"عند السفر إلى منطقة يختلف فيها الوقت، أضف ساعة بتوقيت الوطن"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"المنطقة الزمنية للبلد الأم"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"المنطقة الزمنية للبلد الأم"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"إلغاء"</string>
-    <!-- no translation found for time_picker_set (331153175471468051) -->
-    <skip />
+    <string name="time_picker_set" msgid="331153175471468051">"موافق"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -317,4 +315,5 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"التنبيه التالي: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <string name="alarms_selected" msgid="1075308195332888260">"تم تحديد <xliff:g id="ALARMS">%d</xliff:g>"</string>
 </resources>
