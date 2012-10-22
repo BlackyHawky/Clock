@@ -49,10 +49,10 @@
     <item msgid="1958350526592385504">"Anchorage"</item>
     <item msgid="4530964415403549431">"Mendoza"</item>
     <item msgid="5519841965499989640">"Aruba"</item>
-    <item msgid="3619641653330712167">"Asunción"</item>
+    <item msgid="3619641653330712167">"Asuncion"</item>
     <item msgid="1807527094848372100">"Barbados"</item>
     <item msgid="7833099001850188721">"Belize"</item>
-    <item msgid="5063415446546412441">"Bogotá"</item>
+    <item msgid="5063415446546412441">"Bogota"</item>
     <item msgid="2839227656429500365">"Buenos Aires"</item>
     <item msgid="1133762043888408997">"Cancun"</item>
     <item msgid="5326063045518438386">"Caracas"</item>
@@ -120,8 +120,8 @@
     <item msgid="2173021164159165084">"Amman"</item>
     <item msgid="5365315490101319010">"Anadyr"</item>
     <item msgid="2203136550754775298">"Aqtau"</item>
-    <item msgid="6373057865921966096">"Baghdadi"</item>
-    <item msgid="7705451629446449789">"Bahareni"</item>
+    <item msgid="6373057865921966096">"Baghdad"</item>
+    <item msgid="7705451629446449789">"Bahrain"</item>
     <item msgid="2201480850069597815">"Baku"</item>
     <item msgid="424770109352500733">"Bangkok"</item>
     <item msgid="5329081174177673828">"Beirut"</item>
@@ -141,11 +141,11 @@
     <item msgid="5644311217186397680">"Kathmandu"</item>
     <item msgid="1242216853434928489">"Kuala Lumpur"</item>
     <item msgid="4933780769758115782">"Kuwait"</item>
-    <item msgid="6882764635090995312">"Macau"</item>
+    <item msgid="6882764635090995312">"Makau"</item>
     <item msgid="3986352476396048104">"Manila"</item>
     <item msgid="7941758124259560958">"Muscat"</item>
     <item msgid="2671480270494284192">"Phnom Penh"</item>
-    <item msgid="3585358766120768888">"Pyonyang"</item>
+    <item msgid="3585358766120768888">"Pyongyang"</item>
     <item msgid="282733287703161268">"Katari"</item>
     <item msgid="8551825553277677949">"Rangoon"</item>
     <item msgid="3510541723342902050">"Riyadh"</item>
@@ -178,7 +178,7 @@
     <item msgid="2742335625880576228">"Kisiwa cha Easter"</item>
     <item msgid="3401105135843706855">"Amsterdam"</item>
     <item msgid="7408055867187369479">"Andora"</item>
-    <item msgid="7714099594043232998">"Aten"</item>
+    <item msgid="7714099594043232998">"Athens"</item>
     <item msgid="7588965073415041593">"Belfast"</item>
     <item msgid="8982755519728730268">"Belgrade"</item>
     <item msgid="5820954942905597949">"Berlin"</item>
@@ -200,7 +200,7 @@
     <item msgid="3107227222663823852">"Madrid"</item>
     <item msgid="6409612387432198642">"Malta"</item>
     <item msgid="6955558182074785338">"Minsk"</item>
-    <item msgid="6228242074512253552">"Monaco"</item>
+    <item msgid="6228242074512253552">"Monaka"</item>
     <item msgid="6544575681565409774">"Moscow"</item>
     <item msgid="3976815367069730505">"Oslo"</item>
     <item msgid="2469420333993086275">"Paris"</item>
@@ -219,7 +219,7 @@
     <item msgid="3257947331297603891">"Vilnius"</item>
     <item msgid="2305299694079344212">"Warsaw"</item>
     <item msgid="4469591142000997702">"Zagreb"</item>
-    <item msgid="7929442688771599361">"Zürich"</item>
+    <item msgid="3827805692447432666">"Zurich"</item>
     <item msgid="7710293346890852314">"Antananarivo"</item>
     <item msgid="8675463358261691187">"Maldivi"</item>
     <item msgid="8258461076442136172">"Morisi"</item>
@@ -228,7 +228,7 @@
     <item msgid="1158779814198631169">"Guami"</item>
     <item msgid="5893704879373137457">"Honolulu"</item>
     <item msgid="1770338947698194275">"Kiritimati"</item>
-    <item msgid="3115018823853432422">"Nouméa"</item>
+    <item msgid="3115018823853432422">"Noumea"</item>
     <item msgid="8930848797035435014">"Samoa"</item>
     <item msgid="5520094948583238358">"Tahiti"</item>
     <item msgid="7301905385854586936">"Antigua"</item>
@@ -286,8 +286,17 @@
     <item msgid="4214691757607136548">"Hanoi"</item>
     <item msgid="484506613000693635">"Ankara"</item>
     <item msgid="1958807113380596945">"Bangalore"</item>
-    <item msgid="4309704652650635492">"Brasilia"</item>
+    <item msgid="2258411542499008700">"Brasília"</item>
     <item msgid="770086263560182220">"Cape Town"</item>
     <item msgid="5936333722350504953">"Islamabad"</item>
+    <item msgid="3631805761163219329">"Rio de Janeiro"</item>
+    <item msgid="6544644866501929714">"Ann Arbor"</item>
+    <item msgid="8675519768651745334">"Boulder"</item>
+    <item msgid="7006632817384692182">"Cambridge"</item>
+    <item msgid="7233704593042272414">"Kirkland"</item>
+    <item msgid="717352875658559544">"Madison"</item>
+    <item msgid="3567009426051313507">"Guangzhou"</item>
+    <item msgid="2738289235744819761">"Hyderabad"</item>
+    <item msgid="35629823970779893">"Reston"</item>
   </string-array>
 </resources>

@@ -112,7 +112,7 @@
     <string name="nightmode_button_description" msgid="990894208217576381">"Atenuar"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Reloj"</string>
-    <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
+    <string name="label_description" msgid="8736179296142915727">"Nombre"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Tono de llamada"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"La información meteorológica no está disponible en este momento."</string>
@@ -196,12 +196,11 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Reloj de tu ciudad automático"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Al viajar fuera de tu zona horaria habitual, añadir un reloj para la hora de tu ciudad"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Cuando viajes a una zona con una hora diferente, añade un reloj para la hora de tu ciudad."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horaria local"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zona horaria local"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancelar"</string>
-    <!-- no translation found for time_picker_set (331153175471468051) -->
-    <skip />
+    <string name="time_picker_set" msgid="331153175471468051">"Aceptar"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -313,8 +312,8 @@
     <string name="alarm_undo" msgid="5710042601177655254">"deshacer"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"Alarma eliminada"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
-    <!-- no translation found for world_day_of_week_label (5911196322328341288) -->
-    <skip />
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Próxima alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> alarma(s) seleccionada(s)"</string>
 </resources>

@@ -97,7 +97,7 @@
     <item msgid="1121150121639680484">"esase-Nassau"</item>
     <item msgid="8783518093470040300">"esase-New York"</item>
     <item msgid="8685565479120721681">"esase-Beulah"</item>
-    <item msgid="6854366494939955818">"Phakathi nendawo"</item>
+    <item msgid="6854366494939955818">"esaphakathi nendawo"</item>
     <item msgid="7325195282520040665">"esase-New Salem"</item>
     <item msgid="3368872340258580668">"esase-Panama"</item>
     <item msgid="58921303248631494">"esase-Phoenix"</item>
@@ -219,7 +219,7 @@
     <item msgid="3257947331297603891">"esase-Vilnius"</item>
     <item msgid="2305299694079344212">"esase-Warsaw"</item>
     <item msgid="4469591142000997702">"esase-Zagreb"</item>
-    <item msgid="7929442688771599361">"esase-Zürich"</item>
+    <item msgid="3827805692447432666">"e-Zurich"</item>
     <item msgid="7710293346890852314">"esase-Antananarivo"</item>
     <item msgid="8675463358261691187">"esase-Maldives"</item>
     <item msgid="8258461076442136172">"esase-Mauritius"</item>
@@ -286,8 +286,17 @@
     <item msgid="4214691757607136548">"esase-Hanoi"</item>
     <item msgid="484506613000693635">"esase-Ankara"</item>
     <item msgid="1958807113380596945">"esase-Bangalore"</item>
-    <item msgid="4309704652650635492">"esase-Brasilia"</item>
+    <item msgid="2258411542499008700">"e-Brasília"</item>
     <item msgid="770086263560182220">"esase-Cape Town"</item>
     <item msgid="5936333722350504953">"esase-Islamabad"</item>
+    <item msgid="3631805761163219329">"e-Rio de Janeiro"</item>
+    <item msgid="6544644866501929714">"e-Ann Arbor"</item>
+    <item msgid="8675519768651745334">"e-Boulder"</item>
+    <item msgid="7006632817384692182">"e-Cambridge"</item>
+    <item msgid="7233704593042272414">"e-Kirkland"</item>
+    <item msgid="717352875658559544">"e-Madison"</item>
+    <item msgid="3567009426051313507">"e-Guangzhou"</item>
+    <item msgid="2738289235744819761">"e-Hyderabad"</item>
+    <item msgid="35629823970779893">"e-Reston"</item>
   </string-array>
 </resources>

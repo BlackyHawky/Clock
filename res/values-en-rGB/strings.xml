@@ -152,8 +152,14 @@
     <item quantity="one" msgid="371227238759147245">"1 hour"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> hours"</item>
   </plurals>
-    <!-- no translation found for Nminutes_description:other (6948360065351547776) -->
-    <!-- no translation found for Nseconds_description:other (7583230315175387547) -->
+  <plurals name="Nminutes_description">
+    <item quantity="one" msgid="1001391305885322059">"1 minute"</item>
+    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> minutes"</item>
+  </plurals>
+  <plurals name="Nseconds_description">
+    <item quantity="one" msgid="6589853086641485725">"1 second"</item>
+    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> seconds"</item>
+  </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Add Timer"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Delete"</string>
@@ -190,12 +196,11 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatic home clock"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"While travelling outside regular time zone, add a clock for home"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"While travelling in an area where the time is different, add a clock for home"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Home time zone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Home time zone"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancel"</string>
-    <!-- no translation found for time_picker_set (331153175471468051) -->
-    <skip />
+    <string name="time_picker_set" msgid="331153175471468051">"OK"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -310,4 +315,5 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Next alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> selected"</string>
 </resources>

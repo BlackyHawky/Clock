@@ -219,7 +219,7 @@
     <item msgid="3257947331297603891">"Vílnius"</item>
     <item msgid="2305299694079344212">"Varsòvia"</item>
     <item msgid="4469591142000997702">"Zagreb"</item>
-    <item msgid="7929442688771599361">"Zuric"</item>
+    <item msgid="3827805692447432666">"Zuric"</item>
     <item msgid="7710293346890852314">"Antananarivo"</item>
     <item msgid="8675463358261691187">"Maldives"</item>
     <item msgid="8258461076442136172">"Maurici"</item>
@@ -286,8 +286,17 @@
     <item msgid="4214691757607136548">"Hanoi"</item>
     <item msgid="484506613000693635">"Ankara"</item>
     <item msgid="1958807113380596945">"Bengaluru"</item>
-    <item msgid="4309704652650635492">"Brasília"</item>
+    <item msgid="2258411542499008700">"Brasília"</item>
     <item msgid="770086263560182220">"Ciutat del Cap"</item>
     <item msgid="5936333722350504953">"Islāmābād"</item>
+    <item msgid="3631805761163219329">"Rio de Janeiro"</item>
+    <item msgid="6544644866501929714">"Ann Arbor"</item>
+    <item msgid="8675519768651745334">"Boulder"</item>
+    <item msgid="7006632817384692182">"Cambridge"</item>
+    <item msgid="7233704593042272414">"Kirkland"</item>
+    <item msgid="717352875658559544">"Madison"</item>
+    <item msgid="3567009426051313507">"Canton"</item>
+    <item msgid="2738289235744819761">"Hyderabad"</item>
+    <item msgid="35629823970779893">"Reston"</item>
   </string-array>
 </resources>

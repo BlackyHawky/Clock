@@ -33,8 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"สั่น"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"ตั้งซ้ำ"</string>
     <string name="alert" msgid="6506982899651975645">"เสียงเตือน"</string>
-    <!-- no translation found for ringtone (9110746249688559579) -->
-    <skip />
+    <string name="ringtone" msgid="9110746249688559579">"เสียงเรียกเข้า"</string>
     <string name="time" msgid="8067216534232296518">"เวลา"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ปิด"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"ปิดเสียงปลุกหลังจากผ่านไป <xliff:g id="MINUTES">%d</xliff:g> นาที"</string>
@@ -113,10 +112,8 @@
     <string name="nightmode_button_description" msgid="990894208217576381">"หรี่แสง"</string>
     <string name="home_button_description" msgid="3383859096809056157">"ตัวเรียกใช้งาน"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"การแสดงนาฬิกา"</string>
-    <!-- no translation found for label_description (8736179296142915727) -->
-    <skip />
-    <!-- no translation found for ringtone_description (7580922112921069925) -->
-    <skip />
+    <string name="label_description" msgid="8736179296142915727">"ป้ายกำกับ"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"เสียงเรียกเข้า"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"ข้อมูลสภาพอากาศไม่พร้อมใช้งานในขณะนี้"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"บริการเล่นเสียงสำหรับการปลุกที่ตั้งไว้ใน Clock"</string>
@@ -130,8 +127,7 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"นาฬิกาจับเวลา"</string>
     <string name="button_alarms" msgid="8016103479617020265">"การปลุก"</string>
     <string name="button_cities" msgid="4555761857494501363">"เมือง"</string>
-    <!-- no translation found for button_menu (6050484561842120282) -->
-    <skip />
+    <string name="button_menu" msgid="6050484561842120282">"ตัวเลือกอื่น"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"การตั้งค่า"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"ความช่วยเหลือ"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"ดำเนินการต่อ"</string>
@@ -145,27 +141,29 @@
     <string name="hours_label" msgid="3393478155635368097">"ชม."</string>
     <string name="minutes_label" msgid="3568098128251438588">"นาที"</string>
     <string name="seconds_label" msgid="124655952824003246">"วินาที"</string>
-    <!-- no translation found for hours_label_description (8652842524970971830) -->
-    <skip />
-    <!-- no translation found for minutes_label_description (965686733490357796) -->
-    <skip />
-    <!-- no translation found for seconds_label_description (3821620053141299692) -->
-    <skip />
+    <string name="hours_label_description" msgid="8652842524970971830">"ชั่วโมง"</string>
+    <string name="minutes_label_description" msgid="965686733490357796">"นาที"</string>
+    <string name="seconds_label_description" msgid="3821620053141299692">"วินาที"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"เวลาของฉันคือ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"เวลาสิ้นสุดรอบ:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"สิ้นสุดรอบที่ <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <!-- no translation found for Nhours_description:one (371227238759147245) -->
-    <!-- no translation found for Nhours_description:other (7018184076091344797) -->
-    <!-- no translation found for Nminutes_description:one (1001391305885322059) -->
-    <!-- no translation found for Nminutes_description:other (6948360065351547776) -->
-    <!-- no translation found for Nseconds_description:one (6589853086641485725) -->
-    <!-- no translation found for Nseconds_description:other (7583230315175387547) -->
+  <plurals name="Nhours_description">
+    <item quantity="one" msgid="371227238759147245">"1 ชั่วโมง"</item>
+    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ชั่วโมง"</item>
+  </plurals>
+  <plurals name="Nminutes_description">
+    <item quantity="one" msgid="1001391305885322059">"1 นาที"</item>
+    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> นาที"</item>
+  </plurals>
+  <plurals name="Nseconds_description">
+    <item quantity="one" msgid="6589853086641485725">"1 วินาที"</item>
+    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> วินาที"</item>
+  </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"เพิ่มนาฬิกาจับเวลา"</string>
     <string name="timer_start" msgid="6158486445614356442">"เริ่ม"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ลบ"</string>
-    <!-- no translation found for timer_plus_one (6631211310420106116) -->
-    <skip />
+    <string name="timer_plus_one" msgid="6631211310420106116">"เพิ่ม 1 นาที"</string>
     <string name="timer_stop" msgid="3361154678667736722">"หยุด"</string>
     <string name="timer_reset" msgid="7848424809190171640">"รีเซ็ต"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"ยกเลิก"</string>
@@ -189,10 +187,8 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"หน้าหลัก"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"เมือง"</string>
-    <!-- no translation found for alarm_on (4344630320756422804) -->
-    <skip />
-    <!-- no translation found for alarm_off (6478058633710013612) -->
-    <skip />
+    <string name="alarm_on" msgid="4344630320756422804">"เปิด"</string>
+    <string name="alarm_off" msgid="6478058633710013612">"ปิด"</string>
     <string name="clock_settings" msgid="8887845806151785393">"นาฬิกา"</string>
     <string name="clock_style" msgid="2265011060429742344">"รูปแบบ"</string>
   <string-array name="clock_style_entries">
@@ -200,12 +196,11 @@
     <item msgid="8483930821046925592">"ดิจิทัล"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"นาฬิกาอัตโนมัติสำหรับที่บ้าน"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"ในขณะที่เดินทางออกนอกเขตเวลาปกติ ให้เพิ่มนาฬิกาสำหรับที่บ้าน"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ในขณะที่เดินทางในพื้นที่ที่เวลาต่างออกไป ให้เพิ่มนาฬิกาสำหรับบ้าน"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"เขตเวลาท้องถิ่น"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"เขตเวลาท้องถิ่น"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"ยกเลิก"</string>
-    <!-- no translation found for time_picker_set (331153175471468051) -->
-    <skip />
+    <string name="time_picker_set" msgid="331153175471468051">"ตกลง"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -318,7 +313,7 @@
     <string name="alarm_deleted" msgid="5017075127290219443">"ลบการแจ้งเตือนแล้ว"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
-    <!-- no translation found for next_alarm_description (2650244835760747046) -->
-    <skip />
+    <string name="next_alarm_description" msgid="2650244835760747046">"ปลุกครั้งถัดไป: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <string name="alarms_selected" msgid="1075308195332888260">"เลือกแล้ว <xliff:g id="ALARMS">%d</xliff:g> รายการ"</string>
 </resources>
