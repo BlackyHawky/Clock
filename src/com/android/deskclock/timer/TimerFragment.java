@@ -217,10 +217,6 @@ public class TimerFragment extends DeskClockFragment
 
             v.setBackgroundColor(getResources().getColor(R.color.blackish));
             countingTimerView.registerStopTextView(stop);
-            // Use light's out setup when this fragment is within the DeskClock
-            if (getActivity() instanceof DeskClock) {
-                countingTimerView.registerActivity((DeskClock) getActivity());
-            }
             CircleButtonsLinearLayout circleLayout =
                     (CircleButtonsLinearLayout)v.findViewById(R.id.timer_circle);
             circleLayout.setCircleTimerViewIds(
@@ -386,25 +382,13 @@ public class TimerFragment extends DeskClockFragment
             LayoutParams params = footerView.getLayoutParams();
             params.height -= dividerHeight;
             footerView.setLayoutParams(params);
+            footerView.setBackgroundResource(R.color.blackish);
             mTimersList.addFooterView(footerView);
             View headerView = inflater.inflate(R.layout.blank_header_view, mTimersList, false);
             params = headerView.getLayoutParams();
             params.height -= dividerHeight;
             headerView.setLayoutParams(params);
             mTimersList.addHeaderView(headerView);
-            mTimersList.setOnTouchListener(new OnTapListener(getActivity()));
-            footerView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((DeskClock) getActivity()).clockOnViewClick(v);
-                }
-            });
-            headerView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ((DeskClock) getActivity()).clockOnViewClick(v);
-                }
-            });
         } else {
             mTimersList.setBackgroundColor(getResources().getColor(R.color.blackish));
         }
@@ -446,12 +430,6 @@ public class TimerFragment extends DeskClockFragment
         mAddTimer.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                // This is unchecked because mAddTimer only used within DeskClock
-                DeskClock activity = ((DeskClock) getActivity());
-                if (!activity.isClockStateNormal()) {
-                    activity.bringLightsUp(true);
-                    return;
-                }
                 mTimerSetup.reset();
                 gotoSetupView();
             }
@@ -582,29 +560,15 @@ public class TimerFragment extends DeskClockFragment
         }
         mTimerSetup.updateStartButton();
         mTimerSetup.updateDeleteButton();
-        // Use light's out setup when this fragment is within the DeskClock
-        if (getActivity() instanceof DeskClock) {
-            ((DeskClock) getActivity()).setTimerAddingTimerState(true);
-            ((DeskClock) getActivity()).bringLightsUp(false);
-        }
     }
     private void gotoTimersView() {
         mNewTimerPage.setVisibility(View.GONE);
         mTimersListPage.setVisibility(View.VISIBLE);
         startClockTicks();
-        // Use light's out setup when this fragment is within the DeskClock
-        if (getActivity() instanceof DeskClock) {
-            ((DeskClock) getActivity()).setTimerAddingTimerState(false);
-            ((DeskClock) getActivity()).bringLightsUp(false);
-        }
     }
 
     @Override
     public void onClick(View v) {
-        // Use light's out setup when this fragment is within the DeskClock
-        if (getActivity() instanceof DeskClock) {
-            ((DeskClock) getActivity()).scheduleLightsOut();
-        }
         ClickAction tag = (ClickAction) v.getTag();
         onClickHelper(tag);
     }
@@ -722,10 +686,6 @@ public class TimerFragment extends DeskClockFragment
     }
 
     private void onLabelPressed(TimerObj t) {
-        if(getActivity() instanceof DeskClock) {
-            ((DeskClock) getActivity()).removeLightsMessages();
-        }
-
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         final Fragment prev = getFragmentManager().findFragmentByTag("label_dialog");
         if (prev != null) {
@@ -747,6 +707,7 @@ public class TimerFragment extends DeskClockFragment
             TimerReceiver.showExpiredAlarmNotification(
                     getActivity().getApplicationContext(), timer);
         }
+        mTimersList.invalidateViews();
     }
 
     private void setTimerButtons(TimerObj t) {
