@@ -46,10 +46,12 @@ public class TimerAlertFullScreen extends Activity implements OnEmptyListListene
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
 
         final Window win = getWindow();
-        win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+        win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         // Turn on the screen unless we are being launched from the AlarmAlert
         // subclass as a result of the screen turning off.
-        win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+        win.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
         // Don't create overlapping fragments.
@@ -64,7 +66,8 @@ public class TimerAlertFullScreen extends Activity implements OnEmptyListListene
             timerFragment.setArguments(args);
 
             // Add the fragment to the 'fragment_container' FrameLayout
-            getFragmentManager().beginTransaction().add(R.id.fragment_container, timerFragment, FRAGMENT).commit();
+            getFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, timerFragment, FRAGMENT).commit();
         }
     }
 
@@ -112,7 +115,6 @@ public class TimerAlertFullScreen extends Activity implements OnEmptyListListene
 
     @Override
     protected void onStop() {
-        stopAllTimesUpTimers();
         super.onStop();
     }
 
