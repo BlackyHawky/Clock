@@ -155,7 +155,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
                 @Override
                 public void onActionClicked() {
-                    asyncAddAlarm(mDeletedAlarm);
+                    asyncAddAlarm(mDeletedAlarm, false);
                     mDeletedAlarm = null;
                     mUndoShowing = false;
                 }
@@ -1079,7 +1079,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private void asyncAddAlarm() {
         Alarm a = new Alarm();
         a.alert = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM);
-        asyncAddAlarm(a);
+        asyncAddAlarm(a, true);
     }
 
     private void asyncDeleteAlarm(final Integer [] alarmIds) {
@@ -1112,14 +1112,14 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
             @Override
             public void onActionClicked() {
-                asyncAddAlarm(alarm);
+                asyncAddAlarm(alarm, false);
                 mDeletedAlarm = null;
                 mUndoShowing = false;
             }
         }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo, true);
     }
 
-    private void asyncAddAlarm(final Alarm alarm) {
+    private void asyncAddAlarm(final Alarm alarm, final boolean showTimePicker) {
         final AsyncTask<Void, Void, Void> updateTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... aVoid) {
@@ -1140,7 +1140,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 // expanded.
                 View view = mAlarmsList.getChildAt(0);
                 mAdapter.getView(0, view, mAlarmsList);
-                AlarmUtils.showTimeEditDialog(AlarmClock.this.getFragmentManager(), alarm);
+                if (showTimePicker) {
+                    AlarmUtils.showTimeEditDialog(AlarmClock.this.getFragmentManager(), alarm);
+                }
             }
         };
         updateTask.execute();
