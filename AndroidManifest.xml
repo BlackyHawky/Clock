@@ -107,6 +107,12 @@
                 android:screenOrientation="nosensor"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
+        <activity android:name="ScreensaverActivity"
+                android:excludeFromRecents="true"
+                android:taskAffinity=""
+                android:theme="@style/ScreensaverActivityTheme"
+                android:configChanges="orientation|screenSize|keyboardHidden|keyboard" />
+
         <receiver android:name="AlarmReceiver"
                 android:exported="false">
             <intent-filter>
