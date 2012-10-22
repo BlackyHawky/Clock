@@ -42,7 +42,8 @@
     <dimen name="medium_font_padding">24dp</dimen>
 
     <dimen name="small_space">32dp</dimen>
-    <dimen name="medium_space">64dp</dimen>
+    <dimen name="medium_space_top">52dp</dimen>
+    <dimen name="medium_space_bottom">12dp</dimen>
 
     <dimen name="label_margin_big">8dp</dimen>
     <dimen name="label_margin_small">4dp</dimen>
