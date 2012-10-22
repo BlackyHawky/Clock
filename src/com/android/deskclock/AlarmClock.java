@@ -474,8 +474,10 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             public void run() {
                 if (mScrollAlarmId != -1) {
                     View v = getViewById(mScrollAlarmId);
-                    Rect rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
-                    mList.requestChildRectangleOnScreen(v, rect, false);
+                    if (v != null) {
+                        Rect rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
+                        mList.requestChildRectangleOnScreen(v, rect, false);
+                    }
                     mScrollAlarmId = -1;
                 }
             }
@@ -1011,9 +1013,11 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         private View getViewById(int id) {
             for (int i = 0; i < mList.getCount(); i++) {
                 View v = mList.getChildAt(i);
-                ItemHolder h = (ItemHolder)(v.getTag());
-                if (h.alarm.id == id) {
-                    return v;
+                if (v != null) {
+                    ItemHolder h = (ItemHolder)(v.getTag());
+                    if (h != null && h.alarm.id == id) {
+                        return v;
+                    }
                 }
             }
             return null;
