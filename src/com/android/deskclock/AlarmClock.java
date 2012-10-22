@@ -498,7 +498,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             mColorLit = res.getColor(R.color.clock_white);
             mColorDim = res.getColor(R.color.clock_gray);
             mBackgroundColorSelected = res.getColor(R.color.alarm_selected_color);
-            mBackgroundColor = res.getColor(R.color.blackish);
+            mBackgroundColor = res.getColor(R.color.alarm_whiteish);
 
 
             mRobotoBold = Typeface.create("sans-serif-condensed", Typeface.BOLD);
