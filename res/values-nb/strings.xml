@@ -196,12 +196,12 @@
     <item msgid="8483930821046925592">"Digitalt"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Still klokken automatisk etter hjemmetidssonen"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Når du reiser utenfor den vanlig tidssonen din, kan du legge til en klokke for hjemmetidssonen"</string>
+    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
+    <skip />
     <string name="home_time_zone" msgid="9199730676287974501">"Hjemmetidssone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Hjemmetidssone"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Avbryt"</string>
-    <!-- no translation found for time_picker_set (331153175471468051) -->
-    <skip />
+    <string name="time_picker_set" msgid="331153175471468051">"OK"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -316,4 +316,6 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Neste alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <!-- no translation found for alarms_selected (1075308195332888260) -->
+    <skip />
 </resources>

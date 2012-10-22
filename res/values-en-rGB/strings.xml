@@ -196,7 +196,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatic home clock"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"While travelling outside regular time zone, add a clock for home"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"While travelling in an area where the time is different, add a clock for home"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Home time zone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Home time zone"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancel"</string>
@@ -315,4 +315,5 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Next alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> selected"</string>
 </resources>

@@ -196,7 +196,7 @@
     <item msgid="8483930821046925592">"Dijito"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Saa otomatiki ya nyumbani"</string>
-    <string name="automatic_home_clock_summary" msgid="2856855315063223407">"Unaposafiri nje ya ukunda wa kawaida wa saa, ongeza saa ya nyumbani"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Unaposafiri katika eneo ambalo majira ya saa ni tofauti, ongeza saa ya nyumbani"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Saa za eneo nyumbani"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Saa za eneo nyumbani"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Ghairi"</string>
@@ -315,4 +315,5 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Kengele inayofuata: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> zimechaguliwa"</string>
 </resources>
