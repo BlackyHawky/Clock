@@ -97,6 +97,8 @@
         <item name="android:windowTitleStyle">@style/AlarmAlertFullScreenWindowTitle</item>
     </style>
 
+    <style name="ScreensaverActivityTheme" parent="android:Theme.Holo.Wallpaper.NoTitleBar" />
+
     <style name="RoundTouchButton">
         <item name="android:gravity">center</item>
         <item name="android:layout_width">wrap_content</item>

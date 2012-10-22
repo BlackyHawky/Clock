@@ -327,6 +327,8 @@
     <string name="menu_item_settings">Settings</string>
     <!-- Menu item on most screens to get to the help information -->
     <string name="menu_item_help">Help</string>
+    <!-- Menu item on clock screen to enter night mode. -->
+    <string name="menu_item_night_mode">Night mode</string>
 
     <!-- Stop Watch strings -->
     <!-- Describes the purpose of the button to resume running a stopwatch -->
