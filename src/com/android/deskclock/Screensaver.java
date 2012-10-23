@@ -91,8 +91,9 @@ public class Screensaver extends DreamService {
     }
 
     private void setClockStyle() {
-        mSaverView = Utils.setClockStyle(this, mDigitalClock, mAnalogClock,
+        Utils.setClockStyle(this, mDigitalClock, mAnalogClock,
                 ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
+        mSaverView = findViewById(R.id.main_clock);
         boolean dimNightMode = PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
         Utils.dimClockView(dimNightMode, mSaverView);
@@ -101,8 +102,8 @@ public class Screensaver extends DreamService {
 
     private void layoutClockSaver() {
         setContentView(R.layout.desk_clock_saver);
-        mDigitalClock = findViewById(R.id.main_digital_clock);
-        mAnalogClock =findViewById(R.id.main_analog_clock);
+        mDigitalClock = findViewById(R.id.digital_clock);
+        mAnalogClock =findViewById(R.id.analog_clock);
         setClockStyle();
         mContentView = (View) mSaverView.getParent();
         mSaverView.setAlpha(0);

@@ -77,7 +77,7 @@ public class ScreensaverActivity extends Activity {
             | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
             | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-    private BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
             boolean changed = intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
@@ -91,13 +91,11 @@ public class ScreensaverActivity extends Activity {
             } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
                 finish();
             } else if (intent.getAction().equals(Utils.ACTION_ON_QUARTER_HOUR) || changed) {
-                Utils.updateDate(mDateFormat, mDateFormatForAccessibility,
-                        mClockStyle, mAnalogClock, mDigitalClock);
+                Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
             }
 
             if (changed) {
-                Utils.refreshAlarm(ScreensaverActivity.this,
-                        mClockStyle, mAnalogClock, mAnalogClock);
+                Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
             }
 
         }
@@ -187,8 +185,9 @@ public class ScreensaverActivity extends Activity {
     }
 
     private void setClockStyle() {
-        mSaverView = Utils.setClockStyle(this, mDigitalClock, mAnalogClock,
+        Utils.setClockStyle(this, mDigitalClock, mAnalogClock,
                 SettingsActivity.KEY_CLOCK_STYLE);
+        mSaverView = findViewById(R.id.main_clock);
         mClockStyle = (mSaverView == mDigitalClock ?
                 Utils.CLOCK_TYPE_DIGITAL : Utils.CLOCK_TYPE_ANALOG);
         Utils.dimClockView(true, mSaverView);
@@ -196,26 +195,22 @@ public class ScreensaverActivity extends Activity {
 
     private void layoutClockSaver() {
         setContentView(R.layout.desk_clock_saver);
-        mDigitalClock = findViewById(R.id.main_digital_clock);
-        mAnalogClock = findViewById(R.id.main_analog_clock);
+        mDigitalClock = findViewById(R.id.digital_clock);
+        mAnalogClock = findViewById(R.id.analog_clock);
         setClockStyle();
         mContentView = (View) mSaverView.getParent();
         mContentView.forceLayout();
         mSaverView.forceLayout();
         mSaverView.setAlpha(0);
 
-        findViewById(R.id.analog_clock_extras).setVisibility(View.VISIBLE);
-        findViewById(R.id.digital_clock_extras).setVisibility(View.VISIBLE);
         mMoveSaverRunnable.registerViews(mContentView, mSaverView);
 
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        Utils.updateDate(mDateFormat, mDateFormatForAccessibility,
-                mClockStyle, mAnalogClock, mDigitalClock);
-        Utils.refreshAlarm(ScreensaverActivity.this,
-                mClockStyle, mAnalogClock, mDigitalClock);
+        Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mContentView);
+        Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
     }
 
 }
