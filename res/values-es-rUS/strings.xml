@@ -130,14 +130,14 @@
     <string name="button_menu" msgid="6050484561842120282">"Más opciones"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Configuración"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ayuda"</string>
+    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
+    <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"Reanudar"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Comenzar"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Detener"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Vuelta"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Restablecer"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Compartir"</string>
-    <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
-    <skip />
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
