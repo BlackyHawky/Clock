@@ -343,7 +343,6 @@
     <string name="sw_reset_button">Reset</string>
     <!-- Describes the purpose of the button to share the stopwatch value. -->
     <string name="sw_share_button">Share</string>
-    <string name="sw_current_lap_number"><xliff:g id="number">%d</xliff:g></string>
 
     <!-- Abbreviation for temporal hours -->
     <string name="hours_label">h</string>
