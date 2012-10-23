@@ -130,14 +130,14 @@
     <string name="button_menu" msgid="6050484561842120282">"अधिक विकल्प"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"सेटिंग"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"सहायता"</string>
+    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
+    <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"फिर से शुरू करें"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"प्रारंभ करें"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"रोकें"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"लैप"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"रीसेट करें"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"साझा करें"</string>
-    <!-- no translation found for sw_current_lap_number (4480685368717967660) -->
-    <skip />
     <string name="hours_label" msgid="3393478155635368097">"घं."</string>
     <string name="minutes_label" msgid="3568098128251438588">"मि."</string>
     <string name="seconds_label" msgid="124655952824003246">"से."</string>
@@ -196,8 +196,7 @@
     <item msgid="8483930821046925592">"डिजिटल"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"स्वचालित घरेलू घड़ी"</string>
-    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
-    <skip />
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"भिन्न समय वाले किसी क्षेत्र में यात्रा करते समय, घरेलू समय के लिए कोई घड़ी जोड़ें"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"घरेलू समय क्षेत्र"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"घरेलू समय क्षेत्र"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"रद्द करें"</string>
@@ -316,6 +315,5 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"अगला अलार्म: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
-    <!-- no translation found for alarms_selected (1075308195332888260) -->
-    <skip />
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> चयनित"</string>
 </resources>
