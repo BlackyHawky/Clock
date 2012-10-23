@@ -105,7 +105,8 @@ public class StopwatchFragment extends DeskClockFragment implements OnSharedPref
             TextView toalTime = (TextView)lapInfo.findViewById(R.id.lap_total);
             lapTime.setText(Stopwatches.getTimeText(mLaps.get(position).mLapTime));
             toalTime.setText(Stopwatches.getTimeText(mLaps.get(position).mTotalTime));
-            count.setText(getString(R.string.sw_current_lap_number, mLaps.size() - position));
+            count.setText(getString(R.string.sw_notification_lap_number, mLaps.size() - position)
+                    .toUpperCase());
 
             lapInfo.setBackgroundColor(mBackgroundColor);
             return lapInfo;
