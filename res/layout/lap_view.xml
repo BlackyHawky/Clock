@@ -35,16 +35,17 @@
         android:id="@+id/lap_number" />
     <TextView
         android:layout_width="0dip"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:textColor="@color/clock_gray"
-        android:layout_weight="1"
-        android:gravity="center"
+        android:gravity="right"
         style="@style/body"
         android:textAllCaps="false"
         android:id="@+id/lap_time" />
     <TextView
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_width="0dip"
+        android:layout_weight="1"
         android:textColor="@color/clock_gray"
         android:gravity="right"
         style="@style/body"
