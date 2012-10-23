@@ -21,15 +21,6 @@
     android:paddingTop="@dimen/medium_space_top"
     android:paddingBottom="@dimen/medium_space_bottom"
     android:orientation="vertical">
-    <com.android.deskclock.widget.EllipsizeLayout
-        android:id="@+id/city_name_digital"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginBottom="@dimen/label_margin_small"
-        android:layout_marginLeft="@dimen/label_margin_small"
-        >
-        <include layout="@layout/world_clock_label"/>
-    </com.android.deskclock.widget.EllipsizeLayout>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -47,7 +38,7 @@
             android:hand_minute="@drawable/clock_analog_minute"/>
     </FrameLayout>
     <com.android.deskclock.widget.EllipsizeLayout
-        android:id="@+id/city_name_analog"
+        android:id="@+id/city_name_layout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/label_margin_small"

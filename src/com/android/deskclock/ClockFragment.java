@@ -82,8 +82,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             boolean changed = intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
                     || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED);
             if (changed || intent.getAction().equals(Utils.ACTION_ON_QUARTER_HOUR)) {
-                Utils.updateDate(mDateFormat, mDateFormatForAccessibility,
-                        mClockStyle, mAnalogClock, mDigitalClock);
+                Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
                 if (mAdapter != null) {
                     // *CHANGED may modify the need for showing the Home City
                     if (changed && (mAdapter.hasHomeCity() != mAdapter.needHomeCity())) {
@@ -95,7 +94,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             }
             if (changed || intent.getAction().equals(Alarms.ALARM_DONE_ACTION)
                     || intent.getAction().equals(Alarms.ALARM_SNOOZE_CANCELLED)) {
-                Utils.refreshAlarm(getActivity(), mClockStyle, mAnalogClock, mDigitalClock);
+                Utils.refreshAlarm(getActivity(), mClockFrame);
             }
         }
     };
@@ -119,8 +118,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         View headerView = inflater.inflate(R.layout.blank_header_view, mList, false);
         mList.addHeaderView(headerView);
         mClockFrame = inflater.inflate(R.layout.main_clock_frame, mList, false);
-        mDigitalClock = mClockFrame.findViewById(R.id.main_digital_clock);
-        mAnalogClock = mClockFrame.findViewById(R.id.main_analog_clock);
+        mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
+        mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
         mList.addHeaderView(mClockFrame, null, false);
         View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
         footerView.setBackgroundResource(R.color.blackish);
@@ -174,8 +173,10 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         mQuarterlyIntent = PendingIntent.getBroadcast(
                 getActivity(), 0, new Intent(Utils.ACTION_ON_QUARTER_HOUR), 0);
         ((AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE)).setRepeating(
-                AlarmManager.RTC, alarmOnQuarterHour, AlarmManager.INTERVAL_FIFTEEN_MINUTES, mQuarterlyIntent);
-        // Besides monitoring when quarter-hour changes, monitor other actions that effect clock time
+                AlarmManager.RTC, alarmOnQuarterHour, AlarmManager.INTERVAL_FIFTEEN_MINUTES,
+                mQuarterlyIntent);
+        // Besides monitoring when quarter-hour changes, monitor other actions that
+        // effect clock time
         IntentFilter filter = new IntentFilter(Utils.ACTION_ON_QUARTER_HOUR);
         filter.addAction(Alarms.ALARM_DONE_ACTION);
         filter.addAction(Alarms.ALARM_SNOOZE_CANCELLED);
@@ -196,9 +197,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 Utils.CLOCK_TYPE_DIGITAL : Utils.CLOCK_TYPE_ANALOG);
         mAdapter.notifyDataSetChanged();
 
-        Utils.updateDate(mDateFormat, mDateFormatForAccessibility,
-                mClockStyle, mAnalogClock, mDigitalClock);
-        Utils.refreshAlarm(getActivity(), mClockStyle, mAnalogClock, mDigitalClock);
+        Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
+        Utils.refreshAlarm(getActivity(), mClockFrame);
     }
 
     @Override
@@ -399,30 +399,21 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
 
         private void updateView(View clock, CityObj cityObj) {
-            View nameDigital= clock.findViewById(R.id.city_name_digital);
-            View nameAnalog = clock.findViewById(R.id.city_name_analog);
-            TextView name;
-            TextView dayOfWeek;
+            View nameLayout= clock.findViewById(R.id.city_name_layout);
+            TextView name = (TextView)(nameLayout.findViewById(R.id.city_name));
+            TextView dayOfWeek = (TextView)(nameLayout.findViewById(R.id.city_day));
             DigitalClock dclock = (DigitalClock)(clock.findViewById(R.id.digital_clock));
             AnalogClock aclock = (AnalogClock)(clock.findViewById(R.id.analog_clock));
 
             if (mClockStyle.equals("analog")) {
                 dclock.setVisibility(View.GONE);
-                nameDigital.setVisibility(View.GONE);
                 aclock.setVisibility(View.VISIBLE);
-                nameAnalog.setVisibility(View.VISIBLE);
                 aclock.setTimeZone(cityObj.mTimeZone);
                 aclock.enableSeconds(false);
-                name = (TextView)(nameAnalog.findViewById(R.id.city_name));
-                dayOfWeek = (TextView)(nameAnalog.findViewById(R.id.city_day));
             } else {
                 dclock.setVisibility(View.VISIBLE);
-                nameDigital.setVisibility(View.VISIBLE);
-                dclock.setTimeZone(cityObj.mTimeZone);
                 aclock.setVisibility(View.GONE);
-                nameAnalog.setVisibility(View.GONE);
-                name = (TextView)(nameDigital.findViewById(R.id.city_name));
-                dayOfWeek = (TextView)(nameDigital.findViewById(R.id.city_day));
+                dclock.setTimeZone(cityObj.mTimeZone);
             }
             name.setText(cityObj.mCityName);
             final Calendar now = Calendar.getInstance();
@@ -439,5 +430,4 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             }
         }
     }
-
 }
