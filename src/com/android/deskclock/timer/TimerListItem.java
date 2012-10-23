@@ -114,4 +114,14 @@ public class TimerListItem extends LinearLayout {
         }
         mTimerText.setTime(time, false, forceUpdate);
     }
+
+    // Used by animator to animate the size of a timer
+    @SuppressWarnings("unused")
+    public void setAnimatedHeight(int height) {
+        getLayoutParams().height = height;
+        requestLayout();
+    }
+
+
+
 }
