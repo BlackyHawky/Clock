@@ -350,46 +350,31 @@ public class Utils {
     }
 
     /** Clock views can call this to refresh their alarm to the next upcoming value. **/
-    public static void refreshAlarm(
-            Context context, String clockStyle, View analogClock, View digitalClock) {
+    public static void refreshAlarm(Context context, View clock) {
         String nextAlarm = Settings.System.getString(context.getContentResolver(),
                 Settings.System.NEXT_ALARM_FORMATTED);
         TextView nextAlarmView;
-        View slash;
-        Log.v("style: "+clockStyle);
-        if (clockStyle.equals(CLOCK_TYPE_ANALOG)) {
-            nextAlarmView = (TextView) analogClock.findViewById(R.id.nextAlarm);
-            slash = analogClock.findViewById(R.id.slash);
-        } else {
-            nextAlarmView = (TextView) digitalClock.findViewById(R.id.nextAlarm_digital);
-            slash = digitalClock.findViewById(R.id.slash_digital);
-        }
+        nextAlarmView = (TextView) clock.findViewById(R.id.nextAlarm);
         if (!TextUtils.isEmpty(nextAlarm) && nextAlarmView != null) {
             nextAlarmView.setText(
                     context.getString(R.string.control_set_alarm_with_existing, nextAlarm));
             nextAlarmView.setContentDescription(context.getResources().getString(
                     R.string.next_alarm_description, nextAlarm));
             nextAlarmView.setVisibility(View.VISIBLE);
-            slash.setVisibility(View.VISIBLE);
         } else  {
             nextAlarmView.setVisibility(View.GONE);
-            slash.setVisibility(View.GONE);
         }
     }
 
     /** Clock views can call this to refresh their date. **/
-    public static void updateDate(String dateFormat, String dateFormatForAccessibility,
-            String clockStyle, View analogClock, View digitalClock) {
+    public static void updateDate(
+            String dateFormat, String dateFormatForAccessibility, View clock) {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(System.currentTimeMillis());
 
         CharSequence newDate = DateFormat.format(dateFormat, cal);
         TextView dateDisplay;
-        if (clockStyle.equals(CLOCK_TYPE_ANALOG)) {
-            dateDisplay = (TextView) analogClock.findViewById(R.id.date);
-        } else {
-            dateDisplay = (TextView) digitalClock.findViewById(R.id.date_digital);
-        }
+        dateDisplay = (TextView) clock.findViewById(R.id.date);
         if (dateDisplay != null) {
             dateDisplay.setVisibility(View.VISIBLE);
             dateDisplay.setText(newDate);

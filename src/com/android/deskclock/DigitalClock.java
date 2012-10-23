@@ -40,7 +40,7 @@ import java.util.TimeZone;
 public class DigitalClock extends LinearLayout {
 
     private final static String HOURS_24 = "kk";
-    private final static String HOURS = "hh";
+    private final static String HOURS = "h";
     private final static String MINUTES = ":mm";
 
     private Calendar mCalendar;
