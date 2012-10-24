@@ -142,6 +142,10 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="widget_medium_bold" parent="medium_bold">
+        <item name="android:textSize">@dimen/widget_medium_font_size</item>
+    </style>
+
     <style name="small_light">
         <item name="android:textSize">@dimen/small_font_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
@@ -149,6 +153,11 @@
 
     <style name="medium_light">
         <item name="android:textSize">@dimen/medium_font_size</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="widget_medium_light" parent="medium_light">
+        <item name="android:textSize">@dimen/widget_medium_font_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 

@@ -49,11 +49,11 @@ public class SettingsActivity extends PreferenceActivity
             "volume_button_setting";
     static final String KEY_AUTO_SILENCE =
             "auto_silence";
-    static final String KEY_CLOCK_STYLE =
+    public static final String KEY_CLOCK_STYLE =
             "clock_style";
-    static final String KEY_HOME_TZ =
+    public static final String KEY_HOME_TZ =
             "home_time_zone";
-    static final String KEY_AUTO_HOME_CLOCK =
+    public static final String KEY_AUTO_HOME_CLOCK =
             "automatic_home_clock";
     static final String KEY_VOLUME_BUTTONS =
             "volume_button_setting";

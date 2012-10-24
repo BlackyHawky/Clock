@@ -267,6 +267,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         super.onPause();
         Cities.saveCitiesToSharedPrefs(PreferenceManager.getDefaultSharedPreferences(this),
                 mUserSelectedCities);
+        Intent i = new Intent(Cities.WORLDCLOCK_UPDATE_INTENT);
+        sendBroadcast(i);
     }
 
     @Override
