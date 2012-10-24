@@ -103,7 +103,7 @@
                 android:theme="@style/AlarmAlertFullScreenTheme"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
-                showOnLockScreen="true"
+                android:showOnLockScreen="true"
                 android:screenOrientation="nosensor"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
@@ -197,7 +197,7 @@
                 android:excludeFromRecents="true"
                 android:theme="@style/AlarmAlertFullScreenTheme"
                 android:launchMode="singleInstance"
-                showOnLockScreen="true"
+                android:showOnLockScreen="true"
                 android:taskAffinity=""
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
