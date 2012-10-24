@@ -711,5 +711,22 @@
     <!-- Displays the number of alarms selected from the list of alarms. -->
     <string name="alarms_selected"><xliff:g id="alarms">%d</xliff:g> selected</string>
 
+    <!-- message used by the talkback accessebility app to say that something was deleted -->
+    <string name="deleted_message">Deleted</string>
+
+    <!-- Alarm deletion confirmation message-->
+    <plurals name="alarm_delete_confirmation">
+        <!-- Confirmation for one alarm -->
+        <item quantity="one">Delete selected alarm?</item>
+        <!-- Confirmation more than one alarm  -->
+        <item quantity="other">Delete selected alarms?</item>
+    </plurals>
+
+    <!-- Timer deletion confirmation -->
+    <string name="timer_delete_confirmation">Delete this timer?</string>
+
+    <!-- world clock deletion confirmation -->
+    <string name="city_delete_confirmation">Remove this city?</string>
+
 </resources>
 
