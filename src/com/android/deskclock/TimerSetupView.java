@@ -202,5 +202,9 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     protected void setLeftRightEnabled(boolean enabled) {
         mLeft.setEnabled(enabled);
         mRight.setEnabled(enabled);
+        if (!enabled) {
+            mLeft.setContentDescription(null);
+            mRight.setContentDescription(null);
+        }
     }
 }
