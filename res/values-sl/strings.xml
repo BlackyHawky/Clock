@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"Več možnosti"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Nastavitve"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Pomoč"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Nočni način"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Nadaljuj"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Začni"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Ustavi"</string>
@@ -196,7 +195,7 @@
     <item msgid="8483930821046925592">"Digitalno"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Samodejna ura za domač časovni pas"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Če ste v drugem časovnem območju, dodajte uro za čas doma"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Če ste v drugem časovnem območju, dodajte uro z domačim časom"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domač časovni pas"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domač časovni pas"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Prekliči"</string>

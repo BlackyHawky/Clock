@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"Thêm tùy chọn"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Cài đặt"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Trợ giúp"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Chế độ ban đêm"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Tiếp tục"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Bắt đầu"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Ngừng"</string>
@@ -196,8 +195,7 @@
     <item msgid="8483930821046925592">"Đồng hồ số"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Đồng hồ tự động trên màn hình chính"</string>
-    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
-    <skip />
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Trong khi đi qua khu vực có giờ khác nhau, hãy thêm đồng hồ cho màn hình chính"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Múi giờ chính"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Múi giờ chính"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Hủy"</string>
@@ -316,6 +314,5 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Báo thức tiếp theo: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
-    <!-- no translation found for alarms_selected (1075308195332888260) -->
-    <skip />
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> được chọn"</string>
 </resources>

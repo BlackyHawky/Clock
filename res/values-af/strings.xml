@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"Meer opsies"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Instellings"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Hulp"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Nagmodus"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Hervat"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Begin"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stop"</string>

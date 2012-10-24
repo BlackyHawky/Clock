@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"추가 옵션"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"설정"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"도움말"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"야간 모드"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"다시 시작"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"시작"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"중지"</string>
@@ -196,7 +195,7 @@
     <item msgid="8483930821046925592">"디지털"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"자동 기본 시계"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"시차가 있는 지역을 여행하는 동안, 기본 시계를 추가하세요."</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"시차가 있는 지역을 여행할 때 기본 시계 추가"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"기본 시간대"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"기본 시간대"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"취소"</string>

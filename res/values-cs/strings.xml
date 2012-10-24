@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"Další možnosti"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Nastavení"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Nápověda"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Noční režim"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Obnovit"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Spustit"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Zastavit"</string>
@@ -196,8 +195,7 @@
     <item msgid="8483930821046925592">"Digitální"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatické domácí hodiny"</string>
-    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
-    <skip />
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Při cestování do oblasti s jiným časovým pásmem přidat domovský čas"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domovské časové pásmo"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domovské časové pásmo"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Zrušit"</string>
@@ -316,6 +314,5 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Další budík: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
-    <!-- no translation found for alarms_selected (1075308195332888260) -->
-    <skip />
+    <string name="alarms_selected" msgid="1075308195332888260">"Počet vybraných budíků: <xliff:g id="ALARMS">%d</xliff:g>"</string>
 </resources>

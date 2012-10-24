@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"Інші параметри"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Налаштування"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Довідка"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Нічний режим"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Відновити"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Почати"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Зупинити"</string>
