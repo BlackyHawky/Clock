@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"Higit pang mga pagpipilian"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Mga Setting"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Tulong"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Mode na panggabi"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Ituloy"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Simulan"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Ihinto"</string>
@@ -316,4 +315,12 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Susunod na alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"Napili ang <xliff:g id="ALARMS">%d</xliff:g>"</string>
+    <!-- no translation found for deleted_message (1220848140260509437) -->
+    <skip />
+    <!-- no translation found for alarm_delete_confirmation:one (111940612131906802) -->
+    <!-- no translation found for alarm_delete_confirmation:other (6918176478191272189) -->
+    <!-- no translation found for timer_delete_confirmation (2815524107015816453) -->
+    <skip />
+    <!-- no translation found for city_delete_confirmation (1783441538785676299) -->
+    <skip />
 </resources>

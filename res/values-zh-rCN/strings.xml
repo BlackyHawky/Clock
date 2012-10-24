@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"更多选项"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"设置"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"帮助"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"夜间模式"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"继续"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"开始"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"停止"</string>
@@ -196,8 +195,7 @@
     <item msgid="8483930821046925592">"数字"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"自动显示家中时间"</string>
-    <!-- no translation found for automatic_home_clock_summary (6020476321040807273) -->
-    <skip />
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"在其他时区旅行时显示家中时间"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"家中时区"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"家中时区"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"取消"</string>
@@ -316,6 +314,13 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"下次闹钟时间：<xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
-    <!-- no translation found for alarms_selected (1075308195332888260) -->
+    <string name="alarms_selected" msgid="1075308195332888260">"已选择 <xliff:g id="ALARMS">%d</xliff:g> 个"</string>
+    <!-- no translation found for deleted_message (1220848140260509437) -->
+    <skip />
+    <!-- no translation found for alarm_delete_confirmation:one (111940612131906802) -->
+    <!-- no translation found for alarm_delete_confirmation:other (6918176478191272189) -->
+    <!-- no translation found for timer_delete_confirmation (2815524107015816453) -->
+    <skip />
+    <!-- no translation found for city_delete_confirmation (1783441538785676299) -->
     <skip />
 </resources>
