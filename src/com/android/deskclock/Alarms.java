@@ -65,6 +65,9 @@ public class Alarms {
     // to it handling ALARM_DISMISS_ACTION cancelled
     public static final String ALARM_SNOOZE_CANCELLED = "com.android.deskclock.ALARM_SNOOZE_CANCELLED";
 
+    // A broadcast sent every time the next alarm time is set in the system
+    public static final String NEXT_ALARM_TIME_SET = "com.android.deskclock.NEXT_ALARM_TIME_SET";
+
     // This is a private action used by the AlarmKlaxon to update the UI to
     // show the alarm has been killed.
     public static final String ALARM_KILLED = "alarm_killed";
@@ -404,6 +407,8 @@ public class Alarms {
         } else {
             disableAlert(context);
         }
+        Intent i = new Intent(NEXT_ALARM_TIME_SET);
+        context.sendBroadcast(i);
     }
 
     /**

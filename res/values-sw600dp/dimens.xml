@@ -35,6 +35,7 @@
 
     <dimen name="big_font_size">220dp</dimen>
     <dimen name="medium_font_size">100dp</dimen>
+    <dimen name="widget_medium_font_size">100dp</dimen>
     <dimen name="label_font_size">18sp</dimen>
     <dimen name="body_font_size">24sp</dimen>
 
@@ -78,5 +79,10 @@
     <dimen name="glowpadview_target_placement_radius">182dip</dimen>
 
     <dimen name="glowpadview_margin_bottom">0dip</dimen>
+
+    <dimen name="min_digital_widget_width">600dip</dimen>
+    <dimen name="min_digital_widget_height">300dip</dimen>
+    <dimen name="min_digital_widget_resize_width">300dip</dimen>
+    <dimen name="min_digital_widget_resize_height">150dip</dimen>
 
 </resources>
