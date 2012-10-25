@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
@@ -40,16 +39,13 @@ import android.widget.TextView;
 
 import com.android.deskclock.Alarms;
 import com.android.deskclock.DeskClock;
-import com.android.deskclock.Log;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 
 import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TimeZone;
 
@@ -68,8 +64,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
     private CityAdapter mAdapter;
     private HashMap<String, CityObj> mUserSelectedCities;
     private Calendar mCalendar;
-    private final Collator mCollator = Collator.getInstance();
-
 
 /***
 * Adapter for a list of cities with the respected time zone.
@@ -157,27 +151,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         }
 
         private void loadCitiesDataBase(Context c) {
-            Resources r = c.getResources();
-            // Read strings array of name,timezone, id
-            // make sure the list are the same length
-            String [] cities = r.getStringArray(R.array.cities_names);
-            String [] timezones = r.getStringArray(R.array.cities_tz);
-            String [] ids = r.getStringArray(R.array.cities_id);
-            if (cities.length != timezones.length || ids.length != cities.length) {
-                Log.wtf("City lists sizes are not the same, cannot use the data");
-                return;
-             }
-             CityObj[] tempList = new CityObj [cities.length];
-             for (int i = 0; i < cities.length; i++) {
-                tempList[i] = new CityObj(cities[i], timezones[i], ids[i]);
-             }
-             // Sort alphabetically
-            Arrays.sort(tempList, new Comparator<CityObj> () {
-                @Override
-                public int compare(CityObj c1, CityObj c2) {
-                    return mCollator.compare(c1.mCityName, c2.mCityName);
-                }
-            });
+            CityObj[] tempList = Utils.loadCitiesDataBase(c);
             //Create section indexer and add headers to the cities list
             String val = null;
             ArrayList<String> sections = new ArrayList<String> ();
