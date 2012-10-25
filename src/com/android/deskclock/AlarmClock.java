@@ -74,6 +74,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private static final String KEY_DELETED_ALARM = "deletedAlarm";
     private static final String KEY_UNDO_SHOWING = "undoShowing";
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
+    private static final String KEY_SELECTED_ALARM = "selectedAlarm";
 
     private static final int REQUEST_CODE_RINGTONE = 1;
 
@@ -116,6 +117,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             mUndoShowing = savedState.getBoolean(KEY_UNDO_SHOWING);
             selectedAlarms = savedState.getIntArray(KEY_SELECTED_ALARMS);
             previousDayMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
+            mSelectedAlarm = savedState.getParcelable(KEY_SELECTED_ALARM);
         }
 
         mAlarmsList = (SwipeableListView) findViewById(R.id.alarms_list);
@@ -194,6 +196,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         outState.putParcelable(KEY_DELETED_ALARM, mDeletedAlarm);
         outState.putBoolean(KEY_UNDO_SHOWING, mUndoShowing);
         outState.putBundle(KEY_PREVIOUS_DAY_MAP, mAdapter.getPreviousDaysOfWeekMap());
+        outState.putParcelable(KEY_SELECTED_ALARM, mSelectedAlarm);
     }
 
     private void updateLayout() {
