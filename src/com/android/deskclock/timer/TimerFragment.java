@@ -148,8 +148,11 @@ public class TimerFragment extends DeskClockFragment
         public void deleteTimer(int id) {
             for (int i = 0; i < mTimers.size(); i++) {
                 TimerObj t = mTimers.get(i);
+                
                 if (t.mTimerId == id) {
-                    ((TimerListItem)t.mView).stop();
+                	if(t.mView != null) {
+                		((TimerListItem)t.mView).stop();
+                	}
                     t.deleteFromSharedPref(mmPrefs);
                     mTimers.remove(i);
                     notifyDataSetChanged();
