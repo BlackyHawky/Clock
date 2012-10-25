@@ -728,5 +728,10 @@
     <!-- world clock deletion confirmation -->
     <string name="city_delete_confirmation">Remove this city?</string>
 
+    <!-- loading message for widget -->   
+    <string name="widget_loading_ms">Loading</string>
+    
+    <!-- Label for digital clock gadget displayed on-screen when that gadget is represented to the user. -->    
+    <string name="digital_gadget">Digital clock</string>
 </resources>
 
