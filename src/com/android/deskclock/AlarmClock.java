@@ -651,6 +651,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                     }
                     AlarmUtils.showTimeEditDialog(AlarmClock.this.getFragmentManager(), alarm);
                     expandAlarm(itemHolder);
+                    itemHolder.alarmItem.post(mScrollRunnable);
                 }
             });
             itemHolder.clock.setOnLongClickListener(mLongClickListener);
@@ -666,6 +667,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         return;
                     }
                     expandAlarm(itemHolder);
+                    itemHolder.alarmItem.post(mScrollRunnable);
                 }
             });
             itemHolder.infoArea.setOnLongClickListener(mLongClickListener);
@@ -994,7 +996,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             bindExpandArea(itemHolder, itemHolder.alarm);
             // Scroll the view to make sure it is fully viewed
             mScrollAlarmId = itemHolder.alarm.id;
-            itemHolder.alarmItem.post(mScrollRunnable);
         }
 
         private boolean isAlarmExpanded(Alarm alarm) {
