@@ -50,7 +50,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -243,22 +242,12 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         LayoutInflater mInflater;
         @SuppressWarnings("hiding")
         Context mContext;
-        HashMap<String, CityObj> mCitiesDb = new HashMap<String, CityObj>();
 
         public WorldClockAdapter(Context context) {
             super();
             mContext = context;
             loadData(context);
             mInflater = LayoutInflater.from(context);
-            // Read the cities DB so that the names and timezones will be taken from the DB
-            // and not from the selected list so that change of locale or changes in the DB will
-            // be reflected.
-            CityObj [] cities = Utils.loadCitiesDataBase(context);
-            if (cities != null) {
-                for (int i = 0; i < cities.length; i ++) {
-                    mCitiesDb.put(cities[i].mCityId, cities [i]);
-                }
-            }
         }
 
         public void reloadData(Context context) {
@@ -426,20 +415,11 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 aclock.setVisibility(View.GONE);
                 dclock.setTimeZone(cityObj.mTimeZone);
             }
-            CityObj cityInDb = mCitiesDb.get(cityObj.mCityId);
-
-            // Home city or city not in DB , use data from the save selected cities list
-            if (cityObj.mCityId == null || cityInDb == null) {
-                name.setText(cityObj.mCityName);
-            } else {
-                name.setText(cityInDb.mCityName);
-            }
+            name.setText(cityObj.mCityName);
             final Calendar now = Calendar.getInstance();
             now.setTimeZone(TimeZone.getDefault());
             int myDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-            // Get timezone from cities DB if available
-            String cityTZ = (cityInDb != null) ? cityInDb.mTimeZone:cityObj.mTimeZone;
-            now.setTimeZone(TimeZone.getTimeZone(cityTZ));
+            now.setTimeZone(TimeZone.getTimeZone(cityObj.mTimeZone));
             int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
             if (myDayOfWeek != cityDayOfWeek) {
                 dayOfWeek.setText(getString(R.string.world_day_of_week_label, now.getDisplayName(
