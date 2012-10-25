@@ -25,18 +25,20 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.android.deskclock.AnalogClock;
+import com.android.deskclock.DigitalClock;
+import com.android.deskclock.R;
+import com.android.deskclock.SettingsActivity;
+import com.android.deskclock.Utils;
+
 import java.text.Collator;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
-
-import com.android.deskclock.AnalogClock;
-import com.android.deskclock.DigitalClock;
-import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
 
 public class WorldClockAdapter extends BaseAdapter {
     protected Object [] mCitiesList;
@@ -44,11 +46,13 @@ public class WorldClockAdapter extends BaseAdapter {
     private final Context mContext;
     private String mClockStyle;
     private final Collator mCollator = Collator.getInstance();
+    protected HashMap<String, CityObj> mCitiesDb = new HashMap<String, CityObj>();
 
     public WorldClockAdapter(Context context) {
         super();
         mContext = context;
         loadData(context);
+        loadCitiesDb(context);
         mInflater = LayoutInflater.from(context);
     }
 
@@ -64,6 +68,19 @@ public class WorldClockAdapter extends BaseAdapter {
         mCitiesList = Cities.readCitiesFromSharedPrefs(prefs).values().toArray();
         sortList();
         mCitiesList = addHomeCity();
+    }
+
+    public void loadCitiesDb(Context context) {
+        mCitiesDb.clear();
+        // Read the cities DB so that the names and timezones will be taken from the DB
+        // and not from the selected list so that change of locale or changes in the DB will
+        // be reflected.
+        CityObj [] cities = Utils.loadCitiesDataBase(context);
+        if (cities != null) {
+            for (int i = 0; i < cities.length; i ++) {
+                mCitiesDb.put(cities[i].mCityId, cities [i]);
+            }
+        }
     }
 
     /***
@@ -220,11 +237,19 @@ public class WorldClockAdapter extends BaseAdapter {
             aclock.setVisibility(View.GONE);
             dclock.setTimeZone(cityObj.mTimeZone);
         }
-        name.setText(cityObj.mCityName);
+        CityObj cityInDb = mCitiesDb.get(cityObj.mCityId);
+        // Home city or city not in DB , use data from the save selected cities list
+        if (cityObj.mCityId == null || cityInDb == null) {
+            name.setText(cityObj.mCityName);
+        }else {
+            name.setText(cityInDb.mCityName);
+        }
         final Calendar now = Calendar.getInstance();
         now.setTimeZone(TimeZone.getDefault());
         int myDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-        now.setTimeZone(TimeZone.getTimeZone(cityObj.mTimeZone));
+        // Get timezone from cities DB if available
+        String cityTZ = (cityInDb != null) ? cityInDb.mTimeZone:cityObj.mTimeZone;
+        now.setTimeZone(TimeZone.getTimeZone(cityTZ));
         int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
         if (myDayOfWeek != cityDayOfWeek) {
             dayOfWeek.setText(mContext.getString(R.string.world_day_of_week_label,

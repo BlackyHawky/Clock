@@ -47,6 +47,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
     private int mId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private RemoteWorldClockAdapter mAdapter;
     private boolean mReloadCitiesList = true;
+    private boolean mReloadCitiesDb = true;
     private float mFontScale = 1;
 
     // An adapter to provide the view for the list of cities in the world clock.
@@ -89,14 +90,23 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             final Calendar now = Calendar.getInstance();
             now.setTimeInMillis(System.currentTimeMillis());
             int myDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-            now.setTimeZone(TimeZone.getTimeZone(cityObj.mTimeZone));
+            CityObj cityInDb = mCitiesDb.get(cityObj.mCityId);
+            String cityTZ = (cityInDb != null) ? cityInDb.mTimeZone:cityObj.mTimeZone;
+            now.setTimeZone(TimeZone.getTimeZone(cityTZ));
             int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 
             clock.setTextViewTextSize(clockId1, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
             clock.setTextViewTextSize(clockId2, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
             clock.setString(clockId1, "setTimeZone", cityObj.mTimeZone);
             clock.setString(clockId2, "setTimeZone", cityObj.mTimeZone);
-            clock.setTextViewText(labelId, cityObj.mCityName);
+
+            // Home city or city not in DB , use data from the save selected cities list
+            if (cityObj.mCityId == null || cityInDb == null) {
+                clock.setTextViewText(labelId, cityObj.mCityName);
+            }else {
+                clock.setTextViewText(labelId, cityInDb.mCityName);
+            }
+
             if (myDayOfWeek != cityDayOfWeek) {
                 clock.setTextViewText(dayId, mContext.getString(
                         R.string.world_day_of_week_label, now.getDisplayName(
@@ -190,6 +200,11 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             mAdapter.loadData(mContext);
             mReloadCitiesList = false;
         }
+        if (mReloadCitiesDb) {
+            mAdapter.loadCitiesDb(mContext);
+            mReloadCitiesDb = false;
+        }
+
         mFontScale = WidgetUtils.getScaleRatio(mContext, null, mId);
     }
 
@@ -225,8 +240,11 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             widgetManager.partiallyUpdateAppWidget(mId, widget);
         } else {
             if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                // refresh the list to make sure home time zone is displayed / removed.
+                // refresh the list to make sure home time zone is displayed / removed
                 mReloadCitiesList = true;
+            } else if (action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+                // reload the cities DB to pick up the cities name in the new language
+                mReloadCitiesDb = true;
             }
             // For any time change or locale change, refresh all
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
