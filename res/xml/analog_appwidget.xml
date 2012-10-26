@@ -18,7 +18,7 @@
     android:minWidth="110dip"
     android:minHeight="110dip"
     android:updatePeriodMillis="0"
-    android:previewImage="@drawable/clock_preview"
+    android:previewImage="@drawable/appwidget_analog_clock_preview"
     android:initialLayout="@layout/analog_appwidget"
     >
 </appwidget-provider>
