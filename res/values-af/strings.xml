@@ -315,4 +315,16 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Volgende wekker: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> gekies"</string>
+    <!-- no translation found for deleted_message (1220848140260509437) -->
+    <skip />
+    <!-- no translation found for alarm_delete_confirmation:one (111940612131906802) -->
+    <!-- no translation found for alarm_delete_confirmation:other (6918176478191272189) -->
+    <!-- no translation found for timer_delete_confirmation (2815524107015816453) -->
+    <skip />
+    <!-- no translation found for city_delete_confirmation (1783441538785676299) -->
+    <skip />
+    <!-- no translation found for widget_loading_ms (790841709484678848) -->
+    <skip />
+    <!-- no translation found for digital_gadget (2326954556720571358) -->
+    <skip />
 </resources>
