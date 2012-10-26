@@ -130,8 +130,7 @@
     <string name="button_menu" msgid="6050484561842120282">"Mais opções"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Definições"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ajuda"</string>
-    <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
-    <skip />
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Modo noturno"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Retomar"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Iniciar"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Parar"</string>
@@ -323,5 +322,9 @@
     <!-- no translation found for timer_delete_confirmation (2815524107015816453) -->
     <skip />
     <!-- no translation found for city_delete_confirmation (1783441538785676299) -->
+    <skip />
+    <!-- no translation found for widget_loading_ms (790841709484678848) -->
+    <skip />
+    <!-- no translation found for digital_gadget (2326954556720571358) -->
     <skip />
 </resources>
