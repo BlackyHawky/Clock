@@ -22,29 +22,19 @@
     android:layout_marginLeft="@dimen/circle_margin"
     android:orientation="horizontal">
 
-    <Space
-        android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"/>
 
     <include layout="@layout/world_clock_item"
         android:id="@+id/city_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Space
+        android:gravity="center"
+        android:layout_width="0dip"
         android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
     <include layout="@layout/world_clock_item"
         android:id="@+id/city_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <Space
+        android:gravity="center"
+        android:layout_width="0dip"
         android:layout_weight="1"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>
