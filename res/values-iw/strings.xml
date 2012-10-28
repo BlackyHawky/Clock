@@ -184,7 +184,7 @@
     <item quantity="one" msgid="6764708652976799977">"דקה אחת"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> טיימרים"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"דף הבית"</string>
+    <string name="home_label" msgid="4436139365695453870">"בית"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"ערים"</string>
     <string name="alarm_on" msgid="4344630320756422804">"פועלת"</string>
     <string name="alarm_off" msgid="6478058633710013612">"כבויה"</string>
@@ -315,4 +315,13 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"ההתראה הבאה: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> נבחרו"</string>
+    <string name="deleted_message" msgid="1220848140260509437">"נמחק"</string>
+  <plurals name="alarm_delete_confirmation">
+    <item quantity="one" msgid="111940612131906802">"האם למחוק את ההתראה שנבחרה?"</item>
+    <item quantity="other" msgid="6918176478191272189">"האם למחוק את ההתראות שנבחרו?"</item>
+  </plurals>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"האם למחוק את הטיימר הזה?"</string>
+    <string name="city_delete_confirmation" msgid="1783441538785676299">"האם להסיר את העיר הזאת?"</string>
+    <string name="widget_loading_ms" msgid="790841709484678848">"טוען"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"שעון דיגיטלי"</string>
 </resources>

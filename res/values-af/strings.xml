@@ -315,4 +315,13 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Volgende wekker: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> gekies"</string>
+    <string name="deleted_message" msgid="1220848140260509437">"Uitgevee"</string>
+  <plurals name="alarm_delete_confirmation">
+    <item quantity="one" msgid="111940612131906802">"Moet die gekose alarm uitgevee word?"</item>
+    <item quantity="other" msgid="6918176478191272189">"Moet die gekose alarms uitgevee word?"</item>
+  </plurals>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Moet hierdie tydhouer uitgevee word?"</string>
+    <string name="city_delete_confirmation" msgid="1783441538785676299">"Moet hierdie stad verwyder word?"</string>
+    <string name="widget_loading_ms" msgid="790841709484678848">"Laai tans"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Digitale horlosie"</string>
 </resources>
