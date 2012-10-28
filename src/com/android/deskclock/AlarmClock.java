@@ -684,6 +684,17 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         alarm.daysOfWeek.toAccessibilityString(AlarmClock.this));
                 itemHolder.daysOfWeek.setVisibility(View.VISIBLE);
                 colons = ": ";
+                itemHolder.daysOfWeek.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //When action mode is on - simulate long click
+                        if (doLongClick(view)) {
+                            return;
+                        }
+                        expandAlarm(itemHolder);
+                        itemHolder.alarmItem.post(mScrollRunnable);
+                    }
+                });
                 itemHolder.daysOfWeek.setOnLongClickListener(mLongClickListener);
 
             } else {
@@ -696,6 +707,17 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 itemHolder.label.setContentDescription(
                         mContext.getResources().getString(R.string.label_description) + " "
                         + alarm.label);
+                itemHolder.label.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        //When action mode is on - simulate long click
+                        if (doLongClick(view)) {
+                            return;
+                        }
+                        expandAlarm(itemHolder);
+                        itemHolder.alarmItem.post(mScrollRunnable);
+                    }
+                });
                 itemHolder.label.setOnLongClickListener(mLongClickListener);
             } else {
                 itemHolder.label.setVisibility(View.GONE);
