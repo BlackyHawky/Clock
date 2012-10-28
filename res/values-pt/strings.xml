@@ -323,8 +323,6 @@
     <skip />
     <!-- no translation found for city_delete_confirmation (1783441538785676299) -->
     <skip />
-    <!-- no translation found for widget_loading_ms (790841709484678848) -->
-    <skip />
-    <!-- no translation found for digital_gadget (2326954556720571358) -->
-    <skip />
+    <string name="widget_loading_ms" msgid="790841709484678848">"Carregando"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Relógio digital"</string>
 </resources>
