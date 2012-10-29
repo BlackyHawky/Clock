@@ -66,7 +66,7 @@
     <string name="never" msgid="54104287800571769">"永不"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"选择时钟"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"模拟时钟"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"指针时钟"</string>
     <string name="help" msgid="7786263119482654015">"帮助"</string>
     <string name="settings" msgid="5849739030579520686">"设置"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"暂停时长"</string>
