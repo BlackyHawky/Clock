@@ -74,6 +74,14 @@ public class Utils {
     public static final String CLOCK_TYPE_DIGITAL = "digital";
     public static final String CLOCK_TYPE_ANALOG = "analog";
 
+    /**
+     * time format constants
+     */
+    public final static String HOURS_24 = "kk";
+    public final static String HOURS = "h";
+    public final static String MINUTES = ":mm";
+
+
     public static void prepareHelpMenuItem(Context context, MenuItem helpMenuItem) {
         String helpUrlString = context.getResources().getString(R.string.desk_clock_help_url);
         if (TextUtils.isEmpty(helpUrlString)) {

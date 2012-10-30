@@ -32,6 +32,7 @@ import android.widget.RemoteViews;
 public class AnalogAppWidgetProvider extends BroadcastReceiver {
     static final String TAG = "AnalogAppWidgetProvider";
 
+    @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
 
