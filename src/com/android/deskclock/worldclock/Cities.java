@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 public class Cities {
 
-
+    public static final String WORLDCLOCK_UPDATE_INTENT = "com.android.deskclock.worldclock.update";
     private static final String NUMBER_OF_CITIES = "number_of_cities";
 
 
