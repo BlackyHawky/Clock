@@ -75,7 +75,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         if (options != null) {
             int minWidth = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
             int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-
+            if (minWidth == 0 || minHeight == 0) {
+                return 0.9f;
+            }
+            Log.v(TAG,"------------------------- " + minWidth + " , " + minHeight);
             Resources res = context.getResources();
             float widthRatio = minWidth / res.getDimension(R.dimen.min_digital_widget_width);
             float heightRatio = minHeight / res.getDimension(R.dimen.min_digital_widget_height);
