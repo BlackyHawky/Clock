@@ -322,6 +322,6 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Eliminare questo timer?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Rimuovere questa città?"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"Caricamento in corso"</string>
+    <string name="widget_loading_ms" msgid="790841709484678848">"Caricamento"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Orologio digitale"</string>
 </resources>
