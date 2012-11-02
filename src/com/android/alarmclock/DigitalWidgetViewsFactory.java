@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.TypedValue;
@@ -242,7 +243,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
     private void refreshAlarm(Context c, RemoteViews widget) {
         String nextAlarm = Settings.System.getString(c.getContentResolver(),
                 Settings.System.NEXT_ALARM_FORMATTED);
-        if (!nextAlarm.isEmpty()) {
+        if (!TextUtils.isEmpty(nextAlarm)) {
             widget.setTextViewText(R.id.nextAlarm,
                     c.getString(R.string.control_set_alarm_with_existing, nextAlarm));
             widget.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
