@@ -303,7 +303,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Appuyer ici pour afficher les minuteurs"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Paramètres de l\'écran de veille"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Paramètres de l\'écran de veille interactif"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Mode Nuit"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Affichage peu lumineux (pour les pièces sombres)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
