@@ -26,6 +26,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.TypedValue;
@@ -126,7 +127,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private void refreshAlarm(Context c, RemoteViews clock) {
         String nextAlarm = Settings.System.getString(
                 c.getContentResolver(), Settings.System.NEXT_ALARM_FORMATTED);
-        if (!nextAlarm.isEmpty()) {
+        if (!TextUtils.isEmpty(nextAlarm)) {
             clock.setTextViewText(R.id.nextAlarm,
                     c.getString(R.string.control_set_alarm_with_existing, nextAlarm));
             clock.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
