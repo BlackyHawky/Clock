@@ -25,8 +25,8 @@
 
     <TextClock
         android:id="@+id/the_clock"
-        android:format12Hour="h:mm"
-        android:format24Hour="kk:mm"
+        android:format12Hour="@string/widget_12_hours_format"
+        android:format24Hour="@string/widget_24_hours_format"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/widget_big_thin"
