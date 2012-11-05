@@ -25,31 +25,16 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <TextClock
+            android:id="@+id/leftClock"
+            android:format12Hour="@string/widget_12_hours_format"
+            android:format24Hour="@string/widget_24_hours_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/widget_medium_light"
+            android:textColor="@color/clock_white"
             android:layout_gravity="center"
-            android:gravity="center" >
-
-            <TextView
-                android:id="@+id/timeDisplayHoursLeft"
-                style="@style/widget_medium_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="none"
-                android:paddingRight="@dimen/time_margin_right"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-
-            <TextView
-                android:id="@+id/timeDisplayMinutesLeft"
-                style="@style/widget_medium_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="none"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-        </LinearLayout>
+            android:gravity="center" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -84,31 +69,16 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <LinearLayout
+        <TextClock
+            android:id="@+id/rightClock"
+            android:format12Hour="@string/widget_12_hours_format"
+            android:format24Hour="@string/widget_24_hours_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/widget_medium_light"
+            android:textColor="@color/clock_white"
             android:layout_gravity="center"
-            android:gravity="center" >
-
-            <TextView
-                android:id="@+id/timeDisplayHoursRight"
-                style="@style/widget_medium_bold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="none"
-                android:paddingRight="@dimen/time_margin_right"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-
-            <TextView
-                android:id="@+id/timeDisplayMinutesRight"
-                style="@style/widget_medium_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="none"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-        </LinearLayout>
+            android:gravity="center" />
 
         <LinearLayout
             android:layout_width="wrap_content"
