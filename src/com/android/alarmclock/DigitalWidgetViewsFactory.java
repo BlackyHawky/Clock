@@ -129,7 +129,10 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
     @Override
     public int getCount() {
-        return mAdapter.getCount();
+        if (WidgetUtils.showList(mContext, mId, mFontScale)) {
+            return mAdapter.getCount();
+        }
+        return 0;
     }
 
     @Override
@@ -179,7 +182,6 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             mAdapter.loadData(mContext);
             mReloadCitiesList = false;
         }
-        AppWidgetManager widgetManager = AppWidgetManager.getInstance(mContext);
         mFontScale = WidgetUtils.getScaleRatio(mContext, null, mId);
     }
 

@@ -43,15 +43,12 @@ public class WidgetUtils {
         }
         if (options != null) {
             int minWidth = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
-            int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-            if (minWidth == 0 || minHeight == 0) {
+            if (minWidth == 0) {
+                // No data , do no scaling
                 return 1f;
             }
-            Log.v(TAG,"------------------------- " + minWidth + " , " + minHeight);
             Resources res = context.getResources();
-            float ratio= minWidth / res.getDimension(R.dimen.min_digital_widget_width);
-            Log.v(TAG,"------------------------- ratio " + ratio);
-
+            float ratio= minWidth / res.getDimension(R.dimen.def_digital_widget_width);
             return (ratio > 1) ? 1 : ratio;
         }
         return 1;
@@ -59,9 +56,19 @@ public class WidgetUtils {
 
     // Decide if to show the list of world clock.
     // Check to see if the widget size is big enough, if it is return true.
-    public static boolean showList(Context context, int clock) {
-        // Calculate
-        return true;
+    public static boolean showList(Context context, int id, float scale) {
+        Bundle options = AppWidgetManager.getInstance(context).getAppWidgetOptions(id);
+        if (options == null) {
+            // no data to make the calculation, show the list anyway
+            return true;
+        }
+        int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+        int neededSize = (int) context.getResources().
+            getDimension(R.dimen.def_digital_widget_height);
+        if (minHeight > neededSize) {
+            return true;
+        }
+        return false;
     }
 
 
