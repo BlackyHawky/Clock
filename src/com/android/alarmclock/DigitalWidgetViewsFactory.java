@@ -148,8 +148,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
     @Override
     public RemoteViews getLoadingView() {
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.appwidget_loading);
-        return views;
+        return null;
     }
 
     @Override
