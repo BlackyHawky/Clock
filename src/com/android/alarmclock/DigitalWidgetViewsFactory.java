@@ -71,33 +71,30 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
                     mContext.getPackageName(), R.layout.world_clock_remote_list_item);
 
             // Always how the left clock
-            updateView(views, (CityObj) mCitiesList[index], R.id.timeDisplayHoursLeft,
-                    R.id.timeDisplayMinutesLeft, R.id.city_name_left, R.id.city_day_left);
+            updateView(views, (CityObj) mCitiesList[index], R.id.leftClock, R.id.city_name_left,
+                    R.id.city_day_left);
             // Show the right clock if any, make it invisible if there is no clock on the right
             // to keep the left view on the left.
             if (index + 1 < mCitiesList.length) {
-                updateView(views, (CityObj) mCitiesList[index + 1], R.id.timeDisplayHoursRight,
-                        R.id.timeDisplayMinutesRight, R.id.city_name_right, R.id.city_day_right);
-            } else {
-                hideView(views, R.id.timeDisplayHoursRight, R.id.timeDisplayMinutesRight,
+                updateView(views, (CityObj) mCitiesList[index + 1], R.id.rightClock,
                         R.id.city_name_right, R.id.city_day_right);
+            } else {
+                hideView(views, R.id.rightClock, R.id.city_name_right, R.id.city_day_right);
             }
             return views;
         }
 
-        private void updateView(RemoteViews clock, CityObj cityObj, int hoursId, int minutesId,
+        private void updateView(RemoteViews clock, CityObj cityObj, int clockId,
                 int labelId, int dayId) {
             final Calendar now = Calendar.getInstance();
             now.setTimeInMillis(System.currentTimeMillis());
             int myDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
             now.setTimeZone(TimeZone.getTimeZone(cityObj.mTimeZone));
             int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-            if (Alarms.get24HourMode(mContext)) {
-                clock.setTextViewText(hoursId, DateFormat.format(Utils.HOURS_24, now));
-            } else {
-                clock.setTextViewText(hoursId, DateFormat.format(Utils.HOURS, now));
-            }
-            clock.setTextViewText(minutesId, DateFormat.format(Utils.MINUTES, now));
+
+            clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
+            // Need the function exported
+         //   clock.setString(clockId, "setTimeZone", cityObj.mTimeZone);
             clock.setTextViewText(labelId, cityObj.mCityName);
             if (myDayOfWeek != cityDayOfWeek) {
                 clock.setTextViewText(dayId, mContext.getString(
@@ -108,19 +105,13 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
                 clock.setViewVisibility(dayId, View.GONE);
             }
 
-            clock.setTextViewTextSize(hoursId, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
-            clock.setTextViewTextSize(
-                    minutesId, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
-
-            clock.setViewVisibility(hoursId, View.VISIBLE);
-            clock.setViewVisibility(minutesId, View.VISIBLE);
+            clock.setViewVisibility(clockId, View.VISIBLE);
             clock.setViewVisibility(labelId, View.VISIBLE);
         }
 
         private void hideView(
-                RemoteViews clock, int hoursId, int minutesId, int labelId, int dayId) {
-            clock.setViewVisibility(hoursId, View.INVISIBLE);
-            clock.setViewVisibility(minutesId, View.INVISIBLE);
+                RemoteViews clock, int clockId, int labelId, int dayId) {
+            clock.setViewVisibility(clockId, View.INVISIBLE);
             clock.setViewVisibility(labelId, View.INVISIBLE);
             clock.setViewVisibility(dayId, View.INVISIBLE);
         }
@@ -176,12 +167,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         // Do intent listening registration here since doing it in the manifest creates a new
         // new factory
         IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_TIME_TICK);
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
         filter.addAction(Intent.ACTION_DATE_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        filter.addAction(Intent.ACTION_SCREEN_ON);
         filter.addAction("com.android.deskclock.NEXT_ALARM_TIME_SET");
         filter.addAction("com.android.deskclock.worldclock.update");
         mContext.registerReceiver(this, filter);
@@ -194,7 +180,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             mReloadCitiesList = false;
         }
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(mContext);
-        mFontScale = DigitalAppWidgetProvider.getScaleRatio(mContext, null, mId);
+        mFontScale = WidgetUtils.getScaleRatio(mContext, null, mId);
     }
 
     @Override
@@ -232,7 +218,8 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
                 mDateFormat =
                         context.getResources().getString(R.string.abbrev_wday_month_day_no_year);
             }
-            setTime(context, widget);
+            float ratio = WidgetUtils.getScaleRatio(context, null, mId);
+            WidgetUtils.setClockSize(context, widget, ratio);
             refreshAlarm(context, widget);
             updateDateRemoteView(mDateFormat, widget);
             widgetManager.partiallyUpdateAppWidget(mId, widget);
@@ -258,19 +245,6 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
         CharSequence newDate = DateFormat.format(dateFormat, cal);
         clock.setTextViewText(R.id.date, newDate);
-    }
-    private void setTime(Context c, RemoteViews clock) {
-        if (mCalendar == null) {
-            mCalendar = Calendar.getInstance();
-        }
-        mCalendar.setTimeInMillis(System.currentTimeMillis());
-        if (Alarms.get24HourMode(c)) {
-            clock.setTextViewText(
-                    R.id.timeDisplayHours, DateFormat.format(Utils.HOURS_24, mCalendar));
-        } else {
-            clock.setTextViewText(R.id.timeDisplayHours, DateFormat.format(Utils.HOURS, mCalendar));
-        }
-        clock.setTextViewText(R.id.timeDisplayMinutes, DateFormat.format(Utils.MINUTES, mCalendar));
     }
 }
 
