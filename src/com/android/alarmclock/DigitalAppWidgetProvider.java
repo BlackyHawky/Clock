@@ -29,14 +29,11 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.Alarms;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 
 import java.util.Calendar;
 
@@ -52,7 +49,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context ctxt, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            float ratio = getScaleRatio(ctxt, null, appWidgetId);
+            float ratio = WidgetUtils.getScaleRatio(ctxt, null, appWidgetId);
             updateClock(ctxt, appWidgetManager, appWidgetId, ratio);
         }
         super.onUpdate(ctxt, appWidgetManager, appWidgetIds);
@@ -62,33 +59,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
             int appWidgetId, Bundle newOptions) {
         // scale the fonts of the clock to fit inside the new size
-        float ratio = getScaleRatio(context, newOptions, appWidgetId);
+        float ratio = WidgetUtils.getScaleRatio(context, newOptions, appWidgetId);
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
         updateClock(context, widgetManager, appWidgetId, ratio);
     }
 
-    // Calculate the scale factor of the fonts in the widget
-    public static float getScaleRatio(Context context, Bundle options, int id) {
-        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
-        if (options == null) {
-            options = widgetManager.getAppWidgetOptions(id);
-        }
-        if (options != null) {
-            int minWidth = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
-            int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-            if (minWidth == 0 || minHeight == 0) {
-                return 0.9f;
-            }
-            Log.v(TAG,"------------------------- " + minWidth + " , " + minHeight);
-            Resources res = context.getResources();
-            float widthRatio = minWidth / res.getDimension(R.dimen.min_digital_widget_width);
-            float heightRatio = minHeight / res.getDimension(R.dimen.min_digital_widget_height);
-
-            float ratio = Math.min(widthRatio, heightRatio);
-            return (ratio > 1) ? 1 : ratio;
-        }
-        return 1;
-    }
 
     static ComponentName getComponentName(Context context) {
         return new ComponentName(context, DigitalAppWidgetProvider.class);
@@ -102,9 +77,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         RemoteViews widget = new RemoteViews(c.getPackageName(), R.layout.digital_appwidget);
         widget.setOnClickPendingIntent(R.id.digital_appwidget,
                 PendingIntent.getActivity(c, 0, new Intent(c, DeskClock.class), 0));
-        setTime(c, widget, ratio);
         updateDateRemoteView(mDateFormat, widget);
         refreshAlarm(c, widget);
+        WidgetUtils.setClockSize(c, widget, ratio);
         final Intent intent = new Intent(c, DigitalAppWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
@@ -134,22 +109,5 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         } else {
             clock.setViewVisibility(R.id.nextAlarm, View.GONE);
         }
-    }
-
-    private void setTime(Context c, RemoteViews clock, float scale) {
-        float fontSize = c.getResources().getDimension(R.dimen.big_font_size);
-        mCalendar.setTimeInMillis(System.currentTimeMillis());
-        if (Alarms.get24HourMode(c)) {
-            clock.setTextViewText(
-                    R.id.timeDisplayHours, DateFormat.format(Utils.HOURS_24, mCalendar));
-
-        } else {
-            clock.setTextViewText(R.id.timeDisplayHours, DateFormat.format(Utils.HOURS, mCalendar));
-        }
-        clock.setTextViewText(R.id.timeDisplayMinutes, DateFormat.format(Utils.MINUTES, mCalendar));
-        clock.setTextViewTextSize(
-                R.id.timeDisplayHours, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
-        clock.setTextViewTextSize(
-                R.id.timeDisplayMinutes, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
     }
 }
