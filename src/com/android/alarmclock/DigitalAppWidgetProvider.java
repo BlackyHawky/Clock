@@ -29,21 +29,22 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.android.deskclock.Alarms;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 
 import java.util.Calendar;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "DigitalAppWidgetProvider";
     private String mDateFormat = null;
-    private final Calendar mCalendar;
 
     public DigitalAppWidgetProvider() {
-        mCalendar = Calendar.getInstance();
     }
 
     @Override
@@ -63,7 +64,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
         updateClock(context, widgetManager, appWidgetId, ratio);
     }
-
 
     static ComponentName getComponentName(Context context) {
         return new ComponentName(context, DigitalAppWidgetProvider.class);
