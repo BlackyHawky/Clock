@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vill du ta bort denna timer?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Vill du ta bort den här staden?"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"Läser in"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digital klocka"</string>
 </resources>

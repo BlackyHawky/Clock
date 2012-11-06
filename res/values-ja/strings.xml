@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"このタイマーを削除しますか？"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"この都市を削除しますか？"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"読み込み中"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"デジタルクロック"</string>
 </resources>

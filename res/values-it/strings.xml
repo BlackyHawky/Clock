@@ -291,7 +291,7 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALLARMI"</string>
-    <string name="see_all" msgid="775983396630163739">"Visualizza tutto…"</string>
+    <string name="see_all" msgid="775983396630163739">"Mostra tutto..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servizio cronometro per pubblicare la notifica."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Interrotto"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Fai scorrere il dito verso destra per eliminare"</string>
@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Eliminare questo timer?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Rimuovere questa città?"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"Caricamento"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Orologio digitale"</string>
 </resources>

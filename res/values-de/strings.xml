@@ -91,7 +91,7 @@
     <item msgid="4278641338024561333">"Nie"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Fertig"</string>
-    <string name="revert" msgid="9100911171235162926">"Zurücksetz."</string>
+    <string name="revert" msgid="9100911171235162926">"Rückgängig"</string>
     <string name="delete" msgid="5732434972457000541">"Löschen"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lautstärke für Wecker"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Lautlos-Modus"</string>
@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Diesen Timer löschen?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Diese Stadt entfernen?"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"Wird geladen..."</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitaluhr"</string>
 </resources>
