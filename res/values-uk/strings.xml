@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Видалити цей таймер?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Вилучити це місто?"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"Завантаження"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Цифровий годинник"</string>
 </resources>

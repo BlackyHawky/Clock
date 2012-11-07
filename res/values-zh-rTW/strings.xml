@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"刪除這個計時器？"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"移除這個城市？"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"載入中"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"數位時鐘"</string>
 </resources>
