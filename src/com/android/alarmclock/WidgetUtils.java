@@ -32,7 +32,9 @@ public class WidgetUtils {
     public static void setClockSize(Context context, RemoteViews clock, float scale) {
         float fontSize = context.getResources().getDimension(R.dimen.widget_big_font_size);
         clock.setTextViewTextSize(
-                R.id.the_clock, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
+                R.id.the_clock1, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
+        clock.setTextViewTextSize(
+                R.id.the_clock2, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
     }
 
     // Calculate the scale factor of the fonts in the widget
@@ -48,7 +50,7 @@ public class WidgetUtils {
                 return 1f;
             }
             Resources res = context.getResources();
-            float ratio= minWidth / res.getDimension(R.dimen.def_digital_widget_width);
+            float ratio = minWidth / res.getDimension(R.dimen.def_digital_widget_width);
             return (ratio > 1) ? 1 : ratio;
         }
         return 1;
@@ -65,12 +67,7 @@ public class WidgetUtils {
         int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
         int neededSize = (int) context.getResources().
             getDimension(R.dimen.def_digital_widget_height);
-        if (minHeight > neededSize) {
-            return true;
-        }
-        return false;
+        return (minHeight > neededSize);
     }
-
-
 }
 
