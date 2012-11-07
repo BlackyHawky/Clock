@@ -291,7 +291,7 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALLARMI"</string>
-    <string name="see_all" msgid="775983396630163739">"Visualizza tutto…"</string>
+    <string name="see_all" msgid="775983396630163739">"Mostra tutto..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servizio cronometro per pubblicare la notifica."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Interrotto"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Fai scorrere il dito verso destra per eliminare"</string>
