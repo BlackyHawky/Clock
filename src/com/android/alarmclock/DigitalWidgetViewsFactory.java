@@ -96,8 +96,8 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
             clock.setTextViewTextSize(clockId1, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
             clock.setTextViewTextSize(clockId2, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
-            // Need the function exported
-            // clock.setString(clockId, "setTimeZone", cityObj.mTimeZone);
+            clock.setString(clockId1, "setTimeZone", cityObj.mTimeZone);
+            clock.setString(clockId2, "setTimeZone", cityObj.mTimeZone);
             clock.setTextViewText(labelId, cityObj.mCityName);
             if (myDayOfWeek != cityDayOfWeek) {
                 clock.setTextViewText(dayId, mContext.getString(
