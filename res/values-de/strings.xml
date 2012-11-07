@@ -91,7 +91,7 @@
     <item msgid="4278641338024561333">"Nie"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Fertig"</string>
-    <string name="revert" msgid="9100911171235162926">"Zurücksetz."</string>
+    <string name="revert" msgid="9100911171235162926">"Rückgängig"</string>
     <string name="delete" msgid="5732434972457000541">"Löschen"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lautstärke für Wecker"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Lautlos-Modus"</string>
