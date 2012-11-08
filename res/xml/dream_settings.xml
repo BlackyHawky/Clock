@@ -26,5 +26,5 @@
         android:key="screensaver_night_mode"
         android:title="@string/night_mode_title"
         android:summary="@string/night_mode_summary"
-        android:defaultValue="false" />
+        android:defaultValue="true" />
 </PreferenceScreen>
