@@ -224,6 +224,10 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             refreshAlarm(context, widget);
             widgetManager.partiallyUpdateAppWidget(mId, widget);
         } else {
+            if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                // refresh the list to make sure home time zone is displayed / removed.
+                mReloadCitiesList = true;
+            }
             // For any time change or locale change, refresh all
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
             RemoteViews widget =
