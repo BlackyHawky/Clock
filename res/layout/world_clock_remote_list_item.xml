@@ -49,7 +49,6 @@
                 android:layout_height="wrap_content"
                 style="@style/widget_medium_light"
                 android:textColor="@color/clock_white"
-                android:singleLine="true"
                 android:layout_gravity="center"
                 android:gravity="center" />
         </LinearLayout>
@@ -111,7 +110,6 @@
                 style="@style/widget_medium_light"
                 android:textColor="@color/clock_white"
                 android:layout_gravity="center"
-                android:singleLine="true"
                 android:gravity="center" />
         </LinearLayout>
 
