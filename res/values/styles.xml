@@ -188,6 +188,10 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="widget_big_bold" parent="big_bold">
+        <item name="android:textSize">@dimen/widget_big_font_size</item>
+    </style>
+
     <style name="big_thin">
         <item name="android:textSize">@dimen/big_font_size</item>
         <item name="android:fontFamily">sans-serif-thin</item>

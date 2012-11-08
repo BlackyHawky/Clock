@@ -21,19 +21,36 @@
     android:orientation="vertical"
     android:layout_gravity="center"
     android:baselineAligned="false"
+    android:background="?android:attr/selectableItemBackground"
     >
 
-    <TextClock
-        android:id="@+id/the_clock"
-        android:format12Hour="@string/widget_12_hours_format"
-        android:format24Hour="@string/widget_24_hours_format"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/widget_big_thin"
-        android:textColor="@color/clock_white"
-        android:layout_gravity="center_horizontal|top"
-         />
+        android:baselineAligned="true"
+        android:layout_gravity="center_horizontal|top">
 
+        <TextClock
+            android:id="@+id/the_clock1"
+            android:format12Hour="@string/widget_12_hours_format_h"
+            android:format24Hour="@string/widget_24_hours_format_h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/widget_big_bold"
+            android:textColor="@color/clock_white"
+            android:layout_gravity="center_horizontal|top"
+             />
+        <TextClock
+            android:id="@+id/the_clock2"
+            android:format12Hour="@string/widget_12_hours_format_no_ampm_m"
+            android:format24Hour="@string/widget_24_hours_format_m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/widget_big_thin"
+            android:textColor="@color/clock_white"
+            android:layout_gravity="center_horizontal|top"
+             />
+        </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -71,20 +71,22 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
                     mContext.getPackageName(), R.layout.world_clock_remote_list_item);
 
             // Always how the left clock
-            updateView(views, (CityObj) mCitiesList[index], R.id.leftClock, R.id.city_name_left,
-                    R.id.city_day_left);
-            // Show the right clock if any, make it invisible if there is no clock on the right
+            updateView(views, (CityObj) mCitiesList[index], R.id.leftClock1, R.id.leftClock2,
+                    R.id.city_name_left, R.id.city_day_left);
+            // Show the right clock if any, make it invisible if there is no
+            // clock on the right
             // to keep the left view on the left.
             if (index + 1 < mCitiesList.length) {
-                updateView(views, (CityObj) mCitiesList[index + 1], R.id.rightClock,
-                        R.id.city_name_right, R.id.city_day_right);
+                updateView(views, (CityObj) mCitiesList[index + 1], R.id.rightClock1,
+                        R.id.rightClock2, R.id.city_name_right, R.id.city_day_right);
             } else {
-                hideView(views, R.id.rightClock, R.id.city_name_right, R.id.city_day_right);
+                hideView(views, R.id.rightClock1, R.id.rightClock2, R.id.city_name_right,
+                        R.id.city_day_right);
             }
             return views;
         }
 
-        private void updateView(RemoteViews clock, CityObj cityObj, int clockId,
+        private void updateView(RemoteViews clock, CityObj cityObj, int clockId1, int clockId2,
                 int labelId, int dayId) {
             final Calendar now = Calendar.getInstance();
             now.setTimeInMillis(System.currentTimeMillis());
@@ -92,9 +94,10 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             now.setTimeZone(TimeZone.getTimeZone(cityObj.mTimeZone));
             int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 
-            clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
+            clock.setTextViewTextSize(clockId1, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
+            clock.setTextViewTextSize(clockId2, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
             // Need the function exported
-         //   clock.setString(clockId, "setTimeZone", cityObj.mTimeZone);
+            // clock.setString(clockId, "setTimeZone", cityObj.mTimeZone);
             clock.setTextViewText(labelId, cityObj.mCityName);
             if (myDayOfWeek != cityDayOfWeek) {
                 clock.setTextViewText(dayId, mContext.getString(
@@ -105,13 +108,15 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
                 clock.setViewVisibility(dayId, View.GONE);
             }
 
-            clock.setViewVisibility(clockId, View.VISIBLE);
+            clock.setViewVisibility(clockId1, View.VISIBLE);
+            clock.setViewVisibility(clockId2, View.VISIBLE);
             clock.setViewVisibility(labelId, View.VISIBLE);
         }
 
         private void hideView(
-                RemoteViews clock, int clockId, int labelId, int dayId) {
-            clock.setViewVisibility(clockId, View.INVISIBLE);
+                RemoteViews clock, int clockId1, int clockId2, int labelId, int dayId) {
+            clock.setViewVisibility(clockId1, View.INVISIBLE);
+            clock.setViewVisibility(clockId2, View.INVISIBLE);
             clock.setViewVisibility(labelId, View.INVISIBLE);
             clock.setViewVisibility(dayId, View.INVISIBLE);
         }
