@@ -176,6 +176,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         // new factory
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_DATE_CHANGED);
+        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction("com.android.deskclock.NEXT_ALARM_TIME_SET");
         filter.addAction("com.android.deskclock.worldclock.update");
         mContext.registerReceiver(this, filter);
@@ -217,6 +218,10 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
 
         } else {
+            if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
+                // refresh the list to make sure home time zone is displayed / removed.
+                mReloadCitiesList = true;
+            }
             // For any time change or locale change, refresh all
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
             RemoteViews widget =
