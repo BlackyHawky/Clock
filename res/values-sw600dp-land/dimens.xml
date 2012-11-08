@@ -52,4 +52,5 @@
 
     <dimen name="glowpadview_margin_right">-64dip</dimen>
 
+    <dimen name="def_digital_widget_height">200dip</dimen>
 </resources>
