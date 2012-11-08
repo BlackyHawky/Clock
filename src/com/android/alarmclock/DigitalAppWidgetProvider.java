@@ -42,7 +42,7 @@ import java.util.Calendar;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "DigitalAppWidgetProvider";
-    private String mDateFormat = null;
+    private String mDateFormat;
 
     public DigitalAppWidgetProvider() {
     }
