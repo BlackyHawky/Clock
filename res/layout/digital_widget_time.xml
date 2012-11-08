@@ -48,6 +48,7 @@
             android:layout_height="wrap_content"
             style="@style/widget_big_thin"
             android:textColor="@color/clock_white"
+            android:singleLine="true"
             android:layout_gravity="center_horizontal|top"
              />
         </LinearLayout>
