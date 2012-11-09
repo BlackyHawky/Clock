@@ -126,7 +126,7 @@
     <string name="menu_clock" msgid="5612760670606829805">"時計"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"ストップウォッチ"</string>
     <string name="button_alarms" msgid="8016103479617020265">"アラーム"</string>
-    <string name="button_cities" msgid="4555761857494501363">"都市"</string>
+    <string name="button_cities" msgid="4555761857494501363">"世界時計"</string>
     <string name="button_menu" msgid="6050484561842120282">"その他のオプション"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"設定"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"ヘルプ"</string>
@@ -185,7 +185,7 @@
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g>件のタイマー"</item>
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"ホーム"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"都市"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"世界時計"</string>
     <string name="alarm_on" msgid="4344630320756422804">"ON"</string>
     <string name="alarm_off" msgid="6478058633710013612">"OFF"</string>
     <string name="clock_settings" msgid="8887845806151785393">"時刻"</string>
