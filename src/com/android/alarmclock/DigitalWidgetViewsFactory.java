@@ -175,6 +175,10 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_DATE_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        filter.addAction(Intent.ACTION_SCREEN_ON);
+        filter.addAction(Intent.ACTION_TIME_TICK);
+        filter.addAction(Intent.ACTION_TIME_CHANGED);
+        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
         filter.addAction("com.android.deskclock.NEXT_ALARM_TIME_SET");
         filter.addAction("com.android.deskclock.worldclock.update");
         mContext.registerReceiver(this, filter);
