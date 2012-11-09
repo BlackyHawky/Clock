@@ -68,7 +68,7 @@
     <string name="clock_instructions" msgid="2656876819515011590">"Виберіть годинник"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Аналог. годинник"</string>
     <string name="help" msgid="7786263119482654015">"довідка"</string>
-    <string name="settings" msgid="5849739030579520686">"Налаштув-ня"</string>
+    <string name="settings" msgid="5849739030579520686">"Налаштування"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Відкласти на"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 хвилина"</item>
