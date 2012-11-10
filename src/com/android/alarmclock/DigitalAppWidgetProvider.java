@@ -42,7 +42,6 @@ import java.util.Calendar;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "DigitalAppWidgetProvider";
-    private String mDateFormat;
 
     public DigitalAppWidgetProvider() {
     }
@@ -71,13 +70,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
     private void updateClock(
             Context c, AppWidgetManager appWidgetManager, int appWidgetId, float ratio) {
-        if (mDateFormat == null) {
-            mDateFormat = c.getResources().getString(R.string.abbrev_wday_month_day_no_year);
-        }
         RemoteViews widget = new RemoteViews(c.getPackageName(), R.layout.digital_appwidget);
         widget.setOnClickPendingIntent(R.id.digital_appwidget,
                 PendingIntent.getActivity(c, 0, new Intent(c, DeskClock.class), 0));
-        updateDateRemoteView(mDateFormat, widget);
         refreshAlarm(c, widget);
         WidgetUtils.setClockSize(c, widget, ratio);
         final Intent intent = new Intent(c, DigitalAppWidgetService.class);
@@ -89,14 +84,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         appWidgetManager.notifyAppWidgetViewDataChanged(
                 appWidgetId, R.id.digital_appwidget_listview);
         appWidgetManager.updateAppWidget(appWidgetId, widget);
-    }
-
-    private void updateDateRemoteView(String dateFormat, RemoteViews clock) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
-
-        CharSequence newDate = DateFormat.format(dateFormat, cal);
-        clock.setTextViewText(R.id.date, newDate);
     }
 
     private void refreshAlarm(Context c, RemoteViews clock) {
