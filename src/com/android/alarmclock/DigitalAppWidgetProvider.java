@@ -51,6 +51,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         for (int appWidgetId : appWidgetIds) {
             float ratio = WidgetUtils.getScaleRatio(ctxt, null, appWidgetId);
             updateClock(ctxt, appWidgetManager, appWidgetId, ratio);
+
         }
         super.onUpdate(ctxt, appWidgetManager, appWidgetIds);
     }

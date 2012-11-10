@@ -204,7 +204,6 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         if (mId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             return;
         }
-
         mContext = context;
         String action = intent.getAction();
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
@@ -219,6 +218,11 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             mReloadCitiesList = true;
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
 
+        } else if (action.equals(Intent.ACTION_SCREEN_ON)) {
+            RemoteViews widget =
+                    new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);
+            refreshAlarm(context, widget);
+            widgetManager.partiallyUpdateAppWidget(mId, widget);
         } else {
             // For any time change or locale change, refresh all
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
