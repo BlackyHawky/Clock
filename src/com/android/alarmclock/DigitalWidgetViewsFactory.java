@@ -46,8 +46,6 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
     private Context mContext;
     private int mId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private RemoteWorldClockAdapter mAdapter;
-    private String mDateFormat;
-    private Calendar mCalendar;
     private boolean mReloadCitiesList = true;
     private float mFontScale = 1;
 
@@ -221,14 +219,9 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
             RemoteViews widget =
                     new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);
-            if (mDateFormat == null) {
-                mDateFormat =
-                        context.getResources().getString(R.string.abbrev_wday_month_day_no_year);
-            }
             float ratio = WidgetUtils.getScaleRatio(context, null, mId);
             WidgetUtils.setClockSize(context, widget, ratio);
             refreshAlarm(context, widget);
-            updateDateRemoteView(mDateFormat, widget);
             widgetManager.partiallyUpdateAppWidget(mId, widget);
         }
     }
@@ -243,15 +236,6 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         } else  {
             widget.setViewVisibility(R.id.nextAlarm, View.GONE);
         }
-    }
-
-    private void updateDateRemoteView(
-            String dateFormat, RemoteViews clock) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(System.currentTimeMillis());
-
-        CharSequence newDate = DateFormat.format(dateFormat, cal);
-        clock.setTextViewText(R.id.date, newDate);
     }
 }
 
