@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"هل تريد حذف هذا المؤقت؟"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"هل تريد إزالة هذه المدينة؟"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"جارٍ التحميل"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ساعة رقمية"</string>
 </resources>
