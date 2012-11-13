@@ -18,25 +18,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_marginTop="4dip"
     android:layout_marginBottom="4dip"
+    android:gravity="center"
     android:paddingTop="@dimen/body_font_padding"
     android:paddingBottom="@dimen/body_font_padding"
-    android:paddingLeft="@dimen/laps_margin"
-    android:paddingRight="@dimen/laps_margin"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/clock_gray"
-        android:layout_marginRight="8dip"
+        android:layout_marginRight="@dimen/sw_item_space"
         android:gravity="left"
         style="@style/body"
         android:textAllCaps="false"
         android:id="@+id/lap_number" />
     <TextView
-        android:layout_width="0dip"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/sw_item_space"
         android:textColor="@color/clock_gray"
         android:gravity="right"
         style="@style/body"
@@ -44,8 +43,7 @@
         android:id="@+id/lap_time" />
     <TextView
         android:layout_height="wrap_content"
-        android:layout_width="0dip"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:textColor="@color/clock_gray"
         android:gravity="right"
         style="@style/body"

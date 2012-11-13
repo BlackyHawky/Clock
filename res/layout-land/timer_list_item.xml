@@ -27,8 +27,8 @@
         android:id="@+id/timer_frame"
         android:layout_width="@dimen/timer_circle_width"
         android:layout_height="@dimen/timer_circle_diameter"
-        android:layout_marginLeft="@dimen/circle_margin"
-        android:layout_marginRight="@dimen/circle_margin">
+        android:layout_marginLeft="@dimen/timer_circle_margin"
+        android:layout_marginRight="@dimen/timer_circle_margin">
 
         <com.android.deskclock.CircleTimerView
             android:id="@+id/timer_time"
