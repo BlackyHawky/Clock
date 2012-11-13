@@ -19,7 +19,6 @@ package com.android.deskclock.stopwatch;
 import android.content.Context;
 
 import com.android.deskclock.R;
-import com.android.deskclock.stopwatch.StopwatchFragment.Lap;
 
 public class Stopwatches {
     // Private actions processed by the receiver
@@ -104,6 +103,25 @@ public class Stopwatches {
             timeStr = String.format("%02dm %02ds .%02d", minutes, seconds,
                     hundreds);
         }
+        return timeStr;
+    }
+
+    /***
+     * Sets the string of the time running on the stopwatch up to hundred of a second accuracy
+     * @param time - in hundreds of a second since the stopwatch started
+     */
+    public static String formatTimeText(long time, final String format) {
+        if (time < 0) {
+            time = 0;
+        }
+        long hundreds, seconds, minutes, hours;
+        seconds = time / 1000;
+        hundreds = (time - seconds * 1000) / 10;
+        minutes = seconds / 60;
+        seconds = seconds - minutes * 60;
+        hours = minutes / 60;
+        minutes = minutes - hours * 60;
+        String timeStr = String.format(format, hours, minutes, seconds, hundreds);
         return timeStr;
     }
 

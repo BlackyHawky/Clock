@@ -152,7 +152,7 @@ public class CountingTimerView extends View {
         seconds = seconds - minutes * 60;
         hours = minutes / 60;
         minutes = minutes - hours * 60;
-        if (hours > 99) {
+        if (hours > 999) {
             hours = 0;
         }
         // time may less than a second below zero, since we do not show fractions of seconds

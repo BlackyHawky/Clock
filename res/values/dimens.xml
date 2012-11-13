@@ -71,6 +71,7 @@
     <dimen name="medium_space_top">24dp</dimen>
     <dimen name="medium_space_bottom">8dp</dimen>
     <dimen name="style_label_space">4dip</dimen>
+    <dimen name="sw_item_space">16dip</dimen>
 
     <dimen name="label_margin_big">4dp</dimen>
     <dimen name="label_margin_small">2dp</dimen>
@@ -88,8 +89,10 @@
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">16dp</dimen>
     <dimen name="circle_margin">32dp</dimen>
-    <dimen name="laps_margin">52dp</dimen>
     <dimen name="analog_clock_margin">60dp</dimen>
+    <dimen name="timer_circle_margin">32dp</dimen>
+
+    <dimen name="sw_right_margin">32dp</dimen>
 
     <!-- The width of the big icons in notifications. -->
     <dimen name="notification_large_icon_width">64dp</dimen>
@@ -107,6 +110,7 @@
 
     <!-- Size of analog clock in world clock. -->
     <dimen name="world_clock_analog_size">100dip</dimen>
+    <dimen name="world_clock_margin">32dp</dimen>
 
     <dimen name="toast_bar_bottom_margin_in_conversation">24dip</dimen>
 

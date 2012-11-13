@@ -58,14 +58,15 @@
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">48dp</dimen>
     <dimen name="circle_margin">96dp</dimen>
-    <dimen name="laps_margin">110dp</dimen>
     <dimen name="analog_clock_margin">96dp</dimen>
+    <dimen name="timer_circle_margin">96dp</dimen>
 
      <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">550dip</dimen>
 
     <!-- Size of analog clock in world clock. -->
     <dimen name="world_clock_analog_size">200dip</dimen>
+    <dimen name="world_clock_margin">96dp</dimen>
     <!-- Empty space at the edges of the +1 and reset button icons. Based off of 56dip width.-->
     <dimen name="plusone_reset_button_padding">23dip</dimen>
     <!-- Empty space at the edges of the delete button icons. Based off of 56dip width. -->
