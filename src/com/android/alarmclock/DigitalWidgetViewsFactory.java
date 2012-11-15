@@ -91,7 +91,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             now.setTimeInMillis(System.currentTimeMillis());
             int myDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
             CityObj cityInDb = mCitiesDb.get(cityObj.mCityId);
-            String cityTZ = (cityInDb != null) ? cityInDb.mTimeZone:cityObj.mTimeZone;
+            String cityTZ = (cityInDb != null) ? cityInDb.mTimeZone : cityObj.mTimeZone;
             now.setTimeZone(TimeZone.getTimeZone(cityTZ));
             int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 
@@ -101,11 +101,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             clock.setString(clockId2, "setTimeZone", cityObj.mTimeZone);
 
             // Home city or city not in DB , use data from the save selected cities list
-            if (cityObj.mCityId == null || cityInDb == null) {
-                clock.setTextViewText(labelId, cityObj.mCityName);
-            }else {
-                clock.setTextViewText(labelId, cityInDb.mCityName);
-            }
+            clock.setTextViewText(labelId, Utils.getCityName(cityObj, cityInDb));
 
             if (myDayOfWeek != cityDayOfWeek) {
                 clock.setTextViewText(dayId, mContext.getString(
