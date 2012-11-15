@@ -400,18 +400,18 @@ public class Utils {
         Resources r = c.getResources();
         // Read strings array of name,timezone, id
         // make sure the list are the same length
-        String [] cities = r.getStringArray(R.array.cities_names);
-        String [] timezones = r.getStringArray(R.array.cities_tz);
-        String [] ids = r.getStringArray(R.array.cities_id);
+        String[] cities = r.getStringArray(R.array.cities_names);
+        String[] timezones = r.getStringArray(R.array.cities_tz);
+        String[] ids = r.getStringArray(R.array.cities_id);
         if (cities.length != timezones.length || ids.length != cities.length) {
             Log.wtf("City lists sizes are not the same, cannot use the data");
             return null;
-         }
-         CityObj[] tempList = new CityObj [cities.length];
-         for (int i = 0; i < cities.length; i++) {
+        }
+        CityObj[] tempList = new CityObj[cities.length];
+        for (int i = 0; i < cities.length; i++) {
             tempList[i] = new CityObj(cities[i], timezones[i], ids[i]);
-         }
-         // Sort alphabetically
+        }
+        // Sort alphabetically
         Arrays.sort(tempList, new Comparator<CityObj> () {
             @Override
             public int compare(CityObj c1, CityObj c2) {
@@ -420,5 +420,9 @@ public class Utils {
             }
         });
         return tempList;
+    }
+
+    public static String getCityName(CityObj city, CityObj dbCity) {
+        return (city.mCityId == null || dbCity == null) ? city.mCityName : dbCity.mCityName;
     }
 }

@@ -92,7 +92,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
         @Override
         public int getCount() {
-            return (mAllTheCitiesList != null) ? mAllTheCitiesList.length: 0;
+            return (mAllTheCitiesList != null) ? mAllTheCitiesList.length : 0;
         }
 
         @Override
@@ -191,7 +191,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         public int getSectionForPosition(int p) {
             if (mSectionPositions != null) {
                 for (int i = 0; i < mSectionPositions.length - 1; i++) {
-                    if (p >= (Integer)mSectionPositions[i] && p < (Integer)mSectionPositions[i + 1]) {
+                    if (p >= (Integer) mSectionPositions[i]
+                            && p < (Integer) mSectionPositions[i + 1]) {
                         return i;
                     }
                 }
