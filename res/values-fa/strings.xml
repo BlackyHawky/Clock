@@ -138,7 +138,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"بازنشانی"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"اشتراک‏‌گذاری"</string>
     <string name="hours_label" msgid="3393478155635368097">"ساعت"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"متر"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"دقیقه"</string>
     <string name="seconds_label" msgid="124655952824003246">"ثانیه"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"ساعت"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"دقیقه"</string>
