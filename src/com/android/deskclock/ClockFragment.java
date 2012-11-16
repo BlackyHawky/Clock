@@ -27,7 +27,6 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -63,21 +62,28 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
             @Override
         public void onReceive(Context context, Intent intent) {
-            boolean changed = intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
-                    || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED);
-            if (changed || intent.getAction().equals(Utils.ACTION_ON_QUARTER_HOUR)) {
+            String action = intent.getAction();
+            boolean changed = action.equals(Intent.ACTION_TIME_CHANGED)
+                    || action.equals(Intent.ACTION_TIMEZONE_CHANGED)
+                    || action.equals(Intent.ACTION_LOCALE_CHANGED);
+            if (changed || action.equals(Utils.ACTION_ON_QUARTER_HOUR)) {
                 Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
                 if (mAdapter != null) {
                     // *CHANGED may modify the need for showing the Home City
                     if (changed && (mAdapter.hasHomeCity() != mAdapter.needHomeCity())) {
-                        mAdapter.loadData(context);
+                        mAdapter.reloadData(context);
                     } else {
+                        mAdapter.notifyDataSetChanged();
+                    }
+                    // Reloading the cities list with new localized names
+                    if (action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+                        mAdapter.loadCitiesDb(context);
                         mAdapter.notifyDataSetChanged();
                     }
                 }
             }
-            if (changed || intent.getAction().equals(Alarms.ALARM_DONE_ACTION)
-                    || intent.getAction().equals(Alarms.ALARM_SNOOZE_CANCELLED)) {
+            if (changed || action.equals(Alarms.ALARM_DONE_ACTION)
+                    || action.equals(Alarms.ALARM_SNOOZE_CANCELLED)) {
                 Utils.refreshAlarm(getActivity(), mClockFrame);
             }
         }
@@ -166,12 +172,14 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         filter.addAction(Alarms.ALARM_SNOOZE_CANCELLED);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
         getActivity().registerReceiver(mIntentReceiver, filter);
 
         mButtons.setAlpha(mButtonsHidden ? 0 : 1);
 
-        // Resume can invoked after changing the cities list.
+        // Resume can invoked after changing the cities list or a change in locale
         if (mAdapter != null) {
+            mAdapter.loadCitiesDb(getActivity());
             mAdapter.reloadData(getActivity());
         }
         // Resume can invoked after changing the clock style.
