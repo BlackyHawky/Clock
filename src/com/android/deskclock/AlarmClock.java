@@ -465,6 +465,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             CheckBox vibrate;
             ViewGroup collapse;
             TextView ringtone;
+            View hairLine;
 
             // Other states
             Alarm alarm;
@@ -574,6 +575,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             holder.infoArea = view.findViewById(R.id.info_area);
             holder.repeat = (CheckBox) view.findViewById(R.id.repeat_onoff);
             holder.clickableLabel = (TextView) view.findViewById(R.id.edit_label);
+            holder.hairLine = view.findViewById(R.id.hairline);
             holder.repeatDays = (LinearLayout) view.findViewById(R.id.repeat_days);
 
             // Build button for each day.
@@ -614,9 +616,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             } else {
                 itemHolder.alarmItem.setBackgroundColor(mBackgroundColor);
                 if (itemHolder.onoff.isChecked()) {
-                    itemHolder.alarmItem.setAlpha(1f);
+                    setItemAlpha(itemHolder, true);
                 } else {
-                    itemHolder.alarmItem.setAlpha(0.5f);
+                    setItemAlpha(itemHolder, false);
                 }
             }
             final CompoundButton.OnCheckedChangeListener onOffListener =
@@ -630,9 +632,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                             }
                             if (checked != alarm.enabled) {
                                 if (checked) {
-                                    itemHolder.alarmItem.setAlpha(1f);
+                                    setItemAlpha(itemHolder, true);
                                 } else {
-                                    itemHolder.alarmItem.setAlpha(0.5f);
+                                    setItemAlpha(itemHolder, false);
                                 }
                                 alarm.enabled = checked;
                                 asyncUpdateAlarm(alarm, alarm.enabled);
@@ -910,6 +912,16 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                 }
             });
             itemHolder.ringtone.setOnLongClickListener(mLongClickListener);
+        }
+
+        // Sets the alpha of the item except the on/off switch. This gives a visual effect
+        // for enabled/disabled alarm while leaving the on/off switch more visible
+        private void setItemAlpha(ItemHolder holder, boolean enabled) {
+            float alpha = enabled ? 1f : 0.5f;
+            holder.clock.setAlpha(alpha);
+            holder.infoArea.setAlpha(alpha);
+            holder.expandArea.setAlpha(alpha);
+            holder.hairLine.setAlpha(alpha);
         }
 
         private void updateDaysOfWeekButtons(ItemHolder holder, Alarm.DaysOfWeek daysOfWeek) {
