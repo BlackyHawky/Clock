@@ -101,7 +101,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Κουμπί έντασης"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Εφέ κουμπιού"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Αφύπνιση"</item>
+    <item msgid="7972756698723318690">"Αναβολή αφύπνισης"</item>
     <item msgid="3450979320164769576">"Παράβλεψη"</item>
     <item msgid="6302517608411378024">"Να μη γίνει καμία ενέργεια"</item>
   </string-array>
