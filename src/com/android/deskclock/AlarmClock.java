@@ -612,14 +612,12 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             itemHolder.onoff.setChecked(alarm.enabled);
             if (mSelectedAlarms.contains(itemHolder.alarm.id)) {
                 itemHolder.alarmItem.setBackgroundColor(mBackgroundColorSelected);
-                itemHolder.alarmItem.setAlpha(1f);
+                setItemAlpha(itemHolder, true);
+                itemHolder.onoff.setEnabled(false);
             } else {
+                itemHolder.onoff.setEnabled(true);
                 itemHolder.alarmItem.setBackgroundColor(mBackgroundColor);
-                if (itemHolder.onoff.isChecked()) {
-                    setItemAlpha(itemHolder, true);
-                } else {
-                    setItemAlpha(itemHolder, false);
-                }
+                setItemAlpha(itemHolder, itemHolder.onoff.isChecked());
             }
             final CompoundButton.OnCheckedChangeListener onOffListener =
                     new CompoundButton.OnCheckedChangeListener() {
@@ -631,11 +629,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                                 return;
                             }
                             if (checked != alarm.enabled) {
-                                if (checked) {
-                                    setItemAlpha(itemHolder, true);
-                                } else {
-                                    setItemAlpha(itemHolder, false);
-                                }
+                                setItemAlpha(itemHolder, checked);
                                 alarm.enabled = checked;
                                 asyncUpdateAlarm(alarm, alarm.enabled);
                             }
