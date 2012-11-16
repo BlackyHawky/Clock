@@ -17,6 +17,7 @@
 package com.android.deskclock;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.android.deskclock.worldclock.Cities;
 
 import java.util.TimeZone;
 
@@ -156,10 +159,12 @@ public class SettingsActivity extends PreferenceActivity
             final ListPreference listPref = (ListPreference) pref;
             final int idx = listPref.findIndexOfValue((String) newValue);
             listPref.setSummary(listPref.getEntries()[idx]);
+            notifyHomeTimeZoneChanged();
         } else if (KEY_AUTO_HOME_CLOCK.equals(pref.getKey())) {
             boolean state =((CheckBoxPreference) pref).isChecked();
             Preference homeTimeZone = findPreference(KEY_HOME_TZ);
             homeTimeZone.setEnabled(!state);
+            notifyHomeTimeZoneChanged();
         } else if (KEY_VOLUME_BUTTONS.equals(pref.getKey())) {
             final ListPreference listPref = (ListPreference) pref;
             final int idx = listPref.findIndexOfValue((String) newValue);
@@ -177,6 +182,12 @@ public class SettingsActivity extends PreferenceActivity
             listPref.setSummary(getString(R.string.auto_silence_summary, i));
         }
     }
+
+    private void notifyHomeTimeZoneChanged() {
+        Intent i = new Intent(Cities.WORLDCLOCK_UPDATE_INTENT);
+        sendBroadcast(i);
+    }
+
 
     private void refresh() {
         ListPreference listPref = (ListPreference) findPreference(KEY_AUTO_SILENCE);
