@@ -33,6 +33,7 @@ public class TimerView extends LinearLayout {
     private ZeroTopPaddingTextView mHoursTens, mMinutesTens;
     private TextView mSeconds;
     private final Typeface mAndroidClockMonoThin;
+    private Typeface mOriginalHoursTypeface;
     private final int mWhiteColor, mGrayColor;
 
     public TimerView(Context context) {
@@ -57,15 +58,8 @@ public class TimerView extends LinearLayout {
         mHoursOnes = (ZeroTopPaddingTextView)findViewById(R.id.hours_ones);
         mMinutesOnes = (ZeroTopPaddingTextView)findViewById(R.id.minutes_ones);
         mSeconds = (TextView)findViewById(R.id.seconds);
-        // If we have hours tens, we are in the alarm time picker, set the hours font to thin
-        // to prevent the need to set the top paddings (see b/7407383).
-        if (mHoursTens != null) {
-            mHoursTens.setTypeface(mAndroidClockMonoThin);
-            mHoursTens.updatePadding();
-            if (mHoursOnes != null) {
-                mHoursOnes.setTypeface(mAndroidClockMonoThin);
-                mHoursOnes.updatePadding();
-            }
+        if (mHoursOnes != null) {
+            mOriginalHoursTypeface = mHoursOnes.getTypeface();
         }
         // Set the lowest time unit with thin font (excluding hundredths)
         if (mSeconds != null) {
@@ -91,21 +85,29 @@ public class TimerView extends LinearLayout {
                 mHoursTens.setVisibility(View.INVISIBLE);
             } else if (hoursTensDigit == -1) {
                 mHoursTens.setText("-");
+                mHoursTens.setTypeface(mAndroidClockMonoThin);
                 mHoursTens.setTextColor(mGrayColor);
+                mHoursTens.updatePadding();
                 mHoursTens.setVisibility(View.VISIBLE);
             } else {
                 mHoursTens.setText(String.format("%d",hoursTensDigit));
+                mHoursTens.setTypeface(mOriginalHoursTypeface);
                 mHoursTens.setTextColor(mWhiteColor);
+                mHoursTens.updatePadding();
                 mHoursTens.setVisibility(View.VISIBLE);
             }
         }
         if (mHoursOnes != null) {
             if (hoursOnesDigit == -1) {
                 mHoursOnes.setText("-");
+                mHoursOnes.setTypeface(mAndroidClockMonoThin);
                 mHoursOnes.setTextColor(mGrayColor);
+                mHoursOnes.updatePadding();
             } else {
                 mHoursOnes.setText(String.format("%d",hoursOnesDigit));
+                mHoursOnes.setTypeface(mOriginalHoursTypeface);
                 mHoursOnes.setTextColor(mWhiteColor);
+                mHoursOnes.updatePadding();
             }
         }
         if (mMinutesTens != null) {
