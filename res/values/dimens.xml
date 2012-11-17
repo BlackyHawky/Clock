@@ -27,7 +27,7 @@
     <dimen name="time_margin_right">8dip</dimen>
     <dimen name="time_margin_left">8dip</dimen>
     <dimen name="time_margin_bottom">8dip</dimen>
-    <dimen name="time_margin_top">16dip</dimen>
+    <dimen name="time_margin_top">32dip</dimen>
     <dimen name="timer_padding_left">16dip</dimen>
     <dimen name="ampm_margin_top">8dip</dimen>
     <dimen name="font_margin_adjust">4dip</dimen>
