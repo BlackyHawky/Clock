@@ -20,6 +20,8 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -313,7 +315,7 @@ public class Utils {
     }
 
     /** Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45) **/
-    public static long getAlarmOnQuarterHour() {
+    private static long getAlarmOnQuarterHour() {
         Calendar nextQuarter = Calendar.getInstance();
         //  Set 1 second to ensure quarter-hour threshold passed.
         nextQuarter.set(Calendar.SECOND, 1);
@@ -325,6 +327,33 @@ public class Utils {
             Log.wtf("quarterly alarm calculation error");
         }
         return alarmOnQuarterHour;
+    }
+
+    /** Setup alarm refresh when the quarter-hour changes **/
+    public static PendingIntent startAlarmOnQuarterHour(Context context) {
+        if (context != null) {
+            PendingIntent quarterlyIntent = PendingIntent.getBroadcast(
+                    context, 0, new Intent(Utils.ACTION_ON_QUARTER_HOUR), 0);
+            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setRepeating(
+                    AlarmManager.RTC, getAlarmOnQuarterHour(),
+                    AlarmManager.INTERVAL_FIFTEEN_MINUTES, quarterlyIntent);
+            return quarterlyIntent;
+        } else {
+            return null;
+        }
+    }
+
+    public static void cancelAlarmOnQuarterHour(Context context, PendingIntent quarterlyIntent) {
+        if (quarterlyIntent != null && context != null) {
+            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).cancel(
+                    quarterlyIntent);
+        }
+    }
+
+    public static PendingIntent refreshAlarmOnQuarterHour(
+            Context context, PendingIntent quarterlyIntent) {
+        cancelAlarmOnQuarterHour(context, quarterlyIntent);
+        return startAlarmOnQuarterHour(context);
     }
 
     /**
