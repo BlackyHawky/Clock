@@ -18,10 +18,12 @@ package com.android.deskclock;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.res.Resources;
@@ -65,7 +67,7 @@ import java.util.HashSet;
 public class AlarmClock extends Activity implements LoaderManager.LoaderCallbacks<Cursor>,
         AlarmTimePickerDialogFragment.AlarmTimePickerDialogHandler,
         LabelDialogFragment.AlarmLabelDialogHandler,
-        OnLongClickListener, Callback {
+        OnLongClickListener, Callback, DialogInterface.OnClickListener {
 
     private static final String KEY_EXPANDED_IDS = "expandedIds";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
@@ -75,6 +77,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private static final String KEY_UNDO_SHOWING = "undoShowing";
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
     private static final String KEY_SELECTED_ALARM = "selectedAlarm";
+    private static final String KEY_DELETE_CONFIRMATION = "deleteConfirmation";
 
     private static final int REQUEST_CODE_RINGTONE = 1;
 
@@ -86,6 +89,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
     private Alarm mSelectedAlarm;
     private int mScrollToAlarmId = -1;
+    private boolean mInDeleteConfirmation = false;
 
     // This flag relies on the activity having a "standard" launchMode and a new instance of this
     // activity being created when launched.
@@ -118,6 +122,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             selectedAlarms = savedState.getIntArray(KEY_SELECTED_ALARMS);
             previousDayMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
             mSelectedAlarm = savedState.getParcelable(KEY_SELECTED_ALARM);
+            mInDeleteConfirmation = savedState.getBoolean(KEY_DELETE_CONFIRMATION, false);
         }
 
         mAlarmsList = (SwipeableListView) findViewById(R.id.alarms_list);
@@ -174,6 +179,13 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mInDeleteConfirmation) {
+            showConfirmationDialog();
+        }
+    }
     private void hideUndoBar(boolean animate, MotionEvent event) {
         if (mUndoBar != null) {
             if (event != null && mUndoBar.isEventInToastBar(event)) {
@@ -197,6 +209,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         outState.putBoolean(KEY_UNDO_SHOWING, mUndoShowing);
         outState.putBundle(KEY_PREVIOUS_DAY_MAP, mAdapter.getPreviousDaysOfWeekMap());
         outState.putParcelable(KEY_SELECTED_ALARM, mSelectedAlarm);
+        outState.putBoolean(KEY_DELETE_CONFIRMATION, mInDeleteConfirmation);
     }
 
     private void updateLayout() {
@@ -1217,10 +1230,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         switch (item.getItemId()) {
             // Delete selected items and close CAB.
             case R.id.menu_item_delete_alarm:
-                if (mAdapter != null) {
-                    mAdapter.deleteSelectedAlarms();
-                    mode.finish();
-                }
+                showConfirmationDialog();
                 break;
             default:
                 break;
@@ -1245,6 +1255,32 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     @Override
     public boolean onPrepareActionMode(ActionMode arg0, Menu arg1) {
         return false;
+    }
+
+    /***
+     * Handle the delete alarms confirmation dialog
+     */
+
+    private void showConfirmationDialog() {
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        Resources res = getResources();
+        String msg = String.format(res.getQuantityText(R.plurals.alarm_delete_confirmation,
+                mAdapter.getSelectedItemsNum()).toString());
+        b.setCancelable(true).setMessage(msg)
+                .setNegativeButton(res.getString(android.R.string.cancel), this)
+                .setPositiveButton(res.getString(android.R.string.ok), this).show();
+        mInDeleteConfirmation = true;
+    }
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        if (which == -1) {
+            if (mAdapter != null) {
+                mAdapter.deleteSelectedAlarms();
+                mActionMode.finish();
+            }
+        }
+        dialog.dismiss();
+        mInDeleteConfirmation = false;
     }
 
 }
