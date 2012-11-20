@@ -16,43 +16,22 @@
 
 package com.android.deskclock;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.TimeInterpolator;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.app.UiModeManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.os.BatteryManager;
-import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
-import android.provider.Settings;
-import android.service.dreams.DreamService;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.TextView;
 
 import com.android.deskclock.Utils.ScreensaverMoveSaverRunnable;
-
-import java.util.Calendar;
 
 public class ScreensaverActivity extends Activity {
     static final boolean DEBUG = false;
@@ -96,6 +75,8 @@ public class ScreensaverActivity extends Activity {
 
             if (changed) {
                 Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+                mQuarterlyIntent = Utils.refreshAlarmOnQuarterHour(
+                        ScreensaverActivity.this, mQuarterlyIntent);
             }
 
         }
@@ -136,18 +117,13 @@ public class ScreensaverActivity extends Activity {
         layoutClockSaver();
         mHandler.post(mMoveSaverRunnable);
 
-        long alarmOnQuarterHour = Utils.getAlarmOnQuarterHour();
-        mQuarterlyIntent = PendingIntent.getBroadcast(
-                this, 0, new Intent(Utils.ACTION_ON_QUARTER_HOUR), 0);
-        ((AlarmManager) getSystemService(Context.ALARM_SERVICE)).setRepeating(
-                AlarmManager.RTC, alarmOnQuarterHour, AlarmManager.INTERVAL_FIFTEEN_MINUTES,
-                mQuarterlyIntent);
+        mQuarterlyIntent = Utils.startAlarmOnQuarterHour(this);
     }
 
     @Override
     public void onPause() {
         mHandler.removeCallbacks(mMoveSaverRunnable);
-        ((AlarmManager) getSystemService(Context.ALARM_SERVICE)).cancel(mQuarterlyIntent);
+        Utils.cancelAlarmOnQuarterHour(this, mQuarterlyIntent);
         finish();
         super.onPause();
     }
