@@ -61,8 +61,8 @@ public class AnalogClock extends View {
     private String mTimeZoneId;
     private boolean mNoSeconds = false;
 
-    private float mDotRadius;
-    private float mDotOffset;
+    private final float mDotRadius;
+    private final float mDotOffset;
     private Paint mDotPaint;
 
     public AnalogClock(Context context) {
@@ -218,6 +218,18 @@ public class AnalogClock extends View {
         hourHand.draw(canvas);
         canvas.restore();
 
+        canvas.save();
+        canvas.rotate(mMinutes / 60.0f * 360.0f, x, y);
+
+        final Drawable minuteHand = mMinuteHand;
+        if (changed) {
+            w = minuteHand.getIntrinsicWidth();
+            h = minuteHand.getIntrinsicHeight();
+            minuteHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
+        }
+        minuteHand.draw(canvas);
+        canvas.restore();
+
         if (!mNoSeconds) {
             canvas.save();
             canvas.rotate(mSeconds / 60.0f * 360.0f, x, y);
@@ -231,17 +243,6 @@ public class AnalogClock extends View {
             secondHand.draw(canvas);
             canvas.restore();
         }
-        canvas.save();
-        canvas.rotate(mMinutes / 60.0f * 360.0f, x, y);
-
-        final Drawable minuteHand = mMinuteHand;
-        if (changed) {
-            w = minuteHand.getIntrinsicWidth();
-            h = minuteHand.getIntrinsicHeight();
-            minuteHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
-        }
-        minuteHand.draw(canvas);
-        canvas.restore();
 
         if (scaled) {
             canvas.restore();
