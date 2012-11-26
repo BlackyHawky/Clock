@@ -239,16 +239,10 @@ public class SettingsActivity extends PreferenceActivity
 
         public String buildGmtDisplayName(String id, String displayName, boolean useDaylightTime) {
             int p = Math.abs(mOffset);
-            StringBuilder name = new StringBuilder();
-            name.append("GMT");
+            StringBuilder name = new StringBuilder("(GMT");
+            name.append(mOffset < 0 ? '-' : '+');
 
-            if (mOffset < 0) {
-                name.append('-');
-            } else {
-                name.append('+');
-            }
-
-            name.append(p / (DateUtils.HOUR_IN_MILLIS));
+            name.append(p / DateUtils.HOUR_IN_MILLIS);
             name.append(':');
 
             int min = p / 60000;
@@ -258,7 +252,6 @@ public class SettingsActivity extends PreferenceActivity
                 name.append('0');
             }
             name.append(min);
-            name.insert(0, "(");
             name.append(") ");
             name.append(displayName);
             if (useDaylightTime && SHOW_DAYLIGHT_SAVINGS_INDICATOR) {
