@@ -207,46 +207,28 @@ public class AnalogClock extends View {
             canvas.drawCircle(x, y - (h / 2) + mDotOffset, mDotRadius, mDotPaint);
         }
 
-        canvas.save();
-        canvas.rotate(mHour / 12.0f * 360.0f, x, y);
-        final Drawable hourHand = mHourHand;
-        if (changed) {
-            w = hourHand.getIntrinsicWidth();
-            h = hourHand.getIntrinsicHeight();
-            hourHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
-        }
-        hourHand.draw(canvas);
-        canvas.restore();
-
-        canvas.save();
-        canvas.rotate(mMinutes / 60.0f * 360.0f, x, y);
-
-        final Drawable minuteHand = mMinuteHand;
-        if (changed) {
-            w = minuteHand.getIntrinsicWidth();
-            h = minuteHand.getIntrinsicHeight();
-            minuteHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
-        }
-        minuteHand.draw(canvas);
-        canvas.restore();
-
+        drawHand(canvas, mHourHand, x, y, mHour / 12.0f * 360.0f, changed);
+        drawHand(canvas, mMinuteHand, x, y, mMinutes / 60.0f * 360.0f, changed);
         if (!mNoSeconds) {
-            canvas.save();
-            canvas.rotate(mSeconds / 60.0f * 360.0f, x, y);
-
-            final Drawable secondHand = mSecondHand;
-            if (changed) {
-                w = secondHand.getIntrinsicWidth();
-                h = secondHand.getIntrinsicHeight();
-                secondHand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
-            }
-            secondHand.draw(canvas);
-            canvas.restore();
+            drawHand(canvas, mSecondHand, x, y, mSeconds / 60.0f * 360.0f, changed);
         }
 
         if (scaled) {
             canvas.restore();
         }
+    }
+
+    private void drawHand(Canvas canvas, Drawable hand, int x, int y, float angle,
+          boolean changed) {
+      canvas.save();
+      canvas.rotate(angle, x, y);
+      if (changed) {
+          final int w = hand.getIntrinsicWidth();
+          final int h = hand.getIntrinsicHeight();
+          hand.setBounds(x - (w / 2), y - (h / 2), x + (w / 2), y + (h / 2));
+      }
+      hand.draw(canvas);
+      canvas.restore();
     }
 
     private void onTimeChanged() {
