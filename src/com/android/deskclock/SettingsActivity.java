@@ -235,10 +235,6 @@ public class SettingsActivity extends PreferenceActivity
         @Override
         public int compareTo(TimeZoneRow another) {
             return mOffset - another.mOffset;
-/*            if (mOffset == another.mOffset) {
-                return 0;
-            }
-            return mOffset < another.mOffset ? -1 : 1;*/
         }
 
         public String buildGmtDisplayName(String id, String displayName, boolean useDaylightTime) {
