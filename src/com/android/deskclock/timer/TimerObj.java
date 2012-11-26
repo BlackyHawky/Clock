@@ -16,12 +16,14 @@
 
 package com.android.deskclock.timer;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 
+import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
@@ -189,6 +191,9 @@ public class TimerObj implements Parcelable {
     }
 
     private void init (long length) {
+        /* TODO: mTimerId must avoid StopwatchService.NOTIFICATION_ID,
+         * TimerReceiver.IN_USE_NOTIFICATION_ID, and alarm ID's (which seem to be 1, 2, ..)
+         */
         mTimerId = (int) Utils.getTimeNow();
         mStartTime = Utils.getTimeNow();
         mTimeLeft = mOriginalLength = mSetupLength = length;
@@ -201,6 +206,12 @@ public class TimerObj implements Parcelable {
             mTimeLeft = mOriginalLength - (millis - mStartTime);
         }
         return mTimeLeft;
+    }
+
+    public String getLabelOrDefault(Context context) {
+        return (mLabel == null || mLabel.length() == 0) ? context.getString(
+                R.string.timer_notification_label)
+                : mLabel;
     }
 
     public boolean isTicking() {
@@ -216,6 +227,10 @@ public class TimerObj implements Parcelable {
         if (mTimeLeft < MAX_TIMER_LENGTH - time) {
                 mOriginalLength += time;
         }
+    }
+
+    public boolean getDeleteAfterUse() {
+        return mDeleteAfterUse;
     }
 
     public long getTimesupTime() {
