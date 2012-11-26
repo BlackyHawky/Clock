@@ -16,18 +16,13 @@
 
 package com.android.deskclock.timer;
 
-import android.content.SharedPreferences;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.util.Log;
-import android.view.View;
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Set;
 
 public class Timers {
+    // Logging shared by TimerReceiver and TimerAlertFullScreen
+    public static final boolean LOGGING = false;
+
     // Private actions processed by the receiver
     public static final String START_TIMER = "start_timer";
     public static final String DELETE_TIMER = "delete_timer";
@@ -39,15 +34,14 @@ public class Timers {
 
     public static final String TIMER_INTENT_EXTRA = "timer.intent.extra";
 
-    public static final String NOTIF_UPDATE = "notif_update";
-    public static final String NOTIF_TIME = "timer_notif_time";
-    public static final String NOTIF_ID = "timer_notif_id";
-    public static final String NOTIF_LABEL = "timer_notif_label";
     public static final String NOTIF_IN_USE_SHOW = "notif_in_use_show";
     public static final String NOTIF_IN_USE_CANCEL = "notif_in_use_cancel";
     public static final String NOTIF_APP_OPEN = "notif_app_open";
     public static final String FROM_NOTIFICATION = "from_notification";
-    public static final String UPDATE_NOTIFICATION = "update_notification";
+    public static final String NOTIF_TIMES_UP_STOP = "notif_times_up_stop";
+    public static final String NOTIF_TIMES_UP_PLUS_ONE = "notif_times_up_plus_one";
+    public static final String NOTIF_TIMES_UP_SHOW = "notif_times_up_show";
+    public static final String NOTIF_TIMES_UP_CANCEL = "notif_times_up_cancel";
     public static final String FROM_ALERT = "from_alert";
 
     public static final String TIMESUP_MODE = "times_up";
@@ -79,6 +73,18 @@ public class Timers {
         while(it.hasNext()) {
             TimerObj timer = it.next();
             if (!timer.isInUse()) {
+                it.remove();
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<TimerObj> timersInTimesUp(ArrayList<TimerObj> timers) {
+        ArrayList<TimerObj> result = (ArrayList<TimerObj>) timers.clone();
+        Iterator<TimerObj> it = result.iterator();
+        while(it.hasNext()) {
+            TimerObj timer = it.next();
+            if (timer.mState != TimerObj.STATE_TIMESUP) {
                 it.remove();
             }
         }

@@ -217,6 +217,24 @@ public class Utils {
         context.sendBroadcast(timerIntent);
     }
 
+    /**
+     * Broadcast a message to show the in-use timers in the notifications
+     */
+    public static void showTimesUpNotifications(Context context) {
+        Intent timerIntent = new Intent();
+        timerIntent.setAction(Timers.NOTIF_TIMES_UP_SHOW);
+        context.sendBroadcast(timerIntent);
+    }
+
+    /**
+     * Broadcast a message to cancel the in-use timers in the notifications
+     */
+    public static void cancelTimesUpNotifications(Context context) {
+        Intent timerIntent = new Intent();
+        timerIntent.setAction(Timers.NOTIF_TIMES_UP_CANCEL);
+        context.sendBroadcast(timerIntent);
+    }
+
     /** Runnable for use with screensaver and dream, to move the clock every minute.
      *  registerViews() must be called prior to posting.
      */
