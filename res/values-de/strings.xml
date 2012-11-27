@@ -160,7 +160,7 @@
     <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> Sekunden"</item>
   </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Timer hinzufügen"</string>
-    <string name="timer_start" msgid="6158486445614356442">"Start"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Starten"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Löschen"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"1 Minute hinzufügen"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Anhalten"</string>
@@ -226,7 +226,7 @@
     <item msgid="8513382867172014244">"Manaus"</item>
     <item msgid="7776299003105932407">"Santiago"</item>
     <item msgid="8636989494746218677">"Neufundland"</item>
-    <item msgid="4402541016410147505">"Brasilia"</item>
+    <item msgid="4402541016410147505">"Brasília"</item>
     <item msgid="2251184440733164084">"Buenos Aires"</item>
     <item msgid="6202926618569004969">"Grönland"</item>
     <item msgid="2355275037115290628">"Montevideo"</item>
