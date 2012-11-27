@@ -159,7 +159,8 @@ public class StopwatchFragment extends DeskClockFragment
                 mLapIndex++;
                 formatChanged = true;
             }
-            while (mTotalIndex + 1 < mThresholds.length && lap.mTotalTime >= mThresholds[mTotalIndex]) {
+            while (mTotalIndex + 1 < mThresholds.length && 
+                lap.mTotalTime >= mThresholds[mTotalIndex]) {
                 mTotalIndex++;
                 formatChanged = true;
             }

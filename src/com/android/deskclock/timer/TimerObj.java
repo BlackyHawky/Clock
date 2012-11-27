@@ -186,7 +186,6 @@ public class TimerObj implements Parcelable {
         return mTimeLeft;
     }
 
-
     public boolean isTicking() {
         return mState == STATE_RUNNING || mState == STATE_TIMESUP;
     }

@@ -79,10 +79,10 @@ public class AnalogClock extends View {
         mContext = context;
         Resources r = mContext.getResources();
 
-        mDial = r.getDrawable(R.drawable.clock_analog_dial);
-        mHourHand = r.getDrawable(R.drawable.clock_analog_hour);
-        mMinuteHand = r.getDrawable(R.drawable.clock_analog_minute);
-        mSecondHand = r.getDrawable(R.drawable.clock_analog_second);
+        mDial = r.getDrawable(R.drawable.clock_analog_dial_mipmap);
+        mHourHand = r.getDrawable(R.drawable.clock_analog_hour_mipmap);
+        mMinuteHand = r.getDrawable(R.drawable.clock_analog_minute_mipmap);
+        mSecondHand = r.getDrawable(R.drawable.clock_analog_second_mipmap);
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AnalogClock);
         mDotRadius = a.getDimension(R.styleable.AnalogClock_jewelRadius, 0);

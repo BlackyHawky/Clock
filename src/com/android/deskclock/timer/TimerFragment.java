@@ -338,7 +338,7 @@ public class TimerFragment extends DeskClockFragment
                 Collections.sort(mTimers, new Comparator<TimerObj>() {
                     @Override
                     public int compare(TimerObj o1, TimerObj o2) {
-		       return (o1.mTimeLeft <  o2.mTimeLeft) ? -1 : 1;
+                        return (o1.mTimeLeft <  o2.mTimeLeft) ? -1 : 1;
                     }
                 });
             }

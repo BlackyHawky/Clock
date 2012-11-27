@@ -27,8 +27,9 @@ import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
 
-    // A flag that indicates that switching the volume button default was done 
+    // A flag that indicates that switching the volume button default was done
     private static final String PREF_VOLUME_DEF_DONE = "vol_def_done";
+
     /**
      * Sets alarm on ACTION_BOOT_COMPLETED.  Resets alarm on
      * TIME_SET, TIMEZONE_CHANGED

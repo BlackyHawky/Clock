@@ -202,7 +202,6 @@ public class CircleTimerView extends View {
                 canvas.drawArc (mArcRect, 270 + angle, mScreenDensity *
                         (float) (360 / (radius * Math.PI)) , false, mPaint);
             }
-
             drawRedDiamond(canvas, redPercent, xCenter, yCenter, radius);
         }
         if (mAnimate) {
