@@ -138,7 +138,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"Reset"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Teilen"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"min"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"Min"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"Stunden"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"Minuten"</string>
@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Diesen Timer löschen?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Diese Stadt entfernen?"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"Wird geladen..."</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitaluhr"</string>
 </resources>

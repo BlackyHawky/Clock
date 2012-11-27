@@ -101,7 +101,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Κουμπί έντασης"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Εφέ κουμπιού"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Αφύπνιση"</item>
+    <item msgid="7972756698723318690">"Αναβολή αφύπνισης"</item>
     <item msgid="3450979320164769576">"Παράβλεψη"</item>
     <item msgid="6302517608411378024">"Να μη γίνει καμία ενέργεια"</item>
   </string-array>
@@ -322,6 +322,5 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Διαγραφή αυτού του ξυπνητηριού;"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Να διαγραφεί αυτή η πόλη;"</string>
-    <string name="widget_loading_ms" msgid="790841709484678848">"Φόρτωση"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Ψηφιακό ρολόι"</string>
 </resources>
