@@ -27,7 +27,9 @@
             android:layout_height="wrap_content"
             android:paddingTop="@dimen/medium_font_padding"
             android:paddingBottom="@dimen/medium_font_padding"
-            android:gravity="top|center_horizontal"
+            android:paddingLeft="@dimen/timer_padding_left"
+            android:layout_gravity="center"
+            android:gravity="top"
             android:baselineAligned="false">
             <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/hours_ones"
