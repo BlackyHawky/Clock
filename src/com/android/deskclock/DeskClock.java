@@ -20,15 +20,13 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.TransitionDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -38,10 +36,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.animation.Animation;
-import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -134,6 +128,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             mStopwatchTab.setContentDescription(R.string.menu_stopwatch);
             mTabsAdapter.addTab(mStopwatchTab, StopwatchFragment.class,STOPWATCH_TAB_INDEX);
             mActionBar.setSelectedNavigationItem(selectedIndex);
+            mTabsAdapter.notifySelectedPage(selectedIndex);
         }
     }
 
@@ -268,9 +263,18 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         Log.v(LOG_TAG, "Setting home time zone to " + homeTimeZone);
     }
 
-    public boolean isClockTab() {
-        return mViewPager.getCurrentItem() == CLOCK_TAB_INDEX;
+    public void registerPageChangedListener(DeskClockFragment frag) {
+        if (mTabsAdapter != null) {
+            mTabsAdapter.registerPageChangedListener(frag);
+        }
     }
+
+    public void unregisterPageChangedListener(DeskClockFragment frag) {
+        if (mTabsAdapter != null) {
+            mTabsAdapter.unregisterPageChangedListener(frag);
+        }
+    }
+
 
     /***
      * Adapter for wrapping together the ActionBar's tab with the ViewPager
@@ -300,6 +304,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         ActionBar mMainActionBar;
         Context mContext;
         ViewPager mPager;
+        // Used for doing callbacks to fragments.
+        ArrayList<String> mFragmentTags = new ArrayList<String>();
 
         public TabsAdapter(Activity activity, ViewPager pager) {
             super(activity.getFragmentManager());
@@ -340,6 +346,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         @Override
         public void onPageSelected(int position) {
             mMainActionBar.setSelectedNavigationItem(position);
+            notifyPageChanged(position);
         }
 
         @Override
@@ -363,14 +370,39 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             // Do nothing
 
         }
+
+        public void notifySelectedPage(int page) {
+            notifyPageChanged(page);
+        }
+
+        private void notifyPageChanged(int newPage) {
+            for (String tag : mFragmentTags) {
+                final FragmentManager fm = getFragmentManager();
+                DeskClockFragment f = (DeskClockFragment) fm.findFragmentByTag(tag);
+                if (f != null) {
+                    f.onPageChanged(newPage);
+                }
+            }
+        }
+
+        public void registerPageChangedListener(DeskClockFragment frag) {
+            mFragmentTags.add(frag.getTag());
+            // Since registering a listener by the fragment is done sometimes after the page
+            // was already changed, make sure the fragment gets the current page
+            frag.onPageChanged(mMainActionBar.getSelectedNavigationIndex());
+        }
+
+        public void unregisterPageChangedListener(DeskClockFragment frag) {
+            mFragmentTags.remove(frag.getTag());
+        }
     }
 
     public static abstract class OnTapListener implements OnTouchListener {
         private float mLastTouchX;
         private float mLastTouchY;
         private long mLastTouchTime;
-        private TextView mMakePressedTextView;
-        private int mPressedColor, mGrayColor;
+        private final TextView mMakePressedTextView;
+        private final int mPressedColor, mGrayColor;
         private final float MAX_MOVEMENT_ALLOWED = 20;
         private final long MAX_TIME_ALLOWED = 500;
 
