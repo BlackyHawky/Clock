@@ -48,6 +48,7 @@ import com.android.deskclock.timer.Timers;
 import com.android.deskclock.worldclock.CitiesActivity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.TimeZone;
 
 /**
@@ -305,7 +306,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         Context mContext;
         ViewPager mPager;
         // Used for doing callbacks to fragments.
-        ArrayList<String> mFragmentTags = new ArrayList<String>();
+        HashSet<String> mFragmentTags = new HashSet<String>();
 
         public TabsAdapter(Activity activity, ViewPager pager) {
             super(activity.getFragmentManager());
@@ -386,7 +387,12 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         }
 
         public void registerPageChangedListener(DeskClockFragment frag) {
-            mFragmentTags.add(frag.getTag());
+            String tag = frag.getTag();
+            if (mFragmentTags.contains(tag)) {
+                Log.wtf(LOG_TAG, "Trying to add an existing fragment " + tag);
+            } else {
+                mFragmentTags.add(frag.getTag());
+            }
             // Since registering a listener by the fragment is done sometimes after the page
             // was already changed, make sure the fragment gets the current page
             frag.onPageChanged(mMainActionBar.getSelectedNavigationIndex());
