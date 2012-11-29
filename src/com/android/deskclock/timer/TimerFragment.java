@@ -31,10 +31,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
@@ -43,18 +41,17 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.deskclock.DeskClock;
 import com.android.deskclock.CircleButtonsLinearLayout;
+import com.android.deskclock.DeskClock;
+import com.android.deskclock.DeskClock.OnTapListener;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
 import com.android.deskclock.Utils;
-import com.android.deskclock.DeskClock.OnTapListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -117,13 +114,11 @@ public class TimerFragment extends DeskClockFragment
     class TimersListAdapter extends BaseAdapter {
 
         ArrayList<TimerObj> mTimers = new ArrayList<TimerObj> ();
-        private final LayoutInflater mInflater;
         Context mContext;
         SharedPreferences mmPrefs;
 
         public TimersListAdapter(Context context, SharedPreferences prefs) {
             mContext = context;
-            mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mmPrefs = prefs;
         }
 
@@ -148,11 +143,11 @@ public class TimerFragment extends DeskClockFragment
         public void deleteTimer(int id) {
             for (int i = 0; i < mTimers.size(); i++) {
                 TimerObj t = mTimers.get(i);
-                
+
                 if (t.mTimerId == id) {
-                	if(t.mView != null) {
-                		((TimerListItem)t.mView).stop();
-                	}
+                    if (t.mView != null) {
+                        ((TimerListItem) t.mView).stop();
+                    }
                     t.deleteFromSharedPref(mmPrefs);
                     mTimers.remove(i);
                     notifyDataSetChanged();
@@ -259,7 +254,7 @@ public class TimerFragment extends DeskClockFragment
 
         public void addTimer(TimerObj t) {
             mTimers.add(0, t);
-            notifyDataSetChanged();
+            sort();
         }
 
         public void onSaveInstanceState(Bundle outState) {
@@ -268,12 +263,50 @@ public class TimerFragment extends DeskClockFragment
 
         public void onRestoreInstanceState(Bundle outState) {
             TimerObj.getTimersFromSharedPrefs(mmPrefs, mTimers);
-            notifyDataSetChanged();
+            sort();
         }
 
         public void saveGlobalState() {
             TimerObj.putTimersInSharedPrefs(mmPrefs, mTimers);
         }
+
+        public void sort() {
+            if (getCount() > 0) {
+                Collections.sort(mTimers, mTimersCompare);
+                notifyDataSetChanged();
+            }
+        }
+
+        private final Comparator<TimerObj> mTimersCompare = new Comparator<TimerObj>() {
+            static final int BUZZING = 0;
+            static final int IN_USE = 1;
+            static final int NOT_USED = 2;
+
+            protected int getSection(TimerObj timerObj) {
+                switch (timerObj.mState) {
+                    case TimerObj.STATE_TIMESUP:
+                        return BUZZING;
+                    case TimerObj.STATE_RUNNING:
+                    case TimerObj.STATE_STOPPED:
+                        return IN_USE;
+                    default:
+                        return NOT_USED;
+                }
+            }
+
+            @Override
+            public int compare(TimerObj o1, TimerObj o2) {
+                int section1 = getSection(o1);
+                int section2 = getSection(o2);
+                if (section1 != section2) {
+                    return (section1 < section2) ? -1 : 1;
+                } else if (section1 == BUZZING || section1 == IN_USE) {
+                    return (o1.mTimeLeft < o2.mTimeLeft) ? -1 : 1;
+                } else {
+                    return (o1.mSetupLength < o2.mSetupLength) ? -1 : 1;
+                }
+            }
+        };
     }
 
     class TimesUpListAdapter extends TimersListAdapter {
@@ -305,7 +338,7 @@ public class TimerFragment extends DeskClockFragment
                 Collections.sort(mTimers, new Comparator<TimerObj>() {
                     @Override
                     public int compare(TimerObj o1, TimerObj o2) {
-                       return (int)(o1.mTimeLeft - o2.mTimeLeft);
+                        return (o1.mTimeLeft <  o2.mTimeLeft) ? -1 : 1;
                     }
                 });
             }
@@ -431,6 +464,7 @@ public class TimerFragment extends DeskClockFragment
                 mAdapter.addTimer(t);
                 updateTimersState(t, Timers.START_TIMER);
                 gotoTimersView();
+                mTimersList.setSelection(mAdapter.findTimerPositionById(t.mTimerId));
             }
 
         });
@@ -462,6 +496,9 @@ public class TimerFragment extends DeskClockFragment
 
     @Override
     public void onResume() {
+        if (getActivity() instanceof DeskClock) {
+            ((DeskClock)getActivity()).registerPageChangedListener(this);
+        }
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
 
@@ -502,12 +539,22 @@ public class TimerFragment extends DeskClockFragment
 
     @Override
     public void onPause() {
+        if (getActivity() instanceof DeskClock) {
+            ((DeskClock)getActivity()).unregisterPageChangedListener(this);
+        }
         super.onPause();
         stopClockTicks();
         if (mAdapter != null) {
             mAdapter.saveGlobalState ();
         }
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onPageChanged(int page) {
+        if (page == DeskClock.TIMER_TAB_INDEX && mAdapter != null) {
+            mAdapter.sort();
+        }
     }
 
     @Override
