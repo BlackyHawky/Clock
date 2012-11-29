@@ -17,19 +17,10 @@
 package com.android.deskclock;
 
 import android.app.Fragment;
-import android.content.Context;
 
 public class DeskClockFragment extends Fragment {
-    protected Context mContext;
-    private boolean mButtonClicked = false;
 
-    protected void buttonClicked(boolean state) {
-        mButtonClicked = state;
-    }
-
-    public boolean isButtonClicked() {
-        boolean res = mButtonClicked;
-        mButtonClicked = false;
-        return res;
+    public void onPageChanged(int page) {
+        // Do nothing here , only in derived classes
     }
 }
