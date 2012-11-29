@@ -16,6 +16,4 @@
 
 <resources>
     <item type="id" name="numbers_key" />
-    <item type="id" name="lap_key" />
-    <item type="id" name="timer_key" />
 </resources>
