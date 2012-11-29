@@ -28,6 +28,8 @@
     <dimen name="time_margin_left">8dip</dimen>
     <dimen name="time_margin_bottom">14dip</dimen>
     <dimen name="time_margin_top">48dip</dimen>
+    <dimen name="digital_margin_bottom">36dip</dimen>
+    <dimen name="screensaver_margin">32dip</dimen>
     <dimen name="ampm_margin_top">15dip</dimen>
     <dimen name="font_margin_adjust">8dip</dimen>
     <dimen name="next_alarm_margin_top">-5dip</dimen>
