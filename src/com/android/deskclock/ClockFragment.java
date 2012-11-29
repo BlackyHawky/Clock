@@ -16,7 +16,6 @@
 
 package com.android.deskclock;
 
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -85,6 +84,9 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             if (changed || action.equals(Alarms.ALARM_DONE_ACTION)
                     || action.equals(Alarms.ALARM_SNOOZE_CANCELLED)) {
                 Utils.refreshAlarm(getActivity(), mClockFrame);
+            }
+            if (changed) {
+                mQuarterlyIntent = Utils.refreshAlarmOnQuarterHour(getActivity(), mQuarterlyIntent);
             }
         }
     };
@@ -159,12 +161,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
-        long alarmOnQuarterHour = Utils.getAlarmOnQuarterHour();
-        mQuarterlyIntent = PendingIntent.getBroadcast(
-                getActivity(), 0, new Intent(Utils.ACTION_ON_QUARTER_HOUR), 0);
-        ((AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE)).setRepeating(
-                AlarmManager.RTC, alarmOnQuarterHour, AlarmManager.INTERVAL_FIFTEEN_MINUTES,
-                mQuarterlyIntent);
+        mQuarterlyIntent = Utils.startAlarmOnQuarterHour(getActivity());
         // Besides monitoring when quarter-hour changes, monitor other actions that
         // effect clock time
         IntentFilter filter = new IntentFilter(Utils.ACTION_ON_QUARTER_HOUR);
@@ -197,8 +194,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     public void onPause() {
         super.onPause();
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
-        ((AlarmManager) getActivity().getSystemService(Context.ALARM_SERVICE)).cancel(
-                mQuarterlyIntent);
+        Utils.cancelAlarmOnQuarterHour(getActivity(), mQuarterlyIntent);
         getActivity().unregisterReceiver(mIntentReceiver);
     }
 

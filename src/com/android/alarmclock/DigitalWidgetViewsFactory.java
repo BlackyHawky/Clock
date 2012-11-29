@@ -16,6 +16,7 @@
 
 package com.android.alarmclock;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -49,6 +50,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
     private boolean mReloadCitiesList = true;
     private boolean mReloadCitiesDb = true;
     private float mFontScale = 1;
+    private PendingIntent mQuarterlyIntent;
 
     // An adapter to provide the view for the list of cities in the world clock.
     private class RemoteWorldClockAdapter extends WorldClockAdapter {
@@ -176,13 +178,14 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
     @Override
     public void onCreate() {
+        mQuarterlyIntent = Utils.startAlarmOnQuarterHour(mContext);
         // Do intent listening registration here since doing it in the manifest creates a new
         // new factory
         IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_DATE_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_TIME_TICK);
+        filter.addAction(Utils.ACTION_ON_QUARTER_HOUR);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
         filter.addAction("com.android.deskclock.NEXT_ALARM_TIME_SET");
@@ -206,6 +209,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
     @Override
     public void onDestroy() {
+        Utils.cancelAlarmOnQuarterHour(mContext, mQuarterlyIntent);
         mContext.unregisterReceiver(this);
     }
 
@@ -250,6 +254,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             WidgetUtils.setClockSize(context, widget, ratio);
             refreshAlarm(context, widget);
             widgetManager.partiallyUpdateAppWidget(mId, widget);
+            mQuarterlyIntent = Utils.refreshAlarmOnQuarterHour(context, mQuarterlyIntent);
         }
     }
 
