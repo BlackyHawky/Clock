@@ -255,7 +255,6 @@ public class TimerFragment extends DeskClockFragment
         public void addTimer(TimerObj t) {
             mTimers.add(0, t);
             sort();
-            notifyDataSetChanged();
         }
 
         public void onSaveInstanceState(Bundle outState) {
@@ -265,12 +264,6 @@ public class TimerFragment extends DeskClockFragment
         public void onRestoreInstanceState(Bundle outState) {
             TimerObj.getTimersFromSharedPrefs(mmPrefs, mTimers);
             sort();
-            notifyDataSetChanged();
-        }
-
-        public void resort() {
-            sort();
-            notifyDataSetChanged();
         }
 
         public void saveGlobalState() {
@@ -280,6 +273,7 @@ public class TimerFragment extends DeskClockFragment
         public void sort() {
             if (getCount() > 0) {
                 Collections.sort(mTimers, mTimersCompare);
+                notifyDataSetChanged();
             }
         }
 
@@ -561,7 +555,7 @@ public class TimerFragment extends DeskClockFragment
     @Override
     public void onPageChanged(int page) {
         if (page == DeskClock.TIMER_TAB_INDEX && mAdapter != null) {
-            mAdapter.resort();
+            mAdapter.sort();
         }
     }
 
