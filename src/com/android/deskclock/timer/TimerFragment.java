@@ -299,13 +299,11 @@ public class TimerFragment extends DeskClockFragment
                 int section1 = getSection(o1);
                 int section2 = getSection(o2);
                 if (section1 != section2) {
-                    return section1 - section2;
-                } else if (section1 == BUZZING) {
-                    return (int) (o1.mTimeLeft - o2.mTimeLeft);
-                } else if (section1 == IN_USE) {
-                    return (int) (o1.mTimeLeft - o2.mTimeLeft);
+                    return (section1 < section2) ? -1 : 1;
+                } else if (section1 == BUZZING || section1 == IN_USE) {
+                    return (o1.mTimeLeft < o2.mTimeLeft) ? -1 : 1;
                 } else {
-                    return (int) (o1.mSetupLength - o2.mSetupLength);
+                    return (o1.mSetupLength < o2.mSetupLength) ? -1 : 1;
                 }
             }
         };
@@ -340,7 +338,7 @@ public class TimerFragment extends DeskClockFragment
                 Collections.sort(mTimers, new Comparator<TimerObj>() {
                     @Override
                     public int compare(TimerObj o1, TimerObj o2) {
-                       return (int)(o1.mTimeLeft - o2.mTimeLeft);
+		       return (o1.mTimeLeft <  o2.mTimeLeft) ? -1 : 1;
                     }
                 });
             }
