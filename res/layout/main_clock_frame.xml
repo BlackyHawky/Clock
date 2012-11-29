@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/time_margin_top"
-            android:layout_marginBottom="@dimen/medium_space_bottom"
+            android:layout_marginBottom="@dimen/digital_margin_bottom"
             />
     </FrameLayout>
     <LinearLayout

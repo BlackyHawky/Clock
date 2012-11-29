@@ -29,8 +29,10 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/screensaver_margin"
+        android:layout_marginRight="@dimen/screensaver_margin"
         android:layout_marginTop="@dimen/time_margin_top"
-        android:layout_marginBottom="@dimen/time_margin_bottom">
+        android:layout_marginBottom="@dimen/screensaver_margin">
 
     <include layout="@layout/desk_clock_time_date"
         android:id="@+id/digital_clock"
@@ -38,6 +40,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/digital_margin_bottom"
         />
     <com.android.deskclock.AnalogClock
         android:id="@+id/analog_clock"
