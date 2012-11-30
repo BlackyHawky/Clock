@@ -344,11 +344,11 @@
     <!-- Describes the purpose of the button to share the stopwatch value. -->
     <string name="sw_share_button">Share</string>
 
-    <!-- Abbreviation for temporal hours -->
+    <!-- Abbreviation for temporal hours [CHAR LIMIT=1] -->
     <string name="hours_label">h</string>
-    <!-- Abbreviation for temporal minutes -->
+    <!-- Abbreviation for temporal minutes [CHAR LIMIT=1] -->
     <string name="minutes_label">m</string>
-    <!-- Abbreviation for temporal seconds -->
+    <!-- Abbreviation for temporal seconds [CHAR LIMIT=1] -->
     <string name="seconds_label">s</string>
     <!-- Accessibility strings -->
     <string name="hours_label_description">hours</string>
@@ -362,8 +362,40 @@
     <string name="sw_share_main">My time is <xliff:g id="time">%s</xliff:g></string>
     <!-- Header within the message created to share a list of lap times (a new line is appended to this) -->
     <string name="sw_share_laps">Lap times:</string>
-    <!-- Label to enumerate the number of laps the user has counted -->
+    <!-- Label to enumerate the number of laps in the notification the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
+    <!-- Formatted stopwatch time
+        [CHAR LIMIT=1] for each abbreviation as in hours_label, etc. -->
+    <string-array name="stopwatch_format_set">
+        <item> <!-- <10 minutes - example "1m 02s.03" -->
+            <xliff:g id="M">%2$d</xliff:g>m
+            <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>
+        </item>
+        <item> <!-- <1 hour - example "12m 03s.04" -->
+            <xliff:g id="M">%2$02d</xliff:g>m
+            <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>
+        </item>
+        <item> <!-- <10 hours - example "1h 02m 03s.04" -->
+            <xliff:g id="H">%1$d</xliff:g>h
+            <xliff:g id="M">%2$02d</xliff:g>m
+            <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>
+        </item>
+        <item> <!-- <100 hours - example "12h 03m 04s.05" -->
+            <xliff:g id="H">%1$02d</xliff:g>h
+            <xliff:g id="M">%2$02d</xliff:g>m
+            <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>
+        </item>
+        <item> <!-- <1000 hours - example "123h 04m 05s.06" -->
+            <xliff:g id="H">%1$03d</xliff:g>h
+            <xliff:g id="M">%2$02d</xliff:g>m
+            <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>
+        </item>
+        </string-array>
+    <!-- Label to enumerate the number of laps the user has counted -->
+    <string-array name="sw_lap_number_set" translatable="false">
+        <item># <xliff:g id="number">%d</xliff:g></item>
+        <item># <xliff:g id="number">%02d</xliff:g></item>
+    </string-array>
 
     <!-- Stopwatch accessibility strings -->
     <plurals name="Nhours_description">
