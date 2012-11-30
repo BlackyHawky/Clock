@@ -116,7 +116,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Intentionally verbose: always log the alarm time to provide useful
         // information in bug reports.
         long now = System.currentTimeMillis();
-        Log.v("Received alarm set for " + Log.formatTime(alarm.time));
+        Log.v("Received alarm set for id=" + alarm.id + " " + Log.formatTime(alarm.time));
 
         // Always verbose to track down time change problems.
         if (now > alarm.time + STALE_WINDOW) {

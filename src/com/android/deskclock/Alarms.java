@@ -76,6 +76,9 @@ public class Alarms {
     // alarm played before being killed.
     public static final String ALARM_KILLED_TIMEOUT = "alarm_killed_timeout";
 
+    // Extra in the ALARM_KILLED intent to indicate when alarm was replaced
+    public static final String ALARM_REPLACED = "alarm_replaced";
+
     // This string is used to indicate a silent alarm in the db.
     public static final String ALARM_ALERT_SILENT = "silent";
 

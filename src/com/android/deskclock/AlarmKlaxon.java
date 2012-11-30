@@ -33,6 +33,7 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
+import android.text.format.DateUtils;
 
 /**
  * Manages alarms and vibe. Runs as a service so that it can continue to play
@@ -62,7 +63,7 @@ public class AlarmKlaxon extends Service {
                     if (Log.LOGV) {
                         Log.v("*********** Alarm killer triggered ***********");
                     }
-                    sendKillBroadcast((Alarm) msg.obj);
+                    sendKillBroadcast((Alarm) msg.obj, false);
                     stopSelf();
                     break;
             }
@@ -78,7 +79,7 @@ public class AlarmKlaxon extends Service {
             // we don't kill the alarm during a call.
             if (state != TelephonyManager.CALL_STATE_IDLE
                     && state != mInitialCallState) {
-                sendKillBroadcast(mCurrentAlarm);
+                sendKillBroadcast(mCurrentAlarm, false);
                 stopSelf();
             }
         }
@@ -129,7 +130,7 @@ public class AlarmKlaxon extends Service {
         }
 
         if (mCurrentAlarm != null) {
-            sendKillBroadcast(mCurrentAlarm);
+            sendKillBroadcast(mCurrentAlarm, true);
         }
 
         play(alarm);
@@ -141,12 +142,13 @@ public class AlarmKlaxon extends Service {
         return START_STICKY;
     }
 
-    private void sendKillBroadcast(Alarm alarm) {
+    private void sendKillBroadcast(Alarm alarm, boolean replaced) {
         long millis = System.currentTimeMillis() - mStartTime;
-        int minutes = (int) Math.round(millis / 60000.0);
+        int minutes = (int) Math.round(millis / (double)DateUtils.MINUTE_IN_MILLIS);
         Intent alarmKilled = new Intent(Alarms.ALARM_KILLED);
         alarmKilled.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         alarmKilled.putExtra(Alarms.ALARM_KILLED_TIMEOUT, minutes);
+        alarmKilled.putExtra(Alarms.ALARM_REPLACED, replaced);
         sendBroadcast(alarmKilled);
     }
 
@@ -291,7 +293,7 @@ public class AlarmKlaxon extends Service {
         int autoSnoozeMinutes = Integer.parseInt(autoSnooze);
         if (autoSnoozeMinutes != -1) {
             mHandler.sendMessageDelayed(mHandler.obtainMessage(KILLER, alarm),
-                    1000 * autoSnoozeMinutes * 60);
+                    autoSnoozeMinutes * DateUtils.MINUTE_IN_MILLIS);
         }
     }
 
