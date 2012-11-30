@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,10 +80,26 @@ public class StopwatchFragment extends DeskClockFragment
         ArrayList<Lap> mLaps = new ArrayList<Lap>();
         private final LayoutInflater mInflater;
         private final int mBackgroundColor;
+        private final String[] mFormats;
+        private final String[] mLapFormatSet;
+        // Size of this array must match the size of formats
+        private final long[] mThresholds = {
+                10 * DateUtils.MINUTE_IN_MILLIS, // < 10 minutes
+                DateUtils.HOUR_IN_MILLIS, // < 1 hour
+                10 * DateUtils.HOUR_IN_MILLIS, // < 10 hours
+                100 * DateUtils.HOUR_IN_MILLIS, // < 100 hours
+                1000 * DateUtils.HOUR_IN_MILLIS // < 1000 hours
+        };
+        private int mLapIndex = 0;
+        private int mTotalIndex = 0;
+        private String mLapFormat;
 
         public LapsListAdapter(Context context) {
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             mBackgroundColor = getResources().getColor(R.color.blackish);
+            mFormats = context.getResources().getStringArray(R.array.stopwatch_format_set);
+            mLapFormatSet = context.getResources().getStringArray(R.array.sw_lap_number_set);
+            updateLapFormat();
         }
 
         @Override
@@ -104,10 +121,11 @@ public class StopwatchFragment extends DeskClockFragment
             TextView count = (TextView)lapInfo.findViewById(R.id.lap_number);
             TextView lapTime = (TextView)lapInfo.findViewById(R.id.lap_time);
             TextView toalTime = (TextView)lapInfo.findViewById(R.id.lap_total);
-            lapTime.setText(Stopwatches.getTimeText(mLaps.get(position).mLapTime));
-            toalTime.setText(Stopwatches.getTimeText(mLaps.get(position).mTotalTime));
-            count.setText(getString(R.string.sw_notification_lap_number, mLaps.size() - position)
-                    .toUpperCase());
+            lapTime.setText(Stopwatches.formatTimeText(mLaps.get(position).mLapTime,
+                    mFormats[mLapIndex]));
+            toalTime.setText(Stopwatches.formatTimeText(mLaps.get(position).mTotalTime,
+                    mFormats[mTotalIndex]));
+            count.setText(String.format(mLapFormat, mLaps.size() - position).toUpperCase());
 
             lapInfo.setBackgroundColor(mBackgroundColor);
             return lapInfo;
@@ -126,13 +144,38 @@ public class StopwatchFragment extends DeskClockFragment
             return mLaps.get(position);
         }
 
+        private void updateLapFormat() {
+            // Note Stopwatches.MAX_LAPS < 100
+            mLapFormat = mLapFormatSet[mLaps.size() < 10 ? 0 : 1];
+        }
+
+        private void resetTimeFormats() {
+            mLapIndex = mTotalIndex = 0;
+        }
+
+        public boolean updateTimeFormats(Lap lap) {
+            boolean formatChanged = false;
+            while (mLapIndex + 1 < mThresholds.length && lap.mLapTime >= mThresholds[mLapIndex]) {
+                mLapIndex++;
+                formatChanged = true;
+            }
+            while (mTotalIndex + 1 < mThresholds.length && 
+                lap.mTotalTime >= mThresholds[mTotalIndex]) {
+                mTotalIndex++;
+                formatChanged = true;
+            }
+            return formatChanged;
+        }
+
         public void addLap(Lap l) {
             mLaps.add(0, l);
-            notifyDataSetChanged();
+            // for efficiency caller also calls notifyDataSetChanged()
         }
 
         public void clearLaps() {
             mLaps.clear();
+            updateLapFormat();
+            resetTimeFormats();
             notifyDataSetChanged();
         }
 
@@ -164,7 +207,9 @@ public class StopwatchFragment extends DeskClockFragment
             for (int i = size -1; i >= 0; i --) {
                 totalTime += laps[i];
                 mLaps.get(i).mTotalTime = totalTime;
+                updateTimeFormats(mLaps.get(i));
             }
+            updateLapFormat();
             notifyDataSetChanged();
         }
     }
@@ -568,15 +613,18 @@ public class StopwatchFragment extends DeskClockFragment
         long curTime = time - mStartTime + mAccumulatedTime;
         if (size == 0) {
             // Always show the ending lap and a new one
-            mLapsAdapter.addLap(new Lap(curTime, curTime));
+            Lap firstLap = new Lap(curTime, curTime);
+            mLapsAdapter.addLap(firstLap);
             mLapsAdapter.addLap(new Lap(0, curTime));
             mTime.setIntervalTime(curTime);
+            mLapsAdapter.updateTimeFormats(firstLap);
         } else {
             long lapTime = curTime - ((Lap) mLapsAdapter.getItem(1)).mTotalTime;
             ((Lap)mLapsAdapter.getItem(0)).mLapTime = lapTime;
             ((Lap)mLapsAdapter.getItem(0)).mTotalTime = curTime;
             mLapsAdapter.addLap(new Lap(0, 0));
             mTime.setMarkerTime(lapTime);
+            mLapsAdapter.updateLapFormat();
         //    mTime.setIntervalTime(lapTime * 10);
         }
         mLapsAdapter.notifyDataSetChanged();

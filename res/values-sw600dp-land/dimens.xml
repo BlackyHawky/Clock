@@ -38,8 +38,11 @@
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">16dp</dimen>
     <dimen name="circle_margin">48dp</dimen>
-    <dimen name="laps_margin">36dp</dimen>
     <dimen name="analog_clock_margin">48dp</dimen>
+    <dimen name="timer_circle_margin">48dp</dimen>
+
+    <dimen name="world_clock_margin">48dp</dimen>
+    <dimen name="sw_right_margin">48dp</dimen>
 
     <!-- Empty space at the edges of the +1 and reset button icons. Based off of 56dip width.-->
     <dimen name="plusone_reset_button_padding">23dip</dimen>
