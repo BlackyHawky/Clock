@@ -265,12 +265,15 @@ public class TimerObj implements Parcelable {
         }
     }
 
-    public static void cleanTimersFromSharedPrefs(SharedPreferences prefs) {
+    public static void resetTimersInSharedPrefs(SharedPreferences prefs) {
         ArrayList<TimerObj> timers = new  ArrayList<TimerObj>();
         getTimersFromSharedPrefs(prefs, timers);
         Iterator<TimerObj> i = timers.iterator();
         while(i.hasNext()) {
-            i.next().deleteFromSharedPref(prefs);
+            TimerObj t = i.next();
+            t.mState = TimerObj.STATE_RESTART;
+            t.mTimeLeft = t. mOriginalLength = t.mSetupLength;
+            t.writeToSharedPref(prefs);
         }
     }
 
