@@ -133,7 +133,7 @@
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Nachtmodus"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Fortsetzen"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Starten"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Stoppen"</string>
+    <string name="sw_stop_button" msgid="8322958613123274451">"Anhalten"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Runde"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Reset"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Teilen"</string>
