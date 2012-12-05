@@ -151,7 +151,7 @@
     <item msgid="7855304148648938406">"<xliff:g id="M">%2$d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
     <item msgid="3964356050933061913">"<xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
     <item msgid="4906928997138522728">"<xliff:g id="H">%1$d</xliff:g>h <xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="1167529664702951052">"<xliff:g id="H">%1$02d</xliff:g> h <xliff:g id="M">%2$02d</xliff:g> m <xliff:g id="S">%3$02d</xliff:g> s <xliff:g id="D">%4$02d</xliff:g>"</item>
+    <item msgid="1167529664702951052">"<xliff:g id="H">%1$02d</xliff:g>h <xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
     <item msgid="4383974684898411623">"<xliff:g id="H">%1$03d</xliff:g>h <xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
   </string-array>
   <plurals name="Nhours_description">
