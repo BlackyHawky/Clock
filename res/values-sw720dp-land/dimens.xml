@@ -22,6 +22,7 @@
     <dimen name="glowpadview_margin_right">48dip</dimen>
 
     <dimen name="alarm_alert_clock_padding_left">128dp</dimen>
-    <dimen name="def_digital_widget_height">150dip</dimen>
+    <dimen name="digital_widget_list_min_height">150dip</dimen>
+    <dimen name="min_digital_widget_resize_width">370dip</dimen>
 
 </resources>
