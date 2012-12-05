@@ -56,6 +56,26 @@ public class WidgetUtils {
         return 1;
     }
 
+    // Calculate the scale factor of the fonts in the list of  the widget using the widget height
+    public static float getHeightScaleRatio(Context context, Bundle options, int id) {
+        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+        if (options == null) {
+            options = widgetManager.getAppWidgetOptions(id);
+        }
+        if (options != null) {
+            int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+            if (minHeight == 0) {
+                // No data , do no scaling
+                return 1f;
+            }
+            Resources res = context.getResources();
+            float ratio = minHeight / res.getDimension(R.dimen.def_digital_widget_height);
+            return (ratio > 1) ? 1 : ratio;
+        }
+        return 1;
+    }
+
+
     // Decide if to show the list of world clock.
     // Check to see if the widget size is big enough, if it is return true.
     public static boolean showList(Context context, int id, float scale) {
@@ -66,7 +86,7 @@ public class WidgetUtils {
         }
         int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
         int neededSize = (int) context.getResources().
-            getDimension(R.dimen.def_digital_widget_height);
+            getDimension(R.dimen.digital_widget_list_min_height);
         return (minHeight > neededSize);
     }
 }
