@@ -18,5 +18,5 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-    <dimen name="def_digital_widget_height">145dip</dimen>
+    <dimen name="digital_widget_list_min_height">100dip</dimen>
 </resources>

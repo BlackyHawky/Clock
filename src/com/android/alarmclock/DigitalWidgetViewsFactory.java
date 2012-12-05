@@ -50,7 +50,9 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
     private boolean mReloadCitiesList = true;
     private boolean mReloadCitiesDb = true;
     private float mFontScale = 1;
+    private float mListScale = 1;
     private PendingIntent mQuarterlyIntent;
+
 
     // An adapter to provide the view for the list of cities in the world clock.
     private class RemoteWorldClockAdapter extends WorldClockAdapter {
@@ -97,8 +99,9 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             now.setTimeZone(TimeZone.getTimeZone(cityTZ));
             int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 
-            clock.setTextViewTextSize(clockId1, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
-            clock.setTextViewTextSize(clockId2, TypedValue.COMPLEX_UNIT_PX, mFontSize * mFontScale);
+            float scale = Math.min(mFontScale, mListScale);
+            clock.setTextViewTextSize(clockId1, TypedValue.COMPLEX_UNIT_PX, mFontSize * scale);
+            clock.setTextViewTextSize(clockId2, TypedValue.COMPLEX_UNIT_PX, mFontSize * scale);
             clock.setString(clockId1, "setTimeZone", cityObj.mTimeZone);
             clock.setString(clockId2, "setTimeZone", cityObj.mTimeZone);
 
@@ -205,6 +208,8 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         }
 
         mFontScale = WidgetUtils.getScaleRatio(mContext, null, mId);
+        mListScale = WidgetUtils.getHeightScaleRatio(mContext, null, mId);
+
     }
 
     @Override
