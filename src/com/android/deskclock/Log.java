@@ -55,6 +55,6 @@ public class Log {
     }
 
     public static String formatTime(long millis) {
-        return new SimpleDateFormat("HH:mm:ss.SSS aaa").format(new Date(millis));
+        return new SimpleDateFormat("HH:mm:ss.SSS/E").format(new Date(millis));
     }
 }
