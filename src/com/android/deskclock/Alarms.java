@@ -426,9 +426,9 @@ public class Alarms {
         AlarmManager am = (AlarmManager)
                 context.getSystemService(Context.ALARM_SERVICE);
 
-        if (Log.LOGV) {
-            Log.v("** setAlert id " + alarm.id + " atTime " + atTimeInMillis);
-        }
+        // Intentionally verbose: always log the alarm time to provide useful
+        // information in bug reports.
+        Log.v("Alarm set for id=" + alarm.id + " " + Log.formatTime(atTimeInMillis));
 
         Intent intent = new Intent(ALARM_ALERT_ACTION);
 
@@ -472,6 +472,9 @@ public class Alarms {
                 PendingIntent.FLAG_CANCEL_CURRENT);
         am.cancel(sender);
         setStatusBarIcon(context, false);
+        // Intentionally verbose: always log the lack of a next alarm to provide useful
+        // information in bug reports.
+        Log.v("No next alarm");
         saveNextAlarm(context, "");
     }
 
