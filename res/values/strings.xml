@@ -462,11 +462,6 @@
     <!-- Label for the Cities activity displayed on-screen when that activity must be represented to the user. -->
     <string name="cities_activity_title">Cities</string>
 
-    <!-- Text in a Toggle button indicating an alarm is enabled -->
-    <string name="alarm_on">ON</string>
-    <!-- Text in a Toggle button indicating an alarm is disabled -->
-    <string name="alarm_off">OFF</string>
-
     <!-- Settings strings -->
     <!-- Header in the preferences settings for the section pertaining to clocks on the main fragment -->
     <string name="clock_settings">CLOCK</string>

@@ -74,8 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/onoff"
-            android:textOn="@string/alarm_on"
-            android:textOff="@string/alarm_off"
             android:thumbTextPadding="10dp"
             android:layout_gravity="center_vertical|right"/>
     </LinearLayout>
