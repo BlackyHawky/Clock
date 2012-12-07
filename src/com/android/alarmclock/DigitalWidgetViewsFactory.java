@@ -52,6 +52,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
     private float mFontScale = 1;
     private float mListScale = 1;
     private PendingIntent mQuarterlyIntent;
+    private String mLastTimeZone;
 
 
     // An adapter to provide the view for the list of cities in the world clock.
@@ -136,6 +137,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         mId = intent.getIntExtra(
                 AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         mAdapter = new RemoteWorldClockAdapter(c);
+        mLastTimeZone = TimeZone.getDefault().getID();
     }
 
     public DigitalWidgetViewsFactory() {
@@ -247,10 +249,23 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
             if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
                 // refresh the list to make sure home time zone is displayed / removed
                 mReloadCitiesList = true;
+                mLastTimeZone = TimeZone.getDefault().getID();
             } else if (action.equals(Intent.ACTION_LOCALE_CHANGED)) {
                 // reload the cities DB to pick up the cities name in the new language
                 mReloadCitiesDb = true;
+            } else if (action.equals(Utils.ACTION_ON_QUARTER_HOUR)) {
+                // Since the system may miss or not send time zone changes in all cases
+                // make sure to update the world clock list if the time zone
+                // changed in the last 15 minutes
+                String currentTimeZone = TimeZone.getDefault().getID();
+                if (!TextUtils.equals(currentTimeZone, mLastTimeZone)) {
+                    // refresh the list to make sure home time zone is displayed / removed
+                    mReloadCitiesList = true;
+                    mLastTimeZone = currentTimeZone;
+                    Log.v(TAG,"Detected time zone change,updating time zone to " + currentTimeZone);
+                }
             }
+
             // For any time change or locale change, refresh all
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
             RemoteViews widget =
