@@ -193,8 +193,6 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"홈"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"도시"</string>
-    <string name="alarm_on" msgid="4344630320756422804">"켜기"</string>
-    <string name="alarm_off" msgid="6478058633710013612">"끄기"</string>
     <string name="clock_settings" msgid="8887845806151785393">"시계"</string>
     <string name="clock_style" msgid="2265011060429742344">"종류"</string>
   <string-array name="clock_style_entries">

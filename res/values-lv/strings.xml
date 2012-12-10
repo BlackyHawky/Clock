@@ -193,8 +193,6 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Sākums"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Pilsētas"</string>
-    <string name="alarm_on" msgid="4344630320756422804">"IESLĒGTS"</string>
-    <string name="alarm_off" msgid="6478058633710013612">"IZSLĒGTS"</string>
     <string name="clock_settings" msgid="8887845806151785393">"PULKSTENIS"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stils"</string>
   <string-array name="clock_style_entries">
