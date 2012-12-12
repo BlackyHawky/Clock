@@ -53,9 +53,9 @@ public class CountingTimerView extends View {
     private final Paint mPaintMed = new Paint();
     private final Paint mPaintLabel = new Paint();
     private final float mBigFontSize, mSmallFontSize;
-    private SignedTime mBigHours, mBigMinutes;
-    private UnsignedTime mBigThinSeconds;
-    private Hundredths mMedHundredths;
+    private final SignedTime mBigHours, mBigMinutes;
+    private final UnsignedTime mBigThinSeconds;
+    private final Hundredths mMedHundredths;
     private float mTextHeight = 0;
     private float mTotalTextWidth;
     private static final String HUNDREDTH_SEPERATOR = ".";
@@ -87,7 +87,7 @@ public class CountingTimerView extends View {
         protected Paint mPaint;
         protected float mEm;
         protected float mWidth = 0;
-        private String mWidest;
+        private final String mWidest;
         protected String mLabel;
         private float mLabelWidth = 0;
 
@@ -430,7 +430,7 @@ public class CountingTimerView extends View {
     public void blinkTimeStr(boolean blink) {
         if (blink) {
             removeCallbacks(mBlinkThread);
-            postDelayed(mBlinkThread, 1000);
+            post(mBlinkThread);
         } else {
             removeCallbacks(mBlinkThread);
             showTime(true);
