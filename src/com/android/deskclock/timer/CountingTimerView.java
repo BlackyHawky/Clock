@@ -430,7 +430,7 @@ public class CountingTimerView extends View {
     public void blinkTimeStr(boolean blink) {
         if (blink) {
             removeCallbacks(mBlinkThread);
-            postDelayed(mBlinkThread, 1000);
+            post(mBlinkThread);
         } else {
             removeCallbacks(mBlinkThread);
             showTime(true);
