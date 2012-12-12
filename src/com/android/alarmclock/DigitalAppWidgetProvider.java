@@ -19,6 +19,7 @@ package com.android.alarmclock;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.appwidget.AppWidgetProviderInfo;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +38,7 @@ import com.android.deskclock.Alarms;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.worldclock.CitiesActivity;
 
 import java.util.Calendar;
 
@@ -72,8 +74,14 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private void updateClock(
             Context c, AppWidgetManager appWidgetManager, int appWidgetId, float ratio) {
         RemoteViews widget = new RemoteViews(c.getPackageName(), R.layout.digital_appwidget);
-        widget.setOnClickPendingIntent(R.id.digital_appwidget,
-                PendingIntent.getActivity(c, 0, new Intent(c, DeskClock.class), 0));
+        // launch clock when clicking on the time in the widget only if not a lock screen widget
+        Bundle newOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
+        if (newOptions != null &&
+                newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, -1)
+                != AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD) {
+            widget.setOnClickPendingIntent(R.id.digital_appwidget,
+                    PendingIntent.getActivity(c, 0, new Intent(c, DeskClock.class), 0));
+        }
         refreshAlarm(c, widget);
         WidgetUtils.setClockSize(c, widget, ratio);
         final Intent intent = new Intent(c, DigitalAppWidgetService.class);
@@ -81,7 +89,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
         widget.setRemoteAdapter(appWidgetId, R.id.digital_appwidget_listview, intent);
         widget.setPendingIntentTemplate(R.id.digital_appwidget_listview,
-                PendingIntent.getActivity(c, 0, new Intent(c, DeskClock.class), 0));
+                PendingIntent.getActivity(c, 0, new Intent(c, CitiesActivity.class), 0));
         appWidgetManager.notifyAppWidgetViewDataChanged(
                 appWidgetId, R.id.digital_appwidget_listview);
         appWidgetManager.updateAppWidget(appWidgetId, widget);
