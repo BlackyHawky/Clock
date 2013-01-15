@@ -202,7 +202,7 @@
     <item msgid="8483930821046925592">"Цифры"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Показывать время дома"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Когда я в другом часовом поясе, показывать время в моем городе на отдельных часах"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Показывать на отдельных часах, сколько времени дома, когда я нахожусь в другом часовом поясе"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Мой часовой пояс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Мой часовой пояс"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Отмена"</string>
