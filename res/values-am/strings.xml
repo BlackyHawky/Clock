@@ -140,7 +140,7 @@
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
-    <string name="hours_label_description" msgid="8652842524970971830">"ሰዓታት"</string>
+    <string name="hours_label_description" msgid="8652842524970971830">"ሰዓቶች"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"ደቂቃዎች"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"ሰከንዶች"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
@@ -156,7 +156,7 @@
   </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 ሰዓት"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ሰዓታት"</item>
+    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ሰዓቶች"</item>
   </plurals>
   <plurals name="Nminutes_description">
     <item quantity="one" msgid="1001391305885322059">"1 ደቂቃ"</item>
