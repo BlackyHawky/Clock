@@ -191,7 +191,7 @@
     <item quantity="one" msgid="6764708652976799977">"1 minúta"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> časovačov"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"Domov"</string>
+    <string name="home_label" msgid="4436139365695453870">"Domovský čas"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Mestá"</string>
     <string name="alarm_on" msgid="4344630320756422804">"ZAPNUTÉ"</string>
     <string name="alarm_off" msgid="6478058633710013612">"VYPNUTÉ"</string>
