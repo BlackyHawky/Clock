@@ -64,6 +64,6 @@
             android:dialogTitle="@string/volume_button_setting_title"
             android:entries="@array/volume_button_setting_entries"
             android:entryValues="@array/volume_button_setting_values"
-            android:defaultValue="1" />
+            android:defaultValue="0" />
     </PreferenceCategory>
 </PreferenceScreen>
