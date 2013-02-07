@@ -64,6 +64,10 @@ public class SettingsActivity extends PreferenceActivity
     static final String KEY_VOLUME_BUTTONS =
             "volume_button_setting";
 
+    // Old and new default preferences, needed to switch the default on upgrade
+    public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
+    public static final String OLD_DEFAULT_VOLUME_BEHAVIOR = "1";
+
     private static CharSequence[][] mTimezones;
     private long mTime;
 

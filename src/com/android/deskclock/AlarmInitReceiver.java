@@ -27,6 +27,9 @@ import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
 
+    // A flag that indicates that switching the volume button default was done
+    private static final String PREF_VOLUME_DEF_DONE = "vol_def_done";
+
     /**
      * Sets alarm on ACTION_BOOT_COMPLETED.  Resets alarm on
      * TIME_SET, TIMEZONE_CHANGED
@@ -52,6 +55,12 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                     Log.v("AlarmInitReceiver - Reset timers and clear stopwatch data");
                     TimerObj.resetTimersInSharedPrefs(prefs);
                     Utils.clearSwSharedPref(prefs);
+
+                    if (!prefs.getBoolean(PREF_VOLUME_DEF_DONE, false)) {
+                        // Fix the default
+                        Log.v("AlarmInitReceiver - checking volume button default");
+                        switchVolumeButtonDefault(prefs);
+                    }
                 }
                 Alarms.setNextAlert(context);
                 result.finish();
@@ -59,5 +68,25 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                 wl.release();
             }
         });
+    }
+
+    private void switchVolumeButtonDefault(SharedPreferences prefs) {
+        SharedPreferences.Editor editor = prefs.edit();
+
+        // Get the volume button behavior setting
+        final String vol = prefs.getString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
+	        SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
+        // If the setting is "Snooze", change it to "Do Nothing"
+        if (SettingsActivity.OLD_DEFAULT_VOLUME_BEHAVIOR.equals(vol)) {
+                editor.putString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
+                    SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
+            Log.v("AlarmInitReceiver - Reset volume button default");
+        } else {
+            Log.v("AlarmInitReceiver - No need to reset volume button default");
+        }
+
+        // Make sure we do it only once
+        editor.putBoolean(PREF_VOLUME_DEF_DONE, true);
+        editor.apply();
     }
 }
