@@ -56,6 +56,7 @@ import com.android.deskclock.Utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 
 
 public class TimerFragment extends DeskClockFragment
@@ -592,13 +593,23 @@ public class TimerFragment extends DeskClockFragment
     }
 
     public void stopAllTimesUpTimers() {
-        boolean notifyChange = 0 < mAdapter.getCount();
-        while (0 < mAdapter.getCount()) {
-            TimerObj timerObj = (TimerObj) mAdapter.getItem(0);
+        boolean notifyChange = false;
+        //  To avoid race conditions where a timer was dismissed and it is still in the timers list
+        // and can be picked again, create a temporary list of timers to be removed first and
+        // then removed them one by one
+        LinkedList<TimerObj> timesupTimers = new LinkedList<TimerObj>();
+        for (int i = 0; i  < mAdapter.getCount(); i ++) {
+            TimerObj timerObj = (TimerObj) mAdapter.getItem(i);
             if (timerObj.mState == TimerObj.STATE_TIMESUP) {
-                onStopButtonPressed(timerObj);
+                timesupTimers.addFirst(timerObj);
+                notifyChange = true;
             }
         }
+
+        while (timesupTimers.size() > 0) {
+            onStopButtonPressed(timesupTimers.remove());
+        }
+
         if (notifyChange) {
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(Timers.FROM_ALERT, true);
