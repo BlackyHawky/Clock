@@ -193,8 +193,6 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Startsida"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Orter"</string>
-    <string name="alarm_on" msgid="4344630320756422804">"PÅ"</string>
-    <string name="alarm_off" msgid="6478058633710013612">"AV"</string>
     <string name="clock_settings" msgid="8887845806151785393">"KLOCKA"</string>
     <string name="clock_style" msgid="2265011060429742344">"Format"</string>
   <string-array name="clock_style_entries">

@@ -193,8 +193,6 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Koti"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Kaupungit"</string>
-    <string name="alarm_on" msgid="4344630320756422804">"KÄYTÖSSÄ"</string>
-    <string name="alarm_off" msgid="6478058633710013612">"POIS KÄYT."</string>
     <string name="clock_settings" msgid="8887845806151785393">"KELLO"</string>
     <string name="clock_style" msgid="2265011060429742344">"Tyyli"</string>
   <string-array name="clock_style_entries">
