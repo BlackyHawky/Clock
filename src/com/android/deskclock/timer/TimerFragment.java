@@ -419,22 +419,25 @@ public class TimerFragment extends DeskClockFragment
         mTimersList = (ListView)v.findViewById(R.id.timers_list);
 
         // Use light's out if this fragment is within the DeskClock
+        LayoutParams params;
+        float dividerHeight = getResources().getDimension(R.dimen.timer_divider_height);
         if (getActivity() instanceof DeskClock) {
-            float dividerHeight = getResources().getDimension(R.dimen.timer_divider_height);
             View footerView = inflater.inflate(R.layout.blank_footer_view, mTimersList, false);
-            LayoutParams params = footerView.getLayoutParams();
+            params = footerView.getLayoutParams();
             params.height -= dividerHeight;
             footerView.setLayoutParams(params);
             footerView.setBackgroundResource(R.color.blackish);
             mTimersList.addFooterView(footerView);
-            View headerView = inflater.inflate(R.layout.blank_header_view, mTimersList, false);
-            params = headerView.getLayoutParams();
-            params.height -= dividerHeight;
-            headerView.setLayoutParams(params);
-            mTimersList.addHeaderView(headerView);
         } else {
             mTimersList.setBackgroundColor(getResources().getColor(R.color.blackish));
         }
+        // Make the top transparent header always visible so that the transition
+        // from the DeskClock app to the alert screen will be more pleasing visually.
+        View headerView = inflater.inflate(R.layout.blank_header_view, mTimersList, false);
+        params = headerView.getLayoutParams();
+        params.height -= dividerHeight;
+        headerView.setLayoutParams(params);
+        mTimersList.addHeaderView(headerView);
 
         mNewTimerPage = v.findViewById(R.id.new_timer_page);
         mTimersListPage = v.findViewById(R.id.timers_list_page);
