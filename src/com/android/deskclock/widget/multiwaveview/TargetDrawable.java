@@ -47,36 +47,6 @@ public class TargetDrawable {
     private final int mResourceId;
     private int mNumDrawables = 1;
 
-    /* package */ static class DrawableWithAlpha extends Drawable {
-        private float mAlpha = 1.0f;
-        private Drawable mRealDrawable;
-        public DrawableWithAlpha(Drawable realDrawable) {
-            mRealDrawable = realDrawable;
-        }
-        public void setAlpha(float alpha) {
-            mAlpha = alpha;
-        }
-        public float getAlpha() {
-            return mAlpha;
-        }
-        public void draw(Canvas canvas) {
-            mRealDrawable.setAlpha((int) Math.round(mAlpha * 255f));
-            mRealDrawable.draw(canvas);
-        }
-        @Override
-        public void setAlpha(int alpha) {
-            mRealDrawable.setAlpha(alpha);
-        }
-        @Override
-        public void setColorFilter(ColorFilter cf) {
-            mRealDrawable.setColorFilter(cf);
-        }
-        @Override
-        public int getOpacity() {
-            return mRealDrawable.getOpacity();
-        }
-    }
-
     /**
      * This is changed from the framework version to pass in the number of drawables in the
      * container. The framework version relies on private api's to get the count from
