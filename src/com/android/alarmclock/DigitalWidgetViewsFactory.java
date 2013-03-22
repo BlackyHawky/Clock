@@ -206,6 +206,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         }
         if (mReloadCitiesDb) {
             mAdapter.loadCitiesDb(mContext);
+            mAdapter.updateHomeLabel(mContext);
             mReloadCitiesDb = false;
         }
 

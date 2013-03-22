@@ -105,6 +105,14 @@ public class WorldClockAdapter extends BaseAdapter {
         }
     }
 
+    public void updateHomeLabel(Context context) {
+        // Update the "home" label if the home time zone clock is shown
+        if (needHomeCity() && mCitiesList.length > 0) {
+            ((CityObj) mCitiesList[0]).mCityName =
+                    context.getResources().getString(R.string.home_label);
+        }
+    }
+
     public boolean needHomeCity() {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (sharedPref.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, false)) {
