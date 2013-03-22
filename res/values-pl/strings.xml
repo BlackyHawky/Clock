@@ -78,7 +78,7 @@
     <item quantity="one" msgid="3783171637798575068">"minuta"</item>
     <item quantity="other" msgid="1304056759541595077">"min"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Wycisz po"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Wycisz za"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nigdy"</string>
   <string-array name="auto_silence_entries">
@@ -122,7 +122,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Ustaw alarm"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
-    <string name="menu_timer" msgid="6459070074762877114">"Licznik"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Minutnik"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Zegar"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stoper"</string>
     <string name="button_alarms" msgid="8016103479617020265">"Alarmy"</string>
@@ -146,7 +146,7 @@
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mój czas to <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Czasy okrążeń:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Okr. <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Okrążenie <xliff:g id="NUMBER">%d</xliff:g>"</string>
   <string-array name="stopwatch_format_set">
     <item msgid="7855304148648938406">"<xliff:g id="M">%2$d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>,<xliff:g id="D">%4$02d</xliff:g>s"</item>
     <item msgid="3964356050933061913">"<xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>,<xliff:g id="D">%4$02d</xliff:g>s"</item>
@@ -166,7 +166,7 @@
     <item quantity="one" msgid="6589853086641485725">"1 s"</item>
     <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> s"</item>
   </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Dodaj licznik"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Dodaj minutnik"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Usuń"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Dodaj 1 minutę"</string>
@@ -189,9 +189,9 @@
   </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1 minuta"</item>
-    <item quantity="other" msgid="3799129667336330616">"Minutniki: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> minutniki"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"Ekran główny"</string>
+    <string name="home_label" msgid="4436139365695453870">"Dom"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Miasta"</string>
     <string name="clock_settings" msgid="8887845806151785393">"ZEGAR"</string>
     <string name="clock_style" msgid="2265011060429742344">"Wygląd"</string>
@@ -200,7 +200,7 @@
     <item msgid="8483930821046925592">"Cyfrowy"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Zegar dla mojej strefy czasowej"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Podczas przebywania w innej strefie czasowej dodaj zegar mojego kraju"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Gdy jestem w innej strefie czasowej, pokazuj też czas w moim kraju"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domowa strefa czasowa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domowa strefa czasowa"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Anuluj"</string>
@@ -296,7 +296,7 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMY"</string>
-    <string name="see_all" msgid="775983396630163739">"Zobacz wszystkie..."</string>
+    <string name="see_all" msgid="775983396630163739">"Inne..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Usługa stopera odpowiedzialna za powiadamianie."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Zatrzymano"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Przesuń w prawo, by zamknąć"</string>
@@ -304,9 +304,9 @@
     <string name="description_direction_up" msgid="7875287578324520904">"Przesuń w górę, by zamknąć"</string>
     <string name="description_direction_down" msgid="8240473964024874053">"Przesuń w dół, by włączyć drzemkę"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Minutnik zatrzymany"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"Zatrzymane minutniki: <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> zatrzymane minutniki"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Kliknij, by zobaczyć minutniki"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"Minutniki: <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minutniki"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Następny minutnik: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Ustawienia wygaszacza"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Tryb nocny"</string>

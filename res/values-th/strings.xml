@@ -191,7 +191,7 @@
     <item quantity="one" msgid="6764708652976799977">"1 นาที"</item>
     <item quantity="other" msgid="3799129667336330616">"ตัวจับเวลา <xliff:g id="NUMBER">%d</xliff:g> รายการ"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"หน้าหลัก"</string>
+    <string name="home_label" msgid="4436139365695453870">"บ้าน"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"เมือง"</string>
     <string name="clock_settings" msgid="8887845806151785393">"นาฬิกา"</string>
     <string name="clock_style" msgid="2265011060429742344">"รูปแบบ"</string>

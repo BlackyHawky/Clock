@@ -191,7 +191,7 @@
     <item quantity="one" msgid="6764708652976799977">"1 минута"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> таймера"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"Начало"</string>
+    <string name="home_label" msgid="4436139365695453870">"Местна"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Градове"</string>
     <string name="clock_settings" msgid="8887845806151785393">"ЧАСОВНИК"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стил"</string>

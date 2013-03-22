@@ -117,7 +117,7 @@
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"目前无法提供天气信息。"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"在“时钟”内设置的闹钟铃声播放服务。"</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"正在载入铃声..."</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"正在加载铃声..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"用于“时钟”内设置的计时器的音效播放服务。"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"设置闹钟"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
@@ -191,7 +191,7 @@
     <item quantity="one" msgid="6764708652976799977">"1 分钟"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> 个计时器"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"家中"</string>
+    <string name="home_label" msgid="4436139365695453870">"家"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"城市"</string>
     <string name="clock_settings" msgid="8887845806151785393">"时钟"</string>
     <string name="clock_style" msgid="2265011060429742344">"样式"</string>

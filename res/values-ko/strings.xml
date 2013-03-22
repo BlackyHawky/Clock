@@ -42,12 +42,12 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g>까지 일시 중지"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"1분 미만 남음"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g>시간 남음"</item>
-    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g>분 남음"</item>
-    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g>시간 <xliff:g id="MINUTES">%2$s</xliff:g>분 남음"</item>
+    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> 남음"</item>
+    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> 남음"</item>
+    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> 남음"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"지금부터 1분 이내로 알람이 설정됩니다."</item>
+    <item msgid="6450913786084215050">"알람 시간이 지금으로부터 1분 이내입니다."</item>
     <item msgid="6002066367368421848">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> 후로 알람이 설정됩니다."</item>
     <item msgid="8824719306247973774">"지금부터 <xliff:g id="HOURS">%2$s</xliff:g> 후로 알람이 설정됩니다."</item>
     <item msgid="8182406852935468862">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> 후로 알람이 설정됩니다."</item>
@@ -78,7 +78,7 @@
     <item quantity="one" msgid="3783171637798575068">"분"</item>
     <item quantity="other" msgid="1304056759541595077">"분"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"무음 모드  전환 시간"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"알람 해제 시간"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g>분"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"사용 안함"</string>
   <string-array name="auto_silence_entries">
@@ -102,7 +102,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"버튼 효과"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"알람 일시중지"</item>
-    <item msgid="3450979320164769576">"닫기"</item>
+    <item msgid="3450979320164769576">"해제"</item>
     <item msgid="6302517608411378024">"아무것도 안함"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"기본 벨소리 설정"</string>
@@ -191,7 +191,7 @@
     <item quantity="one" msgid="6764708652976799977">"1분"</item>
     <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g>개의 타이머"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"홈"</string>
+    <string name="home_label" msgid="4436139365695453870">"기본"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"도시"</string>
     <string name="clock_settings" msgid="8887845806151785393">"시계"</string>
     <string name="clock_style" msgid="2265011060429742344">"종류"</string>

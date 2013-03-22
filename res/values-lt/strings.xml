@@ -191,7 +191,7 @@
     <item quantity="one" msgid="6764708652976799977">"1 min."</item>
     <item quantity="other" msgid="3799129667336330616">"Laikmačių: <xliff:g id="NUMBER">%d</xliff:g>"</item>
   </plurals>
-    <string name="home_label" msgid="4436139365695453870">"Pagrindinis"</string>
+    <string name="home_label" msgid="4436139365695453870">"Namų"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Miestai"</string>
     <string name="clock_settings" msgid="8887845806151785393">"LAIKRODIS"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stilius"</string>
