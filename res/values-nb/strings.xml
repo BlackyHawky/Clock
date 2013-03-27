@@ -199,7 +199,7 @@
     <item msgid="917900462224167608">"Analog"</item>
     <item msgid="8483930821046925592">"Digitalt"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Still klokken automatisk etter hjemmetidssonen"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Klokkeslett hjemme"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Når du reiser utenfor den vanlige tidssonen din, kan du legge til en klokke for hjemmetidssonen"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Hjemmetidssone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Hjemmetidssone"</string>
