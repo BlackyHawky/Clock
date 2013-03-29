@@ -105,7 +105,7 @@
     <item msgid="3450979320164769576">"דחה"</item>
     <item msgid="6302517608411378024">"אל תעשה דבר"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"קבע צלצול ברירת מחדל"</string>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"צליל ברירת מחדל"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"התראות"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"גלריה"</string>
     <string name="music_button_description" msgid="1626593420810117999">"מוסיקה"</string>
