@@ -37,7 +37,7 @@
     <string name="time" msgid="8067216534232296518">"שעה"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"דחה"</string>
     <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"ההתראה הושתקה לאחר <xliff:g id="MINUTES">%d</xliff:g> דקות."</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"העבר למצב נמנום"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"נודניק"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"עובר למצב נמנום למשך <xliff:g id="MINUTES">%d</xliff:g> דקות."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"מצב נמנום עד <xliff:g id="TIME">%s</xliff:g>"</string>
   <string-array name="timer_notifications">
@@ -69,7 +69,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"שעון אנלוגי"</string>
     <string name="help" msgid="7786263119482654015">"עזרה"</string>
     <string name="settings" msgid="5849739030579520686">"הגדרות"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"משך מצב נמנום"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"משך הנדנוד"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"דקה אחת"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> דקות"</item>
@@ -95,13 +95,13 @@
     <string name="delete" msgid="5732434972457000541">"מחק"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"עוצמת קול של התראה"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"שקט"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"העבר למצב נמנום או בטל את ההתראה."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"נודניק או ביטול ההתראה."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (מצב נמנום)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ההתראה מכוונת לשעה <xliff:g id="TIME">%s</xliff:g>. גע כדי לבטל."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"לחצני עוצמת קול"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"פעולת הלחצן"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"העבר למצב נמנום"</item>
+    <item msgid="7972756698723318690">"נודניק"</item>
     <item msgid="3450979320164769576">"דחה"</item>
     <item msgid="6302517608411378024">"אל תעשה דבר"</item>
   </string-array>
@@ -300,9 +300,9 @@
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"שירות שעון עצר להפעלת ההתראה."</string>
     <string name="swn_stopped" msgid="783124901663086172">"נעצר"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"החלק ימינה כדי לסגור"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"החלק שמאלה כדי להעביר למצב נמנום"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"החלק שמאלה כדי לעבור למצב נודניק"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"החלק מעלה כדי לסגור"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"החלק מטה כדי להעביר למצב נמנום"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"החלק מטה כדי לעבור למצב נודניק"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"טיימר נעצר"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> טיימרים נעצרו"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"גע כדי לראות את הטיימרים שלך"</string>
