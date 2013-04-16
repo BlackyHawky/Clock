@@ -13,10 +13,11 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="15" ></uses-sdk>
+    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="17" ></uses-sdk>
 
     <application android:label="@string/app_label"
-                 android:icon="@mipmap/ic_launcher_alarmclock">
+                 android:icon="@mipmap/ic_launcher_alarmclock"
+                 android:supportsRtl="true">
 
         <provider android:name="AlarmProvider"
                 android:authorities="com.android.deskclock"

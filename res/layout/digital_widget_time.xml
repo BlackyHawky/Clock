@@ -28,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:baselineAligned="true"
+        android:layoutDirection="ltr"
         android:layout_gravity="center_horizontal|top">
 
         <TextClock
@@ -69,9 +70,11 @@
             android:layout_height="wrap_content"
             android:drawablePadding="2dip"
             android:drawableLeft="@drawable/ic_alarm_small"
+            android:drawableStart="@drawable/ic_alarm_small"
             android:textColor="@color/clock_gray"
             style="@style/label"
             android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
             android:gravity="center"
             />
     </LinearLayout>
