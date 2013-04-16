@@ -29,7 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/circle_margin_top"
             android:layout_marginLeft="@dimen/analog_clock_margin"
+            android:layout_marginStart="@dimen/analog_clock_margin"
             android:layout_marginRight="@dimen/analog_clock_margin"
+            android:layout_marginEnd="@dimen/analog_clock_margin"
             android:layout_gravity="center_horizontal"
             android:dial="@drawable/clock_analog_dial_mipmap"
             android:hand_hour="@drawable/clock_analog_hour_mipmap"
@@ -60,9 +62,11 @@
             android:layout_height="wrap_content"
             android:drawablePadding="2dip"
             android:drawableLeft="@drawable/ic_alarm_small"
+            android:drawableStart="@drawable/ic_alarm_small"
             android:textColor="@color/clock_gray"
             style="@style/label"
             android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
             android:gravity="center"
             />
     </LinearLayout>

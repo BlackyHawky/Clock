@@ -28,6 +28,7 @@
         <LinearLayout
             android:baselineAligned="true"
             android:layout_gravity="center"
+            android:layoutDirection="ltr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -39,6 +40,7 @@
                 android:layout_height="wrap_content"
                 style="@style/widget_medium_bold"
                 android:textColor="@color/clock_white"
+                android:textDirection="ltr"
                 android:layout_gravity="center"
                 android:gravity="center" />
             <TextClock
@@ -49,6 +51,7 @@
                 android:layout_height="wrap_content"
                 style="@style/widget_medium_light"
                 android:textColor="@color/clock_white"
+                android:textDirection="ltr"
                 android:layout_gravity="center"
                 android:gravity="center" />
         </LinearLayout>
@@ -73,6 +76,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/style_label_space"
+                android:layout_marginStart="@dimen/style_label_space"
                 android:ellipsize="none"
                 android:singleLine="true"
                 android:textColor="@color/clock_gray" />
@@ -88,6 +92,7 @@
         <LinearLayout
             android:baselineAligned="true"
             android:layout_gravity="center"
+            android:layoutDirection="ltr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
@@ -99,6 +104,7 @@
                 android:layout_height="wrap_content"
                 style="@style/widget_medium_bold"
                 android:textColor="@color/clock_white"
+                android:textDirection="ltr"
                 android:layout_gravity="center"
                 android:gravity="center" />
             <TextClock
@@ -109,6 +115,7 @@
                 android:layout_height="wrap_content"
                 style="@style/widget_medium_light"
                 android:textColor="@color/clock_white"
+                android:textDirection="ltr"
                 android:layout_gravity="center"
                 android:gravity="center" />
         </LinearLayout>
@@ -134,6 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/style_label_space"
+                android:layout_marginStart="@dimen/style_label_space"
                 android:ellipsize="none"
                 android:singleLine="true"
                 android:textColor="@color/clock_gray" />
