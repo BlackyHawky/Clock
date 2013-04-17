@@ -30,13 +30,16 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingRight="20dip"
+                android:paddingEnd="20dip"
                 android:paddingLeft="10dip"
+                android:paddingStart="10dip"
                 android:drawablePadding="10dip"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/action_bar_button_text_color"
                 android:text="@string/done"
                 android:background="@drawable/activated_background_holo_dark"
                 android:drawableLeft="@drawable/ic_menu_done_holo_dark"
+                android:drawableStart="@drawable/ic_menu_done_holo_dark"
                 style="@android:style/Widget.Holo.ActionBar.TabText" />
 
     </LinearLayout>

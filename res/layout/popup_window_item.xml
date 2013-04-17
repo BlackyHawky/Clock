@@ -22,7 +22,9 @@
     android:orientation="horizontal"
     android:paddingBottom="10dip"
     android:paddingLeft="16dip"
+    android:paddingStart="16dip"
     android:paddingRight="16dip"
+    android:paddingEnd="16dip"
     android:paddingTop="10dip" >
 
     <ImageView
@@ -31,6 +33,7 @@
         android:layout_height="32dip"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="8dip"
+        android:layout_marginEnd="8dip"
         android:duplicateParentState="true" />
 
     <TextView

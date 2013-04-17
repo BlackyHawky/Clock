@@ -24,7 +24,9 @@
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_marginLeft="@dimen/circle_margin"
+        android:layout_marginStart="@dimen/circle_margin"
         android:layout_marginRight="@dimen/circle_margin"
+        android:layout_marginEnd="@dimen/circle_margin"
         android:layout_weight="0.95" >
 
         <com.android.deskclock.timer.CountingTimerView
@@ -41,7 +43,7 @@
 
         <ImageButton
             android:id="@+id/stopwatch_left_button"
-            android:layout_gravity="bottom|left"
+            android:layout_gravity="bottom|start"
             android:layout_width="56dip"
             style="@style/button"
             android:src="@drawable/ic_lap"
@@ -54,7 +56,9 @@
             android:gravity="center"
             android:layout_marginBottom="0dip"
             android:paddingLeft="10dip"
+            android:paddingStart="10dip"
             android:paddingRight="10dip"
+            android:paddingEnd="10dip"
             android:paddingBottom="5dip"
             android:paddingTop="5dip"
             android:text="@string/timer_stop"
@@ -70,7 +74,7 @@
             android:layout_width="56dip"
             android:src="@drawable/ic_share"
             style="@style/button"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:layout_height="56dip"
             android:contentDescription="@string/sw_share_button" />
     </FrameLayout>
@@ -79,6 +83,7 @@
         android:id="@+id/laps_list"
         android:layout_weight="1"
         android:layout_marginRight="@dimen/sw_right_margin"
+        android:layout_marginEnd="@dimen/sw_right_margin"
         android:layout_gravity="center"
         android:layout_width="0dip"
         android:layout_height="wrap_content" />

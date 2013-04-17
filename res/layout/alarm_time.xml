@@ -27,7 +27,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
         android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:orientation="horizontal">
@@ -38,12 +40,14 @@
             android:gravity="top"
             android:baselineAligned="false"
             android:clickable="true"
+            android:layoutDirection="ltr"
             android:background="@drawable/item_background">
             <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/timeDisplayHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="@dimen/time_margin_right"
+                android:paddingEnd="@dimen/time_margin_right"
                 android:singleLine="true"
                 android:ellipsize="none"
                 style="@style/small_bold"
@@ -75,20 +79,23 @@
             android:layout_height="match_parent"
             android:id="@+id/onoff"
             android:thumbTextPadding="10dp"
-            android:layout_gravity="center_vertical|right"/>
+            android:layout_gravity="center_vertical|end"/>
     </LinearLayout>
     <View
         android:id="@+id/hairline"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginRight="8dp"
+        android:layout_marginEnd="8dp"
         android:background="#28ffffff"/>
     <FrameLayout
         android:id="@+id/info_area"
         android:layout_width="match_parent"
         android:layout_height="32dp"
         android:paddingLeft="16dp"
+        android:paddingStart="16dp"
         android:gravity="center_vertical"
         android:clickable="true"
         android:background="@drawable/item_background">
@@ -96,6 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginRight="48dp"
+            android:layout_marginEnd="48dp"
             android:gravity="center_vertical"
             >
             <TextView android:id="@+id/label"
@@ -119,7 +127,7 @@
             android:layout_height="32dp"
             android:contentDescription="@string/expand_alarm"
             android:src="@drawable/ic_expand_down"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             />
     </FrameLayout>
     <LinearLayout
@@ -138,7 +146,9 @@
             android:layout_width="wrap_content"
             android:layout_height="64dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:ellipsize="end"
             android:singleLine="true"
             android:background="@drawable/item_background"/>
@@ -148,7 +158,9 @@
             android:layout_height="48dp"
             android:layout_width="wrap_content"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_gravity="center_vertical"
             style="@style/body"
             android:textColor="@color/clock_white"/>
@@ -157,7 +169,9 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_gravity="top"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -167,7 +181,9 @@
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -176,6 +192,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
                 style="@style/body"
                 android:background="@drawable/item_background"
@@ -186,6 +203,7 @@
                 android:singleLine="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:drawableLeft="@drawable/ic_ringtone"
+                android:drawableStart="@drawable/ic_ringtone"
                 android:drawablePadding="2dp"
                 />
             <CheckBox
@@ -195,14 +213,16 @@
                 android:textColor="@color/clock_gray"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical|right"
+                android:layout_gravity="center_vertical|end"
                 style="@style/body"/>
         </LinearLayout>
         <View
             android:id="@+id/hairline"
             android:layout_height="1dp"
             android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_width="match_parent"
             android:background="#28ffffff"/>
         <FrameLayout
@@ -217,7 +237,7 @@
                 android:layout_width="48dp"
                 android:layout_height="32dp"
                 android:src="@drawable/ic_expand_up"
-                android:layout_gravity="right"/>
+                android:layout_gravity="end"/>
         </FrameLayout>
     </LinearLayout>
 </com.android.deskclock.widget.swipeablelistview.SwipeLayout>

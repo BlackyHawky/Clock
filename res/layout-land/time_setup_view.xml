@@ -18,6 +18,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <LinearLayout
+        android:layoutDirection="ltr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.android.deskclock.timer.TimerView
@@ -28,6 +29,7 @@
             android:paddingTop="@dimen/medium_font_padding"
             android:paddingBottom="@dimen/medium_font_padding"
             android:paddingLeft="@dimen/timer_padding_left"
+            android:paddingStart="@dimen/timer_padding_left"
             android:layout_gravity="center"
             android:gravity="top"
             android:baselineAligned="false">

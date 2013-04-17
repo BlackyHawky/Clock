@@ -30,7 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/screensaver_margin"
+        android:layout_marginStart="@dimen/screensaver_margin"
         android:layout_marginRight="@dimen/screensaver_margin"
+        android:layout_marginEnd="@dimen/screensaver_margin"
         android:layout_marginTop="@dimen/time_margin_top"
         android:layout_marginBottom="@dimen/screensaver_margin">
 
@@ -73,9 +75,11 @@
             android:layout_height="wrap_content"
             android:drawablePadding="2dip"
             android:drawableLeft="@drawable/ic_alarm_small"
+            android:drawableStart="@drawable/ic_alarm_small"
             android:textColor="@color/clock_gray"
             style="@style/label"
             android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
             android:gravity="center"
             android:visibility="gone"
             />

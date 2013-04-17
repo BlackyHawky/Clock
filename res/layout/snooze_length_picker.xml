@@ -32,6 +32,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center_vertical"
         android:layout_marginLeft="16dip"
+        android:layout_marginStart="16dip"
         android:layout_width="wrap_content"
         android:layout_height="match_parent" />
 
