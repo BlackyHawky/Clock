@@ -24,7 +24,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dip"
         android:layout_marginLeft="@dimen/circle_margin"
+        android:layout_marginStart="@dimen/circle_margin"
         android:layout_marginRight="@dimen/circle_margin"
+        android:layout_marginEnd="@dimen/circle_margin"
         android:layout_weight="5" >
 
         <com.android.deskclock.timer.CountingTimerView
@@ -43,7 +45,7 @@
             style="@style/button"
             android:layout_width="56dip"
             android:layout_height="56dip"
-            android:layout_gravity="bottom|left"
+            android:layout_gravity="bottom|start"
             android:background="@null"
             android:src="@drawable/ic_lap" />
 
@@ -57,7 +59,9 @@
             android:layout_marginBottom="0dip"
             android:contentDescription="@string/timer_stop"
             android:paddingLeft="10dip"
+            android:paddingStart="10dip"
             android:paddingRight="10dip"
+            android:paddingEnd="10dip"
             android:paddingBottom="5dip"
             android:paddingTop="5dip"
             android:textColor="@color/clock_white"
@@ -69,7 +73,7 @@
             style="@style/button"
             android:layout_width="56dip"
             android:layout_height="56dip"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:contentDescription="@string/sw_share_button"
             android:background="@null"
             android:src="@drawable/ic_share" />

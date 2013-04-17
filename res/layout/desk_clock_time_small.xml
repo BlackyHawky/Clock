@@ -21,6 +21,7 @@
     android:layout_height="wrap_content"
     android:baselineAligned="false"
     android:gravity="top"
+    android:layoutDirection="ltr"
     >
 
     <com.android.deskclock.ZeroTopPaddingTextView
@@ -28,6 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingRight="@dimen/time_margin_right"
+        android:paddingEnd="@dimen/time_margin_right"
         android:singleLine="true"
         android:ellipsize="none"
         style="@style/medium_bold"

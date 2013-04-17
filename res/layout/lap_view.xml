@@ -19,6 +19,7 @@
     android:layout_marginTop="4dip"
     android:layout_marginBottom="4dip"
     android:gravity="center"
+    android:layoutDirection="ltr"
     android:paddingTop="@dimen/body_font_padding"
     android:paddingBottom="@dimen/body_font_padding"
     android:layout_width="match_parent"
@@ -28,7 +29,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/clock_gray"
         android:layout_marginRight="@dimen/sw_item_space"
-        android:gravity="left"
+        android:layout_marginEnd="@dimen/sw_item_space"
+        android:gravity="start"
         style="@style/body"
         android:textAllCaps="false"
         android:id="@+id/lap_number" />
@@ -36,8 +38,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/sw_item_space"
+        android:layout_marginEnd="@dimen/sw_item_space"
         android:textColor="@color/clock_gray"
-        android:gravity="right"
+        android:gravity="end"
         style="@style/body"
         android:textAllCaps="false"
         android:id="@+id/lap_time" />
@@ -45,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:textColor="@color/clock_gray"
-        android:gravity="right"
+        android:gravity="end"
         style="@style/body"
         android:textAllCaps="false"
         android:id="@+id/lap_total" />

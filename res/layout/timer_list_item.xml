@@ -28,7 +28,9 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/timer_circle_diameter"
         android:layout_marginLeft="@dimen/timer_circle_margin"
-        android:layout_marginRight="@dimen/timer_circle_margin">
+        android:layout_marginStart="@dimen/timer_circle_margin"
+        android:layout_marginRight="@dimen/timer_circle_margin"
+        android:layout_marginEnd="@dimen/timer_circle_margin">
 
         <com.android.deskclock.CircleTimerView
             android:id="@+id/timer_time"
@@ -80,7 +82,7 @@
             android:src="@drawable/ic_plusone"
             android:background="@null"
             android:layout_width="56dip"
-            android:layout_gravity="bottom|left"
+            android:layout_gravity="bottom|start"
             style="@style/button"
             android:contentDescription="@string/timer_plus_one"
             android:layout_height="56dip" />
@@ -91,7 +93,9 @@
             android:gravity="center"
             android:layout_marginBottom="0dip"
             android:paddingLeft="10dip"
+            android:paddingStart="10dip"
             android:paddingRight="10dip"
+            android:paddingEnd="10dip"
             android:paddingBottom="5dip"
             android:paddingTop="5dip"
             android:text="@string/timer_stop"
@@ -104,7 +108,7 @@
             android:id="@+id/timer_delete"
             android:src="@drawable/ic_delete"
             android:background="@null"
-            android:layout_gravity="bottom|right"
+            android:layout_gravity="bottom|end"
             android:layout_width="56dip"
             android:contentDescription="@string/timer_delete"
             style="@style/button"
