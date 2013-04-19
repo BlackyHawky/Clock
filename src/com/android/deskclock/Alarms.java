@@ -30,6 +30,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Parcel;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import java.util.Calendar;
@@ -647,6 +648,8 @@ public class Alarms {
      * settings so those who care can make use of it.
      */
     static void saveNextAlarm(final Context context, String timeString) {
+        Log.v("Setting next alarm string in system to " +
+                (TextUtils.isEmpty(timeString) ? "null" : timeString));
         Settings.System.putString(context.getContentResolver(),
                                   Settings.System.NEXT_ALARM_FORMATTED,
                                   timeString);
