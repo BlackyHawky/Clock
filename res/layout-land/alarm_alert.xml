@@ -51,6 +51,7 @@
             android:id="@+id/digitalClock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layoutDirection="ltr"
             android:baselineAligned="false"
             android:gravity="top" >
 
