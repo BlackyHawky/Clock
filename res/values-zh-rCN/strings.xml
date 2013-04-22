@@ -117,7 +117,7 @@
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"目前无法提供天气信息。"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"在“时钟”内设置的闹钟铃声播放服务。"</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"正在载入铃声..."</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"正在加载铃声..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"用于“时钟”内设置的计时器的音效播放服务。"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"设置闹钟"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
@@ -147,13 +147,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"我的时间：<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"各圈时间："</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"第 <xliff:g id="NUMBER">%d</xliff:g> 圈"</string>
-  <string-array name="stopwatch_format_set">
-    <item msgid="7855304148648938406">"<xliff:g id="M">%2$d</xliff:g>:<xliff:g id="S">%3$02d</xliff:g>.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="3964356050933061913">"<xliff:g id="M">%2$02d</xliff:g>:<xliff:g id="S">%3$02d</xliff:g>.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="4906928997138522728">"<xliff:g id="H">%1$d</xliff:g>:<xliff:g id="M">%2$02d</xliff:g>:<xliff:g id="S">%3$02d</xliff:g>.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="1167529664702951052">"<xliff:g id="H">%1$02d</xliff:g>:<xliff:g id="M">%2$02d</xliff:g>:<xliff:g id="S">%3$02d</xliff:g>.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="4383974684898411623">"<xliff:g id="H">%1$03d</xliff:g>:<xliff:g id="M">%2$02d</xliff:g>:<xliff:g id="S">%3$02d</xliff:g>.<xliff:g id="D">%4$02d</xliff:g>"</item>
-  </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 小时"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> 小时"</item>
