@@ -147,13 +147,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Tiden min er <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Rundetider:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Runde <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <string-array name="stopwatch_format_set">
-    <item msgid="7855304148648938406">"<xliff:g id="M">%2$d</xliff:g> m <xliff:g id="S">%3$02d</xliff:g> s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="3964356050933061913">"<xliff:g id="M">%2$02d</xliff:g> m <xliff:g id="S">%3$02d</xliff:g> s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="4906928997138522728">"<xliff:g id="H">%1$d</xliff:g> t <xliff:g id="M">%2$02d</xliff:g> m <xliff:g id="S">%3$02d</xliff:g> s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="1167529664702951052">"<xliff:g id="H">%1$02d</xliff:g> t <xliff:g id="M">%2$02d</xliff:g> m <xliff:g id="S">%3$02d</xliff:g> s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="4383974684898411623">"<xliff:g id="H">%1$03d</xliff:g> t <xliff:g id="M">%2$02d</xliff:g> m <xliff:g id="S">%3$02d</xliff:g> s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-  </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 time"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> timer"</item>
@@ -199,7 +192,7 @@
     <item msgid="917900462224167608">"Analog"</item>
     <item msgid="8483930821046925592">"Digitalt"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Still klokken automatisk etter hjemmetidssonen"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Klokkeslett hjemme"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Når du reiser utenfor den vanlige tidssonen din, kan du legge til en klokke for hjemmetidssonen"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Hjemmetidssone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Hjemmetidssone"</string>

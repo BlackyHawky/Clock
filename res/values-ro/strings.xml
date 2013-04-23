@@ -21,10 +21,10 @@
     <string name="add_alarm" msgid="5976616107390962899">"Adăugaţi o alarmă"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Ceas de birou"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Modificaţi alarma"</string>
-    <string name="delete_alarm" msgid="3457780990646206817">"Ştergeţi alarma"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"Ștergeţi alarma"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Porniţi alarma"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Opriţi alarma"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Ştergeţi această alarmă?"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Ștergeţi această alarmă?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Afişaţi ceasul"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Ascundeţi ceasul"</string>
     <string name="label" msgid="162189613902857319">"Etichetă"</string>
@@ -92,7 +92,7 @@
   </string-array>
     <string name="done" msgid="6509722361933858451">"Terminat"</string>
     <string name="revert" msgid="9100911171235162926">"Reveniţi"</string>
-    <string name="delete" msgid="5732434972457000541">"Ştergeţi"</string>
+    <string name="delete" msgid="5732434972457000541">"Ștergeţi"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volum alarmă"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silenţios"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Amânaţi sau anulaţi alarma."</string>
@@ -147,13 +147,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Ora mea este <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Timpi circuit:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Circuitul <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <string-array name="stopwatch_format_set">
-    <item msgid="7855304148648938406">"<xliff:g id="M">%2$d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="3964356050933061913">"<xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="4906928997138522728">"<xliff:g id="H">%1$d</xliff:g>h <xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="1167529664702951052">"<xliff:g id="H">%1$02d</xliff:g>h <xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-    <item msgid="4383974684898411623">"<xliff:g id="H">%1$03d</xliff:g>h <xliff:g id="M">%2$02d</xliff:g>m <xliff:g id="S">%3$02d</xliff:g>s.<xliff:g id="D">%4$02d</xliff:g>"</item>
-  </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 oră"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ore"</item>
@@ -168,7 +161,7 @@
   </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Adăugaţi un temporizator"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"Ştergeţi"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"Ștergeţi"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Adăugaţi 1 minut"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Opriţi"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Resetaţi"</string>
@@ -320,12 +313,12 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Alarma următoare: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> selectate"</string>
-    <string name="deleted_message" msgid="1220848140260509437">"Şters"</string>
+    <string name="deleted_message" msgid="1220848140260509437">"Șters"</string>
   <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"Ştergeţi alarma selectată?"</item>
-    <item quantity="other" msgid="6918176478191272189">"Ştergeţi alarmele selectate?"</item>
+    <item quantity="one" msgid="111940612131906802">"Ștergeţi alarma selectată?"</item>
+    <item quantity="other" msgid="6918176478191272189">"Ștergeţi alarmele selectate?"</item>
   </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Ştergeţi acest contor?"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Ștergeţi acest contor?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Eliminaţi acest oraş?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Ceas digital"</string>
 </resources>
