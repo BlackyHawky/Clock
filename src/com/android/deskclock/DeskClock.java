@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,6 +50,7 @@ import com.android.deskclock.worldclock.CitiesActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -76,6 +78,11 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     public static final int TIMER_TAB_INDEX = 0;
     public static final int CLOCK_TAB_INDEX = 1;
     public static final int STOPWATCH_TAB_INDEX = 2;
+    // Tabs indices are switched for right-to-left since there is no
+    // native support for RTL in the ViewPager.
+    public static final int RTL_TIMER_TAB_INDEX = 2;
+    public static final int RTL_CLOCK_TAB_INDEX = 1;
+    public static final int RTL_STOPWATCH_TAB_INDEX = 0;
 
     private int mSelectedTab;
 
@@ -319,7 +326,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
         @Override
         public Fragment getItem(int position) {
-            TabInfo info = mTabs.get(position);
+            TabInfo info = mTabs.get(getRtlPosition(position));
             DeskClockFragment f = (DeskClockFragment) Fragment.instantiate(
                     mContext, info.clss.getName(), info.args);
             return f;
@@ -346,7 +353,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
         @Override
         public void onPageSelected(int position) {
-            mMainActionBar.setSelectedNavigationItem(position);
+            mMainActionBar.setSelectedNavigationItem(getRtlPosition(position));
             notifyPageChanged(position);
         }
 
@@ -363,7 +370,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         @Override
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
             TabInfo info = (TabInfo)tab.getTag();
-            mPager.setCurrentItem(info.getPosition());
+            mPager.setCurrentItem(getRtlPosition(info.getPosition()));
         }
 
         @Override
@@ -400,6 +407,27 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
         public void unregisterPageChangedListener(DeskClockFragment frag) {
             mFragmentTags.remove(frag.getTag());
+        }
+
+        private boolean isRtl() {
+            return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) ==
+                    View.LAYOUT_DIRECTION_RTL;
+        }
+
+        private int getRtlPosition(int position) {
+             if (isRtl()) {
+                 switch (position) {
+                     case TIMER_TAB_INDEX:
+                         return RTL_TIMER_TAB_INDEX;
+                     case CLOCK_TAB_INDEX:
+                         return RTL_CLOCK_TAB_INDEX;
+                     case STOPWATCH_TAB_INDEX:
+                         return RTL_STOPWATCH_TAB_INDEX;
+                     default:
+                         break;
+                }
+            }
+            return position;
         }
     }
 
