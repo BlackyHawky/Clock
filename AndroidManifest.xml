@@ -17,6 +17,7 @@
 
     <application android:label="@string/app_label"
                  android:icon="@mipmap/ic_launcher_alarmclock"
+                 android:requiredForAllUsers="true"
                  android:supportsRtl="true">
 
         <provider android:name="AlarmProvider"
