@@ -20,6 +20,8 @@ import android.content.Context;
 
 import com.android.deskclock.R;
 
+import java.text.DecimalFormatSymbols;
+
 public class Stopwatches {
     // Private actions processed by the receiver
     public static final String START_STOPWATCH = "start_stopwatch";
@@ -121,7 +123,8 @@ public class Stopwatches {
         seconds = seconds - minutes * 60;
         hours = minutes / 60;
         minutes = minutes - hours * 60;
-        String timeStr = String.format(format, hours, minutes, seconds, hundreds);
+        char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
+        String timeStr = String.format(format, hours, minutes, seconds, hundreds, decimalSeparator);
         return timeStr;
     }
 
