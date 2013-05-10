@@ -354,11 +354,24 @@ public class StopwatchFragment extends DeskClockFragment
         }
         showLaps();
         ((DeskClock)getActivity()).registerPageChangedListener(this);
+        // View was hidden in onPause, make sure it is visible now.
+        View v = getView();
+        if (v != null) {
+            getView().setVisibility(View.VISIBLE);
+        }
         super.onResume();
     }
 
     @Override
     public void onPause() {
+        // This is called because the lock screen was activated, the window stay
+        // active under it and when we unlock the screen, we see the old time for
+        // a fraction of a second.
+        View v = getView();
+        if (v != null) {
+            getView().setVisibility(View.INVISIBLE);
+        }
+
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
             stopUpdateThread();
         }

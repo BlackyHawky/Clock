@@ -539,6 +539,11 @@ public class TimerFragment extends DeskClockFragment
         }
         mLastVisibleView = null;   // Force a non animation setting of the view
         setPage();
+        // View was hidden in onPause, make sure it is visible now.
+        View v = getView();
+        if (v != null) {
+            getView().setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -552,6 +557,13 @@ public class TimerFragment extends DeskClockFragment
             mAdapter.saveGlobalState ();
         }
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
+        // This is called because the lock screen was activated, the window stay
+        // active under it and when we unlock the screen, we see the old time for
+        // a fraction of a second.
+        View v = getView();
+        if (v != null) {
+            getView().setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
