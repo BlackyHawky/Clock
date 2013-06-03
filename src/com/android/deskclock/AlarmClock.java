@@ -371,7 +371,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         final Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
         mSelectedAlarm.alert = uri;
         // Save the last selected ringtone as the default for new alarms
-        RingtoneManager.setActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM, uri);
+        if (uri != null) {
+            RingtoneManager.setActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM, uri);
+        }
         asyncUpdateAlarm(mSelectedAlarm, false);
     }
 
@@ -1129,6 +1131,9 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     private void asyncAddAlarm() {
         Alarm a = new Alarm();
         a.alert = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM);
+        if (a.alert == null) {
+            a.alert = Uri.parse("content://settings/system/alarm_alert");
+        }
         asyncAddAlarm(a, true);
     }
 
