@@ -44,12 +44,14 @@ public class WidgetUtils {
             options = widgetManager.getAppWidgetOptions(id);
         }
         if (options != null) {
-            int minWidth = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
+            float minWidth = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
             if (minWidth == 0) {
                 // No data , do no scaling
                 return 1f;
             }
             Resources res = context.getResources();
+            float density = res.getDisplayMetrics().density;
+            minWidth *= density;
             float ratio = minWidth / res.getDimension(R.dimen.def_digital_widget_width);
             return (ratio > 1) ? 1 : ratio;
         }
@@ -84,9 +86,11 @@ public class WidgetUtils {
             // no data to make the calculation, show the list anyway
             return true;
         }
-        int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-        int neededSize = (int) context.getResources().
-            getDimension(R.dimen.digital_widget_list_min_height);
+        float minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+        Resources res = context.getResources();
+        float density = res.getDisplayMetrics().density;
+        minHeight *= density;
+        int neededSize = (int) res.getDimension(R.dimen.digital_widget_list_min_height);
         return (minHeight > neededSize);
     }
 }
