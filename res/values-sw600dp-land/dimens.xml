@@ -54,8 +54,4 @@
     <dimen name="timer_button_extra_offset">0dip</dimen>
 
     <dimen name="glowpadview_margin_right">-64dip</dimen>
-
-    <dimen name="min_digital_widget_resize_width">370dip</dimen>
-    <dimen name="min_digital_widget_height">200dip</dimen>
-    <dimen name="digital_widget_list_min_height">200dip</dimen>
 </resources>

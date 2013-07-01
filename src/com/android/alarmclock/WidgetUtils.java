@@ -18,6 +18,7 @@ package com.android.alarmclock;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,29 +40,42 @@ public class WidgetUtils {
 
     // Calculate the scale factor of the fonts in the widget
     public static float getScaleRatio(Context context, Bundle options, int id) {
-        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
         if (options == null) {
+            AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+            if (widgetManager == null) {
+                // no manager , do no scaling
+                return 1f;
+            }
             options = widgetManager.getAppWidgetOptions(id);
         }
         if (options != null) {
-            float minWidth = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
+            int minWidth = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
             if (minWidth == 0) {
                 // No data , do no scaling
                 return 1f;
             }
             Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
-            minWidth *= density;
-            float ratio = minWidth / res.getDimension(R.dimen.def_digital_widget_width);
+            float ratio = (density * minWidth) / res.getDimension(R.dimen.min_digital_widget_width);
+            // Check if the height could introduce a font size constraint
+            int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
+            if (minHeight > 0 && (density * minHeight)
+                    < res.getDimension(R.dimen.min_digital_widget_height)) {
+                ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
+            }
             return (ratio > 1) ? 1 : ratio;
         }
         return 1;
     }
 
     // Calculate the scale factor of the fonts in the list of  the widget using the widget height
-    public static float getHeightScaleRatio(Context context, Bundle options, int id) {
-        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+    private static float getHeightScaleRatio(Context context, Bundle options, int id) {
         if (options == null) {
+            AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+            if (widgetManager == null) {
+                // no manager , do no scaling
+                return 1f;
+            }
             options = widgetManager.getAppWidgetOptions(id);
         }
         if (options != null) {
@@ -71,8 +85,15 @@ public class WidgetUtils {
                 return 1f;
             }
             Resources res = context.getResources();
-            float ratio = minHeight / res.getDimension(R.dimen.def_digital_widget_height);
-            return (ratio > 1) ? 1 : ratio;
+            float density = res.getDisplayMetrics().density;
+            // Estimate height of date text box - 1.35 roughly approximates the text box padding
+            float lblBox = 1.35f * res.getDimension(R.dimen.label_font_size);
+            // Ensure divisor for ratio is positive number
+            if (res.getDimension(R.dimen.min_digital_widget_height) - lblBox > 0) {
+                float ratio = ((density * minHeight) - lblBox)
+                        / (res.getDimension(R.dimen.min_digital_widget_height) - lblBox);
+                return (ratio > 1) ? 1 : ratio;
+            }
         }
         return 1;
     }
@@ -81,17 +102,33 @@ public class WidgetUtils {
     // Decide if to show the list of world clock.
     // Check to see if the widget size is big enough, if it is return true.
     public static boolean showList(Context context, int id, float scale) {
-        Bundle options = AppWidgetManager.getInstance(context).getAppWidgetOptions(id);
+        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
+        if (widgetManager == null) {
+            // no manager to make the calculation, show the list anyway
+            return true;
+        }
+        Bundle options = widgetManager.getAppWidgetOptions(id);
         if (options == null) {
             // no data to make the calculation, show the list anyway
             return true;
         }
-        float minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
         Resources res = context.getResources();
+        String whichHeight = res.getConfiguration().orientation ==
+                Configuration.ORIENTATION_PORTRAIT
+                ? AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT
+                : AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
+        int height = options.getInt(whichHeight);
+        if (height == 0) {
+            // no data to make the calculation, show the list anyway
+            return true;
+        }
         float density = res.getDisplayMetrics().density;
-        minHeight *= density;
-        int neededSize = (int) res.getDimension(R.dimen.digital_widget_list_min_height);
-        return (minHeight > neededSize);
+        // Estimate height of date text box
+        float lblBox = 1.35f * res.getDimension(R.dimen.label_font_size);
+        float neededSize = res.getDimension(R.dimen.digital_widget_list_min_fixed_height) +
+                2 * lblBox +
+                scale * res.getDimension(R.dimen.digital_widget_list_min_scaled_height);
+        return ((density * height) > neededSize);
     }
 }
 

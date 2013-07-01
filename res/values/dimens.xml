@@ -50,10 +50,8 @@
     <dimen name="circletimer_marker_size">16dip</dimen>
 
     <dimen name="big_font_size">120dp</dimen>
-    <dimen name="widget_big_font_size">80dp</dimen>
     <dimen name="small_font_size">48sp</dimen>
     <dimen name="medium_font_size">60dp</dimen>
-    <dimen name="widget_medium_font_size">48dp</dimen>
     <dimen name="label_font_size">14sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
@@ -150,13 +148,23 @@
     <dimen name="glowpadview_margin_bottom">-64dip</dimen>
     <dimen name="glowpadview_margin_right">0dip</dimen>
 
-    <dimen name="min_digital_widget_width">160dip</dimen>
-    <dimen name="min_digital_widget_height">70dip</dimen>
-    <dimen name="min_digital_widget_resize_width">160dip</dimen>
-    <dimen name="min_digital_widget_resize_height">70dip</dimen>
-    <dimen name="def_digital_widget_width">160dip</dimen>
-    <dimen name="def_digital_widget_height">130dip</dimen>
-    <dimen name="digital_widget_list_min_height">70dip</dimen>
-    <dimen name="digital_widget_list_margin_top">12dip</dimen>
+    <!-- Digital Widget settings (keyguard|home_screen) -->
+    <!-- Clock and world clock sizes -->
+    <dimen name="widget_big_font_size">80dp</dimen>
+    <dimen name="widget_medium_font_size">32dp</dimen>
+    <dimen name="widget_24_medium_font_size">40dp</dimen>
+    <!-- width/height of layout/digital_widget_time -->
+    <!-- height is sum of widget_big_font_size + label_font_size + margins -->
+    <dimen name="min_digital_widget_width">206dp</dimen>
+    <dimen name="min_digital_widget_height">129dp</dimen>
+    <!-- same as min_digital_widget_{width,height} -->
+    <dimen name="min_digital_widget_resize_width">206dp</dimen>
+    <dimen name="min_digital_widget_resize_height">129dp</dimen>
+    <!-- sum of scaled heights -->
+    <dimen name="digital_widget_list_min_scaled_height">162dp</dimen>
+    <!-- sum of fixed heights -->
+    <dimen name="digital_widget_list_min_fixed_height">12dp</dimen>
+    <!-- top margin for digital_appwidget_listview -->
+    <dimen name="digital_widget_list_margin_top">12dp</dimen>
 
 </resources>
