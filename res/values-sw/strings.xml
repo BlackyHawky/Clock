@@ -289,7 +289,7 @@
     <item msgid="5911600083231840181">"Tonga"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"KENGELE"</string>
-    <string name="see_all" msgid="775983396630163739">"Ona zote..."</string>
+    <string name="see_all" msgid="775983396630163739">"Angalia zote..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Huduma ya saa ya kusitisha kuendesha arifa."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Imekomeshwa"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Telezesha kulia ili kuondoa"</string>
