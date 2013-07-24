@@ -49,18 +49,18 @@ public class ZeroTopPaddingTextView extends TextView {
 
     public ZeroTopPaddingTextView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setIncludeFontPadding(false);
+      //  setIncludeFontPadding(false);
         updatePadding();
     }
 
     public void updatePadding() {
         float paddingRatio = NORMAL_FONT_PADDING_RATIO;
         float bottomPaddingRatio = NORMAL_FONT_BOTTOM_PADDING_RATIO;
-        if (getTypeface().equals(SAN_SERIF_BOLD) ||
-                    getTypeface().equals(SAN_SERIF__CONDENSED_BOLD)) {
+    //    if (getTypeface().equals(SAN_SERIF_BOLD) ||
+      //              getTypeface().equals(SAN_SERIF__CONDENSED_BOLD)) {
             paddingRatio = BOLD_FONT_PADDING_RATIO;
             bottomPaddingRatio = BOLD_FONT_BOTTOM_PADDING_RATIO;
-        }
+      //  }
         // no need to scale by display density because getTextSize() already returns the font
         // height in px
         setPadding(0, (int) (-paddingRatio * getTextSize()), mPaddingRight,
