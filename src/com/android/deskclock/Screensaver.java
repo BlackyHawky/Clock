@@ -42,6 +42,8 @@ public class Screensaver extends DreamService {
 
     private View mContentView, mSaverView;
     private View mAnalogClock, mDigitalClock;
+    private String mDateFormat;
+    private String mDateFormatForAccessibility;
 
     private final Handler mHandler = new Handler();
 
@@ -56,6 +58,9 @@ public class Screensaver extends DreamService {
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Screensaver created");
         super.onCreate();
+
+        mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
+        mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
     }
 
     @Override
@@ -109,5 +114,9 @@ public class Screensaver extends DreamService {
         mSaverView.setAlpha(0);
 
         mMoveSaverRunnable.registerViews(mContentView, mSaverView);
+
+        Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mContentView);
+        Utils.refreshAlarm(Screensaver.this, mContentView);
+        
     }
 }
