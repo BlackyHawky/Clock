@@ -76,6 +76,7 @@
             android:layout_marginLeft="8dip"
             android:layout_marginStart="8dip"
             android:gravity="center"
+            android:visibility="gone"
             />
     </LinearLayout>
 </LinearLayout>
