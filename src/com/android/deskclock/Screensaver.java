@@ -117,6 +117,5 @@ public class Screensaver extends DreamService {
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mContentView);
         Utils.refreshAlarm(Screensaver.this, mContentView);
-        
     }
 }
