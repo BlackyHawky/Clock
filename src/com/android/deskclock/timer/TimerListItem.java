@@ -19,7 +19,7 @@ package com.android.deskclock.timer;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.android.deskclock.CircleTimerView;
@@ -73,6 +73,8 @@ public class TimerListItem extends LinearLayout {
     public void pause() {
         mCircleView.pauseIntervalAnimation();
         mTimerText.redTimeStr(false, true);
+        mTimerText.showTime(true);
+        mCircleView.setVisibility(VISIBLE);
     }
 
     public void stop() {
@@ -118,10 +120,11 @@ public class TimerListItem extends LinearLayout {
     // Used by animator to animate the size of a timer
     @SuppressWarnings("unused")
     public void setAnimatedHeight(int height) {
-        getLayoutParams().height = height;
-        requestLayout();
+        ViewGroup.LayoutParams layoutParams = getLayoutParams();
+        if (layoutParams != null) {
+            layoutParams.height = height;
+            requestLayout();
+        }
     }
-
-
 
 }
