@@ -106,6 +106,10 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
         initialize(savedState);
         updateLayout();
         getLoaderManager().initLoader(0, null, this);
+
+        if (mInDeleteConfirmation) {
+            showConfirmationDialog();
+        }
     }
 
     private void initialize(Bundle savedState) {
@@ -180,13 +184,6 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (mInDeleteConfirmation) {
-            showConfirmationDialog();
-        }
-    }
     private void hideUndoBar(boolean animate, MotionEvent event) {
         if (mUndoBar != null) {
             if (event != null && mUndoBar.isEventInToastBar(event)) {
