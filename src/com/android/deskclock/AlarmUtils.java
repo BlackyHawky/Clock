@@ -33,7 +33,6 @@ public class AlarmUtils {
         if (prev != null) {
             ft.remove(prev);
         }
-        ft.addToBackStack(null);
 
         final AlarmTimePickerDialogFragment fragment = AlarmTimePickerDialogFragment.newInstance(
                 alarm);
