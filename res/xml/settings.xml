@@ -53,9 +53,9 @@
             android:defaultValue="10"/>
 
         <VolumePreference
+            android:key="volume_setting"
             android:title="@string/alarm_volume_title"
             android:dialogTitle="@string/alarm_volume_title"
-            android:persistent="false"
             android:streamType="alarm" />
 
         <ListPreference
