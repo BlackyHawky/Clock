@@ -116,10 +116,11 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Intentionally verbose: always log the alarm time to provide useful
         // information in bug reports.
         long now = System.currentTimeMillis();
-        Log.v("Received alarm set for id=" + alarm.id + " " + Log.formatTime(alarm.time));
+        long alarmTime = alarm.calculateAlarmTime();
+        Log.v("Received alarm set for id=" + alarm.id + " " + Log.formatTime(alarmTime));
 
         // Always verbose to track down time change problems.
-        if (now > alarm.time + STALE_WINDOW) {
+        if (now > alarmTime + STALE_WINDOW) {
             Log.v("Ignoring stale alarm");
             return;
         }
@@ -167,15 +168,15 @@ public class AlarmReceiver extends BroadcastReceiver {
                 alarm.id, dismissIntent, 0);
 
         final Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(alarm.time);
-        String alarmTime = Alarms.formatTime(context, cal);
+        cal.setTimeInMillis(alarmTime);
+        String alarmTimeLabel = Alarms.formatTime(context, cal);
 
         // Use the alarm's label or the default label main text of the notification.
         String label = alarm.getLabelOrDefault(context);
 
         Notification n = new Notification.Builder(context)
         .setContentTitle(label)
-        .setContentText(alarmTime)
+        .setContentText(alarmTimeLabel)
         .setSmallIcon(R.drawable.stat_notify_alarm)
         .setOngoing(true)
         .setAutoCancel(false)
@@ -231,7 +232,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // silenced.
         String label = alarm.getLabelOrDefault(context);
         Notification n = new Notification(R.drawable.stat_notify_alarm,
-                label, alarm.time);
+                label, alarm.calculateAlarmTime());
         n.setLatestEventInfo(context, label,
                 context.getString(R.string.alarm_alert_alert_silenced, timeout),
                 intent);
