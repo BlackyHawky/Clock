@@ -116,7 +116,7 @@ public class Alarms {
                 Alarm.Columns.CONTENT_URI, values);
         alarm.id = (int) ContentUris.parseId(uri);
 
-        long timeInMillis = calculateAlarm(alarm);
+        long timeInMillis = alarm.calculateAlarmTime();
         if (alarm.enabled) {
             clearSnoozeIfNeeded(context, timeInMillis);
         }
@@ -167,13 +167,6 @@ public class Alarms {
 
     private static ContentValues createContentValues(Alarm alarm) {
         ContentValues values = new ContentValues(8);
-        // Set the alarm_time value if this alarm does not repeat. This will be
-        // used later to disable expire alarms.
-        long time = 0;
-        if (!alarm.daysOfWeek.isRepeatSet()) {
-            time = calculateAlarm(alarm);
-        }
-
         // -1 means generate new id.
         if (alarm.id != -1) {
             values.put(Alarm.Columns._ID, alarm.id);
@@ -182,7 +175,8 @@ public class Alarms {
         values.put(Alarm.Columns.ENABLED, alarm.enabled ? 1 : 0);
         values.put(Alarm.Columns.HOUR, alarm.hour);
         values.put(Alarm.Columns.MINUTES, alarm.minutes);
-        values.put(Alarm.Columns.ALARM_TIME, time);
+        // We don't need this field anymore
+        values.put(Alarm.Columns.ALARM_TIME, 0);
         values.put(Alarm.Columns.DAYS_OF_WEEK, alarm.daysOfWeek.getCoded());
         values.put(Alarm.Columns.VIBRATE, alarm.vibrate);
         values.put(Alarm.Columns.MESSAGE, alarm.label);
@@ -246,8 +240,7 @@ public class Alarms {
             return rowsUpdated;
         }
 
-        long timeInMillis = calculateAlarm(alarm);
-
+        long timeInMillis = alarm.calculateAlarmTime();
         if (alarm.enabled) {
             // Disable the snooze if we just changed the snoozed alarm. This
             // only does work if the snoozed alarm is the same as the given
@@ -295,15 +288,7 @@ public class Alarms {
         ContentValues values = new ContentValues(2);
         values.put(Alarm.Columns.ENABLED, enabled ? 1 : 0);
 
-        // If we are enabling the alarm, calculate alarm time since the time
-        // value in Alarm may be old.
-        if (enabled) {
-            long time = 0;
-            if (!alarm.daysOfWeek.isRepeatSet()) {
-                time = calculateAlarm(alarm);
-            }
-            values.put(Alarm.Columns.ALARM_TIME, time);
-        } else {
+        if (!enabled) {
             // Clear the snooze if the id matches.
             disableSnoozeAlert(context, alarm.id);
         }
@@ -349,23 +334,19 @@ public class Alarms {
         Alarm alarm = null;
 
         for (Alarm a : alarms) {
-            // A time of 0 indicates this is a repeating alarm, so
-            // calculate the time to get the next alert.
-            if (a.time == 0) {
-                a.time = calculateAlarm(a);
-            }
-
             // Update the alarm if it has been snoozed
-            updateAlarmTimeForSnooze(prefs, a);
+            long alarmTime = hasAlarmBeenSnoozed(prefs, a.id) ?
+                    prefs.getLong(getAlarmPrefSnoozeTimeKey(alarm.id), -1) :
+                    a.calculateAlarmTime();
 
-            if (a.time < now) {
-                Log.v("Disabling expired alarm set for " + Log.formatTime(a.time));
+            if (alarmTime < now) {
+                Log.v("Disabling expired alarm set for " + Log.formatTime(alarmTime));
                 // Expired alarm, disable it and move along.
                 enableAlarmInternal(context, a, false);
                 continue;
             }
-            if (a.time < minTime) {
-                minTime = a.time;
+            if (alarmTime < minTime) {
+                minTime = alarmTime;
                 alarm = a;
             }
         }
@@ -385,11 +366,14 @@ public class Alarms {
             if (cur.moveToFirst()) {
                 do {
                     Alarm alarm = new Alarm(cur);
-                    // A time of 0 means this alarm repeats. If the time is
-                    // non-zero, check if the time is before now.
-                    if (alarm.time != 0 && alarm.time < now) {
-                        Log.v("Disabling expired alarm set for " +
-                              Log.formatTime(alarm.time));
+                    // Ignore repeatable alarms
+                    if (alarm.daysOfWeek.isRepeatSet()) {
+                        continue;
+                    }
+
+                    long alarmTime = alarm.calculateAlarmTime();
+                    if (alarmTime < now) {
+                        Log.v("Disabling expired alarm set for " + Log.formatTime(alarmTime));
                         enableAlarmInternal(context, alarm, false);
                     }
                 } while (cur.moveToNext());
@@ -407,7 +391,7 @@ public class Alarms {
     public static void setNextAlert(final Context context) {
         final Alarm alarm = calculateNextAlert(context);
         if (alarm != null) {
-            enableAlert(context, alarm, alarm.time);
+            enableAlert(context, alarm, alarm.calculateAlarmTime());
         } else {
             disableAlert(context);
         }
@@ -479,6 +463,8 @@ public class Alarms {
         saveNextAlarm(context, "");
     }
 
+    // Snoozes are affected by timezone changes, but this shouldn't be a problem
+    // for real use-cases.
     static void saveSnoozeAlert(final Context context, final int id,
             final long time) {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCES, 0);
@@ -561,37 +547,12 @@ public class Alarms {
     }
 
     /**
-     * Updates the specified Alarm with the additional snooze time.
-     * Returns a boolean indicating whether the alarm was updated.
-     */
-    private static boolean updateAlarmTimeForSnooze(
-            final SharedPreferences prefs, final Alarm alarm) {
-        if (!hasAlarmBeenSnoozed(prefs, alarm.id)) {
-            // No need to modify the alarm
-            return false;
-        }
-
-        final long time = prefs.getLong(getAlarmPrefSnoozeTimeKey(alarm.id), -1);
-        // The time in the database is either 0 (repeating) or a specific time
-        // for a non-repeating alarm. Update this value so the AlarmReceiver
-        // has the right time to compare.
-        alarm.time = time;
-
-        return true;
-    }
-
-    /**
      * Tells the StatusBar whether the alarm is enabled or disabled
      */
     private static void setStatusBarIcon(Context context, boolean enabled) {
         Intent alarmChanged = new Intent("android.intent.action.ALARM_CHANGED");
         alarmChanged.putExtra("alarmSet", enabled);
         context.sendBroadcast(alarmChanged);
-    }
-
-    private static long calculateAlarm(Alarm alarm) {
-        return calculateAlarm(alarm.hour, alarm.minutes, alarm.daysOfWeek)
-                .getTimeInMillis();
     }
 
     /**
@@ -609,8 +570,8 @@ public class Alarms {
         int nowMinute = c.get(Calendar.MINUTE);
 
         // if alarm is behind current time, advance one day
-        if (hour < nowHour  ||
-            hour == nowHour && minute <= nowMinute) {
+        if (daysOfWeek.isRepeatSet() &&
+                (hour < nowHour  || (hour == nowHour && minute <= nowMinute))) {
             c.add(Calendar.DAY_OF_YEAR, 1);
         }
         c.set(Calendar.HOUR_OF_DAY, hour);

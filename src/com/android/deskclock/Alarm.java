@@ -30,7 +30,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public final class Alarm implements Parcelable {
-
     //////////////////////////////
     // Parcelable apis
     //////////////////////////////
@@ -55,12 +54,14 @@ public final class Alarm implements Parcelable {
         p.writeInt(hour);
         p.writeInt(minutes);
         p.writeInt(daysOfWeek.getCoded());
-        p.writeLong(time);
+        // We don't need the alarmTime field anymore, but write 0 to be backwards compatible
+        p.writeLong(0);
         p.writeInt(vibrate ? 1 : 0);
         p.writeString(label);
         p.writeParcelable(alert, flags);
         p.writeInt(silent ? 1 : 0);
     }
+
     //////////////////////////////
     // end Parcelable apis
     //////////////////////////////
@@ -97,6 +98,7 @@ public final class Alarm implements Parcelable {
          * Alarm time in UTC milliseconds from the epoch.
          * <P>Type: INTEGER</P>
          */
+        @Deprecated // Calculate this from the other fields
         public static final String ALARM_TIME = "alarmtime";
 
         /**
@@ -145,7 +147,7 @@ public final class Alarm implements Parcelable {
         public static final int ALARM_HOUR_INDEX = 1;
         public static final int ALARM_MINUTES_INDEX = 2;
         public static final int ALARM_DAYS_OF_WEEK_INDEX = 3;
-        public static final int ALARM_TIME_INDEX = 4;
+        @Deprecated public static final int ALARM_TIME_INDEX = 4;
         public static final int ALARM_ENABLED_INDEX = 5;
         public static final int ALARM_VIBRATE_INDEX = 6;
         public static final int ALARM_MESSAGE_INDEX = 7;
@@ -161,7 +163,6 @@ public final class Alarm implements Parcelable {
     public int        hour;
     public int        minutes;
     public DaysOfWeek daysOfWeek;
-    public long       time;
     public boolean    vibrate;
     public String     label;
     public Uri        alert;
@@ -176,7 +177,6 @@ public final class Alarm implements Parcelable {
                 ", hour=" + hour +
                 ", minutes=" + minutes +
                 ", daysOfWeek=" + daysOfWeek +
-                ", time=" + time +
                 ", vibrate=" + vibrate +
                 ", label='" + label + '\'' +
                 ", silent=" + silent +
@@ -189,7 +189,6 @@ public final class Alarm implements Parcelable {
         hour = c.getInt(Columns.ALARM_HOUR_INDEX);
         minutes = c.getInt(Columns.ALARM_MINUTES_INDEX);
         daysOfWeek = new DaysOfWeek(c.getInt(Columns.ALARM_DAYS_OF_WEEK_INDEX));
-        time = c.getLong(Columns.ALARM_TIME_INDEX);
         vibrate = c.getInt(Columns.ALARM_VIBRATE_INDEX) == 1;
         label = c.getString(Columns.ALARM_MESSAGE_INDEX);
         String alertString = c.getString(Columns.ALARM_ALERT_INDEX);
@@ -218,7 +217,8 @@ public final class Alarm implements Parcelable {
         hour = p.readInt();
         minutes = p.readInt();
         daysOfWeek = new DaysOfWeek(p.readInt());
-        time = p.readLong();
+        // Don't need the alarmTime field anymore, but do a readLong to be backwards compatible
+        p.readLong();
         vibrate = p.readInt() == 1;
         label = p.readString();
         alert = (Uri) p.readParcelable(null);
@@ -234,6 +234,11 @@ public final class Alarm implements Parcelable {
         daysOfWeek = new DaysOfWeek(0);
         label = "";
         alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+    }
+
+    public long calculateAlarmTime() {
+        // Would it be safe to cache this value in memory?
+        return Alarms.calculateAlarm(hour, minutes, daysOfWeek).getTimeInMillis();
     }
 
     public String getLabelOrDefault(Context context) {
