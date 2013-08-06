@@ -117,7 +117,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         // information in bug reports.
         long now = System.currentTimeMillis();
         long alarmTime = alarm.calculateAlarmTime();
-        Log.v("Received alarm set for id=" + alarm.id + " " + Log.formatTime(alarmTime));
+        Log.v("Received alarm set for id=" + alarm.id + " " + Log.formatTime(alarmTime) + " "
+                + alarm.label);
 
         // Always verbose to track down time change problems.
         if (now > alarmTime + STALE_WINDOW) {
@@ -198,7 +199,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         alarmAlert.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         alarmAlert.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                 | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        n.fullScreenIntent = PendingIntent.getActivity(context, alarm.id, alarmAlert, 0);
+        // Make sure to use FLAG_CANCEL_CURRENT or the notification manager will just
+        // use the older intent if it has the same alarm.id
+        n.fullScreenIntent = PendingIntent.getActivity(context, alarm.id, alarmAlert,
+                PendingIntent.FLAG_CANCEL_CURRENT);
 
         // Send the notification using the alarm id to easily identify the
         // correct notification.
