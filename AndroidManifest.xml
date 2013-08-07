@@ -106,7 +106,6 @@
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
                 android:showOnLockScreen="true"
-                android:screenOrientation="nosensor"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
         <activity android:name="ScreensaverActivity"
