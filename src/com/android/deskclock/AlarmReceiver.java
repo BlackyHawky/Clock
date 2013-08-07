@@ -207,6 +207,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Send the notification using the alarm id to easily identify the
         // correct notification.
         NotificationManager nm = getNotificationManager(context);
+        nm.cancel(alarm.id);
         nm.notify(alarm.id, n);
     }
 
@@ -229,8 +230,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Launch AlarmClock when clicked.
         Intent viewAlarm = new Intent(context, AlarmClock.class);
         viewAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-        PendingIntent intent =
-                PendingIntent.getActivity(context, alarm.id, viewAlarm, 0);
+        PendingIntent intent = PendingIntent.getActivity(context, alarm.id, viewAlarm,
+                PendingIntent.FLAG_CANCEL_CURRENT);
 
         // Update the notification to indicate that the alert has been
         // silenced.
