@@ -734,16 +734,16 @@ public class TimerFragment extends DeskClockFragment
                                         mOnEmptyListListener.onEmptyList();
                                     }
                                 }
-                                // Tell receiver the timer was deleted.
-                                // It will stop all activity related to the
-                                // timer
-                                updateTimersState(t, Timers.DELETE_TIMER);
                             }
                         });
                         b.start();
                     }
                 });
                 a.start();
+                // Tell receiver the timer was deleted.
+                // It will stop all activity related to the
+                // timer
+                updateTimersState(t, Timers.DELETE_TIMER);
                 break;
             case ClickAction.ACTION_PLUS_ONE:
                 onPlusOneButtonPressed(clickAction.mTimer);
