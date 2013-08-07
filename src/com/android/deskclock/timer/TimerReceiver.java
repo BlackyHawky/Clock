@@ -167,7 +167,11 @@ public class TimerReceiver extends BroadcastReceiver {
         PendingIntent p = PendingIntent.getBroadcast(context,
                 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         if (t != null) {
-            mngr.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+            if (Utils.isKeyLimePieOrLater()) {
+                mngr.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+            } else {
+                mngr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+            }
             Log.d(TAG,"Setting times up to " + nextTimesup);
         } else {
             Log.d(TAG,"canceling times up");
@@ -269,7 +273,11 @@ public class TimerReceiver extends BroadcastReceiver {
                 PendingIntent.getBroadcast(context, 0, nextBroadcast, 0);
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
+        if (Utils.isKeyLimePieOrLater()) {
+            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
+        } else {
+            alarmManager.set(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
+        }
     }
 
     private static void showCollapsedNotification(final Context context, String title, String text,
