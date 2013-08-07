@@ -32,6 +32,7 @@ import android.os.Parcel;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Pair;
 
 import java.util.Calendar;
 import java.util.HashSet;
@@ -278,6 +279,7 @@ public class Alarms {
                 enabled);
     }
 
+
     private static void enableAlarmInternal(final Context context,
             final Alarm alarm, boolean enabled) {
         if (alarm == null) {
@@ -297,7 +299,7 @@ public class Alarms {
                 Alarm.Columns.CONTENT_URI, alarm.id), values, null, null);
     }
 
-    private static Alarm calculateNextAlert(final Context context) {
+    private static Pair<Alarm, Long> calculateNextAlert(final Context context) {
         long minTime = Long.MAX_VALUE;
         long now = System.currentTimeMillis();
         final SharedPreferences prefs = context.getSharedPreferences(PREFERENCES, 0);
@@ -332,11 +334,11 @@ public class Alarms {
         }
 
         Alarm alarm = null;
-
+        Long alarmTime = null;
         for (Alarm a : alarms) {
             // Update the alarm if it has been snoozed
-            long alarmTime = hasAlarmBeenSnoozed(prefs, a.id) ?
-                    prefs.getLong(getAlarmPrefSnoozeTimeKey(alarm.id), -1) :
+            alarmTime = hasAlarmBeenSnoozed(prefs, a.id) ?
+                    prefs.getLong(getAlarmPrefSnoozeTimeKey(a.id), -1) :
                     a.calculateAlarmTime();
 
             if (alarmTime < now) {
@@ -351,7 +353,7 @@ public class Alarms {
             }
         }
 
-        return alarm;
+        return alarm != null ? Pair.create(alarm, alarmTime) : null;
     }
 
     /**
@@ -389,9 +391,9 @@ public class Alarms {
      * otherwise loads all alarms, activates next alert.
      */
     public static void setNextAlert(final Context context) {
-        final Alarm alarm = calculateNextAlert(context);
+        Pair<Alarm, Long> alarm = calculateNextAlert(context);
         if (alarm != null) {
-            enableAlert(context, alarm, alarm.calculateAlarmTime());
+            enableAlert(context, alarm.first, alarm.second);
         } else {
             disableAlert(context);
         }
