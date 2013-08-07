@@ -33,6 +33,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
@@ -89,6 +90,13 @@ public class Utils {
     public final static String HOURS_24 = "kk";
     public final static String HOURS = "h";
     public final static String MINUTES = ":mm";
+
+    /**
+     * Returns whether the SDK is the KeyLimePie release or later.
+     */
+    public static boolean isKeyLimePieOrLater() {
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2;
+    }
 
 
     public static void prepareHelpMenuItem(Context context, MenuItem helpMenuItem) {

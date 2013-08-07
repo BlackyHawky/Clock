@@ -436,7 +436,11 @@ public class Alarms {
         PendingIntent sender = PendingIntent.getBroadcast(
                 context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        am.setExact(AlarmManager.RTC_WAKEUP, atTimeInMillis, sender);
+        if (Utils.isKeyLimePieOrLater()) {
+            am.setExact(AlarmManager.RTC_WAKEUP, atTimeInMillis, sender);
+        } else {
+            am.set(AlarmManager.RTC_WAKEUP, atTimeInMillis, sender);
+        }
 
         setStatusBarIcon(context, true);
 
