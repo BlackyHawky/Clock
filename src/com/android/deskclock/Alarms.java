@@ -570,8 +570,7 @@ public class Alarms {
         int nowMinute = c.get(Calendar.MINUTE);
 
         // if alarm is behind current time, advance one day
-        if (daysOfWeek.isRepeatSet() &&
-                (hour < nowHour  || (hour == nowHour && minute <= nowMinute))) {
+        if ((hour < nowHour  || (hour == nowHour && minute <= nowMinute))) {
             c.add(Calendar.DAY_OF_YEAR, 1);
         }
         c.set(Calendar.HOUR_OF_DAY, hour);
