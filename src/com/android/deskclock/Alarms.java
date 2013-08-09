@@ -353,7 +353,7 @@ public class Alarms {
             }
         }
 
-        return alarm != null ? Pair.create(alarm, alarmTime) : null;
+        return alarm != null ? Pair.create(alarm, minTime) : null;
     }
 
     /**
