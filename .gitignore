@@ -1,3 +1,8 @@
 .gitignore
+.classpath
+.project
+bin/
 gen/
 out/
+lint.xml
+project.properties

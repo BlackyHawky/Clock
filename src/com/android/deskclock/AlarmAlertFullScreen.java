@@ -204,8 +204,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
 
         final long snoozeTime = System.currentTimeMillis()
                 + (1000 * 60 * snoozeMinutes);
-        Alarms.saveSnoozeAlert(AlarmAlertFullScreen.this, mAlarm.id,
-                snoozeTime);
+        Alarms.saveSnoozeAlert(AlarmAlertFullScreen.this, mAlarm.id, snoozeTime);
 
         // Get the display time for the snooze and update the notification.
         final Calendar c = Calendar.getInstance();
@@ -221,7 +220,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         Intent openAlarm = new Intent(this, DeskClock.class);
         openAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         openAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, mAlarm);
-        openAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.CLOCK_TAB_INDEX);
+        openAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
 
         NotificationManager nm = getNotificationManager();
         Notification notif = new Notification.Builder(getApplicationContext())

@@ -18,9 +18,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize" >
 
-    <com.android.deskclock.widget.swipeablelistview.SwipeableListView
+    <ListView
         android:id="@+id/alarms_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,17 +30,55 @@
         android:divider="@null"
         android:dividerHeight="6dp"
         />
-
+    <TextView
+        android:id="@+id/alarms_empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_alarms"
+        style="@style/small_thin"
+        android:drawableTop="@drawable/ic_alarm"
+        android:contentDescription="@string/no_alarms"
+        android:layout_gravity="center"
+        android:textColor="@color/grey" />
     <com.android.deskclock.widget.ActionableToastBar
         android:id="@+id/undo_bar"
         android:layout_width="match_parent"
         android:layout_height="64dip"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="96dp"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginEnd="8dp"
-        style="@style/ToastBarStyle"
-        />
+        style="@style/ToastBarStyle" />
+    <FrameLayout
+        android:background="@drawable/footer_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" >
+        <ImageButton
+            android:id="@+id/alarm_add_alarm"
+            android:contentDescription="@string/add_alarm"
+            android:layout_width="56dip"
+            android:layout_height="56dip"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_add"
+            style="@style/button"
+            android:background="@drawable/main_button_normal" />
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:contentDescription="@string/button_menu"
+            style="?android:attr/actionOverflowButtonStyle"
+            android:background="@drawable/item_background"
+            android:onClick="clockButtonsOnClick"
+            android:layout_gravity="end|center_vertical"
+            android:layout_width="56dp"
+            android:layout_height="56dp" />
+    </FrameLayout>
 </FrameLayout>

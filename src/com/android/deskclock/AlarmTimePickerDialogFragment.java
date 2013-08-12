@@ -33,12 +33,15 @@ public class AlarmTimePickerDialogFragment extends DialogFragment {
 
     private Button mSet, mCancel;
     private TimePicker mPicker;
+    private AlarmTimePickerDialogHandler mListener;
 
-    public static AlarmTimePickerDialogFragment newInstance(Alarm alarm) {
+    public static AlarmTimePickerDialogFragment newInstance(Alarm alarm,
+            AlarmTimePickerDialogHandler listener) {
         final AlarmTimePickerDialogFragment frag = new AlarmTimePickerDialogFragment();
         Bundle args = new Bundle();
         args.putParcelable(KEY_ALARM, alarm);
         frag.setArguments(args);
+        frag.setListener(listener);
         return frag;
     }
 
@@ -72,20 +75,20 @@ public class AlarmTimePickerDialogFragment extends DialogFragment {
         mSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Activity activity = getActivity();
-                if (activity instanceof AlarmTimePickerDialogHandler) {
-                    final AlarmTimePickerDialogHandler act =
-                            (AlarmTimePickerDialogHandler) activity;
-                    act.onDialogTimeSet(alarm, mPicker.getHours(), mPicker.getMinutes());
+                if (mListener != null) {
+                    mListener.onDialogTimeSet(alarm, mPicker.getHours(), mPicker.getMinutes());
                 } else {
-                    Log.e("Error! Activities that use AlarmTimePickerDialogFragment must implement "
-                            + "AlarmTimePickerDialogHandler");
+                    Log.e("The listener for setting a time was null!");
                 }
                 dismiss();
             }
         });
 
         return v;
+    }
+
+    private void setListener(AlarmTimePickerDialogHandler listener) {
+        mListener = listener;
     }
 
     interface AlarmTimePickerDialogHandler {

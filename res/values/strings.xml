@@ -309,6 +309,8 @@
     <string name="control_set_alarm_with_existing"><xliff:g id="time">%s</xliff:g></string>
 
     <!--  ActionBar strings -->
+    <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->
+    <string name="menu_alarm">Alarm</string>
     <!-- Describes the purpose of the tab button which which switches the activity to the Timer page -->
     <string name="menu_timer">Timer</string>
     <!-- Describes the purpose of the tab button which which switches the activity to the Clock page -->
@@ -782,5 +784,8 @@
     <string name="widget_12_hours_format_m" translatable="false">:mm<font size="15">aa</font></string>
     <string name="widget_24_hours_format_h" translatable="false">kk</string>
     <string name="widget_24_hours_format_m" translatable="false">:mm</string>
+
+    <!-- String for no alarms -->
+    <string name="no_alarms">No Alarms</string>
 </resources>
 

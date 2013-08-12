@@ -22,11 +22,14 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.widget.Toast;
 
+import com.android.deskclock.AlarmTimePickerDialogFragment.AlarmTimePickerDialogHandler;
+
 /**
  * Static utility methods for Alarms.
  */
 public class AlarmUtils {
-    public static void showTimeEditDialog(FragmentManager manager, final Alarm alarm) {
+    public static void showTimeEditDialog(FragmentManager manager, final Alarm alarm,
+            AlarmTimePickerDialogHandler listener) {
         final FragmentTransaction ft = manager.beginTransaction();
         final Fragment prev = manager.findFragmentByTag("time_dialog");
         if (prev != null) {
@@ -34,7 +37,7 @@ public class AlarmUtils {
         }
 
         final AlarmTimePickerDialogFragment fragment = AlarmTimePickerDialogFragment.newInstance(
-                alarm);
+                alarm, listener);
         fragment.show(ft, "time_dialog");
     }
 
