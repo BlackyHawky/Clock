@@ -14,22 +14,23 @@
      limitations under the License.
 -->
 
-<com.android.deskclock.widget.swipeablelistview.SwipeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/alarm_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center_horizontal|top"
-    android:background="@color/alarm_whiteish">
+    android:background="@drawable/item_background"
+    android:clickable="true" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginStart="12dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:orientation="horizontal">
@@ -38,11 +39,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="top"
-            android:baselineAligned="false"
             android:clickable="true"
             android:layoutDirection="ltr"
             android:background="@drawable/item_background">
-            <com.android.deskclock.ZeroTopPaddingTextView
+            <TextView
                 android:id="@+id/timeDisplayHours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,9 +50,9 @@
                 android:paddingEnd="@dimen/time_margin_right"
                 android:singleLine="true"
                 android:ellipsize="none"
-                style="@style/small_bold"
+                style="@style/small_light"
                 android:textColor="@color/clock_white"/>
-            <com.android.deskclock.ZeroTopPaddingTextView
+            <TextView
                 android:id="@+id/timeDisplayMinutes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,15 +60,15 @@
                 android:singleLine="true"
                 android:ellipsize="none"
                 android:textColor="@color/clock_white" />
-            <com.android.deskclock.ZeroTopPaddingTextView
+            <TextView
                 android:id="@+id/am_pm"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 style="@style/label"
                 android:singleLine="true"
                 android:ellipsize="none"
-                android:layout_gravity="top"
-                android:textColor="@color/clock_white"/>
+                android:fontFamily="sans-serif-light"
+                android:textColor="@color/clock_white" />
         </com.android.deskclock.DigitalClock>
         <Space
             android:layout_height="match_parent"
@@ -81,164 +81,159 @@
             android:thumbTextPadding="10dp"
             android:layout_gravity="center_vertical|end"/>
     </LinearLayout>
-    <View
-        android:id="@+id/hairline"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#28ffffff"/>
     <FrameLayout
-        android:id="@+id/info_area"
         android:layout_width="match_parent"
-        android:layout_height="32dp"
-        android:paddingLeft="16dp"
-        android:paddingStart="16dp"
-        android:gravity="center_vertical"
-        android:clickable="true"
-        android:background="@drawable/item_background">
-        <com.android.deskclock.widget.EllipsizeLayout
+        android:layout_height="wrap_content" >
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:paddingRight="8dp"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
+            android:contentDescription="@string/expand_alarm"
+            android:src="@drawable/ic_delete"
+            android:layout_gravity="top|end" />
+        <LinearLayout
+            android:id="@+id/expand_area"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="48dp"
-            android:layout_marginEnd="48dp"
-            android:gravity="center_vertical"
-            >
-            <TextView android:id="@+id/label"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="48dp"
+            android:layout_gravity="bottom" >
+            <TextView
+                android:id="@+id/edit_label"
+                style="@style/body_not_caps"
+                android:textColor="@color/clock_gray"
+                android:hint="@string/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:paddingRight="12dp"
+                android:paddingEnd="12dp"
+                android:paddingLeft="18dp"
+                android:paddingStart="18dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:background="@drawable/item_background" />
+            <CheckBox
+                android:id="@+id/repeat_onoff"
+                android:text="@string/alarm_repeat"
+                android:layout_height="48dp"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_gravity="center_vertical|start"
+                style="@style/body"
+                android:textColor="@color/clock_white"/>
+            <LinearLayout
+                android:id="@+id/repeat_days"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_gravity="top"
+                android:orientation="horizontal"
+                android:visibility="gone">
+                <!-- Day buttons are put here programatically -->
+            </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="64dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/choose_ringtone"
+                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical"
+                    android:textAlignment="viewStart"
+                    style="@style/body"
+                    android:background="@drawable/item_background"
+                    android:clickable="true"
+                    android:textColor="@color/clock_white"
+                    android:ellipsize="marquee"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:drawableLeft="@drawable/ic_ringtone"
+                    android:drawableStart="@drawable/ic_ringtone"
+                    android:drawablePadding="2dp"
+                    />
+                <CheckBox
+                    android:id="@+id/vibrate_onoff"
+                    android:text="@string/alarm_vibrate"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/clock_gray"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical|end"
+                    style="@style/body"/>
+            </FrameLayout>
+        </LinearLayout>
+        <FrameLayout
+            android:id="@+id/collapse_expand"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:contentDescription="@string/collapse_alarm"
+            android:layout_gravity="bottom" >
+            <ImageView
+                android:id="@+id/arrow"
+                android:layout_width="48dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_expand_down"
+                android:layout_gravity="start|center_vertical"
+                android:contentDescription="@string/expand_alarm" />
+            <View
+                android:id="@+id/hairline"
+                android:layout_height="1dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_width="match_parent"
+                android:background="#28ffffff"
+                android:layout_gravity="bottom" />
+            <com.android.deskclock.widget.EllipsizeLayout
+                android:id="@+id/summary"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="48dp"
+                android:layout_marginStart="48dp"
+                android:layout_marginRight="104dp"
+                android:layout_marginEnd="104dp"
+                android:gravity="center_vertical" >
+                <TextView android:id="@+id/label"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       style="@style/alarm_label_not_caps"
                       android:textColor="@color/clock_gray"
                       android:ellipsize="end"
-                      android:singleLine="true"/>
-            <TextView android:id="@+id/daysOfWeek"
+                      android:singleLine="true" />
+                <TextView android:id="@+id/daysOfWeek"
                       android:layout_height="wrap_content"
                       android:layout_width="wrap_content"
                       style="@style/alarm_label_bold"
                       android:textColor="@color/clock_white"
                       android:ellipsize="none"
-                      android:singleLine="true"/>
-        </com.android.deskclock.widget.EllipsizeLayout>
-        <ImageView
-            android:id="@+id/expand"
-            android:layout_width="48dp"
-            android:layout_height="32dp"
-            android:contentDescription="@string/expand_alarm"
-            android:src="@drawable/ic_expand_down"
-            android:layout_gravity="end"
-            />
-    </FrameLayout>
-    <LinearLayout
-        android:id="@+id/expand_area"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/edit_label"
-            style="@style/body_not_caps"
-            android:gravity="center_vertical"
-            android:textColor="@color/clock_gray"
-            android:hint="@string/label"
-            android:layout_width="wrap_content"
-            android:layout_height="64dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:background="@drawable/item_background"/>
-        <CheckBox
-            android:id="@+id/repeat_onoff"
-            android:text="@string/alarm_repeat"
-            android:layout_height="48dp"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_gravity="center_vertical|start"
-            style="@style/body"
-            android:textColor="@color/clock_white"/>
-        <LinearLayout
-            android:id="@+id/repeat_days"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_gravity="top"
-            android:orientation="horizontal"
-            android:visibility="gone">
-            <!-- Day buttons are put here programatically -->
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/choose_ringtone"
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:gravity="center_vertical"
-                android:textAlignment="viewStart"
-                style="@style/body"
-                android:background="@drawable/item_background"
-                android:clickable="true"
-                android:textColor="@color/clock_white"
-                android:ellipsize="marquee"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:marqueeRepeatLimit="marquee_forever"
-                android:drawableLeft="@drawable/ic_ringtone"
-                android:drawableStart="@drawable/ic_ringtone"
-                android:drawablePadding="2dp"
-                />
-            <CheckBox
-                android:id="@+id/vibrate_onoff"
-                android:text="@string/alarm_vibrate"
-                android:includeFontPadding="false"
-                android:textColor="@color/clock_gray"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center_vertical|end"
-                style="@style/body"/>
-        </LinearLayout>
-        <View
-            android:id="@+id/hairline"
-            android:layout_height="1dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_width="match_parent"
-            android:background="#28ffffff"/>
-        <FrameLayout
-            android:id="@+id/collapse"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:background="@drawable/item_background"
-            android:clickable="true"
-            android:contentDescription="@string/collapse_alarm"
-            >
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_expand_up"
-                android:layout_gravity="end"/>
+                      android:singleLine="true" />
+            </com.android.deskclock.widget.EllipsizeLayout>
         </FrameLayout>
-    </LinearLayout>
-</com.android.deskclock.widget.swipeablelistview.SwipeLayout>
+    </FrameLayout>
+</LinearLayout>

@@ -41,7 +41,7 @@ public class DigitalClock extends LinearLayout {
 
     private final static String HOURS_24 = "kk";
     private final static String HOURS = "h";
-    private final static String MINUTES = ":mm";
+    private final static String MINUTES = "mm";
 
     private Calendar mCalendar;
     private String mHoursFormat;
@@ -122,6 +122,7 @@ public class DigitalClock extends LinearLayout {
         super.onFinishInflate();
 
         mTimeDisplayHours = (TextView)findViewById(R.id.timeDisplayHours);
+        mTimeDisplayHours.setTypeface(mRobotoThin);
         mTimeDisplayMinutes = (TextView)findViewById(R.id.timeDisplayMinutes);
         mTimeDisplayMinutes.setTypeface(mRobotoThin);
         mAmPm = new AmPm(this);

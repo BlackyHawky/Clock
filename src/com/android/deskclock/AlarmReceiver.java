@@ -224,8 +224,10 @@ public class AlarmReceiver extends BroadcastReceiver {
         }
 
         // Launch AlarmClock when clicked.
-        Intent viewAlarm = new Intent(context, AlarmClock.class);
+        Intent viewAlarm = new Intent(context, DeskClock.class);
+        viewAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         viewAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+        viewAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
         PendingIntent intent = PendingIntent.getActivity(context, alarm.id, viewAlarm,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 

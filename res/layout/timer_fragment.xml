@@ -18,38 +18,40 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:id="@+id/timers_list_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <ListView
             android:id="@+id/timers_list"
-            android:layout_weight="1"
             android:divider="@null"
             android:dividerHeight="@dimen/timer_divider_height"
             android:layout_width="match_parent"
-            android:layout_height="0dip"/>
+            android:layout_height="match_parent"/>
         <FrameLayout
             android:id="@+id/timer_footer"
-            android:layout_marginTop="@dimen/button_footer_height_neg"
             android:background="@drawable/footer_bg"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:background="#28ffffff" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom" >
             <ImageButton
-                  android:id="@+id/timer_add_timer"
-                  android:contentDescription="@string/timer_add_timer"
-                  android:layout_width="match_parent"
-                  android:src="@drawable/ic_add"
-                  style="@style/button"
-                  android:background="@drawable/item_background"
-                  android:layout_height="48dip" />
+                android:id="@+id/timer_add_timer"
+                android:contentDescription="@string/timer_add_timer"
+                android:layout_width="56dip"
+                android:layout_height="56dip"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_add"
+                style="@style/button"
+                android:background="@drawable/main_button_normal" />
          </FrameLayout>
-    </LinearLayout>
+    </FrameLayout>
     <LinearLayout
         android:id="@+id/new_timer_page"
         android:layout_width="match_parent"
