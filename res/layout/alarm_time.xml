@@ -161,7 +161,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginRight="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_gravity="center_vertical"
+            android:layout_gravity="center_vertical|start"
             style="@style/body"
             android:textColor="@color/clock_white"/>
         <LinearLayout
@@ -194,6 +194,7 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp"
                 android:gravity="center_vertical"
+                android:textAlignment="viewStart"
                 style="@style/body"
                 android:background="@drawable/item_background"
                 android:clickable="true"
