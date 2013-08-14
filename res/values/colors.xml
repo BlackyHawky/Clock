@@ -22,6 +22,7 @@
     <color name="screen_saver_color">#FF006688</color>
     <color name="screen_saver_dim_color">#FF001634</color>
     <color name="action_bar_button_text_color">#FFFFFF</color>
+    <color name="dialog_gray">#28ffffff</color>
 
     <color name="black">#ff000000</color>
     <!-- If this color is changed or no longer used as the primary background, ensure that blackish_trans is changed as well. -->
