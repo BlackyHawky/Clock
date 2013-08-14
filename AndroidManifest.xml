@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.android.deskclock"
-        android:versionCode="203" android:versionName="2.0.3">
+        android:versionCode="300" android:versionName="3.0.0">
 
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
