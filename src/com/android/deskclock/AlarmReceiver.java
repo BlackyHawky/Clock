@@ -153,20 +153,26 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Trigger a notification that, when clicked, will show the alarm alert
         // dialog. No need to check for fullscreen since this will always be
         // launched from a user action.
-        Intent notify = new Intent(context, AlarmAlertFullScreen.class);
-        notify.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-        PendingIntent pendingNotify = PendingIntent.getActivity(context,
-                alarm.id, notify, 0);
+        // NEW: Embed the full-screen UI here. The notification manager will
+        // take care of displaying it if it's OK to do so.
+        Intent alarmAlert = new Intent(context, c);
+        alarmAlert.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+        alarmAlert.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+        // Make sure to use FLAG_CANCEL_CURRENT or the notification manager will just
+        // use the older intent if it has the same alarm.id
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, alarm.id, alarmAlert,
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         // These two notifications will be used for the action buttons on the notification.
         Intent snoozeIntent = new Intent(Alarms.ALARM_SNOOZE_ACTION);
         snoozeIntent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         PendingIntent pendingSnooze = PendingIntent.getBroadcast(context,
-                alarm.id, snoozeIntent, 0);
+                alarm.id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Intent dismissIntent = new Intent(Alarms.ALARM_DISMISS_ACTION);
         dismissIntent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         PendingIntent pendingDismiss = PendingIntent.getBroadcast(context,
-                alarm.id, dismissIntent, 0);
+                alarm.id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(alarmTime);
@@ -191,18 +197,8 @@ public class AlarmReceiver extends BroadcastReceiver {
                 context.getResources().getString(R.string.alarm_alert_dismiss_text),
                 pendingDismiss)
         .build();
-        n.contentIntent = pendingNotify;
-
-        // NEW: Embed the full-screen UI here. The notification manager will
-        // take care of displaying it if it's OK to do so.
-        Intent alarmAlert = new Intent(context, c);
-        alarmAlert.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-        alarmAlert.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        // Make sure to use FLAG_CANCEL_CURRENT or the notification manager will just
-        // use the older intent if it has the same alarm.id
-        n.fullScreenIntent = PendingIntent.getActivity(context, alarm.id, alarmAlert,
-                PendingIntent.FLAG_CANCEL_CURRENT);
+        n.contentIntent = pendingIntent;
+        n.fullScreenIntent = pendingIntent;
 
         // Send the notification using the alarm id to easily identify the
         // correct notification.
@@ -231,7 +227,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Intent viewAlarm = new Intent(context, AlarmClock.class);
         viewAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         PendingIntent intent = PendingIntent.getActivity(context, alarm.id, viewAlarm,
-                PendingIntent.FLAG_CANCEL_CURRENT);
+                PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Update the notification to indicate that the alert has been
         // silenced.
