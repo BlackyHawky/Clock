@@ -21,6 +21,7 @@
     android:layout_height="0dip">
     <Button
         android:id="@+id/key_left"
+        android:layoutDirection="locale"
         android:layout_width="0dip"
         android:layout_weight="1"
         style="@style/tablet_dialpad_ampm"
@@ -35,6 +36,7 @@
         android:layout_height="match_parent" />
     <Button
         android:id="@+id/key_right"
+        android:layoutDirection="locale"
         android:background="@drawable/item_background"
         android:layout_weight="1"
         android:layout_width="0dip"

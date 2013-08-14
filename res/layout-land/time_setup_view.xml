@@ -120,7 +120,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:layout_marginBottom="8dip"
-        android:background="#28ffffff" />
+        android:background="@color/dialog_gray" />
     <include layout="@layout/three_keys_view"
         android:id="@+id/first" />
 
