@@ -15,6 +15,13 @@
 -->
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_item_search"
+        android:title="@android:string/search_go"
+        android:icon="@android:drawable/ic_menu_search"
+        android:showAsAction="ifRoom"
+        android:actionViewClass="android.widget.SearchView"
+        android:imeOptions="actionSearch"
+        android:orderInCategory="1" />
     <item android:id="@+id/menu_item_settings"
         android:title="@string/menu_item_settings"
         android:icon="@android:drawable/ic_menu_preferences"
