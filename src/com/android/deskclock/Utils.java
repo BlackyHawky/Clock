@@ -38,8 +38,11 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -50,13 +53,11 @@ import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.Timers;
 import com.android.deskclock.worldclock.CityObj;
 
-import java.text.Collator;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class Utils {
@@ -437,8 +438,7 @@ public class Utils {
         }
     }
 
-    public static CityObj[] loadCitiesDataBase(Context c) {
-        final Collator collator = Collator.getInstance();
+    public static CityObj[] loadCitiesFromXml(Context c) {
         Resources r = c.getResources();
         // Read strings array of name,timezone, id
         // make sure the list are the same length
@@ -453,15 +453,33 @@ public class Utils {
         for (int i = 0; i < cities.length; i++) {
             tempList[i] = new CityObj(cities[i], timezones[i], ids[i]);
         }
-        // Sort alphabetically
-        Arrays.sort(tempList, new Comparator<CityObj> () {
-            @Override
-            public int compare(CityObj c1, CityObj c2) {
-                Comparator<CityObj> mCollator;
-                return collator.compare(c1.mCityName, c2.mCityName);
-            }
-        });
         return tempList;
+    }
+
+    /**
+     * Returns string denoting the timezone hour offset (e.g. GMT-8:00)
+     */
+    public static String getGMTHourOffset(TimeZone timezone, boolean showMinutes) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("GMT");
+        int gmtOffset = timezone.getRawOffset();
+        if (gmtOffset < 0) {
+            sb.append('-');
+        } else {
+            sb.append('+');
+        }
+        sb.append(Math.abs(gmtOffset) / DateUtils.HOUR_IN_MILLIS); // Hour
+
+        if (showMinutes) {
+            final int min = (Math.abs(gmtOffset) / (int) DateUtils.MINUTE_IN_MILLIS) % 60;
+            sb.append(':');
+            if (min < 10) {
+                sb.append('0');
+            }
+            sb.append(min);
+        }
+
+        return sb.toString();
     }
 
     public static String getCityName(CityObj city, CityObj dbCity) {

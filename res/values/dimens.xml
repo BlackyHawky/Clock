@@ -77,7 +77,7 @@
     <dimen name="dialpad_font_size">48sp</dimen>
     <dimen name="dialpad_font_size_ampm">24sp</dimen>
     <dimen name="city_name_font_size">24sp</dimen>
-    <dimen name="city_time_font_size">14sp</dimen>
+    <dimen name="city_time_font_size">18sp</dimen>
 
     <dimen name="tablet_dialpad_font_size">60sp</dimen>
     <dimen name="tablet_dialpad_font_size_ampm">30sp</dimen>
