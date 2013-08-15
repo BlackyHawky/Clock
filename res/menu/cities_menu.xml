@@ -22,6 +22,9 @@
         android:actionViewClass="android.widget.SearchView"
         android:imeOptions="actionSearch"
         android:orderInCategory="1" />
+    <item android:id="@+id/menu_item_sort"
+        android:title="@string/menu_item_sort_by_gmt_offset"
+        android:showAsAction="never" />
     <item android:id="@+id/menu_item_settings"
         android:title="@string/menu_item_settings"
         android:icon="@android:drawable/ic_menu_preferences"

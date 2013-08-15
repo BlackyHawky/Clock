@@ -329,6 +329,10 @@
     <string name="menu_item_help">Help</string>
     <!-- Menu item on clock screen to enter night mode. -->
     <string name="menu_item_night_mode">Night mode</string>
+    <!-- Menu item on Cities screen to sort by GMT offset -->
+    <string name="menu_item_sort_by_gmt_offset">Sort by time</string>
+    <!-- Menu item on Cities screen to sort by alphabetical order -->
+    <string name="menu_item_sort_by_name">Sort by name</string>
 
     <!-- Stop Watch strings -->
     <!-- Describes the purpose of the button to resume running a stopwatch -->
