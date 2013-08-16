@@ -87,10 +87,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="SetAlarm"
-                android:label="@string/set_alarm"
-                android:theme="@style/SetAlarmTheme"/>
-
         <activity android:name="AlarmAlert"
                 android:excludeFromRecents="true"
                 android:theme="@android:style/Theme.Holo"
