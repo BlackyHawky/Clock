@@ -34,6 +34,7 @@ import android.widget.RemoteViewsService.RemoteViewsFactory;
 import com.android.deskclock.Alarms;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CityObj;
 import com.android.deskclock.worldclock.WorldClockAdapter;
 
@@ -134,14 +135,15 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         }
     }
 
-    public DigitalWidgetViewsFactory(Context c, Intent intent) {
-        mContext = c;
+    public DigitalWidgetViewsFactory(Context context, Intent intent) {
+        mContext = context;
         mId = intent.getIntExtra(
                 AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        mAdapter = new RemoteWorldClockAdapter(c);
+        mAdapter = new RemoteWorldClockAdapter(context);
         mLastTimeZone = TimeZone.getDefault().getID();
     }
 
+    @SuppressWarnings("unused")
     public DigitalWidgetViewsFactory() {
     }
 
@@ -195,8 +197,9 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         filter.addAction(Utils.ACTION_ON_QUARTER_HOUR);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-        filter.addAction("com.android.deskclock.NEXT_ALARM_TIME_SET");
-        filter.addAction("com.android.deskclock.worldclock.update");
+        filter.addAction(Alarms.NEXT_ALARM_TIME_SET);
+        filter.addAction(Cities.WORLDCLOCK_UPDATE_INTENT);
+        Log.v(TAG, "DigitalWidget register receiver");
         mContext.registerReceiver(this, filter);
     }
 
@@ -217,6 +220,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
     @Override
     public void onDestroy() {
+        Log.v(TAG, "DigitalWidget unregister receiver");
         Utils.cancelAlarmOnQuarterHour(mContext, mQuarterlyIntent);
         mContext.unregisterReceiver(this);
     }
@@ -227,21 +231,24 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         if (mId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             return;
         }
-        mContext = context;
         String action = intent.getAction();
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
-        if (action.equals("com.android.deskclock.NEXT_ALARM_TIME_SET")) {
+        if (action == null || widgetManager == null) {
+            return;
+        }
+        if (action.equals(Alarms.NEXT_ALARM_TIME_SET)) {
             // Update the next alarm text view
             RemoteViews widget =
                     new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);
             refreshAlarm(context, widget);
             widgetManager.partiallyUpdateAppWidget(mId, widget);
-        } else if (action.equals("com.android.deskclock.worldclock.update")) {
+        } else if (action.equals(Cities.WORLDCLOCK_UPDATE_INTENT)) {
             // Reload the list of cities
             mReloadCitiesList = true;
             widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
 
         } else if (action.equals(Intent.ACTION_SCREEN_ON)) {
+            // Force a refresh of the next alarm text view
             RemoteViews widget =
                     new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);
             refreshAlarm(context, widget);
@@ -279,12 +286,12 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         }
     }
 
-    private void refreshAlarm(Context c, RemoteViews widget) {
-        String nextAlarm = Settings.System.getString(c.getContentResolver(),
+    protected static void refreshAlarm(Context context, RemoteViews widget) {
+        String nextAlarm = Settings.System.getString(context.getContentResolver(),
                 Settings.System.NEXT_ALARM_FORMATTED);
         if (!TextUtils.isEmpty(nextAlarm)) {
             widget.setTextViewText(R.id.nextAlarm,
-                    c.getString(R.string.control_set_alarm_with_existing, nextAlarm));
+                    context.getString(R.string.control_set_alarm_with_existing, nextAlarm));
             widget.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
             Log.v(TAG, "DigitalWidget sets next alarm string to " + nextAlarm);
         } else  {
