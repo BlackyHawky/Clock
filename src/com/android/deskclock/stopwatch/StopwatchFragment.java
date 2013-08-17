@@ -61,10 +61,6 @@ public class StopwatchFragment extends DeskClockFragment
 
     // Lap information
     class Lap {
-        Lap () {
-            mLapTime = 0;
-            mTotalTime = 0;
-        }
 
         Lap (long time, long total) {
             mLapTime = time;
@@ -73,15 +69,10 @@ public class StopwatchFragment extends DeskClockFragment
         public long mLapTime;
         public long mTotalTime;
 
-        public void updateView(Context context) {
+        public void updateView() {
             View lapInfo = mLapsList.findViewWithTag(this);
             if (lapInfo != null) {
-                TextView lapTime = (TextView) lapInfo.findViewById(R.id.lap_time);
-                TextView totalTime = (TextView) lapInfo.findViewById(R.id.lap_total);
-                lapTime.setText(
-                        Stopwatches.getTimeText(context, mLapTime, Stopwatches.NO_LAP_NUMBER));
-                totalTime.setText(
-                        Stopwatches.getTimeText(context, mTotalTime, Stopwatches.NO_LAP_NUMBER));
+                mLapsAdapter.setTimeText(lapInfo, this);
             }
         }
     }
@@ -134,13 +125,17 @@ public class StopwatchFragment extends DeskClockFragment
             }
             lapInfo.setTag(lap);
             TextView count = (TextView)lapInfo.findViewById(R.id.lap_number);
+            count.setText(String.format(mLapFormat, mLaps.size() - position).toUpperCase());
+            setTimeText(lapInfo, lap);
+
+            return lapInfo;
+        }
+
+        protected void setTimeText(View lapInfo, Lap lap) {
             TextView lapTime = (TextView)lapInfo.findViewById(R.id.lap_time);
             TextView totalTime = (TextView)lapInfo.findViewById(R.id.lap_total);
             lapTime.setText(Stopwatches.formatTimeText(lap.mLapTime, mFormats[mLapIndex]));
             totalTime.setText(Stopwatches.formatTimeText(lap.mTotalTime, mFormats[mTotalIndex]));
-            count.setText(String.format(mLapFormat, mLaps.size() - position).toUpperCase());
-
-            return lapInfo;
         }
 
         @Override
@@ -674,7 +669,7 @@ public class StopwatchFragment extends DeskClockFragment
             if (mLapsAdapter.updateTimeFormats(curLap)) {
                 mLapsAdapter.notifyDataSetChanged();
             } else {
-                curLap.updateView(getActivity().getApplicationContext());
+                curLap.updateView();
             }
         }
     }
