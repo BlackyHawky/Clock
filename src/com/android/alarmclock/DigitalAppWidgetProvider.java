@@ -20,42 +20,28 @@ import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.appwidget.AppWidgetProviderInfo;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.text.TextUtils;
-import android.text.format.DateFormat;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.Alarms;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 import com.android.deskclock.worldclock.CitiesActivity;
 
-import java.util.Calendar;
-
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
-    private static final String TAG = "DigitalAppWidgetProvider";
-
     public DigitalAppWidgetProvider() {
     }
 
     @Override
-    public void onUpdate(Context ctxt, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
-            float ratio = WidgetUtils.getScaleRatio(ctxt, null, appWidgetId);
-            updateClock(ctxt, appWidgetManager, appWidgetId, ratio);
+            float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
+            updateClock(context, appWidgetManager, appWidgetId, ratio);
 
         }
-        super.onUpdate(ctxt, appWidgetManager, appWidgetIds);
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
@@ -67,43 +53,39 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         updateClock(context, widgetManager, appWidgetId, ratio);
     }
 
-    static ComponentName getComponentName(Context context) {
-        return new ComponentName(context, DigitalAppWidgetProvider.class);
-    }
-
     private void updateClock(
-            Context c, AppWidgetManager appWidgetManager, int appWidgetId, float ratio) {
-        RemoteViews widget = new RemoteViews(c.getPackageName(), R.layout.digital_appwidget);
-        // launch clock when clicking on the time in the widget only if not a lock screen widget
+            Context context, AppWidgetManager appWidgetManager, int appWidgetId, float ratio) {
+        RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);
+
+        // Launch clock when clicking on the time in the widget only if not a lock screen widget
         Bundle newOptions = appWidgetManager.getAppWidgetOptions(appWidgetId);
         if (newOptions != null &&
                 newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, -1)
                 != AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD) {
             widget.setOnClickPendingIntent(R.id.digital_appwidget,
-                    PendingIntent.getActivity(c, 0, new Intent(c, DeskClock.class), 0));
+                    PendingIntent.getActivity(context, 0, new Intent(context, DeskClock.class), 0));
         }
-        refreshAlarm(c, widget);
-        WidgetUtils.setClockSize(c, widget, ratio);
-        final Intent intent = new Intent(c, DigitalAppWidgetService.class);
+
+        // Setup alarm text and font sizes
+        DigitalWidgetViewsFactory.refreshAlarm(context, widget);
+        WidgetUtils.setClockSize(context, widget, ratio);
+
+        // Set up R.id.digital_appwidget_listview to use a remote views adapter
+        // That remote views adapter connects to a RemoteViewsService through intent.
+        final Intent intent = new Intent(context, DigitalAppWidgetService.class);
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
         intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
-        widget.setRemoteAdapter(appWidgetId, R.id.digital_appwidget_listview, intent);
+        widget.setRemoteAdapter(R.id.digital_appwidget_listview, intent);
+
+        // Set up the click on any world clock to start the Cities Activity
+        //TODO: Should this be in the options guard above?
         widget.setPendingIntentTemplate(R.id.digital_appwidget_listview,
-                PendingIntent.getActivity(c, 0, new Intent(c, CitiesActivity.class), 0));
+                PendingIntent.
+                        getActivity(context, 0, new Intent(context, CitiesActivity.class), 0));
+
+        // Refresh the widget
         appWidgetManager.notifyAppWidgetViewDataChanged(
                 appWidgetId, R.id.digital_appwidget_listview);
         appWidgetManager.updateAppWidget(appWidgetId, widget);
-    }
-
-    private void refreshAlarm(Context c, RemoteViews clock) {
-        String nextAlarm = Settings.System.getString(
-                c.getContentResolver(), Settings.System.NEXT_ALARM_FORMATTED);
-        if (!TextUtils.isEmpty(nextAlarm)) {
-            clock.setTextViewText(R.id.nextAlarm,
-                    c.getString(R.string.control_set_alarm_with_existing, nextAlarm));
-            clock.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
-        } else {
-            clock.setViewVisibility(R.id.nextAlarm, View.GONE);
-        }
     }
 }
