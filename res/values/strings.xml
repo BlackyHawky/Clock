@@ -334,6 +334,9 @@
     <!-- Menu item on Cities screen to sort by alphabetical order -->
     <string name="menu_item_sort_by_name">Sort by name</string>
 
+    <!-- Label for selected cities in Cities list view -->
+    <string name="selected_cities_label">Selected Cities</string>
+
     <!-- Stop Watch strings -->
     <!-- Describes the purpose of the button to resume running a stopwatch -->
     <string name="sw_resume_button">Resume</string>
