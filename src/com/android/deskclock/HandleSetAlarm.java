@@ -60,18 +60,15 @@ public class HandleSetAlarm extends Activity {
         }
 
         Cursor c = null;
-        long timeInMillis = Alarms.calculateAlarm(hour, minutes,
-                new Alarm.DaysOfWeek(0)).getTimeInMillis();
         try {
             c = getContentResolver().query(
                     Alarm.Columns.CONTENT_URI,
                     Alarm.Columns.ALARM_QUERY_COLUMNS,
                     Alarm.Columns.HOUR + "=" + hour + " AND " +
                     Alarm.Columns.MINUTES + "=" + minutes + " AND " +
-                    Alarm.Columns.DAYS_OF_WEEK + "=0 AND " +
                     Alarm.Columns.MESSAGE + "=?",
                     new String[] { message }, null);
-            if (handleCursorResult(c, timeInMillis, true, skipUi)) {
+            if (handleCursorResult(c, true, skipUi)) {
                 finish();
                 return;
             }
@@ -81,22 +78,17 @@ public class HandleSetAlarm extends Activity {
             c = null;
         }
 
-        ContentValues values = new ContentValues();
-        values.put(Alarm.Columns.HOUR, hour);
-        values.put(Alarm.Columns.MINUTES, minutes);
-        values.put(Alarm.Columns.MESSAGE, message);
-        values.put(Alarm.Columns.ENABLED, 1);
-        values.put(Alarm.Columns.VIBRATE, 1);
-        values.put(Alarm.Columns.DAYS_OF_WEEK, 0);
-        values.put(Alarm.Columns.ALARM_TIME, timeInMillis);
+        Alarm alarm = new Alarm(hour, minutes);
+        alarm.enabled = true;
+        alarm.label = message;
 
         ContentResolver cr = getContentResolver();
-        Uri result = cr.insert(Alarm.Columns.CONTENT_URI, values);
+        Uri result = cr.insert(Alarm.Columns.CONTENT_URI, Alarms.createContentValues(alarm));
         if (result != null) {
             try {
                 c = cr.query(result, Alarm.Columns.ALARM_QUERY_COLUMNS, null,
                         null, null);
-                handleCursorResult(c, timeInMillis, false, skipUi);
+                handleCursorResult(c, false, skipUi);
             } finally {
                 if (c != null) c.close();
             }
@@ -105,15 +97,20 @@ public class HandleSetAlarm extends Activity {
         finish();
     }
 
-    private boolean handleCursorResult(Cursor c, long timeInMillis,
-            boolean enable, boolean skipUi) {
+    private boolean handleCursorResult(Cursor c, boolean enable, boolean skipUi) {
         if (c != null && c.moveToFirst()) {
             Alarm alarm = new Alarm(c);
+            // We are only allowing the creation or enabling of non-repeating alarms, so skip
+            // them if we see it.
+            if (alarm.daysOfWeek.isRepeating()) {
+                return false;
+            }
+
             if (enable) {
                 Alarms.enableAlarm(this, alarm.id, true);
                 alarm.enabled = true;
             }
-            AlarmUtils.popAlarmSetToast(this, timeInMillis);
+            AlarmUtils.popAlarmSetToast(this, alarm.calculateAlarmTime());
             if (skipUi) {
                 Alarms.setAlarm(this, alarm);
             } else {

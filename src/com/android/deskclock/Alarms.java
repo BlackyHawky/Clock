@@ -166,7 +166,7 @@ public class Alarms {
                 null, null);
     }
 
-    private static ContentValues createContentValues(Alarm alarm) {
+    public static ContentValues createContentValues(Alarm alarm) {
         ContentValues values = new ContentValues(8);
         // -1 means generate new id.
         if (alarm.id != -1) {
@@ -178,7 +178,7 @@ public class Alarms {
         values.put(Alarm.Columns.MINUTES, alarm.minutes);
         // We don't need this field anymore
         values.put(Alarm.Columns.ALARM_TIME, 0);
-        values.put(Alarm.Columns.DAYS_OF_WEEK, alarm.daysOfWeek.getCoded());
+        values.put(Alarm.Columns.DAYS_OF_WEEK, alarm.daysOfWeek.getBitSet());
         values.put(Alarm.Columns.VIBRATE, alarm.vibrate);
         values.put(Alarm.Columns.MESSAGE, alarm.label);
 
@@ -333,11 +333,10 @@ public class Alarms {
             }
         }
 
-        Alarm alarm = null;
-        Long alarmTime = null;
+        Pair<Alarm, Long> alarmResult = null;
         for (Alarm a : alarms) {
             // Update the alarm if it has been snoozed
-            alarmTime = hasAlarmBeenSnoozed(prefs, a.id) ?
+            Long alarmTime = hasAlarmBeenSnoozed(prefs, a.id) ?
                     prefs.getLong(getAlarmPrefSnoozeTimeKey(a.id), -1) :
                     a.calculateAlarmTime();
 
@@ -349,11 +348,11 @@ public class Alarms {
             }
             if (alarmTime < minTime) {
                 minTime = alarmTime;
-                alarm = a;
+                alarmResult = Pair.create(a, minTime);
             }
         }
 
-        return alarm != null ? Pair.create(alarm, minTime) : null;
+        return alarmResult;
     }
 
     /**
@@ -369,7 +368,7 @@ public class Alarms {
                 do {
                     Alarm alarm = new Alarm(cur);
                     // Ignore repeatable alarms
-                    if (alarm.daysOfWeek.isRepeatSet()) {
+                    if (alarm.daysOfWeek.isRepeating()) {
                         continue;
                     }
 
@@ -559,40 +558,6 @@ public class Alarms {
         Intent alarmChanged = new Intent("android.intent.action.ALARM_CHANGED");
         alarmChanged.putExtra("alarmSet", enabled);
         context.sendBroadcast(alarmChanged);
-    }
-
-    /**
-     * Given an alarm in hours and minutes, return a time suitable for
-     * setting in AlarmManager.
-     */
-    static Calendar calculateAlarm(int hour, int minute,
-            Alarm.DaysOfWeek daysOfWeek) {
-
-        // start with now
-        Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(System.currentTimeMillis());
-
-        int nowHour = c.get(Calendar.HOUR_OF_DAY);
-        int nowMinute = c.get(Calendar.MINUTE);
-
-        // if alarm is behind current time, advance one day
-        if ((hour < nowHour  || (hour == nowHour && minute <= nowMinute))) {
-            c.add(Calendar.DAY_OF_YEAR, 1);
-        }
-        c.set(Calendar.HOUR_OF_DAY, hour);
-        c.set(Calendar.MINUTE, minute);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-
-        int addDays = daysOfWeek.getNextAlarm(c);
-        if (addDays > 0) c.add(Calendar.DAY_OF_WEEK, addDays);
-        return c;
-    }
-
-    static String formatTime(final Context context, int hour, int minute,
-                             Alarm.DaysOfWeek daysOfWeek) {
-        Calendar c = calculateAlarm(hour, minute, daysOfWeek);
-        return formatTime(context, c);
     }
 
     /* used by AlarmAlert */
