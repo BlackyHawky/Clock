@@ -105,7 +105,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Disable the snooze alert if this alarm is the snooze.
         Alarms.disableSnoozeAlert(context, alarm.id);
         // Disable this alarm if it does not repeat.
-        if (!alarm.daysOfWeek.isRepeatSet()) {
+        if (!alarm.daysOfWeek.isRepeating()) {
             Alarms.enableAlarm(context, alarm.id, false);
         } else {
             // Enable the next alert if there is one. The above call to
