@@ -45,11 +45,11 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewTreeObserver;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
@@ -63,7 +63,9 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.widget.ActionableToastBar;
+
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.HashSet;
@@ -95,7 +97,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private ActionableToastBar mUndoBar;
 
     private Alarm mSelectedAlarm;
-    private int mScrollToAlarmId = -1;
+    private long mScrollToAlarmId = -1;
     private boolean mInDeleteConfirmation = false;
 
     // This flag relies on the activity having a "standard" launchMode and a new instance of this
@@ -126,19 +128,19 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.alarm_clock, container, false);
 
-        int[] expandedIds = null;
-        int[] repeatCheckedIds = null;
-        int[] selectedAlarms = null;
+        long[] expandedIds = null;
+        long[] repeatCheckedIds = null;
+        long[] selectedAlarms = null;
         Bundle previousDayMap = null;
         Log.v("oncreateview");
         if (savedState != null) {
-            expandedIds = savedState.getIntArray(KEY_EXPANDED_IDS);
+            expandedIds = savedState.getLongArray(KEY_EXPANDED_IDS);
             Log.v("expanded: "+expandedIds);
-            repeatCheckedIds = savedState.getIntArray(KEY_REPEAT_CHECKED_IDS);
+            repeatCheckedIds = savedState.getLongArray(KEY_REPEAT_CHECKED_IDS);
             mRingtoneTitleCache = savedState.getBundle(KEY_RINGTONE_TITLE_CACHE);
             mDeletedAlarm = savedState.getParcelable(KEY_DELETED_ALARM);
             mUndoShowing = savedState.getBoolean(KEY_UNDO_SHOWING);
-            selectedAlarms = savedState.getIntArray(KEY_SELECTED_ALARMS);
+            selectedAlarms = savedState.getLongArray(KEY_SELECTED_ALARMS);
             previousDayMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
             mSelectedAlarm = savedState.getParcelable(KEY_SELECTED_ALARM);
             mInDeleteConfirmation = savedState.getBoolean(KEY_DELETE_CONFIRMATION, false);
@@ -245,9 +247,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putIntArray(KEY_EXPANDED_IDS, mAdapter.getExpandedArray());
-        outState.putIntArray(KEY_REPEAT_CHECKED_IDS, mAdapter.getRepeatArray());
-        outState.putIntArray(KEY_SELECTED_ALARMS, mAdapter.getSelectedAlarmsArray());
+        outState.putLongArray(KEY_EXPANDED_IDS, mAdapter.getExpandedArray());
+        outState.putLongArray(KEY_REPEAT_CHECKED_IDS, mAdapter.getRepeatArray());
+        outState.putLongArray(KEY_SELECTED_ALARMS, mAdapter.getSelectedAlarmsArray());
         outState.putBundle(KEY_RINGTONE_TITLE_CACHE, mRingtoneTitleCache);
         outState.putParcelable(KEY_DELETED_ALARM, mDeletedAlarm);
         outState.putBoolean(KEY_UNDO_SHOWING, mUndoShowing);
@@ -305,7 +307,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return Alarms.getAlarmsCursorLoader(getActivity());
+        return Alarm.getAlarmsCursorLoader(getActivity());
     }
 
     @Override
@@ -334,7 +336,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
      *
      * @param alarmId The alarm id to scroll to.
      */
-    private void scrollToAlarm(int alarmId) {
+    private void scrollToAlarm(long alarmId) {
         for (int i = 0; i < mAdapter.getCount(); i++) {
             long id = mAdapter.getItemId(i);
             if (id == alarmId) {
@@ -409,9 +411,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
         private final Interpolator mExpandInterpolator;
         private final Interpolator mCollapseInterpolator;
 
-        private final HashSet<Integer> mExpanded = new HashSet<Integer>();
-        private final HashSet<Integer> mRepeatChecked = new HashSet<Integer>();
-        private final HashSet<Integer> mSelectedAlarms = new HashSet<Integer>();
+        private final HashSet<Long> mExpanded = new HashSet<Long>();
+        private final HashSet<Long> mRepeatChecked = new HashSet<Long>();
+        private final HashSet<Long> mSelectedAlarms = new HashSet<Long>();
         private Bundle mPreviousDaysOfWeekMap = new Bundle();
 
         private final boolean mHasVibrator;
@@ -454,7 +456,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         // Used for scrolling an expanded item in the list to make sure it is fully visible.
-        private int mScrollAlarmId = -1;
+        private long mScrollAlarmId = -1;
         private final Runnable mScrollRunnable = new Runnable() {
             @Override
             public void run() {
@@ -469,8 +471,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             }
         };
 
-        public AlarmItemAdapter(Context context, int[] expandedIds, int[] repeatCheckedIds,
-                int[] selectedAlarms, Bundle previousDaysOfWeekMap, ListView list) {
+        public AlarmItemAdapter(Context context, long[] expandedIds, long[] repeatCheckedIds,
+                long[] selectedAlarms, Bundle previousDaysOfWeekMap, ListView list) {
             super(context, null, 0);
             mContext = context;
             mFactory = LayoutInflater.from(context);
@@ -783,7 +785,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                                 // Set history to no days, so it will be everyday when repeat is
                                 // turned back on
                                 mPreviousDaysOfWeekMap.putInt("" + alarm.id,
-                                        Alarm.DaysOfWeek.NO_DAYS_SET);
+                                        DaysOfWeek.NO_DAYS_SET);
                             }
                         }
                         asyncUpdateAlarm(alarm, false);
@@ -847,7 +849,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             holder.delete.setAlpha(alpha);
         }
 
-        private void updateDaysOfWeekButtons(ItemHolder holder, Alarm.DaysOfWeek daysOfWeek) {
+        private void updateDaysOfWeekButtons(ItemHolder holder, DaysOfWeek daysOfWeek) {
             HashSet<Integer> setDays = daysOfWeek.getSetDays();
             for (int i = 0; i < 7; i++) {
                 if (setDays.contains(DAY_ORDER[i])) {
@@ -862,7 +864,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // long press could be on the parent view or one of its childs, so find the parent view
             v = getTopParent(v);
             if (v != null) {
-                int id = ((ItemHolder)v.getTag()).alarm.id;
+                long id = ((ItemHolder)v.getTag()).alarm.id;
                 if (mSelectedAlarms.contains(id)) {
                     mSelectedAlarms.remove(id);
                 } else {
@@ -915,7 +917,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             return title;
         }
 
-        public void setNewAlarm(int alarmId) {
+        public void setNewAlarm(long alarmId) {
             mExpanded.add(alarmId);
         }
 
@@ -1140,7 +1142,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             return 1;
         }
 
-        private View getViewById(int id) {
+        private View getViewById(long id) {
             for (int i = 0; i < mList.getCount(); i++) {
                 View v = mList.getChildAt(i);
                 if (v != null) {
@@ -1153,30 +1155,30 @@ public class AlarmClockFragment extends DeskClockFragment implements
             return null;
         }
 
-        public int[] getExpandedArray() {
-            final int[] ids = new int[mExpanded.size()];
+        public long[] getExpandedArray() {
             int index = 0;
-            for (int id : mExpanded) {
+            long[] ids = new long[mExpanded.size()];
+            for (long id : mExpanded) {
                 ids[index] = id;
                 index++;
             }
             return ids;
         }
 
-        public int[] getSelectedAlarmsArray() {
-            final int[] ids = new int[mSelectedAlarms.size()];
+        public long[] getSelectedAlarmsArray() {
             int index = 0;
-            for (int id : mSelectedAlarms) {
+            long[] ids = new long[mSelectedAlarms.size()];
+            for (long id : mSelectedAlarms) {
                 ids[index] = id;
                 index++;
             }
             return ids;
         }
 
-        public int[] getRepeatArray() {
-            final int[] ids = new int[mRepeatChecked.size()];
+        public long[] getRepeatArray() {
             int index = 0;
-            for (int id : mRepeatChecked) {
+            long[] ids = new long[mRepeatChecked.size()];
+            for (long id : mRepeatChecked) {
                 ids[index] = id;
                 index++;
             }
@@ -1187,16 +1189,16 @@ public class AlarmClockFragment extends DeskClockFragment implements
             return mPreviousDaysOfWeekMap;
         }
 
-        private void buildHashSetFromArray(int[] ids, HashSet<Integer> set) {
-            for (int id : ids) {
+        private void buildHashSetFromArray(long[] ids, HashSet<Long> set) {
+            for (long id : ids) {
                 set.add(id);
             }
         }
 
         public void deleteSelectedAlarms() {
-            Integer ids [] = new Integer[mSelectedAlarms.size()];
             int index = 0;
-            for (int id : mSelectedAlarms) {
+            Long ids [] = new Long[mSelectedAlarms.size()];
+            for (long id : mSelectedAlarms) {
                 ids[index] = id;
                 index ++;
             }
@@ -1220,11 +1222,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
         asyncAddAlarm(a, true);
     }
 
-    private void asyncDeleteAlarm(final Integer [] alarmIds) {
-        final AsyncTask<Integer, Void, Void> deleteTask = new AsyncTask<Integer, Void, Void>() {
+    private void asyncDeleteAlarm(final Long[] alarmIds) {
+        final AsyncTask<Long, Void, Void> deleteTask = new AsyncTask<Long, Void, Void>() {
             @Override
-            protected Void doInBackground(Integer... ids) {
-                for (final int id : ids) {
+            protected Void doInBackground(Long... ids) {
+                for (long id : ids) {
                     Alarms.deleteAlarm(AlarmClockFragment.this.getActivity(), id);
                 }
                 return null;
