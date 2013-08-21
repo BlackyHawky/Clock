@@ -25,6 +25,7 @@
     <CheckBox
         android:id="@+id/city_onoff"
         android:clickable="false"
+        android:button="@drawable/red_checkbox"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content" />
     <TextView
