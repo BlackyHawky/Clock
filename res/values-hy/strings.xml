@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"Ժամացույց"</string>
+    <string name="alarm_list_title" msgid="7589940465292950600">"Զարթուցիչներ"</string>
+    <string name="add_alarm" msgid="5976616107390962899">"Ավելացնել զարթուցիչ"</string>
+    <string name="menu_desk_clock" msgid="3241995064554071588">"Սեղանի ժամացույց"</string>
+    <string name="menu_edit_alarm" msgid="7204602994918829751">"Խմբագրել զարթուցիչը"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"Ջնջել զարթուցիչը"</string>
+    <string name="enable_alarm" msgid="1834599140632142536">"Միացնել զարթուցիչը"</string>
+    <string name="disable_alarm" msgid="5889378670229554109">"Անջատել զարթուցիչը"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Ջնջե՞լ այս զարթուցիչը:"</string>
+    <string name="show_clock" msgid="8358759982675616915">"Ցուցադրել ժամացույցը"</string>
+    <string name="hide_clock" msgid="3217727306480505694">"Թաքցնել ժամացույցը"</string>
+    <string name="label" msgid="162189613902857319">"Պիտակ"</string>
+    <string name="default_label" msgid="5590025289805630372">"Զարթուցիչ"</string>
+    <string name="set_alarm" msgid="9148359866152726808">"Դնել զարթուցիչ"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Թրթռալ"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"Կրկնել"</string>
+    <string name="alert" msgid="6506982899651975645">"Զարթուցիչի զանգերանգը"</string>
+    <string name="ringtone" msgid="9110746249688559579">"Զանգերանգ"</string>
+    <string name="time" msgid="8067216534232296518">"Ժամանակ"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Անտեսել"</string>
+    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Զարթուցիչը լռել է <xliff:g id="MINUTES">%d</xliff:g> րոպե անց:"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ննջել"</string>
+    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Ննջում է <xliff:g id="MINUTES">%d</xliff:g> րոպե:"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ննջում է մինչև <xliff:g id="TIME">%s</xliff:g>"</string>
+  <string-array name="timer_notifications">
+    <item msgid="7760558912503484257">"Մնացել է մեկ րոպեից պակաս ժամանակ:"</item>
+    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> մինչ ավարտը"</item>
+    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> մինչ ավարտը"</item>
+    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> մինչ ավարտը"</item>
+  </string-array>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"Զարթուցիչը դրված է այս պահից 1 րոպեից պակաս:"</item>
+    <item msgid="6002066367368421848">"Զարթուցիչը դրված է այս պահից <xliff:g id="DAYS">%1$s</xliff:g> օր անց:"</item>
+    <item msgid="8824719306247973774">"Զարթուցիչը դրված է այս պահից <xliff:g id="HOURS">%2$s</xliff:g> անց:"</item>
+    <item msgid="8182406852935468862">"Զարթուցիչը դրված է այս պահից <xliff:g id="DAYS">%1$s</xliff:g> և <xliff:g id="HOURS">%2$s</xliff:g> անց:"</item>
+    <item msgid="2532279224777213194">"Զարթուցիչը դրված է այս պահից <xliff:g id="MINUTES">%3$s</xliff:g> անց:"</item>
+    <item msgid="5936557894247187717">"Զարթուցիչը դրված է այս պահից <xliff:g id="DAYS">%1$s</xliff:g> և <xliff:g id="MINUTES">%3$s</xliff:g> անց:"</item>
+    <item msgid="9115697840826129603">"Զարթուցիչը դրված է այս պահից <xliff:g id="HOURS">%2$s</xliff:g> և <xliff:g id="MINUTES">%3$s</xliff:g> անց:"</item>
+    <item msgid="2332583385137381060">"Զարթուցիչը դրված է այս պահից <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> և <xliff:g id="MINUTES">%3$s</xliff:g> անց:"</item>
+  </string-array>
+    <string name="day" msgid="7984755014526510295">"1 օր"</string>
+    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> օր"</string>
+    <string name="hour" msgid="2546819039651509323">"1 ժամ"</string>
+    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> ժամ"</string>
+    <string name="minute" msgid="2486157997434653710">"1 րոպե"</string>
+    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> րոպե"</string>
+    <string name="every_day" msgid="4100909974923444602">"Ամեն օր"</string>
+    <string name="never" msgid="54104287800571769">"Երբեք"</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"Ընտրեք ժամացույցը"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"Անալոգային ժամացույց"</string>
+    <string name="help" msgid="7786263119482654015">"օգնություն"</string>
+    <string name="settings" msgid="5849739030579520686">"Կարգավորումներ"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Ննջման տևողությունը"</string>
+  <plurals name="snooze_duration">
+    <item quantity="one" msgid="7406963706727564418">"1 րոպե"</item>
+    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> րոպե"</item>
+  </plurals>
+  <plurals name="snooze_picker_label">
+    <item quantity="one" msgid="3783171637798575068">"րոպե"</item>
+    <item quantity="other" msgid="1304056759541595077">"րոպե"</item>
+  </plurals>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Լռել"</string>
+    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> րոպեից"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"Երբեք"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3693401222993867634">"5 րոպե"</item>
+    <item msgid="3663730603519549990">"10 րոպե"</item>
+    <item msgid="1385481095199681200">"15 րոպե"</item>
+    <item msgid="420479821767342125">"20 րոպե"</item>
+    <item msgid="2107936130151066746">"25 րոպե"</item>
+    <item msgid="7219791437023378544">"30 րոպե"</item>
+    <item msgid="4278641338024561333">"Երբեք"</item>
+  </string-array>
+    <string name="done" msgid="6509722361933858451">"Կատարված է"</string>
+    <string name="revert" msgid="9100911171235162926">"Հետադարձել"</string>
+    <string name="delete" msgid="5732434972457000541">"Ջնջել"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Զարթուցիչի ձայնի բարձրությունը"</string>
+    <string name="silent_alarm_summary" msgid="8605302849408279221">"Լուռ"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Ննջել կամ անտեսել զարթուցիչը:"</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ննջած է)"</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Զարթուցիչը դրված է <xliff:g id="TIME">%s</xliff:g>: Հպեք՝ չեղարկելու համար:"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Ձայնի կոճակներ"</string>
+    <string name="volume_button_dialog_title" msgid="8768042543750036853">"Գործարկման կոճակ"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"Ննջել"</item>
+    <item msgid="3450979320164769576">"Անտեսել"</item>
+    <item msgid="6302517608411378024">"Ոչինչ չանել"</item>
+  </string-array>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Դնել լռելյայն զանգերանգը"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"Զարթուցիչներ"</string>
+    <string name="gallery_button_description" msgid="1151743663255257668">"Ցուցասրահ"</string>
+    <string name="music_button_description" msgid="1626593420810117999">"Երաժշտություն"</string>
+    <string name="nightmode_button_description" msgid="990894208217576381">"Թույլ"</string>
+    <string name="home_button_description" msgid="3383859096809056157">"Գործարկիչ"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Ժամացույցի տեսքը"</string>
+    <string name="label_description" msgid="8736179296142915727">"Պիտակ"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Զանգերանգ"</string>
+    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Եղանակի տեսությունն անհասանելի է այս պահին:"</string>
+    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Զարթուցիչների ձայնի նվագարկման ծառայությունը դրված է ժամացույցում:"</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"Բեռնվում է զանգերանգը…"</string>
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Զարթուցիչների ձայնի նվագարկման ծառայությունը դրված է ժամացույցում:"</string>
+    <string name="control_set_alarm" msgid="2194676418924016327">"Դնել զարթուցիչ"</string>
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
+    <string name="menu_timer" msgid="6459070074762877114">"Ժամաչափ"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"Ժամացույց"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Վայրկյանաչափ"</string>
+    <string name="button_alarms" msgid="8016103479617020265">"Զարթուցիչներ"</string>
+    <string name="button_cities" msgid="4555761857494501363">"Քաղաքներ"</string>
+    <string name="button_menu" msgid="6050484561842120282">"Այլ ընտրանքներ"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"Կարգավորումներ"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"Օգնություն"</string>
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Գիշերային ռեժիմ"</string>
+    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
+    <skip />
+    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
+    <skip />
+    <string name="sw_resume_button" msgid="2569360966002022248">"Շարունակել"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Մեկնարկել"</string>
+    <string name="sw_stop_button" msgid="8322958613123274451">"Դադարեցնել"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Շրջան"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Վերակայել"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Տարածել"</string>
+    <string name="hours_label" msgid="3393478155635368097">"ժ"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"ր"</string>
+    <string name="seconds_label" msgid="124655952824003246">"վ"</string>
+    <string name="hours_label_description" msgid="8652842524970971830">"ժամ"</string>
+    <string name="minutes_label_description" msgid="965686733490357796">"րոպե"</string>
+    <string name="seconds_label_description" msgid="3821620053141299692">"վայրկյան"</string>
+    <string name="zero" msgid="7102083421938355017">"0"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"Իմ ժամանակն է <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Շրջանի ժամանակը՝"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Շրջան <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <plurals name="Nhours_description">
+    <item quantity="one" msgid="371227238759147245">"1 ժամ"</item>
+    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ժամ"</item>
+  </plurals>
+  <plurals name="Nminutes_description">
+    <item quantity="one" msgid="1001391305885322059">"1 րոպե"</item>
+    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> րոպե"</item>
+  </plurals>
+  <plurals name="Nseconds_description">
+    <item quantity="one" msgid="6589853086641485725">"1 վայրկյան"</item>
+    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> վայրկյան"</item>
+  </plurals>
+    <string name="timer_add_timer" msgid="862733633862574752">"Ավելացնել ժամաչափ"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Մեկնարկել"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"Ջնջել"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Ավելացնել 1 րոպե"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Դադարեցնել"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Վերակայել"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"Չեղարկել"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"Ժամանակը սպառվել է"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Ժամաչափ"</string>
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"Դուք լրիվ արագության խենթ եք:"</item>
+    <item msgid="6332879039890727169">"Վայելեք ձեր աշխատանքի պտուղները:"</item>
+    <item msgid="815382761274660130">"Ռոբոտները հայտնի են արագությամբ, բայց ոչ այնքան, որքան դու՛ք:"</item>
+    <item msgid="7916250650982813737">"Է՜հ:"</item>
+    <item msgid="6836603904515182333">"Բարձրակարգ արդյունք:"</item>
+    <item msgid="7508085100680861631">"Այսպիսի գերազանց արագություն:"</item>
+    <item msgid="5961245252909589573">"Եկեք նորից ժամանակ սպանենք:"</item>
+    <item msgid="5211891900854545940">"Պարզապես թռիչք դեպի ձախ:"</item>
+    <item msgid="9071353477103826053">"Դուք շտապելու կարիք ունեք:"</item>
+    <item msgid="3785193933691117181">"Լույսի արագություն:"</item>
+  </string-array>
+  <plurals name="timers_num">
+    <item quantity="one" msgid="6764708652976799977">"1 րոպե"</item>
+    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> ժամաչափ"</item>
+  </plurals>
+    <string name="home_label" msgid="4436139365695453870">"Տեղական"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"Քաղաքներ"</string>
+    <string name="clock_settings" msgid="8887845806151785393">"Ժամացույց"</string>
+    <string name="clock_style" msgid="2265011060429742344">"Տեսակը"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"Անալոգ"</item>
+    <item msgid="8483930821046925592">"Թվային"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Ավտոմատ տեղական ժամանակ"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Ճամփորդության ժամանակ, երբ ժամային գոտիները տարբեր են, ցուցադրել տեղական ժամանակը"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Տեղական ժամային գոտի"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Տեղական ժամային գոտի"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"Չեղարկել"</string>
+    <string name="time_picker_set" msgid="331153175471468051">"Լավ"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
+    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
+    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
+    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"Մարշալյան Կղզիներ"</item>
+    <item msgid="4196408495909011020">"Միդուեյ Կղզիներ"</item>
+    <item msgid="1414384194857730006">"Հավայի"</item>
+    <item msgid="2687091371581931926">"Ալյասկա"</item>
+    <item msgid="1922100269679049660">"Խաղաղօվկիանոսյան ժամանակ"</item>
+    <item msgid="7156402158716866161">"Տիժուանա"</item>
+    <item msgid="1144117502254612241">"Արիզոնա"</item>
+    <item msgid="101284182011722637">"Չիհուահուա"</item>
+    <item msgid="689121094232986897">"Լեռնային ժամանակ"</item>
+    <item msgid="5445331923942302756">"Կենտրոնական Ամերիկա"</item>
+    <item msgid="2749806434052452351">"Կենտրոնական ժամանակ"</item>
+    <item msgid="3997138870229703753">"Մեխիկո Սիթի"</item>
+    <item msgid="5425567073027744888">"Սասկաչևան"</item>
+    <item msgid="2877342865396629368">"Բոգոտա"</item>
+    <item msgid="568682398893899670">"Արևելյան ժամանակ"</item>
+    <item msgid="668135984541863866">"Վենեսուելա"</item>
+    <item msgid="3737474220861486223">"Ատլանտյան ժամանակ (Բարբադոս)"</item>
+    <item msgid="6279116051273436870">"Ատլանտյան ժամանակ (Կանադա)"</item>
+    <item msgid="8513382867172014244">"Մանաուս"</item>
+    <item msgid="7776299003105932407">"Սանտյագո"</item>
+    <item msgid="8636989494746218677">"Նյուֆաունդլենդ"</item>
+    <item msgid="4402541016410147505">"Բրազիլիա"</item>
+    <item msgid="2251184440733164084">"Բուենոս Այրես"</item>
+    <item msgid="6202926618569004969">"Գրենլանդիա"</item>
+    <item msgid="2355275037115290628">"Մոնտեվիդեո"</item>
+    <item msgid="1377549694711708945">"Միջին Ատլանտյան"</item>
+    <item msgid="3457671272126347981">"Ազորյան կղզիներ"</item>
+    <item msgid="3659315141063710840">"Կապե Վերդե կղզիներ"</item>
+    <item msgid="1260941741802367635">"Կասաբլանկա"</item>
+    <item msgid="8275203689687954762">"Լոնդոն, Դուբլին"</item>
+    <item msgid="5970179539479320905">"Ամստերդամ, Բեռլին"</item>
+    <item msgid="5396319478750517962">"Բելգրադ"</item>
+    <item msgid="8688787475056663004">"Բրյուսել"</item>
+    <item msgid="3415827874921681622">"Սարաևո"</item>
+    <item msgid="402008965928320066">"Վինդհուկ"</item>
+    <item msgid="6436942724959275569">"Արևմտյան Աֆրիկյան ժամանակ"</item>
+    <item msgid="954536568417204026">"Ամման, Հորդանան"</item>
+    <item msgid="8932745482008902551">"Աթենք, Ստամբուլ"</item>
+    <item msgid="320025725949024510">"Բեյրութ, Լիբանան"</item>
+    <item msgid="7242083112551905970">"Կահիրե"</item>
+    <item msgid="7241520146011450419">"Հելսինկի"</item>
+    <item msgid="2717065017510546526">"Երուսաղեմ"</item>
+    <item msgid="8698556287741466553">"Մինսկ"</item>
+    <item msgid="1797598357342084506">"Հարարե"</item>
+    <item msgid="5169119919905066998">"Բաղդադ"</item>
+    <item msgid="2615788116201065182">"Մոսկվա"</item>
+    <item msgid="9084354867885584646">"Քուվեյթ"</item>
+    <item msgid="1351570519986178268">"Նայրոբի"</item>
+    <item msgid="7094569580635877460">"Թեհրան"</item>
+    <item msgid="3953138772617909704">"Բաքու"</item>
+    <item msgid="2868893113598800752">"Թբիլիսի"</item>
+    <item msgid="7088581865802476373">"Երևան"</item>
+    <item msgid="1941122257623887992">"Դուբայ"</item>
+    <item msgid="9194797225058249720">"Քաբուլ"</item>
+    <item msgid="6486569254364577332">"Իսլամաբադ, Կարաչի"</item>
+    <item msgid="5487724896895412089">"Ուրալսկ"</item>
+    <item msgid="364906869710826982">"Եկատերինբուրգ"</item>
+    <item msgid="2106505051751383358">"Կոլկաթա"</item>
+    <item msgid="6851586621581501447">"Շրի Լանկա"</item>
+    <item msgid="800438544128213134">"Կատմանդու"</item>
+    <item msgid="6173621471007643021">"Աստանա"</item>
+    <item msgid="8645125891971581128">"Յանգոն"</item>
+    <item msgid="2886407505119737794">"Կրասնոյարսկ"</item>
+    <item msgid="3408222398188107090">"Բանգկոկ"</item>
+    <item msgid="4441612937172851228">"Պեկին"</item>
+    <item msgid="4936715789028996930">"Հոնկոնգ"</item>
+    <item msgid="4261031143777385525">"Իրկուտսկ"</item>
+    <item msgid="3538060959338191835">"Կուալա Լումպուր"</item>
+    <item msgid="1438847562643099201">"Պերթ"</item>
+    <item msgid="3063913827688244383">"Թայպեյ"</item>
+    <item msgid="3502757135046564209">"Սեուլ"</item>
+    <item msgid="6107588684519111669">"Տոկիո, Օսակա"</item>
+    <item msgid="4350769099755608471">"Յակուտսկ"</item>
+    <item msgid="2422707004533526462">"Ադելաիդա"</item>
+    <item msgid="1292192084554134339">"Դարվին"</item>
+    <item msgid="1320883699470001716">"Բրիսբեն"</item>
+    <item msgid="5137198806146386527">"Հոբարտ"</item>
+    <item msgid="5920063686933941174">"Սիդնեյ, Կանբերա"</item>
+    <item msgid="615906039696009425">"Վլադիվոստոկ"</item>
+    <item msgid="7738680449356275374">"Գուամ"</item>
+    <item msgid="2882915026380778227">"Մագադան"</item>
+    <item msgid="8255615641810148152">"Օքլենդ"</item>
+    <item msgid="3027153773466391728">"Ֆիջի"</item>
+    <item msgid="5911600083231840181">"Տոնգա"</item>
+  </string-array>
+    <string name="alarm_settings" msgid="6049627772103646753">"Զարթուցիչներ"</string>
+    <string name="see_all" msgid="775983396630163739">"Տեսնել բոլորը…"</string>
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Վայկյանաչափի ծառայությունը կգործարկի ծանուցումներ:"</string>
+    <string name="swn_stopped" msgid="783124901663086172">"Դադարեցված է"</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"Սահեք ձախ՝ անտեսելու համար"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Սահեք ձախ՝ ննջելու համար"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"Սահեք վեր՝ անտեսելու համար"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Սահեք ներքև՝ ննջելու համար"</string>
+    <string name="timer_stopped" msgid="2730331837832462008">"Ժամաչափը դադարեցված է"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ժամաչափ դադարեցված է"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Հպեք՝ ձեր ժամաչափերը տեսնելու համար"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ժամաչափ"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Հաջորդ զարթուցիչը՝ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Էկրանապահի կարգավորումներ"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Գիշերային ռեժիմ"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Շատ թույլ էկրան (մութ սենյակների համար)"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"Ընդարձակել զարթուցիչը"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Թաքցնել զարթուցիչը"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"հետարկել"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Զարթուցիչը ջնջված է:"</string>
+    <string name="slash" msgid="2077577763821006919">"/"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"Հաջորդ զարթուցիչը՝ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g>-ը նշված են"</string>
+    <string name="deleted_message" msgid="1220848140260509437">"Ջնջված է"</string>
+  <plurals name="alarm_delete_confirmation">
+    <item quantity="one" msgid="111940612131906802">"Ջնջե՞լ նշված զարթուցիչը:"</item>
+    <item quantity="other" msgid="6918176478191272189">"Ջնջե՞լ նշված զարթուցիչները:"</item>
+  </plurals>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Ջնջե՞լ այս ժամաչափը:"</string>
+    <string name="city_delete_confirmation" msgid="1783441538785676299">"Հեռացնե՞լ այս քաղաքը:"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Թվային ժամացույց"</string>
+</resources>
