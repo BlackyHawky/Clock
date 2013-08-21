@@ -78,7 +78,7 @@
 
         <activity android:name=".worldclock.CitiesActivity"
                 android:label="@string/cities_activity_title"
-                android:theme="@style/SettingsTheme"
+                android:theme="@style/CitiesTheme"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
                 >
