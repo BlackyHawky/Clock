@@ -68,6 +68,10 @@
         <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
 
+    <style name="CitiesTheme" parent="SettingsTheme">
+        <item name="android:fastScrollThumbDrawable">@drawable/red_fastscroll_thumb</item>
+    </style>
+
     <style name="SettingsTheme.ActionBar" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:titleTextStyle">@style/SettingsTheme.TextAppearance.ActionBar.Title</item>
         <item name="android:displayOptions">useLogo|showTitle</item>
