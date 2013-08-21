@@ -75,7 +75,9 @@ public class WorldClockAdapter extends BaseAdapter {
         // Read the cities DB so that the names and timezones will be taken from the DB
         // and not from the selected list so that change of locale or changes in the DB will
         // be reflected.
-        CityObj[] cities = Utils.loadCitiesDataBase(context);
+        CityObj[] cities = Utils.loadCitiesFromXml(context);
+        // Sort alphabetically
+        Arrays.sort(cities, new CityNameComparator());
         if (cities != null) {
             for (int i = 0; i < cities.length; i ++) {
                 mCitiesDb.put(cities[i].mCityId, cities [i]);
