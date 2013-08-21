@@ -131,6 +131,10 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Setări"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ajutor"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Modul Noapte"</string>
+    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
+    <skip />
+    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
+    <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"Reluaţi"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Porniţi"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Opriţi"</string>
