@@ -84,10 +84,7 @@ public class AlarmUtils {
      * Display a toast that tells the user how long until the alarm
      * goes off.  This helps prevent "am/pm" mistakes.
      */
-    public static void popAlarmSetToast(Context context, int hour, int minute,
-                                 Alarm.DaysOfWeek daysOfWeek) {
-        popAlarmSetToast(context,
-                Alarms.calculateAlarm(hour, minute, daysOfWeek)
-                        .getTimeInMillis());
+    public static void popAlarmSetToast(Context context, Alarm alarm) {
+        popAlarmSetToast(context, alarm.calculateAlarmTime());
     }
 }

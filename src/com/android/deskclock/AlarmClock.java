@@ -767,7 +767,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
             });
             itemHolder.clickableLabel.setOnLongClickListener(mLongClickListener);
 
-            if (mRepeatChecked.contains(alarm.id) || itemHolder.alarm.daysOfWeek.isRepeatSet()) {
+            if (mRepeatChecked.contains(alarm.id) || itemHolder.alarm.daysOfWeek.isRepeating()) {
                 itemHolder.repeat.setChecked(true);
                 itemHolder.repeatDays.setVisibility(View.VISIBLE);
                 itemHolder.repeatDays.setOnLongClickListener(mLongClickListener);
@@ -791,13 +791,10 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         // Set all previously set days
                         // or
                         // Set all days if no previous.
-                        final int daysOfWeekCoded = mPreviousDaysOfWeekMap.getInt("" + alarm.id);
-                        if (daysOfWeekCoded == 0) {
-                            for (int day : DAY_ORDER) {
-                                alarm.daysOfWeek.setDayOfWeek(day, true);
-                            }
-                        } else {
-                            alarm.daysOfWeek.set(new Alarm.DaysOfWeek(daysOfWeekCoded));
+                        final int bitSet = mPreviousDaysOfWeekMap.getInt("" + alarm.id);
+                        alarm.daysOfWeek.setBitSet(bitSet);
+                        if (!alarm.daysOfWeek.isRepeating()) {
+                            alarm.daysOfWeek.setDaysOfWeek(true, DAY_ORDER);
                         }
                         updateDaysOfWeekButtons(itemHolder, alarm.daysOfWeek);
                     } else {
@@ -805,11 +802,11 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         mRepeatChecked.remove(alarm.id);
 
                         // Remember the set days in case the user wants it back.
-                        final int daysOfWeekCoded = alarm.daysOfWeek.getCoded();
-                        mPreviousDaysOfWeekMap.putInt("" + alarm.id, daysOfWeekCoded);
+                        final int bitSet = alarm.daysOfWeek.getBitSet();
+                        mPreviousDaysOfWeekMap.putInt("" + alarm.id, bitSet);
 
                         // Remove all repeat days
-                        alarm.daysOfWeek.set(new Alarm.DaysOfWeek(0));
+                        alarm.daysOfWeek.clearAllDays();
                     }
                     asyncUpdateAlarm(alarm, false);
                 }
@@ -830,20 +827,22 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
                         itemHolder.dayButtons[buttonIndex].toggle();
                         final boolean checked = itemHolder.dayButtons[buttonIndex].isChecked();
                         int day = DAY_ORDER[buttonIndex];
-                        alarm.daysOfWeek.setDayOfWeek(day, checked);
+                        alarm.daysOfWeek.setDaysOfWeek(checked, day);
                         if (checked) {
                             turnOnDayOfWeek(itemHolder, buttonIndex);
                         } else {
                             turnOffDayOfWeek(itemHolder, buttonIndex);
 
                             // See if this was the last day, if so, un-check the repeat box.
-                            if (alarm.daysOfWeek.getCoded() == 0) {
+                            if (!alarm.daysOfWeek.isRepeating()) {
                                 itemHolder.repeatDays.setVisibility(View.GONE);
                                 itemHolder.repeat.setTextColor(mColorDim);
                                 mRepeatChecked.remove(alarm.id);
 
-                                // Remember the set days in case the user wants it back.
-                                mPreviousDaysOfWeekMap.putInt("" + alarm.id, 0);
+                                // Set history to no days, so it will be everyday when repeat is
+                                // turned back on
+                                mPreviousDaysOfWeekMap.putInt("" + alarm.id,
+                                        Alarm.DaysOfWeek.NO_DAYS_SET);
                             }
                         }
                         asyncUpdateAlarm(alarm, false);
@@ -1221,7 +1220,7 @@ public class AlarmClock extends Activity implements LoaderManager.LoaderCallback
     }
 
     private void popToast(Alarm alarm) {
-        AlarmUtils.popAlarmSetToast(this, alarm.hour, alarm.minutes, alarm.daysOfWeek);
+        AlarmUtils.popAlarmSetToast(this, alarm);
     }
 
     /***
