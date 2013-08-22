@@ -131,6 +131,10 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"設定"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"說明"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"夜間模式"</string>
+    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
+    <skip />
+    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
+    <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"繼續"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"開始"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"停止"</string>
