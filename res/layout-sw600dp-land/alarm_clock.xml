@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
+<!-- Copyright (C) 2013 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -21,36 +21,56 @@
     android:layout_height="match_parent"
     android:paddingTop="?android:attr/actionBarSize" >
 
-    <ListView
-        android:id="@+id/alarms_list"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:descendantFocusability="beforeDescendants"
-        android:divider="@null"
-        android:dividerHeight="0dp"
+        android:orientation="horizontal"
+        android:baselineAligned="false" >
+
+        <FrameLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            >
+            <ListView
+                android:id="@+id/alarms_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:descendantFocusability="beforeDescendants"
+                android:divider="@null"
+                android:dividerHeight="6dp"
+                />
+            <TextView
+                android:id="@+id/alarms_empty_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_alarms"
+                style="@style/small_thin"
+                android:drawableTop="@drawable/ic_alarm"
+                android:contentDescription="@string/no_alarms"
+                android:layout_gravity="center"
+                android:textColor="@color/grey" />
+            <com.android.deskclock.widget.ActionableToastBar
+                android:id="@+id/undo_bar"
+                android:layout_width="match_parent"
+                android:layout_height="64dip"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="96dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginEnd="8dp"
+                style="@style/ToastBarStyle" />
+        </FrameLayout>
+
+        <include layout="@layout/alarm_timeline_layout"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
         />
-    <TextView
-        android:id="@+id/alarms_empty_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/no_alarms"
-        style="@style/small_thin"
-        android:drawableTop="@drawable/ic_alarm"
-        android:contentDescription="@string/no_alarms"
-        android:layout_gravity="center"
-        android:textColor="@color/grey" />
-    <com.android.deskclock.widget.ActionableToastBar
-        android:id="@+id/undo_bar"
-        android:layout_width="match_parent"
-        android:layout_height="64dip"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="96dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        style="@style/ToastBarStyle" />
+
+    </LinearLayout>
     <FrameLayout
         android:background="@drawable/footer_bg"
         android:layout_width="match_parent"
