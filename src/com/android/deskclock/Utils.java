@@ -171,6 +171,21 @@ public class Utils {
         return Math.max(strokeSize, Math.max(diamondStrokeSize, markerStrokeSize));
     }
 
+    /**
+     * Uses {@link Utils#calculateRadiusOffset(float, float, float)} after fetching the values
+     * from the resources just as {@link CircleTimerView#init(android.content.Context)} does.
+     */
+    public static float calculateRadiusOffset(Resources resources) {
+        if (resources != null) {
+            float strokeSize = resources.getDimension(R.dimen.circletimer_circle_size);
+            float diamondStrokeSize = resources.getDimension(R.dimen.circletimer_diamond_size);
+            float markerStrokeSize = resources.getDimension(R.dimen.circletimer_marker_size);
+            return calculateRadiusOffset(strokeSize, diamondStrokeSize, markerStrokeSize);
+        } else {
+            return 0f;
+        }
+    }
+
     /**  The pressed color used throughout the app. If this method is changed, it will not have
      *   any effect on the button press states, and those must be changed separately.
     **/
