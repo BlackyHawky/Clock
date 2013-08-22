@@ -26,7 +26,6 @@ import android.provider.BaseColumns;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public final class Alarm implements Parcelable {
@@ -53,7 +52,7 @@ public final class Alarm implements Parcelable {
         p.writeInt(enabled ? 1 : 0);
         p.writeInt(hour);
         p.writeInt(minutes);
-        p.writeInt(daysOfWeek.getCoded());
+        p.writeInt(daysOfWeek.getBitSet());
         // We don't need the alarmTime field anymore, but write 0 to be backwards compatible
         p.writeLong(0);
         p.writeInt(vibrate ? 1 : 0);
@@ -227,18 +226,17 @@ public final class Alarm implements Parcelable {
 
     // Creates a default alarm at the current time.
     public Alarm() {
-        id = -1;
-        hour = 0;
-        minutes = 0;
-        vibrate = true;
-        daysOfWeek = new DaysOfWeek(0);
-        label = "";
-        alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        this(0, 0);
     }
 
-    public long calculateAlarmTime() {
-        // Would it be safe to cache this value in memory?
-        return Alarms.calculateAlarm(hour, minutes, daysOfWeek).getTimeInMillis();
+    public Alarm(int hour, int minutes) {
+        this.id = -1;
+        this.hour = hour;
+        this.minutes = minutes;
+        this.vibrate = true;
+        this.daysOfWeek = new DaysOfWeek(0);
+        this.label = "";
+        this.alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
     }
 
     public String getLabelOrDefault(Context context) {
@@ -261,6 +259,30 @@ public final class Alarm implements Parcelable {
     }
 
 
+    public long calculateAlarmTime() {
+        // start with now
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+
+        int nowHour = c.get(Calendar.HOUR_OF_DAY);
+        int nowMinute = c.get(Calendar.MINUTE);
+
+        // if alarm is behind current time, advance one day
+        if ((hour < nowHour  || (hour == nowHour && minutes <= nowMinute))) {
+            c.add(Calendar.DAY_OF_YEAR, 1);
+        }
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minutes);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+
+        int addDays = daysOfWeek.calculateDaysToNextAlarm(c);
+        if (addDays > 0) {
+            c.add(Calendar.DAY_OF_WEEK, addDays);
+        }
+        return c.getTimeInMillis();
+    }
+
     /*
      * Days of week code as a single int.
      * 0x00: no day
@@ -272,31 +294,37 @@ public final class Alarm implements Parcelable {
      * 0x20: Saturday
      * 0x40: Sunday
      */
-    static final class DaysOfWeek {
+    public static final class DaysOfWeek {
+        // Number if days in the week.
+        public static final int DAYS_IN_A_WEEK = 7;
 
-        private static int[] DAY_MAP = new int[] {
-            Calendar.MONDAY,
-            Calendar.TUESDAY,
-            Calendar.WEDNESDAY,
-            Calendar.THURSDAY,
-            Calendar.FRIDAY,
-            Calendar.SATURDAY,
-            Calendar.SUNDAY,
-        };
+        // Value when all days are set
+        public static final int ALL_DAYS_SET = 0x7f;
 
+        // Value when no days are set
+        public static final int NO_DAYS_SET = 0;
 
-        private static HashMap<Integer, Integer> DAY_TO_BIT_MASK = new HashMap<Integer, Integer>();
-        static {
-            for (int i = 0; i < DAY_MAP.length; i++) {
-                DAY_TO_BIT_MASK.put(DAY_MAP[i], i);
-            }
+        /**
+         * Need to have monday start at index 0 to be backwards compatible. This converts
+         * Calendar.DAY_OF_WEEK constants to our internal bit structure.
+         */
+        private static int convertDayToBitIndex(int day) {
+            return (day + 5) % DAYS_IN_A_WEEK;
+        }
+
+        /**
+         * Need to have monday start at index 0 to be backwards compatible. This converts
+         * our bit structure to Calendar.DAY_OF_WEEK constant value.
+         */
+        private static int convertBitIndexToDay(int bitIndex) {
+            return (bitIndex + 1) % DAYS_IN_A_WEEK + 1;
         }
 
         // Bitmask of all repeating days
-        private int mDays;
+        private int mBitSet;
 
-        DaysOfWeek(int days) {
-            mDays = days;
+        public DaysOfWeek(int bitSet) {
+            mBitSet = bitSet;
         }
 
         public String toString(Context context, boolean showNever) {
@@ -311,121 +339,114 @@ public final class Alarm implements Parcelable {
             StringBuilder ret = new StringBuilder();
 
             // no days
-            if (mDays == 0) {
-                return showNever ?
-                        context.getText(R.string.never).toString() : "";
+            if (mBitSet == NO_DAYS_SET) {
+                return showNever ? context.getText(R.string.never).toString() : "";
             }
 
             // every day
-            if (mDays == 0x7f) {
+            if (mBitSet == ALL_DAYS_SET) {
                 return context.getText(R.string.every_day).toString();
             }
 
             // count selected days
-            int dayCount = 0, days = mDays;
-            while (days > 0) {
-                if ((days & 1) == 1) dayCount++;
-                days >>= 1;
+            int dayCount = 0;
+            int bitSet = mBitSet;
+            while (bitSet > 0) {
+                if ((bitSet & 1) == 1) dayCount++;
+                bitSet >>= 1;
             }
 
             // short or long form?
             DateFormatSymbols dfs = new DateFormatSymbols();
             String[] dayList = (forAccessibility || dayCount <= 1) ?
-                            dfs.getWeekdays() :
-                            dfs.getShortWeekdays();
+                    dfs.getWeekdays() :
+                    dfs.getShortWeekdays();
 
             // selected days
-            for (int i = 0; i < 7; i++) {
-                if ((mDays & (1 << i)) != 0) {
-                    ret.append(dayList[DAY_MAP[i]]);
+            for (int bitIndex = 0; bitIndex < DAYS_IN_A_WEEK; bitIndex++) {
+                if ((mBitSet & (1 << bitIndex)) != 0) {
+                    ret.append(dayList[convertBitIndexToDay(bitIndex)]);
                     dayCount -= 1;
-                    if (dayCount > 0) ret.append(
-                            context.getText(R.string.day_concat));
+                    if (dayCount > 0) ret.append(context.getText(R.string.day_concat));
                 }
             }
             return ret.toString();
         }
 
-        private boolean isSet(int day) {
-            return ((mDays & (1 << day)) > 0);
-        }
-
         /**
-         * Sets the repeat day for the alarm.
+         * Enables or disable certain days of the week.
          *
-         * @param dayOfWeek One of: Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, etc.
-         * @param set Whether to set or unset.
+         * @param daysOfWeek Calendar.SUNDAY, Calendar.MONDAY, Calendar.TUESDAY, etc.
          */
-        public void setDayOfWeek(int dayOfWeek, boolean set) {
-            final int bitIndex = DAY_TO_BIT_MASK.get(dayOfWeek);
-            set(bitIndex, set);
-        }
-
-        public void set(int day, boolean set) {
-            if (set) {
-                mDays |= (1 << day);
-            } else {
-                mDays &= ~(1 << day);
+        public void setDaysOfWeek(boolean value, int ... daysOfWeek) {
+            for (int day : daysOfWeek) {
+                setBit(convertDayToBitIndex(day), value);
             }
         }
 
-        public void set(DaysOfWeek dow) {
-            mDays = dow.mDays;
+        private boolean isBitEnabled(int bitIndex) {
+            return ((mBitSet & (1 << bitIndex)) > 0);
         }
 
-        public int getCoded() {
-            return mDays;
+        private void setBit(int bitIndex, boolean set) {
+            if (set) {
+                mBitSet |= (1 << bitIndex);
+            } else {
+                mBitSet &= ~(1 << bitIndex);
+            }
+        }
+
+        public void setBitSet(int bitSet) {
+            mBitSet = bitSet;
+        }
+
+        public int getBitSet() {
+            return mBitSet;
         }
 
         public HashSet<Integer> getSetDays() {
             final HashSet<Integer> set = new HashSet<Integer>();
-            for (int i = 0; i < 7; i++) {
-                if (isSet(i)) {
-                    set.add(DAY_MAP[i]);
+            for (int bitIndex = 0; bitIndex < DAYS_IN_A_WEEK; bitIndex++) {
+                if (isBitEnabled(bitIndex)) {
+                    set.add(convertBitIndexToDay(bitIndex));
                 }
             }
             return set;
         }
 
-        // Returns days of week encoded in an array of booleans.
-        public boolean[] getBooleanArray() {
-            boolean[] ret = new boolean[7];
-            for (int i = 0; i < 7; i++) {
-                ret[i] = isSet(i);
-            }
-            return ret;
-        }
-
-        public boolean isRepeatSet() {
-            return mDays != 0;
+        public boolean isRepeating() {
+            return mBitSet != NO_DAYS_SET;
         }
 
         /**
-         * returns number of days from today until next alarm
-         * @param c must be set to today
+         * Returns number of days from today until next alarm.
+         *
+         * @param current must be set to today
          */
-        public int getNextAlarm(Calendar c) {
-            if (mDays == 0) {
+        public int calculateDaysToNextAlarm(Calendar current) {
+            if (!isRepeating()) {
                 return -1;
             }
 
-            int today = (c.get(Calendar.DAY_OF_WEEK) + 5) % 7;
-
-            int day = 0;
             int dayCount = 0;
-            for (; dayCount < 7; dayCount++) {
-                day = (today + dayCount) % 7;
-                if (isSet(day)) {
+            int currentDayBit = convertDayToBitIndex(current.get(Calendar.DAY_OF_WEEK));
+            for (; dayCount < DAYS_IN_A_WEEK; dayCount++) {
+                int nextAlarmBit = (currentDayBit + dayCount) % DAYS_IN_A_WEEK;
+                if (isBitEnabled(nextAlarmBit)) {
                     break;
                 }
             }
             return dayCount;
         }
 
+        public void clearAllDays() {
+            mBitSet = 0;
+        }
+
         @Override
         public String toString() {
             return "DaysOfWeek{" +
-                    "mDays=" + mDays +
+                    "mBitSet=" + mBitSet +
                     '}';
         }
     }
