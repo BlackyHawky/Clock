@@ -22,8 +22,12 @@ import com.android.deskclock.R;
 
 import java.text.DecimalFormatSymbols;
 
+/**
+ * Stopwatch utility class providing access to stopwatch resources and data formatting strings of
+ * stopwatch data.
+ */
 public class Stopwatches {
-    // Private actions processed by the receiver
+    // Actions processed by stopwatch receiver
     public static final String START_STOPWATCH = "start_stopwatch";
     public static final String LAP_STOPWATCH = "lap_stopwatch";
     public static final String STOP_STOPWATCH = "stop_stopwatch";
@@ -51,13 +55,23 @@ public class Stopwatches {
     public static final int MAX_LAPS = 99;
     public static final int NO_LAP_NUMBER = -1;
 
-    private static String[] mFormats = null;
-
+    /**
+     * Pull a random jocular title
+     * @param context context with resources
+     * @return the random title
+     */
     public static String getShareTitle(Context context) {
         String [] mLabels = context.getResources().getStringArray(R.array.sw_share_strings);
         return mLabels[(int)(Math.random() * mLabels.length)];
     }
 
+    /**
+     * Create a multi-line text with the stopwatch lap data
+     * @param context context with resources
+     * @param time total elapsed time
+     * @param laps array of times
+     * @return formatted text
+     */
     public static String buildShareResults(Context context, String time, long[] laps) {
         StringBuilder b = new StringBuilder (context.getString(R.string.sw_share_main, time));
         b.append("\n");
@@ -76,25 +90,36 @@ public class Stopwatches {
         return b.toString();
     }
 
+    /**
+     * Create a multi-line text with the stopwatch lap data
+     * @param context context with resources
+     * @param time total elapsed time
+     * @param laps array of times
+     * @return formatted text
+     */
     public static String buildShareResults(Context context, long time, long[] laps) {
         return buildShareResults(context, getTimeText(context, time, NO_LAP_NUMBER), laps);
     }
 
     /***
-     * Sets the string of the time running on the stopwatch up to hundred of a second accuracy
+     * Format the string of the time running on the stopwatch up to hundred of a second accuracy
+     * @param context context with resources
      * @param time - in hundreds of a second since the stopwatch started
+     * @param lap lap number
+     * @return formatted text
      */
     public static String getTimeText(Context context, long time, int lap) {
         if (time < 0) {
             time = 0;
         }
+        String[] formats;
         if (lap != NO_LAP_NUMBER) {
-            mFormats = context.getResources().getStringArray(R.array.shared_laps_format_set);
+            formats = context.getResources().getStringArray(R.array.shared_laps_format_set);
         } else {
-            mFormats = context.getResources().getStringArray(R.array.stopwatch_format_set);
+            formats = context.getResources().getStringArray(R.array.stopwatch_format_set);
         }
         char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
-        int formatIndex = 0;
+        int formatIndex;
 
         long hundreds, seconds, minutes, hours;
         seconds = time / 1000;
@@ -114,7 +139,7 @@ public class Stopwatches {
         } else {
           formatIndex = 0;
         }
-        return String.format(mFormats[formatIndex], hours, minutes,
+        return String.format(formats[formatIndex], hours, minutes,
                 seconds, hundreds, decimalSeparator, lap);
     }
 
@@ -134,7 +159,6 @@ public class Stopwatches {
         hours = minutes / 60;
         minutes = minutes - hours * 60;
         char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
-        String timeStr = String.format(format, hours, minutes, seconds, hundreds, decimalSeparator);
-        return timeStr;
+        return String.format(format, hours, minutes, seconds, hundreds, decimalSeparator);
     }
 }
