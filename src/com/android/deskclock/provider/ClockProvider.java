@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.android.deskclock.provider;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
-public class AlarmProvider extends ContentProvider {
-    private AlarmDatabaseHelper mOpenHelper;
+import com.android.deskclock.Log;
+
+public class ClockProvider extends ContentProvider {
+    private ClockDatabaseHelper mOpenHelper;
 
     private static final int ALARMS = 1;
     private static final int ALARMS_ID = 2;
@@ -40,12 +40,12 @@ public class AlarmProvider extends ContentProvider {
         sURLMatcher.addURI("com.android.deskclock", "alarm/#", ALARMS_ID);
     }
 
-    public AlarmProvider() {
+    public ClockProvider() {
     }
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new AlarmDatabaseHelper(getContext());
+        mOpenHelper = new ClockDatabaseHelper(getContext());
         return true;
     }
 

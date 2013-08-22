@@ -34,6 +34,8 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Pair;
 
+import com.android.deskclock.provider.Alarm;
+
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;

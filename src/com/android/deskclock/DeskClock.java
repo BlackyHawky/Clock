@@ -41,6 +41,7 @@ import android.view.View.OnTouchListener;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.stopwatch.Stopwatches;

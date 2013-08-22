@@ -25,11 +25,12 @@ import static android.provider.AlarmClock.EXTRA_SKIP_UI;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+
+import com.android.deskclock.provider.Alarm;
 
 import java.util.Calendar;
 

@@ -25,6 +25,8 @@ import android.content.Intent;
 import android.os.Parcel;
 import android.os.PowerManager.WakeLock;
 
+import com.android.deskclock.provider.Alarm;
+
 import java.util.Calendar;
 
 /**
