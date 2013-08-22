@@ -23,6 +23,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.android.deskclock.AlarmTimePickerDialogFragment.AlarmTimePickerDialogHandler;
+import com.android.deskclock.provider.Alarm;
 
 /**
  * Static utility methods for Alarms.

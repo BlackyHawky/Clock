@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.android.deskclock.provider;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -23,6 +23,10 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.BaseColumns;
+
+import com.android.deskclock.Alarms;
+import com.android.deskclock.Log;
+import com.android.deskclock.R;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -134,7 +138,7 @@ public final class Alarm implements Parcelable {
         // Used when filtering enabled alarms.
         public static final String WHERE_ENABLED = ENABLED + "=1";
 
-        static final String[] ALARM_QUERY_COLUMNS = {
+        public static final String[] ALARM_QUERY_COLUMNS = {
             _ID, HOUR, MINUTES, DAYS_OF_WEEK, ALARM_TIME,
             ENABLED, VIBRATE, MESSAGE, ALERT };
 

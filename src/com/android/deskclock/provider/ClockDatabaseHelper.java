@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.android.deskclock.provider;
 
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -25,17 +25,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 
+import com.android.deskclock.Log;
+
 /**
  * Helper class for opening the database from multiple providers.  Also provides
  * some common functionality.
  */
-class AlarmDatabaseHelper extends SQLiteOpenHelper {
+class ClockDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "alarms.db";
     private static final int DATABASE_VERSION = 5;
     private static final String TABLE_NAME = "alarms";
 
-    public AlarmDatabaseHelper(Context context) {
+    public ClockDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
