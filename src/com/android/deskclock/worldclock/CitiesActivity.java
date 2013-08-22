@@ -54,6 +54,7 @@ import com.android.deskclock.Utils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TimeZone;
@@ -94,24 +95,31 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
     private SharedPreferences mPrefs;
     private int mSortType;
 
+    private String mSelectedCitiesHeaderString;
+
     /***
      * Adapter for a list of cities with the respected time zone. The Adapter
      * sorts the list alphabetically and create an indexer.
      ***/
     private class CityAdapter extends BaseAdapter implements Filterable, SectionIndexer {
+        private static final int VIEW_TYPE_CITY = 0;
+        private static final int VIEW_TYPE_HEADER = 1;
+
+        private static final String FORMAT_24_HOUR = "k:mm";
+        private static final String FORMAT_12_HOUR = "h:mm aa";
+
         private static final String DELETED_ENTRY = "C0";
-        private final HashMap<String, CityObj> mSelectedCitiesList;  // selected cities
+
         private List<CityObj> mDisplayedCitiesList;
+
         private CityObj[] mCities;
+        private CityObj[] mSelectedCities;
 
-        private String[] mSortByNameSectionHeaders;
-        private Integer[] mSortByNameSectionPositions;
-
-        private String[] mSortByTimeSectionHeaders;
-        private Integer[] mSortByTimeSectionPositions;
+        private String[] mSectionHeaders;
+        private Integer[] mSectionPositions;
 
         private CityNameComparator mSortByNameComparator = new CityNameComparator();
-        private CityGmtOffsetComparator mSortByGmtOffsetComparator = new CityGmtOffsetComparator();
+        private CityGmtOffsetComparator mSortByTimeComparator = new CityGmtOffsetComparator();
 
         private final LayoutInflater mInflater;
         private boolean mIs24HoursMode; // AM/PM or 24 hours mode
@@ -124,40 +132,56 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 String modifiedQuery = constraint.toString().trim().toUpperCase();
 
                 ArrayList<CityObj> filteredList = new ArrayList<CityObj>();
-                int positionIndex = 0;
-                int i = 0;
-                while (i < mCities.length) {
-                    CityObj city = mCities[i];
+                ArrayList<String> sectionHeaders = new ArrayList<String>();
+                ArrayList<Integer> sectionPositions = new ArrayList<Integer>();
+
+                // If the search query is empty, add in the selected cities
+                if (TextUtils.isEmpty(modifiedQuery)) {
+                    if (mSelectedCities.length > 0) {
+                        filteredList.add(new CityObj(mSelectedCitiesHeaderString,
+                                mSelectedCitiesHeaderString,
+                                null));
+                    }
+                    for (CityObj city : mSelectedCities) {
+                        filteredList.add(city);
+                    }
+                }
+
+                String val = null;
+                int offset = -100000; //some value that cannot be a real offset
+                for (CityObj city : mCities) {
 
                     // If the city is a deleted entry, ignore it.
                     if (city.mCityId.equals(DELETED_ENTRY)) {
-                        i++;
                         continue;
                     }
 
-                    // If the search query is empty, add section headers
+                    // If the search query is empty, add section headers.
                     if (TextUtils.isEmpty(modifiedQuery)) {
 
-                        // If the list is sorted by name, and the position index is correct,
-                        // insert a section header into the list
-                        if (mSortType == SORT_BY_NAME &&
-                                mSortByNameSectionPositions.length > positionIndex &&
-                                mSortByNameSectionPositions[positionIndex] == filteredList.size()) {
-                            String name = mSortByNameSectionHeaders[positionIndex];
-                            filteredList.add(new CityObj(name, null, null));
-                            positionIndex++;
-                            continue;
+
+                        // If the list is sorted by name, and the city begins with a letter
+                        // different than the previous city's letter, insert a section header.
+                        if (mSortType == SORT_BY_NAME
+                                && !city.mCityName.substring(0, 1).equals(val)) {
+                                val = city.mCityName.substring(0, 1).toUpperCase();
+                                sectionHeaders.add(val);
+                                sectionPositions.add(filteredList.size());
+                                filteredList.add(new CityObj(val, null, null));
                         }
 
-                        // If the list is sorted by time, and the position index is correct,
-                        // insert a section header into the list
-                        if (mSortType == SORT_BY_GMT_OFFSET &&
-                                mSortByTimeSectionPositions.length > positionIndex &&
-                                mSortByTimeSectionPositions[positionIndex] == filteredList.size()) {
-                            String timezone = mSortByTimeSectionHeaders[positionIndex];
-                            filteredList.add(new CityObj(null, timezone, null));
-                            positionIndex++;
-                            continue;
+                        // If the list is sorted by time, and the gmt offset is different than
+                        // the previous city's gmt offset, insert a section header.
+                        if (mSortType == SORT_BY_GMT_OFFSET) {
+                            TimeZone timezone = TimeZone.getTimeZone(city.mTimeZone);
+                            int newOffset = timezone.getRawOffset();
+                            if (offset != newOffset) {
+                                offset = newOffset;
+                                String offsetString = Utils.getGMTHourOffset(timezone, true);
+                                sectionHeaders.add(offsetString);
+                                sectionPositions.add(filteredList.size());
+                                filteredList.add(new CityObj(null, offsetString, null));
+                            }
                         }
                     }
 
@@ -167,8 +191,11 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                     if (city.mCityId != null && cityName.startsWith(modifiedQuery)) {
                         filteredList.add(city);
                     }
-                    i++;
                 }
+
+                mSectionHeaders = sectionHeaders.toArray(new String[sectionHeaders.size()]);
+                mSectionPositions = sectionPositions.toArray(new Integer[sectionPositions.size()]);
+
                 results.values = filteredList;
                 results.count = filteredList.size();
                 return results;
@@ -186,14 +213,21 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         };
 
         public CityAdapter(
-                Context context, HashMap<String, CityObj> selectedList, LayoutInflater factory) {
+                Context context, LayoutInflater factory) {
             super();
             loadCities(context);
-            mSelectedCitiesList = selectedList;
             mInflater = factory;
             mCalendar = Calendar.getInstance();
             mCalendar.setTimeInMillis(System.currentTimeMillis());
+            Collection<CityObj> selectedCities = mUserSelectedCities.values();
+            mSelectedCities = selectedCities.toArray(new CityObj[selectedCities.size()]);
             set24HoursMode(context);
+        }
+
+        public void refreshSelectedCities() {
+            Collection<CityObj> selectedCities = mUserSelectedCities.values();
+            mSelectedCities = selectedCities.toArray(new CityObj[selectedCities.size()]);
+            sortCities(mSortType);
         }
 
 
@@ -202,55 +236,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             if (mCities == null) {
                 return;
             }
-
-            // Sort alphabetically and populate section headers for sort-by-name
-            Arrays.sort(mCities, mSortByNameComparator);
-            String val = null;
-            ArrayList<String> sections = new ArrayList<String>();
-            ArrayList<Integer> positions = new ArrayList<Integer>();
-            int count = 0;
-            for (CityObj city : mCities) {
-                if (city.mCityId.equals(DELETED_ENTRY)) {
-                    continue;
-                }
-
-                if (!city.mCityName.substring(0, 1).equals(val)) {
-                    val = city.mCityName.substring(0, 1).toUpperCase();
-                    sections.add(val);
-                    positions.add(count);
-                    count++;
-                }
-                count++;
-            }
-            mSortByNameSectionHeaders = sections.toArray(new String[sections.size()]);
-            mSortByNameSectionPositions = positions.toArray(new Integer[positions.size()]);
-
-            // Sort by GMT offset and populate section headers for sort-by-time
-            Arrays.sort(mCities, mSortByGmtOffsetComparator);
-            int offset = -100000; // some number that cannot be a real offset
-            val = null;
-            sections.clear();
-            positions.clear();
-            ArrayList<String> scrollLabels = new ArrayList<String>();
-            count = 0;
-            for (CityObj city : mCities) {
-                if (city.mCityId.equals(DELETED_ENTRY)) {
-                    continue;
-                }
-
-                TimeZone timezone = TimeZone.getTimeZone(city.mTimeZone);
-                int newOffset = timezone.getRawOffset();
-                if (newOffset != offset) {
-                    offset = newOffset;
-                    sections.add(Utils.getGMTHourOffset(timezone, true));
-                    positions.add(count);
-                    count++;
-                }
-                count++;
-            }
-            mSortByTimeSectionHeaders = sections.toArray(new String[sections.size()]);
-            mSortByTimeSectionPositions = positions.toArray(new Integer[positions.size()]);
-
             sortCities(mSortType);
         }
 
@@ -265,7 +250,11 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         private void sortCities(final int sortType) {
             mSortType = sortType;
             Arrays.sort(mCities, sortType == SORT_BY_NAME ? mSortByNameComparator
-                    : mSortByGmtOffsetComparator);
+                    : mSortByTimeComparator);
+            if (mSelectedCities != null) {
+                Arrays.sort(mSelectedCities, sortType == SORT_BY_NAME ? mSortByNameComparator
+                        : mSortByTimeComparator);
+            }
             mPrefs.edit().putInt(PREF_SORT, sortType).commit();
             mFilter.filter(mQueryTextBuffer.toString());
         }
@@ -302,28 +291,50 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             CityObj c = mDisplayedCitiesList.get(position);
             // Header view: A CityObj with nothing but the first letter as the name
             if (c.mCityId == null) {
-                if (view == null || view.findViewById(R.id.header) == null) {
+                if (view == null) {
                     view = mInflater.inflate(R.layout.city_list_header, parent, false);
+                    view.setTag(view.findViewById(R.id.header));
                 }
-                TextView header = (TextView) view.findViewById(R.id.header);
-                header.setText(mSortType == SORT_BY_NAME ? c.mCityName : c.mTimeZone);
+                ((TextView) view.getTag()).setText(
+                        mSortType == SORT_BY_NAME ? c.mCityName : c.mTimeZone);
             } else { // City view
                 // Make sure to recycle a City view only
-                if (view == null || view.findViewById(R.id.city_name) == null) {
+                if (view == null) {
                     view = mInflater.inflate(R.layout.city_list_item, parent, false);
+                    CityViewHolder holder = new CityViewHolder();
+                    holder.name = (TextView) view.findViewById(R.id.city_name);
+                    holder.time = (TextView) view.findViewById(R.id.city_time);
+                    holder.selected = (CheckBox) view.findViewById(R.id.city_onoff);
+                    view.setTag(holder);
                 }
                 view.setOnClickListener(CitiesActivity.this);
-                TextView name = (TextView) view.findViewById(R.id.city_name);
-                TextView tz = (TextView) view.findViewById(R.id.city_time);
-                CheckBox cb = (CheckBox) view.findViewById(R.id.city_onoff);
-                cb.setTag(c);
-                cb.setChecked(mSelectedCitiesList.containsKey(c.mCityId));
-                cb.setOnCheckedChangeListener(CitiesActivity.this);
+                CityViewHolder holder = (CityViewHolder) view.getTag();
+                holder.selected.setTag(c);
+                holder.selected.setChecked(mUserSelectedCities.containsKey(c.mCityId));
+                holder.selected.setOnCheckedChangeListener(CitiesActivity.this);
                 mCalendar.setTimeZone(TimeZone.getTimeZone(c.mTimeZone));
-                tz.setText(DateFormat.format(mIs24HoursMode ? "k:mm" : "h:mmaa", mCalendar));
-                name.setText(c.mCityName, TextView.BufferType.SPANNABLE);
+                holder.time.setText(DateFormat.format(mIs24HoursMode ? FORMAT_24_HOUR
+                        : FORMAT_12_HOUR, mCalendar));
+                holder.name.setText(c.mCityName, TextView.BufferType.SPANNABLE);
             }
             return view;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 2;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            return (mDisplayedCitiesList.get(position).mCityId != null)
+                    ? VIEW_TYPE_CITY : VIEW_TYPE_HEADER;
+        }
+
+        private class CityViewHolder {
+            TextView name;
+            TextView time;
+            CheckBox selected;
         }
 
         public void set24HoursMode(Context c) {
@@ -333,17 +344,14 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
         @Override
         public int getPositionForSection(int section) {
-            Integer[] positions = mSortType == SORT_BY_NAME ? mSortByNameSectionPositions :
-                mSortByTimeSectionPositions;
-            return (positions != null) ? (Integer) positions[section] : 0;
+            return (mSectionPositions != null) ? mSectionPositions[section] : 0;
         }
 
 
         @Override
         public int getSectionForPosition(int p) {
-            Integer[] positions = mSortType == SORT_BY_NAME ? mSortByNameSectionPositions :
-                mSortByTimeSectionPositions;
-            if (positions != null) {
+            final Integer[] positions = mSectionPositions;
+            if (positions != null && positions.length > 0) {
                 for (int i = 0; i < positions.length - 1; i++) {
                     if (p >= positions[i]
                             && p < positions[i + 1]) {
@@ -359,8 +367,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
         @Override
         public Object[] getSections() {
-            return mSortType == SORT_BY_NAME ? mSortByNameSectionHeaders
-                    : mSortByTimeSectionHeaders;
+            return mSectionHeaders;
         }
 
         @Override
@@ -375,6 +382,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         mFactory = LayoutInflater.from(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mSortType = mPrefs.getInt(PREF_SORT, SORT_BY_NAME);
+        mSelectedCitiesHeaderString = getString(R.string.selected_cities_label);
         if (savedInstanceState != null) {
             mQueryTextBuffer.append(savedInstanceState.getString(KEY_SEARCH_QUERY));
             mSearchMode = savedInstanceState.getBoolean(KEY_SEARCH_MODE);
@@ -399,7 +407,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         mCitiesList.setFastScrollEnabled(true);
         mUserSelectedCities = Cities.readCitiesFromSharedPrefs(
                 PreferenceManager.getDefaultSharedPreferences(this));
-        mAdapter = new CityAdapter(this, mUserSelectedCities, mFactory);
+        mAdapter = new CityAdapter(this, mFactory);
         mCitiesList.setAdapter(mAdapter);
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
@@ -522,6 +530,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         boolean checked = b.isChecked();
         onCheckedChanged(b, checked);
         b.setChecked(!checked);
+        mAdapter.refreshSelectedCities();
     }
 
     @Override
