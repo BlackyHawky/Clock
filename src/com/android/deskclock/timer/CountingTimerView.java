@@ -44,14 +44,16 @@ public class CountingTimerView extends View {
     private static final String ONE_DIGIT = "%01d";
     private static final String NEG_TWO_DIGITS = "-%02d";
     private static final String NEG_ONE_DIGIT = "-%01d";
-    private static final float TEXT_SIZE_TO_WIDTH_RATIO = 0.75f;
+    private static final float TEXT_SIZE_TO_WIDTH_RATIO = 0.85f;
     // This is the ratio of the font height needed to vertically offset the font for alignment
     // from the center.
     private static final float FONT_VERTICAL_OFFSET = 0.14f;
     // Ratio of the space trailing the Hours and Minutes
-    private static final float HOURS_MINUTES_SPACING = 0.5f;
+    private static final float HOURS_MINUTES_SPACING = 0.4f;
     // Ratio of the space leading the Hundredths
     private static final float HUNDREDTHS_SPACING = 0.5f;
+    // Radial offset of the enclosing circle
+    private final float mRadiusOffset;
 
     private String mHours, mMinutes, mSeconds, mHundredths;
 
@@ -303,6 +305,8 @@ public class CountingTimerView extends View {
         mBigHours = new SignedTime(mBigSeconds, HOURS_MINUTES_SPACING);
         mBigMinutes = new SignedTime(mBigSeconds, HOURS_MINUTES_SPACING);
         mMedHundredths = new Hundredths(mPaintMed, HUNDREDTHS_SPACING, allDigits);
+
+        mRadiusOffset = Utils.calculateRadiusOffset(r);
     }
 
     protected void resetTextSize() {
@@ -429,6 +433,10 @@ public class CountingTimerView extends View {
                 + mMedHundredths.calcTotalWidth(mHundredths);
     }
 
+    /**
+     * Adjust the size of the fonts to fit within the the circle and painted object in
+     * {@link com.android.deskclock.CircleTimerView#onDraw(android.graphics.Canvas)}
+     */
     private void setTotalTextWidth() {
         calcTotalTextWidth();
         // To determine the maximum width, we find the minimum of the height and width (since the
@@ -436,18 +444,36 @@ public class CountingTimerView extends View {
         // two.
         int width = Math.min(getWidth(), getHeight());
         if (width != 0) {
-            float wantWidth = (int)(TEXT_SIZE_TO_WIDTH_RATIO * width);
-            // If the text is too wide, reduce all the paint text sizes
-            while (mTotalTextWidth > wantWidth) {
-                // Variant-section reduction
-                float sizeRatio = wantWidth / mTotalTextWidth;
+            // Shrink 'width' to account for circle stroke and other painted objects.
+            // Note on the "4 *": (1) To reduce divisions, using the diameter instead of the radius.
+            // (2) The radius of the enclosing circle is reduced by mRadiusOffset and the
+            // text needs to fit within a circle further reduced by mRadiusOffset.
+            width -= (int) (4 * mRadiusOffset + 0.5f);
+
+            final float wantDiameter2 = TEXT_SIZE_TO_WIDTH_RATIO * width * width;
+            float totalDiameter2 = getHypotenuseSquared();
+
+            // If the hypotenuse of the bounding box is too large, reduce all the paint text sizes
+            while (totalDiameter2 > wantDiameter2) {
+                // Convergence is slightly difficult due to quantization in the mTotalTextWidth
+                // calculation. Reducing the ratio by 1% converges more quickly without excessive
+                // loss of quality.
+                float sizeRatio = 0.99f * (float) Math.sqrt(wantDiameter2/totalDiameter2);
                 mPaintBigThin.setTextSize(mPaintBigThin.getTextSize() * sizeRatio);
                 mPaintMed.setTextSize(mPaintMed.getTextSize() * sizeRatio);
                 // Recalculate the new total text height and half-width
                 mTextHeight = mPaintBigThin.getTextSize();
                 calcTotalTextWidth();
+                totalDiameter2 = getHypotenuseSquared();
             }
         }
+    }
+
+    /**
+     * Calculate the square of the diameter to use in {@link CountingTimerView#setTotalTextWidth()}
+     */
+    private float getHypotenuseSquared() {
+        return mTotalTextWidth * mTotalTextWidth + mTextHeight * mTextHeight;
     }
 
     public void blinkTimeStr(boolean blink) {
