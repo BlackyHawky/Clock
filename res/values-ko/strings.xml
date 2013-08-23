@@ -103,7 +103,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"알람 일시중지"</item>
     <item msgid="3450979320164769576">"해제"</item>
-    <item msgid="6302517608411378024">"아무것도 안함"</item>
+    <item msgid="6302517608411378024">"기능 없음"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"기본 벨소리 설정"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"알람"</string>
@@ -131,14 +131,14 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"설정"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"도움말"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"야간 모드"</string>
-    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
-    <skip />
-    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"시간순 정렬"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"이름순 정렬"</string>
+    <!-- no translation found for selected_cities_label (3607479399424246605) -->
     <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"다시 시작"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"시작"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"중지"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"랩"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"랩 타임"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"재설정"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"공유"</string>
     <string name="hours_label" msgid="3393478155635368097">"시"</string>
@@ -186,7 +186,7 @@
   </string-array>
   <plurals name="timers_num">
     <item quantity="one" msgid="6764708652976799977">"1분"</item>
-    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g>개의 타이머"</item>
+    <item quantity="other" msgid="3799129667336330616">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</item>
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"기본"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"도시"</string>
@@ -196,8 +196,8 @@
     <item msgid="917900462224167608">"아날로그"</item>
     <item msgid="8483930821046925592">"디지털"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"자동 기본 시계"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"시차가 있는 지역을 여행할 때 기본 시계 추가"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"자동 기본 시간대 시계"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"시차가 있는 지역을 여행할 때 기본 시간대 시계 추가"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"기본 시간대"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"기본 시간대"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"취소"</string>
@@ -303,7 +303,7 @@
     <string name="timer_stopped" msgid="2730331837832462008">"타이머가 정지됨"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g>개의 타이머가 정지됨"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"타이머를 보려면 터치하세요."</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g>개의 타이머"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"스크린 세이버 설정"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"야간 모드"</string>
@@ -316,7 +316,7 @@
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"다음 알람: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
-    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g>개가 선택됨"</string>
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g>개 선택됨"</string>
     <string name="deleted_message" msgid="1220848140260509437">"삭제됨"</string>
   <plurals name="alarm_delete_confirmation">
     <item quantity="one" msgid="111940612131906802">"선택한 알람을 삭제하시겠습니까?"</item>
