@@ -46,7 +46,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.deskclock.CircleButtonsLinearLayout;
+import com.android.deskclock.CircleButtonsLayout;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClock.OnTapListener;
 import com.android.deskclock.DeskClockFragment;
@@ -224,8 +224,8 @@ public class TimerFragment extends DeskClockFragment
 
             v.setBackgroundColor(getResources().getColor(R.color.blackish));
             countingTimerView.registerStopTextView(stop);
-            CircleButtonsLinearLayout circleLayout =
-                    (CircleButtonsLinearLayout)v.findViewById(R.id.timer_circle);
+            CircleButtonsLayout circleLayout =
+                    (CircleButtonsLayout)v.findViewById(R.id.timer_circle);
             circleLayout.setCircleTimerViewIds(
                     R.id.timer_time, R.id.timer_plus_one, R.id.timer_delete, R.id.timer_stop,
                     R.dimen.plusone_reset_button_padding, R.dimen.delete_button_padding,
