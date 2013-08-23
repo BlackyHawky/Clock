@@ -15,16 +15,9 @@
 -->
 
 <!-- timer item in the list of active timers -->
-<com.android.deskclock.CircleButtonsLinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/timer_circle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:id="@+id/timer_frame"
+<com.android.deskclock.CircleButtonsLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/timer_circle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/timer_circle_diameter"
         android:layout_marginLeft="@dimen/timer_circle_margin"
@@ -32,28 +25,28 @@
         android:layout_marginRight="@dimen/timer_circle_margin"
         android:layout_marginEnd="@dimen/timer_circle_margin">
 
-        <com.android.deskclock.CircleTimerView
+    <com.android.deskclock.CircleTimerView
             android:id="@+id/timer_time"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <com.android.deskclock.timer.CountingTimerView
+    <com.android.deskclock.timer.CountingTimerView
             android:id="@+id/timer_time_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"/>
+            android:layout_height="match_parent"/>
 
-         <FrameLayout
-             android:id="@+id/timer_label"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="0dip"
-             android:layout_gravity="top|center_horizontal"
-             android:enabled="true"
-             android:clickable="true"
-             android:contentDescription="@string/label"
-             >
-             <TextView
+    <FrameLayout
+            android:id="@+id/timer_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dip"
+            android:layout_gravity="top|center_horizontal"
+            android:enabled="true"
+            android:clickable="true"
+            android:contentDescription="@string/label"
+            >
+
+        <TextView
                 android:id="@+id/timer_label_text"
                 android:layout_height="56dip"
                 android:layout_width="wrap_content"
@@ -66,7 +59,8 @@
                 android:singleLine="true"
                 android:ellipsize="end"
                 android:text="@string/label_unlabeled"/>
-             <ImageButton
+
+        <ImageButton
                 android:id="@+id/timer_label_icon"
                 android:layout_height="56dip"
                 android:layout_width="56dip"
@@ -74,10 +68,12 @@
                 android:layout_gravity="center_horizontal"
                 android:enabled="false"
                 android:clickable="false"
+                android:contentDescription="@string/label"
                 style="@style/button"
-                android:src="@drawable/ic_label" />
-         </FrameLayout>
-         <ImageButton
+                android:src="@drawable/ic_label"/>
+    </FrameLayout>
+
+    <ImageButton
             android:id="@+id/timer_plus_one"
             android:src="@drawable/ic_plusone"
             android:background="@null"
@@ -85,9 +81,9 @@
             android:layout_gravity="bottom|start"
             style="@style/button"
             android:contentDescription="@string/timer_plus_one"
-            android:layout_height="56dip" />
+            android:layout_height="56dip"/>
 
-        <TextView
+    <TextView
             android:id="@+id/timer_stop"
             android:layout_gravity="bottom|center_horizontal"
             android:gravity="center"
@@ -102,9 +98,9 @@
             android:layout_width="wrap_content"
             style="@style/bold_button"
             android:contentDescription="@string/timer_stop"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"/>
 
-        <ImageButton
+    <ImageButton
             android:id="@+id/timer_delete"
             android:src="@drawable/ic_delete"
             android:background="@null"
@@ -112,7 +108,6 @@
             android:layout_width="56dip"
             android:contentDescription="@string/timer_delete"
             style="@style/button"
-            android:layout_height="56dip" />
-    </FrameLayout>
+            android:layout_height="56dip"/>
+</com.android.deskclock.CircleButtonsLayout>
 
-</com.android.deskclock.CircleButtonsLinearLayout>

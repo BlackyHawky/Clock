@@ -146,13 +146,6 @@ public class CircleTimerView extends View {
         mPaint.setStrokeWidth(mStrokeSize);
         float radius = Math.min(xCenter, yCenter) - mRadiusOffset;
 
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            xCenter = (int) (radius + mRadiusOffset);
-            if (mTimerMode) {
-                xCenter += mCircleXCenterLeftPadding;
-            }
-        }
-
         if (mIntervalStartTime == -1) {
             // just draw a complete white circle, no red arc needed
             mPaint.setColor(mWhiteColor);
