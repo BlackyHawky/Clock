@@ -131,6 +131,10 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Mga Setting"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Tulong"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Mode na panggabi"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Pag-uri-uriin ayon sa oras"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Pag-uri-uriin ayon sa pangalan"</string>
+    <!-- no translation found for selected_cities_label (3607479399424246605) -->
+    <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"Ituloy"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Simulan"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Ihinto"</string>

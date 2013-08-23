@@ -131,6 +131,10 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Mipangilio"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Usaidizi"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Modi ya usiku"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Panga kwa muda"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Panga kwa jina"</string>
+    <!-- no translation found for selected_cities_label (3607479399424246605) -->
+    <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"Endelea"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Anza"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Acha"</string>

@@ -131,6 +131,9 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Inställningar"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Hjälp"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Nattläge"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sortera efter tid"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortera efter namn"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Valda städer"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Återuppta"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Avbryt"</string>
