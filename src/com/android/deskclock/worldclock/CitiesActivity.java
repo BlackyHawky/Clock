@@ -261,7 +261,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
         @Override
         public int getCount() {
-            return (mDisplayedCitiesList != null) ? mDisplayedCitiesList.size() : 0;
+            return mDisplayedCitiesList != null ? mDisplayedCitiesList.size() : 0;
         }
 
         @Override
@@ -344,14 +344,14 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
         @Override
         public int getPositionForSection(int section) {
-            return (mSectionPositions != null) ? mSectionPositions[section] : 0;
+            return !isEmpty(mSectionPositions) ? mSectionPositions[section] : 0;
         }
 
 
         @Override
         public int getSectionForPosition(int p) {
             final Integer[] positions = mSectionPositions;
-            if (positions != null && positions.length > 0) {
+            if (!isEmpty(positions)) {
                 for (int i = 0; i < positions.length - 1; i++) {
                     if (p >= positions[i]
                             && p < positions[i + 1]) {
@@ -374,6 +374,11 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         public Filter getFilter() {
             return mFilter;
         }
+
+        private boolean isEmpty(Object[] array) {
+            return array == null || array.length == 0;
+        }
+
     }
 
     @Override
