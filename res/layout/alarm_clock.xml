@@ -28,7 +28,7 @@
         android:clipToPadding="false"
         android:descendantFocusability="beforeDescendants"
         android:divider="@null"
-        android:dividerHeight="6dp"
+        android:dividerHeight="0dp"
         />
     <TextView
         android:id="@+id/alarms_empty_view"
