@@ -107,7 +107,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name="HandleSetAlarm"
+        <activity android:name="HandleApiCalls"
                 android:theme="@android:style/Theme.NoDisplay"
                 android:excludeFromRecents="true"
                 android:permission="com.android.alarm.permission.SET_ALARM">
@@ -115,7 +115,16 @@
                 <action android:name="android.intent.action.SET_ALARM" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SET_TIMER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
+
+        <activity-alias android:name="HandleSetAlarm"
+            android:targetActivity=".HandleApiCalls"
+            android:exported="true">
+        </activity-alias>
 
         <!-- This service receives the same intent as AlarmReceiver but it does
              not respond to the same broadcast. The AlarmReceiver will receive
