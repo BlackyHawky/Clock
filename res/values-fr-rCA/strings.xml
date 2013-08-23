@@ -135,6 +135,8 @@
     <skip />
     <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
     <skip />
+    <!-- no translation found for selected_cities_label (3607479399424246605) -->
+    <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"Reprendre"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Démarrer"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Arrêter"</string>
