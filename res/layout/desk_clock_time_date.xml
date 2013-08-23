@@ -50,10 +50,12 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             style="@style/label"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:singleLine="true"
             android:ellipsize="none"
             android:gravity="top"
-            android:fontFamily="sans-serif-light"
+            android:textSize="@dimen/main_ampm_font_size"
             android:textColor="@color/clock_white" />
 
     </com.android.deskclock.DigitalClock>

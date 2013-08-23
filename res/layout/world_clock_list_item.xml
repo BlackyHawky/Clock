@@ -24,7 +24,6 @@
     android:layout_marginStart="@dimen/world_clock_margin"
     android:orientation="horizontal">
 
-
     <include layout="@layout/world_clock_item"
         android:id="@+id/city_left"
         android:gravity="center"

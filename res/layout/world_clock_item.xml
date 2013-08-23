@@ -14,41 +14,55 @@
      limitations under the License.
 -->
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingTop="@dimen/medium_space_top"
-    android:paddingBottom="@dimen/medium_space_bottom"
-    android:orientation="vertical">
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include layout="@layout/desk_clock_time_small"
-            android:id="@+id/digital_clock"
-            android:gravity="center"
-            android:layout_gravity="center"
+    android:layout_height="match_parent" >
+    <!-- This layout sits as an include in world_clock_list_item, but the LinearLayout needs
+         to have wrap_content so the separator view can have its width set to the width of the
+         clock, which means we need the extra parent FrameLayout. -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/medium_space_top"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal" >
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-        <com.android.deskclock.AnalogClock
-            android:id="@+id/analog_clock"
+            android:layout_height="match_parent">
+            <include layout="@layout/desk_clock_time_small"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <com.android.deskclock.AnalogClock
+                android:id="@+id/analog_clock"
+                android:gravity="center"
+                android:layout_width="@dimen/world_clock_analog_size"
+                android:layout_height="@dimen/world_clock_analog_size"
+                android:layout_gravity="center_horizontal"
+                android:dial="@drawable/clock_analog_dial_mipmap"
+                android:hand_hour="@drawable/clock_analog_hour_mipmap"
+                android:hand_minute="@drawable/clock_analog_minute_mipmap"
+                android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small"/>
+        </FrameLayout>
+        <com.android.deskclock.widget.EllipsizeLayout
+            android:id="@+id/city_name_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/label_margin_small"
+            android:layout_marginStart="@dimen/label_margin_small"
+            android:paddingBottom="@dimen/medium_space_bottom"
             android:gravity="center"
-            android:layout_width="@dimen/world_clock_analog_size"
-            android:layout_height="@dimen/world_clock_analog_size"
-            android:layout_gravity="center_horizontal"
-            android:dial="@drawable/clock_analog_dial_mipmap"
-            android:hand_hour="@drawable/clock_analog_hour_mipmap"
-            android:hand_minute="@drawable/clock_analog_minute_mipmap"/>
-    </FrameLayout>
-    <com.android.deskclock.widget.EllipsizeLayout
-        android:id="@+id/city_name_layout"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/label_margin_small"
-        android:layout_marginLeft="@dimen/label_margin_small"
-        android:layout_marginStart="@dimen/label_margin_small"
-        android:gravity="center"
-        >
-        <include layout="@layout/world_clock_label"/>
-    </com.android.deskclock.widget.EllipsizeLayout>
-</LinearLayout>
+            >
+            <include layout="@layout/world_clock_label"/>
+        </com.android.deskclock.widget.EllipsizeLayout>
+
+        <View
+            android:id="@+id/separator"
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:background="#28ffffff" />
+    </LinearLayout>
+</FrameLayout>
