@@ -17,25 +17,27 @@
 package com.android.deskclock.timer;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.view.View;
 
 import com.android.deskclock.R;
-import com.android.deskclock.ZeroTopPaddingTextView;
 
 
 public class TimerView extends LinearLayout {
 
-    private ZeroTopPaddingTextView mHoursOnes, mMinutesOnes;
-    private ZeroTopPaddingTextView mHoursTens, mMinutesTens;
+    private TextView mHoursOnes, mMinutesOnes;
+    private TextView mHoursTens, mMinutesTens;
     private TextView mSeconds;
     private final Typeface mAndroidClockMonoThin;
     private Typeface mOriginalHoursTypeface;
+    private Typeface mOriginalMinutesTypeface;
     private final int mWhiteColor, mGrayColor;
 
+    @SuppressWarnings("unused")
     public TimerView(Context context) {
         this(context, null);
     }
@@ -45,34 +47,26 @@ public class TimerView extends LinearLayout {
 
         mAndroidClockMonoThin =
                 Typeface.createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Thin.ttf");
-        mWhiteColor = context.getResources().getColor(R.color.clock_white);
-        mGrayColor = context.getResources().getColor(R.color.clock_gray);
+
+        Resources resources = context.getResources();
+        mWhiteColor = resources.getColor(R.color.clock_white);
+        mGrayColor = resources.getColor(R.color.clock_gray);
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mHoursTens = (ZeroTopPaddingTextView)findViewById(R.id.hours_tens);
-        mMinutesTens = (ZeroTopPaddingTextView)findViewById(R.id.minutes_tens);
-        mHoursOnes = (ZeroTopPaddingTextView)findViewById(R.id.hours_ones);
-        mMinutesOnes = (ZeroTopPaddingTextView)findViewById(R.id.minutes_ones);
+        mHoursTens = (TextView)findViewById(R.id.hours_tens);
+        mMinutesTens = (TextView)findViewById(R.id.minutes_tens);
+        mHoursOnes = (TextView)findViewById(R.id.hours_ones);
+        mMinutesOnes = (TextView)findViewById(R.id.minutes_ones);
         mSeconds = (TextView)findViewById(R.id.seconds);
         if (mHoursOnes != null) {
             mOriginalHoursTypeface = mHoursOnes.getTypeface();
         }
-        // Set the lowest time unit with thin font (excluding hundredths)
-        if (mSeconds != null) {
-            mSeconds.setTypeface(mAndroidClockMonoThin);
-        } else  {
-            if (mMinutesTens != null) {
-                mMinutesTens.setTypeface(mAndroidClockMonoThin);
-                mMinutesTens.updatePadding();
-            }
-            if (mMinutesOnes != null) {
-                mMinutesOnes.setTypeface(mAndroidClockMonoThin);
-                mMinutesOnes.updatePadding();
-            }
+        if (mMinutesOnes != null) {
+            mOriginalMinutesTypeface = mMinutesOnes.getTypeface();
         }
     }
 
@@ -87,13 +81,11 @@ public class TimerView extends LinearLayout {
                 mHoursTens.setText("-");
                 mHoursTens.setTypeface(mAndroidClockMonoThin);
                 mHoursTens.setTextColor(mGrayColor);
-                mHoursTens.updatePadding();
                 mHoursTens.setVisibility(View.VISIBLE);
             } else {
                 mHoursTens.setText(String.format("%d",hoursTensDigit));
                 mHoursTens.setTypeface(mOriginalHoursTypeface);
                 mHoursTens.setTextColor(mWhiteColor);
-                mHoursTens.updatePadding();
                 mHoursTens.setVisibility(View.VISIBLE);
             }
         }
@@ -102,35 +94,38 @@ public class TimerView extends LinearLayout {
                 mHoursOnes.setText("-");
                 mHoursOnes.setTypeface(mAndroidClockMonoThin);
                 mHoursOnes.setTextColor(mGrayColor);
-                mHoursOnes.updatePadding();
             } else {
-                mHoursOnes.setText(String.format("%d",hoursOnesDigit));
+                mHoursOnes.setText(String.format("%d", hoursOnesDigit));
                 mHoursOnes.setTypeface(mOriginalHoursTypeface);
                 mHoursOnes.setTextColor(mWhiteColor);
-                mHoursOnes.updatePadding();
             }
         }
+
         if (mMinutesTens != null) {
             if (minutesTensDigit == -1) {
                 mMinutesTens.setText("-");
+                mMinutesTens.setTypeface(mAndroidClockMonoThin);
                 mMinutesTens.setTextColor(mGrayColor);
             } else {
+                mMinutesTens.setText(String.format("%d", minutesTensDigit));
+                mMinutesTens.setTypeface(mOriginalMinutesTypeface);
                 mMinutesTens.setTextColor(mWhiteColor);
-                mMinutesTens.setText(String.format("%d",minutesTensDigit));
             }
         }
         if (mMinutesOnes != null) {
             if (minutesOnesDigit == -1) {
                 mMinutesOnes.setText("-");
+                mMinutesOnes.setTypeface(mAndroidClockMonoThin);
                 mMinutesOnes.setTextColor(mGrayColor);
             } else {
-                mMinutesOnes.setText(String.format("%d",minutesOnesDigit));
+                mMinutesOnes.setText(String.format("%d", minutesOnesDigit));
+                mMinutesOnes.setTypeface(mOriginalMinutesTypeface);
                 mMinutesOnes.setTextColor(mWhiteColor);
             }
         }
 
         if (mSeconds != null) {
-            mSeconds.setText(String.format("%02d",seconds));
+            mSeconds.setText(String.format("%02d", seconds));
         }
     }
 }
