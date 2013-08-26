@@ -122,6 +122,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Ορισμός ξυπνητηριού"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"Ξυπνητήρι"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Χρονόμετρο"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ρολόι"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Χρονόμετρο"</string>
@@ -131,10 +132,9 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Ρυθμίσεις"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Βοήθεια"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Λειτουργία νύχτας"</string>
-    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
-    <skip />
-    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
-    <skip />
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ταξινόμηση κατά ώρα"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ταξινόμηση κατά όνομα"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Επιλεγμένες πόλεις"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Συνέχιση"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Εκκίνηση"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Διακοπή"</string>
@@ -325,4 +325,5 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Διαγραφή αυτού του ξυπνητηριού;"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Να διαγραφεί αυτή η πόλη;"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Ψηφιακό ρολόι"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Δεν υπάρχουν ξυπνητήρια"</string>
 </resources>
