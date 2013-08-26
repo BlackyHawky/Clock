@@ -16,15 +16,21 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_focused="true" android:state_pressed="true"
-        android:drawable="@color/transparent_white" />
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/main_button_selected"/>
+        </shape>
+    </item>
 
-    <item android:state_focused="false" android:state_pressed="true"
-        android:drawable="@color/transparent_white" />
+    <item android:state_focused="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/main_button_selected"/>
+        </shape>
+    </item>
 
-    <item android:state_focused="true"
-        android:drawable="@color/transparent_white" />
-
-    <item
-        android:drawable="@color/transparent" />
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/main_button_normal"/>
+        </shape>
+    </item>
 </selector>

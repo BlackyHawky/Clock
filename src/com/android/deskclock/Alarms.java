@@ -96,6 +96,10 @@ public class Alarms {
     // the Intent extras.
     public static final String ALARM_RAW_DATA = "intent.extra.alarm_raw";
 
+    // This extra is used when receiving an intent to create an alarm, but no alarm details
+    // have been passed in, so the alarm page should start the process of creating a new alarm.
+    public static final String ALARM_CREATE_NEW = "create_new";
+
     private static final String PREF_SNOOZE_IDS = "snooze_ids";
     private static final String PREF_SNOOZE_TIME = "snooze_time";
 

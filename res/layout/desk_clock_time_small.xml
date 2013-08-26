@@ -19,12 +19,10 @@
     android:id="@+id/clock_time"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:baselineAligned="false"
     android:gravity="top"
-    android:layoutDirection="ltr"
-    >
+    android:layoutDirection="ltr" >
 
-    <com.android.deskclock.ZeroTopPaddingTextView
+    <TextView
         android:id="@+id/timeDisplayHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,9 +30,9 @@
         android:paddingEnd="@dimen/time_margin_right"
         android:singleLine="true"
         android:ellipsize="none"
-        style="@style/medium_bold"
+        style="@style/medium_light"
         android:textColor="@color/clock_white"/>
-    <com.android.deskclock.ZeroTopPaddingTextView
+    <TextView
         android:id="@+id/timeDisplayMinutes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,7 +40,7 @@
         android:singleLine="true"
         android:ellipsize="none"
         android:textColor="@color/clock_white" />
-    <com.android.deskclock.ZeroTopPaddingTextView
+    <TextView
         android:id="@+id/am_pm"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
@@ -50,6 +48,6 @@
         android:singleLine="true"
         android:ellipsize="none"
         android:gravity="top"
-        android:textColor="@color/clock_white"
-        />
+        android:fontFamily="sans-serif-light"
+        android:textColor="@color/clock_white" />
 </com.android.deskclock.DigitalClock>

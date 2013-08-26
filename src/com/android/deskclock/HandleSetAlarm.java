@@ -42,7 +42,12 @@ public class HandleSetAlarm extends Activity {
             finish();
             return;
         } else if (!intent.hasExtra(EXTRA_HOUR)) {
-            startActivity(new Intent(this, AlarmClock.class));
+            Intent createAlarm = new Intent(this, DeskClock.class);
+            createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            createAlarm.putExtra(Alarms.ALARM_CREATE_NEW, true);
+            createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+
+            startActivity(createAlarm);
             finish();
             return;
         }
@@ -114,9 +119,12 @@ public class HandleSetAlarm extends Activity {
             if (skipUi) {
                 Alarms.setAlarm(this, alarm);
             } else {
-                Intent i = new Intent(this, AlarmClock.class);
-                i.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-                startActivity(i);
+                Intent createAlarm = new Intent(this, DeskClock.class);
+                createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                createAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+                createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+                createAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+                startActivity(createAlarm);
             }
             return true;
         }

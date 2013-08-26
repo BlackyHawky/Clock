@@ -26,10 +26,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -482,6 +484,17 @@ public class TimerFragment extends DeskClockFragment
             }
 
         });
+
+        // Put it on the right for landscape, left for portrait.
+        FrameLayout.LayoutParams layoutParams =
+                (FrameLayout.LayoutParams) mAddTimer.getLayoutParams();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            layoutParams.gravity = Gravity.END;
+        } else {
+            layoutParams.gravity = Gravity.CENTER;
+        }
+        mAddTimer.setLayoutParams(layoutParams);
+
         mTimerFooter = v.findViewById(R.id.timer_footer);
         mTimerFooter.setVisibility(mOnEmptyListListener == null ? View.VISIBLE : View.GONE);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
