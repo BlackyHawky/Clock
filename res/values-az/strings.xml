@@ -122,6 +122,8 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Siqnal qur"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <!-- no translation found for menu_alarm (4772010125376647519) -->
+    <skip />
     <string name="menu_timer" msgid="6459070074762877114">"Vaxtölçən"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Saat"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Saniyəölçən"</string>
@@ -327,4 +329,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vaxtölçən silinsin?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Bu şəhəri silək?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Rəqəmsal saat"</string>
+    <!-- no translation found for no_alarms (6429431324842022917) -->
+    <skip />
 </resources>

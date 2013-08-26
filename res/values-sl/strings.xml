@@ -122,6 +122,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Nastavi alarm"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"Opozorilo"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Časovnik"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ura"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Štoparica"</string>
@@ -133,8 +134,7 @@
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Nočni način"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Razvrsti po času"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Razvrsti po imenu"</string>
-    <!-- no translation found for selected_cities_label (3607479399424246605) -->
-    <skip />
+    <string name="selected_cities_label" msgid="3607479399424246605">"Izbrani kraji"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Nadaljuj"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Začni"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Ustavi"</string>
@@ -325,4 +325,5 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Želite izbrisati ta časovnik?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Želite odstraniti ta kraj?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitalna ura"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Brez opozoril"</string>
 </resources>
