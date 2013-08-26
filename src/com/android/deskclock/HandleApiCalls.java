@@ -17,6 +17,7 @@
 package com.android.deskclock;
 
 import static android.provider.AlarmClock.ACTION_SET_ALARM;
+import static android.provider.AlarmClock.ACTION_SET_TIMER;
 import static android.provider.AlarmClock.EXTRA_HOUR;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static android.provider.AlarmClock.EXTRA_MINUTES;
@@ -32,16 +33,33 @@ import android.os.Bundle;
 
 import java.util.Calendar;
 
-public class HandleSetAlarm extends Activity {
+public class HandleApiCalls extends Activity {
 
     @Override
     protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        Intent intent = getIntent();
-        if (intent == null || !ACTION_SET_ALARM.equals(intent.getAction())) {
+        try {
+            super.onCreate(icicle);
+            Intent intent = getIntent();
+            if (intent != null) {
+                if (ACTION_SET_ALARM.equals(intent.getAction())) {
+                    handleSetAlarm(intent);
+                } else if (ACTION_SET_TIMER.equals(intent.getAction())) {
+                    handleSetTimer(intent);
+                }
+            }
+        } finally {
             finish();
-            return;
-        } else if (!intent.hasExtra(EXTRA_HOUR)) {
+        }
+    }
+
+    /***
+     * Processes the SET_ALARM intent
+     * @param intent
+     */
+    private void handleSetAlarm(Intent intent) {
+
+        // Intent has no time , open the alarm creation UI
+        if (!intent.hasExtra(EXTRA_HOUR)) {
             Intent createAlarm = new Intent(this, DeskClock.class);
             createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             createAlarm.putExtra(Alarms.ALARM_CREATE_NEW, true);
@@ -100,6 +118,10 @@ public class HandleSetAlarm extends Activity {
         }
 
         finish();
+    }
+
+    private void handleSetTimer(Intent intent) {
+
     }
 
     private boolean handleCursorResult(Cursor c, boolean enable, boolean skipUi) {
