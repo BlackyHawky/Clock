@@ -24,6 +24,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.deskclock.provider.Alarm;
+
 /**
  * Dialog to set alarm time.
  */

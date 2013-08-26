@@ -38,6 +38,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.widget.multiwaveview.GlowPadView;
 
 import java.util.Calendar;
