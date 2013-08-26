@@ -20,7 +20,7 @@
                  android:requiredForAllUsers="true"
                  android:supportsRtl="true">
 
-        <provider android:name="AlarmProvider"
+        <provider android:name=".provider.ClockProvider"
                 android:authorities="com.android.deskclock"
                 android:exported="false" />
 

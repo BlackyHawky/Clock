@@ -62,6 +62,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.widget.ActionableToastBar;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;

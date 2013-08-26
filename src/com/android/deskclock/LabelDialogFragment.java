@@ -19,8 +19,6 @@ package com.android.deskclock;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +30,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.timer.TimerObj;
 
 /**
