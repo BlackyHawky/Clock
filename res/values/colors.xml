@@ -26,7 +26,8 @@
 
     <color name="black">#ff000000</color>
     <!-- If this color is changed or no longer used as the primary background, ensure that blackish_trans is changed as well. -->
-    <color name="blackish">#ff1c1e20</color>
+    <color name="blackish">#1c1e20</color>
+    <color name="blackish_selected">#0cffffff</color>
     <!-- Transparent background for use in the footer. 80% opacity. The color must remain the same as "blackish" above. -->
     <color name="blackish_trans">#cc1c1e20</color>
     <color name="white">#ffffffff</color>
@@ -35,6 +36,11 @@
     <color name="transparent">#00000000</color>
     <color name="transparent_white">#66ffffff</color>
     <color name="alarm_whiteish">#0cffffff</color>
+
+    <color name="main_button_normal">#606060</color>
+    <color name="main_button_selected">#909090</color>
+    <color name="main_button_red_normal">#ff4444</color> <!-- same as clock_red -->
+    <color name="main_button_red_selected">#c0ff4444</color>
 
     <color name="clock_red">#ff4444</color>
     <color name="clock_white">#ffffff</color>

@@ -140,6 +140,11 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
+    <style name="small_thin">
+        <item name="android:textSize">@dimen/small_font_size</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
     <style name="medium_bold">
         <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:textStyle">bold</item>

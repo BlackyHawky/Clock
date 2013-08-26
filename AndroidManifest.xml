@@ -53,18 +53,6 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name="AlarmClock"
-                android:label="@string/alarm_list_title"
-                android:theme="@style/AlarmClockTheme"
-                android:taskAffinity=""
-                android:excludeFromRecents="true"
-                android:launchMode="standard"
-                android:exported="true" />
-
-        <activity-alias android:name="com.android.alarmclock.AlarmClock"
-                android:targetActivity="com.android.deskclock.AlarmClock"
-                android:exported="true" />
-
         <activity android:name="SettingsActivity"
                 android:label="@string/settings"
                 android:theme="@style/SettingsTheme"

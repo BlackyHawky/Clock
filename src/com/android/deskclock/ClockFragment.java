@@ -23,9 +23,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -33,6 +35,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.deskclock.worldclock.WorldClockAdapter;
@@ -46,7 +50,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private static final String BUTTONS_HIDDEN_KEY = "buttons_hidden";
     private final static String TAG = "ClockFragment";
 
-    private View mButtons;
     private boolean mButtonsHidden = false;
     private View mDigitalClock, mAnalogClock, mClockFrame;
     private WorldClockAdapter mAdapter;
@@ -101,7 +104,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                              Bundle icicle) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.clock_fragment, container, false);
-        mButtons = v.findViewById(R.id.clock_buttons);
         if (icicle != null) {
             mButtonsHidden = icicle.getBoolean(BUTTONS_HIDDEN_KEY, false);
         }
@@ -149,6 +151,22 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 return false;
             }
         });
+
+        // For landscape, put the cities button on the right and the menu in the actionbar.
+        View citiesButton = v.findViewById(R.id.cities_button);
+        View menuButton = v.findViewById(R.id.menu_button);
+        FrameLayout.LayoutParams layoutParams =
+                (FrameLayout.LayoutParams) citiesButton.getLayoutParams();
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            layoutParams.gravity = Gravity.END;
+            menuButton.setVisibility(View.GONE);
+        } else {
+            layoutParams.gravity = Gravity.CENTER;
+            menuButton.setVisibility(View.VISIBLE);
+        }
+        citiesButton.setLayoutParams(layoutParams);
+
+
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mDefaultClockStyle = getActivity().getResources().getString(R.string.default_clock_style);
         return v;
@@ -171,8 +189,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
         getActivity().registerReceiver(mIntentReceiver, filter);
-
-        mButtons.setAlpha(mButtonsHidden ? 0 : 1);
 
         // Resume can invoked after changing the cities list or a change in locale
         if (mAdapter != null) {
@@ -202,21 +218,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     public void onSaveInstanceState (Bundle outState) {
         outState.putBoolean(BUTTONS_HIDDEN_KEY, mButtonsHidden);
         super.onSaveInstanceState(outState);
-    }
-
-    public void showButtons(boolean show) {
-        if (mButtons == null) {
-            return;
-        }
-        if (show && mButtonsHidden) {
-            mButtons.startAnimation(
-                    AnimationUtils.loadAnimation(getActivity(), R.anim.unhide));
-            mButtonsHidden = false;
-        } else if (!show && !mButtonsHidden) {
-            mButtons.startAnimation(
-                    AnimationUtils.loadAnimation(getActivity(), R.anim.hide));
-            mButtonsHidden = true;
-        }
     }
 
     @Override
