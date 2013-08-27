@@ -22,24 +22,33 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.android.deskclock.AlarmTimePickerDialogFragment.AlarmTimePickerDialogHandler;
+import com.android.datetimepicker.time.TimePickerDialog;
 import com.android.deskclock.provider.Alarm;
 
 /**
  * Static utility methods for Alarms.
  */
 public class AlarmUtils {
+    public static final String FRAG_TAG_TIME_PICKER = "time_dialog";
+
     public static void showTimeEditDialog(FragmentManager manager, final Alarm alarm,
-            AlarmTimePickerDialogHandler listener) {
+            TimePickerDialog.OnTimeSetListener listener, boolean is24HourMode) {
+
+        TimePickerDialog dialog = TimePickerDialog.newInstance(listener,
+                alarm.hour, alarm.minutes, is24HourMode);
+
+        // Make sure the dialog isn't already added.
+        manager.executePendingTransactions();
         final FragmentTransaction ft = manager.beginTransaction();
-        final Fragment prev = manager.findFragmentByTag("time_dialog");
+        final Fragment prev = manager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
         if (prev != null) {
             ft.remove(prev);
         }
+        ft.commit();
 
-        final AlarmTimePickerDialogFragment fragment = AlarmTimePickerDialogFragment.newInstance(
-                alarm, listener);
-        fragment.show(ft, "time_dialog");
+        if (dialog != null && !dialog.isAdded()) {
+            dialog.show(manager, FRAG_TAG_TIME_PICKER);
+        }
     }
 
     /**
