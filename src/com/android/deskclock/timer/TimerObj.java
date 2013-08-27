@@ -52,6 +52,7 @@ public class TimerObj implements Parcelable {
     public static final int STATE_TIMESUP = 3;
     public static final int STATE_DONE = 4;
     public static final int STATE_RESTART = 5;
+    public static final int STATE_DELETED = 6;
 
     private static final String PREF_TIMER_ID = "timer_id_";
     private static final String PREF_START_TIME  = "timer_start_time_";

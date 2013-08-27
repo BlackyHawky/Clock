@@ -736,6 +736,7 @@ public class TimerFragment extends DeskClockFragment
                 // Tell receiver the timer was deleted.
                 // It will stop all activity related to the
                 // timer
+                t.mState = TimerObj.STATE_DELETED;
                 updateTimersState(t, Timers.DELETE_TIMER);
                 break;
             case ClickAction.ACTION_PLUS_ONE:
@@ -818,6 +819,7 @@ public class TimerFragment extends DeskClockFragment
                     // Tell receiver the timer was deleted.
                     // It will stop all activity related to the
                     // timer
+                    t.mState = TimerObj.STATE_DELETED;
                     updateTimersState(t, Timers.DELETE_TIMER);
                 }
                 break;
@@ -966,9 +968,7 @@ public class TimerFragment extends DeskClockFragment
     }
 
     private void updateTimersState(TimerObj t, String action) {
-        if (!Timers.DELETE_TIMER.equals(action)) {
-            t.writeToSharedPref(mPrefs);
-        }
+        t.writeToSharedPref(mPrefs);
         Intent i = new Intent();
         i.setAction(action);
         i.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
