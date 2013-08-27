@@ -232,6 +232,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // An external app asked us to create a blank alarm.
             asyncAddAlarm();
         }
+        // Remove the CREATE_NEW extra now that we've processed it.
+        intent.removeExtra(Alarms.ALARM_CREATE_NEW);
 
         TimePickerDialog tpd = (TimePickerDialog) getActivity().getFragmentManager().
                 findFragmentByTag(AlarmUtils.FRAG_TAG_TIME_PICKER);
@@ -536,9 +538,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
             if (convertView == null) {
                 v = newView(mContext, getCursor(), parent);
             } else {
+                // TODO temporary hack to prevent the convertView from not having stuff we need.
+                boolean badConvertView = convertView.findViewById(R.id.digital_clock) == null;
                 // Do a translation check to test for animation. Change this to something more
                 // reliable and robust in the future.
-                if (convertView.getTranslationX() != 0 || convertView.getTranslationY() != 0) {
+                if (convertView.getTranslationX() != 0 || convertView.getTranslationY() != 0 ||
+                        badConvertView) {
                     // view was animated, reset
                     v = newView(mContext, getCursor(), parent);
                 } else {
@@ -552,7 +557,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             final View view = mFactory.inflate(R.layout.alarm_time, parent, false);
+            setNewHolder(view);
+            return view;
+        }
 
+        private void setNewHolder(View view) {
             // standard view holder optimization
             final ItemHolder holder = new ItemHolder();
             holder.alarmItem = (LinearLayout) view.findViewById(R.id.alarm_item);
@@ -590,18 +599,17 @@ public class AlarmClockFragment extends DeskClockFragment implements
             holder.ringtone = (TextView) view.findViewById(R.id.choose_ringtone);
 
             view.setTag(holder);
-            return view;
         }
 
         @Override
         public void bindView(View view, Context context, final Cursor cursor) {
             final Alarm alarm = new Alarm(cursor);
-            final ItemHolder itemHolder = (ItemHolder) view.getTag();
-            if (itemHolder == null) {
-                // TODO I was seeing NPE here a few times but unable to repro now, keep this check
-                // in to hopefully see it again soon.
-                Log.wtf("itemholder is null?? alarm:"+alarm.toString());
+            Object tag = view.getTag();
+            if (tag == null) {
+                // The view was converted but somehow lost its tag.
+                setNewHolder(view);
             }
+            final ItemHolder itemHolder = (ItemHolder) tag;
             itemHolder.alarm = alarm;
 
             // We must unset the listener first because this maybe a recycled view so changing the
