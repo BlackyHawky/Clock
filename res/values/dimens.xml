@@ -24,7 +24,10 @@
     <dimen name="ampm_text_size">20dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
-    <dimen name="time_margin_right">8dip</dimen>
+    <dimen name="time_margin_right">18dip</dimen>
+    <dimen name="small_time_margin_right">10dip</dimen>
+    <dimen name="mini_time_margin_right">10dip</dimen>
+    <dimen name="small_ampm_margin_left">6dip</dimen>
     <dimen name="time_margin_left">8dip</dimen>
     <dimen name="time_margin_bottom">8dip</dimen>
     <dimen name="time_margin_top">32dip</dimen>
@@ -37,10 +40,14 @@
     <dimen name="alarm_label_padding">8dip</dimen>
     <dimen name="alert_dialog_title_height">64dip</dimen>
     <dimen name="popup_window_width">196dip</dimen>
+    <dimen name="bottom_text_spacing_digital">-8dp</dimen>
+    <dimen name="bottom_text_spacing_analog">14dp</dimen>
+    <dimen name="bottom_text_spacing_analog_small">6dp</dimen>
     <!-- Analog clock size in the the screen saver -->
     <dimen name="analog_clock_diameter">236dip</dimen>
     <dimen name="timer_circle_diameter">300dip</dimen>
     <dimen name="timer_circle_width">350dip</dimen>
+    <dimen name="bottom_text_size">16sp</dimen>
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
     <dimen name="actionbar_title_font_size">22sp</dimen>
@@ -53,23 +60,26 @@
     <dimen name="small_font_size">48sp</dimen>
     <dimen name="medium_font_size">60dp</dimen>
     <dimen name="label_font_size">14sp</dimen>
+    <dimen name="main_ampm_font_size">18sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
+    <dimen name="alarm_time_font_size">48sp</dimen>
 
     <dimen name="body_font_padding">4dp</dimen>
     <dimen name="button_font_size">24sp</dimen>
     <dimen name="timer_label_font_size">24sp</dimen>
     <dimen name="dialog_button_font_size">14sp</dimen>
 
-    <dimen name="alarm_label_size">12sp</dimen>
+    <dimen name="alarm_label_size">14sp</dimen>
 
     <dimen name="medium_font_padding">12dp</dimen>
 
     <dimen name="small_space">16dp</dimen>
-    <dimen name="medium_space_top">24dp</dimen>
-    <dimen name="medium_space_bottom">8dp</dimen>
+    <dimen name="medium_space_top">22dp</dimen>
+    <dimen name="medium_space_bottom">12dp</dimen>
     <dimen name="style_label_space">4dip</dimen>
     <dimen name="sw_item_space">16dip</dimen>
+    <dimen name="main_clock_padding">34dp</dimen>
 
     <dimen name="label_margin_big">4dp</dimen>
     <dimen name="label_margin_small">2dp</dimen>

@@ -215,8 +215,8 @@ public class WorldClockAdapter extends BaseAdapter {
         } else {
             // To make sure the spacing is right , make sure that the right clock style is selected
             // even if the clock is invisible.
-            DigitalClock dclock = (DigitalClock)(rightClock.findViewById(R.id.digital_clock));
-            AnalogClock aclock = (AnalogClock)(rightClock.findViewById(R.id.analog_clock));
+            View dclock = rightClock.findViewById(R.id.digital_clock);
+            View aclock = rightClock.findViewById(R.id.analog_clock);
             if (mClockStyle.equals("analog")) {
                 dclock.setVisibility(View.GONE);
                 aclock.setVisibility(View.INVISIBLE);
@@ -236,14 +236,17 @@ public class WorldClockAdapter extends BaseAdapter {
         TextView dayOfWeek = (TextView)(nameLayout.findViewById(R.id.city_day));
         DigitalClock dclock = (DigitalClock)(clock.findViewById(R.id.digital_clock));
         AnalogClock aclock = (AnalogClock)(clock.findViewById(R.id.analog_clock));
+        View separator = clock.findViewById(R.id.separator);
 
         if (mClockStyle.equals("analog")) {
             dclock.setVisibility(View.GONE);
+            separator.setVisibility(View.GONE);
             aclock.setVisibility(View.VISIBLE);
             aclock.setTimeZone(cityObj.mTimeZone);
             aclock.enableSeconds(false);
         } else {
             dclock.setVisibility(View.VISIBLE);
+            separator.setVisibility(View.VISIBLE);
             aclock.setVisibility(View.GONE);
             dclock.setTimeZone(cityObj.mTimeZone);
         }

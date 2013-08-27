@@ -220,11 +220,8 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="alarm_label_bold">
-        <item name="android:textSize">@dimen/alarm_label_size</item>
-        <item name="android:textAllCaps">true</item>
+    <style name="alarm_label_bold" parent="alarm_label">
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="body">

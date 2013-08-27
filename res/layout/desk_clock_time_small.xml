@@ -14,9 +14,9 @@
      limitations under the License.
 -->
 
-<!-- digital clock & date, together -->
+<!-- small digital clock for world cities -->
 <com.android.deskclock.DigitalClock xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/clock_time"
+    android:id="@+id/digital_clock"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="top"
@@ -26,8 +26,8 @@
         android:id="@+id/timeDisplayHours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingRight="@dimen/time_margin_right"
-        android:paddingEnd="@dimen/time_margin_right"
+        android:paddingRight="@dimen/small_time_margin_right"
+        android:paddingEnd="@dimen/small_time_margin_right"
         android:singleLine="true"
         android:ellipsize="none"
         style="@style/medium_light"
@@ -45,9 +45,10 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         style="@style/label"
+        android:paddingLeft="@dimen/small_ampm_margin_left"
+        android:paddingStart="@dimen/small_ampm_margin_left"
         android:singleLine="true"
         android:ellipsize="none"
         android:gravity="top"
-        android:fontFamily="sans-serif-light"
         android:textColor="@color/clock_white" />
 </com.android.deskclock.DigitalClock>
