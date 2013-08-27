@@ -104,7 +104,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.ENABLED + cs +
                 ClockContract.AlarmsColumns.VIBRATE + cs +
                 ClockContract.AlarmsColumns.MESSAGE + cs +
-                ClockContract.AlarmsColumns.ALERT + ") VALUES ";
+                ClockContract.AlarmsColumns.ALERT + cs +
+                ClockContract.AlarmsColumns.DELETE_AFTER_USE + ") VALUES ";
         db.execSQL(insertMe + DEFAULT_ALARM_1);
         db.execSQL(insertMe + DEFAULT_ALARM_2);
     }
