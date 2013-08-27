@@ -39,12 +39,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.android.deskclock.alarms.AlarmNotifications;
 import com.android.deskclock.worldclock.WorldClockAdapter;
 
 /**
  * Fragment that shows  the clock (analog or digital), the next alarm info and the world clock.
  */
-
 public class ClockFragment extends DeskClockFragment implements OnSharedPreferenceChangeListener {
 
     private static final String BUTTONS_HIDDEN_KEY = "buttons_hidden";
@@ -84,8 +84,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                     }
                 }
             }
-            if (changed || action.equals(Alarms.ALARM_DONE_ACTION)
-                    || action.equals(Alarms.ALARM_SNOOZE_CANCELLED)) {
+            if (changed || action.equals(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION)) {
                 Utils.refreshAlarm(getActivity(), mClockFrame);
             }
             if (changed) {
@@ -199,8 +198,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         // Besides monitoring when quarter-hour changes, monitor other actions that
         // effect clock time
         IntentFilter filter = new IntentFilter(Utils.ACTION_ON_QUARTER_HOUR);
-        filter.addAction(Alarms.ALARM_DONE_ACTION);
-        filter.addAction(Alarms.ALARM_SNOOZE_CANCELLED);
+        filter.addAction(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);

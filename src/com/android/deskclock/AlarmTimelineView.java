@@ -121,8 +121,7 @@ public class AlarmTimelineView extends View {
 
         @Override
         protected synchronized Void doInBackground(Void... params) {
-            List<Alarm> enabledAlarmList = Alarm.getAlarms(mResolver,
-                    Alarm.ENABLED + "=1", (String[]) null);
+            List<Alarm> enabledAlarmList = Alarm.getAlarms(mResolver, Alarm.ENABLED + "=1");
             final Date currentTime = mCalendar.getTime();
             mAlarmTimes.clear();
             for (Alarm alarm : enabledAlarmList) {
@@ -238,7 +237,7 @@ public class AlarmTimelineView extends View {
 
         mCalendar = Calendar.getInstance();
         final Locale locale = Locale.getDefault();
-        String formatString = Alarms.get24HourMode(context) ? FORMAT_24_HOUR : FORMAT_12_HOUR;
+        String formatString = DateFormat.is24HourFormat(context) ? FORMAT_24_HOUR : FORMAT_12_HOUR;
         String format = DateFormat.getBestDateTimePattern(locale, formatString);
         mDateFormat = new SimpleDateFormat(format, locale);
 

@@ -178,9 +178,6 @@ public class ClockProvider extends ContentProvider {
             default:
                 throw new IllegalArgumentException("Cannot insert from URL: " + uri);
         }
-        if (sURLMatcher.match(uri) != ALARMS) {
-            throw new IllegalArgumentException("Cannot insert into URL: " + uri);
-        }
 
         Uri uriResult = ContentUris.withAppendedId(ClockContract.AlarmsColumns.CONTENT_URI, rowId);
         getContext().getContentResolver().notifyChange(uriResult, null);
@@ -214,7 +211,7 @@ public class ClockProvider extends ContentProvider {
                 if (TextUtils.isEmpty(where)) {
                     where = ClockContract.InstancesColumns._ID + "=" + primaryKey;
                 } else {
-                    where = ClockContract.InstancesColumns._ID +"=" + primaryKey +
+                    where = ClockContract.InstancesColumns._ID + "=" + primaryKey +
                             " AND (" + where + ")";
                 }
                 count = db.delete(ClockDatabaseHelper.INSTANCES_TABLE_NAME, where, whereArgs);

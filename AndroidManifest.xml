@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.android.deskclock"
-        android:versionCode="300" android:versionName="3.0.0">
+        android:versionCode="301" android:versionName="3.0.0">
 
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
@@ -75,20 +75,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="AlarmAlert"
-                android:excludeFromRecents="true"
-                android:theme="@android:style/Theme.Holo"
-                android:launchMode="singleInstance"
-                android:taskAffinity=""
-                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
-
-        <!-- This activity is basically the same as AlarmAlert
-             but full-screen so that it can turn the display on. -->
-        <activity android:name="AlarmAlertFullScreen"
+        <activity android:name=".alarms.AlarmActivity"
                 android:excludeFromRecents="true"
                 android:theme="@style/AlarmAlertFullScreenTheme"
-                android:launchMode="singleInstance"
-                android:taskAffinity=""
                 android:windowSoftInputMode="stateHidden"
                 android:showOnLockScreen="true"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
@@ -99,14 +88,13 @@
                 android:theme="@style/ScreensaverActivityTheme"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard" />
 
-        <receiver android:name="AlarmReceiver"
-                android:exported="false">
-            <intent-filter>
-                <action android:name="com.android.deskclock.ALARM_ALERT" />
-                <action android:name="alarm_killed" />
-                <action android:name="cancel_snooze" />
-            </intent-filter>
+        <receiver android:name=".alarms.AlarmStateManager"
+                  android:exported="false">
         </receiver>
+
+        <service android:name=".alarms.AlarmService"
+                 android:exported="false">
+        </service>
 
         <activity android:name="HandleApiCalls"
                 android:theme="@android:style/Theme.NoDisplay"
@@ -131,19 +119,6 @@
             android:exported="true">
         </activity-alias>
 
-        <!-- This service receives the same intent as AlarmReceiver but it does
-             not respond to the same broadcast. The AlarmReceiver will receive
-             the alert broadcast and will start this service with the same
-             intent. The service plays the alarm alert and vibrates the device.
-             This allows the alert to continue playing even if another activity
-             causes the AlarmAlert activity to pause. -->
-        <service android:name="AlarmKlaxon"
-                android:exported="false"
-                android:description="@string/alarm_klaxon_service_desc">
-            <intent-filter>
-                <action android:name="com.android.deskclock.ALARM_ALERT" />
-            </intent-filter>
-        </service>
 
         <receiver android:name="AlarmInitReceiver">
             <intent-filter>

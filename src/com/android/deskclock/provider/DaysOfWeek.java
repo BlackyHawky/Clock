@@ -146,13 +146,13 @@ public final class DaysOfWeek {
     }
 
     public HashSet<Integer> getSetDays() {
-        final HashSet<Integer> set = new HashSet<Integer>();
+        final HashSet<Integer> result = new HashSet<Integer>();
         for (int bitIndex = 0; bitIndex < DAYS_IN_A_WEEK; bitIndex++) {
             if (isBitEnabled(bitIndex)) {
-                set.add(convertBitIndexToDay(bitIndex));
+                result.add(convertBitIndexToDay(bitIndex));
             }
         }
-        return set;
+        return result;
     }
 
     public boolean isRepeating() {
@@ -181,7 +181,7 @@ public final class DaysOfWeek {
     }
 
     public void clearAllDays() {
-        mBitSet = 0;
+        mBitSet = NO_DAYS_SET;
     }
 
     @Override

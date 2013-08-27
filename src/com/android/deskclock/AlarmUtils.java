@@ -20,16 +20,33 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.widget.Toast;
 
 import com.android.datetimepicker.time.TimePickerDialog;
 import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.provider.AlarmInstance;
+
+import java.util.Calendar;
 
 /**
  * Static utility methods for Alarms.
  */
 public class AlarmUtils {
     public static final String FRAG_TAG_TIME_PICKER = "time_dialog";
+    private final static String DM12 = "E h:mm aa";
+    private final static String DM24 = "E kk:mm";
+
+    public static String getFormattedTime(Context context, Calendar time) {
+        String format = DateFormat.is24HourFormat(context) ? DM24 : DM12;
+        return (String) DateFormat.format(format, time);
+    }
+
+    public static String getAlarmText(Context context, AlarmInstance instance) {
+        String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
+        return !instance.mLabel.isEmpty() ? alarmTimeStr + " - " + instance.mLabel
+                : alarmTimeStr;
+    }
 
     public static void showTimeEditDialog(FragmentManager manager, final Alarm alarm,
             TimePickerDialog.OnTimeSetListener listener, boolean is24HourMode) {
@@ -99,13 +116,5 @@ public class AlarmUtils {
         Toast toast = Toast.makeText(context, toastText, Toast.LENGTH_LONG);
         ToastMaster.setToast(toast);
         toast.show();
-    }
-
-    /**
-     * Display a toast that tells the user how long until the alarm
-     * goes off.  This helps prevent "am/pm" mistakes.
-     */
-    public static void popAlarmSetToast(Context context, Alarm alarm) {
-        popAlarmSetToast(context, alarm.calculateAlarmTime());
     }
 }

@@ -49,9 +49,46 @@ public final class ClockContract {
     private ClockContract() {}
 
     /**
+     * Constants for tables with AlarmSettings.
+     */
+    private interface AlarmSettingColumns extends BaseColumns {
+        /**
+         * This string is used to indicate no ringtone.
+         */
+        public static final Uri NO_RINGTONE_URI = Uri.EMPTY;
+
+        /**
+         * This string is used to indicate no ringtone.
+         */
+        public static final String NO_RINGTONE = NO_RINGTONE_URI.toString();
+
+        /**
+         * True if alarm should vibrate
+         * <p>Type: BOOLEAN</p>
+         */
+        public static final String VIBRATE = "vibrate";
+
+        /**
+         * Alarm label.
+         *
+         * <p>Type: STRING</p>
+         */
+        public static final String LABEL = "label";
+
+        /**
+         * Audio alert to play when alarm triggers. Null entry
+         * means use system default and entry that equal
+         * Uri.EMPTY.toString() means no ringtone.
+         *
+         * <p>Type: STRING</p>
+         */
+        public static final String RINGTONE = "ringtone";
+    }
+
+    /**
      * Constants for the Alarms table, which contains the user created alarms.
      */
-    protected interface AlarmsColumns extends BaseColumns {
+    protected interface AlarmsColumns extends AlarmSettingColumns, BaseColumns {
         /**
          * The content:// style URL for this table.
          */
@@ -70,13 +107,6 @@ public final class ClockContract {
         public static final String MINUTES = "minutes";
 
         /**
-         * Alarm time in UTC milliseconds from the epoch.
-         * <p>Type: INTEGER</p>
-         */
-        @Deprecated // Calculate this from the other fields
-        public static final String ALARM_TIME = "alarmtime";
-
-        /**
          * Days of the week encoded as a bit set.
          * <p>Type: INTEGER</p>
          *
@@ -91,25 +121,6 @@ public final class ClockContract {
         public static final String ENABLED = "enabled";
 
         /**
-         * True if alarm should vibrate
-         * <p>Type: BOOLEAN</p>
-         */
-        public static final String VIBRATE = "vibrate";
-
-        /**
-         * Message to show when alarm triggers
-         * Note: not currently used
-         * <p>Type: STRING</p>
-         */
-        public static final String MESSAGE = "message";
-
-        /**
-         * Audio alert to play when alarm triggers
-         * <p>Type: STRING</p>
-         */
-        public static final String ALERT = "alert";
-
-        /**
          * Determine if alarm is deleted after it has been used.
          * <p>Type: INTEGER</p>
          */
@@ -119,11 +130,78 @@ public final class ClockContract {
     /**
      * Constants for the Instance table, which contains the state of each alarm.
      */
-    protected interface InstancesColumns extends BaseColumns {
+    protected interface InstancesColumns extends AlarmSettingColumns, BaseColumns {
         /**
          * The content:// style URL for this table.
          */
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/instances");
+
+        /**
+         * Alarm state when to show no notification.
+         *
+         * Can transitions to:
+         * LOW_NOTIFICATION_STATE
+         */
+        public static final int SILENT_STATE = 0;
+
+        /**
+         * Alarm state to show low priority alarm notification.
+         *
+         * Can transitions to:
+         * HIDE_NOTIFICATION_STATE
+         * HIGH_NOTIFICATION_STATE
+         * DISMISSED_STATE
+         */
+        public static final int LOW_NOTIFICATION_STATE = 1;
+
+        /**
+         * Alarm state to hide low priority alarm notification.
+         *
+         * Can transitions to:
+         * HIGH_NOTIFICATION_STATE
+         */
+        public static final int HIDE_NOTIFICATION_STATE = 2;
+
+        /**
+         * Alarm state to show high priority alarm notification.
+         *
+         * Can transitions to:
+         * DISMISSED_STATE
+         * FIRED_STATE
+         */
+        public static final int HIGH_NOTIFICATION_STATE = 3;
+
+        /**
+         * Alarm state when alarm is in snooze.
+         *
+         * Can transitions to:
+         * DISMISSED_STATE
+         * FIRED_STATE
+         */
+        public static final int SNOOZE_STATE = 4;
+
+        /**
+         * Alarm state when alarm is being fired.
+         *
+         * Can transitions to:
+         * DISMISSED_STATE
+         * SNOOZED_STATE
+         * MISSED_STATE
+         */
+        public static final int FIRED_STATE = 5;
+
+        /**
+         * Alarm state when alarm has been missed.
+         *
+         * Can transitions to:
+         * DISMISSED_STATE
+         */
+        public static final int MISSED_STATE = 6;
+
+        /**
+         * Alarm state when alarm is done.
+         */
+        public static final int DISMISSED_STATE = 7;
 
         /**
          * Alarm year.
