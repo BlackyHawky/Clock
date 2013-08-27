@@ -45,7 +45,6 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.android.deskclock.Alarms;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
@@ -338,7 +337,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         }
 
         public void set24HoursMode(Context c) {
-            mIs24HoursMode = Alarms.get24HourMode(c);
+            mIs24HoursMode = DateFormat.is24HourFormat(c);
             notifyDataSetChanged();
         }
 

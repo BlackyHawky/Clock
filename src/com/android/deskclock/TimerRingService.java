@@ -186,7 +186,7 @@ public class TimerRingService extends Service implements AudioManager.OnAudioFoc
      * Stops timer audio
      */
     public void stop() {
-        if (Log.LOGV) Log.v("AlarmKlaxon.stop()");
+        if (Log.LOGV) Log.v("TimerRingService.stop()");
         if (mPlaying) {
             mPlaying = false;
 

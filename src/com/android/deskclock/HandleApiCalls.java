@@ -16,6 +16,28 @@
 
 package com.android.deskclock;
 
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
+
+import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.provider.AlarmInstance;
+import com.android.deskclock.provider.DaysOfWeek;
+import com.android.deskclock.timer.TimerFragment;
+import com.android.deskclock.timer.TimerObj;
+import com.android.deskclock.timer.Timers;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
 import static android.provider.AlarmClock.ACTION_SET_ALARM;
 import static android.provider.AlarmClock.ACTION_SET_TIMER;
 import static android.provider.AlarmClock.ACTION_SHOW_ALARMS;
@@ -27,26 +49,7 @@ import static android.provider.AlarmClock.EXTRA_MINUTES;
 import static android.provider.AlarmClock.EXTRA_RINGTONE;
 import static android.provider.AlarmClock.EXTRA_SKIP_UI;
 import static android.provider.AlarmClock.EXTRA_VIBRATE;
-
-import android.app.Activity;
-import android.content.ContentResolver;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
-
-import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.provider.DaysOfWeek;
-import com.android.deskclock.timer.TimerFragment;
-import com.android.deskclock.timer.TimerObj;
-import com.android.deskclock.timer.Timers;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import static android.provider.AlarmClock.VALUE_RINGTONE_SILENT;
 
 public class HandleApiCalls extends Activity {
 
@@ -89,11 +92,10 @@ public class HandleApiCalls extends Activity {
         }
         if (hour < 0 || hour > 23 || minutes < 0 || minutes > 59) {
             // Intent has no time or an invalid time, open the alarm creation UI
-            Intent createAlarm = new Intent(this, DeskClock.class);
+            Intent createAlarm = Alarm.createIntent(this, DeskClock.class, Alarm.INVALID_ID);
             createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            createAlarm.putExtra(Alarms.ALARM_CREATE_NEW, true);
+            createAlarm.putExtra(AlarmClockFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
             createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-
             startActivity(createAlarm);
             finish();
             return;
@@ -111,7 +113,13 @@ public class HandleApiCalls extends Activity {
                 selection.toString(),
                 args.toArray(new String[args.size()]));
         if (!alarms.isEmpty()) {
-            enableAlarm(alarms.get(0), true, skipUi);
+            Alarm alarm = alarms.get(0);
+            alarm.enabled = true;
+            Alarm.updateAlarm(cr, alarm);
+
+            // Delete all old instances and create a new one with updated values
+            AlarmStateManager.deleteAllInstances(this, alarm.id);
+            setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
             finish();
             return;
         }
@@ -127,11 +135,18 @@ public class HandleApiCalls extends Activity {
         alarm.label = message;
         alarm.daysOfWeek = daysOfWeek;
         alarm.vibrate = vibrate;
-        alarm.setAlert(alert);
+
+        if (alert == null) {
+            alarm.alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        } else if (VALUE_RINGTONE_SILENT.equals(alert) || alert.isEmpty()) {
+            alarm.alert = Alarm.NO_RINGTONE_URI;
+        } else {
+            alarm.alert = Uri.parse(alert);
+        }
         alarm.deleteAfterUse = !daysOfWeek.isRepeating() && skipUi;
 
-        Uri result = cr.insert(Alarm.CONTENT_URI, Alarm.createContentValues(alarm));
-        enableAlarm(Alarm.getAlarm(cr, Alarm.getId(result)), false, skipUi);
+        alarm = Alarm.addAlarm(cr, alarm);
+        setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
         finish();
     }
 
@@ -193,20 +208,15 @@ public class HandleApiCalls extends Activity {
         }
     }
 
-    private void enableAlarm(Alarm alarm, boolean enable, boolean skipUi) {
-        if (enable) {
-            Alarms.enableAlarm(this, (int)alarm.id, true);
-            alarm.enabled = true;
-        }
-        Alarms.setAlarm(this, alarm);
-        AlarmUtils.popAlarmSetToast(this, alarm.calculateAlarmTime());
+    private void setupInstance(AlarmInstance instance, boolean skipUi) {
+        instance = AlarmInstance.addInstance(this.getContentResolver(), instance);
+        AlarmStateManager.registerInstance(this, instance, true);
+        AlarmUtils.popAlarmSetToast(this, instance.getAlarmTime().getTimeInMillis());
         if (!skipUi) {
-            Intent createdAlarm = new Intent(this, DeskClock.class);
-            createdAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            createdAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-            createdAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-            createdAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-            startActivity(createdAlarm);
+            Intent showAlarm = Alarm.createIntent(this, DeskClock.class, instance.mAlarmId);
+            showAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+            showAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(showAlarm);
         }
     }
 
@@ -236,7 +246,7 @@ public class HandleApiCalls extends Activity {
         args.add(String.valueOf(minutes));
 
         if (intent.hasExtra(EXTRA_MESSAGE)) {
-            selection.append(" AND ").append(Alarm.MESSAGE).append("=?");
+            selection.append(" AND ").append(Alarm.LABEL).append("=?");
             args.add(getMessageFromIntent(intent));
         }
 
@@ -252,14 +262,17 @@ public class HandleApiCalls extends Activity {
         }
 
         if (intent.hasExtra(EXTRA_RINGTONE)) {
-            String ringtone = intent.getStringExtra(EXTRA_RINGTONE);
-            selection.append(" AND ").append(Alarm.ALERT).append("=?");
-            if (ringtone == null) {
+            selection.append(" AND ").append(Alarm.RINGTONE).append("=?");
+
+            String ringTone = intent.getStringExtra(EXTRA_RINGTONE);
+            if (ringTone == null) {
                 // If the intent explicitly specified a NULL ringtone, treat it as the default
                 // ringtone.
-                ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+                ringTone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+            } else if (VALUE_RINGTONE_SILENT.equals(ringTone) || ringTone.isEmpty()) {
+                    ringTone = Alarm.NO_RINGTONE;
             }
-            args.add(ringtone);
+            args.add(ringTone);
         }
     }
 }

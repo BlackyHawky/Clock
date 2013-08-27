@@ -19,8 +19,16 @@ package com.android.deskclock.provider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.net.Uri;
+import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
+
+import com.android.deskclock.R;
+import com.android.deskclock.SettingsActivity;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -28,24 +36,29 @@ import java.util.List;
 
 public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
+     * Offset from alarm time to show low priority notification
+     */
+    public static final int LOW_NOTIFICATION_HOUR_OFFSET = -2;
+
+    /**
+     * Offset from alarm time to show high priority notification
+     */
+    public static final int HIGH_NOTIFICATION_MINUTE_OFFSET = -30;
+
+    /**
+     * Offset from alarm time to stop showing missed notification.
+     */
+    private static final int MISSED_TIME_TO_LIVE_HOUR_OFFSET = 12;
+
+    /**
+     * Default timeout for alarms in minutes.
+     */
+    private static final String DEFAULT_ALARM_TIMEOUT_SETTING = "10";
+
+    /**
      * AlarmInstances start with an invalid id when it hasn't been saved to the database.
      */
     public static final long INVALID_ID = -1;
-
-    /**
-     * Alarm state when alarm is ready to be fired.
-     */
-    public static final int ACTIVE_STATE = 0;
-
-    /**
-     * Alarm state when alarm is being fired.
-     */
-    public static final int FIRED_STATE = 1;
-
-    /**
-     * Alarm state when alarm is in snooze.
-     */
-    public static final int SNOOZE_STATE = 2;
 
     private static final String[] QUERY_COLUMNS = {
             _ID,
@@ -54,6 +67,9 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             DAY,
             HOUR,
             MINUTES,
+            LABEL,
+            VIBRATE,
+            RINGTONE,
             ALARM_ID,
             ALARM_STATE
     };
@@ -68,10 +84,14 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int DAY_INDEX = 3;
     private static final int HOUR_INDEX = 4;
     private static final int MINUTES_INDEX = 5;
-    private static final int ALARM_ID_INDEX = 6;
-    private static final int ALARM_STATE_INDEX = 7;
+    private static final int LABEL_INDEX = 6;
+    private static final int VIBRATE_INDEX = 7;
+    private static final int RINGTONE_INDEX = 8;
+    private static final int ALARM_ID_INDEX = 9;
+    private static final int ALARM_STATE_INDEX = 10;
 
     private static final int COLUMN_COUNT = ALARM_STATE_INDEX + 1;
+    private Calendar mTimeout;
 
     public static ContentValues createContentValues(AlarmInstance instance) {
         ContentValues values = new ContentValues(COLUMN_COUNT);
@@ -84,13 +104,34 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(DAY, instance.mDay);
         values.put(HOUR, instance.mHour);
         values.put(MINUTES, instance.mMinute);
+        values.put(LABEL, instance.mLabel);
+        values.put(VIBRATE, instance.mVibrate);
+        if (instance.mRingtone == null) {
+            // We want to put null in the database, so we'll be able
+            // to pick up on changes to the default alarm
+            values.putNull(RINGTONE);
+        } else {
+            values.put(RINGTONE, instance.mRingtone.toString());
+        }
         values.put(ALARM_ID, instance.mAlarmId);
         values.put(ALARM_STATE, instance.mAlarmState);
         return values;
     }
 
+    public static Intent createIntent(String action, long instanceId) {
+        return new Intent(action).setData(getUri(instanceId));
+    }
+
+    public static Intent createIntent(Context context, Class<?> cls, long instanceId) {
+        return new Intent(context, cls).setData(getUri(instanceId));
+    }
+
     public static long getId(Uri contentUri) {
         return ContentUris.parseId(contentUri);
+    }
+
+    public static Uri getUri(long instanceId) {
+        return ContentUris.withAppendedId(CONTENT_URI, instanceId);
     }
 
     /**
@@ -101,8 +142,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @return instance if found, null otherwise
      */
     public static AlarmInstance getInstance(ContentResolver contentResolver, long instanceId) {
-        Cursor cursor = contentResolver.query(ContentUris.withAppendedId(CONTENT_URI, instanceId),
-                QUERY_COLUMNS, null, null, null);
+        Cursor cursor = contentResolver.query(getUri(instanceId), QUERY_COLUMNS, null, null, null);
         AlarmInstance result = null;
         if (cursor == null) {
             return result;
@@ -120,15 +160,15 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
-     * Get an alarm instance by alarmId.
+     * Get an alarm instances by alarmId.
      *
      * @param contentResolver to perform the query on.
-     * @param alarmId for the desired instance.
-     * @return instance if found, null otherwise
+     * @param alarmId of instances desired.
+     * @return list of alarms instances that are owned by alarmId.
      */
-    public static AlarmInstance getInstanceByAlarmId(ContentResolver contentResolver, long alarmId) {
-        List<AlarmInstance> result = getInstances(contentResolver, ALARM_ID + "=" + alarmId);
-        return !result.isEmpty() ? result.get(0) : null;
+    public static List<AlarmInstance> getInstancesByAlarmId(ContentResolver contentResolver,
+            long alarmId) {
+        return getInstances(contentResolver, ALARM_ID + "=" + alarmId);
     }
 
     /**
@@ -165,6 +205,27 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return result;
     }
 
+    public static AlarmInstance addInstance(ContentResolver contentResolver,
+            AlarmInstance instance) {
+        ContentValues values = createContentValues(instance);
+        Uri uri = contentResolver.insert(CONTENT_URI, values);
+        instance.mId = getId(uri);
+        return instance;
+    }
+
+    public static boolean updateInstance(ContentResolver contentResolver, AlarmInstance instance) {
+        if (instance.mId == INVALID_ID) return false;
+        ContentValues values = createContentValues(instance);
+        long rowsUpdated = contentResolver.update(getUri(instance.mId), values, null, null);
+        return rowsUpdated == 1;
+    }
+
+    public static boolean deleteInstance(ContentResolver contentResolver, long instanceId) {
+        if (instanceId == INVALID_ID) return false;
+        int deletedRows = contentResolver.delete(getUri(instanceId), "", null);
+        return deletedRows == 1;
+    }
+
     // Public fields
     public long mId;
     public int mYear;
@@ -172,24 +233,24 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public int mDay;
     public int mHour;
     public int mMinute;
-    public long mAlarmId;
+    public String mLabel;
+    public boolean mVibrate;
+    public Uri mRingtone;
+    public Long mAlarmId;
     public int mAlarmState;
 
-    // Creates a default alarm at the current time.
-    public AlarmInstance(Alarm alarm) {
-        //TODO: Find better way to get year and day
-        this(Calendar.getInstance(), alarm.hour, alarm.minutes, alarm.id);
+    public AlarmInstance(Calendar calendar, Long alarmId) {
+        this(calendar);
+        mAlarmId = alarmId;
     }
 
-    public AlarmInstance(Calendar calendar, int hour, int minute, long alarmId) {
+    public AlarmInstance(Calendar calendar) {
         mId = INVALID_ID;
-        mYear = calendar.get(Calendar.YEAR);
-        mMonth = calendar.get(Calendar.MONTH);
-        mDay = calendar.get(Calendar.DAY_OF_MONTH);
-        mHour = hour;
-        mMinute = minute;
-        mAlarmId = alarmId;
-        mAlarmState = 0;
+        setAlarmTime(calendar);
+        mLabel = "";
+        mVibrate = false;
+        mRingtone = null;
+        mAlarmState = SILENT_STATE;
     }
 
     public AlarmInstance(Cursor c) {
@@ -199,17 +260,70 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mDay = c.getInt(DAY_INDEX);
         mHour = c.getInt(HOUR_INDEX);
         mMinute = c.getInt(MINUTES_INDEX);
-        mAlarmId = c.getLong(ALARM_ID_INDEX);
+        mLabel = c.getString(LABEL_INDEX);
+        mVibrate = c.getInt(VIBRATE_INDEX) == 1;
+        if (c.isNull(RINGTONE_INDEX)) {
+            // Should we be saving this with the current ringtone or leave it null
+            // so it changes when user changes default ringtone?
+            mRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        } else {
+            mRingtone = Uri.parse(c.getString(RINGTONE_INDEX));
+        }
+
+        if (!c.isNull(ALARM_ID_INDEX)) {
+            mAlarmId = c.getLong(ALARM_ID_INDEX);
+        }
         mAlarmState = c.getInt(ALARM_STATE_INDEX);
     }
 
-    public long calculateTime() {
+    public String getLabelOrDefault(Context context) {
+        return mLabel.isEmpty() ? context.getString(R.string.default_label) : mLabel;
+    }
+
+    public void setAlarmTime(Calendar calendar) {
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        mHour = calendar.get(Calendar.HOUR_OF_DAY);
+        mMinute = calendar.get(Calendar.MINUTE);
+    }
+
+    public Calendar getAlarmTime() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, mYear);
         calendar.set(Calendar.DAY_OF_MONTH, mDay);
-        calendar.set(Calendar.HOUR, mHour);
+        calendar.set(Calendar.HOUR_OF_DAY, mHour);
         calendar.set(Calendar.MINUTE, mMinute);
-        return calendar.getTimeInMillis();
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar;
+    }
+
+    public Calendar getLowNotificationTime() {
+        Calendar calendar = getAlarmTime();
+        calendar.add(Calendar.HOUR_OF_DAY, LOW_NOTIFICATION_HOUR_OFFSET);
+        return calendar;
+    }
+
+    public Calendar getHighNotificationTime() {
+        Calendar calendar = getAlarmTime();
+        calendar.add(Calendar.MINUTE, HIGH_NOTIFICATION_MINUTE_OFFSET);
+        return calendar;
+    }
+
+    public Calendar getMissedTimeToLive() {
+        Calendar calendar = getAlarmTime();
+        calendar.add(Calendar.HOUR, MISSED_TIME_TO_LIVE_HOUR_OFFSET);
+        return calendar;
+    }
+
+    public Calendar getTimeout(Context context) {
+        String timeoutSetting = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(SettingsActivity.KEY_AUTO_SILENCE, DEFAULT_ALARM_TIMEOUT_SETTING);
+        int timeoutMinutes= Integer.parseInt(timeoutSetting);
+        Calendar calendar = getAlarmTime();
+        calendar.add(Calendar.MINUTE, timeoutMinutes);
+        return calendar;
     }
 
     @Override
@@ -233,6 +347,9 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                 ", mDay=" + mDay +
                 ", mHour=" + mHour +
                 ", mMinute=" + mMinute +
+                ", mLabel=" + mLabel +
+                ", mVibrate=" + mVibrate +
+                ", mRingtone=" + mRingtone +
                 ", mAlarmId=" + mAlarmId +
                 ", mAlarmState=" + mAlarmState +
                 '}';
