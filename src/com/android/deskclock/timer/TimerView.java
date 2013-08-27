@@ -30,7 +30,7 @@ import com.android.deskclock.R;
 public class TimerView extends LinearLayout {
 
     private TextView mHoursOnes, mMinutesOnes;
-    private TextView mHoursTens, mMinutesTens;
+    private TextView mMinutesTens;
     private TextView mSeconds;
     private final Typeface mAndroidClockMonoThin;
     private Typeface mOriginalHoursTypeface;
@@ -57,7 +57,6 @@ public class TimerView extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mHoursTens = (TextView)findViewById(R.id.hours_tens);
         mMinutesTens = (TextView)findViewById(R.id.minutes_tens);
         mHoursOnes = (TextView)findViewById(R.id.hours_ones);
         mMinutesOnes = (TextView)findViewById(R.id.minutes_ones);
@@ -71,24 +70,8 @@ public class TimerView extends LinearLayout {
     }
 
 
-    public void setTime(int hoursTensDigit, int hoursOnesDigit, int minutesTensDigit,
-            int minutesOnesDigit, int seconds) {
-        if (mHoursTens != null) {
-            // Hide digit
-            if (hoursTensDigit == -2) {
-                mHoursTens.setVisibility(View.INVISIBLE);
-            } else if (hoursTensDigit == -1) {
-                mHoursTens.setText("-");
-                mHoursTens.setTypeface(mAndroidClockMonoThin);
-                mHoursTens.setTextColor(mGrayColor);
-                mHoursTens.setVisibility(View.VISIBLE);
-            } else {
-                mHoursTens.setText(String.format("%d",hoursTensDigit));
-                mHoursTens.setTypeface(mOriginalHoursTypeface);
-                mHoursTens.setTextColor(mWhiteColor);
-                mHoursTens.setVisibility(View.VISIBLE);
-            }
-        }
+    public void setTime(int hoursOnesDigit, int minutesTensDigit,
+                        int minutesOnesDigit, int seconds) {
         if (mHoursOnes != null) {
             if (hoursOnesDigit == -1) {
                 mHoursOnes.setText("-");

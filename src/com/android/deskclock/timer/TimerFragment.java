@@ -71,7 +71,6 @@ public class TimerFragment extends DeskClockFragment
 
     private Bundle mViewState = null;
     private ListView mTimersList;
-    private View mNewTimerPage;
     private View mTimersListPage;
     private Button mCancel, mStart;
     private View mSeperator;
@@ -443,7 +442,6 @@ public class TimerFragment extends DeskClockFragment
         headerView.setLayoutParams(params);
         mTimersList.addHeaderView(headerView);
 
-        mNewTimerPage = v.findViewById(R.id.new_timer_page);
         mTimersListPage = v.findViewById(R.id.timers_list_page);
         mTimerSetup = (TimerSetupView)v.findViewById(R.id.timer_setup);
         mSeperator = v.findViewById(R.id.timer_button_sep);
@@ -602,7 +600,7 @@ public class TimerFragment extends DeskClockFragment
         if (mAdapter != null) {
             mAdapter.onSaveInstanceState (outState);
         }
-        if (mNewTimerPage != null) {
+        if (mTimerSetup != null) {
             saveViewState(outState);
         } else if (mViewState != null) {
             outState.putAll(mViewState);
@@ -610,7 +608,7 @@ public class TimerFragment extends DeskClockFragment
     }
 
     private void saveViewState(Bundle outState) {
-        outState.putBoolean(KEY_SETUP_SELECTED, mNewTimerPage.getVisibility() == View.VISIBLE);
+        outState.putBoolean(KEY_SETUP_SELECTED, mTimerSetup.getVisibility() == View.VISIBLE);
         mTimerSetup.saveEntryState(outState, KEY_ENTRY_STATE);
     }
 
@@ -656,9 +654,9 @@ public class TimerFragment extends DeskClockFragment
     }
 
     private void gotoSetupView() {
-        if (mLastVisibleView == null || mLastVisibleView.getId() == R.id.new_timer_page) {
-            mNewTimerPage.setVisibility(View.VISIBLE);
-            mNewTimerPage.setScaleX(1f);
+        if (mLastVisibleView == null || mLastVisibleView.getId() == R.id.timer_setup) {
+            mTimerSetup.setVisibility(View.VISIBLE);
+            mTimerSetup.setScaleX(1f);
             mTimersListPage.setVisibility(View.GONE);
         } else {
             // Animate
@@ -669,9 +667,9 @@ public class TimerFragment extends DeskClockFragment
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     mTimersListPage.setVisibility(View.GONE);
-                    mNewTimerPage.setScaleX(0);
-                    mNewTimerPage.setVisibility(View.VISIBLE);
-                    ObjectAnimator b = ObjectAnimator.ofFloat(mNewTimerPage, View.SCALE_X, 0f, 1f);
+                    mTimerSetup.setScaleX(0);
+                    mTimerSetup.setVisibility(View.VISIBLE);
+                    ObjectAnimator b = ObjectAnimator.ofFloat(mTimerSetup, View.SCALE_X, 0f, 1f);
                     b.setInterpolator(new DecelerateInterpolator());
                     b.setDuration(225);
                     b.start();
@@ -690,22 +688,22 @@ public class TimerFragment extends DeskClockFragment
         }
         mTimerSetup.updateStartButton();
         mTimerSetup.updateDeleteButton();
-        mLastVisibleView = mNewTimerPage;
+        mLastVisibleView = mTimerSetup;
     }
     private void gotoTimersView() {
         if (mLastVisibleView == null || mLastVisibleView.getId() == R.id.timers_list_page) {
-            mNewTimerPage.setVisibility(View.GONE);
+            mTimerSetup.setVisibility(View.GONE);
             mTimersListPage.setVisibility(View.VISIBLE);
             mTimersListPage.setScaleX(1f);
         } else {
             // Animate
-            ObjectAnimator a = ObjectAnimator.ofFloat(mNewTimerPage, View.SCALE_X, 1f, 0f);
+            ObjectAnimator a = ObjectAnimator.ofFloat(mTimerSetup, View.SCALE_X, 1f, 0f);
             a.setInterpolator(new AccelerateInterpolator());
             a.setDuration(125);
             a.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
-                    mNewTimerPage.setVisibility(View.GONE);
+                    mTimerSetup.setVisibility(View.GONE);
                     mTimersListPage.setScaleX(0);
                     mTimersListPage.setVisibility(View.VISIBLE);
                     ObjectAnimator b =
