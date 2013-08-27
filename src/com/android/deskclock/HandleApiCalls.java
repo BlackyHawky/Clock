@@ -26,16 +26,16 @@ import static android.provider.AlarmClock.EXTRA_SKIP_UI;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 
 import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.provider.DaysOfWeek;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class HandleApiCalls extends Activity {
-
     @Override
     protected void onCreate(Bundle icicle) {
         try {
@@ -73,51 +73,35 @@ public class HandleApiCalls extends Activity {
 
         final Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        final int hour = intent.getIntExtra(EXTRA_HOUR,
-                calendar.get(Calendar.HOUR_OF_DAY));
-        final int minutes = intent.getIntExtra(EXTRA_MINUTES,
-                calendar.get(Calendar.MINUTE));
+        final int hour = intent.getIntExtra(EXTRA_HOUR, calendar.get(Calendar.HOUR_OF_DAY));
+        final int minutes = intent.getIntExtra(EXTRA_MINUTES, calendar.get(Calendar.MINUTE));
         final boolean skipUi = intent.getBooleanExtra(EXTRA_SKIP_UI, false);
         String message = intent.getStringExtra(EXTRA_MESSAGE);
         if (message == null) {
             message = "";
         }
 
-        Cursor c = null;
-        try {
-            c = getContentResolver().query(
-                    Alarm.Columns.CONTENT_URI,
-                    Alarm.Columns.ALARM_QUERY_COLUMNS,
-                    Alarm.Columns.HOUR + "=" + hour + " AND " +
-                    Alarm.Columns.MINUTES + "=" + minutes + " AND " +
-                    Alarm.Columns.MESSAGE + "=?",
-                    new String[] { message }, null);
-            if (handleCursorResult(c, true, skipUi)) {
-                finish();
-                return;
-            }
-        } finally {
-            if (c != null) c.close();
-            // Reset for use below.
-            c = null;
+        // Check if the alarm already exists and handle it
+        ContentResolver cr = getContentResolver();
+        List<Alarm> alarms = Alarm.getAlarms(cr,
+                Alarm.HOUR + "=" + hour + " AND " +
+                Alarm.MINUTES + "=" + minutes + " AND " +
+                Alarm.DAYS_OF_WEEK + "=" + DaysOfWeek.NO_DAYS_SET + " AND " +
+                Alarm.MESSAGE + "=?",
+                new String[] { message });
+        if (!alarms.isEmpty()) {
+            enableAlarm(alarms.get(0), true, skipUi);
+            finish();
+            return;
         }
 
+        // Otherwise insert it and handle it
         Alarm alarm = new Alarm(hour, minutes);
         alarm.enabled = true;
         alarm.label = message;
 
-        ContentResolver cr = getContentResolver();
-        Uri result = cr.insert(Alarm.Columns.CONTENT_URI, Alarms.createContentValues(alarm));
-        if (result != null) {
-            try {
-                c = cr.query(result, Alarm.Columns.ALARM_QUERY_COLUMNS, null,
-                        null, null);
-                handleCursorResult(c, false, skipUi);
-            } finally {
-                if (c != null) c.close();
-            }
-        }
-
+        Uri result = cr.insert(Alarm.CONTENT_URI, Alarm.createContentValues(alarm));
+        enableAlarm(Alarm.getAlarm(cr, Alarm.getId(result)), false, skipUi);
         finish();
     }
 
@@ -125,32 +109,21 @@ public class HandleApiCalls extends Activity {
 
     }
 
-    private boolean handleCursorResult(Cursor c, boolean enable, boolean skipUi) {
-        if (c != null && c.moveToFirst()) {
-            Alarm alarm = new Alarm(c);
-            // We are only allowing the creation or enabling of non-repeating alarms, so skip
-            // them if we see it.
-            if (alarm.daysOfWeek.isRepeating()) {
-                return false;
-            }
-
-            if (enable) {
-                Alarms.enableAlarm(this, alarm.id, true);
-                alarm.enabled = true;
-            }
-            AlarmUtils.popAlarmSetToast(this, alarm.calculateAlarmTime());
-            if (skipUi) {
-                Alarms.setAlarm(this, alarm);
-            } else {
-                Intent createAlarm = new Intent(this, DeskClock.class);
-                createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                createAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-                createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-                createAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-                startActivity(createAlarm);
-            }
-            return true;
+    private void enableAlarm(Alarm alarm, boolean enable, boolean skipUi) {
+        if (enable) {
+            Alarms.enableAlarm(this, alarm.id, true);
+            alarm.enabled = true;
         }
-        return false;
+        AlarmUtils.popAlarmSetToast(this, alarm.calculateAlarmTime());
+        if (skipUi) {
+            Alarms.setAlarm(this, alarm);
+        } else {
+            Intent createAlarm = new Intent(this, DeskClock.class);
+            createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            createAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+            createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+            createAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+            startActivity(createAlarm);
+        }
     }
 }
