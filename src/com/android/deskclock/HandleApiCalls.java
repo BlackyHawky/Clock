@@ -18,7 +18,9 @@ package com.android.deskclock;
 
 import static android.provider.AlarmClock.ACTION_SET_ALARM;
 import static android.provider.AlarmClock.ACTION_SET_TIMER;
+import static android.provider.AlarmClock.EXTRA_DELETE_AFTER_USE;
 import static android.provider.AlarmClock.EXTRA_HOUR;
+import static android.provider.AlarmClock.EXTRA_LENGTH;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static android.provider.AlarmClock.EXTRA_MINUTES;
 import static android.provider.AlarmClock.EXTRA_SKIP_UI;
@@ -26,16 +28,28 @@ import static android.provider.AlarmClock.EXTRA_SKIP_UI;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.DaysOfWeek;
+import com.android.deskclock.timer.TimerFragment;
+import com.android.deskclock.timer.TimerObj;
+import com.android.deskclock.timer.Timers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class HandleApiCalls extends Activity {
+
+    public static final long TIMER_MIN_LENGTH = 1000;
+    public static final long TIMER_MAX_LENGTH = 24 * 60 * 60 * 1000;
+
     @Override
     protected void onCreate(Bundle icicle) {
         try {
@@ -106,24 +120,77 @@ public class HandleApiCalls extends Activity {
     }
 
     private void handleSetTimer(Intent intent) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        // If no length is supplied , show the timer setup view
+        if (!intent.hasExtra(EXTRA_LENGTH)) {
+            startActivity(new Intent(this, DeskClock.class)
+                  .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
+                  .putExtra(TimerFragment.GOTO_SETUP_VIEW, true));
+            return;
+        }
 
+        final long length = 1000l * intent.getIntExtra(EXTRA_LENGTH, 0);
+        if (length < TIMER_MIN_LENGTH || length > TIMER_MAX_LENGTH) {
+            Log.i("Invalid timer length requested: " + length);
+            return;
+        }
+        String label = intent.getStringExtra(EXTRA_MESSAGE);
+        if (label == null) {
+            label = "";
+        }
+        final boolean deleteAfterUse = intent.getBooleanExtra(EXTRA_DELETE_AFTER_USE, false);
+
+        TimerObj timer = null;
+        // Do not delete existing timers by reusing them and deleting them after use
+        if (!deleteAfterUse) {
+            // Find an existing matching timer
+            final ArrayList<TimerObj> timers = new ArrayList<TimerObj>();
+            TimerObj.getTimersFromSharedPrefs(prefs, timers);
+            for (TimerObj t : timers) {
+                if (t.mSetupLength == length && (TextUtils.equals(label, t.mLabel))
+                        && t.mState == TimerObj.STATE_RESTART) {
+                    timer = t;
+                    break;
+                }
+            }
+        }
+
+        if (timer == null) {
+            // Use a new timer
+            timer = new TimerObj(length, label);
+        }
+
+        timer.mState = TimerObj.STATE_RUNNING;
+        timer.mStartTime = Utils.getTimeNow();
+        timer.mDeleteAfterUse = deleteAfterUse;
+        timer.writeToSharedPref(prefs);
+
+        // Tell TimerReceiver that the timer was started
+        sendBroadcast(new Intent().setAction(Timers.START_TIMER)
+                .putExtra(Timers.TIMER_INTENT_EXTRA, timer.mTimerId));
+
+        if (intent.getBooleanExtra(EXTRA_SKIP_UI, false)) {
+            Utils.showInUseNotifications(this);
+        } else {
+            startActivity(new Intent(this, DeskClock.class)
+                    .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX));
+        }
     }
 
     private void enableAlarm(Alarm alarm, boolean enable, boolean skipUi) {
         if (enable) {
-            Alarms.enableAlarm(this, alarm.id, true);
+            Alarms.enableAlarm(this, (int)alarm.id, true);
             alarm.enabled = true;
         }
+        Alarms.setAlarm(this, alarm);
         AlarmUtils.popAlarmSetToast(this, alarm.calculateAlarmTime());
-        if (skipUi) {
-            Alarms.setAlarm(this, alarm);
-        } else {
-            Intent createAlarm = new Intent(this, DeskClock.class);
-            createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            createAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-            createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-            createAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
-            startActivity(createAlarm);
+        if (!skipUi) {
+            Intent createdAlarm = new Intent(this, DeskClock.class);
+            createdAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            createdAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+            createdAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+            createdAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
+            startActivity(createdAlarm);
         }
     }
 }
