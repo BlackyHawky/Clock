@@ -42,7 +42,7 @@
     <dimen name="timer_circle_margin">8dp</dimen>
 
     <dimen name="world_clock_margin">8dp</dimen>
-    <dimen name="sw_right_margin">8dp</dimen>
+    <dimen name="sw_padding_end">8dp</dimen>
 
     <!-- Extra offset for timer button paddings. Only nonzero for non-tablets. -->
     <dimen name="timer_button_extra_offset">45dip</dimen>

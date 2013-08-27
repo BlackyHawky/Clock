@@ -16,14 +16,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     android:orientation="horizontal"
     android:paddingTop="?android:attr/actionBarSize"
     android:baselineAligned="false">
+
+    <Space
+            android:id="@+id/start_space"
+            android:visibility="gone"
+            android:layout_weight="0.5"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"/>
 
     <com.android.deskclock.CircleButtonsLayout
         android:id="@+id/stopwatch_circle"
         android:layout_width="0dip"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_marginLeft="@dimen/circle_margin"
         android:layout_marginStart="@dimen/circle_margin"
         android:layout_marginRight="@dimen/circle_margin"
@@ -82,9 +91,17 @@
     <ListView
         android:id="@+id/laps_list"
         android:layout_weight="1"
-        android:layout_marginRight="@dimen/sw_right_margin"
-        android:layout_marginEnd="@dimen/sw_right_margin"
+        android:paddingRight="@dimen/sw_padding_end"
+        android:paddingEnd="@dimen/sw_padding_end"
         android:layout_gravity="center"
         android:layout_width="0dip"
         android:layout_height="wrap_content" />
+
+    <Space
+            android:id="@+id/end_space"
+            android:visibility="gone"
+            android:layout_weight="0.5"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"/>
+
 </LinearLayout>
