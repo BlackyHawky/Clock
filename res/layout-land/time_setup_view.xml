@@ -16,12 +16,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
+    <!-- This nested ltr layout cannot be combined with the parent because
+         in RTL, the Keypad and Timer value should swap. -->
     <LinearLayout
         android:layoutDirection="ltr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal"
+        android:layout_weight="3"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center">
 
         <com.android.deskclock.timer.TimerView
             android:id="@+id/timer_time_text"
@@ -54,25 +59,75 @@
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:layout_marginBottom="8dip"
-        android:background="@color/dialog_gray" />
-    <include layout="@layout/three_keys_view"
-        android:id="@+id/first" />
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
 
-    <include layout="@layout/three_keys_view"
-        android:id="@+id/second"/>
+        <include
+                layout="@layout/three_keys_view"
+                android:id="@+id/first"/>
 
-    <include layout="@layout/three_keys_view"
-        android:id="@+id/third"/>
+        <include
+                layout="@layout/three_keys_view"
+                android:id="@+id/second"/>
 
-    <include layout="@layout/three_keys_view"
-        android:id="@+id/fourth" />
+        <include
+                layout="@layout/three_keys_view"
+                android:id="@+id/third"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:layout_marginTop="16dip" />
+        <include
+                layout="@layout/three_keys_view"
+                android:id="@+id/fourth"/>
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginTop="16dip"/>
+
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dip">
+
+            <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dip"
+                    android:background="#28ffffff"/>
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <Button
+                        android:id="@+id/timer_cancel"
+                        android:text="@string/timer_cancel"
+                        android:layout_width="match_parent"
+                        style="@style/button"
+                        android:layout_weight="1"
+                        android:background="@drawable/item_background"
+                        android:layout_height="wrap_content"/>
+
+                <View
+                        android:id="@+id/timer_button_sep"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="8dip"
+                        android:layout_marginBottom="8dip"
+                        android:layout_width="1dip"
+                        android:background="#28ffffff"/>
+
+                <Button
+                        android:id="@+id/timer_start"
+                        android:text="@string/timer_start"
+                        android:layout_width="match_parent"
+                        style="@style/button"
+                        android:layout_weight="1"
+                        android:background="@drawable/item_background"
+                        android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </LinearLayout>
+
 </LinearLayout>
