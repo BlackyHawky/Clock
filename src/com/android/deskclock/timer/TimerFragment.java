@@ -67,6 +67,8 @@ public class TimerFragment extends DeskClockFragment
     private static final String TAG = "TimerFragment";
     private static final String KEY_SETUP_SELECTED = "_setup_selected";
     private static final String KEY_ENTRY_STATE = "entry_state";
+    public static final String GOTO_SETUP_VIEW = "deskclock.timers.gotosetup";
+
     private Bundle mViewState = null;
     private ListView mTimersList;
     private View mNewTimerPage;
@@ -513,8 +515,12 @@ public class TimerFragment extends DeskClockFragment
 
     @Override
     public void onResume() {
+        Intent newIntent = null;
+
         if (getActivity() instanceof DeskClock) {
-            ((DeskClock)getActivity()).registerPageChangedListener(this);
+            DeskClock activity = (DeskClock) getActivity();
+            activity.registerPageChangedListener(this);
+            newIntent = activity.getIntent();
         }
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
@@ -556,6 +562,10 @@ public class TimerFragment extends DeskClockFragment
         View v = getView();
         if (v != null) {
             getView().setVisibility(View.VISIBLE);
+        }
+
+        if (newIntent != null) {
+            processIntent(newIntent);
         }
     }
 
@@ -724,35 +734,7 @@ public class TimerFragment extends DeskClockFragment
                 if (t.mState == TimerObj.STATE_TIMESUP) {
                     cancelTimerNotification(t.mTimerId);
                 }
-                // Animate deletion, first alpha, then height
-                ObjectAnimator a = ObjectAnimator.ofFloat(t.mView, View.ALPHA, 1f, 0f);
-                a.setInterpolator(new AccelerateInterpolator());
-                a.setDuration(100);
-                a.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        ObjectAnimator b = ObjectAnimator.ofInt(
-                                t.mView, "animatedHeight", t.mView.getHeight(), 0);
-                        b.setInterpolator(new AccelerateInterpolator());
-                        b.setDuration(200);
-                        b.addListener(new AnimatorListenerAdapter() {
-                                @Override
-                            public void onAnimationEnd(Animator animation) {
-                                mAdapter.deleteTimer(t.mTimerId);
-                                if (mAdapter.getCount() == 0) {
-                                    if (mOnEmptyListListener == null) {
-                                        mTimerSetup.reset();
-                                        gotoSetupView();
-                                    } else {
-                                        mOnEmptyListListener.onEmptyList();
-                                    }
-                                }
-                            }
-                        });
-                        b.start();
-                    }
-                });
-                a.start();
+                animateTimerDeletion(t);
                 // Tell receiver the timer was deleted.
                 // It will stop all activity related to the
                 // timer
@@ -808,9 +790,6 @@ public class TimerFragment extends DeskClockFragment
         }
     }
 
-
-
-
     private void onStopButtonPressed(TimerObj t) {
         switch(t.mState) {
             case TimerObj.STATE_RUNNING:
@@ -836,6 +815,13 @@ public class TimerFragment extends DeskClockFragment
                 updateTimersState(t, Timers.TIMER_DONE);
                 cancelTimerNotification(t.mTimerId);
                 updateTimesUpMode(t);
+                if (t.mDeleteAfterUse) {
+                    animateTimerDeletion(t);
+                    // Tell receiver the timer was deleted.
+                    // It will stop all activity related to the
+                    // timer
+                    updateTimersState(t, Timers.DELETE_TIMER);
+                }
                 break;
             case TimerObj.STATE_DONE:
                 break;
@@ -848,6 +834,38 @@ public class TimerFragment extends DeskClockFragment
             default:
                 break;
         }
+    }
+
+    private void animateTimerDeletion(final TimerObj t) {
+        // Animate deletion, first alpha, then height
+        ObjectAnimator a = ObjectAnimator.ofFloat(t.mView, View.ALPHA, 1f, 0f);
+        a.setInterpolator(new AccelerateInterpolator());
+        a.setDuration(100);
+        a.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                ObjectAnimator b = ObjectAnimator.ofInt(
+                        t.mView, "animatedHeight", t.mView.getHeight(), 0);
+                b.setInterpolator(new AccelerateInterpolator());
+                b.setDuration(200);
+                b.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        mAdapter.deleteTimer(t.mTimerId);
+                        if (mAdapter.getCount() == 0) {
+                            if (mOnEmptyListListener == null) {
+                                mTimerSetup.reset();
+                                gotoSetupView();
+                            } else {
+                                mOnEmptyListListener.onEmptyList();
+                            }
+                        }
+                    }
+                });
+                b.start();
+            }
+        });
+        a.start();
     }
 
     private void onLabelPressed(TimerObj t) {
@@ -935,10 +953,13 @@ public class TimerFragment extends DeskClockFragment
         }
     }
 
+    // Starts the ticks that animate the timers.
     private void startClockTicks() {
         mTimersList.postDelayed(mClockTick, 20);
         mTicking = true;
     }
+
+    // Stops the ticks that animate the timers.
     private void stopClockTicks() {
         if (mTicking) {
             mTimersList.removeCallbacks(mClockTick);
@@ -974,6 +995,15 @@ public class TimerFragment extends DeskClockFragment
     public void restartAdapter() {
         mAdapter = createAdapter(getActivity(), mPrefs);
         mAdapter.onRestoreInstanceState(null);
+    }
+
+    // Process extras that were sent to the app and were intended for the timer
+    // fragment
+    public void processIntent(Intent intent) {
+        // switch to timer setup view
+        if (intent.getBooleanExtra(GOTO_SETUP_VIEW, false)) {
+            gotoSetupView();
+        }
     }
 
     @Override
