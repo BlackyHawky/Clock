@@ -234,10 +234,10 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         .setWhen(0)
         .addAction(android.R.drawable.ic_menu_close_clear_cancel,
                 getResources().getString(R.string.alarm_alert_dismiss_text),
-                PendingIntent.getBroadcast(this, mAlarm.id, dismissIntent, 0))
+                PendingIntent.getBroadcast(this, (int)mAlarm.id, dismissIntent, 0))
         .build();
-        notif.contentIntent = PendingIntent.getActivity(this, mAlarm.id, openAlarm, 0);
-        nm.notify(mAlarm.id, notif);
+        notif.contentIntent = PendingIntent.getActivity(this, (int)mAlarm.id, openAlarm, 0);
+        nm.notify((int)mAlarm.id, notif);
 
         String displayTime = getString(R.string.alarm_alert_snooze_set,
                 snoozeMinutes);
@@ -267,7 +267,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
         if (!killed) {
             // Cancel the notification and stop playing the alarm
             NotificationManager nm = getNotificationManager();
-            nm.cancel(mAlarm.id);
+            nm.cancel((int)mAlarm.id);
             stopService(new Intent(Alarms.ALARM_ALERT_ACTION));
         }
         if (!replaced) {
@@ -306,7 +306,7 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
             Log.v("AlarmAlertFullScreen - onResume");
         }
         // If the alarm was deleted at some point, disable snooze.
-        if (Alarms.getAlarm(getContentResolver(), mAlarm.id) == null) {
+        if (Alarm.getAlarm(getContentResolver(), mAlarm.id) == null) {
             mGlowPadView.setTargetResources(R.array.dismiss_drawables);
             mGlowPadView.setTargetDescriptionsResourceId(R.array.dismiss_descriptions);
             mGlowPadView.setDirectionDescriptionsResourceId(R.array.dismiss_direction_descriptions);

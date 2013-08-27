@@ -74,7 +74,7 @@ public class AlarmReceiver extends BroadcastReceiver {
                 // Don't know what snoozed alarm to cancel, so cancel them all.  This
                 // shouldn't happen
                 Log.wtf("Unable to parse Alarm from intent.");
-                Alarms.saveSnoozeAlert(context, Alarms.INVALID_ALARM_ID, -1);
+                Alarms.saveSnoozeAlert(context, Alarm.INVALID_ID, -1);
             }
             // Inform any active UI that alarm snooze was cancelled
             context.sendBroadcast(new Intent(Alarms.ALARM_SNOOZE_CANCELLED));
@@ -163,18 +163,18 @@ public class AlarmReceiver extends BroadcastReceiver {
                 | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         // Make sure to use FLAG_CANCEL_CURRENT or the notification manager will just
         // use the older intent if it has the same alarm.id
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, alarm.id, alarmAlert,
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, (int)alarm.id, alarmAlert,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // These two notifications will be used for the action buttons on the notification.
         Intent snoozeIntent = new Intent(Alarms.ALARM_SNOOZE_ACTION);
         snoozeIntent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         PendingIntent pendingSnooze = PendingIntent.getBroadcast(context,
-                alarm.id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                (int)alarm.id, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         Intent dismissIntent = new Intent(Alarms.ALARM_DISMISS_ACTION);
         dismissIntent.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         PendingIntent pendingDismiss = PendingIntent.getBroadcast(context,
-                alarm.id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                (int)alarm.id, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         final Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(alarmTime);
@@ -205,8 +205,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         // Send the notification using the alarm id to easily identify the
         // correct notification.
         NotificationManager nm = getNotificationManager(context);
-        nm.cancel(alarm.id);
-        nm.notify(alarm.id, n);
+        nm.cancel((int)alarm.id);
+        nm.notify((int)alarm.id, n);
     }
 
     private NotificationManager getNotificationManager(Context context) {
@@ -230,7 +230,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         viewAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         viewAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
         viewAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-        PendingIntent intent = PendingIntent.getActivity(context, alarm.id, viewAlarm,
+        PendingIntent intent = PendingIntent.getActivity(context, (int)alarm.id, viewAlarm,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Update the notification to indicate that the alert has been
@@ -245,7 +245,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         // We have to cancel the original notification since it is in the
         // ongoing section and we want the "killed" notification to be a plain
         // notification.
-        nm.cancel(alarm.id);
-        nm.notify(alarm.id, n);
+        nm.cancel((int)alarm.id);
+        nm.notify((int)alarm.id, n);
     }
 }

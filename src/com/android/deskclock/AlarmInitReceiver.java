@@ -23,6 +23,8 @@ import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 
+import com.android.deskclock.provider.Alarm;
+
 import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
@@ -46,7 +48,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
             @Override public void run() {
                 // Remove the snooze alarm after a boot.
                 if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-                    Alarms.saveSnoozeAlert(context, Alarms.INVALID_ALARM_ID, -1);
+                    Alarms.saveSnoozeAlert(context, Alarm.INVALID_ID, -1);
                     Alarms.disableExpiredAlarms(context);
 
                     // Clear stopwatch and timers data
