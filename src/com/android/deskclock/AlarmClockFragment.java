@@ -62,6 +62,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.android.datetimepicker.time.RadialPickerLayout;
+import com.android.datetimepicker.time.TimePickerDialog;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.widget.ActionableToastBar;
@@ -75,7 +77,7 @@ import java.util.HashSet;
  */
 public class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
-        AlarmTimePickerDialogFragment.AlarmTimePickerDialogHandler,
+        TimePickerDialog.OnTimeSetListener,
         DialogInterface.OnClickListener, DialogInterface.OnCancelListener {
     private static final String KEY_EXPANDED_IDS = "expandedIds";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
@@ -230,6 +232,13 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // An external app asked us to create a blank alarm.
             asyncAddAlarm();
         }
+
+        TimePickerDialog tpd = (TimePickerDialog) getActivity().getFragmentManager().
+                findFragmentByTag(AlarmUtils.FRAG_TAG_TIME_PICKER);
+        if (tpd != null) {
+            // The dialog is already open so we need to set the listener again.
+            tpd.setOnTimeSetListener(this);
+        }
     }
 
     private void hideUndoBar(boolean animate, MotionEvent event) {
@@ -278,12 +287,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     // Callback used by AlarmTimePickerDialogFragment
     @Override
-    public void onDialogTimeSet(Alarm alarm, int hourOfDay, int minute) {
-        alarm.hour = hourOfDay;
-        alarm.minutes = minute;
-        alarm.enabled = true;
-        mScrollToAlarmId = alarm.id;
-        asyncUpdateAlarm(alarm, true);
+    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+        mSelectedAlarm.hour = hourOfDay;
+        mSelectedAlarm.minutes = minute;
+        mSelectedAlarm.enabled = true;
+        mScrollToAlarmId = mSelectedAlarm.id;
+        asyncUpdateAlarm(mSelectedAlarm, true);
     }
 
     private void showLabelDialog(final Alarm alarm) {
@@ -615,8 +624,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.clock.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    mSelectedAlarm = itemHolder.alarm;
                     AlarmUtils.showTimeEditDialog(AlarmClockFragment.this.getFragmentManager(),
-                            alarm, AlarmClockFragment.this);
+                            alarm, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
                     expandAlarm(itemHolder, true);
                     itemHolder.alarmItem.post(mScrollRunnable);
                 }
@@ -1281,8 +1291,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 View view = mAlarmsList.getChildAt(0);
                 mAdapter.getView(0, view, mAlarmsList);
                 if (showTimePicker) {
+                    mSelectedAlarm = alarm;
                     AlarmUtils.showTimeEditDialog(AlarmClockFragment.this.getFragmentManager(),
-                            alarm, AlarmClockFragment.this);
+                            alarm, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
                 }
             }
         };
