@@ -152,7 +152,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         mAddAlarmButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                asyncAddAlarm();
+                startCreatingAlarm();
             }
         });
         // For landscape, put the add button on the right and the menu in the actionbar.
@@ -212,7 +212,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
                 @Override
                 public void onActionClicked() {
-                    asyncAddAlarm(mDeletedAlarm, false);
+                    asyncAddAlarm(mDeletedAlarm);
                     mDeletedAlarm = null;
                     mUndoShowing = false;
                 }
@@ -230,7 +230,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         boolean createNew = intent.getBooleanExtra(Alarms.ALARM_CREATE_NEW, false);
         if (createNew) {
             // An external app asked us to create a blank alarm.
-            asyncAddAlarm();
+            startCreatingAlarm();
         }
         // Remove the CREATE_NEW extra now that we've processed it.
         intent.removeExtra(Alarms.ALARM_CREATE_NEW);
@@ -287,14 +287,29 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
     }
 
-    // Callback used by AlarmTimePickerDialogFragment
+    // Callback used by TimePickerDialog
     @Override
     public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
-        mSelectedAlarm.hour = hourOfDay;
-        mSelectedAlarm.minutes = minute;
-        mSelectedAlarm.enabled = true;
-        mScrollToAlarmId = mSelectedAlarm.id;
-        asyncUpdateAlarm(mSelectedAlarm, true);
+        if (mSelectedAlarm == null) {
+            // If mSelectedAlarm is null then we're creating a new alarm.
+            Alarm a = new Alarm();
+            a.alert = RingtoneManager.getActualDefaultRingtoneUri(
+                    getActivity(), RingtoneManager.TYPE_ALARM);
+            if (a.alert == null) {
+                a.alert = Uri.parse("content://settings/system/alarm_alert");
+            }
+            a.hour = hourOfDay;
+            a.minutes = minute;
+            a.enabled = true;
+            asyncAddAlarm(a);
+        } else {
+            mSelectedAlarm.hour = hourOfDay;
+            mSelectedAlarm.minutes = minute;
+            mSelectedAlarm.enabled = true;
+            mScrollToAlarmId = mSelectedAlarm.id;
+            asyncUpdateAlarm(mSelectedAlarm, true);
+            mSelectedAlarm = null;
+        }
     }
 
     private void showLabelDialog(final Alarm alarm) {
@@ -1230,14 +1245,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
     }
 
-    private void asyncAddAlarm() {
-        Alarm a = new Alarm();
-        a.alert = RingtoneManager.getActualDefaultRingtoneUri(
-                getActivity(), RingtoneManager.TYPE_ALARM);
-        if (a.alert == null) {
-            a.alert = Uri.parse("content://settings/system/alarm_alert");
-        }
-        asyncAddAlarm(a, true);
+    private void startCreatingAlarm() {
+        // Set the "selected" alarm as null, and we'll create the new one when the timepicker
+        // comes back.
+        mSelectedAlarm = null;
+        AlarmUtils.showTimeEditDialog(AlarmClockFragment.this.getFragmentManager(),
+                null, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
     }
 
     private void asyncDeleteAlarm(final Long[] alarmIds) {
@@ -1270,14 +1283,14 @@ public class AlarmClockFragment extends DeskClockFragment implements
         mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
             @Override
             public void onActionClicked() {
-                asyncAddAlarm(alarm, false);
+                asyncAddAlarm(alarm);
                 mDeletedAlarm = null;
                 mUndoShowing = false;
             }
         }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo, true);
     }
 
-    private void asyncAddAlarm(final Alarm alarm, final boolean showTimePicker) {
+    private void asyncAddAlarm(final Alarm alarm) {
         final AsyncTask<Void, Void, Void> updateTask = new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... aVoid) {
@@ -1298,11 +1311,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 // expanded.
                 View view = mAlarmsList.getChildAt(0);
                 mAdapter.getView(0, view, mAlarmsList);
-                if (showTimePicker) {
-                    mSelectedAlarm = alarm;
-                    AlarmUtils.showTimeEditDialog(AlarmClockFragment.this.getFragmentManager(),
-                            alarm, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
-                }
             }
         };
         updateTask.execute();

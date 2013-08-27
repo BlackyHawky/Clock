@@ -34,8 +34,15 @@ public class AlarmUtils {
     public static void showTimeEditDialog(FragmentManager manager, final Alarm alarm,
             TimePickerDialog.OnTimeSetListener listener, boolean is24HourMode) {
 
+        int hour, minutes;
+        if (alarm == null) {
+            hour = 0; minutes = 0;
+        } else {
+            hour = alarm.hour;
+            minutes = alarm.minutes;
+        }
         TimePickerDialog dialog = TimePickerDialog.newInstance(listener,
-                alarm.hour, alarm.minutes, is24HourMode);
+                hour, minutes, is24HourMode);
 
         // Make sure the dialog isn't already added.
         manager.executePendingTransactions();
