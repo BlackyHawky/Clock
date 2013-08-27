@@ -45,6 +45,7 @@ public class TimerObj implements Parcelable {
     public View mView;
     public int mState;
     public String mLabel;
+    public boolean mDeleteAfterUse;
 
     public static final int STATE_RUNNING = 1;
     public static final int STATE_STOPPED = 2;
@@ -59,6 +60,7 @@ public class TimerObj implements Parcelable {
     private static final String PREF_SETUP_TIME = "timer_setup_timet_";
     private static final String PREF_STATE = "timer_state_";
     private static final String PREF_LABEL = "timer_label_";
+    private static final String PREF_DELETE_AFTER_USE = "delete_after_use_";
 
     private static final String PREF_TIMERS_LIST = "timers_list";
 
@@ -94,6 +96,8 @@ public class TimerObj implements Parcelable {
         editor.putStringSet(PREF_TIMERS_LIST, timersList);
         key = PREF_LABEL + id;
         editor.putString(key, mLabel);
+        key = PREF_DELETE_AFTER_USE + id;
+        editor.putBoolean(key, mDeleteAfterUse);
         editor.apply();
     }
 
@@ -112,6 +116,8 @@ public class TimerObj implements Parcelable {
         mState = prefs.getInt(key, 0);
         key = PREF_LABEL + id;
         mLabel = prefs.getString(key, "");
+        key = PREF_DELETE_AFTER_USE + id;
+        mDeleteAfterUse = prefs.getBoolean(key, false);
     }
 
     public void deleteFromSharedPref(SharedPreferences prefs) {
@@ -125,12 +131,16 @@ public class TimerObj implements Parcelable {
         editor.remove (key);
         key = PREF_ORIGINAL_TIME + id;
         editor.remove (key);
+        key = PREF_SETUP_TIME + id;
+        editor.remove (key);
         key = PREF_STATE + id;
         editor.remove (key);
         Set <String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
         timersList.remove(id);
         editor.putStringSet(PREF_TIMERS_LIST, timersList);
         key = PREF_LABEL + id;
+        editor.remove(key);
+        key = PREF_DELETE_AFTER_USE + id;
         editor.remove(key);
         editor.commit();
         //dumpTimersFromSharedPrefs(prefs);
@@ -164,11 +174,16 @@ public class TimerObj implements Parcelable {
     }
 
     public TimerObj() {
-        init(0);
+        this(0);
     }
 
     public TimerObj(long timerLength) {
       init(timerLength);
+    }
+
+    public TimerObj(long length, String label) {
+        this(length);
+        mLabel = label != null ? label : "";
     }
 
     private void init (long length) {
