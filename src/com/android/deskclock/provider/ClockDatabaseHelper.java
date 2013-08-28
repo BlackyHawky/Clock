@@ -137,7 +137,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             // Check if we are trying to re-use an existing id.
             Object value = values.get(ClockContract.AlarmsColumns._ID);
             if (value != null) {
-                int id = (Integer) value;
+                long id = (Long) value;
                 if (id > -1) {
                     final Cursor cursor = db.query(ALARMS_TABLE_NAME,
                             new String[]{ClockContract.AlarmsColumns._ID},
