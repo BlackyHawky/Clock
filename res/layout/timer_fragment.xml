@@ -13,7 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -52,55 +52,16 @@
                 android:background="@drawable/main_button_normal" />
          </FrameLayout>
     </FrameLayout>
-    <LinearLayout
-        android:id="@+id/new_timer_page"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="8dip"
-        android:layout_marginStart="8dip"
-        android:layout_marginRight="8dip"
-        android:layout_marginEnd="8dip"
-        android:paddingTop="?android:attr/actionBarSize"
-        android:orientation="vertical">
-        <com.android.deskclock.TimerSetupView
+
+
+    <com.android.deskclock.TimerSetupView
             android:id="@+id/timer_setup"
             android:layout_width="match_parent"
-            android:layout_height="0dip"
-            android:layout_weight="1" />
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="48dip">
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:background="#28ffffff" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-               <Button
-                    android:id="@+id/timer_cancel"
-                    android:text="@string/timer_cancel"
-                    android:layout_width="match_parent"
-                    style="@style/button"
-                    android:layout_weight="1"
-                    android:background="@drawable/item_background"
-                    android:layout_height="wrap_content" />
-                <View
-                    android:id="@+id/timer_button_sep"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dip"
-                    android:layout_marginBottom="8dip"
-                    android:layout_width="1dip"
-                    android:background="#28ffffff" />
-               <Button
-                    android:id="@+id/timer_start"
-                    android:text="@string/timer_start"
-                    android:layout_width="match_parent"
-                    style="@style/button"
-                    android:layout_weight="1"
-                    android:background="@drawable/item_background"
-                    android:layout_height="wrap_content" />
-              </LinearLayout>
-           </FrameLayout>
-    </LinearLayout>
-</LinearLayout>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dip"
+            android:layout_marginStart="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_marginEnd="8dip"
+            android:paddingTop="?android:attr/actionBarSize"/>
+
+</FrameLayout>
