@@ -27,6 +27,9 @@
     <!-- Menu item on Alarm Clock screen: Add alarm -->
     <string name="add_alarm">Add alarm</string>
 
+    <!-- Title text for alarm timeline view [CHAR LIMIT=20] -->
+    <string name="alarm_timeline_title_text">NEXT ALARMS</string>
+
     <!-- Menu item on Alarm Clock screen: Desk clock -->
     <string name="menu_desk_clock">Desk clock</string>
 
