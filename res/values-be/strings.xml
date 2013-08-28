@@ -122,6 +122,8 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Усталяваць будзільнік"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <!-- no translation found for menu_alarm (4772010125376647519) -->
+    <skip />
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Гадзіннік"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Секундамер"</string>
@@ -134,6 +136,8 @@
     <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
     <skip />
     <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
+    <skip />
+    <!-- no translation found for selected_cities_label (3607479399424246605) -->
     <skip />
     <string name="sw_resume_button" msgid="2569360966002022248">"Працягваць"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Пачаць"</string>
@@ -325,4 +329,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Выдаліць гэты таймер?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Выдаліць гэты горад?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Лічбавы гадзіннік"</string>
+    <!-- no translation found for no_alarms (6429431324842022917) -->
+    <skip />
 </resources>

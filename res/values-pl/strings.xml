@@ -122,6 +122,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Ustaw alarm"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Minutnik"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Zegar"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stoper"</string>
@@ -131,10 +132,9 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Ustawienia"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Pomoc"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Tryb nocny"</string>
-    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
-    <skip />
-    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
-    <skip />
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sortuj według godziny"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortuj według nazwy"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Wybrane miasta"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Wznów"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stop"</string>
@@ -325,4 +325,5 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Usunąć ten minutnik?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Usunąć to miasto?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Zegar cyfrowy"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Brak alarmów"</string>
 </resources>
