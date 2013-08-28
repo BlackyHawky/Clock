@@ -18,7 +18,6 @@ package com.android.deskclock;
 
 import static android.provider.AlarmClock.ACTION_SET_ALARM;
 import static android.provider.AlarmClock.ACTION_SET_TIMER;
-import static android.provider.AlarmClock.EXTRA_DELETE_AFTER_USE;
 import static android.provider.AlarmClock.EXTRA_HOUR;
 import static android.provider.AlarmClock.EXTRA_LENGTH;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
@@ -139,38 +138,36 @@ public class HandleApiCalls extends Activity {
         if (label == null) {
             label = "";
         }
-        final boolean deleteAfterUse = intent.getBooleanExtra(EXTRA_DELETE_AFTER_USE, false);
 
         TimerObj timer = null;
-        // Do not delete existing timers by reusing them and deleting them after use
-        if (!deleteAfterUse) {
-            // Find an existing matching timer
-            final ArrayList<TimerObj> timers = new ArrayList<TimerObj>();
-            TimerObj.getTimersFromSharedPrefs(prefs, timers);
-            for (TimerObj t : timers) {
-                if (t.mSetupLength == length && (TextUtils.equals(label, t.mLabel))
-                        && t.mState == TimerObj.STATE_RESTART) {
-                    timer = t;
-                    break;
-                }
+        // Find an existing matching time
+        final ArrayList<TimerObj> timers = new ArrayList<TimerObj>();
+        TimerObj.getTimersFromSharedPrefs(prefs, timers);
+        for (TimerObj t : timers) {
+            if (t.mSetupLength == length && (TextUtils.equals(label, t.mLabel))
+                    && t.mState == TimerObj.STATE_RESTART) {
+                timer = t;
+                break;
             }
         }
 
+        boolean skipUi = intent.getBooleanExtra(EXTRA_SKIP_UI, false);
         if (timer == null) {
             // Use a new timer
             timer = new TimerObj(length, label);
+            // Timers set without presenting UI to the user will be deleted after use
+            timer.mDeleteAfterUse = skipUi;
         }
 
         timer.mState = TimerObj.STATE_RUNNING;
         timer.mStartTime = Utils.getTimeNow();
-        timer.mDeleteAfterUse = deleteAfterUse;
         timer.writeToSharedPref(prefs);
 
         // Tell TimerReceiver that the timer was started
         sendBroadcast(new Intent().setAction(Timers.START_TIMER)
                 .putExtra(Timers.TIMER_INTENT_EXTRA, timer.mTimerId));
 
-        if (intent.getBooleanExtra(EXTRA_SKIP_UI, false)) {
+        if (skipUi) {
             Utils.showInUseNotifications(this);
         } else {
             startActivity(new Intent(this, DeskClock.class)
