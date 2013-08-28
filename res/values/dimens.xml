@@ -66,7 +66,7 @@
     <dimen name="alarm_timeline_layout_padding_top">50dp</dimen>
     <dimen name="alarm_timeline_title_margin_bottom">10dp</dimen>
     <dimen name="alarm_timeline_title_text_size">24dp</dimen>
-    <dimen name="circletimer_diamond_size">12dip</dimen>
+    <dimen name="circletimer_dot_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">16dip</dimen>
 

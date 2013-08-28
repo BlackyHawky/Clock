@@ -38,11 +38,9 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -61,8 +59,6 @@ import java.util.TimeZone;
 
 
 public class Utils {
-    private final static String TAG = Utils.class.getName();
-
     private final static String PARAM_LANGUAGE_CODE = "hl";
 
     /**
@@ -84,13 +80,6 @@ public class Utils {
     /** Types that may be used for clock displays. **/
     public static final String CLOCK_TYPE_DIGITAL = "digital";
     public static final String CLOCK_TYPE_ANALOG = "analog";
-
-    /**
-     * time format constants
-     */
-    public final static String HOURS_24 = "kk";
-    public final static String HOURS = "h";
-    public final static String MINUTES = ":mm";
 
     /**
      * Returns whether the SDK is the KeyLimePie release or later.
@@ -125,7 +114,7 @@ public class Utils {
 
     /**
      * Adds two query parameters into the Uri, namely the language code and the version code
-     * of the app's package as gotten via the context.
+     * of the application's package as gotten via the context.
      * @return the uri with added query parameters
      */
     private static Uri uriWithAddedParameters(Context context, Uri baseUri) {
@@ -167,8 +156,8 @@ public class Utils {
      * of the extra painted objects.
      */
     public static float calculateRadiusOffset(
-            float strokeSize, float diamondStrokeSize, float markerStrokeSize) {
-        return Math.max(strokeSize, Math.max(diamondStrokeSize, markerStrokeSize));
+            float strokeSize, float dotStrokeSize, float markerStrokeSize) {
+        return Math.max(strokeSize, Math.max(dotStrokeSize, markerStrokeSize));
     }
 
     /**
@@ -178,9 +167,9 @@ public class Utils {
     public static float calculateRadiusOffset(Resources resources) {
         if (resources != null) {
             float strokeSize = resources.getDimension(R.dimen.circletimer_circle_size);
-            float diamondStrokeSize = resources.getDimension(R.dimen.circletimer_diamond_size);
+            float dotStrokeSize = resources.getDimension(R.dimen.circletimer_dot_size);
             float markerStrokeSize = resources.getDimension(R.dimen.circletimer_marker_size);
-            return calculateRadiusOffset(strokeSize, diamondStrokeSize, markerStrokeSize);
+            return calculateRadiusOffset(strokeSize, dotStrokeSize, markerStrokeSize);
         } else {
             return 0f;
         }
@@ -268,7 +257,6 @@ public class Utils {
 
             final float xrange = mContentView.getWidth() - mSaverView.getWidth();
             final float yrange = mContentView.getHeight() - mSaverView.getHeight();
-            Log.v("xrange: "+xrange+" yrange: "+yrange);
 
             if (xrange == 0 && yrange == 0) {
                 delay = 500; // back in a split second
