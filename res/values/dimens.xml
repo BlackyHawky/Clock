@@ -52,6 +52,20 @@
     <dimen name="actionbar_tab_padding">0dip</dimen>
     <dimen name="actionbar_title_font_size">22sp</dimen>
 
+    <dimen name="add_alarm_button_size">56dip</dimen>
+    <dimen name="add_alarm_layout_margin">16dip</dimen>
+
+    <dimen name="alarm_timeline_width">2dp</dimen>
+    <dimen name="alarm_timeline_margin_top">50dp</dimen>
+    <dimen name="alarm_timeline_length">1200dp</dimen>
+    <dimen name="alarm_timeline_radius">5dp</dimen>
+    <dimen name="alarm_timeline_inner_radius">4dp</dimen>
+    <dimen name="alarm_text_padding">15dp</dimen>
+    <dimen name="alarm_text_font_size">16sp</dimen>
+    <dimen name="alarm_min_distance">2dp</dimen>
+    <dimen name="alarm_timeline_layout_padding_top">50dp</dimen>
+    <dimen name="alarm_timeline_title_margin_bottom">10dp</dimen>
+    <dimen name="alarm_timeline_title_text_size">24dp</dimen>
     <dimen name="circletimer_diamond_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">16dip</dimen>
