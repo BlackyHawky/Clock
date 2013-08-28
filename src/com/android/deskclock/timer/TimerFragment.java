@@ -806,21 +806,23 @@ public class TimerFragment extends DeskClockFragment
                 updateTimersState(t, Timers.START_TIMER);
                 break;
             case TimerObj.STATE_TIMESUP:
-                t.mState = TimerObj.STATE_DONE;
-                // Used in a context where the timer could be off-screen and without a view
-                if (t.mView != null) {
-                    ((TimerListItem) t.mView).done();
-                }
-                updateTimersState(t, Timers.TIMER_DONE);
-                cancelTimerNotification(t.mTimerId);
-                updateTimesUpMode(t);
                 if (t.mDeleteAfterUse) {
+                    cancelTimerNotification(t.mTimerId);
                     animateTimerDeletion(t);
                     // Tell receiver the timer was deleted.
                     // It will stop all activity related to the
                     // timer
                     t.mState = TimerObj.STATE_DELETED;
                     updateTimersState(t, Timers.DELETE_TIMER);
+                } else {
+                    t.mState = TimerObj.STATE_DONE;
+                    // Used in a context where the timer could be off-screen and without a view
+                    if (t.mView != null) {
+                        ((TimerListItem) t.mView).done();
+                    }
+                    updateTimersState(t, Timers.TIMER_DONE);
+                    cancelTimerNotification(t.mTimerId);
+                    updateTimesUpMode(t);
                 }
                 break;
             case TimerObj.STATE_DONE:
@@ -901,6 +903,10 @@ public class TimerFragment extends DeskClockFragment
         CountingTimerView countingTimerView = (CountingTimerView)
                 t.mView.findViewById(R.id.timer_time_text);
         TextView stop = (TextView) t.mView.findViewById(R.id.timer_stop);
+        ImageButton delete = (ImageButton) t.mView.findViewById(R.id.timer_delete);
+        // Make sure the delete button is visible in case the view is recycled.
+        delete.setVisibility(View.VISIBLE);
+
         Resources r = a.getResources();
         switch (t.mState) {
             case TimerObj.STATE_RUNNING:
@@ -929,8 +935,11 @@ public class TimerFragment extends DeskClockFragment
                 plusOne.setImageResource(R.drawable.ic_plusone);
                 stop.setVisibility(View.VISIBLE);
                 stop.setContentDescription(r.getString(R.string.timer_stop));
-                stop.setText(R.string.timer_stop);
+                // If the timer is deleted after use , show "done" instead of "stop" on the button
+                // and hide the delete button since pressing done will delete the timer
+                stop.setText(t.mDeleteAfterUse ? R.string.timer_done : R.string.timer_stop);
                 stop.setTextColor(getResources().getColor(R.color.clock_white));
+                delete.setVisibility(t.mDeleteAfterUse ? View.INVISIBLE : View.VISIBLE);
                 countingTimerView.setVirtualButtonEnabled(true);
                 break;
             case TimerObj.STATE_DONE:
