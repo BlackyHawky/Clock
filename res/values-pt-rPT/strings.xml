@@ -19,6 +19,8 @@
     <string name="app_label" msgid="6674495003718166674">"Relógio"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Alarmes"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Adicionar alarme"</string>
+    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
+    <skip />
     <string name="menu_desk_clock" msgid="3241995064554071588">"Relógio de secretária"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Editar alarme"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Eliminar alarme"</string>
@@ -134,7 +136,7 @@
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Modo noturno"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ordenar por hora"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ordenar pelo nome"</string>
-    <string name="selected_cities_label" msgid="3607479399424246605">"Cidades Selecionadas"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Cidades selecionadas"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Retomar"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Iniciar"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Parar"</string>
@@ -325,5 +327,5 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Eliminar este temporizador?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Remover esta cidade?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Relógio digital"</string>
-    <string name="no_alarms" msgid="6429431324842022917">"Sem Alarmes"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Sem alarmes"</string>
 </resources>
