@@ -51,11 +51,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         mContext = context;
         LayoutInflater layoutInflater =
                 (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(getLayoutId(), this);
-    }
-
-    protected int getLayoutId() {
-        return R.layout.time_setup_view;
+        layoutInflater.inflate(R.layout.time_setup_view, this);
     }
 
     @Override
@@ -166,7 +162,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     }
 
     protected void updateTime() {
-        mEnteredTime.setTime(-1, mInput[4], mInput[3], mInput[2],
+        mEnteredTime.setTime(mInput[4], mInput[3], mInput[2],
                 mInput[1] * 10 + mInput[0]);
     }
 

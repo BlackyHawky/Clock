@@ -19,6 +19,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:orientation="horizontal"
         android:layoutDirection="ltr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -72,4 +73,48 @@
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:layout_marginTop="16dip" />
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dip">
+
+        <View
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:background="#28ffffff"/>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <Button
+                    android:id="@+id/timer_cancel"
+                    android:text="@string/timer_cancel"
+                    android:layout_width="match_parent"
+                    style="@style/button"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_background"
+                    android:layout_height="wrap_content"/>
+
+            <View
+                    android:id="@+id/timer_button_sep"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="8dip"
+                    android:layout_marginBottom="8dip"
+                    android:layout_width="1dip"
+                    android:background="#28ffffff"/>
+
+            <Button
+                    android:id="@+id/timer_start"
+                    android:text="@string/timer_start"
+                    android:layout_width="match_parent"
+                    style="@style/button"
+                    android:layout_weight="1"
+                    android:background="@drawable/item_background"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 </LinearLayout>
