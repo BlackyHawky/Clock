@@ -30,6 +30,7 @@ public class CircleButtonsLayout extends FrameLayout {
     private FrameLayout mLabel;
     private TextView mLabelText;
 
+    @SuppressWarnings("unused")
     public CircleButtonsLayout(Context context) {
         this(context, null);
         mContext = context;
@@ -52,13 +53,11 @@ public class CircleButtonsLayout extends FrameLayout {
         mLeftButtonPadding = mContext.getResources().getDimension(leftButtonPaddingDimenId);
         mRightButtonPadding = mContext.getResources().getDimension(rightButtonPaddingDimenId);
 
-        float diamondStrokeSize =
-                mContext.getResources().getDimension(R.dimen.circletimer_diamond_size);
+        float dotStrokeSize = mContext.getResources().getDimension(R.dimen.circletimer_dot_size);
         float markerStrokeSize =
                 mContext.getResources().getDimension(R.dimen.circletimer_marker_size);
         mStrokeSize = mContext.getResources().getDimension(R.dimen.circletimer_circle_size);
-        mDiamOffset =
-                Utils.calculateRadiusOffset(mStrokeSize, diamondStrokeSize, markerStrokeSize) * 2;
+        mDiamOffset = Utils.calculateRadiusOffset(mStrokeSize, dotStrokeSize, markerStrokeSize) * 2;
     }
 
     @Override
