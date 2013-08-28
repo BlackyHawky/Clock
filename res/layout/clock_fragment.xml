@@ -37,16 +37,16 @@
             <ImageButton
                 android:id="@+id/cities_button"
                 android:contentDescription="@string/button_cities"
-                android:layout_width="56dip"
-                android:layout_height="56dip"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="@dimen/footer_button_size"
+                android:layout_height="@dimen/footer_button_size"
+                android:layout_marginTop="@dimen/footer_button_layout_margin"
+                android:layout_marginBottom="@dimen/footer_button_layout_margin"
+                android:layout_marginRight="@dimen/footer_button_layout_margin"
+                android:layout_marginEnd="@dimen/footer_button_layout_margin"
+                android:layout_marginLeft="@dimen/footer_button_layout_margin"
+                android:layout_marginStart="@dimen/footer_button_layout_margin"
                 android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_location"
+                android:src="@drawable/ic_globe"
                 style="@style/button"
                 android:onClick="clockButtonsOnClick"
                 android:background="@drawable/main_button_normal" />
@@ -57,8 +57,8 @@
                 android:background="@drawable/item_background"
                 android:onClick="clockButtonsOnClick"
                 android:layout_gravity="end|center_vertical"
-                android:layout_width="56dp"
-                android:layout_height="56dp" />
+                android:layout_width="@dimen/footer_button_size"
+                android:layout_height="@dimen/footer_button_size" />
         </FrameLayout>
   </FrameLayout>
 </FrameLayout>

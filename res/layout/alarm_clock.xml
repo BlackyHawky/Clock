@@ -30,16 +30,19 @@
         android:divider="@null"
         android:dividerHeight="0dp"
         />
+
     <TextView
         android:id="@+id/alarms_empty_view"
+        style="@style/no_alarms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/no_alarms"
-        style="@style/small_thin"
-        android:drawableTop="@drawable/ic_alarm"
-        android:contentDescription="@string/no_alarms"
         android:layout_gravity="center"
-        android:textColor="@color/grey" />
+        android:contentDescription="@string/no_alarms"
+        android:drawableTop="@drawable/ic_noalarms"
+        android:text="@string/no_alarms"
+        android:textColor="#4cffffff"
+        android:paddingBottom="88dp" />
+
     <com.android.deskclock.widget.ActionableToastBar
         android:id="@+id/undo_bar"
         android:layout_width="match_parent"
@@ -59,14 +62,14 @@
         <ImageButton
             android:id="@+id/alarm_add_alarm"
             android:contentDescription="@string/add_alarm"
-            android:layout_width="@dimen/add_alarm_button_size"
-            android:layout_height="@dimen/add_alarm_button_size"
-            android:layout_marginTop="@dimen/add_alarm_layout_margin"
-            android:layout_marginBottom="@dimen/add_alarm_layout_margin"
-            android:layout_marginRight="@dimen/add_alarm_layout_margin"
-            android:layout_marginEnd="@dimen/add_alarm_layout_margin"
-            android:layout_marginLeft="@dimen/add_alarm_layout_margin"
-            android:layout_marginStart="@dimen/add_alarm_layout_margin"
+            android:layout_width="@dimen/footer_button_size"
+            android:layout_height="@dimen/footer_button_size"
+            android:layout_marginTop="@dimen/footer_button_layout_margin"
+            android:layout_marginBottom="@dimen/footer_button_layout_margin"
+            android:layout_marginRight="@dimen/footer_button_layout_margin"
+            android:layout_marginEnd="@dimen/footer_button_layout_margin"
+            android:layout_marginLeft="@dimen/footer_button_layout_margin"
+            android:layout_marginStart="@dimen/footer_button_layout_margin"
             android:layout_gravity="center"
             android:src="@drawable/ic_add"
             style="@style/button"
@@ -78,7 +81,7 @@
             android:background="@drawable/item_background"
             android:onClick="clockButtonsOnClick"
             android:layout_gravity="end|center_vertical"
-            android:layout_width="@dimen/add_alarm_button_size"
-            android:layout_height="@dimen/add_alarm_button_size" />
+            android:layout_width="@dimen/footer_button_size"
+            android:layout_height="@dimen/footer_button_size" />
     </FrameLayout>
 </FrameLayout>
