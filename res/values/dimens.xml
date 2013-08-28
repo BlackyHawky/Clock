@@ -52,8 +52,8 @@
     <dimen name="actionbar_tab_padding">0dip</dimen>
     <dimen name="actionbar_title_font_size">22sp</dimen>
 
-    <dimen name="add_alarm_button_size">56dip</dimen>
-    <dimen name="add_alarm_layout_margin">16dip</dimen>
+    <dimen name="footer_button_size">56dip</dimen>
+    <dimen name="footer_button_layout_margin">16dip</dimen>
 
     <dimen name="alarm_timeline_width">2dp</dimen>
     <dimen name="alarm_timeline_margin_top">50dp</dimen>
@@ -78,6 +78,7 @@
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
     <dimen name="alarm_time_font_size">48sp</dimen>
+    <dimen name="no_alarms_font_size">36sp</dimen>
 
     <dimen name="body_font_padding">4dp</dimen>
     <dimen name="button_font_size">24sp</dimen>
