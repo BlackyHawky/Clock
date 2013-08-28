@@ -19,6 +19,8 @@
     <string name="app_label" msgid="6674495003718166674">"الساعة"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"التنبيهات"</string>
     <string name="add_alarm" msgid="5976616107390962899">"إضافة منبه"</string>
+    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
+    <skip />
     <string name="menu_desk_clock" msgid="3241995064554071588">"ساعة مكتب"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"تعديل المنبه"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"حذف المنبه"</string>
@@ -122,6 +124,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"ضبط المنبه"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"المنبه"</string>
     <string name="menu_timer" msgid="6459070074762877114">"موقت"</string>
     <string name="menu_clock" msgid="5612760670606829805">"الساعة"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"ساعة توقيف"</string>
@@ -324,4 +327,5 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"هل تريد حذف هذا المؤقت؟"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"هل تريد إزالة هذه المدينة؟"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ساعة رقمية"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"ليست هناك تنبيهات"</string>
 </resources>

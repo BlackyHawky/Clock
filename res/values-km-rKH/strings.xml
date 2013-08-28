@@ -19,6 +19,8 @@
     <string name="app_label" msgid="6674495003718166674">"នាឡិកា"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"សំឡេង​រោទ៍"</string>
     <string name="add_alarm" msgid="5976616107390962899">"បន្ថែម​សំឡេង​រោទ៍"</string>
+    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
+    <skip />
     <string name="menu_desk_clock" msgid="3241995064554071588">"នាឡិកា​រោទ៍"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"កែ​សំឡេង​រោទ៍"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"លុប​សំឡេង​រោទ៍"</string>
@@ -121,6 +123,8 @@
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"បាន​កំណត់​សេវាកម្ម​បន្លឺ​សំឡេង​រោទ៍​នៅ​ក្នុង​នាឡិកា។"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"កំណត់​សំឡេង​រោទ៍"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
+    <!-- no translation found for menu_alarm (4772010125376647519) -->
     <skip />
     <string name="menu_timer" msgid="6459070074762877114">"កម្មវិធី​កំណត់​ពេល"</string>
     <string name="menu_clock" msgid="5612760670606829805">"នាឡិកា"</string>
@@ -327,4 +331,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"លុប​កម្មវិធី​កំណត់​ពេល?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"លុប​ទីក្រុង​នេះ?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"នាឡិកា​ឌីជីថល"</string>
+    <!-- no translation found for no_alarms (6429431324842022917) -->
+    <skip />
 </resources>
