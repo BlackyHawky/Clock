@@ -122,6 +122,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"알람 설정"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"알람"</string>
     <string name="menu_timer" msgid="6459070074762877114">"타이머"</string>
     <string name="menu_clock" msgid="5612760670606829805">"시계"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"스톱워치"</string>
@@ -133,8 +134,7 @@
     <string name="menu_item_night_mode" msgid="3486930302245398975">"야간 모드"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"시간순 정렬"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"이름순 정렬"</string>
-    <!-- no translation found for selected_cities_label (3607479399424246605) -->
-    <skip />
+    <string name="selected_cities_label" msgid="3607479399424246605">"선택된 도시"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"다시 시작"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"시작"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"중지"</string>
@@ -325,4 +325,5 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"이 타이머를 삭제하시겠습니까?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"이 도시를 삭제하시겠습니까?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"디지털 시계"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"알람 없음"</string>
 </resources>

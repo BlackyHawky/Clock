@@ -122,6 +122,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Stel wekker"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Tydhouer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Horlosie"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stophorlosie"</string>
@@ -324,4 +325,5 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Moet hierdie tydhouer uitgevee word?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Moet hierdie stad verwyder word?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitale horlosie"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Geen wekkers nie"</string>
 </resources>
