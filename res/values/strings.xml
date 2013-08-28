@@ -449,7 +449,10 @@
     <string name="timer_delete">Delete</string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
     <string name="timer_plus_one">Add 1 Minute</string>
+    <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
+    <!-- Describes the purpose of the button to stop and delete the timer. -->
+    <string name="timer_done">Done</string>
     <!-- Describes the purpose of the button to return the timer to it's original starting value. -->
     <string name="timer_reset">Reset</string>
     <!-- Describes the purpose of the button to discard the current dialog values. Will also close the dialog if other time's exist -->
