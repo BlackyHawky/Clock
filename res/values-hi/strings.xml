@@ -19,6 +19,8 @@
     <string name="app_label" msgid="6674495003718166674">"घड़ी"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"अलार्म"</string>
     <string name="add_alarm" msgid="5976616107390962899">"अलार्म जोड़ें"</string>
+    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
+    <skip />
     <string name="menu_desk_clock" msgid="3241995064554071588">"मेज घड़ी"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"अलार्म संपादित करें"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"अलार्म हटाएं"</string>
@@ -201,7 +203,7 @@
     <string name="home_time_zone" msgid="9199730676287974501">"घरेलू समय क्षेत्र"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"घरेलू समय क्षेत्र"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"रद्द करें"</string>
-    <string name="time_picker_set" msgid="331153175471468051">"ठीक"</string>
+    <string name="time_picker_set" msgid="331153175471468051">"ठीक है"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
