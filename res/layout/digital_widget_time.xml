@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:baselineAligned="true"
         android:layoutDirection="ltr"
+        android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
         android:layout_gravity="center_horizontal|top">
 
         <TextClock
@@ -37,7 +38,10 @@
             android:format24Hour="@string/widget_24_hours_format_h"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/widget_big_bold"
+            android:paddingRight="@dimen/widget_big_time_margin_right"
+            android:paddingEnd="@dimen/widget_big_time_margin_right"
+            android:singleLine="true"
+            style="@style/widget_big_thin"
             android:textColor="@color/clock_white"
             android:layout_gravity="center_horizontal|top"
              />
@@ -47,11 +51,12 @@
             android:format24Hour="@string/widget_24_hours_format_m"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             style="@style/widget_big_thin"
             android:textColor="@color/clock_white"
             android:layout_gravity="center_horizontal|top"
              />
-        </LinearLayout>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

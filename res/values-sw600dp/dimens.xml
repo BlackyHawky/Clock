@@ -99,6 +99,8 @@
     <dimen name="widget_big_font_size">130dp</dimen>
     <dimen name="widget_medium_font_size">52dp</dimen>
     <dimen name="widget_24_medium_font_size">65dp</dimen>
+    <dimen name="widget_big_time_margin_right">12dip</dimen>
+    <dimen name="widget_medium_time_margin_right">8dip</dimen>
     <dimen name="min_digital_widget_width">335dp</dimen>
     <dimen name="min_digital_widget_height">207dp</dimen>
     <dimen name="min_digital_widget_resize_width">335dp</dimen>
@@ -106,5 +108,5 @@
     <dimen name="digital_widget_list_min_scaled_height">263dp</dimen>
     <dimen name="digital_widget_list_min_fixed_height">15dp</dimen>
     <dimen name="digital_widget_list_margin_top">15dp</dimen>
-
+    <dimen name="digital_widget_city_margin_bottom">15dp</dimen>
 </resources>
