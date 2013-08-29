@@ -89,6 +89,15 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
                 hideView(views, R.id.rightClock1, R.id.rightClock2, R.id.city_name_right,
                         R.id.city_day_right);
             }
+
+            // Hide last spacer if last row
+            int lastRow = ((mCitiesList.length + 1) / 2) - 1;
+            if (position == lastRow) {
+                views.setViewVisibility(R.id.city_spacer, View.GONE);
+            } else {
+                views.setViewVisibility(R.id.city_spacer, View.VISIBLE);
+            }
+
             return views;
         }
 
