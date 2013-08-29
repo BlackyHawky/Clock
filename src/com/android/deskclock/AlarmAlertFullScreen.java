@@ -261,14 +261,20 @@ public class AlarmAlertFullScreen extends Activity implements GlowPadView.OnTrig
             Log.v("AlarmAlertFullScreen - dismiss");
         }
 
-        Log.i("Alarm id=" + mAlarm.id + (killed ? (replaced ? " replaced" : " killed") : " dismissed by user"));
+        final long id = mAlarm.id;
+        Log.i("Alarm id=" + id
+                + (killed ? (replaced ? " replaced" : " killed") : " dismissed by user"));
         // The service told us that the alarm has been killed, do not modify
         // the notification or stop the service.
         if (!killed) {
             // Cancel the notification and stop playing the alarm
             NotificationManager nm = getNotificationManager();
-            nm.cancel((int)mAlarm.id);
+            nm.cancel((int) id);
             stopService(new Intent(Alarms.ALARM_ALERT_ACTION));
+            if (mAlarm.deleteAfterUse) {
+                Alarms.deleteAlarm(this, id);
+                Log.i("Deleted alarm " + id);
+            }
         }
         if (!replaced) {
             finish();
