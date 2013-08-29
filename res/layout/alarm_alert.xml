@@ -58,7 +58,7 @@
                 android:paddingEnd="@dimen/time_margin_right"
                 android:singleLine="true"
                 android:ellipsize="none"
-                style="@style/big_bold"
+                style="@style/big_thin"
                 android:textColor="@color/clock_white"/>
             <com.android.deskclock.ZeroTopPaddingTextView
                 android:id="@+id/timeDisplayMinutes"
