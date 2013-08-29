@@ -229,7 +229,10 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         label = c.getString(MESSAGE_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
 
-        String alertString = c.getString(ALERT_INDEX);
+        setAlert(c.getString(ALERT_INDEX));
+    }
+
+    public void setAlert(String alertString) {
         if (ALARM_ALERT_SILENT.equals(alertString)) {
             if (Log.LOGV) {
                 Log.v("Alarm is marked as silent");

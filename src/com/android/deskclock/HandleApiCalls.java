@@ -18,17 +18,20 @@ package com.android.deskclock;
 
 import static android.provider.AlarmClock.ACTION_SET_ALARM;
 import static android.provider.AlarmClock.ACTION_SET_TIMER;
+import static android.provider.AlarmClock.EXTRA_DAYS;
 import static android.provider.AlarmClock.EXTRA_HOUR;
 import static android.provider.AlarmClock.EXTRA_LENGTH;
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 import static android.provider.AlarmClock.EXTRA_MINUTES;
+import static android.provider.AlarmClock.EXTRA_RINGTONE;
 import static android.provider.AlarmClock.EXTRA_SKIP_UI;
+import static android.provider.AlarmClock.EXTRA_VIBRATE;
 
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -71,9 +74,18 @@ public class HandleApiCalls extends Activity {
      * @param intent
      */
     private void handleSetAlarm(Intent intent) {
+        // If not provided or invalid, show UI
+        final int hour = intent.getIntExtra(EXTRA_HOUR, -1);
 
-        // Intent has no time , open the alarm creation UI
-        if (!intent.hasExtra(EXTRA_HOUR)) {
+        // If not provided, use zero. If it is provided, make sure it's valid, otherwise, show UI
+        final int minutes;
+        if (intent.hasExtra(EXTRA_MINUTES)) {
+            minutes = intent.getIntExtra(EXTRA_MINUTES, -1);
+        } else {
+            minutes = 0;
+        }
+        if (hour < 0 || hour > 23 || minutes < 0 || minutes > 59) {
+            // Intent has no time or an invalid time, open the alarm creation UI
             Intent createAlarm = new Intent(this, DeskClock.class);
             createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             createAlarm.putExtra(Alarms.ALARM_CREATE_NEW, true);
@@ -84,24 +96,17 @@ public class HandleApiCalls extends Activity {
             return;
         }
 
-        final Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        final int hour = intent.getIntExtra(EXTRA_HOUR, calendar.get(Calendar.HOUR_OF_DAY));
-        final int minutes = intent.getIntExtra(EXTRA_MINUTES, calendar.get(Calendar.MINUTE));
         final boolean skipUi = intent.getBooleanExtra(EXTRA_SKIP_UI, false);
-        String message = intent.getStringExtra(EXTRA_MESSAGE);
-        if (message == null) {
-            message = "";
-        }
+
+        final StringBuilder selection = new StringBuilder();
+        final List<String> args = new ArrayList<String>();
+        setSelectionFromIntent(intent, hour, minutes, selection, args);
 
         // Check if the alarm already exists and handle it
-        ContentResolver cr = getContentResolver();
-        List<Alarm> alarms = Alarm.getAlarms(cr,
-                Alarm.HOUR + "=" + hour + " AND " +
-                Alarm.MINUTES + "=" + minutes + " AND " +
-                Alarm.DAYS_OF_WEEK + "=" + DaysOfWeek.NO_DAYS_SET + " AND " +
-                Alarm.MESSAGE + "=?",
-                new String[] { message });
+        final ContentResolver cr = getContentResolver();
+        final List<Alarm> alarms = Alarm.getAlarms(cr,
+                selection.toString(),
+                args.toArray(new String[args.size()]));
         if (!alarms.isEmpty()) {
             enableAlarm(alarms.get(0), true, skipUi);
             finish();
@@ -109,9 +114,18 @@ public class HandleApiCalls extends Activity {
         }
 
         // Otherwise insert it and handle it
+        final String message = getMessageFromIntent(intent);
+        final DaysOfWeek daysOfWeek = getDaysFromIntent(intent);
+        final boolean vibrate = intent.getBooleanExtra(EXTRA_VIBRATE, false);
+        final String alert = intent.getStringExtra(EXTRA_RINGTONE);
+
         Alarm alarm = new Alarm(hour, minutes);
         alarm.enabled = true;
         alarm.label = message;
+        alarm.daysOfWeek = daysOfWeek;
+        alarm.vibrate = vibrate;
+        alarm.setAlert(alert);
+        alarm.deleteAfterUse = !daysOfWeek.isRepeating() && skipUi;
 
         Uri result = cr.insert(Alarm.CONTENT_URI, Alarm.createContentValues(alarm));
         enableAlarm(Alarm.getAlarm(cr, Alarm.getId(result)), false, skipUi);
@@ -133,10 +147,7 @@ public class HandleApiCalls extends Activity {
             Log.i("Invalid timer length requested: " + length);
             return;
         }
-        String label = intent.getStringExtra(EXTRA_MESSAGE);
-        if (label == null) {
-            label = "";
-        }
+        String label = getMessageFromIntent(intent);
 
         TimerObj timer = null;
         // Find an existing matching time
@@ -188,6 +199,58 @@ public class HandleApiCalls extends Activity {
             createdAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
             createdAlarm.putExtra(Alarms.ALARM_INTENT_EXTRA, alarm);
             startActivity(createdAlarm);
+        }
+    }
+
+    private String getMessageFromIntent(Intent intent) {
+        final String message = intent.getStringExtra(EXTRA_MESSAGE);
+        return message == null ? "" : message;
+    }
+
+    private DaysOfWeek getDaysFromIntent(Intent intent) {
+        final int[] days = intent.getIntArrayExtra(EXTRA_DAYS);
+        final DaysOfWeek daysOfWeek = new DaysOfWeek(0);
+        if (days != null) {
+            daysOfWeek.setDaysOfWeek(true, days);
+        }
+        return daysOfWeek;
+    }
+
+    private void setSelectionFromIntent(
+            Intent intent,
+            int hour,
+            int minutes,
+            StringBuilder selection,
+            List<String> args) {
+        selection.append(Alarm.HOUR).append("=?");
+        args.add(String.valueOf(hour));
+        selection.append(" AND ").append(Alarm.MINUTES).append("=?");
+        args.add(String.valueOf(minutes));
+
+        if (intent.hasExtra(EXTRA_MESSAGE)) {
+            selection.append(" AND ").append(Alarm.MESSAGE).append("=?");
+            args.add(getMessageFromIntent(intent));
+        }
+
+        if (intent.hasExtra(EXTRA_DAYS)) {
+            selection.append(" AND ").append(Alarm.DAYS_OF_WEEK).append("=?");
+            args.add(String.valueOf(getDaysFromIntent(intent).getBitSet()));
+        }
+
+        if (intent.hasExtra(EXTRA_VIBRATE)) {
+            selection.append(" AND ").append(Alarm.VIBRATE).append("=?");
+            args.add(intent.getBooleanExtra(EXTRA_VIBRATE, false) ? "1" : "0");
+        }
+
+        if (intent.hasExtra(EXTRA_RINGTONE)) {
+            String ringtone = intent.getStringExtra(EXTRA_RINGTONE);
+            selection.append(" AND ").append(Alarm.ALERT).append("=?");
+            if (ringtone == null) {
+                // If the intent explicitly specified a NULL ringtone, treat it as the default
+                // ringtone.
+                ringtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM).toString();
+            }
+            args.add(ringtone);
         }
     }
 }
