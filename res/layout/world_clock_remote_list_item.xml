@@ -17,135 +17,149 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/widget_item"
-    android:orientation="horizontal" >
+    android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="0dip"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
         <LinearLayout
-            android:baselineAligned="true"
-            android:layout_gravity="center"
-            android:layoutDirection="ltr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextClock
-                android:id="@+id/leftClock1"
-                android:format12Hour="@string/widget_12_hours_format_h"
-                android:format24Hour="@string/widget_24_hours_format_h"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/widget_medium_bold"
-                android:textColor="@color/clock_white"
-                android:textDirection="ltr"
-                android:layout_gravity="center"
-                android:gravity="center" />
-            <TextClock
-                android:id="@+id/leftClock2"
-                android:format12Hour="@string/widget_12_hours_format_m"
-                android:format24Hour="@string/widget_24_hours_format_m"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/widget_medium_light"
-                android:textColor="@color/clock_white"
-                android:textDirection="ltr"
-                android:layout_gravity="center"
-                android:gravity="center" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center" >
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/city_name_left"
-                style="@style/label"
+            <LinearLayout
+                android:baselineAligned="true"
+                android:layout_gravity="center"
+                android:layoutDirection="ltr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextClock
+                    android:id="@+id/leftClock1"
+                    android:format12Hour="@string/widget_12_hours_format_h"
+                    android:format24Hour="@string/widget_24_hours_format_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/widget_medium_time_margin_right"
+                    android:paddingEnd="@dimen/widget_medium_time_margin_right"
+                    style="@style/widget_medium_thin"
+                    android:textColor="@color/clock_white"
+                    android:textDirection="ltr"
+                    android:layout_gravity="center"
+                    android:gravity="center" />
+                <TextClock
+                    android:id="@+id/leftClock2"
+                    android:format12Hour="@string/widget_12_hours_format_m"
+                    android:format24Hour="@string/widget_24_hours_format_m"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/widget_medium_thin"
+                    android:textColor="@color/clock_white"
+                    android:textDirection="ltr"
+                    android:layout_gravity="center"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
+                android:layout_gravity="center"
+                android:gravity="center" >
 
-            <TextView
-                android:id="@+id/city_day_left"
-                style="@style/label"
+                <TextView
+                    android:id="@+id/city_name_left"
+                    style="@style/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/clock_white" />
+
+                <TextView
+                    android:id="@+id/city_day_left"
+                    style="@style/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/style_label_space"
+                    android:layout_marginStart="@dimen/style_label_space"
+                    android:ellipsize="none"
+                    android:singleLine="true"
+                    android:textColor="@color/clock_gray" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:baselineAligned="true"
+                android:layout_gravity="center"
+                android:layoutDirection="ltr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextClock
+                    android:id="@+id/rightClock1"
+                    android:format12Hour="@string/widget_12_hours_format_h"
+                    android:format24Hour="@string/widget_24_hours_format_h"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="@dimen/widget_medium_time_margin_right"
+                    android:paddingEnd="@dimen/widget_medium_time_margin_right"
+                    style="@style/widget_medium_thin"
+                    android:textColor="@color/clock_white"
+                    android:textDirection="ltr"
+                    android:layout_gravity="center"
+                    android:gravity="center" />
+                <TextClock
+                    android:id="@+id/rightClock2"
+                    android:format12Hour="@string/widget_12_hours_format_m"
+                    android:format24Hour="@string/widget_24_hours_format_m"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/widget_medium_thin"
+                    android:textColor="@color/clock_white"
+                    android:textDirection="ltr"
+                    android:layout_gravity="center"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/style_label_space"
-                android:layout_marginStart="@dimen/style_label_space"
-                android:ellipsize="none"
-                android:singleLine="true"
-                android:textColor="@color/clock_gray" />
+                android:layout_gravity="center"
+                android:gravity="center" >
+
+                <TextView
+                    android:id="@+id/city_name_right"
+                    style="@style/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/clock_white" />
+
+                <TextView
+                    android:id="@+id/city_day_right"
+                    style="@style/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/style_label_space"
+                    android:layout_marginStart="@dimen/style_label_space"
+                    android:ellipsize="none"
+                    android:singleLine="true"
+                    android:textColor="@color/clock_gray" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:baselineAligned="true"
-            android:layout_gravity="center"
-            android:layoutDirection="ltr"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextClock
-                android:id="@+id/rightClock1"
-                android:format12Hour="@string/widget_12_hours_format_h"
-                android:format24Hour="@string/widget_24_hours_format_h"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/widget_medium_bold"
-                android:textColor="@color/clock_white"
-                android:textDirection="ltr"
-                android:layout_gravity="center"
-                android:gravity="center" />
-            <TextClock
-                android:id="@+id/rightClock2"
-                android:format12Hour="@string/widget_12_hours_format_m"
-                android:format24Hour="@string/widget_24_hours_format_m"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/widget_medium_light"
-                android:textColor="@color/clock_white"
-                android:textDirection="ltr"
-                android:layout_gravity="center"
-                android:gravity="center" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center" >
-
-            <TextView
-                android:id="@+id/city_name_right"
-                style="@style/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-
-            <TextView
-                android:id="@+id/city_day_right"
-                style="@style/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/style_label_space"
-                android:layout_marginStart="@dimen/style_label_space"
-                android:ellipsize="none"
-                android:singleLine="true"
-                android:textColor="@color/clock_gray" />
-        </LinearLayout>
-    </LinearLayout>
-
+    <FrameLayout
+        android:id="@+id/city_spacer"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/digital_widget_city_margin_bottom">
+    </FrameLayout>
 </LinearLayout>

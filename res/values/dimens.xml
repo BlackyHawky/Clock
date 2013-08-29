@@ -178,6 +178,11 @@
     <dimen name="widget_big_font_size">80dp</dimen>
     <dimen name="widget_medium_font_size">32dp</dimen>
     <dimen name="widget_24_medium_font_size">40dp</dimen>
+
+    <!-- Hour and minute spacing -->
+    <dimen name="widget_big_time_margin_right">10dip</dimen>
+    <dimen name="widget_medium_time_margin_right">5dip</dimen>
+
     <!-- width/height of layout/digital_widget_time -->
     <!-- height is sum of widget_big_font_size + label_font_size + margins -->
     <dimen name="min_digital_widget_width">206dp</dimen>
@@ -190,6 +195,6 @@
     <!-- sum of fixed heights -->
     <dimen name="digital_widget_list_min_fixed_height">12dp</dimen>
     <!-- top margin for digital_appwidget_listview -->
-    <dimen name="digital_widget_list_margin_top">12dp</dimen>
-
+    <dimen name="digital_widget_list_margin_top">20dp</dimen>
+    <dimen name="digital_widget_city_margin_bottom">10dp</dimen>
 </resources>
