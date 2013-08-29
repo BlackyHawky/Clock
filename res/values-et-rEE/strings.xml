@@ -19,6 +19,8 @@
     <string name="app_label" msgid="6674495003718166674">"Kell"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Äratused"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Lisa äratus"</string>
+    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
+    <skip />
     <string name="menu_desk_clock" msgid="3241995064554071588">"Lauakell"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Muuda äratust"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Kustuta äratus"</string>
