@@ -1249,7 +1249,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // Set the "selected" alarm as null, and we'll create the new one when the timepicker
         // comes back.
         mSelectedAlarm = null;
-        AlarmUtils.showTimeEditDialog(AlarmClockFragment.this.getFragmentManager(),
+        AlarmUtils.showTimeEditDialog(AlarmClockFragment.this.getChildFragmentManager(),
                 null, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
     }
 
