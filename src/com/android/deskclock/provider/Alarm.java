@@ -287,6 +287,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     public long calculateAlarmTime() {
+        Calendar c = calculateAlarmCalendar();
+        return c.getTimeInMillis();
+    }
+
+    public Calendar calculateAlarmCalendar() {
         // start with now
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(System.currentTimeMillis());
@@ -307,7 +312,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         if (addDays > 0) {
             c.add(Calendar.DAY_OF_WEEK, addDays);
         }
-        return c.getTimeInMillis();
+        return c;
     }
 
     @Override
