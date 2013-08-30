@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import static android.provider.AlarmClock.ACTION_SET_ALARM;
 import static android.provider.AlarmClock.ACTION_SET_TIMER;
+import static android.provider.AlarmClock.ACTION_SHOW_ALARMS;
 import static android.provider.AlarmClock.EXTRA_DAYS;
 import static android.provider.AlarmClock.EXTRA_HOUR;
 import static android.provider.AlarmClock.EXTRA_LENGTH;
@@ -60,6 +61,8 @@ public class HandleApiCalls extends Activity {
             if (intent != null) {
                 if (ACTION_SET_ALARM.equals(intent.getAction())) {
                     handleSetAlarm(intent);
+                } else if (ACTION_SHOW_ALARMS.equals(intent.getAction())) {
+                    handleShowAlarms();
                 } else if (ACTION_SET_TIMER.equals(intent.getAction())) {
                     handleSetTimer(intent);
                 }
@@ -130,6 +133,11 @@ public class HandleApiCalls extends Activity {
         Uri result = cr.insert(Alarm.CONTENT_URI, Alarm.createContentValues(alarm));
         enableAlarm(Alarm.getAlarm(cr, Alarm.getId(result)), false, skipUi);
         finish();
+    }
+
+    private void handleShowAlarms() {
+        startActivity(new Intent(this, DeskClock.class)
+                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX));
     }
 
     private void handleSetTimer(Intent intent) {
