@@ -48,7 +48,7 @@
             android:gravity="top"
             android:layoutDirection="ltr"
             android:paddingBottom="24dp"
-            android:baselineAligned="false"
+            android:baselineAligned="true"
             >
             <TextView
                 android:id="@+id/timeDisplayHours"
