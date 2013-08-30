@@ -41,7 +41,7 @@ import com.android.deskclock.provider.Alarm;
  * Manages alarms and vibe. Runs as a service so that it can continue to play
  * if another activity overrides the AlarmAlert dialog.
  */
-public class AlarmKlaxon extends Service {
+public class AlarmKlaxon extends Service implements AudioManager.OnAudioFocusChangeListener {
     // Default of 10 minutes until alarm is silenced.
     private static final String DEFAULT_ALARM_TIMEOUT = "10";
 
@@ -244,6 +244,8 @@ public class AlarmKlaxon extends Service {
             player.setAudioStreamType(AudioManager.STREAM_ALARM);
             player.setLooping(true);
             player.prepare();
+            audioManager.requestAudioFocus(
+                    this, AudioManager.STREAM_ALARM, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
             player.start();
         }
     }
@@ -270,6 +272,9 @@ public class AlarmKlaxon extends Service {
             // Stop audio playing
             if (mMediaPlayer != null) {
                 mMediaPlayer.stop();
+                final AudioManager audioManager =
+                        (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+                audioManager.abandonAudioFocus(this);
                 mMediaPlayer.release();
                 mMediaPlayer = null;
             }
@@ -304,4 +309,8 @@ public class AlarmKlaxon extends Service {
     }
 
 
+    @Override
+    public void onAudioFocusChange(int focusChange) {
+        // Do nothing
+    }
 }
