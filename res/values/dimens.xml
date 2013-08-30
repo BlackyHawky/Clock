@@ -99,13 +99,19 @@
     <dimen name="label_margin_big">4dp</dimen>
     <dimen name="label_margin_small">2dp</dimen>
 
-    <dimen name="dialpad_font_size">48sp</dimen>
-    <dimen name="dialpad_font_size_ampm">24sp</dimen>
+    <dimen name="dialpad_font_size">36sp</dimen>
+    <!--padding should be (in dip) ~ 60% dialpad_font_size -->
+    <dimen name="dialpad_digit_padding">22dip</dimen>
+    <dimen name="timer_setup_font_size">56sp</dimen>
+    <dimen name="timer_setup_button_size">24sp</dimen>
+    <!--margin should be ~ half timer_setup_font_size -->
+    <dimen name="timer_setup_delete_start_margin">28sp</dimen>
+    <dimen name="timer_setup_delete_padding">12dip</dimen>
+    <dimen name="timer_setup_label_size">18sp</dimen>
+
     <dimen name="city_name_font_size">24sp</dimen>
     <dimen name="city_time_font_size">18sp</dimen>
 
-    <dimen name="tablet_dialpad_font_size">60sp</dimen>
-    <dimen name="tablet_dialpad_font_size_ampm">30sp</dimen>
 
     <dimen name="cities_list_item_height">64dip</dimen>
 
