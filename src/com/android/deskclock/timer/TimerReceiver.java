@@ -200,7 +200,7 @@ public class TimerReceiver extends BroadcastReceiver {
             title = timerIsTicking ? label : context.getString(R.string.timer_stopped);
             long timeLeft = timerIsTicking ? timer.getTimesupTime() - now : timer.mTimeLeft;
             contentText = buildTimeRemaining(context, timeLeft);
-            if (timerIsTicking && timeLeft > 60 * 1000) {
+            if (timerIsTicking && timeLeft > TimerObj.MINUTE_IN_MILLIS) {
                 nextBroadcastTime = getBroadcastTime(now, timeLeft);
             }
         } else {
@@ -218,7 +218,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 long timeLeft = completionTime - now;
                 contentText = String.format(context.getString(R.string.next_timer_notif),
                         buildTimeRemaining(context, timeLeft));
-                if (timeLeft <= 60 * 1000) {
+                if (timeLeft <= TimerObj.MINUTE_IN_MILLIS) {
                     TimerObj timerWithUpdate = getNextRunningTimer(timersInUse, true, now);
                     if (timerWithUpdate != null) {
                         completionTime = timerWithUpdate.getTimesupTime();

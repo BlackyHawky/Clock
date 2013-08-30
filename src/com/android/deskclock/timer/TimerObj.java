@@ -35,7 +35,8 @@ public class TimerObj implements Parcelable {
 
     private static final String TAG = "TimerObj";
     // Max timer length is 9 hours + 99 minutes + 9 seconds
-    private static final long MAX_TIMER_LENGTH = (9 * 3600 + 99 * 60  + 60) * 1000;
+    public static final long MAX_TIMER_LENGTH = (9 * 3600 + 99 * 60  + 99) * 1000;
+    public static final long MINUTE_IN_MILLIS = 60 * 1000;
 
     public int mTimerId;             // Unique id
     public long mStartTime;          // With mTimeLeft , used to calculate the correct time
