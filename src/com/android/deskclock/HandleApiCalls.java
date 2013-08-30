@@ -232,10 +232,11 @@ public class HandleApiCalls extends Activity {
             args.add(getMessageFromIntent(intent));
         }
 
-        if (intent.hasExtra(EXTRA_DAYS)) {
-            selection.append(" AND ").append(Alarm.DAYS_OF_WEEK).append("=?");
-            args.add(String.valueOf(getDaysFromIntent(intent).getBitSet()));
-        }
+        // Days is treated differently that other fields because if days is not specified, it
+        // explicitly means "not recurring".
+        selection.append(" AND ").append(Alarm.DAYS_OF_WEEK).append("=?");
+        args.add(String.valueOf(intent.hasExtra(EXTRA_DAYS)
+                ? getDaysFromIntent(intent).getBitSet() : DaysOfWeek.NO_DAYS_SET));
 
         if (intent.hasExtra(EXTRA_VIBRATE)) {
             selection.append(" AND ").append(Alarm.VIBRATE).append("=?");
