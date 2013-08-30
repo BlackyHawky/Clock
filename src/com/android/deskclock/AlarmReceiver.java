@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Parcel;
 import android.os.PowerManager.WakeLock;
+import android.text.TextUtils;
 
 import com.android.deskclock.provider.Alarm;
 
@@ -235,13 +236,22 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         // Update the notification to indicate that the alert has been
         // silenced.
-        String label = alarm.getLabelOrDefault(context);
-        Notification n = new Notification(R.drawable.stat_notify_alarm,
-                label, alarm.calculateAlarmTime());
-        n.setLatestEventInfo(context, label,
-                context.getString(R.string.alarm_alert_alert_silenced, timeout),
-                intent);
-        n.flags |= Notification.FLAG_AUTO_CANCEL;
+        String title = context.getString(R.string.alarm_missed_title);
+        String label = alarm.label;
+        String alarmTime = Alarms.formatTime(context, alarm.calculateAlarmCalendar());
+        // If the label is null, just show the alarm time. If not, show "time - label".
+        String text = TextUtils.isEmpty(label)? alarmTime :
+            context.getString(R.string.alarm_missed_text, alarmTime, label);
+
+        Notification n = new Notification.Builder(context)
+        .setContentTitle(title)
+        .setContentText(text)
+        .setSmallIcon(R.drawable.stat_notify_alarm)
+        .setAutoCancel(true)
+        .setPriority(Notification.PRIORITY_HIGH)
+        .setDefaults(Notification.DEFAULT_ALL)
+        .build();
+        n.contentIntent = intent;
         // We have to cancel the original notification since it is in the
         // ongoing section and we want the "killed" notification to be a plain
         // notification.
