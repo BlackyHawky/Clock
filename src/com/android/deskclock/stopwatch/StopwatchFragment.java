@@ -305,7 +305,8 @@ public class StopwatchFragment extends DeskClockFragment
                         releaseWakeLock();
                         break;
                     default:
-                        Log.wtf("Illegal state " + mState
+                        // Happens in monkey tests
+                        Log.i("Illegal state " + mState
                                 + " while pressing the left stopwatch button");
                         break;
                 }
