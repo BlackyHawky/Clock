@@ -85,7 +85,9 @@ public class Utils {
      * Returns whether the SDK is the KeyLimePie release or later.
      */
     public static boolean isKeyLimePieOrLater() {
-        return Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2;
+        // TODO when SDK is set to 19, switch back to this:
+//      return Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2;
+        return "KeyLimePie".equals(Build.VERSION.CODENAME);
     }
 
 
