@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -17,6 +18,8 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -55,12 +58,14 @@ public class StopwatchFragment extends DeskClockFragment
     private ImageButton mShareButton;
     private ListPopupWindow mSharePopup;
     private WakeLock mWakeLock;
+    private CircleButtonsLayout mCircleLayout;
 
     // Animation constants and objects
     private LayoutTransition mLayoutTransition;
     private LayoutTransition mCircleLayoutTransition;
     private View mStartSpace;
     private View mEndSpace;
+    private boolean mSpacersUsed;
 
     // Used for calculating the time from the start taking into account the pause times
     long mStartTime = 0;
@@ -341,43 +346,113 @@ public class StopwatchFragment extends DeskClockFragment
         mTimeText.registerStopTextView(mCenterButton);
         mTimeText.setVirtualButtonEnabled(true);
 
-        CircleButtonsLayout circleLayout =
-                (CircleButtonsLayout)v.findViewById(R.id.stopwatch_circle);
-        circleLayout.setCircleTimerViewIds(R.id.stopwatch_time, R.id.stopwatch_left_button,
+        mCircleLayout = (CircleButtonsLayout)v.findViewById(R.id.stopwatch_circle);
+        mCircleLayout.setCircleTimerViewIds(R.id.stopwatch_time, R.id.stopwatch_left_button,
                 R.id.stopwatch_share_button, R.id.stopwatch_stop,
                 R.dimen.plusone_reset_button_padding, R.dimen.share_button_padding,
                 0, 0); /** No label for a stopwatch**/
 
         // Animation setup
-        mLayoutTransition = v.getLayoutTransition();
-        mCircleLayoutTransition = circleLayout.getLayoutTransition();
-        if (mCircleLayoutTransition != null) {
+        mLayoutTransition = new LayoutTransition();
+        mCircleLayoutTransition = new LayoutTransition();
 
-            // The CircleButtonsLayout only needs to undertake location changes
-            mCircleLayoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-            mCircleLayoutTransition.disableTransitionType(LayoutTransition.APPEARING);
-            mCircleLayoutTransition.disableTransitionType(LayoutTransition.DISAPPEARING);
-            mCircleLayoutTransition.disableTransitionType(LayoutTransition.CHANGE_APPEARING);
-            mCircleLayoutTransition.disableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
-            mCircleLayoutTransition.setAnimateParentHierarchy(false);
-        } else {
-            Log.wtf("CircleButtonsLayout needs animateLayoutChanges=\"true\".");
-        }
+        // The CircleButtonsLayout only needs to undertake location changes
+        mCircleLayoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+        mCircleLayoutTransition.disableTransitionType(LayoutTransition.APPEARING);
+        mCircleLayoutTransition.disableTransitionType(LayoutTransition.DISAPPEARING);
+        mCircleLayoutTransition.disableTransitionType(LayoutTransition.CHANGE_APPEARING);
+        mCircleLayoutTransition.disableTransitionType(LayoutTransition.CHANGE_DISAPPEARING);
+        mCircleLayoutTransition.setAnimateParentHierarchy(false);
+
+        // These spacers assist in keeping the size of CircleButtonsLayout constant
         mStartSpace = v.findViewById(R.id.start_space);
         mEndSpace = v.findViewById(R.id.end_space);
+        mSpacersUsed = mStartSpace != null || mEndSpace != null;
+        // Listener to invoke extra animation within the laps-list
+        mLayoutTransition.addTransitionListener(new LayoutTransition.TransitionListener() {
+            @Override
+            public void startTransition(LayoutTransition transition, ViewGroup container,
+                                        View view, int transitionType) {
+                if (view == mLapsList) {
+                    if (transitionType == LayoutTransition.DISAPPEARING) {
+                        if (DEBUG) Log.v("StopwatchFragment.start laps-list disappearing");
+                        boolean shiftX = view.getResources().getConfiguration().orientation
+                                == Configuration.ORIENTATION_LANDSCAPE;
+                        int first = mLapsList.getFirstVisiblePosition();
+                        int last = mLapsList.getLastVisiblePosition();
+                        // Ensure index range will not cause a divide by zero
+                        if (last < first) {
+                            last = first;
+                        }
+                        long duration = transition.getDuration(LayoutTransition.DISAPPEARING);
+                        long offset = duration / (last - first + 1) / 5;
+                        for (int visibleIndex = first; visibleIndex <= last; visibleIndex++) {
+                            View lapView = mLapsList.getChildAt(visibleIndex - first);
+                            if (lapView != null) {
+                                float toXValue = shiftX ? 1.0f * (visibleIndex - first + 1) : 0;
+                                float toYValue = shiftX ? 0 : 4.0f * (visibleIndex - first + 1);
+                                        TranslateAnimation animation = new TranslateAnimation(
+                                        Animation.RELATIVE_TO_SELF, 0,
+                                        Animation.RELATIVE_TO_SELF, toXValue,
+                                        Animation.RELATIVE_TO_SELF, 0,
+                                        Animation.RELATIVE_TO_SELF, toYValue);
+                                animation.setStartOffset((last - visibleIndex) * offset);
+                                animation.setDuration(duration);
+                                lapView.startAnimation(animation);
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void endTransition(LayoutTransition transition, ViewGroup container,
+                                      View view, int transitionType) {
+                if (transitionType == LayoutTransition.DISAPPEARING) {
+                    if (DEBUG) Log.v("StopwatchFragment.end laps-list disappearing");
+                    int last = mLapsList.getLastVisiblePosition();
+                    for (int visibleIndex = mLapsList.getFirstVisiblePosition();
+                         visibleIndex <= last; visibleIndex++) {
+                        View lapView = mLapsList.getChildAt(visibleIndex);
+                        if (lapView != null) {
+                            Animation animation = lapView.getAnimation();
+                            if (animation != null) {
+                                animation.cancel();
+                            }
+                        }
+                    }
+                }
+            }
+        });
 
         return v;
     }
 
     /**
-     * Make the final display setup. The final setup is done here instead of in onCreateView() to
-     * permit using getView() in the {@link StopwatchFragment#showLaps} function.
+     * Make the final display setup.
+     *
+     * If the fragment is starting with an existing list of laps, shows the laps list and if the
+     * spacers around the clock exist, hide them. If there are not laps at the start, hide the laps
+     * list and show the clock spacers if they exist.
      */
     @Override
     public void onStart() {
         super.onStart();
-        // final state setup
-        showLaps();
+
+        boolean lapsVisible = mLapsAdapter.getCount() > 0;
+
+        mLapsList.setVisibility(lapsVisible ? View.VISIBLE : View.GONE);
+        if (mSpacersUsed) {
+            int spacersVisibility = lapsVisible ? View.GONE : View.VISIBLE;
+            if (mStartSpace != null) {
+                mStartSpace.setVisibility(spacersVisibility);
+            }
+            if (mEndSpace != null) {
+                mEndSpace.setVisibility(spacersVisibility);
+            }
+        }
+        ((ViewGroup)getView()).setLayoutTransition(mLayoutTransition);
+        mCircleLayout.setLayoutTransition(mCircleLayoutTransition);
     }
 
     @Override
@@ -445,7 +520,7 @@ public class StopwatchFragment extends DeskClockFragment
     }
 
     private void doStop() {
-        if (DEBUG) Log.v("\tStopwatchFragment.doStop");
+        if (DEBUG) Log.v("StopwatchFragment.doStop");
         stopUpdateThread();
         mTime.pauseIntervalAnimation();
         mTimeText.setTime(mAccumulatedTime, true, true);
@@ -456,7 +531,7 @@ public class StopwatchFragment extends DeskClockFragment
     }
 
     private void doStart(long time) {
-        if (DEBUG) Log.v("\tStopwatchFragment.doStart");
+        if (DEBUG) Log.v("StopwatchFragment.doStart");
         mStartTime = time;
         startUpdateThread();
         mTimeText.blinkTimeStr(false);
@@ -468,13 +543,13 @@ public class StopwatchFragment extends DeskClockFragment
     }
 
     private void doLap() {
-        if (DEBUG) Log.v("\tStopwatchFragment.doLap");
+        if (DEBUG) Log.v("StopwatchFragment.doLap");
         showLaps();
         setButtons(Stopwatches.STOPWATCH_RUNNING);
     }
 
     private void doReset() {
-        if (DEBUG) Log.v("\tStopwatchFragment.doReset");
+        if (DEBUG) Log.v("StopwatchFragment.doReset");
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getActivity());
         Utils.clearSwSharedPref(prefs);
@@ -727,37 +802,41 @@ public class StopwatchFragment extends DeskClockFragment
         if (DEBUG) Log.v(String.format("StopwatchFragment.showLaps: count=%d",
                 mLapsAdapter.getCount()));
 
+        boolean lapsVisible = mLapsAdapter.getCount() > 0;
+
         // Layout change animations will start upon the first add/hide view. Temporarily disable
         // the layout transition animation for the spacers, make the changes, then re-enable
         // the animation for the add/hide laps-list
-        if (mStartSpace != null || mEndSpace != null) {
+        if (mSpacersUsed) {
+            int spacersVisibility = lapsVisible ? View.GONE : View.VISIBLE;
             ViewGroup rootView = (ViewGroup) getView();
-            int visible = mLapsAdapter.getCount() > 0 ? View.GONE : View.VISIBLE;
-            rootView.setLayoutTransition(null);
-            if (mStartSpace != null) {
-                mStartSpace.setVisibility(visible);
+            if (rootView != null) {
+                rootView.setLayoutTransition(null);
+                if (mStartSpace != null) {
+                    mStartSpace.setVisibility(spacersVisibility);
+                }
+                if (mEndSpace != null) {
+                    mEndSpace.setVisibility(spacersVisibility);
+                }
+                rootView.setLayoutTransition(mLayoutTransition);
             }
-            if (mEndSpace != null) {
-                mEndSpace.setVisibility(visible);
-            }
-            rootView.setLayoutTransition(mLayoutTransition);
         }
 
-        if (mLapsAdapter.getCount() > 0) {
+        if (lapsVisible) {
             // There are laps - show the laps-list
-            mLapsList.setVisibility(View.VISIBLE);
-
             // No delay for the CircleButtonsLayout changes - start immediately so that the
             // circle has shifted before the laps-list starts appearing.
             mCircleLayoutTransition.setStartDelay(LayoutTransition.CHANGING, 0);
+
+            mLapsList.setVisibility(View.VISIBLE);
         } else {
             // There are no laps - hide the laps list
-            mLapsList.setVisibility(View.GONE);
 
-            // Delay the CircleButtonsLayout animation to after the laps-list disappears
+            // Delay the CircleButtonsLayout animation until after the laps-list disappears
             long startDelay = mLayoutTransition.getStartDelay(LayoutTransition.DISAPPEARING) +
                     mLayoutTransition.getDuration(LayoutTransition.DISAPPEARING);
             mCircleLayoutTransition.setStartDelay(LayoutTransition.CHANGING, startDelay);
+            mLapsList.setVisibility(View.GONE);
         }
     }
 
