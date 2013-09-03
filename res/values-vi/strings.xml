@@ -19,8 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"Đồng hồ"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Báo thức"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Thêm báo thức"</string>
-    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
-    <skip />
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"BÁO THỨC TIẾP THEO"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Đồng hồ để bàn"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Chỉnh sửa báo thức"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Xóa báo thức"</string>
@@ -38,7 +37,8 @@
     <string name="ringtone" msgid="9110746249688559579">"Nhạc chuông"</string>
     <string name="time" msgid="8067216534232296518">"Giờ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Loại bỏ"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Báo thức im lặng sau <xliff:g id="MINUTES">%d</xliff:g> phút"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Báo thức bị nhỡ"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Báo lại"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Báo lại trong <xliff:g id="MINUTES">%d</xliff:g> phút."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Báo lại cho tới <xliff:g id="TIME">%s</xliff:g>"</string>
@@ -170,6 +170,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"Xóa"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Thêm 1 phút"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Dừng"</string>
+    <string name="timer_done" msgid="2375990511982914051">"Xong"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Đặt lại"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Hủy"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Hết giờ"</string>

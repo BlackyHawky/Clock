@@ -19,8 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"시계"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"알람"</string>
     <string name="add_alarm" msgid="5976616107390962899">"알람 추가"</string>
-    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
-    <skip />
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"다음 알람"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"탁상 시계"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"알람 수정"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"알람 삭제"</string>
@@ -38,7 +37,8 @@
     <string name="ringtone" msgid="9110746249688559579">"벨소리"</string>
     <string name="time" msgid="8067216534232296518">"시간"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"해제"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"<xliff:g id="MINUTES">%d</xliff:g>분 후 알람이 중지됩니다."</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"부재중 알람"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"다시 울림"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"<xliff:g id="MINUTES">%d</xliff:g>분 동안 알람 일시 중지"</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g>까지 일시 중지"</string>
@@ -170,6 +170,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"삭제"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"1분 추가"</string>
     <string name="timer_stop" msgid="3361154678667736722">"중지"</string>
+    <string name="timer_done" msgid="2375990511982914051">"완료"</string>
     <string name="timer_reset" msgid="7848424809190171640">"재설정"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"취소"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"시간이 다 되었습니다."</string>
