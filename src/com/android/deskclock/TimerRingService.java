@@ -33,7 +33,7 @@ import android.telephony.TelephonyManager;
 /**
  * Play the timer's ringtone. Will continue playing the same alarm until service is stopped.
  */
-public class TimerRingService extends Service {
+public class TimerRingService extends Service implements AudioManager.OnAudioFocusChangeListener {
 
     private boolean mPlaying = false;
     private MediaPlayer mMediaPlayer;
@@ -166,6 +166,8 @@ public class TimerRingService extends Service {
             player.setAudioStreamType(AudioManager.STREAM_ALARM);
             player.setLooping(true);
             player.prepare();
+            audioManager.requestAudioFocus(
+                    this, AudioManager.STREAM_ALARM, AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
             player.start();
         }
     }
@@ -191,6 +193,9 @@ public class TimerRingService extends Service {
             // Stop audio playing
             if (mMediaPlayer != null) {
                 mMediaPlayer.stop();
+                final AudioManager audioManager =
+                        (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+                audioManager.abandonAudioFocus(this);
                 mMediaPlayer.release();
                 mMediaPlayer = null;
             }
@@ -198,4 +203,8 @@ public class TimerRingService extends Service {
     }
 
 
+    @Override
+    public void onAudioFocusChange(int focusChange) {
+        // Do nothing
+    }
 }
