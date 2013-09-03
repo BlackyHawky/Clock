@@ -38,7 +38,10 @@
     <string name="ringtone" msgid="9110746249688559579">"ზარი"</string>
     <string name="time" msgid="8067216534232296518">"დრო"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"დახურვა"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"მაღვიძარა გაჩუმდა <xliff:g id="MINUTES">%d</xliff:g> წუთის შემდეგ."</string>
+    <!-- no translation found for alarm_missed_title (3828345099754063392) -->
+    <skip />
+    <!-- no translation found for alarm_missed_text (6585658367289194023) -->
+    <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ჩაჩუმება"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"ჩაჩუმება <xliff:g id="MINUTES">%d</xliff:g> წუთით."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ჩაჩუმება  <xliff:g id="TIME">%s</xliff:g>-მდე"</string>
@@ -105,7 +108,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ჩაჩუმება"</item>
     <item msgid="3450979320164769576">"დახურვა"</item>
-    <item msgid="6302517608411378024">"არაფრის კეთება"</item>
+    <item msgid="6302517608411378024">"არ გააკეთო არაფერი"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"ნაგულისხმევი ზარების დაგენება"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"მაღვიძარები"</string>
@@ -174,6 +177,8 @@
     <string name="timer_delete" msgid="8699122001991909302">"წაშლა"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"1 წუთის დამატება"</string>
     <string name="timer_stop" msgid="3361154678667736722">"შეჩერება"</string>
+    <!-- no translation found for timer_done (2375990511982914051) -->
+    <skip />
     <string name="timer_reset" msgid="7848424809190171640">"ჩამოყრა"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"გაუქმება"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"დრო ამოიწურა"</string>
@@ -202,7 +207,7 @@
     <item msgid="917900462224167608">"ანალოგი"</item>
     <item msgid="8483930821046925592">"ციფრული"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"სახლის ავტომატური საათი"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"რომელი საათია სახლში"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ისეთ არეალში მოგზაურობისას, სადაც დრო განსხვავებულია, დაამატეთ საათი თქვენი დროისთვის"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"ჩემი დროის ზონა"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"ჩემი დროის ზონა"</string>

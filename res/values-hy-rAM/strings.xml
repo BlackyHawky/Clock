@@ -38,7 +38,10 @@
     <string name="ringtone" msgid="9110746249688559579">"Զանգերանգ"</string>
     <string name="time" msgid="8067216534232296518">"Ժամանակ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Անտեսել"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Զարթուցիչը լռել է <xliff:g id="MINUTES">%d</xliff:g> րոպե անց:"</string>
+    <!-- no translation found for alarm_missed_title (3828345099754063392) -->
+    <skip />
+    <!-- no translation found for alarm_missed_text (6585658367289194023) -->
+    <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ննջել"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Ննջում է <xliff:g id="MINUTES">%d</xliff:g> րոպե:"</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ննջում է մինչև <xliff:g id="TIME">%s</xliff:g>"</string>
@@ -174,6 +177,8 @@
     <string name="timer_delete" msgid="8699122001991909302">"Ջնջել"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Ավելացնել 1 րոպե"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Դադարեցնել"</string>
+    <!-- no translation found for timer_done (2375990511982914051) -->
+    <skip />
     <string name="timer_reset" msgid="7848424809190171640">"Վերակայել"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Չեղարկել"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Ժամանակը սպառվել է"</string>
