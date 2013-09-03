@@ -24,8 +24,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.os.BatteryManager;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -82,6 +84,13 @@ public class ScreensaverActivity extends Activity {
         }
     };
 
+    private final ContentObserver mSettingsContentObserver = new ContentObserver(mHandler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+        }
+    };
+
     public ScreensaverActivity() {
         if (DEBUG) Log.d(TAG, "Screensaver allocated");
         mMoveSaverRunnable = new ScreensaverMoveSaverRunnable(mHandler);
@@ -98,6 +107,10 @@ public class ScreensaverActivity extends Activity {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         registerReceiver(mIntentReceiver, filter);
+        getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
+                false,
+                mSettingsContentObserver);
     }
 
     @Override
@@ -130,6 +143,7 @@ public class ScreensaverActivity extends Activity {
 
     @Override
     public void onStop() {
+        getContentResolver().unregisterContentObserver(mSettingsContentObserver);
         unregisterReceiver(mIntentReceiver);
         super.onStop();
    }
