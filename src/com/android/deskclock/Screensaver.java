@@ -20,14 +20,20 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.service.dreams.DreamService;
 import android.util.Log;
 import android.view.View;
@@ -48,6 +54,13 @@ public class Screensaver extends DreamService {
     private final Handler mHandler = new Handler();
 
     private final ScreensaverMoveSaverRunnable mMoveSaverRunnable;
+
+    private final ContentObserver mSettingsContentObserver = new ContentObserver(mHandler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            Utils.refreshAlarm(Screensaver.this, mContentView);
+        }
+    };
 
     public Screensaver() {
         if (DEBUG) Log.d(TAG, "Screensaver allocated");
@@ -84,6 +97,10 @@ public class Screensaver extends DreamService {
 
         layoutClockSaver();
 
+        getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
+                false,
+                mSettingsContentObserver);
         mHandler.post(mMoveSaverRunnable);
     }
 
@@ -93,6 +110,7 @@ public class Screensaver extends DreamService {
         super.onDetachedFromWindow();
 
         mHandler.removeCallbacks(mMoveSaverRunnable);
+        getContentResolver().unregisterContentObserver(mSettingsContentObserver);
     }
 
     private void setClockStyle() {
