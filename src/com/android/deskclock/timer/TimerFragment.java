@@ -476,6 +476,7 @@ public class TimerFragment extends DeskClockFragment
                 mAdapter.addTimer(t);
                 updateTimersState(t, Timers.START_TIMER);
                 gotoTimersView();
+                mTimerSetup.reset(); // Make sure the setup is cleared for next time
                 mTimersList.setSelection(mAdapter.findTimerPositionById(t.mTimerId));
             }
 
