@@ -89,6 +89,7 @@
                 android:theme="@style/AlarmAlertFullScreenTheme"
                 android:launchMode="singleInstance"
                 android:taskAffinity=""
+                android:windowSoftInputMode="stateHidden"
                 android:showOnLockScreen="true"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
