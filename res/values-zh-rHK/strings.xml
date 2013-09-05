@@ -19,7 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"時鐘"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"鬧鐘"</string>
     <string name="add_alarm" msgid="5976616107390962899">"新增鬧鐘"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"下幾個鬧鐘"</string>
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"下次鬧鐘"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"桌面時鐘"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"編輯鬧鐘"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"刪除鬧鐘"</string>
@@ -37,7 +37,7 @@
     <string name="ringtone" msgid="9110746249688559579">"鈴聲"</string>
     <string name="time" msgid="8067216534232296518">"時間"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"關閉"</string>
-    <string name="alarm_missed_title" msgid="3828345099754063392">"已錯過鬧鐘"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"聽不到鬧鐘"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"延遲"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"延遲 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。"</string>
@@ -329,4 +329,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"要移除這個城市嗎？"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"數碼時鐘"</string>
     <string name="no_alarms" msgid="6429431324842022917">"沒有設定鬧鐘"</string>
+    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
+    <skip />
 </resources>
