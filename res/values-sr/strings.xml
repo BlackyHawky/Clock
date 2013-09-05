@@ -329,4 +329,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Желите ли да уклоните овај град?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Дигитални сат"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Без аларма"</string>
+    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
+    <skip />
 </resources>
