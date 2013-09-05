@@ -794,5 +794,7 @@
 
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>
+    <!-- String for no enabled alarms in timeline view [CHAR LIMIT=30] -->
+    <string name="no_upcoming_alarms">NO UPCOMING ALARMS</string>
 </resources>
 
