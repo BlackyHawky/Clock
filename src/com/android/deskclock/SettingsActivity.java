@@ -177,6 +177,12 @@ public class SettingsActivity extends PreferenceActivity
         return true;
     }
 
+    @Override
+    protected boolean isValidFragment(String fragmentName) {
+        // Exported activity but no headers we support.
+        return false;
+    }
+
     private void updateAutoSnoozeSummary(ListPreference listPref,
             String delay) {
         int i = Integer.parseInt(delay);
