@@ -22,7 +22,7 @@
             android:id="@+id/hours_ones"
             android:singleLine="true"
             android:ellipsize="none"
-            style="@style/medium_light"
+            style="@style/timer_setup_digit"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textColor="@color/clock_white"/>
@@ -43,7 +43,7 @@
             android:id="@+id/minutes_tens"
             android:singleLine="true"
             android:ellipsize="none"
-            style="@style/medium_light"
+            style="@style/timer_setup_digit"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textColor="@color/clock_white"/>
@@ -52,7 +52,7 @@
             android:id="@+id/minutes_ones"
             android:singleLine="true"
             android:ellipsize="none"
-            style="@style/medium_light"
+            style="@style/timer_setup_digit"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textColor="@color/clock_white"/>
@@ -73,8 +73,7 @@
             android:id="@+id/seconds"
             android:singleLine="true"
             android:ellipsize="none"
-            style="@style/medium_light"
-            android:layout_gravity="bottom"
+            style="@style/timer_setup_digit"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:textColor="@color/clock_white"/>
