@@ -16,18 +16,11 @@
 
 package com.android.deskclock;
 
-import android.app.ActionBar;
-import android.content.Intent;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceScreen;
-import android.provider.Settings;
-import android.view.Menu;
-import android.view.MenuItem;
 
 /**
  * Settings for the Alarm Clock Dream (com.android.deskclock.Screensaver).
@@ -74,4 +67,9 @@ public class ScreensaverSettingsActivity extends PreferenceActivity
         pref.setOnPreferenceChangeListener(this);
     }
 
+    @Override
+    protected boolean isValidFragment(String fragmentName) {
+        // This activity is not exported so we can just approve everything
+        return true;
+    }
 }
