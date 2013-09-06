@@ -23,4 +23,5 @@
     <bool name="config_requiresScreenSaver">true</bool>
     <bool name="config_dockAppEnabled">true</bool>
     <bool name="config_rotateAlarmAlert">false</bool>
+    <item type="integer" name="timer_column_count">1</item>
 </resources>

@@ -16,19 +16,21 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingTop="?android:attr/actionBarSize" >
 
     <FrameLayout
         android:id="@+id/timers_list_page"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <ListView
+        <com.android.deskclock.widget.sgv.StaggeredGridView
             android:id="@+id/timers_list"
             android:divider="@null"
             android:dividerHeight="@dimen/timer_divider_height"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:paddingBottom="88dp"/>
         <FrameLayout
             android:id="@+id/timer_footer"
             android:background="@drawable/footer_bg"

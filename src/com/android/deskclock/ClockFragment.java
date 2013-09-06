@@ -109,8 +109,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
         mList = (ListView)v.findViewById(R.id.cities);
         mList.setDivider(null);
-        View headerView = inflater.inflate(R.layout.blank_header_view, mList, false);
-        mList.addHeaderView(headerView);
         mClockFrame = inflater.inflate(R.layout.main_clock_frame, mList, false);
         mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
