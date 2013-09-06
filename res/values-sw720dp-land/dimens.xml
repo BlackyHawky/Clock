@@ -23,4 +23,11 @@
 
     <dimen name="alarm_alert_clock_padding_left">128dp</dimen>
 
+    <dimen name="dialpad_font_size">42sp</dimen>
+    <dimen name="dialpad_digit_padding">26dip</dimen>
+    <dimen name="timer_setup_font_size">78sp</dimen>
+    <dimen name="timer_setup_button_size">36sp</dimen>
+    <dimen name="timer_setup_delete_start_margin">38sp</dimen>
+    <dimen name="timer_setup_label_size">24sp</dimen>
+
 </resources>

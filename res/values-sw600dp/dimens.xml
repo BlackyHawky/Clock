@@ -62,6 +62,13 @@
     <dimen name="label_margin_big">8dp</dimen>
     <dimen name="label_margin_small">4dp</dimen>
 
+    <dimen name="dialpad_font_size">56sp</dimen>
+    <dimen name="dialpad_digit_padding">34dip</dimen>
+    <dimen name="timer_setup_font_size">86sp</dimen>
+    <dimen name="timer_setup_button_size">36sp</dimen>
+    <dimen name="timer_setup_delete_start_margin">42sp</dimen>
+    <dimen name="timer_setup_label_size">28sp</dimen>
+
     <dimen name="timer_circle_diameter">480dip</dimen>
     <dimen name="timer_circle_width">500dip</dimen>
 

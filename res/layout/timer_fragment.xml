@@ -60,10 +60,9 @@
             android:id="@+id/timer_setup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="8dip"
-            android:layout_marginStart="8dip"
-            android:layout_marginRight="8dip"
-            android:layout_marginEnd="8dip"
-            android:paddingTop="?android:attr/actionBarSize"/>
+            android:layout_marginLeft="16dip"
+            android:layout_marginStart="16dip"
+            android:layout_marginRight="16dip"
+            android:layout_marginEnd="16dip"/>
 
 </FrameLayout>

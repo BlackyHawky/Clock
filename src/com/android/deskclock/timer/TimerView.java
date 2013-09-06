@@ -18,9 +18,9 @@ package com.android.deskclock.timer;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -57,16 +57,46 @@ public class TimerView extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mMinutesTens = (TextView)findViewById(R.id.minutes_tens);
-        mHoursOnes = (TextView)findViewById(R.id.hours_ones);
-        mMinutesOnes = (TextView)findViewById(R.id.minutes_ones);
-        mSeconds = (TextView)findViewById(R.id.seconds);
+        mHoursOnes = (TextView) findViewById(R.id.hours_ones);
         if (mHoursOnes != null) {
             mOriginalHoursTypeface = mHoursOnes.getTypeface();
         }
+        mMinutesTens = (TextView) findViewById(R.id.minutes_tens);
+        if (mHoursOnes != null && mMinutesTens != null) {
+            addStartPadding(mMinutesTens);
+        }
+        mMinutesOnes = (TextView) findViewById(R.id.minutes_ones);
         if (mMinutesOnes != null) {
             mOriginalMinutesTypeface = mMinutesOnes.getTypeface();
         }
+        mSeconds = (TextView) findViewById(R.id.seconds);
+        if (mSeconds != null) {
+            addStartPadding(mSeconds);
+        }
+    }
+
+    /**
+     * Measure the text and add a start padding to the view
+     * @param textView view to measure and onb to which add start padding
+     */
+    private void addStartPadding(TextView textView) {
+        final float gapPadding = 0.45f;
+        // allDigits will contain ten digits: "0123456789" in the default locale
+        String allDigits = String.format("%010d", 123456789);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setTextSize(textView.getTextSize());
+        paint.setTypeface(textView.getTypeface());
+
+        float widths[] = new float[allDigits.length()];
+        int ll = paint.getTextWidths(allDigits, widths);
+        int largest = 0;
+        for (int ii = 1; ii < ll; ii++) {
+            if (widths[ii] > widths[largest]) {
+                largest = ii;
+            }
+        }
+        // Add left padding to the view - Note: layout inherits LTR
+        textView.setPadding((int) (gapPadding * widths[largest]), 0, 0, 0);
     }
 
 

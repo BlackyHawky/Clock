@@ -156,6 +156,17 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <style name="timer_setup_digit">
+        <item name="android:textSize">@dimen/timer_setup_font_size</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+    </style>
+
+    <style name="timer_setup_label">
+        <item name="android:textSize">@dimen/timer_setup_label_size</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:fontFamily">sans-serif-condensed</item>
+    </style>
+
     <style name="medium_light">
         <item name="android:textSize">@dimen/medium_font_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
@@ -251,11 +262,7 @@
     <style name="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size</item>
         <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
-    <style name="dialpad_ampm" parent="dialpad">
-        <item name="android:textSize">@dimen/dialpad_font_size_ampm</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="city_name">
@@ -269,18 +276,6 @@
         <item name="android:textSize">@dimen/city_time_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif</item>
-    </style>
-
-    <style name="tablet_dialpad">
-        <item name="android:textSize">@dimen/tablet_dialpad_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
-    </style>
-
-    <style name="tablet_dialpad_ampm">
-        <item name="android:textSize">@dimen/tablet_dialpad_font_size_ampm</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="TimePickerDialog" parent="android:style/Theme.Holo.Dialog">

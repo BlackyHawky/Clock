@@ -17,6 +17,7 @@
 package com.android.deskclock;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -90,6 +91,28 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             mNumbers [i].setTag(R.id.numbers_key,new Integer(i));
         }
         updateTime();
+    }
+
+    @Override
+    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setMarginsAfterMeasure();
+        }
+    }
+
+    /**
+     * To properly center the TimerView across from the dial pad, append a bottom margin that
+     * matches the measured height of the start button that is below the dial pad.
+     */
+    protected void setMarginsAfterMeasure() {
+        View timerStart = findViewById(R.id.timer_start);
+        View timerDisplay = findViewById(R.id.timer_time_display);
+        if (timerStart != null && timerDisplay != null) {
+            MarginLayoutParams marginLayoutParams =
+                    (MarginLayoutParams) timerDisplay.getLayoutParams();
+            marginLayoutParams.bottomMargin = timerStart.getMeasuredHeight();
+        }
     }
 
     public void registerStartButton(Button start) {
