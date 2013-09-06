@@ -241,7 +241,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // Remove the CREATE_NEW extra now that we've processed it.
         intent.removeExtra(Alarms.ALARM_CREATE_NEW);
 
-        TimePickerDialog tpd = (TimePickerDialog) getActivity().getFragmentManager().
+        // Make sure to use the child FragmentManager. We have to use that one for the
+        // case where an intent comes in telling the activity to load the timepicker,
+        // which means we have to use that one everywhere so that the fragment can get
+        // correctly picked up here if it's open.
+        TimePickerDialog tpd = (TimePickerDialog) getChildFragmentManager().
                 findFragmentByTag(AlarmUtils.FRAG_TAG_TIME_PICKER);
         if (tpd != null) {
             // The dialog is already open so we need to set the listener again.
@@ -654,7 +658,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onClick(View view) {
                     mSelectedAlarm = itemHolder.alarm;
-                    AlarmUtils.showTimeEditDialog(AlarmClockFragment.this.getFragmentManager(),
+                    AlarmUtils.showTimeEditDialog(getChildFragmentManager(),
                             alarm, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
                     expandAlarm(itemHolder, true);
                     itemHolder.alarmItem.post(mScrollRunnable);
@@ -1255,7 +1259,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // Set the "selected" alarm as null, and we'll create the new one when the timepicker
         // comes back.
         mSelectedAlarm = null;
-        AlarmUtils.showTimeEditDialog(AlarmClockFragment.this.getChildFragmentManager(),
+        AlarmUtils.showTimeEditDialog(getChildFragmentManager(),
                 null, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
     }
 

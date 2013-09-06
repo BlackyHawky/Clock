@@ -43,6 +43,7 @@ public class AlarmUtils {
         }
         TimePickerDialog dialog = TimePickerDialog.newInstance(listener,
                 hour, minutes, is24HourMode);
+        dialog.setThemeDark(true);
 
         // Make sure the dialog isn't already added.
         manager.executePendingTransactions();
