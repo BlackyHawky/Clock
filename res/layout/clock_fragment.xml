@@ -15,50 +15,43 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/clock_background"
     android:layout_width="match_parent"
-    android:background="@drawable/blackish_transition"
-    android:layout_height="match_parent" >
-    <FrameLayout
-        android:id="@+id/clock_foreground"
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize" >
+    <ListView
+        android:id="@+id/cities"
+        android:clickable="false"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/blackish_transition" >
-        <ListView
-            android:id="@+id/cities"
-            android:clickable="false"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-        <FrameLayout
-            android:background="@drawable/footer_bg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom" >
-            <ImageButton
-                android:id="@+id/cities_button"
-                android:contentDescription="@string/button_cities"
-                android:layout_width="@dimen/footer_button_size"
-                android:layout_height="@dimen/footer_button_size"
-                android:layout_marginTop="@dimen/footer_button_layout_margin"
-                android:layout_marginBottom="@dimen/footer_button_layout_margin"
-                android:layout_marginRight="@dimen/footer_button_layout_margin"
-                android:layout_marginEnd="@dimen/footer_button_layout_margin"
-                android:layout_marginLeft="@dimen/footer_button_layout_margin"
-                android:layout_marginStart="@dimen/footer_button_layout_margin"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/ic_globe"
-                style="@style/button"
-                android:onClick="clockButtonsOnClick"
-                android:background="@drawable/main_button_normal" />
-            <ImageButton
-                android:id="@+id/menu_button"
-                android:contentDescription="@string/button_menu"
-                style="?android:attr/actionOverflowButtonStyle"
-                android:background="@drawable/item_background"
-                android:onClick="clockButtonsOnClick"
-                android:layout_gravity="end|center_vertical"
-                android:layout_width="@dimen/footer_button_size"
-                android:layout_height="@dimen/footer_button_size" />
-        </FrameLayout>
-  </FrameLayout>
+        android:layout_height="match_parent" />
+    <FrameLayout
+        android:background="@drawable/footer_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" >
+        <ImageButton
+            android:id="@+id/cities_button"
+            android:contentDescription="@string/button_cities"
+            android:layout_width="@dimen/footer_button_size"
+            android:layout_height="@dimen/footer_button_size"
+            android:layout_marginTop="@dimen/footer_button_layout_margin"
+            android:layout_marginBottom="@dimen/footer_button_layout_margin"
+            android:layout_marginRight="@dimen/footer_button_layout_margin"
+            android:layout_marginEnd="@dimen/footer_button_layout_margin"
+            android:layout_marginLeft="@dimen/footer_button_layout_margin"
+            android:layout_marginStart="@dimen/footer_button_layout_margin"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_globe"
+            style="@style/button"
+            android:onClick="clockButtonsOnClick"
+            android:background="@drawable/main_button_normal" />
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:contentDescription="@string/button_menu"
+            style="?android:attr/actionOverflowButtonStyle"
+            android:background="@drawable/item_background"
+            android:onClick="clockButtonsOnClick"
+            android:layout_gravity="end|center_vertical"
+            android:layout_width="@dimen/footer_button_size"
+            android:layout_height="@dimen/footer_button_size" />
+    </FrameLayout>
 </FrameLayout>
