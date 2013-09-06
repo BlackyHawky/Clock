@@ -16,7 +16,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true"
     android:orientation="horizontal"
     android:paddingTop="?android:attr/actionBarSize"
     android:baselineAligned="false">
@@ -32,7 +31,6 @@
         android:id="@+id/stopwatch_circle"
         android:layout_width="0dip"
         android:layout_height="match_parent"
-        android:animateLayoutChanges="true"
         android:layout_marginLeft="@dimen/circle_margin"
         android:layout_marginStart="@dimen/circle_margin"
         android:layout_marginRight="@dimen/circle_margin"
