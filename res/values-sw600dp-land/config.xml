@@ -21,4 +21,5 @@
      for different hardware and product builds. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <item type="integer" name="timer_column_count">2</item>
+    <item type="integer" name="world_clocks_per_row">2</item>
 </resources>

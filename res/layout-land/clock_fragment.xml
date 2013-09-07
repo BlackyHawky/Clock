@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!-- Use this clock_fragment for landscape, which has main clock frame next to cities,
+     with a spacing ratio dependent on the number of clocks per row (phone has 1, tablet has 2). -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center" >
+        <include layout="@layout/main_clock_frame"
+            android:id="@+id/main_clock_left_pane"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center" />
+        <ListView
+            android:id="@+id/cities"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="@integer/world_clocks_per_row"
+            android:clickable="false"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="center" />
+    </LinearLayout>
+    <FrameLayout
+        android:background="@drawable/footer_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom" >
+        <ImageButton
+            android:id="@+id/cities_button"
+            android:contentDescription="@string/button_cities"
+            android:layout_width="@dimen/footer_button_size"
+            android:layout_height="@dimen/footer_button_size"
+            android:layout_marginTop="@dimen/footer_button_layout_margin"
+            android:layout_marginBottom="@dimen/footer_button_layout_margin"
+            android:layout_marginRight="@dimen/footer_button_layout_margin"
+            android:layout_marginEnd="@dimen/footer_button_layout_margin"
+            android:layout_marginLeft="@dimen/footer_button_layout_margin"
+            android:layout_marginStart="@dimen/footer_button_layout_margin"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/ic_globe"
+            style="@style/button"
+            android:onClick="clockButtonsOnClick"
+            android:background="@drawable/main_button_normal" />
+        <ImageButton
+            android:id="@+id/menu_button"
+            android:contentDescription="@string/button_menu"
+            style="?android:attr/actionOverflowButtonStyle"
+            android:background="@drawable/item_background"
+            android:onClick="clockButtonsOnClick"
+            android:layout_gravity="end|center_vertical"
+            android:layout_width="@dimen/footer_button_size"
+            android:layout_height="@dimen/footer_button_size" />
+    </FrameLayout>
+</FrameLayout>
