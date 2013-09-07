@@ -134,7 +134,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         long[] repeatCheckedIds = null;
         long[] selectedAlarms = null;
         Bundle previousDayMap = null;
-        Log.v("oncreateview");
         if (savedState != null) {
             expandedIds = savedState.getLongArray(KEY_EXPANDED_IDS);
             Log.v("expanded: "+expandedIds);
