@@ -58,6 +58,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 
+import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationIn;
+import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationOut;
 import com.android.deskclock.widget.sgv.StaggeredGridView;
 import com.android.deskclock.widget.sgv.GridAdapter;
 
@@ -134,8 +136,6 @@ public class TimerFragment extends DeskClockFragment
 
         @Override
         public boolean hasStableIds() {
-            // TODO I think the IDs may not actually be stable yet, which is causing issues with
-            // the animations.
             return true;
         }
 
@@ -162,6 +162,16 @@ public class TimerFragment extends DeskClockFragment
                     }
                     t.deleteFromSharedPref(mmPrefs);
                     mTimers.remove(i);
+                    if (mTimers.size() == 1 && mColumnCount > 1) {
+                        // If we're going from two timers to one (in the same row), we don't want to
+                        // animate the translation because we're changing the layout params span
+                        // from 1 to 2, and the animation doesn't handle that very well. So instead,
+                        // just fade out and in.
+                        mTimersList.setAnimationMode(AnimationIn.FADE, AnimationOut.FADE);
+                    } else {
+                        mTimersList.setAnimationMode(
+                                AnimationIn.FLY_IN_NEW_VIEWS, AnimationOut.FADE);
+                    }
                     notifyDataSetChanged();
                     return;
                 }
@@ -448,6 +458,9 @@ public class TimerFragment extends DeskClockFragment
         // For tablets in landscape, the count will be 2. All else will be 1.
         mColumnCount = getResources().getInteger(R.integer.timer_column_count);
         mTimersList.setColumnCount(mColumnCount);
+        // Set this to true; otherwise adding new views to the end of the list won't cause
+        // everything above it to be filled in correctly.
+        mTimersList.setGuardAgainstJaggedEdges(true);
 
         mTimersListPage = v.findViewById(R.id.timers_list_page);
         mTimerSetup = (TimerSetupView)v.findViewById(R.id.timer_setup);
@@ -479,7 +492,6 @@ public class TimerFragment extends DeskClockFragment
                 gotoTimersView();
                 mTimerSetup.reset(); // Make sure the setup is cleared for next time
 
-                // TODO this doesn't work very well, need an alternative.
                 mTimersList.setFirstPositionAndOffsets(
                         mAdapter.findTimerPositionById(t.mTimerId), 0);
             }
@@ -865,7 +877,6 @@ public class TimerFragment extends DeskClockFragment
 
     private void deleteTimer(TimerObj t) {
         mAdapter.deleteTimer(t.mTimerId);
-        // TODO get animations working instead of just setting selection.
         mTimersList.setSelectionToTop();
         if (mAdapter.getCount() == 0) {
             if (mOnEmptyListListener == null) {
