@@ -136,7 +136,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         Bundle previousDayMap = null;
         if (savedState != null) {
             expandedIds = savedState.getLongArray(KEY_EXPANDED_IDS);
-            Log.v("expanded: "+expandedIds);
             repeatCheckedIds = savedState.getLongArray(KEY_REPEAT_CHECKED_IDS);
             mRingtoneTitleCache = savedState.getBundle(KEY_RINGTONE_TITLE_CACHE);
             mDeletedAlarm = savedState.getParcelable(KEY_DELETED_ALARM);
@@ -683,7 +682,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.expandArea.setVisibility(expanded? View.VISIBLE : View.GONE);
             itemHolder.summary.setVisibility(expanded? View.GONE : View.VISIBLE);
 
-            String colons = "";
+            String labelSpace = "";
             // Set the repeat text or leave it blank if it does not repeat.
             final String daysOfWeekStr =
                     alarm.daysOfWeek.toString(AlarmClockFragment.this.getActivity(), false);
@@ -692,7 +691,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 itemHolder.daysOfWeek.setContentDescription(alarm.daysOfWeek.toAccessibilityString(
                         AlarmClockFragment.this.getActivity()));
                 itemHolder.daysOfWeek.setVisibility(View.VISIBLE);
-                colons = ": ";
+                labelSpace = "  ";
                 itemHolder.daysOfWeek.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -706,7 +705,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             }
 
             if (alarm.label != null && alarm.label.length() != 0) {
-                itemHolder.label.setText(alarm.label + colons);
+                itemHolder.label.setText(alarm.label + labelSpace);
                 itemHolder.label.setVisibility(View.VISIBLE);
                 itemHolder.label.setContentDescription(
                         mContext.getResources().getString(R.string.label_description) + " "
@@ -984,9 +983,21 @@ public class AlarmClockFragment extends DeskClockFragment implements
             if (!animate) {
                 // Set the "end" layout and don't do the animation.
                 itemHolder.arrow.setRotation(180);
-                int hairlineHeight = itemHolder.hairLine.getHeight();
-                int collapseHeight = itemHolder.collapseExpandArea.getHeight() - hairlineHeight;
-                itemHolder.hairLine.setTranslationY(-collapseHeight);
+                // We need to translate the hairline up, so the height of the collapseArea
+                // needs to be measured to know how high to translate it.
+                final ViewTreeObserver observer = mAlarmsList.getViewTreeObserver();
+                observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                    @Override
+                    public boolean onPreDraw() {
+                        // We don't want to continue getting called for every listview drawing.
+                        observer.removeOnPreDrawListener(this);
+                        int hairlineHeight = itemHolder.hairLine.getHeight();
+                        int collapseHeight =
+                                itemHolder.collapseExpandArea.getHeight() - hairlineHeight;
+                        itemHolder.hairLine.setTranslationY(-collapseHeight);
+                        return true;
+                    }
+                });
                 return;
             }
 
