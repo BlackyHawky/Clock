@@ -30,6 +30,10 @@
     <dimen name="ampm_margin_top">28dip</dimen>
     <dimen name="font_margin_adjust">8dip</dimen>
     <dimen name="next_alarm_margin_top">-5dip</dimen>
+    <dimen name="digital_world_clock_text_size">75dp</dimen>
+    <dimen name="digital_world_clock_ampm_text_size">14dp</dimen>
+    <dimen name="digital_main_clock_text_size">165dp</dimen>
+    <dimen name="main_ampm_font_size">25sp</dimen>
 
     <dimen name="timer_circle_diameter">360dip</dimen>
     <dimen name="timer_circle_width">380dip</dimen>
