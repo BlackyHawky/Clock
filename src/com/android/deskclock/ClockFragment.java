@@ -109,21 +109,19 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
         mList = (ListView)v.findViewById(R.id.cities);
         mList.setDivider(null);
-        mClockFrame = inflater.inflate(R.layout.main_clock_frame, mList, false);
-        mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
-        mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
-        mList.addHeaderView(mClockFrame, null, false);
-        View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
-        footerView.setBackgroundResource(R.color.blackish);
-        mList.addFooterView(footerView);
-        mAdapter = new WorldClockAdapter(getActivity());
-        mList.setAdapter(mAdapter);
-        mList.setOnTouchListener(new OnTouchListener() {
-            private final float MAX_MOVEMENT_ALLOWED = 20;
+
+        OnTouchListener longPressNightMode = new OnTouchListener() {
+            private float mMaxMovementAllowed = -1;
+            private int mLongPressTimeout = -1;
             private float mLastTouchX, mLastTouchY;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                if (mMaxMovementAllowed == -1) {
+                    mMaxMovementAllowed = ViewConfiguration.get(getActivity()).getScaledTouchSlop();
+                    mLongPressTimeout = ViewConfiguration.getLongPressTimeout();
+                }
+
                 switch (event.getAction()) {
                     case (MotionEvent.ACTION_DOWN):
                         long time = Utils.getTimeNow();
@@ -132,14 +130,14 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                             public void run() {
                                 startActivity(new Intent(getActivity(), ScreensaverActivity.class));
                             }
-                        }, ViewConfiguration.getLongPressTimeout());
+                        }, mLongPressTimeout);
                         mLastTouchX = event.getX();
                         mLastTouchY = event.getY();
-                        break;
+                        return true;
                     case (MotionEvent.ACTION_MOVE):
                         float xDiff = Math.abs(event.getX()-mLastTouchX);
                         float yDiff = Math.abs(event.getY()-mLastTouchY);
-                        if (xDiff >= MAX_MOVEMENT_ALLOWED || yDiff >= MAX_MOVEMENT_ALLOWED) {
+                        if (xDiff >= mMaxMovementAllowed || yDiff >= mMaxMovementAllowed) {
                             mHandler.removeCallbacksAndMessages(null);
                         }
                         break;
@@ -148,7 +146,27 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 }
                 return false;
             }
-        });
+        };
+
+        // On tablet landscape, the clock frame will be a distinct view. Otherwise, it'll be added
+        // on as a header to the main listview.
+        mClockFrame = v.findViewById(R.id.main_clock_left_pane);
+        if (mClockFrame == null) {
+            mClockFrame = inflater.inflate(R.layout.main_clock_frame, mList, false);
+            mList.addHeaderView(mClockFrame, null, false);
+        } else {
+            // The main clock frame needs its own touch listener for night mode now.
+            v.setOnTouchListener(longPressNightMode);
+        }
+        mList.setOnTouchListener(longPressNightMode);
+
+        mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
+        mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
+        View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
+        footerView.setBackgroundResource(R.color.blackish);
+        mList.addFooterView(footerView);
+        mAdapter = new WorldClockAdapter(getActivity());
+        mList.setAdapter(mAdapter);
 
         // For landscape, put the cities button on the right and the menu in the actionbar.
         View citiesButton = v.findViewById(R.id.cities_button);
@@ -198,6 +216,13 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 SettingsActivity.KEY_CLOCK_STYLE);
         mClockStyle = (clockView == mDigitalClock ?
                 Utils.CLOCK_TYPE_DIGITAL : Utils.CLOCK_TYPE_ANALOG);
+
+        // Center the main clock frame if cities are empty.
+        if (getView().findViewById(R.id.main_clock_left_pane) != null && mAdapter.getCount() == 0) {
+            mList.setVisibility(View.GONE);
+        } else {
+            mList.setVisibility(View.VISIBLE);
+        }
         mAdapter.notifyDataSetChanged();
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
