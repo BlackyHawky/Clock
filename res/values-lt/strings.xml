@@ -143,9 +143,9 @@
     <string name="sw_lap_button" msgid="6992264696039004233">"Ratas"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Nustatyti iš naujo"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Bendrinti"</string>
-    <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
-    <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="hours_label" msgid="3393478155635368097">"val."</string>
+    <string name="minutes_label" msgid="3568098128251438588">"min."</string>
+    <string name="seconds_label" msgid="124655952824003246">"sek."</string>
     <string name="hours_label_description" msgid="8652842524970971830">"val."</string>
     <string name="minutes_label_description" msgid="965686733490357796">"min."</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"sek."</string>
@@ -329,6 +329,5 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Pašalinti šį miestą?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Skaitmeninis laikrodis"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Signalų nėra"</string>
-    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
-    <skip />
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"NĖRA BŪSIMŲ SIGNALŲ"</string>
 </resources>
