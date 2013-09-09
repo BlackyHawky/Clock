@@ -19,6 +19,13 @@
     android:orientation="vertical"
     android:paddingTop="?android:attr/actionBarSize" >
 
+    <Space
+            android:id="@+id/start_space"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"/>
+
     <com.android.deskclock.CircleButtonsLayout
         android:id="@+id/stopwatch_circle"
         android:layout_width="match_parent"
@@ -46,6 +53,7 @@
             android:layout_height="56dip"
             android:layout_gravity="bottom|start"
             android:background="@null"
+            android:contentDescription="@string/sw_lap_button"
             android:src="@drawable/ic_lap" />
 
         <TextView
@@ -77,6 +85,13 @@
             android:background="@null"
             android:src="@drawable/ic_share" />
     </com.android.deskclock.CircleButtonsLayout>
+
+    <Space
+            android:id="@+id/end_space"
+            android:visibility="gone"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"/>
 
     <ListView
         android:id="@+id/laps_list"
