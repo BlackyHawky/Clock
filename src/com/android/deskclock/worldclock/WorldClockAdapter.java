@@ -47,6 +47,7 @@ public class WorldClockAdapter extends BaseAdapter {
     private String mClockStyle;
     private final Collator mCollator = Collator.getInstance();
     protected HashMap<String, CityObj> mCitiesDb = new HashMap<String, CityObj>();
+    private int mClocksPerRow;
 
     public WorldClockAdapter(Context context) {
         super();
@@ -54,6 +55,7 @@ public class WorldClockAdapter extends BaseAdapter {
         loadData(context);
         loadCitiesDb(context);
         mInflater = LayoutInflater.from(context);
+        mClocksPerRow = context.getResources().getInteger(R.integer.world_clocks_per_row);
     }
 
     public void reloadData(Context context) {
@@ -176,7 +178,12 @@ public class WorldClockAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        // Each item in the list holds 1 or 2 clocks
+        if (mClocksPerRow == 1) {
+            // In the special case where we have only 1 clock per view.
+            return mCitiesList.length;
+        }
+
+        // Otherwise, each item in the list holds 1 or 2 clocks
         return (mCitiesList.length  + 1)/2;
     }
 
@@ -198,7 +205,7 @@ public class WorldClockAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup parent) {
         // Index in cities list
-        int index = position * 2;
+        int index = position * mClocksPerRow;
         if (index < 0 || index >= mCitiesList.length) {
             return null;
         }
@@ -209,22 +216,32 @@ public class WorldClockAdapter extends BaseAdapter {
         // The world clock list item can hold two world clocks
         View rightClock = view.findViewById(R.id.city_right);
         updateView(view.findViewById(R.id.city_left), (CityObj)mCitiesList[index]);
-        if (index + 1 < mCitiesList.length) {
-            rightClock.setVisibility(View.VISIBLE);
-            updateView(rightClock, (CityObj)mCitiesList[index + 1]);
-        } else {
-            // To make sure the spacing is right , make sure that the right clock style is selected
-            // even if the clock is invisible.
-            View dclock = rightClock.findViewById(R.id.digital_clock);
-            View aclock = rightClock.findViewById(R.id.analog_clock);
-            if (mClockStyle.equals("analog")) {
-                dclock.setVisibility(View.GONE);
-                aclock.setVisibility(View.INVISIBLE);
+        if (rightClock != null) {
+            // rightClock may be null (landscape phone layout has only one clock per row) so only
+            // process it if it exists.
+            if (index + 1 < mCitiesList.length) {
+                rightClock.setVisibility(View.VISIBLE);
+                updateView(rightClock, (CityObj)mCitiesList[index + 1]);
             } else {
-                dclock.setVisibility(View.INVISIBLE);
-                aclock.setVisibility(View.GONE);
+                // To make sure the spacing is right , make sure that the right clock style is
+                // selected even if the clock is invisible.
+                View dclock = rightClock.findViewById(R.id.digital_clock);
+                View aclock = rightClock.findViewById(R.id.analog_clock);
+                if (mClockStyle.equals("analog")) {
+                    dclock.setVisibility(View.GONE);
+                    aclock.setVisibility(View.INVISIBLE);
+                } else {
+                    dclock.setVisibility(View.INVISIBLE);
+                    aclock.setVisibility(View.GONE);
+                }
+                // If there's only the one item, center it. If there are other items in the list,
+                // keep it side-aligned.
+                if (getCount() == 1) {
+                    rightClock.setVisibility(View.GONE);
+                } else {
+                    rightClock.setVisibility(View.INVISIBLE);
+                }
             }
-            rightClock.setVisibility(View.INVISIBLE);
         }
 
         return view;

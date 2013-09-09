@@ -43,6 +43,10 @@
     <dimen name="bottom_text_spacing_digital">-8dp</dimen>
     <dimen name="bottom_text_spacing_analog">14dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">6dp</dimen>
+    <dimen name="digital_world_clock_text_size">60dp</dimen>
+    <dimen name="digital_world_clock_ampm_text_size">14dp</dimen>
+    <dimen name="digital_main_clock_text_size">120dp</dimen>
+
     <!-- Analog clock size in the the screen saver -->
     <dimen name="analog_clock_diameter">236dip</dimen>
     <dimen name="timer_circle_diameter">300dip</dimen>
