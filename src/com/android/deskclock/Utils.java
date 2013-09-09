@@ -450,11 +450,14 @@ public class Utils {
         String[] cities = r.getStringArray(R.array.cities_names);
         String[] timezones = r.getStringArray(R.array.cities_tz);
         String[] ids = r.getStringArray(R.array.cities_id);
+        int minLength = cities.length;
         if (cities.length != timezones.length || ids.length != cities.length) {
-            Log.wtf("City lists sizes are not the same, cannot use the data");
-            return null;
+            // StopShip: Make sure to remove this after we get transations for K
+            minLength = Math.min(cities.length, Math.min(timezones.length, ids.length));
+            Log.e("City lists sizes are not the same, trancating");
+            // return null;
         }
-        CityObj[] tempList = new CityObj[cities.length];
+        CityObj[] tempList = new CityObj[minLength];
         for (int i = 0; i < cities.length; i++) {
             tempList[i] = new CityObj(cities[i], timezones[i], ids[i]);
         }
