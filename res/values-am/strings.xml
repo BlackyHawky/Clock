@@ -143,9 +143,9 @@
     <string name="sw_lap_button" msgid="6992264696039004233">"ዙር"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"ዳግም አስጀምር"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"አጋራ"</string>
-    <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
-    <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="hours_label" msgid="3393478155635368097">"ሰ"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"ደ"</string>
+    <string name="seconds_label" msgid="124655952824003246">"ሴ"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"ሰዓቶች"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"ደቂቃዎች"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"ሰከንዶች"</string>
@@ -162,7 +162,7 @@
     <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> ደቂቃዎች"</item>
   </plurals>
   <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"1 ሰከንድ"</item>
+    <item quantity="one" msgid="6589853086641485725">"1 ሴኮንድ"</item>
     <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> ሰከንዶች"</item>
   </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"ጊዜ ቆጣሪን አክል"</string>
@@ -329,6 +329,5 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"ይህ ከተማ ይወገድ?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ዲጂታል ሰዓት"</string>
     <string name="no_alarms" msgid="6429431324842022917">"ማንቂያ የለም"</string>
-    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
-    <skip />
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"ምንም መጪ ማንቂያዎች የሉም"</string>
 </resources>
