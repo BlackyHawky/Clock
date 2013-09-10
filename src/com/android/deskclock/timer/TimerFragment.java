@@ -566,23 +566,15 @@ public class TimerFragment extends DeskClockFragment
         }
 
         if (mPrefs.getBoolean(Timers.FROM_NOTIFICATION, false)) {
-            // We need to know if this onresume is being called by the user clicking a
-            // buzzing timer notification. If so, we need to set that timer to have "stopped"
-            // at the moment the notification was hit.
-            long now = mPrefs.getLong(Timers.NOTIF_TIME, Utils.getTimeNow());
-            int timerId = mPrefs.getInt(Timers.NOTIF_ID, -1);
-            if (timerId != -1) {
-                TimerObj t = Timers.findTimer(mAdapter.mTimers, timerId);
-                t.mTimeLeft = t.mOriginalLength - (now - t.mStartTime);
-                cancelTimerNotification(timerId);
-            }
+            // Clear the flag set in the notification because the adapter was just
+            // created and is thus in sync with the database
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(Timers.FROM_NOTIFICATION, false);
             editor.apply();
         }
         if (mPrefs.getBoolean(Timers.FROM_ALERT, false)) {
             // Clear the flag set in the alert because the adapter was just
-            // created and thusly in sync with the database
+            // created and is thus in sync with the database
             SharedPreferences.Editor editor = mPrefs.edit();
             editor.putBoolean(Timers.FROM_ALERT, false);
             editor.apply();
@@ -622,7 +614,7 @@ public class TimerFragment extends DeskClockFragment
         // a fraction of a second.
         View v = getView();
         if (v != null) {
-            getView().setVisibility(View.INVISIBLE);
+            v.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -904,11 +896,7 @@ public class TimerFragment extends DeskClockFragment
 
     public void setLabel(TimerObj timer, String label) {
         mAdapter.getItem(mAdapter.findTimerPositionById(timer.mTimerId)).mLabel = label;
-        if (timer.mState == TimerObj.STATE_TIMESUP) {
-            // Timer is in times-up mode.
-            TimerReceiver.showExpiredAlarmNotification(
-                    getActivity().getApplicationContext(), timer);
-        }
+        updateTimersState(timer, Timers.TIMER_UPDATE);
         // Make sure the new label is visible.
         mAdapter.notifyDataSetChanged();
     }
@@ -1052,34 +1040,13 @@ public class TimerFragment extends DeskClockFragment
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (prefs.equals(mPrefs)) {
-            if ( (key.equals(Timers.FROM_NOTIFICATION) || key.equals(Timers.NOTIF_ID)
-                    || key.equals(Timers.NOTIF_TIME)) &&
-                    prefs.getBoolean(Timers.FROM_NOTIFICATION, false) ) {
-                // We need to know if the user has clicked the buzzing timer notification
-                // while the fragment is still open. If so, this listener will catch that event,
-                // and allow the timers to be re-instated based on the updated stop time.
-                // Because this method gets called with every change to the sharedprefs, we ensure
-                // that we only recalculate the timers if the change was specifically set by the
-                // user interacting with the notification.
-                long now = prefs.getLong(Timers.NOTIF_TIME, Utils.getTimeNow());
-                int timerId = prefs.getInt(Timers.NOTIF_ID, -1);
-                mAdapter = createAdapter(getActivity(), mPrefs);
-                mAdapter.onRestoreInstanceState(null);
-                if (timerId != -1) {
-                    TimerObj t = Timers.findTimer(mAdapter.mTimers, timerId);
-                    t.mTimeLeft = t.mOriginalLength - (now - t.mStartTime);
-                    cancelTimerNotification(timerId);
-                }
-                mTimersList.setAdapter(mAdapter);
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean(Timers.FROM_NOTIFICATION, false);
-                editor.apply();
-            }
-            if (key.equals(Timers.FROM_ALERT) && prefs.getBoolean(Timers.FROM_ALERT, false)) {
-                // The flag was set in the alert so the adapter needs to re-sync
-                // with the database
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean(Timers.FROM_ALERT, false);
+            if ((key.equals(Timers.FROM_ALERT) && prefs.getBoolean(Timers.FROM_ALERT, false))
+                    || (key.equals(Timers.FROM_NOTIFICATION)
+                    && prefs.getBoolean(Timers.FROM_NOTIFICATION, false))) {
+                // The data-changed flag was set in the alert or notification so the adapter needs
+                // to re-sync with the database
+                SharedPreferences.Editor editor = mPrefs.edit();
+                editor.putBoolean(key, false);
                 editor.apply();
                 mAdapter = createAdapter(getActivity(), mPrefs);
                 mAdapter.onRestoreInstanceState(null);

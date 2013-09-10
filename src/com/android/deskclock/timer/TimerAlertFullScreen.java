@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,11 @@ import com.android.deskclock.timer.TimerFragment.OnEmptyListListener;
 /**
  * Timer alarm alert: pops visible indicator. This activity is the version which
  * shows over the lock screen.
+ * This activity re-uses TimerFragment GUI
  */
 public class TimerAlertFullScreen extends Activity implements OnEmptyListListener {
 
-//    private static final String TAG = "TimerAlertFullScreen";
+    private static final String TAG = "TimerAlertFullScreen";
     private static final String FRAGMENT = "timer";
 
     @Override
@@ -69,6 +71,21 @@ public class TimerAlertFullScreen extends Activity implements OnEmptyListListene
             getFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, timerFragment, FRAGMENT).commit();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Only show notifications for times-up when this activity closed.
+        Utils.cancelTimesUpNotifications(this);
+    }
+
+    @Override
+    public void onPause() {
+        Utils.showTimesUpNotifications(this);
+
+        super.onPause();
     }
 
     @Override
@@ -127,6 +144,9 @@ public class TimerAlertFullScreen extends Activity implements OnEmptyListListene
 
     @Override
     public void onEmptyList() {
+        if (Timers.LOGGING) {
+            Log.v(TAG, "onEmptyList");
+        }
         onListChanged();
         finish();
     }
