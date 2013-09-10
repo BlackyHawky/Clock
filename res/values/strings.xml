@@ -450,6 +450,8 @@
     <string name="timer_delete">Delete</string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
     <string name="timer_plus_one">Add 1 Minute</string>
+    <!-- Like "timer_plus_one", but with 'minute' abbreviated for the notification. -->
+    <string name="timer_plus_1_min">Add 1 min</string>
     <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
     <!-- Describes the purpose of the button to stop and delete the timer. -->
