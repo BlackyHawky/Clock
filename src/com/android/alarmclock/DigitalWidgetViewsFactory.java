@@ -31,9 +31,9 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
-import com.android.deskclock.Alarms;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.alarms.AlarmNotifications;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CityObj;
 import com.android.deskclock.worldclock.WorldClockAdapter;
@@ -206,7 +206,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         filter.addAction(Utils.ACTION_ON_QUARTER_HOUR);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-        filter.addAction(Alarms.NEXT_ALARM_TIME_SET);
+        filter.addAction(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION);
         filter.addAction(Cities.WORLDCLOCK_UPDATE_INTENT);
         Log.v(TAG, "DigitalWidget register receiver");
         mContext.registerReceiver(this, filter);
@@ -245,7 +245,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         if (action == null || widgetManager == null) {
             return;
         }
-        if (action.equals(Alarms.NEXT_ALARM_TIME_SET)) {
+        if (action.equals(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION)) {
             // Update the next alarm text view
             RemoteViews widget =
                     new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);

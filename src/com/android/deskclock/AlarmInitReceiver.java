@@ -17,14 +17,17 @@
 package com.android.deskclock;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 
+import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.provider.Alarm;
 
+import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
@@ -39,7 +42,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         final String action = intent.getAction();
-        if (Log.LOGV) Log.v("AlarmInitReceiver " + action);
+        Log.v("AlarmInitReceiver " + action);
 
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
@@ -48,9 +51,6 @@ public class AlarmInitReceiver extends BroadcastReceiver {
             @Override public void run() {
                 // Remove the snooze alarm after a boot.
                 if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-                    Alarms.saveSnoozeAlert(context, Alarm.INVALID_ID, -1);
-                    Alarms.disableExpiredAlarms(context);
-
                     // Clear stopwatch and timers data
                     SharedPreferences prefs =
                             PreferenceManager.getDefaultSharedPreferences(context);
@@ -64,7 +64,14 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                         switchVolumeButtonDefault(prefs);
                     }
                 }
-                Alarms.setNextAlert(context);
+
+                // Register all instances after major time changes or phone restarts
+                ContentResolver contentResolver = context.getContentResolver();
+                for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
+                    AlarmStateManager.registerInstance(context, instance, false);
+                }
+                AlarmStateManager.updateNextAlarm(context);
+
                 result.finish();
                 Log.v("AlarmInitReceiver finished");
                 wl.release();

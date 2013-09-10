@@ -54,8 +54,8 @@ public final class City implements ClockContract.CitiesColumns {
         return values;
     }
 
-    public static long getId(Uri contentUri) {
-        return Long.getLong(contentUri.getLastPathSegment());
+    public static String getCityId(Uri contentUri) {
+        return contentUri.getLastPathSegment();
     }
 
     /**
@@ -128,6 +128,26 @@ public final class City implements ClockContract.CitiesColumns {
         }
 
         return result;
+    }
+
+    public static City addCity(ContentResolver contentResolver, City city) {
+        ContentValues values = createContentValues(city);
+        Uri uri = contentResolver.insert(CONTENT_URI, values);
+        city.mCityId = getCityId(uri);
+        return city;
+    }
+
+    public static boolean updateCity(ContentResolver contentResolver, City city) {
+        ContentValues values = createContentValues(city);
+        Uri updateUri = getContentUriForId(city.mCityId);
+        long rowsUpdated = contentResolver.update(updateUri, values, null, null);
+        return rowsUpdated == 1;
+    }
+
+    public static boolean deleteCity(ContentResolver contentResolver, String cityId) {
+        Uri uri = getContentUriForId(cityId);
+        int deletedRows = contentResolver.delete(uri, "", null);
+        return deletedRows == 1;
     }
 
     // Public fields

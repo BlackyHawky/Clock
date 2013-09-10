@@ -25,6 +25,7 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -41,6 +42,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.text.format.DateFormat;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -61,11 +63,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.android.datetimepicker.time.RadialPickerLayout;
 import com.android.datetimepicker.time.TimePickerDialog;
+import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.widget.ActionableToastBar;
 
@@ -97,6 +102,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private static final String KEY_DELETE_CONFIRMATION = "deleteConfirmation";
 
     private static final int REQUEST_CODE_RINGTONE = 1;
+
+    // This extra is used when receiving an intent to create an alarm, but no alarm details
+    // have been passed in, so the alarm page should start the process of creating a new alarm.
+    public static final String ALARM_CREATE_NEW_INTENT_EXTRA = "deskclock.create.new";
 
     private ListView mAlarmsList;
     private AlarmItemAdapter mAdapter;
@@ -438,13 +447,13 @@ public class AlarmClockFragment extends DeskClockFragment implements
         super.onResume();
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = getActivity().getIntent();
-        boolean createNew = intent.getBooleanExtra(Alarms.ALARM_CREATE_NEW, false);
+        boolean createNew = intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false);
         if (createNew) {
             // An external app asked us to create a blank alarm.
             startCreatingAlarm();
         }
         // Remove the CREATE_NEW extra now that we've processed it.
-        intent.removeExtra(Alarms.ALARM_CREATE_NEW);
+        intent.removeExtra(ALARM_CREATE_NEW_INTENT_EXTRA);
 
         // Make sure to use the child FragmentManager. We have to use that one for the
         // case where an intent comes in telling the activity to load the timepicker,
@@ -572,9 +581,13 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private void gotoAlarmIfSpecified() {
         final Intent intent = getActivity().getIntent();
         if (mFirstLoad && intent != null) {
-            final Alarm alarm = (Alarm) intent.getParcelableExtra(Alarms.ALARM_INTENT_EXTRA);
-            if (alarm != null) {
-                scrollToAlarm(alarm.id);
+            long alarmId = Alarm.INVALID_ID;
+            if (intent.getData() != null) {
+                alarmId = Alarm.getId(intent.getData());
+            }
+
+            if (alarmId != Alarm.INVALID_ID) {
+                scrollToAlarm(alarmId);
             }
         } else if (mScrollToAlarmId != -1) {
             scrollToAlarm(mScrollToAlarmId);
@@ -1023,7 +1036,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 public void onClick(View view) {
                     mSelectedAlarm = itemHolder.alarm;
                     AlarmUtils.showTimeEditDialog(getChildFragmentManager(),
-                            alarm, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
+                            alarm, AlarmClockFragment.this
+                            , DateFormat.is24HourFormat(getActivity()));
                     expandAlarm(itemHolder, true);
                     itemHolder.alarmItem.post(mScrollRunnable);
                 }
@@ -1645,16 +1659,28 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // comes back.
         mSelectedAlarm = null;
         AlarmUtils.showTimeEditDialog(getChildFragmentManager(),
-                null, AlarmClockFragment.this, Alarms.get24HourMode(getActivity()));
+                null, AlarmClockFragment.this, DateFormat.is24HourFormat(getActivity()));
+    }
+
+    private static AlarmInstance setupAlarmInstance(Context context, Alarm alarm) {
+        ContentResolver cr = context.getContentResolver();
+        AlarmInstance newInstance = alarm.createInstanceAfter(Calendar.getInstance());
+        newInstance = AlarmInstance.addInstance(cr, newInstance);
+        // Register instance to state manager
+        AlarmStateManager.registerInstance(context, newInstance, true);
+        return newInstance;
     }
 
     private void asyncDeleteAlarm(final Long[] alarmIds) {
+        final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
         final AsyncTask<Long, Void, Void> deleteTask = new AsyncTask<Long, Void, Void>() {
 
             @Override
             protected Void doInBackground(Long... ids) {
+                ContentResolver cr = context.getContentResolver();
                 for (long id : ids) {
-                    Alarms.deleteAlarm(AlarmClockFragment.this.getActivity(), id);
+                    AlarmStateManager.deleteAllInstances(context, id);
+                    Alarm.deleteAlarm(cr, id);
                 }
                 return null;
             }
@@ -1663,8 +1689,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private void asyncDeleteAlarm(final Alarm alarm, final View viewToRemove) {
-        final AsyncTask<Alarm, Void, Void> deleteTask = new AsyncTask<Alarm, Void, Void>() {
-
+        final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
+        final AsyncTask<Void, Void, Void> deleteTask = new AsyncTask<Void, Void, Void>() {
             @Override
             public synchronized void onPreExecute() {
                 if (viewToRemove == null) {
@@ -1689,20 +1715,22 @@ public class AlarmClockFragment extends DeskClockFragment implements
             }
 
             @Override
-            protected Void doInBackground(Alarm... alarms) {
-                for (final Alarm alarm : alarms) {
-                    Alarms.deleteAlarm(AlarmClockFragment.this.getActivity(), alarm.id);
-                }
+            protected Void doInBackground(Void... parameters) {
+                ContentResolver cr = context.getContentResolver();
+
+                AlarmStateManager.deleteAllInstances(context, alarm.id);
+                Alarm.deleteAlarm(cr, alarm.id);
                 return null;
             }
         };
         mUndoShowing = true;
-        deleteTask.execute(alarm);
+        deleteTask.execute();
     }
 
     private void asyncAddAlarm(final Alarm alarm) {
-        final AsyncTask<Void, Void, Void> updateTask = new AsyncTask<Void, Void, Void>() {
-
+        final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
+        final AsyncTask<Void, Void, AlarmInstance> updateTask =
+                new AsyncTask<Void, Void, AlarmInstance>() {
             @Override
             public synchronized void onPreExecute() {
                 final ListView list = mAlarmsList;
@@ -1722,16 +1750,23 @@ public class AlarmClockFragment extends DeskClockFragment implements
             }
 
             @Override
-            protected Void doInBackground(Void... aVoid) {
-                mAddedAlarm = alarm;
-                Alarms.addAlarm(AlarmClockFragment.this.getActivity(), alarm);
+            protected AlarmInstance doInBackground(Void... parameters) {
+                ContentResolver cr = context.getContentResolver();
+
+                // Add alarm to db
+                Alarm newAlarm = Alarm.addAlarm(cr, alarm);
+
+                // Create and add instance to db
+                if (newAlarm.enabled) {
+                    return setupAlarmInstance(context, newAlarm);
+                }
                 return null;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
-                if (alarm.enabled) {
-                    popToast(alarm);
+            protected void onPostExecute(AlarmInstance instance) {
+                if (alarm.enabled && instance != null) {
+                    AlarmUtils.popAlarmSetToast(context, instance.getAlarmTime().getTimeInMillis());
                 }
                 mAdapter.setNewAlarm(alarm.id);
                 scrollToAlarm(alarm.id);
@@ -1747,33 +1782,38 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private void asyncUpdateAlarm(final Alarm alarm, final boolean popToast) {
-        final AsyncTask<Alarm, Void, Void> updateTask = new AsyncTask<Alarm, Void, Void>() {
+        final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
+        final AsyncTask<Void, Void, AlarmInstance> updateTask =
+                new AsyncTask<Void, Void, AlarmInstance>() {
             @Override
-            protected Void doInBackground(Alarm... alarms) {
-                for (final Alarm alarm : alarms) {
-                    Alarms.setAlarm(AlarmClockFragment.this.getActivity(), alarm);
+            protected AlarmInstance doInBackground(Void ... parameters) {
+                ContentResolver cr = context.getContentResolver();
+
+                // Dismiss all old instances
+                AlarmStateManager.deleteAllInstances(context, alarm.id);
+
+                // Update alarm
+                Alarm.updateAlarm(cr, alarm);
+                if (alarm.enabled) {
+                    return setupAlarmInstance(context, alarm);
                 }
+
                 return null;
             }
 
             @Override
-            protected void onPostExecute(Void aVoid) {
-                if (popToast) {
-                    popToast(alarm);
+            protected void onPostExecute(AlarmInstance instance) {
+                if (popToast && instance != null) {
+                    AlarmUtils.popAlarmSetToast(context, instance.getAlarmTime().getTimeInMillis());
                 }
             }
         };
-        updateTask.execute(alarm);
-    }
-
-    private void popToast(Alarm alarm) {
-        AlarmUtils.popAlarmSetToast(getActivity().getApplicationContext(), alarm);
+        updateTask.execute();
     }
 
     /***
      * Handle the delete alarms confirmation dialog
      */
-
     private void showConfirmationDialog() {
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
         Resources res = getResources();
@@ -1785,6 +1825,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 .setPositiveButton(res.getString(android.R.string.ok), this).show();
         mInDeleteConfirmation = true;
     }
+
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == -1) {

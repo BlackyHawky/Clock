@@ -204,7 +204,7 @@ public class DigitalClock extends LinearLayout {
 
         boolean isMorning = mCalendar.get(Calendar.AM_PM) == 0;
         mAmPm.setIsMorning(isMorning);
-        if (!Alarms.get24HourMode(getContext())) {
+        if (!DateFormat.is24HourFormat(getContext())) {
             fullTimeStr.append(mAmPm.getAmPmText());
         }
 
@@ -213,8 +213,9 @@ public class DigitalClock extends LinearLayout {
     }
 
     private void setDateFormat() {
-        mHoursFormat = Alarms.get24HourMode(getContext()) ? HOURS_24 : HOURS;
-        mAmPm.setShowAmPm(!Alarms.get24HourMode(getContext()));
+        boolean is24HourMode = DateFormat.is24HourFormat(getContext());
+        mHoursFormat = is24HourMode ? HOURS_24 : HOURS;
+        mAmPm.setShowAmPm(!is24HourMode);
     }
 
     void setLive(boolean live) {
