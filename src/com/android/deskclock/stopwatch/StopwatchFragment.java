@@ -18,6 +18,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
@@ -696,19 +697,19 @@ public class StopwatchFragment extends DeskClockFragment
             case Stopwatches.STOPWATCH_RESET:
                 setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap, false,
                         View.INVISIBLE);
-                setStartStopText(mCenterButton, R.string.sw_start_button);
+                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_start_button);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_RUNNING:
                 setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap,
                         !reachedMaxLaps(), View.VISIBLE);
-                setStartStopText(mCenterButton, R.string.sw_stop_button);
+                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_stop_button);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_STOPPED:
                 setButton(mLeftButton, R.string.sw_reset_button, R.drawable.ic_reset, true,
                         View.VISIBLE);
-                setStartStopText(mCenterButton, R.string.sw_start_button);
+                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_start_button);
                 showShareButton(true);
                 break;
             default:
@@ -734,10 +735,45 @@ public class StopwatchFragment extends DeskClockFragment
         b.setEnabled(enabled);
     }
 
-    private void setStartStopText(TextView v, int text) {
+    /**
+     * Update the Start/Stop text. The button is within a view group with a transition that
+     * is needed to animate the button moving. The transition also animates the the text changing,
+     * but that animation does not provide a good look and feel. Temporarily disable the view group
+     * transition while the text is changing and restore it afterwards.
+     *
+     * @param parent   - View Group holding the start/stop button
+     * @param textView - The start/stop button
+     * @param text     - Start or Stop id
+     */
+    private void setStartStopText(final ViewGroup parent, TextView textView, int text) {
+        final LayoutTransition layoutTransition = parent.getLayoutTransition();
+        // Tap into the parent layout->draw flow just before the draw
+        ViewTreeObserver viewTreeObserver = parent.getViewTreeObserver();
+        if (viewTreeObserver != null) {
+            viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                /**
+                 * Re-establish the transition handler
+                 * Remove this listener
+                 *
+                 * @return true so that onDraw() is called
+                 */
+                @Override
+                public boolean onPreDraw() {
+                    parent.setLayoutTransition(layoutTransition);
+                    ViewTreeObserver viewTreeObserver = parent.getViewTreeObserver();
+                    if (viewTreeObserver != null) {
+                        viewTreeObserver.removeOnPreDrawListener(this);
+                    }
+                    return true;
+                }
+            });
+        }
+        // Remove the transition while the text is updated
+        parent.setLayoutTransition(null);
+
         String textStr = getActivity().getResources().getString(text);
-        v.setText(textStr);
-        v.setContentDescription(textStr);
+        textView.setText(textStr);
+        textView.setContentDescription(textStr);
     }
 
     /***
