@@ -251,14 +251,19 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     public boolean onCreateOptionsMenu(Menu menu) {
         // We only want to show it as a menu in landscape, and only for clock/alarm fragment.
         mMenu = menu;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                && (mActionBar.getSelectedNavigationIndex() == ALARM_TAB_INDEX ||
-                        mActionBar.getSelectedNavigationIndex() == CLOCK_TAB_INDEX)) {
-            getMenuInflater().inflate(R.menu.desk_clock_menu, menu);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (mActionBar.getSelectedNavigationIndex() == ALARM_TAB_INDEX ||
+                    mActionBar.getSelectedNavigationIndex() == CLOCK_TAB_INDEX) {
+                // Clear the menu so that it doesn't get duplicate items in case onCreateOptionsMenu
+                // was called multiple times.
+                menu.clear();
+                getMenuInflater().inflate(R.menu.desk_clock_menu, menu);
+            }
+            // Always return true for landscape, regardless of whether we've inflated the menu, so
+            // that when we switch tabs this method will get called and we can inflate the menu.
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -413,17 +418,20 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
         @Override
         public void onPageSelected(int position) {
+            // Set the page before doing the menu so that onCreateOptionsMenu knows what page it is.
+            mMainActionBar.setSelectedNavigationItem(getRtlPosition(position));
+            notifyPageChanged(position);
+
             // Only show the overflow menu for alarm and world clock.
             if (mMenu != null) {
                 // Make sure the menu's been initialized.
                 if (position == ALARM_TAB_INDEX || position == CLOCK_TAB_INDEX) {
                     mMenu.setGroupVisible(R.id.menu_items, true);
+                    onCreateOptionsMenu(mMenu);
                 } else {
                     mMenu.setGroupVisible(R.id.menu_items, false);
                 }
             }
-            mMainActionBar.setSelectedNavigationItem(getRtlPosition(position));
-            notifyPageChanged(position);
         }
 
         @Override
