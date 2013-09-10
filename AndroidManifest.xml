@@ -235,6 +235,10 @@
                 <action android:name="timer_update" />
                 <action android:name="notif_in_use_show" />
                 <action android:name="notif_in_use_cancel" />
+                <action android:name="notif_times_up_stop" />
+                <action android:name="notif_times_up_plus_one" />
+                <action android:name="notif_times_up_show" />
+                <action android:name="notif_times_up_cancel" />
             </intent-filter>
         </receiver>
 
