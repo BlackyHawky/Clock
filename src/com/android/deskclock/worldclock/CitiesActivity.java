@@ -39,6 +39,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
@@ -126,7 +127,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         private Filter mFilter = new Filter() {
 
             @Override
-            protected FilterResults performFiltering(CharSequence constraint) {
+            protected synchronized FilterResults performFiltering(CharSequence constraint) {
                 FilterResults results = new FilterResults();
                 String modifiedQuery = constraint.toString().trim().toUpperCase();
 
@@ -137,6 +138,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 // If the search query is empty, add in the selected cities
                 if (TextUtils.isEmpty(modifiedQuery)) {
                     if (mSelectedCities.length > 0) {
+                        sectionHeaders.add("+");
+                        sectionPositions.add(0);
                         filteredList.add(new CityObj(mSelectedCitiesHeaderString,
                                 mSelectedCitiesHeaderString,
                                 null));
@@ -229,7 +232,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             sortCities(mSortType);
         }
 
-
         private void loadCities(Context c) {
             mCities = Utils.loadCitiesFromXml(c);
             if (mCities == null) {
@@ -300,14 +302,39 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 // Make sure to recycle a City view only
                 if (view == null) {
                     view = mInflater.inflate(R.layout.city_list_item, parent, false);
-                    CityViewHolder holder = new CityViewHolder();
+                    final CityViewHolder holder = new CityViewHolder();
                     holder.name = (TextView) view.findViewById(R.id.city_name);
                     holder.time = (TextView) view.findViewById(R.id.city_time);
                     holder.selected = (CheckBox) view.findViewById(R.id.city_onoff);
+                    holder.selectedPin = (ImageView) view.findViewById(R.id.city_selected_icon);
+                    holder.remove = (ImageView) view.findViewById(R.id.city_remove);
+                    holder.remove.setOnClickListener(new OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            CompoundButton b = holder.selected;
+                            onCheckedChanged(b, false);
+                            b.setChecked(false);
+                            mAdapter.refreshSelectedCities();
+                        }
+                    });
                     view.setTag(holder);
                 }
                 view.setOnClickListener(CitiesActivity.this);
                 CityViewHolder holder = (CityViewHolder) view.getTag();
+                if (mCitiesList.isFastScrollEnabled() && position <= mUserSelectedCities.size()) {
+                    holder.selected.setVisibility(View.GONE);
+                    holder.time.setVisibility(View.GONE);
+                    holder.remove.setVisibility(View.VISIBLE);
+                    holder.selectedPin.setVisibility(View.VISIBLE);
+                    view.setEnabled(false);
+                } else {
+                    holder.selected.setVisibility(View.VISIBLE);
+                    holder.time.setVisibility(View.VISIBLE);
+                    holder.remove.setVisibility(View.GONE);
+                    holder.selectedPin.setVisibility(View.GONE);
+                    view.setEnabled(true);
+                }
                 holder.selected.setTag(c);
                 holder.selected.setChecked(mUserSelectedCities.containsKey(c.mCityId));
                 holder.selected.setOnCheckedChangeListener(CitiesActivity.this);
@@ -334,6 +361,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             TextView name;
             TextView time;
             CheckBox selected;
+            ImageView selectedPin;
+            ImageView remove;
         }
 
         public void set24HoursMode(Context c) {
@@ -377,7 +406,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         private boolean isEmpty(Object[] array) {
             return array == null || array.length == 0;
         }
-
     }
 
     @Override
