@@ -329,6 +329,5 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"이 도시를 삭제하시겠습니까?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"디지털 시계"</string>
     <string name="no_alarms" msgid="6429431324842022917">"알람 없음"</string>
-    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
-    <skip />
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"예정된 알람 없음"</string>
 </resources>

@@ -329,6 +329,5 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"是否删除此城市？"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"数字时钟"</string>
     <string name="no_alarms" msgid="6429431324842022917">"没有闹钟"</string>
-    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
-    <skip />
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"没有将要发出的闹钟提醒"</string>
 </resources>
