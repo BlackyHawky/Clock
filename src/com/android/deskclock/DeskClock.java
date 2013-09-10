@@ -41,6 +41,7 @@ import android.view.View.OnTouchListener;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.stopwatch.StopwatchService;
@@ -175,6 +176,10 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         }
         initViews();
         setHomeTimeZone();
+
+        // We need to update the system next alarm time on app startup because the
+        // user might have clear our data.
+        AlarmStateManager.updateNextAlarm(this);
     }
 
     @Override
