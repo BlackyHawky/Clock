@@ -52,7 +52,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
-import com.android.deskclock.widget.sgv.ReorderHelper;
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationIn;
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationOut;
 
@@ -1794,6 +1793,11 @@ public class StaggeredGridView extends ViewGroup {
                         AnimationIn.FLY_IN_NEW_VIEWS, startDelay);
                 break;
 
+            case FADE:
+                addUpdateViewPositionsAnimators(animators, true /* cascade animation */,
+                        AnimationIn.FADE, startDelay);
+                break;
+
             default:
                 throw new IllegalStateException("Unknown animationInMode: " + mAnimationInMode);
         }
@@ -1936,6 +1940,14 @@ public class StaggeredGridView extends ViewGroup {
             // If there is a valid {@link Rect} for the view with this newId, then
             // setup an animation.
             if (viewRectPair != null && viewRectPair.rect != null) {
+                // In the special case where the items are explicitly fading, we don't want to do
+                // any of the translations.
+                if (animationInMode == AnimationIn.FADE) {
+                    SgvAnimationHelper.addFadeAnimators(animators, childToAnimate,
+                            0 /* start alpha */, 1.0f /* end alpha */, animationDelay);
+                    continue;
+                }
+
                 final Rect oldRect = viewRectPair.rect;
                 // Since the view already exists, translate it to its new position.
                 // Reset the child back to its previous position given by oldRect if the child
@@ -2009,6 +2021,10 @@ public class StaggeredGridView extends ViewGroup {
                             SgvAnimationHelper.addExpandInAnimators(animators,
                                     childToAnimate, animationDelay);
                         }
+                        break;
+                    case FADE:
+                        SgvAnimationHelper.addFadeAnimators(animators, childToAnimate,
+                                0 /* start alpha */, 1.0f /* end alpha */, animationDelay);
                         break;
 
                     default:
