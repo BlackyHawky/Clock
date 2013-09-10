@@ -21,6 +21,7 @@
     android:orientation="vertical"
     >
     <TextView
+        android:id="@+id/alarm_timeline_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/alarm_timeline_title_margin_bottom"
@@ -30,10 +31,12 @@
         android:textColor="@color/clock_red"
         android:gravity="center_horizontal" />
     <ScrollView
+        android:id="@+id/alarm_timeline_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
         <com.android.deskclock.AlarmTimelineView
+            android:id="@+id/alarm_timeline_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
     </ScrollView>
 </LinearLayout>

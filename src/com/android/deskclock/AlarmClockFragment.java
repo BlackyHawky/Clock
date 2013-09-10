@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
+import android.animation.AnimatorInflater;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -71,6 +72,7 @@ import com.android.deskclock.widget.ActionableToastBar;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * AlarmClock application.
@@ -78,7 +80,12 @@ import java.util.HashSet;
 public class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
         TimePickerDialog.OnTimeSetListener,
-        DialogInterface.OnClickListener, DialogInterface.OnCancelListener {
+        DialogInterface.OnClickListener, DialogInterface.OnCancelListener,
+        View.OnTouchListener
+        {
+    private static final float EXPAND_DECELERATION = 1f;
+    private static final float COLLAPSE_DECELERATION = 0.7f;
+    private static final int ANIMATION_DURATION = 300;
     private static final String KEY_EXPANDED_IDS = "expandedIds";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
     private static final String KEY_RINGTONE_TITLE_CACHE = "ringtoneTitleCache";
@@ -95,8 +102,14 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private AlarmItemAdapter mAdapter;
     private View mEmptyView;
     private ImageView mAddAlarmButton;
+    private View mAlarmsView;
+    private View mTimelineLayout;
+    private AlarmTimelineView mTimelineView;
+    private View mFooterView;
+
     private Bundle mRingtoneTitleCache; // Key: ringtone uri, value: ringtone title
     private ActionableToastBar mUndoBar;
+    private View mUndoFrame;
 
     private Alarm mSelectedAlarm;
     private long mScrollToAlarmId = -1;
@@ -108,7 +121,20 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     // Saved states for undo
     private Alarm mDeletedAlarm;
+    private Alarm mAddedAlarm;
     private boolean mUndoShowing = false;
+
+    private Animator mFadeIn;
+    private Animator mFadeOut;
+
+    private Interpolator mExpandInterpolator;
+    private Interpolator mCollapseInterpolator;
+
+    private int mTimelineViewWidth;
+    private int mUndoBarInitialMargin;
+
+    // Cached layout positions of items in listview prior to add/removal of alarm item
+    private ConcurrentHashMap<Long, Integer> mItemIdTopMap = new ConcurrentHashMap<Long, Integer>();
 
     public AlarmClockFragment() {
         // Basic provider required by Fragment.java
@@ -128,7 +154,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.alarm_clock, container, false);
+        final View v = inflater.inflate(R.layout.alarm_clock, container, false);
 
         long[] expandedIds = null;
         long[] repeatCheckedIds = null;
@@ -146,10 +172,14 @@ public class AlarmClockFragment extends DeskClockFragment implements
             mInDeleteConfirmation = savedState.getBoolean(KEY_DELETE_CONFIRMATION, false);
         }
 
+        mExpandInterpolator = new DecelerateInterpolator(EXPAND_DECELERATION);
+        mCollapseInterpolator = new DecelerateInterpolator(COLLAPSE_DECELERATION);
+
         mAddAlarmButton = (ImageButton) v.findViewById(R.id.alarm_add_alarm);
         mAddAlarmButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideUndoBar(true, null);
                 startCreatingAlarm();
             }
         });
@@ -166,7 +196,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
         mAddAlarmButton.setLayoutParams(layoutParams);
 
-
         mEmptyView = v.findViewById(R.id.alarms_empty_view);
         mEmptyView.setOnClickListener(new OnClickListener() {
             @Override
@@ -175,22 +204,209 @@ public class AlarmClockFragment extends DeskClockFragment implements
             }
         });
         mAlarmsList = (ListView) v.findViewById(R.id.alarms_list);
-        View footerView = inflater.inflate(R.layout.blank_footer_view, mAlarmsList, false);
-        footerView.setBackgroundResource(R.color.blackish);
-        mAlarmsList.addFooterView(footerView);
+
+        mFadeIn = AnimatorInflater.loadAnimator(getActivity(), R.anim.fade_in);
+        mFadeIn.setDuration(ANIMATION_DURATION);
+        mFadeIn.addListener(new AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator animation) {
+                mEmptyView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                // Do nothing.
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                // Do nothing.
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                // Do nothing.
+            }
+        });
+        mFadeIn.setTarget(mEmptyView);
+        mFadeOut = AnimatorInflater.loadAnimator(getActivity(), R.anim.fade_out);
+        mFadeOut.setDuration(ANIMATION_DURATION);
+        mFadeOut.addListener(new AnimatorListener() {
+
+            @Override
+            public void onAnimationStart(Animator arg0) {
+                mEmptyView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator arg0) {
+                // Do nothing.
+            }
+
+            @Override
+            public void onAnimationEnd(Animator arg0) {
+                mEmptyView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator arg0) {
+                // Do nothing.
+            }
+        });
+        mFadeOut.setTarget(mEmptyView);
+        mAlarmsView = v.findViewById(R.id.alarm_layout);
+        mTimelineLayout = v.findViewById(R.id.timeline_layout);
+
+        mUndoBar = (ActionableToastBar) v.findViewById(R.id.undo_bar);
+        mUndoBarInitialMargin = getActivity().getResources()
+                .getDimensionPixelOffset(R.dimen.alarm_undo_bar_horizontal_margin);
+        mUndoFrame = v.findViewById(R.id.undo_frame);
+        mUndoFrame.setOnTouchListener(this);
+
+        mFooterView = v.findViewById(R.id.alarms_footer_view);
+        mFooterView.setOnTouchListener(this);
+
+        // Timeline layout only exists in tablet landscape mode for now.
+        if (mTimelineLayout != null) {
+            mTimelineView = (AlarmTimelineView) v.findViewById(R.id.alarm_timeline_view);
+            mTimelineViewWidth = getActivity().getResources()
+                    .getDimensionPixelOffset(R.dimen.alarm_timeline_layout_width);
+        }
+
         mAdapter = new AlarmItemAdapter(getActivity(),
                 expandedIds, repeatCheckedIds, selectedAlarms, previousDayMap, mAlarmsList);
         mAdapter.registerDataSetObserver(new DataSetObserver() {
+
+            private int prevAdapterCount = -1;
+
             @Override
             public void onChanged() {
-                // Hide/show the empty state.
-                if (mAdapter.getCount() == 0) {
-                    mAddAlarmButton.setBackgroundResource(R.drawable.main_button_red);
-                    mEmptyView.setVisibility(View.VISIBLE);
-                } else {
-                    mAddAlarmButton.setBackgroundResource(R.drawable.main_button_normal);
-                    mEmptyView.setVisibility(View.GONE);
+
+                final int count = mAdapter.getCount();
+                if (mDeletedAlarm != null && prevAdapterCount > count) {
+                    showUndoBar();
                 }
+
+                // If there are no alarms in the adapter...
+                if (count == 0) {
+                    mAddAlarmButton.setBackgroundResource(R.drawable.main_button_red);
+
+                    // ...and if there exists a timeline view (currently only in tablet landscape)
+                    if (mTimelineLayout != null && mAlarmsView != null) {
+
+                        // ...and if the previous adapter had alarms (indicating a removal)...
+                        if (prevAdapterCount > 0) {
+
+                            // Then animate in the "no alarms" icon...
+                            mFadeIn.start();
+
+                            // and animate out the alarm timeline view, expanding the width of the
+                            // alarms list / undo bar.
+                            mTimelineLayout.setVisibility(View.VISIBLE);
+                            ValueAnimator animator = ValueAnimator.ofFloat(1f, 0f)
+                                    .setDuration(ANIMATION_DURATION);
+                            animator.setInterpolator(mCollapseInterpolator);
+                            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                @Override
+                                public void onAnimationUpdate(ValueAnimator animator) {
+                                    Float value = (Float) animator.getAnimatedValue();
+                                    int currentTimelineWidth = (int) (value * mTimelineViewWidth);
+                                    float rightOffset = mTimelineViewWidth * (1 - value);
+                                    mTimelineLayout.setTranslationX(rightOffset);
+                                    mTimelineLayout.setAlpha(value);
+                                    mTimelineLayout.requestLayout();
+                                    setUndoBarRightMargin(currentTimelineWidth
+                                            + mUndoBarInitialMargin);
+                                }
+                            });
+                            animator.addListener(new AnimatorListener() {
+
+                                @Override
+                                public void onAnimationCancel(Animator animation) {
+                                    // Do nothing.
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animator animation) {
+                                    mTimelineView.setIsAnimatingOut(false);
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animator animation) {
+                                    // Do nothing.
+                                }
+
+                                @Override
+                                public void onAnimationStart(Animator animation) {
+                                    mTimelineView.setIsAnimatingOut(true);
+                                }
+
+                            });
+                            animator.start();
+                        } else {
+                            // If the previous adapter did not have alarms, no animation needed,
+                            // just hide the timeline view and show the "no alarms" icon.
+                            mTimelineLayout.setVisibility(View.GONE);
+                            mEmptyView.setVisibility(View.VISIBLE);
+                            setUndoBarRightMargin(mUndoBarInitialMargin);
+                        }
+                    } else {
+
+                        // If there is no timeline view, just show the "no alarms" icon.
+                        mEmptyView.setVisibility(View.VISIBLE);
+                    }
+                } else {
+
+                    // Otherwise, if the adapter DOES contain alarms...
+                    mAddAlarmButton.setBackgroundResource(R.drawable.main_button_normal);
+
+                    // ...and if there exists a timeline view (currently in tablet landscape mode)
+                    if (mTimelineLayout != null && mAlarmsView != null) {
+
+                        mTimelineLayout.setVisibility(View.VISIBLE);
+                        // ...and if the previous adapter did not have alarms (indicating an add)
+                        if (prevAdapterCount == 0) {
+
+                            // Then, animate to hide the "no alarms" icon...
+                            mFadeOut.start();
+
+                            // and animate to show the timeline view, reducing the width of the
+                            // alarms list / undo bar.
+                            ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f)
+                                    .setDuration(ANIMATION_DURATION);
+                            animator.setInterpolator(mExpandInterpolator);
+                            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                                @Override
+                                public void onAnimationUpdate(ValueAnimator animator) {
+                                    Float value = (Float) animator.getAnimatedValue();
+                                    int currentTimelineWidth = (int) (value * mTimelineViewWidth);
+                                    float rightOffset = mTimelineViewWidth * (1 - value);
+                                    mTimelineLayout.setTranslationX(rightOffset);
+                                    mTimelineLayout.setAlpha(value);
+                                    mTimelineLayout.requestLayout();
+                                    ((FrameLayout.LayoutParams) mAlarmsView.getLayoutParams())
+                                        .setMargins(0, 0, (int) -rightOffset, 0);
+                                    mAlarmsView.requestLayout();
+                                    setUndoBarRightMargin(currentTimelineWidth
+                                            + mUndoBarInitialMargin);
+                                }
+                            });
+                            animator.start();
+                        } else {
+                            mTimelineLayout.setVisibility(View.VISIBLE);
+                            mEmptyView.setVisibility(View.GONE);
+                            setUndoBarRightMargin(mUndoBarInitialMargin + mTimelineViewWidth);
+                        }
+                    } else {
+
+                        // If there is no timeline view, just hide the "no alarms" icon.
+                        mEmptyView.setVisibility(View.GONE);
+                    }
+                }
+
+                // Cache this adapter's count for when the adapter changes.
+                prevAdapterCount = count;
                 super.onChanged();
             }
         });
@@ -202,28 +418,19 @@ public class AlarmClockFragment extends DeskClockFragment implements
         mAlarmsList.setAdapter(mAdapter);
         mAlarmsList.setVerticalScrollBarEnabled(true);
         mAlarmsList.setOnCreateContextMenuListener(this);
-        mAlarmsList.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                hideUndoBar(true, event);
-                return false;
-            }
-        });
-
-        mUndoBar = (ActionableToastBar) v.findViewById(R.id.undo_bar);
 
         if (mUndoShowing) {
-            mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
-                @Override
-                public void onActionClicked() {
-                    asyncAddAlarm(mDeletedAlarm);
-                    mDeletedAlarm = null;
-                    mUndoShowing = false;
-                }
-            }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo,
-                    true);
+            showUndoBar();
         }
         return v;
+    }
+
+    private void setUndoBarRightMargin(int margin) {
+        FrameLayout.LayoutParams params =
+                (FrameLayout.LayoutParams) mUndoBar.getLayoutParams();
+        ((FrameLayout.LayoutParams) mUndoBar.getLayoutParams())
+            .setMargins(params.leftMargin, params.topMargin, margin, params.bottomMargin);
+        mUndoBar.requestLayout();
     }
 
     @Override
@@ -253,6 +460,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     private void hideUndoBar(boolean animate, MotionEvent event) {
         if (mUndoBar != null) {
+            mUndoFrame.setVisibility(View.GONE);
             if (event != null && mUndoBar.isEventInToastBar(event)) {
                 // Avoid touches inside the undo bar.
                 return;
@@ -261,6 +469,18 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
         mDeletedAlarm = null;
         mUndoShowing = false;
+    }
+
+    private void showUndoBar() {
+        mUndoFrame.setVisibility(View.VISIBLE);
+        mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
+            @Override
+            public void onActionClicked() {
+                asyncAddAlarm(mDeletedAlarm);
+                mDeletedAlarm = null;
+                mUndoShowing = false;
+            }
+        }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo, true);
     }
 
     @Override
@@ -290,9 +510,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // dismiss the toast bar. However, since there is no way to determine if
         // home was pressed, just dismiss any existing toast bar when restarting
         // the app.
-        if (mUndoBar != null) {
-            hideUndoBar(false, null);
-        }
+        hideUndoBar(false, null);
     }
 
     // Callback used by TimePickerDialog
@@ -426,8 +644,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     public class AlarmItemAdapter extends CursorAdapter {
-        private static final float EXPAND_DECELERATION = 1f;
-        private static final float COLLAPSE_DECELERATION = 0.7f;
         private static final int EXPAND_DURATION = 300;
         private static final int COLLAPSE_DURATION = 250;
 
@@ -442,8 +658,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         private final Typeface mRobotoNormal;
         private final Typeface mRobotoBold;
         private final ListView mList;
-        private final Interpolator mExpandInterpolator;
-        private final Interpolator mCollapseInterpolator;
 
         private final HashSet<Long> mExpanded = new HashSet<Long>();
         private final HashSet<Long> mRepeatChecked = new HashSet<Long>();
@@ -484,6 +698,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             View hairLine;
             View arrow;
             View collapseExpandArea;
+            View footerFiller;
 
             // Other states
             Alarm alarm;
@@ -521,9 +736,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             mColorDim = res.getColor(R.color.clock_gray);
             mBackgroundColorExpanded = res.getColor(R.color.alarm_whiteish);
             mBackgroundColor = R.drawable.alarm_background_normal;
-
-            mExpandInterpolator = new DecelerateInterpolator(EXPAND_DECELERATION);
-            mCollapseInterpolator = new DecelerateInterpolator(COLLAPSE_DECELERATION);
 
             mRobotoBold = Typeface.create("sans-serif-condensed", Typeface.BOLD);
             mRobotoNormal = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
@@ -574,6 +786,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 }
             }
             bindView(v, mContext, getCursor());
+            ItemHolder holder = (ItemHolder) v.getTag();
+
+            // We need the footer for the last element of the array to allow the user to scroll
+            // the item beyond the bottom button bar, which obscures the view.
+            holder.footerFiller.setVisibility(position < getCount() - 1 ? View.GONE : View.VISIBLE);
             return v;
         }
 
@@ -582,6 +799,147 @@ public class AlarmClockFragment extends DeskClockFragment implements
             final View view = mFactory.inflate(R.layout.alarm_time, parent, false);
             setNewHolder(view);
             return view;
+        }
+
+        /**
+         * In addition to changing the data set for the alarm list, swapCursor is now also
+         * responsible for preparing the list view's pre-draw operation for any animations that
+         * need to occur if an alarm was removed or added.
+         */
+        @Override
+        public synchronized Cursor swapCursor(Cursor cursor) {
+            Cursor c = super.swapCursor(cursor);
+
+            if (mItemIdTopMap.isEmpty() && mAddedAlarm == null) {
+                return c;
+            }
+
+            final ListView list = mAlarmsList;
+            final ViewTreeObserver observer = list.getViewTreeObserver();
+
+            /*
+             * Add a pre-draw listener to the observer to prepare for any possible animations to
+             * the alarms within the list view.  The animations will occur if an alarm has been
+             * removed or added.
+             *
+             * For alarm removal, the remaining children should all retain their initial starting
+             * positions, and transition to their new positions.
+             *
+             * For alarm addition, the other children should all retain their initial starting
+             * positions, transition to their new positions, and at the end of that transition, the
+             * newly added alarm should appear in the designated space.
+             */
+            observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+
+                private View mAddedView;
+
+                @Override
+                public boolean onPreDraw() {
+
+                    // Remove the pre-draw listener, as this only needs to occur once.
+                    observer.removeOnPreDrawListener(this);
+                    boolean firstAnimation = true;
+                    int firstVisiblePosition = list.getFirstVisiblePosition();
+
+                    // Iterate through the children to prepare the add/remove animation.
+                    for (int i = 0; i< list.getChildCount(); i++) {
+                        final View child = list.getChildAt(i);
+
+                        int position = firstVisiblePosition + i;
+                        long itemId = mAdapter.getItemId(position);
+
+                        // If this is the added alarm, set it invisible for now, and animate later.
+                        if (mAddedAlarm != null && itemId == mAddedAlarm.id) {
+                            mAddedView = child;
+                            mAddedView.setAlpha(0.0f);
+                            continue;
+                        }
+
+                        // The cached starting position of the child view.
+                        Integer startTop = mItemIdTopMap.get(itemId);
+                        // The new starting position of the child view.
+                        int top = child.getTop();
+
+                        // If there is no cached starting position, determine whether the item has
+                        // come from the top of bottom of the list view.
+                        if (startTop == null) {
+                            int childHeight = child.getHeight() + list.getDividerHeight();
+                            startTop = top + (i > 0 ? childHeight : -childHeight);
+                        }
+
+                        Log.d("Start Top: " + startTop + ", Top: " + top);
+                        // If the starting position of the child view is different from the
+                        // current position, animate the child.
+                        if (startTop != top) {
+                            int delta = startTop - top;
+                            child.setTranslationY(delta);
+                            child.animate().setDuration(ANIMATION_DURATION).translationY(0);
+                            final View addedView = mAddedView;
+                            if (firstAnimation) {
+
+                                // If this is the first child being animated, then after the
+                                // animation is complete, and animate in the added alarm (if one
+                                // exists).
+                                child.animate().withEndAction(new Runnable() {
+
+                                    @Override
+                                    public void run() {
+
+
+                                        // If there was an added view, animate it in after
+                                        // the other views have animated.
+                                        if (addedView != null) {
+                                            addedView.animate().alpha(1.0f)
+                                                .setDuration(ANIMATION_DURATION)
+                                                .withEndAction(new Runnable() {
+
+                                                    @Override
+                                                    public void run() {
+                                                        // Re-enable the list after the add
+                                                        // animation is complete.
+                                                        list.setEnabled(true);
+                                                    }
+
+                                                });
+                                        } else {
+                                            // Re-enable the list after animations are complete.
+                                            list.setEnabled(true);
+                                        }
+                                    }
+
+                                });
+                                firstAnimation = false;
+                            }
+                        }
+                    }
+
+                    // If there were no child views (outside of a possible added view)
+                    // that require animation...
+                    if (firstAnimation) {
+                        if (mAddedView != null) {
+                            // If there is an added view, prepare animation for the added view.
+                            Log.d("Animating added view...");
+                            mAddedView.animate().alpha(1.0f)
+                                .setDuration(ANIMATION_DURATION)
+                                .withEndAction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Re-enable the list after animations are complete.
+                                        list.setEnabled(true);
+                                    }
+                                });
+                        } else {
+                            // Re-enable the list after animations are complete.
+                            list.setEnabled(true);
+                        }
+                    }
+
+                    mAddedAlarm = null;
+                    mItemIdTopMap.clear();
+                    return true;
+                }
+            });
+            return c;
         }
 
         private void setNewHolder(View view) {
@@ -603,6 +961,14 @@ public class AlarmClockFragment extends DeskClockFragment implements
             holder.clickableLabel = (TextView) view.findViewById(R.id.edit_label);
             holder.repeatDays = (LinearLayout) view.findViewById(R.id.repeat_days);
             holder.collapseExpandArea = view.findViewById(R.id.collapse_expand);
+            holder.footerFiller = view.findViewById(R.id.alarm_footer_filler);
+            holder.footerFiller.setOnClickListener(new OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // Do nothing.
+                }
+            });
 
             // Build button for each day.
             for (int i = 0; i < 7; i++) {
@@ -625,7 +991,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         @Override
-        public void bindView(View view, Context context, final Cursor cursor) {
+        public void bindView(final View view, Context context, final Cursor cursor) {
             final Alarm alarm = new Alarm(cursor);
             Object tag = view.getTag();
             if (tag == null) {
@@ -724,7 +1090,16 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    asyncDeleteAlarm(alarm);
+                    mDeletedAlarm = alarm;
+
+                    view.animate().setDuration(ANIMATION_DURATION).alpha(0).translationY(-1)
+                    .withEndAction(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            asyncDeleteAlarm(mDeletedAlarm, view);
+                        }
+                    });
                 }
             });
 
@@ -1275,6 +1650,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     private void asyncDeleteAlarm(final Long[] alarmIds) {
         final AsyncTask<Long, Void, Void> deleteTask = new AsyncTask<Long, Void, Void>() {
+
             @Override
             protected Void doInBackground(Long... ids) {
                 for (long id : ids) {
@@ -1286,8 +1662,31 @@ public class AlarmClockFragment extends DeskClockFragment implements
         deleteTask.execute(alarmIds);
     }
 
-    private void asyncDeleteAlarm(final Alarm alarm) {
+    private void asyncDeleteAlarm(final Alarm alarm, final View viewToRemove) {
         final AsyncTask<Alarm, Void, Void> deleteTask = new AsyncTask<Alarm, Void, Void>() {
+
+            @Override
+            public synchronized void onPreExecute() {
+                if (viewToRemove == null) {
+                    return;
+                }
+                // The alarm list needs to be disabled until the animation finishes to prevent
+                // possible concurrency issues.  It becomes re-enabled after the animations have
+                // completed.
+                mAlarmsList.setEnabled(false);
+
+                // Store all of the current list view item positions in memory for animation.
+                final ListView list = mAlarmsList;
+                int firstVisiblePosition = list.getFirstVisiblePosition();
+                for (int i=0; i<list.getChildCount(); i++) {
+                    View child = list.getChildAt(i);
+                    if (child != viewToRemove) {
+                        int position = firstVisiblePosition + i;
+                        long itemId = mAdapter.getItemId(position);
+                        mItemIdTopMap.put(itemId, child.getTop());
+                    }
+                }
+            }
 
             @Override
             protected Void doInBackground(Alarm... alarms) {
@@ -1297,23 +1696,34 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 return null;
             }
         };
-        mDeletedAlarm = alarm;
         mUndoShowing = true;
         deleteTask.execute(alarm);
-        mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
-            @Override
-            public void onActionClicked() {
-                asyncAddAlarm(alarm);
-                mDeletedAlarm = null;
-                mUndoShowing = false;
-            }
-        }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo, true);
     }
 
     private void asyncAddAlarm(final Alarm alarm) {
         final AsyncTask<Void, Void, Void> updateTask = new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            public synchronized void onPreExecute() {
+                final ListView list = mAlarmsList;
+                // The alarm list needs to be disabled until the animation finishes to prevent
+                // possible concurrency issues.  It becomes re-enabled after the animations have
+                // completed.
+                mAlarmsList.setEnabled(false);
+
+                // Store all of the current list view item positions in memory for animation.
+                int firstVisiblePosition = list.getFirstVisiblePosition();
+                for (int i=0; i<list.getChildCount(); i++) {
+                    View child = list.getChildAt(i);
+                    int position = firstVisiblePosition + i;
+                    long itemId = mAdapter.getItemId(position);
+                    mItemIdTopMap.put(itemId, child.getTop());
+                }
+            }
+
             @Override
             protected Void doInBackground(Void... aVoid) {
+                mAddedAlarm = alarm;
                 Alarms.addAlarm(AlarmClockFragment.this.getActivity(), alarm);
                 return null;
             }
@@ -1389,5 +1799,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onCancel(DialogInterface dialog) {
         mInDeleteConfirmation = false;
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        hideUndoBar(true, event);
+        return false;
     }
 }

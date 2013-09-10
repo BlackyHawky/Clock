@@ -74,6 +74,8 @@ public class AlarmTimelineView extends View {
     private Calendar mCalendar;
     private AlarmObserver mAlarmObserver = new AlarmObserver(getHandler());
     private GetAlarmsTask mAlarmsTask = new GetAlarmsTask();
+    private String mNoAlarmsScheduled;
+    private boolean mIsAnimatingOut;
 
     /**
      * Observer for any changes to the alarms in the content provider.
@@ -166,6 +168,7 @@ public class AlarmTimelineView extends View {
 
         @Override
         protected void onPostExecute(Void result) {
+            requestLayout();
             AlarmTimelineView.this.invalidate();
         }
 
@@ -226,6 +229,7 @@ public class AlarmTimelineView extends View {
         mAlarmTextPadding = res.getDimensionPixelOffset(R.dimen.alarm_text_padding);
         mAlarmMinDistance = res.getDimensionPixelOffset(R.dimen.alarm_min_distance) +
                 2 * mAlarmNodeRadius;
+        mNoAlarmsScheduled = context.getString(R.string.no_upcoming_alarms);
 
         mPaint = new Paint();
         mPaint.setTextSize(mAlarmTextSize);
@@ -237,6 +241,7 @@ public class AlarmTimelineView extends View {
         String formatString = Alarms.get24HourMode(context) ? FORMAT_24_HOUR : FORMAT_12_HOUR;
         String format = DateFormat.getBestDateTimePattern(locale, formatString);
         mDateFormat = new SimpleDateFormat(format, locale);
+
         mAlarmsTask.execute();
     }
 
@@ -255,33 +260,43 @@ public class AlarmTimelineView extends View {
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        int timelineHeight = !mAlarmTimes.isEmpty() ?  mAlarmTimelineLength : 0;
         setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec),
-                mAlarmTimelineLength + mAlarmTimelineMarginTop + mAlarmTimelineMarginBottom);
-     }
+                timelineHeight + mAlarmTimelineMarginTop + mAlarmTimelineMarginBottom);
+    }
 
     @Override
     public synchronized void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
 
-        if (mAlarmTimes == null) {
+        // If the view is in the process of animating out, do not change the text or the timeline.
+        if (mIsAnimatingOut) {
             return;
         }
 
+        super.onDraw(canvas);
+
         final int x = getWidth() / 2;
+        int y = mAlarmTimelineMarginTop;
+
+        mPaint.setColor(mAlarmTimelineColor);
+
+        // If there are no alarms, draw the no alarms text.
+        if (mAlarmTimes == null || mAlarmTimes.isEmpty()) {
+            mPaint.setTextAlign(Align.CENTER);
+            canvas.drawText(mNoAlarmsScheduled, x, y, mPaint);
+            return;
+        }
+
+        // Draw the timeline.
+        canvas.drawLine(x, y, x, y + mAlarmTimelineLength, mPaint);
+
         final int xLeft = x - mAlarmNodeRadius - mAlarmTextPadding;
         final int xRight = x + mAlarmNodeRadius + mAlarmTextPadding;
 
-        // Draw the timeline.
-        mPaint.setColor(mAlarmTimelineColor);
-        canvas.drawLine(x, mAlarmTimelineMarginTop, x,
-                mAlarmTimelineMarginTop + mAlarmTimelineLength, mPaint);
-
-        int y;
-        Date firstDate = null;
-        int prevY = 0;
-
         // Iterate through each of the alarm times chronologically.
         Iterator<AlarmTimeNode> iter = mAlarmTimes.values().iterator();
+        Date firstDate = null;
+        int prevY = 0;
         int i=0;
         final int maxY = mAlarmTimelineLength + mAlarmTimelineMarginTop;
         while (iter.hasNext()) {
@@ -331,6 +346,13 @@ public class AlarmTimelineView extends View {
             }
             i++;
         }
+    }
+
+    // This method is necessary to ensure that the view does not re-draw while it is being
+    // animated out.  The timeline should remain on-screen as is, even though no alarms
+    // are present, as the view moves off-screen.
+    public void setIsAnimatingOut(boolean animatingOut) {
+        mIsAnimatingOut = animatingOut;
     }
 
     // Convert the time difference between the date and the first date to a distance along the

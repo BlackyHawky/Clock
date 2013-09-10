@@ -43,18 +43,25 @@
         android:textColor="#4cffffff"
         android:paddingBottom="88dp" />
 
-    <com.android.deskclock.widget.ActionableToastBar
-        android:id="@+id/undo_bar"
+    <FrameLayout android:id="@+id/undo_frame"
         android:layout_width="match_parent"
-        android:layout_height="64dip"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="96dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginEnd="8dp"
-        style="@style/ToastBarStyle" />
+        android:layout_height="match_parent"
+        android:visibility="gone" >
+        <com.android.deskclock.widget.ActionableToastBar
+            android:id="@+id/undo_bar"
+            android:layout_width="match_parent"
+            android:layout_height="64dip"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="96dp"
+            android:layout_marginLeft="@dimen/alarm_undo_bar_horizontal_margin"
+            android:layout_marginStart="@dimen/alarm_undo_bar_horizontal_margin"
+            android:layout_marginRight="@dimen/alarm_undo_bar_horizontal_margin"
+            android:layout_marginEnd="@dimen/alarm_undo_bar_horizontal_margin"
+            style="@style/ToastBarStyle" />
+    </FrameLayout>
+
     <FrameLayout
+        android:id="@+id/alarms_footer_view"
         android:background="@drawable/footer_bg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
