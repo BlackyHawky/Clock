@@ -39,6 +39,8 @@ public class SgvAnimationHelper {
         // New views are slid in from the side.  Existing views are updated and translated
         // to their new positions if appropriate.
         SLIDE_IN_NEW_VIEWS,
+        // Fade in all new views
+        FADE,
     }
 
     /**
