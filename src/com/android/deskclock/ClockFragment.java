@@ -16,6 +16,7 @@
 
 package com.android.deskclock;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -24,9 +25,11 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -94,6 +97,13 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     };
 
     private final Handler mHandler = new Handler();
+
+    private final ContentObserver mAlarmObserver = new ContentObserver(mHandler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            Utils.refreshAlarm(ClockFragment.this.getActivity(), mClockFrame);
+        }
+    };
 
     public ClockFragment() {
     }
@@ -194,7 +204,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
-        mQuarterlyIntent = Utils.startAlarmOnQuarterHour(getActivity());
+        Activity activity = getActivity();
+        mQuarterlyIntent = Utils.startAlarmOnQuarterHour(activity);
         // Besides monitoring when quarter-hour changes, monitor other actions that
         // effect clock time
         IntentFilter filter = new IntentFilter(Utils.ACTION_ON_QUARTER_HOUR);
@@ -202,15 +213,15 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-        getActivity().registerReceiver(mIntentReceiver, filter);
+        activity.registerReceiver(mIntentReceiver, filter);
 
         // Resume can invoked after changing the cities list or a change in locale
         if (mAdapter != null) {
-            mAdapter.loadCitiesDb(getActivity());
-            mAdapter.reloadData(getActivity());
+            mAdapter.loadCitiesDb(activity);
+            mAdapter.reloadData(activity);
         }
         // Resume can invoked after changing the clock style.
-        View clockView = Utils.setClockStyle(getActivity(), mDigitalClock, mAnalogClock,
+        View clockView = Utils.setClockStyle(activity, mDigitalClock, mAnalogClock,
                 SettingsActivity.KEY_CLOCK_STYLE);
         mClockStyle = (clockView == mDigitalClock ?
                 Utils.CLOCK_TYPE_DIGITAL : Utils.CLOCK_TYPE_ANALOG);
@@ -224,7 +235,11 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         mAdapter.notifyDataSetChanged();
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
-        Utils.refreshAlarm(getActivity(), mClockFrame);
+        Utils.refreshAlarm(activity, mClockFrame);
+        activity.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
+                false,
+                mAlarmObserver);
     }
 
     @Override
@@ -232,7 +247,9 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         super.onPause();
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
         Utils.cancelAlarmOnQuarterHour(getActivity(), mQuarterlyIntent);
-        getActivity().unregisterReceiver(mIntentReceiver);
+        Activity activity = getActivity();
+        activity.unregisterReceiver(mIntentReceiver);
+        activity.getContentResolver().unregisterContentObserver(mAlarmObserver);
     }
 
     @Override
