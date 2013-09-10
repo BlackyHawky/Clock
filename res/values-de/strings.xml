@@ -144,7 +144,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"Reset"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Teilen"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"Min"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"Stunden"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"Minuten"</string>
@@ -329,6 +329,5 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Diese Stadt entfernen?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitaluhr"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Keine Wecker"</string>
-    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
-    <skip />
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"Keine anstehenden Alarme"</string>
 </resources>
