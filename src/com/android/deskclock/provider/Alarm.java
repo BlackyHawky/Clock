@@ -86,7 +86,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(HOUR, alarm.hour);
         values.put(MINUTES, alarm.minutes);
         values.put(DAYS_OF_WEEK, alarm.daysOfWeek.getBitSet());
-        values.put(VIBRATE, alarm.vibrate);
+        values.put(VIBRATE, alarm.vibrate ? 1 : 0);
         values.put(LABEL, alarm.label);
         values.put(DELETE_AFTER_USE, alarm.deleteAfterUse);
         if (alarm.alert == null) {
