@@ -25,8 +25,8 @@ import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 
+import com.android.deskclock.Log;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 
@@ -105,7 +105,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         values.put(HOUR, instance.mHour);
         values.put(MINUTES, instance.mMinute);
         values.put(LABEL, instance.mLabel);
-        values.put(VIBRATE, instance.mVibrate);
+        values.put(VIBRATE, instance.mVibrate ? 1 : 0);
         if (instance.mRingtone == null) {
             // We want to put null in the database, so we'll be able
             // to pick up on changes to the default alarm
@@ -207,6 +207,20 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
 
     public static AlarmInstance addInstance(ContentResolver contentResolver,
             AlarmInstance instance) {
+        // Make sure we are not adding a duplicate instances. This is not a
+        // fix and should never happen. This is only a safe guard against bad code, and you
+        // should fix the root issue if you see the error message.
+        String dupSelector = AlarmInstance.ALARM_ID + " = " + instance.mAlarmId;
+        for (AlarmInstance otherInstances : getInstances(contentResolver, dupSelector)) {
+            if (otherInstances.getAlarmTime().equals(instance.getAlarmTime())) {
+                Log.e("Trying to install a duplicate alarm instance, updating old one instead");
+                // Copy over the new instance values and update the db
+                instance.mId = otherInstances.mId;
+                updateInstance(contentResolver, instance);
+                return instance;
+            }
+        }
+
         ContentValues values = createContentValues(instance);
         Uri uri = contentResolver.insert(CONTENT_URI, values);
         instance.mId = getId(uri);

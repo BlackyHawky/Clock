@@ -28,6 +28,7 @@ import android.preference.PreferenceManager;
 import com.android.deskclock.AlarmAlertWakeLock;
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.AsyncHandler;
+import com.android.deskclock.DeskClock;
 import com.android.deskclock.Log;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
@@ -43,6 +44,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
     // Intent action to trigger an instance state change.
     public static final String CHANGE_STATE_ACTION = "change_state";
+
+    // Intent action to show the alarm and dismiss the instance
+    public static final String SHOW_AND_DISMISS_ALARM_ACTION = "show_and_dismiss_alarm";
 
     // Extra key to set the desired state change.
     public static final String ALARM_STATE_EXTRA = "intent.extra.alarm.state";
@@ -416,6 +420,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
         if (currentTime.after(missedTTL)) {
             // Alarm is so old, don't even show missed alarm
             setDismissState(context, instance);
+        } else if (instance.mAlarmState == AlarmInstance.MISSED_STATE) {
+            // Don't allow MISSED alarms to re-activate
+            if (currentTime.before(alarmTime)) {
+                // Get rid of the missed notification if the alarm time would be in
+                // the future due to timezone changes
+                setDismissState(context, instance);
+            } else {
+                setMissedState(context, instance);
+            }
         } else if (currentTime.after(alarmTime)) {
             if (currentTime.before(timeoutTime)) {
                 setFiredState(context, instance);
@@ -536,6 +549,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
             } else {
                 registerInstance(context, instance, true);
             }
+        } else if (SHOW_AND_DISMISS_ALARM_ACTION.equals(action)) {
+            Uri uri = intent.getData();
+            AlarmInstance instance = AlarmInstance.getInstance(context.getContentResolver(),
+                    AlarmInstance.getId(uri));
+
+            long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
+            Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
+            viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+            viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(viewAlarmIntent);
+            setDismissState(context, instance);
         }
     }
 }
