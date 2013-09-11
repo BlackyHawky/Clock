@@ -148,6 +148,8 @@ public class StopwatchService extends Service {
         Intent intent = new Intent(context, DeskClock.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.STOPWATCH_TAB_INDEX);
+        // add category to distinguish between stopwatch intents and timer intents
+        intent.addCategory("stopwatch");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
