@@ -20,5 +20,8 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Number of world clocks in a row, for the clock tab. -->
     <item type="integer" name="world_clocks_per_row">1</item>
+    <!-- Total clocks per row is 2 + world_clocks_per_row. -->
+    <item type="integer" name="clocks_per_row">3</item>
 </resources>
