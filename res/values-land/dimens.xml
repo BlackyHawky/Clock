@@ -42,7 +42,7 @@
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin">8dp</dimen>
-    <dimen name="analog_clock_margin">200dp</dimen>
+    <dimen name="analog_clock_margin">70dp</dimen>
     <dimen name="timer_circle_margin">8dp</dimen>
 
     <dimen name="world_clock_margin">8dp</dimen>

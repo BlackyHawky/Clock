@@ -177,21 +177,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         mAdapter = new WorldClockAdapter(getActivity());
         mList.setAdapter(mAdapter);
 
-        // For landscape, put the cities button on the right and the menu in the actionbar.
-        View citiesButton = v.findViewById(R.id.cities_button);
-        View menuButton = v.findViewById(R.id.menu_button);
-        FrameLayout.LayoutParams layoutParams =
-                (FrameLayout.LayoutParams) citiesButton.getLayoutParams();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            layoutParams.gravity = Gravity.END;
-            menuButton.setVisibility(View.GONE);
-        } else {
-            layoutParams.gravity = Gravity.CENTER;
-            menuButton.setVisibility(View.VISIBLE);
-        }
-        citiesButton.setLayoutParams(layoutParams);
-
-
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mDefaultClockStyle = getActivity().getResources().getString(R.string.default_clock_style);
         return v;
