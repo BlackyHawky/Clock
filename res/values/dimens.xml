@@ -209,4 +209,7 @@
     <!-- top margin for digital_appwidget_listview -->
     <dimen name="digital_widget_list_margin_top">20dp</dimen>
     <dimen name="digital_widget_city_margin_bottom">10dp</dimen>
+
+    <!-- Bottom margin for the expand area -->
+    <dimen name="collapse_expand_height">48dp</dimen>
 </resources>
