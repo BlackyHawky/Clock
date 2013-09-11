@@ -41,6 +41,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.text.format.Time;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -395,6 +396,29 @@ public class Utils {
             Context context, PendingIntent quarterlyIntent) {
         cancelAlarmOnQuarterHour(context, quarterlyIntent);
         return startAlarmOnQuarterHour(context);
+    }
+
+    // Setup a thread that starts at midnight plus one second. The extra second is added to ensure
+    // the date has changed.
+    public static void setMidnightUpdater(Handler handler, Runnable runnable) {
+        String timezone = TimeZone.getDefault().getID();
+        if (handler == null || runnable == null || timezone == null) {
+            return;
+        }
+        long now = System.currentTimeMillis();
+        Time time = new Time(timezone);
+        time.set(now);
+        long runInMillis = ((24 - time.hour) * 3600 - time.minute * 60 - time.second + 1) * 1000;
+        handler.removeCallbacks(runnable);
+        handler.postDelayed(runnable, runInMillis);
+    }
+
+    // Stop the midnight update thread
+    public static void resetMidnightUpdater(Handler handler, Runnable runnable) {
+        if (handler == null || runnable == null) {
+            return;
+        }
+        handler.removeCallbacks(runnable);
     }
 
     /**
