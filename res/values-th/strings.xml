@@ -37,11 +37,17 @@
     <string name="ringtone" msgid="9110746249688559579">"เสียงเรียกเข้า"</string>
     <string name="time" msgid="8067216534232296518">"เวลา"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ปิด"</string>
+    <!-- no translation found for alarm_alert_dismiss_now_text (3272183025444682500) -->
+    <skip />
     <string name="alarm_missed_title" msgid="3828345099754063392">"การปลุกที่ถูกเพิกเฉย"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ปิดเสียงเตือนชั่วคราว"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"ปิดเสียงเตือน <xliff:g id="MINUTES">%d</xliff:g> นาที"</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ปิดเสียงเตือนชั่วคราวจนถึง <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for alarm_alert_predismiss_title (5723945586913705445) -->
+    <skip />
+    <!-- no translation found for missed_alarm_has_been_deleted (5295473204045979335) -->
+    <skip />
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"เหลืออีกไม่ถึงหนึ่งนาที"</item>
     <item msgid="83197792732433351">"เหลืออีก <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -144,8 +150,8 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"รีเซ็ต"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"แบ่งปัน"</string>
     <string name="hours_label" msgid="3393478155635368097">"ชม."</string>
-    <string name="minutes_label" msgid="3568098128251438588">"นาที"</string>
-    <string name="seconds_label" msgid="124655952824003246">"วินาที"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"น."</string>
+    <string name="seconds_label" msgid="124655952824003246">"ว."</string>
     <string name="hours_label_description" msgid="8652842524970971830">"ชั่วโมง"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"นาที"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"วินาที"</string>
@@ -169,6 +175,8 @@
     <string name="timer_start" msgid="6158486445614356442">"เริ่ม"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ลบ"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"เพิ่ม 1 นาที"</string>
+    <!-- no translation found for timer_plus_1_min (8645224089494875062) -->
+    <skip />
     <string name="timer_stop" msgid="3361154678667736722">"หยุด"</string>
     <string name="timer_done" msgid="2375990511982914051">"เสร็จสิ้น"</string>
     <string name="timer_reset" msgid="7848424809190171640">"รีเซ็ต"</string>
