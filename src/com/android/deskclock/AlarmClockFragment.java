@@ -27,7 +27,6 @@ import android.app.FragmentTransaction;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.res.Configuration;
@@ -85,7 +84,6 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
         TimePickerDialog.OnTimeSetListener,
-        DialogInterface.OnClickListener, DialogInterface.OnCancelListener,
         View.OnTouchListener
         {
     private static final float EXPAND_DECELERATION = 1f;
@@ -122,7 +120,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     private Alarm mSelectedAlarm;
     private long mScrollToAlarmId = -1;
-    private boolean mInDeleteConfirmation = false;
 
     // This flag relies on the activity having a "standard" launchMode and a new instance of this
     // activity being created when launched.
@@ -153,10 +150,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         getLoaderManager().initLoader(0, null, this);
-
-        if (mInDeleteConfirmation) {
-            showConfirmationDialog();
-        }
     }
 
     @Override
@@ -178,7 +171,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             selectedAlarms = savedState.getLongArray(KEY_SELECTED_ALARMS);
             previousDayMap = savedState.getBundle(KEY_PREVIOUS_DAY_MAP);
             mSelectedAlarm = savedState.getParcelable(KEY_SELECTED_ALARM);
-            mInDeleteConfirmation = savedState.getBoolean(KEY_DELETE_CONFIRMATION, false);
         }
 
         mExpandInterpolator = new DecelerateInterpolator(EXPAND_DECELERATION);
@@ -503,7 +495,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         outState.putBoolean(KEY_UNDO_SHOWING, mUndoShowing);
         outState.putBundle(KEY_PREVIOUS_DAY_MAP, mAdapter.getPreviousDaysOfWeekMap());
         outState.putParcelable(KEY_SELECTED_ALARM, mSelectedAlarm);
-        outState.putBoolean(KEY_DELETE_CONFIRMATION, mInDeleteConfirmation);
     }
 
     @Override
@@ -1641,22 +1632,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 set.add(id);
             }
         }
-
-        public void deleteSelectedAlarms() {
-            int index = 0;
-            Long ids [] = new Long[mSelectedAlarms.size()];
-            for (long id : mSelectedAlarms) {
-                ids[index] = id;
-                index ++;
-            }
-            asyncDeleteAlarm(ids);
-            clearSelectedAlarms();
-        }
-
-        public void clearSelectedAlarms() {
-            mSelectedAlarms.clear();
-            notifyDataSetChanged();
-        }
     }
 
     private void startCreatingAlarm() {
@@ -1674,23 +1649,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // Register instance to state manager
         AlarmStateManager.registerInstance(context, newInstance, true);
         return newInstance;
-    }
-
-    private void asyncDeleteAlarm(final Long[] alarmIds) {
-        final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
-        final AsyncTask<Long, Void, Void> deleteTask = new AsyncTask<Long, Void, Void>() {
-
-            @Override
-            protected Void doInBackground(Long... ids) {
-                ContentResolver cr = context.getContentResolver();
-                for (long id : ids) {
-                    AlarmStateManager.deleteAllInstances(context, id);
-                    Alarm.deleteAlarm(cr, id);
-                }
-                return null;
-            }
-        };
-        deleteTask.execute(alarmIds);
     }
 
     private void asyncDeleteAlarm(final Alarm alarm, final View viewToRemove) {
@@ -1721,10 +1679,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             @Override
             protected Void doInBackground(Void... parameters) {
-                ContentResolver cr = context.getContentResolver();
-
-                AlarmStateManager.deleteAllInstances(context, alarm.id);
-                Alarm.deleteAlarm(cr, alarm.id);
+                // Activity may be closed at this point , make sure data is still valid
+                if (context != null && alarm != null) {
+                    ContentResolver cr = context.getContentResolver();
+                    AlarmStateManager.deleteAllInstances(context, alarm.id);
+                    Alarm.deleteAlarm(cr, alarm.id);
+                }
                 return null;
             }
         };
@@ -1814,37 +1774,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             }
         };
         updateTask.execute();
-    }
-
-    /***
-     * Handle the delete alarms confirmation dialog
-     */
-    private void showConfirmationDialog() {
-        AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
-        Resources res = getResources();
-        String msg = String.format(res.getQuantityText(R.plurals.alarm_delete_confirmation,
-                mAdapter.getSelectedItemsNum()).toString());
-        b.setCancelable(true).setMessage(msg)
-                .setOnCancelListener(this)
-                .setNegativeButton(res.getString(android.R.string.cancel), this)
-                .setPositiveButton(res.getString(android.R.string.ok), this).show();
-        mInDeleteConfirmation = true;
-    }
-
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        if (which == -1) {
-            if (mAdapter != null) {
-                mAdapter.deleteSelectedAlarms();
-            }
-        }
-        dialog.dismiss();
-        mInDeleteConfirmation = false;
-    }
-
-    @Override
-    public void onCancel(DialogInterface dialog) {
-        mInDeleteConfirmation = false;
     }
 
     @Override
