@@ -625,18 +625,23 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     private void launchRingTonePicker(Alarm alarm) {
         mSelectedAlarm = alarm;
+        Uri oldRingtone = Alarm.NO_RINGTONE_URI.equals(alarm.alert) ? null : alarm.alert;
         final Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, alarm.alert);
+        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, oldRingtone);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
         intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, false);
         startActivityForResult(intent, REQUEST_CODE_RINGTONE);
     }
 
     private void saveRingtoneUri(Intent intent) {
-        final Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+        Uri uri = intent.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+        if (uri == null) {
+            uri = Alarm.NO_RINGTONE_URI;
+        }
         mSelectedAlarm.alert = uri;
+
         // Save the last selected ringtone as the default for new alarms
-        if (uri != null) {
+        if (!Alarm.NO_RINGTONE_URI.equals(uri)) {
             RingtoneManager.setActualDefaultRingtoneUri(
                     getActivity(), RingtoneManager.TYPE_ALARM, uri);
         }
@@ -1252,7 +1257,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             });
 
             final String ringtone;
-            if (alarm.alert == null) {
+            if (Alarm.NO_RINGTONE_URI.equals(alarm.alert)) {
                 ringtone = mContext.getResources().getString(R.string.silent_alarm_summary);
             } else {
                 ringtone = getRingToneTitle(alarm.alert);

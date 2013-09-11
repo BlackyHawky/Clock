@@ -84,7 +84,7 @@ public final class AlarmNotifications {
 
         // Setup content action if instance is owned by alarm
         long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
-        Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, instance.mAlarmId);
+        Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
         viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
         viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
@@ -118,7 +118,7 @@ public final class AlarmNotifications {
 
         // Setup content action if instance is owned by alarm
         long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
-        Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, instance.mAlarmId);
+        Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
         viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
         viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
@@ -175,9 +175,7 @@ public final class AlarmNotifications {
                 .setContentTitle(context.getString(R.string.alarm_missed_title))
                 .setContentText(contextText)
                 .setSmallIcon(R.drawable.stat_notify_alarm)
-                .setAutoCancel(true)
-                .setPriority(Notification.PRIORITY_HIGH)
-                .setDefaults(Notification.DEFAULT_ALL);
+                .setPriority(Notification.PRIORITY_HIGH);
 
         // Setup dismiss intent
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context, "DISMISS_TAG",
@@ -186,13 +184,11 @@ public final class AlarmNotifications {
                 dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup content intent
-        long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
-        Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
-        viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-        viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(viewAlarmIntent);
-        notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
-                viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+        Intent showAndDismiss = AlarmInstance.createIntent(context, AlarmStateManager.class,
+                instance.mId);
+        showAndDismiss.setAction(AlarmStateManager.SHOW_AND_DISMISS_ALARM_ACTION);
+        notification.setContentIntent(PendingIntent.getBroadcast(context, instance.hashCode(),
+                showAndDismiss, PendingIntent.FLAG_UPDATE_CURRENT));
 
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
