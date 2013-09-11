@@ -136,7 +136,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 ArrayList<Integer> sectionPositions = new ArrayList<Integer>();
 
                 // If the search query is empty, add in the selected cities
-                if (TextUtils.isEmpty(modifiedQuery)) {
+                if (TextUtils.isEmpty(modifiedQuery) && mSelectedCities != null) {
                     if (mSelectedCities.length > 0) {
                         sectionHeaders.add("+");
                         sectionPositions.add(0);
