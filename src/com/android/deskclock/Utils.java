@@ -360,6 +360,9 @@ public class Utils {
                 || (alarmOnQuarterHour - System.currentTimeMillis()) > 901000) {
             Log.wtf("quarterly alarm calculation error");
         }
+        Log.v("getAlarmOnQuarterHour returns "
+                + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nextQuarter.getTime())
+                + " to fire in " + (alarmOnQuarterHour - System.currentTimeMillis()));
         return alarmOnQuarterHour;
     }
 
@@ -371,6 +374,8 @@ public class Utils {
             ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setRepeating(
                     AlarmManager.RTC, getAlarmOnQuarterHour(),
                     AlarmManager.INTERVAL_FIFTEEN_MINUTES, quarterlyIntent);
+            Log.v("startAlarmOnQuarterHour " + context.toString()
+                    + " " + quarterlyIntent.toString());
             return quarterlyIntent;
         } else {
             return null;
@@ -379,6 +384,8 @@ public class Utils {
 
     public static void cancelAlarmOnQuarterHour(Context context, PendingIntent quarterlyIntent) {
         if (quarterlyIntent != null && context != null) {
+            Log.v("cancelAlarmOnQuarterHour " + context.toString()
+                    + " " + quarterlyIntent.toString());
             ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).cancel(
                     quarterlyIntent);
         }
