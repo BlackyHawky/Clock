@@ -105,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            android:layout_marginBottom="48dp"
+            android:layout_marginBottom="@dimen/collapse_expand_height"
             android:layout_gravity="bottom" >
             <TextView
                 android:id="@+id/edit_label"
@@ -198,7 +198,7 @@
         <FrameLayout
             android:id="@+id/collapse_expand"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/collapse_expand_height"
             android:contentDescription="@string/collapse_alarm"
             android:layout_gravity="bottom" >
             <ImageView
