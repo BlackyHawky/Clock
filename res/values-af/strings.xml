@@ -37,17 +37,11 @@
     <string name="ringtone" msgid="9110746249688559579">"Luitoon"</string>
     <string name="time" msgid="8067216534232296518">"Tyd"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Maak toe"</string>
-    <!-- no translation found for alarm_alert_dismiss_now_text (3272183025444682500) -->
-    <skip />
     <string name="alarm_missed_title" msgid="3828345099754063392">"Wekker gemis"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Sluimer"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Sluimer vir <xliff:g id="MINUTES">%d</xliff:g> minute."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Sluimer tot <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for alarm_alert_predismiss_title (5723945586913705445) -->
-    <skip />
-    <!-- no translation found for missed_alarm_has_been_deleted (5295473204045979335) -->
-    <skip />
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Minder as \'n minuut oor"</item>
     <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> oor"</item>
@@ -175,8 +169,6 @@
     <string name="timer_start" msgid="6158486445614356442">"Begin"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Vee uit"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Voeg 1 minuut by"</string>
-    <!-- no translation found for timer_plus_1_min (8645224089494875062) -->
-    <skip />
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
     <string name="timer_done" msgid="2375990511982914051">"Klaar"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Stel terug"</string>
@@ -337,5 +329,5 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Moet hierdie stad verwyder word?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitale horlosie"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Geen wekkers nie"</string>
-    <string name="no_upcoming_alarms" msgid="2889840988069436254">"GEEN KOMENDE WEKKERS NIE"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"GEEN KOMENDE ALARMS NIE"</string>
 </resources>
