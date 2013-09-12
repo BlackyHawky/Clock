@@ -215,6 +215,7 @@ public class HandleApiCalls extends Activity {
         if (!skipUi) {
             Intent showAlarm = Alarm.createIntent(this, DeskClock.class, instance.mAlarmId);
             showAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+            showAlarm.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, instance.mAlarmId);
             showAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(showAlarm);
         }

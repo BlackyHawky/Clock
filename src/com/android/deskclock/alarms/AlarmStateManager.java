@@ -26,6 +26,7 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.AlarmAlertWakeLock;
+import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.AsyncHandler;
 import com.android.deskclock.DeskClock;
@@ -557,6 +558,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
             Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
             viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+            viewAlarmIntent.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId);
             viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(viewAlarmIntent);
             setDismissState(context, instance);
