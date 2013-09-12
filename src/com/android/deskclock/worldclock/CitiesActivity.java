@@ -121,6 +121,12 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
         private int mLayoutDirection;
 
+        // A map that caches names of cities in local memory.  The names in this map are
+        // preferred over the names of the selected cities stored in SharedPreferences, which could
+        // be in a different language.  This map gets reloaded on a locale change, when the new
+        // language's city strings are read from the xml file.
+        private HashMap<String, String> mCityNameMap = new HashMap<String, String>();
+
         private String[] mSectionHeaders;
         private Integer[] mSectionPositions;
 
@@ -130,7 +136,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         private final LayoutInflater mInflater;
         private boolean mIs24HoursMode; // AM/PM or 24 hours mode
 
-        private int mSelectedEndPosition;
+        private int mSelectedEndPosition = 0;
 
         private Filter mFilter = new Filter() {
 
@@ -227,12 +233,35 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         public CityAdapter(
                 Context context, LayoutInflater factory) {
             super();
-            loadCities(context);
-            mInflater = factory;
             mCalendar = Calendar.getInstance();
             mCalendar.setTimeInMillis(System.currentTimeMillis());
+            mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault());
+            mInflater = factory;
+
+            // Load the cities from xml.
+            mCities = Utils.loadCitiesFromXml(context);
+
+            // Reload the city name map with the recently parsed city names of the currently
+            // selected language for use with selected cities.
+            mCityNameMap.clear();
+            for (CityObj city : mCities) {
+                mCityNameMap.put(city.mCityId, city.mCityName);
+            }
+
+            // Re-organize the selected cities into an array.
             Collection<CityObj> selectedCities = mUserSelectedCities.values();
             mSelectedCities = selectedCities.toArray(new CityObj[selectedCities.size()]);
+
+            // Override the selected city names in the shared preferences with the
+            // city names in the updated city name map, which will always reflect the
+            // current language.
+            for (CityObj city : mSelectedCities) {
+                String newCityName = mCityNameMap.get(city.mCityId);
+                if (newCityName != null) {
+                    city.mCityName = newCityName;
+                }
+            }
+
             sortCities(mSortType);
             set24HoursMode(context);
         }
@@ -241,14 +270,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             Collection<CityObj> selectedCities = mUserSelectedCities.values();
             mSelectedCities = selectedCities.toArray(new CityObj[selectedCities.size()]);
             sortCities(mSortType);
-        }
-
-        private void loadCities(Context c) {
-            mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault());
-            mCities = Utils.loadCitiesFromXml(c);
-            if (mCities == null) {
-                return;
-            }
         }
 
         public void toggleSort() {
@@ -333,6 +354,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 }
                 view.setOnClickListener(CitiesActivity.this);
                 CityViewHolder holder = (CityViewHolder) view.getTag();
+
                 if (position < mSelectedEndPosition) {
                     holder.selected.setVisibility(View.GONE);
                     holder.time.setVisibility(View.GONE);
