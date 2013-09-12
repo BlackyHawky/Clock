@@ -18,7 +18,7 @@ import com.android.deskclock.widget.sgv.StaggeredGridView.ReorderListener;
  */
 public final class ReorderHelper {
 
-    private static final String TAG = "Keep";
+    private static final String TAG = "DeskClock";
 
     /**
      * Constant to indicate an unsupported reordering position.

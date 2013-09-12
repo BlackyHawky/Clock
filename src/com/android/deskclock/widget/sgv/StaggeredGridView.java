@@ -79,7 +79,7 @@ import java.util.Map;
  */
 public class StaggeredGridView extends ViewGroup {
 
-    private static final String TAG = "Keep-" + StaggeredGridView.class.getSimpleName();
+    private static final String TAG = "Clock-" + StaggeredGridView.class.getSimpleName();
 
     /*
      * There are a few things you should know if you're going to make modifications
@@ -2209,7 +2209,7 @@ public class StaggeredGridView extends ViewGroup {
             mItemBottoms[k] = mItemBottoms[k] - highestValue + offset;
             mItemTops[k] = mItemBottoms[k];
 
-            Log.v(TAG, "Adjusting to offset = mItemBottoms[" + k + "]: " + mItemBottoms[k]);
+            // Log.v(TAG, "Adjusting to offset = mItemBottoms[" + k + "]: " + mItemBottoms[k]);
         }
     }
 
@@ -2401,13 +2401,13 @@ public class StaggeredGridView extends ViewGroup {
                 childRight = childLeft + child.getMeasuredWidth();
             }
 
-            Log.v(TAG, "[layoutChildren] height: " + childHeight
+        /*    Log.v(TAG, "[layoutChildren] height: " + childHeight
                     + " top: " + childTop + " bottom: " + childBottom
                     + " left: " + childLeft
                     + " column: " + col
                     + " position: " + position
                     + " id: " + lp.id);
-
+*/
             child.layout(childLeft, childTop, childRight, childBottom);
             if (lp.id == mFocusedChildIdToScrollIntoView) {
                 child.requestFocus();
