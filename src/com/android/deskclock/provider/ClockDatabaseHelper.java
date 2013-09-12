@@ -150,6 +150,9 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
 
             // Create new alarms table and copy over the data
             createAlarmsTable(db);
+            createInstanceTable(db);
+            createCitiesTable(db);
+
             Log.i("Copying old alarms to new table");
             String[] OLD_TABLE_COLUMNS = {
                     "_id",
@@ -193,10 +196,6 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
 
             Log.i("Dropping old alarm table");
             db.execSQL("DROP TABLE " + OLD_ALARMS_TABLE_NAME + ";");
-
-            // Add new tables
-            createInstanceTable(db);
-            createCitiesTable(db);
         }
     }
 
