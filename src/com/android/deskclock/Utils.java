@@ -421,6 +421,30 @@ public class Utils {
         handler.removeCallbacks(runnable);
     }
 
+    // Setup a thread that starts at the quarter-hour plus one second. The extra second is added to
+    // ensure dates have changed.
+    public static void setQuarterHourUpdater(Handler handler, Runnable runnable) {
+        String timezone = TimeZone.getDefault().getID();
+        if (handler == null || runnable == null || timezone == null) {
+            return;
+        }
+        long runInMillis = getAlarmOnQuarterHour() - System.currentTimeMillis();
+        // Ensure the delay is at least one second.
+        if (runInMillis < 1000) {
+            runInMillis = 1000;
+        }
+        handler.removeCallbacks(runnable);
+        handler.postDelayed(runnable, runInMillis);
+    }
+
+    // Stop the quarter-hour update thread
+    public static void cancelQuarterHourUpdater(Handler handler, Runnable runnable) {
+        if (handler == null || runnable == null) {
+            return;
+        }
+        handler.removeCallbacks(runnable);
+    }
+
     /**
      * For screensavers to set whether the digital or analog clock should be displayed.
      * Returns the view to be displayed.
