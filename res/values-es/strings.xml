@@ -37,11 +37,17 @@
     <string name="ringtone" msgid="9110746249688559579">"Tono de llamada"</string>
     <string name="time" msgid="8067216534232296518">"Hora"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
+    <!-- no translation found for alarm_alert_dismiss_now_text (3272183025444682500) -->
+    <skip />
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perdida"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posponer"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"La alarma volverá a sonar en <xliff:g id="MINUTES">%d</xliff:g> minutos."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Repetir a las <xliff:g id="TIME">%s</xliff:g>"</string>
+    <!-- no translation found for alarm_alert_predismiss_title (5723945586913705445) -->
+    <skip />
+    <!-- no translation found for missed_alarm_has_been_deleted (5295473204045979335) -->
+    <skip />
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Queda menos de 1 minuto"</item>
     <item msgid="83197792732433351">"Quedan <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -169,6 +175,8 @@
     <string name="timer_start" msgid="6158486445614356442">"Iniciar"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Eliminar"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Añadir 1 minuto"</string>
+    <!-- no translation found for timer_plus_1_min (8645224089494875062) -->
+    <skip />
     <string name="timer_stop" msgid="3361154678667736722">"Detener"</string>
     <string name="timer_done" msgid="2375990511982914051">"Listo"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Borrar"</string>
