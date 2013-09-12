@@ -1273,6 +1273,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             holder.summary.setAlpha(alpha);
             holder.expandArea.setAlpha(alpha);
             holder.delete.setAlpha(alpha);
+            holder.daysOfWeek.setAlpha(alpha);
         }
 
         private void updateDaysOfWeekButtons(ItemHolder holder, DaysOfWeek daysOfWeek) {
