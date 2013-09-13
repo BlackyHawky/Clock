@@ -21,7 +21,7 @@ import java.util.Iterator;
 
 public class Timers {
     // Logging shared by TimerReceiver and TimerAlertFullScreen
-    public static final boolean LOGGING = false;
+    public static final boolean LOGGING = true;
 
     // Private actions processed by the receiver
     public static final String START_TIMER = "start_timer";
