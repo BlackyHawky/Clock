@@ -62,26 +62,26 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         public QuarterHourUpdater(Context context) {
             mUpdaterContext = context;
             // Chasing bug b/8239532 - log every updater creation
-            Log.i(TAG, "QuarterHourUpdater.start: " + this);
+            Log.i(TAG, String.format("QuarterHourUpdater.start(%d): %s", mId, this));
             Utils.setQuarterHourUpdater(mHandler, this);
         }
 
         public void reset() {
             // Chasing bug b/8239532 - log every updater reset
-            Log.i(TAG, "QuarterHourUpdater.reset: " + this);
+            Log.i(TAG, String.format("QuarterHourUpdater.reset(%d): %s", mId, this));
             Utils.setQuarterHourUpdater(mHandler, this);
         }
 
         public void close() {
             Utils.cancelQuarterHourUpdater(mHandler, this);
             // Chasing bug b/8239532 - log every updater closure
-            Log.i(TAG, "QuarterHourUpdater.close: " + this);
+            Log.i(TAG, String.format("QuarterHourUpdater.close(%d): %s", mId, this));
         }
 
         @Override
         public void run() {
             // Chasing bug b/8239532 - log every run we get to can see when run ran.
-            Log.i(TAG, "QuarterHourUpdater.run: " + this);
+            Log.i(TAG, String.format("QuarterHourUpdater.run(%d): %s", mId, this));
             // Since the system may miss or not send time zone changes in all cases
             // make sure to update the world clock list if the time zone
             // changed in the last 15 minutes
@@ -253,7 +253,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
         filter.addAction(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION);
         filter.addAction(Cities.WORLDCLOCK_UPDATE_INTENT);
-        Log.i(TAG, "DigitalWidget register receiver");
+        Log.i(TAG, "DigitalWidget register receiver " + mId);
         mContext.registerReceiver(this, filter);
     }
 
@@ -274,7 +274,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
     @Override
     public void onDestroy() {
-        Log.i(TAG, "DigitalWidget unregister receiver");
+        Log.i(TAG, "DigitalWidget unregister receiver " + mId);
         mQuarterHourUpdater.close();
         mContext.unregisterReceiver(this);
     }
@@ -284,7 +284,7 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
     public void onReceive(Context context, Intent intent) {
         // Chasing bug b/8239532 - log every intent we get so we can see what the last intent
         // received was and when we got it.
-        Log.i(TAG, "onReceive: " + intent);
+        Log.i(TAG, String.format("onReceive(%d): %s", mId, intent));
         if (mId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             return;
         }
