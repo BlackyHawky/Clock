@@ -37,11 +37,14 @@
     <string name="ringtone" msgid="9110746249688559579">"Tono de llamada"</string>
     <string name="time" msgid="8067216534232296518">"Hora"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Ignorar ahora"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perdida"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posponer"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"La alarma volverá a sonar en <xliff:g id="MINUTES">%d</xliff:g> minutos."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Repetir a las <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próxima alarma"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Se han eliminado las alarmas perdidas"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Queda menos de 1 minuto"</item>
     <item msgid="83197792732433351">"Quedan <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -169,6 +172,7 @@
     <string name="timer_start" msgid="6158486445614356442">"Iniciar"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Eliminar"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Añadir 1 minuto"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Añadir 1 min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Detener"</string>
     <string name="timer_done" msgid="2375990511982914051">"Listo"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Borrar"</string>
@@ -200,7 +204,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Reloj de tu ciudad automático"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Cuando viajes a una zona con una hora diferente, añade un reloj para la hora de tu ciudad"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Cuando viajes a una zona con una hora diferente, añadir un reloj para la hora de tu ciudad"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horaria local"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zona horaria local"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancelar"</string>
@@ -328,6 +332,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"¿Eliminar este temporizador?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"¿Eliminar esta ciudad?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Reloj digital"</string>
-    <string name="no_alarms" msgid="6429431324842022917">"Ninguna alarma"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"No hay alarmas"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"NO HAY ALARMAS PRÓXIMAMENTE"</string>
 </resources>

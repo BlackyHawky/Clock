@@ -97,7 +97,7 @@
     <item msgid="1121150121639680484">"esase-Nassau"</item>
     <item msgid="8783518093470040300">"esase-New York"</item>
     <item msgid="8685565479120721681">"esase-Beulah"</item>
-    <item msgid="6854366494939955818">"esaphakathi nendawo"</item>
+    <item msgid="6854366494939955818">"E-CENTER"</item>
     <item msgid="7325195282520040665">"esase-New Salem"</item>
     <item msgid="3368872340258580668">"esase-Panama"</item>
     <item msgid="58921303248631494">"esase-Phoenix"</item>
@@ -298,5 +298,24 @@
     <item msgid="3567009426051313507">"e-Guangzhou"</item>
     <item msgid="2738289235744819761">"e-Hyderabad"</item>
     <item msgid="35629823970779893">"e-Reston"</item>
+    <item msgid="2620375619174484543">"I-Belo Horizonte"</item>
+    <item msgid="3949247113051549869">"I-Santiago"</item>
+    <item msgid="3583568170097050810">"I-Monrovia"</item>
+    <item msgid="4337041465665825381">"I-Colombo"</item>
+    <item msgid="2758533074887258174">"I-Chihuahua"</item>
+    <item msgid="3904262821019008829">"I-Salvador"</item>
+    <item msgid="7335556305222315705">"I-Gurgaon"</item>
+    <item msgid="8092021218913879570">"I-Manchester"</item>
+    <item msgid="3262376108426000449">"I-Kyiv"</item>
+    <item msgid="1321450515191695851">"I-St. Petersburg"</item>
+    <item msgid="5152144018647717853">"I-Kraków"</item>
+    <item msgid="3995511368799031783">"I-Wroclaw"</item>
+    <item msgid="7251862005498390469">"I-Hamburg"</item>
+    <item msgid="4403899516544001462">"I-Oulu"</item>
+    <item msgid="8378499650951313108">"I-Haifa"</item>
+    <item msgid="7504732361387330116">"I-San Juan"</item>
+    <item msgid="8613864994547669100">"I-Tegucigalpa"</item>
+    <item msgid="7087691675228926801">"I-Paramaribo"</item>
+    <item msgid="478384295484578701">"I-Quito"</item>
   </string-array>
 </resources>
