@@ -37,11 +37,14 @@
     <string name="ringtone" msgid="9110746249688559579">"Beltoon"</string>
     <string name="time" msgid="8067216534232296518">"Tijd"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Negeren"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Nu sluiten"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm gemist"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Snooze is ingesteld op <xliff:g id="MINUTES">%d</xliff:g> minuten."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozen tot <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Aankomend alarm"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Uw gemiste alarm is verwijderd"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Minder dan een minuut resterend"</item>
     <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> resterend"</item>
@@ -80,7 +83,7 @@
     <item quantity="one" msgid="3783171637798575068">"minuut"</item>
     <item quantity="other" msgid="1304056759541595077">"minuten"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Stilte na"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Stil na"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minuten"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nooit"</string>
   <string-array name="auto_silence_entries">
@@ -169,6 +172,7 @@
     <string name="timer_start" msgid="6158486445614356442">"Starten"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Verwijderen"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"1 minuut toevoegen"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"1 min. toevoegen"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stoppen"</string>
     <string name="timer_done" msgid="2375990511982914051">"Gereed"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Opnieuw instellen"</string>

@@ -24,7 +24,7 @@
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Editar alarme"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Eliminar alarme"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Ativar alarme"</string>
-    <string name="disable_alarm" msgid="5889378670229554109">"Desactivar alarme"</string>
+    <string name="disable_alarm" msgid="5889378670229554109">"Desativar alarme"</string>
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Eliminar este alarme?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Mostrar relógio"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Ocultar relógio"</string>
@@ -37,11 +37,14 @@
     <string name="ringtone" msgid="9110746249688559579">"Toque"</string>
     <string name="time" msgid="8067216534232296518">"Hora"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ignorar"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Ignorar agora"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarme perdido"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Suspender"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Suspenso por <xliff:g id="MINUTES">%d</xliff:g> minutos."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Em suspensão até <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próximo alarme"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"O alarme perdido foi eliminado"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Falta menos de um minuto"</item>
     <item msgid="83197792732433351">"Faltam <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -80,7 +83,7 @@
     <item quantity="one" msgid="3783171637798575068">"minuto"</item>
     <item quantity="other" msgid="1304056759541595077">"minutos"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar depois"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar depois de"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
   <string-array name="auto_silence_entries">
@@ -169,6 +172,7 @@
     <string name="timer_start" msgid="6158486445614356442">"Início"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Eliminar"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Adicionar 1 Minuto"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Adicionar 1 min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Parar"</string>
     <string name="timer_done" msgid="2375990511982914051">"Concluído"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Repor"</string>

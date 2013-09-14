@@ -37,11 +37,14 @@
     <string name="ringtone" msgid="9110746249688559579">"Tón zvonenia"</string>
     <string name="time" msgid="8067216534232296518">"Čas"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Zrušiť"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Zrušiť"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Zmeškaný budík"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložiť"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Upozornenie odložené o <xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Odložené do <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchádzajúci budík"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zmeškaný budík bol odstránený"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Zostáva menej ako minúta"</item>
     <item msgid="83197792732433351">"Zostávajúci čas: <xliff:g id="HOURS">%1$s</xliff:g> h"</item>
@@ -80,7 +83,7 @@
     <item quantity="one" msgid="3783171637798575068">"minúta"</item>
     <item quantity="other" msgid="1304056759541595077">"min."</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Stíšiť po"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Stíšiť po uplynutí"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
   <string-array name="auto_silence_entries">
@@ -169,6 +172,7 @@
     <string name="timer_start" msgid="6158486445614356442">"Spustiť"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Odstrániť"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Pridať 1 minútu"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Pridať 1 min."</string>
     <string name="timer_stop" msgid="3361154678667736722">"Zastaviť"</string>
     <string name="timer_done" msgid="2375990511982914051">"Hotovo"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Obnoviť"</string>
