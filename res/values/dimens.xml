@@ -41,6 +41,7 @@
     <dimen name="alert_dialog_title_height">64dip</dimen>
     <dimen name="popup_window_width">196dip</dimen>
     <dimen name="bottom_text_spacing_digital">-8dp</dimen>
+    <dimen name="top_text_spacing_digital">4dp</dimen>
     <dimen name="bottom_text_spacing_analog">14dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">6dp</dimen>
     <dimen name="digital_world_clock_text_size">60dp</dimen>
