@@ -124,6 +124,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         private final LayoutInflater mInflater;
         private boolean mIs24HoursMode; // AM/PM or 24 hours mode
 
+        private int mSelectedEndPosition;
+
         private Filter mFilter = new Filter() {
 
             @Override
@@ -148,6 +150,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                         filteredList.add(city);
                     }
                 }
+
+                mSelectedEndPosition = filteredList.size();
 
                 String val = null;
                 int offset = -100000; //some value that cannot be a real offset
@@ -223,6 +227,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             mCalendar.setTimeInMillis(System.currentTimeMillis());
             Collection<CityObj> selectedCities = mUserSelectedCities.values();
             mSelectedCities = selectedCities.toArray(new CityObj[selectedCities.size()]);
+            sortCities(mSortType);
             set24HoursMode(context);
         }
 
@@ -237,7 +242,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             if (mCities == null) {
                 return;
             }
-            sortCities(mSortType);
         }
 
         public void toggleSort() {
@@ -284,7 +288,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         }
 
         @Override
-        public View getView(int position, View view, ViewGroup parent) {
+        public synchronized View getView(int position, View view, ViewGroup parent) {
             if (mDisplayedCitiesList == null || position < 0
                     || position >= mDisplayedCitiesList.size()) {
                 return null;
@@ -322,7 +326,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 }
                 view.setOnClickListener(CitiesActivity.this);
                 CityViewHolder holder = (CityViewHolder) view.getTag();
-                if (mCitiesList.isFastScrollEnabled() && position <= mUserSelectedCities.size()) {
+                if (position < mSelectedEndPosition) {
                     holder.selected.setVisibility(View.GONE);
                     holder.time.setVisibility(View.GONE);
                     holder.remove.setVisibility(View.VISIBLE);
@@ -434,7 +438,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
     private void updateLayout() {
         setContentView(R.layout.cities_activity);
         mCitiesList = (ListView) findViewById(R.id.cities_list);
-        mCitiesList.setFastScrollEnabled(TextUtils.isEmpty(mQueryTextBuffer.toString().trim()));
+        setFastScroll(TextUtils.isEmpty(mQueryTextBuffer.toString().trim()));
         mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mUserSelectedCities = Cities.readCitiesFromSharedPrefs(
                 PreferenceManager.getDefaultSharedPreferences(this));
@@ -443,6 +447,13 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         ActionBar actionBar = getActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
+        }
+    }
+
+    private void setFastScroll(boolean enabled) {
+        if (mCitiesList != null) {
+            mCitiesList.setFastScrollAlwaysVisible(enabled);
+            mCitiesList.setFastScrollEnabled(enabled);
         }
     }
 
@@ -482,8 +493,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             case R.id.menu_item_sort:
                 if (mAdapter != null) {
                     mAdapter.toggleSort();
-                    mCitiesList.setFastScrollEnabled(
-                            TextUtils.isEmpty(mQueryTextBuffer.toString().trim()));
+                    setFastScroll(TextUtils.isEmpty(mQueryTextBuffer.toString().trim()));
                 }
                 return true;
             case android.R.id.home:
