@@ -150,7 +150,7 @@
                 android:visibility="gone">
                 <!-- Day buttons are put here programatically -->
             </LinearLayout>
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginLeft="10dp"
@@ -177,6 +177,10 @@
                     android:drawableLeft="@drawable/ic_ringtone"
                     android:drawableStart="@drawable/ic_ringtone"
                     android:drawablePadding="2dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/vibrate_onoff"
+                    android:layout_toStartOf="@+id/vibrate_onoff"
                     />
                 <CheckBox
                     android:id="@+id/vibrate_onoff"
@@ -185,9 +189,11 @@
                     android:textColor="@color/clock_gray"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:layout_gravity="center_vertical|end"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
                     style="@style/body"/>
-            </FrameLayout>
+            </RelativeLayout>
         </LinearLayout>
         <FrameLayout
             android:id="@+id/collapse_expand"
