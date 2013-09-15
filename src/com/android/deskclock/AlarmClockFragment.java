@@ -1717,14 +1717,16 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             @Override
             protected AlarmInstance doInBackground(Void... parameters) {
-                ContentResolver cr = context.getContentResolver();
+                if (context != null && alarm != null) {
+                    ContentResolver cr = context.getContentResolver();
 
-                // Add alarm to db
-                Alarm newAlarm = Alarm.addAlarm(cr, alarm);
+                    // Add alarm to db
+                    Alarm newAlarm = Alarm.addAlarm(cr, alarm);
 
-                // Create and add instance to db
-                if (newAlarm.enabled) {
-                    return setupAlarmInstance(context, newAlarm);
+                    // Create and add instance to db
+                    if (newAlarm.enabled) {
+                        return setupAlarmInstance(context, newAlarm);
+                    }
                 }
                 return null;
             }
