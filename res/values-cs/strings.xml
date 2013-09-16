@@ -62,9 +62,9 @@
     <item msgid="2332583385137381060">"Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 den"</string>
-    <string name="days" msgid="2070509222727852210">"dny: <xliff:g id="DAYS">%s</xliff:g>"</string>
+    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> d."</string>
     <string name="hour" msgid="2546819039651509323">"1 hodina"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> hod."</string>
+    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> h"</string>
     <string name="minute" msgid="2486157997434653710">"1 minuta"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> min"</string>
     <string name="every_day" msgid="4100909974923444602">"Každý den"</string>
@@ -108,7 +108,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Odložit zvonění"</item>
     <item msgid="3450979320164769576">"Zavřít"</item>
-    <item msgid="6302517608411378024">"Nic nedělat"</item>
+    <item msgid="6302517608411378024">"Bez funkce"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Nastavení výchozího vyzvánění"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Budíky"</string>
@@ -138,7 +138,7 @@
     <string name="menu_item_help" msgid="4570953476186849841">"Nápověda"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Noční režim"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Seřadit podle času"</string>
-    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Seřadit dle jména"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Seřadit podle jména"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Vybraná města"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Obnovit"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Spustit"</string>
@@ -169,7 +169,7 @@
     <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> s"</item>
   </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Přidat časovač"</string>
-    <string name="timer_start" msgid="6158486445614356442">"Začátek"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Spustit"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Smazat"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Přidat 1 minutu"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Přidat 1 min"</string>
