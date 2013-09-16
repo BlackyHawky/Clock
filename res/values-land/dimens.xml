@@ -44,6 +44,10 @@
     <dimen name="circle_margin">8dp</dimen>
     <dimen name="analog_clock_margin">70dp</dimen>
     <dimen name="timer_circle_margin">8dp</dimen>
+    <dimen name="main_clock_padding">0dp</dimen>
+    <dimen name="circle_margin_top">0dp</dimen>
+    <dimen name="top_text_spacing_digital">-25dp</dimen>
+    <dimen name="bottom_text_spacing_analog">5dp</dimen>
 
     <dimen name="world_clock_margin">8dp</dimen>
     <dimen name="sw_padding_end">8dp</dimen>
