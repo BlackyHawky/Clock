@@ -278,8 +278,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Start the alarm and schedule timeout timer for it
         AlarmService.startAlarm(context, instance);
-        scheduleInstanceStateChange(context, instance.getTimeout(context), instance,
-                AlarmInstance.MISSED_STATE);
+
+        Calendar timeout = instance.getTimeout(context);
+        if (timeout != null) {
+            scheduleInstanceStateChange(context, timeout, instance, AlarmInstance.MISSED_STATE);
+        }
 
         // Instance not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
@@ -425,8 +428,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
         Calendar missedTTL = instance.getMissedTimeToLive();
 
         if (currentTime.after(missedTTL)) {
-            // Alarm is so old, don't even show missed alarm
+            // Alarm is so old, just dismiss it
             setDismissState(context, instance);
+        } else if (instance.mAlarmState == AlarmInstance.FIRED_STATE) {
+            // Keep alarm fired, unless it timed out
+            if (timeoutTime != null && currentTime.after(timeoutTime)) {
+                setMissedState(context, instance);
+            } else {
+                setFiredState(context, instance);
+            }
         } else if (instance.mAlarmState == AlarmInstance.MISSED_STATE) {
             // Don't allow MISSED alarms to re-activate
             if (currentTime.before(alarmTime)) {
@@ -437,11 +447,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 setMissedState(context, instance);
             }
         } else if (currentTime.after(alarmTime)) {
-            if (currentTime.before(timeoutTime)) {
-                setFiredState(context, instance);
-            } else {
-                setMissedState(context, instance);
-            }
+            setMissedState(context, instance);
         } else if (instance.mAlarmState == AlarmInstance.SNOOZE_STATE) {
             // We only want to display snooze and not update the time, so we
             // do it ourselves here

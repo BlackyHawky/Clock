@@ -302,6 +302,11 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mMinute = calendar.get(Calendar.MINUTE);
     }
 
+    /**
+     * Return the time when a alarm should fire.
+     *
+     * @return the time
+     */
     public Calendar getAlarmTime() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, mYear);
@@ -313,28 +318,55 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return calendar;
     }
 
+    /**
+     * Return the time when a low priority notification should be shown.
+     *
+     * @return the time
+     */
     public Calendar getLowNotificationTime() {
         Calendar calendar = getAlarmTime();
         calendar.add(Calendar.HOUR_OF_DAY, LOW_NOTIFICATION_HOUR_OFFSET);
         return calendar;
     }
 
+    /**
+     * Return the time when a high priority notification should be shown.
+     *
+     * @return the time
+     */
     public Calendar getHighNotificationTime() {
         Calendar calendar = getAlarmTime();
         calendar.add(Calendar.MINUTE, HIGH_NOTIFICATION_MINUTE_OFFSET);
         return calendar;
     }
 
+    /**
+     * Return the time when a missed notification should be removed.
+     *
+     * @return the time
+     */
     public Calendar getMissedTimeToLive() {
         Calendar calendar = getAlarmTime();
         calendar.add(Calendar.HOUR, MISSED_TIME_TO_LIVE_HOUR_OFFSET);
         return calendar;
     }
 
+    /**
+     * Return the time when the alarm should stop firing and be marked as missed.
+     *
+     * @param context to figure out the timeout setting
+     * @return the time when alarm should be silence, or null if never
+     */
     public Calendar getTimeout(Context context) {
         String timeoutSetting = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(SettingsActivity.KEY_AUTO_SILENCE, DEFAULT_ALARM_TIMEOUT_SETTING);
-        int timeoutMinutes= Integer.parseInt(timeoutSetting);
+        int timeoutMinutes = Integer.parseInt(timeoutSetting);
+
+        // Alarm silence has been set to "None"
+        if (timeoutMinutes < 0) {
+            return null;
+        }
+
         Calendar calendar = getAlarmTime();
         calendar.add(Calendar.MINUTE, timeoutMinutes);
         return calendar;
