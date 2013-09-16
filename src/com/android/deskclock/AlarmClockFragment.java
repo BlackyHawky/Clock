@@ -844,9 +844,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
                 @Override
                 public boolean onPreDraw() {
-
                     // Remove the pre-draw listener, as this only needs to occur once.
-                    observer.removeOnPreDrawListener(this);
+                    if (observer.isAlive()) {
+                        observer.removeOnPreDrawListener(this);
+                    }
                     boolean firstAnimation = true;
                     int firstVisiblePosition = list.getFirstVisiblePosition();
 
@@ -1376,7 +1377,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     @Override
                     public boolean onPreDraw() {
                         // We don't want to continue getting called for every listview drawing.
-                        observer.removeOnPreDrawListener(this);
+                        if (observer.isAlive()) {
+                            observer.removeOnPreDrawListener(this);
+                        }
                         int hairlineHeight = itemHolder.hairLine.getHeight();
                         int collapseHeight =
                                 itemHolder.collapseExpandArea.getHeight() - hairlineHeight;
@@ -1402,8 +1405,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public boolean onPreDraw() {
                     // We don't want to continue getting called for every listview drawing.
-                    observer.removeOnPreDrawListener(this);
-
+                    if (observer.isAlive()) {
+                        observer.removeOnPreDrawListener(this);
+                    }
                     // Calculate some values to help with the animation.
                     final int endingHeight = itemHolder.alarmItem.getHeight();
                     final int distance = endingHeight - startingHeight;
@@ -1506,7 +1510,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
             observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
                 @Override
                 public boolean onPreDraw() {
-                    observer.removeOnPreDrawListener(this);
+                    if (observer.isAlive()) {
+                        observer.removeOnPreDrawListener(this);
+                    }
 
                     // Calculate some values to help with the animation.
                     final int endingHeight = itemHolder.alarmItem.getHeight();
