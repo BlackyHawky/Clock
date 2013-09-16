@@ -43,8 +43,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/top_text_spacing_digital"
             android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
-            android:layout_marginTop="4dp"
             />
     </FrameLayout>
     <LinearLayout
