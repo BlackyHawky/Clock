@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.android.deskclock.AnalogClock;
 import com.android.deskclock.DigitalClock;
+import com.android.deskclock.Log;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
@@ -78,8 +79,6 @@ public class WorldClockAdapter extends BaseAdapter {
         // and not from the selected list so that change of locale or changes in the DB will
         // be reflected.
         CityObj[] cities = Utils.loadCitiesFromXml(context);
-        // Sort alphabetically
-        Arrays.sort(cities, new CityNameComparator());
         if (cities != null) {
             for (int i = 0; i < cities.length; i ++) {
                 mCitiesDb.put(cities[i].mCityId, cities [i]);
