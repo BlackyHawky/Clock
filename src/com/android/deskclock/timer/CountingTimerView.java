@@ -60,7 +60,6 @@ public class CountingTimerView extends View {
     private boolean mShowTimeStr = true;
     private final Paint mPaintBigThin = new Paint();
     private final Paint mPaintMed = new Paint();
-    private final Paint mPaintLabel = new Paint();
     private final float mBigFontSize, mSmallFontSize;
     // Hours and minutes are signed for when a timer goes past the set time and thus negative
     private final SignedTime mBigHours, mBigMinutes;
@@ -289,13 +288,6 @@ public class CountingTimerView extends View {
         mPaintMed.setTextAlign(Paint.Align.CENTER);
         mPaintMed.setTypeface(androidClockMonoLight);
 
-        Typeface robotoLabel = Typeface.create("sans-serif-condensed", Typeface.BOLD);
-        mPaintLabel.setAntiAlias(true);
-        mPaintLabel.setStyle(Paint.Style.STROKE);
-        mPaintLabel.setTextAlign(Paint.Align.LEFT);
-        mPaintLabel.setTypeface(robotoLabel);
-        mPaintLabel.setTextSize(r.getDimension(R.dimen.label_font_size));
-
         resetTextSize();
         setTextColor(mDefaultColor);
 
@@ -318,7 +310,6 @@ public class CountingTimerView extends View {
     protected void setTextColor(int textColor) {
         mPaintBigThin.setColor(textColor);
         mPaintMed.setColor(textColor);
-        mPaintLabel.setColor(textColor);
     }
 
     /**
@@ -644,7 +635,6 @@ public class CountingTimerView extends View {
             textColor = mDefaultColor;
         }
         mPaintBigThin.setColor(textColor);
-        mPaintLabel.setColor(textColor);
         mPaintMed.setColor(textColor);
 
         if (mHours != null) {
@@ -665,6 +655,7 @@ public class CountingTimerView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         mRemeasureText = true;
+        resetTextSize();
     }
 
     public void registerStopTextView(TextView stopStartTextView) {
