@@ -172,7 +172,7 @@
     <string name="timer_start" msgid="6158486445614356442">"開始"</string>
     <string name="timer_delete" msgid="8699122001991909302">"刪除"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"增加 1 分鐘"</string>
-    <string name="timer_plus_1_min" msgid="8645224089494875062">"增加 1 分鐘"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"多加 1 分鐘"</string>
     <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
     <string name="timer_done" msgid="2375990511982914051">"完成"</string>
     <string name="timer_reset" msgid="7848424809190171640">"重設"</string>
