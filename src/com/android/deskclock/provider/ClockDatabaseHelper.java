@@ -145,8 +145,8 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
 
         if (oldVersion <= VERSION_6) {
             // These were not used in DB_VERSION_6, so we can just drop them.
-            db.execSQL("DROP TABLE " + INSTANCES_TABLE_NAME + ";");
-            db.execSQL("DROP TABLE " + CITIES_TABLE_NAME + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + INSTANCES_TABLE_NAME + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + CITIES_TABLE_NAME + ";");
 
             // Create new alarms table and copy over the data
             createAlarmsTable(db);
@@ -195,7 +195,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
             cursor.close();
 
             Log.i("Dropping old alarm table");
-            db.execSQL("DROP TABLE " + OLD_ALARMS_TABLE_NAME + ";");
+            db.execSQL("DROP TABLE IF EXISTS " + OLD_ALARMS_TABLE_NAME + ";");
         }
     }
 
