@@ -107,7 +107,7 @@ public class AlarmActivity extends Activity {
         }
     }
 
-    private AlarmInstance instance;
+    private AlarmInstance mInstance;
     private int mVolumeBehavior;
     private GlowPadView mGlowPadView;
     private GlowPadController glowPadController = new GlowPadController();
@@ -128,11 +128,11 @@ public class AlarmActivity extends Activity {
     };
 
     private void snooze() {
-        AlarmStateManager.setSnoozeState(this, instance);
+        AlarmStateManager.setSnoozeState(this, mInstance);
     }
 
     private void dismiss() {
-        AlarmStateManager.setDismissState(this, instance);
+        AlarmStateManager.setDismissState(this, mInstance);
     }
 
     @Override
@@ -140,11 +140,14 @@ public class AlarmActivity extends Activity {
         super.onCreate(icicle);
 
         long instanceId = AlarmInstance.getId(getIntent().getData());
-        instance = AlarmInstance.getInstance(this.getContentResolver(), instanceId);
-        if (instance != null) {
-            Log.v("Displaying alarm for instance: " + instance);
+        mInstance = AlarmInstance.getInstance(this.getContentResolver(), instanceId);
+        if (mInstance != null) {
+            Log.v("Displaying alarm for instance: " + mInstance);
         } else {
+            // The alarm got deleted before the activity got created, so just finish()
             Log.v("Error displaying alarm for intent: " + getIntent());
+            finish();
+            return;
         }
 
         // Get the volume/camera button behavior setting
@@ -181,7 +184,7 @@ public class AlarmActivity extends Activity {
 
 
     private void updateTitle() {
-        final String titleText = instance.getLabelOrDefault(this);
+        final String titleText = mInstance.getLabelOrDefault(this);
         TextView tv = (TextView)findViewById(R.id.alertTitle);
         tv.setText(titleText);
         super.setTitle(titleText);
