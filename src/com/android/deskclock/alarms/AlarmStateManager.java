@@ -24,12 +24,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.widget.Toast;
 
 import com.android.deskclock.AlarmAlertWakeLock;
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.AsyncHandler;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.Log;
+import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.provider.Alarm;
@@ -312,6 +314,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
         AlarmNotifications.showSnoozeNotification(context, instance);
         scheduleInstanceStateChange(context, instance.getAlarmTime(),
                 instance, AlarmInstance.FIRED_STATE);
+
+        // Display the snooze minutes in a toast.
+        String displayTime = context.getString(R.string.alarm_alert_snooze_set, snoozeMinutes);
+        Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
 
         // Instance time changed, so find next alarm that will fire and notify system
         updateNextAlarm(context);
