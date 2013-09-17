@@ -57,6 +57,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -108,12 +109,17 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         private static final String FORMAT_24_HOUR = "k:mm";
         private static final String FORMAT_12_HOUR = "h:mm aa";
 
+        private static final String FORMAT_24_HOUR_RTL = "kk:mm";
+        private static final String FORMAT_12_HOUR_RTL = "hh:mm aa";
+
         private static final String DELETED_ENTRY = "C0";
 
         private List<CityObj> mDisplayedCitiesList;
 
         private CityObj[] mCities;
         private CityObj[] mSelectedCities;
+
+        private int mLayoutDirection;
 
         private String[] mSectionHeaders;
         private Integer[] mSectionPositions;
@@ -238,6 +244,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         }
 
         private void loadCities(Context c) {
+            mLayoutDirection = TextUtils.getLayoutDirectionFromLocale(Locale.getDefault());
             mCities = Utils.loadCitiesFromXml(c);
             if (mCities == null) {
                 return;
@@ -342,12 +349,23 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 holder.selected.setTag(c);
                 holder.selected.setChecked(mUserSelectedCities.containsKey(c.mCityId));
                 holder.selected.setOnCheckedChangeListener(CitiesActivity.this);
-                mCalendar.setTimeZone(TimeZone.getTimeZone(c.mTimeZone));
-                holder.time.setText(DateFormat.format(mIs24HoursMode ? FORMAT_24_HOUR
-                        : FORMAT_12_HOUR, mCalendar));
                 holder.name.setText(c.mCityName, TextView.BufferType.SPANNABLE);
+                holder.time.setText(getTimeCharSequence(c.mTimeZone));
             }
             return view;
+        }
+
+        // We need to ensure that hours are adjusted to be two digits in RTL due to issue involving
+        // layout weights and text views with different lengths in a list view.
+        private CharSequence getTimeCharSequence(String timeZone) {
+            mCalendar.setTimeZone(TimeZone.getTimeZone(timeZone));
+            String format;
+            if (mLayoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                format = mIs24HoursMode ? FORMAT_24_HOUR_RTL : FORMAT_12_HOUR_RTL;
+            } else {
+                format = mIs24HoursMode ? FORMAT_24_HOUR : FORMAT_12_HOUR;
+            }
+            return DateFormat.format(format, mCalendar);
         }
 
         @Override
