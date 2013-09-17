@@ -137,8 +137,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     private static void scheduleInstanceStateChange(Context context, Calendar time,
             AlarmInstance instance, int newState) {
+        long timeInMillis = time.getTimeInMillis();
         Log.v("Scheduling state change " + newState + " to instance " + instance.mId +
-                " at " + AlarmUtils.getFormattedTime(context, time));
+                " at " + AlarmUtils.getFormattedTime(context, time) + " (" + timeInMillis + ")");
         Intent stateChangeIntent = createStateChangeIntent(context, ALARM_MANAGER_TAG, instance,
                 newState);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
@@ -146,9 +147,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (Utils.isKeyLimePieOrLater()) {
-            am.setExact(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+            am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
         } else {
-            am.set(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+            am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
         }
     }
 
