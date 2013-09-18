@@ -184,8 +184,6 @@ public class TimerReceiver extends BroadcastReceiver {
                 cancelTimesUpNotification(context, t);
                 showTimesUpNotification(context, t);
             }
-            // Unlike the actions above, there is nothing else to do
-            return;
         }
         // Update the next "Times up" alarm
         updateNextTimesup(context);
