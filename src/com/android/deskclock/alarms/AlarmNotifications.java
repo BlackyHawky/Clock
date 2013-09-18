@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.provider.Settings;
 
+import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.Log;
@@ -86,6 +87,7 @@ public final class AlarmNotifications {
         long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
         viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+        viewAlarmIntent.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId);
         viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
@@ -120,6 +122,7 @@ public final class AlarmNotifications {
         long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
         viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+        viewAlarmIntent.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId);
         viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
@@ -155,6 +158,7 @@ public final class AlarmNotifications {
         long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
         viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+        viewAlarmIntent.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId);
         viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
