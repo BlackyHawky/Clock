@@ -674,6 +674,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         private Bundle mPreviousDaysOfWeekMap = new Bundle();
 
         private final boolean mHasVibrator;
+        private final int mCollapseExpandHeight;
 
         // This determines the order in which it is shown and processed in the UI.
         private final int[] DAY_ORDER = new int[] {
@@ -764,6 +765,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             mHasVibrator = ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE))
                     .hasVibrator();
+
+            mCollapseExpandHeight = (int) res.getDimension(R.dimen.collapse_expand_height);
         }
 
         public void removeSelectedId(int id) {
@@ -1517,9 +1520,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     // Calculate some values to help with the animation.
                     final int endingHeight = itemHolder.alarmItem.getHeight();
                     final int distance = endingHeight - startingHeight;
-                    final int collapseHeight = itemHolder.collapseExpandArea.getHeight();
                     int hairlineHeight = itemHolder.hairLine.getHeight();
-                    final int hairlineDistance = collapseHeight - hairlineHeight;
+                    final int hairlineDistance = mCollapseExpandHeight - hairlineHeight;
 
                     // Re-set the visibilities for the start state of the animation.
                     itemHolder.expandArea.setVisibility(View.VISIBLE);
@@ -1539,7 +1541,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
                                     (int) (value * distance + startingHeight);
                             FrameLayout.LayoutParams expandParams = (FrameLayout.LayoutParams)
                                     itemHolder.expandArea.getLayoutParams();
-                            expandParams.setMargins(0, (int) (value * distance), 0, collapseHeight);
+                            expandParams.setMargins(
+                                    0, (int) (value * distance), 0, mCollapseExpandHeight);
                             itemHolder.arrow.setRotation(180 * (1 - value));
                             itemHolder.hairLine.setTranslationY(-hairlineDistance * (1 - value));
                             itemHolder.summary.setAlpha(value);
@@ -1558,7 +1561,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
                             FrameLayout.LayoutParams expandParams = (FrameLayout.LayoutParams)
                                     itemHolder.expandArea.getLayoutParams();
-                            expandParams.setMargins(0, 0, 0, 96);
+                            expandParams.setMargins(0, 0, 0, mCollapseExpandHeight);
 
                             itemHolder.expandArea.setVisibility(View.GONE);
                             itemHolder.arrow.setRotation(0);
