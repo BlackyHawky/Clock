@@ -21,7 +21,6 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorInflater;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
@@ -105,6 +104,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
     // have been passed in, so the alarm page should start the process of creating a new alarm.
     public static final String ALARM_CREATE_NEW_INTENT_EXTRA = "deskclock.create.new";
 
+    // This extra is used when receiving an intent to scroll to specific alarm. If alarm
+    // can not be found, and toast message will pop up that the alarm has be deleted.
+    public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
+
     private ListView mAlarmsList;
     private AlarmItemAdapter mAdapter;
     private View mEmptyView;
@@ -121,9 +124,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private Alarm mSelectedAlarm;
     private long mScrollToAlarmId = -1;
 
-    // This flag relies on the activity having a "standard" launchMode and a new instance of this
-    // activity being created when launched.
-    private boolean mFirstLoad = true;
+    private Loader mCursorLoader = null;
 
     // Saved states for undo
     private Alarm mDeletedAlarm;
@@ -149,7 +150,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        getLoaderManager().initLoader(0, null, this);
+        mCursorLoader = getLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -439,13 +440,28 @@ public class AlarmClockFragment extends DeskClockFragment implements
         super.onResume();
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = getActivity().getIntent();
-        boolean createNew = intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false);
-        if (createNew) {
-            // An external app asked us to create a blank alarm.
-            startCreatingAlarm();
+        if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
+            if (intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false)) {
+                // An external app asked us to create a blank alarm.
+                startCreatingAlarm();
+            }
+
+            // Remove the CREATE_NEW extra now that we've processed it.
+            intent.removeExtra(ALARM_CREATE_NEW_INTENT_EXTRA);
+        } else if (intent.hasExtra(SCROLL_TO_ALARM_INTENT_EXTRA)) {
+            long alarmId = intent.getLongExtra(SCROLL_TO_ALARM_INTENT_EXTRA, Alarm.INVALID_ID);
+            if (alarmId != Alarm.INVALID_ID) {
+                mScrollToAlarmId = alarmId;
+                if (mCursorLoader != null && mCursorLoader.isStarted()) {
+                    // We need to force a reload here to make sure we have the latest view
+                    // of the data to scroll to.
+                    mCursorLoader.forceLoad();
+                }
+            }
+
+            // Remove the SCROLL_TO_ALARM extra now that we've processed it.
+            intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
         }
-        // Remove the CREATE_NEW extra now that we've processed it.
-        intent.removeExtra(ALARM_CREATE_NEW_INTENT_EXTRA);
 
         // Make sure to use the child FragmentManager. We have to use that one for the
         // case where an intent comes in telling the activity to load the timepicker,
@@ -519,8 +535,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             Alarm a = new Alarm();
-            a.alert = RingtoneManager.getActualDefaultRingtoneUri(
-                    getActivity(), RingtoneManager.TYPE_ALARM);
+            a.alert = RingtoneManager.getActualDefaultRingtoneUri(getActivity(),
+                    RingtoneManager.TYPE_ALARM);
             if (a.alert == null) {
                 a.alert = Uri.parse("content://settings/system/alarm_alert");
             }
@@ -565,26 +581,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, final Cursor data) {
         mAdapter.swapCursor(data);
-        gotoAlarmIfSpecified();
-    }
-
-    /** If an alarm was passed in via intent and goes to that particular alarm in the list. */
-    private void gotoAlarmIfSpecified() {
-        final Intent intent = getActivity().getIntent();
-        if (mFirstLoad && intent != null) {
-            long alarmId = Alarm.INVALID_ID;
-            if (intent.getData() != null) {
-                alarmId = Alarm.getId(intent.getData());
-            }
-
-            if (alarmId != Alarm.INVALID_ID) {
-                scrollToAlarm(alarmId);
-            }
-        } else if (mScrollToAlarmId != -1) {
+        if (mScrollToAlarmId != -1) {
             scrollToAlarm(mScrollToAlarmId);
             mScrollToAlarmId = -1;
         }
-        mFirstLoad = false;
     }
 
     /**
@@ -593,19 +593,32 @@ public class AlarmClockFragment extends DeskClockFragment implements
      * @param alarmId The alarm id to scroll to.
      */
     private void scrollToAlarm(long alarmId) {
+        int alarmPosition = -1;
         for (int i = 0; i < mAdapter.getCount(); i++) {
             long id = mAdapter.getItemId(i);
             if (id == alarmId) {
-                mAdapter.setNewAlarm(alarmId);
-                mAlarmsList.smoothScrollToPositionFromTop(i, 0);
-
-                final int firstPositionId = mAlarmsList.getFirstVisiblePosition();
-                final int childId = i - firstPositionId;
-
-                final View view = mAlarmsList.getChildAt(childId);
-                mAdapter.getView(i, view, mAlarmsList);
+                alarmPosition = i;
                 break;
             }
+        }
+
+        if (alarmPosition >= 0) {
+            mAdapter.setNewAlarm(alarmId);
+            mAlarmsList.smoothScrollToPositionFromTop(alarmPosition, 0);
+
+            final int firstPositionId = mAlarmsList.getFirstVisiblePosition();
+            final int childId = alarmPosition - firstPositionId;
+
+            final View view = mAlarmsList.getChildAt(childId);
+            mAdapter.getView(alarmPosition, view, mAlarmsList);
+        } else {
+            // Trying to display a deleted alarm should only happen from a missed notification for
+            // an alarm that has been marked deleted after use.
+            Context context = getActivity().getApplicationContext();
+            Toast toast = Toast.makeText(context, R.string.missed_alarm_has_been_deleted,
+                    Toast.LENGTH_LONG);
+            ToastMaster.setToast(toast);
+            toast.show();
         }
     }
 
