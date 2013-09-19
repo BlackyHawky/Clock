@@ -17,8 +17,6 @@
 package com.android.deskclock;
 
 import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +48,6 @@ public class ScreensaverActivity extends Activity {
     private final ScreensaverMoveSaverRunnable mMoveSaverRunnable;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-    private PendingIntent mQuarterlyIntent;
     private String mClockStyle;
     private boolean mPluggedIn = true;
     private final int mFlags = (WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -71,14 +68,12 @@ public class ScreensaverActivity extends Activity {
                 setWakeLock();
             } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
                 finish();
-            } else if (intent.getAction().equals(Utils.ACTION_ON_QUARTER_HOUR) || changed) {
-                Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
             }
 
             if (changed) {
+                Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
                 Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
-                mQuarterlyIntent = Utils.refreshAlarmOnQuarterHour(
-                        ScreensaverActivity.this, mQuarterlyIntent);
+                Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
             }
 
         }
@@ -88,6 +83,15 @@ public class ScreensaverActivity extends Activity {
         @Override
         public void onChange(boolean selfChange) {
             Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+        }
+    };
+
+    // Thread that runs every midnight and refreshes the date.
+    private final Runnable mMidnightUpdater = new Runnable() {
+        @Override
+        public void run() {
+            Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+            Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
         }
     };
 
@@ -103,7 +107,6 @@ public class ScreensaverActivity extends Activity {
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         filter.addAction(Intent.ACTION_USER_PRESENT);
-        filter.addAction(Utils.ACTION_ON_QUARTER_HOUR);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         registerReceiver(mIntentReceiver, filter);
@@ -130,13 +133,13 @@ public class ScreensaverActivity extends Activity {
         layoutClockSaver();
         mHandler.post(mMoveSaverRunnable);
 
-        mQuarterlyIntent = Utils.startAlarmOnQuarterHour(this);
+        Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
     }
 
     @Override
     public void onPause() {
         mHandler.removeCallbacks(mMoveSaverRunnable);
-        Utils.cancelAlarmOnQuarterHour(this, mQuarterlyIntent);
+        Utils.cancelMidnightUpdater(mHandler, mMidnightUpdater);
         finish();
         super.onPause();
     }

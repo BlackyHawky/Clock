@@ -134,7 +134,7 @@ public class Screensaver extends DreamService {
         getContentResolver().unregisterContentObserver(mSettingsContentObserver);
 
         // Tear down handlers for time reference changes and date updates.
-        Utils.resetMidnightUpdater(mHandler, mMidnightUpdater);
+        Utils.cancelMidnightUpdater(mHandler, mMidnightUpdater);
         unregisterReceiver(mIntentReceiver);
     }
 
