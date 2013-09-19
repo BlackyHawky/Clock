@@ -83,7 +83,7 @@
     <item quantity="one" msgid="3783171637798575068">"minuta"</item>
     <item quantity="other" msgid="1304056759541595077">"min"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Utišanje po"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Naj zvoni"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikoli"</string>
   <string-array name="auto_silence_entries">
