@@ -23,7 +23,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.media.RingtoneManager;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.android.deskclock.Log;
 import com.android.deskclock.alarms.AlarmStateManager;
@@ -181,7 +183,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 if ("silent".equals(alertString)) {
                     alarm.alert = Alarm.NO_RINGTONE_URI;
                 } else {
-                    alarm.alert = alertString.isEmpty() ? null : Uri.parse(alertString);
+                    alarm.alert = TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
                 }
 
                 // Save new version of alarm and create alarminstance for it
