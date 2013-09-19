@@ -213,7 +213,8 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         String dupSelector = AlarmInstance.ALARM_ID + " = " + instance.mAlarmId;
         for (AlarmInstance otherInstances : getInstances(contentResolver, dupSelector)) {
             if (otherInstances.getAlarmTime().equals(instance.getAlarmTime())) {
-                Log.e("Trying to install a duplicate alarm instance, updating old one instead");
+                Log.i("Detected duplicate instance in DB. Updating " + otherInstances + " to "
+                        + instance);
                 // Copy over the new instance values and update the db
                 instance.mId = otherInstances.mId;
                 updateInstance(contentResolver, instance);
