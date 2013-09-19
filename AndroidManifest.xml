@@ -76,6 +76,7 @@
         </activity>
 
         <activity android:name=".alarms.AlarmActivity"
+                android:taskAffinity=""
                 android:excludeFromRecents="true"
                 android:theme="@style/AlarmAlertFullScreenTheme"
                 android:windowSoftInputMode="stateHidden"
