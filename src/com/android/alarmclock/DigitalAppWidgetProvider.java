@@ -16,31 +16,127 @@
 
 package com.android.alarmclock;
 
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.appwidget.AppWidgetProviderInfo;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
+import com.android.deskclock.alarms.AlarmNotifications;
+import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CitiesActivity;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
+    private static final String TAG = "DigitalAppWidgetProvider";
+
+    /**
+     * Intent to be used for checking if a world clock's date has changed. Must be every fifteen
+     * minutes because not all time zones are hour-locked.
+     **/
+    public static final String ACTION_ON_QUARTER_HOUR = "com.android.deskclock.ON_QUARTER_HOUR";
+
+    // Lazily creating this intent to use with the AlarmManager
+    private PendingIntent mPendingIntent;
+    // Lazily creating this name to use with the AppWidgetManager
+    private ComponentName mComponentName;
+
     public DigitalAppWidgetProvider() {
     }
 
     @Override
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
+        startAlarmOnQuarterHour(context);
+    }
+
+    @Override
+    public void onDisabled(Context context) {
+        super.onDisabled(context);
+        cancelAlarmOnQuarterHour(context);
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        if (DigitalAppWidgetService.LOGGING) {
+            Log.i(TAG, "onReceive: " + action);
+        }
+        super.onReceive(context, intent);
+
+        if (ACTION_ON_QUARTER_HOUR.equals(action)
+                || Intent.ACTION_DATE_CHANGED.equals(action)
+                || Intent.ACTION_TIMEZONE_CHANGED.equals(action)
+                || Intent.ACTION_TIME_CHANGED.equals(action)
+                || Intent.ACTION_LOCALE_CHANGED.equals(action)) {
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            if (appWidgetManager != null) {
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(getComponentName(context));
+                for (int appWidgetId : appWidgetIds) {
+                    appWidgetManager.
+                            notifyAppWidgetViewDataChanged(appWidgetId,
+                                    R.id.digital_appwidget_listview);
+                    RemoteViews widget = new RemoteViews(context.getPackageName(),
+                            R.layout.digital_appwidget);
+                    float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
+                    WidgetUtils.setClockSize(context, widget, ratio);
+                    refreshAlarm(context, widget);
+                    appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
+                }
+            }
+            if(!ACTION_ON_QUARTER_HOUR.equals(action)) {
+                cancelAlarmOnQuarterHour(context);
+            }
+            startAlarmOnQuarterHour(context);
+        } else if (AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION.equals(action)
+                || Intent.ACTION_SCREEN_ON.equals(action)) {
+            // Refresh the next alarm
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            if (appWidgetManager != null) {
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(getComponentName(context));
+                for (int appWidgetId : appWidgetIds) {
+                    RemoteViews widget = new RemoteViews(context.getPackageName(),
+                            R.layout.digital_appwidget);
+                    refreshAlarm(context, widget);
+                    appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
+                }
+            }
+        } else if (Cities.WORLDCLOCK_UPDATE_INTENT.equals(action)) {
+            // Refresh the world cities list
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            if (appWidgetManager != null) {
+                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(getComponentName(context));
+                for (int appWidgetId : appWidgetIds) {
+                    appWidgetManager.
+                            notifyAppWidgetViewDataChanged(appWidgetId,
+                                    R.id.digital_appwidget_listview);
+                }
+            }
+        }
+    }
+
+    @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        if (DigitalAppWidgetService.LOGGING) {
+            Log.i(TAG, "onUpdate");
+        }
         for (int appWidgetId : appWidgetIds) {
             float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
             updateClock(context, appWidgetManager, appWidgetId, ratio);
-
         }
+        startAlarmOnQuarterHour(context);
         super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
@@ -67,7 +163,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Setup alarm text and font sizes
-        DigitalWidgetViewsFactory.refreshAlarm(context, widget);
+        refreshAlarm(context, widget);
         WidgetUtils.setClockSize(context, widget, ratio);
 
         // Set up R.id.digital_appwidget_listview to use a remote views adapter
@@ -87,5 +183,90 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         appWidgetManager.notifyAppWidgetViewDataChanged(
                 appWidgetId, R.id.digital_appwidget_listview);
         appWidgetManager.updateAppWidget(appWidgetId, widget);
+    }
+
+    protected void refreshAlarm(Context context, RemoteViews widget) {
+        String nextAlarm = Settings.System.getString(context.getContentResolver(),
+                Settings.System.NEXT_ALARM_FORMATTED);
+        if (!TextUtils.isEmpty(nextAlarm)) {
+            widget.setTextViewText(R.id.nextAlarm,
+                    context.getString(R.string.control_set_alarm_with_existing, nextAlarm));
+            widget.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
+            if (DigitalAppWidgetService.LOGGING) {
+                Log.v(TAG, "DigitalWidget sets next alarm string to " + nextAlarm);
+            }
+        } else  {
+            widget.setViewVisibility(R.id.nextAlarm, View.GONE);
+            if (DigitalAppWidgetService.LOGGING) {
+                Log.v(TAG, "DigitalWidget sets next alarm string to null");
+            }
+        }
+    }
+
+    /**
+     * Start an alarm that fires on the next quarter hour to update the world clock city
+     * day when the local time or the world city crosses midnight.
+     *
+     * @param context The context in which the PendingIntent should perform the broadcast.
+     */
+    private void startAlarmOnQuarterHour(Context context) {
+        if (context != null) {
+            long onQuarterHour = Utils.getAlarmOnQuarterHour();
+            PendingIntent quarterlyIntent = getOnQuarterHourPendingIntent(context);
+            AlarmManager alarmManager = ((AlarmManager) context
+                    .getSystemService(Context.ALARM_SERVICE));
+            if (Utils.isKeyLimePieOrLater()) {
+                alarmManager.setExact(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
+            } else {
+                alarmManager.set(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
+            }
+            if (DigitalAppWidgetService.LOGGING) {
+                Log.v(TAG, "startAlarmOnQuarterHour " + context.toString());
+            }
+        }
+    }
+
+
+    /**
+     * Remove the alarm for the quarter hour update.
+     *
+     * @param context The context in which the PendingIntent was started to perform the broadcast.
+     */
+    public void cancelAlarmOnQuarterHour(Context context) {
+        if (context != null) {
+            PendingIntent quarterlyIntent = getOnQuarterHourPendingIntent(context);
+            if (DigitalAppWidgetService.LOGGING) {
+                Log.v(TAG, "cancelAlarmOnQuarterHour " + context.toString());
+            }
+            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).cancel(
+                    quarterlyIntent);
+        }
+    }
+
+    /**
+     * Create the pending intent that is broadcast on the quarter hour.
+     *
+     * @param context The Context in which this PendingIntent should perform the broadcast.
+     * @return a pending intent with an intent unique to DigitalAppWidgetProvider
+     */
+    private PendingIntent getOnQuarterHourPendingIntent(Context context) {
+        if (mPendingIntent == null) {
+            mPendingIntent = PendingIntent.getBroadcast(context, 0,
+                new Intent(ACTION_ON_QUARTER_HOUR), PendingIntent.FLAG_CANCEL_CURRENT);
+        }
+        return mPendingIntent;
+    }
+
+    /**
+     * Create the component name for this class
+     *
+     * @param context The Context in which the widgets for this component are created
+     * @return the ComponentName unique to DigitalAppWidgetProvider
+     */
+    private ComponentName getComponentName(Context context) {
+        if (mComponentName == null) {
+            mComponentName = new ComponentName(context, getClass());
+        }
+        return mComponentName;
     }
 }

@@ -17,29 +17,23 @@
 package com.android.deskclock;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.android.deskclock.alarms.AlarmNotifications;
@@ -63,7 +57,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private String mDefaultClockStyle;
     private String mClockStyle;
 
-    private PendingIntent mQuarterlyIntent;
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
             @Override
         public void onReceive(Context context, Intent intent) {
@@ -71,11 +64,11 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             boolean changed = action.equals(Intent.ACTION_TIME_CHANGED)
                     || action.equals(Intent.ACTION_TIMEZONE_CHANGED)
                     || action.equals(Intent.ACTION_LOCALE_CHANGED);
-            if (changed || action.equals(Utils.ACTION_ON_QUARTER_HOUR)) {
+            if (changed) {
                 Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
                 if (mAdapter != null) {
                     // *CHANGED may modify the need for showing the Home City
-                    if (changed && (mAdapter.hasHomeCity() != mAdapter.needHomeCity())) {
+                    if (mAdapter.hasHomeCity() != mAdapter.needHomeCity()) {
                         mAdapter.reloadData(context);
                     } else {
                         mAdapter.notifyDataSetChanged();
@@ -86,12 +79,10 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                         mAdapter.notifyDataSetChanged();
                     }
                 }
+                Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
             }
             if (changed || action.equals(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION)) {
                 Utils.refreshAlarm(getActivity(), mClockFrame);
-            }
-            if (changed) {
-                mQuarterlyIntent = Utils.refreshAlarmOnQuarterHour(getActivity(), mQuarterlyIntent);
             }
         }
     };
@@ -102,6 +93,19 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         @Override
         public void onChange(boolean selfChange) {
             Utils.refreshAlarm(ClockFragment.this.getActivity(), mClockFrame);
+        }
+    };
+
+    // Thread that runs on every quarter-hour and refreshes the date.
+    private final Runnable mQuarterHourUpdater = new Runnable() {
+        @Override
+        public void run() {
+            // Update the main and world clock dates
+            Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
+            if (mAdapter != null) {
+                mAdapter.notifyDataSetChanged();
+            }
+            Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         }
     };
 
@@ -190,10 +194,10 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
         Activity activity = getActivity();
-        mQuarterlyIntent = Utils.startAlarmOnQuarterHour(activity);
+        Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         // Besides monitoring when quarter-hour changes, monitor other actions that
         // effect clock time
-        IntentFilter filter = new IntentFilter(Utils.ACTION_ON_QUARTER_HOUR);
+        IntentFilter filter = new IntentFilter();
         filter.addAction(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
@@ -231,7 +235,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     public void onPause() {
         super.onPause();
         mPrefs.unregisterOnSharedPreferenceChangeListener(this);
-        Utils.cancelAlarmOnQuarterHour(getActivity(), mQuarterlyIntent);
+        Utils.cancelQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         Activity activity = getActivity();
         activity.unregisterReceiver(mIntentReceiver);
         activity.getContentResolver().unregisterContentObserver(mAlarmObserver);

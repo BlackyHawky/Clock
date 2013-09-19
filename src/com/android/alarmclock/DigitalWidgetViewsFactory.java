@@ -17,13 +17,8 @@
 package com.android.alarmclock;
 
 import android.appwidget.AppWidgetManager;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.os.Handler;
-import android.provider.Settings;
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.TypedValue;
@@ -33,8 +28,6 @@ import android.widget.RemoteViewsService.RemoteViewsFactory;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
-import com.android.deskclock.alarms.AlarmNotifications;
-import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CityObj;
 import com.android.deskclock.worldclock.WorldClockAdapter;
 
@@ -42,64 +35,13 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class DigitalWidgetViewsFactory extends BroadcastReceiver implements RemoteViewsFactory {
+public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
     private static final String TAG = "DigitalWidgetViewsFactory";
 
     private Context mContext;
     private int mId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private RemoteWorldClockAdapter mAdapter;
-    private boolean mReloadCitiesList = true;
-    private boolean mReloadCitiesDb = true;
     private float mFontScale = 1;
-    private String mLastTimeZone;
-    private QuarterHourUpdater mQuarterHourUpdater;
-
-
-    // Thread that runs every quarter-hour and refreshes the date.
-    private class QuarterHourUpdater implements Runnable {
-        private Context mUpdaterContext;
-        private Handler mHandler = new Handler();
-        public QuarterHourUpdater(Context context) {
-            mUpdaterContext = context;
-            // Chasing bug b/8239532 - log every updater creation
-            Log.i(TAG, String.format("QuarterHourUpdater.start(%d): %s", mId, this));
-            Utils.setQuarterHourUpdater(mHandler, this);
-        }
-
-        public void reset() {
-            // Chasing bug b/8239532 - log every updater reset
-            Log.i(TAG, String.format("QuarterHourUpdater.reset(%d): %s", mId, this));
-            Utils.setQuarterHourUpdater(mHandler, this);
-        }
-
-        public void close() {
-            Utils.cancelQuarterHourUpdater(mHandler, this);
-            // Chasing bug b/8239532 - log every updater closure
-            Log.i(TAG, String.format("QuarterHourUpdater.close(%d): %s", mId, this));
-        }
-
-        @Override
-        public void run() {
-            // Chasing bug b/8239532 - log every run we get to can see when run ran.
-            Log.i(TAG, String.format("QuarterHourUpdater.run(%d): %s", mId, this));
-            // Since the system may miss or not send time zone changes in all cases
-            // make sure to update the world clock list if the time zone
-            // changed in the last 15 minutes
-            String currentTimeZone = TimeZone.getDefault().getID();
-            if (!TextUtils.equals(currentTimeZone, mLastTimeZone)) {
-                // refresh the list to make sure home time zone is displayed / removed
-                mReloadCitiesList = true;
-                mLastTimeZone = currentTimeZone;
-                Log.v(TAG, "Detected time zone change,updating time zone to " + currentTimeZone);
-            }
-
-            AppWidgetManager widgetManager = AppWidgetManager.getInstance(mUpdaterContext);
-            if (widgetManager != null) {
-                refreshAll(mUpdaterContext, widgetManager);
-            }
-            Utils.setQuarterHourUpdater(mHandler, this);
-        }
-    }
 
     // An adapter to provide the view for the list of cities in the world clock.
     private class RemoteWorldClockAdapter extends WorldClockAdapter {
@@ -195,7 +137,6 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
         mId = intent.getIntExtra(
                 AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         mAdapter = new RemoteWorldClockAdapter(context);
-        mLastTimeZone = TimeZone.getDefault().getID();
     }
 
     @SuppressWarnings("unused")
@@ -242,109 +183,24 @@ public class DigitalWidgetViewsFactory extends BroadcastReceiver implements Remo
 
     @Override
     public void onCreate() {
-        mQuarterHourUpdater = new QuarterHourUpdater(mContext);
-        // Do intent listening registration here since doing it in the manifest creates a new
-        // new factory
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_DATE_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        filter.addAction(Intent.ACTION_SCREEN_ON);
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_LOCALE_CHANGED);
-        filter.addAction(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION);
-        filter.addAction(Cities.WORLDCLOCK_UPDATE_INTENT);
-        Log.i(TAG, "DigitalWidget register receiver " + mId);
-        mContext.registerReceiver(this, filter);
+        if (DigitalAppWidgetService.LOGGING) {
+            Log.i(TAG, "DigitalWidget onCreate " + mId);
+        }
     }
 
     @Override
     public void onDataSetChanged() {
-        if (mReloadCitiesList) {
-            mAdapter.loadData(mContext);
-            mReloadCitiesList = false;
-        }
-        if (mReloadCitiesDb) {
-            mAdapter.loadCitiesDb(mContext);
-            mAdapter.updateHomeLabel(mContext);
-            mReloadCitiesDb = false;
-        }
+        mAdapter.loadData(mContext);
+        mAdapter.loadCitiesDb(mContext);
+        mAdapter.updateHomeLabel(mContext);
 
         mFontScale = WidgetUtils.getScaleRatio(mContext, null, mId);
     }
 
     @Override
     public void onDestroy() {
-        Log.i(TAG, "DigitalWidget unregister receiver " + mId);
-        mQuarterHourUpdater.close();
-        mContext.unregisterReceiver(this);
-    }
-
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        // Chasing bug b/8239532 - log every intent we get so we can see what the last intent
-        // received was and when we got it.
-        Log.i(TAG, String.format("onReceive(%d): %s", mId, intent));
-        if (mId == AppWidgetManager.INVALID_APPWIDGET_ID) {
-            return;
-        }
-        String action = intent.getAction();
-        AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
-        if (action == null || widgetManager == null) {
-            return;
-        }
-        if (action.equals(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION)) {
-            // Update the next alarm text view
-            RemoteViews widget =
-                    new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);
-            refreshAlarm(context, widget);
-            widgetManager.partiallyUpdateAppWidget(mId, widget);
-        } else if (action.equals(Cities.WORLDCLOCK_UPDATE_INTENT)) {
-            // Reload the list of cities
-            mReloadCitiesList = true;
-            widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
-
-        } else if (action.equals(Intent.ACTION_SCREEN_ON)) {
-            // Force a refresh of the next alarm text view
-            RemoteViews widget =
-                    new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);
-            refreshAlarm(context, widget);
-            widgetManager.partiallyUpdateAppWidget(mId, widget);
-        } else {
-            if (action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
-                // refresh the list to make sure home time zone is displayed / removed
-                mReloadCitiesList = true;
-                mLastTimeZone = TimeZone.getDefault().getID();
-            } else if (action.equals(Intent.ACTION_LOCALE_CHANGED)) {
-                // reload the cities DB to pick up the cities name in the new language
-                mReloadCitiesDb = true;
-            }
-            // For any time change or locale change, refresh all
-            refreshAll(context, widgetManager);
-            mQuarterHourUpdater.reset();
-        }
-    }
-
-    protected void refreshAll(Context context, AppWidgetManager widgetManager) {
-        widgetManager.notifyAppWidgetViewDataChanged(mId, R.id.digital_appwidget_listview);
-        RemoteViews widget = new RemoteViews(context.getPackageName(), R.layout.digital_appwidget);
-        float ratio = WidgetUtils.getScaleRatio(context, null, mId);
-        WidgetUtils.setClockSize(context, widget, ratio);
-        refreshAlarm(context, widget);
-        widgetManager.partiallyUpdateAppWidget(mId, widget);
-    }
-
-    protected static void refreshAlarm(Context context, RemoteViews widget) {
-        String nextAlarm = Settings.System.getString(context.getContentResolver(),
-                Settings.System.NEXT_ALARM_FORMATTED);
-        if (!TextUtils.isEmpty(nextAlarm)) {
-            widget.setTextViewText(R.id.nextAlarm,
-                    context.getString(R.string.control_set_alarm_with_existing, nextAlarm));
-            widget.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
-            Log.v(TAG, "DigitalWidget sets next alarm string to " + nextAlarm);
-        } else  {
-            widget.setViewVisibility(R.id.nextAlarm, View.GONE);
-            Log.v(TAG, "DigitalWidget sets next alarm string to null");
+        if (DigitalAppWidgetService.LOGGING) {
+            Log.i(TAG, "DigitalWidget onDestroy " + mId);
         }
     }
 }
