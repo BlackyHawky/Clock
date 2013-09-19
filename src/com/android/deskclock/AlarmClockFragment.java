@@ -609,16 +609,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             final int firstPositionId = mAlarmsList.getFirstVisiblePosition();
             final int childId = alarmPosition - firstPositionId;
 
-            // We need to expand the first view item because bindView may have been called
-            // before setNewAlarm took effect. In that case, the newly created alarm will not be
-            // expanded.
             final View view = mAlarmsList.getChildAt(childId);
-            Object tag = view.getTag();
-            if (tag != null && tag instanceof AlarmItemAdapter.ItemHolder) {
-                mAdapter.expandAlarm((AlarmItemAdapter.ItemHolder) tag, true);
-            } else {
-                Log.e("Unable to get ItemHolder for view at id "+childId);
-            }
+            mAdapter.getView(alarmPosition, view, mAlarmsList);
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
@@ -1768,6 +1760,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 }
                 mAdapter.setNewAlarm(alarm.id);
                 scrollToAlarm(alarm.id);
+
+                // We need to refresh the first view item because bindView may have been called
+                // before setNewAlarm took effect. In that case, the newly created alarm will not be
+                // expanded.
+                View view = mAlarmsList.getChildAt(0);
+                mAdapter.getView(0, view, mAlarmsList);
             }
         };
         updateTask.execute();
