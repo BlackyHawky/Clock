@@ -41,6 +41,56 @@ import com.android.deskclock.provider.AlarmInstance;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * This class handles all the state changes for alarm instances. You need to
+ * register all alarm instances with the state manager if you want them to
+ * be activated. If a major time change has occurred (ie. TIMEZONE_CHANGE, TIMESET_CHANGE),
+ * then you must also re-register instances to fix their states.
+ *
+ * Please see {@link #registerInstance) for special transitions when major time changes
+ * occur.
+ *
+ * Following states:
+ *
+ * SILENT_STATE:
+ * This state is used when the alarm is activated, but doesn't need to display anything. It
+ * is in charge of changing the alarm instance state to a LOW_NOTIFICATION_STATE.
+ *
+ * LOW_NOTIFICATION_STATE:
+ * This state is used to notify the user that the alarm will go off
+ * {@link AlarmInstance.LOW_NOTIFICATION_HOUR_OFFSET}. This
+ * state handles the state changes to HIGH_NOTIFICATION_STATE, HIDE_NOTIFICATION_STATE and
+ * DISMISS_STATE.
+ *
+ * HIDE_NOTIFICATION_STATE:
+ * This is a transient state of the LOW_NOTIFICATION_STATE, where the user wants to hide the
+ * notification. This will sit and wait until the HIGH_PRIORITY_NOTIFICATION should go off.
+ *
+ * HIGH_NOTIFICATION_STATE:
+ * This state behaves like the LOW_NOTIFICATION_STATE, but doesn't allow the user to hide it.
+ * This state is in charge of triggering a FIRED_STATE or DISMISS_STATE.
+ *
+ * SNOOZED_STATE:
+ * The SNOOZED_STATE behaves like a HIGH_NOTIFICATION_STATE, but with a different message. It
+ * also increments the alarm time in the instance to reflect the new snooze time.
+ *
+ * FIRED_STATE:
+ * The FIRED_STATE is used when the alarm is firing. It will start the AlarmService, and wait
+ * until the user interacts with the alarm via SNOOZED_STATE or DISMISS_STATE change. If the user
+ * doesn't then it might be change to MISSED_STATE if auto-silenced was enabled.
+ *
+ * MISSED_STATE:
+ * The MISSED_STATE is used when the alarm already fired, but the user could not interact with
+ * it. At this point the alarm instance is dead and we check the parent alarm to see if we need
+ * to disable or schedule a new alarm_instance. There is also a notification shown to the user
+ * that he/she missed the alarm and that stays for
+ * {@link AlarmInstance.MISSED_TIME_TO_LIVE_HOUR_OFFSET} or until the user acknownledges it.
+ *
+ * DISMISS_STATE:
+ * This is really a transient state that will properly delete the alarm instance. Use this state,
+ * whenever you want to get rid of the alarm instance. This state will also check the alarm
+ * parent to see if it should disable or schedule a new alarm instance.
+ */
 public final class AlarmStateManager extends BroadcastReceiver {
     // These defaults must match the values in res/xml/settings.xml
     private static final String DEFAULT_SNOOZE_MINUTES = "10";
@@ -380,9 +430,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         unregisterInstance(context, instance);
 
         // Check parent if it needs to reschedule, disable or delete itself
-        // Can ignore doing this if alarm is coming from a missed state because it
-        // already did this for us
-        if (instance.mAlarmState != AlarmInstance.MISSED_STATE && instance.mAlarmId != null) {
+        if (instance.mAlarmId != null) {
             updateParentAlarm(context, instance);
         }
 
@@ -408,19 +456,28 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * This registers the AlarmInstance to the state manager. This will look at the instance
      * and choose the most appropriate state to put it in. This is primarily used by new
-     * alarms, but it can also be called when phone boots up or when system time changes.
+     * alarms, but it can also be called when the system time changes.
+     *
+     * Most state changes are handled by the states themselves, but during major time changes we
+     * have to correct the alarm instance state. This means we have to handle special cases as
+     * describe below:
+     *
+     * <ul>
+     *     <li>Make sure all dismissed alarms are never re-activated</li>
+     *     <li>Make sure firing alarms stayed fired unless they should be auto-silenced</li>
+     *     <li>Missed instance that have parents should be re-enabled if we went back in time</li>
+     *     <li>If alarm was SNOOZED, then show the notification but don't update time</li>
+     *     <li>If low priority notification was hidden, then make sure it stays hidden</li>
+     * </ul>
+     *
+     * If none of these special case are found, then we just check the time and see what is the
+     * proper state for the instance.
      *
      * @param context application context
      * @param instance to register
      */
     public static void registerInstance(Context context, AlarmInstance instance,
             boolean updateNextAlarm) {
-        // Just dismiss the instance if it has been dismiss
-        if (instance.mAlarmState == AlarmInstance.DISMISSED_STATE) {
-            setDismissState(context, instance);
-            return;
-        }
-
         Calendar currentTime = Calendar.getInstance();
         Calendar alarmTime = instance.getAlarmTime();
         Calendar timeoutTime = instance.getTimeout(context);
@@ -428,30 +485,50 @@ public final class AlarmStateManager extends BroadcastReceiver {
         Calendar highNotificationTime = instance.getHighNotificationTime();
         Calendar missedTTL = instance.getMissedTimeToLive();
 
+        // Handle special use cases here
+        if (instance.mAlarmState == AlarmInstance.DISMISSED_STATE) {
+            // This should never happen, but add a quick check here
+            Log.e("Alarm Instance is dismissed, but never deleted");
+            setDismissState(context, instance);
+            return;
+        } else if (instance.mAlarmState == AlarmInstance.FIRED_STATE) {
+            // Keep alarm firing, unless it should be timed out
+            boolean hasTimeout = timeoutTime != null && currentTime.after(timeoutTime);
+            if (!hasTimeout) {
+                setFiredState(context, instance);
+                return;
+            }
+        } else if (instance.mAlarmState == AlarmInstance.MISSED_STATE) {
+            if (currentTime.before(alarmTime)) {
+                if (instance.mAlarmId == null) {
+                    // This instance parent got deleted (ie. deleteAfterUse), so
+                    // we should not re-activate it.-
+                    setDismissState(context, instance);
+                    return;
+                }
+
+                // TODO: This will re-activate missed snoozed alarms, but will
+                // use our normal notifications. This is not ideal, but very rare use-case.
+                // We should look into fixing this in the future.
+
+                // Make sure we re-enable the parent alarm of the instance
+                // because it will get activated by by the below code
+                ContentResolver cr = context.getContentResolver();
+                Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
+                alarm.enabled = true;
+                Alarm.updateAlarm(cr, alarm);
+            }
+        }
+
+        // Fix states that are time sensitive
         if (currentTime.after(missedTTL)) {
             // Alarm is so old, just dismiss it
             setDismissState(context, instance);
-        } else if (instance.mAlarmState == AlarmInstance.FIRED_STATE) {
-            // Keep alarm fired, unless it timed out
-            if (timeoutTime != null && currentTime.after(timeoutTime)) {
-                setMissedState(context, instance);
-            } else {
-                setFiredState(context, instance);
-            }
-        } else if (instance.mAlarmState == AlarmInstance.MISSED_STATE) {
-            // Don't allow MISSED alarms to re-activate
-            if (currentTime.before(alarmTime)) {
-                // Get rid of the missed notification if the alarm time would be in
-                // the future due to timezone changes
-                setDismissState(context, instance);
-            } else {
-                setMissedState(context, instance);
-            }
         } else if (currentTime.after(alarmTime)) {
             setMissedState(context, instance);
         } else if (instance.mAlarmState == AlarmInstance.SNOOZE_STATE) {
-            // We only want to display snooze and not update the time, so we
-            // do it ourselves here
+            // We only want to display snooze notification and not update the time,
+            // so handle showing the notification directly
             AlarmNotifications.showSnoozeNotification(context, instance);
             scheduleInstanceStateChange(context, instance.getAlarmTime(),
                     instance, AlarmInstance.FIRED_STATE);
@@ -469,6 +546,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
           setSilentState(context, instance);
         }
 
+        // The caller prefers to handle updateNextAlarm for optimization
         if (updateNextAlarm) {
             updateNextAlarm(context);
         }
