@@ -28,18 +28,18 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Static utility methods for Alarms.
  */
 public class AlarmUtils {
     public static final String FRAG_TAG_TIME_PICKER = "time_dialog";
-    private final static String DM12 = "E h:mm aa";
-    private final static String DM24 = "E kk:mm";
 
     public static String getFormattedTime(Context context, Calendar time) {
-        String format = DateFormat.is24HourFormat(context) ? DM24 : DM12;
-        return (String) DateFormat.format(format, time);
+        String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+        return (String) DateFormat.format(pattern, time);
     }
 
     public static String getAlarmText(Context context, AlarmInstance instance) {
