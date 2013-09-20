@@ -165,6 +165,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
                 mSelectedEndPosition = filteredList.size();
 
+                long currentTime = System.currentTimeMillis();
                 String val = null;
                 int offset = -100000; //some value that cannot be a real offset
                 for (CityObj city : mCities) {
@@ -192,7 +193,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                         // the previous city's gmt offset, insert a section header.
                         if (mSortType == SORT_BY_GMT_OFFSET) {
                             TimeZone timezone = TimeZone.getTimeZone(city.mTimeZone);
-                            int newOffset = timezone.getRawOffset();
+                            int newOffset = timezone.getOffset(currentTime);
                             if (offset != newOffset) {
                                 offset = newOffset;
                                 String offsetString = Utils.getGMTHourOffset(timezone, true);
