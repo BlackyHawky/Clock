@@ -72,12 +72,6 @@ public class Utils {
      */
     private static String sCachedVersionCode = null;
 
-    /**
-     * Intent to be used for checking if a clock's date has changed. Must be every fifteen
-     * minutes because not all time zones are hour-locked.
-     **/
-    public static final String ACTION_ON_QUARTER_HOUR = "com.android.deskclock.ON_QUARTER_HOUR";
-
     /** Types that may be used for clock displays. **/
     public static final String CLOCK_TYPE_DIGITAL = "digital";
     public static final String CLOCK_TYPE_ANALOG = "analog";
@@ -350,7 +344,7 @@ public class Utils {
     }
 
     /** Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45) **/
-    private static long getAlarmOnQuarterHour() {
+    public static long getAlarmOnQuarterHour() {
         Calendar nextQuarter = Calendar.getInstance();
         //  Set 1 second to ensure quarter-hour threshold passed.
         nextQuarter.set(Calendar.SECOND, 1);
@@ -361,41 +355,10 @@ public class Utils {
                 || (alarmOnQuarterHour - System.currentTimeMillis()) > 901000) {
             Log.wtf("quarterly alarm calculation error");
         }
-        Log.v("getAlarmOnQuarterHour returns "
+        Log.v("getAlarmOnQuarterHour returns " // STOPSHIP Don't ship with this log
                 + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nextQuarter.getTime())
                 + " to fire in " + (alarmOnQuarterHour - System.currentTimeMillis()));
         return alarmOnQuarterHour;
-    }
-
-    /** Setup alarm refresh when the quarter-hour changes **/
-    public static PendingIntent startAlarmOnQuarterHour(Context context) {
-        if (context != null) {
-            PendingIntent quarterlyIntent = PendingIntent.getBroadcast(
-                    context, 0, new Intent(Utils.ACTION_ON_QUARTER_HOUR), 0);
-            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).setRepeating(
-                    AlarmManager.RTC, getAlarmOnQuarterHour(),
-                    AlarmManager.INTERVAL_FIFTEEN_MINUTES, quarterlyIntent);
-            Log.v("startAlarmOnQuarterHour " + context.toString()
-                    + " " + quarterlyIntent.toString());
-            return quarterlyIntent;
-        } else {
-            return null;
-        }
-    }
-
-    public static void cancelAlarmOnQuarterHour(Context context, PendingIntent quarterlyIntent) {
-        if (quarterlyIntent != null && context != null) {
-            Log.v("cancelAlarmOnQuarterHour " + context.toString()
-                    + " " + quarterlyIntent.toString());
-            ((AlarmManager) context.getSystemService(Context.ALARM_SERVICE)).cancel(
-                    quarterlyIntent);
-        }
-    }
-
-    public static PendingIntent refreshAlarmOnQuarterHour(
-            Context context, PendingIntent quarterlyIntent) {
-        cancelAlarmOnQuarterHour(context, quarterlyIntent);
-        return startAlarmOnQuarterHour(context);
     }
 
     // Setup a thread that starts at midnight plus one second. The extra second is added to ensure
@@ -414,7 +377,7 @@ public class Utils {
     }
 
     // Stop the midnight update thread
-    public static void resetMidnightUpdater(Handler handler, Runnable runnable) {
+    public static void cancelMidnightUpdater(Handler handler, Runnable runnable) {
         if (handler == null || runnable == null) {
             return;
         }

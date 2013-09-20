@@ -17,9 +17,11 @@
 package com.android.alarmclock;
 
 import android.content.Intent;
+import android.util.Log;
 import android.widget.RemoteViewsService;
 
 public class DigitalAppWidgetService extends RemoteViewsService {
+    public static final boolean LOGGING = true; // STOPSHIP Don't ship with this set to true
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent i) {
