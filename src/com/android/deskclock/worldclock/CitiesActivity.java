@@ -106,12 +106,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         private static final int VIEW_TYPE_CITY = 0;
         private static final int VIEW_TYPE_HEADER = 1;
 
-        private static final String FORMAT_24_HOUR = "k:mm";
-        private static final String FORMAT_12_HOUR = "h:mm aa";
-
-        private static final String FORMAT_24_HOUR_RTL = "kk:mm";
-        private static final String FORMAT_12_HOUR_RTL = "hh:mm aa";
-
         private static final String DELETED_ENTRY = "C0";
 
         private List<CityObj> mDisplayedCitiesList;
@@ -119,7 +113,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         private CityObj[] mCities;
         private CityObj[] mSelectedCities;
 
-        private int mLayoutDirection;
+        private final int mLayoutDirection;
 
         // A map that caches names of cities in local memory.  The names in this map are
         // preferred over the names of the selected cities stored in SharedPreferences, which could
@@ -135,6 +129,9 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
 
         private final LayoutInflater mInflater;
         private boolean mIs24HoursMode; // AM/PM or 24 hours mode
+
+        private final String mPattern12;
+        private final String mPattern24;
 
         private int mSelectedEndPosition = 0;
 
@@ -263,6 +260,17 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 }
             }
 
+            mPattern24 = DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm");
+
+            // There's an RTL layout bug that causes jank when fast-scrolling through
+            // the list in 12-hour mode in an RTL locale. We can work around this by
+            // ensuring the strings are the same length by using "hh" instead of "h".
+            String pattern12 = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
+            if (mLayoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                pattern12 = pattern12.replaceAll("h", "hh");
+            }
+            mPattern12 = pattern12;
+
             sortCities(mSortType);
             set24HoursMode(context);
         }
@@ -378,17 +386,9 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
             return view;
         }
 
-        // We need to ensure that hours are adjusted to be two digits in RTL due to issue involving
-        // layout weights and text views with different lengths in a list view.
         private CharSequence getTimeCharSequence(String timeZone) {
             mCalendar.setTimeZone(TimeZone.getTimeZone(timeZone));
-            String format;
-            if (mLayoutDirection == View.LAYOUT_DIRECTION_RTL) {
-                format = mIs24HoursMode ? FORMAT_24_HOUR_RTL : FORMAT_12_HOUR_RTL;
-            } else {
-                format = mIs24HoursMode ? FORMAT_24_HOUR : FORMAT_12_HOUR;
-            }
-            return DateFormat.format(format, mCalendar);
+            return DateFormat.format(mIs24HoursMode ? mPattern24 : mPattern12, mCalendar);
         }
 
         @Override
