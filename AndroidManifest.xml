@@ -79,7 +79,7 @@
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
                 android:theme="@style/AlarmAlertFullScreenTheme"
-                android:windowSoftInputMode="stateHidden"
+                android:windowSoftInputMode="stateAlwaysHidden"
                 android:showOnLockScreen="true"
                 android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
 
