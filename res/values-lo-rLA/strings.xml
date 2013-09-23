@@ -19,8 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"ໂມງ"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"ໂມງປຸກ"</string>
     <string name="add_alarm" msgid="5976616107390962899">"ເພີ່ມໂມງປຸກ"</string>
-    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
-    <skip />
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"ໂມງປຸກເທື່ອຕໍ່ໄປ"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Desk Clock"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"ແກ້ໄຂໂມງປຸກ"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"ລຶບໂມງປຸກ"</string>
@@ -38,19 +37,14 @@
     <string name="ringtone" msgid="9110746249688559579">"ສຽງໂມງປຸກ"</string>
     <string name="time" msgid="8067216534232296518">"ເວລາ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ປິດ"</string>
-    <!-- no translation found for alarm_alert_dismiss_now_text (3272183025444682500) -->
-    <skip />
-    <!-- no translation found for alarm_missed_title (3828345099754063392) -->
-    <skip />
-    <!-- no translation found for alarm_missed_text (6585658367289194023) -->
-    <skip />
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"ປິດໄວ້ກ່ອນຕອນນີ້"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"ໂມງປຸກທີ່ພາດ"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ປິດສຽງເຕືອນຊົ່ວຄາວ"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"ປິດສຽງເຕືອນຊົ່ວຄາວ <xliff:g id="MINUTES">%d</xliff:g> ນາທີ."</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ປິດສຽງເຕືອນຊົ່ວຄາວຈົນກວ່າຈະຮອດ <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for alarm_alert_predismiss_title (5723945586913705445) -->
-    <skip />
-    <!-- no translation found for missed_alarm_has_been_deleted (5295473204045979335) -->
-    <skip />
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ໂມງປຸກຖັດໄປ"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ການຕັ້ງໂມງປຸກທີ່ພາດໄປນັ້ນຖືກລຶບແລ້ວ"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"ເຫຼືອໜ້ອຍກວ່າ 1 ນາທີ"</item>
     <item msgid="83197792732433351">"ຍັງເຫຼືອ <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -133,8 +127,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"ຕັ້ງໂມງປຸກ"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
-    <!-- no translation found for menu_alarm (4772010125376647519) -->
-    <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"ໂມງປຸກ"</string>
     <string name="menu_timer" msgid="6459070074762877114">"ໂມງນັບຖອຍຫຼັງ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ໂມງ"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"ຈັບເວລາ"</string>
@@ -144,12 +137,9 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"ຕັ້ງຄ່າ"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"ຊ່ວຍເຫຼືອ"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"ໂໝດກາງຄືນ"</string>
-    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
-    <skip />
-    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
-    <skip />
-    <!-- no translation found for selected_cities_label (3607479399424246605) -->
-    <skip />
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"ຮຽງຕາມເວລາ"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"ຮຽງຕາມຊື່"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"ເມືອງທີ່ເລືອກແລ້ວ"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"ສືບຕໍ່"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"ເລີ່ມ"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"ຢຸດ"</string>
@@ -182,11 +172,9 @@
     <string name="timer_start" msgid="6158486445614356442">"ເລີ່ມ"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ລຶບ"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"ເພີ່ມ 1 ນາທີ"</string>
-    <!-- no translation found for timer_plus_1_min (8645224089494875062) -->
-    <skip />
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"ເພີ່ມ 1 ນາທີ"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ຢຸດ"</string>
-    <!-- no translation found for timer_done (2375990511982914051) -->
-    <skip />
+    <string name="timer_done" msgid="2375990511982914051">"ແລ້ວໆ"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ນັບໃໝ່"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"ຍົກເລີກ"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ໝົດເວລາ"</string>
@@ -344,8 +332,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"ລຶບໂມງນັບຖອຍຫລັງນີ້?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"ລຶບເມືອງນີ້ອອກ?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ໂມງດິຈິຕອນ"</string>
-    <!-- no translation found for no_alarms (6429431324842022917) -->
-    <skip />
-    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
-    <skip />
+    <string name="no_alarms" msgid="6429431324842022917">"ບໍ່ມີການຕັ້ງໂມງປຸກ"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"ບໍ່ມີການຕັ້ງໂມງປຸກແລ້ວ"</string>
 </resources>
