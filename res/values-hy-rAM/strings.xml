@@ -19,8 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"Ժամացույց"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Զարթուցիչներ"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Ավելացնել զարթուցիչ"</string>
-    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
-    <skip />
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"Հաջորդ ազդանշանները"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Սեղանի ժամացույց"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Խմբագրել զարթուցիչը"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Ջնջել զարթուցիչը"</string>
@@ -38,19 +37,14 @@
     <string name="ringtone" msgid="9110746249688559579">"Զանգերանգ"</string>
     <string name="time" msgid="8067216534232296518">"Ժամանակ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Անտեսել"</string>
-    <!-- no translation found for alarm_alert_dismiss_now_text (3272183025444682500) -->
-    <skip />
-    <!-- no translation found for alarm_missed_title (3828345099754063392) -->
-    <skip />
-    <!-- no translation found for alarm_missed_text (6585658367289194023) -->
-    <skip />
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Անտեսել հիմա"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Բաց թողնված ազդանշան"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ննջել"</string>
     <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Ննջում է <xliff:g id="MINUTES">%d</xliff:g> րոպե:"</string>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ննջում է մինչև <xliff:g id="TIME">%s</xliff:g>"</string>
-    <!-- no translation found for alarm_alert_predismiss_title (5723945586913705445) -->
-    <skip />
-    <!-- no translation found for missed_alarm_has_been_deleted (5295473204045979335) -->
-    <skip />
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Սպասվող ազդանշան"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Ձեր բաց թողած ազդանշանը հեռացված է"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Մնացել է մեկ րոպեից պակաս ժամանակ:"</item>
     <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> մինչ ավարտը"</item>
@@ -133,8 +127,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Դնել զարթուցիչ"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
-    <!-- no translation found for menu_alarm (4772010125376647519) -->
-    <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"Ազդանշան"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Ժամաչափ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ժամացույց"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Վայրկյանաչափ"</string>
@@ -144,12 +137,9 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Կարգավորումներ"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Օգնություն"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Գիշերային ռեժիմ"</string>
-    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
-    <skip />
-    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
-    <skip />
-    <!-- no translation found for selected_cities_label (3607479399424246605) -->
-    <skip />
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Դասակարգել ըստ ժամանակի"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Դասակարգել ըստ անունների"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Ընտրված քաղաքներ"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Շարունակել"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Մեկնարկել"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Դադարեցնել"</string>
@@ -182,11 +172,9 @@
     <string name="timer_start" msgid="6158486445614356442">"Մեկնարկել"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Ջնջել"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Ավելացնել 1 րոպե"</string>
-    <!-- no translation found for timer_plus_1_min (8645224089494875062) -->
-    <skip />
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Ավելացնել 1 րոպե"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Դադարեցնել"</string>
-    <!-- no translation found for timer_done (2375990511982914051) -->
-    <skip />
+    <string name="timer_done" msgid="2375990511982914051">"Կատարված է"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Վերակայել"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Չեղարկել"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Ժամանակը սպառվել է"</string>
@@ -344,8 +332,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Ջնջե՞լ այս ժամաչափը:"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Հեռացնե՞լ այս քաղաքը:"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Թվային ժամացույց"</string>
-    <!-- no translation found for no_alarms (6429431324842022917) -->
-    <skip />
-    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
-    <skip />
+    <string name="no_alarms" msgid="6429431324842022917">"Ազդանշաններ չկան"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"Սպասվող ազդանշաններ չկան"</string>
 </resources>
