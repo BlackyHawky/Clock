@@ -797,11 +797,9 @@
     <string name="digital_gadget">Digital clock</string>
 
     <!-- format strings for widget clock -->
-    <string name="widget_12_hours_format_h" translatable="false">h</string>
-    <string name="widget_12_hours_format_no_ampm_m" translatable="false">mm</string>
-    <string name="widget_12_hours_format_m" translatable="false">mm&#160;<b><font size="15">a</font></b></string>
-    <string name="widget_24_hours_format_h" translatable="false">kk</string>
-    <string name="widget_24_hours_format_m" translatable="false">mm</string>
+    <string name="widget_12_hours_format" translatable="false">h&#58;mm</string>
+    <string name="widget_24_hours_format" translatable="false">kk&#58;mm</string>
+    <string name="widget_12_hours_format_with_ampm" translatable="false">h&#58;mm&#160;<b><font size="15">a</font></b></string>
 
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>

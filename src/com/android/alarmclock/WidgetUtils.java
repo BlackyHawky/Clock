@@ -33,9 +33,7 @@ public class WidgetUtils {
     public static void setClockSize(Context context, RemoteViews clock, float scale) {
         float fontSize = context.getResources().getDimension(R.dimen.widget_big_font_size);
         clock.setTextViewTextSize(
-                R.id.the_clock1, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
-        clock.setTextViewTextSize(
-                R.id.the_clock2, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
+                R.id.the_clock, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
     }
 
     // Calculate the scale factor of the fonts in the widget

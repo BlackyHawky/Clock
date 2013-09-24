@@ -65,16 +65,16 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
                     mContext.getPackageName(), R.layout.world_clock_remote_list_item);
 
             // Always how the left clock
-            updateView(views, (CityObj) mCitiesList[index], R.id.leftClock1, R.id.leftClock2,
+            updateView(views, (CityObj) mCitiesList[index], R.id.left_clock,
                     R.id.city_name_left, R.id.city_day_left);
             // Show the right clock if any, make it invisible if there is no
             // clock on the right
             // to keep the left view on the left.
             if (index + 1 < mCitiesList.length) {
-                updateView(views, (CityObj) mCitiesList[index + 1], R.id.rightClock1,
-                        R.id.rightClock2, R.id.city_name_right, R.id.city_day_right);
+                updateView(views, (CityObj) mCitiesList[index + 1], R.id.right_clock,
+                        R.id.city_name_right, R.id.city_day_right);
             } else {
-                hideView(views, R.id.rightClock1, R.id.rightClock2, R.id.city_name_right,
+                hideView(views, R.id.right_clock, R.id.city_name_right,
                         R.id.city_day_right);
             }
 
@@ -89,7 +89,7 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
             return views;
         }
 
-        private void updateView(RemoteViews clock, CityObj cityObj, int clockId1, int clockId2,
+        private void updateView(RemoteViews clock, CityObj cityObj, int clockId,
                 int labelId, int dayId) {
             final Calendar now = Calendar.getInstance();
             now.setTimeInMillis(System.currentTimeMillis());
@@ -101,10 +101,8 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
 
             float fontSize = mFontScale * (DateFormat.is24HourFormat(mContext)
                     ? mFont24Size : mFontSize);
-            clock.setTextViewTextSize(clockId1, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
-            clock.setTextViewTextSize(clockId2, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
-            clock.setString(clockId1, "setTimeZone", cityObj.mTimeZone);
-            clock.setString(clockId2, "setTimeZone", cityObj.mTimeZone);
+            clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
+            clock.setString(clockId, "setTimeZone", cityObj.mTimeZone);
 
             // Home city or city not in DB , use data from the save selected cities list
             clock.setTextViewText(labelId, Utils.getCityName(cityObj, cityInDb));
@@ -118,15 +116,13 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
                 clock.setViewVisibility(dayId, View.GONE);
             }
 
-            clock.setViewVisibility(clockId1, View.VISIBLE);
-            clock.setViewVisibility(clockId2, View.VISIBLE);
+            clock.setViewVisibility(clockId, View.VISIBLE);
             clock.setViewVisibility(labelId, View.VISIBLE);
         }
 
         private void hideView(
-                RemoteViews clock, int clockId1, int clockId2, int labelId, int dayId) {
-            clock.setViewVisibility(clockId1, View.INVISIBLE);
-            clock.setViewVisibility(clockId2, View.INVISIBLE);
+                RemoteViews clock, int clockId, int labelId, int dayId) {
+            clock.setViewVisibility(clockId, View.INVISIBLE);
             clock.setViewVisibility(labelId, View.INVISIBLE);
             clock.setViewVisibility(dayId, View.INVISIBLE);
         }

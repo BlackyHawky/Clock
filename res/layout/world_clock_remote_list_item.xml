@@ -19,7 +19,7 @@
     android:id="@+id/widget_item"
     android:orientation="vertical" >
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
@@ -30,38 +30,17 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <TextClock
+                android:id="@+id/left_clock"
+                android:format12Hour="@string/widget_12_hours_format_with_ampm"
+                android:format24Hour="@string/widget_24_hours_format"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/widget_medium_thin"
+                android:textColor="@color/clock_white"
                 android:baselineAligned="true"
                 android:layout_gravity="center"
-                android:layoutDirection="ltr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextClock
-                    android:id="@+id/leftClock1"
-                    android:format12Hour="@string/widget_12_hours_format_h"
-                    android:format24Hour="@string/widget_24_hours_format_h"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/widget_medium_time_margin_right"
-                    android:paddingEnd="@dimen/widget_medium_time_margin_right"
-                    style="@style/widget_medium_thin"
-                    android:textColor="@color/clock_white"
-                    android:textDirection="ltr"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-                <TextClock
-                    android:id="@+id/leftClock2"
-                    android:format12Hour="@string/widget_12_hours_format_m"
-                    android:format24Hour="@string/widget_24_hours_format_m"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/widget_medium_thin"
-                    android:textColor="@color/clock_white"
-                    android:textDirection="ltr"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-            </LinearLayout>
+                android:gravity="center" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +49,7 @@
 
                 <TextView
                     android:id="@+id/city_name_left"
-                    style="@style/label"
+                    style="@style/widget_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -79,7 +58,7 @@
 
                 <TextView
                     android:id="@+id/city_day_left"
-                    style="@style/label"
+                    style="@style/widget_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/style_label_space"
@@ -96,38 +75,17 @@
             android:layout_weight="1"
             android:orientation="vertical" >
 
-            <LinearLayout
+            <TextClock
+                android:id="@+id/right_clock"
+                android:format12Hour="@string/widget_12_hours_format_with_ampm"
+                android:format24Hour="@string/widget_24_hours_format"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/widget_medium_thin"
+                android:textColor="@color/clock_white"
                 android:baselineAligned="true"
                 android:layout_gravity="center"
-                android:layoutDirection="ltr"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <TextClock
-                    android:id="@+id/rightClock1"
-                    android:format12Hour="@string/widget_12_hours_format_h"
-                    android:format24Hour="@string/widget_24_hours_format_h"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="@dimen/widget_medium_time_margin_right"
-                    android:paddingEnd="@dimen/widget_medium_time_margin_right"
-                    style="@style/widget_medium_thin"
-                    android:textColor="@color/clock_white"
-                    android:textDirection="ltr"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-                <TextClock
-                    android:id="@+id/rightClock2"
-                    android:format12Hour="@string/widget_12_hours_format_m"
-                    android:format24Hour="@string/widget_24_hours_format_m"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/widget_medium_thin"
-                    android:textColor="@color/clock_white"
-                    android:textDirection="ltr"
-                    android:layout_gravity="center"
-                    android:gravity="center" />
-            </LinearLayout>
+                android:gravity="center" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -137,7 +95,7 @@
 
                 <TextView
                     android:id="@+id/city_name_right"
-                    style="@style/label"
+                    style="@style/widget_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -146,7 +104,7 @@
 
                 <TextView
                     android:id="@+id/city_day_right"
-                    style="@style/label"
+                    style="@style/widget_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/style_label_space"
