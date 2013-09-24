@@ -188,6 +188,10 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
+    <style name="widget_label" parent="label">
+        <item name="android:textSize">@dimen/widget_label_font_size</item>
+    </style>
+
     <style name="header">
         <item name="android:textSize">@dimen/header_font_size</item>
         <item name="android:textAllCaps">true</item>
