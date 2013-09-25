@@ -438,7 +438,7 @@ public class Utils {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setColorFilter(new PorterDuffColorFilter(
-                        (dim ? 0x20FFFFFF : 0xC0FFFFFF),
+                        (dim ? 0x40FFFFFF : 0xC0FFFFFF),
                 PorterDuff.Mode.MULTIPLY));
         clockView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
