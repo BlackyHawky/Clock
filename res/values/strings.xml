@@ -800,6 +800,7 @@
     <string name="widget_12_hours_format" translatable="false">h&#58;mm</string>
     <string name="widget_24_hours_format" translatable="false">kk&#58;mm</string>
     <string name="widget_12_hours_format_with_ampm" translatable="false">h&#58;mm&#160;<b><font size="15">a</font></b></string>
+    <string name="clock_12_hours_format_with_ampm" translatable="false">h&#58;mm<b><font size="18" face="sans-serif-condensed">a</font></b></string>
 
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>
