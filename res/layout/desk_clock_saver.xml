@@ -36,14 +36,20 @@
         android:layout_marginTop="@dimen/time_margin_top"
         android:layout_marginBottom="@dimen/screensaver_margin">
 
-        <include layout="@layout/desk_clock_time_date"
+        <TextClock
             android:id="@+id/digital_clock"
+            android:format12Hour="@string/clock_12_hours_format_with_ampm"
+            android:format24Hour="@string/widget_24_hours_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
-            />
+            style="@style/big_thin"
+            android:textSize="@dimen/digital_main_clock_text_size"
+            android:textColor="@color/clock_white" />
+
         <com.android.deskclock.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="wrap_content"
