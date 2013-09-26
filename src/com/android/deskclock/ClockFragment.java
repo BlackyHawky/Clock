@@ -173,6 +173,13 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
         mList.setOnTouchListener(longPressNightMode);
 
+        // If the current layout has a fake overflow menu button, let the parent
+        // activity set up its click and touch listeners.
+        View menuButton = v.findViewById(R.id.menu_button);
+        if (menuButton != null) {
+            setupFakeOverflowMenuButton(menuButton);
+        }
+
         mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
         View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);

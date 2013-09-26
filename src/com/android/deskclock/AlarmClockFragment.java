@@ -186,17 +186,26 @@ public class AlarmClockFragment extends DeskClockFragment implements
             }
         });
         // For landscape, put the add button on the right and the menu in the actionbar.
-        View menuButton = v.findViewById(R.id.menu_button);
         FrameLayout.LayoutParams layoutParams =
                 (FrameLayout.LayoutParams) mAddAlarmButton.getLayoutParams();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        boolean isLandscape = getResources().getConfiguration().orientation
+                == Configuration.ORIENTATION_LANDSCAPE;
+        if (isLandscape) {
             layoutParams.gravity = Gravity.END;
-            menuButton.setVisibility(View.GONE);
         } else {
             layoutParams.gravity = Gravity.CENTER;
-            menuButton.setVisibility(View.VISIBLE);
         }
         mAddAlarmButton.setLayoutParams(layoutParams);
+
+        View menuButton = v.findViewById(R.id.menu_button);
+        if (menuButton != null) {
+            if (isLandscape) {
+                menuButton.setVisibility(View.GONE);
+            } else {
+                menuButton.setVisibility(View.VISIBLE);
+                setupFakeOverflowMenuButton(menuButton);
+            }
+        }
 
         mEmptyView = v.findViewById(R.id.alarms_empty_view);
         mEmptyView.setOnClickListener(new OnClickListener() {
