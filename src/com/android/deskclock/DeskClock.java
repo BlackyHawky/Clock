@@ -231,25 +231,9 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             case R.id.cities_button:
                 startActivity(new Intent(this, CitiesActivity.class));
                 break;
-            case R.id.menu_button:
-                showMenu(v);
-                break;
             default:
                 break;
         }
-    }
-
-    private void showMenu(View v) {
-        PopupMenu popupMenu = new PopupMenu(this, v);
-        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener () {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                return processMenuClick(item);
-            }
-        });
-        popupMenu.inflate(R.menu.desk_clock_menu);
-        updateMenu(popupMenu.getMenu());
-        popupMenu.show();
     }
 
     @Override
