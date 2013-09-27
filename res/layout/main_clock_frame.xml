@@ -38,14 +38,21 @@
             android:hand_hour="@drawable/clock_analog_hour_mipmap"
             android:hand_minute="@drawable/clock_analog_minute_mipmap"
             android:layout_marginBottom="@dimen/bottom_text_spacing_analog" />
-        <include layout="@layout/desk_clock_time_date"
+        <TextClock
             android:id="@+id/digital_clock"
+            android:format12Hour="@string/clock_12_hours_format_with_ampm"
+            android:format24Hour="@string/widget_24_hours_format"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_marginTop="@dimen/top_text_spacing_digital"
             android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
-            />
+            android:singleLine="true"
+            android:ellipsize="none"
+            style="@style/big_thin"
+            android:textSize="@dimen/digital_main_clock_text_size"
+            android:textColor="@color/clock_white" />
+
     </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
