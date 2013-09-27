@@ -31,11 +31,19 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
-            <include layout="@layout/desk_clock_time_small"
-                android:gravity="center"
-                android:layout_gravity="center"
+
+            <TextClock
+                android:id="@+id/digital_clock"
+                android:format12Hour="@string/clock_12_hours_format_with_ampm"
+                android:format24Hour="@string/widget_24_hours_format"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                style="@style/medium_light"
+                android:textSize="@dimen/digital_world_clock_text_size"
+                android:textColor="@color/clock_white"
+                android:baselineAligned="true"
+                android:layout_gravity="center"
+                android:gravity="center" />
             <com.android.deskclock.AnalogClock
                 android:id="@+id/analog_clock"
                 android:gravity="center"

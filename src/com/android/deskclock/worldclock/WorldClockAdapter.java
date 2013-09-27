@@ -23,11 +23,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.AnalogClock;
-import com.android.deskclock.DigitalClock;
-import com.android.deskclock.Log;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
@@ -250,7 +249,7 @@ public class WorldClockAdapter extends BaseAdapter {
         View nameLayout= clock.findViewById(R.id.city_name_layout);
         TextView name = (TextView)(nameLayout.findViewById(R.id.city_name));
         TextView dayOfWeek = (TextView)(nameLayout.findViewById(R.id.city_day));
-        DigitalClock dclock = (DigitalClock)(clock.findViewById(R.id.digital_clock));
+        TextClock dclock = (TextClock)(clock.findViewById(R.id.digital_clock));
         AnalogClock aclock = (AnalogClock)(clock.findViewById(R.id.analog_clock));
         View separator = clock.findViewById(R.id.separator);
 
