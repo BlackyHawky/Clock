@@ -311,6 +311,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     public Calendar getAlarmTime() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.YEAR, mYear);
+        calendar.set(Calendar.MONTH, mMonth);
         calendar.set(Calendar.DAY_OF_MONTH, mDay);
         calendar.set(Calendar.HOUR_OF_DAY, mHour);
         calendar.set(Calendar.MINUTE, mMinute);
