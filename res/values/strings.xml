@@ -627,6 +627,7 @@
         <item>"Auckland"</item>
         <item>"Fiji"</item>
         <item>"Tonga"</item>
+        <item>"Jakarta"</item>
     </string-array>
 
     <!-- Choices for timezones, must be kept in sync with timezone_values. -->
@@ -716,6 +717,7 @@
         <item>"Pacific/Auckland"</item>
         <item>"Pacific/Fiji"</item>
         <item>"Pacific/Tongatapu"</item>
+        <item>"Asia/Jakarta"</item>
     </string-array>
 
      <!-- Header in the preferences settings for the section pertaining to alarms -->
