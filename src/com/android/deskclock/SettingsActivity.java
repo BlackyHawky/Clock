@@ -282,11 +282,14 @@ public class SettingsActivity extends PreferenceActivity
         Resources resources = this.getResources();
         String[] ids = resources.getStringArray(R.array.timezone_values);
         String[] labels = resources.getStringArray(R.array.timezone_labels);
+        int minLength = ids.length;
         if (ids.length != labels.length) {
-            Log.wtf("Timezone ids and labels have different length!");
+            // StopShip: Make sure to remove this after we get translations for K
+            minLength = Math.min(minLength, labels.length);
+            Log.e("Timezone ids and labels have different length!");
         }
         List<TimeZoneRow> timezones = new ArrayList<TimeZoneRow>();
-        for (int i = 0; i < ids.length; i++) {
+        for (int i = 0; i < minLength; i++) {
             timezones.add(new TimeZoneRow(ids[i], labels[i]));
         }
         Collections.sort(timezones);
