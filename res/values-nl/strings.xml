@@ -56,7 +56,7 @@
     <item msgid="6002066367368421848">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g> vanaf nu."</item>
     <item msgid="8824719306247973774">"Alarm is ingesteld voor <xliff:g id="HOURS">%2$s</xliff:g> vanaf nu."</item>
     <item msgid="8182406852935468862">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> vanaf nu."</item>
-    <item msgid="2532279224777213194">"Alarm gaat over <xliff:g id="MINUTES">%3$s</xliff:g> minuten af."</item>
+    <item msgid="2532279224777213194">"Alarm gaat over <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
     <item msgid="5936557894247187717">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> vanaf nu."</item>
     <item msgid="9115697840826129603">"Alarm is ingesteld voor <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> vanaf nu."</item>
     <item msgid="2332583385137381060">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> vanaf nu."</item>
