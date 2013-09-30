@@ -150,7 +150,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 Alarm.updateAlarm(cr, alarm);
             }
         } else {
-            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(instance.getAlarmTime());
+            // This is a optimization for really old alarm instances. This prevent us
+            // from scheduling and dismissing alarms up to current time.
+            Calendar currentTime = Calendar.getInstance();
+            Calendar alarmTime = instance.getAlarmTime();
+            if (currentTime.after(alarmTime)) {
+                alarmTime = currentTime;
+            }
+            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(alarmTime);
             Log.i("Creating new instance for repeating alarm " + alarm.id + " at "  +
                     AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
             AlarmInstance.addInstance(cr, nextRepeatedInstance);
