@@ -47,43 +47,19 @@
             android:paddingBottom="@dimen/label_margin_small"
             android:singleLine="true" />
 
-        <com.android.deskclock.DigitalClock
+        <TextClock
             android:id="@+id/digitalClock"
+            android:format12Hour="@string/clock_12_hours_format_with_ampm"
+            android:format24Hour="@string/widget_24_hours_format"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layoutDirection="ltr"
+            android:gravity="top"
+            android:paddingBottom="24dp"
             android:baselineAligned="true"
-            android:gravity="top" >
-
-            <TextView
-                android:id="@+id/timeDisplayHours"
-                style="@style/big_thin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="none"
-                android:paddingRight="@dimen/time_margin_right"
-                android:paddingEnd="@dimen/time_margin_right"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-
-            <TextView
-                android:id="@+id/timeDisplayMinutes"
-                style="@style/big_thin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="none"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-
-            <TextView
-                android:id="@+id/am_pm"
-                style="@style/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="none"
-                android:singleLine="true"
-                android:textColor="@color/clock_white" />
-        </com.android.deskclock.DigitalClock>
+            android:singleLine="true"
+            android:ellipsize="none"
+            style="@style/big_thin"
+            android:textColor="@color/clock_white"/>
     </LinearLayout>
 
     <com.android.deskclock.widget.multiwaveview.GlowPadView
