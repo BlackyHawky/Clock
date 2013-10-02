@@ -615,24 +615,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         if (alarmPosition >= 0) {
             mAdapter.setNewAlarm(alarmId);
             mAlarmsList.smoothScrollToPositionFromTop(alarmPosition, 0);
-
-            final int firstPositionId = mAlarmsList.getFirstVisiblePosition();
-            final int childId = alarmPosition - firstPositionId;
-
-            // We need to expand the first view item because bindView may have been called
-            // before setNewAlarm took effect. In that case, the newly created alarm will not be
-            // expanded.
-            final View view = mAlarmsList.getChildAt(childId);
-            if (view != null) {
-                // The view may be null if it isn't visible yet. In that case, the above call to
-                // setNewAlarm() will make sure it's expanded when it comes into view.
-                Object tag = view.getTag();
-                if (tag != null && tag instanceof AlarmItemAdapter.ItemHolder) {
-                    mAdapter.expandAlarm((AlarmItemAdapter.ItemHolder) tag, true);
-                } else {
-                    Log.e("Unable to get ItemHolder for view at id "+childId);
-                }
-            }
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
@@ -1153,13 +1135,15 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             if (expanded) {
                 expandAlarm(itemHolder, false);
+            } else {
+                collapseAlarm(itemHolder, false);
             }
 
             itemHolder.alarmItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (isAlarmExpanded(alarm)) {
-                        collapseAlarm(itemHolder);
+                        collapseAlarm(itemHolder, true);
                     } else {
                         expandAlarm(itemHolder, true);
                     }
@@ -1523,7 +1507,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             return mExpanded.contains(alarm.id);
         }
 
-        private void collapseAlarm(final ItemHolder itemHolder) {
+        private void collapseAlarm(final ItemHolder itemHolder, boolean animate) {
             mExpanded.remove(itemHolder.alarm.id);
 
             // Save the starting height so we can animate from this value.
@@ -1532,6 +1516,13 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // Set the expand area to gone so we can measure the height to animate to.
             itemHolder.alarmItem.setBackgroundResource(mBackgroundColor);
             itemHolder.expandArea.setVisibility(View.GONE);
+
+            if (!animate) {
+                // Set the "end" layout and don't do the animation.
+                itemHolder.arrow.setRotation(0);
+                itemHolder.hairLine.setTranslationY(0);
+                return;
+            }
 
             // Add an onPreDrawListener, which gets called after measurement but before the draw.
             // This way we can check the height we need to animate to before any drawing.
@@ -1765,6 +1756,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
                     // Add alarm to db
                     Alarm newAlarm = Alarm.addAlarm(cr, alarm);
+                    mScrollToAlarmId = newAlarm.id;
 
                     // Create and add instance to db
                     if (newAlarm.enabled) {
@@ -1779,8 +1771,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 if (alarm.enabled && instance != null) {
                     AlarmUtils.popAlarmSetToast(context, instance.getAlarmTime().getTimeInMillis());
                 }
-                mAdapter.setNewAlarm(alarm.id);
-                scrollToAlarm(alarm.id);
             }
         };
         updateTask.execute();
