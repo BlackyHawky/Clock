@@ -120,7 +120,7 @@
     <string name="label_description" msgid="8736179296142915727">"Štítek"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Vyzváněcí tón"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g> <xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <string name="weather_fetch_failure" msgid="3425804832021006835">"Informace o počasí nejsou momentálně k dispozici."</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Informace o počasí nejsou momentálně k dispozici."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Služba přehrávání zvuku budíků nastavených v aplikaci Hodiny."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Načítání vyzváněcího tónu..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Služba přehrávání zvuku časovačů nastavených v aplikaci Hodiny."</string>
@@ -213,7 +213,93 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"–"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
-    <!-- no translation found for timezone_labels:84 (5176858645450908751) -->
+  <string-array name="timezone_labels">
+    <item msgid="5495601234086197399">"Marshallovy ostrovy"</item>
+    <item msgid="4196408495909011020">"Midwayské ostrovy"</item>
+    <item msgid="1414384194857730006">"Havaj"</item>
+    <item msgid="2687091371581931926">"Aljaška"</item>
+    <item msgid="1922100269679049660">"Tichomořský čas"</item>
+    <item msgid="7156402158716866161">"Tijuana"</item>
+    <item msgid="1144117502254612241">"Arizona"</item>
+    <item msgid="101284182011722637">"Chihuahua"</item>
+    <item msgid="689121094232986897">"Horský čas"</item>
+    <item msgid="5445331923942302756">"Střední Amerika"</item>
+    <item msgid="2749806434052452351">"Centrální čas"</item>
+    <item msgid="3997138870229703753">"Mexico City"</item>
+    <item msgid="5425567073027744888">"Saskatchewan"</item>
+    <item msgid="2877342865396629368">"Bogotá"</item>
+    <item msgid="568682398893899670">"Východní čas"</item>
+    <item msgid="668135984541863866">"Venezuela"</item>
+    <item msgid="3737474220861486223">"Atlantický čas (Barbados)"</item>
+    <item msgid="6279116051273436870">"Atlantický čas (Kanada)"</item>
+    <item msgid="8513382867172014244">"Manaus"</item>
+    <item msgid="7776299003105932407">"Santiago"</item>
+    <item msgid="8636989494746218677">"Newfoundland"</item>
+    <item msgid="4402541016410147505">"Brasília"</item>
+    <item msgid="2251184440733164084">"Buenos Aires"</item>
+    <item msgid="6202926618569004969">"Grónsko"</item>
+    <item msgid="2355275037115290628">"Montevideo"</item>
+    <item msgid="1377549694711708945">"Středoatlantická oblast"</item>
+    <item msgid="3457671272126347981">"Azory"</item>
+    <item msgid="3659315141063710840">"Kapverdské ostrovy"</item>
+    <item msgid="1260941741802367635">"Casablanca"</item>
+    <item msgid="8275203689687954762">"Londýn, Dublin"</item>
+    <item msgid="5970179539479320905">"Amsterdam, Berlín"</item>
+    <item msgid="5396319478750517962">"Bělehrad"</item>
+    <item msgid="8688787475056663004">"Brusel"</item>
+    <item msgid="3415827874921681622">"Sarajevo"</item>
+    <item msgid="402008965928320066">"Windhoek"</item>
+    <item msgid="6436942724959275569">"Západoafrický čas"</item>
+    <item msgid="954536568417204026">"Ammán, Jordánsko"</item>
+    <item msgid="8932745482008902551">"Athény, Istanbul"</item>
+    <item msgid="320025725949024510">"Bejrút, Libanon"</item>
+    <item msgid="7242083112551905970">"Káhira"</item>
+    <item msgid="7241520146011450419">"Helsinki"</item>
+    <item msgid="2717065017510546526">"Jeruzalém"</item>
+    <item msgid="8698556287741466553">"Minsk"</item>
+    <item msgid="1797598357342084506">"Harare"</item>
+    <item msgid="5169119919905066998">"Bagdád"</item>
+    <item msgid="2615788116201065182">"Moskva"</item>
+    <item msgid="9084354867885584646">"Kuvajt"</item>
+    <item msgid="1351570519986178268">"Nairobi"</item>
+    <item msgid="7094569580635877460">"Teherán"</item>
+    <item msgid="3953138772617909704">"Baku"</item>
+    <item msgid="2868893113598800752">"Tbilisi"</item>
+    <item msgid="7088581865802476373">"Jerevan"</item>
+    <item msgid="1941122257623887992">"Dubaj"</item>
+    <item msgid="9194797225058249720">"Kábul"</item>
+    <item msgid="6486569254364577332">"Islámábád, Karáčí"</item>
+    <item msgid="5487724896895412089">"Uralsk"</item>
+    <item msgid="364906869710826982">"Jekatěrinburg"</item>
+    <item msgid="2106505051751383358">"Kalkata"</item>
+    <item msgid="6851586621581501447">"Srí Lanka"</item>
+    <item msgid="800438544128213134">"Káthmándú"</item>
+    <item msgid="6173621471007643021">"Astana"</item>
+    <item msgid="8645125891971581128">"Rangún"</item>
+    <item msgid="2886407505119737794">"Krasnojarsk"</item>
+    <item msgid="3408222398188107090">"Bangkok"</item>
+    <item msgid="4441612937172851228">"Peking"</item>
+    <item msgid="4936715789028996930">"Hongkong"</item>
+    <item msgid="4261031143777385525">"Irkutsk"</item>
+    <item msgid="3538060959338191835">"Kuala Lumpur"</item>
+    <item msgid="1438847562643099201">"Perth"</item>
+    <item msgid="3063913827688244383">"Taipei"</item>
+    <item msgid="3502757135046564209">"Soul"</item>
+    <item msgid="6107588684519111669">"Tokio, Ósaka"</item>
+    <item msgid="4350769099755608471">"Jakutsk"</item>
+    <item msgid="2422707004533526462">"Adelaide"</item>
+    <item msgid="1292192084554134339">"Darwin"</item>
+    <item msgid="1320883699470001716">"Brisbane"</item>
+    <item msgid="5137198806146386527">"Hobart"</item>
+    <item msgid="5920063686933941174">"Sydney, Canberra"</item>
+    <item msgid="615906039696009425">"Vladivostok"</item>
+    <item msgid="7738680449356275374">"Guam"</item>
+    <item msgid="2882915026380778227">"Magadan"</item>
+    <item msgid="8255615641810148152">"Auckland"</item>
+    <item msgid="3027153773466391728">"Fidži"</item>
+    <item msgid="5911600083231840181">"Tonga"</item>
+    <item msgid="5176858645450908751">"Jakarta"</item>
+  </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"BUDÍKY"</string>
     <string name="see_all" msgid="775983396630163739">"Zobrazit vše..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Služba Stopky ke spouštění upozornění."</string>
