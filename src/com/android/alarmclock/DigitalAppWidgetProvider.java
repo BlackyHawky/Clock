@@ -28,6 +28,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -38,6 +39,8 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmNotifications;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CitiesActivity;
+
+import java.util.Locale;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
     private static final String TAG = "DigitalAppWidgetProvider";
@@ -165,6 +168,12 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         // Setup alarm text and font sizes
         refreshAlarm(context, widget);
         WidgetUtils.setClockSize(context, widget, ratio);
+
+        // Set today's date format
+        CharSequence dateFormat = DateFormat.getBestDateTimePattern(Locale.getDefault(),
+                context.getString(R.string.abbrev_wday_month_day_no_year));
+        widget.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
+        widget.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
 
         // Set up R.id.digital_appwidget_listview to use a remote views adapter
         // That remote views adapter connects to a RemoteViewsService through intent.
