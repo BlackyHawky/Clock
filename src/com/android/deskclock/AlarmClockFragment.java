@@ -71,6 +71,7 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.widget.ActionableToastBar;
+import com.android.deskclock.widget.TextTime;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -725,7 +726,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             // views for optimization
             LinearLayout alarmItem;
-            DigitalClock clock;
+            TextTime clock;
             Switch onoff;
             TextView daysOfWeek;
             TextView label;
@@ -993,8 +994,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // standard view holder optimization
             final ItemHolder holder = new ItemHolder();
             holder.alarmItem = (LinearLayout) view.findViewById(R.id.alarm_item);
-            holder.clock = (DigitalClock) view.findViewById(R.id.digital_clock);
-            holder.clock.setLive(false);
+            holder.clock = (TextTime) view.findViewById(R.id.digital_clock);
             holder.onoff = (Switch) view.findViewById(R.id.onoff);
             holder.onoff.setTypeface(mRobotoNormal);
             holder.daysOfWeek = (TextView) view.findViewById(R.id.daysOfWeek);
@@ -1063,7 +1063,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 setItemAlpha(itemHolder, itemHolder.onoff.isChecked());
             }
 
-            itemHolder.clock.updateTime(alarm.hour, alarm.minutes);
+            itemHolder.clock.setTime(alarm.hour, alarm.minutes);
             itemHolder.clock.setClickable(true);
             itemHolder.clock.setOnClickListener(new View.OnClickListener() {
                 @Override
