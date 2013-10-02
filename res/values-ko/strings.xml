@@ -107,7 +107,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"버튼 효과"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"알람 일시중지"</item>
-    <item msgid="3450979320164769576">"해제"</item>
+    <item msgid="3450979320164769576">"알람 해제"</item>
     <item msgid="6302517608411378024">"기능 없음"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"기본 벨소리 설정"</string>
@@ -298,6 +298,7 @@
     <item msgid="8255615641810148152">"오클랜드"</item>
     <item msgid="3027153773466391728">"피지"</item>
     <item msgid="5911600083231840181">"통가"</item>
+    <item msgid="5176858645450908751">"자카르타"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"알람"</string>
     <string name="see_all" msgid="775983396630163739">"전체 보기..."</string>
