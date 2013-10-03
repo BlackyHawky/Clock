@@ -227,10 +227,20 @@ public class HandleApiCalls extends Activity {
     }
 
     private DaysOfWeek getDaysFromIntent(Intent intent) {
-        final int[] days = intent.getIntArrayExtra(EXTRA_DAYS);
         final DaysOfWeek daysOfWeek = new DaysOfWeek(0);
+        final ArrayList<Integer> days = intent.getIntegerArrayListExtra(EXTRA_DAYS);
         if (days != null) {
-            daysOfWeek.setDaysOfWeek(true, days);
+            final int[] daysArray = new int[days.size()];
+            for (int i = 0; i < days.size(); i++) {
+                daysArray[i] = days.get(i);
+            }
+            daysOfWeek.setDaysOfWeek(true, daysArray);
+        } else {
+            // API says to use an ArrayList<Integer> but we allow the user to use a int[] too.
+            final int[] daysArray = intent.getIntArrayExtra(EXTRA_DAYS);
+            if (daysArray != null) {
+                daysOfWeek.setDaysOfWeek(true, daysArray);
+            }
         }
         return daysOfWeek;
     }
