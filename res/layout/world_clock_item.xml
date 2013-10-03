@@ -34,8 +34,8 @@
 
             <TextClock
                 android:id="@+id/digital_clock"
-                android:format12Hour="@string/clock_12_hours_format_with_ampm"
-                android:format24Hour="@string/widget_24_hours_format"
+                android:format12Hour="@string/world_clock_12_hours_format"
+                android:format24Hour="@string/clock_24_hours_format"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/medium_light"
