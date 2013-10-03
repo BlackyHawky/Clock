@@ -115,7 +115,7 @@
     <string name="gallery_button_description" msgid="1151743663255257668">"Galeria"</string>
     <string name="music_button_description" msgid="1626593420810117999">"Música"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Dim"</string>
-    <string name="home_button_description" msgid="3383859096809056157">"Menú d\'aplicacions"</string>
+    <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Visualització del rellotge"</string>
     <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"To"</string>
@@ -298,6 +298,7 @@
     <item msgid="8255615641810148152">"Auckland"</item>
     <item msgid="3027153773466391728">"Fiji"</item>
     <item msgid="5911600083231840181">"Tonga"</item>
+    <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMES"</string>
     <string name="see_all" msgid="775983396630163739">"Mostra-ho tot..."</string>
