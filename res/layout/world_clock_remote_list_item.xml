@@ -32,8 +32,8 @@
 
             <TextClock
                 android:id="@+id/left_clock"
-                android:format12Hour="@string/widget_12_hours_format_with_ampm"
-                android:format24Hour="@string/widget_24_hours_format"
+                android:format12Hour="@string/wc_widget_12_hours_format"
+                android:format24Hour="@string/clock_24_hours_format"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/widget_medium_thin"
@@ -77,8 +77,8 @@
 
             <TextClock
                 android:id="@+id/right_clock"
-                android:format12Hour="@string/widget_12_hours_format_with_ampm"
-                android:format24Hour="@string/widget_24_hours_format"
+                android:format12Hour="@string/wc_widget_12_hours_format"
+                android:format24Hour="@string/clock_24_hours_format"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/widget_medium_thin"
