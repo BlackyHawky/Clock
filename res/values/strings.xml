@@ -798,11 +798,16 @@
     <!-- Label for digital clock gadget displayed on-screen when that gadget is represented to the user. -->
     <string name="digital_gadget">Digital clock</string>
 
-    <!-- format strings for widget clock -->
-    <string name="widget_12_hours_format" translatable="false">h&#58;mm</string>
-    <string name="widget_24_hours_format" translatable="false">kk&#58;mm</string>
-    <string name="widget_12_hours_format_with_ampm" translatable="false">h&#58;mm&#160;<b><font size="15" face="sans-serif-condensed">a</font></b></string>
-    <string name="clock_12_hours_format_with_ampm" translatable="false">h&#58;mm<b><font size="18" face="sans-serif-condensed">a</font></b></string>
+    <!-- format strings for clocks -->
+    <string name="clock_24_hours_format" translatable="false">kk&#58;mm</string>
+    <string name="main_widget_12_hours_format" translatable="false">h&#58;mm</string>
+    <!-- Font size for AM/PM should match widget_label_font_size -->
+    <string name="wc_widget_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="12" face="sans-serif-condensed">a</font></b></string>
+    <!-- Font size for AM/PM should match bottom_text_size -->
+    <string name="main_clock_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="16" face="sans-serif-condensed">a</font></b></string>
+    <!-- Font size for AM/PM should match label_font_size -->
+    <string name="world_clock_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif-condensed">a</font></b></string>
+    <string name="alarm_time_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif-condensed">a</font></b></string>
 
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>
