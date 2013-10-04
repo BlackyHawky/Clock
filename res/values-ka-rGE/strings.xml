@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_label" msgid="6674495003718166674">"საათი"</string>
+    <string name="alarm_list_title" msgid="7589940465292950600">"მაღვიძარები"</string>
+    <string name="add_alarm" msgid="5976616107390962899">"მაღვიძარას დამატება"</string>
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"შემდეგი მაღვიძარები"</string>
+    <string name="menu_desk_clock" msgid="3241995064554071588">"საათი ეკრანზე"</string>
+    <string name="menu_edit_alarm" msgid="7204602994918829751">"მაღვიძარას რედაქტირება"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"მაღვიძარას წაშლა"</string>
+    <string name="enable_alarm" msgid="1834599140632142536">"მაღვიძარას ჩართვა"</string>
+    <string name="disable_alarm" msgid="5889378670229554109">"მაღვიძარას გამორთვა"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"წაიშალოს ეს მაღვიძარა?"</string>
+    <string name="show_clock" msgid="8358759982675616915">"საათის ჩვენება"</string>
+    <string name="hide_clock" msgid="3217727306480505694">"საათის დამალვა"</string>
+    <string name="label" msgid="162189613902857319">"ლეიბლი"</string>
+    <string name="default_label" msgid="5590025289805630372">"მაღვიძარა"</string>
+    <string name="set_alarm" msgid="9148359866152726808">"მაღვიძარას დაყენება"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"ვიბრაცია"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"გამეორება"</string>
+    <string name="alert" msgid="6506982899651975645">"მაღვიძარას ზარი"</string>
+    <string name="ringtone" msgid="9110746249688559579">"ზარი"</string>
+    <string name="time" msgid="8067216534232296518">"დრო"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"დახურვა"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"ახლა გაშვება"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"გაცდენილი მაღვიძარა"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ჩაჩუმება"</string>
+    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"ჩაჩუმება <xliff:g id="MINUTES">%d</xliff:g> წუთით."</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ჩაჩუმება  <xliff:g id="TIME">%s</xliff:g>-მდე"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"მომავალი მაღვიძარა"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"თქვენი გაცდენილი მაღვიძარა წაიშალა"</string>
+  <string-array name="timer_notifications">
+    <item msgid="7760558912503484257">"დარჩენილია ერთ წუთზე ნაკლები"</item>
+    <item msgid="83197792732433351">"დარჩენილია <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"დარჩენილია <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"დარჩენილია <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+  </string-array>
+  <string-array name="alarm_set">
+    <item msgid="6450913786084215050">"მაღვიძარა დაყენებულია ამ მომენტიდან 1 წუთზე ნაკლებ დროზე."</item>
+    <item msgid="6002066367368421848">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="DAYS">%1$s</xliff:g>-ით."</item>
+    <item msgid="8824719306247973774">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="HOURS">%2$s</xliff:g>-ით."</item>
+    <item msgid="8182406852935468862">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით და <xliff:g id="HOURS">%2$s</xliff:g>-ით ამ მომენტიდან."</item>
+    <item msgid="2532279224777213194">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="MINUTES">%3$s</xliff:g>-ით."</item>
+    <item msgid="5936557894247187717">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
+    <item msgid="9115697840826129603">"ეს მაღვიძარა დაყენებულია <xliff:g id="HOURS">%2$s</xliff:g>-ით და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
+    <item msgid="2332583385137381060">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით, <xliff:g id="HOURS">%2$s</xliff:g>-ითა და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
+  </string-array>
+    <string name="day" msgid="7984755014526510295">"1 დღე"</string>
+    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> დღე"</string>
+    <string name="hour" msgid="2546819039651509323">"1 საათი"</string>
+    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> საათი"</string>
+    <string name="minute" msgid="2486157997434653710">"1 წუთი"</string>
+    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> წუთი"</string>
+    <string name="every_day" msgid="4100909974923444602">"ყოველ დღე"</string>
+    <string name="never" msgid="54104287800571769">"არასოდეს"</string>
+    <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"საათის არჩევა"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"ისრებიანი საათი"</string>
+    <string name="help" msgid="7786263119482654015">"დახმარება"</string>
+    <string name="settings" msgid="5849739030579520686">"პარამეტრები"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"ჩაჩუმების სიგრძე"</string>
+  <plurals name="snooze_duration">
+    <item quantity="one" msgid="7406963706727564418">"1 წუთი"</item>
+    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> წუთი"</item>
+  </plurals>
+  <plurals name="snooze_picker_label">
+    <item quantity="one" msgid="3783171637798575068">"წუთი"</item>
+    <item quantity="other" msgid="1304056759541595077">"წუთი"</item>
+  </plurals>
+    <string name="auto_silence_title" msgid="2012754009554434544">"სიჩუმე გააქტიურდება:"</string>
+    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> წუთი"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"არასოდეს"</string>
+  <string-array name="auto_silence_entries">
+    <item msgid="3693401222993867634">"5 წუთი"</item>
+    <item msgid="3663730603519549990">"10 წუთი"</item>
+    <item msgid="1385481095199681200">"15 წუთი"</item>
+    <item msgid="420479821767342125">"20 წუთი"</item>
+    <item msgid="2107936130151066746">"25 წუთი"</item>
+    <item msgid="7219791437023378544">"30 წუთი"</item>
+    <item msgid="4278641338024561333">"არასოდეს"</item>
+  </string-array>
+    <string name="done" msgid="6509722361933858451">"დასრულდა"</string>
+    <string name="revert" msgid="9100911171235162926">"წინანდელზე დაბრუნება"</string>
+    <string name="delete" msgid="5732434972457000541">"წაშლა"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"მაღვიძარას ხმა"</string>
+    <string name="silent_alarm_summary" msgid="8605302849408279221">"ჩუმად"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"მაღვიძარას ჩაჩუმება ან დახურვა"</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ჩაჩუმებული)"</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"მაღვიძარა დაყენებულია <xliff:g id="TIME">%s</xliff:g>-ზე. შეეხეთ გასაუქმებლად."</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"ხმის ღილაკები"</string>
+    <string name="volume_button_dialog_title" msgid="8768042543750036853">"ღილაკის ეფექტი"</string>
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"ჩაჩუმება"</item>
+    <item msgid="3450979320164769576">"დახურვა"</item>
+    <item msgid="6302517608411378024">"არ გააკეთო არაფერი"</item>
+  </string-array>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"ნაგულისხმევი ზარების დაგენება"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"მაღვიძარები"</string>
+    <string name="gallery_button_description" msgid="1151743663255257668">"გალერეა"</string>
+    <string name="music_button_description" msgid="1626593420810117999">"მუსიკა"</string>
+    <string name="nightmode_button_description" msgid="990894208217576381">"გამუქება"</string>
+    <string name="home_button_description" msgid="3383859096809056157">"გამშვები"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"საათის ეკრანი"</string>
+    <string name="label_description" msgid="8736179296142915727">"ლეიბლი"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"ზარი"</string>
+    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"ამინდის შესახებ ინფორმაცია ამ მომენტისთვის მიუწვდომელია."</string>
+    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Clock-ში ხმის დაკვრის სერვისი მაღვიძარების კომპლექტებისთვის."</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"ზარის ჩატვირთვა…"</string>
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Sound playback service for timers set in Clock."</string>
+    <string name="control_set_alarm" msgid="2194676418924016327">"მაღვიძარას დაყენება"</string>
+    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
+    <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"მაღვიძარა"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"ტაიმერი"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"საათი"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"წამზომი"</string>
+    <string name="button_alarms" msgid="8016103479617020265">"მაღვიძარები"</string>
+    <string name="button_cities" msgid="4555761857494501363">"ქალაქები"</string>
+    <string name="button_menu" msgid="6050484561842120282">"მეტი პარამეტრი"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"პარამეტრები"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"დახმარება"</string>
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"ღამის რეჟიმი"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"სორტირება დროის მიხედვით"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"სორტირება სახელის მიხედვით"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"არჩეული ქალაქები"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"გაგრძელება"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"დაწყება"</string>
+    <string name="sw_stop_button" msgid="8322958613123274451">"შეჩერება"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"წრე"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"ჩამოყრა"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"გაზიარება"</string>
+    <string name="hours_label" msgid="3393478155635368097">"სთ"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"წთ"</string>
+    <string name="seconds_label" msgid="124655952824003246">"წმ"</string>
+    <string name="hours_label_description" msgid="8652842524970971830">"საათები"</string>
+    <string name="minutes_label_description" msgid="965686733490357796">"წუთი"</string>
+    <string name="seconds_label_description" msgid="3821620053141299692">"წამები"</string>
+    <string name="zero" msgid="7102083421938355017">"0"</string>
+    <string name="sw_share_main" msgid="7703563468204234405">"ჩემი დრო არის <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"წრის დრო:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"წრე <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <plurals name="Nhours_description">
+    <item quantity="one" msgid="371227238759147245">"1 საათი"</item>
+    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> საათი"</item>
+  </plurals>
+  <plurals name="Nminutes_description">
+    <item quantity="one" msgid="1001391305885322059">"1 წუთი"</item>
+    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> წუთი"</item>
+  </plurals>
+  <plurals name="Nseconds_description">
+    <item quantity="one" msgid="6589853086641485725">"1 წამი"</item>
+    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> წამი"</item>
+  </plurals>
+    <string name="timer_add_timer" msgid="862733633862574752">"ტაიმერის დამატება"</string>
+    <string name="timer_start" msgid="6158486445614356442">"დაწყება"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"წაშლა"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"1 წუთის დამატება"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"1 წუთის დამატება"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"შეჩერება"</string>
+    <string name="timer_done" msgid="2375990511982914051">"დასრულდა"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"ჩამოყრა"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"გაუქმება"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"დრო ამოიწურა"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"ტაიმერი"</string>
+  <string-array name="sw_share_strings">
+    <item msgid="842841032273927988">"საკმაოდ სწრაფი ხართ."</item>
+    <item msgid="6332879039890727169">"ისიამოვნეთ თქვენი შრომის ნაყოფით."</item>
+    <item msgid="815382761274660130">"ანდროიდები ცნობილია, როგორც სწრაფი. მაგრამ თქვეზე სწარფი მაინც ვერაა!"</item>
+    <item msgid="7916250650982813737">"Phew."</item>
+    <item msgid="6836603904515182333">"L33t times."</item>
+    <item msgid="7508085100680861631">"ამას ჰქვია სიჩქარე!"</item>
+    <item msgid="5961245252909589573">"მოდით, ისევ შევეჭიდოთ დროს."</item>
+    <item msgid="5211891900854545940">"უბრალოდ მარცხნივ ახტომა."</item>
+    <item msgid="9071353477103826053">"დროს ნუ დაკარგავთ."</item>
+    <item msgid="3785193933691117181">"ფოტონური სისწრაფე."</item>
+  </string-array>
+  <plurals name="timers_num">
+    <item quantity="one" msgid="6764708652976799977">"1 წუთი"</item>
+    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> ტაიმერი"</item>
+  </plurals>
+    <string name="home_label" msgid="4436139365695453870">"ჩემი"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"ქალაქები"</string>
+    <string name="clock_settings" msgid="8887845806151785393">"საათი"</string>
+    <string name="clock_style" msgid="2265011060429742344">"სტილი"</string>
+  <string-array name="clock_style_entries">
+    <item msgid="917900462224167608">"ანალოგი"</item>
+    <item msgid="8483930821046925592">"ციფრული"</item>
+  </string-array>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"რომელი საათია სახლში"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ისეთ არეალში მოგზაურობისას, სადაც დრო განსხვავებულია, დაამატეთ საათი თქვენი დროისთვის"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"ჩემი დროის ზონა"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"ჩემი დროის ზონა"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"გაუქმება"</string>
+    <string name="time_picker_set" msgid="331153175471468051">"კარგი"</string>
+    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
+    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
+    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
+    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
+    <!-- no translation found for timezone_labels:84 (5176858645450908751) -->
+    <string name="alarm_settings" msgid="6049627772103646753">"მაღვიძარები"</string>
+    <string name="see_all" msgid="775983396630163739">"ყველას ნახვა…"</string>
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"წამზომის სერვისი შეტყობინებების გასაგზავნად."</string>
+    <string name="swn_stopped" msgid="783124901663086172">"შეჩერდა"</string>
+    <string name="description_direction_right" msgid="1615911557926085934">"გასაუქმებლად გადაასრიალეთ მარჯვნივ"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"ჩასაჩუმებლად მარცხნივ გადასრიალება"</string>
+    <string name="description_direction_up" msgid="7875287578324520904">"გასაუქმებლად აასრიალეთ ზევით"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"ჩასაჩუმებლად ქვემოთ გადასრიალება"</string>
+    <string name="timer_stopped" msgid="2730331837832462008">"ტაიმერი შეჩერდა"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ტაიმერი შეჩერდა"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"შეეხეთ, რათა ნახოთ თქვენი ტაიმერები"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ტაიმერი"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"მომდევნო ტაიმერი: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"სიზმრის პარამეტრები"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"ღამის რეჟიმი"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"ძალიან მუქი ეკრანი (ბნელი ოთახებისთვის)"</string>
+    <string name="expand_alarm" msgid="7392616528943305020">"მაღვიძარას გაფართოება"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"მაღვიძარას ხედის შემცირება"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"მოქმედების გაუქმება"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"მაღვიძარა წაშლილია."</string>
+    <string name="slash" msgid="2077577763821006919">"/"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"მომდევნო მაღვიძარა: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="label_unlabeled" msgid="4699506713571930740"></string>
+    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> შერჩეული"</string>
+    <string name="deleted_message" msgid="1220848140260509437">"წაშლილი"</string>
+  <plurals name="alarm_delete_confirmation">
+    <item quantity="one" msgid="111940612131906802">"წაიშალოს მონიშნული მაღვიძარა?"</item>
+    <item quantity="other" msgid="6918176478191272189">"წაიშალოს მონიშნული მაღვიძარები?"</item>
+  </plurals>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"წაიშალოს ეს ტაიმერი?"</string>
+    <string name="city_delete_confirmation" msgid="1783441538785676299">"წაიშალოს ეს ქალაქი?"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"ციფრული საათი"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"მაღვიძარები არ არის"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"მომავალი მაღვიძარები არ არის"</string>
+</resources>
