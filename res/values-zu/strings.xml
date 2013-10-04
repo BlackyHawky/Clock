@@ -98,7 +98,7 @@
     <string name="done" msgid="6509722361933858451">"Kwenziwe"</string>
     <string name="revert" msgid="9100911171235162926">"Buyela emuva"</string>
     <string name="delete" msgid="5732434972457000541">"Susa"</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"Ivoliyumu ye-alamu"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Ivolumu ye-alamu"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Thulile"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Misa okwesikhashana  noma cima i-alamu."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (snuziwe)"</string>

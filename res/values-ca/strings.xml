@@ -74,7 +74,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Rellotge analògic"</string>
     <string name="help" msgid="7786263119482654015">"ajuda"</string>
     <string name="settings" msgid="5849739030579520686">"Configuració"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Durada de repetició"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Repeteix alarma després de"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minut"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> minuts"</item>
@@ -83,7 +83,7 @@
     <item quantity="one" msgid="3783171637798575068">"minut"</item>
     <item quantity="other" msgid="1304056759541595077">"minuts"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Silencia automàticament"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Silencia després de"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minuts"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mai"</string>
   <string-array name="auto_silence_entries">
@@ -137,7 +137,7 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Configuració"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ajuda"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Mode nocturn"</string>
-    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ordena per temps"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ordena per hora"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ordena per nom"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Ciutats seleccionades"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Reprèn"</string>
@@ -204,7 +204,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Rellotge de la teva ciutat automàtic"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Mentre siguis de viatge en una zona amb una hora diferent, afegeix un rellotge amb l\'hora de casa"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Quan viatgis a una zona amb una hora diferent, afegeix un rellotge per a l\'hora de la teva ciutat"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horària local"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zona horària local"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancel·la"</string>

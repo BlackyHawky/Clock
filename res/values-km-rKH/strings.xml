@@ -74,7 +74,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"នាឡិកា​អាណាឡូក"</string>
     <string name="help" msgid="7786263119482654015">"ជំនួយ"</string>
     <string name="settings" msgid="5849739030579520686">"ការ​កំណត់"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"ប្រវែង​ផ្អាក"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"រយៈពេល​ផ្អាក"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"១ នាទី"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> នាទី"</item>
