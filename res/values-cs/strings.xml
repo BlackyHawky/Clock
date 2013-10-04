@@ -120,7 +120,7 @@
     <string name="label_description" msgid="8736179296142915727">"Štítek"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Vyzváněcí tón"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g> <xliff:g id="PERCENT">%%</xliff:g>"</string>
-    <string name="weather_fetch_failure" msgid="3425804832021006835">"Informace o počasí nejsou momentálně k dispozici."</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Informace o počasí nejsou momentálně k dispozici."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Služba přehrávání zvuku budíků nastavených v aplikaci Hodiny."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Načítání vyzváněcího tónu..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Služba přehrávání zvuku časovačů nastavených v aplikaci Hodiny."</string>
@@ -298,6 +298,7 @@
     <item msgid="8255615641810148152">"Auckland"</item>
     <item msgid="3027153773466391728">"Fidži"</item>
     <item msgid="5911600083231840181">"Tonga"</item>
+    <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"BUDÍKY"</string>
     <string name="see_all" msgid="775983396630163739">"Zobrazit vše..."</string>

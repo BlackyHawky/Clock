@@ -98,7 +98,7 @@
     <string name="done" msgid="6509722361933858451">"Kwenziwe"</string>
     <string name="revert" msgid="9100911171235162926">"Buyela emuva"</string>
     <string name="delete" msgid="5732434972457000541">"Susa"</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"Ivoliyumu ye-alamu"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Ivolumu ye-alamu"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Thulile"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Misa okwesikhashana  noma cima i-alamu."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (snuziwe)"</string>
@@ -298,6 +298,7 @@
     <item msgid="8255615641810148152">"esase-Auckland"</item>
     <item msgid="3027153773466391728">"esase-Fiji"</item>
     <item msgid="5911600083231840181">"esase-Tonga"</item>
+    <item msgid="5176858645450908751">"I-Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"AMA-ALAMU"</string>
     <string name="see_all" msgid="775983396630163739">"Buka konke..."</string>
