@@ -47,6 +47,7 @@
     <dimen name="digital_world_clock_text_size">60dp</dimen>
     <dimen name="digital_world_clock_ampm_text_size">14dp</dimen>
     <dimen name="digital_main_clock_text_size">120dp</dimen>
+    <dimen name="digital_screensaver_clock_text_size">100dp</dimen>
 
     <!-- Analog clock size in the the screen saver -->
     <dimen name="analog_clock_diameter">236dip</dimen>
