@@ -45,8 +45,8 @@
             android:baselineAligned="true"
             android:layout_gravity="center"
             android:gravity="center"
-            dc:format12Hour="@string/clock_12_hours_format_with_ampm"
-            dc:format24Hour="@string/widget_24_hours_format"/>
+            dc:format12Hour="@string/alarm_time_12_hours_format"
+            dc:format24Hour="@string/clock_24_hours_format"/>
         <Space
             android:layout_height="match_parent"
             android:layout_width="0dip"
