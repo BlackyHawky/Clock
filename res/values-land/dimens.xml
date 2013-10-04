@@ -29,6 +29,7 @@
     <dimen name="ampm_margin_top">16dip</dimen>
     <dimen name="font_margin_adjust">8dip</dimen>
     <dimen name="next_alarm_margin_top">-5dip</dimen>
+    <dimen name="digital_screensaver_clock_text_size">120dp</dimen>
 
     <dimen name="dialpad_font_size">24sp</dimen>
     <dimen name="dialpad_digit_padding">14dip</dimen>
