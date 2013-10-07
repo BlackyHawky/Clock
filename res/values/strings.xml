@@ -807,6 +807,7 @@
     <string name="main_clock_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="16" face="sans-serif-condensed">a</font></b></string>
     <!-- Font size for AM/PM should match label_font_size -->
     <string name="world_clock_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif-condensed">a</font></b></string>
+    <!-- Font size for AM/PM should match alarm_label_size -->
     <string name="alarm_time_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif-condensed">a</font></b></string>
 
     <!-- String for no alarms -->
