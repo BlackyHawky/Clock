@@ -37,7 +37,7 @@
     <dimen name="font_margin_adjust">8dip</dimen>
     <dimen name="next_alarm_margin_top">-5dip</dimen>
     <dimen name="alarm_label_padding">64dip</dimen>
-    <dimen name="bottom_text_size">27sp</dimen>
+    <dimen name="bottom_text_size">18sp</dimen>
     <dimen name="bottom_text_spacing_digital">-14dp</dimen>
     <dimen name="bottom_text_spacing_analog">18dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">10dp</dimen>
@@ -53,6 +53,7 @@
     <dimen name="main_ampm_font_size">33sp</dimen>
     <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="no_alarms_font_size">48sp</dimen>
+    <dimen name="widget_label_font_size">16sp</dimen>
 
     <dimen name="body_font_padding">8dp</dimen>
     <dimen name="medium_font_padding">24dp</dimen>
