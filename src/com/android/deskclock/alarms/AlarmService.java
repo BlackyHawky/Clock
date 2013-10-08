@@ -156,7 +156,7 @@ public class AlarmService extends Service {
                     " because current alarm is: " + mCurrentAlarm.mId);
                 return Service.START_NOT_STICKY;
             }
-            stopCurrentAlarm();
+            stopSelf();
         }
 
         return Service.START_NOT_STICKY;
