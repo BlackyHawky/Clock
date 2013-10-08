@@ -1768,7 +1768,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             @Override
             protected void onPostExecute(AlarmInstance instance) {
-                if (alarm.enabled && instance != null) {
+                if (instance != null) {
                     AlarmUtils.popAlarmSetToast(context, instance.getAlarmTime().getTimeInMillis());
                 }
             }
