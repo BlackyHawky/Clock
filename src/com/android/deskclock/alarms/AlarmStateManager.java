@@ -430,9 +430,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void setDismissState(Context context, AlarmInstance instance) {
         Log.v("Setting dismissed state to instance " + instance.mId);
 
-        // Stop alarm if this instance is firing it
-        AlarmService.stopAlarm(context, instance);
-
         // Remove all other timers and notifications associated to it
         unregisterInstance(context, instance);
 
@@ -456,6 +453,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to unregister
      */
     public static void unregisterInstance(Context context, AlarmInstance instance) {
+        // Stop alarm if this instance is firing it
+        AlarmService.stopAlarm(context, instance);
         AlarmNotifications.clearNotification(context, instance);
         cancelScheduledInstance(context, instance);
     }
