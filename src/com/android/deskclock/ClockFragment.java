@@ -35,6 +35,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextClock;
 
 import com.android.deskclock.alarms.AlarmNotifications;
 import com.android.deskclock.worldclock.WorldClockAdapter;
@@ -73,8 +74,15 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                     } else {
                         mAdapter.notifyDataSetChanged();
                     }
-                    // Reloading the cities list with new localized names
+                    // Locale change: update digital clock format and
+                    // reload the cities list with new localized names
                     if (action.equals(Intent.ACTION_LOCALE_CHANGED)) {
+                        if (mDigitalClock != null) {
+                            Utils.setTimeFormat(
+                                   (TextClock)(mDigitalClock.findViewById(R.id.digital_clock)),
+                                   (int)context.getResources().
+                                           getDimension(R.dimen.bottom_text_size));
+                        }
                         mAdapter.loadCitiesDb(context);
                         mAdapter.notifyDataSetChanged();
                     }
@@ -182,6 +190,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
         mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
+        Utils.setTimeFormat((TextClock)(mDigitalClock.findViewById(R.id.digital_clock)),
+                (int)getResources().getDimension(R.dimen.bottom_text_size));
         View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
         footerView.setBackgroundResource(R.color.blackish);
         mList.addFooterView(footerView);
