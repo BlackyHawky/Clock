@@ -77,12 +77,10 @@ public class Utils {
     public static final String CLOCK_TYPE_ANALOG = "analog";
 
     /**
-     * Returns whether the SDK is the KeyLimePie release or later.
+     * Returns whether the SDK is KitKat or later
      */
-    public static boolean isKeyLimePieOrLater() {
-        // TODO when SDK is set to 19, switch back to this:
-//      return Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2;
-        return "KeyLimePie".equals(Build.VERSION.CODENAME);
+    public static boolean isKitKatOrLater() {
+        return Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
 
