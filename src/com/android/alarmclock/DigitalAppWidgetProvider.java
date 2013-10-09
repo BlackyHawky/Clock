@@ -224,7 +224,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             PendingIntent quarterlyIntent = getOnQuarterHourPendingIntent(context);
             AlarmManager alarmManager = ((AlarmManager) context
                     .getSystemService(Context.ALARM_SERVICE));
-            if (Utils.isKeyLimePieOrLater()) {
+            if (Utils.isKitKatOrLater()) {
                 alarmManager.setExact(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
             } else {
                 alarmManager.set(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
