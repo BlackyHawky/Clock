@@ -1005,6 +1005,8 @@ public class TimerFragment extends DeskClockFragment
         Intent i = new Intent();
         i.setAction(action);
         i.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
+        // Make sure the receiver is getting the intent ASAP.
+        i.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         getActivity().sendBroadcast(i);
     }
 
