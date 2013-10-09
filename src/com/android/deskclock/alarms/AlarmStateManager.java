@@ -204,7 +204,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (Utils.isKeyLimePieOrLater()) {
+        if (Utils.isKitKatOrLater()) {
             am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
         } else {
             am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
