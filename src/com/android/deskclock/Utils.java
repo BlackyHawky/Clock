@@ -38,14 +38,20 @@ import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.StyleSpan;
+import android.text.style.TypefaceSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.stopwatch.Stopwatches;
@@ -474,6 +480,36 @@ public class Utils {
             fmt = DateFormat.getBestDateTimePattern(l, dateFormatForAccessibility);
             sdf = new SimpleDateFormat(fmt, l);
             dateDisplay.setContentDescription(sdf.format(now));
+        }
+    }
+
+    /***
+     * Formats the 12 hour time in the TextClock according to the Locale with a special
+     * formatting treatment for the am/pm label.
+     * @param clock - TextClock to format
+     * @param amPmFormat - a format string to set a specific font for the am/pm
+     */
+    public static void setTimeFormat(TextClock clock, int amPmFontSize) {
+        if (clock != null) {
+          // Get the best format for h:mm am/pm according to the locale
+            String skeleton = "hma";
+            String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+            // Replace spaces with "Hair Space"
+            pattern = pattern.replaceAll(" ", "\u200A");
+            // Build a spannable so that the am/pm will be formatted
+            int amPmPos = pattern.indexOf('a');
+            if (amPmPos == -1) {
+                clock.setFormat12Hour(pattern);
+            } else {
+                Spannable sp = new SpannableString(pattern);
+                sp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), amPmPos, amPmPos + 1,
+                        Spannable.SPAN_POINT_MARK);
+                sp.setSpan(new AbsoluteSizeSpan(amPmFontSize), amPmPos, amPmPos + 1,
+                        Spannable.SPAN_POINT_MARK);
+                sp.setSpan(new TypefaceSpan("sans-serif-condensed"), amPmPos, amPmPos + 1,
+                        Spannable.SPAN_POINT_MARK);
+                clock.setFormat12Hour(sp);
+            }
         }
     }
 
