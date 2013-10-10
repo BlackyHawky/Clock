@@ -19,6 +19,7 @@ package com.android.alarmclock;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.TypedValue;
@@ -39,6 +40,7 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
     private static final String TAG = "DigitalWidgetViewsFactory";
 
     private Context mContext;
+    private Resources mResources;
     private int mId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private RemoteWorldClockAdapter mAdapter;
     private float mFontScale = 1;
@@ -99,6 +101,8 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
             now.setTimeZone(TimeZone.getTimeZone(cityTZ));
             int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 
+            WidgetUtils.setTimeFormat(clock,
+                    (int)mResources.getDimension(R.dimen.widget_label_font_size), clockId);
             float fontSize = mFontScale * (DateFormat.is24HourFormat(mContext)
                     ? mFont24Size : mFontSize);
             clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
@@ -130,6 +134,7 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
 
     public DigitalWidgetViewsFactory(Context context, Intent intent) {
         mContext = context;
+        mResources = mContext.getResources();
         mId = intent.getIntExtra(
                 AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
         mAdapter = new RemoteWorldClockAdapter(context);
