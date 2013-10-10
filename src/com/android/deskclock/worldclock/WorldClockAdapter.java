@@ -264,6 +264,8 @@ public class WorldClockAdapter extends BaseAdapter {
             separator.setVisibility(View.VISIBLE);
             aclock.setVisibility(View.GONE);
             dclock.setTimeZone(cityObj.mTimeZone);
+            Utils.setTimeFormat(dclock,
+                    (int)mContext.getResources().getDimension(R.dimen.label_font_size));
         }
         CityObj cityInDb = mCitiesDb.get(cityObj.mCityId);
         // Home city or city not in DB , use data from the save selected cities list

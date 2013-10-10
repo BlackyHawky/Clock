@@ -32,11 +32,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.Log;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
+import com.android.deskclock.Utils;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.widget.multiwaveview.GlowPadView;
 
@@ -196,6 +198,8 @@ public class AlarmActivity extends Activity {
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         setContentView(view);
         updateTitle();
+        Utils.setTimeFormat((TextClock)(view.findViewById(R.id.digitalClock)),
+                (int)getResources().getDimension(R.dimen.bottom_text_size));
 
         // Setup GlowPadController
         mGlowPadView = (GlowPadView) findViewById(R.id.glow_pad_view);
