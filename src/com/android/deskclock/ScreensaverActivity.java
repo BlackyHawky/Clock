@@ -30,6 +30,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextClock;
 
 import com.android.deskclock.Utils.ScreensaverMoveSaverRunnable;
 
@@ -191,6 +192,9 @@ public class ScreensaverActivity extends Activity {
         mDigitalClock = findViewById(R.id.digital_clock);
         mAnalogClock = findViewById(R.id.analog_clock);
         setClockStyle();
+        Utils.setTimeFormat((TextClock)mDigitalClock,
+            (int)getResources().getDimension(R.dimen.bottom_text_size));
+
         mContentView = (View) mSaverView.getParent();
         mContentView.forceLayout();
         mSaverView.forceLayout();
