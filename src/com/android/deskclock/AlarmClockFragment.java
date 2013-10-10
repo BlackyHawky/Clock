@@ -1044,7 +1044,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 itemHolder.alarmItem.setBackgroundResource(mBackgroundColor);
                 setItemAlpha(itemHolder, itemHolder.onoff.isChecked());
             }
-
+            itemHolder.clock.setFormat(
+                    (int)mContext.getResources().getDimension(R.dimen.alarm_label_size));
             itemHolder.clock.setTime(alarm.hour, alarm.minutes);
             itemHolder.clock.setClickable(true);
             itemHolder.clock.setOnClickListener(new View.OnClickListener() {
