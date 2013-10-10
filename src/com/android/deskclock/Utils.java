@@ -493,14 +493,17 @@ public class Utils {
     public static void setTimeFormat(TextClock clock, int amPmFontSize) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormet(amPmFontSize));
+            clock.setFormat12Hour(get12ModeFormat(amPmFontSize));
             // Get the best format for 24 hours mode according to the locale
-            clock.setFormat24Hour(get24ModeFormet());
+            clock.setFormat24Hour(get24ModeFormat());
         }
     }
-
-    public static CharSequence get12ModeFormet(int amPmFontSize) {
-        String skeleton = "hma";
+    /***
+     * @param amPmFontSize - size of am/pm label (label removed is size is 0).
+     * @return format string for 12 hours mode time
+     */
+    public static CharSequence get12ModeFormat(int amPmFontSize) {
+        String skeleton = (amPmFontSize > 0) ? "hma" : "hm";
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll(" ", "\u200A");
@@ -519,7 +522,7 @@ public class Utils {
         return sp;
     }
 
-    public static CharSequence get24ModeFormet() {
+    public static CharSequence get24ModeFormat() {
         String skeleton = "Hm";
         return DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
     }

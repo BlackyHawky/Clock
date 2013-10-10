@@ -138,9 +138,9 @@ public class TextTime extends TextView {
         resolver.unregisterContentObserver(mFormatChangeObserver);
     }
 
-    public void setFormat( int amPmFontSize) {
-        setFormat12Hour(Utils.get12ModeFormet(amPmFontSize));
-        setFormat24Hour(Utils.get24ModeFormet());
+    public void setFormat(int amPmFontSize) {
+        setFormat12Hour(Utils.get12ModeFormat(amPmFontSize));
+        setFormat24Hour(Utils.get24ModeFormat());
     }
 
     public void setTime(int hour, int minute) {
