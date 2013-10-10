@@ -484,33 +484,44 @@ public class Utils {
     }
 
     /***
-     * Formats the 12 hour time in the TextClock according to the Locale with a special
+     * Formats the time in the TextClock according to the Locale with a special
      * formatting treatment for the am/pm label.
      * @param clock - TextClock to format
-     * @param amPmFormat - a format string to set a specific font for the am/pm
+     * @param amPmFontSize - size of the am/pm label since it is usually smaller
+     *        than the clock time size.
      */
     public static void setTimeFormat(TextClock clock, int amPmFontSize) {
         if (clock != null) {
-          // Get the best format for h:mm am/pm according to the locale
-            String skeleton = "hma";
-            String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
-            // Replace spaces with "Hair Space"
-            pattern = pattern.replaceAll(" ", "\u200A");
-            // Build a spannable so that the am/pm will be formatted
-            int amPmPos = pattern.indexOf('a');
-            if (amPmPos == -1) {
-                clock.setFormat12Hour(pattern);
-            } else {
-                Spannable sp = new SpannableString(pattern);
-                sp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), amPmPos, amPmPos + 1,
-                        Spannable.SPAN_POINT_MARK);
-                sp.setSpan(new AbsoluteSizeSpan(amPmFontSize), amPmPos, amPmPos + 1,
-                        Spannable.SPAN_POINT_MARK);
-                sp.setSpan(new TypefaceSpan("sans-serif-condensed"), amPmPos, amPmPos + 1,
-                        Spannable.SPAN_POINT_MARK);
-                clock.setFormat12Hour(sp);
-            }
+            // Get the best format for 12 hours mode according to the locale
+            clock.setFormat12Hour(get12ModeFormet(amPmFontSize));
+            // Get the best format for 24 hours mode according to the locale
+            clock.setFormat24Hour(get24ModeFormet());
         }
+    }
+
+    public static CharSequence get12ModeFormet(int amPmFontSize) {
+        String skeleton = "hma";
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+        // Replace spaces with "Hair Space"
+        pattern = pattern.replaceAll(" ", "\u200A");
+        // Build a spannable so that the am/pm will be formatted
+        int amPmPos = pattern.indexOf('a');
+        if (amPmPos == -1) {
+            return pattern;
+        }
+        Spannable sp = new SpannableString(pattern);
+        sp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), amPmPos, amPmPos + 1,
+                Spannable.SPAN_POINT_MARK);
+        sp.setSpan(new AbsoluteSizeSpan(amPmFontSize), amPmPos, amPmPos + 1,
+                Spannable.SPAN_POINT_MARK);
+        sp.setSpan(new TypefaceSpan("sans-serif-condensed"), amPmPos, amPmPos + 1,
+                Spannable.SPAN_POINT_MARK);
+        return sp;
+    }
+
+    public static CharSequence get24ModeFormet() {
+        String skeleton = "Hm";
+        return DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
     }
 
     public static CityObj[] loadCitiesFromXml(Context c) {

@@ -14,6 +14,7 @@ import android.util.AttributeSet;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 
 import java.util.Calendar;
 
@@ -135,6 +136,11 @@ public class TextTime extends TextView {
     private void unregisterObserver() {
         final ContentResolver resolver = getContext().getContentResolver();
         resolver.unregisterContentObserver(mFormatChangeObserver);
+    }
+
+    public void setFormat( int amPmFontSize) {
+        setFormat12Hour(Utils.get12ModeFormet(amPmFontSize));
+        setFormat24Hour(Utils.get24ModeFormet());
     }
 
     public void setTime(int hour, int minute) {
