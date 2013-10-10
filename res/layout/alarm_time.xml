@@ -71,7 +71,7 @@
             android:paddingEnd="8dp"
             android:paddingLeft="8dp"
             android:paddingStart="8dp"
-            android:contentDescription="@string/expand_alarm"
+            android:contentDescription="@string/delete_alarm"
             android:src="@drawable/ic_delete"
             android:layout_gravity="top|end" />
         <LinearLayout
