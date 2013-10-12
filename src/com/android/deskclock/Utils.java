@@ -503,8 +503,12 @@ public class Utils {
      * @return format string for 12 hours mode time
      */
     public static CharSequence get12ModeFormat(int amPmFontSize) {
-        String skeleton = (amPmFontSize > 0) ? "hma" : "hm";
+        String skeleton = "hma";
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+        // Remove the am/pm
+        if (amPmFontSize <= 0) {
+            pattern.replaceAll("a", "").trim();
+        }
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll(" ", "\u200A");
         // Build a spannable so that the am/pm will be formatted
