@@ -359,9 +359,6 @@ public class Utils {
                 || (alarmOnQuarterHour - System.currentTimeMillis()) > 901000) {
             Log.wtf("quarterly alarm calculation error");
         }
-        Log.v("getAlarmOnQuarterHour returns " // STOPSHIP Don't ship with this log
-                + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(nextQuarter.getTime())
-                + " to fire in " + (alarmOnQuarterHour - System.currentTimeMillis()));
         return alarmOnQuarterHour;
     }
 
@@ -540,10 +537,8 @@ public class Utils {
         String[] ids = r.getStringArray(R.array.cities_id);
         int minLength = cities.length;
         if (cities.length != timezones.length || ids.length != cities.length) {
-            // StopShip: Make sure to remove this after we get transations for K
             minLength = Math.min(cities.length, Math.min(timezones.length, ids.length));
             Log.e("City lists sizes are not the same, trancating");
-            // return null;
         }
         CityObj[] tempList = new CityObj[minLength];
         for (int i = 0; i < cities.length; i++) {

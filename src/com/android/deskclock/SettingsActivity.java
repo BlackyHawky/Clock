@@ -284,7 +284,6 @@ public class SettingsActivity extends PreferenceActivity
         String[] labels = resources.getStringArray(R.array.timezone_labels);
         int minLength = ids.length;
         if (ids.length != labels.length) {
-            // StopShip: Make sure to remove this after we get translations for K
             minLength = Math.min(minLength, labels.length);
             Log.e("Timezone ids and labels have different length!");
         }
