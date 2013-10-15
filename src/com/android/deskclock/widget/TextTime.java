@@ -30,6 +30,7 @@ public class TextTime extends TextView {
     private CharSequence mFormat12;
     private CharSequence mFormat24;
     private CharSequence mFormat;
+    private String mContentDescriptionFormat;
 
     private boolean mAttached;
 
@@ -107,6 +108,7 @@ public class TextTime extends TextView {
         } else {
             mFormat = mFormat12 == null ? DEFAULT_FORMAT_12_HOUR : mFormat12;
         }
+        mContentDescriptionFormat = mFormat.toString();
     }
 
     @Override
@@ -154,5 +156,10 @@ public class TextTime extends TextView {
         calendar.set(Calendar.HOUR_OF_DAY, mHour);
         calendar.set(Calendar.MINUTE, mMinute);
         setText(DateFormat.format(mFormat, calendar));
+        if (mContentDescriptionFormat != null) {
+            setContentDescription(DateFormat.format(mContentDescriptionFormat, calendar));
+        } else {
+            setContentDescription(DateFormat.format(mFormat, calendar));
+        }
     }
 }
