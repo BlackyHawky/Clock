@@ -46,8 +46,10 @@ public class TimerReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
+        if (Timers.LOGGING) {
+            Log.v(TAG, "Received intent " + intent.toString());
+        }
         String actionType = intent.getAction();
-
         // This action does not need the timers data
         if (Timers.NOTIF_IN_USE_CANCEL.equals(actionType)) {
             cancelInUseNotification(context);
@@ -76,7 +78,7 @@ public class TimerReceiver extends BroadcastReceiver {
         // Remaining actions provide a timer Id
         if (!intent.hasExtra(Timers.TIMER_INTENT_EXTRA)) {
             // No data to work with, do nothing
-            Log.d(TAG, "got intent without Timer data");
+            Log.e(TAG, "got intent without Timer data");
             return;
         }
 
@@ -84,9 +86,8 @@ public class TimerReceiver extends BroadcastReceiver {
         int timerId = intent.getIntExtra(Timers.TIMER_INTENT_EXTRA, -1);
         if (timerId == -1) {
             Log.d(TAG, "OnReceive:intent without Timer data for " + actionType);
-        } else if (Timers.LOGGING) {
-            Log.v(TAG, "Receiver OnReceive " + actionType + " " + timerId);
         }
+
         TimerObj t = Timers.findTimer(mTimers, timerId);
 
         if (Timers.TIMES_UP.equals(actionType)) {
