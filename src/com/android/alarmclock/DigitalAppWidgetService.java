@@ -21,7 +21,7 @@ import android.util.Log;
 import android.widget.RemoteViewsService;
 
 public class DigitalAppWidgetService extends RemoteViewsService {
-    public static final boolean LOGGING = true; // STOPSHIP Don't ship with this set to true
+    public static final boolean LOGGING = false;
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent i) {
