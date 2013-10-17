@@ -378,7 +378,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 instance, AlarmInstance.FIRED_STATE);
 
         // Display the snooze minutes in a toast.
-        String displayTime = context.getString(R.string.alarm_alert_snooze_set, snoozeMinutes);
+        String displayTime = String.format(context.getResources().getQuantityText
+                (R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
         Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
 
         // Instance time changed, so find next alarm that will fire and notify system
