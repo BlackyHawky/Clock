@@ -17,9 +17,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"الساعة"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"التنبيهات"</string>
+    <string name="alarm_list_title" msgid="7589940465292950600">"الاشعارات"</string>
     <string name="add_alarm" msgid="5976616107390962899">"إضافة منبه"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"التنبيهات التالية"</string>
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"الاشعارات التالية"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ساعة مكتب"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"تعديل المنبه"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"حذف المنبه"</string>
@@ -41,8 +41,10 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"تنبيه فائت"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"غفوة"</string>
-    <!-- no translation found for alarm_alert_snooze_set:one (7884410398338611019) -->
-    <!-- no translation found for alarm_alert_snooze_set:other (7377899473014259727) -->
+  <plurals name="alarm_alert_snooze_set">
+    <item quantity="one" msgid="7884410398338611019">"غفوة لمدة دقيقة واحدة."</item>
+    <item quantity="other" msgid="7377899473014259727">"غفوة لمدة <xliff:g id="MINUTES">%d</xliff:g> دقيقة."</item>
+  </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"غفوة إلى <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"التنبيه القادم"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"تم حذف التنبيه المفقود"</string>
@@ -112,7 +114,7 @@
     <item msgid="6302517608411378024">"عدم إجراء شيء"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"تعيين نغمة الرنين الافتراضية"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"التنبيهات"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"الاشعارات"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"المعرض"</string>
     <string name="music_button_description" msgid="1626593420810117999">"موسيقى"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"خافت"</string>
@@ -122,7 +124,7 @@
     <string name="ringtone_description" msgid="7580922112921069925">"نغمة الرنين"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"معلومات الطقس غير متاحة في الوقت الحالي."</string>
-    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"خدمة تشغيل الصوت بالنسبة إلى التنبيهات التي تم تعيينها في الساعة."</string>
+    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"خدمة تشغيل الصوت بالنسبة إلى الاشعارات التي تم تعيينها في الساعة."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"جارٍ تحميل نغمة الرنين…"</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"خدمة تشغيل الصوت للمؤقتات التي تم تعيينها في الساعة."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"ضبط المنبه"</string>
@@ -132,7 +134,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"موقت"</string>
     <string name="menu_clock" msgid="5612760670606829805">"الساعة"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"ساعة توقيف"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"التنبيهات"</string>
+    <string name="button_alarms" msgid="8016103479617020265">"الاشعارات"</string>
     <string name="button_cities" msgid="4555761857494501363">"المدن"</string>
     <string name="button_menu" msgid="6050484561842120282">"مزيد من الخيارات"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"الإعدادات"</string>
@@ -301,7 +303,7 @@
     <item msgid="5911600083231840181">"تونغا"</item>
     <item msgid="5176858645450908751">"جاکارتا"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"التنبيهات"</string>
+    <string name="alarm_settings" msgid="6049627772103646753">"الاشعارات"</string>
     <string name="see_all" msgid="775983396630163739">"عرض الكل..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"خدمة ساعة التوقيف لتشغيل التنبيه"</string>
     <string name="swn_stopped" msgid="783124901663086172">"تم الإيقاف"</string>
@@ -334,6 +336,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"هل تريد حذف هذا المؤقت؟"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"هل تريد إزالة هذه المدينة؟"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ساعة رقمية"</string>
-    <string name="no_alarms" msgid="6429431324842022917">"ليست هناك تنبيهات"</string>
-    <string name="no_upcoming_alarms" msgid="2889840988069436254">"ليست هناك تنبيهات مقبلة"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"ليست هناك اشعارات"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"ليست هناك اشعارات مقبلة"</string>
 </resources>
