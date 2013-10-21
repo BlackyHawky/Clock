@@ -41,7 +41,10 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"Báo thức bị nhỡ"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Báo lại"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Báo lại trong <xliff:g id="MINUTES">%d</xliff:g> phút."</string>
+  <plurals name="alarm_alert_snooze_set">
+    <item quantity="one" msgid="7884410398338611019">"Báo lại sau 1 phút."</item>
+    <item quantity="other" msgid="7377899473014259727">"Báo lại sau <xliff:g id="MINUTES">%d</xliff:g> phút."</item>
+  </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Báo lại cho tới <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Báo thức sắp tới"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Báo thức bị nhỡ của bạn đã được xóa"</string>

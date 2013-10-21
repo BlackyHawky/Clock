@@ -41,7 +41,10 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"Zmeškaný budík"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložiť"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Upozornenie odložené o <xliff:g id="MINUTES">%d</xliff:g> min."</string>
+  <plurals name="alarm_alert_snooze_set">
+    <item quantity="one" msgid="7884410398338611019">"Odložené o 1 minútu."</item>
+    <item quantity="other" msgid="7377899473014259727">"Odložené o <xliff:g id="MINUTES">%d</xliff:g> min."</item>
+  </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Odložené do <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchádzajúci budík"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zmeškaný budík bol odstránený"</string>
