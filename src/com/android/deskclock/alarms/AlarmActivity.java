@@ -88,10 +88,12 @@ public class AlarmActivity extends Activity {
         public void onTrigger(View v, int target) {
             switch (mGlowPadView.getResourceIdForTarget(target)) {
                 case R.drawable.ic_alarm_alert_snooze:
+                    Log.v("AlarmActivity - GlowPad snooze trigger");
                     snooze();
                     break;
 
                 case R.drawable.ic_alarm_alert_dismiss:
+                    Log.v("AlarmActivity - GlowPad dismiss trigger");
                     dismiss();
                     break;
                 default:
@@ -117,6 +119,7 @@ public class AlarmActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
+            Log.v("AlarmActivity - Broadcast Receiver - " + action);
             if (action.equals(ALARM_SNOOZE_ACTION)) {
                 snooze();
             } else if (action.equals(ALARM_DISMISS_ACTION)) {
@@ -243,7 +246,7 @@ public class AlarmActivity extends Activity {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         // Do this on key down to handle a few of the system keys.
-        Log.v("AlarmAlertFullScreen - dispatchKeyEvent " + event.getKeyCode());
+        Log.v("AlarmActivity - dispatchKeyEvent - " + event.getKeyCode());
         switch (event.getKeyCode()) {
             // Volume keys and camera keys dismiss the alarm
             case KeyEvent.KEYCODE_POWER:
