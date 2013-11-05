@@ -359,8 +359,6 @@ public class Utils {
         long now = System.currentTimeMillis();
         long delta = alarmOnQuarterHour - now;
         if (0 >= delta || delta > 901000) {
-            Log.wtf("quarterly alarm calculation error: nextq hour = " + alarmOnQuarterHour
-                    + " now = " + now + " delta = " + delta);
             // Something went wrong in the calculation, schedule something that is
             // about 15 minutes. Next time , it will align with the 15 minutes border.
             alarmOnQuarterHour = now + 901000;
