@@ -111,6 +111,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
     // Intent category tag used when schedule state change intents in alarm manager.
     public static final String ALARM_MANAGER_TAG = "ALARM_MANAGER";
 
+    // Buffer time in seconds to fire alarm instead of marking it missed.
+    public static final int ALARM_FIRE_BUFFER = 15;
+
     public static int getGlobalIntentId(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getInt(ALARM_GLOBAL_ID_EXTRA, -1);
@@ -548,7 +551,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
             // Alarm is so old, just dismiss it
             setDismissState(context, instance);
         } else if (currentTime.after(alarmTime)) {
-            setMissedState(context, instance);
+            // There is a chance that the TIME_SET occurred right when the alarm should go off, so
+            // we need to add a check to see if we should fire the alarm instead of marking it
+            // missed.
+            Calendar alarmBuffer = Calendar.getInstance();
+            alarmBuffer.setTime(alarmTime.getTime());
+            alarmBuffer.add(Calendar.SECOND, ALARM_FIRE_BUFFER);
+            if (currentTime.before(alarmBuffer)) {
+                setFiredState(context, instance);
+            } else {
+                setMissedState(context, instance);
+            }
         } else if (instance.mAlarmState == AlarmInstance.SNOOZE_STATE) {
             // We only want to display snooze notification and not update the time,
             // so handle showing the notification directly
