@@ -21,7 +21,7 @@
     <string name="add_alarm" msgid="5976616107390962899">"Añadir alarma"</string>
     <string name="alarm_timeline_title_text" msgid="595912293949219821">"PRÓXIMAS ALARMAS"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Reloj de escritorio"</string>
-    <string name="menu_edit_alarm" msgid="7204602994918829751">"Editar alarma"</string>
+    <string name="menu_edit_alarm" msgid="7204602994918829751">"Modificar alarma"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Eliminar alarma"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Activar alarma"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Desactivar alarma"</string>
