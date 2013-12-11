@@ -177,7 +177,7 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"Legg til 1 minutt"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Legg til 1 min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stopp"</string>
-    <string name="timer_done" msgid="2375990511982914051">"Fullført"</string>
+    <string name="timer_done" msgid="2375990511982914051">"Ferdig"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Tilbakestill"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Avbryt"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tiden er ute"</string>
