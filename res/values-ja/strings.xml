@@ -38,7 +38,7 @@
     <string name="time" msgid="8067216534232296518">"時刻"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"停止"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"今すぐ解除"</string>
-    <string name="alarm_missed_title" msgid="3828345099754063392">"アラームは鳴りませんでした"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"聞き逃したアラーム"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"スヌーズ"</string>
   <plurals name="alarm_alert_snooze_set">
@@ -47,7 +47,7 @@
   </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"スヌーズ終了時刻: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"次のアラーム"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"鳴らなかったアラームを削除しました"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"聞き逃したアラームを削除しました"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"残り1分未満"</item>
     <item msgid="83197792732433351">"残り<xliff:g id="HOURS">%1$s</xliff:g>"</item>
