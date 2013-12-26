@@ -46,7 +46,7 @@
     <item quantity="other" msgid="7377899473014259727">"Повтор через <xliff:g id="MINUTES">%d</xliff:g> мин."</item>
   </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Повтор в <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Следующий сигнал"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Следующий будильник"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Пропущенный сигнал удален"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Осталось: меньше минуты"</item>
