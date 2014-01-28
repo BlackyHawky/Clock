@@ -98,6 +98,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
     private static final String KEY_SELECTED_ALARM = "selectedAlarm";
     private static final String KEY_DELETE_CONFIRMATION = "deleteConfirmation";
+    private static final DeskClockExtensions sDeskClockExtensions = ExtensionsFactory
+                    .getDeskClockExtensions();
 
     private static final int REQUEST_CODE_RINGTONE = 1;
 
@@ -1720,6 +1722,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     ContentResolver cr = context.getContentResolver();
                     AlarmStateManager.deleteAllInstances(context, alarm.id);
                     Alarm.deleteAlarm(cr, alarm.id);
+                    sDeskClockExtensions.deleteAlarm(
+                            AlarmClockFragment.this.getActivity().getApplicationContext(), alarm.id);
                 }
                 return null;
             }
@@ -1761,6 +1765,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
                     // Create and add instance to db
                     if (newAlarm.enabled) {
+                        sDeskClockExtensions.addAlarm(
+                                AlarmClockFragment.this.getActivity().getApplicationContext(),
+                                newAlarm);
                         return setupAlarmInstance(context, newAlarm);
                     }
                 }
