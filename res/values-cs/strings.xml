@@ -103,7 +103,7 @@
     <string name="delete" msgid="5732434972457000541">"Smazat"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Hlasitost budíku"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Tichý"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Odložit nebo zavřít budík"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Odložit nebo zrušit budík"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (odloženo)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Budík je nastaven na <xliff:g id="TIME">%s</xliff:g>. Dotykem jej zrušíte."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tlačítka hlasitosti"</string>
@@ -221,14 +221,14 @@
     <item msgid="4196408495909011020">"Midwayské ostrovy"</item>
     <item msgid="1414384194857730006">"Havaj"</item>
     <item msgid="2687091371581931926">"Aljaška"</item>
-    <item msgid="1922100269679049660">"Tichomořský čas"</item>
+    <item msgid="1922100269679049660">"Severoamerický pacifický čas"</item>
     <item msgid="7156402158716866161">"Tijuana"</item>
     <item msgid="1144117502254612241">"Arizona"</item>
     <item msgid="101284182011722637">"Chihuahua"</item>
     <item msgid="689121094232986897">"Horský čas"</item>
     <item msgid="5445331923942302756">"Střední Amerika"</item>
     <item msgid="2749806434052452351">"Centrální čas"</item>
-    <item msgid="3997138870229703753">"Mexico City"</item>
+    <item msgid="3997138870229703753">"Ciudad de México"</item>
     <item msgid="5425567073027744888">"Saskatchewan"</item>
     <item msgid="2877342865396629368">"Bogotá"</item>
     <item msgid="568682398893899670">"Východní čas"</item>
