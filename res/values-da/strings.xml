@@ -40,7 +40,7 @@
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Afvis nu"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Ubesvaret alarm"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Slumretilstand"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Udsæt"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Snoozet i 1 minut."</item>
     <item quantity="other" msgid="7377899473014259727">"Snoozet i <xliff:g id="MINUTES">%d</xliff:g> minutter."</item>
@@ -104,7 +104,7 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lydstyrke for alarm"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Lydløs"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Snooze eller annuller alarm."</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (slumretilstand)"</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (udsat)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarmen er indstillet til <xliff:g id="TIME">%s</xliff:g>. Vælg for at annullere."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Lydstyrkeknapper"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knapeffekt"</string>
