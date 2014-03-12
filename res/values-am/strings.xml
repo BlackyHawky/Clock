@@ -105,7 +105,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"ፀጥታ"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"ማንቂያ አሸልብ ወይም ሰርዝ።"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g>(ቆይቷል)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ማንቂያ ለ<xliff:g id="TIME">%s</xliff:g> ተዘጋጅቷል።ለመተው ምረጥ።"</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ማንቂያ ለ<xliff:g id="TIME">%s</xliff:g> ተዘጋጅቷል።ይቅር ለማለት ይምረጡ።"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"የድምፅ አዝራሮች"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"የአዝራር ተጽዕኖ"</string>
   <string-array name="volume_button_setting_entries">
@@ -179,7 +179,7 @@
     <string name="timer_stop" msgid="3361154678667736722">"አቁም"</string>
     <string name="timer_done" msgid="2375990511982914051">"ተጠናቅቋል"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ዳግም አስጀምር"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"ሰርዝ"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"ይቅር"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ጊዜው አብቅቷል"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"የሰዓት ቆጣሪ"</string>
   <string-array name="sw_share_strings">
@@ -210,7 +210,7 @@
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ጊዜው የተለየ በሆነበት አካባቢ ውስጥ በሚጓዙበት ጊዜ የቤት ሰዓት ያክሉ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"የቤት ሰዓት ሰቅ"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"የቤት ሰዓት ሰቅ"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"ሰርዝ"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"ይቅር"</string>
     <string name="time_picker_set" msgid="331153175471468051">"እሺ"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
