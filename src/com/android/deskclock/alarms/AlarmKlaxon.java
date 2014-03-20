@@ -119,7 +119,7 @@ public class AlarmKlaxon {
 
         if (instance.mVibrate) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(sVibratePattern, 0);
+            vibrator.vibrate(sVibratePattern, 0, AudioManager.STREAM_ALARM);
         }
 
         sStarted = true;

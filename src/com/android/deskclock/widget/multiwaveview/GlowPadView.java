@@ -30,6 +30,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.TextUtils;
@@ -554,7 +555,7 @@ public class GlowPadView extends View {
 
     private void vibrate() {
         if (mVibrator != null) {
-            mVibrator.vibrate(mVibrationDuration);
+            mVibrator.vibrate(mVibrationDuration, AudioManager.STREAM_SYSTEM);
         }
     }
 
