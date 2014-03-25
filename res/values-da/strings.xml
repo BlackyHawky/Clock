@@ -77,7 +77,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analogt ur"</string>
     <string name="help" msgid="7786263119482654015">"hjælp"</string>
     <string name="settings" msgid="5849739030579520686">"Indstillinger"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Udskydelsens varighed"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Udsættelsens varighed"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minut"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> minutter"</item>
@@ -103,13 +103,13 @@
     <string name="delete" msgid="5732434972457000541">"Slet"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lydstyrke for alarm"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Lydløs"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Snooze eller annuller alarm."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Udsæt eller annuller alarm."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (udsat)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarmen er indstillet til <xliff:g id="TIME">%s</xliff:g>. Vælg for at annullere."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Lydstyrkeknapper"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knapeffekt"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Udskyder"</item>
+    <item msgid="7972756698723318690">"Udsætter"</item>
     <item msgid="3450979320164769576">"Annullerer"</item>
     <item msgid="6302517608411378024">"Gør intet"</item>
   </string-array>
@@ -207,7 +207,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatisk ur for egen tidszone"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Når du rejser i en anden tidszone, kan du tlføje et ur, der viser tiden derhjemme"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Når du befinder dig i en anden tidszone, vises der et ur, der viser tiden derhjemme"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Egen tidszone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Egen tidszone"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Annuller"</string>
@@ -308,9 +308,9 @@
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stopurstjeneste, der skal køre underretningen."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Stoppet"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Glid til højre for at annullere"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Glid til venstre for at snooze"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Skub til venstre for at udsætte"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Glid op for at annullere"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Glid ned for at snooze"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Skub ned for at udsætte"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ur stoppet"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ure stoppet"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tryk for at se dine ure"</string>

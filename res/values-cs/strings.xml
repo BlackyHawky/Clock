@@ -90,12 +90,12 @@
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"5 minut"</item>
-    <item msgid="3663730603519549990">"10 minut"</item>
-    <item msgid="1385481095199681200">"15 minut"</item>
-    <item msgid="420479821767342125">"20 minut"</item>
-    <item msgid="2107936130151066746">"25 minut"</item>
-    <item msgid="7219791437023378544">"30 minut"</item>
+    <item msgid="3693401222993867634">"5 minutách"</item>
+    <item msgid="3663730603519549990">"10 minutách"</item>
+    <item msgid="1385481095199681200">"15 minutách"</item>
+    <item msgid="420479821767342125">"20 minutách"</item>
+    <item msgid="2107936130151066746">"25 minutách"</item>
+    <item msgid="7219791437023378544">"30 minutách"</item>
     <item msgid="4278641338024561333">"Nikdy"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Hotovo"</string>
@@ -304,7 +304,7 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"BUDÍKY"</string>
-    <string name="see_all" msgid="775983396630163739">"Zobrazit vše..."</string>
+    <string name="see_all" msgid="775983396630163739">"Zobrazit vše"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Služba Stopky ke spouštění upozornění."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Zastaveno"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Přejetím vpravo budík zrušíte"</string>
@@ -322,7 +322,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Rozbalit budík"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sbalit budík"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"vrátit zpět"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Budík byl smazán."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Budík byl smazán"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Další budík: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
