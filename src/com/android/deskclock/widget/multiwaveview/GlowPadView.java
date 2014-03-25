@@ -260,13 +260,10 @@ public class GlowPadView extends View {
             setDirectionDescriptionsResourceId(resourceId);
         }
 
-        a.recycle();
-
         // Use gravity attribute from LinearLayout
         //a = context.obtainStyledAttributes(attrs, R.styleable.LinearLayout);
         mGravity = a.getInt(R.styleable.GlowPadView_android_gravity, Gravity.TOP);
         a.recycle();
-
 
         setVibrateEnabled(mVibrationDuration > 0);
 
