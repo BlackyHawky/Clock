@@ -148,7 +148,7 @@
     <string name="sw_stop_button" msgid="8322958613123274451">"หยุด"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"รอบ"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"รีเซ็ต"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"แบ่งปัน"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"แชร์"</string>
     <string name="hours_label" msgid="3393478155635368097">"ชม."</string>
     <string name="minutes_label" msgid="3568098128251438588">"น."</string>
     <string name="seconds_label" msgid="124655952824003246">"ว."</string>

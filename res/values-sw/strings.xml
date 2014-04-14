@@ -45,7 +45,7 @@
     <item quantity="one" msgid="7884410398338611019">"Inasinzia kwa dakika 1"</item>
     <item quantity="other" msgid="7377899473014259727">"Inasinzia kwa dakika <xliff:g id="MINUTES">%d</xliff:g>"</item>
   </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Inapumzisha hadi <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Imeahirishwa hadi <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Kengele ijayo"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Kengele ambayo haikuitikiwa imefutwa"</string>
   <string-array name="timer_notifications">
@@ -103,7 +103,7 @@
     <string name="delete" msgid="5732434972457000541">"Futa"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Sauti ya kengele"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Kimya"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Pumzisha au ondoa kengele."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Ahirisha au uondoe kengele."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (imesinzia)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Kengele imewekwa ya <xliff:g id="TIME">%s</xliff:g>. Gusa ili kughairi."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Vitufe vya kudhibiti sauti"</string>
@@ -308,9 +308,9 @@
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Huduma ya saa ya kusitisha kuendesha arifa."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Imekomeshwa"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Telezesha kulia ili kuondoa"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Telezesha kushoto ili kupumzisha"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Telezesha kushoto ili kuahirisha"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Telezesha juu ili kutupa"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Telezesha chini ili kupumzisha"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Telezesha chini ili kuahirisha"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Kipima wakati kimesimamishwa"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g> vilivyosimamishwa"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Gusa ili kuona vipima wakati vyako"</string>
