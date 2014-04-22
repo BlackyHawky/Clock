@@ -19,6 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"ساعت"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"زنگ‌های ساعت"</string>
     <string name="add_alarm" msgid="5976616107390962899">"افزودن زنگ ساعت"</string>
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"هشدارهای بعدی"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ساعت رومیزی"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"ویرایش زنگ ساعت"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"حذف زنگ ساعت"</string>
@@ -36,10 +37,17 @@
     <string name="ringtone" msgid="9110746249688559579">"آهنگ زنگ"</string>
     <string name="time" msgid="8067216534232296518">"زمان"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"رد کردن"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"هشدار پس از <xliff:g id="MINUTES">%d</xliff:g> دقیقه بی‌صدا شد."</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"اکنون نادیده گرفته شود"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"هشدارهای بی‌پاسخ"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"تعویق"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه"</string>
+  <plurals name="alarm_alert_snooze_set">
+    <item quantity="one" msgid="7884410398338611019">"تعویق به مدت ۱ دقیقه."</item>
+    <item quantity="other" msgid="7377899473014259727">"تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه."</item>
+  </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"تعویق تا <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"هشدار بعدی"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"هشدار بی‌پاسخ حذف شد"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"کمتر از یک دقیقه باقیمانده است"</item>
     <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> باقیمانده"</item>
@@ -122,6 +130,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"تنظیم زنگ ساعت"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"هشدار"</string>
     <string name="menu_timer" msgid="6459070074762877114">"تایمر"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ساعت"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"کرونومتر"</string>
@@ -131,15 +140,18 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"تنظیمات"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"راهنما"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"حالت شب"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"مرتب‌سازی بر اساس زمان"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"مرتب‌سازی بر اساس نام"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"شهرهای منتخب"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"ازسرگیری"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"شروع"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"توقف"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"دور"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"بازنشانی"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"اشتراک‏‌گذاری"</string>
-    <string name="hours_label" msgid="3393478155635368097">"ساعت"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"دقیقه"</string>
-    <string name="seconds_label" msgid="124655952824003246">"ثانیه"</string>
+    <string name="hours_label" msgid="3393478155635368097">"س"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"د"</string>
+    <string name="seconds_label" msgid="124655952824003246">"ث"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"ساعت"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"دقیقه"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"ثانیه"</string>
@@ -163,7 +175,9 @@
     <string name="timer_start" msgid="6158486445614356442">"شروع"</string>
     <string name="timer_delete" msgid="8699122001991909302">"حذف"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"افزودن ۱ دقیقه"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"افزودن ۱ دقیقه"</string>
     <string name="timer_stop" msgid="3361154678667736722">"توقف"</string>
+    <string name="timer_done" msgid="2375990511982914051">"انجام شد"</string>
     <string name="timer_reset" msgid="7848424809190171640">"بازنشانی"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"لغو"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"وقت تمام است"</string>
@@ -171,9 +185,9 @@
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"شما واقعاً خدای سرعت هستید."</item>
     <item msgid="6332879039890727169">"از ثمره زحمات خود لذت ببرید."</item>
-    <item msgid="815382761274660130">"Androidها به چالاکی معروفند، اما نه به اندازه شما!"</item>
+    <item msgid="815382761274660130">"‏Androidها به چالاکی معروفند، اما نه به اندازه شما!"</item>
     <item msgid="7916250650982813737">"اوف."</item>
-    <item msgid="6836603904515182333">"L33t بار."</item>
+    <item msgid="6836603904515182333">"‏L33t بار."</item>
     <item msgid="7508085100680861631">"عجب سرعت حیرت‌آوری."</item>
     <item msgid="5961245252909589573">"بیایید توقف زمان را دوباره انجام دهیم."</item>
     <item msgid="5211891900854545940">"فقط یک پرش به چپ."</item>
@@ -287,6 +301,7 @@
     <item msgid="8255615641810148152">"اوکلند"</item>
     <item msgid="3027153773466391728">"فیجی"</item>
     <item msgid="5911600083231840181">"تونگا"</item>
+    <item msgid="5176858645450908751">"جاکارتا"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"زنگ‌ها"</string>
     <string name="see_all" msgid="775983396630163739">"مشاهده همه..."</string>
@@ -321,4 +336,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"این تایمر حذف شود؟"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"این شهر حذف شود؟"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ساعت دیجیتال"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"بدون هشدار"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"هشداری در آینده فعال نیست"</string>
 </resources>

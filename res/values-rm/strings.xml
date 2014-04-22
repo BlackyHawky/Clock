@@ -19,6 +19,8 @@
     <string name="app_label" msgid="6674495003718166674">"Ura"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Svegliarin"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Agiuntar in svegliarin"</string>
+    <!-- no translation found for alarm_timeline_title_text (595912293949219821) -->
+    <skip />
     <string name="menu_desk_clock" msgid="3241995064554071588">"Ura da desktop"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Modifitgar il svegliarin"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Stizzar il svegliarin"</string>
@@ -39,11 +41,20 @@
     <skip />
     <string name="time" msgid="8067216534232296518">"Ura"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Annullar"</string>
-    <!-- no translation found for alarm_alert_alert_silenced (2704775170733835993) -->
+    <!-- no translation found for alarm_alert_dismiss_now_text (3272183025444682500) -->
+    <skip />
+    <!-- no translation found for alarm_missed_title (3828345099754063392) -->
+    <skip />
+    <!-- no translation found for alarm_missed_text (6585658367289194023) -->
     <skip />
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Repeter"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Repetiziun en <xliff:g id="MINUTES">%d</xliff:g> minutas."</string>
+    <!-- no translation found for alarm_alert_snooze_set:one (7884410398338611019) -->
+    <!-- no translation found for alarm_alert_snooze_set:other (7377899473014259727) -->
     <!-- no translation found for alarm_alert_snooze_until (6958013659168344550) -->
+    <skip />
+    <!-- no translation found for alarm_alert_predismiss_title (5723945586913705445) -->
+    <skip />
+    <!-- no translation found for missed_alarm_has_been_deleted (5295473204045979335) -->
     <skip />
     <!-- no translation found for timer_notifications:0 (7760558912503484257) -->
     <!-- no translation found for timer_notifications:1 (83197792732433351) -->
@@ -134,6 +145,8 @@
     <skip />
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <!-- no translation found for menu_alarm (4772010125376647519) -->
+    <skip />
     <!-- no translation found for menu_timer (6459070074762877114) -->
     <skip />
     <!-- no translation found for menu_clock (5612760670606829805) -->
@@ -151,6 +164,12 @@
     <!-- no translation found for menu_item_help (4570953476186849841) -->
     <skip />
     <!-- no translation found for menu_item_night_mode (3486930302245398975) -->
+    <skip />
+    <!-- no translation found for menu_item_sort_by_gmt_offset (3120860422682721706) -->
+    <skip />
+    <!-- no translation found for menu_item_sort_by_name (1762931290495104106) -->
+    <skip />
+    <!-- no translation found for selected_cities_label (3607479399424246605) -->
     <skip />
     <!-- no translation found for sw_resume_button (2569360966002022248) -->
     <skip />
@@ -198,7 +217,11 @@
     <skip />
     <!-- no translation found for timer_plus_one (6631211310420106116) -->
     <skip />
+    <!-- no translation found for timer_plus_1_min (8645224089494875062) -->
+    <skip />
     <!-- no translation found for timer_stop (3361154678667736722) -->
+    <skip />
+    <!-- no translation found for timer_done (2375990511982914051) -->
     <skip />
     <!-- no translation found for timer_reset (7848424809190171640) -->
     <skip />
@@ -334,6 +357,7 @@
     <!-- no translation found for timezone_labels:81 (8255615641810148152) -->
     <!-- no translation found for timezone_labels:82 (3027153773466391728) -->
     <!-- no translation found for timezone_labels:83 (5911600083231840181) -->
+    <!-- no translation found for timezone_labels:84 (5176858645450908751) -->
     <!-- no translation found for alarm_settings (6049627772103646753) -->
     <skip />
     <!-- no translation found for see_all (775983396630163739) -->
@@ -392,5 +416,9 @@
     <!-- no translation found for city_delete_confirmation (1783441538785676299) -->
     <skip />
     <!-- no translation found for digital_gadget (2326954556720571358) -->
+    <skip />
+    <!-- no translation found for no_alarms (6429431324842022917) -->
+    <skip />
+    <!-- no translation found for no_upcoming_alarms (2889840988069436254) -->
     <skip />
 </resources>

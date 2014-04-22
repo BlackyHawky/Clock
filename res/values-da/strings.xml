@@ -19,6 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"Ur"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Alarmer"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Tilføj alarm"</string>
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"NÆSTE ALARMER"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Ur på skrivebord"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Rediger alarm"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Slet alarm"</string>
@@ -36,10 +37,17 @@
     <string name="ringtone" msgid="9110746249688559579">"Ringetone"</string>
     <string name="time" msgid="8067216534232296518">"Tid"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Annuller"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarmen dæmpes efter <xliff:g id="MINUTES">%d</xliff:g> minutter"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Slumretilstand"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Slumrer i <xliff:g id="MINUTES">%d</xliff:g> minutter."</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Afvis nu"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Ubesvaret alarm"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Udsæt"</string>
+  <plurals name="alarm_alert_snooze_set">
+    <item quantity="one" msgid="7884410398338611019">"Snoozet i 1 minut."</item>
+    <item quantity="other" msgid="7377899473014259727">"Snoozet i <xliff:g id="MINUTES">%d</xliff:g> minutter."</item>
+  </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozer indtil <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Kommende alarm"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Din ubesvarede alarm er blevet slettet"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Mindre end et minut tilbage"</item>
     <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> tilbage"</item>
@@ -69,7 +77,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analogt ur"</string>
     <string name="help" msgid="7786263119482654015">"hjælp"</string>
     <string name="settings" msgid="5849739030579520686">"Indstillinger"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Udskydelsens varighed"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Udsættelsens varighed"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minut"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> minutter"</item>
@@ -95,14 +103,14 @@
     <string name="delete" msgid="5732434972457000541">"Slet"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lydstyrke for alarm"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Lydløs"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Snooze eller annuller alarm."</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (slumretilstand)"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Udsæt eller annuller alarm."</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (udsat)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarmen er indstillet til <xliff:g id="TIME">%s</xliff:g>. Vælg for at annullere."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Lydstyrkeknapper"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knapeffekt"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Udskyd"</item>
-    <item msgid="3450979320164769576">"Annuller"</item>
+    <item msgid="7972756698723318690">"Udsætter"</item>
+    <item msgid="3450979320164769576">"Annullerer"</item>
     <item msgid="6302517608411378024">"Gør intet"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Angiv standardringetone"</string>
@@ -122,6 +130,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Indstil alarm"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ur"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopur"</string>
@@ -131,6 +140,9 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Indstillinger"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Hjælp"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Nattilstand"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sortér efter tid"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortér efter navn"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Valgte byer"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Genoptag"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stop"</string>
@@ -163,7 +175,9 @@
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Slet"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Tilføj ét minut"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Tilføj 1 min."</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
+    <string name="timer_done" msgid="2375990511982914051">"Afvis"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Nulstil"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Annuller"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tiden er gået"</string>
@@ -193,7 +207,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatisk ur for egen tidszone"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Når du rejser i en anden tidszone, kan du tlføje et ur, der viser tiden derhjemme"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Når du befinder dig i en anden tidszone, vises der et ur, der viser tiden derhjemme"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Egen tidszone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Egen tidszone"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Annuller"</string>
@@ -287,15 +301,16 @@
     <item msgid="8255615641810148152">"Auckland"</item>
     <item msgid="3027153773466391728">"Fiji"</item>
     <item msgid="5911600083231840181">"Tonga"</item>
+    <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMER"</string>
     <string name="see_all" msgid="775983396630163739">"Se alle…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stopurstjeneste, der skal køre underretningen."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Stoppet"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Glid til højre for at annullere"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Glid til venstre for at snooze"</string>
+    <string name="description_direction_left" msgid="6328816971226781776">"Skub til venstre for at udsætte"</string>
     <string name="description_direction_up" msgid="7875287578324520904">"Glid op for at annullere"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Glid ned for at snooze"</string>
+    <string name="description_direction_down" msgid="8240473964024874053">"Skub ned for at udsætte"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ur stoppet"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ure stoppet"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tryk for at se dine ure"</string>
@@ -307,7 +322,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Udvid alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Skjul alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"fortryd"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Alarm blev slettet."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Alarmen blev slettet."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Næste alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
@@ -321,4 +336,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vil du slette denne timer?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Vil du fjerne denne by?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitalur"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Ingen alarmer"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"INGEN KOMMENDE ALARMER"</string>
 </resources>

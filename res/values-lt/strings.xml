@@ -19,6 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"Laikrodis"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Signalai"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Pridėti signalą"</string>
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"KITI SIGNALAI"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Darbalaukio laikrodis"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Redaguoti signalą"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Ištrinti signalą"</string>
@@ -36,10 +37,17 @@
     <string name="ringtone" msgid="9110746249688559579">"Skambėjimo tonas"</string>
     <string name="time" msgid="8067216534232296518">"Laikas"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Atsisakyti"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Signalas nutildytas po <xliff:g id="MINUTES">%d</xliff:g> min."</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Atmesti dabar"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Praleistas signalas"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snausti"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Snaudžiama <xliff:g id="MINUTES">%d</xliff:g> min."</string>
+  <plurals name="alarm_alert_snooze_set">
+    <item quantity="one" msgid="7884410398338611019">"Snaudžiama 1 min."</item>
+    <item quantity="other" msgid="7377899473014259727">"Snaudžiama <xliff:g id="MINUTES">%d</xliff:g> min."</item>
+  </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snaudžiama iki <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Artimiausias signalas"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Praleistas signalas buvo ištrintas"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Liko mažiau nei minutė"</item>
     <item msgid="83197792732433351">"Liko <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -122,6 +130,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Nustatyti signalą"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"Signalas"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Laikmatis"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Laikrodis"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Chronometras"</string>
@@ -131,15 +140,18 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Nustatymai"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Pagalba"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Nakties režimas"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Rūšiuoti pagal laiką"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Rūšiuoti pagal pavadinimą"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Pasirinkti miestai"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Atnaujinti"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Pradėti"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stabdyti"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Ratas"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Nustatyti iš naujo"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Bendrinti"</string>
-    <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"m"</string>
-    <string name="seconds_label" msgid="124655952824003246">"s"</string>
+    <string name="hours_label" msgid="3393478155635368097">"val."</string>
+    <string name="minutes_label" msgid="3568098128251438588">"min."</string>
+    <string name="seconds_label" msgid="124655952824003246">"sek."</string>
     <string name="hours_label_description" msgid="8652842524970971830">"val."</string>
     <string name="minutes_label_description" msgid="965686733490357796">"min."</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"sek."</string>
@@ -163,7 +175,9 @@
     <string name="timer_start" msgid="6158486445614356442">"Pradėti"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Ištrinti"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Pridėti 1 minutę"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Pridėti 1 min."</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stabdyti"</string>
+    <string name="timer_done" msgid="2375990511982914051">"Atlikta"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Nustatyti iš naujo"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Atšaukti"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Laikas baigėsi"</string>
@@ -287,6 +301,7 @@
     <item msgid="8255615641810148152">"Oklandas"</item>
     <item msgid="3027153773466391728">"Fidžis"</item>
     <item msgid="5911600083231840181">"Tonga"</item>
+    <item msgid="5176858645450908751">"Džakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"SIGNALAI"</string>
     <string name="see_all" msgid="775983396630163739">"Žr. viską…"</string>
@@ -321,4 +336,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Ištrinti šį laikmatį?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Pašalinti šį miestą?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Skaitmeninis laikrodis"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Signalų nėra"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"NĖRA BŪSIMŲ SIGNALŲ"</string>
 </resources>
