@@ -418,23 +418,6 @@ public class StaggeredGridView extends ViewGroup {
     }
 
     /**
-     * Check to see if the current layout is Right-to-Left.  This check is only supported for
-     * API 17+.  For earlier versions, this method will just return false.
-     *
-     * NOTE:  This is based on the private API method in {@link View} class.
-     *
-     * @return boolean Boolean indicating whether the currently locale is RTL.
-     */
-    @SuppressLint("NewApi")
-    private boolean isLayoutRtl() {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1) {
-            return View.LAYOUT_DIRECTION_RTL == getLayoutDirection();
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Set a fixed number of columns for this grid. Space will be divided evenly
      * among all columns, respecting the item margin between columns.
      * The default is 2. (If it were 1, perhaps you should be using a

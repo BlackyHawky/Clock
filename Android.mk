@@ -18,8 +18,6 @@ LOCAL_PACKAGE_NAME := DeskClock
 
 LOCAL_OVERRIDES_PACKAGES := AlarmClock
 
-LOCAL_SDK_VERSION := current
-
 LOCAL_PROGUARD_FLAG_FILES := proguard.flags
 LOCAL_PROGUARD_FLAG_FILES += ../../../frameworks/opt/datetimepicker/proguard.flags
 
