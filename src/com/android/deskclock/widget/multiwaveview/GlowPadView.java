@@ -884,10 +884,8 @@ public class GlowPadView extends View {
 
         if (activeTarget != -1) {
             switchToState(STATE_SNAP, x,y);
-            updateGlowPosition(x, y);
         } else {
             switchToState(STATE_TRACKING, x, y);
-            updateGlowPosition(x, y);
         }
 
         if (mActiveTarget != activeTarget) {
