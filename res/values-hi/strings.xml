@@ -98,7 +98,7 @@
     <item msgid="7219791437023378544">"30 मिनट"</item>
     <item msgid="4278641338024561333">"कभी नहीं"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"यहां हटाया गया"</string>
+    <string name="done" msgid="6509722361933858451">"हो गया"</string>
     <string name="revert" msgid="9100911171235162926">"पहले जैसा करें"</string>
     <string name="delete" msgid="5732434972457000541">"हटाएं"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"अलार्म का आवाज़"</string>
