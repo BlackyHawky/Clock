@@ -304,7 +304,7 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ÉBRESZTÉS"</string>
-    <string name="see_all" msgid="775983396630163739">"Összes megtekintése..."</string>
+    <string name="see_all" msgid="775983396630163739">"Összes..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stopperóra az értesítés futtatásához."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Leállítva"</string>
     <string name="description_direction_right" msgid="1615911557926085934">"Csúsztassa jobbra az elvetéshez"</string>
