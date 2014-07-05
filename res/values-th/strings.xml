@@ -22,10 +22,10 @@
     <string name="alarm_timeline_title_text" msgid="595912293949219821">"การปลุกครั้งถัดไป"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"นาฬิกาตั้งโต๊ะ"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"แก้ไขการปลุก"</string>
-    <string name="delete_alarm" msgid="3457780990646206817">"ลบการปลุก"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"นำออกการปลุก"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"เปิดการปลุก"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"ปิดการปลุก"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"ลบการตั้งเวลาปลุกนี้หรือไม่"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"นำออกการตั้งเวลาปลุกนี้หรือไม่"</string>
     <string name="show_clock" msgid="8358759982675616915">"แสดงนาฬิกา"</string>
     <string name="hide_clock" msgid="3217727306480505694">"ซ่อนนาฬิกา"</string>
     <string name="label" msgid="162189613902857319">"ป้ายกำกับ"</string>
@@ -47,7 +47,7 @@
   </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ปิดเสียงเตือนชั่วคราวจนถึง <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"การปลุกที่กำลังจะมาถึง"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ลบการปลุกที่พลาดออกไปแล้ว"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"นำออกการปลุกที่พลาดออกไปแล้ว"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"เหลืออีกไม่ถึงหนึ่งนาที"</item>
     <item msgid="83197792732433351">"เหลืออีก <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -100,7 +100,7 @@
   </string-array>
     <string name="done" msgid="6509722361933858451">"เสร็จสิ้น"</string>
     <string name="revert" msgid="9100911171235162926">"เปลี่ยนกลับ"</string>
-    <string name="delete" msgid="5732434972457000541">"ลบ"</string>
+    <string name="delete" msgid="5732434972457000541">"นำออก"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"ระดับเสียงปลุก"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"ปิดเสียง"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"ปิดเสียงเตือนชั่วคราวหรือปิดการปลุก"</string>
@@ -148,7 +148,7 @@
     <string name="sw_stop_button" msgid="8322958613123274451">"หยุด"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"รอบ"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"รีเซ็ต"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"แบ่งปัน"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"แชร์"</string>
     <string name="hours_label" msgid="3393478155635368097">"ชม."</string>
     <string name="minutes_label" msgid="3568098128251438588">"น."</string>
     <string name="seconds_label" msgid="124655952824003246">"ว."</string>
@@ -173,7 +173,7 @@
   </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"เพิ่มนาฬิกาจับเวลา"</string>
     <string name="timer_start" msgid="6158486445614356442">"เริ่ม"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"ลบ"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"นำออก"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"เพิ่ม 1 นาที"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"เพิ่ม 1 นาที"</string>
     <string name="timer_stop" msgid="3361154678667736722">"หยุด"</string>
@@ -185,7 +185,7 @@
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"คุณนี่เป็นพวกคลั่งไคล้ความเร็วเสียจริง"</item>
     <item msgid="6332879039890727169">"เริงรื่นกับผลสำเร็จจากความทุ่มเทของคุณ"</item>
-    <item msgid="815382761274660130">"แอนดรอยด์ขึ้นชื่อในเรื่องความเร็ว แต่ก็ยังไม่เร็วเท่าคุณ!"</item>
+    <item msgid="815382761274660130">" Android ขึ้นชื่อในเรื่องความเร็ว แต่ก็ยังไม่เร็วเท่าคุณ!"</item>
     <item msgid="7916250650982813737">"เฮ้อ"</item>
     <item msgid="6836603904515182333">"L33t ครั้ง"</item>
     <item msgid="7508085100680861631">"เป็นความเร็วที่น่าอัศจรรย์"</item>
@@ -322,19 +322,19 @@
     <string name="expand_alarm" msgid="7392616528943305020">"ขยายการแจ้งเตือน"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ยุบการแจ้งเตือน"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"เลิกทำ"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"ลบการแจ้งเตือนแล้ว"</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"นำออกการแจ้งเตือนแล้ว"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"ปลุกครั้งถัดไป: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"เลือกแล้ว <xliff:g id="ALARMS">%d</xliff:g> รายการ"</string>
-    <string name="deleted_message" msgid="1220848140260509437">"ลบแล้ว"</string>
+    <string name="deleted_message" msgid="1220848140260509437">"นำออกแล้ว"</string>
   <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"ลบการแจ้งเตือนที่เลือกหรือไม่"</item>
-    <item quantity="other" msgid="6918176478191272189">"ลบการแจ้งเตือนที่เลือกหรือไม่"</item>
+    <item quantity="one" msgid="111940612131906802">"นำออกการแจ้งเตือนที่เลือกหรือไม่"</item>
+    <item quantity="other" msgid="6918176478191272189">"นำออกการแจ้งเตือนที่เลือกหรือไม่"</item>
   </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"ลบตัวจับเวลานี้หรือไม่"</string>
-    <string name="city_delete_confirmation" msgid="1783441538785676299">"ลบเมืองนี้หรือไม่"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"นำออกตัวจับเวลานี้หรือไม่"</string>
+    <string name="city_delete_confirmation" msgid="1783441538785676299">"นำออกเมืองนี้หรือไม่"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"นาฬิกาดิจิทัล"</string>
     <string name="no_alarms" msgid="6429431324842022917">"ไม่มีการเตือน"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"ไม่มีการปลุกที่กำลังจะมาถึง"</string>

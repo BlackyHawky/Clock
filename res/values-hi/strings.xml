@@ -46,7 +46,7 @@
     <item quantity="other" msgid="7377899473014259727">"<xliff:g id="MINUTES">%d</xliff:g> मिनट के लिए स्नूज़ हो रहा है."</item>
   </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> तक स्नूज़ कर रहा है"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"आने वाले अलार्म"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"आगामी अलार्म"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"आपका छूटा हुआ अलार्म हटा दिया गया है"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"एक मिनट से कम समय शेष है"</item>
@@ -98,7 +98,7 @@
     <item msgid="7219791437023378544">"30 मिनट"</item>
     <item msgid="4278641338024561333">"कभी नहीं"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"पूर्ण"</string>
+    <string name="done" msgid="6509722361933858451">"हो गया"</string>
     <string name="revert" msgid="9100911171235162926">"पहले जैसा करें"</string>
     <string name="delete" msgid="5732434972457000541">"हटाएं"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"अलार्म का आवाज़"</string>
@@ -177,7 +177,7 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"1 मिनट जोड़ें"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 मिनट जोड़ें"</string>
     <string name="timer_stop" msgid="3361154678667736722">"रोकें"</string>
-    <string name="timer_done" msgid="2375990511982914051">"पूर्ण"</string>
+    <string name="timer_done" msgid="2375990511982914051">"यहां हटाया गया"</string>
     <string name="timer_reset" msgid="7848424809190171640">"रीसेट करें"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"रद्द करें"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"समय समाप्त"</string>
