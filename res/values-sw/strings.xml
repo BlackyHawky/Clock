@@ -50,9 +50,9 @@
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Kengele ambayo haikuitikiwa imefutwa"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Imesalia chini ya dakika moja"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> zinasalia"</item>
-    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> zinasalia"</item>
-    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> zinasalia"</item>
+    <item msgid="83197792732433351">"Zimesalia <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"Zimesalia <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"Zimesalia <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Kengele imewekwa chini ya dakika 1 kutoka sasa."</item>
