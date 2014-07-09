@@ -17,17 +17,16 @@
 package com.android.deskclock;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.database.ContentObserver;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,7 +36,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextClock;
 
-import com.android.deskclock.alarms.AlarmNotifications;
 import com.android.deskclock.worldclock.WorldClockAdapter;
 
 /**
@@ -89,20 +87,13 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                 }
                 Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
             }
-            if (changed || action.equals(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION)) {
+            if (changed || action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
                 Utils.refreshAlarm(getActivity(), mClockFrame);
             }
         }
     };
 
     private final Handler mHandler = new Handler();
-
-    private final ContentObserver mAlarmObserver = new ContentObserver(mHandler) {
-        @Override
-        public void onChange(boolean selfChange) {
-            Utils.refreshAlarm(ClockFragment.this.getActivity(), mClockFrame);
-        }
-    };
 
     // Thread that runs on every quarter-hour and refreshes the date.
     private final Runnable mQuarterHourUpdater = new Runnable() {
@@ -215,7 +206,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         // Besides monitoring when quarter-hour changes, monitor other actions that
         // effect clock time
         IntentFilter filter = new IntentFilter();
-        filter.addAction(AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION);
+        filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         filter.addAction(Intent.ACTION_LOCALE_CHANGED);
@@ -242,10 +233,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
         Utils.refreshAlarm(activity, mClockFrame);
-        activity.getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
-                false,
-                mAlarmObserver);
     }
 
     @Override
@@ -255,7 +242,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         Utils.cancelQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         Activity activity = getActivity();
         activity.unregisterReceiver(mIntentReceiver);
-        activity.getContentResolver().unregisterContentObserver(mAlarmObserver);
     }
 
     @Override

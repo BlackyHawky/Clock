@@ -104,7 +104,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                 cancelAlarmOnQuarterHour(context);
             }
             startAlarmOnQuarterHour(context);
-        } else if (AlarmNotifications.SYSTEM_ALARM_CHANGE_ACTION.equals(action)
+        } else if (AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED.equals(action)
                 || Intent.ACTION_SCREEN_ON.equals(action)) {
             // Refresh the next alarm
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
@@ -197,8 +197,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     }
 
     protected void refreshAlarm(Context context, RemoteViews widget) {
-        String nextAlarm = Settings.System.getString(context.getContentResolver(),
-                Settings.System.NEXT_ALARM_FORMATTED);
+        final String nextAlarm = Utils.getNextAlarm(context);
         if (!TextUtils.isEmpty(nextAlarm)) {
             widget.setTextViewText(R.id.nextAlarm,
                     context.getString(R.string.control_set_alarm_with_existing, nextAlarm));

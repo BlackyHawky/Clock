@@ -20,8 +20,8 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
+import android.app.AlarmClockInfo;
 import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,8 +36,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.os.UserHandle;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -448,10 +448,26 @@ public class Utils {
         clockView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
 
+    /**
+     * @return The next alarm from {@link AlarmManager}
+     */
+    public static String getNextAlarm(Context context) {
+        String timeString = null;
+        final AlarmManager alarmManager = ((AlarmManager) context.getSystemService(
+                Context.ALARM_SERVICE));
+        final AlarmClockInfo info = alarmManager.getNextAlarmClock();
+        if (info != null) {
+            final long triggerTime = info.getTriggerTime();
+            final Calendar alarmTime = Calendar.getInstance();
+            alarmTime.setTimeInMillis(triggerTime);
+            timeString = AlarmUtils.getFormattedTime(context, alarmTime);
+        }
+        return timeString;
+    }
+
     /** Clock views can call this to refresh their alarm to the next upcoming value. **/
     public static void refreshAlarm(Context context, View clock) {
-        String nextAlarm = Settings.System.getString(context.getContentResolver(),
-                Settings.System.NEXT_ALARM_FORMATTED);
+        final String nextAlarm = getNextAlarm(context);
         TextView nextAlarmView;
         nextAlarmView = (TextView) clock.findViewById(R.id.nextAlarm);
         if (!TextUtils.isEmpty(nextAlarm) && nextAlarmView != null) {

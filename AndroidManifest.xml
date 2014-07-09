@@ -150,6 +150,7 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.ALARM_CHANGED" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
                 <action android:name="com.android.deskclock.worldclock.update" />
                 </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/digital_appwidget" />
@@ -168,6 +169,7 @@
             android:label="@string/app_label">
             <intent-filter>
                 <action android:name="android.service.dreams.DreamService" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data

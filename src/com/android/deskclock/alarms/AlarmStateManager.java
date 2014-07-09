@@ -102,6 +102,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
     // Intent action to show the alarm and dismiss the instance
     public static final String SHOW_AND_DISMISS_ALARM_ACTION = "show_and_dismiss_alarm";
 
+    // Intent action for an AlarmManager alarm serving only to set the next alarm indicators
+    private static final String INDICATOR_ACTION = "indicator";
+
     // Extra key to set the desired state change.
     public static final String ALARM_STATE_EXTRA = "intent.extra.alarm.state";
 
@@ -140,7 +143,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 nextAlarm = instance;
             }
         }
-        AlarmNotifications.broadcastNextAlarm(context, nextAlarm);
+        AlarmNotifications.registerNextAlarmWithAlarmManager(context, nextAlarm);
     }
 
     /**
@@ -660,6 +663,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
+        if (INDICATOR_ACTION.equals(intent.getAction())) {
+            return;
+        }
+
         final PendingResult result = goAsync();
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
@@ -713,5 +720,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
             context.startActivity(viewAlarmIntent);
             setDismissState(context, instance);
         }
+    }
+
+    /**
+     * Creates an intent that can be used to set an AlarmManager alarm to set the next alarm
+     * indicators.
+     */
+    public static Intent createIndicatorIntent(Context context) {
+        return new Intent(context, AlarmStateManager.class).setAction(INDICATOR_ACTION);
     }
 }
