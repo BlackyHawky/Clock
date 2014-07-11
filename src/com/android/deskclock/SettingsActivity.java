@@ -19,6 +19,7 @@ package com.android.deskclock;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -98,6 +99,11 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
+        final int color = Utils.getCurrentHourColor();
+        getWindow().setStatusBarColor(color);
+        final ColorDrawable colorDrawable = new ColorDrawable(color);
+        getActionBar().setBackgroundDrawable(colorDrawable);
+        getListView().setBackground(colorDrawable);
         refresh();
     }
 
