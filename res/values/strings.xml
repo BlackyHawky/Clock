@@ -854,7 +854,7 @@
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>
 
-    <!-- String for no alarms set [CHAR LIMIT=15] -->
+    <!-- String for no alarms set [CHAR LIMIT=24] -->
     <string name="no_alarms_set">No alarms set</string>
 
     <!-- String for no enabled alarms in timeline view [CHAR LIMIT=30] -->
