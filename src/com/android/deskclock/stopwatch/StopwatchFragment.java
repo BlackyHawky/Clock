@@ -95,7 +95,6 @@ public class StopwatchFragment extends DeskClockFragment
 
         ArrayList<Lap> mLaps = new ArrayList<Lap>();
         private final LayoutInflater mInflater;
-        private final int mBackgroundColor;
         private final String[] mFormats;
         private final String[] mLapFormatSet;
         // Size of this array must match the size of formats
@@ -112,7 +111,6 @@ public class StopwatchFragment extends DeskClockFragment
 
         public LapsListAdapter(Context context) {
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            mBackgroundColor = getResources().getColor(R.color.blackish);
             mFormats = context.getResources().getStringArray(R.array.stopwatch_format_set);
             mLapFormatSet = context.getResources().getStringArray(R.array.sw_lap_number_set);
             updateLapFormat();
@@ -134,7 +132,6 @@ public class StopwatchFragment extends DeskClockFragment
                 lapInfo = convertView;
             } else {
                 lapInfo = mInflater.inflate(R.layout.lap_view, parent, false);
-                lapInfo.setBackgroundColor(mBackgroundColor);
             }
             lapInfo.setTag(lap);
             TextView count = (TextView)lapInfo.findViewById(R.id.lap_number);
@@ -188,7 +185,7 @@ public class StopwatchFragment extends DeskClockFragment
                 mLapIndex++;
                 formatChanged = true;
             }
-            while (mTotalIndex + 1 < mThresholds.length && 
+            while (mTotalIndex + 1 < mThresholds.length &&
                 lap.mTotalTime >= mThresholds[mTotalIndex]) {
                 mTotalIndex++;
                 formatChanged = true;
