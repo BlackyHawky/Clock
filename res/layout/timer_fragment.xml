@@ -33,7 +33,6 @@
             android:paddingBottom="88dp"/>
         <FrameLayout
             android:id="@+id/timer_footer"
-            android:background="@drawable/footer_bg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom" >

@@ -23,7 +23,6 @@
 
     <style name="DeskClock" parent="android:Theme.Material">
         <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@color/blackish</item>
         <item name="android:actionBarTabStyle">@style/DeskClockTabStyle</item>
         <item name="android:actionBarStyle">@style/DeskClockBarStyle</item>
         <item name="android:actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
@@ -37,14 +36,12 @@
         <item name="android:gravity">center</item>
     </style>
     <style name="DeskClockTabBarStyle" parent="@android:style/Theme.Material">
-        <item name="android:background">@drawable/header_bg</item>
         <item name="android:showDividers">middle</item>
         <item name="android:divider">?android:attr/dividerVertical</item>
         <item name="android:dividerPadding">12dp</item>
         <item name="android:gravity">center</item>
     </style>
     <style name="DeskClockBarStyle" parent="@android:style/Widget.Material.ActionBar">
-        <item name="android:background">@drawable/header_bg_bar</item>
         <item name="android:backgroundStacked">@null</item>
         <item name="android:backgroundSplit">@null</item>
         <item name="android:displayOptions"></item>
@@ -55,14 +52,12 @@
     </style>
 
     <style name="AlarmClockTheme" parent="@android:style/Theme.Material">
-        <item name="android:windowBackground">@color/blackish</item>
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
         <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
 
     <style name="SettingsTheme" parent="android:Theme.Material">
-        <item name="android:windowBackground">@color/blackish</item>
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
         <item name="android:selectableItemBackground">@drawable/item_background</item>

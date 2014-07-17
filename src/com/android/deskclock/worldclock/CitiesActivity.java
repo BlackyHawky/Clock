@@ -22,6 +22,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -504,6 +505,10 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         if (mAdapter != null) {
             mAdapter.set24HoursMode(this);
         }
+
+        final int color = Utils.getCurrentHourColor();
+        getActionBar().setBackgroundDrawable(new ColorDrawable(color));
+        mCitiesList.setBackgroundColor(color);
     }
 
     @Override

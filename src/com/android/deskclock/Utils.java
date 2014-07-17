@@ -82,6 +82,12 @@ public class Utils {
     public static final String CLOCK_TYPE_DIGITAL = "digital";
     public static final String CLOCK_TYPE_ANALOG = "analog";
 
+    /** The background colors of the app, it changes thru out the day to mimic the sky. **/
+    public static final String[] BACKGROUND_SPECTRUM = { "#212121", "#4a2351", "#732580",
+            "#9C27b0", "#7d35b2", "#5e43b3", "#3f51b5", "#2b6eca", "#178cdf", "#03a9f4", "#02afe9",
+            "#01b6df", "#00bcd4", "#16aadf", "#2c97e9", "#4285f4", "#4174df", "#4062ca", "#3f51b5",
+            "#4c49b6", "#5a42b6", "#673ab7", "#503285", "#382953" };
+
     /**
      * Returns whether the SDK is KitKat or later
      */
@@ -595,5 +601,10 @@ public class Utils {
 
     public static String getCityName(CityObj city, CityObj dbCity) {
         return (city.mCityId == null || dbCity == null) ? city.mCityName : dbCity.mCityName;
+    }
+
+    public static int getCurrentHourColor() {
+        final int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        return Color.parseColor(BACKGROUND_SPECTRUM[hourOfDay]);
     }
 }
