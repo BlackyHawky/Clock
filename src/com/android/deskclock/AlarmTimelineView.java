@@ -61,8 +61,6 @@ public class AlarmTimelineView extends View {
     private int mAlarmTimelineMarginTop;
     private int mAlarmTimelineMarginBottom;
     private int mAlarmNodeRadius;
-    private int mAlarmNodeInnerRadius;
-    private int mAlarmNodeInnerRadiusColor;
     private int mAlarmTextPadding;
     private int mAlarmTextSize;
     private int mAlarmMinDistance;
@@ -222,8 +220,6 @@ public class AlarmTimelineView extends View {
         mAlarmTimelineMarginBottom = res.getDimensionPixelOffset(R.dimen.footer_button_size) +
                 2 * res.getDimensionPixelOffset(R.dimen.footer_button_layout_margin);
         mAlarmNodeRadius = res.getDimensionPixelOffset(R.dimen.alarm_timeline_radius);
-        mAlarmNodeInnerRadius = res.getDimensionPixelOffset(R.dimen.alarm_timeline_inner_radius);
-        mAlarmNodeInnerRadiusColor = res.getColor(R.color.blackish);
         mAlarmTextSize = res.getDimensionPixelOffset(R.dimen.alarm_text_font_size);
         mAlarmTextPadding = res.getDimensionPixelOffset(R.dimen.alarm_text_padding);
         mAlarmMinDistance = res.getDimensionPixelOffset(R.dimen.alarm_min_distance) +
@@ -326,11 +322,6 @@ public class AlarmTimelineView extends View {
             mPaint.setColor(Color.WHITE);
             canvas.drawCircle(x, y, mAlarmNodeRadius, mPaint);
 
-            // If the node is not repeating, draw an inner circle to make the node "open".
-            if (!node.isRepeating) {
-                mPaint.setColor(mAlarmNodeInnerRadiusColor);
-                canvas.drawCircle(x, y, mAlarmNodeInnerRadius, mPaint);
-            }
             prevY = y;
 
             // Draw the alarm text.  Alternate left and right of the timeline.

@@ -241,7 +241,6 @@ public class TimerFragment extends DeskClockFragment
             stop.setTag(new ClickAction(ClickAction.ACTION_STOP, o));
             TimerFragment.this.setTimerButtons(o);
 
-            v.setBackgroundColor(getResources().getColor(R.color.blackish));
             countingTimerView.registerStopTextView(stop);
             CircleButtonsLayout circleLayout =
                     (CircleButtonsLayout)v.findViewById(R.id.timer_circle);
@@ -561,7 +560,6 @@ public class TimerFragment extends DeskClockFragment
             params = footerView.getLayoutParams();
             params.height -= dividerHeight;
             footerView.setLayoutParams(params);
-            footerView.setBackgroundResource(R.color.blackish);
             mAdapter.setFooterView(footerView);
         }
 

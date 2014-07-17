@@ -25,6 +25,4 @@
     <item android:state_focused="true"
         android:drawable="@color/blackish_selected" />
 
-    <item
-        android:drawable="@color/blackish" />
 </selector>
