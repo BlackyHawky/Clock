@@ -222,6 +222,5 @@
     <View android:id="@+id/alarm_footer_filler"
         android:visibility="gone"
         android:layout_width="match_parent"
-        android:background="@color/blackish"
         android:layout_height="@dimen/button_footer_height" />
 </LinearLayout>

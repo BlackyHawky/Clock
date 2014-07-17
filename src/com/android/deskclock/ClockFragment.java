@@ -184,7 +184,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         Utils.setTimeFormat((TextClock)(mDigitalClock.findViewById(R.id.digital_clock)),
                 (int)getResources().getDimension(R.dimen.bottom_text_size));
         View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
-        footerView.setBackgroundResource(R.color.blackish);
         mList.addFooterView(footerView);
         mAdapter = new WorldClockAdapter(getActivity());
         mList.setAdapter(mAdapter);
