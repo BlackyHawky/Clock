@@ -21,7 +21,12 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <style name="DeskClock" parent="android:Theme.Material">
+    <style name="DeskClockParentTheme" parent="@android:style/Theme.Material">
+        <item name="android:colorControlActivated">@color/hot_pink</item>
+        <item name="android:colorControlNormal">@color/white</item>
+    </style>
+
+    <style name="DeskClock" parent="@style/DeskClockParentTheme">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:actionBarTabStyle">@style/DeskClockTabStyle</item>
         <item name="android:actionBarStyle">@style/DeskClockBarStyle</item>
@@ -29,13 +34,13 @@
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
         <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
-    <style name="DeskClockTabStyle" parent="@android:style/Theme.Material">
+    <style name="DeskClockTabStyle" parent="@style/DeskClockParentTheme">
         <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
         <item name="android:paddingRight">@dimen/actionbar_tab_padding</item>
         <item name="android:background">@drawable/item_background</item>
         <item name="android:gravity">center</item>
     </style>
-    <style name="DeskClockTabBarStyle" parent="@android:style/Theme.Material">
+    <style name="DeskClockTabBarStyle" parent="@style/DeskClockParentTheme">
         <item name="android:showDividers">middle</item>
         <item name="android:divider">?android:attr/dividerVertical</item>
         <item name="android:dividerPadding">12dp</item>
@@ -51,19 +56,19 @@
         <item name="android:listSelector">@drawable/item_background</item>
     </style>
 
-    <style name="AlarmClockTheme" parent="@android:style/Theme.Material">
+    <style name="AlarmClockTheme" parent="@style/DeskClockParentTheme">
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
         <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
 
-    <style name="SettingsTheme" parent="android:Theme.Material">
+    <style name="SettingsTheme" parent="@style/DeskClockParentTheme">
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
         <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
 
-    <style name="CitiesTheme" parent="SettingsTheme">
+    <style name="CitiesTheme" parent="@style/SettingsTheme">
         <item name="android:fastScrollThumbDrawable">@drawable/red_fastscroll_thumb</item>
     </style>
 
@@ -81,7 +86,7 @@
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="SetAlarmTheme" parent="android:Theme.Material.DialogWhenLarge"/>
+    <style name="SetAlarmTheme" parent="@android:style/Theme.Material.DialogWhenLarge"/>
 
     <style name="AlarmAlertFullScreenWindowTitle">
         <item name="android:maxLines">1</item>
@@ -92,11 +97,13 @@
 
     <!-- NOTE: This must be a fullscreen theme, or else the fullscreen alarm will
          be unable to turn the screen on. -->
-    <style name="AlarmAlertFullScreenTheme" parent="android:Theme.Material.Wallpaper.NoTitleBar">
+    <style name="AlarmAlertFullScreenTheme"
+           parent="@android:style/Theme.Material.Wallpaper.NoTitleBar">
         <item name="android:windowTitleStyle">@style/AlarmAlertFullScreenWindowTitle</item>
     </style>
 
-    <style name="ScreensaverActivityTheme" parent="android:Theme.Material.Wallpaper.NoTitleBar" />
+    <style name="ScreensaverActivityTheme"
+           parent="@android:style/Theme.Material.Wallpaper.NoTitleBar" />
 
     <style name="RoundTouchButton">
         <item name="android:gravity">center</item>
