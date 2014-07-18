@@ -30,7 +30,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
+import android.media.AudioAttributes;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.TextUtils;
@@ -96,6 +96,11 @@ public class GlowPadView extends View {
     private static final float TARGET_SCALE_COLLAPSED = 0.8f;
     private static final float RING_SCALE_EXPANDED = 1.0f;
     private static final float RING_SCALE_COLLAPSED = 0.5f;
+
+    private static final AudioAttributes VIBRATION_ATTRIBUTES = new AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+            .build();
 
     private ArrayList<TargetDrawable> mTargetDrawables = new ArrayList<TargetDrawable>();
     private AnimationBundle mWaveAnimations = new AnimationBundle();
@@ -552,7 +557,7 @@ public class GlowPadView extends View {
 
     private void vibrate() {
         if (mVibrator != null) {
-            mVibrator.vibrate(mVibrationDuration, AudioManager.STREAM_SYSTEM);
+            mVibrator.vibrate(mVibrationDuration, VIBRATION_ATTRIBUTES);
         }
     }
 
