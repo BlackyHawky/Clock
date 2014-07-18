@@ -33,7 +33,7 @@
     <color name="transparent_white">#66ffffff</color>
     <color name="alarm_whiteish">#0cffffff</color>
 
-    <color name="main_button_normal">#FF4081</color>
+    <color name="hot_pink">#FF4081</color>
     <color name="main_button_selected">#909090</color>
     <color name="main_button_red_normal">#ff4444</color> <!-- same as clock_red -->
     <color name="main_button_red_selected">#c0ff4444</color>
