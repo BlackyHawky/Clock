@@ -36,10 +36,20 @@
     <string name="alert" msgid="6506982899651975645">"அலார ரிங்டோன்"</string>
     <string name="ringtone" msgid="9110746249688559579">"ரிங்டோன்"</string>
     <string name="time" msgid="8067216534232296518">"நேரம்"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"நாளை"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"இன்று"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"எழவும்!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"முடக்கு"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"நிராகரி"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"இப்போது நிராகரி"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"தவறிய அலாரம்"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"உறக்கத்தில்"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 நி."</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> நி."</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"அலாரம் ஆஃப்"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"உறக்கநிலை"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"1 நிமிடத்திற்கு உறக்கநிலையில் வைக்கப்பட்டது."</item>
@@ -337,5 +347,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"இந்த நகரத்தை நீக்கவா?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"டிஜிட்டல் கடிகாரம்"</string>
     <string name="no_alarms" msgid="6429431324842022917">"அலாரங்கள் இல்லை"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"அலாரம் இல்லை"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"அடுத்ததாக அலாரங்கள் இல்லை"</string>
 </resources>
