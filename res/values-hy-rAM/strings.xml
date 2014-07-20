@@ -38,7 +38,7 @@
     <string name="time" msgid="8067216534232296518">"Ժամանակ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Վաղը"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Այսօր"</string>
-    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Վե՛ր կաց:"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Արթնացի՛ր:"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Անջ."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Անտեսել"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Անտեսել հիմա"</string>
