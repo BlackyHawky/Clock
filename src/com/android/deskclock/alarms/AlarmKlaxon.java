@@ -18,6 +18,7 @@ package com.android.deskclock.alarms;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
@@ -39,6 +40,11 @@ public class AlarmKlaxon {
 
     // Volume suggested by media team for in-call alarms.
     private static final float IN_CALL_VOLUME = 0.125f;
+
+    private static final AudioAttributes VIBRATION_ATTRIBUTES = new AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .build();
 
     private static boolean sStarted = false;
     private static MediaPlayer sMediaPlayer = null;
@@ -119,7 +125,7 @@ public class AlarmKlaxon {
 
         if (instance.mVibrate) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(sVibratePattern, 0, AudioManager.STREAM_ALARM);
+            vibrator.vibrate(sVibratePattern, 0, VIBRATION_ATTRIBUTES);
         }
 
         sStarted = true;
