@@ -36,10 +36,20 @@
     <string name="alert" msgid="6506982899651975645">"نغمة رنين المنبه"</string>
     <string name="ringtone" msgid="9110746249688559579">"نغمة الرنين"</string>
     <string name="time" msgid="8067216534232296518">"الوقت"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"غدًا"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"اليوم"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"استيقظ"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"تعطيل"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"تجاهل"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"رفض الآن"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"تنبيه فائت"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"تم التأجيل"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"دقيقة"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> من الدقائق"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"تم تعطيل المنبه"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"غفوة"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"غفوة لمدة دقيقة واحدة."</item>
@@ -337,5 +347,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"هل تريد إزالة هذه المدينة؟"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ساعة رقمية"</string>
     <string name="no_alarms" msgid="6429431324842022917">"ليست هناك اشعارات"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"لم يتم تعيين تنبيهات"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"ليست هناك اشعارات مقبلة"</string>
 </resources>

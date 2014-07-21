@@ -36,10 +36,20 @@
     <string name="alert" msgid="6506982899651975645">"Ringetone for alarm"</string>
     <string name="ringtone" msgid="9110746249688559579">"Ringetone"</string>
     <string name="time" msgid="8067216534232296518">"Tid"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Annuller"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"I morgen"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"I dag"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Vågn op!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Fra"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Luk"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Afvis nu"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Ubesvaret alarm"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Udsat"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 min."</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> min."</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm fra"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Udsæt"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Snoozet i 1 minut."</item>
@@ -337,5 +347,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Vil du fjerne denne by?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitalur"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Ingen alarmer"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Ingen alarmer"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"INGEN KOMMENDE ALARMER"</string>
 </resources>
