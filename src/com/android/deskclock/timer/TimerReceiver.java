@@ -322,14 +322,15 @@ public class TimerReceiver extends BroadcastReceiver {
     private static void showCollapsedNotification(final Context context, String title, String text,
             int priority, PendingIntent pendingIntent, int notificationId, boolean showTicker) {
         Notification.Builder builder = new Notification.Builder(context)
-        .setAutoCancel(false)
-        .setContentTitle(title)
-        .setContentText(text)
-        .setDeleteIntent(pendingIntent)
-        .setOngoing(true)
-        .setPriority(priority)
-        .setShowWhen(false)
-        .setSmallIcon(R.drawable.stat_notify_timer);
+                .setAutoCancel(false)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setDeleteIntent(pendingIntent)
+                .setOngoing(true)
+                .setPriority(priority)
+                .setShowWhen(false)
+                .setSmallIcon(R.drawable.stat_notify_timer)
+                .setCategory(Notification.CATEGORY_ALARM);
         if (showTicker) {
             builder.setTicker(text);
         }
@@ -450,6 +451,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setPriority(Notification.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
                 .setWhen(0)
+                .setCategory(Notification.CATEGORY_ALARM)
                 .build();
 
         // Send the notification using the timer's id to identify the

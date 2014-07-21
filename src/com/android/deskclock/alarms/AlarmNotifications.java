@@ -71,7 +71,8 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setOngoing(false)
                 .setAutoCancel(false)
-                .setPriority(Notification.PRIORITY_DEFAULT);
+                .setPriority(Notification.PRIORITY_DEFAULT)
+                .setCategory(Notification.CATEGORY_ALARM);
 
         // Setup up hide notification
         Intent hideIntent = AlarmStateManager.createStateChangeIntent(context, "DELETE_TAG",
@@ -108,7 +109,8 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setOngoing(true)
                 .setAutoCancel(false)
-                .setPriority(Notification.PRIORITY_HIGH);
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setCategory(Notification.CATEGORY_ALARM);
 
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context, "DISMISS_TAG",
@@ -140,7 +142,8 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setOngoing(true)
                 .setAutoCancel(false)
-                .setPriority(Notification.PRIORITY_MAX);
+                .setPriority(Notification.PRIORITY_MAX)
+                .setCategory(Notification.CATEGORY_ALARM);
 
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context, "DISMISS_TAG",
@@ -171,7 +174,8 @@ public final class AlarmNotifications {
                 .setContentTitle(context.getString(R.string.alarm_missed_title))
                 .setContentText(contextText)
                 .setSmallIcon(R.drawable.stat_notify_alarm)
-                .setPriority(Notification.PRIORITY_HIGH);
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setCategory(Notification.CATEGORY_ALARM);
 
         // Setup dismiss intent
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context, "DISMISS_TAG",
@@ -206,7 +210,8 @@ public final class AlarmNotifications {
                 .setOngoing(true)
                 .setAutoCancel(false)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
-                .setWhen(0);
+                .setWhen(0)
+                .setCategory(Notification.CATEGORY_ALARM);
 
         // Setup Snooze Action
         Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(context, "SNOOZE_TAG",
