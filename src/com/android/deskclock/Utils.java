@@ -83,10 +83,10 @@ public class Utils {
     public static final String CLOCK_TYPE_ANALOG = "analog";
 
     /** The background colors of the app, it changes thru out the day to mimic the sky. **/
-    public static final String[] BACKGROUND_SPECTRUM = { "#212121", "#4a2351", "#732580",
-            "#9C27b0", "#7d35b2", "#5e43b3", "#3f51b5", "#2b6eca", "#178cdf", "#03a9f4", "#02afe9",
-            "#01b6df", "#00bcd4", "#16aadf", "#2c97e9", "#4285f4", "#4174df", "#4062ca", "#3f51b5",
-            "#4c49b6", "#5a42b6", "#673ab7", "#503285", "#382953" };
+    public static final String[] BACKGROUND_SPECTRUM = { "#212121", "#27232e", "#2d253a",
+            "#332847", "#382a53", "#3e2c5f", "#442e6c", "#393a7a", "#2e4687", "#235395", "#185fa2",
+            "#0d6baf", "#0277bd", "#0d6cb1", "#1861a6", "#23569b", "#2d4a8f", "#383f84", "#433478",
+            "#3d3169", "#382e5b", "#322b4d", "#2c273e", "#272430" };
 
     /**
      * Returns whether the SDK is KitKat or later
