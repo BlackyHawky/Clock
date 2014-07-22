@@ -36,10 +36,20 @@
     <string name="alert" msgid="6506982899651975645">"Мелодия на будилника"</string>
     <string name="ringtone" msgid="9110746249688559579">"Мелодия"</string>
     <string name="time" msgid="8067216534232296518">"Час"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Утре"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Днес"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Събуди се!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Изкл."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Отхвърляне"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Отхвърляне сега"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Пропуснат будилник"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Отложено"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 мин"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> мин"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Буд. е изкл."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Отлагане"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Отлагане за 1 минута."</item>
@@ -337,5 +347,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Да се премахне ли този град?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Цифров часовник"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Няма будилници"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Няма будилници"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"НЯМА ПРЕДСТОЯЩИ БУДИЛНИЦИ"</string>
 </resources>

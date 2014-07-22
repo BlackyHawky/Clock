@@ -36,10 +36,20 @@
     <string name="alert" msgid="6506982899651975645">"Nhạc chuông báo thức"</string>
     <string name="ringtone" msgid="9110746249688559579">"Nhạc chuông"</string>
     <string name="time" msgid="8067216534232296518">"Giờ"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Ngày mai"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Hôm nay"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Dậy đi!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Tắt"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Loại bỏ"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Loại bỏ bây giờ"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Báo thức bị nhỡ"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Được báo lại"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 phút"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> phút"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Tắt báo thức"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Báo lại"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Báo lại sau 1 phút."</item>
@@ -337,5 +347,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Xóa thành phố này?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Đồng hồ số"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Không có báo thức"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Ko đặt báo thức"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"KHÔNG CÓ BÁO THỨC SẮP TỚI"</string>
 </resources>
