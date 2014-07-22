@@ -54,6 +54,7 @@ import android.view.animation.Interpolator;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -711,6 +712,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // views for optimization
             LinearLayout alarmItem;
             TextTime clock;
+            TextView tomorrowLabel;
             Switch onoff;
             TextView daysOfWeek;
             TextView label;
@@ -978,6 +980,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // standard view holder optimization
             final ItemHolder holder = new ItemHolder();
             holder.alarmItem = (LinearLayout) view.findViewById(R.id.alarm_item);
+            holder.tomorrowLabel = (TextView) view.findViewById(R.id.tomorrowLabel);
             holder.clock = (TextTime) view.findViewById(R.id.digital_clock);
             holder.onoff = (Switch) view.findViewById(R.id.onoff);
             holder.onoff.setTypeface(mRobotoNormal);
@@ -1075,11 +1078,23 @@ public class AlarmClockFragment extends DeskClockFragment implements
                         }
                     };
 
+            if (mRepeatChecked.contains(alarm.id) || itemHolder.alarm.daysOfWeek.isRepeating()) {
+                itemHolder.tomorrowLabel.setVisibility(View.GONE);
+            } else {
+                itemHolder.tomorrowLabel.setVisibility(View.VISIBLE);
+                final Resources resources = getResources();
+                final String labelText = isTomorrow(alarm) ?
+                        resources.getString(R.string.alarm_tomorrow) :
+                        resources.getString(R.string.alarm_today);
+                itemHolder.tomorrowLabel.setText(labelText);
+            }
             itemHolder.onoff.setOnCheckedChangeListener(onOffListener);
 
             boolean expanded = isAlarmExpanded(alarm);
             itemHolder.expandArea.setVisibility(expanded? View.VISIBLE : View.GONE);
+            itemHolder.delete.setVisibility(expanded ? View.VISIBLE : View.GONE);
             itemHolder.summary.setVisibility(expanded? View.GONE : View.VISIBLE);
+            itemHolder.hairLine.setVisibility(expanded ? View.GONE : View.VISIBLE);
 
             String labelSpace = "";
             // Set the repeat text or leave it blank if it does not repeat.
@@ -1154,6 +1169,14 @@ public class AlarmClockFragment extends DeskClockFragment implements
             });
         }
 
+        private boolean isTomorrow(Alarm alarm) {
+            final Calendar now = Calendar.getInstance();
+            final int alarmHour = alarm.hour;
+            final int currHour = now.get(Calendar.HOUR_OF_DAY);
+            return alarmHour < currHour ||
+                        (alarmHour == currHour && alarm.minutes < now.get(Calendar.MINUTE));
+        }
+
         private void bindExpandArea(final ItemHolder itemHolder, final Alarm alarm) {
             // Views in here are not bound until the item is expanded.
 
@@ -1164,6 +1187,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 itemHolder.clickableLabel.setText(R.string.label);
                 itemHolder.clickableLabel.setTextColor(mColorDim);
             }
+
             itemHolder.clickableLabel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -1299,6 +1323,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             holder.expandArea.setAlpha(alpha);
             holder.delete.setAlpha(alpha);
             holder.daysOfWeek.setAlpha(alpha);
+            holder.tomorrowLabel.setAlpha(alpha);
         }
 
         private void updateDaysOfWeekButtons(ItemHolder holder, DaysOfWeek daysOfWeek) {
@@ -1390,27 +1415,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // Set the expand area to visible so we can measure the height to animate to.
             itemHolder.alarmItem.setBackgroundColor(mBackgroundColorExpanded);
             itemHolder.expandArea.setVisibility(View.VISIBLE);
+            itemHolder.delete.setVisibility(View.VISIBLE);
 
             if (!animate) {
                 // Set the "end" layout and don't do the animation.
                 itemHolder.arrow.setRotation(180);
-                // We need to translate the hairline up, so the height of the collapseArea
-                // needs to be measured to know how high to translate it.
-                final ViewTreeObserver observer = mAlarmsList.getViewTreeObserver();
-                observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                    @Override
-                    public boolean onPreDraw() {
-                        // We don't want to continue getting called for every listview drawing.
-                        if (observer.isAlive()) {
-                            observer.removeOnPreDrawListener(this);
-                        }
-                        int hairlineHeight = itemHolder.hairLine.getHeight();
-                        int collapseHeight =
-                                itemHolder.collapseExpandArea.getHeight() - hairlineHeight;
-                        itemHolder.hairLine.setTranslationY(-collapseHeight);
-                        return true;
-                    }
-                });
                 return;
             }
 
@@ -1436,8 +1445,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     final int endingHeight = itemHolder.alarmItem.getHeight();
                     final int distance = endingHeight - startingHeight;
                     final int collapseHeight = itemHolder.collapseExpandArea.getHeight();
-                    int hairlineHeight = itemHolder.hairLine.getHeight();
-                    final int hairlineDistance = collapseHeight - hairlineHeight;
 
                     // Set the height back to the start state of the animation.
                     itemHolder.alarmItem.getLayoutParams().height = startingHeight;
@@ -1469,8 +1476,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
                             expandParams.setMargins(
                                     0, (int) -((1 - value) * distance), 0, collapseHeight);
                             itemHolder.arrow.setRotation(180 * value);
-                            itemHolder.hairLine.setTranslationY(-hairlineDistance * value);
                             itemHolder.summary.setAlpha(1 - value);
+                            itemHolder.hairLine.setAlpha(1 - value);
 
                             itemHolder.alarmItem.requestLayout();
                         }
@@ -1483,8 +1490,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
                             itemHolder.alarmItem.getLayoutParams().height =
                                     LayoutParams.WRAP_CONTENT;
                             itemHolder.arrow.setRotation(180);
-                            itemHolder.hairLine.setTranslationY(-hairlineDistance);
                             itemHolder.summary.setVisibility(View.GONE);
+                            itemHolder.hairLine.setVisibility(View.GONE);
+                            itemHolder.delete.setVisibility(View.VISIBLE);
                         }
 
                         @Override
@@ -1548,12 +1556,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     // Calculate some values to help with the animation.
                     final int endingHeight = itemHolder.alarmItem.getHeight();
                     final int distance = endingHeight - startingHeight;
-                    int hairlineHeight = itemHolder.hairLine.getHeight();
-                    final int hairlineDistance = mCollapseExpandHeight - hairlineHeight;
 
                     // Re-set the visibilities for the start state of the animation.
                     itemHolder.expandArea.setVisibility(View.VISIBLE);
+                    itemHolder.delete.setVisibility(View.GONE);
                     itemHolder.summary.setVisibility(View.VISIBLE);
+                    itemHolder.hairLine.setVisibility(View.VISIBLE);
                     itemHolder.summary.setAlpha(1);
 
                     // Set up the animator to animate the expansion.
@@ -1572,8 +1580,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
                             expandParams.setMargins(
                                     0, (int) (value * distance), 0, mCollapseExpandHeight);
                             itemHolder.arrow.setRotation(180 * (1 - value));
-                            itemHolder.hairLine.setTranslationY(-hairlineDistance * (1 - value));
+                            itemHolder.delete.setAlpha(value);
                             itemHolder.summary.setAlpha(value);
+                            itemHolder.hairLine.setAlpha(value);
 
                             itemHolder.alarmItem.requestLayout();
                         }
@@ -1593,7 +1602,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
                             itemHolder.expandArea.setVisibility(View.GONE);
                             itemHolder.arrow.setRotation(0);
-                            itemHolder.hairLine.setTranslationY(0);
                         }
 
                         @Override
