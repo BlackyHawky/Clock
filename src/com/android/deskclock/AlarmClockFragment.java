@@ -759,7 +759,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             mList = list;
 
             DateFormatSymbols dfs = new DateFormatSymbols();
-            mShortWeekDayStrings = dfs.getShortWeekdays();
+            mShortWeekDayStrings = Utils.getShortWeekdays();
             mLongWeekDayStrings = dfs.getWeekdays();
 
             Resources res = mContext.getResources();
@@ -1009,11 +1009,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 final ViewGroup viewgroup = (ViewGroup) mFactory.inflate(R.layout.day_button,
                         holder.repeatDays, false);
                 final ToggleButton button = (ToggleButton) viewgroup.getChildAt(0);
-                final int dayToShowIndex = DAY_ORDER[i];
-                button.setText(mShortWeekDayStrings[dayToShowIndex]);
-                button.setTextOn(mShortWeekDayStrings[dayToShowIndex]);
-                button.setTextOff(mShortWeekDayStrings[dayToShowIndex]);
-                button.setContentDescription(mLongWeekDayStrings[dayToShowIndex]);
+                button.setTextOn(mShortWeekDayStrings[i]);
+                button.setTextOff(mShortWeekDayStrings[i]);
+                button.setContentDescription(mLongWeekDayStrings[DAY_ORDER[i]]);
                 holder.repeatDays.addView(viewgroup);
                 holder.dayButtons[i] = button;
                 holder.dayButtonParents[i] = viewgroup;
@@ -1363,14 +1361,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
         private void turnOffDayOfWeek(ItemHolder holder, int dayIndex) {
             holder.dayButtons[dayIndex].setChecked(false);
-            holder.dayButtons[dayIndex].setTextColor(mColorDim);
-            holder.dayButtons[dayIndex].setTypeface(mRobotoNormal);
+            holder.dayButtons[dayIndex].setTextColor(getResources().getColor(R.color.clock_white));
         }
 
         private void turnOnDayOfWeek(ItemHolder holder, int dayIndex) {
             holder.dayButtons[dayIndex].setChecked(true);
-            holder.dayButtons[dayIndex].setTextColor(mColorLit);
-            holder.dayButtons[dayIndex].setTypeface(mRobotoBold);
+            holder.dayButtons[dayIndex].setTextColor(Utils.getCurrentHourColor());
         }
 
 

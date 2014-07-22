@@ -32,7 +32,6 @@
         <item name="android:actionBarStyle">@style/DeskClockBarStyle</item>
         <item name="android:actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
-        <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
     <style name="DeskClockTabStyle" parent="@style/DeskClockParentTheme">
         <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
@@ -59,13 +58,11 @@
     <style name="AlarmClockTheme" parent="@style/DeskClockParentTheme">
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
-        <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
 
     <style name="SettingsTheme" parent="@style/DeskClockParentTheme">
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
-        <item name="android:selectableItemBackground">@drawable/item_background</item>
     </style>
 
     <style name="CitiesTheme" parent="@style/SettingsTheme">

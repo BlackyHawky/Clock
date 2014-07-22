@@ -36,7 +36,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.os.UserHandle;
 import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -61,6 +60,7 @@ import com.android.deskclock.worldclock.CityObj;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -77,6 +77,11 @@ public class Utils {
      * Cached version code to prevent repeated calls to the package manager.
      */
     private static String sCachedVersionCode = null;
+
+    /**
+     * Array of single-character day of week symbols {'S', 'M', 'T', 'W', 'T', 'F', 'S'}
+     */
+    private static String[] sShortWeekdays = null;
 
     /** Types that may be used for clock displays. **/
     public static final String CLOCK_TYPE_DIGITAL = "digital";
@@ -606,5 +611,23 @@ public class Utils {
     public static int getCurrentHourColor() {
         final int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         return Color.parseColor(BACKGROUND_SPECTRUM[hourOfDay]);
+    }
+
+    /**
+     * To get an array of single-character day of week symbols {'S', 'M', 'T', 'W', 'T', 'F', 'S'}
+     * @return the array of symbols
+     */
+    public static String[] getShortWeekdays() {
+        if (sShortWeekdays == null) {
+            final String[] shortWeekdays = new String[7];
+            final SimpleDateFormat format = new SimpleDateFormat("EEEEE");
+            // Create a date (2014/07/20) that is a Sunday
+            long aSunday = new GregorianCalendar(2014, Calendar.JULY, 20).getTimeInMillis();
+            for (int day = 0; day < 7; day++) {
+                shortWeekdays[day] = format.format(new Date(aSunday + day * DateUtils.DAY_IN_MILLIS));
+            }
+            sShortWeekdays = shortWeekdays;
+        }
+        return sShortWeekdays;
     }
 }
