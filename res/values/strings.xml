@@ -124,7 +124,7 @@
         <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> min</item>
     </plurals>
 
-    <!-- The text shown after user dismissed an alerting alarm [CHAR LIMIT=12] -->
+    <!-- The text shown after user dismissed an alerting alarm [CHAR LIMIT=15] -->
     <string name="alarm_alert_off_text">Alarm off</string>
 
     <!-- Button labels on the alarm dialog: Snooze -->
