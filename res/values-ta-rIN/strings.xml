@@ -216,7 +216,7 @@
     <item msgid="917900462224167608">"அனலாக்"</item>
     <item msgid="8483930821046925592">"டிஜிட்டல்"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"தன்னியக்க தாய்நாட்டு நேர மண்டல கடிகாரம்"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"தாய்நாட்டு நேரத்தை இயக்கு"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"நேரம் மாறுபடும் இடத்தில் பயணம் மேற்கொள்ளும்போது, தாய்நாட்டு நேர மண்டலத்திற்குக் கடிகாரத்தை அமைக்கவும்"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"தாய்நாட்டின் நேரமண்டலம்"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"தாய்நாட்டின் நேரமண்டலம்"</string>
