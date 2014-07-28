@@ -27,6 +27,7 @@ public class CityObj {
     public String mCityName;
     public String mTimeZone;
     public String mCityId;
+    public boolean isHeader;
 
     public CityObj(String name, String timezone, String id) {
         mCityName = name;
