@@ -24,6 +24,7 @@
     <style name="DeskClockParentTheme" parent="@android:style/Theme.Material">
         <item name="android:colorControlActivated">@color/hot_pink</item>
         <item name="android:colorControlNormal">@color/white</item>
+        <item name="android:buttonStyle">?android:attr/borderlessButtonStyle</item>
     </style>
 
     <style name="DeskClock" parent="@style/DeskClockParentTheme">
@@ -36,7 +37,7 @@
     <style name="DeskClockTabStyle" parent="@style/DeskClockParentTheme">
         <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
         <item name="android:paddingRight">@dimen/actionbar_tab_padding</item>
-        <item name="android:background">@drawable/item_background</item>
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:gravity">center</item>
     </style>
     <style name="DeskClockTabBarStyle" parent="@style/DeskClockParentTheme">
@@ -45,7 +46,7 @@
         <item name="android:dividerPadding">12dp</item>
         <item name="android:gravity">center</item>
     </style>
-    <style name="DeskClockBarStyle" parent="@android:style/Widget.Material.ActionBar">
+    <style name="DeskClockBarStyle" parent="@android:style/Widget.ActionBar">
         <item name="android:backgroundStacked">@null</item>
         <item name="android:backgroundSplit">@null</item>
         <item name="android:displayOptions"></item>
