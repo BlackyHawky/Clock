@@ -583,7 +583,7 @@ public class Utils {
      */
     public static String getGMTHourOffset(TimeZone timezone, boolean showMinutes) {
         StringBuilder sb = new StringBuilder();
-        sb.append("GMT");
+        sb.append("GMT  ");
         int gmtOffset = timezone.getRawOffset();
         if (gmtOffset < 0) {
             sb.append('-');

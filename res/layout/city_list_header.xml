@@ -16,7 +16,12 @@
 
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/header"
-    style="?android:attr/listSeparatorTextViewStyle"
-    android:textColor="@color/clock_white"
     android:layout_height="wrap_content"
-    android:layout_width="match_parent"/>
+    android:layout_width="wrap_content"
+    android:minHeight="32dip"
+    android:layout_marginTop="24dip"
+    android:layout_marginBottom="8dip"
+    android:gravity="center"
+    android:textColor="@color/clock_white"
+    android:textSize="24sp"
+    android:text="@string/selected_cities_label" />
