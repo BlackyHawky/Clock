@@ -25,7 +25,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/dialpad"
-            android:background="@drawable/item_background"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_height="match_parent"/>
 
     <Button
@@ -33,7 +33,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/dialpad"
-            android:background="@drawable/item_background"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_height="match_parent"/>
 
     <Button
@@ -41,7 +41,7 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             style="@style/dialpad"
-            android:background="@drawable/item_background"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:layout_height="match_parent"/>
 
 </LinearLayout>

@@ -21,7 +21,7 @@
     xmlns:dc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/item_background"
+    android:background="?android:attr/selectableItemBackground"
     android:gravity="center_horizontal|top"
     android:orientation="vertical">
     <!-- TODO~: flatten this layout using gridLayout which supports layout_weight as of 21 -->
@@ -122,7 +122,7 @@
                     android:layout_marginEnd="16dp"
                     android:layout_toLeftOf="@+id/vibrate_onoff"
                     android:layout_toStartOf="@+id/vibrate_onoff"
-                    android:background="@drawable/item_background"
+                    android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:drawablePadding="2dp"
                     android:drawableStart="@drawable/ic_ringtone"
