@@ -63,6 +63,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         View v2 = findViewById(R.id.second);
         View v3 = findViewById(R.id.third);
         View v4 = findViewById(R.id.fourth);
+
         mEnteredTime = (TimerView)findViewById(R.id.timer_time_text);
         mDelete = (ImageButton)findViewById(R.id.delete);
         mDelete.setOnClickListener(this);
