@@ -43,7 +43,7 @@
         android:id="@+id/action_button"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@drawable/item_background"
+        android:background="?android:attr/selectableItemBackground"
         android:clickable="true" >
 
         <View
