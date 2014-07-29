@@ -47,7 +47,6 @@
             android:id="@+id/menu_button"
             android:contentDescription="@string/button_menu"
             style="?android:attr/actionOverflowButtonStyle"
-            android:background="@drawable/item_background"
             android:layout_gravity="end|center_vertical"
             android:layout_width="@dimen/footer_button_size"
             android:layout_height="@dimen/footer_button_size" />

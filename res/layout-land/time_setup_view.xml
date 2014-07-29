@@ -45,7 +45,7 @@
                     android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
                     android:padding="@dimen/timer_setup_delete_padding"
                     android:src="@drawable/ic_backspace"
-                    android:background="@drawable/item_background"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/timer_delete"/>
 
         </com.android.deskclock.timer.TimerView>
@@ -91,7 +91,6 @@
                     style="@style/bold_button"
                     android:textSize="@dimen/timer_setup_button_size"
                     android:layout_weight="1"
-                    android:background="@drawable/item_background"
                     android:layout_height="match_parent"/>
 
             <View
@@ -109,7 +108,6 @@
                     android:layout_width="0dp"
                     style="@style/bold_button"
                     android:layout_weight="1"
-                    android:background="@drawable/item_background"
                     android:layout_height="match_parent"/>
 
         </LinearLayout>
