@@ -34,29 +34,16 @@
         android:layout_marginTop="12dp"
         android:orientation="horizontal">
 
-        <LinearLayout
+        <com.android.deskclock.widget.TextTime
+            android:id="@+id/digital_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tomorrowLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/clock_white" />
-
-            <com.android.deskclock.widget.TextTime
-                android:id="@+id/digital_clock"
-                style="@style/medium_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/clock_white"
-                android:textSize="@dimen/alarm_time_font_size"
-                dc:format12Hour="@string/alarm_time_12_hours_format"
-                dc:format24Hour="@string/clock_24_hours_format" />
-        </LinearLayout>
+            android:gravity="center"
+            android:textColor="@color/clock_white"
+            android:textSize="@dimen/alarm_time_font_size"
+            android:fontFamily="sans-serif-thin"
+            dc:format12Hour="@string/alarm_time_12_hours_format"
+            dc:format24Hour="@string/clock_24_hours_format" />
 
         <Space
             android:layout_width="0dip"
@@ -85,13 +72,14 @@
 
             <CheckBox
                 android:id="@+id/repeat_onoff"
-                style="@style/body"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:layout_gravity="center_vertical|start"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="10dp"
                 android:text="@string/alarm_repeat"
+                android:textSize="16sp"
+                android:paddingStart="16dip"
                 android:textColor="@color/clock_white" />
 
             <LinearLayout
@@ -115,7 +103,6 @@
 
                 <TextView
                     android:id="@+id/choose_ringtone"
-                    style="@style/body"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentStart="true"
@@ -124,7 +111,7 @@
                     android:layout_toStartOf="@+id/vibrate_onoff"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
-                    android:drawablePadding="2dp"
+                    android:drawablePadding="16dp"
                     android:drawableStart="@drawable/ic_ringtone"
                     android:ellipsize="marquee"
                     android:gravity="center_vertical"
@@ -132,24 +119,25 @@
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textAlignment="viewStart"
+                    android:textSize="16sp"
                     android:textColor="@color/clock_white"
                     />
 
                 <CheckBox
                     android:id="@+id/vibrate_onoff"
-                    style="@style/body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:includeFontPadding="false"
                     android:text="@string/alarm_vibrate"
+                    android:paddingStart="16dip"
+                    android:textSize="16sp"
                     android:textColor="@color/clock_gray" />
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/edit_label"
-                style="@style/body_not_caps"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -162,6 +150,7 @@
                 android:paddingStart="18dp"
                 android:paddingTop="12dp"
                 android:singleLine="true"
+                android:textSize="16sp"
                 android:textColor="@color/clock_gray" />
         </LinearLayout>
 
@@ -200,21 +189,31 @@
 
                 <TextView
                     android:id="@+id/label"
-                    style="@style/alarm_label_not_caps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:singleLine="true"
+                    android:textSize="16sp"
                     android:textColor="@color/clock_gray" />
 
                 <TextView
                     android:id="@+id/daysOfWeek"
-                    style="@style/alarm_label_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="none"
                     android:singleLine="true"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:textColor="@color/clock_white" />
+
+                <TextView
+                    android:id="@+id/tomorrowLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/clock_white" />
+
             </com.android.deskclock.widget.EllipsizeLayout>
 
             <ImageView

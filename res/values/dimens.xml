@@ -86,7 +86,7 @@
     <dimen name="main_ampm_font_size">18sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
-    <dimen name="alarm_time_font_size">48sp</dimen>
+    <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="no_alarms_font_size">36sp</dimen>
 
     <dimen name="body_font_padding">4dp</dimen>
