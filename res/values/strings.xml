@@ -372,7 +372,7 @@
     <!-- Describes the purpose of the tab button which which switches the activity to the Stopwatch page -->
     <string name="menu_stopwatch">Stopwatch</string>
 
-    <!--- Clock view buttons strings-->
+    <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
     <string name="button_alarms">Alarms</string>
     <!-- Describes the purpose of the button which provides a list of cities for the world clock settings -->

@@ -89,19 +89,11 @@
             layout="@layout/three_keys_view" />
 
         <FrameLayout
+            android:id="@+id/timer_footer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/footer_button_size"
+            android:layout_margin="@dimen/footer_button_layout_margin"
             android:layout_gravity="bottom">
-
-            <ImageButton
-                android:id="@+id/timer_start"
-                style="@style/button"
-                android:layout_width="@dimen/footer_button_size"
-                android:layout_height="@dimen/footer_button_size"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/footer_button_layout_margin"
-                android:background="@drawable/main_button_normal"
-                android:src="@drawable/ic_fab_play_sm" />
 
             <ImageButton
                 android:id="@+id/timer_cancel"

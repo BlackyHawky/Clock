@@ -106,15 +106,15 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
     /**
      * To properly center the TimerView across from the dial pad, append a bottom margin that
-     * matches the measured height of the start button that is below the dial pad.
+     * matches the measured height of the fab button that is below the dial pad.
      */
     protected void setMarginsAfterMeasure() {
-        View timerStart = findViewById(R.id.timer_start);
+        View timerFooter = findViewById(R.id.timer_footer);
         View timerDisplay = findViewById(R.id.timer_time_display);
-        if (timerStart != null && timerDisplay != null) {
+        if (timerFooter != null && timerDisplay != null) {
             MarginLayoutParams marginLayoutParams =
                     (MarginLayoutParams) timerDisplay.getLayoutParams();
-            marginLayoutParams.bottomMargin = timerStart.getMeasuredHeight();
+            marginLayoutParams.bottomMargin = timerFooter.getMeasuredHeight();
         }
     }
 

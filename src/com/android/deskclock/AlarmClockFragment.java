@@ -115,7 +115,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private ListView mAlarmsList;
     private AlarmItemAdapter mAdapter;
     private View mEmptyView;
-    private ImageView mAddAlarmButton;
     private View mAlarmsView;
     private View mTimelineLayout;
     private AlarmTimelineView mTimelineView;
@@ -181,26 +180,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
         mExpandInterpolator = new DecelerateInterpolator(EXPAND_DECELERATION);
         mCollapseInterpolator = new DecelerateInterpolator(COLLAPSE_DECELERATION);
 
-        mAddAlarmButton = (ImageButton) v.findViewById(R.id.alarm_add_alarm);
-        mAddAlarmButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                hideUndoBar(true, null);
-                startCreatingAlarm();
-            }
-        });
-        // For landscape, put the add button on the right and the menu in the actionbar.
-        FrameLayout.LayoutParams layoutParams =
-                (FrameLayout.LayoutParams) mAddAlarmButton.getLayoutParams();
         boolean isLandscape = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
-        if (isLandscape) {
-            layoutParams.gravity = Gravity.END;
-        } else {
-            layoutParams.gravity = Gravity.CENTER;
-        }
-        mAddAlarmButton.setLayoutParams(layoutParams);
-
         View menuButton = v.findViewById(R.id.menu_button);
         if (menuButton != null) {
             if (isLandscape) {
@@ -305,8 +286,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
                 // If there are no alarms in the adapter...
                 if (count == 0) {
-                    mAddAlarmButton.setBackgroundResource(R.drawable.main_button_red);
-
                     // ...and if there exists a timeline view (currently only in tablet landscape)
                     if (mTimelineLayout != null && mAlarmsView != null) {
 
@@ -372,9 +351,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                         mEmptyView.setVisibility(View.VISIBLE);
                     }
                 } else {
-
-                    // Otherwise, if the adapter DOES contain alarms...
-                    mAddAlarmButton.setBackgroundResource(R.drawable.main_button_normal);
 
                     // ...and if there exists a timeline view (currently in tablet landscape mode)
                     if (mTimelineLayout != null && mAlarmsView != null) {
@@ -1822,5 +1798,17 @@ public class AlarmClockFragment extends DeskClockFragment implements
     public boolean onTouch(View v, MotionEvent event) {
         hideUndoBar(true, event);
         return false;
+    }
+
+    @Override
+    public void respondClick(View view){
+        hideUndoBar(true, null);
+        startCreatingAlarm();
+    }
+
+    @Override
+    public void setFabAppearance(ImageButton fab) {
+        fab.setVisibility(View.VISIBLE);
+        fab.setImageResource(R.drawable.ic_add);
     }
 }

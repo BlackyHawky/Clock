@@ -130,6 +130,8 @@
     <dimen name="analog_clock_margin">60dp</dimen>
     <dimen name="timer_circle_margin">32dp</dimen>
 
+    <dimen name="circle_size">280dp</dimen>
+
     <dimen name="sw_padding_end">32dp</dimen>
 
     <!-- The width of the big icons in notifications. -->
