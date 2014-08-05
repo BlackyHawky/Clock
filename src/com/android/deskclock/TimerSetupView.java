@@ -38,9 +38,10 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     protected int mInput [] = new int [mInputSize];
     protected int mInputPointer = -1;
     protected Button mLeft, mRight;
-    protected Button mStart;
+    protected ImageButton mStart;
     protected ImageButton mDelete;
     protected TimerView mEnteredTime;
+    protected View mDivider;
     protected final Context mContext;
 
     public TimerSetupView(Context context) {
@@ -68,6 +69,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         mDelete = (ImageButton)findViewById(R.id.delete);
         mDelete.setOnClickListener(this);
         mDelete.setOnLongClickListener(this);
+        mDivider = findViewById(R.id.divider);
 
         mNumbers[1] = (Button)v1.findViewById(R.id.key_left);
         mNumbers[2] = (Button)v1.findViewById(R.id.key_middle);
@@ -116,21 +118,22 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         }
     }
 
-    public void registerStartButton(Button start) {
+    public void registerStartButton(ImageButton start) {
         mStart = start;
     }
 
     public void updateStartButton() {
         boolean enabled = mInputPointer != -1;
         if (mStart != null) {
-            mStart.setEnabled(enabled);
+            mStart.setVisibility(enabled ? VISIBLE : INVISIBLE);
         }
     }
 
-    public void updateDeleteButton() {
+    public void updateDeleteButtonAndDivider() {
         boolean enabled = mInputPointer != -1;
         if (mDelete != null) {
             mDelete.setEnabled(enabled);
+            mDivider.setBackgroundResource(enabled ? R.color.hot_pink : R.color.dialog_gray);
         }
     }
 
@@ -138,7 +141,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     public void onClick(View v) {
         doOnClick(v);
         updateStartButton();
-        updateDeleteButton();
+        updateDeleteButtonAndDivider();
     }
 
     protected void doOnClick(View v) {
@@ -179,7 +182,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         if (v == mDelete) {
             reset();
             updateStartButton();
-            updateDeleteButton();
+            updateDeleteButtonAndDivider();
             return true;
         }
         return false;
