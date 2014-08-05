@@ -39,7 +39,6 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -75,8 +74,7 @@ public class TimerFragment extends DeskClockFragment
     private StaggeredGridView mTimersList;
     private View mTimersListPage;
     private int mColumnCount;
-    private Button mCancel, mStart;
-    private View mSeperator;
+    private ImageButton mCancel, mStart;
     private ImageButton mAddTimer;
     private View mTimerFooter;
     private TimerSetupView mTimerSetup;
@@ -463,8 +461,7 @@ public class TimerFragment extends DeskClockFragment
 
         mTimersListPage = v.findViewById(R.id.timers_list_page);
         mTimerSetup = (TimerSetupView)v.findViewById(R.id.timer_setup);
-        mSeperator = v.findViewById(R.id.timer_button_sep);
-        mCancel = (Button)v.findViewById(R.id.timer_cancel);
+        mCancel = (ImageButton)v.findViewById(R.id.timer_cancel);
         mCancel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -473,7 +470,7 @@ public class TimerFragment extends DeskClockFragment
                 }
             }
         });
-        mStart = (Button)v.findViewById(R.id.timer_start);
+        mStart = (ImageButton)v.findViewById(R.id.timer_start);
         mStart.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -581,7 +578,6 @@ public class TimerFragment extends DeskClockFragment
         mTimersList.setAdapter(mAdapter);
         if (mAdapter.getCount() == 0) {
             mCancel.setVisibility(View.GONE);
-            mSeperator.setVisibility(View.GONE);
         }
         mLastVisibleView = null;   // Force a non animation setting of the view
         setPage();
@@ -710,13 +706,11 @@ public class TimerFragment extends DeskClockFragment
         stopClockTicks();
         if (mAdapter.getCount() == 0) {
             mCancel.setVisibility(View.GONE);
-            mSeperator.setVisibility(View.GONE);
         } else {
-            mSeperator.setVisibility(View.VISIBLE);
             mCancel.setVisibility(View.VISIBLE);
         }
         mTimerSetup.updateStartButton();
-        mTimerSetup.updateDeleteButton();
+        mTimerSetup.updateDeleteButtonAndDivider();
         mLastVisibleView = mTimerSetup;
     }
     private void gotoTimersView() {

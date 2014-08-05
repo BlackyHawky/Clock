@@ -22,95 +22,98 @@
          in RTL, the Keypad and Timer value should swap. -->
     <LinearLayout
         android:id="@+id/timer_time_display"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal"
-        android:layout_weight="3"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_weight="3"
+        android:gravity="center"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal">
 
-        <com.android.deskclock.timer.TimerView
-            android:id="@+id/timer_time_text"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal|top">
+            android:orientation="vertical">
 
-            <include layout="@layout/timer_h_mm_ss_view"/>
+            <com.android.deskclock.timer.TimerView
+                android:id="@+id/timer_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|top">
 
-            <ImageButton
+                <include layout="@layout/timer_h_mm_ss_view" />
+
+                <ImageButton
                     android:id="@+id/delete"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
                     android:padding="@dimen/timer_setup_delete_padding"
+                    android:contentDescription="@string/timer_delete"
                     android:src="@drawable/ic_backspace"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/timer_delete"/>
+                    android:background="?android:attr/selectableItemBackgroundBorderless" />
 
-        </com.android.deskclock.timer.TimerView>
+            </com.android.deskclock.timer.TimerView>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginBottom="8dip"
+                android:background="@color/dialog_gray" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
 
         <include
-                layout="@layout/three_keys_view"
-                android:id="@+id/first"/>
+            android:id="@+id/first"
+            layout="@layout/three_keys_view" />
 
         <include
-                layout="@layout/three_keys_view"
-                android:id="@+id/second"/>
+            android:id="@+id/second"
+            layout="@layout/three_keys_view" />
 
         <include
-                layout="@layout/three_keys_view"
-                android:id="@+id/third"/>
+            android:id="@+id/third"
+            layout="@layout/three_keys_view" />
 
         <include
-                layout="@layout/three_keys_view"
-                android:id="@+id/fourth"/>
+            android:id="@+id/fourth"
+            layout="@layout/three_keys_view" />
 
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:background="#28ffffff"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
 
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:layout_height="0dip">
+            <ImageButton
+                android:id="@+id/timer_start"
+                style="@style/button"
+                android:layout_width="@dimen/footer_button_size"
+                android:layout_height="@dimen/footer_button_size"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/footer_button_layout_margin"
+                android:background="@drawable/main_button_normal"
+                android:src="@drawable/ic_fab_play_sm" />
 
-            <Button
-                    android:id="@+id/timer_cancel"
-                    android:text="@string/timer_cancel"
-                    android:layout_width="0dp"
-                    style="@style/bold_button"
-                    android:textSize="@dimen/timer_setup_button_size"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"/>
+            <ImageButton
+                android:id="@+id/timer_cancel"
+                style="@style/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:background="@color/transparent"
+                android:gravity="center"
+                android:src="@drawable/ic_delete" />
 
-            <View
-                    android:id="@+id/timer_button_sep"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dip"
-                    android:layout_marginBottom="8dip"
-                    android:layout_width="1dip"
-                    android:background="#28ffffff"/>
-
-            <Button
-                    android:id="@+id/timer_start"
-                    android:text="@string/timer_start"
-                    android:textSize="@dimen/timer_setup_button_size"
-                    android:layout_width="0dp"
-                    style="@style/bold_button"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"/>
-
-        </LinearLayout>
+        </FrameLayout>
 
     </LinearLayout>
 
