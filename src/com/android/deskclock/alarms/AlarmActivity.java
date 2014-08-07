@@ -198,6 +198,7 @@ public class AlarmActivity extends Activity {
     private void updateLayout() {
         final LayoutInflater inflater = LayoutInflater.from(this);
         final View view = inflater.inflate(R.layout.alarm_alert, null);
+        view.setBackgroundColor(Utils.getCurrentHourColor());
         view.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
         setContentView(view);
         updateTitle();
