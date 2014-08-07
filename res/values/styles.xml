@@ -101,6 +101,8 @@
     <style name="ScreensaverActivityTheme"
            parent="@android:style/Theme.Material.Wallpaper.NoTitleBar" />
 
+    <style name="ScreensaverSettingsActivityTheme" parent="@android:style/Theme.Material" />
+
     <style name="RoundTouchButton">
         <item name="android:gravity">center</item>
         <item name="android:layout_width">wrap_content</item>
