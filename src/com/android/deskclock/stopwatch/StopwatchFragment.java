@@ -18,7 +18,6 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
@@ -51,6 +50,7 @@ public class StopwatchFragment extends DeskClockFragment
     int mState = Stopwatches.STOPWATCH_RESET;
 
     // Stopwatch views that are accessed by the activity
+    private ImageButton mFab;
     private ImageButton mLeftButton;
     private TextView mCenterButton;
     private CircleTimerView mTime;
@@ -334,13 +334,6 @@ public class StopwatchFragment extends DeskClockFragment
         mLapsAdapter = new LapsListAdapter(getActivity());
         mLapsList.setAdapter(mLapsAdapter);
 
-        // Timer text serves as a virtual start/stop button.
-        mTimeText.registerVirtualButtonAction(new Runnable() {
-            @Override
-            public void run() {
-                rightButtonAction();
-            }
-        });
         mTimeText.registerStopTextView(mCenterButton);
         mTimeText.setVirtualButtonEnabled(true);
 
@@ -694,23 +687,34 @@ public class StopwatchFragment extends DeskClockFragment
             case Stopwatches.STOPWATCH_RESET:
                 setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap, false,
                         View.INVISIBLE);
-                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_start_button);
+                changeFab(R.drawable.ic_fab_play_sm);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_RUNNING:
                 setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap,
                         !reachedMaxLaps(), View.VISIBLE);
-                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_stop_button);
+                changeFab(R.drawable.ic_fab_pause_sm);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_STOPPED:
                 setButton(mLeftButton, R.string.sw_reset_button, R.drawable.ic_reset, true,
                         View.VISIBLE);
-                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_start_button);
+                changeFab(R.drawable.ic_fab_play_sm);
                 showShareButton(true);
                 break;
             default:
                 break;
+        }
+    }
+
+    private void changeFab(int id) {
+        final Activity activity = getActivity();
+        if (activity != null && activity.getClass().equals(DeskClock.class)) {
+            final DeskClock deskClockActivity = (DeskClock) activity;
+            if (mFab != null && deskClockActivity.getSelectedTab() == DeskClock.STOPWATCH_TAB_INDEX) {
+                mFab.setImageResource(id);
+                mFab.setVisibility(View.VISIBLE);
+            }
         }
     }
     private boolean reachedMaxLaps() {
@@ -730,47 +734,6 @@ public class StopwatchFragment extends DeskClockFragment
         b.setImageResource(drawableId);
         b.setVisibility(visibility);
         b.setEnabled(enabled);
-    }
-
-    /**
-     * Update the Start/Stop text. The button is within a view group with a transition that
-     * is needed to animate the button moving. The transition also animates the the text changing,
-     * but that animation does not provide a good look and feel. Temporarily disable the view group
-     * transition while the text is changing and restore it afterwards.
-     *
-     * @param parent   - View Group holding the start/stop button
-     * @param textView - The start/stop button
-     * @param text     - Start or Stop id
-     */
-    private void setStartStopText(final ViewGroup parent, TextView textView, int text) {
-        final LayoutTransition layoutTransition = parent.getLayoutTransition();
-        // Tap into the parent layout->draw flow just before the draw
-        ViewTreeObserver viewTreeObserver = parent.getViewTreeObserver();
-        if (viewTreeObserver != null) {
-            viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                /**
-                 * Re-establish the transition handler
-                 * Remove this listener
-                 *
-                 * @return true so that onDraw() is called
-                 */
-                @Override
-                public boolean onPreDraw() {
-                    parent.setLayoutTransition(layoutTransition);
-                    ViewTreeObserver viewTreeObserver = parent.getViewTreeObserver();
-                    if (viewTreeObserver != null) {
-                        viewTreeObserver.removeOnPreDrawListener(this);
-                    }
-                    return true;
-                }
-            });
-        }
-        // Remove the transition while the text is updated
-        parent.setLayoutTransition(null);
-
-        String textStr = getActivity().getResources().getString(text);
-        textView.setText(textStr);
-        textView.setContentDescription(textStr);
     }
 
     /***
@@ -1044,4 +1007,15 @@ public class StopwatchFragment extends DeskClockFragment
         }
     }
 
+    @Override
+    public void respondClick(View view){
+        rightButtonAction();
+    }
+
+    @Override
+    public void setFabAppearance(ImageButton fab) {
+        mFab = fab;
+        changeFab(mState == Stopwatches.STOPWATCH_RUNNING ? R.drawable.ic_fab_pause_sm :
+                R.drawable.ic_fab_play_sm);
+    }
 }
