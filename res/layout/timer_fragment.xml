@@ -34,23 +34,8 @@
         <FrameLayout
             android:id="@+id/timer_footer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="72dp"
             android:layout_gravity="bottom" >
-            <ImageButton
-                android:id="@+id/timer_add_timer"
-                android:contentDescription="@string/timer_add_timer"
-                android:layout_width="56dip"
-                android:layout_height="56dip"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_add"
-                style="@style/button"
-                android:background="@drawable/main_button_normal" />
          </FrameLayout>
     </FrameLayout>
 

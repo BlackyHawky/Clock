@@ -24,7 +24,13 @@
     <style name="DeskClockParentTheme" parent="@android:style/Theme.Material">
         <item name="android:colorControlActivated">@color/hot_pink</item>
         <item name="android:colorControlNormal">@color/white</item>
+        <item name="android:actionOverflowMenuStyle">@style/PopupMenu</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu</item>
         <item name="android:buttonStyle">?android:attr/borderlessButtonStyle</item>
+    </style>
+
+    <style name="PopupMenu" parent="@android:style/Widget.Material.PopupMenu.Overflow">
+        <item name="android:popupBackground">@color/bright_foreground_light_disabled</item>
     </style>
 
     <style name="DeskClock" parent="@style/DeskClockParentTheme">
