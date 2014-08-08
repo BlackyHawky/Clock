@@ -14,7 +14,23 @@
      limitations under the License.
 -->
 
-<android.support.v4.view.ViewPager  xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/desk_clock_pager" />
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/desk_clock_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageButton
+        android:id="@+id/fab"
+        android:layout_width="@dimen/footer_button_size"
+        android:layout_height="@dimen/footer_button_size"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_margin="@dimen/footer_button_layout_margin"
+        android:background="@drawable/floating_action_button"/>
+
+</FrameLayout>

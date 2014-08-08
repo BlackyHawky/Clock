@@ -30,12 +30,15 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextClock;
 
+import com.android.deskclock.worldclock.CitiesActivity;
 import com.android.deskclock.worldclock.WorldClockAdapter;
 
 /**
@@ -255,5 +258,16 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             mClockStyle = prefs.getString(SettingsActivity.KEY_CLOCK_STYLE, mDefaultClockStyle);
             mAdapter.notifyDataSetChanged();
         }
+    }
+    @Override
+    public void respondClick(View view){
+        final Activity activity = getActivity();
+        startActivity(new Intent(activity, CitiesActivity.class));
+    }
+
+    @Override
+    public void setFabAppearance(ImageButton fab) {
+        fab.setVisibility(View.VISIBLE);
+        fab.setImageResource(R.drawable.ic_globe);
     }
  }

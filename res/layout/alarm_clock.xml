@@ -66,15 +66,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom" >
         <ImageButton
-            android:id="@+id/alarm_add_alarm"
-            android:contentDescription="@string/add_alarm"
-            android:layout_width="@dimen/footer_button_size"
-            android:layout_height="@dimen/footer_button_size"
-            android:layout_margin="@dimen/footer_button_layout_margin"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_add"
-            android:background="@drawable/main_button_normal" />
-        <ImageButton
             android:id="@+id/menu_button"
             android:contentDescription="@string/button_menu"
             style="?android:attr/actionOverflowButtonStyle"

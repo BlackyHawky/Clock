@@ -17,14 +17,24 @@
 package com.android.deskclock;
 
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.widget.PopupMenuCompat;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 public class DeskClockFragment extends Fragment {
 
     public void onPageChanged(int page) {
+        // Do nothing here , only in derived classes
+    }
+
+    public void respondClick(View view){
+        // Do nothing here , only in derived classes
+    }
+
+    public void setFabAppearance(ImageButton fab) {
         // Do nothing here , only in derived classes
     }
 

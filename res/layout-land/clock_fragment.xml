@@ -43,20 +43,4 @@
             android:layout_marginRight="20dp"
             android:layout_gravity="center" />
     </LinearLayout>
-    <ImageButton
-        android:id="@+id/cities_button"
-        android:contentDescription="@string/button_cities"
-        android:layout_width="@dimen/footer_button_size"
-        android:layout_height="@dimen/footer_button_size"
-        android:layout_marginTop="@dimen/footer_button_layout_margin"
-        android:layout_marginBottom="@dimen/footer_button_layout_margin"
-        android:layout_marginRight="@dimen/footer_button_layout_margin"
-        android:layout_marginEnd="@dimen/footer_button_layout_margin"
-        android:layout_marginLeft="@dimen/footer_button_layout_margin"
-        android:layout_marginStart="@dimen/footer_button_layout_margin"
-        android:layout_gravity="right|bottom"
-        android:src="@drawable/ic_globe"
-        style="@style/button"
-        android:onClick="clockButtonsOnClick"
-        android:background="@drawable/main_button_normal" />
 </FrameLayout>
