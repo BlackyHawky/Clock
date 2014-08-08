@@ -19,6 +19,7 @@ package com.android.deskclock.timer;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.NotificationManager;
@@ -28,8 +29,10 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.Image;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -56,6 +59,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.Timer;
 
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationIn;
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationOut;
@@ -74,8 +78,8 @@ public class TimerFragment extends DeskClockFragment
     private StaggeredGridView mTimersList;
     private View mTimersListPage;
     private int mColumnCount;
-    private ImageButton mCancel, mStart;
-    private ImageButton mAddTimer;
+    private ImageButton mCancel;
+    private ImageButton mFab;
     private View mTimerFooter;
     private TimerSetupView mTimerSetup;
     private TimersListAdapter mAdapter;
@@ -470,49 +474,6 @@ public class TimerFragment extends DeskClockFragment
                 }
             }
         });
-        mStart = (ImageButton)v.findViewById(R.id.timer_start);
-        mStart.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // New timer create if timer length is not zero
-                // Create a new timer object to track the timer and
-                // switch to the timers view.
-                int timerLength = mTimerSetup.getTime();
-                if (timerLength == 0) {
-                    return;
-                }
-                TimerObj t = new TimerObj(timerLength * 1000);
-                t.mState = TimerObj.STATE_RUNNING;
-                mAdapter.addTimer(t);
-                updateTimersState(t, Timers.START_TIMER);
-                gotoTimersView();
-                mTimerSetup.reset(); // Make sure the setup is cleared for next time
-
-                mTimersList.setFirstPositionAndOffsets(
-                        mAdapter.findTimerPositionById(t.mTimerId), 0);
-            }
-
-        });
-        mTimerSetup.registerStartButton(mStart);
-        mAddTimer = (ImageButton)v.findViewById(R.id.timer_add_timer);
-        mAddTimer.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mTimerSetup.reset();
-                gotoSetupView();
-            }
-
-        });
-
-        // Put it on the right for landscape, left for portrait.
-        FrameLayout.LayoutParams layoutParams =
-                (FrameLayout.LayoutParams) mAddTimer.getLayoutParams();
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            layoutParams.gravity = Gravity.END;
-        } else {
-            layoutParams.gravity = Gravity.CENTER;
-        }
-        mAddTimer.setLayoutParams(layoutParams);
 
         mTimerFooter = v.findViewById(R.id.timer_footer);
         mTimerFooter.setVisibility(mOnEmptyListListener == null ? View.VISIBLE : View.GONE);
@@ -709,9 +670,9 @@ public class TimerFragment extends DeskClockFragment
         } else {
             mCancel.setVisibility(View.VISIBLE);
         }
-        mTimerSetup.updateStartButton();
         mTimerSetup.updateDeleteButtonAndDivider();
         mLastVisibleView = mTimerSetup;
+        changeFab();
     }
     private void gotoTimersView() {
         if (mLastVisibleView == null || mLastVisibleView.getId() == R.id.timers_list_page) {
@@ -740,6 +701,7 @@ public class TimerFragment extends DeskClockFragment
         }
         startClockTicks();
         mLastVisibleView = mTimersListPage;
+        changeFab();
     }
 
     @Override
@@ -1047,5 +1009,52 @@ public class TimerFragment extends DeskClockFragment
                 mTimersList.setAdapter(mAdapter);
             }
         }
+    }
+    @Override
+    public void respondClick(View view){
+        if (mLastVisibleView != mTimersListPage) {
+            // New timer create if timer length is not zero
+            // Create a new timer object to track the timer and
+            // switch to the timers view.
+            int timerLength = mTimerSetup.getTime();
+            if (timerLength == 0) {
+                return;
+            }
+            TimerObj t = new TimerObj(timerLength * DateUtils.SECOND_IN_MILLIS);
+            t.mState = TimerObj.STATE_RUNNING;
+            mAdapter.addTimer(t);
+            updateTimersState(t, Timers.START_TIMER);
+            gotoTimersView();
+            mTimerSetup.reset(); // Make sure the setup is cleared for next time
+
+            mTimersList.setFirstPositionAndOffsets(
+                    mAdapter.findTimerPositionById(t.mTimerId), 0);
+        } else {
+            mTimerSetup.reset();
+            gotoSetupView();
+        }
+    }
+
+    private void changeFab() {
+        final Activity activity = getActivity();
+        if (activity != null && activity.getClass().equals(DeskClock.class)) {
+            final DeskClock deskClockActivity = (DeskClock) activity;
+            if (mFab != null && deskClockActivity.getSelectedTab() == DeskClock.TIMER_TAB_INDEX) {
+                mFab.setImageResource(mLastVisibleView != mTimersListPage ? R.drawable.ic_fab_play_sm :
+                        R.drawable.ic_add);
+                if (mLastVisibleView == mTimersListPage) {
+                    mFab.setVisibility(View.VISIBLE);
+                } else if (mTimerSetup != null) {
+                    mTimerSetup.registerStartButton(mFab);
+                    mTimerSetup.updateStartButton();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void setFabAppearance(ImageButton fab) {
+        mFab = fab;
+        changeFab();
     }
 }

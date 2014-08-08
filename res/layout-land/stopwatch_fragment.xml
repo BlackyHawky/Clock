@@ -29,13 +29,12 @@
 
     <com.android.deskclock.CircleButtonsLayout
         android:id="@+id/stopwatch_circle"
-        android:layout_width="0dip"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/circle_margin"
-        android:layout_marginStart="@dimen/circle_margin"
-        android:layout_marginRight="@dimen/circle_margin"
-        android:layout_marginEnd="@dimen/circle_margin"
-        android:layout_weight="0.95" >
+        android:layout_width="@dimen/circle_size"
+        android:layout_height="@dimen/circle_size"
+        android:layout_gravity="center"
+        android:layout_marginLeft="32dip"
+        android:layout_marginBottom="32dip"
+        android:layout_marginRight="32dip">
 
         <com.android.deskclock.timer.CountingTimerView
             android:id="@+id/stopwatch_time_text"
@@ -59,6 +58,7 @@
 
         <TextView
             android:id="@+id/stopwatch_stop"
+            android:visibility="invisible"
             android:layout_gravity="bottom|center_horizontal"
             android:gravity="center"
             android:layout_marginBottom="0dip"
@@ -88,11 +88,9 @@
 
     <ListView
         android:id="@+id/laps_list"
-        android:layout_weight="1"
-        android:paddingRight="@dimen/sw_padding_end"
-        android:paddingEnd="@dimen/sw_padding_end"
+        android:layout_margin="64dip"
         android:layout_gravity="center"
-        android:layout_width="0dip"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <Space
