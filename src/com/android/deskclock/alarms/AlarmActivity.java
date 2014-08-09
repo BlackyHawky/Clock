@@ -236,7 +236,11 @@ public class AlarmActivity extends Activity {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mReceiver);
+
+        // onCreate may finish this activity before registering the Receiver
+        try {
+            unregisterReceiver(mReceiver);
+        } catch (IllegalArgumentException e) {}
     }
 
     @Override
