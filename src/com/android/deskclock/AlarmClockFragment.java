@@ -41,7 +41,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,7 +53,6 @@ import android.view.animation.Interpolator;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -90,7 +88,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private static final float EXPAND_DECELERATION = 1f;
     private static final float COLLAPSE_DECELERATION = 0.7f;
     private static final int ANIMATION_DURATION = 300;
-    private static final String KEY_EXPANDED_IDS = "expandedIds";
+    private static final String KEY_EXPANDED_ID = "expandedId";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
     private static final String KEY_RINGTONE_TITLE_CACHE = "ringtoneTitleCache";
     private static final String KEY_SELECTED_ALARMS = "selectedAlarms";
@@ -103,6 +101,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     .getDeskClockExtensions();
 
     private static final int REQUEST_CODE_RINGTONE = 1;
+    private static final long INVALID_ID = -1;
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -125,7 +124,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private View mUndoFrame;
 
     private Alarm mSelectedAlarm;
-    private long mScrollToAlarmId = -1;
+    private long mScrollToAlarmId = INVALID_ID;
 
     private Loader mCursorLoader = null;
 
@@ -162,12 +161,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.alarm_clock, container, false);
 
-        long[] expandedIds = null;
+        long expandedId = INVALID_ID;
         long[] repeatCheckedIds = null;
         long[] selectedAlarms = null;
         Bundle previousDayMap = null;
         if (savedState != null) {
-            expandedIds = savedState.getLongArray(KEY_EXPANDED_IDS);
+            expandedId = savedState.getLong(KEY_EXPANDED_ID);
             repeatCheckedIds = savedState.getLongArray(KEY_REPEAT_CHECKED_IDS);
             mRingtoneTitleCache = savedState.getBundle(KEY_RINGTONE_TITLE_CACHE);
             mDeletedAlarm = savedState.getParcelable(KEY_DELETED_ALARM);
@@ -271,7 +270,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         mAdapter = new AlarmItemAdapter(getActivity(),
-                expandedIds, repeatCheckedIds, selectedAlarms, previousDayMap, mAlarmsList);
+                expandedId, repeatCheckedIds, selectedAlarms, previousDayMap, mAlarmsList);
         mAdapter.registerDataSetObserver(new DataSetObserver() {
 
             private int prevAdapterCount = -1;
@@ -492,7 +491,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLongArray(KEY_EXPANDED_IDS, mAdapter.getExpandedArray());
+        outState.putLong(KEY_EXPANDED_ID, mAdapter.getExpandedId());
         outState.putLongArray(KEY_REPEAT_CHECKED_IDS, mAdapter.getRepeatArray());
         outState.putLongArray(KEY_SELECTED_ALARMS, mAdapter.getSelectedAlarmsArray());
         outState.putBundle(KEY_RINGTONE_TITLE_CACHE, mRingtoneTitleCache);
@@ -570,9 +569,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, final Cursor data) {
         mAdapter.swapCursor(data);
-        if (mScrollToAlarmId != -1) {
+        if (mScrollToAlarmId != INVALID_ID) {
             scrollToAlarm(mScrollToAlarmId);
-            mScrollToAlarmId = -1;
+            mScrollToAlarmId = INVALID_ID;
         }
     }
 
@@ -664,7 +663,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
         private final Typeface mRobotoBold;
         private final ListView mList;
 
-        private final HashSet<Long> mExpanded = new HashSet<Long>();
+        private long mExpandedId;
+        private ItemHolder mExpandedItemHolder;
         private final HashSet<Long> mRepeatChecked = new HashSet<Long>();
         private final HashSet<Long> mSelectedAlarms = new HashSet<Long>();
         private Bundle mPreviousDaysOfWeekMap = new Bundle();
@@ -712,22 +712,22 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         // Used for scrolling an expanded item in the list to make sure it is fully visible.
-        private long mScrollAlarmId = -1;
+        private long mScrollAlarmId = AlarmClockFragment.INVALID_ID;
         private final Runnable mScrollRunnable = new Runnable() {
             @Override
             public void run() {
-                if (mScrollAlarmId != -1) {
+                if (mScrollAlarmId != AlarmClockFragment.INVALID_ID) {
                     View v = getViewById(mScrollAlarmId);
                     if (v != null) {
                         Rect rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
                         mList.requestChildRectangleOnScreen(v, rect, false);
                     }
-                    mScrollAlarmId = -1;
+                    mScrollAlarmId = AlarmClockFragment.INVALID_ID;
                 }
             }
         };
 
-        public AlarmItemAdapter(Context context, long[] expandedIds, long[] repeatCheckedIds,
+        public AlarmItemAdapter(Context context, long expandedId, long[] repeatCheckedIds,
                 long[] selectedAlarms, Bundle previousDaysOfWeekMap, ListView list) {
             super(context, null, 0);
             mContext = context;
@@ -747,9 +747,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             mRobotoBold = Typeface.create("sans-serif-condensed", Typeface.BOLD);
             mRobotoNormal = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
 
-            if (expandedIds != null) {
-                buildHashSetFromArray(expandedIds, mExpanded);
-            }
+            mExpandedId = expandedId;
             if (repeatCheckedIds != null) {
                 buildHashSetFromArray(repeatCheckedIds, mRepeatChecked);
             }
@@ -1065,6 +1063,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.onoff.setOnCheckedChangeListener(onOffListener);
 
             boolean expanded = isAlarmExpanded(alarm);
+            if (expanded) {
+                mExpandedItemHolder = itemHolder;
+            }
             itemHolder.expandArea.setVisibility(expanded? View.VISIBLE : View.GONE);
             itemHolder.delete.setVisibility(expanded ? View.VISIBLE : View.GONE);
             itemHolder.summary.setVisibility(expanded? View.GONE : View.VISIBLE);
@@ -1127,8 +1128,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             if (expanded) {
                 expandAlarm(itemHolder, false);
-            } else {
-                collapseAlarm(itemHolder, false);
             }
 
             itemHolder.alarmItem.setOnClickListener(new View.OnClickListener() {
@@ -1367,7 +1366,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         public void setNewAlarm(long alarmId) {
-            mExpanded.add(alarmId);
+            mExpandedId = alarmId;
         }
 
         /**
@@ -1376,7 +1375,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
          * @param itemHolder The item holder instance.
          */
         private void expandAlarm(final ItemHolder itemHolder, boolean animate) {
-            mExpanded.add(itemHolder.alarm.id);
+            if (mExpandedItemHolder != null) {
+                collapseAlarm(mExpandedItemHolder, animate);
+            }
+            mExpandedId = itemHolder.alarm.id;
+            mExpandedItemHolder = itemHolder;
             bindExpandArea(itemHolder, itemHolder.alarm);
             // Scroll the view to make sure it is fully viewed
             mScrollAlarmId = itemHolder.alarm.id;
@@ -1487,11 +1490,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         private boolean isAlarmExpanded(Alarm alarm) {
-            return mExpanded.contains(alarm.id);
+            return mExpandedId == alarm.id;
         }
 
         private void collapseAlarm(final ItemHolder itemHolder, boolean animate) {
-            mExpanded.remove(itemHolder.alarm.id);
+            mExpandedId = AlarmClockFragment.INVALID_ID;
+            mExpandedItemHolder = null;
 
             // Save the starting height so we can animate from this value.
             final int startingHeight = itemHolder.alarmItem.getHeight();
@@ -1611,14 +1615,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             return null;
         }
 
-        public long[] getExpandedArray() {
-            int index = 0;
-            long[] ids = new long[mExpanded.size()];
-            for (long id : mExpanded) {
-                ids[index] = id;
-                index++;
-            }
-            return ids;
+        public long getExpandedId() {
+            return mExpandedId;
         }
 
         public long[] getSelectedAlarmsArray() {
