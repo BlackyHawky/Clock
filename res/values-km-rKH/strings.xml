@@ -154,11 +154,11 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"តម្រៀប​តាម​ឈ្មោះ"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ទីក្រុង​បាន​ជ្រើស"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"បន្ត"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"ចាប់ផ្ដើម"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"ចាប់ផ្ដើម​"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"ឈប់"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ជាន់​គ្នា"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"កំណត់​ឡើងវិញ"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"ចែករំលែក"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"ចែករំលែក​"</string>
     <string name="hours_label" msgid="3393478155635368097">"ម៉ោង"</string>
     <string name="minutes_label" msgid="3568098128251438588">"នាទី"</string>
     <string name="seconds_label" msgid="124655952824003246">"វិនាទី"</string>
@@ -189,7 +189,7 @@
     <string name="timer_stop" msgid="3361154678667736722">"ឈប់"</string>
     <string name="timer_done" msgid="2375990511982914051">"រួចរាល់"</string>
     <string name="timer_reset" msgid="7848424809190171640">"កំណត់​ឡើងវិញ"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"បោះ​បង់"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"បោះ​បង់​"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ដល់​ម៉ោង"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"កម្មវិធី​កំណត់​ពេល"</string>
   <string-array name="sw_share_strings">
@@ -220,8 +220,8 @@
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ពេល​ធ្វើ​ដំណើរ​ទៅ​តំបន់​ដែល​មាន​ម៉ោង​ខុសគ្នា, បន្ថែម​នាឡិកា​សម្រាប់​ផ្ទះ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"តំបន់​ពេលវេលា​ដើម"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"តំបន់​ពេលវេលា​ដើម"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"បោះ​បង់"</string>
-    <string name="time_picker_set" msgid="331153175471468051">"យល់​ព្រម"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"បោះ​បង់​"</string>
+    <string name="time_picker_set" msgid="331153175471468051">"យល់​ព្រម​"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":០០"</string>
@@ -271,7 +271,7 @@
     <item msgid="2717065017510546526">"ហ្ស៊េរុយសាឡិម"</item>
     <item msgid="8698556287741466553">"មីនស្កិ៍"</item>
     <item msgid="1797598357342084506">"ហារ៉ារ៉េ"</item>
-    <item msgid="5169119919905066998">"បាកដាដ"</item>
+    <item msgid="5169119919905066998">"បាកដាដ​"</item>
     <item msgid="2615788116201065182">"មូស្គូ"</item>
     <item msgid="9084354867885584646">"គុយវ៉ែត"</item>
     <item msgid="1351570519986178268">"ណៃរ៉ូប៊ី"</item>
@@ -290,11 +290,11 @@
     <item msgid="6173621471007643021">"អាស្តាណា"</item>
     <item msgid="8645125891971581128">"យ៉ង់ហ្គូន"</item>
     <item msgid="2886407505119737794">"ក្រាសនុយ៉ាក"</item>
-    <item msgid="3408222398188107090">"បាងកក"</item>
+    <item msgid="3408222398188107090">"បាងកក​"</item>
     <item msgid="4441612937172851228">"ប៉េកាំង"</item>
     <item msgid="4936715789028996930">"ហុងកុង"</item>
     <item msgid="4261031143777385525">"អ៊ីឃឺត"</item>
-    <item msgid="3538060959338191835">"គូឡាឡាំពួ"</item>
+    <item msgid="3538060959338191835">"គូឡាឡាំពួ​"</item>
     <item msgid="1438847562643099201">"ភឺធ"</item>
     <item msgid="3063913827688244383">"តៃប៉ិ"</item>
     <item msgid="3502757135046564209">"សេអ៊ូល"</item>
@@ -309,7 +309,7 @@
     <item msgid="7738680449356275374">"ហ្គាំ"</item>
     <item msgid="2882915026380778227">"ម៉ាហ្គាដាន"</item>
     <item msgid="8255615641810148152">"អក់ឡែន"</item>
-    <item msgid="3027153773466391728">"ហ្វីជី"</item>
+    <item msgid="3027153773466391728">"ហ្វីជី​"</item>
     <item msgid="5911600083231840181">"តុងហ្គា"</item>
     <item msgid="5176858645450908751">"ហ្សាការតា"</item>
   </string-array>
