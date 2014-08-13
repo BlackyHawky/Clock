@@ -20,7 +20,6 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
-import android.app.AlarmClockInfo;
 import android.app.AlarmManager;
 import android.content.Context;
 import android.content.Intent;
@@ -466,7 +465,7 @@ public class Utils {
         String timeString = null;
         final AlarmManager alarmManager = ((AlarmManager) context.getSystemService(
                 Context.ALARM_SERVICE));
-        final AlarmClockInfo info = alarmManager.getNextAlarmClock();
+        final AlarmManager.AlarmClockInfo info = alarmManager.getNextAlarmClock();
         if (info != null) {
             final long triggerTime = info.getTriggerTime();
             final Calendar alarmTime = Calendar.getInstance();
