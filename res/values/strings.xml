@@ -543,7 +543,7 @@
 
     <!-- Settings strings -->
     <!-- Header in the preferences settings for the section pertaining to clocks on the main fragment -->
-    <string name="clock_settings">CLOCK</string>
+    <string name="clock_settings">Clock</string>
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
 
@@ -762,7 +762,7 @@
     </string-array>
 
      <!-- Header in the preferences settings for the section pertaining to alarms -->
-     <string name="alarm_settings">ALARMS</string>
+     <string name="alarm_settings">Alarms</string>
      <!-- Describes the purpose of the button to show the remaining choices whenever there were too many -->
      <string name="see_all">See all&#8230;</string>
      <string name="desk_clock_help_url" translatable="false"></string>
