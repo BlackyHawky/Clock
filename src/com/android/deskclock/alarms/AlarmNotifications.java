@@ -15,7 +15,6 @@
  */
 package com.android.deskclock.alarms;
 
-import android.app.AlarmClockInfo;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -52,7 +51,8 @@ public final class AlarmNotifications {
             PendingIntent viewIntent = PendingIntent.getActivity(context, instance.hashCode(),
                     createViewAlarmIntent(context, instance), PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmClockInfo info = new AlarmClockInfo(alarmTime, viewIntent);
+            AlarmManager.AlarmClockInfo info =
+                    new AlarmManager.AlarmClockInfo(alarmTime, viewIntent);
             alarmManager.setAlarmClock(info, operation);
         } else if (operation != null) {
             alarmManager.cancel(operation);
