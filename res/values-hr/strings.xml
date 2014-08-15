@@ -169,7 +169,7 @@
   </plurals>
   <plurals name="Nseconds_description">
     <item quantity="one" msgid="6589853086641485725">"1 sekunda"</item>
-    <item quantity="other" msgid="7583230315175387547">"Ovoliko sekundi: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> s"</item>
   </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Dodaj mjerač"</string>
     <string name="timer_start" msgid="6158486445614356442">"Početak"</string>
