@@ -41,6 +41,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
+import android.transition.AutoTransition;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -75,7 +78,6 @@ import com.android.deskclock.widget.TextTime;
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.HashSet;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * AlarmClock application.
@@ -83,8 +85,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
         TimePickerDialog.OnTimeSetListener,
-        View.OnTouchListener
-        {
+        View.OnTouchListener {
     private static final float EXPAND_DECELERATION = 1f;
     private static final float COLLAPSE_DECELERATION = 0.7f;
     private static final int ANIMATION_DURATION = 300;
@@ -131,7 +132,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     // Saved states for undo
     private Alarm mDeletedAlarm;
     private Alarm mAddedAlarm;
-    private boolean mUndoShowing = false;
+    private boolean mUndoShowing;
 
     private Animator mFadeIn;
     private Animator mFadeOut;
@@ -141,9 +142,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     private int mTimelineViewWidth;
     private int mUndoBarInitialMargin;
-
-    // Cached layout positions of items in listview prior to add/removal of alarm item
-    private ConcurrentHashMap<Long, Integer> mItemIdTopMap = new ConcurrentHashMap<Long, Integer>();
 
     public AlarmClockFragment() {
         // Basic provider required by Fragment.java
@@ -477,13 +475,16 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private void showUndoBar() {
+        final Alarm deletedAlarm = mDeletedAlarm;
         mUndoFrame.setVisibility(View.VISIBLE);
         mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
             @Override
             public void onActionClicked() {
-                asyncAddAlarm(mDeletedAlarm);
+                mAddedAlarm = deletedAlarm;
                 mDeletedAlarm = null;
                 mUndoShowing = false;
+
+                asyncAddAlarm(deletedAlarm);
             }
         }, 0, getResources().getString(R.string.alarm_deleted), true, R.string.alarm_undo, true);
     }
@@ -531,6 +532,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             a.hour = hourOfDay;
             a.minutes = minute;
             a.enabled = true;
+
+            mAddedAlarm = a;
             asyncAddAlarm(a);
         } else {
             mSelectedAlarm.hour = hourOfDay;
@@ -780,17 +783,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             if (convertView == null) {
                 v = newView(mContext, getCursor(), parent);
             } else {
-                // TODO temporary hack to prevent the convertView from not having stuff we need.
-                boolean badConvertView = convertView.findViewById(R.id.digital_clock) == null;
-                // Do a translation check to test for animation. Change this to something more
-                // reliable and robust in the future.
-                if (convertView.getTranslationX() != 0 || convertView.getTranslationY() != 0 ||
-                        badConvertView) {
-                    // view was animated, reset
-                    v = newView(mContext, getCursor(), parent);
-                } else {
-                    v = convertView;
-                }
+                v = convertView;
             }
             bindView(v, mContext, getCursor());
             ItemHolder holder = (ItemHolder) v.getTag();
@@ -810,143 +803,22 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
         /**
          * In addition to changing the data set for the alarm list, swapCursor is now also
-         * responsible for preparing the list view's pre-draw operation for any animations that
-         * need to occur if an alarm was removed or added.
+         * responsible for preparing the transition for any added/removed items.
          */
         @Override
         public synchronized Cursor swapCursor(Cursor cursor) {
-            Cursor c = super.swapCursor(cursor);
 
-            if (mItemIdTopMap.isEmpty() && mAddedAlarm == null) {
-                return c;
+            if (mAddedAlarm != null || mDeletedAlarm != null) {
+                final Transition transition = new AutoTransition();
+                transition.setDuration(ANIMATION_DURATION);
+                TransitionManager.beginDelayedTransition(mAlarmsList, transition);
             }
 
-            final ListView list = mAlarmsList;
-            final ViewTreeObserver observer = list.getViewTreeObserver();
+            final Cursor c = super.swapCursor(cursor);
 
-            /*
-             * Add a pre-draw listener to the observer to prepare for any possible animations to
-             * the alarms within the list view.  The animations will occur if an alarm has been
-             * removed or added.
-             *
-             * For alarm removal, the remaining children should all retain their initial starting
-             * positions, and transition to their new positions.
-             *
-             * For alarm addition, the other children should all retain their initial starting
-             * positions, transition to their new positions, and at the end of that transition, the
-             * newly added alarm should appear in the designated space.
-             */
-            observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            mAddedAlarm = null;
+            mDeletedAlarm = null;
 
-                private View mAddedView;
-
-                @Override
-                public boolean onPreDraw() {
-                    // Remove the pre-draw listener, as this only needs to occur once.
-                    if (observer.isAlive()) {
-                        observer.removeOnPreDrawListener(this);
-                    }
-                    boolean firstAnimation = true;
-                    int firstVisiblePosition = list.getFirstVisiblePosition();
-
-                    // Iterate through the children to prepare the add/remove animation.
-                    for (int i = 0; i< list.getChildCount(); i++) {
-                        final View child = list.getChildAt(i);
-
-                        int position = firstVisiblePosition + i;
-                        long itemId = mAdapter.getItemId(position);
-
-                        // If this is the added alarm, set it invisible for now, and animate later.
-                        if (mAddedAlarm != null && itemId == mAddedAlarm.id) {
-                            mAddedView = child;
-                            mAddedView.setAlpha(0.0f);
-                            continue;
-                        }
-
-                        // The cached starting position of the child view.
-                        Integer startTop = mItemIdTopMap.get(itemId);
-                        // The new starting position of the child view.
-                        int top = child.getTop();
-
-                        // If there is no cached starting position, determine whether the item has
-                        // come from the top of bottom of the list view.
-                        if (startTop == null) {
-                            int childHeight = child.getHeight() + list.getDividerHeight();
-                            startTop = top + (i > 0 ? childHeight : -childHeight);
-                        }
-
-                        Log.d("Start Top: " + startTop + ", Top: " + top);
-                        // If the starting position of the child view is different from the
-                        // current position, animate the child.
-                        if (startTop != top) {
-                            int delta = startTop - top;
-                            child.setTranslationY(delta);
-                            child.animate().setDuration(ANIMATION_DURATION).translationY(0);
-                            final View addedView = mAddedView;
-                            if (firstAnimation) {
-
-                                // If this is the first child being animated, then after the
-                                // animation is complete, and animate in the added alarm (if one
-                                // exists).
-                                child.animate().withEndAction(new Runnable() {
-
-                                    @Override
-                                    public void run() {
-
-
-                                        // If there was an added view, animate it in after
-                                        // the other views have animated.
-                                        if (addedView != null) {
-                                            addedView.animate().alpha(1.0f)
-                                                .setDuration(ANIMATION_DURATION)
-                                                .withEndAction(new Runnable() {
-
-                                                    @Override
-                                                    public void run() {
-                                                        // Re-enable the list after the add
-                                                        // animation is complete.
-                                                        list.setEnabled(true);
-                                                    }
-
-                                                });
-                                        } else {
-                                            // Re-enable the list after animations are complete.
-                                            list.setEnabled(true);
-                                        }
-                                    }
-
-                                });
-                                firstAnimation = false;
-                            }
-                        }
-                    }
-
-                    // If there were no child views (outside of a possible added view)
-                    // that require animation...
-                    if (firstAnimation) {
-                        if (mAddedView != null) {
-                            // If there is an added view, prepare animation for the added view.
-                            Log.d("Animating added view...");
-                            mAddedView.animate().alpha(1.0f)
-                                .setDuration(ANIMATION_DURATION)
-                                .withEndAction(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // Re-enable the list after animations are complete.
-                                        list.setEnabled(true);
-                                    }
-                                });
-                        } else {
-                            // Re-enable the list after animations are complete.
-                            list.setEnabled(true);
-                        }
-                    }
-
-                    mAddedAlarm = null;
-                    mItemIdTopMap.clear();
-                    return true;
-                }
-            });
             return c;
         }
 
@@ -1114,15 +986,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onClick(View v) {
                     mDeletedAlarm = alarm;
-
-                    view.animate().setDuration(ANIMATION_DURATION).alpha(0).translationY(-1)
-                    .withEndAction(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            asyncDeleteAlarm(mDeletedAlarm, view);
-                        }
-                    });
+                    asyncDeleteAlarm(alarm);
                 }
             });
 
@@ -1667,32 +1531,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
         return newInstance;
     }
 
-    private void asyncDeleteAlarm(final Alarm alarm, final View viewToRemove) {
+    private void asyncDeleteAlarm(final Alarm alarm) {
         final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
         final AsyncTask<Void, Void, Void> deleteTask = new AsyncTask<Void, Void, Void>() {
-            @Override
-            public synchronized void onPreExecute() {
-                if (viewToRemove == null) {
-                    return;
-                }
-                // The alarm list needs to be disabled until the animation finishes to prevent
-                // possible concurrency issues.  It becomes re-enabled after the animations have
-                // completed.
-                mAlarmsList.setEnabled(false);
-
-                // Store all of the current list view item positions in memory for animation.
-                final ListView list = mAlarmsList;
-                int firstVisiblePosition = list.getFirstVisiblePosition();
-                for (int i=0; i<list.getChildCount(); i++) {
-                    View child = list.getChildAt(i);
-                    if (child != viewToRemove) {
-                        int position = firstVisiblePosition + i;
-                        long itemId = mAdapter.getItemId(position);
-                        mItemIdTopMap.put(itemId, child.getTop());
-                    }
-                }
-            }
-
             @Override
             protected Void doInBackground(Void... parameters) {
                 // Activity may be closed at this point , make sure data is still valid
@@ -1714,24 +1555,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
         final AsyncTask<Void, Void, AlarmInstance> updateTask =
                 new AsyncTask<Void, Void, AlarmInstance>() {
-            @Override
-            public synchronized void onPreExecute() {
-                final ListView list = mAlarmsList;
-                // The alarm list needs to be disabled until the animation finishes to prevent
-                // possible concurrency issues.  It becomes re-enabled after the animations have
-                // completed.
-                mAlarmsList.setEnabled(false);
-
-                // Store all of the current list view item positions in memory for animation.
-                int firstVisiblePosition = list.getFirstVisiblePosition();
-                for (int i=0; i<list.getChildCount(); i++) {
-                    View child = list.getChildAt(i);
-                    int position = firstVisiblePosition + i;
-                    long itemId = mAdapter.getItemId(position);
-                    mItemIdTopMap.put(itemId, child.getTop());
-                }
-            }
-
             @Override
             protected AlarmInstance doInBackground(Void... parameters) {
                 if (context != null && alarm != null) {
