@@ -86,7 +86,7 @@
     <string name="clock_instructions" msgid="2656876819515011590">"கடிகாரத்தைத் தேர்வுசெய்யவும்"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"அனலாக் கடிகாரம்"</string>
     <string name="help" msgid="7786263119482654015">"உதவி"</string>
-    <string name="settings" msgid="5849739030579520686">"அமைப்புகள்"</string>
+    <string name="settings" msgid="5849739030579520686">"அமைப்பு"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"உறக்கநிலையில் இருக்கும் காலஅளவு"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 நிமிடம்"</item>
@@ -147,7 +147,7 @@
     <string name="button_alarms" msgid="8016103479617020265">"அலாரங்கள்"</string>
     <string name="button_cities" msgid="4555761857494501363">"நகரங்கள்"</string>
     <string name="button_menu" msgid="6050484561842120282">"மேலும் விருப்பங்கள்"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"அமைப்புகள்"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"அமைப்பு"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"உதவி"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"இரவு பயன்முறை"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"நேரப்படி வகைப்படுத்து"</string>
@@ -210,7 +210,8 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"தாய்நாடு"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"நகரங்கள்"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"கடிகாரம்"</string>
+    <!-- no translation found for clock_settings (8317286807280600391) -->
+    <skip />
     <string name="clock_style" msgid="2265011060429742344">"நடை"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"அனலாக்"</item>
@@ -313,7 +314,8 @@
     <item msgid="5911600083231840181">"டோங்கா"</item>
     <item msgid="5176858645450908751">"ஜகார்த்தா"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"அலாரங்கள்"</string>
+    <!-- no translation found for alarm_settings (2947147071388290814) -->
+    <skip />
     <string name="see_all" msgid="775983396630163739">"அனைத்தையும் காட்டு..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"அறிவிப்பை இயக்குவதற்கான நிறுத்தக்கடிகார சேவை."</string>
     <string name="swn_stopped" msgid="783124901663086172">"நிறுத்தப்பட்டது"</string>
@@ -326,7 +328,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"உங்கள் டைமர்களைப் பார்க்க தொடவும்"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள்"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"அடுத்த டைமர்: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"இயக்க அமைப்புகள்"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"இயக்க அமைப்பு"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"இரவு பயன்முறை"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"மிகவும் மங்கலான காட்சி (இருண்ட அறைகளுக்கானது)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"அலாரத்தை விரிவாக்கு"</string>
