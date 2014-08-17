@@ -18,9 +18,7 @@
     android:id="@+id/main_clock_frame"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/main_clock_padding"
-    >
+    android:layout_height="wrap_content" >
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -80,5 +78,14 @@
             android:gravity="center"
             />
     </LinearLayout>
+
+    <View
+        android:id="@+id/hairline"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hairline_height"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
+        android:layout_marginTop="24dip"
+        android:background="@color/hairline" />
 </LinearLayout>
 

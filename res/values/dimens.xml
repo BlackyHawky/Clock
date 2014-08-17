@@ -81,7 +81,7 @@
     <dimen name="big_font_size">120dp</dimen>
     <dimen name="small_font_size">48sp</dimen>
     <dimen name="medium_font_size">60dp</dimen>
-    <dimen name="label_font_size">14sp</dimen>
+    <dimen name="label_font_size">16sp</dimen>
     <dimen name="widget_label_font_size">14sp</dimen>
     <dimen name="main_ampm_font_size">18sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
@@ -217,4 +217,8 @@
 
     <!-- Bottom margin for the expand area -->
     <dimen name="collapse_expand_height">48dp</dimen>
+
+    <!-- Divider height -->
+    <dimen name="hairline_height">1dip</dimen>
+
 </resources>
