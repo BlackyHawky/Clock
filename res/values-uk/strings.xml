@@ -210,7 +210,8 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Удома"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Міста"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"ГОДИННИК"</string>
+    <!-- no translation found for clock_settings (8317286807280600391) -->
+    <skip />
     <string name="clock_style" msgid="2265011060429742344">"Стиль"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Аналоговий"</item>
@@ -313,7 +314,8 @@
     <item msgid="5911600083231840181">"Тонга"</item>
     <item msgid="5176858645450908751">"Джакарта"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"СИГНАЛИ"</string>
+    <!-- no translation found for alarm_settings (2947147071388290814) -->
+    <skip />
     <string name="see_all" msgid="775983396630163739">"Показати всі…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Послуга \"Секундомір\" для запуску сповіщення."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Зупинено"</string>
