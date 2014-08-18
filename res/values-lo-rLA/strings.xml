@@ -210,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"ຫນ້າທໍາອິດ"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"ເມືອງ"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"ໂມງ"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"ໂມງ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ຮູບແບບ"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"ໂມງເຂັມ"</item>
@@ -313,7 +313,7 @@
     <item msgid="5911600083231840181">"ທອງກາ"</item>
     <item msgid="5176858645450908751">"ຈາກາຕາ"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"ໂມງປຸກ"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"ໂມງປຸກ"</string>
     <string name="see_all" msgid="775983396630163739">"ເບິ່ງທັງຫມົດ..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"ບໍລິການຂອງໂມງຈັບເວລາ ເພື່ອສະແດງໃນການແຈ້ງເຕືອນ."</string>
     <string name="swn_stopped" msgid="783124901663086172">"ຢຸດແລ້ວ"</string>
