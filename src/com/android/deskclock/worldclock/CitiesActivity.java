@@ -507,8 +507,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         }
 
         final int color = Utils.getCurrentHourColor();
-        getActionBar().setBackgroundDrawable(new ColorDrawable(color));
-        mCitiesList.setBackgroundColor(color);
+        getWindow().setStatusBarColor(color);
+        getWindow().getDecorView().setBackgroundColor(color);
     }
 
     @Override
