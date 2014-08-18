@@ -1046,7 +1046,6 @@ public class TimerFragment extends DeskClockFragment
                     mFab.setVisibility(View.VISIBLE);
                 } else if (mTimerSetup != null) {
                     mTimerSetup.registerStartButton(mFab);
-                    mTimerSetup.updateStartButton();
                 }
             }
         }
