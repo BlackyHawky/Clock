@@ -384,6 +384,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                     // If not a header, use the invisible index for left padding
                     holder.index.setVisibility(View.INVISIBLE);
                 }
+                // skip checkbox and other animations
+                view.jumpDrawablesToCurrentState();
             }
             return view;
         }
