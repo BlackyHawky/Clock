@@ -101,9 +101,7 @@ public class SettingsActivity extends PreferenceActivity
         super.onResume();
         final int color = Utils.getCurrentHourColor();
         getWindow().setStatusBarColor(color);
-        final ColorDrawable colorDrawable = new ColorDrawable(color);
-        getActionBar().setBackgroundDrawable(colorDrawable);
-        getListView().setBackground(colorDrawable);
+        getWindow().getDecorView().setBackgroundColor(color);
         refresh();
     }
 

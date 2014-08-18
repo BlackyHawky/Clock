@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -90,8 +91,9 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
         for (int i = 0; i < 10; i++) {
             mNumbers[i].setOnClickListener(this);
-            mNumbers [i].setText(String.format("%d",i));
-            mNumbers [i].setTag(R.id.numbers_key,new Integer(i));
+            mNumbers[i].setText(String.format("%d", i));
+            mNumbers[i].setTextColor(Color.WHITE);
+            mNumbers[i].setTag(R.id.numbers_key, new Integer(i));
         }
         updateTime();
     }
