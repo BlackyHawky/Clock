@@ -663,7 +663,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         private final int mBackgroundColorExpanded;
         private final int mBackgroundColor;
         private final Typeface mRobotoNormal;
-        private final Typeface mRobotoBold;
         private final ListView mList;
 
         private long mExpandedId;
@@ -747,8 +746,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             mBackgroundColorExpanded = res.getColor(R.color.alarm_whiteish);
             mBackgroundColor = R.drawable.alarm_background_normal;
 
-            mRobotoBold = Typeface.create("sans-serif-condensed", Typeface.BOLD);
-            mRobotoNormal = Typeface.create("sans-serif-condensed", Typeface.NORMAL);
+            mRobotoNormal = Typeface.create("sans-serif", Typeface.NORMAL);
 
             mExpandedId = expandedId;
             if (repeatCheckedIds != null) {
@@ -790,7 +788,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             // We need the footer for the last element of the array to allow the user to scroll
             // the item beyond the bottom button bar, which obscures the view.
-            holder.footerFiller.setVisibility(position < getCount() - 1 ? View.GONE : View.VISIBLE);
+            final int footerVisible = (position < getCount() - 1 || getCount() == 1) ?
+                    View.GONE : View .VISIBLE;
+            holder.footerFiller.setVisibility(footerVisible);
             return v;
         }
 
@@ -943,7 +943,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.summary.setVisibility(expanded? View.GONE : View.VISIBLE);
             itemHolder.hairLine.setVisibility(expanded ? View.GONE : View.VISIBLE);
 
-            String labelSpace = "";
             // Set the repeat text or leave it blank if it does not repeat.
             final String daysOfWeekStr =
                     alarm.daysOfWeek.toString(AlarmClockFragment.this.getActivity(), false);
@@ -952,7 +951,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 itemHolder.daysOfWeek.setContentDescription(alarm.daysOfWeek.toAccessibilityString(
                         AlarmClockFragment.this.getActivity()));
                 itemHolder.daysOfWeek.setVisibility(View.VISIBLE);
-                labelSpace = "  ";
                 itemHolder.daysOfWeek.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -966,7 +964,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             }
 
             if (alarm.label != null && alarm.label.length() != 0) {
-                itemHolder.label.setText(alarm.label + labelSpace);
+                itemHolder.label.setText(alarm.label + "  ");
                 itemHolder.label.setVisibility(View.VISIBLE);
                 itemHolder.label.setContentDescription(
                         mContext.getResources().getString(R.string.label_description) + " "

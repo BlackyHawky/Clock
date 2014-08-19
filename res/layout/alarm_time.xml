@@ -152,6 +152,15 @@
                 android:singleLine="true"
                 android:textSize="16sp"
                 android:textColor="@color/clock_gray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/hairline_height"
+                android:layout_marginLeft="12dip"
+                android:layout_marginRight="12dip"
+                android:layout_marginBottom="12dip"
+                android:background="@color/hairline" />
+
         </LinearLayout>
 
         <FrameLayout
@@ -177,7 +186,7 @@
                 android:layout_gravity="bottom"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-                android:background="#28ffffff" />
+                android:background="@color/hairline" />
 
             <com.android.deskclock.widget.EllipsizeLayout
                 android:id="@+id/summary"
@@ -191,7 +200,7 @@
                     android:id="@+id/label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
+                    android:ellipsize="none"
                     android:singleLine="true"
                     android:textSize="16sp"
                     android:textColor="@color/clock_gray" />
@@ -200,7 +209,7 @@
                     android:id="@+id/daysOfWeek"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="none"
+                    android:ellipsize="end"
                     android:singleLine="true"
                     android:textSize="16sp"
                     android:textStyle="bold"
@@ -210,6 +219,8 @@
                     android:id="@+id/tomorrowLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="@color/clock_white" />

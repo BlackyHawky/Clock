@@ -22,7 +22,7 @@
     </style>
 
     <style name="DeskClockParentTheme" parent="@android:style/Theme.Material">
-        <item name="android:colorControlActivated">@color/hot_pink</item>
+        <item name="android:colorControlActivated">@color/witch_green</item>
         <item name="android:colorControlNormal">@color/white</item>
         <item name="android:actionOverflowMenuStyle">@style/PopupMenu</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
@@ -70,8 +70,13 @@
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
     </style>
 
-    <style name="CitiesTheme" parent="@style/SettingsTheme">
+    <style name="CitiesTheme" parent="@style/DeskClockParentTheme">
         <item name="android:fastScrollThumbDrawable">@drawable/red_fastscroll_thumb</item>
+        <item name="android:actionBarStyle">@style/CitiesTheme.ActionBar</item>
+    </style>
+
+    <style name="CitiesTheme.ActionBar" parent="@android:style/Widget.Material.ActionBar">
+        <item name="android:displayOptions">useLogo</item>
     </style>
 
     <style name="SettingsTheme.ActionBar" parent="@android:style/Widget.Material.ActionBar">
@@ -83,9 +88,7 @@
 
     <style name="SettingsTheme.TextAppearance.ActionBar.Title" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
         <item name="android:textSize">@dimen/actionbar_title_font_size</item>
-        <item name="android:textColor">@color/clock_red</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
     </style>
 
     <style name="SetAlarmTheme" parent="@android:style/Theme.Material.DialogWhenLarge"/>
@@ -143,7 +146,6 @@
     <style name="small_bold">
         <item name="android:textSize">@dimen/small_font_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="small_thin">
@@ -154,7 +156,6 @@
     <style name="no_alarms">
         <item name="android:textSize">@dimen/no_alarms_font_size</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="small_light">
@@ -169,13 +170,11 @@
 
     <style name="timer_setup_label">
         <item name="android:textSize">@dimen/timer_setup_label_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="medium_light">
         <item name="android:textSize">@dimen/medium_font_size</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
     <style name="widget_medium_thin">
@@ -185,9 +184,6 @@
 
     <style name="label">
         <item name="android:textSize">@dimen/label_font_size</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="label_not_caps" parent="label">
@@ -200,8 +196,6 @@
 
     <style name="header">
         <item name="android:textSize">@dimen/header_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -220,8 +214,6 @@
 
     <style name="alarm_label">
         <item name="android:textSize">@dimen/alarm_label_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="alarm_label_not_caps" parent="alarm_label">
@@ -234,8 +226,6 @@
 
     <style name="body">
         <item name="android:textSize">@dimen/body_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="body_not_caps" parent="body">
@@ -244,25 +234,19 @@
 
     <style name="body_bold">
         <item name="android:textSize">@dimen/body_font_size</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="button">
         <item name="android:textSize">@dimen/button_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="timer_label">
         <item name="android:textSize">@dimen/timer_label_font_size</item>
-        <item name="android:fontFamily">sans-serif-condensed</item>
     </style>
 
     <style name="dialog_button">
         <item name="android:textSize">@dimen/dialog_button_font_size</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="bold_button" parent="button">
@@ -271,19 +255,15 @@
 
     <style name="dialpad">
         <item name="android:textSize">@dimen/dialpad_font_size</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
     <style name="city_name">
         <item name="android:textSize">@dimen/city_name_font_size</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="city_time">
         <item name="android:textSize">@dimen/city_time_font_size</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="TimePickerDialog" parent="android:style/Theme.Material.Dialog">

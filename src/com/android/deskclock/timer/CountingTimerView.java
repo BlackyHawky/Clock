@@ -73,7 +73,7 @@ public class CountingTimerView extends View {
     private int mDefaultColor;
     private final int mPressedColor;
     private final int mWhiteColor;
-    private final int mPinkColor;
+    private final int mGreenColor;
     private TextView mStopStartTextView;
     private final AccessibilityManager mAccessibilityManager;
 
@@ -269,8 +269,8 @@ public class CountingTimerView extends View {
         Resources r = context.getResources();
         mWhiteColor = r.getColor(R.color.clock_white);
         mDefaultColor = mWhiteColor;
-        mPressedColor = r.getColor(R.color.hot_pink);
-        mPinkColor = r.getColor(R.color.hot_pink);
+        mPressedColor = r.getColor(R.color.witch_green);
+        mGreenColor = r.getColor(R.color.witch_green);
         mBigFontSize = r.getDimension(R.dimen.big_font_size);
         mSmallFontSize = r.getDimension(R.dimen.small_font_size);
 
@@ -482,8 +482,8 @@ public class CountingTimerView extends View {
         invalidate();
     }
 
-    public void redTimeStr(boolean red, boolean forceUpdate) {
-        mDefaultColor = red ? mPinkColor : mWhiteColor;
+    public void setTimeStrTextColor(boolean active, boolean forceUpdate) {
+        mDefaultColor = active ? mGreenColor : mWhiteColor;
         setTextColor(mDefaultColor);
         if (forceUpdate) {
             invalidate();
