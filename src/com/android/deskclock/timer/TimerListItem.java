@@ -65,35 +65,35 @@ public class TimerListItem extends LinearLayout {
 
     public void start() {
         mCircleView.startIntervalAnimation();
-        mTimerText.redTimeStr(false, true);
+        mTimerText.setTimeStrTextColor(false, true);
         mTimerText.showTime(true);
         mCircleView.setVisibility(VISIBLE);
     }
 
     public void pause() {
         mCircleView.pauseIntervalAnimation();
-        mTimerText.redTimeStr(false, true);
+        mTimerText.setTimeStrTextColor(false, true);
         mTimerText.showTime(true);
         mCircleView.setVisibility(VISIBLE);
     }
 
     public void stop() {
         mCircleView.stopIntervalAnimation();
-        mTimerText.redTimeStr(false, true);
+        mTimerText.setTimeStrTextColor(false, true);
         mTimerText.showTime(true);
         mCircleView.setVisibility(VISIBLE);
     }
 
     public void timesUp() {
         mCircleView.abortIntervalAnimation();
-        mTimerText.redTimeStr(true, true);
+        mTimerText.setTimeStrTextColor(true, true);
     }
 
     public void done() {
         mCircleView.stopIntervalAnimation();
         mCircleView.setVisibility(VISIBLE);
         mCircleView.invalidate();
-        mTimerText.redTimeStr(true, false);
+        mTimerText.setTimeStrTextColor(true, false);
     }
 
     public void setLength(long timerLength) {

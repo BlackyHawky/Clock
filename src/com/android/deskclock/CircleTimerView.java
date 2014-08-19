@@ -121,7 +121,7 @@ public class CircleTimerView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mWhiteColor = resources.getColor(R.color.clock_white);
-        mPinkColor = resources.getColor(R.color.hot_pink);
+        mPinkColor = resources.getColor(R.color.witch_green);
         mScreenDensity = resources.getDisplayMetrics().density;
         mFill.setAntiAlias(true);
         mFill.setStyle(Paint.Style.FILL);

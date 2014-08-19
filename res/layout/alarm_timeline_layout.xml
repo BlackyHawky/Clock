@@ -28,7 +28,7 @@
         android:text="@string/alarm_timeline_title_text"
         android:textSize="@dimen/alarm_timeline_title_text_size"
         android:textStyle="bold"
-        android:textColor="@color/clock_red"
+        android:textColor="@color/white"
         android:gravity="center_horizontal" />
     <ScrollView
         android:id="@+id/alarm_timeline_scroll_view"
