@@ -27,19 +27,15 @@
     <color name="black">#ff000000</color>
     <color name="blackish_selected">#0cffffff</color>
     <color name="white">#ffffffff</color>
-    <color name="red">#ffee0000</color>
     <color name="grey">#ffaaaaaa</color>
     <color name="transparent">#00000000</color>
     <color name="transparent_white">#66ffffff</color>
     <color name="alarm_whiteish">#0cffffff</color>
 
-    <color name="hot_pink">#FF4081</color>
-    <color name="main_button_selected">#909090</color>
-    <color name="main_button_red_normal">#ff4444</color> <!-- same as clock_red -->
-    <color name="main_button_red_selected">#c0ff4444</color>
+    <color name="witch_green">#0f9d58</color>
+    <color name="hairline">#28ffffff</color>
     <color name="bright_foreground_light_disabled">#80000000</color>
 
-    <color name="clock_red">#ff4444</color>
     <color name="clock_white">#ffffff</color>
     <color name="clock_gray">#80ffffff</color>
     <color name="clock_blue">#ff33b5e5</color>

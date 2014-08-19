@@ -31,6 +31,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -190,7 +191,7 @@ public class Utils {
      *   any effect on the button press states, and those must be changed separately.
     **/
     public static int getPressedColorId() {
-        return R.color.clock_red;
+        return R.color.witch_green;
     }
 
     /**  The un-pressed color used throughout the app. If this method is changed, it will not have
@@ -544,11 +545,11 @@ public class Utils {
             return pattern;
         }
         Spannable sp = new SpannableString(pattern);
-        sp.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), amPmPos, amPmPos + 1,
+        sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1,
                 Spannable.SPAN_POINT_MARK);
         sp.setSpan(new AbsoluteSizeSpan(amPmFontSize), amPmPos, amPmPos + 1,
                 Spannable.SPAN_POINT_MARK);
-        sp.setSpan(new TypefaceSpan("sans-serif-condensed"), amPmPos, amPmPos + 1,
+        sp.setSpan(new TypefaceSpan("sans-serif"), amPmPos, amPmPos + 1,
                 Spannable.SPAN_POINT_MARK);
         return sp;
     }

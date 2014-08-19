@@ -74,8 +74,7 @@
             android:layout_marginStart="4dip"
             android:gravity="center_vertical"
             android:paddingRight="16dip"
-            android:paddingEnd="16dip"
-            android:textAllCaps="true" />
+            android:paddingEnd="16dip" />
     </LinearLayout>
 
 </merge>

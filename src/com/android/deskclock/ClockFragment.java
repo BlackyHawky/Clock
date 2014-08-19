@@ -50,7 +50,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private final static String TAG = "ClockFragment";
 
     private boolean mButtonsHidden = false;
-    private View mDigitalClock, mAnalogClock, mClockFrame;
+    private View mDigitalClock, mAnalogClock, mClockFrame, mHairline;
     private WorldClockAdapter mAdapter;
     private ListView mList;
     private SharedPreferences mPrefs;
@@ -166,10 +166,14 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         // On tablet landscape, the clock frame will be a distinct view. Otherwise, it'll be added
         // on as a header to the main listview.
         mClockFrame = v.findViewById(R.id.main_clock_left_pane);
+        mHairline = v.findViewById(R.id.hairline);
         if (mClockFrame == null) {
             mClockFrame = inflater.inflate(R.layout.main_clock_frame, mList, false);
+            mHairline = mClockFrame.findViewById(R.id.hairline);
+            mHairline.setVisibility(View.VISIBLE);
             mList.addHeaderView(mClockFrame, null, false);
         } else {
+            mHairline.setVisibility(View.GONE);
             // The main clock frame needs its own touch listener for night mode now.
             v.setOnTouchListener(longPressNightMode);
         }
@@ -187,8 +191,11 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         Utils.setTimeFormat((TextClock)(mDigitalClock.findViewById(R.id.digital_clock)),
                 (int)getResources().getDimension(R.dimen.bottom_text_size));
         View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
-        mList.addFooterView(footerView);
+        mList.addFooterView(footerView, null, false);
         mAdapter = new WorldClockAdapter(getActivity());
+        if (mAdapter.getCount() == 0) {
+            mHairline.setVisibility(View.GONE);
+        }
         mList.setAdapter(mAdapter);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());

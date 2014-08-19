@@ -163,7 +163,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         final boolean enabled = isInputHasValue();
         if (mDelete != null) {
             mDelete.setEnabled(enabled);
-            mDivider.setBackgroundResource(enabled ? R.color.hot_pink : R.color.dialog_gray);
+            mDivider.setBackgroundResource(enabled ? R.color.witch_green : R.color.dialog_gray);
         }
     }
 
