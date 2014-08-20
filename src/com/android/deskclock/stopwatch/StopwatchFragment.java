@@ -687,19 +687,19 @@ public class StopwatchFragment extends DeskClockFragment
             case Stopwatches.STOPWATCH_RESET:
                 setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap, false,
                         View.INVISIBLE);
-                changeFab(R.drawable.ic_fab_play_sm);
+                changeFab(R.drawable.ic_fab_play);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_RUNNING:
                 setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap,
                         !reachedMaxLaps(), View.VISIBLE);
-                changeFab(R.drawable.ic_fab_pause_sm);
+                changeFab(R.drawable.ic_fab_pause);
                 showShareButton(false);
                 break;
             case Stopwatches.STOPWATCH_STOPPED:
                 setButton(mLeftButton, R.string.sw_reset_button, R.drawable.ic_reset, true,
                         View.VISIBLE);
-                changeFab(R.drawable.ic_fab_play_sm);
+                changeFab(R.drawable.ic_fab_play);
                 showShareButton(true);
                 break;
             default:
@@ -1015,7 +1015,7 @@ public class StopwatchFragment extends DeskClockFragment
     @Override
     public void setFabAppearance(ImageButton fab) {
         mFab = fab;
-        changeFab(mState == Stopwatches.STOPWATCH_RUNNING ? R.drawable.ic_fab_pause_sm :
-                R.drawable.ic_fab_play_sm);
+        changeFab(mState == Stopwatches.STOPWATCH_RUNNING ? R.drawable.ic_fab_pause :
+                R.drawable.ic_fab_play);
     }
 }
