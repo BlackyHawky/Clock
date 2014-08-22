@@ -113,8 +113,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private AlarmItemAdapter mAdapter;
     private View mEmptyView;
     private View mAlarmsView;
-    private View mTimelineLayout;
-    private AlarmTimelineView mTimelineView;
     private View mFooterView;
 
     private Bundle mRingtoneTitleCache; // Key: ringtone uri, value: ringtone title
@@ -246,7 +244,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         });
         mFadeOut.setTarget(mEmptyView);
         mAlarmsView = v.findViewById(R.id.alarm_layout);
-        mTimelineLayout = v.findViewById(R.id.timeline_layout);
 
         mUndoBar = (ActionableToastBar) v.findViewById(R.id.undo_bar);
         mUndoBarInitialMargin = getActivity().getResources()
@@ -256,13 +253,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
         mFooterView = v.findViewById(R.id.alarms_footer_view);
         mFooterView.setOnTouchListener(this);
-
-        // Timeline layout only exists in tablet landscape mode for now.
-        if (mTimelineLayout != null) {
-            mTimelineView = (AlarmTimelineView) v.findViewById(R.id.alarm_timeline_view);
-            mTimelineViewWidth = getActivity().getResources()
-                    .getDimensionPixelOffset(R.dimen.alarm_timeline_layout_width);
-        }
 
         mAdapter = new AlarmItemAdapter(getActivity(),
                 expandedId, repeatCheckedIds, selectedAlarms, previousDayMap, mAlarmsList);
@@ -278,117 +268,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     showUndoBar();
                 }
 
-                // If there are no alarms in the adapter...
-                if (count == 0) {
-                    // ...and if there exists a timeline view (currently only in tablet landscape)
-                    if (mTimelineLayout != null && mAlarmsView != null) {
-
-                        // ...and if the previous adapter had alarms (indicating a removal)...
-                        if (prevAdapterCount > 0) {
-
-                            // Then animate in the "no alarms" icon...
-                            mFadeIn.start();
-
-                            // and animate out the alarm timeline view, expanding the width of the
-                            // alarms list / undo bar.
-                            mTimelineLayout.setVisibility(View.VISIBLE);
-                            ValueAnimator animator = ValueAnimator.ofFloat(1f, 0f)
-                                    .setDuration(ANIMATION_DURATION);
-                            animator.setInterpolator(mCollapseInterpolator);
-                            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                @Override
-                                public void onAnimationUpdate(ValueAnimator animator) {
-                                    Float value = (Float) animator.getAnimatedValue();
-                                    int currentTimelineWidth = (int) (value * mTimelineViewWidth);
-                                    float rightOffset = mTimelineViewWidth * (1 - value);
-                                    mTimelineLayout.setTranslationX(rightOffset);
-                                    mTimelineLayout.setAlpha(value);
-                                    mTimelineLayout.requestLayout();
-                                    setUndoBarRightMargin(currentTimelineWidth
-                                            + mUndoBarInitialMargin);
-                                }
-                            });
-                            animator.addListener(new AnimatorListener() {
-
-                                @Override
-                                public void onAnimationCancel(Animator animation) {
-                                    // Do nothing.
-                                }
-
-                                @Override
-                                public void onAnimationEnd(Animator animation) {
-                                    mTimelineView.setIsAnimatingOut(false);
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animator animation) {
-                                    // Do nothing.
-                                }
-
-                                @Override
-                                public void onAnimationStart(Animator animation) {
-                                    mTimelineView.setIsAnimatingOut(true);
-                                }
-
-                            });
-                            animator.start();
-                        } else {
-                            // If the previous adapter did not have alarms, no animation needed,
-                            // just hide the timeline view and show the "no alarms" icon.
-                            mTimelineLayout.setVisibility(View.GONE);
-                            mEmptyView.setVisibility(View.VISIBLE);
-                            setUndoBarRightMargin(mUndoBarInitialMargin);
-                        }
-                    } else {
-
-                        // If there is no timeline view, just show the "no alarms" icon.
-                        mEmptyView.setVisibility(View.VISIBLE);
-                    }
-                } else {
-
-                    // ...and if there exists a timeline view (currently in tablet landscape mode)
-                    if (mTimelineLayout != null && mAlarmsView != null) {
-
-                        mTimelineLayout.setVisibility(View.VISIBLE);
-                        // ...and if the previous adapter did not have alarms (indicating an add)
-                        if (prevAdapterCount == 0) {
-
-                            // Then, animate to hide the "no alarms" icon...
-                            mFadeOut.start();
-
-                            // and animate to show the timeline view, reducing the width of the
-                            // alarms list / undo bar.
-                            ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f)
-                                    .setDuration(ANIMATION_DURATION);
-                            animator.setInterpolator(mExpandInterpolator);
-                            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                                @Override
-                                public void onAnimationUpdate(ValueAnimator animator) {
-                                    Float value = (Float) animator.getAnimatedValue();
-                                    int currentTimelineWidth = (int) (value * mTimelineViewWidth);
-                                    float rightOffset = mTimelineViewWidth * (1 - value);
-                                    mTimelineLayout.setTranslationX(rightOffset);
-                                    mTimelineLayout.setAlpha(value);
-                                    mTimelineLayout.requestLayout();
-                                    ((FrameLayout.LayoutParams) mAlarmsView.getLayoutParams())
-                                        .setMargins(0, 0, (int) -rightOffset, 0);
-                                    mAlarmsView.requestLayout();
-                                    setUndoBarRightMargin(currentTimelineWidth
-                                            + mUndoBarInitialMargin);
-                                }
-                            });
-                            animator.start();
-                        } else {
-                            mTimelineLayout.setVisibility(View.VISIBLE);
-                            mEmptyView.setVisibility(View.GONE);
-                            setUndoBarRightMargin(mUndoBarInitialMargin + mTimelineViewWidth);
-                        }
-                    } else {
-
-                        // If there is no timeline view, just hide the "no alarms" icon.
-                        mEmptyView.setVisibility(View.GONE);
-                    }
-                }
+                mEmptyView.setVisibility(count == 0 ? View.VISIBLE : View.GONE);
 
                 // Cache this adapter's count for when the adapter changes.
                 prevAdapterCount = count;
@@ -1610,6 +1490,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void setFabAppearance(ImageButton fab) {
         fab.setVisibility(View.VISIBLE);
-        fab.setImageResource(R.drawable.ic_add);
+        fab.setImageResource(R.drawable.ic_fab_plus);
     }
 }
