@@ -223,6 +223,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
+        getWindow().setBackgroundDrawable(null);
+
         mSelectedTab = CLOCK_TAB_INDEX;
         if (icicle != null) {
             mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
