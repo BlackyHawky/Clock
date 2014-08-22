@@ -49,7 +49,7 @@
     <dimen name="medium_font_size">100dp</dimen>
     <dimen name="label_font_size">18sp</dimen>
     <dimen name="alarm_label_size">18sp</dimen>
-    <dimen name="body_font_size">24sp</dimen>
+    <dimen name="body_font_size">20sp</dimen>
     <dimen name="main_ampm_font_size">33sp</dimen>
     <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="no_alarms_font_size">48sp</dimen>
@@ -122,4 +122,6 @@
     <dimen name="digital_widget_list_min_fixed_height">15dp</dimen>
     <dimen name="digital_widget_list_margin_top">15dp</dimen>
     <dimen name="digital_widget_city_margin_bottom">15dp</dimen>
+
+    <dimen name="footer_button_size">80dip</dimen>
 </resources>
