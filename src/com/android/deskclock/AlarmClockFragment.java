@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,7 +41,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.text.format.DateFormat;
 import android.transition.AutoTransition;
 import android.transition.Transition;
 import android.transition.TransitionManager;
@@ -63,11 +63,10 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.android.datetimepicker.time.RadialPickerLayout;
-import com.android.datetimepicker.time.TimePickerDialog;
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -83,9 +82,7 @@ import java.util.HashSet;
  * AlarmClock application.
  */
 public class AlarmClockFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>,
-        TimePickerDialog.OnTimeSetListener,
-        View.OnTouchListener {
+        LoaderManager.LoaderCallbacks<Cursor>, OnTimeSetListener, View.OnTouchListener {
     private static final float EXPAND_DECELERATION = 1f;
     private static final float COLLAPSE_DECELERATION = 0.7f;
     private static final int ANIMATION_DURATION = 300;
@@ -448,17 +445,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // Remove the SCROLL_TO_ALARM extra now that we've processed it.
             intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
         }
-
-        // Make sure to use the child FragmentManager. We have to use that one for the
-        // case where an intent comes in telling the activity to load the timepicker,
-        // which means we have to use that one everywhere so that the fragment can get
-        // correctly picked up here if it's open.
-        TimePickerDialog tpd = (TimePickerDialog) getChildFragmentManager().
-                findFragmentByTag(AlarmUtils.FRAG_TAG_TIME_PICKER);
-        if (tpd != null) {
-            // The dialog is already open so we need to set the listener again.
-            tpd.setOnTimeSetListener(this);
-        }
     }
 
     private void hideUndoBar(boolean animate, MotionEvent event) {
@@ -520,7 +506,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     // Callback used by TimePickerDialog
     @Override
-    public void onTimeSet(RadialPickerLayout view, int hourOfDay, int minute) {
+    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             Alarm a = new Alarm();
@@ -532,7 +518,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             a.hour = hourOfDay;
             a.minutes = minute;
             a.enabled = true;
-
             mAddedAlarm = a;
             asyncAddAlarm(a);
         } else {
@@ -901,9 +886,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onClick(View view) {
                     mSelectedAlarm = itemHolder.alarm;
-                    AlarmUtils.showTimeEditDialog(getChildFragmentManager(),
-                            alarm, AlarmClockFragment.this
-                            , DateFormat.is24HourFormat(getActivity()));
+                    AlarmUtils.showTimeEditDialog(AlarmClockFragment.this, alarm);
                     expandAlarm(itemHolder, true);
                     itemHolder.alarmItem.post(mScrollRunnable);
                 }
@@ -1516,8 +1499,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // Set the "selected" alarm as null, and we'll create the new one when the timepicker
         // comes back.
         mSelectedAlarm = null;
-        AlarmUtils.showTimeEditDialog(getChildFragmentManager(),
-                null, AlarmClockFragment.this, DateFormat.is24HourFormat(getActivity()));
+        AlarmUtils.showTimeEditDialog(this, null);
     }
 
     private static AlarmInstance setupAlarmInstance(Context context, Alarm alarm) {
