@@ -95,8 +95,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         public void run() {
             final int currHourColor = Utils.getCurrentHourColor();
             if (mLastHourColor != currHourColor) {
-                final ObjectAnimator animator = ObjectAnimator.ofInt(mViewPager, "backgroundColor",
-                        mLastHourColor, currHourColor);
+                final ObjectAnimator animator = ObjectAnimator.ofInt(getWindow().getDecorView(),
+                        "backgroundColor", mLastHourColor, currHourColor);
                 animator.setDuration(getResources().getInteger(
                         android.R.integer.config_longAnimTime));
                 animator.setEvaluator(new ArgbEvaluator());
@@ -169,8 +169,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         mFab.setTranslationZ(FAB_DEPTH);
         if (mTabsAdapter == null) {
             mViewPager = (ViewPager) findViewById(R.id.desk_clock_pager);
-            mLastHourColor = Utils.getCurrentHourColor();
-            mViewPager.setBackgroundColor(mLastHourColor);
             // Keep all four tabs to minimize jank.
             mViewPager.setOffscreenPageLimit(3);
             mTabsAdapter = new TabsAdapter(this, mViewPager);
@@ -250,6 +248,9 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     protected void onResume() {
         super.onResume();
 
+        mLastHourColor = Utils.getCurrentHourColor();
+        getWindow().getDecorView().setBackgroundColor(mLastHourColor);
+
         // We only want to show notifications for stopwatch/timer when the app is closed so
         // that we don't have to worry about keeping the notifications in perfect sync with
         // the app.
@@ -264,10 +265,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         Intent timerIntent = new Intent();
         timerIntent.setAction(Timers.NOTIF_IN_USE_CANCEL);
         sendBroadcast(timerIntent);
-
-        // Reset background in case user has changed the time setting
-        mLastHourColor = Utils.getCurrentHourColor();
-        mViewPager.setBackgroundColor(mLastHourColor);
     }
 
     @Override
