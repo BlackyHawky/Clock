@@ -36,14 +36,8 @@
             android:clipToPadding="false"
             android:descendantFocusability="beforeDescendants"
             android:divider="@null"
-            android:dividerHeight="6dp"
-            />
+            android:dividerHeight="6dp" />
 
-        <include layout="@layout/alarm_timeline_layout"
-            android:id="@+id/timeline_layout"
-            android:layout_width="@dimen/alarm_timeline_layout_width"
-            android:layout_height="match_parent"
-        />
     </LinearLayout>
 
     <FrameLayout
