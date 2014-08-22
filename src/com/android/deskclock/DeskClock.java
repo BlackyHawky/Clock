@@ -178,7 +178,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         mFab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                DeskClockFragment fragment = (DeskClockFragment) mTabsAdapter.getItem(mSelectedTab);
+                DeskClockFragment fragment = (DeskClockFragment) mTabsAdapter.getItem(
+                        getRtlPosition(mSelectedTab));
                 fragment.respondClick(view);
             }
         });
@@ -511,7 +512,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
                 mFab.setImageResource(R.drawable.ic_globe);
                 mIsFirstLaunch = false;
             } else {
-                DeskClockFragment f = (DeskClockFragment) getItem(position);
+                DeskClockFragment f = (DeskClockFragment) getItem(getRtlPosition(position));
                 f.setFabAppearance(mFab);
             }
             mPager.setCurrentItem(getRtlPosition(position));
@@ -552,28 +553,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             mFragmentTags.remove(frag.getTag());
         }
 
-        private boolean isRtl() {
-            return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) ==
-                    View.LAYOUT_DIRECTION_RTL;
-        }
-
-        private int getRtlPosition(int position) {
-            if (isRtl()) {
-                switch (position) {
-                    case TIMER_TAB_INDEX:
-                        return RTL_TIMER_TAB_INDEX;
-                    case CLOCK_TAB_INDEX:
-                        return RTL_CLOCK_TAB_INDEX;
-                    case STOPWATCH_TAB_INDEX:
-                        return RTL_STOPWATCH_TAB_INDEX;
-                    case ALARM_TAB_INDEX:
-                        return RTL_ALARM_TAB_INDEX;
-                    default:
-                        break;
-                }
-            }
-            return position;
-        }
     }
 
     public static abstract class OnTapListener implements OnTouchListener {
@@ -666,5 +645,28 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
     public int getSelectedTab() {
         return mSelectedTab;
+    }
+
+    private boolean isRtl() {
+        return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) ==
+                View.LAYOUT_DIRECTION_RTL;
+    }
+
+    private int getRtlPosition(int position) {
+        if (isRtl()) {
+            switch (position) {
+                case TIMER_TAB_INDEX:
+                    return RTL_TIMER_TAB_INDEX;
+                case CLOCK_TAB_INDEX:
+                    return RTL_CLOCK_TAB_INDEX;
+                case STOPWATCH_TAB_INDEX:
+                    return RTL_STOPWATCH_TAB_INDEX;
+                case ALARM_TAB_INDEX:
+                    return RTL_ALARM_TAB_INDEX;
+                default:
+                    break;
+            }
+        }
+        return position;
     }
 }
