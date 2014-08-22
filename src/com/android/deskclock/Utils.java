@@ -466,13 +466,13 @@ public class Utils {
         String timeString = null;
         final AlarmManager alarmManager = ((AlarmManager) context.getSystemService(
                 Context.ALARM_SERVICE));
-        final AlarmManager.AlarmClockInfo info = alarmManager.getNextAlarmClock();
-        if (info != null) {
-            final long triggerTime = info.getTriggerTime();
-            final Calendar alarmTime = Calendar.getInstance();
-            alarmTime.setTimeInMillis(triggerTime);
-            timeString = AlarmUtils.getFormattedTime(context, alarmTime);
-        }
+//        final AlarmManager.AlarmClockInfo info = alarmManager.getNextAlarmClock();
+//        if (info != null) {
+//            final long triggerTime = info.getTriggerTime();
+//            final Calendar alarmTime = Calendar.getInstance();
+//            alarmTime.setTimeInMillis(triggerTime);
+//            timeString = AlarmUtils.getFormattedTime(context, alarmTime);
+//        }
         return timeString;
     }
 
