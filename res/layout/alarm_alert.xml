@@ -14,70 +14,125 @@
      limitations under the License.
 -->
 
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:dc="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="32sp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        >
+    <RelativeLayout
+        android:id="@+id/final_reveal_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <TextView android:id="@+id/alertTitle"
-            android:singleLine="true"
-            android:ellipsize="end"
-            style="@style/header_not_caps"
-            android:paddingLeft="@dimen/label_margin_big"
-            android:paddingStart="@dimen/label_margin_big"
-            android:paddingBottom="@dimen/label_margin_small"
-            android:textColor="@color/clock_white"
+        <TextView
+            android:id="@+id/final_text"
+            style="@style/alarm_lockscreen_thin"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/additional_text"
+            style="@style/alarm_lockscreen_thin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@id/final_text"
+            android:textColor="@color/white"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/main_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="72dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/alertTitle"
+            style="@style/header_not_caps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:layout_gravity="center"
+            android:singleLine="true"
+            android:textColor="@color/clock_white"/>
 
         <TextClock
             android:id="@+id/digitalClock"
-            android:format12Hour="@string/main_clock_12_hours_format"
-            android:format24Hour="@string/clock_24_hours_format"
+            style="@style/big_thin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:paddingBottom="24dp"
+            android:layout_gravity="center"
             android:baselineAligned="true"
-            android:singleLine="true"
             android:ellipsize="none"
-            style="@style/big_thin"
+            android:format12Hour="@string/main_clock_12_hours_format"
+            android:format24Hour="@string/clock_24_hours_format"
+            android:gravity="top"
+            android:singleLine="true"
             android:textColor="@color/clock_white"/>
+
+        <FrameLayout
+            android:id="@+id/ripple_pad"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/snooze_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:src="@drawable/snooze_circle"/>
+
+            <ImageView
+                android:id="@+id/snooze_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dip"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:alpha="0.65"
+                android:layout_gravity="center_vertical|left"
+                android:src="@drawable/ic_snooze"/>
+
+            <com.android.deskclock.alarms.AlarmRipple
+                android:id="@+id/center_ripple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:id="@+id/center_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_fab_alarm"/>
+
+            <ImageView
+                android:id="@+id/dismiss_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                android:src="@drawable/ic_alarm_off_hover"/>
+
+            <ImageView
+                android:id="@+id/dismiss_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleX="0.7"
+                android:scaleY="0.7"
+                android:alpha="0.65"
+                android:layout_marginRight="32dip"
+                android:layout_gravity="center_vertical|right"
+                android:src="@drawable/ic_alarm_off"/>
+
+        </FrameLayout>
+
     </LinearLayout>
 
-    <com.android.deskclock.widget.multiwaveview.GlowPadView
-        android:id="@+id/glow_pad_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/glowpadview_margin_bottom"
-        android:focusable="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:layout_gravity="center_vertical"
-
-        dc:targetDrawables="@array/snooze_dismiss_drawables"
-        dc:targetDescriptions="@array/snooze_dismiss_descriptions"
-        dc:directionDescriptions="@array/snooze_dismiss_direction_descriptions"
-        dc:handleDrawable="@drawable/ic_alarm_alert_touch_handle"
-        dc:outerRingDrawable="@drawable/ic_alarm_alert_outerring"
-        dc:outerRadius="@dimen/glowpadview_target_placement_radius"
-        dc:innerRadius="@dimen/glowpadview_inner_radius"
-        dc:snapMargin="@dimen/glowpadview_snap_margin"
-        dc:feedbackCount="1"
-        dc:vibrationDuration="20"
-        dc:glowRadius="@dimen/glowpadview_glow_radius"
-        dc:pointDrawable="@drawable/ic_lockscreen_glowdot"
-        />
-
-</RelativeLayout>
+</FrameLayout>
