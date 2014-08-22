@@ -1040,8 +1040,8 @@ public class TimerFragment extends DeskClockFragment
         if (activity != null && activity.getClass().equals(DeskClock.class)) {
             final DeskClock deskClockActivity = (DeskClock) activity;
             if (mFab != null && deskClockActivity.getSelectedTab() == DeskClock.TIMER_TAB_INDEX) {
-                mFab.setImageResource(mLastVisibleView != mTimersListPage ? R.drawable.ic_fab_play_sm :
-                        R.drawable.ic_add);
+                mFab.setImageResource(mLastVisibleView != mTimersListPage ? R.drawable.ic_fab_play :
+                        R.drawable.ic_fab_plus);
                 if (mLastVisibleView == mTimersListPage) {
                     mFab.setVisibility(View.VISIBLE);
                 } else if (mTimerSetup != null) {
