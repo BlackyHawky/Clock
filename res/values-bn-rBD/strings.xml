@@ -210,7 +210,8 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"হোম"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"শহর"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"ঘড়ি"</string>
+    <!-- no translation found for clock_settings (8317286807280600391) -->
+    <skip />
     <string name="clock_style" msgid="2265011060429742344">"শৈলী"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"অ্যানালগ"</item>
@@ -313,7 +314,8 @@
     <item msgid="5911600083231840181">"টোঙ্গা"</item>
     <item msgid="5176858645450908751">"জাকার্তা"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"অ্যালার্মগুলি"</string>
+    <!-- no translation found for alarm_settings (2947147071388290814) -->
+    <skip />
     <string name="see_all" msgid="775983396630163739">"সবগুলো দেখুন..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"বিজ্ঞপ্তি চালানোর জন্য স্টপওয়াচ পরিষেবা"</string>
     <string name="swn_stopped" msgid="783124901663086172">"থেমেছে"</string>
