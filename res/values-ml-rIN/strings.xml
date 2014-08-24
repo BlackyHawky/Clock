@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"ക്ലോക്ക്"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"അലാറങ്ങൾ"</string>
     <string name="add_alarm" msgid="5976616107390962899">"അലാറം ചേർക്കുക"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"അടുത്ത അലാറങ്ങൾ"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ഡെസ്‌ക്ക് ക്ലോക്ക്"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"അലാറം എഡിറ്റുചെയ്യുക"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"അലാറം ഇല്ലാതാക്കുക"</string>
@@ -210,8 +209,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"ഹോം"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"നഗരങ്ങൾ"</string>
-    <!-- no translation found for clock_settings (8317286807280600391) -->
-    <skip />
+    <string name="clock_settings" msgid="8317286807280600391">"ക്ലോക്ക്"</string>
     <string name="clock_style" msgid="2265011060429742344">"ശൈലി"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"അനലോഗ്"</item>
@@ -314,8 +312,7 @@
     <item msgid="5911600083231840181">"ടോംഗ"</item>
     <item msgid="5176858645450908751">"ജക്കാര്‍ത്ത"</item>
   </string-array>
-    <!-- no translation found for alarm_settings (2947147071388290814) -->
-    <skip />
+    <string name="alarm_settings" msgid="2947147071388290814">"അലാറങ്ങൾ"</string>
     <string name="see_all" msgid="775983396630163739">"എല്ലാം കാണുക..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"അറിയിപ്പ് പ്രവർത്തിപ്പിക്കുന്നതിനുള്ള സ്‌റ്റോപ്പ്‌വാച്ച് സേവനം."</string>
     <string name="swn_stopped" msgid="783124901663086172">"നിർത്തി"</string>
