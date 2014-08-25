@@ -18,6 +18,7 @@ package com.android.deskclock.widget;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -161,25 +162,19 @@ public class ActionableToastBar extends LinearLayout {
 
     private Animator getShowAnimation() {
         if (mShowAnimation == null) {
-            mShowAnimation = AnimatorInflater.loadAnimator(getContext(),
-                    R.anim.fade_in);
-            mShowAnimation.addListener(new Animator.AnimatorListener() {
+            mShowAnimation = AnimatorInflater.loadAnimator(getContext(), R.animator.fade_in);
+            mShowAnimation.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationStart(Animator animation) {
                     setVisibility(View.VISIBLE);
                 }
+
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     // There is a tiny change that and hide animation could have finished right
                     // before the show animation finished.  In that case, the hide will mark the
                     // view as GONE.  We need to make sure the last one wins.
                     setVisibility(View.VISIBLE);
-                }
-                @Override
-                public void onAnimationCancel(Animator animation) {
-                }
-                @Override
-                public void onAnimationRepeat(Animator animation) {
                 }
             });
             mShowAnimation.setTarget(this);
@@ -189,21 +184,11 @@ public class ActionableToastBar extends LinearLayout {
 
     private Animator getHideAnimation() {
         if (mHideAnimation == null) {
-            mHideAnimation = AnimatorInflater.loadAnimator(getContext(),
-                    R.anim.fade_out);
-            mHideAnimation.addListener(new Animator.AnimatorListener() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                }
-                @Override
-                public void onAnimationRepeat(Animator animation) {
-                }
+            mHideAnimation = AnimatorInflater.loadAnimator(getContext(), R.animator.fade_out);
+            mHideAnimation.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     setVisibility(View.GONE);
-                }
-                @Override
-                public void onAnimationCancel(Animator animation) {
                 }
             });
             mHideAnimation.setTarget(this);

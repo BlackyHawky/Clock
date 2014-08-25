@@ -14,23 +14,18 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License
   -->
-<inset xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <layer-list android:paddingMode="stack">
-        <item>
-            <selector>
-                <item android:state_checked="true">
-                    <shape android:shape="oval">
-                        <solid android:color="@color/clock_white"/>
-                    </shape>
-                </item>
-            </selector>
-        </item>
-        <item>
-            <ripple android:color="@color/hot_pink">
-                <item android:id="@android:id/mask" android:drawable="@drawable/bg_day_selected" />
-            </ripple>
-        </item>
-    </layer-list>
-
-</inset>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/hot_pink">
+    <item>
+        <bitmap
+            android:src="@drawable/bg_day_selected"
+            android:tint="@color/bg_day_tint_color"
+            android:gravity="center" />
+    </item>
+    <item android:id="@android:id/mask">
+        <bitmap
+            android:src="@drawable/bg_day_selected"
+            android:gravity="center" />
+    </item>
+</ripple>
