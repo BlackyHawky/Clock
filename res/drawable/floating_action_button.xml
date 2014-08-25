@@ -19,7 +19,7 @@
         android:color="@color/clock_white">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/witch_green" />
+            <solid android:color="@color/hot_pink" />
         </shape>
     </item>
 </ripple>
