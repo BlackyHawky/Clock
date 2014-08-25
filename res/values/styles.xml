@@ -22,7 +22,7 @@
     </style>
 
     <style name="DeskClockParentTheme" parent="@android:style/Theme.Material">
-        <item name="android:colorControlActivated">@color/witch_green</item>
+        <item name="android:colorControlActivated">@color/hot_pink</item>
         <item name="android:colorControlNormal">@color/white</item>
         <item name="android:actionOverflowMenuStyle">@style/PopupMenu</item>
         <item name="android:popupMenuStyle">@style/PopupMenu</item>
@@ -30,8 +30,8 @@
     </style>
 
     <style name="TimePickerTheme" parent="@android:style/Theme.Material.Dialog">
-        <item name="android:colorControlActivated">@color/witch_green</item>
-        <item name="android:colorAccent">@color/witch_green</item>
+        <item name="android:colorControlActivated">@color/hot_pink</item>
+        <item name="android:colorAccent">@color/hot_pink</item>
         <item name="android:colorControlNormal">@color/white</item>
     </style>
 
