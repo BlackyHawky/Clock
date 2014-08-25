@@ -73,7 +73,7 @@ public class AlarmActivity extends Activity {
     private static final float SCALE_SLOPE = 0.3f;
 
     private static final int RIPPLE_DELAY_MS = 500;
-    private static final int FINISH_ACTIVITY_DELAY_MS = 2500;
+    private static final int FINISH_ACTIVITY_DELAY_MS = 2000;
 
     private View mCenterButton;
     private View mContentView;
@@ -453,8 +453,7 @@ public class AlarmActivity extends Activity {
         final View revealView = new View(this);
         revealView.setBottom(displayRect.bottom);
         revealView.setLeft(displayRect.left);
-        // TODO: remove this -1 hack after reveal animation optimization bug fix
-        revealView.setRight(displayRect.right - 1);
+        revealView.setRight(displayRect.right);
         revealView.setBackgroundColor(revealColor);
 
         final int[] clearLocation = new int[2];
@@ -470,10 +469,9 @@ public class AlarmActivity extends Activity {
         final float revealRadius = (float) Math.max(Math.sqrt(x1_2 + y_2), Math.sqrt(x2_2 + y_2));
 
         final ViewGroupOverlay groupOverlay = (ViewGroupOverlay) mContentView.getOverlay();
-        final ValueAnimator revealAnimator = (ValueAnimator)
-                ViewAnimationUtils.createCircularReveal(revealView,
+        final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(revealView,
                         revealCenterX, revealCenterY, 0.0f, revealRadius);
-        revealAnimator.setDuration(DateUtils.SECOND_IN_MILLIS);
+        revealAnimator.setDuration(DateUtils.SECOND_IN_MILLIS / 2);
         revealAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationStart(Animator animator) {
