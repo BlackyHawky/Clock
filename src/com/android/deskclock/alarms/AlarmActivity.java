@@ -318,8 +318,8 @@ public class AlarmActivity extends Activity {
                             bounceAnimation(false /* towardsSnooze */);
                         }
                         if (mShowingSnoozeCircle) {
-                            final int greenColor = mResource.getColor(R.color.witch_green);
-                            reveal(mSnoozeButton, greenColor, greenColor,
+                            final int accentColor = mResource.getColor(R.color.hot_pink);
+                            reveal(mSnoozeButton, accentColor, accentColor,
                                     R.string.alarm_alert_snoozed_text,
                                     AlarmStateManager.getSnoozedMinutes(AlarmActivity.this));
                             snooze();

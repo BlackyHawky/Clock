@@ -27,7 +27,7 @@
             </selector>
         </item>
         <item>
-            <ripple android:color="@color/witch_green">
+            <ripple android:color="@color/hot_pink">
                 <item android:id="@android:id/mask" android:drawable="@drawable/bg_day_selected" />
             </ripple>
         </item>
