@@ -255,8 +255,10 @@
         <item name="android:textSize">@dimen/timer_label_font_size</item>
     </style>
 
-    <style name="dialog_button">
-        <item name="android:textSize">@dimen/dialog_button_font_size</item>
+    <style name="labelEditTextStyle">
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:inputType">textCapSentences</item>
+        <item name="android:selectAllOnFocus">true</item>
     </style>
 
     <style name="bold_button" parent="button">
