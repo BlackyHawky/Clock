@@ -19,6 +19,9 @@ package com.android.deskclock;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +97,21 @@ public class LabelDialogFragment extends DialogFragment {
                 return false;
             }
         });
+        mLabelBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setLabelBoxBackground(s == null || TextUtils.isEmpty(s));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        setLabelBoxBackground(TextUtils.isEmpty(label));
 
         final Button cancelButton = (Button) view.findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +173,11 @@ public class LabelDialogFragment extends DialogFragment {
                     + "AlarmLabelDialogHandler or TimerLabelDialogHandler");
         }
         dismiss();
+    }
+
+    private void setLabelBoxBackground(boolean emptyText) {
+        mLabelBox.setBackgroundResource(emptyText ?
+                R.drawable.bg_edittext_default : R.drawable.bg_edittext_activated);
     }
 
     interface AlarmLabelDialogHandler {

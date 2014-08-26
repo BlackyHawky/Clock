@@ -83,7 +83,7 @@
     <dimen name="body_font_padding">4dp</dimen>
     <dimen name="button_font_size">24sp</dimen>
     <dimen name="timer_label_font_size">24sp</dimen>
-    <dimen name="dialog_button_font_size">14sp</dimen>
+    <dimen name="dialog_button_font_size">16sp</dimen>
 
     <dimen name="alarm_label_size">14sp</dimen>
 
