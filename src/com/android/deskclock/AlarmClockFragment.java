@@ -19,6 +19,7 @@ package com.android.deskclock;
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
@@ -51,8 +52,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
@@ -65,7 +68,6 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.provider.Alarm;
@@ -85,7 +87,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>, OnTimeSetListener, View.OnTouchListener {
     private static final float EXPAND_DECELERATION = 1f;
     private static final float COLLAPSE_DECELERATION = 0.7f;
+
     private static final int ANIMATION_DURATION = 300;
+    private static final int EXPAND_DURATION = 300;
+    private static final int COLLAPSE_DURATION = 250;
+
     private static final String KEY_EXPANDED_ID = "expandedId";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
     private static final String KEY_RINGTONE_TITLE_CACHE = "ringtoneTitleCache";
@@ -135,6 +141,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private Interpolator mExpandInterpolator;
     private Interpolator mCollapseInterpolator;
 
+    private Transition mAddRemoveTransition;
+    private Transition mRepeatTransition;
+
     private int mTimelineViewWidth;
     private int mUndoBarInitialMargin;
 
@@ -172,6 +181,13 @@ public class AlarmClockFragment extends DeskClockFragment implements
         mExpandInterpolator = new DecelerateInterpolator(EXPAND_DECELERATION);
         mCollapseInterpolator = new DecelerateInterpolator(COLLAPSE_DECELERATION);
 
+        mAddRemoveTransition = new AutoTransition();
+        mAddRemoveTransition.setDuration(ANIMATION_DURATION);
+
+        mRepeatTransition = new AutoTransition();
+        mRepeatTransition.setDuration(ANIMATION_DURATION / 2);
+        mRepeatTransition.setInterpolator(new AccelerateDecelerateInterpolator());
+
         boolean isLandscape = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
         View menuButton = v.findViewById(R.id.menu_button);
@@ -193,56 +209,31 @@ public class AlarmClockFragment extends DeskClockFragment implements
         });
         mAlarmsList = (ListView) v.findViewById(R.id.alarms_list);
 
-        mFadeIn = AnimatorInflater.loadAnimator(getActivity(), R.anim.fade_in);
+        mFadeIn = AnimatorInflater.loadAnimator(getActivity(), R.animator.fade_in);
         mFadeIn.setDuration(ANIMATION_DURATION);
-        mFadeIn.addListener(new AnimatorListener() {
-
+        mFadeIn.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animation) {
+            public void onAnimationStart(Animator animator) {
                 mEmptyView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                // Do nothing.
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                // Do nothing.
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-                // Do nothing.
             }
         });
         mFadeIn.setTarget(mEmptyView);
-        mFadeOut = AnimatorInflater.loadAnimator(getActivity(), R.anim.fade_out);
-        mFadeOut.setDuration(ANIMATION_DURATION);
-        mFadeOut.addListener(new AnimatorListener() {
 
+        mFadeOut = AnimatorInflater.loadAnimator(getActivity(), R.animator.fade_out);
+        mFadeOut.setDuration(ANIMATION_DURATION);
+        mFadeOut.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator arg0) {
+            public void onAnimationStart(Animator animator) {
                 mEmptyView.setVisibility(View.VISIBLE);
             }
 
             @Override
-            public void onAnimationCancel(Animator arg0) {
-                // Do nothing.
-            }
-
-            @Override
-            public void onAnimationEnd(Animator arg0) {
+            public void onAnimationEnd(Animator animator) {
                 mEmptyView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator arg0) {
-                // Do nothing.
             }
         });
         mFadeOut.setTarget(mEmptyView);
+
         mAlarmsView = v.findViewById(R.id.alarm_layout);
 
         mUndoBar = (ActionableToastBar) v.findViewById(R.id.undo_bar);
@@ -516,9 +507,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     public class AlarmItemAdapter extends CursorAdapter {
-        private static final int EXPAND_DURATION = 300;
-        private static final int COLLAPSE_DURATION = 250;
-
         private final Context mContext;
         private final LayoutInflater mFactory;
         private final String[] mShortWeekDayStrings;
@@ -565,8 +553,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             TextView clickableLabel;
             CheckBox repeat;
             LinearLayout repeatDays;
-            ViewGroup[] dayButtonParents = new ViewGroup[7];
-            ToggleButton[] dayButtons = new ToggleButton[7];
+            Button[] dayButtons = new Button[7];
             CheckBox vibrate;
             TextView ringtone;
             View hairLine;
@@ -672,11 +659,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
          */
         @Override
         public synchronized Cursor swapCursor(Cursor cursor) {
-
             if (mAddedAlarm != null || mDeletedAlarm != null) {
-                final Transition transition = new AutoTransition();
-                transition.setDuration(ANIMATION_DURATION);
-                TransitionManager.beginDelayedTransition(mAlarmsList, transition);
+                TransitionManager.beginDelayedTransition(mAlarmsList, mAddRemoveTransition);
             }
 
             final Cursor c = super.swapCursor(cursor);
@@ -717,15 +701,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             // Build button for each day.
             for (int i = 0; i < 7; i++) {
-                final ViewGroup viewgroup = (ViewGroup) mFactory.inflate(R.layout.day_button,
-                        holder.repeatDays, false);
-                final ToggleButton button = (ToggleButton) viewgroup.getChildAt(0);
-                button.setTextOn(mShortWeekDayStrings[i]);
-                button.setTextOff(mShortWeekDayStrings[i]);
-                button.setContentDescription(mLongWeekDayStrings[DAY_ORDER[i]]);
-                holder.repeatDays.addView(viewgroup);
-                holder.dayButtons[i] = button;
-                holder.dayButtonParents[i] = viewgroup;
+                final Button dayButton = (Button) mFactory.inflate(
+                        R.layout.day_button, holder.repeatDays, false /* attachToRoot */);
+                dayButton.setText(mShortWeekDayStrings[i]);
+                dayButton.setContentDescription(mLongWeekDayStrings[DAY_ORDER[i]]);
+                holder.repeatDays.addView(dayButton);
+                holder.dayButtons[i] = dayButton;
             }
             holder.vibrate = (CheckBox) view.findViewById(R.id.vibrate_onoff);
             holder.ringtone = (TextView) view.findViewById(R.id.choose_ringtone);
@@ -895,16 +876,23 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             if (mRepeatChecked.contains(alarm.id) || itemHolder.alarm.daysOfWeek.isRepeating()) {
                 itemHolder.repeat.setChecked(true);
+                itemHolder.repeat.setTextColor(mColorLit);
                 itemHolder.repeatDays.setVisibility(View.VISIBLE);
             } else {
                 itemHolder.repeat.setChecked(false);
+                itemHolder.repeat.setTextColor(mColorDim);
                 itemHolder.repeatDays.setVisibility(View.GONE);
             }
             itemHolder.repeat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    // Animate the resulting layout changes.
+                    TransitionManager.beginDelayedTransition(mList, mRepeatTransition);
+
                     final boolean checked = ((CheckBox) view).isChecked();
                     if (checked) {
+                        itemHolder.repeat.setTextColor(mColorLit);
+
                         // Show days
                         itemHolder.repeatDays.setVisibility(View.VISIBLE);
                         mRepeatChecked.add(alarm.id);
@@ -919,6 +907,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
                         }
                         updateDaysOfWeekButtons(itemHolder, alarm.daysOfWeek);
                     } else {
+                        itemHolder.repeat.setTextColor(mColorDim);
+
+                        // Hide days
                         itemHolder.repeatDays.setVisibility(View.GONE);
                         mRepeatChecked.remove(alarm.id);
 
@@ -929,6 +920,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                         // Remove all repeat days
                         alarm.daysOfWeek.clearAllDays();
                     }
+
                     asyncUpdateAlarm(alarm, false);
                 }
             });
@@ -937,22 +929,25 @@ public class AlarmClockFragment extends DeskClockFragment implements
             for (int i = 0; i < 7; i++) {
                 final int buttonIndex = i;
 
-                itemHolder.dayButtonParents[i].setOnClickListener(new View.OnClickListener() {
+                itemHolder.dayButtons[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        itemHolder.dayButtons[buttonIndex].toggle();
-                        final boolean checked = itemHolder.dayButtons[buttonIndex].isChecked();
-                        int day = DAY_ORDER[buttonIndex];
-                        alarm.daysOfWeek.setDaysOfWeek(checked, day);
-                        if (checked) {
+                        final boolean isActivated =
+                                itemHolder.dayButtons[buttonIndex].isActivated();
+                        alarm.daysOfWeek.setDaysOfWeek(!isActivated, DAY_ORDER[buttonIndex]);
+                        if (!isActivated) {
                             turnOnDayOfWeek(itemHolder, buttonIndex);
                         } else {
                             turnOffDayOfWeek(itemHolder, buttonIndex);
 
                             // See if this was the last day, if so, un-check the repeat box.
                             if (!alarm.daysOfWeek.isRepeating()) {
-                                itemHolder.repeatDays.setVisibility(View.GONE);
+                                // Animate the resulting layout changes.
+                                TransitionManager.beginDelayedTransition(mList, mRepeatTransition);
+
+                                itemHolder.repeat.setChecked(false);
                                 itemHolder.repeat.setTextColor(mColorDim);
+                                itemHolder.repeatDays.setVisibility(View.GONE);
                                 mRepeatChecked.remove(alarm.id);
 
                                 // Set history to no days, so it will be everyday when repeat is
@@ -965,7 +960,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     }
                 });
             }
-
 
             if (!mHasVibrator) {
                 itemHolder.vibrate.setVisibility(View.INVISIBLE);
@@ -1060,13 +1054,15 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         private void turnOffDayOfWeek(ItemHolder holder, int dayIndex) {
-            holder.dayButtons[dayIndex].setChecked(false);
-            holder.dayButtons[dayIndex].setTextColor(getResources().getColor(R.color.clock_white));
+            final Button dayButton = holder.dayButtons[dayIndex];
+            dayButton.setActivated(false);
+            dayButton.setTextColor(getResources().getColor(R.color.clock_white));
         }
 
         private void turnOnDayOfWeek(ItemHolder holder, int dayIndex) {
-            holder.dayButtons[dayIndex].setChecked(true);
-            holder.dayButtons[dayIndex].setTextColor(Utils.getCurrentHourColor());
+            final Button dayButton = holder.dayButtons[dayIndex];
+            dayButton.setActivated(true);
+            dayButton.setTextColor(Utils.getCurrentHourColor());
         }
 
 
@@ -1290,7 +1286,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     });
                     animator.setInterpolator(mCollapseInterpolator);
                     // Set everything to their final values when the animation's done.
-                    animator.addListener(new AnimatorListener() {
+                    animator.addListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             // Set it back to wrap content since we'd explicitly set the height.
@@ -1304,16 +1300,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                             itemHolder.expandArea.setVisibility(View.GONE);
                             itemHolder.arrow.setRotation(0);
                         }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-                            // TODO we may have to deal with cancelations of the animation.
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) { }
-                        @Override
-                        public void onAnimationStart(Animator animation) { }
                     });
                     animator.start();
 
