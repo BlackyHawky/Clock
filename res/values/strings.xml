@@ -511,6 +511,8 @@
     <string name="timer_times_up">Time\'s up</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
+    <!-- Toast content shown when user attempts to create a new timer when there are already 4 timers -->
+    <string name="timers_max_count_reached">4 timers maximum</string>
 
     <!-- Jocular content that user may append when sharing the lap times -->
     <string-array name="sw_share_strings" translatable="true">
