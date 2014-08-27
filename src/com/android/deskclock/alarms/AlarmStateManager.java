@@ -376,7 +376,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param context application context
      * @param instance to set state to
      */
-    public static void setSnoozeState(Context context, AlarmInstance instance) {
+    public static void setSnoozeState(Context context, AlarmInstance instance, boolean showToast) {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
@@ -400,9 +400,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 instance, AlarmInstance.FIRED_STATE);
 
         // Display the snooze minutes in a toast.
-        String displayTime = String.format(context.getResources().getQuantityText
-                (R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
-        Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
+        if (showToast) {
+            String displayTime = String.format(context.getResources().getQuantityText
+                    (R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
+            Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
+        }
 
         // Instance time changed, so find next alarm that will fire and notify system
         updateNextAlarm(context);
@@ -656,7 +658,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 setFiredState(context, instance);
                 break;
             case AlarmInstance.SNOOZE_STATE:
-                setSnoozeState(context, instance);
+                setSnoozeState(context, instance, true /* showToast */);
                 break;
             case AlarmInstance.MISSED_STATE:
                 setMissedState(context, instance);
