@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Klokke"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Alarmer"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Legg til alarm"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"NESTE ALARMER"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Skrivebordsklokke"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Rediger alarm"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Slett alarm"</string>
@@ -210,8 +209,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Hjemme"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Byer"</string>
-    <!-- no translation found for clock_settings (8317286807280600391) -->
-    <skip />
+    <string name="clock_settings" msgid="8317286807280600391">"Klokke"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stil"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analog"</item>
@@ -314,8 +312,7 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <!-- no translation found for alarm_settings (2947147071388290814) -->
-    <skip />
+    <string name="alarm_settings" msgid="2947147071388290814">"Alarmer"</string>
     <string name="see_all" msgid="775983396630163739">"Se alle"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stoppeklokke for å kjøre varslet."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Stoppet"</string>
