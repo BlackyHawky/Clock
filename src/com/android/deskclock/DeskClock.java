@@ -71,11 +71,13 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     private static final String LOG_TAG = "DeskClock";
     // Alarm action for midnight (so we can update the date display).
     private static final String KEY_SELECTED_TAB = "selected_tab";
-    private static final String KEY_CLOCK_STATE = "clock_state";
+    private static final String KEY_LAST_HOUR_COLOR = "last_hour_color";
     // Check whether to change background every minute
     private static final long BACKGROUND_COLOR_CHECK_DELAY_MILLIS = DateUtils.MINUTE_IN_MILLIS;
+    private static final int BACKGROUND_COLOR_INITIAL_ANIMATION_DURATION_MILLIS = 3000;
     // The depth of fab, use it to create shadow
     private static final float FAB_DEPTH = 20f;
+    private static final int UNKNOWN_COLOR_ID = 0;
 
     private boolean mIsFirstLaunch;
     private ActionBar mActionBar;
@@ -89,20 +91,11 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     private Handler mHander;
     public ImageButton mFab;
     private int mSelectedTab;
-    private int mLastHourColor;
+    private int mLastHourColor = UNKNOWN_COLOR_ID;
     private final Runnable mBackgroundColorChanger = new Runnable() {
         @Override
         public void run() {
-            final int currHourColor = Utils.getCurrentHourColor();
-            if (mLastHourColor != currHourColor) {
-                final ObjectAnimator animator = ObjectAnimator.ofInt(getWindow().getDecorView(),
-                        "backgroundColor", mLastHourColor, currHourColor);
-                animator.setDuration(getResources().getInteger(
-                        android.R.integer.config_longAnimTime));
-                animator.setEvaluator(new ArgbEvaluator());
-                animator.start();
-                mLastHourColor = currHourColor;
-            }
+            setBackgroundColor();
             mHander.postDelayed(this, BACKGROUND_COLOR_CHECK_DELAY_MILLIS);
         }
     };
@@ -228,6 +221,10 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         mSelectedTab = CLOCK_TAB_INDEX;
         if (icicle != null) {
             mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
+            mLastHourColor = icicle.getInt(KEY_LAST_HOUR_COLOR, UNKNOWN_COLOR_ID);
+            if (mLastHourColor != UNKNOWN_COLOR_ID) {
+                getWindow().getDecorView().setBackgroundColor(mLastHourColor);
+            }
         }
 
         // Timer receiver may ask the app to go to the timer fragment if a timer expired
@@ -251,8 +248,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     protected void onResume() {
         super.onResume();
 
-        mLastHourColor = Utils.getCurrentHourColor();
-        getWindow().getDecorView().setBackgroundColor(mLastHourColor);
+        setBackgroundColor();
 
         // We only want to show notifications for stopwatch/timer when the app is closed so
         // that we don't have to worry about keeping the notifications in perfect sync with
@@ -289,6 +285,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(KEY_SELECTED_TAB, mActionBar.getSelectedNavigationIndex());
+        outState.putInt(KEY_LAST_HOUR_COLOR, mLastHourColor);
     }
 
     @Override
@@ -392,6 +389,24 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         }
     }
 
+    private void setBackgroundColor() {
+        final int duration;
+        if (mLastHourColor == UNKNOWN_COLOR_ID) {
+            mLastHourColor = getResources().getColor(R.color.default_background);
+            duration = BACKGROUND_COLOR_INITIAL_ANIMATION_DURATION_MILLIS;
+        } else {
+            duration = getResources().getInteger(android.R.integer.config_longAnimTime);
+        }
+        final int currHourColor = Utils.getCurrentHourColor();
+        if (mLastHourColor != currHourColor) {
+            final ObjectAnimator animator = ObjectAnimator.ofInt(getWindow().getDecorView(),
+                    "backgroundColor", mLastHourColor, currHourColor);
+            animator.setDuration(duration);
+            animator.setEvaluator(new ArgbEvaluator());
+            animator.start();
+            mLastHourColor = currHourColor;
+        }
+    }
 
     /**
      * Adapter for wrapping together the ActionBar's tab with the ViewPager
