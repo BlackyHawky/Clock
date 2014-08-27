@@ -114,7 +114,7 @@ public class AlarmActivity extends Activity {
     };
 
     private void snooze() {
-        AlarmStateManager.setSnoozeState(this, mInstance);
+        AlarmStateManager.setSnoozeState(this, mInstance, false /* showToast */);
     }
 
     private void dismiss() {
