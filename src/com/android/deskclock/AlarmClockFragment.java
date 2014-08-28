@@ -1096,9 +1096,14 @@ public class AlarmClockFragment extends DeskClockFragment implements
          * @param itemHolder The item holder instance.
          */
         private void expandAlarm(final ItemHolder itemHolder, boolean animate) {
-            if (mExpandedItemHolder != null) {
+            if (mExpandedItemHolder == itemHolder) {
+                // Already expanded -> bail.
+                return;
+            } else if (mExpandedItemHolder != null) {
+                // Only allow one alarm to expanded at a time.
                 collapseAlarm(mExpandedItemHolder, animate);
             }
+
             mExpandedId = itemHolder.alarm.id;
             mExpandedItemHolder = itemHolder;
             bindExpandArea(itemHolder, itemHolder.alarm);

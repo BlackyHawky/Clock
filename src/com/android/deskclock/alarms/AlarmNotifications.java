@@ -83,7 +83,7 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context, "DISMISS_TAG",
                 instance, AlarmInstance.DISMISSED_STATE);
-        notification.addAction(android.R.drawable.ic_menu_close_clear_cancel,
+        notification.addAction(R.drawable.ic_alarm_off_black,
                 resources.getString(R.string.alarm_alert_dismiss_now_text),
                 PendingIntent.getBroadcast(context, instance.hashCode(),
                         dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
@@ -115,7 +115,7 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context, "DISMISS_TAG",
                 instance, AlarmInstance.DISMISSED_STATE);
-        notification.addAction(android.R.drawable.ic_menu_close_clear_cancel,
+        notification.addAction(R.drawable.ic_alarm_off_black,
                 resources.getString(R.string.alarm_alert_dismiss_now_text),
                 PendingIntent.getBroadcast(context, instance.hashCode(),
                         dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
@@ -148,7 +148,7 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context, "DISMISS_TAG",
                 instance, AlarmInstance.DISMISSED_STATE);
-        notification.addAction(android.R.drawable.ic_menu_close_clear_cancel,
+        notification.addAction(R.drawable.ic_alarm_off_black,
                 resources.getString(R.string.alarm_alert_dismiss_text),
                 PendingIntent.getBroadcast(context, instance.hashCode(),
                         dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
@@ -219,7 +219,7 @@ public final class AlarmNotifications {
         PendingIntent snoozePendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
                 snoozeIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.addAction(R.drawable.stat_notify_alarm,
+        notification.addAction(R.drawable.ic_snooze_black,
                 resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
 
         // Setup Dismiss Action
@@ -227,7 +227,7 @@ public final class AlarmNotifications {
                 instance, AlarmInstance.DISMISSED_STATE);
         PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(context,
                 instance.hashCode(), dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.addAction(android.R.drawable.ic_menu_close_clear_cancel,
+        notification.addAction(R.drawable.ic_alarm_off_black,
                 resources.getString(R.string.alarm_alert_dismiss_text),
                 dismissPendingIntent);
 
