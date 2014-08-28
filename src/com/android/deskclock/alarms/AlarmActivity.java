@@ -450,7 +450,9 @@ public class AlarmActivity extends Activity {
         final Rect displayRect = new Rect();
         getWindow().getDecorView().getGlobalVisibleRect(displayRect);
 
+        final ViewGroupOverlay groupOverlay = (ViewGroupOverlay) mContentView.getOverlay();
         final View revealView = new View(this);
+        groupOverlay.add(revealView);
         revealView.setBottom(displayRect.bottom);
         revealView.setLeft(displayRect.left);
         revealView.setRight(displayRect.right);
@@ -468,7 +470,6 @@ public class AlarmActivity extends Activity {
         final double y_2 = Math.pow(revealView.getTop() - revealCenterY, 2);
         final float revealRadius = (float) Math.max(Math.sqrt(x1_2 + y_2), Math.sqrt(x2_2 + y_2));
 
-        final ViewGroupOverlay groupOverlay = (ViewGroupOverlay) mContentView.getOverlay();
         final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(revealView,
                         revealCenterX, revealCenterY, 0.0f, revealRadius);
         revealAnimator.setDuration(DateUtils.SECOND_IN_MILLIS / 2);
