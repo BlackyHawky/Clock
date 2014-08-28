@@ -99,9 +99,7 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
-        final int color = Utils.getCurrentHourColor();
-        getWindow().setStatusBarColor(color);
-        getWindow().getDecorView().setBackgroundColor(color);
+        getWindow().getDecorView().setBackgroundColor(Utils.getCurrentHourColor());
         refresh();
     }
 

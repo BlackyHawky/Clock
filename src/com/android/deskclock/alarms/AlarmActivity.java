@@ -177,7 +177,7 @@ public class AlarmActivity extends Activity {
         // Color the main view instead of content view, because this view is stacked on top of
         // the reveal view, which has a solid color. We don't want that solid color to show up here.
         final int currentHourColor = Utils.getCurrentHourColor();
-        findViewById(R.id.main_layout).setBackgroundColor(currentHourColor);
+        getWindow().getDecorView().setBackgroundColor(currentHourColor);
         initializeButtonListeners(currentHourColor);
         updateTimeAndTitle();
 

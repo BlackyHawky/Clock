@@ -22,6 +22,7 @@
     </style>
 
     <style name="DeskClockParentTheme" parent="@android:style/Theme.Material">
+        <item name="android:statusBarColor">@color/status_bar</item>
         <item name="android:colorControlActivated">@color/hot_pink</item>
         <item name="android:colorControlNormal">@color/white</item>
         <item name="android:actionOverflowMenuStyle">@style/PopupMenu</item>
@@ -109,6 +110,7 @@
          be unable to turn the screen on. -->
     <style name="AlarmAlertFullScreenTheme"
            parent="@android:style/Theme.Material.Wallpaper.NoTitleBar">
+        <item name="android:statusBarColor">@color/status_bar</item>
         <item name="android:windowTitleStyle">@style/AlarmAlertFullScreenWindowTitle</item>
     </style>
 
