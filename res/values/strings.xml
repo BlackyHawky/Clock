@@ -136,6 +136,11 @@
         <item quantity="other">Snoozing for <xliff:g id="minutes">%d</xliff:g> minutes.</item>
     </plurals>
 
+    <!-- Text instruction for dismiss alarm on alarm lock screen (Do not translate to swipe left in RTL) -->
+    <string name="swipe_dismiss_instruction">Swipe right to dismiss</string>
+    <!-- Text instruction for snooze alarm on alarm lock screen (Do not translate to swipe right in RTL) -->
+    <string name="swipe_snooze_instruction">Swipe left to snooze</string>
+
     <!-- Text to appear inside a notification while an alarm is snoozing. -->
     <string name="alarm_alert_snooze_until">Snoozing until <xliff:g id="time">%s</xliff:g></string>
 
@@ -771,13 +776,9 @@
      <string name="swn_stopped">Stopped</string>
 
     <!-- Description of the right direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_right">Slide right to dismiss</string>
+    <string name="description_direction_right">Swipe right to dismiss</string>
     <!-- Description of the left direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_left">Slide left to snooze</string>
-    <!-- Description of the up direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_up">Slide up to dismiss</string>
-    <!-- Description of the down direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_down">Slide down to snooze</string>
+    <string name="description_direction_left">Swipe left to snooze</string>
 
     <!-- Notification title when timer is stopped. -->
     <string name="timer_stopped">Timer stopped</string>
