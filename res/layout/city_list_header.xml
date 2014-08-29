@@ -21,7 +21,9 @@
     android:minHeight="32dip"
     android:layout_marginTop="24dip"
     android:layout_marginBottom="8dip"
+    android:paddingStart="20dip"
     android:gravity="center"
     android:textColor="@color/clock_white"
-    android:textSize="24sp"
+    android:textSize="20sp"
+    android:textStyle="bold"
     android:text="@string/selected_cities_label" />

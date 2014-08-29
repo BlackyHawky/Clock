@@ -19,6 +19,5 @@
     android:id="@+id/cities_list"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="8dip"
     android:divider="@null"
     android:clipToPadding="false" />
