@@ -26,7 +26,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom" >
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/footer_button_layout_margin" >
         <ImageButton
             android:id="@+id/menu_button"
             android:contentDescription="@string/button_menu"
