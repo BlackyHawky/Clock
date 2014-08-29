@@ -32,6 +32,5 @@
     <dimen name="digital_world_clock_text_size">100dp</dimen>
     <dimen name="digital_world_clock_ampm_text_size">18dp</dimen>
     <dimen name="digital_main_clock_text_size">220dp</dimen>
-    <dimen name="main_ampm_font_size">33sp</dimen>
 
 </resources>
