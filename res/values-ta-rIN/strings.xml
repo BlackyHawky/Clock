@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"ரத்துசெய்"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"நேரம் முடிந்தது"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"டைமர்"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"அதிகபட்சம் 4 டைமர்கள்"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"சிறுத்தை போல் வேகமாக உள்ளீர்கள்."</item>
     <item msgid="6332879039890727169">"உங்கள் கடின உழைப்பின் பலனை அனுபவிக்கவும்."</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"அனைத்தையும் காட்டு..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"அறிவிப்பை இயக்குவதற்கான நிறுத்தக்கடிகார சேவை."</string>
     <string name="swn_stopped" msgid="783124901663086172">"நிறுத்தப்பட்டது"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"நிராகரிக்க வலதுபுறம் இழுக்கவும்"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"உறக்கநிலையில் வைக்க இடதுபுறம் இழுக்கவும்"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"நிராகரிக்க மேல்பக்கம் இழுக்கவும்"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"உறக்கநிலையில் வைக்க கீழே இழுக்கவும்"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"டைமர் நிறுத்தப்பட்டது"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள் நிறுத்தப்பட்டன"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"உங்கள் டைமர்களைப் பார்க்க தொடவும்"</string>

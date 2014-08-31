@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"បោះ​បង់​"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ដល់​ម៉ោង"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"កម្មវិធី​កំណត់​ពេល"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"ច្រើន​បំផុត​កម្មវិធី​កំណត់​ម៉ោង ៤"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"អ្នក​កំពុង​ស្ថិត​ក្នុង​ល្បឿន​ដ៏​អស្ចារ្យ។"</item>
     <item msgid="6332879039890727169">"រីករាយ​ជាមួយ​លទ្ធផល​ការងារ​របស់​អ្នក។"</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"មើល​ទាំងអស់…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"សេវាកម្ម​នាឡិកា​បញ្ឈប់​ដើម្បី​ដំណើរការ​ការ​ជូនដំណឹង។"</string>
     <string name="swn_stopped" msgid="783124901663086172">"បាន​ឈប់"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"រុញ​ទៅ​ស្ដាំ​ដើម្បី​បោះបង់"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"រុញ​ទៅ​ឆ្វេង​ដើម្បី​ផ្អាក"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"រុញ​ឡើងលើ​ដើម្បី​បោះបង់"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"រុញ​ចុះក្រោម​ដើម្បី​ផ្អាក"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"កម្មវិធី​កំណត់​ពេល​បាន​ឈប់"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> កម្មវិធី​កំណត់​ពេល​បាន​ឈប់"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"ប៉ះ​ដើម្បី​មើល​កម្មវិធី​កំណត់​ពេល​របស់​អ្នក"</string>

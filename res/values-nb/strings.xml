@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Avbryt"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tiden er ute"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Tidtaker"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Du kan ha maksimalt fire tidtakere"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Du er litt av et fartsmonster."</item>
     <item msgid="6332879039890727169">"Høst fruktene av arbeidet ditt."</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"Se alle"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stoppeklokke for å kjøre varslet."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Stoppet"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Dra til høyre for å avvise"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Dra til venstre for å slumre"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Dra opp for å avvise"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Dra ned for å slumre"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"Nedtellingen ble stoppet"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> nedtellinger ble stoppet"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Trykk for å se nedtellingene dine"</string>

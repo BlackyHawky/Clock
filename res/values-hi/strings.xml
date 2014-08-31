@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"रद्द करें"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"समय समाप्त"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"टाइमर"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"अधिकतम 4 टाइमर"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"आप गति को बहुत पसंद करते हैं."</item>
     <item msgid="6332879039890727169">"अपने परिश्रम के फल का आनंद लें."</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"सभी देखें…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"सूचना चलाने के लिए स्टॉपवॉच सेवा."</string>
     <string name="swn_stopped" msgid="783124901663086172">"रोका गया"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"खारिज करने के लिए दाईं ओर स्लाइड करें"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"बाद में याद दिलाने के लिए बाईं ओर स्लाइड करें"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"खारिज करने के लिए ऊपर स्लाइड करें"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"बाद में याद दिलाने के लिए नीचे स्लाइड करें"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"टाइमर रुक गया"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर रुक गए"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"अपने टाइमर देखने के लिए स्पर्श करें"</string>
