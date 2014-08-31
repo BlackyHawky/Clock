@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"لغو"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"وقت تمام است"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"تایمر"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"حداکثر ۴ تایمر"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"شما واقعاً خدای سرعت هستید."</item>
     <item msgid="6332879039890727169">"از ثمره زحمات خود لذت ببرید."</item>
@@ -316,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"مشاهده همه..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"سرویس کرنومتر برای اجرای اعلان."</string>
     <string name="swn_stopped" msgid="783124901663086172">"متوقف شد"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"برای رد کردن، انگشت خود را به سمت راست بکشید"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"برای تعویق انگشت خود را به سمت چپ بکشید"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"برای رد کردن، انگشت خود را به سمت بالا بکشید"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"برای تعویق انگشت خود را به سمت پایین بکشید"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"برای ردکردن، انگشتتان را روی صفحه تند به راست بکشید"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"برای تعویق، انگشتتان را روی صفحه تند به چپ بکشید"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"تایمر متوقف شد"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> تایمر متوقف شد"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"برای دیدن تایمرهای خود لمس کنید"</string>

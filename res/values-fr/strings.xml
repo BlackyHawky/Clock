@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Annuler"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Le temps est écoulé."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Minuteur"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Quatre minuteurs maximum."</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"On peut dire que vous êtes rapide."</item>
     <item msgid="6332879039890727169">"Profitez du fruit de votre travail."</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"Tout afficher…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Chronomètre pour exécuter la notification"</string>
     <string name="swn_stopped" msgid="783124901663086172">"Arrêtée"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Faire glisser votre doigt vers la droite pour ignorer"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Faire glisser votre doigt vers la gauche pour répéter"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Faire glisser votre doigt vers le haut pour ignorer"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Faire glisser votre doigt vers le bas pour répéter"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"Arrêt du minuteur"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Arrêt de <xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Appuyer ici pour afficher les minuteurs"</string>

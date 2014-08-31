@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"منسوخ کریں"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"وقت ختم ہو گیا"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ٹائمر"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"زیادہ سے زیادہ 4 ٹائمرز"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"آپ کی رفتار بہت زیادہ ہے۔"</item>
     <item msgid="6332879039890727169">"اپنی محنت کا پھل کھائیں۔"</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"سبھی دیکھیں…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"اطلاع کو چلانے کیلئے اسٹاپ واچ سروس۔"</string>
     <string name="swn_stopped" msgid="783124901663086172">"رک گیا"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"برخاست کرنے کیلئے دائیں سلائیڈ کریں"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"اسنوز کرنے کیلئے بائیں سلائیڈ کریں"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"برخاست کرنے کیلئے اوپر سلائیڈ کریں"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"اسنوز کرنے کیلئے نیچے سلائیڈ کریں"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"ٹائمر رک گیا"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ٹائمرز رک گئے"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"اپنے ٹائمرز دیکھنے کیلئے ٹچ کریں"</string>
