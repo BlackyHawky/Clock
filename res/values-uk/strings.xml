@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Скасувати"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Час вийшов"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Таймер"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Не більше 4 таймерів"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Ну ви й швидкі!"</item>
     <item msgid="6332879039890727169">"Насолоджуйтесь плодами своєї праці."</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"Показати всі…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Послуга \"Секундомір\" для запуску сповіщення."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Зупинено"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Проведіть пальцем праворуч, щоб відхилити"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Проведіть пальцем ліворуч, щоб відкласти"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Проведіть пальцем угору, щоб відхилити"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Проведіть пальцем униз, щоб відкласти"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"Таймер зупинився"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Зупинилося таймерів: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Торкніться, щоб переглянути свої таймери"</string>

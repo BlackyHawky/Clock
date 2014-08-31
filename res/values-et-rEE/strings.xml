@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Tühista"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Aeg on läbi"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Taimer"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Maksimaalselt võib olla 4 taimerit"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Olete ülikiire."</item>
     <item msgid="6332879039890727169">"Nautige oma töö vilju."</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"Kuva kõik ..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Märguandeid käitav stopperiteenus."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Peatatud"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Loobumiseks lohistage paremale"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Äratuse edasilükkamiseks lohistage vasakule"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Loobumiseks lohistage üles"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Äratuse edasilükkamiseks lohistage alla"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"Taimer on peatatud"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> taimerit on peatatud"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Puudutage, et näha oma taimereid"</string>

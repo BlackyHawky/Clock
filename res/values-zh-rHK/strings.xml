@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"取消"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"時間已到"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"計時器"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"最多 4 個計時器"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"您就像閃電俠。"</item>
     <item msgid="6332879039890727169">"享受辛勞的成果。"</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"查看全部..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"使用秒錶服務發出通知。"</string>
     <string name="swn_stopped" msgid="783124901663086172">"已停止"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"向右滑動即可關閉"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"向左滑動即可開啟重響"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"向上滑動即可關閉"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"向下滑動即可開啟重響"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"計時器已停止"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器已停止"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"輕觸即可查看您的計時器"</string>
