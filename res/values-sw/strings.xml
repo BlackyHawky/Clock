@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Ghairi"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Muda umekwisha"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Kipima wakati"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Kiwango cha juu cha vipima muda 4"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Una kasi ya ajabu."</item>
     <item msgid="6332879039890727169">"Furahia matunda ya kazi yako."</item>
@@ -316,10 +317,10 @@
     <string name="see_all" msgid="775983396630163739">"Angalia zote..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Huduma ya saa ya kusitisha kuendesha arifa."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Imekomeshwa"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Telezesha kulia ili kuondoa"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Telezesha kushoto ili kuahirisha"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Telezesha juu ili kutupa"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Telezesha chini ili kuahirisha"</string>
+    <!-- no translation found for description_direction_right (5709209043267548985) -->
+    <skip />
+    <!-- no translation found for description_direction_left (7448141043674998679) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"Kipima wakati kimesimamishwa"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g> vilivyosimamishwa"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Gusa ili kuona vipima wakati vyako"</string>
