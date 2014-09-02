@@ -537,7 +537,7 @@ public class TimerFragment extends DeskClockFragment
         }
 
         mTimersList.setAdapter(mAdapter);
-        if (mAdapter.getCount() == 0) {
+        if (mAdapter.isEmpty()) {
             mCancel.setVisibility(View.GONE);
         }
         mLastVisibleView = null;   // Force a non animation setting of the view
@@ -599,13 +599,11 @@ public class TimerFragment extends DeskClockFragment
     }
 
     public void setPage() {
-        boolean switchToSetupView;
+        boolean switchToSetupView = mAdapter.isEmpty();
         if (mViewState != null) {
-            switchToSetupView = mViewState.getBoolean(KEY_SETUP_SELECTED, false);
+            switchToSetupView |= mViewState.getBoolean(KEY_SETUP_SELECTED, false);
             mTimerSetup.restoreEntryState(mViewState, KEY_ENTRY_STATE);
             mViewState = null;
-        } else {
-            switchToSetupView = mAdapter.getCount() == 0;
         }
         if (switchToSetupView) {
             gotoSetupView();
@@ -665,7 +663,7 @@ public class TimerFragment extends DeskClockFragment
 
         }
         stopClockTicks();
-        if (mAdapter.getCount() == 0) {
+        if (mAdapter.isEmpty()) {
             mCancel.setVisibility(View.GONE);
         } else {
             mCancel.setVisibility(View.VISIBLE);
@@ -824,7 +822,7 @@ public class TimerFragment extends DeskClockFragment
     private void deleteTimer(TimerObj t) {
         mAdapter.deleteTimer(t.mTimerId);
         mTimersList.setSelectionToTop();
-        if (mAdapter.getCount() == 0) {
+        if (mAdapter.isEmpty()) {
             if (mOnEmptyListListener == null) {
                 mTimerSetup.reset();
                 gotoSetupView();
@@ -971,7 +969,7 @@ public class TimerFragment extends DeskClockFragment
     private void updateTimesUpMode(TimerObj timerObj) {
         if (mOnEmptyListListener != null && timerObj.mState != TimerObj.STATE_TIMESUP) {
             mAdapter.removeTimer(timerObj);
-            if (mAdapter.getCount() == 0) {
+            if (mAdapter.isEmpty()) {
                 mOnEmptyListListener.onEmptyList();
             } else {
                 mOnEmptyListListener.onListChanged();
