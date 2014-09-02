@@ -361,7 +361,7 @@ public class AlarmActivity extends Activity {
     private void updateTimeAndTitle() {
         updateTitle();
         Utils.setTimeFormat((TextClock) (findViewById(R.id.digitalClock)),
-                (int) getResources().getDimension(R.dimen.bottom_text_size));
+                (int) getResources().getDimension(R.dimen.main_ampm_font_size));
     }
 
     private void drawCenterRipple() {

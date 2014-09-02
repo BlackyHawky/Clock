@@ -187,7 +187,7 @@ public class ScreensaverActivity extends Activity {
         mAnalogClock = findViewById(R.id.analog_clock);
         setClockStyle();
         Utils.setTimeFormat((TextClock)mDigitalClock,
-            (int)getResources().getDimension(R.dimen.bottom_text_size));
+            (int)getResources().getDimension(R.dimen.main_ampm_font_size));
 
         mContentView = (View) mSaverView.getParent();
         mContentView.forceLayout();
