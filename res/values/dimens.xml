@@ -122,6 +122,7 @@
     <dimen name="timer_circle_margin">32dp</dimen>
 
     <dimen name="circle_size">280dp</dimen>
+    <dimen name="stopwatch_list_margin_start">64dip</dimen>
 
     <dimen name="sw_padding_end">32dp</dimen>
 
