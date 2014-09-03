@@ -523,6 +523,9 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
             case R.id.menu_item_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 return true;
@@ -541,11 +544,6 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                     mAdapter.toggleSort();
                     setFastScroll(TextUtils.isEmpty(mQueryTextBuffer.toString().trim()));
                 }
-                return true;
-            case android.R.id.home:
-                Intent intent = new Intent(this, DeskClock.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
                 return true;
             default:
                 break;

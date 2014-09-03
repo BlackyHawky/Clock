@@ -53,7 +53,7 @@
         <Button
             android:id="@+id/cancelButton"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_height="36dip"
+            android:layout_height="wrap_content"
             android:layout_width="0dip"
             android:layout_weight="1"
             android:textSize="@dimen/dialog_button_font_size"
@@ -63,7 +63,7 @@
         <Button
             android:id="@+id/setButton"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_height="36dip"
+            android:layout_height="wrap_content"
             android:layout_width="0dip"
             android:layout_weight="1"
             android:textSize="@dimen/dialog_button_font_size"
