@@ -17,7 +17,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:paddingTop="?android:attr/actionBarSize"
+    android:paddingTop="32dip"
     android:baselineAligned="false">
 
     <Space
@@ -88,7 +88,10 @@
 
     <ListView
         android:id="@+id/laps_list"
-        android:layout_margin="64dip"
+        android:layout_marginTop="32dip"
+        android:layout_marginBottom="48dip"
+        android:layout_marginStart="@dimen/stopwatch_list_margin_start"
+        android:layout_marginEnd="16dip"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

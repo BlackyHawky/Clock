@@ -173,6 +173,7 @@
                 android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="4dip"
                 android:layout_gravity="start|center_vertical"
                 android:contentDescription="@string/delete_alarm"
                 android:padding="8dp"
