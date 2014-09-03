@@ -524,7 +524,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             TabInfo info = (TabInfo) tab.getTag();
             int position = info.getPosition();
             mSelectedTab = position;
-            if (mIsFirstLaunch && position == CLOCK_TAB_INDEX) {
+            if (mIsFirstLaunch && getRtlPosition(position) == CLOCK_TAB_INDEX) {
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setImageResource(R.drawable.ic_globe);
                 mIsFirstLaunch = false;
