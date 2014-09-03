@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Εμφάνιση όλων…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Υπηρεσία χρονόμετρου για την εκτέλεση της ειδοποίησης."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Διακόπηκε"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Σύρετε δεξιά για παράβλεψη"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Σύρετε αριστερά για αναβολή"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Το ξυπνητήρι διακόπηκε"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ξυπνητήρια διακόπηκαν"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Αγγίξτε για να δείτε τα ξυπνητήρια σας"</string>

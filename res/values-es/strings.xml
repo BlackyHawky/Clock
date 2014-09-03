@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Ver todo…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servicio de cronómetro para ejecutar la notificación"</string>
     <string name="swn_stopped" msgid="783124901663086172">"Detenido"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Deslizar hacia la derecha para ignorar"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Deslizar hacia la izquierda para posponer"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Temporizador detenido"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores detenidos"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca para ver tus temporizadores"</string>

@@ -191,8 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"取消"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"时间到"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"计时器"</string>
-    <!-- no translation found for timers_max_count_reached (9140022846793903813) -->
-    <skip />
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"最多只能设置4个计时器"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"您简直就像闪电侠。"</item>
     <item msgid="6332879039890727169">"享受一下您大汗淋漓的成果吧。"</item>
@@ -318,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"查看全部…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"使用秒表服务执行通知功能。"</string>
     <string name="swn_stopped" msgid="783124901663086172">"已停止"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"向右滑动可关闭闹钟"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"向左滑动可暂停闹钟"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"计时器已停止"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g>个计时器已停止"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"触摸可查看您的计时器"</string>
