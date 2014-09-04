@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"查看全部..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"使用秒錶服務發出通知。"</string>
     <string name="swn_stopped" msgid="783124901663086172">"已停止"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"向右快速滑動可關閉鬧鈴"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"向左快速滑動可重響鬧鈴"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"計時器已停止"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器已停止"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"輕觸即可查看您的計時器"</string>

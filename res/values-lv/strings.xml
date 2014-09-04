@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Skatīt visu..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Hronometra pakalpojums paziņojuma darbībai."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Apturēts"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Lai nerādītu, velciet pa labi"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Lai atliktu, velciet pa kreisi"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Taimeris ir apturēts."</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> taimeri ir apturēti."</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Pieskarieties, lai skatītu savus taimerus."</string>
