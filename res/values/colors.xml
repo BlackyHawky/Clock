@@ -23,8 +23,13 @@
     <color name="screen_saver_dim_color">#FF001634</color>
     <color name="action_bar_button_text_color">#FFFFFF</color>
     <color name="dialog_gray">#28ffffff</color>
+    <color name="pressed_state_color">#33999999</color>
 
     <color name="black">#ff000000</color>
+    <color name="black_87p">#de000000</color>
+    <color name="black_54p">#8a000000</color>
+    <color name="black_16p">#28000000</color>
+
     <color name="blackish_selected">#0cffffff</color>
     <color name="white">#ffffffff</color>
     <color name="grey">#ffaaaaaa</color>
@@ -44,10 +49,9 @@
     <color name="default_background">#5c6bc0</color>
     <color name="status_bar">#26000000</color>
 
-    <color name="notification_bg">#ff15444F</color>
     <color name="alarm_selected_color">#aa0099cc</color>
 
-    <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
+    <drawable name="notification_template_icon_bg">#ff607d8b</drawable>
     <drawable name="notification_template_icon_low_bg">#0cffffff</drawable>
 
 </resources>
