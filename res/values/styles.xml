@@ -25,9 +25,8 @@
         <item name="android:statusBarColor">@color/status_bar</item>
         <item name="android:colorControlActivated">@color/hot_pink</item>
         <item name="android:colorControlNormal">@color/white</item>
-        <item name="android:actionOverflowMenuStyle">@style/PopupMenu</item>
         <item name="android:actionOverflowButtonStyle">@style/ActionOverflowButtonStyle</item>
-        <item name="android:popupMenuStyle">@style/PopupMenu</item>
+        <item name="android:popupMenuStyle">?android:attr/actionOverflowMenuStyle</item>
         <item name="android:buttonStyle">?android:attr/borderlessButtonStyle</item>
     </style>
 
@@ -35,10 +34,6 @@
         <item name="android:colorControlActivated">@color/hot_pink</item>
         <item name="android:colorAccent">@color/hot_pink</item>
         <item name="android:colorControlNormal">@color/white</item>
-    </style>
-
-    <style name="PopupMenu" parent="@android:style/Widget.Material.PopupMenu.Overflow">
-        <item name="android:popupBackground">@color/bright_foreground_light_disabled</item>
     </style>
 
     <style name="DeskClock" parent="@style/DeskClockParentTheme">
@@ -94,9 +89,9 @@
         <item name="android:background">@drawable/ab_hairline</item>
     </style>
 
-    <style name="SettingsTheme.TextAppearance.ActionBar.Title" parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
+    <style name="SettingsTheme.TextAppearance.ActionBar.Title"
+        parent="@android:style/TextAppearance.Material.Widget.ActionBar.Title">
         <item name="android:textSize">@dimen/actionbar_title_font_size</item>
-        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="AlarmAlertFullScreenWindowTitle">
