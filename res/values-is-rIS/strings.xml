@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Sjá allt…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Skeiðklukkuþjónusta til að keyra tilkynninguna."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Stöðvuð"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Strjúktu til hægri til að hunsa"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Strjúktu til vinstri til að þagga tímabundið"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Teljari stöðvaður"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> teljarar stöðvaðir"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Snertu til að sjá teljarana þína"</string>

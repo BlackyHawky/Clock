@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Angalia zote..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Huduma ya saa ya kusitisha kuendesha arifa."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Imekomeshwa"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Telezesha kidole kulia ili uondoe"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Telezesha kidole kushoto ili uahirishe"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Kipima wakati kimesimamishwa"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g> vilivyosimamishwa"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Gusa ili kuona vipima wakati vyako"</string>

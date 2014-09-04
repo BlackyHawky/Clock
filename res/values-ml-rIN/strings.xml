@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"എല്ലാം കാണുക..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"അറിയിപ്പ് പ്രവർത്തിപ്പിക്കുന്നതിനുള്ള സ്‌റ്റോപ്പ്‌വാച്ച് സേവനം."</string>
     <string name="swn_stopped" msgid="783124901663086172">"നിർത്തി"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"നിരസിക്കാൻ വലത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ടൈമർ നിർത്തി"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ നിർത്തി"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"നിങ്ങളുടെ ടൈമറുകൾ കാണുന്നതിന് സ്‌പർശിക്കുക"</string>

@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Tout afficher…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Chronomètre pour exécuter la notification"</string>
     <string name="swn_stopped" msgid="783124901663086172">"Arrêté"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Glissez vers la droite pour supprimer"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Glissez vers la gauche pour répéter"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Arrêt du minuteur"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Arrêt de <xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Appuyer ici pour afficher les minuteurs"</string>

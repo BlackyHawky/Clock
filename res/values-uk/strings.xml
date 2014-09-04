@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Показати всі…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Послуга \"Секундомір\" для запуску сповіщення."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Зупинено"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Щоб відхилити, проведіть пальцем праворуч"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Щоб відкласти, проведіть пальцем ліворуч"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Таймер зупинився"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Зупинилося таймерів: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Торкніться, щоб переглянути свої таймери"</string>
