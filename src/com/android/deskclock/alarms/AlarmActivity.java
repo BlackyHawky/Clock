@@ -49,6 +49,7 @@ import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.PathInterpolator;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -379,7 +380,7 @@ public class AlarmActivity extends Activity {
 
         AnimatorSet set = new AnimatorSet();
         set.play(radiusAnim).with(alphaAnim);
-        set.setInterpolator(new DecelerateInterpolator());
+        set.setInterpolator(new PathInterpolator(0.4f, 0, 0.2f, 1.0f));
         set.setDuration(DateUtils.SECOND_IN_MILLIS);
         set.start();
     }
