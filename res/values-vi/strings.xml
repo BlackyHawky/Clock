@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Xem tất cả..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Dịch vụ đồng hồ bấm giờ để chạy thông báo."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Đã dừng"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Vuốt sang phải để loại bỏ"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Vuốt sang trái để báo lại"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Đã dừng bộ tính giờ"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Đã dừng <xliff:g id="NUMBER">%d</xliff:g> bộ tính giờ"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Chạm để xem bộ tính giờ của bạn"</string>

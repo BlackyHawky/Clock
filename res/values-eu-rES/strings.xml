@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Ikusi guztiak…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Jakinarazpena exekutatzeko kronometro-zerbitzua."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Geldituta"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"Baztertzeko, pasatu hatza eskuinera"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Atzeratzeko, pasatu hatza ezkerrera"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Tenporizadorea gelditu da"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore gelditu dira"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tenporizadoreak ikusteko, ukitu hau"</string>

@@ -317,10 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"सभी देखें…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"सूचना चलाने के लिए स्टॉपवॉच सेवा."</string>
     <string name="swn_stopped" msgid="783124901663086172">"रोका गया"</string>
-    <!-- no translation found for description_direction_right (5709209043267548985) -->
-    <skip />
-    <!-- no translation found for description_direction_left (7448141043674998679) -->
-    <skip />
+    <string name="description_direction_right" msgid="5709209043267548985">"ख़ारिज करने के लिए दाएं स्वाइप करें"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"याद दिलाने के लिए बाएं स्वाइप करें"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"टाइमर रुक गया"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर रुक गए"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"अपने टाइमर देखने के लिए स्पर्श करें"</string>
