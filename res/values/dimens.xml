@@ -44,10 +44,10 @@
     <dimen name="top_text_spacing_digital">4dp</dimen>
     <dimen name="bottom_text_spacing_analog">14dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">6dp</dimen>
-    <dimen name="digital_world_clock_text_size">60dp</dimen>
-    <dimen name="digital_world_clock_ampm_text_size">14dp</dimen>
-    <dimen name="digital_main_clock_text_size">120dp</dimen>
-    <dimen name="digital_screensaver_clock_text_size">100dp</dimen>
+    <dimen name="digital_world_clock_text_size">56sp</dimen>
+    <dimen name="digital_world_clock_ampm_text_size">14sp</dimen>
+    <dimen name="digital_main_clock_text_size">104sp</dimen>
+    <dimen name="digital_screensaver_clock_text_size">104sp</dimen>
 
     <!-- Analog clock size in the the screen saver -->
     <dimen name="analog_clock_diameter">236dip</dimen>
@@ -56,7 +56,7 @@
     <dimen name="bottom_text_size">16sp</dimen>
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
-    <dimen name="actionbar_title_font_size">22sp</dimen>
+    <dimen name="actionbar_title_font_size">18sp</dimen>
 
     <dimen name="footer_button_size">56dip</dimen>
     <dimen name="footer_button_layout_margin">16dip</dimen>
@@ -69,9 +69,9 @@
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">16dip</dimen>
 
-    <dimen name="big_font_size">120dp</dimen>
+    <dimen name="big_font_size">100sp</dimen>
+    <dimen name="medium_font_size">60sp</dimen>
     <dimen name="small_font_size">48sp</dimen>
-    <dimen name="medium_font_size">60dp</dimen>
     <dimen name="label_font_size">16sp</dimen>
     <dimen name="widget_label_font_size">14sp</dimen>
     <dimen name="main_ampm_font_size">32sp</dimen>
@@ -164,9 +164,9 @@
 
     <!-- Digital Widget settings (keyguard|home_screen) -->
     <!-- Clock and world clock sizes -->
-    <dimen name="widget_big_font_size">80dp</dimen>
-    <dimen name="widget_medium_font_size">32dp</dimen>
-    <dimen name="widget_24_medium_font_size">40dp</dimen>
+    <dimen name="widget_big_font_size">80sp</dimen>
+    <dimen name="widget_medium_font_size">32sp</dimen>
+    <dimen name="widget_24_medium_font_size">40sp</dimen>
 
     <!-- Hour and minute spacing -->
     <dimen name="widget_big_time_margin_right">10dip</dimen>
