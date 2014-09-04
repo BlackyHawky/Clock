@@ -25,5 +25,4 @@
     android:gravity="center"
     android:textColor="@color/clock_white"
     android:textSize="20sp"
-    android:textStyle="bold"
     android:text="@string/selected_cities_label" />
