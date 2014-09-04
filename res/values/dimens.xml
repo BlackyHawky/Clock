@@ -134,8 +134,6 @@
     <dimen name="notification_text_size">14dp</dimen>
     <!-- Size of notification text titles (see TextAppearance.StatusBar.EventContent.Title) -->
     <dimen name="notification_title_text_size">18dp</dimen>
-     <!-- Size of smaller notification text (see TextAppearance.StatusBar.EventContent.Line2, Info, Time) -->
-    <dimen name="notification_subtext_size">12dp</dimen>
 
     <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">304dip</dimen>
