@@ -18,8 +18,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/medium_space_top"
-    android:paddingRight="@dimen/medium_space_top"
     android:paddingTop="@dimen/medium_space_top">
 
     <com.android.deskclock.widget.EllipsizeLayout
@@ -44,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/medium_light"
-            android:textSize="@dimen/digital_world_clock_text_size"
             android:textColor="@color/clock_white"
             android:baselineAligned="true"
             android:layout_gravity="center"

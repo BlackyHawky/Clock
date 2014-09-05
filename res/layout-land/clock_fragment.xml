@@ -19,7 +19,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?android:attr/actionBarSize" >
+    android:paddingStart="@dimen/clock_side_padding"
+    android:paddingEnd="@dimen/clock_side_padding"
+    android:paddingTop="?android:attr/actionBarSize"
+    android:paddingBottom="@dimen/footer_button_size" >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,8 +34,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_gravity="center" />
         <ListView
             android:id="@+id/cities"
@@ -40,7 +41,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="@integer/world_clocks_per_row"
             android:clickable="false"
-            android:layout_marginRight="20dp"
             android:layout_gravity="center" />
     </LinearLayout>
 </FrameLayout>
