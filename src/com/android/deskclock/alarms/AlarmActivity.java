@@ -82,6 +82,7 @@ public class AlarmActivity extends Activity {
     private View mDismissButton;
     private View mSnoozeCircle;
     private View mDismissCircle;
+    private TextView mHint;
     private AlarmRipple mCenterRipple;
 
     private boolean mShowingSnoozeCircle;
@@ -174,6 +175,7 @@ public class AlarmActivity extends Activity {
         mCenterRipple = (AlarmRipple) findViewById(R.id.center_ripple);
         mSnoozeCircle = findViewById(R.id.snooze_circle);
         mDismissCircle = findViewById(R.id.dismiss_circle);
+        mHint = (TextView) findViewById(R.id.hint);
 
         // Color the main view instead of content view, because this view is stacked on top of
         // the reveal view, which has a solid color. We don't want that solid color to show up here.
@@ -197,7 +199,7 @@ public class AlarmActivity extends Activity {
         }, RIPPLE_DELAY_MS /* Delay to make sure view is rendered before drawing ripple */);
     }
 
-    private void bounceAnimation(boolean towardsSnooze) {
+    private void bounceAnimation(final boolean towardsSnooze) {
         final float distance = mCenterButton.getWidth();
         ObjectAnimator push = ObjectAnimator.ofFloat(mCenterButton, View.TRANSLATION_X,
                 towardsSnooze ? 0 - distance : distance);
@@ -208,6 +210,21 @@ public class AlarmActivity extends Activity {
         AnimatorSet set = new AnimatorSet();
         set.play(push).before(pull);
         set.setDuration(mResource.getInteger(android.R.integer.config_shortAnimTime));
+        set.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                mHint.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                mHint.setVisibility(View.VISIBLE);
+                mHint.setText(getResources().getText(towardsSnooze ?
+                        R.string.swipe_snooze_instruction : R.string.swipe_dismiss_instruction));
+            }
+        });
         set.start();
     }
 
