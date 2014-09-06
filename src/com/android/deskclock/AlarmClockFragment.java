@@ -828,6 +828,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onClick(View v) {
                     mDeletedAlarm = alarm;
+                    mRepeatChecked.remove(alarm.id);
                     asyncDeleteAlarm(alarm);
                 }
             });
@@ -1096,17 +1097,21 @@ public class AlarmClockFragment extends DeskClockFragment implements
          * @param itemHolder The item holder instance.
          */
         private void expandAlarm(final ItemHolder itemHolder, boolean animate) {
-            if (mExpandedItemHolder == itemHolder) {
-                // Already expanded -> bail.
-                return;
-            } else if (mExpandedItemHolder != null) {
-                // Only allow one alarm to expanded at a time.
+            // Skip animation later if item is already expanded
+            animate &= mExpandedId != itemHolder.alarm.id;
+
+            if (mExpandedItemHolder != null
+                    && mExpandedItemHolder != itemHolder
+                    && mExpandedId != itemHolder.alarm.id) {
+                // Only allow one alarm to expand at a time.
                 collapseAlarm(mExpandedItemHolder, animate);
             }
 
+            bindExpandArea(itemHolder, itemHolder.alarm);
+
             mExpandedId = itemHolder.alarm.id;
             mExpandedItemHolder = itemHolder;
-            bindExpandArea(itemHolder, itemHolder.alarm);
+
             // Scroll the view to make sure it is fully viewed
             mScrollAlarmId = itemHolder.alarm.id;
 
