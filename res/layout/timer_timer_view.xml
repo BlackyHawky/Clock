@@ -57,12 +57,6 @@
 
     </LinearLayout>
 
-    <view
-        android:id="@+id/vertical_view_pager"
-        class="com.android.deskclock.VerticalViewPager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
 </FrameLayout>
 
 
