@@ -19,6 +19,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -26,33 +27,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Rect;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
+import android.support.annotation.NonNull;
 import android.view.DragEvent;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.DragShadowBuilder;
-import android.view.View.OnClickListener;
-import android.view.View.OnDragListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewAnimationUtils;
+import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
 import android.view.animation.PathInterpolator;
+import android.widget.ImageButton;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.Log;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
@@ -60,76 +54,229 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.provider.AlarmInstance;
 
 public class AlarmActivity extends Activity {
-    // AlarmActivity listens for this broadcast intent, so that other applications
-    // can snooze the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
-    public static final String ALARM_SNOOZE_ACTION = "com.android.deskclock.ALARM_SNOOZE";
 
-    // AlarmActivity listens for this broadcast intent, so that other applications
-    // can dismiss the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
+    /**
+     * AlarmActivity listens for this broadcast intent, so that other applicationscan snooze the
+     * alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
+     */
+    public static final String ALARM_SNOOZE_ACTION = "com.android.deskclock.ALARM_SNOOZE";
+    /**
+     * AlarmActivity listens for this broadcast intent, so that other applications can dismiss
+     * the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
+     */
     public static final String ALARM_DISMISS_ACTION = "com.android.deskclock.ALARM_DISMISS";
 
-    private static final float DIM_ALPHA = 0.3f;
-    private static final float NORMAL_ALPHA = 0.65f;
-    private static final float HIGHLIGHT_ALPHA = 1.0f;
-    private static final float SCALE_SLOPE = 0.3f;
+    private static final View.DragShadowBuilder NO_DRAG_SHADOW = new View.DragShadowBuilder();
 
-    private static final int RIPPLE_DELAY_MS = 500;
-    private static final int FINISH_ACTIVITY_DELAY_MS = 2000;
+    private static final Interpolator PULSE_INTERPOLATOR =
+            new PathInterpolator(0.4f, 0.0f, 0.2f, 1.0f);
+    private static final Interpolator REVEAL_INTERPOLATOR =
+            new PathInterpolator(0.0f, 0.0f, 0.2f, 1.0f);
 
-    private View mCenterButton;
-    private View mContentView;
-    private View mSnoozeButton;
-    private View mDismissButton;
-    private View mSnoozeCircle;
-    private View mDismissCircle;
-    private TextView mHint;
-    private AlarmRipple mCenterRipple;
+    private static final int PULSE_DURATION_MILLIS = 1000;
+    private static final int ALARM_BOUNCE_DURATION_MILLIS = 500;
+    private static final int ALERT_SOURCE_DURATION_MILLIS = 250;
+    private static final int ALERT_REVEAL_DURATION_MILLIS = 500;
+    private static final int ALERT_FADE_DURATION_MILLIS = 500;
+    private static final int ALERT_DISMISS_DELAY_MILLIS = 2000;
 
-    private boolean mShowingSnoozeCircle;
-    private boolean mShowingDismissCircle;
+    private static final float BUTTON_SCALE_DEFAULT = 0.7f;
+    private static final int BUTTON_DRAWABLE_ALPHA_DEFAULT = 165;
 
-    private AlarmInstance mInstance;
-    private Resources mResource;
-
-    private boolean mIsClickingCenterButton;
-    private int mVolumeBehavior;
-    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+    private final View.OnTouchListener mAlarmOnTouchListener = new View.OnTouchListener() {
         @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            Log.v("AlarmActivity - Broadcast Receiver - " + action);
-            if (action.equals(ALARM_SNOOZE_ACTION)) {
-                snooze();
-            } else if (action.equals(ALARM_DISMISS_ACTION)) {
-                dismiss();
-            } else if (action.equals(AlarmService.ALARM_DONE_ACTION)) {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        finish();
-                    }
-                }, FINISH_ACTIVITY_DELAY_MS /* Delay to make sure the animation is finished now */);
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            return !mAlarmHandled && motionEvent.getAction() == MotionEvent.ACTION_DOWN
+                    && view.startDrag(null, NO_DRAG_SHADOW, null, 0);
+        }
+    };
+
+    private final View.OnClickListener mSnoozeOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final float translationX;
+            if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                translationX = mSnoozeButton.getLeft() - mAlarmButton.getRight();
             } else {
-                Log.i("Unknown broadcast in AlarmActivity: " + action);
+                translationX = mSnoozeButton.getRight() - mAlarmButton.getLeft();
+            }
+            getAlarmBounceAnimator(translationX, R.string.swipe_snooze_instruction).start();
+        }
+    };
+
+    private final View.OnClickListener mDismissOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            final float translationX;
+            if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                translationX = mDismissButton.getRight() - mAlarmButton.getLeft();
+            } else {
+                translationX = mDismissButton.getLeft() - mAlarmButton.getRight();
+            }
+            getAlarmBounceAnimator(translationX, R.string.swipe_dismiss_instruction).start();
+        }
+    };
+
+    private final View.OnDragListener mContentOnDragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View view, DragEvent dragEvent) {
+            switch (dragEvent.getAction()) {
+                case DragEvent.ACTION_DROP:
+                    // content view does not accept drops
+                    return false;
+                case DragEvent.ACTION_DRAG_LOCATION:
+                    final float snoozeFraction, dismissFraction;
+                    if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+                        snoozeFraction = getFraction(mAlarmButton.getRight(),
+                                mSnoozeButton.getLeft(), dragEvent.getX());
+                        dismissFraction = getFraction(mAlarmButton.getLeft(),
+                                mDismissButton.getRight(), dragEvent.getX());
+                    } else {
+                        snoozeFraction = getFraction(mAlarmButton.getLeft(),
+                                mSnoozeButton.getRight(), dragEvent.getX());
+                        dismissFraction = getFraction(mAlarmButton.getRight(),
+                                mDismissButton.getLeft(), dragEvent.getX());
+                    }
+                    setAnimatedFractions(snoozeFraction, dismissFraction);
+                    return true;
+                default:
+                    return true;
+            }
+        }
+
+        private float getFraction(float x0, float x1, float x) {
+            return Math.max(Math.min((x - x0) / (x1 - x0), 1.0f), 0.0f);
+        }
+    };
+
+    private final View.OnDragListener mAlarmOnDragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View view, DragEvent dragEvent) {
+            switch (dragEvent.getAction()) {
+                case DragEvent.ACTION_DRAG_STARTED:
+                    mPulseAnimator.setRepeatCount(0);
+                    return true;
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    mDismissButton.performClick();
+                    return false;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    if (!dragEvent.getResult()) {
+                        AnimatorUtils.reverse(mAlarmAnimator);
+                        mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                        if (!mPulseAnimator.isStarted()) {
+                            mPulseAnimator.start();
+                        }
+                    }
+                    return true;
+                default:
+                    return true;
             }
         }
     };
 
-    private void snooze() {
-        AlarmStateManager.setSnoozeState(this, mInstance, false /* showToast */);
-    }
+    private final View.OnDragListener mSnoozeOnDragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View view, DragEvent dragEvent) {
+            switch (dragEvent.getAction()) {
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    snooze();
+                    return true;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    if (!dragEvent.getResult()) {
+                        AnimatorUtils.reverse(mSnoozeAnimator);
+                    }
+                    return true;
+                default:
+                    return true;
+            }
+        }
+    };
 
-    private void dismiss() {
-        AlarmStateManager.setDismissState(this, mInstance);
-    }
+    private final View.OnDragListener mDismissOnDragListener = new View.OnDragListener() {
+        @Override
+        public boolean onDrag(View view, DragEvent dragEvent) {
+            switch (dragEvent.getAction()) {
+                case DragEvent.ACTION_DRAG_ENTERED:
+                    setAnimatedFractions(0.0f /* snoozeFraction */, 1.0f /* dismissFraction */);
+                    return true;
+                case DragEvent.ACTION_DROP:
+                    dismiss();
+                    return true;
+                case DragEvent.ACTION_DRAG_ENDED:
+                    if (!dragEvent.getResult()) {
+                        AnimatorUtils.reverse(mDismissAnimator);
+                    }
+                    return true;
+                default:
+                    return true;
+            }
+        }
+    };
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+            if (Log.LOGV) {
+                Log.v("AlarmActivity - Broadcast Receiver - " + action);
+            }
+
+            if (!mAlarmHandled) {
+                switch (action) {
+                    case ALARM_SNOOZE_ACTION:
+                        snooze();
+                        break;
+                    case ALARM_DISMISS_ACTION:
+                        dismiss();
+                        break;
+                    case AlarmService.ALARM_DONE_ACTION:
+                        finish();
+                        break;
+                    default:
+                        Log.i("Unknown broadcast in AlarmActivity: " + action);
+                }
+            }
+        }
+    };
+
+    private final Handler mHandler = new Handler();
+
+    private AlarmInstance mAlarmInstance;
+    private boolean mAlarmHandled;
+    private String mVolumeBehavior;
+    private int mCurrentHourColor;
+
+    private ViewGroup mContainerView;
+
+    private ViewGroup mAlertView;
+    private TextView mAlertTitleView;
+    private TextView mAlertInfoView;
+
+    private ViewGroup mContentView;
+    private ImageButton mAlarmButton;
+    private ImageButton mSnoozeButton;
+    private ImageButton mDismissButton;
+    private TextView mHintView;
+
+    private ValueAnimator mAlarmAnimator;
+    private ValueAnimator mSnoozeAnimator;
+    private ValueAnimator mDismissAnimator;
+    private ValueAnimator mPulseAnimator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        long instanceId = AlarmInstance.getId(getIntent().getData());
-        mInstance = AlarmInstance.getInstance(this.getContentResolver(), instanceId);
-        if (mInstance != null) {
-            Log.v("Displaying alarm for instance: " + mInstance);
+
+        final long instanceId = AlarmInstance.getId(getIntent().getData());
+        mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
+        if (mAlarmInstance != null) {
+            Log.v("Displaying alarm for instance: " + mAlarmInstance);
         } else {
             // The alarm got deleted before the activity got created, so just finish()
             Log.v("Error displaying alarm for intent: " + getIntent());
@@ -138,17 +285,15 @@ public class AlarmActivity extends Activity {
         }
 
         // Get the volume/camera button behavior setting
-        final String vol = PreferenceManager.getDefaultSharedPreferences(this).
-                getString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
+        mVolumeBehavior = PreferenceManager.getDefaultSharedPreferences(this)
+                .getString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
                         SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
-        mVolumeBehavior = Integer.parseInt(vol);
 
-        final Window win = getWindow();
-        win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON |
-                WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
-                WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+                | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+                | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON
+                | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
 
         // In order to allow tablets to freely rotate and phones to stick
         // with "nosensor" (use default device orientation) we have to have
@@ -160,268 +305,71 @@ public class AlarmActivity extends Activity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
 
-        final LayoutInflater inflater = LayoutInflater.from(this);
-        mContentView = inflater.inflate(R.layout.alarm_alert, null);
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE);
-        setContentView(mContentView);
+        setContentView(R.layout.alarm_activity);
 
-        mResource = getResources();
-        mSnoozeButton = findViewById(R.id.snooze_button);
-        mCenterButton = findViewById(R.id.center_button);
-        mCenterButton.setContentDescription(
-                mResource.getString(R.string.description_direction_right) +
-                        mResource.getString(R.string.description_direction_left));
-        mDismissButton = findViewById(R.id.dismiss_button);
-        mCenterRipple = (AlarmRipple) findViewById(R.id.center_ripple);
-        mSnoozeCircle = findViewById(R.id.snooze_circle);
-        mDismissCircle = findViewById(R.id.dismiss_circle);
-        mHint = (TextView) findViewById(R.id.hint);
+        mContainerView = (ViewGroup) findViewById(android.R.id.content);
 
-        // Color the main view instead of content view, because this view is stacked on top of
-        // the reveal view, which has a solid color. We don't want that solid color to show up here.
-        final int currentHourColor = Utils.getCurrentHourColor();
-        getWindow().getDecorView().setBackgroundColor(currentHourColor);
-        initializeButtonListeners(currentHourColor);
-        updateTimeAndTitle();
+        mAlertView = (ViewGroup) mContainerView.findViewById(R.id.alert);
+        mAlertTitleView = (TextView) mAlertView.findViewById(R.id.alert_title);
+        mAlertInfoView = (TextView) mAlertView.findViewById(R.id.alert_info);
+
+        mContentView = (ViewGroup) mContainerView.findViewById(R.id.content);
+        mAlarmButton = (ImageButton) mContentView.findViewById(R.id.alarm);
+        mSnoozeButton = (ImageButton) mContentView.findViewById(R.id.snooze);
+        mDismissButton = (ImageButton) mContentView.findViewById(R.id.dismiss);
+        mHintView = (TextView) mContentView.findViewById(R.id.hint);
+
+        final TextView titleView = (TextView) mContentView.findViewById(R.id.title);
+        final TextClock digitalClock = (TextClock) mContentView.findViewById(R.id.digital_clock);
+        final View pulseView = mContentView.findViewById(R.id.pulse);
+
+        titleView.setText(mAlarmInstance.getLabelOrDefault(this));
+        Utils.setTimeFormat(digitalClock,
+                getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size));
+
+        mCurrentHourColor = Utils.getCurrentHourColor();
+        mContainerView.setBackgroundColor(mCurrentHourColor);
+
+        mAlarmButton.setOnTouchListener(mAlarmOnTouchListener);
+        mSnoozeButton.setOnClickListener(mSnoozeOnClickListener);
+        mDismissButton.setOnClickListener(mDismissOnClickListener);
+
+        mContentView.setOnDragListener(mContentOnDragListener);
+        mAlarmButton.setOnDragListener(mAlarmOnDragListener);
+        mSnoozeButton.setOnDragListener(mSnoozeOnDragListener);
+        mDismissButton.setOnDragListener(mDismissOnDragListener);
+
+        mAlarmAnimator = AnimatorUtils.getScaleAnimator(mAlarmButton, 1.0f, 0.0f);
+        mSnoozeAnimator = getButtonAnimator(mSnoozeButton, Color.WHITE);
+        mDismissAnimator = getButtonAnimator(mDismissButton, mCurrentHourColor);
+        mPulseAnimator = ObjectAnimator.ofPropertyValuesHolder(pulseView,
+                PropertyValuesHolder.ofFloat(View.SCALE_X, 0.0f, 1.0f),
+                PropertyValuesHolder.ofFloat(View.SCALE_Y, 0.0f, 1.0f),
+                PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f, 0.0f));
+        mPulseAnimator.setDuration(PULSE_DURATION_MILLIS);
+        mPulseAnimator.setInterpolator(PULSE_INTERPOLATOR);
+        mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        mPulseAnimator.start();
+
+        // Set the animators to their initial values.
+        setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
 
         // Register to get the alarm done/snooze/dismiss intent.
-        IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
+        final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
         filter.addAction(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
         registerReceiver(mReceiver, filter);
-
-        // Delay to make sure view is initialized before playing the ripple animation
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                drawCenterRipple();
-            }
-        }, RIPPLE_DELAY_MS /* Delay to make sure view is rendered before drawing ripple */);
-    }
-
-    private void bounceAnimation(final boolean towardsSnooze) {
-        final float distance = mCenterButton.getWidth();
-        ObjectAnimator push = ObjectAnimator.ofFloat(mCenterButton, View.TRANSLATION_X,
-                towardsSnooze ? 0 - distance : distance);
-        push.setInterpolator(new DecelerateInterpolator());
-        ObjectAnimator pull = ObjectAnimator.ofFloat(mCenterButton, View.TRANSLATION_X,
-                0);
-        pull.setInterpolator(new AccelerateInterpolator());
-        AnimatorSet set = new AnimatorSet();
-        set.play(push).before(pull);
-        set.setDuration(mResource.getInteger(android.R.integer.config_shortAnimTime));
-        set.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                super.onAnimationStart(animation);
-                mHint.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                mHint.setVisibility(View.VISIBLE);
-                mHint.setText(getResources().getText(towardsSnooze ?
-                        R.string.swipe_snooze_instruction : R.string.swipe_dismiss_instruction));
-            }
-        });
-        set.start();
-    }
-
-    private void initializeButtonListeners(final int currentHourColor) {
-        mSnoozeButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bounceAnimation(true /* towardsSnooze */);
-            }
-        });
-
-        mDismissButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bounceAnimation(false /* towardsDismiss */);
-            }
-        });
-
-        mCenterButton.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    view.startDrag(null, new DragShadowBuilder(), null, 0);
-                }
-                return false;
-            }
-        });
-
-        final View ripplePad = findViewById(R.id.ripple_pad);
-        ripplePad.setOnDragListener(new OnDragListener() {
-            @Override
-            public boolean onDrag(View view, DragEvent dragEvent) {
-                final int action = dragEvent.getAction();
-                final float x = dragEvent.getX();
-                final float centerX = ripplePad.getLeft() + ripplePad.getWidth() / 2;
-                final float snoozeRightBoundary = mSnoozeButton.getRight() + mSnoozeButton
-                        .getWidth() / 2;
-                final float dismissLeftBoundary = mDismissButton.getLeft() - mDismissButton
-                        .getWidth() / 2;
-                switch (action) {
-                    case DragEvent.ACTION_DRAG_STARTED:
-                        mIsClickingCenterButton = true;
-                        // Once user click center button, stop ripple and highlight both button
-                        mCenterRipple.setVisibility(View.INVISIBLE);
-                        mCenterButton.setVisibility(View.INVISIBLE);
-                        mSnoozeButton.setAlpha(HIGHLIGHT_ALPHA);
-                        mDismissButton.setAlpha(HIGHLIGHT_ALPHA);
-                        return true;
-                    case DragEvent.ACTION_DRAG_LOCATION:
-                        mIsClickingCenterButton = false;
-                        // Make one button stand out and dim the other as long as user moves a
-                        // little bit to either direction
-                        mSnoozeButton.setAlpha(x < centerX ? HIGHLIGHT_ALPHA : DIM_ALPHA);
-                        mDismissButton.setAlpha(x < centerX ? DIM_ALPHA : HIGHLIGHT_ALPHA);
-
-                        // Scale icon in x-axis linear to finger location
-                        if (x < centerX && x > snoozeRightBoundary) {
-                            scaleButton(mSnoozeButton, centerX - x, centerX - snoozeRightBoundary);
-                        } else if (x > centerX && x < dismissLeftBoundary) {
-                            scaleButton(mDismissButton, x - centerX, dismissLeftBoundary - centerX);
-                        }
-
-                        // Expand background circle if finger enters certain boundary
-                        if (x < snoozeRightBoundary) {
-                            if (!mShowingSnoozeCircle) {
-                                expandCircle(mSnoozeCircle, mSnoozeButton);
-                                mShowingSnoozeCircle = true;
-                            }
-                            mShowingDismissCircle = false;
-                            mSnoozeCircle.setVisibility(View.VISIBLE);
-                            mDismissCircle.setVisibility(View.INVISIBLE);
-                            mDismissButton.setVisibility(View.VISIBLE);
-                        } else if (x > dismissLeftBoundary) {
-                            if (!mShowingDismissCircle) {
-                                // Fade out the icon to reduce jump when swapping to circle icon
-                                final Animator alphaAnim = ObjectAnimator.ofFloat(mDismissButton,
-                                        "alpha", 1, 0);
-                                alphaAnim.setDuration(mResource.getInteger(
-                                        android.R.integer.config_shortAnimTime));
-                                alphaAnim.start();
-                                alphaAnim.addListener(new AnimatorListenerAdapter() {
-                                    @Override
-                                    public void onAnimationEnd(Animator animation) {
-                                        mDismissButton.setVisibility(View.INVISIBLE);
-                                    }
-                                });
-                                expandCircle(mDismissCircle, mDismissButton);
-                                mShowingDismissCircle = true;
-                            }
-                            mShowingSnoozeCircle = false;
-                            mDismissCircle.setVisibility(View.VISIBLE);
-                            mSnoozeCircle.setVisibility(View.INVISIBLE);
-                        } else {
-                            // finger is pressed down but not entering any button zone yet
-                            mSnoozeCircle.setVisibility(View.INVISIBLE);
-                            mDismissCircle.setVisibility(View.INVISIBLE);
-                            mDismissButton.setVisibility(View.VISIBLE);
-                            mShowingSnoozeCircle = false;
-                            mShowingDismissCircle = false;
-                            mSnoozeButton.setAlpha(HIGHLIGHT_ALPHA);
-                            mDismissButton.setAlpha(HIGHLIGHT_ALPHA);
-                        }
-                        return true;
-                    case DragEvent.ACTION_DRAG_ENDED:
-                        scaleButton(mSnoozeButton, 0, 1);
-                        scaleButton(mDismissButton, 0, 1);
-                        if (mIsClickingCenterButton) {
-                            // If user just click the center button, make it bounce towards dismiss
-                            bounceAnimation(false /* towardsSnooze */);
-                        }
-                        if (mShowingSnoozeCircle) {
-                            final int accentColor = mResource.getColor(R.color.hot_pink);
-                            reveal(mSnoozeButton, accentColor, accentColor,
-                                    R.string.alarm_alert_snoozed_text,
-                                    AlarmStateManager.getSnoozedMinutes(AlarmActivity.this));
-                            snooze();
-                        } else if (mShowingDismissCircle) {
-                            reveal(mDismissButton, mResource.getColor(R.color.white),
-                                    currentHourColor, R.string.alarm_alert_off_text, null);
-                            dismiss();
-                        } else {
-                            mSnoozeButton.setAlpha(NORMAL_ALPHA);
-                            mDismissButton.setAlpha(NORMAL_ALPHA);
-                            mDismissButton.setVisibility(View.VISIBLE);
-                            mCenterButton.setVisibility(View.VISIBLE);
-                            mCenterRipple.setVisibility(View.VISIBLE);
-                        }
-                        return true;
-                }
-                return false;
-            }
-        });
-    }
-
-    private void scaleButton(View button, float a, float b) {
-        final float delta = SCALE_SLOPE * a / b + 1 - SCALE_SLOPE;
-        button.setScaleX(delta);
-        button.setScaleY(delta);
-    }
-
-    private void expandCircle(View circle, View button) {
-        circle.setX(button.getLeft() + button.getWidth() / 2 - circle.getWidth() / 2);
-        circle.setY(button.getTop() + button.getHeight() / 2 - circle.getHeight() / 2);
-        final ObjectAnimator xAnim = ObjectAnimator.ofFloat(circle, "scaleX", 0, 1);
-        final ObjectAnimator yAnim = ObjectAnimator.ofFloat(circle, "scaleY", 0, 1);
-        final AnimatorSet set = new AnimatorSet();
-        set.setDuration(mResource.getInteger(android.R.integer.config_shortAnimTime));
-        set.play(xAnim).with(yAnim);
-        set.start();
-    }
-
-    private void updateTimeAndTitle() {
-        updateTitle();
-        Utils.setTimeFormat((TextClock) (findViewById(R.id.digitalClock)),
-                (int) getResources().getDimension(R.dimen.main_ampm_font_size));
-    }
-
-    private void drawCenterRipple() {
-        final View parent = findViewById(R.id.ripple_pad);
-        mCenterRipple.setCenterX(parent.getWidth() / 2);
-        mCenterRipple.setCenterY(parent.getHeight() / 2);
-        mCenterRipple.setAlphaFactor(1.0f);
-        mCenterRipple.setRadiusGravity(0.0f);
-        final ObjectAnimator radiusAnim = ObjectAnimator.ofFloat(mCenterRipple, "radiusGravity", 0,
-                1);
-        final ObjectAnimator alphaAnim = ObjectAnimator.ofFloat(mCenterRipple, "alphaFactor", 1,
-                0);
-        radiusAnim.setRepeatCount(ValueAnimator.INFINITE);
-        alphaAnim.setRepeatCount(ValueAnimator.INFINITE);
-
-        AnimatorSet set = new AnimatorSet();
-        set.play(radiusAnim).with(alphaAnim);
-        set.setInterpolator(new PathInterpolator(0.4f, 0, 0.2f, 1.0f));
-        set.setDuration(DateUtils.SECOND_IN_MILLIS);
-        set.start();
-    }
-
-    private void updateTitle() {
-        final String titleText = mInstance.getLabelOrDefault(this);
-        TextView tv = (TextView) findViewById(R.id.alertTitle);
-        tv.setText(titleText);
-        super.setTitle(titleText);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        updateTimeAndTitle();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // onCreate may finish this activity before registering the Receiver
-        try {
+
+        // If the alarm instance is null the receiver was never registered and calling
+        // unregisterReceiver will throw an exception.
+        if (mAlarmInstance != null) {
             unregisterReceiver(mReceiver);
-        } catch (IllegalArgumentException e) {}
+        }
     }
 
     @Override
@@ -430,27 +378,28 @@ public class AlarmActivity extends Activity {
     }
 
     @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
+    public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
         // Do this on key down to handle a few of the system keys.
-        Log.v("AlarmActivity - dispatchKeyEvent - " + event.getKeyCode());
+        if (Log.LOGV) {
+            Log.v("AlarmActivity - dispatchKeyEvent - " + event.getKeyCode());
+        }
+
         switch (event.getKeyCode()) {
-            // Volume keys and camera keys dismiss the alarm
+            // Volume keys and camera keys dismiss the alarm.
             case KeyEvent.KEYCODE_POWER:
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_MUTE:
             case KeyEvent.KEYCODE_CAMERA:
             case KeyEvent.KEYCODE_FOCUS:
-                if (event.getAction() == KeyEvent.ACTION_UP) {
+                if (!mAlarmHandled && event.getAction() == KeyEvent.ACTION_UP) {
                     switch (mVolumeBehavior) {
-                        case 1:
+                        case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE:
                             snooze();
                             break;
-
-                        case 2:
+                        case SettingsActivity.VOLUME_BEHAVIOR_DISMISS:
                             dismiss();
                             break;
-
                         default:
                             break;
                     }
@@ -459,76 +408,139 @@ public class AlarmActivity extends Activity {
             default:
                 break;
         }
+
         return super.dispatchKeyEvent(event);
     }
 
-    private void reveal(View centerView, int revealColor, int finalColor, int finalText,
-            String additionalText) {
+    private void snooze() {
+        mAlarmHandled = true;
 
-        final Rect displayRect = new Rect();
-        getWindow().getDecorView().getGlobalVisibleRect(displayRect);
+        final int alertColor = getResources().getColor(R.color.hot_pink);
+        setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
+        getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text,
+                AlarmStateManager.getSnoozedMinutes(this), alertColor, alertColor).start();
+        AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
+    }
 
-        final ViewGroupOverlay groupOverlay = (ViewGroupOverlay) mContentView.getOverlay();
+    private void dismiss() {
+        mAlarmHandled = true;
+
+        setAnimatedFractions(0.0f /* snoozeFraction */, 1.0f /* dismissFraction */);
+        getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null /* infoText */,
+                Color.WHITE, mCurrentHourColor).start();
+        AlarmStateManager.setDismissState(this, mAlarmInstance);
+    }
+
+    private void setAnimatedFractions(float snoozeFraction, float dismissFraction) {
+        final float alarmFraction = Math.max(snoozeFraction, dismissFraction);
+        AnimatorUtils.setAnimatedFraction(mAlarmAnimator, alarmFraction);
+        AnimatorUtils.setAnimatedFraction(mSnoozeAnimator, snoozeFraction);
+        AnimatorUtils.setAnimatedFraction(mDismissAnimator, dismissFraction);
+    }
+
+    private ValueAnimator getButtonAnimator(ImageButton button, int tintColor) {
+        return ObjectAnimator.ofPropertyValuesHolder(button,
+                PropertyValuesHolder.ofFloat(View.SCALE_X, BUTTON_SCALE_DEFAULT, 1.0f),
+                PropertyValuesHolder.ofFloat(View.SCALE_Y, BUTTON_SCALE_DEFAULT, 1.0f),
+                PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 0, 255),
+                PropertyValuesHolder.ofInt(AnimatorUtils.DRAWABLE_ALPHA,
+                        BUTTON_DRAWABLE_ALPHA_DEFAULT, 255),
+                PropertyValuesHolder.ofObject(AnimatorUtils.DRAWABLE_TINT,
+                        AnimatorUtils.ARGB_EVALUATOR, Color.WHITE, tintColor));
+    }
+
+    private ValueAnimator getAlarmBounceAnimator(float translationX, final int hintResId) {
+        final ValueAnimator bounceAnimator = ObjectAnimator.ofFloat(mAlarmButton,
+                View.TRANSLATION_X, mAlarmButton.getTranslationX(), translationX, 0.0f);
+        bounceAnimator.setInterpolator(AnimatorUtils.DECELERATE_ACCELERATE_INTERPOLATOR);
+        bounceAnimator.setDuration(ALARM_BOUNCE_DURATION_MILLIS);
+        bounceAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                mHintView.setText(hintResId);
+                if (mHintView.getVisibility() != View.VISIBLE) {
+                    mHintView.setVisibility(View.VISIBLE);
+                    ObjectAnimator.ofFloat(mHintView, View.ALPHA, 0.0f, 1.0f).start();
+                }
+            }
+        });
+        return bounceAnimator;
+    }
+
+    private Animator getAlertAnimator(final View source, final int titleResId,
+            final String infoText, final int revealColor, final int backgroundColor) {
+        final ViewGroupOverlay overlay = mContainerView.getOverlay();
+
+        // Create a transient view for performing the reveal animation.
         final View revealView = new View(this);
-        groupOverlay.add(revealView);
-        revealView.setBottom(displayRect.bottom);
-        revealView.setLeft(displayRect.left);
-        revealView.setRight(displayRect.right);
+        revealView.setRight(mContainerView.getWidth());
+        revealView.setBottom(mContainerView.getHeight());
         revealView.setBackgroundColor(revealColor);
+        overlay.add(revealView);
 
-        final int[] clearLocation = new int[2];
-        centerView.getLocationInWindow(clearLocation);
-        clearLocation[0] += centerView.getWidth() / 2;
+        // Add the source to the containerView's overlay so that the animation can occur under the
+        // status bar, the source view will be automatically positioned in the overlay so that
+        // it maintains the same relative position on screen.
+        overlay.add(source);
 
-        final int revealCenterX = clearLocation[0] - revealView.getLeft();
-        final int revealCenterY = clearLocation[1] - revealView.getTop();
+        final int centerX = Math.round((source.getLeft() + source.getRight()) / 2.0f);
+        final int centerY = Math.round((source.getTop() + source.getBottom()) / 2.0f);
+        final float startRadius = Math.max(source.getWidth(), source.getHeight()) / 2.0f;
 
-        final double x1_2 = Math.pow(revealView.getLeft() - revealCenterX, 2);
-        final double x2_2 = Math.pow(revealView.getRight() - revealCenterX, 2);
-        final double y_2 = Math.pow(revealView.getTop() - revealCenterY, 2);
-        final float revealRadius = (float) Math.max(Math.sqrt(x1_2 + y_2), Math.sqrt(x2_2 + y_2));
+        final int xMax = Math.max(centerX, mContainerView.getWidth() - centerX);
+        final int yMax = Math.max(centerY, mContainerView.getHeight() - centerY);
+        final float endRadius = (float) Math.sqrt(Math.pow(xMax, 2.0) + Math.pow(yMax, 2.0));
 
-        final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(revealView,
-                        revealCenterX, revealCenterY, 0.0f, revealRadius);
-        revealAnimator.setDuration(DateUtils.SECOND_IN_MILLIS / 2);
+        final ValueAnimator sourceAnimator = ObjectAnimator.ofFloat(source, View.ALPHA, 0.0f);
+        sourceAnimator.setDuration(ALERT_SOURCE_DURATION_MILLIS);
+        sourceAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                overlay.remove(source);
+            }
+        });
+
+        final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
+                revealView, centerX, centerY, startRadius, endRadius);
+        revealAnimator.setDuration(ALERT_REVEAL_DURATION_MILLIS);
+        revealAnimator.setInterpolator(REVEAL_INTERPOLATOR);
         revealAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animator) {
-                groupOverlay.add(revealView);
+            public void onAnimationEnd(Animator animator) {
+                mAlertView.setVisibility(View.VISIBLE);
+                mAlertTitleView.setText(titleResId);
+                if (infoText != null) {
+                    mAlertInfoView.setText(infoText);
+                    mAlertInfoView.setVisibility(View.VISIBLE);
+                }
+                mContentView.setVisibility(View.GONE);
+                mContainerView.setBackgroundColor(backgroundColor);
             }
         });
 
-        final View stayView = findViewById(R.id.final_reveal_screen);
-        stayView.setBackgroundColor(finalColor);
-        ((TextView) findViewById(R.id.final_text)).setText(finalText);
-        if (additionalText != null) {
-            ((TextView) findViewById(R.id.additional_text)).setText(additionalText);
-        }
-        final ValueAnimator fadeInAnimator = ObjectAnimator.ofFloat(stayView, View.ALPHA, 0.0f,
-                1.0f);
-        fadeInAnimator.setDuration(mResource.getInteger(android.R.integer.config_longAnimTime));
-        fadeInAnimator.addListener(new AnimatorListenerAdapter() {
+        final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 0.0f);
+        fadeAnimator.setDuration(ALERT_FADE_DURATION_MILLIS);
+        fadeAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void onAnimationStart(Animator animator) {
-                groupOverlay.add(stayView);
+            public void onAnimationEnd(Animator animation) {
+                overlay.remove(revealView);
             }
         });
-        final ValueAnimator stayAnimator = ObjectAnimator.ofFloat(stayView, View.ALPHA, 1.0f,
-                1.0f);
-        stayAnimator.setDuration(2 * DateUtils.SECOND_IN_MILLIS);
-        stayAnimator.addListener(new AnimatorListenerAdapter() {
+
+        final AnimatorSet alertAnimator = new AnimatorSet();
+        alertAnimator.play(revealAnimator).with(sourceAnimator).before(fadeAnimator);
+        alertAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
-                groupOverlay.remove(stayView);
-                groupOverlay.remove(revealView);
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, ALERT_DISMISS_DELAY_MILLIS);
             }
         });
 
-        final AnimatorSet animatorSet = new AnimatorSet();
-        // First ripple cover the entire view, then fade in text, lastly make the view stay for a
-        // short period of time
-        animatorSet.playSequentially(revealAnimator, fadeInAnimator, stayAnimator);
-        animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
-        animatorSet.start();
+        return alertAnimator;
     }
 }

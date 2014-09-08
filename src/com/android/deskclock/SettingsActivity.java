@@ -66,6 +66,9 @@ public class SettingsActivity extends PreferenceActivity
             "volume_button_setting";
 
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
+    public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
+    public static final String VOLUME_BEHAVIOR_DISMISS = "2";
+
 
     private static CharSequence[][] mTimezones;
     private long mTime;
