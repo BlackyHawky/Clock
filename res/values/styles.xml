@@ -241,6 +241,7 @@
     </style>
 
     <style name="button">
+        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:textSize">@dimen/button_font_size</item>
     </style>
 
