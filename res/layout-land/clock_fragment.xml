@@ -24,8 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:gravity="center"
-        android:weightSum="@integer/clocks_per_row" >
+        android:gravity="center">
         <include layout="@layout/main_clock_frame"
             android:id="@+id/main_clock_left_pane"
             android:layout_width="0dp"
