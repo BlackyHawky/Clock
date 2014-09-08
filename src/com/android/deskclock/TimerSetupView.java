@@ -18,8 +18,6 @@ package com.android.deskclock;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -54,8 +52,6 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         public void onAnimationEnd(Animator animation) {
             if (mStart != null) {
                 mStart.setVisibility(View.INVISIBLE);
-                mStart.setScaleX(AnimatorUtil.SCALE_FULL);
-                mStart.setScaleY(AnimatorUtil.SCALE_FULL);
             }
         }
     };
@@ -178,22 +174,11 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             return;
         }
 
-        final float startSizeRatio = show ? AnimatorUtil.SCALE_ZERO : AnimatorUtil.SCALE_FULL;
-        final float endSizeRatio = show ? AnimatorUtil.SCALE_FULL : AnimatorUtil.SCALE_ZERO;
-        final AnimatorListenerAdapter animatorListener = show ?
-                mShowFabAnimatorListener : mHideFabAnimatorListener;
-
-        final ObjectAnimator scaleX = AnimatorUtil.getScaleXAnimator(mStart, startSizeRatio,
-                endSizeRatio, AnimatorUtil.ANIM_DURATION_SHORT);
-        scaleX.addListener(animatorListener);
-
-        final ObjectAnimator scaleY = AnimatorUtil.getScaleYAnimator(mStart, startSizeRatio,
-                endSizeRatio, AnimatorUtil.ANIM_DURATION_SHORT);
-        scaleY.addListener(animatorListener);
-
-        final AnimatorSet animators = new AnimatorSet();
-        animators.playTogether(scaleX, scaleY);
-        animators.start();
+        final Animator scaleAnimator = AnimatorUtils.getScaleAnimator(
+                mStart, show ? 0.0f : 1.0f, show ? 1.0f : 0.0f);
+        scaleAnimator.setDuration(AnimatorUtils.ANIM_DURATION_SHORT);
+        scaleAnimator.addListener(show ? mShowFabAnimatorListener : mHideFabAnimatorListener);
+        scaleAnimator.start();
     }
 
     @Override
