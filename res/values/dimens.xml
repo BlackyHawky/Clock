@@ -137,6 +137,8 @@
 
     <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">304dip</dimen>
+    <!-- Bottom padding for alarm lock screen hint text -->
+    <dimen name="alarm_alert_hint_padding">32dip</dimen>
 
     <!-- Size of analog clock in world clock. -->
     <dimen name="world_clock_analog_size">100dip</dimen>
