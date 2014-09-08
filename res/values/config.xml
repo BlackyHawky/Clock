@@ -26,6 +26,6 @@
     <item type="integer" name="timer_column_count">1</item>
     <!-- Number of world clocks in a row, for the clock tab. -->
     <item type="integer" name="world_clocks_per_row">1</item>
-    <!-- Total clocks per row is 2 + world_clocks_per_row. -->
-    <item type="integer" name="clocks_per_row">3</item>
+    <!-- Number of world clocks in a row, for the digital appwidget. -->
+    <item type="integer" name="appwidget_world_clocks_per_row">2</item>
 </resources>
