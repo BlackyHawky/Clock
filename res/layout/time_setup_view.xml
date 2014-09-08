@@ -66,22 +66,16 @@
         android:id="@+id/fourth"
         layout="@layout/three_keys_view" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/timer_cancel"
+        style="@style/button"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/footer_button_size"
-        android:layout_margin="@dimen/footer_button_layout_margin"
-        android:layout_gravity="bottom">
-
-        <ImageButton
-            android:id="@+id/timer_cancel"
-            style="@style/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:gravity="center"
-            android:background="@color/transparent"
-            android:src="@drawable/ic_delete" />
-
-    </FrameLayout>
+        android:layout_marginTop="@dimen/footer_button_layout_margin"
+        android:layout_marginBottom="@dimen/footer_button_layout_margin"
+        android:layout_marginEnd="@dimen/timer_cancel_end_margin"
+        android:layout_gravity="center"
+        android:contentDescription="@string/timer_cancel"
+        android:src="@drawable/ic_cancel" />
 
 </LinearLayout>
