@@ -58,7 +58,6 @@
         <item name="android:background">@null</item>
         <item name="android:backgroundStacked">@null</item>
         <item name="android:backgroundSplit">@null</item>
-        <item name="android:displayOptions"></item>
     </style>
 
     <style name="DeskClockDropDownListView"
@@ -94,19 +93,11 @@
         <item name="android:textSize">@dimen/actionbar_title_font_size</item>
     </style>
 
-    <style name="AlarmAlertFullScreenWindowTitle">
-        <item name="android:maxLines">1</item>
-        <item name="android:scrollHorizontally">true</item>
-        <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@android:color/holo_blue_light</item>
-    </style>
-
     <!-- NOTE: This must be a fullscreen theme, or else the fullscreen alarm will
          be unable to turn the screen on. -->
     <style name="AlarmAlertFullScreenTheme"
            parent="@android:style/Theme.Material.Wallpaper.NoTitleBar">
-        <item name="android:statusBarColor">@color/status_bar</item>
-        <item name="android:windowTitleStyle">@style/AlarmAlertFullScreenWindowTitle</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 
     <style name="ScreensaverActivityTheme"
