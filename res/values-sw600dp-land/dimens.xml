@@ -24,18 +24,10 @@
     <dimen name="ampm_text_size">90dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
-    <dimen name="time_margin_left">8dip</dimen>
-    <dimen name="time_margin_bottom">14dip</dimen>
     <dimen name="time_margin_top">32dip</dimen>
-    <dimen name="ampm_margin_top">28dip</dimen>
-    <dimen name="font_margin_adjust">8dip</dimen>
-    <dimen name="next_alarm_margin_top">-5dip</dimen>
-    <dimen name="digital_world_clock_text_size">72sp</dimen>
-    <dimen name="digital_world_clock_ampm_text_size">14sp</dimen>
-    <dimen name="digital_main_clock_text_size">160sp</dimen>
 
-    <dimen name="timer_circle_diameter">360dip</dimen>
-    <dimen name="timer_circle_width">380dip</dimen>
+    <dimen name="alarm_side_padding">128dip</dimen>
+    <dimen name="clock_side_padding">48dip</dimen>
 
     <dimen name="dialpad_font_size">42sp</dimen>
     <dimen name="dialpad_digit_padding">26dip</dimen>
