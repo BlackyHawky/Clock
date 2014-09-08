@@ -13,32 +13,32 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
 
-    <!-- This nested ltr layout cannot be combined with the parent because
-         in RTL, the Keypad and Timer value should swap. -->
     <LinearLayout
-        android:id="@+id/timer_time_display"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:gravity="center"
-        android:layoutDirection="ltr"
+        android:layout_marginBottom="@dimen/footer_button_size"
         android:orientation="horizontal">
 
+        <!-- This nested ltr layout cannot be combined with the parent because
+             in RTL, the Keypad and Timer value should swap. -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/timer_time_display"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:layoutDirection="ltr"
+            android:gravity="center"
             android:orientation="vertical">
 
             <com.android.deskclock.timer.TimerView
                 android:id="@+id/timer_time_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_horizontal|top">
+                android:gravity="center_vertical">
 
                 <include layout="@layout/timer_h_mm_ss_view" />
 
@@ -64,49 +64,39 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical">
+            <include
+                android:id="@+id/first"
+                layout="@layout/three_keys_view" />
+            <include
+                android:id="@+id/second"
+                layout="@layout/three_keys_view" />
+            <include
+                android:id="@+id/third"
+                layout="@layout/three_keys_view" />
+            <include
+                android:id="@+id/fourth"
+                layout="@layout/three_keys_view" />
 
-        <include
-            android:id="@+id/first"
-            layout="@layout/three_keys_view" />
-
-        <include
-            android:id="@+id/second"
-            layout="@layout/three_keys_view" />
-
-        <include
-            android:id="@+id/third"
-            layout="@layout/three_keys_view" />
-
-        <include
-            android:id="@+id/fourth"
-            layout="@layout/three_keys_view" />
-
-        <FrameLayout
-            android:id="@+id/timer_footer"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/footer_button_size"
-            android:layout_margin="@dimen/footer_button_layout_margin"
-            android:layout_gravity="bottom">
-
-            <ImageButton
-                android:id="@+id/timer_cancel"
-                style="@style/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|center_vertical"
-                android:background="@color/transparent"
-                android:gravity="center"
-                android:src="@drawable/ic_delete" />
-
-        </FrameLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/timer_cancel"
+        style="@style/button"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/footer_button_size"
+        android:layout_marginTop="@dimen/footer_button_layout_margin"
+        android:layout_marginBottom="@dimen/footer_button_layout_margin"
+        android:layout_marginEnd="@dimen/timer_cancel_end_margin"
+        android:layout_gravity="bottom|center"
+        android:contentDescription="@string/timer_cancel"
+        android:src="@drawable/ic_cancel" />
+
+</FrameLayout>
