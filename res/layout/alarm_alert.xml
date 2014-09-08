@@ -131,6 +131,14 @@
                 android:layout_gravity="center_vertical|right"
                 android:src="@drawable/ic_alarm_off"/>
 
+            <TextView
+                android:id="@+id/hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:paddingBottom="@dimen/alarm_alert_hint_padding"
+                android:visibility="invisible" />
+
         </FrameLayout>
 
     </LinearLayout>
