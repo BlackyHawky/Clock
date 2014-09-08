@@ -47,7 +47,7 @@ public class WorldClockAdapter extends BaseAdapter {
     private String mClockStyle;
     private final Collator mCollator = Collator.getInstance();
     protected HashMap<String, CityObj> mCitiesDb = new HashMap<String, CityObj>();
-    private int mClocksPerRow;
+    protected int mClocksPerRow;
 
     public WorldClockAdapter(Context context) {
         super();
