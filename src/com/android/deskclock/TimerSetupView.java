@@ -118,28 +118,6 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         updateTime();
     }
 
-    @Override
-    public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setMarginsAfterMeasure();
-        }
-    }
-
-    /**
-     * To properly center the TimerView across from the dial pad, append a bottom margin that
-     * matches the measured height of the fab button that is below the dial pad.
-     */
-    protected void setMarginsAfterMeasure() {
-        View timerFooter = findViewById(R.id.timer_footer);
-        View timerDisplay = findViewById(R.id.timer_time_display);
-        if (timerFooter != null && timerDisplay != null) {
-            MarginLayoutParams marginLayoutParams =
-                    (MarginLayoutParams) timerDisplay.getLayoutParams();
-            marginLayoutParams.bottomMargin = timerFooter.getMeasuredHeight();
-        }
-    }
-
     public void registerStartButton(ImageButton start) {
         mStart = start;
         initializeStartButtonVisibility();

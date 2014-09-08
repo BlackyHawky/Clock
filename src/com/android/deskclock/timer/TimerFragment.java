@@ -538,7 +538,7 @@ public class TimerFragment extends DeskClockFragment
 
         mTimersList.setAdapter(mAdapter);
         if (mAdapter.isEmpty()) {
-            mCancel.setVisibility(View.GONE);
+            mCancel.setVisibility(View.INVISIBLE);
         }
         mLastVisibleView = null;   // Force a non animation setting of the view
         setPage();
@@ -664,7 +664,7 @@ public class TimerFragment extends DeskClockFragment
         }
         stopClockTicks();
         if (mAdapter.isEmpty()) {
-            mCancel.setVisibility(View.GONE);
+            mCancel.setVisibility(View.INVISIBLE);
         } else {
             mCancel.setVisibility(View.VISIBLE);
         }
