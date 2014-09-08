@@ -24,27 +24,18 @@
     <dimen name="ampm_text_size">54dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
-    <dimen name="time_margin_left">8dip</dimen>
-    <dimen name="time_margin_right">36dip</dimen>
-    <dimen name="small_time_margin_right">16dip</dimen>
-    <dimen name="mini_time_margin_right">12dip</dimen>
-    <dimen name="small_ampm_margin_left">10dip</dimen>
-    <dimen name="time_margin_bottom">14dip</dimen>
     <dimen name="time_margin_top">48dip</dimen>
-    <dimen name="digital_margin_bottom">36dip</dimen>
     <dimen name="screensaver_margin">20dip</dimen>
-    <dimen name="ampm_margin_top">15dip</dimen>
-    <dimen name="font_margin_adjust">8dip</dimen>
-    <dimen name="next_alarm_margin_top">-5dip</dimen>
     <dimen name="alarm_label_padding">64dip</dimen>
     <dimen name="bottom_text_size">18sp</dimen>
     <dimen name="bottom_text_spacing_digital">-14dp</dimen>
     <dimen name="bottom_text_spacing_analog">18dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">10dp</dimen>
-    <dimen name="digital_world_clock_text_size">96sp</dimen>
-    <dimen name="digital_world_clock_ampm_text_size">18sp</dimen>
-    <dimen name="digital_main_clock_text_size">160sp</dimen>
     <dimen name="digital_screensaver_clock_text_size">104sp</dimen>
+
+    <dimen name="alarm_side_padding">48dip</dimen>
+    <dimen name="clock_side_padding">48dip</dimen>
+    <dimen name="alarm_clock_top_margin">48dip</dimen>
 
     <dimen name="big_font_size">160sp</dimen>
     <dimen name="medium_font_size">96sp</dimen>
@@ -72,9 +63,6 @@
     <dimen name="timer_setup_button_size">36sp</dimen>
     <dimen name="timer_setup_delete_start_margin">42sp</dimen>
     <dimen name="timer_setup_label_size">28sp</dimen>
-
-    <dimen name="timer_circle_diameter">480dip</dimen>
-    <dimen name="timer_circle_width">500dip</dimen>
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">48dp</dimen>
