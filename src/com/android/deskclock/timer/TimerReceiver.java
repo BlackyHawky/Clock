@@ -134,8 +134,8 @@ public class TimerReceiver extends BroadcastReceiver {
             }
 
             // Update timer state
-            t.mState = t.getDeleteAfterUse() ? TimerObj.STATE_DELETED : TimerObj.STATE_DONE;
-            t.mTimeLeft = t.mOriginalLength - (Utils.getTimeNow() - t.mStartTime);
+            t.mState = t.getDeleteAfterUse() ? TimerObj.STATE_DELETED : TimerObj.STATE_RESTART;
+            t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
             t.writeToSharedPref(prefs);
 
             // Flag to tell DeskClock to re-sync with the database
@@ -424,7 +424,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Add stop/done action button
-        PendingIntent stopAction = PendingIntent.getBroadcast(context, timerObj.mTimerId,
+        PendingIntent stopIntent = PendingIntent.getBroadcast(context, timerObj.mTimerId,
                 new Intent(Timers.NOTIF_TIMES_UP_STOP)
                         .putExtra(Timers.TIMER_INTENT_EXTRA, timerObj.mTimerId),
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -442,7 +442,7 @@ public class TimerReceiver extends BroadcastReceiver {
                         timerObj.getDeleteAfterUse()
                                 ? context.getResources().getString(R.string.timer_done)
                                 : context.getResources().getString(R.string.timer_stop),
-                        stopAction)
+                        stopIntent)
                 .setContentTitle(timerObj.getLabelOrDefault(context))
                 .setContentText(context.getResources().getString(R.string.timer_times_up))
                 .setSmallIcon(R.drawable.stat_notify_timer)
