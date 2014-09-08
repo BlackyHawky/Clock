@@ -52,6 +52,8 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
 
         public RemoteWorldClockAdapter(Context context) {
             super(context);
+            mClocksPerRow = context.getResources().getInteger(
+                    R.integer.appwidget_world_clocks_per_row);
             mFontSize = context.getResources().getDimension(R.dimen.widget_medium_font_size);
             mFont24Size = context.getResources().getDimension(R.dimen.widget_24_medium_font_size);
         }
