@@ -32,7 +32,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.view.DragEvent;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -53,10 +52,10 @@ import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.provider.AlarmInstance;
 
-public class AlarmActivity extends Activity {
+public class AlarmActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
 
     /**
-     * AlarmActivity listens for this broadcast intent, so that other applicationscan snooze the
+     * AlarmActivity listens for this broadcast intent, so that other applications can snooze the
      * alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
      */
     public static final String ALARM_SNOOZE_ACTION = "com.android.deskclock.ALARM_SNOOZE";
@@ -65,8 +64,6 @@ public class AlarmActivity extends Activity {
      * the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
      */
     public static final String ALARM_DISMISS_ACTION = "com.android.deskclock.ALARM_DISMISS";
-
-    private static final View.DragShadowBuilder NO_DRAG_SHADOW = new View.DragShadowBuilder();
 
     private static final Interpolator PULSE_INTERPOLATOR =
             new PathInterpolator(0.4f, 0.0f, 0.2f, 1.0f);
@@ -83,142 +80,7 @@ public class AlarmActivity extends Activity {
     private static final float BUTTON_SCALE_DEFAULT = 0.7f;
     private static final int BUTTON_DRAWABLE_ALPHA_DEFAULT = 165;
 
-    private final View.OnTouchListener mAlarmOnTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            return !mAlarmHandled && motionEvent.getAction() == MotionEvent.ACTION_DOWN
-                    && view.startDrag(null, NO_DRAG_SHADOW, null, 0);
-        }
-    };
-
-    private final View.OnClickListener mSnoozeOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            final float translationX;
-            if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-                translationX = mSnoozeButton.getLeft() - mAlarmButton.getRight();
-            } else {
-                translationX = mSnoozeButton.getRight() - mAlarmButton.getLeft();
-            }
-            getAlarmBounceAnimator(translationX, R.string.swipe_snooze_instruction).start();
-        }
-    };
-
-    private final View.OnClickListener mDismissOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            final float translationX;
-            if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-                translationX = mDismissButton.getRight() - mAlarmButton.getLeft();
-            } else {
-                translationX = mDismissButton.getLeft() - mAlarmButton.getRight();
-            }
-            getAlarmBounceAnimator(translationX, R.string.swipe_dismiss_instruction).start();
-        }
-    };
-
-    private final View.OnDragListener mContentOnDragListener = new View.OnDragListener() {
-        @Override
-        public boolean onDrag(View view, DragEvent dragEvent) {
-            switch (dragEvent.getAction()) {
-                case DragEvent.ACTION_DROP:
-                    // content view does not accept drops
-                    return false;
-                case DragEvent.ACTION_DRAG_LOCATION:
-                    final float snoozeFraction, dismissFraction;
-                    if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-                        snoozeFraction = getFraction(mAlarmButton.getRight(),
-                                mSnoozeButton.getLeft(), dragEvent.getX());
-                        dismissFraction = getFraction(mAlarmButton.getLeft(),
-                                mDismissButton.getRight(), dragEvent.getX());
-                    } else {
-                        snoozeFraction = getFraction(mAlarmButton.getLeft(),
-                                mSnoozeButton.getRight(), dragEvent.getX());
-                        dismissFraction = getFraction(mAlarmButton.getRight(),
-                                mDismissButton.getLeft(), dragEvent.getX());
-                    }
-                    setAnimatedFractions(snoozeFraction, dismissFraction);
-                    return true;
-                default:
-                    return true;
-            }
-        }
-
-        private float getFraction(float x0, float x1, float x) {
-            return Math.max(Math.min((x - x0) / (x1 - x0), 1.0f), 0.0f);
-        }
-    };
-
-    private final View.OnDragListener mAlarmOnDragListener = new View.OnDragListener() {
-        @Override
-        public boolean onDrag(View view, DragEvent dragEvent) {
-            switch (dragEvent.getAction()) {
-                case DragEvent.ACTION_DRAG_STARTED:
-                    mPulseAnimator.setRepeatCount(0);
-                    return true;
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
-                    return true;
-                case DragEvent.ACTION_DROP:
-                    mDismissButton.performClick();
-                    return false;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    if (!dragEvent.getResult()) {
-                        AnimatorUtils.reverse(mAlarmAnimator);
-                        mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
-                        if (!mPulseAnimator.isStarted()) {
-                            mPulseAnimator.start();
-                        }
-                    }
-                    return true;
-                default:
-                    return true;
-            }
-        }
-    };
-
-    private final View.OnDragListener mSnoozeOnDragListener = new View.OnDragListener() {
-        @Override
-        public boolean onDrag(View view, DragEvent dragEvent) {
-            switch (dragEvent.getAction()) {
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
-                    return true;
-                case DragEvent.ACTION_DROP:
-                    snooze();
-                    return true;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    if (!dragEvent.getResult()) {
-                        AnimatorUtils.reverse(mSnoozeAnimator);
-                    }
-                    return true;
-                default:
-                    return true;
-            }
-        }
-    };
-
-    private final View.OnDragListener mDismissOnDragListener = new View.OnDragListener() {
-        @Override
-        public boolean onDrag(View view, DragEvent dragEvent) {
-            switch (dragEvent.getAction()) {
-                case DragEvent.ACTION_DRAG_ENTERED:
-                    setAnimatedFractions(0.0f /* snoozeFraction */, 1.0f /* dismissFraction */);
-                    return true;
-                case DragEvent.ACTION_DROP:
-                    dismiss();
-                    return true;
-                case DragEvent.ACTION_DRAG_ENDED:
-                    if (!dragEvent.getResult()) {
-                        AnimatorUtils.reverse(mDismissAnimator);
-                    }
-                    return true;
-                default:
-                    return true;
-            }
-        }
-    };
-
+    private final Handler mHandler = new Handler();
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -244,8 +106,6 @@ public class AlarmActivity extends Activity {
             }
         }
     };
-
-    private final Handler mHandler = new Handler();
 
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
@@ -330,14 +190,9 @@ public class AlarmActivity extends Activity {
         mCurrentHourColor = Utils.getCurrentHourColor();
         mContainerView.setBackgroundColor(mCurrentHourColor);
 
-        mAlarmButton.setOnTouchListener(mAlarmOnTouchListener);
-        mSnoozeButton.setOnClickListener(mSnoozeOnClickListener);
-        mDismissButton.setOnClickListener(mDismissOnClickListener);
-
-        mContentView.setOnDragListener(mContentOnDragListener);
-        mAlarmButton.setOnDragListener(mAlarmOnDragListener);
-        mSnoozeButton.setOnDragListener(mSnoozeOnDragListener);
-        mDismissButton.setOnDragListener(mDismissOnDragListener);
+        mAlarmButton.setOnTouchListener(this);
+        mSnoozeButton.setOnClickListener(this);
+        mDismissButton.setOnClickListener(this);
 
         mAlarmAnimator = AnimatorUtils.getScaleAnimator(mAlarmButton, 1.0f, 0.0f);
         mSnoozeAnimator = getButtonAnimator(mSnoozeButton, Color.WHITE);
@@ -373,13 +228,8 @@ public class AlarmActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed() {
-        // Don't allow back to dismiss.
-    }
-
-    @Override
     public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
-        // Do this on key down to handle a few of the system keys.
+        // Do this in dispatch to intercept a few of the system keys.
         if (Log.LOGV) {
             Log.v("AlarmActivity - dispatchKeyEvent - " + event.getKeyCode());
         }
@@ -412,6 +262,78 @@ public class AlarmActivity extends Activity {
         return super.dispatchKeyEvent(event);
     }
 
+    @Override
+    public void onBackPressed() {
+        // Don't allow back to dismiss.
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (mAlarmHandled) {
+            return;
+        }
+
+        final float translationX = Math.max(view.getLeft() - mAlarmButton.getRight(), 0)
+                + Math.min(view.getRight() - mAlarmButton.getLeft(), 0);
+        getAlarmBounceAnimator(translationX, translationX < 0.0f
+                ? R.string.swipe_snooze_instruction : R.string.swipe_dismiss_instruction).start();
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        if (mAlarmHandled) {
+            return false;
+        }
+
+        final int[] contentLocation = {0, 0};
+        mContentView.getLocationOnScreen(contentLocation);
+
+        final float x = motionEvent.getRawX() - contentLocation[0];
+        final float y = motionEvent.getRawY() - contentLocation[1];
+
+        final float snoozeFraction, dismissFraction;
+        if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
+            snoozeFraction = getFraction(mAlarmButton.getRight(), mSnoozeButton.getLeft(), x);
+            dismissFraction = getFraction(mAlarmButton.getLeft(), mDismissButton.getRight(), x);
+        } else {
+            snoozeFraction = getFraction(mAlarmButton.getLeft(), mSnoozeButton.getRight(), x);
+            dismissFraction = getFraction(mAlarmButton.getRight(), mDismissButton.getLeft(), x);
+        }
+        setAnimatedFractions(snoozeFraction, dismissFraction);
+
+        switch (motionEvent.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                // Stop the pulse, allowing the last pulse to finish.
+                mPulseAnimator.setRepeatCount(0);
+                break;
+            case MotionEvent.ACTION_UP:
+                if (snoozeFraction == 1.0f) {
+                    snooze();
+                } else if (dismissFraction == 1.0f) {
+                    dismiss();
+                } else {
+                    if (snoozeFraction > 0.0f || dismissFraction > 0.0f) {
+                        // Animate back to the initial state.
+                        AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
+                    } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
+                        // User touched the alarm button, hint the dismiss action.
+                        mDismissButton.performClick();
+                    }
+
+                    // Restart the pulse.
+                    mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                    if (!mPulseAnimator.isStarted()) {
+                        mPulseAnimator.start();
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+
+        return true;
+    }
+
     private void snooze() {
         mAlarmHandled = true;
 
@@ -436,6 +358,10 @@ public class AlarmActivity extends Activity {
         AnimatorUtils.setAnimatedFraction(mAlarmAnimator, alarmFraction);
         AnimatorUtils.setAnimatedFraction(mSnoozeAnimator, snoozeFraction);
         AnimatorUtils.setAnimatedFraction(mDismissAnimator, dismissFraction);
+    }
+
+    private float getFraction(float x0, float x1, float x) {
+        return Math.max(Math.min((x - x0) / (x1 - x0), 1.0f), 0.0f);
     }
 
     private ValueAnimator getButtonAnimator(ImageButton button, int tintColor) {
