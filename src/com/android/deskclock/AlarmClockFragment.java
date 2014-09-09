@@ -92,6 +92,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private static final int EXPAND_DURATION = 300;
     private static final int COLLAPSE_DURATION = 250;
 
+    private static final int ROTATE_180_DEGREE = 180;
+
     private static final String KEY_EXPANDED_ID = "expandedId";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
     private static final String KEY_RINGTONE_TITLE_CACHE = "ringtoneTitleCache";
@@ -786,6 +788,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.delete.setVisibility(expanded ? View.VISIBLE : View.GONE);
             itemHolder.summary.setVisibility(expanded? View.GONE : View.VISIBLE);
             itemHolder.hairLine.setVisibility(expanded ? View.GONE : View.VISIBLE);
+            itemHolder.arrow.setRotation(expanded ? ROTATE_180_DEGREE : 0);
 
             // Set the repeat text or leave it blank if it does not repeat.
             final String daysOfWeekStr =
@@ -1125,7 +1128,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             if (!animate) {
                 // Set the "end" layout and don't do the animation.
-                itemHolder.arrow.setRotation(180);
+                itemHolder.arrow.setRotation(ROTATE_180_DEGREE);
                 return;
             }
 
@@ -1181,7 +1184,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                                     itemHolder.expandArea.getLayoutParams();
                             expandParams.setMargins(
                                     0, (int) -((1 - value) * distance), 0, collapseHeight);
-                            itemHolder.arrow.setRotation(180 * value);
+                            itemHolder.arrow.setRotation(ROTATE_180_DEGREE * value);
                             itemHolder.summary.setAlpha(1 - value);
                             itemHolder.hairLine.setAlpha(1 - value);
 
@@ -1195,7 +1198,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                             // Set it back to wrap content since we'd explicitly set the height.
                             itemHolder.alarmItem.getLayoutParams().height =
                                     LayoutParams.WRAP_CONTENT;
-                            itemHolder.arrow.setRotation(180);
+                            itemHolder.arrow.setRotation(ROTATE_180_DEGREE);
                             itemHolder.summary.setVisibility(View.GONE);
                             itemHolder.hairLine.setVisibility(View.GONE);
                             itemHolder.delete.setVisibility(View.VISIBLE);
@@ -1286,7 +1289,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                                     itemHolder.expandArea.getLayoutParams();
                             expandParams.setMargins(
                                     0, (int) (value * distance), 0, mCollapseExpandHeight);
-                            itemHolder.arrow.setRotation(180 * (1 - value));
+                            itemHolder.arrow.setRotation(ROTATE_180_DEGREE * (1 - value));
                             itemHolder.delete.setAlpha(value);
                             itemHolder.summary.setAlpha(value);
                             itemHolder.hairLine.setAlpha(value);
