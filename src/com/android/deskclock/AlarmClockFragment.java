@@ -547,7 +547,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             Switch onoff;
             TextView daysOfWeek;
             TextView label;
-            ImageView delete;
+            ImageButton delete;
             View expandArea;
             View summary;
             TextView clickableLabel;
@@ -681,7 +681,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             holder.onoff.setTypeface(mRobotoNormal);
             holder.daysOfWeek = (TextView) view.findViewById(R.id.daysOfWeek);
             holder.label = (TextView) view.findViewById(R.id.label);
-            holder.delete = (ImageView) view.findViewById(R.id.delete);
+            holder.delete = (ImageButton) view.findViewById(R.id.delete);
             holder.summary = view.findViewById(R.id.summary);
             holder.expandArea = view.findViewById(R.id.expand_area);
             holder.hairLine = view.findViewById(R.id.hairline);
