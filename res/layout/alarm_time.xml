@@ -159,14 +159,16 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/collapse_expand_height"
             android:layout_gravity="bottom"
+            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/collapse_alarm">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/delete"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dip"
                 android:layout_marginStart="4dip"
                 android:layout_gravity="start|center_vertical"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/delete_alarm"
                 android:src="@drawable/ic_delete" />
 
@@ -219,8 +221,8 @@
 
             <ImageView
                 android:id="@+id/arrow"
-                android:layout_width="48dp"
-                android:layout_height="32dp"
+                android:layout_width="48dip"
+                android:layout_height="32dip"
                 android:layout_gravity="end|center_vertical"
                 android:contentDescription="@string/expand_alarm"
                 android:src="@drawable/ic_expand_down" />
