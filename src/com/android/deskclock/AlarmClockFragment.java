@@ -34,6 +34,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.Ringtone;
@@ -93,6 +94,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private static final int COLLAPSE_DURATION = 250;
 
     private static final int ROTATE_180_DEGREE = 180;
+    private static final float ALARM_ELEVATION = 8f;
+    private static final float TINTED_LEVEL = 0.09f;
 
     private static final String KEY_EXPANDED_ID = "expandedId";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
@@ -294,6 +297,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onResume() {
         super.onResume();
+
+        if (mAdapter != null) {
+            mAdapter.notifyDataSetChanged();
+        }
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = getActivity().getIntent();
         if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
@@ -515,8 +522,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         private final String[] mLongWeekDayStrings;
         private final int mColorLit;
         private final int mColorDim;
-        private final int mBackgroundColorExpanded;
-        private final int mBackgroundColor;
         private final Typeface mRobotoNormal;
         private final ListView mList;
 
@@ -561,7 +566,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             View hairLine;
             View arrow;
             View collapseExpandArea;
-            View footerFiller;
 
             // Other states
             Alarm alarm;
@@ -597,8 +601,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             Resources res = mContext.getResources();
             mColorLit = res.getColor(R.color.clock_white);
             mColorDim = res.getColor(R.color.clock_gray);
-            mBackgroundColorExpanded = res.getColor(R.color.alarm_whiteish);
-            mBackgroundColor = R.drawable.alarm_background_normal;
 
             mRobotoNormal = Typeface.create("sans-serif", Typeface.NORMAL);
 
@@ -638,13 +640,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 v = convertView;
             }
             bindView(v, mContext, getCursor());
-            ItemHolder holder = (ItemHolder) v.getTag();
-
-            // We need the footer for the last element of the array to allow the user to scroll
-            // the item beyond the bottom button bar, which obscures the view.
-            final int footerVisible = (position < getCount() - 1 || getCount() == 1) ?
-                    View.GONE : View .VISIBLE;
-            holder.footerFiller.setVisibility(footerVisible);
             return v;
         }
 
@@ -692,14 +687,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
             holder.clickableLabel = (TextView) view.findViewById(R.id.edit_label);
             holder.repeatDays = (LinearLayout) view.findViewById(R.id.repeat_days);
             holder.collapseExpandArea = view.findViewById(R.id.collapse_expand);
-            holder.footerFiller = view.findViewById(R.id.alarm_footer_filler);
-            holder.footerFiller.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    // Do nothing.
-                }
-            });
 
             // Build button for each day.
             for (int i = 0; i < 7; i++) {
@@ -733,12 +720,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.onoff.setChecked(alarm.enabled);
 
             if (mSelectedAlarms.contains(itemHolder.alarm.id)) {
-                itemHolder.alarmItem.setBackgroundColor(mBackgroundColorExpanded);
+                setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
                 setItemAlpha(itemHolder, true);
                 itemHolder.onoff.setEnabled(false);
             } else {
                 itemHolder.onoff.setEnabled(true);
-                itemHolder.alarmItem.setBackgroundResource(mBackgroundColor);
+                setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, false /* expanded */);
                 setItemAlpha(itemHolder, itemHolder.onoff.isChecked());
             }
             itemHolder.clock.setFormat(
@@ -850,6 +837,24 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     }
                 }
             });
+        }
+
+        private void setAlarmItemBackgroundAndElevation(LinearLayout layout, boolean expanded) {
+            if (expanded) {
+                layout.setBackgroundColor(getTintedBackgroundColor());
+                layout.setElevation(ALARM_ELEVATION);
+            } else {
+                layout.setBackgroundResource(R.drawable.alarm_background_normal);
+                layout.setElevation(0);
+            }
+        }
+
+        private int getTintedBackgroundColor() {
+            final int c = Utils.getCurrentHourColor();
+            final int red = Color.red(c) + (int) (TINTED_LEVEL * (255 - Color.red(c)));
+            final int green = Color.green(c) + (int) (TINTED_LEVEL * (255 - Color.green(c)));
+            final int blue = Color.blue(c) + (int) (TINTED_LEVEL * (255 - Color.blue(c)));
+            return Color.rgb(red, green, blue);
         }
 
         private boolean isTomorrow(Alarm alarm) {
@@ -1122,7 +1127,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             final int startingHeight = itemHolder.alarmItem.getHeight();
 
             // Set the expand area to visible so we can measure the height to animate to.
-            itemHolder.alarmItem.setBackgroundColor(mBackgroundColorExpanded);
+            setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
             itemHolder.expandArea.setVisibility(View.VISIBLE);
             itemHolder.delete.setVisibility(View.VISIBLE);
 
@@ -1235,7 +1240,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             final int startingHeight = itemHolder.alarmItem.getHeight();
 
             // Set the expand area to gone so we can measure the height to animate to.
-            itemHolder.alarmItem.setBackgroundResource(mBackgroundColor);
+            setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, false /* expanded */);
             itemHolder.expandArea.setVisibility(View.GONE);
 
             if (!animate) {
