@@ -42,16 +42,16 @@
 
     <FrameLayout
         android:id="@+id/alarms_footer_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom" >
+        android:layout_width="@dimen/footer_button_size"
+        android:layout_height="@dimen/footer_button_size"
+        android:layout_gravity="bottom|end" >
         <ImageButton
             android:id="@+id/menu_button"
             android:contentDescription="@string/button_menu"
             style="?android:attr/actionOverflowButtonStyle"
             android:layout_gravity="end|center_vertical"
-            android:layout_width="@dimen/footer_button_size"
-            android:layout_height="@dimen/footer_button_size" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </FrameLayout>
     <TextView
             android:id="@+id/alarms_empty_view"
