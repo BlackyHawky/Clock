@@ -159,7 +159,6 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/collapse_expand_height"
             android:layout_gravity="bottom"
-            android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/collapse_alarm">
 
             <ImageButton
@@ -229,9 +228,4 @@
         </FrameLayout>
     </FrameLayout>
 
-    <View
-        android:id="@+id/alarm_footer_filler"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/button_footer_height"
-        android:visibility="gone" />
 </LinearLayout>
