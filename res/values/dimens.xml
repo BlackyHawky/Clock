@@ -59,6 +59,9 @@
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">16dip</dimen>
 
+    <dimen name="alarm_lockscreen_pulse_size">256dp</dimen>
+    <dimen name="alarm_lockscreen_bottom_margin">40dp</dimen>
+
     <dimen name="big_font_size">88sp</dimen>
     <dimen name="medium_font_size">56sp</dimen>
     <dimen name="small_font_size">32sp</dimen>
@@ -68,7 +71,7 @@
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
     <dimen name="alarm_time_font_size">64sp</dimen>
-    <dimen name="no_alarms_font_size">36sp</dimen>
+    <dimen name="alarm_info_font_size">36sp</dimen>
 
     <dimen name="body_font_padding">4dp</dimen>
     <dimen name="button_font_size">24sp</dimen>
