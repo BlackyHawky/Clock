@@ -37,7 +37,6 @@
 
     <dimen name="alarm_side_padding">48dip</dimen>
     <dimen name="clock_side_padding">48dip</dimen>
-    <dimen name="alarm_clock_top_margin">48dip</dimen>
 
     <dimen name="big_font_size">160sp</dimen>
     <dimen name="medium_font_size">96sp</dimen>

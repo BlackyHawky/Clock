@@ -40,7 +40,7 @@
 
     <dimen name="alarm_side_padding">12dip</dimen>
     <dimen name="clock_side_padding">12dip</dimen>
-    <dimen name="alarm_clock_top_margin">12dip</dimen>
+    <dimen name="alarm_clock_vertical_margin">12dip</dimen>
 
     <!-- Analog clock size in the the screen saver -->
     <dimen name="bottom_text_size">16sp</dimen>
@@ -180,7 +180,7 @@
     <dimen name="digital_widget_city_margin_bottom">10dp</dimen>
 
     <!-- Bottom margin for the expand area -->
-    <dimen name="collapse_expand_height">48dp</dimen>
+    <dimen name="collapse_expand_height">60dp</dimen>
 
     <!-- Divider height -->
     <dimen name="hairline_height">1dip</dimen>
