@@ -30,7 +30,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/alarm_clock_top_margin"
+        android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
         android:orientation="horizontal">
 
         <com.android.deskclock.widget.TextTime
@@ -149,7 +149,6 @@
                 android:layout_height="@dimen/hairline_height"
                 android:layout_marginLeft="12dip"
                 android:layout_marginRight="12dip"
-                android:layout_marginBottom="12dip"
                 android:background="@color/hairline" />
 
         </LinearLayout>
@@ -157,7 +156,7 @@
         <FrameLayout
             android:id="@+id/collapse_expand"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/collapse_expand_height"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:contentDescription="@string/collapse_alarm">
 
@@ -166,7 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="48dip"
                 android:layout_marginStart="4dip"
-                android:layout_gravity="start|center_vertical"
+                android:layout_gravity="start"
+                android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/delete_alarm"
                 android:src="@drawable/ic_delete" />
@@ -184,6 +184,7 @@
                 android:id="@+id/summary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -222,7 +223,8 @@
                 android:id="@+id/arrow"
                 android:layout_width="48dip"
                 android:layout_height="32dip"
-                android:layout_gravity="end|center_vertical"
+                android:layout_gravity="bottom|end"
+                android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:contentDescription="@string/expand_alarm"
                 android:src="@drawable/ic_expand_down" />
         </FrameLayout>
