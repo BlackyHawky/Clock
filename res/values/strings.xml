@@ -376,7 +376,7 @@
 
     <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
-    <string name="button_alarms">Alarms</string>
+    <string name="button_alarms">Add alarm</string>
     <!-- Describes the purpose of the button which provides a list of cities for the world clock settings -->
     <string name="button_cities">Cities</string>
     <!-- Describes the purpose of the button which pops up a menu of setting choices -->

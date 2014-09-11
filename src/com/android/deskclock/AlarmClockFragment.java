@@ -1495,5 +1495,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     public void setFabAppearance(ImageButton fab) {
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_plus);
+        fab.setContentDescription(fab.getContext().getString(R.string.button_alarms));
     }
 }
