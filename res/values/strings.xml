@@ -406,7 +406,8 @@
     <string name="sw_lap_button">Lap</string>
     <!-- Describes the purpose of the button to return the stopwatch to zero and remove the lap times. -->
     <string name="sw_reset_button">Reset</string>
-    <!-- Describes the purpose of the button to share the stopwatch value. -->
+    <!-- Describes the purpose of the button to share the stopwatch value.
+         Also used as title for chooser when sharing stopwatch results. -->
     <string name="sw_share_button">Share</string>
 
     <!-- Abbreviation for temporal hours [CHAR LIMIT=1] -->
@@ -767,8 +768,6 @@
 
      <!-- Header in the preferences settings for the section pertaining to alarms -->
      <string name="alarm_settings">Alarms</string>
-     <!-- Describes the purpose of the button to show the remaining choices whenever there were too many -->
-     <string name="see_all">See all&#8230;</string>
      <string name="desk_clock_help_url" translatable="false"></string>
      <!-- Describes the running service for the stopwatch -->
      <string name="stopwatch_service_desc">Stopwatch service to run the notification.</string>
