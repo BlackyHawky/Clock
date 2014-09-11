@@ -151,7 +151,7 @@
     </style>
 
     <style name="no_alarms">
-        <item name="android:textSize">@dimen/no_alarms_font_size</item>
+        <item name="android:textSize">@dimen/alarm_info_font_size</item>
         <item name="android:textStyle">bold</item>
     </style>
 
@@ -206,7 +206,7 @@
     </style>
 
     <style name="alarm_lockscreen_thin">
-        <item name="android:textSize">@dimen/small_font_size</item>
+        <item name="android:textSize">@dimen/alarm_info_font_size</item>
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
