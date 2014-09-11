@@ -317,8 +317,8 @@
     <string name="see_all" msgid="775983396630163739">"Տեսնել բոլորը…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Վայկյանաչափի ծառայությունը կգործարկի ծանուցումներ:"</string>
     <string name="swn_stopped" msgid="783124901663086172">"Դադարեցված է"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Մերժելու համար սահեցրեք աջ"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Ննջելու համար սահեցրեք ձախ"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Անջատելու համար սահեցրեք աջ"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Հետաձգելու համար սահեցրեք ձախ"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ժամաչափը դադարեցված է"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ժամաչափ դադարեցված է"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Հպեք՝ ձեր ժամաչափերը տեսնելու համար"</string>
