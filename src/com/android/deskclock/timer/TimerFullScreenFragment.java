@@ -46,6 +46,7 @@ import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClock.OnTapListener;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LabelDialogFragment;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
 import com.android.deskclock.Utils;
@@ -851,7 +852,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
     private void updateTimersState(TimerObj t, String action) {
         if (Timers.DELETE_TIMER.equals(action)) {
-            com.android.deskclock.Log.e("~~ update timer state");
+            LogUtils.e("~~ update timer state");
             t.deleteFromSharedPref(mPrefs);
         } else {
             t.writeToSharedPref(mPrefs);

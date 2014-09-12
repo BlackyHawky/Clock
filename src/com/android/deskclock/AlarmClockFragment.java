@@ -487,7 +487,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     saveRingtoneUri(data);
                     break;
                 default:
-                    Log.w("Unhandled request code in onActivityResult: " + requestCode);
+                    LogUtils.w("Unhandled request code in onActivityResult: " + requestCode);
             }
         }
     }
@@ -607,7 +607,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             if (!getCursor().moveToPosition(position)) {
                 // May happen if the last alarm was deleted and the cursor refreshed while the
                 // list is updated.
-                Log.v("couldn't move cursor to position " + position);
+                LogUtils.v("couldn't move cursor to position " + position);
                 return null;
             }
             View v;

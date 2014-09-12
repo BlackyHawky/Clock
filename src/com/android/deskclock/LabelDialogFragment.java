@@ -147,7 +147,7 @@ public class LabelDialogFragment extends DialogFragment {
         } else if (timer != null) {
             set(timer, tag, label);
         } else {
-            Log.e("No alarm or timer available.");
+            LogUtils.e("No alarm or timer available.");
         }
     }
 
@@ -157,7 +157,7 @@ public class LabelDialogFragment extends DialogFragment {
         if (activity instanceof AlarmLabelDialogHandler) {
             ((DeskClock) getActivity()).onDialogLabelSet(alarm, label, tag);
         } else {
-            Log.e("Error! Activities that use LabelDialogFragment must implement "
+            LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
                     + "AlarmLabelDialogHandler");
         }
         dismiss();
@@ -169,7 +169,7 @@ public class LabelDialogFragment extends DialogFragment {
         if (activity instanceof TimerLabelDialogHandler){
             ((DeskClock) getActivity()).onDialogLabelSet(timer, label, tag);
         } else {
-            Log.e("Error! Activities that use LabelDialogFragment must implement "
+            LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
                     + "AlarmLabelDialogHandler or TimerLabelDialogHandler");
         }
         dismiss();
