@@ -107,6 +107,9 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="TimerAlertFullScreenTheme"
+           parent="@android:style/Theme.Material.Wallpaper.NoTitleBar" />
+
     <style name="ScreensaverActivityTheme"
            parent="@android:style/Theme.Material.Wallpaper.NoTitleBar" />
 

@@ -1458,7 +1458,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void respondClick(View view){
+    public void onFabClick(View view){
         hideUndoBar(true, null);
         startCreatingAlarm();
     }
@@ -1468,5 +1468,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_plus);
         fab.setContentDescription(fab.getContext().getString(R.string.button_alarms));
+    }
+
+    @Override
+    public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
+        left.setVisibility(View.INVISIBLE);
+        right.setVisibility(View.INVISIBLE);
     }
 }
