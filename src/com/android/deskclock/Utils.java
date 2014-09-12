@@ -612,6 +612,11 @@ public class Utils {
         return Color.parseColor(BACKGROUND_SPECTRUM[hourOfDay]);
     }
 
+    public static int getNextHourColor() {
+        final int currHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        return Color.parseColor(BACKGROUND_SPECTRUM[currHour < 24 ? currHour + 1 : 1]);
+    }
+
     /**
      * To get an array of single-character day of week symbols {'S', 'M', 'T', 'W', 'T', 'F', 'S'}
      * @return the array of symbols
