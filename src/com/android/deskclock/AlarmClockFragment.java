@@ -18,7 +18,6 @@ package com.android.deskclock;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
-import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -44,8 +43,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.transition.AutoTransition;
+import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -104,7 +105,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private static final String KEY_UNDO_SHOWING = "undoShowing";
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
     private static final String KEY_SELECTED_ALARM = "selectedAlarm";
-    private static final String KEY_DELETE_CONFIRMATION = "deleteConfirmation";
     private static final DeskClockExtensions sDeskClockExtensions = ExtensionsFactory
                     .getDeskClockExtensions();
 
@@ -119,10 +119,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
     // can not be found, and toast message will pop up that the alarm has be deleted.
     public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
 
+    private FrameLayout mMainLayout;
     private ListView mAlarmsList;
     private AlarmItemAdapter mAdapter;
     private View mEmptyView;
-    private View mAlarmsView;
     private View mFooterView;
 
     private Bundle mRingtoneTitleCache; // Key: ringtone uri, value: ringtone title
@@ -139,17 +139,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private Alarm mAddedAlarm;
     private boolean mUndoShowing;
 
-    private Animator mFadeIn;
-    private Animator mFadeOut;
-
     private Interpolator mExpandInterpolator;
     private Interpolator mCollapseInterpolator;
 
     private Transition mAddRemoveTransition;
     private Transition mRepeatTransition;
-
-    private int mTimelineViewWidth;
-    private int mUndoBarInitialMargin;
+    private Transition mEmptyViewTransition;
 
     public AlarmClockFragment() {
         // Basic provider required by Fragment.java
@@ -192,6 +187,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
         mRepeatTransition.setDuration(ANIMATION_DURATION / 2);
         mRepeatTransition.setInterpolator(new AccelerateDecelerateInterpolator());
 
+        mEmptyViewTransition = new TransitionSet()
+                .setOrdering(TransitionSet.ORDERING_SEQUENTIAL)
+                .addTransition(new Fade(Fade.OUT))
+                .addTransition(new Fade(Fade.IN))
+                .setDuration(ANIMATION_DURATION);
+
         boolean isLandscape = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
         View menuButton = v.findViewById(R.id.menu_button);
@@ -211,38 +212,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 startCreatingAlarm();
             }
         });
+
+        mMainLayout = (FrameLayout) v.findViewById(R.id.main);
         mAlarmsList = (ListView) v.findViewById(R.id.alarms_list);
 
-        mFadeIn = AnimatorInflater.loadAnimator(getActivity(), R.animator.fade_in);
-        mFadeIn.setDuration(ANIMATION_DURATION);
-        mFadeIn.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                mEmptyView.setVisibility(View.VISIBLE);
-            }
-        });
-        mFadeIn.setTarget(mEmptyView);
-
-        mFadeOut = AnimatorInflater.loadAnimator(getActivity(), R.animator.fade_out);
-        mFadeOut.setDuration(ANIMATION_DURATION);
-        mFadeOut.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                mEmptyView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                mEmptyView.setVisibility(View.GONE);
-            }
-        });
-        mFadeOut.setTarget(mEmptyView);
-
-        mAlarmsView = v.findViewById(R.id.alarm_layout);
-
         mUndoBar = (ActionableToastBar) v.findViewById(R.id.undo_bar);
-        mUndoBarInitialMargin = getActivity().getResources()
-                .getDimensionPixelOffset(R.dimen.alarm_undo_bar_horizontal_margin);
         mUndoFrame = v.findViewById(R.id.undo_frame);
         mUndoFrame.setOnTouchListener(this);
 
@@ -263,6 +237,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     showUndoBar();
                 }
 
+                if ((count == 0 && prevAdapterCount > 0) ||  /* should fade in */
+                        (count > 0 && prevAdapterCount == 0) /* should fade out */) {
+                    TransitionManager.beginDelayedTransition(mMainLayout, mEmptyViewTransition);
+                }
                 mEmptyView.setVisibility(count == 0 ? View.VISIBLE : View.GONE);
 
                 // Cache this adapter's count for when the adapter changes.
