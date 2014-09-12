@@ -218,6 +218,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
         getWindow().setBackgroundDrawable(null);
 
+        mIsFirstLaunch = true;
         mSelectedTab = CLOCK_TAB_INDEX;
         if (icicle != null) {
             mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
@@ -527,6 +528,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             if (mIsFirstLaunch && getRtlPosition(position) == CLOCK_TAB_INDEX) {
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setImageResource(R.drawable.ic_globe);
+                mFab.setContentDescription(getString(R.string.button_cities));
                 mIsFirstLaunch = false;
             } else {
                 DeskClockFragment f = (DeskClockFragment) getItem(getRtlPosition(position));
