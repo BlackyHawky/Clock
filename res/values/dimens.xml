@@ -118,10 +118,8 @@
 
     <dimen name="sw_padding_end">32dp</dimen>
 
-    <!-- The width of the big icons in notifications. -->
-    <dimen name="notification_large_icon_width">64dp</dimen>
-    <!-- The width of the big icons in notifications. -->
-    <dimen name="notification_large_icon_height">64dp</dimen>
+    <!-- The width and height of the notification icon -->
+    <dimen name="notification_icon_size">64dip</dimen>
      <!-- Size of notification text (see TextAppearance.StatusBar.EventContent) -->
     <dimen name="notification_text_size">14dp</dimen>
     <!-- Size of notification text titles (see TextAppearance.StatusBar.EventContent.Title) -->
