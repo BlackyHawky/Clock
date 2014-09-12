@@ -151,10 +151,4 @@ public abstract class FragmentStatePagerAdapter2 extends PagerAdapter {
         return mFragments.valueAt(position);
     }
 
-    public void removeAllFragments() {
-        for (int i = 0; i < mFragments.size(); i++) {
-            Fragment f = mFragments.valueAt(i);
-            mFragmentManager.beginTransaction().remove(f).commit();
-        }
-    }
 }

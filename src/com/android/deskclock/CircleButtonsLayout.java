@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -15,18 +16,13 @@ import android.widget.TextView;
 public class CircleButtonsLayout extends FrameLayout {
     private Context mContext;
     private int mCircleTimerViewId;
-    private int mLeftButtonId;
-    private int mRightButtonId;
-    private int mStopButtonId;
+    private int mResetAddButtonId;
     private int mLabelId;
     private int mLabelTextId;
-    private float mLeftButtonPadding;
-    private float mRightButtonPadding;
     private float mStrokeSize;
     private float mDiamOffset;
     private CircleTimerView mCtv;
-    private ImageButton mLeft, mRight;
-    private TextView mStop;
+    private ImageButton mResetAddButton;
     private FrameLayout mLabel;
     private TextView mLabelText;
 
@@ -41,17 +37,11 @@ public class CircleButtonsLayout extends FrameLayout {
         mContext = context;
     }
 
-    public void setCircleTimerViewIds(int circleTimerViewId, int leftButtonId, int rightButtonId,
-            int stopButtonId, int leftButtonPaddingDimenId, int rightButtonPaddingDimenId,
-            int labelId, int labelTextId) {
+    public void setCircleTimerViewIds(int circleTimerViewId, int stopButtonId,  int labelId, int labelTextId) {
         mCircleTimerViewId = circleTimerViewId;
-        mLeftButtonId = leftButtonId;
-        mRightButtonId = rightButtonId;
-        mStopButtonId = stopButtonId;
+        mResetAddButtonId = stopButtonId;
         mLabelId = labelId;
         mLabelTextId = labelTextId;
-        mLeftButtonPadding = mContext.getResources().getDimension(leftButtonPaddingDimenId);
-        mRightButtonPadding = mContext.getResources().getDimension(rightButtonPaddingDimenId);
 
         float dotStrokeSize = mContext.getResources().getDimension(R.dimen.circletimer_dot_size);
         float markerStrokeSize =
@@ -76,9 +66,7 @@ public class CircleButtonsLayout extends FrameLayout {
             if (mCtv == null) {
                 return;
             }
-            mLeft = (ImageButton) findViewById(mLeftButtonId);
-            mRight = (ImageButton) findViewById(mRightButtonId);
-            mStop = (TextView) findViewById(mStopButtonId);
+            mResetAddButton = (ImageButton) findViewById(mResetAddButtonId);
             mLabel = (FrameLayout) findViewById(mLabelId);
             mLabelText = (TextView) findViewById(mLabelTextId);
         }
@@ -88,10 +76,13 @@ public class CircleButtonsLayout extends FrameLayout {
         int minBound = Math.min(frameWidth, frameHeight);
         int circleDiam = (int) (minBound - mDiamOffset);
 
-        MarginLayoutParams stopParams = (MarginLayoutParams) mStop.getLayoutParams();
-        stopParams.bottomMargin = circleDiam/6;
-        if (minBound == frameWidth) {
-            stopParams.bottomMargin += (frameHeight-frameWidth)/2;
+        if (mResetAddButton != null) {
+            final MarginLayoutParams resetAddParams = (MarginLayoutParams) mResetAddButton
+                    .getLayoutParams();
+            resetAddParams.bottomMargin = circleDiam / 6;
+            if (minBound == frameWidth) {
+                resetAddParams.bottomMargin += (frameHeight - frameWidth) / 2;
+            }
         }
 
         if (mLabel != null) {
@@ -161,17 +152,5 @@ public class CircleButtonsLayout extends FrameLayout {
 
             mLabelText.setMaxWidth((int) w);
         }
-
-        int sideMarginOffset = (int) ((frameWidth - circleDiam - mStrokeSize) / 2)
-                - (int) mContext.getResources().getDimension(R.dimen.timer_button_extra_offset);
-        int leftMarginOffset = Math.max(0, sideMarginOffset - (int) mLeftButtonPadding);
-        int rightMarginOffset = Math.max(0, sideMarginOffset - (int) mRightButtonPadding);
-        int bottomMarginOffset = (frameHeight - minBound) / 2;
-        MarginLayoutParams leftParams = (MarginLayoutParams) mLeft.getLayoutParams();
-        leftParams.leftMargin = leftMarginOffset;
-        leftParams.bottomMargin = bottomMarginOffset;
-        MarginLayoutParams rightParams = (MarginLayoutParams) mRight.getLayoutParams();
-        rightParams.rightMargin = rightMarginOffset;
-        rightParams.bottomMargin = bottomMarginOffset;
     }
 }
