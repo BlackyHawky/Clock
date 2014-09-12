@@ -164,9 +164,10 @@
                 android:id="@+id/delete"
                 android:layout_width="wrap_content"
                 android:layout_height="48dip"
+                android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+                android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:layout_marginStart="4dip"
                 android:layout_gravity="start"
-                android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/delete_alarm"
                 android:src="@drawable/ic_delete" />
