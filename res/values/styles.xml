@@ -53,10 +53,13 @@
         <item name="android:dividerPadding">12dp</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="DeskClockBarStyle" parent="@android:style/Widget.Material.ActionBar">
         <item name="android:background">@null</item>
         <item name="android:backgroundStacked">@null</item>
         <item name="android:backgroundSplit">@null</item>
+        <!-- Empty displayOptions is to hide App title at app launch -->
+        <item name="android:displayOptions"></item>
     </style>
 
     <style name="DeskClockDropDownListView"
