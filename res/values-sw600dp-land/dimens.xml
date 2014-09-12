@@ -47,15 +47,4 @@
 
     <dimen name="world_clock_margin">48dp</dimen>
     <dimen name="sw_padding_end">48dp</dimen>
-
-    <!-- Empty space at the edges of the +1 and reset button icons. Based off of 56dip width.-->
-    <dimen name="plusone_reset_button_padding">23dip</dimen>
-    <!-- Empty space at the edges of the delete button icons. Based off of 56dip width. -->
-    <dimen name="delete_button_padding">19dip</dimen>
-    <!-- Empty space at the edges of the delete button icons. Based off of 56dip width, only nonzero for tablets. -->
-    <dimen name="share_button_padding">16dip</dimen>
-    <!-- Extra offset for timer button paddings. Only nonzero for non-tablets. -->
-    <dimen name="timer_button_extra_offset">0dip</dimen>
-
-    <dimen name="glowpadview_margin_right">-64dip</dimen>
 </resources>
