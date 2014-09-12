@@ -1034,15 +1034,16 @@ public class TimerFragment extends DeskClockFragment
     }
 
     private void changeFab() {
-        final Activity activity = getActivity();
-        if (activity != null && activity.getClass().equals(DeskClock.class)) {
-            final DeskClock deskClockActivity = (DeskClock) activity;
-            if (mFab != null && deskClockActivity.getSelectedTab() == DeskClock.TIMER_TAB_INDEX) {
-                mFab.setImageResource(mLastVisibleView != mTimersListPage ? R.drawable.ic_fab_play :
-                        R.drawable.ic_fab_plus);
+        if (getActivity() instanceof DeskClock) {
+            if (mFab != null &&
+                    ((DeskClock) getActivity()).getSelectedTab() == DeskClock.TIMER_TAB_INDEX) {
                 if (mLastVisibleView == mTimersListPage) {
+                    mFab.setImageResource(R.drawable.ic_fab_plus);
+                    mFab.setContentDescription(getString(R.string.timer_add_timer));
                     mFab.setVisibility(View.VISIBLE);
                 } else if (mTimerSetup != null) {
+                    mFab.setImageResource(R.drawable.ic_fab_play);
+                    mFab.setContentDescription(getString(R.string.timer_start));
                     mTimerSetup.registerStartButton(mFab);
                 }
             }

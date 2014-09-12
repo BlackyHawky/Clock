@@ -276,5 +276,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     public void setFabAppearance(ImageButton fab) {
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_globe);
+        fab.setContentDescription(fab.getContext().getString(R.string.button_cities));
     }
  }
