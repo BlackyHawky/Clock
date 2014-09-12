@@ -194,7 +194,7 @@
          so that is only has the fired timers -->
         <activity android:name="com.android.deskclock.timer.TimerAlertFullScreen"
                 android:excludeFromRecents="true"
-                android:theme="@style/AlarmAlertFullScreenTheme"
+                android:theme="@style/TimerAlertFullScreenTheme"
                 android:launchMode="singleInstance"
                 android:showOnLockScreen="true"
                 android:taskAffinity=""

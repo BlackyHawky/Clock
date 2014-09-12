@@ -46,45 +46,6 @@
             android:layout_height="match_parent"
             android:background="@null" />
 
-        <ImageButton
-            android:id="@+id/stopwatch_left_button"
-            style="@style/button"
-            android:layout_width="56dip"
-            android:layout_height="56dip"
-            android:layout_gravity="bottom|start"
-            android:background="@null"
-            android:contentDescription="@string/sw_lap_button"
-            android:src="@drawable/ic_lap" />
-
-        <TextView
-            android:id="@+id/stopwatch_stop"
-            style="@style/bold_button"
-            android:visibility="invisible"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:gravity="center"
-            android:layout_marginBottom="0dip"
-            android:contentDescription="@string/timer_stop"
-            android:paddingLeft="10dip"
-            android:paddingStart="10dip"
-            android:paddingRight="10dip"
-            android:paddingEnd="10dip"
-            android:paddingBottom="5dip"
-            android:paddingTop="5dip"
-            android:textColor="@color/clock_white"
-            android:text="@string/timer_stop"
-            android:focusable="true" />
-
-        <ImageButton
-            android:id="@+id/stopwatch_share_button"
-            style="@style/button"
-            android:layout_width="56dip"
-            android:layout_height="56dip"
-            android:layout_gravity="bottom|end"
-            android:contentDescription="@string/sw_share_button"
-            android:background="@null"
-            android:src="@drawable/ic_share" />
     </com.android.deskclock.CircleButtonsLayout>
 
     <Space

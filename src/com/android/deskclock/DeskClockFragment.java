@@ -30,7 +30,7 @@ public class DeskClockFragment extends Fragment {
         // Do nothing here , only in derived classes
     }
 
-    public void respondClick(View view){
+    public void onFabClick(View view){
         // Do nothing here , only in derived classes
     }
 
@@ -38,6 +38,17 @@ public class DeskClockFragment extends Fragment {
         // Do nothing here , only in derived classes
     }
 
+    public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
+        // Do nothing here , only in derived classes
+    }
+
+    public void onLeftButtonClick(View view) {
+        // Do nothing here , only in derived classes
+    }
+
+    public void onRightButtonClick(View view) {
+        // Do nothing here , only in derived classes
+    }
     /**
      * Installs click and touch listeners on a fake overflow menu button.
      *
