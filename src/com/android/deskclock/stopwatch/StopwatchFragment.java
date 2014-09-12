@@ -2,14 +2,12 @@ package com.android.deskclock.stopwatch;
 
 import android.animation.LayoutTransition;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
@@ -20,14 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ListPopupWindow;
 import android.widget.ListView;
-import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.android.deskclock.CircleButtonsLayout;
@@ -40,7 +33,6 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.timer.CountingTimerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StopwatchFragment extends DeskClockFragment
         implements OnSharedPreferenceChangeListener {
@@ -57,7 +49,6 @@ public class StopwatchFragment extends DeskClockFragment
     private CountingTimerView mTimeText;
     private ListView mLapsList;
     private ImageButton mShareButton;
-    private ListPopupWindow mSharePopup;
     private WakeLock mWakeLock;
     private CircleButtonsLayout mCircleLayout;
 
@@ -323,7 +314,7 @@ public class StopwatchFragment extends DeskClockFragment
         mShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSharePopup();
+                shareResults();
             }
         });
 
@@ -474,16 +465,16 @@ public class StopwatchFragment extends DeskClockFragment
 
     @Override
     public void onPause() {
-        // This is called because the lock screen was activated, the window stay
-        // active under it and when we unlock the screen, we see the old time for
-        // a fraction of a second.
-        View v = getView();
-        if (v != null) {
-            v.setVisibility(View.INVISIBLE);
-        }
-
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
             stopUpdateThread();
+
+            // This is called because the lock screen was activated, the window stay
+            // active under it and when we unlock the screen, we see the old time for
+            // a fraction of a second.
+            View v = getView();
+            if (v != null) {
+                v.setVisibility(View.INVISIBLE);
+            }
         }
         // The stopwatch must keep running even if the user closes the app so save stopwatch state
         // in shared prefs
@@ -492,10 +483,6 @@ public class StopwatchFragment extends DeskClockFragment
         writeToSharedPref(prefs);
         mTime.writeToSharedPref(prefs, "sw");
         mTimeText.blinkTimeStr(false);
-        if (mSharePopup != null) {
-            mSharePopup.dismiss();
-            mSharePopup = null;
-        }
         ((DeskClock)getActivity()).unregisterPageChangedListener(this);
         releaseWakeLock();
         super.onPause();
@@ -563,102 +550,24 @@ public class StopwatchFragment extends DeskClockFragment
         }
     }
 
-    private void showSharePopup() {
-        Intent intent = getShareIntent();
-
-        Activity parent = getActivity();
-        PackageManager packageManager = parent.getPackageManager();
-
-        // Get a list of sharable options.
-        List<ResolveInfo> shareOptions = packageManager
-                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-
-        if (shareOptions.size() == 0) {
-            return;
-        }
-        ArrayList<CharSequence> shareOptionTitles = new ArrayList<CharSequence>();
-        ArrayList<Drawable> shareOptionIcons = new ArrayList<Drawable>();
-        ArrayList<CharSequence> shareOptionThreeTitles = new ArrayList<CharSequence>();
-        ArrayList<Drawable> shareOptionThreeIcons = new ArrayList<Drawable>();
-        ArrayList<String> shareOptionPackageNames = new ArrayList<String>();
-        ArrayList<String> shareOptionClassNames = new ArrayList<String>();
-
-        for (int option_i = 0; option_i < shareOptions.size(); option_i++) {
-            ResolveInfo option = shareOptions.get(option_i);
-            CharSequence label = option.loadLabel(packageManager);
-            Drawable icon = option.loadIcon(packageManager);
-            shareOptionTitles.add(label);
-            shareOptionIcons.add(icon);
-            if (shareOptions.size() > 4 && option_i < 3) {
-                shareOptionThreeTitles.add(label);
-                shareOptionThreeIcons.add(icon);
-            }
-            shareOptionPackageNames.add(option.activityInfo.packageName);
-            shareOptionClassNames.add(option.activityInfo.name);
-        }
-        if (shareOptionTitles.size() > 4) {
-            shareOptionThreeTitles.add(getResources().getString(R.string.see_all));
-            shareOptionThreeIcons.add(getResources().getDrawable(android.R.color.transparent));
-        }
-
-        if (mSharePopup != null) {
-            mSharePopup.dismiss();
-            mSharePopup = null;
-        }
-        mSharePopup = new ListPopupWindow(parent);
-        mSharePopup.setAnchorView(mShareButton);
-        mSharePopup.setModal(true);
-        // This adapter to show the rest will be used to quickly repopulate if "See all..." is hit.
-        ImageLabelAdapter showAllAdapter = new ImageLabelAdapter(parent,
-                R.layout.popup_window_item, shareOptionTitles, shareOptionIcons,
-                shareOptionPackageNames, shareOptionClassNames);
-        if (shareOptionTitles.size() > 4) {
-            mSharePopup.setAdapter(new ImageLabelAdapter(parent, R.layout.popup_window_item,
-                    shareOptionThreeTitles, shareOptionThreeIcons, shareOptionPackageNames,
-                    shareOptionClassNames, showAllAdapter));
-        } else {
-            mSharePopup.setAdapter(showAllAdapter);
-        }
-
-        mSharePopup.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CharSequence label = ((TextView) view.findViewById(R.id.title)).getText();
-                if (label.equals(getResources().getString(R.string.see_all))) {
-                    mSharePopup.setAdapter(
-                            ((ImageLabelAdapter) parent.getAdapter()).getShowAllAdapter());
-                    mSharePopup.show();
-                    return;
-                }
-
-                Intent intent = getShareIntent();
-                ImageLabelAdapter adapter = (ImageLabelAdapter) parent.getAdapter();
-                String packageName = adapter.getPackageName(position);
-                String className = adapter.getClassName(position);
-                intent.setClassName(packageName, className);
-                startActivity(intent);
-            }
-        });
-        mSharePopup.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                mSharePopup = null;
-            }
-        });
-        mSharePopup.setWidth((int) getResources().getDimension(R.dimen.popup_window_width));
-        mSharePopup.show();
-    }
-
-    private Intent getShareIntent() {
-        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        intent.putExtra(Intent.EXTRA_SUBJECT,
-                Stopwatches.getShareTitle(getActivity().getApplicationContext()));
-        intent.putExtra(Intent.EXTRA_TEXT, Stopwatches.buildShareResults(
+    private void shareResults() {
+        final Context context = getActivity();
+        final Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT,
+                Stopwatches.getShareTitle(context.getApplicationContext()));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, Stopwatches.buildShareResults(
                 getActivity().getApplicationContext(), mTimeText.getTimeString(),
                 getLapShareTimes(mLapsAdapter.getLapTimes())));
-        return intent;
+
+        final Intent launchIntent = Intent.createChooser(shareIntent,
+                context.getString(R.string.sw_share_button));
+        try {
+            context.startActivity(launchIntent);
+        } catch (ActivityNotFoundException e) {
+            Log.e("No compatible receiver is found");
+        }
     }
 
     /** Turn laps as they would be saved in prefs into format for sharing. **/
@@ -918,60 +827,6 @@ public class StopwatchFragment extends DeskClockFragment
             } else if (mState == Stopwatches.STOPWATCH_RESET) {
                 doReset();
             }
-        }
-    }
-
-    public class ImageLabelAdapter extends ArrayAdapter<CharSequence> {
-        private final ArrayList<CharSequence> mStrings;
-        private final ArrayList<Drawable> mDrawables;
-        private final ArrayList<String> mPackageNames;
-        private final ArrayList<String> mClassNames;
-        private ImageLabelAdapter mShowAllAdapter;
-
-        public ImageLabelAdapter(Context context, int textViewResourceId,
-                ArrayList<CharSequence> strings, ArrayList<Drawable> drawables,
-                ArrayList<String> packageNames, ArrayList<String> classNames) {
-            super(context, textViewResourceId, strings);
-            mStrings = strings;
-            mDrawables = drawables;
-            mPackageNames = packageNames;
-            mClassNames = classNames;
-        }
-
-        // Use this constructor if showing a "see all" option, to pass in the adapter
-        // that will be needed to quickly show all the remaining options.
-        public ImageLabelAdapter(Context context, int textViewResourceId,
-                ArrayList<CharSequence> strings, ArrayList<Drawable> drawables,
-                ArrayList<String> packageNames, ArrayList<String> classNames,
-                ImageLabelAdapter showAllAdapter) {
-            super(context, textViewResourceId, strings);
-            mStrings = strings;
-            mDrawables = drawables;
-            mPackageNames = packageNames;
-            mClassNames = classNames;
-            mShowAllAdapter = showAllAdapter;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater li = getActivity().getLayoutInflater();
-            View row = li.inflate(R.layout.popup_window_item, parent, false);
-            ((TextView) row.findViewById(R.id.title)).setText(
-                    mStrings.get(position));
-            row.findViewById(R.id.icon).setBackground(mDrawables.get(position));
-            return row;
-        }
-
-        public String getPackageName(int position) {
-            return mPackageNames.get(position);
-        }
-
-        public String getClassName(int position) {
-            return mClassNames.get(position);
-        }
-
-        public ImageLabelAdapter getShowAllAdapter() {
-            return mShowAllAdapter;
         }
     }
 
