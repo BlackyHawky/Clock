@@ -617,10 +617,14 @@ public class StopwatchFragment extends DeskClockFragment
     }
 
     private void changeFab(int id) {
-        final Activity activity = getActivity();
-        if (activity != null && activity.getClass().equals(DeskClock.class)) {
-            final DeskClock deskClockActivity = (DeskClock) activity;
-            if (mFab != null && deskClockActivity.getSelectedTab() == DeskClock.STOPWATCH_TAB_INDEX) {
+        if (getActivity() instanceof DeskClock) {
+            if (mFab != null &&
+                    ((DeskClock) getActivity()).getSelectedTab() == DeskClock.STOPWATCH_TAB_INDEX) {
+                if (id == R.drawable.ic_fab_play) {
+                    mFab.setContentDescription(getString(R.string.sw_start_button));
+                } else if (id == R.drawable.ic_fab_pause){
+                    mFab.setContentDescription(getString(R.string.sw_stop_button));
+                }
                 mFab.setImageResource(id);
                 mFab.setVisibility(View.VISIBLE);
             }
