@@ -62,7 +62,6 @@ import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -721,12 +720,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             if (mSelectedAlarms.contains(itemHolder.alarm.id)) {
                 setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
-                setItemAlpha(itemHolder, true);
+                setDigitalTimeAlpha(itemHolder, true);
                 itemHolder.onoff.setEnabled(false);
             } else {
                 itemHolder.onoff.setEnabled(true);
                 setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, false /* expanded */);
-                setItemAlpha(itemHolder, itemHolder.onoff.isChecked());
+                setDigitalTimeAlpha(itemHolder, itemHolder.onoff.isChecked());
             }
             itemHolder.clock.setFormat(
                     (int)mContext.getResources().getDimension(R.dimen.alarm_label_size));
@@ -748,7 +747,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                         public void onCheckedChanged(CompoundButton compoundButton,
                                 boolean checked) {
                             if (checked != alarm.enabled) {
-                                setItemAlpha(itemHolder, checked);
+                                setDigitalTimeAlpha(itemHolder, checked);
                                 alarm.enabled = checked;
                                 asyncUpdateAlarm(alarm, alarm.enabled);
                             }
@@ -1015,16 +1014,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
             });
         }
 
-        // Sets the alpha of the item except the on/off switch. This gives a visual effect
+        // Sets the alpha of the digital time display. This gives a visual effect
         // for enabled/disabled alarm while leaving the on/off switch more visible
-        private void setItemAlpha(ItemHolder holder, boolean enabled) {
+        private void setDigitalTimeAlpha(ItemHolder holder, boolean enabled) {
             float alpha = enabled ? 1f : 0.5f;
             holder.clock.setAlpha(alpha);
-            holder.summary.setAlpha(alpha);
-            holder.expandArea.setAlpha(alpha);
-            holder.delete.setAlpha(alpha);
-            holder.daysOfWeek.setAlpha(alpha);
-            holder.tomorrowLabel.setAlpha(alpha);
         }
 
         private void updateDaysOfWeekButtons(ItemHolder holder, DaysOfWeek daysOfWeek) {
