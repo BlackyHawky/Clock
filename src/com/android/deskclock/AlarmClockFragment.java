@@ -206,12 +206,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         mEmptyView = v.findViewById(R.id.alarms_empty_view);
-        mEmptyView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCreatingAlarm();
-            }
-        });
 
         mMainLayout = (FrameLayout) v.findViewById(R.id.main);
         mAlarmsList = (ListView) v.findViewById(R.id.alarms_list);
