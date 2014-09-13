@@ -72,6 +72,7 @@
 
     <style name="SettingsTheme" parent="@style/DeskClockParentTheme">
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
+        <item name="android:detailsElementBackground">@null</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
     </style>
 
@@ -92,7 +93,6 @@
     <style name="SettingsTheme.ActionBar" parent="@android:style/Widget.Material.ActionBar">
         <item name="android:titleTextStyle">@style/SettingsTheme.TextAppearance.ActionBar.Title</item>
         <item name="android:displayOptions">useLogo|showTitle</item>
-        <item name="android:background">@drawable/ab_hairline</item>
     </style>
 
     <style name="SettingsTheme.TextAppearance.ActionBar.Title"
