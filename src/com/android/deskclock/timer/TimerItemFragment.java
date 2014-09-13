@@ -121,9 +121,9 @@ public class TimerItemFragment extends Fragment {
         }
         final Activity activity = getActivity();
         if (activity instanceof DeskClock) {
-            labelLayout.setOnTouchListener(new OnTapListener(activity, labelText) {
+            labelLayout.setOnClickListener(new OnClickListener() {
                 @Override
-                protected void processClick(View v) {
+                public void onClick(View view) {
                     onLabelPressed(mTimerObj);
                 }
             });

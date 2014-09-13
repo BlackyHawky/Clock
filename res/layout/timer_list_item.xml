@@ -21,8 +21,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center_vertical"
-    android:paddingBottom="@dimen/footer_button_size"
-    android:layout_marginBottom="@dimen/footer_button_layout_margin"
+    android:paddingBottom="@dimen/timer_list_padding_bottom"
     android:orientation="vertical">
 
     <com.android.deskclock.CircleButtonsLayout
@@ -50,7 +49,6 @@
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="0dip"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:clickable="true"
             android:contentDescription="@string/label">
 
             <TextView
