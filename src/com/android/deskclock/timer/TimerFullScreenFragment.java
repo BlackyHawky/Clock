@@ -797,19 +797,6 @@ public class TimerFullScreenFragment extends DeskClockFragment
         }
     }
 
-    private void deleteTimer(TimerObj t) {
-        mAdapter.deleteTimer(t.mTimerId);
-        mTimersList.setSelectionToTop();
-        if (mAdapter.getCount() == 0) {
-            if (mOnEmptyListListener == null) {
-                mTimerSetup.reset();
-                gotoSetupView();
-            } else {
-                mOnEmptyListListener.onEmptyList();
-            }
-        }
-    }
-
     private void onLabelPressed(TimerObj t) {
         final FragmentTransaction ft = getFragmentManager().beginTransaction();
         final Fragment prev = getFragmentManager().findFragmentByTag("label_dialog");
@@ -824,13 +811,6 @@ public class TimerFullScreenFragment extends DeskClockFragment
         newFragment.show(ft, "label_dialog");
     }
 
-    public void setLabel(TimerObj timer, String label) {
-        mAdapter.getItem(mAdapter.findTimerPositionById(timer.mTimerId)).mLabel = label;
-        updateTimersState(timer, Timers.TIMER_UPDATE);
-        // Make sure the new label is visible.
-        mAdapter.notifyDataSetChanged();
-    }
-
     // Starts the ticks that animate the timers.
     private void startClockTicks() {
         mTimersList.postDelayed(mClockTick, 20);
@@ -843,10 +823,6 @@ public class TimerFullScreenFragment extends DeskClockFragment
             mTimersList.removeCallbacks(mClockTick);
             mTicking = false;
         }
-    }
-
-    private boolean canAddMinute(TimerObj t) {
-        return TimerObj.MAX_TIMER_LENGTH - t.mTimeLeft > TimerObj.MINUTE_IN_MILLIS ? true : false;
     }
 
     private void updateTimersState(TimerObj t, String action) {
