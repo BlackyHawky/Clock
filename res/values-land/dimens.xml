@@ -25,6 +25,7 @@
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">24dip</dimen>
+    <dimen name="timer_list_padding_bottom">64dip</dimen>
 
     <dimen name="dialpad_font_size">24sp</dimen>
     <dimen name="dialpad_digit_padding">14dip</dimen>
