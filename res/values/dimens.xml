@@ -26,6 +26,7 @@
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
     <dimen name="timer_padding_left">16dip</dimen>
+    <dimen name="timer_list_padding_bottom">88dip</dimen>
     <!-- 88dip + 0.5 of footer_button_size -->
     <dimen name="timer_cancel_end_margin">116dip</dimen>
     <dimen name="screensaver_margin">16dip</dimen>
