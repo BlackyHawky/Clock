@@ -28,7 +28,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 
@@ -110,7 +110,7 @@ public class CountingTimerView extends View {
             mSpacingRatio = spacingRatio;
 
             if (TextUtils.isEmpty(allDigits)) {
-                Log.wtf("Locale digits missing - using English");
+                LogUtils.wtf("Locale digits missing - using English");
                 allDigits = "0123456789";
             }
 
