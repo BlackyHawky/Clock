@@ -17,7 +17,6 @@
 package com.android.deskclock;
 
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,9 +24,7 @@ import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.alarms.AlarmStateManager;
-import com.android.deskclock.provider.Alarm;
 
-import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
@@ -42,7 +39,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         final String action = intent.getAction();
-        Log.v("AlarmInitReceiver " + action);
+        LogUtils.v("AlarmInitReceiver " + action);
 
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
@@ -58,13 +55,13 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                     // Clear stopwatch and timers data
                     SharedPreferences prefs =
                             PreferenceManager.getDefaultSharedPreferences(context);
-                    Log.v("AlarmInitReceiver - Reset timers and clear stopwatch data");
+                    LogUtils.v("AlarmInitReceiver - Reset timers and clear stopwatch data");
                     TimerObj.resetTimersInSharedPrefs(prefs);
                     Utils.clearSwSharedPref(prefs);
 
                     if (!prefs.getBoolean(PREF_VOLUME_DEF_DONE, false)) {
                         // Fix the default
-                        Log.v("AlarmInitReceiver - resetting volume button default");
+                        LogUtils.v("AlarmInitReceiver - resetting volume button default");
                         switchVolumeButtonDefault(prefs);
                     }
                 }
@@ -73,7 +70,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                 AlarmStateManager.fixAlarmInstances(context);
 
                 result.finish();
-                Log.v("AlarmInitReceiver finished");
+                LogUtils.v("AlarmInitReceiver finished");
                 wl.release();
             }
         });

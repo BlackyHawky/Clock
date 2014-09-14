@@ -28,7 +28,7 @@ public class AlarmAlertWakeLock {
 
     public static PowerManager.WakeLock createPartialWakeLock(Context context) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, Log.LOGTAG);
+        return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LogUtils.LOGTAG);
     }
 
     public static void acquireCpuWakeLock(Context context) {
@@ -46,7 +46,7 @@ public class AlarmAlertWakeLock {
         }
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         sCpuWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK
-                | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, Log.LOGTAG);
+                | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, LogUtils.LOGTAG);
         sCpuWakeLock.acquire();
     }
 

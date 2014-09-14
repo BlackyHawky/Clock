@@ -26,7 +26,7 @@ import android.content.res.Resources;
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.DeskClock;
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -60,7 +60,7 @@ public final class AlarmNotifications {
     }
 
     public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
-        Log.v("Displaying low priority notification for alarm instance: " + instance.mId);
+        LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
         NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -98,7 +98,7 @@ public final class AlarmNotifications {
     }
 
     public static void showHighPriorityNotification(Context context, AlarmInstance instance) {
-        Log.v("Displaying high priority notification for alarm instance: " + instance.mId);
+        LogUtils.v("Displaying high priority notification for alarm instance: " + instance.mId);
         NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -130,7 +130,7 @@ public final class AlarmNotifications {
     }
 
     public static void showSnoozeNotification(Context context, AlarmInstance instance) {
-        Log.v("Displaying snoozed notification for alarm instance: " + instance.mId);
+        LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
         NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -162,7 +162,7 @@ public final class AlarmNotifications {
     }
 
     public static void showMissedNotification(Context context, AlarmInstance instance) {
-        Log.v("Displaying missed notification for alarm instance: " + instance.mId);
+        LogUtils.v("Displaying missed notification for alarm instance: " + instance.mId);
         NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -195,7 +195,7 @@ public final class AlarmNotifications {
     }
 
     public static void showAlarmNotification(Context context, AlarmInstance instance) {
-        Log.v("Displaying alarm notification for alarm instance: " + instance.mId);
+        LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
         NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
@@ -253,7 +253,7 @@ public final class AlarmNotifications {
     }
 
     public static void clearNotification(Context context, AlarmInstance instance) {
-        Log.v("Clearing notifications for alarm instance: " + instance.mId);
+        LogUtils.v("Clearing notifications for alarm instance: " + instance.mId);
         NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
         nm.cancel(instance.hashCode());
