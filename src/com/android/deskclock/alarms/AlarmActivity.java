@@ -46,7 +46,7 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.AnimatorUtils;
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
@@ -64,6 +64,8 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
      * the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
      */
     public static final String ALARM_DISMISS_ACTION = "com.android.deskclock.ALARM_DISMISS";
+
+    private static final String LOGTAG = AlarmActivity.class.getSimpleName();
 
     private static final Interpolator PULSE_INTERPOLATOR =
             new PathInterpolator(0.4f, 0.0f, 0.2f, 1.0f);
@@ -85,9 +87,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            if (Log.LOGV) {
-                Log.v("AlarmActivity - Broadcast Receiver - " + action);
-            }
+            LogUtils.v(LOGTAG, "Received broadcast: %s", action);
 
             if (!mAlarmHandled) {
                 switch (action) {
@@ -101,8 +101,11 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
                         finish();
                         break;
                     default:
-                        Log.i("Unknown broadcast in AlarmActivity: " + action);
+                        LogUtils.i(LOGTAG, "Unknown broadcast: %s", action);
+                        break;
                 }
+            } else {
+                LogUtils.v(LOGTAG, "Ignored broadcast: %s", action);
             }
         }
     };
@@ -136,10 +139,10 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
         final long instanceId = AlarmInstance.getId(getIntent().getData());
         mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
         if (mAlarmInstance != null) {
-            Log.v("Displaying alarm for instance: " + mAlarmInstance);
+            LogUtils.i(LOGTAG, "Displaying alarm for instance: %s", mAlarmInstance);
         } else {
             // The alarm got deleted before the activity got created, so just finish()
-            Log.v("Error displaying alarm for intent: " + getIntent());
+            LogUtils.e(LOGTAG, "Error displaying alarm for intent: %s", getIntent());
             finish();
             return;
         }
@@ -228,13 +231,11 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
     }
 
     @Override
-    public boolean dispatchKeyEvent(@NonNull KeyEvent event) {
+    public boolean dispatchKeyEvent(@NonNull KeyEvent keyEvent) {
         // Do this in dispatch to intercept a few of the system keys.
-        if (Log.LOGV) {
-            Log.v("AlarmActivity - dispatchKeyEvent - " + event.getKeyCode());
-        }
+        LogUtils.v(LOGTAG, "dispatchKeyEvent: %s", keyEvent);
 
-        switch (event.getKeyCode()) {
+        switch (keyEvent.getKeyCode()) {
             // Volume keys and camera keys dismiss the alarm.
             case KeyEvent.KEYCODE_POWER:
             case KeyEvent.KEYCODE_VOLUME_UP:
@@ -242,7 +243,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
             case KeyEvent.KEYCODE_VOLUME_MUTE:
             case KeyEvent.KEYCODE_CAMERA:
             case KeyEvent.KEYCODE_FOCUS:
-                if (!mAlarmHandled && event.getAction() == KeyEvent.ACTION_UP) {
+                if (!mAlarmHandled && keyEvent.getAction() == KeyEvent.ACTION_UP) {
                     switch (mVolumeBehavior) {
                         case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE:
                             snooze();
@@ -256,10 +257,8 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
                 }
                 return true;
             default:
-                break;
+                return super.dispatchKeyEvent(keyEvent);
         }
-
-        return super.dispatchKeyEvent(event);
     }
 
     @Override
@@ -270,9 +269,11 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
     @Override
     public void onClick(View view) {
         if (mAlarmHandled) {
+            LogUtils.v(LOGTAG, "onClick ignored: %s", view);
             return;
         }
 
+        LogUtils.v(LOGTAG, "onClick: %s", view);
         final float translationX = Math.max(view.getLeft() - mAlarmButton.getRight(), 0)
                 + Math.min(view.getRight() - mAlarmButton.getLeft(), 0);
         getAlarmBounceAnimator(translationX, translationX < 0.0f
@@ -282,6 +283,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
         if (mAlarmHandled) {
+            LogUtils.v(LOGTAG, "onTouch ignored: %s", motionEvent);
             return false;
         }
 
@@ -303,10 +305,14 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
 
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
+                LogUtils.v(LOGTAG, "onTouch started: %s", motionEvent);
+
                 // Stop the pulse, allowing the last pulse to finish.
                 mPulseAnimator.setRepeatCount(0);
                 break;
             case MotionEvent.ACTION_UP:
+                LogUtils.v(LOGTAG, "onTouch ended: %s", motionEvent);
+
                 if (snoozeFraction == 1.0f) {
                     snooze();
                 } else if (dismissFraction == 1.0f) {
@@ -336,6 +342,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
 
     private void snooze() {
         mAlarmHandled = true;
+        LogUtils.v(LOGTAG, "Snoozed: %s", mAlarmInstance);
 
         final int alertColor = getResources().getColor(R.color.hot_pink);
         setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
@@ -346,6 +353,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
 
     private void dismiss() {
         mAlarmHandled = true;
+        LogUtils.v(LOGTAG, "Dismissed: %s", mAlarmInstance);
 
         setAnimatedFractions(0.0f /* snoozeFraction */, 1.0f /* dismissFraction */);
         getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null /* infoText */,
