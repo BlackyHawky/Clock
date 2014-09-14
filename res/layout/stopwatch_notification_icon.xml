@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2011 The Android Open Source Project
+<!-- Copyright (C) 2014 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,9 +14,17 @@
      limitations under the License.
 -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/notification_icon_size"
+    android:layout_height="@dimen/notification_icon_size">
 
-    <item android:state_pressed="true" android:drawable="@color/pressed_state_color" />
-    <item android:drawable="@android:color/transparent" />
-</selector>
+    <ImageView
+        android:id="@+id/notification_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/bg_gray_circle"
+        android:scaleType="center" />
+
+</FrameLayout>
