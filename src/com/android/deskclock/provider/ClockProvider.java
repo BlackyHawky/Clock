@@ -26,7 +26,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 
 public class ClockProvider extends ContentProvider {
     private ClockDatabaseHelper mOpenHelper;
@@ -98,7 +98,7 @@ public class ClockProvider extends ContentProvider {
                               null, null, sort);
 
         if (ret == null) {
-            Log.e("Alarms.query: failed");
+            LogUtils.e("Alarms.query: failed");
         } else {
             ret.setNotificationUri(getContext().getContentResolver(), uri);
         }
@@ -156,7 +156,7 @@ public class ClockProvider extends ContentProvider {
                         "Cannot update URL: " + uri);
             }
         }
-        if (Log.LOGV) Log.v("*** notifyChange() id: " + alarmId + " url " + uri);
+        LogUtils.v("*** notifyChange() id: " + alarmId + " url " + uri);
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
