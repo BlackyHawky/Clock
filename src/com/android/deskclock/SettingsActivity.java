@@ -19,7 +19,6 @@ package com.android.deskclock;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.ColorDrawable;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -290,7 +289,7 @@ public class SettingsActivity extends PreferenceActivity
         int minLength = ids.length;
         if (ids.length != labels.length) {
             minLength = Math.min(minLength, labels.length);
-            Log.e("Timezone ids and labels have different length!");
+            LogUtils.e("Timezone ids and labels have different length!");
         }
         List<TimeZoneRow> timezones = new ArrayList<TimeZoneRow>();
         for (int i = 0; i < minLength; i++) {
