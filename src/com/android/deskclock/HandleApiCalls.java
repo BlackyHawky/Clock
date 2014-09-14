@@ -167,7 +167,7 @@ public class HandleApiCalls extends Activity {
 
         final long length = 1000l * intent.getIntExtra(EXTRA_LENGTH, 0);
         if (length < TIMER_MIN_LENGTH || length > TIMER_MAX_LENGTH) {
-            Log.i("Invalid timer length requested: " + length);
+            LogUtils.i("Invalid timer length requested: " + length);
             return;
         }
         String label = getMessageFromIntent(intent);
