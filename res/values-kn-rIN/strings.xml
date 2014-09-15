@@ -86,7 +86,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"ಅನಲಾಗ್ ಗಡಿಯಾರ"</string>
     <string name="help" msgid="7786263119482654015">"ಸಹಾಯ"</string>
     <string name="settings" msgid="5849739030579520686">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"ಸ್ನೂಜ್ ಅಳತೆ"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"ಸ್ನೂಜ್ ಅವಧಿ"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 ನಿಮಿಷ"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> ನಿಮಿಷಗಳು"</item>
@@ -95,7 +95,7 @@
     <item quantity="one" msgid="3783171637798575068">"ನಿಮಿಷ"</item>
     <item quantity="other" msgid="1304056759541595077">"ನಿಮಿಷಗಳು"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"ಬಳಿಕ ಮೌನ"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"ಇಷ್ಟೊತ್ತಿನ ಮೇಲೆ ಮೌನವಾಗು"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> ನಿಮಿಷಗಳು"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"ಎಂದಿಗೂ ಬೇಡ"</string>
   <string-array name="auto_silence_entries">
@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"ಟೈಮರ್"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ಗಡಿಯಾರ"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"ಸ್ಟಾಪ್‌ವಾಚ್"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"ಅಲಾರಾಂ‌ಗಳು"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"ಅಲಾರಮ್ ಸೇರಿಸಿ"</string>
     <string name="button_cities" msgid="4555761857494501363">"ನಗರಗಳು"</string>
     <string name="button_menu" msgid="6050484561842120282">"ಇನ್ನಷ್ಟು ಆಯ್ಕೆಗಳು"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
@@ -158,7 +158,7 @@
     <string name="sw_lap_button" msgid="6992264696039004233">"ಲ್ಯಾಪ್"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"ಮರುಹೊಂದಿಸಿ"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"ಹಂಚಿಕೊಳ್ಳಿ"</string>
-    <string name="hours_label" msgid="3393478155635368097">"ಎತ್ತರ"</string>
+    <string name="hours_label" msgid="3393478155635368097">"ಗ"</string>
     <string name="minutes_label" msgid="3568098128251438588">"ನಿ"</string>
     <string name="seconds_label" msgid="124655952824003246">"ಸೆ"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"ಗಂಟೆಗಳು"</string>
@@ -217,7 +217,7 @@
     <item msgid="8483930821046925592">"ಡಿಜಿಟಲ್"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"ಸ್ವಯಂಚಾಲಿತ ಹೋಮ್ ಗಡಿಯಾರ"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ಸಮಯವು ವಿಭಿನ್ನವಾಗಿರುವ ಪ್ರದೇಶದಲ್ಲಿ ಪ್ರಯಾಣಿಸುವಾಗ ಹೋಮ್‌ಗಾಗಿ ಗಡಿಯಾರ ಸೇರಿಸಿ"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ಸಮಯವು ಭಿನ್ನವಾಗಿರುವ ಪ್ರದೇಶದಲ್ಲಿ ಪ್ರಯಾಣಿಸುವಾಗ ಹೋಮ್‌ನಲ್ಲಿ ಗಡಿಯಾರ ಸೇರಿಸಿ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"ಸ್ಥಳೀಯ ಸಮಯ ವಲಯ"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"ಸ್ಥಳೀಯ ಸಮಯ ವಲಯ"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"ರದ್ದುಮಾಡು"</string>
@@ -314,7 +314,6 @@
     <item msgid="5176858645450908751">"ಜಕಾರ್ತಾ"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"ಅಲಾರಾಂ‌ಗಳು"</string>
-    <string name="see_all" msgid="775983396630163739">"ಎಲ್ಲವನ್ನೂ ನೋಡಿ…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"ಅಧಿಸೂಚನೆಗಳನ್ನು ಚಾಲನೆ ಮಾಡಲು ಸ್ಟಾಪ್‌ವಾಚ್ ಸೇವೆ."</string>
     <string name="swn_stopped" msgid="783124901663086172">"ನಿಲ್ಲಿಸಲಾಗಿದೆ"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"ವಜಾಗೊಳಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ"</string>

@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Időzítő"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Óra"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopperóra"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Ébresztések"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Ébresztés hozzáadása"</string>
     <string name="button_cities" msgid="4555761857494501363">"Városok"</string>
     <string name="button_menu" msgid="6050484561842120282">"További beállítások"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Beállítások"</string>
@@ -314,7 +314,6 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Ébresztés"</string>
-    <string name="see_all" msgid="775983396630163739">"Összes..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stopperóra az értesítés futtatásához."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Leállítva"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Az elutasításhoz csúsztassa gyorsan jobbra"</string>
