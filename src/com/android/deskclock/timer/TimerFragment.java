@@ -54,10 +54,10 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.VerticalViewPager;
 
 public class TimerFragment extends DeskClockFragment implements OnSharedPreferenceChangeListener {
+    public static final long ANIMATION_TIME_MILLIS = DateUtils.SECOND_IN_MILLIS / 3;
 
     private static final String KEY_SETUP_SELECTED = "_setup_selected";
     private static final String KEY_ENTRY_STATE = "entry_state";
-    private static final long ANIMATION_TIME_MILLIS = DateUtils.SECOND_IN_MILLIS / 3;
     private static final int MAX_PAGE_COUNT = 4;
     private static final String CURR_PAGE = "_currPage";
     private static final Handler HANDLER = new Handler();
@@ -74,7 +74,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     private ImageButton mCancel;
     private View mTimerView;
     private View mLastView;
-    private ViewGroup mContainerView;
     private ImageView[] mPageIndicators = new ImageView[MAX_PAGE_COUNT];
     private SharedPreferences mPrefs;
     private Bundle mViewState = null;
@@ -160,7 +159,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             @Override
             public void onClick(View v) {
                 if (mAdapter.getCount() != 0) {
-                    revealAnimation(v, false);
+                    revealAnimation(getActivity(), v, Utils.getNextHourColor());
                     HANDLER.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -179,7 +178,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         super.onActivityCreated(savedInstanceState);
         final Context context = getActivity();
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        mContainerView = (ViewGroup) getActivity().findViewById(android.R.id.content);
         mNotificationManager = (NotificationManager) context.getSystemService(Context
                 .NOTIFICATION_SERVICE);
     }
@@ -345,7 +343,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         final Resources r = context.getResources();
         switch (timer.mState) {
             case TimerObj.STATE_RUNNING:
-            case TimerObj.STATE_TIMESUP: // time-up but didn't stopped, continue negative ticking
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_stop));
                 mFab.setImageResource(R.drawable.ic_fab_pause);
@@ -359,6 +356,12 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             case TimerObj.STATE_DONE: // time-up then stopped
                 mFab.setVisibility(View.INVISIBLE);
                 break;
+            case TimerObj.STATE_TIMESUP: // time-up but didn't stopped, continue negative ticking
+                mFab.setVisibility(View.VISIBLE);
+                mFab.setContentDescription(r.getString(R.string.timer_reset));
+                // TODO: request UX to provide a real reset asset instead of the stop asset.
+                mFab.setImageResource(R.drawable.ic_fab_stop);
+                break;
             default:
         }
     }
@@ -366,7 +369,8 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     @Override
     public void onFabClick(View view) {
         if (mLastView != mTimerView) {
-            revealAnimation(mFab, true);
+            final Activity activity = getActivity();
+            revealAnimation(activity, mFab, activity.getResources().getColor(R.color.hot_pink));
             HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -388,7 +392,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 }
             }, ANIMATION_TIME_MILLIS);
         } else {
-            // Timer is at view pager, so fab is "play" or "stop"
+            // Timer is at view pager, so fab is "play" or "pause" or "square that means reset"
             final TimerObj t = getCurrentTimer();
             switch (t.mState) {
                 case TimerObj.STATE_RUNNING:
@@ -415,12 +419,13 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                         t.mState = TimerObj.STATE_DELETED;
                         updateTimerState(t, Timers.DELETE_TIMER);
                     } else {
-                        t.mState = TimerObj.STATE_DONE;
-                        // Used in a context where the timer could be off-screen and without a view
-                        if (t.mView != null) {
-                            ((TimerListItem) t.mView).done();
-                        }
-                        updateTimerState(t, Timers.TIMER_DONE);
+                        t.mState = TimerObj.STATE_RESTART;
+                        t.mOriginalLength = t.mSetupLength;
+                        t.mTimeLeft = t.mSetupLength;
+                        t.mView.stop();
+                        t.mView.setTime(t.mTimeLeft, false);
+                        t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
+                        updateTimerState(t, Timers.TIMER_RESET);
                         cancelTimerNotification(t.mTimerId);
                     }
                     break;
@@ -429,17 +434,17 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         }
     }
 
-    private void revealAnimation(final View centerView, boolean isFromFab) {
 
-        final Activity activity = getActivity();
-        final ViewGroupOverlay overlay = mContainerView.getOverlay();
+    public static void revealAnimation(final Activity activity, final View centerView, int color) {
+
+        final View decorView = activity.getWindow().getDecorView();
+        final ViewGroupOverlay overlay = (ViewGroupOverlay) decorView.getOverlay();
 
         // Create a transient view for performing the reveal animation.
         final View revealView = new View(activity);
-        revealView.setRight(mContainerView.getWidth());
-        revealView.setBottom(mContainerView.getHeight());
-        revealView.setBackgroundColor(activity.getResources().getColor(isFromFab ?
-                R.color.hot_pink : R.color.white));
+        revealView.setRight(decorView.getWidth());
+        revealView.setBottom(decorView.getHeight());
+        revealView.setBackgroundColor(color);
         overlay.add(revealView);
 
         final int[] clearLocation = new int[2];
@@ -449,15 +454,16 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         final int revealCenterX = clearLocation[0] - revealView.getLeft();
         final int revealCenterY = clearLocation[1] - revealView.getTop();
 
-        final int xMax = Math.max(revealCenterX, mContainerView.getWidth() - revealCenterX);
-        final int yMax = Math.max(revealCenterY, mContainerView.getHeight() - revealCenterY);
+        final int xMax = Math.max(revealCenterX, decorView.getWidth() - revealCenterX);
+        final int yMax = Math.max(revealCenterY, decorView.getHeight() - revealCenterY);
         final float revealRadius = (float) Math.sqrt(Math.pow(xMax, 2.0) + Math.pow(yMax, 2.0));
 
         final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
                 revealView, revealCenterX, revealCenterY, 0.0f, revealRadius);
         revealAnimator.setInterpolator(REVEAL_INTERPOLATOR);
 
-        final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 0.0f);
+        float endAlpha = activity instanceof TimerAlertFullScreen ? 1.0f : 0.0f;
+        final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, endAlpha);
         fadeAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -536,7 +542,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             ToastMaster.setToast(toast);
             toast.show();
         } else {
-            revealAnimation(view, false);
+            revealAnimation(getActivity(), view, Utils.getNextHourColor());
             HANDLER.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -554,7 +560,8 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         if (timer.mState == TimerObj.STATE_TIMESUP) {
             mNotificationManager.cancel(timer.mTimerId);
         }
-        revealAnimation(view, false);
+        final Activity activity = getActivity();
+        revealAnimation(activity, view, activity.getResources().getColor(R.color.clock_white));
         HANDLER.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -630,7 +637,8 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_DONE:
                 t.mState = TimerObj.STATE_RESTART;
-                t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
+                t.mTimeLeft = t.mSetupLength;
+                t.mOriginalLength = t.mSetupLength;
                 t.mView.stop();
                 t.mView.setTime(t.mTimeLeft, false);
                 t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
