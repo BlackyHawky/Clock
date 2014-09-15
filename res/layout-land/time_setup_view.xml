@@ -87,16 +87,6 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/timer_cancel"
-        style="@style/button"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/footer_button_size"
-        android:layout_marginTop="@dimen/footer_button_layout_margin"
-        android:layout_marginBottom="@dimen/footer_button_layout_margin"
-        android:layout_marginEnd="@dimen/timer_cancel_end_margin"
-        android:layout_gravity="bottom|center"
-        android:contentDescription="@string/timer_cancel"
-        android:src="@drawable/ic_cancel" />
+    <include layout="@layout/timer_cancel_button" />
 
 </FrameLayout>

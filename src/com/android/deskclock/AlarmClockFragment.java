@@ -18,7 +18,6 @@ package com.android.deskclock;
 
 import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
-import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -44,8 +43,10 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.transition.AutoTransition;
+import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -62,7 +63,6 @@ import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -105,7 +105,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private static final String KEY_UNDO_SHOWING = "undoShowing";
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
     private static final String KEY_SELECTED_ALARM = "selectedAlarm";
-    private static final String KEY_DELETE_CONFIRMATION = "deleteConfirmation";
     private static final DeskClockExtensions sDeskClockExtensions = ExtensionsFactory
                     .getDeskClockExtensions();
 
@@ -120,10 +119,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
     // can not be found, and toast message will pop up that the alarm has be deleted.
     public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
 
+    private FrameLayout mMainLayout;
     private ListView mAlarmsList;
     private AlarmItemAdapter mAdapter;
     private View mEmptyView;
-    private View mAlarmsView;
     private View mFooterView;
 
     private Bundle mRingtoneTitleCache; // Key: ringtone uri, value: ringtone title
@@ -140,17 +139,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private Alarm mAddedAlarm;
     private boolean mUndoShowing;
 
-    private Animator mFadeIn;
-    private Animator mFadeOut;
-
     private Interpolator mExpandInterpolator;
     private Interpolator mCollapseInterpolator;
 
     private Transition mAddRemoveTransition;
     private Transition mRepeatTransition;
-
-    private int mTimelineViewWidth;
-    private int mUndoBarInitialMargin;
+    private Transition mEmptyViewTransition;
 
     public AlarmClockFragment() {
         // Basic provider required by Fragment.java
@@ -193,6 +187,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
         mRepeatTransition.setDuration(ANIMATION_DURATION / 2);
         mRepeatTransition.setInterpolator(new AccelerateDecelerateInterpolator());
 
+        mEmptyViewTransition = new TransitionSet()
+                .setOrdering(TransitionSet.ORDERING_SEQUENTIAL)
+                .addTransition(new Fade(Fade.OUT))
+                .addTransition(new Fade(Fade.IN))
+                .setDuration(ANIMATION_DURATION);
+
         boolean isLandscape = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
         View menuButton = v.findViewById(R.id.menu_button);
@@ -206,44 +206,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         mEmptyView = v.findViewById(R.id.alarms_empty_view);
-        mEmptyView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startCreatingAlarm();
-            }
-        });
+
+        mMainLayout = (FrameLayout) v.findViewById(R.id.main);
         mAlarmsList = (ListView) v.findViewById(R.id.alarms_list);
 
-        mFadeIn = AnimatorInflater.loadAnimator(getActivity(), R.animator.fade_in);
-        mFadeIn.setDuration(ANIMATION_DURATION);
-        mFadeIn.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                mEmptyView.setVisibility(View.VISIBLE);
-            }
-        });
-        mFadeIn.setTarget(mEmptyView);
-
-        mFadeOut = AnimatorInflater.loadAnimator(getActivity(), R.animator.fade_out);
-        mFadeOut.setDuration(ANIMATION_DURATION);
-        mFadeOut.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                mEmptyView.setVisibility(View.VISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                mEmptyView.setVisibility(View.GONE);
-            }
-        });
-        mFadeOut.setTarget(mEmptyView);
-
-        mAlarmsView = v.findViewById(R.id.alarm_layout);
-
         mUndoBar = (ActionableToastBar) v.findViewById(R.id.undo_bar);
-        mUndoBarInitialMargin = getActivity().getResources()
-                .getDimensionPixelOffset(R.dimen.alarm_undo_bar_horizontal_margin);
         mUndoFrame = v.findViewById(R.id.undo_frame);
         mUndoFrame.setOnTouchListener(this);
 
@@ -264,6 +231,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     showUndoBar();
                 }
 
+                if ((count == 0 && prevAdapterCount > 0) ||  /* should fade in */
+                        (count > 0 && prevAdapterCount == 0) /* should fade out */) {
+                    TransitionManager.beginDelayedTransition(mMainLayout, mEmptyViewTransition);
+                }
                 mEmptyView.setVisibility(count == 0 ? View.VISIBLE : View.GONE);
 
                 // Cache this adapter's count for when the adapter changes.
@@ -510,7 +481,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     saveRingtoneUri(data);
                     break;
                 default:
-                    Log.w("Unhandled request code in onActivityResult: " + requestCode);
+                    LogUtils.w("Unhandled request code in onActivityResult: " + requestCode);
             }
         }
     }
@@ -630,7 +601,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             if (!getCursor().moveToPosition(position)) {
                 // May happen if the last alarm was deleted and the cursor refreshed while the
                 // list is updated.
-                Log.v("couldn't move cursor to position " + position);
+                LogUtils.v("couldn't move cursor to position " + position);
                 return null;
             }
             View v;
@@ -721,12 +692,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             if (mSelectedAlarms.contains(itemHolder.alarm.id)) {
                 setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
-                setItemAlpha(itemHolder, true);
+                setDigitalTimeAlpha(itemHolder, true);
                 itemHolder.onoff.setEnabled(false);
             } else {
                 itemHolder.onoff.setEnabled(true);
                 setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, false /* expanded */);
-                setItemAlpha(itemHolder, itemHolder.onoff.isChecked());
+                setDigitalTimeAlpha(itemHolder, itemHolder.onoff.isChecked());
             }
             itemHolder.clock.setFormat(
                     (int)mContext.getResources().getDimension(R.dimen.alarm_label_size));
@@ -748,7 +719,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                         public void onCheckedChanged(CompoundButton compoundButton,
                                 boolean checked) {
                             if (checked != alarm.enabled) {
-                                setItemAlpha(itemHolder, checked);
+                                setDigitalTimeAlpha(itemHolder, checked);
                                 alarm.enabled = checked;
                                 asyncUpdateAlarm(alarm, alarm.enabled);
                             }
@@ -1015,16 +986,11 @@ public class AlarmClockFragment extends DeskClockFragment implements
             });
         }
 
-        // Sets the alpha of the item except the on/off switch. This gives a visual effect
+        // Sets the alpha of the digital time display. This gives a visual effect
         // for enabled/disabled alarm while leaving the on/off switch more visible
-        private void setItemAlpha(ItemHolder holder, boolean enabled) {
+        private void setDigitalTimeAlpha(ItemHolder holder, boolean enabled) {
             float alpha = enabled ? 1f : 0.5f;
             holder.clock.setAlpha(alpha);
-            holder.summary.setAlpha(alpha);
-            holder.expandArea.setAlpha(alpha);
-            holder.delete.setAlpha(alpha);
-            holder.daysOfWeek.setAlpha(alpha);
-            holder.tomorrowLabel.setAlpha(alpha);
         }
 
         private void updateDaysOfWeekButtons(ItemHolder holder, DaysOfWeek daysOfWeek) {
@@ -1486,7 +1452,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void respondClick(View view){
+    public void onFabClick(View view){
         hideUndoBar(true, null);
         startCreatingAlarm();
     }
@@ -1495,5 +1461,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
     public void setFabAppearance(ImageButton fab) {
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_plus);
+        fab.setContentDescription(fab.getContext().getString(R.string.button_alarms));
+    }
+
+    @Override
+    public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
+        left.setVisibility(View.INVISIBLE);
+        right.setVisibility(View.INVISIBLE);
     }
 }

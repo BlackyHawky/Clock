@@ -60,14 +60,14 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private String mClockStyle;
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
-            @Override
+        @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             boolean changed = action.equals(Intent.ACTION_TIME_CHANGED)
                     || action.equals(Intent.ACTION_TIMEZONE_CHANGED)
                     || action.equals(Intent.ACTION_LOCALE_CHANGED);
             if (changed) {
-                Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
+                Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
                 if (mAdapter != null) {
                     // *CHANGED may modify the need for showing the Home City
                     if (mAdapter.hasHomeCity() != mAdapter.needHomeCity()) {
@@ -80,9 +80,10 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                     if (action.equals(Intent.ACTION_LOCALE_CHANGED)) {
                         if (mDigitalClock != null) {
                             Utils.setTimeFormat(
-                                   (TextClock)(mDigitalClock.findViewById(R.id.digital_clock)),
-                                   (int)context.getResources().
-                                           getDimension(R.dimen.main_ampm_font_size));
+                                    (TextClock) (mDigitalClock.findViewById(R.id.digital_clock)),
+                                    (int) context.getResources().
+                                            getDimension(R.dimen.main_ampm_font_size)
+                            );
                         }
                         mAdapter.loadCitiesDb(context);
                         mAdapter.notifyDataSetChanged();
@@ -116,19 +117,21 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle icicle) {
+            Bundle icicle) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.clock_fragment, container, false);
         if (icicle != null) {
             mButtonsHidden = icicle.getBoolean(BUTTONS_HIDDEN_KEY, false);
         }
-        mList = (ListView)v.findViewById(R.id.cities);
+        mList = (ListView) v.findViewById(R.id.cities);
         mList.setDivider(null);
 
         OnTouchListener longPressNightMode = new OnTouchListener() {
             private float mMaxMovementAllowed = -1;
             private int mLongPressTimeout = -1;
-            private float mLastTouchX, mLastTouchY;
+            private float mLastTouchX
+                    ,
+                    mLastTouchY;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -150,8 +153,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                         mLastTouchY = event.getY();
                         return true;
                     case (MotionEvent.ACTION_MOVE):
-                        float xDiff = Math.abs(event.getX()-mLastTouchX);
-                        float yDiff = Math.abs(event.getY()-mLastTouchY);
+                        float xDiff = Math.abs(event.getX() - mLastTouchX);
+                        float yDiff = Math.abs(event.getY() - mLastTouchY);
                         if (xDiff >= mMaxMovementAllowed || yDiff >= mMaxMovementAllowed) {
                             mHandler.removeCallbacksAndMessages(null);
                         }
@@ -188,8 +191,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
         mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
-        Utils.setTimeFormat((TextClock)(mDigitalClock.findViewById(R.id.digital_clock)),
-                (int)getResources().getDimension(R.dimen.main_ampm_font_size));
+        Utils.setTimeFormat((TextClock) (mDigitalClock.findViewById(R.id.digital_clock)),
+                (int) getResources().getDimension(R.dimen.main_ampm_font_size));
         View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
         mList.addFooterView(footerView, null, false);
         mAdapter = new WorldClockAdapter(getActivity());
@@ -204,7 +207,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     }
 
     @Override
-    public void onResume () {
+    public void onResume() {
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
@@ -240,7 +243,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
         mAdapter.notifyDataSetChanged();
 
-        Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mClockFrame);
+        Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
         Utils.refreshAlarm(activity, mClockFrame);
     }
 
@@ -254,7 +257,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     }
 
     @Override
-    public void onSaveInstanceState (Bundle outState) {
+    public void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(BUTTONS_HIDDEN_KEY, mButtonsHidden);
         super.onSaveInstanceState(outState);
     }
@@ -266,8 +269,9 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             mAdapter.notifyDataSetChanged();
         }
     }
+
     @Override
-    public void respondClick(View view){
+    public void onFabClick(View view) {
         final Activity activity = getActivity();
         startActivity(new Intent(activity, CitiesActivity.class));
     }
@@ -276,5 +280,12 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     public void setFabAppearance(ImageButton fab) {
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_globe);
+        fab.setContentDescription(fab.getContext().getString(R.string.button_cities));
     }
- }
+
+    @Override
+    public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
+        left.setVisibility(View.INVISIBLE);
+        right.setVisibility(View.INVISIBLE);
+    }
+}

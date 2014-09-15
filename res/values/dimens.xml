@@ -26,12 +26,12 @@
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
     <dimen name="timer_padding_left">16dip</dimen>
+    <dimen name="timer_list_padding_bottom">88dip</dimen>
     <!-- 88dip + 0.5 of footer_button_size -->
     <dimen name="timer_cancel_end_margin">116dip</dimen>
     <dimen name="screensaver_margin">16dip</dimen>
     <dimen name="alarm_label_padding">8dip</dimen>
     <dimen name="alert_dialog_title_height">64dip</dimen>
-    <dimen name="popup_window_width">216dip</dimen>
     <dimen name="bottom_text_spacing_digital">-8dp</dimen>
     <dimen name="top_text_spacing_digital">4dp</dimen>
     <dimen name="bottom_text_spacing_analog">14dp</dimen>
@@ -119,10 +119,8 @@
 
     <dimen name="sw_padding_end">32dp</dimen>
 
-    <!-- The width of the big icons in notifications. -->
-    <dimen name="notification_large_icon_width">64dp</dimen>
-    <!-- The width of the big icons in notifications. -->
-    <dimen name="notification_large_icon_height">64dp</dimen>
+    <!-- The width and height of the notification icon -->
+    <dimen name="notification_icon_size">64dip</dimen>
      <!-- Size of notification text (see TextAppearance.StatusBar.EventContent) -->
     <dimen name="notification_text_size">14dp</dimen>
     <!-- Size of notification text titles (see TextAppearance.StatusBar.EventContent.Title) -->
@@ -138,17 +136,6 @@
     <dimen name="world_clock_margin">32dp</dimen>
 
     <dimen name="toast_bar_bottom_margin_in_conversation">24dip</dimen>
-
-    <!-- Empty space at the edges of the +1 and reset button icons. Based off of 56dip width, only nonzero for tablets.-->
-    <dimen name="plusone_reset_button_padding">0dip</dimen>
-    <!-- Empty space at the edges of the delete button icons. Based off of 56dip width, only nonzero for tablets. -->
-    <dimen name="delete_button_padding">0dip</dimen>
-    <!-- Empty space at the edges of the lap button icon. Based off of 56dip width, only nonzero for tablets.-->
-    <dimen name="lap_button_padding">0dip</dimen> <!-- 11 -->
-    <!-- Empty space at the edges of the delete button icons. Based off of 56dip width, only nonzero for tablets. -->
-    <dimen name="share_button_padding">0dip</dimen> <!-- 16 -->
-    <!-- Extra offset for timer button paddings. Only nonzero for non-tablets. -->
-    <dimen name="timer_button_extra_offset">14dip</dimen>
 
     <!-- Height of the button footers. 56 height and 16 on top and bottom. -->
     <dimen name="button_footer_height">88dip</dimen>
@@ -183,7 +170,7 @@
     <dimen name="digital_widget_city_margin_bottom">10dp</dimen>
 
     <!-- Bottom margin for the expand area -->
-    <dimen name="collapse_expand_height">60dp</dimen>
+    <dimen name="collapse_expand_height">72dip</dimen>
 
     <!-- Divider height -->
     <dimen name="hairline_height">1dip</dimen>

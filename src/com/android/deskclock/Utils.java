@@ -149,7 +149,7 @@ public class Utils {
             } catch (NameNotFoundException e) {
                 // Cannot find the package name, so don't add in the version parameter
                 // This shouldn't happen.
-                Log.wtf("Invalid package name for context " + e);
+                LogUtils.wtf("Invalid package name for context " + e);
             }
         } else {
             builder.appendQueryParameter(PARAM_VERSION, sCachedVersionCode);
@@ -568,7 +568,7 @@ public class Utils {
         int minLength = cities.length;
         if (cities.length != timezones.length || ids.length != cities.length) {
             minLength = Math.min(cities.length, Math.min(timezones.length, ids.length));
-            Log.e("City lists sizes are not the same, trancating");
+            LogUtils.e("City lists sizes are not the same, truncating");
         }
         CityObj[] tempList = new CityObj[minLength];
         for (int i = 0; i < cities.length; i++) {
@@ -610,6 +610,11 @@ public class Utils {
     public static int getCurrentHourColor() {
         final int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         return Color.parseColor(BACKGROUND_SPECTRUM[hourOfDay]);
+    }
+
+    public static int getNextHourColor() {
+        final int currHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        return Color.parseColor(BACKGROUND_SPECTRUM[currHour < 24 ? currHour + 1 : 1]);
     }
 
     /**

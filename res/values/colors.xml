@@ -50,7 +50,4 @@
 
     <color name="alarm_selected_color">#aa0099cc</color>
 
-    <drawable name="notification_template_icon_bg">#ff607d8b</drawable>
-    <drawable name="notification_template_icon_low_bg">#0cffffff</drawable>
-
 </resources>

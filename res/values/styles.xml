@@ -53,10 +53,13 @@
         <item name="android:dividerPadding">12dp</item>
         <item name="android:gravity">center</item>
     </style>
+
     <style name="DeskClockBarStyle" parent="@android:style/Widget.Material.ActionBar">
         <item name="android:background">@null</item>
         <item name="android:backgroundStacked">@null</item>
         <item name="android:backgroundSplit">@null</item>
+        <!-- Empty displayOptions is to hide App title at app launch -->
+        <item name="android:displayOptions"></item>
     </style>
 
     <style name="DeskClockDropDownListView"
@@ -69,6 +72,7 @@
 
     <style name="SettingsTheme" parent="@style/DeskClockParentTheme">
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
+        <item name="android:detailsElementBackground">@null</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
     </style>
 
@@ -89,7 +93,6 @@
     <style name="SettingsTheme.ActionBar" parent="@android:style/Widget.Material.ActionBar">
         <item name="android:titleTextStyle">@style/SettingsTheme.TextAppearance.ActionBar.Title</item>
         <item name="android:displayOptions">useLogo|showTitle</item>
-        <item name="android:background">@drawable/ab_hairline</item>
     </style>
 
     <style name="SettingsTheme.TextAppearance.ActionBar.Title"
@@ -102,6 +105,11 @@
     <style name="AlarmAlertFullScreenTheme"
            parent="@android:style/Theme.Material.Wallpaper.NoTitleBar">
         <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="TimerAlertFullScreenTheme"
+           parent="@android:style/Theme.Material.Wallpaper.NoTitleBar">
+        <item name="android:statusBarColor">@color/status_bar</item>
     </style>
 
     <style name="ScreensaverActivityTheme"
