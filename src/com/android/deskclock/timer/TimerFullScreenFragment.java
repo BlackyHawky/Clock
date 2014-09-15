@@ -19,6 +19,7 @@ package com.android.deskclock.timer;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.NotificationManager;
@@ -26,7 +27,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -50,10 +53,10 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
 import com.android.deskclock.Utils;
+import com.android.deskclock.widget.sgv.GridAdapter;
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationIn;
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationOut;
 import com.android.deskclock.widget.sgv.StaggeredGridView;
-import com.android.deskclock.widget.sgv.GridAdapter;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -523,7 +526,15 @@ public class TimerFullScreenFragment extends DeskClockFragment
         mFab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                updateAllTimesUpTimers(false /* stop */);
+                final Activity activity = getActivity();
+                TimerFragment.revealAnimation(activity, mFab, activity.getResources()
+                        .getColor(R.color.hot_pink));
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateAllTimesUpTimers(false /* stop */);
+                    }
+                }, TimerFragment.ANIMATION_TIME_MILLIS);
             }
         });
     }
