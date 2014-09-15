@@ -143,7 +143,8 @@
     <string name="menu_timer" msgid="6459070074762877114">"타이머"</string>
     <string name="menu_clock" msgid="5612760670606829805">"시계"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"스톱워치"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"알람"</string>
+    <!-- no translation found for button_alarms (3907838219512538763) -->
+    <skip />
     <string name="button_cities" msgid="4555761857494501363">"도시"</string>
     <string name="button_menu" msgid="6050484561842120282">"추가 옵션"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"설정"</string>
@@ -314,7 +315,6 @@
     <item msgid="5176858645450908751">"자카르타"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"알람"</string>
-    <string name="see_all" msgid="775983396630163739">"전체 보기..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"스톱워치 서비스로 알림을 실행"</string>
     <string name="swn_stopped" msgid="783124901663086172">"중지됨"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"오른쪽으로 스와이프하여 해제"</string>

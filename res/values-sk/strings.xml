@@ -64,14 +64,14 @@
     <item msgid="8458069283817013813">"Zostávajúci čas: <xliff:g id="HOURS">%1$s</xliff:g> h <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Budík sa spustí o menej než 1 minútu."</item>
-    <item msgid="6002066367368421848">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-    <item msgid="8824719306247973774">"Budík sa spustí o <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="8182406852935468862">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g> a <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="2532279224777213194">"Budík sa spustí o <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="5936557894247187717">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="9115697840826129603">"Budík sa spustí o <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="2332583385137381060">"Budík sa spustí o: <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="6450913786084215050">"Budík sa spustí o menej než 1 minútu"</item>
+    <item msgid="6002066367368421848">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g>"</item>
+    <item msgid="8824719306247973774">"Budík sa spustí o <xliff:g id="HOURS">%2$s</xliff:g>"</item>
+    <item msgid="8182406852935468862">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g> a <xliff:g id="HOURS">%2$s</xliff:g>"</item>
+    <item msgid="2532279224777213194">"Budík sa spustí o <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="5936557894247187717">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="9115697840826129603">"Budík sa spustí o <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="2332583385137381060">"Budík sa spustí o <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 deň"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> d."</string>
@@ -143,7 +143,8 @@
     <string name="menu_timer" msgid="6459070074762877114">"Časomiera"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Hodiny"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopky"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Budíky"</string>
+    <!-- no translation found for button_alarms (3907838219512538763) -->
+    <skip />
     <string name="button_cities" msgid="4555761857494501363">"Mestá"</string>
     <string name="button_menu" msgid="6050484561842120282">"Ďalšie možnosti"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Nastavenia"</string>
@@ -314,7 +315,6 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Budíky"</string>
-    <string name="see_all" msgid="775983396630163739">"Zobraziť všetko..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Služba Stopky na spúšťanie upozornenia."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Zastavené"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Prejdením prstom doprava budík zrušíte"</string>

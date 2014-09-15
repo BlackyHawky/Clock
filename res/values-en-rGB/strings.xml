@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Clock"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopwatch"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Alarms"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Add alarm"</string>
     <string name="button_cities" msgid="4555761857494501363">"Cities"</string>
     <string name="button_menu" msgid="6050484561842120282">"More options"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Settings"</string>
@@ -314,7 +314,6 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarms"</string>
-    <string name="see_all" msgid="775983396630163739">"See all…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stopwatch service to run the notification."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Stopped"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Swipe right to dismiss"</string>
