@@ -179,6 +179,12 @@ public class TimerReceiver extends BroadcastReceiver {
             // Stop Ringtone if no timers are in times-up status
             stopRingtoneIfNoTimesup(context);
         } else if (Timers.TIMER_UPDATE.equals(actionType)) {
+            // Find the timer (if it doesn't exists, it was probably deleted).
+            if (t == null) {
+                Log.d(TAG, " timer to update not found in list - do nothing");
+                return;
+            }
+
             // Refresh buzzing notification
             if (t.mState == TimerObj.STATE_TIMESUP) {
                 // Must cancel the previous notification to get all updates displayed correctly
