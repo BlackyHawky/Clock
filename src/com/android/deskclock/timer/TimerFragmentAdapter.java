@@ -18,14 +18,8 @@ package com.android.deskclock.timer;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.android.deskclock.R;
-
 import android.support.v4.view.PagerAdapter;
-import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.util.SparseArrayCompat;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -58,7 +52,8 @@ public class TimerFragmentAdapter extends FragmentStatePagerAdapter2 {
     }
 
     public void addTimer(TimerObj timer) {
-        mTimerList.add(timer);
+        // Newly created timer should always show on the top of the list
+        mTimerList.add(0, timer);
         notifyDataSetChanged();
     }
 
@@ -76,7 +71,7 @@ public class TimerFragmentAdapter extends FragmentStatePagerAdapter2 {
         Collections.sort(mTimerList, new Comparator<TimerObj>() {
             @Override
             public int compare(TimerObj o1, TimerObj o2) {
-                return (o1.mTimerId < o2.mTimerId) ? -1 : 1;
+                return (o2.mTimerId < o1.mTimerId) ? -1 : 1;
             }
         });
 
