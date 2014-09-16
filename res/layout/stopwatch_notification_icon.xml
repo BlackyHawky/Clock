@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/bg_gray_circle"
-        android:scaleType="center" />
+        android:scaleType="center"
+        android:contentDescription="@null" />
 
 </FrameLayout>

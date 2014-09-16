@@ -23,7 +23,8 @@
         android:layout_gravity="center_vertical"
         android:paddingLeft="16dip"
         android:paddingStart="16dip"
-        android:src="@drawable/ic_menu_revert_holo_dark" />
+        android:src="@drawable/ic_menu_revert_holo_dark"
+        android:contentDescription="@string/alarm_undo" />
 
     <TextView
         android:id="@+id/description_text"
@@ -63,7 +64,8 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="4dip"
             android:layout_marginEnd="4dip"
-            android:src="@drawable/ic_menu_revert_holo_dark" />
+            android:src="@drawable/ic_menu_revert_holo_dark"
+            android:contentDescription="@null" />
 
         <TextView
             android:id="@+id/action_text"

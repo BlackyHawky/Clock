@@ -34,22 +34,26 @@
             android:id="@+id/page_indicator0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="center"/>
+            android:scaleType="center"
+            android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/page_indicator1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/page_indicator2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:contentDescription="@null" />
 
         <ImageView
             android:id="@+id/page_indicator3"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:contentDescription="@null" />
 
         <Space
             android:layout_width="match_parent"
