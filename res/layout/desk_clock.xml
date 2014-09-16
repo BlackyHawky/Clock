@@ -43,7 +43,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:contentDescription="@null" />
 
         </FrameLayout>
 
@@ -59,7 +60,8 @@
                 android:layout_margin="@dimen/footer_button_layout_margin"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/floating_action_button"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:contentDescription="@null" />
 
         </FrameLayout>
 
@@ -75,7 +77,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_horizontal"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:scaleType="center"/>
+                android:scaleType="center"
+                android:contentDescription="@null" />
 
         </FrameLayout>
 
