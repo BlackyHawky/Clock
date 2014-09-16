@@ -50,4 +50,6 @@
 
     <color name="alarm_selected_color">#aa0099cc</color>
 
+    <color name="time_picker_gray">#333333</color>
+
 </resources>
