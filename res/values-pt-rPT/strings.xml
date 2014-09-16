@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Temporizador"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Relógio"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Cronómetro"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Alarmes"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Adicionar alarme"</string>
     <string name="button_cities" msgid="4555761857494501363">"Cidades"</string>
     <string name="button_menu" msgid="6050484561842120282">"Mais opções"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Definições"</string>
@@ -181,7 +181,7 @@
     <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> segundos"</item>
   </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Adicionar Temporizador"</string>
-    <string name="timer_start" msgid="6158486445614356442">"Início"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Iniciar"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Eliminar"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Adicionar 1 Minuto"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Adicionar 1 min"</string>
@@ -314,7 +314,6 @@
     <item msgid="5176858645450908751">"Jacarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
-    <string name="see_all" msgid="775983396630163739">"Ver tudo..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Serviço de cronómetro para executar a notificação."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Parado"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Deslizar rapidamente para a direita para ignorar"</string>

@@ -30,7 +30,7 @@
     <string name="label" msgid="162189613902857319">"Nombre de la alarma"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Establecer alarma"</string>
-    <string name="alarm_vibrate" msgid="3476686921490362230">"Vibración"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrar"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repetir"</string>
     <string name="alert" msgid="6506982899651975645">"Tono de alarma"</string>
     <string name="ringtone" msgid="9110746249688559579">"Tono de llamada"</string>
@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Temporizador"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Reloj"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Cronómetro"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Alarmas"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Añadir alarma"</string>
     <string name="button_cities" msgid="4555761857494501363">"Ciudades"</string>
     <string name="button_menu" msgid="6050484561842120282">"Más opciones"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Ajustes"</string>
@@ -314,7 +314,6 @@
     <item msgid="5176858645450908751">"Yakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmas"</string>
-    <string name="see_all" msgid="775983396630163739">"Ver todo…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servicio de cronómetro para ejecutar la notificación"</string>
     <string name="swn_stopped" msgid="783124901663086172">"Detenido"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Deslizar hacia la derecha para ignorar"</string>
@@ -329,7 +328,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para espacios oscuros)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Contraer alarma"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"deshacer"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"Deshacer"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"Alarma eliminada"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
