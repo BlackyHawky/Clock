@@ -33,12 +33,16 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
+import android.transition.AutoTransition;
+import android.transition.Transition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.PathInterpolator;
 import android.widget.ImageButton;
@@ -72,9 +76,11 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     private ImageButton mLeftButton;
     private ImageButton mRightButton;
     private ImageButton mCancel;
+    private ViewGroup mContentView;
     private View mTimerView;
     private View mLastView;
     private ImageView[] mPageIndicators = new ImageView[MAX_PAGE_COUNT];
+    private Transition mDeleteTransition;
     private SharedPreferences mPrefs;
     private Bundle mViewState = null;
     private NotificationManager mNotificationManager;
@@ -147,6 +153,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.timer_fragment, container, false);
+        mContentView = (ViewGroup) view;
         mTimerView = view.findViewById(R.id.timer_view);
         mSetupView = (TimerSetupView) view.findViewById(R.id.timer_setup);
         mViewPager = (VerticalViewPager) view.findViewById(R.id.vertical_view_pager);
@@ -169,6 +176,9 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 }
             }
         });
+        mDeleteTransition = new AutoTransition();
+        mDeleteTransition.setDuration(ANIMATION_TIME_MILLIS / 2);
+        mDeleteTransition.setInterpolator(new AccelerateDecelerateInterpolator());
 
         return view;
     }
@@ -560,22 +570,31 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         if (timer.mState == TimerObj.STATE_TIMESUP) {
             mNotificationManager.cancel(timer.mTimerId);
         }
-        final Activity activity = getActivity();
-        revealAnimation(activity, view, activity.getResources().getColor(R.color.clock_white));
-        HANDLER.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // Tell receiver the timer was deleted, it will stop all activity related to the
-                // timer
-                timer.mState = TimerObj.STATE_DELETED;
-                updateTimerState(timer, Timers.DELETE_TIMER);
-                highlightPageIndicator(mViewPager.getCurrentItem());
-                // When deleting a negative timer (hidden fab), since deleting will not trigger
-                // onResume(), in order to ensure the fab showing correctly, we need to manually
-                // set fab appearance here.
-                setFabAppearance(mFab);
-            }
-        }, ANIMATION_TIME_MILLIS);
+        if (mAdapter.getCount() == 1) {
+            final Activity activity = getActivity();
+            revealAnimation(activity, view, activity.getResources().getColor(R.color.clock_white));
+            HANDLER.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    deleteTimer(timer);
+                }
+            }, ANIMATION_TIME_MILLIS);
+        } else {
+            TransitionManager.beginDelayedTransition(mContentView, mDeleteTransition);
+            deleteTimer(timer);
+        }
+    }
+
+    private void deleteTimer(TimerObj timer) {
+        // Tell receiver the timer was deleted, it will stop all activity related to the
+        // timer
+        timer.mState = TimerObj.STATE_DELETED;
+        updateTimerState(timer, Timers.DELETE_TIMER);
+        highlightPageIndicator(mViewPager.getCurrentItem());
+        // When deleting a negative timer (hidden fab), since deleting will not trigger
+        // onResume(), in order to ensure the fab showing correctly, we need to manually
+        // set fab appearance here.
+        setFabAppearance(mFab);
     }
 
     private void highlightPageIndicator(int position) {
