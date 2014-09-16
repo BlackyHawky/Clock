@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Orologio"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Cronometro"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Sveglie"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Aggiungi sveglia"</string>
     <string name="button_cities" msgid="4555761857494501363">"Città"</string>
     <string name="button_menu" msgid="6050484561842120282">"Altre opzioni"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Impostazioni"</string>
@@ -153,7 +153,7 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ordina per nome"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Città selezionate"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Riprendi"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"Inizia"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Avvia"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Interrompi"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Giro"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Reimposta"</string>
@@ -181,7 +181,7 @@
     <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> secondi"</item>
   </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Aggiungi timer"</string>
-    <string name="timer_start" msgid="6158486445614356442">"Inizia"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Avvia"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Elimina"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Aggiungi un minuto"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Aggiungi 1 min"</string>
@@ -314,7 +314,6 @@
     <item msgid="5176858645450908751">"Giacarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Sveglie"</string>
-    <string name="see_all" msgid="775983396630163739">"Mostra tutto..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servizio cronometro per pubblicare la notifica."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Interrotto"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Fai scorrere a destra per eliminare"</string>

@@ -64,14 +64,14 @@
     <item msgid="8458069283817013813">"Zimesalia <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Kengele imewekwa chini ya dakika 1 kutoka sasa."</item>
-    <item msgid="6002066367368421848">"Kengele imewekwa ya <xliff:g id="DAYS">%1$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="8824719306247973774">"Kengele imewekwa ya <xliff:g id="HOURS">%2$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="8182406852935468862">"Kengele imewekwa ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kuanzia sasa."</item>
+    <item msgid="6450913786084215050">"Kengele imewekwa na italia baada ya chini ya dakika 1 kutoka sasa."</item>
+    <item msgid="6002066367368421848">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> kutoka sasa."</item>
+    <item msgid="8824719306247973774">"Kengele imewekwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
+    <item msgid="8182406852935468862">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
     <item msgid="2532279224777213194">"Kengele imewekwa kwa <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="5936557894247187717">"Kengele imewekwa ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="9115697840826129603">"Kengele imewekwa ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="2332583385137381060">"Kengele imewekwa ya <xliff:g id="DAYS">%1$s</xliff:g> , <xliff:g id="HOURS">%2$s</xliff:g> , na <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
+    <item msgid="5936557894247187717">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
+    <item msgid="9115697840826129603">"Kengele imewekwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
+    <item msgid="2332583385137381060">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"siku 1"</string>
     <string name="days" msgid="2070509222727852210">"siku <xliff:g id="DAYS">%s</xliff:g>"</string>
@@ -114,7 +114,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Kimya"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Ahirisha au uondoe kengele."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (imesinzia)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Kengele imewekwa ya <xliff:g id="TIME">%s</xliff:g>. Gusa ili kughairi."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Kengele imewekwa na italia <xliff:g id="TIME">%s</xliff:g>. Gusa ili kughairi."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Vitufe vya kudhibiti sauti"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Athari ya kitufe"</string>
   <string-array name="volume_button_setting_entries">
@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Kipima wakati"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Saa"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Saa ya kusitisha"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Kengele"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Ongeza kengele"</string>
     <string name="button_cities" msgid="4555761857494501363">"Miji"</string>
     <string name="button_menu" msgid="6050484561842120282">"Chaguo zaidi"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Mipangilio"</string>
@@ -154,7 +154,7 @@
     <string name="selected_cities_label" msgid="3607479399424246605">"Miji Iliyochaguliwa"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Endelea"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Anza"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Acha"</string>
+    <string name="sw_stop_button" msgid="8322958613123274451">"Simama"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Mzunguko"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Weka upya"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Shiriki"</string>
@@ -185,7 +185,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"Futa"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Ongeza Dakika 1"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Ongeza dakika 1"</string>
-    <string name="timer_stop" msgid="3361154678667736722">"Acha"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Simama"</string>
     <string name="timer_done" msgid="2375990511982914051">"Imekamilika"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Weka upya"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Ghairi"</string>
@@ -314,7 +314,6 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Kengele"</string>
-    <string name="see_all" msgid="775983396630163739">"Angalia zote..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Huduma ya saa ya kusitisha kuendesha arifa."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Imekomeshwa"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Telezesha kidole kulia ili uondoe"</string>
