@@ -528,7 +528,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
             public void onClick(View view) {
                 final Activity activity = getActivity();
                 TimerFragment.revealAnimation(activity, mFab, activity.getResources()
-                        .getColor(R.color.hot_pink));
+                        .getColor(R.color.clock_white));
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
