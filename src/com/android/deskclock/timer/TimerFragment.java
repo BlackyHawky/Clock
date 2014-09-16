@@ -369,8 +369,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             case TimerObj.STATE_TIMESUP: // time-up but didn't stopped, continue negative ticking
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_reset));
-                // TODO: request UX to provide a real reset asset instead of the stop asset.
-                mFab.setImageResource(R.drawable.ic_fab_stop);
+                mFab.setImageResource(R.drawable.ic_fab_reset);
                 break;
             default:
         }
