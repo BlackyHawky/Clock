@@ -76,7 +76,7 @@
                 android:layout_gravity="center_vertical|start"
                 android:text="@string/alarm_repeat"
                 android:textSize="16sp"
-                android:paddingStart="16dip"
+                android:paddingStart="12dip"
                 android:textColor="@color/clock_white" />
 
             <LinearLayout
@@ -103,6 +103,7 @@
                     android:layout_alignParentStart="true"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
+                    android:paddingStart="4dip"
                     android:drawablePadding="16dp"
                     android:drawableStart="@drawable/ic_ringtone"
                     android:ellipsize="marquee"
@@ -170,7 +171,7 @@
                 android:layout_gravity="start"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/delete_alarm"
-                android:src="@drawable/ic_delete" />
+                android:src="@drawable/ic_delete_small" />
 
             <View
                 android:id="@+id/hairline"
@@ -222,9 +223,10 @@
 
             <ImageView
                 android:id="@+id/arrow"
-                android:layout_width="48dip"
-                android:layout_height="32dip"
-                android:layout_gravity="bottom|end"
+                android:layout_width="wrap_content"
+                android:layout_height="48dip"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
                 android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:contentDescription="@string/expand_alarm"
                 android:src="@drawable/ic_expand_down" />
