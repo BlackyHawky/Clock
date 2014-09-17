@@ -18,7 +18,9 @@ package com.android.deskclock.timer;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -27,7 +29,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -36,10 +37,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
+import android.view.ViewGroupOverlay;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Interpolator;
+import android.view.animation.PathInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -70,6 +75,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
     private static final String TAG = "TimerFragment1";
     private static final String KEY_ENTRY_STATE = "entry_state";
+    private static final Interpolator REVEAL_INTERPOLATOR =
+            new PathInterpolator(0.0f, 0.0f, 0.2f, 1.0f);
     public static final String GOTO_SETUP_VIEW = "deskclock.timers.gotosetup";
 
     private Bundle mViewState;
@@ -526,9 +533,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
         mFab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Activity activity = getActivity();
-                TimerFragment.revealAnimation(activity, mFab, activity.getResources()
-                        .getColor(R.color.clock_white));
+                revealAnimation(mFab, getActivity().getResources().getColor(R.color.clock_white));
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -537,6 +542,47 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 }, TimerFragment.ANIMATION_TIME_MILLIS);
             }
         });
+    }
+
+    private  void revealAnimation(final View centerView, int color) {
+        final Activity activity = getActivity();
+        final View decorView = activity.getWindow().getDecorView();
+        final ViewGroupOverlay overlay = (ViewGroupOverlay) decorView.getOverlay();
+
+        // Create a transient view for performing the reveal animation.
+        final View revealView = new View(activity);
+        revealView.setRight(decorView.getWidth());
+        revealView.setBottom(decorView.getHeight());
+        revealView.setBackgroundColor(color);
+        overlay.add(revealView);
+
+        final int[] clearLocation = new int[2];
+        centerView.getLocationInWindow(clearLocation);
+        clearLocation[0] += centerView.getWidth() / 2;
+        clearLocation[1] += centerView.getHeight() / 2;
+        final int revealCenterX = clearLocation[0] - revealView.getLeft();
+        final int revealCenterY = clearLocation[1] - revealView.getTop();
+
+        final int xMax = Math.max(revealCenterX, decorView.getWidth() - revealCenterX);
+        final int yMax = Math.max(revealCenterY, decorView.getHeight() - revealCenterY);
+        final float revealRadius = (float) Math.sqrt(Math.pow(xMax, 2.0) + Math.pow(yMax, 2.0));
+
+        final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
+                revealView, revealCenterX, revealCenterY, 0.0f, revealRadius);
+        revealAnimator.setInterpolator(REVEAL_INTERPOLATOR);
+
+        final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 1.0f);
+        fadeAnimator.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                overlay.remove(revealView);
+            }
+        });
+
+        final AnimatorSet alertAnimator = new AnimatorSet();
+        alertAnimator.setDuration(TimerFragment.ANIMATION_TIME_MILLIS);
+        alertAnimator.play(revealAnimator).before(fadeAnimator);
+        alertAnimator.start();
     }
 
     @Override
