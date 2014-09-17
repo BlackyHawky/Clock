@@ -62,7 +62,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
 
     private static final String KEY_SETUP_SELECTED = "_setup_selected";
     private static final String KEY_ENTRY_STATE = "entry_state";
-    private static final int MAX_PAGE_COUNT = 4;
+    private static final int PAGINATION_DOTS_COUNT = 4;
     private static final String CURR_PAGE = "_currPage";
     private static final Handler HANDLER = new Handler();
     private static final Interpolator REVEAL_INTERPOLATOR =
@@ -79,7 +79,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     private ViewGroup mContentView;
     private View mTimerView;
     private View mLastView;
-    private ImageView[] mPageIndicators = new ImageView[MAX_PAGE_COUNT];
+    private ImageView[] mPageIndicators = new ImageView[PAGINATION_DOTS_COUNT];
     private Transition mDeleteTransition;
     private SharedPreferences mPrefs;
     private Bundle mViewState = null;
@@ -396,7 +396,8 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     // Go to the newly created timer view
                     mAdapter.addTimer(timerObj);
                     goToPagerView();
-                    mViewPager.setCurrentItem(mAdapter.getCount() - 1);
+                    mViewPager.setCurrentItem(0);
+                    highlightPageIndicator(0);
                     mSetupView.reset(); // Make sure the setup is cleared for next time
                 }
             }, ANIMATION_TIME_MILLIS);
@@ -545,21 +546,14 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     @Override
     public void onLeftButtonClick(View view) {
         // Respond to another timer
-        if (mAdapter.getCount() == MAX_PAGE_COUNT) {
-            final Toast toast = Toast.makeText(getActivity(), R.string.timers_max_count_reached,
-                    Toast.LENGTH_SHORT);
-            ToastMaster.setToast(toast);
-            toast.show();
-        } else {
-            revealAnimation(getActivity(), view, Utils.getNextHourColor());
-            HANDLER.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    mSetupView.reset();
-                    goToSetUpView();
-                }
-            }, ANIMATION_TIME_MILLIS);
-        }
+        revealAnimation(getActivity(), view, Utils.getNextHourColor());
+        HANDLER.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSetupView.reset();
+                goToSetUpView();
+            }
+        }, ANIMATION_TIME_MILLIS);
     }
 
     @Override
@@ -597,16 +591,61 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     }
 
     private void highlightPageIndicator(int position) {
-        for (int i = 0; i < MAX_PAGE_COUNT; i++) {
-            final int count = mAdapter.getCount();
-            if (count < 2 || i >= count) {
-                mPageIndicators[i].setVisibility(View.GONE);
+        final int count = mAdapter.getCount();
+        if (count <= PAGINATION_DOTS_COUNT) {
+            for (int i = 0; i < PAGINATION_DOTS_COUNT; i++) {
+                if (count < 2 || i >= count) {
+                    mPageIndicators[i].setVisibility(View.GONE);
+                } else {
+                    paintIndicator(i, position == i ? R.drawable.ic_swipe_circle_light :
+                            R.drawable.ic_swipe_circle_dark);
+                }
+            }
+        } else {
+            /**
+             * If there are more than 4 timers, the top and/or bottom dot might need to show a
+             * half fade, to indicate there are more timers in that direction.
+             */
+            final int aboveCount = position; // How many timers are above the current timer
+            final int belowCount = count - position - 1; // How many timers are below
+            if (aboveCount < PAGINATION_DOTS_COUNT - 1) {
+                // There's enough room for the above timers, so top dot need not to fade
+                for (int i = 0; i < aboveCount; i++) {
+                    paintIndicator(i, R.drawable.ic_swipe_circle_dark);
+                }
+                paintIndicator(position, R.drawable.ic_swipe_circle_light);
+                for (int i = position + 1; i < PAGINATION_DOTS_COUNT - 1 ; i++) {
+                    paintIndicator(i, R.drawable.ic_swipe_circle_dark);
+                }
+                paintIndicator(PAGINATION_DOTS_COUNT - 1, R.drawable.ic_swipe_circle_bottom);
             } else {
-                mPageIndicators[i].setVisibility(View.VISIBLE);
-                mPageIndicators[i].setImageResource(position == i ?
-                        R.drawable.ic_swipe_circle_light : R.drawable.ic_swipe_circle_dark);
+                // There's not enough room for the above timers, top dot needs to fade
+                paintIndicator(0, R.drawable.ic_swipe_circle_top);
+                for (int i = 1; i < PAGINATION_DOTS_COUNT - 2; i++) {
+                    paintIndicator(i, R.drawable.ic_swipe_circle_dark);
+                }
+                // Determine which resource to use for the "second indicator" from the bottom.
+                paintIndicator(PAGINATION_DOTS_COUNT - 2, belowCount == 0 ?
+                        R.drawable.ic_swipe_circle_dark : R.drawable.ic_swipe_circle_light);
+                final int lastDotRes;
+                if (belowCount == 0) {
+                    // The current timer is the last one
+                    lastDotRes = R.drawable.ic_swipe_circle_light;
+                } else if (belowCount == 1) {
+                    // There's only one timer below the current
+                    lastDotRes = R.drawable.ic_swipe_circle_dark;
+                } else {
+                    // There are more than one timer below, bottom dot needs to fade
+                    lastDotRes = R.drawable.ic_swipe_circle_bottom;
+                }
+                paintIndicator(PAGINATION_DOTS_COUNT - 1, lastDotRes);
             }
         }
+    }
+
+    private void paintIndicator(int position, int res) {
+        mPageIndicators[position].setVisibility(View.VISIBLE);
+        mPageIndicators[position].setImageResource(res);
     }
 
     @Override
