@@ -243,7 +243,7 @@ public class TimerObj implements Parcelable {
             Collections.sort(timers, new Comparator<TimerObj>() {
                 @Override
                 public int compare(TimerObj timerObj1, TimerObj timerObj2) {
-                   return timerObj2.mTimerId - timerObj1.mTimerId;
+                   return timerObj1.mTimerId - timerObj2.mTimerId;
                 }
             });
         }
