@@ -23,7 +23,7 @@
 
     <style name="DeskClockParentTheme" parent="@android:style/Theme.Material">
         <item name="android:statusBarColor">@color/status_bar</item>
-        <item name="android:colorControlActivated">@color/hot_pink</item>
+        <item name="android:colorControlActivated">@color/white</item>
         <item name="android:colorControlNormal">@color/white</item>
         <item name="android:popupMenuStyle">?android:attr/actionOverflowMenuStyle</item>
         <item name="android:buttonStyle">?android:attr/borderlessButtonStyle</item>
@@ -94,6 +94,9 @@
         <item name="android:actionBarStyle">@style/SettingsTheme.ActionBar</item>
         <item name="android:detailsElementBackground">@null</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textColor">@color/white_69p</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
     </style>
 
     <style name="CitiesTheme" parent="@style/DeskClockParentTheme">
@@ -253,10 +256,6 @@
         <item name="android:textSize">@dimen/button_font_size</item>
     </style>
 
-    <style name="timer_label">
-        <item name="android:textSize">@dimen/timer_label_font_size</item>
-    </style>
-
     <style name="labelEditTextStyle">
         <item name="android:textCursorDrawable">@null</item>
         <item name="android:inputType">textCapSentences</item>
@@ -272,12 +271,16 @@
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
-    <style name="city_name">
-        <item name="android:textSize">@dimen/city_name_font_size</item>
+    <style name="PrimaryLabelTextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="city_time">
-        <item name="android:textSize">@dimen/city_time_font_size</item>
+    <style name="SecondaryLabelTextAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
+        <item name="android:textColor">@color/white_69p</item>
     </style>
 
     <style name="TextAppearance">

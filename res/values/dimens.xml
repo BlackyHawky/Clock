@@ -20,6 +20,7 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <dimen name="label_text_size">14sp</dimen>
     <dimen name="time_text_size">120dip</dimen>
     <dimen name="ampm_text_size">20dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
@@ -75,7 +76,6 @@
 
     <dimen name="body_font_padding">4dp</dimen>
     <dimen name="button_font_size">24sp</dimen>
-    <dimen name="timer_label_font_size">24sp</dimen>
     <dimen name="dialog_button_font_size">16sp</dimen>
 
     <dimen name="alarm_label_size">14sp</dimen>
@@ -101,10 +101,6 @@
     <dimen name="timer_setup_delete_start_margin">28sp</dimen>
     <dimen name="timer_setup_delete_padding">12dip</dimen>
     <dimen name="timer_setup_label_size">18sp</dimen>
-
-    <dimen name="city_name_font_size">16sp</dimen>
-    <dimen name="city_time_font_size">16sp</dimen>
-
 
     <dimen name="cities_list_item_height">56dip</dimen>
 
