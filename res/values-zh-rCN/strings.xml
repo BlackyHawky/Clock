@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"计时器"</string>
     <string name="menu_clock" msgid="5612760670606829805">"时钟"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"秒表"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"闹钟"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"添加闹钟"</string>
     <string name="button_cities" msgid="4555761857494501363">"城市"</string>
     <string name="button_menu" msgid="6050484561842120282">"更多选项"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"设置"</string>
@@ -314,7 +314,6 @@
     <item msgid="5176858645450908751">"雅加达"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"闹钟"</string>
-    <string name="see_all" msgid="775983396630163739">"查看全部…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"使用秒表服务执行通知功能。"</string>
     <string name="swn_stopped" msgid="783124901663086172">"已停止"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"向右滑动可关闭闹钟"</string>
