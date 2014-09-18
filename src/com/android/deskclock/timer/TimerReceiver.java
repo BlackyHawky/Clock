@@ -444,10 +444,10 @@ public class TimerReceiver extends BroadcastReceiver {
                 .addAction(
                         timerObj.getDeleteAfterUse()
                                 ? android.R.drawable.ic_menu_close_clear_cancel
-                                : R.drawable.ic_reset,
+                                : R.drawable.ic_notify_stop,
                         timerObj.getDeleteAfterUse()
                                 ? context.getResources().getString(R.string.timer_done)
-                                : context.getResources().getString(R.string.timer_reset),
+                                : context.getResources().getString(R.string.timer_stop),
                         stopIntent)
                 .setContentTitle(timerObj.getLabelOrDefault(context))
                 .setContentText(context.getResources().getString(R.string.timer_times_up))
