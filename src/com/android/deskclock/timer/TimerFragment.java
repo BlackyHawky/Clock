@@ -20,8 +20,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.app.Activity;
+import android.animation.TimeInterpolator;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
@@ -29,7 +28,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
@@ -39,21 +37,18 @@ import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.ViewGroupOverlay;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Interpolator;
-import android.view.animation.PathInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
+import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
-import com.android.deskclock.ToastMaster;
 import com.android.deskclock.Utils;
 import com.android.deskclock.VerticalViewPager;
 
@@ -64,9 +59,9 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     private static final String KEY_ENTRY_STATE = "entry_state";
     private static final int PAGINATION_DOTS_COUNT = 4;
     private static final String CURR_PAGE = "_currPage";
-    private static final Handler HANDLER = new Handler();
-    private static final Interpolator REVEAL_INTERPOLATOR =
-            new PathInterpolator(0.0f, 0.0f, 0.2f, 1.0f);
+    private static final TimeInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
+    private static final TimeInterpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
+    private static final long ROTATE_ANIM_DURATION_MILIS = 150;
 
     private boolean mTicking = false;
     private TimerSetupView mSetupView;
@@ -166,13 +161,15 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             @Override
             public void onClick(View v) {
                 if (mAdapter.getCount() != 0) {
-                    revealAnimation(getActivity(), v, Utils.getNextHourColor());
-                    HANDLER.postDelayed(new Runnable() {
+                    final AnimatorListenerAdapter adapter = new AnimatorListenerAdapter() {
                         @Override
-                        public void run() {
+                        public void onAnimationEnd(Animator animation) {
+                            mSetupView.reset(); // Make sure the setup is cleared for next time
+                            mSetupView.setScaleX(1.0f); // Reset the scale for setup view
                             goToPagerView();
                         }
-                    }, ANIMATION_TIME_MILLIS);
+                    };
+                    createRotateAnimator(adapter, false).start();
                 }
             }
         });
@@ -368,39 +365,95 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 break;
             case TimerObj.STATE_TIMESUP: // time-up but didn't stopped, continue negative ticking
                 mFab.setVisibility(View.VISIBLE);
-                mFab.setContentDescription(r.getString(R.string.timer_reset));
-                mFab.setImageResource(R.drawable.ic_fab_reset);
+                mFab.setContentDescription(r.getString(R.string.timer_stop));
+                mFab.setImageResource(R.drawable.ic_fab_stop);
                 break;
             default:
         }
     }
 
+    private Animator getRotateFromAnimator(View view) {
+        final Animator animator = new ObjectAnimator().ofFloat(view, View.SCALE_X, 1.0f, 0.0f);
+        animator.setDuration(ROTATE_ANIM_DURATION_MILIS);
+        animator.setInterpolator(DECELERATE_INTERPOLATOR);
+        return animator;
+    }
+
+    private Animator getRotateToAnimator(View view) {
+        final Animator animator = new ObjectAnimator().ofFloat(view, View.SCALE_X, 0.0f, 1.0f);
+        animator.setDuration(ROTATE_ANIM_DURATION_MILIS);
+        animator.setInterpolator(ACCELERATE_INTERPOLATOR);
+        return animator;
+    }
+
+    private Animator getScaleFooterButtonsAnimator(final boolean show) {
+        final AnimatorSet animatorSet = new AnimatorSet();
+        final Animator leftButtonAnimator = AnimatorUtils.getScaleAnimator(
+                mLeftButton, show ? 0.0f : 1.0f, show ? 1.0f : 0.0f);
+        final Animator rightButtonAnimator = AnimatorUtils.getScaleAnimator(
+                mRightButton, show ? 0.0f : 1.0f, show ? 1.0f : 0.0f);
+        final float fabStartScale = (show && mFab.getVisibility() == View.INVISIBLE) ? 0.0f : 1.0f;
+        final Animator fabAnimator = AnimatorUtils.getScaleAnimator(
+                mFab, fabStartScale, show ? 1.0f : 0.0f);
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mLeftButton.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+                mRightButton.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
+                restoreScale(mLeftButton);
+                restoreScale(mRightButton);
+                restoreScale(mFab);
+            }
+        });
+        // If not show, means transiting from timer view to setup view,
+        // when the setup view starts to rotate, the footer buttons are already invisible,
+        // so the scaling has to finish before the setup view starts rotating
+        animatorSet.setDuration(show ? ROTATE_ANIM_DURATION_MILIS * 2 : ROTATE_ANIM_DURATION_MILIS);
+        animatorSet.play(leftButtonAnimator).with(rightButtonAnimator).with(fabAnimator);
+        return animatorSet;
+    }
+
+    private void restoreScale(View view) {
+        view.setScaleX(1.0f);
+        view.setScaleY(1.0f);
+    }
+
+    private Animator createRotateAnimator(AnimatorListenerAdapter adapter, boolean toSetup) {
+        final AnimatorSet animatorSet = new AnimatorSet();
+        final Animator rotateFrom = getRotateFromAnimator(toSetup ? mTimerView : mSetupView);
+        rotateFrom.addListener(adapter);
+        final Animator rotateTo = getRotateToAnimator(toSetup ? mSetupView : mTimerView);
+        final Animator expandFooterButton = getScaleFooterButtonsAnimator(!toSetup);
+        animatorSet.play(rotateFrom).before(rotateTo).with(expandFooterButton);
+        return animatorSet;
+    }
+
     @Override
     public void onFabClick(View view) {
         if (mLastView != mTimerView) {
-            final Activity activity = getActivity();
-            revealAnimation(activity, mFab, activity.getResources().getColor(R.color.hot_pink));
-            HANDLER.postDelayed(new Runnable() {
+            // Timer is at Setup View, so fab is "play", rotate from setup view to timer view
+            final AnimatorListenerAdapter adapter = new AnimatorListenerAdapter() {
                 @Override
-                public void run() {
-                    // Timer is at Setup View, so fab is "play"
+                public void onAnimationStart(Animator animation) {
                     final int timerLength = mSetupView.getTime();
-                    if (timerLength == 0) {
-                        return;
-                    }
-
                     final TimerObj timerObj = new TimerObj(timerLength * DateUtils.SECOND_IN_MILLIS);
                     timerObj.mState = TimerObj.STATE_RUNNING;
                     updateTimerState(timerObj, Timers.START_TIMER);
 
                     // Go to the newly created timer view
                     mAdapter.addTimer(timerObj);
-                    goToPagerView();
                     mViewPager.setCurrentItem(0);
                     highlightPageIndicator(0);
-                    mSetupView.reset(); // Make sure the setup is cleared for next time
                 }
-            }, ANIMATION_TIME_MILLIS);
+
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mSetupView.reset(); // Make sure the setup is cleared for next time
+                    mSetupView.setScaleX(1.0f); // Reset the scale for setup view
+                    goToPagerView();
+                }
+            };
+            createRotateAnimator(adapter, false).start();
         } else {
             // Timer is at view pager, so fab is "play" or "pause" or "square that means reset"
             final TimerObj t = getCurrentTimer();
@@ -444,48 +497,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         }
     }
 
-
-    public static void revealAnimation(final Activity activity, final View centerView, int color) {
-
-        final View decorView = activity.getWindow().getDecorView();
-        final ViewGroupOverlay overlay = (ViewGroupOverlay) decorView.getOverlay();
-
-        // Create a transient view for performing the reveal animation.
-        final View revealView = new View(activity);
-        revealView.setRight(decorView.getWidth());
-        revealView.setBottom(decorView.getHeight());
-        revealView.setBackgroundColor(color);
-        overlay.add(revealView);
-
-        final int[] clearLocation = new int[2];
-        centerView.getLocationInWindow(clearLocation);
-        clearLocation[0] += centerView.getWidth() / 2;
-        clearLocation[1] += centerView.getHeight() / 2;
-        final int revealCenterX = clearLocation[0] - revealView.getLeft();
-        final int revealCenterY = clearLocation[1] - revealView.getTop();
-
-        final int xMax = Math.max(revealCenterX, decorView.getWidth() - revealCenterX);
-        final int yMax = Math.max(revealCenterY, decorView.getHeight() - revealCenterY);
-        final float revealRadius = (float) Math.sqrt(Math.pow(xMax, 2.0) + Math.pow(yMax, 2.0));
-
-        final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
-                revealView, revealCenterX, revealCenterY, 0.0f, revealRadius);
-        revealAnimator.setInterpolator(REVEAL_INTERPOLATOR);
-
-        float endAlpha = activity instanceof TimerAlertFullScreen ? 1.0f : 0.0f;
-        final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, endAlpha);
-        fadeAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                overlay.remove(revealView);
-            }
-        });
-
-        final AnimatorSet alertAnimator = new AnimatorSet();
-        alertAnimator.setDuration(ANIMATION_TIME_MILLIS);
-        alertAnimator.play(revealAnimator).before(fadeAnimator);
-        alertAnimator.start();
-    }
 
     private TimerObj getCurrentTimer() {
         if (mViewPager == null) {
@@ -536,42 +547,46 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             mRightButton.setEnabled(true);
             mLeftButton.setVisibility(mLastView != mTimerView ? View.GONE : View.VISIBLE);
             mRightButton.setVisibility(mLastView != mTimerView ? View.GONE : View.VISIBLE);
-            mLeftButton.setImageResource(R.drawable.ic_add_timer);
-            mLeftButton.setContentDescription(getString(R.string.timer_add_timer));
-            mRightButton.setImageResource(R.drawable.ic_delete);
-            mRightButton.setContentDescription(getString(R.string.timer_delete));
+            mLeftButton.setImageResource(R.drawable.ic_delete);
+            mLeftButton.setContentDescription(getString(R.string.timer_delete));
+            mRightButton.setImageResource(R.drawable.ic_add_timer);
+            mRightButton.setContentDescription(getString(R.string.timer_add_timer));
         }
-    }
-
-    @Override
-    public void onLeftButtonClick(View view) {
-        // Respond to another timer
-        revealAnimation(getActivity(), view, Utils.getNextHourColor());
-        HANDLER.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mSetupView.reset();
-                goToSetUpView();
-            }
-        }, ANIMATION_TIME_MILLIS);
     }
 
     @Override
     public void onRightButtonClick(View view) {
-        // Respond to delete
+        // Respond to add another timer
+        final AnimatorListenerAdapter adapter = new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mSetupView.reset();
+                mTimerView.setScaleX(1.0f); // Reset the scale for timer view
+                goToSetUpView();
+            }
+        };
+        createRotateAnimator(adapter, true).start();
+    }
+
+    @Override
+    public void onLeftButtonClick(View view) {
+        // Respond to delete timer
         final TimerObj timer = getCurrentTimer();
+        if (timer == null) {
+            return; // Prevent NPE if user click delete faster than the fade animation
+        }
         if (timer.mState == TimerObj.STATE_TIMESUP) {
             mNotificationManager.cancel(timer.mTimerId);
         }
         if (mAdapter.getCount() == 1) {
-            final Activity activity = getActivity();
-            revealAnimation(activity, view, activity.getResources().getColor(R.color.clock_white));
-            HANDLER.postDelayed(new Runnable() {
+            final AnimatorListenerAdapter adapter = new AnimatorListenerAdapter() {
                 @Override
-                public void run() {
+                public void onAnimationEnd(Animator animation) {
+                    mTimerView.setScaleX(1.0f); // Reset the scale for timer view
                     deleteTimer(timer);
                 }
-            }, ANIMATION_TIME_MILLIS);
+            };
+            createRotateAnimator(adapter, true).start();
         } else {
             TransitionManager.beginDelayedTransition(mContentView, mDeleteTransition);
             deleteTimer(timer);

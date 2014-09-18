@@ -41,8 +41,8 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_margin="@dimen/footer_button_layout_margin"
             android:background="@drawable/floating_action_button"
-            android:src="@drawable/ic_fab_reset"
-            android:contentDescription="@string/timer_reset" />
+            android:src="@drawable/ic_fab_stop"
+            android:contentDescription="@string/timer_stop" />
     </FrameLayout>
 
     <com.android.deskclock.TimerSetupView
