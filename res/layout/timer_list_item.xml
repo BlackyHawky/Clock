@@ -53,7 +53,6 @@
 
             <TextView
                 android:id="@+id/timer_label_text"
-                style="@style/timer_label"
                 android:layout_width="wrap_content"
                 android:layout_height="56dip"
                 android:layout_gravity="center_horizontal"
@@ -61,18 +60,19 @@
                 android:enabled="false"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="@string/label_unlabeled" />
+                android:text="@string/label_unlabeled"
+                android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
             <TextView
                 android:id="@+id/timer_label_placeholder"
-                style="@style/timer_label"
                 android:layout_width="wrap_content"
                 android:layout_height="56dip"
                 android:layout_gravity="center_horizontal"
                 android:contentDescription="@string/label"
                 android:enabled="false"
                 android:src="@drawable/ic_label"
-                android:text="@string/label" />
+                android:text="@string/label"
+                android:textAppearance="@style/SecondaryLabelTextAppearance" />
         </FrameLayout>
 
         <ImageButton
