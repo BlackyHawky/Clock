@@ -841,10 +841,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             if (alarm.label != null && alarm.label.length() > 0) {
                 itemHolder.clickableLabel.setText(alarm.label);
-                itemHolder.clickableLabel.setTextColor(mColorLit);
             } else {
                 itemHolder.clickableLabel.setText(R.string.label);
-                itemHolder.clickableLabel.setTextColor(mColorDim);
             }
 
             itemHolder.clickableLabel.setOnClickListener(new View.OnClickListener() {
@@ -856,11 +854,9 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             if (mRepeatChecked.contains(alarm.id) || itemHolder.alarm.daysOfWeek.isRepeating()) {
                 itemHolder.repeat.setChecked(true);
-                itemHolder.repeat.setTextColor(mColorLit);
                 itemHolder.repeatDays.setVisibility(View.VISIBLE);
             } else {
                 itemHolder.repeat.setChecked(false);
-                itemHolder.repeat.setTextColor(mColorDim);
                 itemHolder.repeatDays.setVisibility(View.GONE);
             }
             itemHolder.repeat.setOnClickListener(new View.OnClickListener() {
@@ -871,8 +867,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
                     final boolean checked = ((CheckBox) view).isChecked();
                     if (checked) {
-                        itemHolder.repeat.setTextColor(mColorLit);
-
                         // Show days
                         itemHolder.repeatDays.setVisibility(View.VISIBLE);
                         mRepeatChecked.add(alarm.id);
@@ -887,8 +881,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                         }
                         updateDaysOfWeekButtons(itemHolder, alarm.daysOfWeek);
                     } else {
-                        itemHolder.repeat.setTextColor(mColorDim);
-
                         // Hide days
                         itemHolder.repeatDays.setVisibility(View.GONE);
                         mRepeatChecked.remove(alarm.id);
@@ -926,7 +918,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                                 TransitionManager.beginDelayedTransition(mList, mRepeatTransition);
 
                                 itemHolder.repeat.setChecked(false);
-                                itemHolder.repeat.setTextColor(mColorDim);
                                 itemHolder.repeatDays.setVisibility(View.GONE);
                                 mRepeatChecked.remove(alarm.id);
 
@@ -947,10 +938,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 itemHolder.vibrate.setVisibility(View.VISIBLE);
                 if (!alarm.vibrate) {
                     itemHolder.vibrate.setChecked(false);
-                    itemHolder.vibrate.setTextColor(mColorDim);
                 } else {
                     itemHolder.vibrate.setChecked(true);
-                    itemHolder.vibrate.setTextColor(mColorLit);
                 }
             }
 
@@ -958,11 +947,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onClick(View v) {
                     final boolean checked = ((CheckBox) v).isChecked();
-                    if (checked) {
-                        itemHolder.vibrate.setTextColor(mColorLit);
-                    } else {
-                        itemHolder.vibrate.setTextColor(mColorDim);
-                    }
                     alarm.vibrate = checked;
                     asyncUpdateAlarm(alarm, false);
                 }
@@ -989,7 +973,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // Sets the alpha of the digital time display. This gives a visual effect
         // for enabled/disabled alarm while leaving the on/off switch more visible
         private void setDigitalTimeAlpha(ItemHolder holder, boolean enabled) {
-            float alpha = enabled ? 1f : 0.5f;
+            float alpha = enabled ? 1f : 0.69f;
             holder.clock.setAlpha(alpha);
         }
 

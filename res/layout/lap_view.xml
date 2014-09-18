@@ -25,32 +25,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <TextView
+        android:id="@+id/lap_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/clock_gray"
         android:layout_marginRight="@dimen/sw_item_space"
         android:layout_marginEnd="@dimen/sw_item_space"
         android:gravity="start"
-        style="@style/body"
         android:textAllCaps="false"
-        android:id="@+id/lap_number" />
+        android:textAppearance="@style/SecondaryLabelTextAppearance" />
     <TextView
+        android:id="@+id/lap_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/sw_item_space"
         android:layout_marginEnd="@dimen/sw_item_space"
-        android:textColor="@color/clock_gray"
         android:gravity="end"
-        style="@style/body"
         android:textAllCaps="false"
-        android:id="@+id/lap_time" />
+        android:textAppearance="@style/PrimaryLabelTextAppearance" />
     <TextView
+        android:id="@+id/lap_total"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:textColor="@color/clock_gray"
         android:gravity="end"
-        style="@style/body"
         android:textAllCaps="false"
-        android:id="@+id/lap_total" />
+        android:textAppearance="@style/PrimaryLabelTextAppearance" />
 </LinearLayout>
 
