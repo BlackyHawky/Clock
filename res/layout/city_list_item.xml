@@ -37,20 +37,18 @@
         android:clickable="false" />
     <TextView
         android:id="@+id/city_name"
-        style="@style/city_name"
         android:layout_width="0dip"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:paddingStart="16dip"
         android:paddingEnd="10dip"
-        android:textColor="@color/clock_white"
         android:ellipsize="end"
-        android:singleLine="true" />
+        android:singleLine="true"
+        android:textAppearance="@style/PrimaryLabelTextAppearance" />
     <TextView
         android:id="@+id/city_time"
-        style="@style/city_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="8dip"
-        android:textColor="@color/clock_gray" />
+        android:textAppearance="@style/SecondaryLabelTextAppearance" />
 </LinearLayout>
