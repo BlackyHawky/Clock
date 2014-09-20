@@ -314,7 +314,7 @@
     <item msgid="5176858645450908751">"जकार्ता"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"अलार्म"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"सूचना चलाने के लिए स्टॉपवॉच सेवा."</string>
+    <string name="stopwatch_service_desc" msgid="8416624630388063996">"नोटिफिकेशन चलाने के लिए स्टॉपवॉच सेवा."</string>
     <string name="swn_stopped" msgid="783124901663086172">"रोका गया"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"ख़ारिज करने के लिए दाएं स्वाइप करें"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"याद दिलाने के लिए बाएं स्वाइप करें"</string>
