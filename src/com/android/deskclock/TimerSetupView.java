@@ -51,6 +51,8 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         @Override
         public void onAnimationEnd(Animator animation) {
             if (mStart != null) {
+                mStart.setScaleX(1.0f);
+                mStart.setScaleY(1.0f);
                 mStart.setVisibility(View.INVISIBLE);
             }
         }
