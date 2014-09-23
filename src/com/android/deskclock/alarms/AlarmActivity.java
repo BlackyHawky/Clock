@@ -272,10 +272,12 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
             LogUtils.v(LOGTAG, "onClick ignored: %s", view);
             return;
         }
-
         LogUtils.v(LOGTAG, "onClick: %s", view);
-        final float translationX = Math.max(view.getLeft() - mAlarmButton.getRight(), 0)
-                + Math.min(view.getRight() - mAlarmButton.getLeft(), 0);
+
+        final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
+        final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
+        final float translationX = Math.max(view.getLeft() - alarmRight, 0)
+                + Math.min(view.getRight() - alarmLeft, 0);
         getAlarmBounceAnimator(translationX, translationX < 0.0f
                 ? R.string.swipe_snooze_instruction : R.string.swipe_dismiss_instruction).start();
     }
@@ -293,13 +295,16 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
         final float x = motionEvent.getRawX() - contentLocation[0];
         final float y = motionEvent.getRawY() - contentLocation[1];
 
+        final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
+        final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
+
         final float snoozeFraction, dismissFraction;
         if (mContentView.getLayoutDirection() == View.LAYOUT_DIRECTION_RTL) {
-            snoozeFraction = getFraction(mAlarmButton.getRight(), mSnoozeButton.getLeft(), x);
-            dismissFraction = getFraction(mAlarmButton.getLeft(), mDismissButton.getRight(), x);
+            snoozeFraction = getFraction(alarmRight, mSnoozeButton.getLeft(), x);
+            dismissFraction = getFraction(alarmLeft, mDismissButton.getRight(), x);
         } else {
-            snoozeFraction = getFraction(mAlarmButton.getLeft(), mSnoozeButton.getRight(), x);
-            dismissFraction = getFraction(mAlarmButton.getRight(), mDismissButton.getLeft(), x);
+            snoozeFraction = getFraction(alarmLeft, mSnoozeButton.getRight(), x);
+            dismissFraction = getFraction(alarmRight, mDismissButton.getLeft(), x);
         }
         setAnimatedFractions(snoozeFraction, dismissFraction);
 
