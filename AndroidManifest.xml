@@ -165,7 +165,8 @@
         <!-- Dream (screensaver) implementation -->
         <service android:name="Screensaver"
             android:exported="true"
-            android:label="@string/app_label">
+            android:label="@string/app_label"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
             <intent-filter>
                 <action android:name="android.service.dreams.DreamService" />
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
