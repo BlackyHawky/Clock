@@ -29,6 +29,10 @@
         <item name="android:buttonStyle">?android:attr/borderlessButtonStyle</item>
     </style>
 
+    <style name="AlarmSwitchTheme">
+        <item name="android:colorControlActivated">@color/hot_pink</item>
+    </style>
+
     <style name="TimePickerTheme" parent="@android:style/Theme.Material.Dialog">
         <item name="android:background">@color/time_picker_gray</item>
         <item name="android:timePickerStyle">@style/TimePickerStyle</item>
