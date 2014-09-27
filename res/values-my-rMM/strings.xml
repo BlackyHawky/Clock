@@ -188,7 +188,7 @@
     <string name="timer_stop" msgid="3361154678667736722">"ရပ်တန့်ရန်"</string>
     <string name="timer_done" msgid="2375990511982914051">"လုပ်ပြီး"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ပြန်ညှိရန်"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"ပယ်ဖျက်ရန်"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"ထားတော့"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"တိုင်မား အလုပ်ပြီးသွားပြီ"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"တိုင်မား"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"တိုင်မား အများဆုံး ၄ ခု"</string>
@@ -220,7 +220,7 @@
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"အချိန်မတူသည့် ဒေသမှာ ခရီးထွက်နေစဉ်၊ အိမ်အတွက် နာရီကို ထည့်ပါ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"အိမ်၏ အချိန် ဇုန်"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"အိမ်၏ အချိန် ဇုန်"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"ပယ်ဖျက်ရန်"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"ထားတော့"</string>
     <string name="time_picker_set" msgid="331153175471468051">"အိုကေ"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
