@@ -217,6 +217,8 @@ public class TimerReceiver extends BroadcastReceiver {
         Intent intent = new Intent();
         intent.setAction(Timers.TIMES_UP);
         intent.setClass(context, TimerReceiver.class);
+        // Time-critical, should be foreground
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         if (!mTimers.isEmpty()) {
             intent.putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
         }
