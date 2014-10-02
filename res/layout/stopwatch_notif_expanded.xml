@@ -103,7 +103,7 @@
                 android:gravity="start|center_vertical"
                 android:paddingStart="8dp"
                 android:singleLine="true"
-                android:textSize="14dp" />
+                android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
 
             <TextView
                 android:id="@+id/swn_right_button"
@@ -116,7 +116,7 @@
                 android:gravity="start|center_vertical"
                 android:paddingStart="8dp"
                 android:singleLine="true"
-                android:textSize="14dp" />
+                android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
         </LinearLayout>
     </FrameLayout>
 
