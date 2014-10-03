@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Outline;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -233,6 +234,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         mIsFirstLaunch = (icicle == null);
         getWindow().setBackgroundDrawable(null);
