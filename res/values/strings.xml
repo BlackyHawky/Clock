@@ -338,9 +338,6 @@
     <string name="label_description">Label</string>
     <string name="ringtone_description">Ringtone</string>
 
-    <!-- A short representation of charging information, e.g "34%" -->
-    <string name="battery_charging_level"><xliff:g id="number">%d</xliff:g><xliff:g id="percent">%%</xliff:g></string>
-
     <!-- What to show the user if the weather widget exists but fails to
          respond. This is a sign of an error; if the weather widget is not
          present on the device, we show nothing at all. -->
