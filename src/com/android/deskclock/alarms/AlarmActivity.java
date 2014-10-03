@@ -278,8 +278,8 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
         final float translationX = Math.max(view.getLeft() - alarmRight, 0)
                 + Math.min(view.getRight() - alarmLeft, 0);
-        getAlarmBounceAnimator(translationX, translationX < 0.0f
-                ? R.string.swipe_snooze_instruction : R.string.swipe_dismiss_instruction).start();
+        getAlarmBounceAnimator(translationX, translationX < 0.0f ?
+                R.string.description_direction_left : R.string.description_direction_right).start();
     }
 
     @Override
