@@ -543,10 +543,12 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
 
         @Override
         public void onTabSelected(Tab tab, FragmentTransaction ft) {
-            TabInfo info = (TabInfo) tab.getTag();
-            int position = info.getPosition();
+            final TabInfo info = (TabInfo) tab.getTag();
+            final int position = info.getPosition();
+            final int rtlSafePosition = getRtlPosition(position);
             mSelectedTab = position;
-            if (mIsFirstLaunch && getRtlPosition(position) == CLOCK_TAB_INDEX) {
+
+            if (mIsFirstLaunch && isClockTab(rtlSafePosition)) {
                 mLeftButton.setVisibility(View.INVISIBLE);
                 mRightButton.setVisibility(View.INVISIBLE);
                 mFab.setVisibility(View.VISIBLE);
@@ -554,16 +556,21 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
                 mFab.setContentDescription(getString(R.string.button_cities));
                 mIsFirstLaunch = false;
             } else {
-                DeskClockFragment f = (DeskClockFragment) getItem(getRtlPosition(position));
+                DeskClockFragment f = (DeskClockFragment) getItem(rtlSafePosition);
                 f.setFabAppearance(mFab);
                 f.setLeftRightButtonAppearance(mLeftButton, mRightButton);
             }
-            mPager.setCurrentItem(getRtlPosition(position));
+            mPager.setCurrentItem(rtlSafePosition);
         }
 
         @Override
         public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
             // Do nothing
+        }
+
+        private boolean isClockTab(int rtlSafePosition) {
+            final int clockTabIndex = isRtl() ? RTL_CLOCK_TAB_INDEX : CLOCK_TAB_INDEX;
+            return rtlSafePosition == clockTabIndex;
         }
 
         public void notifySelectedPage(int page) {
