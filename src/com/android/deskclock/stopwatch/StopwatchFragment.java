@@ -875,8 +875,14 @@ public class StopwatchFragment extends DeskClockFragment
     @Override
     public void setFabAppearance(ImageButton fab) {
         mFab = fab;
-        mFab.setImageResource(mState == Stopwatches.STOPWATCH_RUNNING ? R.drawable.ic_fab_pause :
-                R.drawable.ic_fab_play);
+
+        if (mState == Stopwatches.STOPWATCH_RUNNING) {
+            mFab.setImageResource(R.drawable.ic_fab_pause);
+            mFab.setContentDescription(getString(R.string.sw_stop_button));
+        } else {
+            mFab.setImageResource(R.drawable.ic_fab_play);
+            mFab.setContentDescription(getString(R.string.sw_start_button));
+        }
         mFab.setVisibility(View.VISIBLE);
     }
 
@@ -888,8 +894,16 @@ public class StopwatchFragment extends DeskClockFragment
                 View.VISIBLE);
         mRightButton.setVisibility(mState == Stopwatches.STOPWATCH_RESET ||
                 mState == Stopwatches.STOPWATCH_RUNNING ? View.INVISIBLE : View.VISIBLE);
-        mLeftButton.setImageResource(mState == Stopwatches.STOPWATCH_RUNNING ? R.drawable.ic_lap :
-                R.drawable.ic_reset);
+
+        if (mState == Stopwatches.STOPWATCH_RUNNING) {
+            mLeftButton.setImageResource(R.drawable.ic_lap);
+            mLeftButton.setContentDescription(getString(R.string.sw_lap_button));
+        } else {
+            mLeftButton.setImageResource(R.drawable.ic_reset);
+            mLeftButton.setContentDescription(getString(R.string.sw_reset_button));
+        }
+
         mRightButton.setImageResource(R.drawable.ic_share);
+        mRightButton.setContentDescription(getString(R.string.sw_share_button));
     }
 }
