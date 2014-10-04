@@ -22,6 +22,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
@@ -452,6 +453,8 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setVolumeControlStream(AudioManager.STREAM_ALARM);
+
         mFactory = LayoutInflater.from(this);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         mSortType = mPrefs.getInt(PREF_SORT, SORT_BY_NAME);

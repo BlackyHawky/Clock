@@ -76,6 +76,8 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setVolumeControlStream(AudioManager.STREAM_ALARM);
+
         addPreferencesFromResource(R.xml.settings);
 
         ActionBar actionBar = getActionBar();
