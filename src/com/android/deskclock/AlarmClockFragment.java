@@ -833,7 +833,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             final int alarmHour = alarm.hour;
             final int currHour = now.get(Calendar.HOUR_OF_DAY);
             return alarmHour < currHour ||
-                        (alarmHour == currHour && alarm.minutes < now.get(Calendar.MINUTE));
+                        (alarmHour == currHour && alarm.minutes <= now.get(Calendar.MINUTE));
         }
 
         private void bindExpandArea(final ItemHolder itemHolder, final Alarm alarm) {
