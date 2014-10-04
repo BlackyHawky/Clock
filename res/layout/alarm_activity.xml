@@ -124,7 +124,7 @@
             android:layout_columnSpan="3"
             android:layout_gravity="center"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/swipe_dismiss_instruction"
+            android:contentDescription="@string/description_direction_right"
             android:paddingLeft="@dimen/alarm_lockscreen_alarm_horizontal_padding"
             android:paddingRight="@dimen/alarm_lockscreen_alarm_horizontal_padding"
             android:paddingTop="@dimen/alarm_lockscreen_alarm_vertical_padding"
