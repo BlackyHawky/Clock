@@ -131,7 +131,6 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"နာရီကို ပြသမှု"</string>
     <string name="label_description" msgid="8736179296142915727">"အညွှန်း"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"သံစဉ်"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"မိုးလေဝသ သတင်း လောလောဆယ်မှာ မရနိုင်ပါ။"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"နာရီထဲမှာ သတ်မှတ်ထားသည့် နှိုးစက်များ အတွက် အသံ ဖွင့်ပေးရေး ဝန်ဆောင်မှု။"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"သံစဉ်ကို တင်နေ…"</string>
