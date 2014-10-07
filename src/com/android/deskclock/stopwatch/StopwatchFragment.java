@@ -874,8 +874,11 @@ public class StopwatchFragment extends DeskClockFragment
 
     @Override
     public void setFabAppearance(ImageButton fab) {
-        mFab = fab;
+        if (!isAdded()) {
+            return;
+        }
 
+        mFab = fab;
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
             mFab.setImageResource(R.drawable.ic_fab_pause);
             mFab.setContentDescription(getString(R.string.sw_stop_button));
@@ -888,6 +891,10 @@ public class StopwatchFragment extends DeskClockFragment
 
     @Override
     public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
+        if (!isAdded()) {
+            return;
+        }
+
         mLeftButton = left;
         mRightButton = right;
         mLeftButton.setVisibility(mState == Stopwatches.STOPWATCH_RESET ? View.INVISIBLE :

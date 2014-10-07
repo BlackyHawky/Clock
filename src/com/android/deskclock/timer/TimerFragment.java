@@ -513,6 +513,10 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
 
     @Override
     public void setFabAppearance(ImageButton fab) {
+        if (!isAdded()) {
+            return;
+        }
+
         mFab = fab;
         if (mFab != null) {
             if (atTimerTab()) {
@@ -540,6 +544,10 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
 
     @Override
     public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
+        if (!isAdded()) {
+            return;
+        }
+
         mLeftButton = left;
         mRightButton = right;
         if (mLeftButton != null && mRightButton != null && atTimerTab()) {

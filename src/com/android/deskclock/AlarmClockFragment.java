@@ -1443,9 +1443,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void setFabAppearance(ImageButton fab) {
+        if (!isAdded()) {
+            return;
+        }
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_fab_plus);
-        fab.setContentDescription(fab.getContext().getString(R.string.button_alarms));
+        fab.setContentDescription(getString(R.string.button_alarms));
     }
 
     @Override
