@@ -278,9 +278,12 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
     @Override
     public void setFabAppearance(ImageButton fab) {
+        if (!isAdded()) {
+            return;
+        }
         fab.setVisibility(View.VISIBLE);
         fab.setImageResource(R.drawable.ic_globe);
-        fab.setContentDescription(fab.getContext().getString(R.string.button_cities));
+        fab.setContentDescription(getString(R.string.button_cities));
     }
 
     @Override
