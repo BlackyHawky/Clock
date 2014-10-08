@@ -43,9 +43,6 @@ public class StopwatchFragment extends DeskClockFragment
     int mState = Stopwatches.STOPWATCH_RESET;
 
     // Stopwatch views that are accessed by the activity
-    private ImageButton mFab;
-    private ImageButton mLeftButton;
-    private ImageButton mRightButton;
     private CircleTimerView mTime;
     private CountingTimerView mTimeText;
     private ListView mLapsList;
@@ -399,7 +396,8 @@ public class StopwatchFragment extends DeskClockFragment
         mTime.readFromSharedPref(prefs, "sw");
         mTime.postInvalidate();
 
-        setButtons(mState);
+        setFabAppearance();
+        setLeftRightButtonAppearance();
         mTimeText.setTime(mAccumulatedTime, true, true);
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
             acquireWakeLock();
@@ -458,8 +456,9 @@ public class StopwatchFragment extends DeskClockFragment
         mTimeText.setTime(mAccumulatedTime, true, true);
         mTimeText.blinkTimeStr(true);
         updateCurrentLap(mAccumulatedTime);
-        setButtons(Stopwatches.STOPWATCH_STOPPED);
         mState = Stopwatches.STOPWATCH_STOPPED;
+        setFabAppearance();
+        setLeftRightButtonAppearance();
     }
 
     private void doStart(long time) {
@@ -470,14 +469,16 @@ public class StopwatchFragment extends DeskClockFragment
         if (mTime.isAnimating()) {
             mTime.startIntervalAnimation();
         }
-        setButtons(Stopwatches.STOPWATCH_RUNNING);
         mState = Stopwatches.STOPWATCH_RUNNING;
+        setFabAppearance();
+        setLeftRightButtonAppearance();
     }
 
     private void doLap() {
         if (DEBUG) LogUtils.v("StopwatchFragment.doLap");
         showLaps();
-        setButtons(Stopwatches.STOPWATCH_RUNNING);
+        setFabAppearance();
+        setLeftRightButtonAppearance();
     }
 
     private void doReset() {
@@ -493,15 +494,9 @@ public class StopwatchFragment extends DeskClockFragment
         mTime.reset();
         mTimeText.setTime(mAccumulatedTime, true, true);
         mTimeText.blinkTimeStr(false);
-        setButtons(Stopwatches.STOPWATCH_RESET);
         mState = Stopwatches.STOPWATCH_RESET;
-    }
-
-    private void showShareButton(boolean show) {
-        if (mRightButton != null) {
-            mRightButton.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
-            mRightButton.setEnabled(show);
-        }
+        setFabAppearance();
+        setLeftRightButtonAppearance();
     }
 
     private void shareResults() {
@@ -542,78 +537,8 @@ public class StopwatchFragment extends DeskClockFragment
         return output;
     }
 
-    /***
-     * Update the buttons on the stopwatch according to the watch's state
-     */
-    private void setButtons(int state) {
-        final Activity activity = getActivity();
-        if (!(activity instanceof DeskClock)) {
-            return;
-        }
-        final DeskClock deskClockActivity = (DeskClock) activity;
-        if (mFab == null || deskClockActivity.getSelectedTab() != DeskClock
-                .STOPWATCH_TAB_INDEX) {
-            return;
-        }
-        switch (state) {
-            case Stopwatches.STOPWATCH_RESET:
-                setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap, false,
-                        View.INVISIBLE);
-                changeFab(R.drawable.ic_fab_play);
-                showShareButton(false);
-                break;
-            case Stopwatches.STOPWATCH_RUNNING:
-                setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap,
-                        !reachedMaxLaps(), View.VISIBLE);
-                changeFab(R.drawable.ic_fab_pause);
-                showShareButton(false);
-                break;
-            case Stopwatches.STOPWATCH_STOPPED:
-                setButton(mLeftButton, R.string.sw_reset_button, R.drawable.ic_reset, true,
-                        View.VISIBLE);
-                changeFab(R.drawable.ic_fab_play);
-                showShareButton(true);
-                break;
-            default:
-                break;
-
-        }
-    }
-
-    private void changeFab(int id) {
-        if (getActivity() instanceof DeskClock) {
-            if (mFab != null &&
-                    ((DeskClock) getActivity()).getSelectedTab() == DeskClock.STOPWATCH_TAB_INDEX) {
-                if (id == R.drawable.ic_fab_play) {
-                    mFab.setContentDescription(getString(R.string.sw_start_button));
-                } else if (id == R.drawable.ic_fab_pause){
-                    mFab.setContentDescription(getString(R.string.sw_stop_button));
-                }
-                mFab.setImageResource(id);
-                mFab.setVisibility(View.VISIBLE);
-            }
-        }
-    }
     private boolean reachedMaxLaps() {
         return mLapsAdapter.getCount() >= Stopwatches.MAX_LAPS;
-    }
-
-    /***
-     * Set a single button with the string and states provided.
-     * @param b - Button view to update
-     * @param text - Text in button
-     * @param enabled - enable/disables the button
-     * @param visibility - Show/hide the button
-     */
-    private void setButton(
-            ImageButton b, int text, int drawableId, boolean enabled, int visibility) {
-        if (b == null) {
-            return;
-        }
-        b.setContentDescription(getActivity().getResources().getString(text));
-        b.setImageResource(drawableId);
-        b.setVisibility(visibility);
-        b.setEnabled(enabled);
     }
 
     /***
@@ -873,12 +798,11 @@ public class StopwatchFragment extends DeskClockFragment
     }
 
     @Override
-    public void setFabAppearance(ImageButton fab) {
-        if (!isAdded()) {
+    public void setFabAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mFab == null || activity.getSelectedTab() != DeskClock.STOPWATCH_TAB_INDEX) {
             return;
         }
-
-        mFab = fab;
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
             mFab.setImageResource(R.drawable.ic_fab_pause);
             mFab.setContentDescription(getString(R.string.sw_stop_button));
@@ -890,27 +814,37 @@ public class StopwatchFragment extends DeskClockFragment
     }
 
     @Override
-    public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
-        if (!isAdded()) {
+    public void setLeftRightButtonAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mLeftButton == null || mRightButton == null ||
+                activity.getSelectedTab() != DeskClock.STOPWATCH_TAB_INDEX) {
             return;
         }
-
-        mLeftButton = left;
-        mRightButton = right;
-        mLeftButton.setVisibility(mState == Stopwatches.STOPWATCH_RESET ? View.INVISIBLE :
-                View.VISIBLE);
-        mRightButton.setVisibility(mState == Stopwatches.STOPWATCH_RESET ||
-                mState == Stopwatches.STOPWATCH_RUNNING ? View.INVISIBLE : View.VISIBLE);
-
-        if (mState == Stopwatches.STOPWATCH_RUNNING) {
-            mLeftButton.setImageResource(R.drawable.ic_lap);
-            mLeftButton.setContentDescription(getString(R.string.sw_lap_button));
-        } else {
-            mLeftButton.setImageResource(R.drawable.ic_reset);
-            mLeftButton.setContentDescription(getString(R.string.sw_reset_button));
-        }
-
         mRightButton.setImageResource(R.drawable.ic_share);
         mRightButton.setContentDescription(getString(R.string.sw_share_button));
+
+        switch (mState) {
+            case Stopwatches.STOPWATCH_RESET:
+                mLeftButton.setImageResource(R.drawable.ic_lap);
+                mLeftButton.setContentDescription(getString(R.string.sw_lap_button));
+                mLeftButton.setEnabled(false);
+                mLeftButton.setVisibility(View.INVISIBLE);
+                mRightButton.setVisibility(View.INVISIBLE);
+                break;
+            case Stopwatches.STOPWATCH_RUNNING:
+                mLeftButton.setImageResource(R.drawable.ic_lap);
+                mLeftButton.setContentDescription(getString(R.string.sw_lap_button));
+                mLeftButton.setEnabled(!reachedMaxLaps());
+                mLeftButton.setVisibility(View.VISIBLE);
+                mRightButton.setVisibility(View.INVISIBLE);
+                break;
+            case Stopwatches.STOPWATCH_STOPPED:
+                mLeftButton.setImageResource(R.drawable.ic_reset);
+                mLeftButton.setContentDescription(getString(R.string.sw_reset_button));
+                mLeftButton.setEnabled(true);
+                mLeftButton.setVisibility(View.VISIBLE);
+                mRightButton.setVisibility(View.VISIBLE);
+                break;
+        }
     }
 }
