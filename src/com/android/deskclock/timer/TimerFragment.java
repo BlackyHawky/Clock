@@ -67,9 +67,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     private TimerSetupView mSetupView;
     private VerticalViewPager mViewPager;
     private TimerFragmentAdapter mAdapter;
-    private ImageButton mFab;
-    private ImageButton mLeftButton;
-    private ImageButton mRightButton;
     private ImageButton mCancel;
     private ViewGroup mContentView;
     private View mTimerView;
@@ -303,8 +300,8 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         mTimerView.setVisibility(View.VISIBLE);
         mSetupView.setVisibility(View.GONE);
         mLastView = mTimerView;
-        setLeftRightButtonAppearance(mLeftButton, mRightButton);
-        setFabAppearance(mFab);
+        setLeftRightButtonAppearance();
+        setFabAppearance();
         startClockTicks();
     }
 
@@ -319,8 +316,8 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         mSetupView.updateDeleteButtonAndDivider();
         mSetupView.registerStartButton(mFab);
         mLastView = mSetupView;
-        setLeftRightButtonAppearance(mLeftButton, mRightButton);
-        setFabAppearance(mFab);
+        setLeftRightButtonAppearance();
+        setFabAppearance();
         stopClockTicks();
     }
 
@@ -512,54 +509,42 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     }
 
     @Override
-    public void setFabAppearance(ImageButton fab) {
-        if (!isAdded()) {
+    public void setFabAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mFab == null) {
             return;
         }
 
-        mFab = fab;
-        if (mFab != null) {
-            if (atTimerTab()) {
-                if (mLastView == mTimerView) {
-                    setTimerViewFabIcon(getCurrentTimer());
-                } else if (mSetupView != null) {
-                    mSetupView.registerStartButton(mFab);
-                    mFab.setImageResource(R.drawable.ic_fab_play);
-                    mFab.setContentDescription(getString(R.string.timer_start));
-                }
-            } else {
-                mFab.setVisibility(View.VISIBLE);
-            }
+        if (activity.getSelectedTab() != DeskClock.TIMER_TAB_INDEX) {
+            mFab.setVisibility(View.VISIBLE);
+            return;
         }
-    }
 
-    private boolean atTimerTab() {
-        if (getActivity() instanceof DeskClock) {
-            final DeskClock deskClockActivity = (DeskClock) getActivity();
-            return deskClockActivity.getSelectedTab() == DeskClock.TIMER_TAB_INDEX;
-        } else {
-            return false;
+        if (mLastView == mTimerView) {
+            setTimerViewFabIcon(getCurrentTimer());
+        } else if (mSetupView != null) {
+            mSetupView.registerStartButton(mFab);
+            mFab.setImageResource(R.drawable.ic_fab_play);
+            mFab.setContentDescription(getString(R.string.timer_start));
         }
     }
 
     @Override
-    public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
-        if (!isAdded()) {
+    public void setLeftRightButtonAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mLeftButton == null || mRightButton == null ||
+                activity.getSelectedTab() != DeskClock.TIMER_TAB_INDEX) {
             return;
         }
 
-        mLeftButton = left;
-        mRightButton = right;
-        if (mLeftButton != null && mRightButton != null && atTimerTab()) {
-            mLeftButton.setEnabled(true);
-            mRightButton.setEnabled(true);
-            mLeftButton.setVisibility(mLastView != mTimerView ? View.GONE : View.VISIBLE);
-            mRightButton.setVisibility(mLastView != mTimerView ? View.GONE : View.VISIBLE);
-            mLeftButton.setImageResource(R.drawable.ic_delete);
-            mLeftButton.setContentDescription(getString(R.string.timer_delete));
-            mRightButton.setImageResource(R.drawable.ic_add_timer);
-            mRightButton.setContentDescription(getString(R.string.timer_add_timer));
-        }
+        mLeftButton.setEnabled(true);
+        mRightButton.setEnabled(true);
+        mLeftButton.setVisibility(mLastView != mTimerView ? View.GONE : View.VISIBLE);
+        mRightButton.setVisibility(mLastView != mTimerView ? View.GONE : View.VISIBLE);
+        mLeftButton.setImageResource(R.drawable.ic_delete);
+        mLeftButton.setContentDescription(getString(R.string.timer_delete));
+        mRightButton.setImageResource(R.drawable.ic_add_timer);
+        mRightButton.setContentDescription(getString(R.string.timer_add_timer));
     }
 
     @Override
@@ -610,7 +595,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         // When deleting a negative timer (hidden fab), since deleting will not trigger
         // onResume(), in order to ensure the fab showing correctly, we need to manually
         // set fab appearance here.
-        setFabAppearance(mFab);
+        setFabAppearance();
     }
 
     private void highlightPageIndicator(int position) {
@@ -691,7 +676,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 } else {
                     highlightPageIndicator(0);
                 }
-                setFabAppearance(mFab);
+                setFabAppearance();
                 return;
             }
         }
@@ -738,7 +723,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 break;
         }
         // This will change status of the timer, so update fab
-        setFabAppearance(mFab);
+        setFabAppearance();
     }
 
     private void cancelTimerNotification(int timerId) {
