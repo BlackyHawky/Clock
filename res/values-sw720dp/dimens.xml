@@ -21,6 +21,7 @@
 
     <dimen name="alarm_side_padding">96dip</dimen>
     <dimen name="clock_side_padding">128dip</dimen>
+    <dimen name="clock_side_padding_reduced">116dip</dimen>
 
     <dimen name="big_font_size">152sp</dimen>
     <dimen name="medium_font_size">80sp</dimen>
