@@ -476,9 +476,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
                 TabInfo info = mTabs.get(getRtlPosition(position));
                 fragment = Fragment.instantiate(mContext, info.clss.getName(), info.args);
                 if (fragment instanceof TimerFragment) {
-                    ((TimerFragment) fragment).setFabAppearance(mFab);
-                    ((TimerFragment) fragment).setLeftRightButtonAppearance(mLeftButton,
-                            mRightButton);
+                    ((TimerFragment) fragment).setFabAppearance();
+                    ((TimerFragment) fragment).setLeftRightButtonAppearance();
                 }
             }
             return fragment;
@@ -556,8 +555,8 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
                 mIsFirstLaunch = false;
             } else {
                 DeskClockFragment f = (DeskClockFragment) getItem(rtlSafePosition);
-                f.setFabAppearance(mFab);
-                f.setLeftRightButtonAppearance(mLeftButton, mRightButton);
+                f.setFabAppearance();
+                f.setLeftRightButtonAppearance();
             }
             mPager.setCurrentItem(rtlSafePosition);
         }
@@ -717,5 +716,17 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             }
         }
         return position;
+    }
+
+    public ImageButton getFab() {
+        return mFab;
+    }
+
+    public ImageButton getLeftButton() {
+        return mLeftButton;
+    }
+
+    public ImageButton getRightButton() {
+        return mRightButton;
     }
 }
