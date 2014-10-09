@@ -114,6 +114,7 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
     private boolean mAlarmHandled;
     private String mVolumeBehavior;
     private int mCurrentHourColor;
+    private boolean mReceiverRegistered;
 
     private ViewGroup mContainerView;
 
@@ -138,14 +139,18 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
 
         final long instanceId = AlarmInstance.getId(getIntent().getData());
         mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
-        if (mAlarmInstance != null) {
-            LogUtils.i(LOGTAG, "Displaying alarm for instance: %s", mAlarmInstance);
-        } else {
+        if (mAlarmInstance == null) {
             // The alarm got deleted before the activity got created, so just finish()
             LogUtils.e(LOGTAG, "Error displaying alarm for intent: %s", getIntent());
             finish();
             return;
+        } else if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
+            LogUtils.i(LOGTAG, "Skip displaying alarm for instance: %s", mAlarmInstance);
+            finish();
+            return;
         }
+
+        LogUtils.i(LOGTAG, "Displaying alarm for instance: %s", mAlarmInstance);
 
         // Get the volume/camera button behavior setting
         mVolumeBehavior = PreferenceManager.getDefaultSharedPreferences(this)
@@ -217,15 +222,15 @@ public class AlarmActivity extends Activity implements View.OnClickListener, Vie
         filter.addAction(ALARM_SNOOZE_ACTION);
         filter.addAction(ALARM_DISMISS_ACTION);
         registerReceiver(mReceiver, filter);
+        mReceiverRegistered = true;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        // If the alarm instance is null the receiver was never registered and calling
-        // unregisterReceiver will throw an exception.
-        if (mAlarmInstance != null) {
+        // Skip if register didn't happen to avoid IllegalArgumentException
+        if (mReceiverRegistered) {
             unregisterReceiver(mReceiver);
         }
     }
