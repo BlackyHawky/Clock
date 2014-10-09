@@ -209,11 +209,17 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     @Override
     public void onResume() {
         super.onResume();
+
+        final DeskClock activity = (DeskClock) getActivity();
+        if (activity.getSelectedTab() == DeskClock.CLOCK_TAB_INDEX) {
+            setFabAppearance();
+            setLeftRightButtonAppearance();
+        }
+
         mPrefs.registerOnSharedPreferenceChangeListener(this);
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
-        Activity activity = getActivity();
         Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         // Besides monitoring when quarter-hour changes, monitor other actions that
         // effect clock time
@@ -277,18 +283,24 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     }
 
     @Override
-    public void setFabAppearance(ImageButton fab) {
-        if (!isAdded()) {
+    public void setFabAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mFab == null || activity.getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
             return;
         }
-        fab.setVisibility(View.VISIBLE);
-        fab.setImageResource(R.drawable.ic_globe);
-        fab.setContentDescription(getString(R.string.button_cities));
+        mFab.setVisibility(View.VISIBLE);
+        mFab.setImageResource(R.drawable.ic_globe);
+        mFab.setContentDescription(getString(R.string.button_cities));
     }
 
     @Override
-    public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
-        left.setVisibility(View.INVISIBLE);
-        right.setVisibility(View.INVISIBLE);
+    public void setLeftRightButtonAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mLeftButton == null || mRightButton == null ||
+                activity.getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
+            return;
+        }
+        mLeftButton.setVisibility(View.INVISIBLE);
+        mRightButton.setVisibility(View.INVISIBLE);
     }
 }
