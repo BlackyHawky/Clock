@@ -26,6 +26,9 @@ import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 public class AnimatorUtils {
 
     public static final long ANIM_DURATION_SHORT = 266L;  // 8/30 frames long
@@ -78,14 +81,31 @@ public class AnimatorUtils {
 
     public static final TypeEvaluator ARGB_EVALUATOR = new ArgbEvaluator();
 
-    public static ValueAnimator getScaleAnimator(View view, float... values) {
-        return ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, values),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, values));
-    }
+    private static Method sAnimateValue;
+    private static boolean sTryAnimateValue = true;
 
     public static void setAnimatedFraction(ValueAnimator animator, float fraction) {
-        animator.setCurrentPlayTime(Math.round((double) fraction * animator.getDuration()));
+        if (sTryAnimateValue) {
+            // try to set the animated fraction directly so that it isn't affected by the
+            // internal animator scale or time (b/17938711)
+            try {
+                if (sAnimateValue == null) {
+                    sAnimateValue = ValueAnimator.class
+                            .getDeclaredMethod("animateValue", float.class);
+                    sAnimateValue.setAccessible(true);
+                }
+
+                sAnimateValue.invoke(animator, fraction);
+                return;
+            } catch (NoSuchMethodException|InvocationTargetException|IllegalAccessException e) {
+                // something went wrong, don't try that again
+                LogUtils.e("Unable to use animateValue directly", e);
+                sTryAnimateValue = false;
+            }
+        }
+
+        // if that doesn't work then just fall back to setting the current play time
+        animator.setCurrentPlayTime(Math.round(fraction * animator.getDuration()));
     }
 
     public static void start(ValueAnimator... animators) {
@@ -112,5 +132,11 @@ public class AnimatorUtils {
         for (ValueAnimator animator : animators) {
             animator.cancel();
         }
+    }
+
+    public static ValueAnimator getScaleAnimator(View view, float... values) {
+        return ObjectAnimator.ofPropertyValuesHolder(view,
+                PropertyValuesHolder.ofFloat(View.SCALE_X, values),
+                PropertyValuesHolder.ofFloat(View.SCALE_Y, values));
     }
 }
