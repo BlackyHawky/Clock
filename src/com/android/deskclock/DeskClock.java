@@ -76,8 +76,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     // Check whether to change background every minute
     private static final long BACKGROUND_COLOR_CHECK_DELAY_MILLIS = DateUtils.MINUTE_IN_MILLIS;
     private static final int BACKGROUND_COLOR_INITIAL_ANIMATION_DURATION_MILLIS = 3000;
-    // The depth of fab, use it to create shadow
-    private static final float FAB_DEPTH = 20f;
     private static final int UNKNOWN_COLOR_ID = 0;
 
     private boolean mIsFirstLaunch = true;
@@ -162,7 +160,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         setContentView(R.layout.desk_clock);
         mFab = (ImageButton) findViewById(R.id.fab);
         mFab.setOutlineProvider(OVAL_OUTLINE_PROVIDER);
-        mFab.setTranslationZ(FAB_DEPTH);
         mLeftButton = (ImageButton) findViewById(R.id.left_button);
         mRightButton = (ImageButton) findViewById(R.id.right_button);
         if (mTabsAdapter == null) {
