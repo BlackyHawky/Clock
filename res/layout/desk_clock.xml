@@ -60,6 +60,7 @@
                 android:layout_margin="@dimen/footer_button_layout_margin"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/floating_action_button"
+                android:elevation="8dip"
                 android:scaleType="center"
                 android:contentDescription="@null" />
 
