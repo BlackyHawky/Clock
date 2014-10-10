@@ -269,6 +269,12 @@ public class AlarmClockFragment extends DeskClockFragment implements
     public void onResume() {
         super.onResume();
 
+        final DeskClock activity = (DeskClock) getActivity();
+        if (activity.getSelectedTab() == DeskClock.ALARM_TAB_INDEX) {
+            setFabAppearance();
+            setLeftRightButtonAppearance();
+        }
+
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
         }
@@ -1442,18 +1448,24 @@ public class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void setFabAppearance(ImageButton fab) {
-        if (!isAdded()) {
+    public void setFabAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mFab == null || activity.getSelectedTab() != DeskClock.ALARM_TAB_INDEX) {
             return;
         }
-        fab.setVisibility(View.VISIBLE);
-        fab.setImageResource(R.drawable.ic_fab_plus);
-        fab.setContentDescription(getString(R.string.button_alarms));
+        mFab.setVisibility(View.VISIBLE);
+        mFab.setImageResource(R.drawable.ic_fab_plus);
+        mFab.setContentDescription(getString(R.string.button_alarms));
     }
 
     @Override
-    public void setLeftRightButtonAppearance(ImageButton left, ImageButton right) {
-        left.setVisibility(View.INVISIBLE);
-        right.setVisibility(View.INVISIBLE);
+    public void setLeftRightButtonAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mLeftButton == null || mRightButton == null ||
+                activity.getSelectedTab() != DeskClock.ALARM_TAB_INDEX) {
+            return;
+        }
+        mLeftButton.setVisibility(View.INVISIBLE);
+        mRightButton.setVisibility(View.INVISIBLE);
     }
 }
