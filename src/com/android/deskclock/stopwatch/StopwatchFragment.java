@@ -1,7 +1,6 @@
 package com.android.deskclock.stopwatch;
 
 import android.animation.LayoutTransition;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,6 +38,8 @@ public class StopwatchFragment extends DeskClockFragment
     private static final boolean DEBUG = false;
 
     private static final String TAG = "StopwatchFragment";
+    private static final int STOPWATCH_REFRESH_INTERVAL_MILLIS = 25;
+
     int mState = Stopwatches.STOPWATCH_RESET;
 
     // Stopwatch views that are accessed by the activity
@@ -660,7 +660,7 @@ public class StopwatchFragment extends DeskClockFragment
             if (mLapsAdapter.getCount() > 0) {
                 updateCurrentLap(totalTime);
             }
-            mTime.postDelayed(mTimeUpdateThread, 10);
+            mTime.postDelayed(mTimeUpdateThread, STOPWATCH_REFRESH_INTERVAL_MILLIS);
         }
     };
 
