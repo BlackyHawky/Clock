@@ -339,7 +339,8 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setShowWhen(false)
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setCategory(Notification.CATEGORY_ALARM)
-                .setVisibility(Notification.VISIBILITY_PUBLIC);
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setLocalOnly(true);
         if (showTicker) {
             builder.setTicker(text);
         }
@@ -462,6 +463,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setWhen(0)
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setLocalOnly(true)
                 .build();
 
         // Send the notification using the timer's id to identify the
