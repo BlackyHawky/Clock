@@ -47,7 +47,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
         // We need to increment the global id out of the async task to prevent
         // race conditions
-        AlarmStateManager.updateGloablIntentId(context);
+        AlarmStateManager.updateGlobalIntentId(context);
         AsyncHandler.post(new Runnable() {
             @Override public void run() {
                 // Remove the snooze alarm after a boot.
