@@ -131,7 +131,6 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Приказ на часовникот"</string>
     <string name="label_description" msgid="8736179296142915727">"Ознака"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Мелодија"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Информациите за временската прогноза во моментов не се достапни."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Услуга за репродукција на звук за аларми поставени во Часовник."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Вчитување мелодија…"</string>
@@ -143,7 +142,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Тајмер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Часовник"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Стоперка"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Аларми"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Додај аларм"</string>
     <string name="button_cities" msgid="4555761857494501363">"Градови"</string>
     <string name="button_menu" msgid="6050484561842120282">"Повеќе опции"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Поставки"</string>
@@ -191,6 +190,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Откажи"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Времето истече"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Тајмер"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Максимум 4 тајмери"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Брзи сте како молња."</item>
     <item msgid="6332879039890727169">"Уживајте во плодовите од вашата работа."</item>
@@ -313,13 +313,10 @@
     <item msgid="5176858645450908751">"Џакарта"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Аларми"</string>
-    <string name="see_all" msgid="775983396630163739">"Види ги сите…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Услуга со стоперка за активирање на известувањето."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Запрено"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Лизгајте надесно за да отфрлите"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Лизгајте налево за да одложите"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Лизгајте нагоре за да отфрлите"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Лизгајте надолу за да одложите"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Повлечете надесно за да отфрлите"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Повлечете налево за да одложите"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Тајмерот е запрен"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"запрени <xliff:g id="NUMBER">%d</xliff:g> тајмери"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Допрете за да ги видите вашите тајмери"</string>

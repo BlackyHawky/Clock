@@ -131,7 +131,6 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"ঘড়ি প্রদর্শন"</string>
     <string name="label_description" msgid="8736179296142915727">"লেবেল"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"রিংটোন"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"ঠিক এ মুহূর্তে আবহাওয়ার তথ্য উপলব্ধ নয়।"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"ঘড়িতে অ্যালার্মের জন্য সাউন্ড প্লেব্যাক পরিষেবা।"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"রিংটোন লোড হচ্ছে…"</string>
@@ -143,7 +142,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"টাইমার"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ঘড়ি"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"স্টপওয়াচ"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"অ্যালার্মগুলি"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"অ্যালার্ম যোগ করুন"</string>
     <string name="button_cities" msgid="4555761857494501363">"শহর"</string>
     <string name="button_menu" msgid="6050484561842120282">"আরো বিকল্প"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"সেটিংস"</string>
@@ -191,6 +190,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"বাতিল করুন"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"সময় শেষ"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"টাইমার"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"সর্বোচ্চ ৪টি টাইমার"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"আপনি আসলেই এক গতিময় দৈত্য।"</item>
     <item msgid="6332879039890727169">"আপনার শ্রমের ফসল উপভোগ করুন।"</item>
@@ -313,13 +313,10 @@
     <item msgid="5176858645450908751">"জাকার্তা"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"অ্যালার্মগুলি"</string>
-    <string name="see_all" msgid="775983396630163739">"সবগুলো দেখুন..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"বিজ্ঞপ্তি চালানোর জন্য স্টপওয়াচ পরিষেবা"</string>
     <string name="swn_stopped" msgid="783124901663086172">"থেমেছে"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"খারিজ করার জন্য ডানে স্লাইড করুন"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"স্নুজ করার জন্য বামে স্লাইড করুন"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"খারিজ করার জন্য উপরে স্লাইড করুন"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"স্নুজ করার জন্য নীচে স্লাইড করুন"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"খারিজ করতে সোয়াইপ করুন"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"পরে মনে করিয়ে দিতে বামে সোয়াইপ করুন"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"টাইমার থেমেছে"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> টি টাইমার বন্ধ হয়েছে"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"আপনার টাইমারগুলি দেখার জন্য ছোঁন"</string>
