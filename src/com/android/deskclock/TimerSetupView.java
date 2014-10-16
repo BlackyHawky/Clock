@@ -19,7 +19,6 @@ package com.android.deskclock;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -109,7 +108,9 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         mLeft = (Button)v4.findViewById(R.id.key_left);
         mNumbers[0] = (Button)v4.findViewById(R.id.key_middle);
         mRight = (Button)v4.findViewById(R.id.key_right);
-        setLeftRightEnabled(false);
+
+        mLeft.setVisibility(INVISIBLE);
+        mRight.setVisibility(INVISIBLE);
 
         for (int i = 0; i < 10; i++) {
             mNumbers[i].setOnClickListener(this);
@@ -245,14 +246,5 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             updateTime();
         }
         initializeStartButtonVisibility();
-    }
-
-    protected void setLeftRightEnabled(boolean enabled) {
-        mLeft.setEnabled(enabled);
-        mRight.setEnabled(enabled);
-        if (!enabled) {
-            mLeft.setContentDescription(null);
-            mRight.setContentDescription(null);
-        }
     }
 }
