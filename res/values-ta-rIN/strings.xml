@@ -83,7 +83,7 @@
     <string name="never" msgid="54104287800571769">"எப்போதும் வேண்டாம்"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"கடிகாரத்தைத் தேர்வுசெய்யவும்"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"அனலாக் கடிகாரம்"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"கடிகாரம்"</string>
     <string name="help" msgid="7786263119482654015">"உதவி"</string>
     <string name="settings" msgid="5849739030579520686">"அமைப்பு"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"உறக்கநிலையில் இருக்கும் காலஅளவு"</string>
@@ -95,7 +95,7 @@
     <item quantity="one" msgid="3783171637798575068">"நிமிடம்"</item>
     <item quantity="other" msgid="1304056759541595077">"நிமிடங்கள்"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"பிறகு அமைதியாகு"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"அமைதியாக்க வெண்டியது"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> நிமிடங்கள்"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"எப்போதும் வேண்டாம்"</string>
   <string-array name="auto_silence_entries">
@@ -143,14 +143,14 @@
     <string name="menu_timer" msgid="6459070074762877114">"டைமர்"</string>
     <string name="menu_clock" msgid="5612760670606829805">"கடிகாரம்"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"நிறுத்தக்கடிகாரம்"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"அலாரங்கள்"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"அலாரத்தைச் சேர்"</string>
     <string name="button_cities" msgid="4555761857494501363">"நகரங்கள்"</string>
     <string name="button_menu" msgid="6050484561842120282">"மேலும் விருப்பங்கள்"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"அமைப்பு"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"உதவி"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"இரவு பயன்முறை"</string>
-    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"நேரப்படி வகைப்படுத்து"</string>
-    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"பெயரால் வரிசைப்படுத்து"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"நேர வரிசையில்"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"அகர வரிசையில்"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"தேர்ந்தெடுத்த நகரங்கள்"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"மீண்டும் தொடங்கு"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"தொடங்கு"</string>
@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"ரத்துசெய்"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"நேரம் முடிந்தது"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"டைமர்"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"அதிகபட்சம் 4 டைமர்கள்"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"சிறுத்தை போல் வேகமாக உள்ளீர்கள்."</item>
     <item msgid="6332879039890727169">"உங்கள் கடின உழைப்பின் பலனை அனுபவிக்கவும்."</item>
@@ -313,13 +314,10 @@
     <item msgid="5176858645450908751">"ஜகார்த்தா"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"அலாரங்கள்"</string>
-    <string name="see_all" msgid="775983396630163739">"அனைத்தையும் காட்டு..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"அறிவிப்பை இயக்குவதற்கான நிறுத்தக்கடிகார சேவை."</string>
     <string name="swn_stopped" msgid="783124901663086172">"நிறுத்தப்பட்டது"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"நிராகரிக்க வலதுபுறம் இழுக்கவும்"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"உறக்கநிலையில் வைக்க இடதுபுறம் இழுக்கவும்"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"நிராகரிக்க மேல்பக்கம் இழுக்கவும்"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"உறக்கநிலையில் வைக்க கீழே இழுக்கவும்"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"நிராகரிக்க வலதுபுறம் ஸ்வைப் செய்யவும்"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"உறக்கநிலையில் வைக்க இடதுபுறம் ஸ்வைப் செய்யவும்"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"டைமர் நிறுத்தப்பட்டது"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள் நிறுத்தப்பட்டன"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"உங்கள் டைமர்களைப் பார்க்க தொடவும்"</string>

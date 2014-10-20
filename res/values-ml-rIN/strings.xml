@@ -83,7 +83,7 @@
     <string name="never" msgid="54104287800571769">"ഒരിക്കലുമില്ല"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ഒരു ക്ലോക്ക് തിരഞ്ഞെടുക്കുക"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"അനലോഗ് ക്ലോക്ക്"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"ക്ലോക്ക്"</string>
     <string name="help" msgid="7786263119482654015">"സഹായം"</string>
     <string name="settings" msgid="5849739030579520686">"ക്രമീകരണങ്ങൾ"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"സ്‌നൂസ് ചെയ്യൽ ദൈർഘ്യം"</string>
@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"ടൈമർ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ക്ലോക്ക്"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"സ്‌റ്റോപ്പ്‌വാച്ച്"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"അലാറങ്ങൾ"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"അലാറം ചേർക്കുക"</string>
     <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
     <string name="button_menu" msgid="6050484561842120282">"കൂടുതൽ ഓപ്‌ഷനുകൾ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണങ്ങൾ"</string>
@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"റദ്ദാക്കുക"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"സമയം കഴിഞ്ഞു"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ടൈമർ"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"പരമാവധി 4 ടൈമറുകൾ"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"നിങ്ങൾ വളരെ വേഗത്തിലായിരിക്കുന്നു."</item>
     <item msgid="6332879039890727169">"നിങ്ങളുടെ കഠിനാദ്ധ്വാനത്തിന്റെ ഫലങ്ങൾ ആസ്വദിക്കുക."</item>
@@ -210,15 +211,15 @@
     <string name="home_label" msgid="4436139365695453870">"ഹോം"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"നഗരങ്ങൾ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ക്ലോക്ക്"</string>
-    <string name="clock_style" msgid="2265011060429742344">"ശൈലി"</string>
+    <string name="clock_style" msgid="2265011060429742344">"സ്റ്റൈൽ"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"അനലോഗ്"</item>
     <item msgid="8483930821046925592">"ഡിജിറ്റൽ"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"യാന്ത്രിക സ്വദേശ ക്ലോക്ക്"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"മറ്റൊരു സമയമേഖലയിൽ സഞ്ചരിക്കുമ്പോൾ ഒരു സ്വദേശ ക്ലോക്ക് ചേർക്കുക"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"സ്വദേശ സമയ മേഖല"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"സ്വദേശ സമയ മേഖല"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"ഓട്ടമാറ്റിക് ഹോം ക്ലോക്ക്"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"മറ്റൊരു സമയമേഖലയിൽ സഞ്ചരിക്കുമ്പോൾ സ്വദേശത്തെ സമയമറിയാൻ ഒരു ക്ലോക്ക് ചേർക്കുക"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"സ്വരാജ്യത്തെ സമയമേഖല"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"സ്വരാജ്യത്തെ സമയമേഖല"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"റദ്ദാക്കുക"</string>
     <string name="time_picker_set" msgid="331153175471468051">"ശരി"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
@@ -313,13 +314,10 @@
     <item msgid="5176858645450908751">"ജക്കാര്‍ത്ത"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"അലാറങ്ങൾ"</string>
-    <string name="see_all" msgid="775983396630163739">"എല്ലാം കാണുക..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"അറിയിപ്പ് പ്രവർത്തിപ്പിക്കുന്നതിനുള്ള സ്‌റ്റോപ്പ്‌വാച്ച് സേവനം."</string>
     <string name="swn_stopped" msgid="783124901663086172">"നിർത്തി"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"നിരസിക്കാൻ വലത്തോട്ട് സ്‌ലൈഡ് ചെയ്യുക"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ട് സ്‌ലൈഡ് ചെയ്യുക"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"നിരസിക്കാൻ മുകളിലോട്ട് സ്‌ലൈഡ് ചെയ്യുക"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"സ്‌നൂസ് ചെയ്യാൻ താഴോട്ട് സ്ലൈഡ് ചെയ്യുക"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"നിരസിക്കാൻ വലത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ടൈമർ നിർത്തി"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ നിർത്തി"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"നിങ്ങളുടെ ടൈമറുകൾ കാണുന്നതിന് സ്‌പർശിക്കുക"</string>
