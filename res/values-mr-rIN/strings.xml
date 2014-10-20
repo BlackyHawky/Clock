@@ -143,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"टाइमर"</string>
     <string name="menu_clock" msgid="5612760670606829805">"घड्याळ"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"स्टॉपवॉच"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"अलार्म"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"अलार्म जोडा"</string>
     <string name="button_cities" msgid="4555761857494501363">"शहरे"</string>
     <string name="button_menu" msgid="6050484561842120282">"अधिक पर्याय"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"सेटिंग्ज"</string>
@@ -191,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"रद्द करा"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"वेळ संपली"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"टाइमर"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"जास्तीत जास्त 4 टायमर"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"आपण खरोखर वेगाचे दानव आहात."</item>
     <item msgid="6332879039890727169">"आपल्या कष्टाच्या फळांचा आनंद घ्या."</item>
@@ -313,13 +314,10 @@
     <item msgid="5176858645450908751">"जकार्ता"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"अलार्म"</string>
-    <string name="see_all" msgid="775983396630163739">"सर्व पहा..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"सूचना चालविण्यासाठी स्टॉपवॉच सेवा."</string>
     <string name="swn_stopped" msgid="783124901663086172">"थांबले"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"डिसमिस करण्यासाठी उजवीकडे स्लाइड करा"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"स्नूझ करण्यासाठी डावीकडे स्लाइड करा"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"डिसमिस करण्यासाठी वर स्लाइड करा"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"स्नूझ करण्यासाठी खाली स्लाइड करा"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"डिसमिस करण्यासाठी उजवीकडे स्वाइप करा"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"स्नूझ करण्यासाठी डावीकडे स्वाइप करा"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"टाइमर थांबले"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर थांबले"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"आपले टाइमर पाहण्यासाठी स्पर्श करा"</string>
