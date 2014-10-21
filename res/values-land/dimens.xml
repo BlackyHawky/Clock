@@ -46,7 +46,7 @@
 
     <dimen name="alarm_side_padding">48dip</dimen>
     <dimen name="clock_side_padding">32dip</dimen>
-    <dimen name="world_clock_end_padding">0dip</dimen>
+    <dimen name="clock_fragment_end_padding">0dip</dimen>
 
     <dimen name="medium_font_size">48sp</dimen>
 
