@@ -416,12 +416,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
     }
 
-    public static String getSnoozedMinutes(Context context) {
+    public static int getSnoozedMinutes(Context context) {
         final String snoozeMinutesStr = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(SettingsActivity.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE_MINUTES);
-        final int snoozeMinutes = Integer.parseInt(snoozeMinutesStr);
-        return context.getResources().getQuantityString(R.plurals.alarm_alert_snooze_duration,
-                snoozeMinutes, snoozeMinutes);
+        return Integer.parseInt(snoozeMinutesStr);
     }
 
     /**
