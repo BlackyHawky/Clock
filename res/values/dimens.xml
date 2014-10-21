@@ -78,6 +78,7 @@
     <dimen name="body_font_size">18sp</dimen>
     <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="alarm_info_font_size">36sp</dimen>
+    <dimen name="no_alarm_font_size">16sp</dimen>
 
     <dimen name="body_font_padding">4dp</dimen>
     <dimen name="button_font_size">24sp</dimen>
