@@ -18,7 +18,8 @@
     android:id="@+id/main_clock_frame"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:paddingEnd="@dimen/clock_fragment_end_padding" >
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -75,7 +76,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/hairline_height"
         android:layout_marginTop="24dip"
-        android:layout_marginEnd="@dimen/world_clock_end_padding"
         android:background="@color/hairline" />
 </LinearLayout>
 
