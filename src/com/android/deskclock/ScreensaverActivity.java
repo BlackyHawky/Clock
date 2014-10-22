@@ -17,15 +17,14 @@
 package com.android.deskclock;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.database.ContentObserver;
 import android.os.BatteryManager;
 import android.os.Handler;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -59,6 +58,10 @@ public class ScreensaverActivity extends Activity {
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (DEBUG) {
+                Log.v(TAG, "ScreensaverActivity onReceive, action: " + intent.getAction());
+            }
+
             boolean changed = intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
                     || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED);
             if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
@@ -77,13 +80,9 @@ public class ScreensaverActivity extends Activity {
                 Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
             }
 
-        }
-    };
-
-    private final ContentObserver mSettingsContentObserver = new ContentObserver(mHandler) {
-        @Override
-        public void onChange(boolean selfChange) {
-            Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+            if (intent.getAction().equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
+                Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+            }
         }
     };
 
@@ -111,10 +110,6 @@ public class ScreensaverActivity extends Activity {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         registerReceiver(mIntentReceiver, filter);
-        getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
-                false,
-                mSettingsContentObserver);
     }
 
     @Override
@@ -147,7 +142,6 @@ public class ScreensaverActivity extends Activity {
 
     @Override
     public void onStop() {
-        getContentResolver().unregisterContentObserver(mSettingsContentObserver);
         unregisterReceiver(mIntentReceiver);
         super.onStop();
    }
@@ -193,7 +187,7 @@ public class ScreensaverActivity extends Activity {
         mAnalogClock = findViewById(R.id.analog_clock);
         setClockStyle();
         Utils.setTimeFormat((TextClock)mDigitalClock,
-            (int)getResources().getDimension(R.dimen.bottom_text_size));
+            (int)getResources().getDimension(R.dimen.main_ampm_font_size));
 
         mContentView = (View) mSaverView.getParent();
         mContentView.forceLayout();

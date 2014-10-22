@@ -45,7 +45,7 @@ public class TimerObj implements Parcelable {
     public long mTimeLeft;           // in the timer.
     public long mOriginalLength;     // length set at start of timer and by +1 min after times up
     public long mSetupLength;        // length set at start of timer
-    public View mView;
+    public TimerListItem mView;
     public int mState;
     public String mLabel;
     public boolean mDeleteAfterUse;
@@ -81,30 +81,21 @@ public class TimerObj implements Parcelable {
     };
 
     public void writeToSharedPref(SharedPreferences prefs) {
-        SharedPreferences.Editor editor = prefs.edit();
-        String key = PREF_TIMER_ID + Integer.toString(mTimerId);
-        String id = Integer.toString(mTimerId);
-        editor.putInt (key, mTimerId);
-        key = PREF_START_TIME + id;
-        editor.putLong (key, mStartTime);
-        key = PREF_TIME_LEFT + id;
-        editor.putLong (key, mTimeLeft);
-        key = PREF_ORIGINAL_TIME + id;
-        editor.putLong (key, mOriginalLength);
-        key = PREF_SETUP_TIME + id;
-        editor.putLong (key, mSetupLength);
-        key = PREF_STATE + id;
-        editor.putInt (key, mState);
-        Set <String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
+        final SharedPreferences.Editor editor = prefs.edit();
+        final String id = Integer.toString(mTimerId);
+        editor.putInt(PREF_TIMER_ID + id, mTimerId);
+        editor.putLong(PREF_START_TIME + id, mStartTime);
+        editor.putLong (PREF_TIME_LEFT + id, mTimeLeft);
+        editor.putLong (PREF_ORIGINAL_TIME + id, mOriginalLength);
+        editor.putLong (PREF_SETUP_TIME + id, mSetupLength);
+        editor.putInt(PREF_STATE + id, mState);
+        final Set <String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
         timersList.add(id);
         editor.putStringSet(PREF_TIMERS_LIST, timersList);
-        key = PREF_LABEL + id;
-        editor.putString(key, mLabel);
-        key = PREF_DELETE_AFTER_USE + id;
-        editor.putBoolean(key, mDeleteAfterUse);
+        editor.putString(PREF_LABEL + id, mLabel);
+        editor.putBoolean(PREF_DELETE_AFTER_USE + id, mDeleteAfterUse);
         editor.apply();
     }
-
 
     public void readFromSharedPref(SharedPreferences prefs) {
         String id = Integer.toString(mTimerId);
@@ -252,7 +243,7 @@ public class TimerObj implements Parcelable {
             Collections.sort(timers, new Comparator<TimerObj>() {
                 @Override
                 public int compare(TimerObj timerObj1, TimerObj timerObj2) {
-                   return timerObj2.mTimerId - timerObj1.mTimerId;
+                   return timerObj1.mTimerId - timerObj2.mTimerId;
                 }
             });
         }
@@ -278,7 +269,6 @@ public class TimerObj implements Parcelable {
             SharedPreferences prefs, ArrayList<TimerObj> timers) {
         if (timers.size() > 0) {
             for (int i = 0; i < timers.size(); i++) {
-                TimerObj t = timers.get(i);
                 timers.get(i).writeToSharedPref(prefs);
             }
         }

@@ -32,7 +32,7 @@ import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.AsyncHandler;
 import com.android.deskclock.DeskClock;
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
@@ -102,6 +102,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
     // Intent action to show the alarm and dismiss the instance
     public static final String SHOW_AND_DISMISS_ALARM_ACTION = "show_and_dismiss_alarm";
 
+    // Intent action for an AlarmManager alarm serving only to set the next alarm indicators
+    private static final String INDICATOR_ACTION = "indicator";
+
     // Extra key to set the desired state change.
     public static final String ALARM_STATE_EXTRA = "intent.extra.alarm.state";
 
@@ -140,7 +143,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 nextAlarm = instance;
             }
         }
-        AlarmNotifications.broadcastNextAlarm(context, nextAlarm);
+        AlarmNotifications.registerNextAlarmWithAlarmManager(context, nextAlarm);
     }
 
     /**
@@ -154,16 +157,16 @@ public final class AlarmStateManager extends BroadcastReceiver {
         ContentResolver cr = context.getContentResolver();
         Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
         if (alarm == null) {
-            Log.e("Parent has been deleted with instance: " + instance.toString());
+            LogUtils.e("Parent has been deleted with instance: " + instance.toString());
             return;
         }
 
         if (!alarm.daysOfWeek.isRepeating()) {
             if (alarm.deleteAfterUse) {
-                Log.i("Deleting parent alarm: " + alarm.id);
+                LogUtils.i("Deleting parent alarm: " + alarm.id);
                 Alarm.deleteAlarm(cr, alarm.id);
             } else {
-                Log.i("Disabling parent alarm: " + alarm.id);
+                LogUtils.i("Disabling parent alarm: " + alarm.id);
                 alarm.enabled = false;
                 Alarm.updateAlarm(cr, alarm);
             }
@@ -176,7 +179,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 alarmTime = currentTime;
             }
             AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(alarmTime);
-            Log.i("Creating new instance for repeating alarm " + alarm.id + " at "  +
+            LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
                     AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
             AlarmInstance.addInstance(cr, nextRepeatedInstance);
             registerInstance(context, nextRepeatedInstance, true);
@@ -215,7 +218,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
     private static void scheduleInstanceStateChange(Context context, Calendar time,
             AlarmInstance instance, int newState) {
         long timeInMillis = time.getTimeInMillis();
-        Log.v("Scheduling state change " + newState + " to instance " + instance.mId +
+        LogUtils.v("Scheduling state change " + newState + " to instance " + instance.mId +
                 " at " + AlarmUtils.getFormattedTime(context, time) + " (" + timeInMillis + ")");
         Intent stateChangeIntent = createStateChangeIntent(context, ALARM_MANAGER_TAG, instance,
                 newState);
@@ -237,7 +240,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to disable all {@link AlarmManager} timers
      */
     private static void cancelScheduledInstance(Context context, AlarmInstance instance) {
-        Log.v("Canceling instance " + instance.mId + " timers");
+        LogUtils.v("Canceling instance " + instance.mId + " timers");
 
         // Create a PendingIntent that will match any one set for this instance
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
@@ -258,7 +261,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setSilentState(Context context, AlarmInstance instance) {
-        Log.v("Setting silent state to instance " + instance.mId);
+        LogUtils.v("Setting silent state to instance " + instance.mId);
 
         // Update alarm in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -280,7 +283,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setLowNotificationState(Context context, AlarmInstance instance) {
-        Log.v("Setting low notification state to instance " + instance.mId);
+        LogUtils.v("Setting low notification state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -302,7 +305,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setHideNotificationState(Context context, AlarmInstance instance) {
-        Log.v("Setting hide notification state to instance " + instance.mId);
+        LogUtils.v("Setting hide notification state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -324,7 +327,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setHighNotificationState(Context context, AlarmInstance instance) {
-        Log.v("Setting high notification state to instance " + instance.mId);
+        LogUtils.v("Setting high notification state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -346,7 +349,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setFiredState(Context context, AlarmInstance instance) {
-        Log.v("Setting fire state to instance " + instance.mId);
+        LogUtils.v("Setting fire state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -373,7 +376,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param context application context
      * @param instance to set state to
      */
-    public static void setSnoozeState(Context context, AlarmInstance instance) {
+    public static void setSnoozeState(Context context, AlarmInstance instance, boolean showToast) {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
@@ -385,7 +388,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         newAlarmTime.add(Calendar.MINUTE, snoozeMinutes);
 
         // Update alarm state and new alarm time in db.
-        Log.v("Setting snoozed state to instance " + instance.mId + " for "
+        LogUtils.v("Setting snoozed state to instance " + instance.mId + " for "
                 + AlarmUtils.getFormattedTime(context, newAlarmTime));
         instance.setAlarmTime(newAlarmTime);
         instance.mAlarmState = AlarmInstance.SNOOZE_STATE;
@@ -397,13 +400,23 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 instance, AlarmInstance.FIRED_STATE);
 
         // Display the snooze minutes in a toast.
-        String displayTime = String.format(context.getResources().getQuantityText
-                (R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
-        Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
+        if (showToast) {
+            String displayTime = String.format(context.getResources().getQuantityText
+                    (R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
+            Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
+        }
 
         // Instance time changed, so find next alarm that will fire and notify system
         updateNextAlarm(context);
 
+    }
+
+    public static String getSnoozedMinutes(Context context) {
+        final String snoozeMinutesStr = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(SettingsActivity.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE_MINUTES);
+        final int snoozeMinutes = Integer.parseInt(snoozeMinutesStr);
+        return context.getResources().getQuantityString(R.plurals.alarm_alert_snooze_duration,
+                snoozeMinutes, snoozeMinutes);
     }
 
     /**
@@ -415,7 +428,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setMissedState(Context context, AlarmInstance instance) {
-        Log.v("Setting missed state to instance " + instance.mId);
+        LogUtils.v("Setting missed state to instance " + instance.mId);
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
@@ -448,7 +461,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setDismissState(Context context, AlarmInstance instance) {
-        Log.v("Setting dismissed state to instance " + instance.mId);
+        LogUtils.v("Setting dismissed state to instance " + instance.mId);
 
         // Remove all other timers and notifications associated to it
         unregisterInstance(context, instance);
@@ -514,7 +527,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Handle special use cases here
         if (instance.mAlarmState == AlarmInstance.DISMISSED_STATE) {
             // This should never happen, but add a quick check here
-            Log.e("Alarm Instance is dismissed, but never deleted");
+            LogUtils.e("Alarm Instance is dismissed, but never deleted");
             setDismissState(context, instance);
             return;
         } else if (instance.mAlarmState == AlarmInstance.FIRED_STATE) {
@@ -645,7 +658,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 setFiredState(context, instance);
                 break;
             case AlarmInstance.SNOOZE_STATE:
-                setSnoozeState(context, instance);
+                setSnoozeState(context, instance, true /* showToast */);
                 break;
             case AlarmInstance.MISSED_STATE:
                 setMissedState(context, instance);
@@ -654,12 +667,16 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 setDismissState(context, instance);
                 break;
             default:
-                Log.e("Trying to change to unknown alarm state: " + state);
+                LogUtils.e("Trying to change to unknown alarm state: " + state);
         }
     }
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
+        if (INDICATOR_ACTION.equals(intent.getAction())) {
+            return;
+        }
+
         final PendingResult result = goAsync();
         final PowerManager.WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
@@ -675,14 +692,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
     private void handleIntent(Context context, Intent intent) {
         final String action = intent.getAction();
-        Log.v("AlarmStateManager received intent " + intent);
+        LogUtils.v("AlarmStateManager received intent " + intent);
         if (CHANGE_STATE_ACTION.equals(action)) {
             Uri uri = intent.getData();
             AlarmInstance instance = AlarmInstance.getInstance(context.getContentResolver(),
                     AlarmInstance.getId(uri));
             if (instance == null) {
                 // Not a big deal, but it shouldn't happen
-                Log.e("Can not change state for unknown instance: " + uri);
+                LogUtils.e("Can not change state for unknown instance: " + uri);
                 return;
             }
 
@@ -690,7 +707,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             int intentId = intent.getIntExtra(ALARM_GLOBAL_ID_EXTRA, -1);
             int alarmState = intent.getIntExtra(ALARM_STATE_EXTRA, -1);
             if (intentId != globalId) {
-                Log.i("Ignoring old Intent. IntentId: " + intentId + " GlobalId: " + globalId +
+                LogUtils.i("Ignoring old Intent. IntentId: " + intentId + " GlobalId: " + globalId +
                         " AlarmState: " + alarmState);
                 return;
             }
@@ -713,5 +730,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
             context.startActivity(viewAlarmIntent);
             setDismissState(context, instance);
         }
+    }
+
+    /**
+     * Creates an intent that can be used to set an AlarmManager alarm to set the next alarm
+     * indicators.
+     */
+    public static Intent createIndicatorIntent(Context context) {
+        return new Intent(context, AlarmStateManager.class).setAction(INDICATOR_ACTION);
     }
 }

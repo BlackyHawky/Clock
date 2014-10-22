@@ -18,7 +18,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/black"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -29,22 +28,17 @@
         android:layout_height="64dp"
         internal:layout_maxHeight="64dp"
         internal:layout_minHeight="64dp"
-        android:background="@+drawable/notification_bg" >
+        android:background="?android:attr/selectableItemBackground" >
 
-        <ImageView
-            android:id="@+id/notification_icon"
-            android:layout_width="@dimen/notification_large_icon_width"
-            android:layout_height="@dimen/notification_large_icon_height"
-            android:background="@+drawable/notification_template_icon_bg"
-            android:scaleType="center" />
+        <include layout="@layout/stopwatch_notification_icon"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="fill_vertical"
-            android:layout_marginStart="@dimen/notification_large_icon_width"
+            android:layout_marginStart="@dimen/notification_icon_size"
             android:gravity="center"
-            android:minHeight="@dimen/notification_large_icon_height"
+            android:minHeight="@dimen/notification_icon_size"
             android:orientation="vertical"
             android:paddingBottom="2dp"
             android:paddingEnd="8dp"
@@ -82,25 +76,25 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1dip"
-        android:background="#28ffffff" />
+        android:background="@color/black_16p"
+        android:contentDescription="@null" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/notification_bg_normal" >
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/notification_large_icon_width"
-            android:divider="?android:attr/listDivider"
+            android:layout_marginStart="@dimen/notification_icon_size"
+            android:divider="@drawable/divider"
             android:dividerPadding="12dp"
             android:orientation="horizontal"
             android:showDividers="middle" >
 
             <TextView
                 android:id="@+id/swn_left_button"
-                style="?android:attr/borderlessButtonStyle"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -109,12 +103,11 @@
                 android:gravity="start|center_vertical"
                 android:paddingStart="8dp"
                 android:singleLine="true"
-                android:textColor="#ccc"
-                android:textSize="14dp" />
+                android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
 
             <TextView
                 android:id="@+id/swn_right_button"
-                style="?android:attr/borderlessButtonStyle"
+                android:background="?android:attr/selectableItemBackground"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
@@ -123,8 +116,7 @@
                 android:gravity="start|center_vertical"
                 android:paddingStart="8dp"
                 android:singleLine="true"
-                android:textColor="#ccc"
-                android:textSize="14dp" />
+                android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
         </LinearLayout>
     </FrameLayout>
 

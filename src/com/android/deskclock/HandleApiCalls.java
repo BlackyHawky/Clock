@@ -30,7 +30,7 @@ import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
-import com.android.deskclock.timer.TimerFragment;
+import com.android.deskclock.timer.TimerFullScreenFragment;
 import com.android.deskclock.timer.TimerObj;
 import com.android.deskclock.timer.Timers;
 
@@ -161,13 +161,13 @@ public class HandleApiCalls extends Activity {
         if (!intent.hasExtra(EXTRA_LENGTH)) {
             startActivity(new Intent(this, DeskClock.class)
                   .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
-                  .putExtra(TimerFragment.GOTO_SETUP_VIEW, true));
+                  .putExtra(TimerFullScreenFragment.GOTO_SETUP_VIEW, true));
             return;
         }
 
         final long length = 1000l * intent.getIntExtra(EXTRA_LENGTH, 0);
         if (length < TIMER_MIN_LENGTH || length > TIMER_MAX_LENGTH) {
-            Log.i("Invalid timer length requested: " + length);
+            LogUtils.i("Invalid timer length requested: " + length);
             return;
         }
         String label = getMessageFromIntent(intent);

@@ -47,7 +47,7 @@ public class WorldClockAdapter extends BaseAdapter {
     private String mClockStyle;
     private final Collator mCollator = Collator.getInstance();
     protected HashMap<String, CityObj> mCitiesDb = new HashMap<String, CityObj>();
-    private int mClocksPerRow;
+    protected int mClocksPerRow;
 
     public WorldClockAdapter(Context context) {
         super();
@@ -211,37 +211,7 @@ public class WorldClockAdapter extends BaseAdapter {
         if (view == null) {
             view = mInflater.inflate(R.layout.world_clock_list_item, parent, false);
         }
-        // The world clock list item can hold two world clocks
-        View rightClock = view.findViewById(R.id.city_right);
         updateView(view.findViewById(R.id.city_left), (CityObj)mCitiesList[index]);
-        if (rightClock != null) {
-            // rightClock may be null (landscape phone layout has only one clock per row) so only
-            // process it if it exists.
-            if (index + 1 < mCitiesList.length) {
-                rightClock.setVisibility(View.VISIBLE);
-                updateView(rightClock, (CityObj)mCitiesList[index + 1]);
-            } else {
-                // To make sure the spacing is right , make sure that the right clock style is
-                // selected even if the clock is invisible.
-                View dclock = rightClock.findViewById(R.id.digital_clock);
-                View aclock = rightClock.findViewById(R.id.analog_clock);
-                if (mClockStyle.equals("analog")) {
-                    dclock.setVisibility(View.GONE);
-                    aclock.setVisibility(View.INVISIBLE);
-                } else {
-                    dclock.setVisibility(View.INVISIBLE);
-                    aclock.setVisibility(View.GONE);
-                }
-                // If there's only the one item, center it. If there are other items in the list,
-                // keep it side-aligned.
-                if (getCount() == 1) {
-                    rightClock.setVisibility(View.GONE);
-                } else {
-                    rightClock.setVisibility(View.INVISIBLE);
-                }
-            }
-        }
-
         return view;
     }
 
@@ -251,17 +221,14 @@ public class WorldClockAdapter extends BaseAdapter {
         TextView dayOfWeek = (TextView)(nameLayout.findViewById(R.id.city_day));
         TextClock dclock = (TextClock)(clock.findViewById(R.id.digital_clock));
         AnalogClock aclock = (AnalogClock)(clock.findViewById(R.id.analog_clock));
-        View separator = clock.findViewById(R.id.separator);
 
         if (mClockStyle.equals("analog")) {
             dclock.setVisibility(View.GONE);
-            separator.setVisibility(View.GONE);
             aclock.setVisibility(View.VISIBLE);
             aclock.setTimeZone(cityObj.mTimeZone);
             aclock.enableSeconds(false);
         } else {
             dclock.setVisibility(View.VISIBLE);
-            separator.setVisibility(View.VISIBLE);
             aclock.setVisibility(View.GONE);
             dclock.setTimeZone(cityObj.mTimeZone);
             Utils.setTimeFormat(dclock,

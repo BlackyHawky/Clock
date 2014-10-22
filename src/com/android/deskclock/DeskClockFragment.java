@@ -16,18 +16,56 @@
 
 package com.android.deskclock;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v4.widget.PopupMenuCompat;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
 public class DeskClockFragment extends Fragment {
+
+    protected ImageButton mFab;
+    protected ImageButton mLeftButton;
+    protected ImageButton mRightButton;
 
     public void onPageChanged(int page) {
         // Do nothing here , only in derived classes
     }
 
+    public void onFabClick(View view){
+        // Do nothing here , only in derived classes
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        final Activity activity = getActivity();
+        if (activity instanceof DeskClock) {
+            final DeskClock deskClockActivity = (DeskClock) activity;
+            mFab = deskClockActivity.getFab();
+            mLeftButton = deskClockActivity.getLeftButton();
+            mRightButton = deskClockActivity.getRightButton();
+        }
+    }
+
+    public void setFabAppearance() {
+        // Do nothing here , only in derived classes
+    }
+
+    public void setLeftRightButtonAppearance() {
+        // Do nothing here , only in derived classes
+    }
+
+    public void onLeftButtonClick(View view) {
+        // Do nothing here , only in derived classes
+    }
+
+    public void onRightButtonClick(View view) {
+        // Do nothing here , only in derived classes
+    }
     /**
      * Installs click and touch listeners on a fake overflow menu button.
      *

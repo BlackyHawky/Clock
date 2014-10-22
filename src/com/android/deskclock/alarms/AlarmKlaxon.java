@@ -18,6 +18,7 @@ package com.android.deskclock.alarms;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
@@ -25,7 +26,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Vibrator;
 
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -40,11 +41,16 @@ public class AlarmKlaxon {
     // Volume suggested by media team for in-call alarms.
     private static final float IN_CALL_VOLUME = 0.125f;
 
+    private static final AudioAttributes VIBRATION_ATTRIBUTES = new AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .setUsage(AudioAttributes.USAGE_ALARM)
+            .build();
+
     private static boolean sStarted = false;
     private static MediaPlayer sMediaPlayer = null;
 
     public static void stop(Context context) {
-        Log.v("AlarmKlaxon.stop()");
+        LogUtils.v("AlarmKlaxon.stop()");
 
         if (sStarted) {
             sStarted = false;
@@ -64,7 +70,7 @@ public class AlarmKlaxon {
 
     public static void start(final Context context, AlarmInstance instance,
             boolean inTelephoneCall) {
-        Log.v("AlarmKlaxon.start()");
+        LogUtils.v("AlarmKlaxon.start()");
         // Make sure we are stop before starting
         stop(context);
 
@@ -74,9 +80,7 @@ public class AlarmKlaxon {
             // alarm stored.
             if (alarmNoise == null) {
                 alarmNoise = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                if (Log.LOGV) {
-                    Log.v("Using default alarm: " + alarmNoise.toString());
-                }
+                LogUtils.v("Using default alarm: " + alarmNoise.toString());
             }
 
             // TODO: Reuse mMediaPlayer instead of creating a new one and/or use RingtoneManager.
@@ -84,7 +88,7 @@ public class AlarmKlaxon {
             sMediaPlayer.setOnErrorListener(new OnErrorListener() {
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
-                    Log.e("Error occurred while playing audio. Stopping AlarmKlaxon.");
+                    LogUtils.e("Error occurred while playing audio. Stopping AlarmKlaxon.");
                     AlarmKlaxon.stop(context);
                     return true;
                 }
@@ -94,7 +98,7 @@ public class AlarmKlaxon {
                 // Check if we are in a call. If we are, use the in-call alarm
                 // resource at a low volume to not disrupt the call.
                 if (inTelephoneCall) {
-                    Log.v("Using the in-call alarm");
+                    LogUtils.v("Using the in-call alarm");
                     sMediaPlayer.setVolume(IN_CALL_VOLUME, IN_CALL_VOLUME);
                     setDataSourceFromResource(context, sMediaPlayer, R.raw.in_call_alarm);
                 } else {
@@ -102,7 +106,7 @@ public class AlarmKlaxon {
                 }
                 startAlarm(context, sMediaPlayer);
             } catch (Exception ex) {
-                Log.v("Using the fallback ringtone");
+                LogUtils.v("Using the fallback ringtone");
                 // The alarmNoise may be on the sd card which could be busy right
                 // now. Use the fallback ringtone.
                 try {
@@ -112,14 +116,14 @@ public class AlarmKlaxon {
                     startAlarm(context, sMediaPlayer);
                 } catch (Exception ex2) {
                     // At this point we just don't play anything.
-                    Log.e("Failed to play fallback ringtone", ex2);
+                    LogUtils.e("Failed to play fallback ringtone", ex2);
                 }
             }
         }
 
         if (instance.mVibrate) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(sVibratePattern, 0);
+            vibrator.vibrate(sVibratePattern, 0, VIBRATION_ATTRIBUTES);
         }
 
         sStarted = true;

@@ -13,107 +13,80 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:layout_height="match_parent">
 
-    <!-- This nested ltr layout cannot be combined with the parent because
-         in RTL, the Keypad and Timer value should swap. -->
     <LinearLayout
-        android:id="@+id/timer_time_display"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal"
-        android:layout_weight="3"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:layout_marginBottom="@dimen/footer_button_size"
+        android:orientation="horizontal">
 
-        <com.android.deskclock.timer.TimerView
-            android:id="@+id/timer_time_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal|top">
+        <!-- This nested ltr layout cannot be combined with the parent because
+             in RTL, the Keypad and Timer value should swap. -->
+        <LinearLayout
+            android:id="@+id/timer_time_display"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:layoutDirection="ltr"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <include layout="@layout/timer_h_mm_ss_view"/>
+            <com.android.deskclock.timer.TimerView
+                android:id="@+id/timer_time_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
 
-            <ImageButton
+                <include layout="@layout/timer_h_mm_ss_view" />
+
+                <ImageButton
                     android:id="@+id/delete"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
                     android:padding="@dimen/timer_setup_delete_padding"
+                    android:contentDescription="@string/timer_delete"
                     android:src="@drawable/ic_backspace"
-                    android:background="@drawable/item_background"
-                    android:contentDescription="@string/timer_delete"/>
+                    android:background="?android:attr/selectableItemBackgroundBorderless" />
 
-        </com.android.deskclock.timer.TimerView>
-
-    </LinearLayout>
-
-    <LinearLayout
-            android:orientation="vertical"
-            android:layout_weight="2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-
-        <include
-                layout="@layout/three_keys_view"
-                android:id="@+id/first"/>
-
-        <include
-                layout="@layout/three_keys_view"
-                android:id="@+id/second"/>
-
-        <include
-                layout="@layout/three_keys_view"
-                android:id="@+id/third"/>
-
-        <include
-                layout="@layout/three_keys_view"
-                android:id="@+id/fourth"/>
-
-        <View
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:background="#28ffffff"/>
-
-        <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_weight="0.5"
-                android:layout_height="0dip">
-
-            <Button
-                    android:id="@+id/timer_cancel"
-                    android:text="@string/timer_cancel"
-                    android:layout_width="0dp"
-                    style="@style/bold_button"
-                    android:textSize="@dimen/timer_setup_button_size"
-                    android:layout_weight="1"
-                    android:background="@drawable/item_background"
-                    android:layout_height="match_parent"/>
+            </com.android.deskclock.timer.TimerView>
 
             <View
-                    android:id="@+id/timer_button_sep"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dip"
-                    android:layout_marginBottom="8dip"
-                    android:layout_width="1dip"
-                    android:background="#28ffffff"/>
+                android:id="@+id/divider"
+                android:layout_width="match_parent"
+                android:layout_height="1dip"
+                android:layout_marginBottom="8dip"
+                android:background="@color/dialog_gray" />
 
-            <Button
-                    android:id="@+id/timer_start"
-                    android:text="@string/timer_start"
-                    android:textSize="@dimen/timer_setup_button_size"
-                    android:layout_width="0dp"
-                    style="@style/bold_button"
-                    android:layout_weight="1"
-                    android:background="@drawable/item_background"
-                    android:layout_height="match_parent"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/first"
+                layout="@layout/three_keys_view" />
+            <include
+                android:id="@+id/second"
+                layout="@layout/three_keys_view" />
+            <include
+                android:id="@+id/third"
+                layout="@layout/three_keys_view" />
+            <include
+                android:id="@+id/fourth"
+                layout="@layout/three_keys_view" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+    <include layout="@layout/timer_cancel_button" />
+
+</FrameLayout>

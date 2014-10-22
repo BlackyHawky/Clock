@@ -20,7 +20,7 @@ import com.android.deskclock.stopwatch.Stopwatches;
 public class CircleTimerView extends View {
 
 
-    private int mRedColor;
+    private int mAccentColor;
     private int mWhiteColor;
     private long mIntervalTime = 0;
     private long mIntervalStartTime = -1;
@@ -121,11 +121,11 @@ public class CircleTimerView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mWhiteColor = resources.getColor(R.color.clock_white);
-        mRedColor = resources.getColor(R.color.clock_red);
+        mAccentColor = resources.getColor(R.color.hot_pink);
         mScreenDensity = resources.getDisplayMetrics().density;
         mFill.setAntiAlias(true);
         mFill.setStyle(Paint.Style.FILL);
-        mFill.setColor(mRedColor);
+        mFill.setColor(mAccentColor);
         mDotRadius = dotDiameter / 2f;
     }
 
@@ -163,7 +163,7 @@ public class CircleTimerView extends View {
 
             float whitePercent = 1 - (redPercent > 1 ? 1 : redPercent);
             // draw red arc here
-            mPaint.setColor(mRedColor);
+            mPaint.setColor(mAccentColor);
             if (mTimerMode){
                 canvas.drawArc (mArcRect, 270, - redPercent * 360 , false, mPaint);
             } else {
@@ -199,7 +199,7 @@ public class CircleTimerView extends View {
 
     protected void drawRedDot(
             Canvas canvas, float degrees, int xCenter, int yCenter, float radius) {
-        mPaint.setColor(mRedColor);
+        mPaint.setColor(mAccentColor);
         float dotPercent;
         if (mTimerMode) {
             dotPercent = 270 - degrees * 360;

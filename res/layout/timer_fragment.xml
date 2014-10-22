@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The Android Open Source Project
+<!-- Copyright (C) 2014 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,56 +13,16 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/timers_list_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingTop="?android:attr/actionBarSize" >
+    android:paddingTop="?android:attr/actionBarSize">
 
-    <FrameLayout
-        android:id="@+id/timers_list_page"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <com.android.deskclock.widget.sgv.StaggeredGridView
-            android:id="@+id/timers_list"
-            android:divider="@null"
-            android:dividerHeight="@dimen/timer_divider_height"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="88dp"/>
-        <FrameLayout
-            android:id="@+id/timer_footer"
-            android:background="@drawable/footer_bg"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom" >
-            <ImageButton
-                android:id="@+id/timer_add_timer"
-                android:contentDescription="@string/timer_add_timer"
-                android:layout_width="56dip"
-                android:layout_height="56dip"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_add"
-                style="@style/button"
-                android:background="@drawable/main_button_normal" />
-         </FrameLayout>
-    </FrameLayout>
+    <include layout="@layout/timer_timer_view"/>
 
-
-    <com.android.deskclock.TimerSetupView
-            android:id="@+id/timer_setup"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="16dip"
-            android:layout_marginStart="16dip"
-            android:layout_marginRight="16dip"
-            android:layout_marginEnd="16dip"/>
+    <include layout="@layout/timer_setup_view"/>
 
 </FrameLayout>

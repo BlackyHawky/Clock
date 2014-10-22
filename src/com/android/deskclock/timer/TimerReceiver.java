@@ -134,8 +134,8 @@ public class TimerReceiver extends BroadcastReceiver {
             }
 
             // Update timer state
-            t.mState = t.getDeleteAfterUse() ? TimerObj.STATE_DELETED : TimerObj.STATE_DONE;
-            t.mTimeLeft = t.mOriginalLength - (Utils.getTimeNow() - t.mStartTime);
+            t.mState = t.getDeleteAfterUse() ? TimerObj.STATE_DELETED : TimerObj.STATE_RESTART;
+            t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
             t.writeToSharedPref(prefs);
 
             // Flag to tell DeskClock to re-sync with the database
@@ -179,6 +179,12 @@ public class TimerReceiver extends BroadcastReceiver {
             // Stop Ringtone if no timers are in times-up status
             stopRingtoneIfNoTimesup(context);
         } else if (Timers.TIMER_UPDATE.equals(actionType)) {
+            // Find the timer (if it doesn't exists, it was probably deleted).
+            if (t == null) {
+                Log.d(TAG, " timer to update not found in list - do nothing");
+                return;
+            }
+
             // Refresh buzzing notification
             if (t.mState == TimerObj.STATE_TIMESUP) {
                 // Must cancel the previous notification to get all updates displayed correctly
@@ -322,14 +328,15 @@ public class TimerReceiver extends BroadcastReceiver {
     private static void showCollapsedNotification(final Context context, String title, String text,
             int priority, PendingIntent pendingIntent, int notificationId, boolean showTicker) {
         Notification.Builder builder = new Notification.Builder(context)
-        .setAutoCancel(false)
-        .setContentTitle(title)
-        .setContentText(text)
-        .setDeleteIntent(pendingIntent)
-        .setOngoing(true)
-        .setPriority(priority)
-        .setShowWhen(false)
-        .setSmallIcon(R.drawable.stat_notify_timer);
+                .setAutoCancel(false)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setDeleteIntent(pendingIntent)
+                .setOngoing(true)
+                .setPriority(priority)
+                .setShowWhen(false)
+                .setSmallIcon(R.drawable.stat_notify_timer)
+                .setCategory(Notification.CATEGORY_ALARM);
         if (showTicker) {
             builder.setTicker(text);
         }
@@ -423,7 +430,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Add stop/done action button
-        PendingIntent stopAction = PendingIntent.getBroadcast(context, timerObj.mTimerId,
+        PendingIntent stopIntent = PendingIntent.getBroadcast(context, timerObj.mTimerId,
                 new Intent(Timers.NOTIF_TIMES_UP_STOP)
                         .putExtra(Timers.TIMER_INTENT_EXTRA, timerObj.mTimerId),
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -437,11 +444,11 @@ public class TimerReceiver extends BroadcastReceiver {
                 .addAction(
                         timerObj.getDeleteAfterUse()
                                 ? android.R.drawable.ic_menu_close_clear_cancel
-                                : R.drawable.ic_stop_normal,
+                                : R.drawable.ic_notify_stop,
                         timerObj.getDeleteAfterUse()
                                 ? context.getResources().getString(R.string.timer_done)
                                 : context.getResources().getString(R.string.timer_stop),
-                        stopAction)
+                        stopIntent)
                 .setContentTitle(timerObj.getLabelOrDefault(context))
                 .setContentText(context.getResources().getString(R.string.timer_times_up))
                 .setSmallIcon(R.drawable.stat_notify_timer)
@@ -450,6 +457,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setPriority(Notification.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
                 .setWhen(0)
+                .setCategory(Notification.CATEGORY_ALARM)
                 .build();
 
         // Send the notification using the timer's id to identify the

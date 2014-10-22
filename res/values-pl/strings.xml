@@ -19,6 +19,7 @@
     <string name="app_label" msgid="6674495003718166674">"Zegar"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Alarmy"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Dodaj alarm"</string>
+    <string name="alarm_timeline_title_text" msgid="595912293949219821">"NASTĘPNE ALARMY"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Zegar biurkowy"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Edytuj alarm"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Usuń alarm"</string>
@@ -36,10 +37,17 @@
     <string name="ringtone" msgid="9110746249688559579">"Dzwonek"</string>
     <string name="time" msgid="8067216534232296518">"Godzina"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Wyłącz"</string>
-    <string name="alarm_alert_alert_silenced" msgid="2704775170733835993">"Alarm został wyciszony po <xliff:g id="MINUTES">%d</xliff:g> minutach."</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Zamknij teraz"</string>
+    <string name="alarm_missed_title" msgid="3828345099754063392">"Przegapiony alarm"</string>
+    <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Drzemka"</string>
-    <string name="alarm_alert_snooze_set" msgid="656470966696912087">"Drzemka przez <xliff:g id="MINUTES">%d</xliff:g> min."</string>
+  <plurals name="alarm_alert_snooze_set">
+    <item quantity="one" msgid="7884410398338611019">"Drzemka przez minutę."</item>
+    <item quantity="other" msgid="7377899473014259727">"Drzemka przez <xliff:g id="MINUTES">%d</xliff:g> min."</item>
+  </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Drzemka do <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchodzący alarm"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zignorowany przez Ciebie alarm został usunięty"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Jeszcze niecała minuta"</item>
     <item msgid="83197792732433351">"Jeszcze <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -122,6 +130,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Ustaw alarm"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
+    <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Minutnik"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Zegar"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stoper"</string>
@@ -131,6 +140,9 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"Ustawienia"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Pomoc"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Tryb nocny"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sortuj według godziny"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortuj według nazwy"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"Wybrane miasta"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Wznów"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stop"</string>
@@ -163,7 +175,9 @@
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Usuń"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Dodaj 1 minutę"</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Dodaj 1 min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
+    <string name="timer_done" msgid="2375990511982914051">"Gotowe"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Resetuj"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Anuluj"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Czas minął"</string>
@@ -275,7 +289,7 @@
     <item msgid="3063913827688244383">"Tajpej"</item>
     <item msgid="3502757135046564209">"Seul"</item>
     <item msgid="6107588684519111669">"Tokio, Osaka"</item>
-    <item msgid="4350769099755608471">"Yakutsk"</item>
+    <item msgid="4350769099755608471">"Jakuck"</item>
     <item msgid="2422707004533526462">"Adelajda"</item>
     <item msgid="1292192084554134339">"Darwin"</item>
     <item msgid="1320883699470001716">"Brisbane"</item>
@@ -287,6 +301,7 @@
     <item msgid="8255615641810148152">"Auckland"</item>
     <item msgid="3027153773466391728">"Fidżi"</item>
     <item msgid="5911600083231840181">"Tonga"</item>
+    <item msgid="5176858645450908751">"Dżakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="6049627772103646753">"ALARMY"</string>
     <string name="see_all" msgid="775983396630163739">"Inne..."</string>
@@ -321,4 +336,6 @@
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Usunąć ten minutnik?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Usunąć to miasto?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Zegar cyfrowy"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Brak alarmów"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"BRAK NADCHODZĄCYCH ALARMÓW"</string>
 </resources>

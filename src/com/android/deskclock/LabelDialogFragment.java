@@ -19,6 +19,9 @@ package com.android.deskclock;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,6 +97,21 @@ public class LabelDialogFragment extends DialogFragment {
                 return false;
             }
         });
+        mLabelBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setLabelBoxBackground(s == null || TextUtils.isEmpty(s));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+        setLabelBoxBackground(TextUtils.isEmpty(label));
 
         final Button cancelButton = (Button) view.findViewById(R.id.cancelButton);
         cancelButton.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +147,7 @@ public class LabelDialogFragment extends DialogFragment {
         } else if (timer != null) {
             set(timer, tag, label);
         } else {
-            Log.e("No alarm or timer available.");
+            LogUtils.e("No alarm or timer available.");
         }
     }
 
@@ -139,7 +157,7 @@ public class LabelDialogFragment extends DialogFragment {
         if (activity instanceof AlarmLabelDialogHandler) {
             ((DeskClock) getActivity()).onDialogLabelSet(alarm, label, tag);
         } else {
-            Log.e("Error! Activities that use LabelDialogFragment must implement "
+            LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
                     + "AlarmLabelDialogHandler");
         }
         dismiss();
@@ -151,10 +169,15 @@ public class LabelDialogFragment extends DialogFragment {
         if (activity instanceof TimerLabelDialogHandler){
             ((DeskClock) getActivity()).onDialogLabelSet(timer, label, tag);
         } else {
-            Log.e("Error! Activities that use LabelDialogFragment must implement "
+            LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
                     + "AlarmLabelDialogHandler or TimerLabelDialogHandler");
         }
         dismiss();
+    }
+
+    private void setLabelBoxBackground(boolean emptyText) {
+        mLabelBox.setBackgroundResource(emptyText ?
+                R.drawable.bg_edittext_default : R.drawable.bg_edittext_activated);
     }
 
     interface AlarmLabelDialogHandler {

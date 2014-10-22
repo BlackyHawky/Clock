@@ -26,7 +26,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 
@@ -213,7 +213,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         String dupSelector = AlarmInstance.ALARM_ID + " = " + instance.mAlarmId;
         for (AlarmInstance otherInstances : getInstances(contentResolver, dupSelector)) {
             if (otherInstances.getAlarmTime().equals(instance.getAlarmTime())) {
-                Log.i("Detected duplicate instance in DB. Updating " + otherInstances + " to "
+                LogUtils.i("Detected duplicate instance in DB. Updating " + otherInstances + " to "
                         + instance);
                 // Copy over the new instance values and update the db
                 instance.mId = otherInstances.mId;

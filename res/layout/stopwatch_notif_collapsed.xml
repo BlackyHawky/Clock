@@ -22,22 +22,17 @@
     android:layout_height="64dp"
     internal:layout_maxHeight="64dp"
     internal:layout_minHeight="64dp"
-    android:background="@+drawable/notification_bg" >
+    android:background="?android:attr/selectableItemBackground" >
 
-    <ImageView
-        android:id="@+id/notification_icon"
-        android:layout_width="@dimen/notification_large_icon_width"
-        android:layout_height="@dimen/notification_large_icon_height"
-        android:background="@+drawable/notification_template_icon_bg"
-        android:scaleType="center" />
+    <include layout="@layout/stopwatch_notification_icon"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_vertical"
-        android:layout_marginStart="@dimen/notification_large_icon_width"
+        android:layout_marginStart="@dimen/notification_icon_size"
         android:gravity="center"
-        android:minHeight="@dimen/notification_large_icon_height"
+        android:minHeight="@dimen/notification_icon_size"
         android:orientation="vertical"
         android:paddingBottom="2dp"
         android:paddingEnd="8dp"

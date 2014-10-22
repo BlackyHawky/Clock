@@ -19,8 +19,6 @@
      for different hardware and product builds. -->
 <resources>
 
-    <dimen name="glowpadview_margin_right">48dip</dimen>
-
     <dimen name="alarm_alert_clock_padding_left">128dp</dimen>
 
     <dimen name="dialpad_font_size">42sp</dimen>
@@ -29,9 +27,9 @@
     <dimen name="timer_setup_button_size">36sp</dimen>
     <dimen name="timer_setup_delete_start_margin">38sp</dimen>
     <dimen name="timer_setup_label_size">24sp</dimen>
-    <dimen name="digital_world_clock_text_size">100dp</dimen>
-    <dimen name="digital_world_clock_ampm_text_size">18dp</dimen>
-    <dimen name="digital_main_clock_text_size">220dp</dimen>
-    <dimen name="main_ampm_font_size">33sp</dimen>
+    <dimen name="digital_screensaver_clock_text_size">120sp</dimen>
+
+    <dimen name="alarm_side_padding">192dip</dimen>
+    <dimen name="clock_side_padding">96dip</dimen>
 
 </resources>

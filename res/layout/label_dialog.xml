@@ -18,56 +18,57 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+
+<TextView
+        android:id="@+id/title"
+        style="?android:attr/windowTitleStyle"
+        android:layout_marginTop="24dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="4dip"
+        android:text="@string/label" />
 
     <EditText
         android:id="@+id/labelBox"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="8dip"
-        android:layout_marginStart="8dip"
-        android:layout_marginRight="8dip"
-        android:layout_marginEnd="8dip"
-        android:inputType="textCapSentences"
-        android:padding="8dp"
-        android:selectAllOnFocus="true"
+        style="@style/labelEditTextStyle"
+        android:layout_marginTop="16dip"
+        android:layout_marginBottom="24dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
         android:layout_height="wrap_content"
-        android:hint="@string/label"
-        android:layout_width="match_parent"/>
-
-    <View
-        android:id="@+id/hairline"
-        android:layout_height="1dp"
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_below="@id/labelBox"
-        android:background="#28ffffff"/>
+        android:layout_below="@id/title" />
 
     <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_below="@id/hairline">
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
+        android:layout_marginBottom="16dip"
+        android:layout_below="@id/labelBox">
+
         <Button
             android:id="@+id/cancelButton"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
+            android:layout_width="0dip"
             android:layout_weight="1"
-            style="@style/dialog_button"
-            android:background="@drawable/item_background"
-            android:text="@string/time_picker_cancel"
-            />
-        <View
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dip"
-            android:layout_marginBottom="8dip"
-            android:layout_width="1dip"
-            android:background="#28ffffff"/>
+            android:textSize="@dimen/dialog_button_font_size"
+            android:textColor="@color/clock_white"
+            android:text="@string/time_picker_cancel" />
+
         <Button
             android:id="@+id/setButton"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_height="wrap_content"
-            android:layout_width="0dp"
+            android:layout_width="0dip"
             android:layout_weight="1"
-            style="@style/dialog_button"
-            android:background="@drawable/item_background"
-            android:text="@string/time_picker_set"/>
+            android:textSize="@dimen/dialog_button_font_size"
+            android:textColor="@color/hot_pink"
+            android:text="@string/time_picker_set" />
+
     </LinearLayout>
 </RelativeLayout>

@@ -23,7 +23,7 @@ import android.content.Context;
 import android.text.format.DateFormat;
 import android.widget.Toast;
 
-import com.android.datetimepicker.time.TimePickerDialog;
+import android.app.TimePickerDialog;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -48,32 +48,27 @@ public class AlarmUtils {
                 : alarmTimeStr;
     }
 
-    public static void showTimeEditDialog(FragmentManager manager, final Alarm alarm,
-            TimePickerDialog.OnTimeSetListener listener, boolean is24HourMode) {
-
-        int hour, minutes;
-        if (alarm == null) {
-            hour = 0; minutes = 0;
-        } else {
-            hour = alarm.hour;
-            minutes = alarm.minutes;
-        }
-        TimePickerDialog dialog = TimePickerDialog.newInstance(listener,
-                hour, minutes, is24HourMode);
-        dialog.setThemeDark(true);
-
-        // Make sure the dialog isn't already added.
-        manager.executePendingTransactions();
+    /**
+     * Show the time picker dialog. This is called from AlarmClockFragment to set alarm.
+     * @param fragment The calling fragment (which is also a onTimeSetListener),
+     *                 we use it as the target fragment of the TimePickerFragment, so later the
+     *                 latter can retrieve it and set it as its onTimeSetListener when the fragment
+     *                 is recreated.
+     * @param alarm The clicked alarm, it can be null if user was clicking the fab instead.
+     */
+    public static void showTimeEditDialog(Fragment fragment, final Alarm alarm) {
+        final FragmentManager manager = fragment.getFragmentManager();
         final FragmentTransaction ft = manager.beginTransaction();
         final Fragment prev = manager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
         if (prev != null) {
             ft.remove(prev);
         }
         ft.commit();
-
-        if (dialog != null && !dialog.isAdded()) {
-            dialog.show(manager, FRAG_TAG_TIME_PICKER);
-        }
+        final TimePickerFragment timePickerFragment = new TimePickerFragment();
+        timePickerFragment.setTargetFragment(fragment, 0);
+        timePickerFragment.setOnTimeSetListener((TimePickerDialog.OnTimeSetListener) fragment);
+        timePickerFragment.setAlarm(alarm);
+        timePickerFragment.show(manager, FRAG_TAG_TIME_PICKER);
     }
 
     /**

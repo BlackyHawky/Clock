@@ -28,7 +28,7 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.TextView;
 
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 
@@ -73,7 +73,7 @@ public class CountingTimerView extends View {
     private int mDefaultColor;
     private final int mPressedColor;
     private final int mWhiteColor;
-    private final int mRedColor;
+    private final int mAccentColor;
     private TextView mStopStartTextView;
     private final AccessibilityManager mAccessibilityManager;
 
@@ -110,7 +110,7 @@ public class CountingTimerView extends View {
             mSpacingRatio = spacingRatio;
 
             if (TextUtils.isEmpty(allDigits)) {
-                Log.wtf("Locale digits missing - using English");
+                LogUtils.wtf("Locale digits missing - using English");
                 allDigits = "0123456789";
             }
 
@@ -269,8 +269,8 @@ public class CountingTimerView extends View {
         Resources r = context.getResources();
         mWhiteColor = r.getColor(R.color.clock_white);
         mDefaultColor = mWhiteColor;
-        mPressedColor = r.getColor(Utils.getPressedColorId());
-        mRedColor = r.getColor(R.color.clock_red);
+        mPressedColor = r.getColor(R.color.hot_pink);
+        mAccentColor = r.getColor(R.color.hot_pink);
         mBigFontSize = r.getDimension(R.dimen.big_font_size);
         mSmallFontSize = r.getDimension(R.dimen.small_font_size);
 
@@ -482,8 +482,8 @@ public class CountingTimerView extends View {
         invalidate();
     }
 
-    public void redTimeStr(boolean red, boolean forceUpdate) {
-        mDefaultColor = red ? mRedColor : mWhiteColor;
+    public void setTimeStrTextColor(boolean active, boolean forceUpdate) {
+        mDefaultColor = active ? mAccentColor : mWhiteColor;
         setTextColor(mDefaultColor);
         if (forceUpdate) {
             invalidate();

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <!-- This layout sits as an include in world_clock_list_item, but the LinearLayout needs
+         to have wrap_content so the separator view can have its width set to the width of the
+         clock, which means we need the extra parent FrameLayout. -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/medium_space_top"
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <TextClock
+                android:id="@+id/digital_clock"
+                style="@style/medium_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/clock_white"
+                android:format12Hour="@string/world_clock_12_hours_format"
+                android:format24Hour="@string/clock_24_hours_format"
+                android:baselineAligned="true"
+                android:layout_gravity="center"
+                android:gravity="center" />
+
+            <com.android.deskclock.AnalogClock
+                android:id="@+id/analog_clock"
+                android:layout_width="@dimen/world_clock_analog_size"
+                android:layout_height="@dimen/world_clock_analog_size"
+                android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small"
+                android:layout_gravity="center_horizontal"
+                android:dial="@drawable/clock_analog_dial_mipmap"
+                android:hand_hour="@drawable/clock_analog_hour_mipmap"
+                android:hand_minute="@drawable/clock_analog_minute_mipmap"
+                android:gravity="center" />
+
+        </FrameLayout>
+
+        <com.android.deskclock.widget.EllipsizeLayout
+            android:id="@+id/city_name_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="@dimen/label_margin_small"
+            android:layout_marginStart="@dimen/label_margin_small"
+            android:gravity="center" >
+
+            <include layout="@layout/world_clock_label"/>
+
+        </com.android.deskclock.widget.EllipsizeLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -20,6 +20,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.deskclock.CircleTimerView;
@@ -30,6 +31,7 @@ public class TimerListItem extends LinearLayout {
 
     CountingTimerView mTimerText;
     CircleTimerView mCircleView;
+    ImageView mResetAddButton;
 
     long mTimerLength;
 
@@ -37,24 +39,28 @@ public class TimerListItem extends LinearLayout {
         this(context, null);
     }
 
+//    public void TimerListItem newInstance(Context context) {
+//        final LayoutInflater layoutInflater =
+//                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        layoutInflater.inflate(R.layout.timer_list_item, this);
+//    }
+
     public TimerListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater layoutInflater =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(R.layout.timer_list_item, this);
     }
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        mTimerText = (CountingTimerView)findViewById(R.id.timer_time_text);
-        mCircleView = (CircleTimerView)findViewById(R.id.timer_time);
+        mTimerText = (CountingTimerView) findViewById(R.id.timer_time_text);
+        mCircleView = (CircleTimerView) findViewById(R.id.timer_time);
+        mResetAddButton = (ImageView) findViewById(R.id.reset_add);
         mCircleView.setTimerMode(true);
     }
 
     public void set(long timerLength, long timeLeft, boolean drawRed) {
         if (mCircleView == null) {
-            mCircleView = (CircleTimerView)findViewById(R.id.timer_time);
+            mCircleView = (CircleTimerView) findViewById(R.id.timer_time);
             mCircleView.setTimerMode(true);
         }
         mTimerLength = timerLength;
@@ -64,36 +70,40 @@ public class TimerListItem extends LinearLayout {
     }
 
     public void start() {
+        mResetAddButton.setImageResource(R.drawable.ic_plusone);
+        mResetAddButton.setContentDescription(getResources().getString(R.string.timer_plus_one));
         mCircleView.startIntervalAnimation();
-        mTimerText.redTimeStr(false, true);
+        mTimerText.setTimeStrTextColor(false, true);
         mTimerText.showTime(true);
         mCircleView.setVisibility(VISIBLE);
     }
 
     public void pause() {
+        mResetAddButton.setImageResource(R.drawable.ic_reset);
+        mResetAddButton.setContentDescription(getResources().getString(R.string.timer_reset));
         mCircleView.pauseIntervalAnimation();
-        mTimerText.redTimeStr(false, true);
+        mTimerText.setTimeStrTextColor(false, true);
         mTimerText.showTime(true);
         mCircleView.setVisibility(VISIBLE);
     }
 
     public void stop() {
         mCircleView.stopIntervalAnimation();
-        mTimerText.redTimeStr(false, true);
+        mTimerText.setTimeStrTextColor(false, true);
         mTimerText.showTime(true);
         mCircleView.setVisibility(VISIBLE);
     }
 
     public void timesUp() {
         mCircleView.abortIntervalAnimation();
-        mTimerText.redTimeStr(true, true);
+        mTimerText.setTimeStrTextColor(true, true);
     }
 
     public void done() {
         mCircleView.stopIntervalAnimation();
         mCircleView.setVisibility(VISIBLE);
         mCircleView.invalidate();
-        mTimerText.redTimeStr(true, false);
+        mTimerText.setTimeStrTextColor(true, false);
     }
 
     public void setLength(long timerLength) {
@@ -110,9 +120,20 @@ public class TimerListItem extends LinearLayout {
         mCircleView.setVisibility(blink ? INVISIBLE : VISIBLE);
     }
 
+    public void setResetAddButton(boolean isRunning, OnClickListener listener) {
+        if (mResetAddButton == null) {
+            mResetAddButton = (ImageView) findViewById(R.id.reset_add);
+        }
+        mResetAddButton.setImageResource(isRunning ? R.drawable.ic_plusone :
+                R.drawable.ic_reset);
+        mResetAddButton.setContentDescription(getResources().getString(
+                isRunning ? R.string.timer_plus_one : R.string.timer_reset));
+        mResetAddButton.setOnClickListener(listener);
+    }
+
     public void setTime(long time, boolean forceUpdate) {
         if (mTimerText == null) {
-            mTimerText = (CountingTimerView)findViewById(R.id.timer_time_text);
+            mTimerText = (CountingTimerView) findViewById(R.id.timer_time_text);
         }
         mTimerText.setTime(time, false, forceUpdate);
     }

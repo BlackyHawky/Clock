@@ -16,15 +16,14 @@
 
 package com.android.deskclock;
 
+import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.database.ContentObserver;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.provider.Settings;
 import android.service.dreams.DreamService;
 import android.util.Log;
 import android.view.View;
@@ -45,13 +44,6 @@ public class Screensaver extends DreamService {
 
     private final ScreensaverMoveSaverRunnable mMoveSaverRunnable;
 
-    private final ContentObserver mSettingsContentObserver = new ContentObserver(mHandler) {
-        @Override
-        public void onChange(boolean selfChange) {
-            Utils.refreshAlarm(Screensaver.this, mContentView);
-        }
-    };
-
     // Thread that runs every midnight and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
@@ -68,11 +60,19 @@ public class Screensaver extends DreamService {
         @Override
         public void onReceive(Context context, Intent intent) {
             final String action = intent.getAction();
-            if (action != null && (action.equals(Intent.ACTION_TIME_CHANGED)
-                    || action.equals(Intent.ACTION_TIMEZONE_CHANGED))) {
+            if (DEBUG) Log.v(TAG, "Screensaver onReceive, action: " + action);
+
+            if (action == null) {
+                return;
+            }
+
+            if (action.equals(Intent.ACTION_TIME_CHANGED)
+                    || action.equals(Intent.ACTION_TIMEZONE_CHANGED)) {
                 Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
                 Utils.refreshAlarm(Screensaver.this, mContentView);
                 Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
+            } else if (action.equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
+                Utils.refreshAlarm(Screensaver.this, mContentView);
             }
         }
     };
@@ -86,6 +86,8 @@ public class Screensaver extends DreamService {
     public void onCreate() {
         if (DEBUG) Log.d(TAG, "Screensaver created");
         super.onCreate();
+
+        setTheme(R.style.DeskClockParentTheme);
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
@@ -119,10 +121,6 @@ public class Screensaver extends DreamService {
         registerReceiver(mIntentReceiver, filter);
         Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
 
-        getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
-                false,
-                mSettingsContentObserver);
         mHandler.post(mMoveSaverRunnable);
     }
 
@@ -132,7 +130,6 @@ public class Screensaver extends DreamService {
         super.onDetachedFromWindow();
 
         mHandler.removeCallbacks(mMoveSaverRunnable);
-        getContentResolver().unregisterContentObserver(mSettingsContentObserver);
 
         // Tear down handlers for time reference changes and date updates.
         Utils.cancelMidnightUpdater(mHandler, mMidnightUpdater);
@@ -155,7 +152,7 @@ public class Screensaver extends DreamService {
         mAnalogClock =findViewById(R.id.analog_clock);
         setClockStyle();
         Utils.setTimeFormat((TextClock)mDigitalClock,
-            (int)getResources().getDimension(R.dimen.bottom_text_size));
+            (int)getResources().getDimension(R.dimen.main_ampm_font_size));
 
         mContentView = (View) mSaverView.getParent();
         mSaverView.setAlpha(0);

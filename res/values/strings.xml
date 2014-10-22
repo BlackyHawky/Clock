@@ -27,9 +27,6 @@
     <!-- Menu item on Alarm Clock screen: Add alarm -->
     <string name="add_alarm">Add alarm</string>
 
-    <!-- Title text for alarm timeline view [CHAR LIMIT=20] -->
-    <string name="alarm_timeline_title_text">NEXT ALARMS</string>
-
     <!-- Menu item on Alarm Clock screen: Desk clock -->
     <string name="menu_desk_clock">Desk clock</string>
 
@@ -79,6 +76,18 @@
     <!-- Setting labels on Set alarm screen: Set time  -->
     <string name="time">Time</string>
 
+    <!-- Label shown when user is setting up non-repeating alarm for tomorrow [CHAR LIMIT=15] -->
+    <string name="alarm_tomorrow">Tomorrow</string>
+
+    <!-- Label shown when user is setting up non-repeating alarm for later today [CHAR LIMIT=15] -->
+    <string name="alarm_today">Today</string>
+
+    <!-- The text shown above the clock when alarm is alerting [CHAR LIMIT=10] -->
+    <string name="alarm_alert_wake_up">Wake up\u0021</string>
+
+    <!-- The text shown as an option to dismiss an alerting alarm [CHAR LIMIT=5] -->
+    <string name="alarm_alert_off_action_text">Off</string>
+
     <!-- Button labels on the alarm dialog: Dismiss -->
     <string name="alarm_alert_dismiss_text">Dismiss</string>
 
@@ -90,6 +99,30 @@
          the alarm has been silenced.-->
     <string name="alarm_missed_title">Missed alarm</string>
     <string name="alarm_missed_text"><xliff:g id="alarm_time">%s</xliff:g> - <xliff:g id="alarm_label">%s</xliff:g></string>
+
+    <!-- The text shown after user snoozed an alerting alarm. The text will be shown
+         together with the number of minutes in two separate lines. For example:
+             Snoozed
+             10 min
+         [CHAR LIMIT=10]
+    -->
+    <string name="alarm_alert_snoozed_text">Snoozed</string>
+
+    <!-- The text shown after user snoozed an alerting alarm. The text will be shown
+         together with the word 'Snoozed' in two separate lines or example:
+             Snoozed
+             10 min
+         [CHAR LIMIT=10]
+    -->
+    <plurals name="alarm_alert_snooze_duration">
+        <!-- Duration for one minute -->
+        <item quantity="one">1 min</item>
+        <!-- Duration for more than one minute -->
+        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> min</item>
+    </plurals>
+
+    <!-- The text shown after user dismissed an alerting alarm [CHAR LIMIT=15] -->
+    <string name="alarm_alert_off_text">Alarm off</string>
 
     <!-- Button labels on the alarm dialog: Snooze -->
     <string name="alarm_alert_snooze_text">Snooze</string>
@@ -336,9 +369,9 @@
     <!-- Describes the purpose of the tab button which which switches the activity to the Stopwatch page -->
     <string name="menu_stopwatch">Stopwatch</string>
 
-    <!--- Clock view buttons strings-->
+    <!-- Clock view buttons strings-->
     <!-- Describes the purpose of the button to start the activity to add/edit/delete alarms -->
-    <string name="button_alarms">Alarms</string>
+    <string name="button_alarms">Add alarm</string>
     <!-- Describes the purpose of the button which provides a list of cities for the world clock settings -->
     <string name="button_cities">Cities</string>
     <!-- Describes the purpose of the button which pops up a menu of setting choices -->
@@ -368,7 +401,8 @@
     <string name="sw_lap_button">Lap</string>
     <!-- Describes the purpose of the button to return the stopwatch to zero and remove the lap times. -->
     <string name="sw_reset_button">Reset</string>
-    <!-- Describes the purpose of the button to share the stopwatch value. -->
+    <!-- Describes the purpose of the button to share the stopwatch value.
+         Also used as title for chooser when sharing stopwatch results. -->
     <string name="sw_share_button">Share</string>
 
     <!-- Abbreviation for temporal hours [CHAR LIMIT=1] -->
@@ -478,6 +512,8 @@
     <string name="timer_times_up">Time\'s up</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
+    <!-- Toast content shown when user attempts to create a new timer when there are already 4 timers -->
+    <string name="timers_max_count_reached">4 timers maximum</string>
 
     <!-- Jocular content that user may append when sharing the lap times -->
     <string-array name="sw_share_strings" translatable="true">
@@ -507,7 +543,7 @@
 
     <!-- Settings strings -->
     <!-- Header in the preferences settings for the section pertaining to clocks on the main fragment -->
-    <string name="clock_settings">CLOCK</string>
+    <string name="clock_settings">Clock</string>
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
 
@@ -726,23 +762,21 @@
     </string-array>
 
      <!-- Header in the preferences settings for the section pertaining to alarms -->
-     <string name="alarm_settings">ALARMS</string>
-     <!-- Describes the purpose of the button to show the remaining choices whenever there were too many -->
-     <string name="see_all">See all&#8230;</string>
+     <string name="alarm_settings">Alarms</string>
      <string name="desk_clock_help_url" translatable="false"></string>
      <!-- Describes the running service for the stopwatch -->
      <string name="stopwatch_service_desc">Stopwatch service to run the notification.</string>
      <!-- Desription for the stopped stop watch -->
      <string name="swn_stopped">Stopped</string>
 
-    <!-- Description of the right direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_right">Slide right to dismiss</string>
-    <!-- Description of the left direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_left">Slide left to snooze</string>
-    <!-- Description of the up direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_up">Slide up to dismiss</string>
-    <!-- Description of the down direction in the alarm alert screen. [CHAR LIMIT=NONE] -->
-    <string name="description_direction_down">Slide down to snooze</string>
+    <!-- Text instruction for dismiss alarm on alarm lock screen. The dismiss button will still
+         be on the right even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_right">Swipe right to dismiss</string>
+    <!-- Text instruction for snooze alarm on alarm lock screen. The snooze button will still
+         be on the left even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_left">Swipe left to snooze</string>
 
     <!-- Notification title when timer is stopped. -->
     <string name="timer_stopped">Timer stopped</string>
@@ -807,16 +841,20 @@
     <string name="clock_24_hours_format" translatable="false">kk&#58;mm</string>
     <string name="main_widget_12_hours_format" translatable="false">h&#58;mm</string>
     <!-- Font size for AM/PM should match widget_label_font_size -->
-    <string name="wc_widget_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif-condensed">a</font></b></string>
+    <string name="wc_widget_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif">a</font></b></string>
     <!-- Font size for AM/PM should match bottom_text_size -->
-    <string name="main_clock_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="16" face="sans-serif-condensed">a</font></b></string>
+    <string name="main_clock_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="16" face="sans-serif">a</font></b></string>
     <!-- Font size for AM/PM should match label_font_size -->
-    <string name="world_clock_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif-condensed">a</font></b></string>
+    <string name="world_clock_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif">a</font></b></string>
     <!-- Font size for AM/PM should match alarm_label_size -->
-    <string name="alarm_time_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="14" face="sans-serif-condensed">a</font></b></string>
+    <string name="alarm_time_12_hours_format" translatable="false">h&#58;mm&#8202;<b><font size="24" face="sans-serif">a</font></b></string>
 
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>
+
+    <!-- String for no alarms set [CHAR LIMIT=24] -->
+    <string name="no_alarms_set">No alarms set</string>
+
     <!-- String for no enabled alarms in timeline view [CHAR LIMIT=30] -->
     <string name="no_upcoming_alarms">NO UPCOMING ALARMS</string>
 </resources>

@@ -65,6 +65,9 @@ public class SettingsActivity extends PreferenceActivity
             "volume_button_setting";
 
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
+    public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
+    public static final String VOLUME_BEHAVIOR_DISMISS = "2";
+
 
     private static CharSequence[][] mTimezones;
     private long mTime;
@@ -98,6 +101,7 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
+        getWindow().getDecorView().setBackgroundColor(Utils.getCurrentHourColor());
         refresh();
     }
 
@@ -285,7 +289,7 @@ public class SettingsActivity extends PreferenceActivity
         int minLength = ids.length;
         if (ids.length != labels.length) {
             minLength = Math.min(minLength, labels.length);
-            Log.e("Timezone ids and labels have different length!");
+            LogUtils.e("Timezone ids and labels have different length!");
         }
         List<TimeZoneRow> timezones = new ArrayList<TimeZoneRow>();
         for (int i = 0; i < minLength; i++) {

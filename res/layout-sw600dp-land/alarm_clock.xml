@@ -33,48 +33,26 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:paddingBottom="@dimen/button_footer_height"
             android:clipToPadding="false"
             android:descendantFocusability="beforeDescendants"
             android:divider="@null"
-            android:dividerHeight="6dp"
-            />
+            android:dividerHeight="0dip" />
 
-        <include layout="@layout/alarm_timeline_layout"
-            android:id="@+id/timeline_layout"
-            android:layout_width="@dimen/alarm_timeline_layout_width"
-            android:layout_height="match_parent"
-        />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/alarms_footer_view"
-        android:background="@drawable/footer_bg"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom" >
-        <ImageButton
-            android:id="@+id/alarm_add_alarm"
-            android:contentDescription="@string/add_alarm"
-            android:layout_width="@dimen/footer_button_size"
-            android:layout_height="@dimen/footer_button_size"
-            android:layout_marginTop="@dimen/footer_button_layout_margin"
-            android:layout_marginBottom="@dimen/footer_button_layout_margin"
-            android:layout_marginRight="@dimen/footer_button_layout_margin"
-            android:layout_marginEnd="@dimen/footer_button_layout_margin"
-            android:layout_marginLeft="@dimen/footer_button_layout_margin"
-            android:layout_marginStart="@dimen/footer_button_layout_margin"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_add"
-            style="@style/button"
-            android:background="@drawable/main_button_normal" />
+        android:layout_width="@dimen/footer_button_size"
+        android:layout_height="@dimen/footer_button_size"
+        android:layout_gravity="bottom|end" >
         <ImageButton
             android:id="@+id/menu_button"
             android:contentDescription="@string/button_menu"
             style="?android:attr/actionOverflowButtonStyle"
-            android:background="@drawable/item_background"
             android:layout_gravity="end|center_vertical"
-            android:layout_width="@dimen/footer_button_size"
-            android:layout_height="@dimen/footer_button_size" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </FrameLayout>
     <TextView
             android:id="@+id/alarms_empty_view"

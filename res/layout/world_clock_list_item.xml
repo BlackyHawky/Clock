@@ -22,17 +22,11 @@
     android:layout_marginEnd="@dimen/world_clock_margin"
     android:layout_marginLeft="@dimen/world_clock_margin"
     android:layout_marginStart="@dimen/world_clock_margin"
+    android:paddingEnd="@dimen/world_clock_end_padding"
     android:orientation="horizontal">
 
     <include layout="@layout/world_clock_item"
         android:id="@+id/city_left"
-        android:gravity="center"
-        android:layout_width="0dip"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"/>
-
-    <include layout="@layout/world_clock_item"
-        android:id="@+id/city_right"
         android:gravity="center"
         android:layout_width="0dip"
         android:layout_weight="1"

@@ -19,85 +19,53 @@
     android:orientation="vertical">
 
     <com.android.deskclock.timer.TimerView
-            android:id="@+id/timer_time_text"
-            android:layoutDirection="ltr"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/medium_font_padding"
-            android:paddingBottom="@dimen/medium_font_padding"
-            android:gravity="center_horizontal">
+        android:id="@+id/timer_time_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layoutDirection="ltr"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/medium_font_padding"
+        android:paddingTop="@dimen/medium_font_padding">
 
-        <include layout="@layout/timer_h_mm_ss_view"/>
+        <include layout="@layout/timer_h_mm_ss_view" />
 
         <ImageButton
-                android:id="@+id/delete"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
-                android:padding="@dimen/timer_setup_delete_padding"
-                android:src="@drawable/ic_backspace"
-                android:background="@drawable/item_background"
-                android:contentDescription="@string/timer_delete"/>
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
+            android:padding="@dimen/timer_setup_delete_padding"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/timer_delete"
+            android:src="@drawable/ic_backspace" />
 
     </com.android.deskclock.timer.TimerView>
 
     <View
+        android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:layout_marginBottom="8dip"
         android:background="@color/dialog_gray" />
-    <include layout="@layout/three_keys_view"
-        android:id="@+id/first" />
 
-    <include layout="@layout/three_keys_view"
-        android:id="@+id/second"/>
+    <include
+        android:id="@+id/first"
+        layout="@layout/three_keys_view" />
 
-    <include layout="@layout/three_keys_view"
-        android:id="@+id/third"/>
+    <include
+        android:id="@+id/second"
+        layout="@layout/three_keys_view" />
 
-    <include layout="@layout/three_keys_view"
-        android:id="@+id/fourth" />
+    <include
+        android:id="@+id/third"
+        layout="@layout/three_keys_view" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="#28ffffff"/>
+    <include
+        android:id="@+id/fourth"
+        layout="@layout/three_keys_view" />
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_weight="0.5"
-            android:layout_height="0dip">
-
-        <Button
-                android:id="@+id/timer_cancel"
-                android:text="@string/timer_cancel"
-                android:layout_width="0dp"
-                style="@style/bold_button"
-                android:textSize="@dimen/timer_setup_button_size"
-                android:layout_weight="1"
-                android:background="@drawable/item_background"
-                android:layout_height="match_parent"/>
-
-        <View
-                android:id="@+id/timer_button_sep"
-                android:layout_height="match_parent"
-                android:layout_marginTop="8dip"
-                android:layout_marginBottom="8dip"
-                android:layout_width="1dip"
-                android:background="#28ffffff"/>
-
-        <Button
-                android:id="@+id/timer_start"
-                android:text="@string/timer_start"
-                android:layout_width="0dp"
-                style="@style/bold_button"
-                android:textSize="@dimen/timer_setup_button_size"
-                android:layout_weight="1"
-                android:background="@drawable/item_background"
-                android:layout_height="match_parent"/>
-
-    </LinearLayout>
+    <include layout="@layout/timer_cancel_button" />
 
 </LinearLayout>

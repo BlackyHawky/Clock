@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <!--
   ~ Copyright (C) 2012 The Android Open Source Project
   ~
@@ -16,24 +15,13 @@
   ~ limitations under the License
   -->
 
-<FrameLayout
+<Button
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="48dp"
+    style="@style/body"
     android:layout_width="0dp"
-    android:padding="0dp"
+    android:layout_height="48dp"
     android:layout_weight="1"
-    android:clickable="true"
+    android:background="@drawable/toggle_circle"
     android:gravity="center"
-    android:background="@drawable/item_background"
-    >
-    <ToggleButton
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:padding="0dp"
-        style="@style/body"
-        android:textColor="@color/clock_gray"
-        android:background="@drawable/toggle_underline"
-        android:clickable="false"
-        android:singleLine="true"/>
-</FrameLayout>
+    android:minWidth="0dp"
+    android:minHeight="0dp" />

@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.android.deskclock"
-        android:versionCode="301" android:versionName="3.0.0">
+        android:versionCode="302" android:versionName="3.0.2">
 
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="17" ></uses-sdk>
 
     <application android:label="@string/app_label"
                  android:icon="@mipmap/ic_launcher_alarmclock"
@@ -150,6 +149,7 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
                 <action android:name="android.intent.action.ALARM_CHANGED" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
                 <action android:name="com.android.deskclock.worldclock.update" />
                 </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/digital_appwidget" />
@@ -165,9 +165,11 @@
         <!-- Dream (screensaver) implementation -->
         <service android:name="Screensaver"
             android:exported="true"
-            android:label="@string/app_label">
+            android:label="@string/app_label"
+            android:permission="android.permission.BIND_DREAM_SERVICE">
             <intent-filter>
                 <action android:name="android.service.dreams.DreamService" />
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <meta-data
@@ -178,7 +180,7 @@
         <!-- Settings activity for screensaver -->
         <activity android:name=".ScreensaverSettingsActivity"
                 android:label="@string/screensaver_settings"
-                android:theme="@android:style/Theme.Holo"
+                android:theme="@style/ScreensaverSettingsActivityTheme"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
                 android:exported="true"
@@ -193,7 +195,7 @@
          so that is only has the fired timers -->
         <activity android:name="com.android.deskclock.timer.TimerAlertFullScreen"
                 android:excludeFromRecents="true"
-                android:theme="@style/AlarmAlertFullScreenTheme"
+                android:theme="@style/TimerAlertFullScreenTheme"
                 android:launchMode="singleInstance"
                 android:showOnLockScreen="true"
                 android:taskAffinity=""

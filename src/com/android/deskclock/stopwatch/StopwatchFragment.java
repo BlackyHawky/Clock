@@ -1,15 +1,12 @@
 package com.android.deskclock.stopwatch;
 
 import android.animation.LayoutTransition;
-import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
@@ -18,45 +15,37 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
 import android.widget.ListPopupWindow;
 import android.widget.ListView;
-import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 
 import com.android.deskclock.CircleButtonsLayout;
 import com.android.deskclock.CircleTimerView;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClockFragment;
-import com.android.deskclock.Log;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.timer.CountingTimerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class StopwatchFragment extends DeskClockFragment
         implements OnSharedPreferenceChangeListener {
     private static final boolean DEBUG = false;
 
     private static final String TAG = "StopwatchFragment";
+    private static final int STOPWATCH_REFRESH_INTERVAL_MILLIS = 25;
+
     int mState = Stopwatches.STOPWATCH_RESET;
 
     // Stopwatch views that are accessed by the activity
-    private ImageButton mLeftButton;
-    private TextView mCenterButton;
     private CircleTimerView mTime;
     private CountingTimerView mTimeText;
     private ListView mLapsList;
-    private ImageButton mShareButton;
     private ListPopupWindow mSharePopup;
     private WakeLock mWakeLock;
     private CircleButtonsLayout mCircleLayout;
@@ -95,7 +84,6 @@ public class StopwatchFragment extends DeskClockFragment
 
         ArrayList<Lap> mLaps = new ArrayList<Lap>();
         private final LayoutInflater mInflater;
-        private final int mBackgroundColor;
         private final String[] mFormats;
         private final String[] mLapFormatSet;
         // Size of this array must match the size of formats
@@ -112,7 +100,6 @@ public class StopwatchFragment extends DeskClockFragment
 
         public LapsListAdapter(Context context) {
             mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            mBackgroundColor = getResources().getColor(R.color.blackish);
             mFormats = context.getResources().getStringArray(R.array.stopwatch_format_set);
             mLapFormatSet = context.getResources().getStringArray(R.array.sw_lap_number_set);
             updateLapFormat();
@@ -134,7 +121,6 @@ public class StopwatchFragment extends DeskClockFragment
                 lapInfo = convertView;
             } else {
                 lapInfo = mInflater.inflate(R.layout.lap_view, parent, false);
-                lapInfo.setBackgroundColor(mBackgroundColor);
             }
             lapInfo.setTag(lap);
             TextView count = (TextView)lapInfo.findViewById(R.id.lap_number);
@@ -188,7 +174,7 @@ public class StopwatchFragment extends DeskClockFragment
                 mLapIndex++;
                 formatChanged = true;
             }
-            while (mTotalIndex + 1 < mThresholds.length && 
+            while (mTotalIndex + 1 < mThresholds.length &&
                 lap.mTotalTime >= mThresholds[mTotalIndex]) {
                 mTotalIndex++;
                 formatChanged = true;
@@ -274,7 +260,7 @@ public class StopwatchFragment extends DeskClockFragment
                 acquireWakeLock();
                 break;
             default:
-                Log.wtf("Illegal state " + mState
+                LogUtils.wtf("Illegal state " + mState
                         + " while pressing the right stopwatch button");
                 break;
         }
@@ -286,50 +272,6 @@ public class StopwatchFragment extends DeskClockFragment
         // Inflate the layout for this fragment
         ViewGroup v = (ViewGroup)inflater.inflate(R.layout.stopwatch_fragment, container, false);
 
-        mLeftButton = (ImageButton)v.findViewById(R.id.stopwatch_left_button);
-        mLeftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long time = Utils.getTimeNow();
-                Context context = getActivity().getApplicationContext();
-                Intent intent = new Intent(context, StopwatchService.class);
-                intent.putExtra(Stopwatches.MESSAGE_TIME, time);
-                intent.putExtra(Stopwatches.SHOW_NOTIF, false);
-                switch (mState) {
-                    case Stopwatches.STOPWATCH_RUNNING:
-                        // Save lap time
-                        addLapTime(time);
-                        doLap();
-                        intent.setAction(Stopwatches.LAP_STOPWATCH);
-                        context.startService(intent);
-                        break;
-                    case Stopwatches.STOPWATCH_STOPPED:
-                        // do reset
-                        doReset();
-                        intent.setAction(Stopwatches.RESET_STOPWATCH);
-                        context.startService(intent);
-                        releaseWakeLock();
-                        break;
-                    default:
-                        // Happens in monkey tests
-                        Log.i("Illegal state " + mState
-                                + " while pressing the left stopwatch button");
-                        break;
-                }
-            }
-        });
-
-
-        mCenterButton = (TextView)v.findViewById(R.id.stopwatch_stop);
-        mShareButton = (ImageButton)v.findViewById(R.id.stopwatch_share_button);
-
-        mShareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showSharePopup();
-            }
-        });
-
         mTime = (CircleTimerView)v.findViewById(R.id.stopwatch_time);
         mTimeText = (CountingTimerView)v.findViewById(R.id.stopwatch_time_text);
         mLapsList = (ListView)v.findViewById(R.id.laps_list);
@@ -337,21 +279,11 @@ public class StopwatchFragment extends DeskClockFragment
         mLapsAdapter = new LapsListAdapter(getActivity());
         mLapsList.setAdapter(mLapsAdapter);
 
-        // Timer text serves as a virtual start/stop button.
-        mTimeText.registerVirtualButtonAction(new Runnable() {
-            @Override
-            public void run() {
-                rightButtonAction();
-            }
-        });
-        mTimeText.registerStopTextView(mCenterButton);
         mTimeText.setVirtualButtonEnabled(true);
 
         mCircleLayout = (CircleButtonsLayout)v.findViewById(R.id.stopwatch_circle);
-        mCircleLayout.setCircleTimerViewIds(R.id.stopwatch_time, R.id.stopwatch_left_button,
-                R.id.stopwatch_share_button, R.id.stopwatch_stop,
-                R.dimen.plusone_reset_button_padding, R.dimen.share_button_padding,
-                0, 0); /** No label for a stopwatch**/
+        mCircleLayout.setCircleTimerViewIds(R.id.stopwatch_time, 0 /* stopwatchId */ ,
+                0 /* labelId */,  0 /* labeltextId */);
 
         // Animation setup
         mLayoutTransition = new LayoutTransition();
@@ -376,7 +308,7 @@ public class StopwatchFragment extends DeskClockFragment
                                         View view, int transitionType) {
                 if (view == mLapsList) {
                     if (transitionType == LayoutTransition.DISAPPEARING) {
-                        if (DEBUG) Log.v("StopwatchFragment.start laps-list disappearing");
+                        if (DEBUG) LogUtils.v("StopwatchFragment.start laps-list disappearing");
                         boolean shiftX = view.getResources().getConfiguration().orientation
                                 == Configuration.ORIENTATION_LANDSCAPE;
                         int first = mLapsList.getFirstVisiblePosition();
@@ -410,7 +342,7 @@ public class StopwatchFragment extends DeskClockFragment
             public void endTransition(LayoutTransition transition, ViewGroup container,
                                       View view, int transitionType) {
                 if (transitionType == LayoutTransition.DISAPPEARING) {
-                    if (DEBUG) Log.v("StopwatchFragment.end laps-list disappearing");
+                    if (DEBUG) LogUtils.v("StopwatchFragment.end laps-list disappearing");
                     int last = mLapsList.getLastVisiblePosition();
                     for (int visibleIndex = mLapsList.getFirstVisiblePosition();
                          visibleIndex <= last; visibleIndex++) {
@@ -464,7 +396,8 @@ public class StopwatchFragment extends DeskClockFragment
         mTime.readFromSharedPref(prefs, "sw");
         mTime.postInvalidate();
 
-        setButtons(mState);
+        setFabAppearance();
+        setLeftRightButtonAppearance();
         mTimeText.setTime(mAccumulatedTime, true, true);
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
             acquireWakeLock();
@@ -484,16 +417,16 @@ public class StopwatchFragment extends DeskClockFragment
 
     @Override
     public void onPause() {
-        // This is called because the lock screen was activated, the window stay
-        // active under it and when we unlock the screen, we see the old time for
-        // a fraction of a second.
-        View v = getView();
-        if (v != null) {
-            v.setVisibility(View.INVISIBLE);
-        }
-
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
             stopUpdateThread();
+
+            // This is called because the lock screen was activated, the window stay
+            // active under it and when we unlock the screen, we see the old time for
+            // a fraction of a second.
+            View v = getView();
+            if (v != null) {
+                v.setVisibility(View.INVISIBLE);
+            }
         }
         // The stopwatch must keep running even if the user closes the app so save stopwatch state
         // in shared prefs
@@ -502,10 +435,6 @@ public class StopwatchFragment extends DeskClockFragment
         writeToSharedPref(prefs);
         mTime.writeToSharedPref(prefs, "sw");
         mTimeText.blinkTimeStr(false);
-        if (mSharePopup != null) {
-            mSharePopup.dismiss();
-            mSharePopup = null;
-        }
         ((DeskClock)getActivity()).unregisterPageChangedListener(this);
         releaseWakeLock();
         super.onPause();
@@ -521,36 +450,39 @@ public class StopwatchFragment extends DeskClockFragment
     }
 
     private void doStop() {
-        if (DEBUG) Log.v("StopwatchFragment.doStop");
+        if (DEBUG) LogUtils.v("StopwatchFragment.doStop");
         stopUpdateThread();
         mTime.pauseIntervalAnimation();
         mTimeText.setTime(mAccumulatedTime, true, true);
         mTimeText.blinkTimeStr(true);
         updateCurrentLap(mAccumulatedTime);
-        setButtons(Stopwatches.STOPWATCH_STOPPED);
         mState = Stopwatches.STOPWATCH_STOPPED;
+        setFabAppearance();
+        setLeftRightButtonAppearance();
     }
 
     private void doStart(long time) {
-        if (DEBUG) Log.v("StopwatchFragment.doStart");
+        if (DEBUG) LogUtils.v("StopwatchFragment.doStart");
         mStartTime = time;
         startUpdateThread();
         mTimeText.blinkTimeStr(false);
         if (mTime.isAnimating()) {
             mTime.startIntervalAnimation();
         }
-        setButtons(Stopwatches.STOPWATCH_RUNNING);
         mState = Stopwatches.STOPWATCH_RUNNING;
+        setFabAppearance();
+        setLeftRightButtonAppearance();
     }
 
     private void doLap() {
-        if (DEBUG) Log.v("StopwatchFragment.doLap");
+        if (DEBUG) LogUtils.v("StopwatchFragment.doLap");
         showLaps();
-        setButtons(Stopwatches.STOPWATCH_RUNNING);
+        setFabAppearance();
+        setLeftRightButtonAppearance();
     }
 
     private void doReset() {
-        if (DEBUG) Log.v("StopwatchFragment.doReset");
+        if (DEBUG) LogUtils.v("StopwatchFragment.doReset");
         SharedPreferences prefs =
                 PreferenceManager.getDefaultSharedPreferences(getActivity());
         Utils.clearSwSharedPref(prefs);
@@ -562,113 +494,29 @@ public class StopwatchFragment extends DeskClockFragment
         mTime.reset();
         mTimeText.setTime(mAccumulatedTime, true, true);
         mTimeText.blinkTimeStr(false);
-        setButtons(Stopwatches.STOPWATCH_RESET);
         mState = Stopwatches.STOPWATCH_RESET;
+        setFabAppearance();
+        setLeftRightButtonAppearance();
     }
 
-    private void showShareButton(boolean show) {
-        if (mShareButton != null) {
-            mShareButton.setVisibility(show ? View.VISIBLE : View.INVISIBLE);
-            mShareButton.setEnabled(show);
-        }
-    }
-
-    private void showSharePopup() {
-        Intent intent = getShareIntent();
-
-        Activity parent = getActivity();
-        PackageManager packageManager = parent.getPackageManager();
-
-        // Get a list of sharable options.
-        List<ResolveInfo> shareOptions = packageManager
-                .queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-
-        if (shareOptions.size() == 0) {
-            return;
-        }
-        ArrayList<CharSequence> shareOptionTitles = new ArrayList<CharSequence>();
-        ArrayList<Drawable> shareOptionIcons = new ArrayList<Drawable>();
-        ArrayList<CharSequence> shareOptionThreeTitles = new ArrayList<CharSequence>();
-        ArrayList<Drawable> shareOptionThreeIcons = new ArrayList<Drawable>();
-        ArrayList<String> shareOptionPackageNames = new ArrayList<String>();
-        ArrayList<String> shareOptionClassNames = new ArrayList<String>();
-
-        for (int option_i = 0; option_i < shareOptions.size(); option_i++) {
-            ResolveInfo option = shareOptions.get(option_i);
-            CharSequence label = option.loadLabel(packageManager);
-            Drawable icon = option.loadIcon(packageManager);
-            shareOptionTitles.add(label);
-            shareOptionIcons.add(icon);
-            if (shareOptions.size() > 4 && option_i < 3) {
-                shareOptionThreeTitles.add(label);
-                shareOptionThreeIcons.add(icon);
-            }
-            shareOptionPackageNames.add(option.activityInfo.packageName);
-            shareOptionClassNames.add(option.activityInfo.name);
-        }
-        if (shareOptionTitles.size() > 4) {
-            shareOptionThreeTitles.add(getResources().getString(R.string.see_all));
-            shareOptionThreeIcons.add(getResources().getDrawable(android.R.color.transparent));
-        }
-
-        if (mSharePopup != null) {
-            mSharePopup.dismiss();
-            mSharePopup = null;
-        }
-        mSharePopup = new ListPopupWindow(parent);
-        mSharePopup.setAnchorView(mShareButton);
-        mSharePopup.setModal(true);
-        // This adapter to show the rest will be used to quickly repopulate if "See all..." is hit.
-        ImageLabelAdapter showAllAdapter = new ImageLabelAdapter(parent,
-                R.layout.popup_window_item, shareOptionTitles, shareOptionIcons,
-                shareOptionPackageNames, shareOptionClassNames);
-        if (shareOptionTitles.size() > 4) {
-            mSharePopup.setAdapter(new ImageLabelAdapter(parent, R.layout.popup_window_item,
-                    shareOptionThreeTitles, shareOptionThreeIcons, shareOptionPackageNames,
-                    shareOptionClassNames, showAllAdapter));
-        } else {
-            mSharePopup.setAdapter(showAllAdapter);
-        }
-
-        mSharePopup.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CharSequence label = ((TextView) view.findViewById(R.id.title)).getText();
-                if (label.equals(getResources().getString(R.string.see_all))) {
-                    mSharePopup.setAdapter(
-                            ((ImageLabelAdapter) parent.getAdapter()).getShowAllAdapter());
-                    mSharePopup.show();
-                    return;
-                }
-
-                Intent intent = getShareIntent();
-                ImageLabelAdapter adapter = (ImageLabelAdapter) parent.getAdapter();
-                String packageName = adapter.getPackageName(position);
-                String className = adapter.getClassName(position);
-                intent.setClassName(packageName, className);
-                startActivity(intent);
-            }
-        });
-        mSharePopup.setOnDismissListener(new OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                mSharePopup = null;
-            }
-        });
-        mSharePopup.setWidth((int) getResources().getDimension(R.dimen.popup_window_width));
-        mSharePopup.show();
-    }
-
-    private Intent getShareIntent() {
-        Intent intent = new Intent(android.content.Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        intent.putExtra(Intent.EXTRA_SUBJECT,
-                Stopwatches.getShareTitle(getActivity().getApplicationContext()));
-        intent.putExtra(Intent.EXTRA_TEXT, Stopwatches.buildShareResults(
+    private void shareResults() {
+        final Context context = getActivity();
+        final Intent shareIntent = new Intent(android.content.Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT,
+                Stopwatches.getShareTitle(context.getApplicationContext()));
+        shareIntent.putExtra(Intent.EXTRA_TEXT, Stopwatches.buildShareResults(
                 getActivity().getApplicationContext(), mTimeText.getTimeString(),
                 getLapShareTimes(mLapsAdapter.getLapTimes())));
-        return intent;
+
+        final Intent launchIntent = Intent.createChooser(shareIntent,
+                context.getString(R.string.sw_share_button));
+        try {
+            context.startActivity(launchIntent);
+        } catch (ActivityNotFoundException e) {
+            LogUtils.e("No compatible receiver is found");
+        }
     }
 
     /** Turn laps as they would be saved in prefs into format for sharing. **/
@@ -682,98 +530,15 @@ public class StopwatchFragment extends DeskClockFragment
         long prevLapElapsedTime = 0;
         for (int lap_i = numLaps - 1; lap_i >= 0; lap_i--) {
             long lap = input[lap_i];
-            Log.v("lap "+lap_i+": "+lap);
+            LogUtils.v("lap " + lap_i + ": " + lap);
             output[lap_i] = lap - prevLapElapsedTime;
             prevLapElapsedTime = lap;
         }
         return output;
     }
 
-    /***
-     * Update the buttons on the stopwatch according to the watch's state
-     */
-    private void setButtons(int state) {
-        switch (state) {
-            case Stopwatches.STOPWATCH_RESET:
-                setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap, false,
-                        View.INVISIBLE);
-                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_start_button);
-                showShareButton(false);
-                break;
-            case Stopwatches.STOPWATCH_RUNNING:
-                setButton(mLeftButton, R.string.sw_lap_button, R.drawable.ic_lap,
-                        !reachedMaxLaps(), View.VISIBLE);
-                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_stop_button);
-                showShareButton(false);
-                break;
-            case Stopwatches.STOPWATCH_STOPPED:
-                setButton(mLeftButton, R.string.sw_reset_button, R.drawable.ic_reset, true,
-                        View.VISIBLE);
-                setStartStopText(mCircleLayout, mCenterButton, R.string.sw_start_button);
-                showShareButton(true);
-                break;
-            default:
-                break;
-        }
-    }
     private boolean reachedMaxLaps() {
         return mLapsAdapter.getCount() >= Stopwatches.MAX_LAPS;
-    }
-
-    /***
-     * Set a single button with the string and states provided.
-     * @param b - Button view to update
-     * @param text - Text in button
-     * @param enabled - enable/disables the button
-     * @param visibility - Show/hide the button
-     */
-    private void setButton(
-            ImageButton b, int text, int drawableId, boolean enabled, int visibility) {
-        b.setContentDescription(getActivity().getResources().getString(text));
-        b.setImageResource(drawableId);
-        b.setVisibility(visibility);
-        b.setEnabled(enabled);
-    }
-
-    /**
-     * Update the Start/Stop text. The button is within a view group with a transition that
-     * is needed to animate the button moving. The transition also animates the the text changing,
-     * but that animation does not provide a good look and feel. Temporarily disable the view group
-     * transition while the text is changing and restore it afterwards.
-     *
-     * @param parent   - View Group holding the start/stop button
-     * @param textView - The start/stop button
-     * @param text     - Start or Stop id
-     */
-    private void setStartStopText(final ViewGroup parent, TextView textView, int text) {
-        final LayoutTransition layoutTransition = parent.getLayoutTransition();
-        // Tap into the parent layout->draw flow just before the draw
-        ViewTreeObserver viewTreeObserver = parent.getViewTreeObserver();
-        if (viewTreeObserver != null) {
-            viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-                /**
-                 * Re-establish the transition handler
-                 * Remove this listener
-                 *
-                 * @return true so that onDraw() is called
-                 */
-                @Override
-                public boolean onPreDraw() {
-                    parent.setLayoutTransition(layoutTransition);
-                    ViewTreeObserver viewTreeObserver = parent.getViewTreeObserver();
-                    if (viewTreeObserver != null) {
-                        viewTreeObserver.removeOnPreDrawListener(this);
-                    }
-                    return true;
-                }
-            });
-        }
-        // Remove the transition while the text is updated
-        parent.setLayoutTransition(null);
-
-        String textStr = getActivity().getResources().getString(text);
-        textView.setText(textStr);
-        textView.setContentDescription(textStr);
     }
 
     /***
@@ -835,7 +600,7 @@ public class StopwatchFragment extends DeskClockFragment
      * Show or hide the laps-list
      */
     private void showLaps() {
-        if (DEBUG) Log.v(String.format("StopwatchFragment.showLaps: count=%d",
+        if (DEBUG) LogUtils.v(String.format("StopwatchFragment.showLaps: count=%d",
                 mLapsAdapter.getCount()));
 
         boolean lapsVisible = mLapsAdapter.getCount() > 0;
@@ -895,7 +660,7 @@ public class StopwatchFragment extends DeskClockFragment
             if (mLapsAdapter.getCount() > 0) {
                 updateCurrentLap(totalTime);
             }
-            mTime.postDelayed(mTimeUpdateThread, 10);
+            mTime.postDelayed(mTimeUpdateThread, STOPWATCH_REFRESH_INTERVAL_MILLIS);
         }
     };
 
@@ -961,60 +726,6 @@ public class StopwatchFragment extends DeskClockFragment
         }
     }
 
-    public class ImageLabelAdapter extends ArrayAdapter<CharSequence> {
-        private final ArrayList<CharSequence> mStrings;
-        private final ArrayList<Drawable> mDrawables;
-        private final ArrayList<String> mPackageNames;
-        private final ArrayList<String> mClassNames;
-        private ImageLabelAdapter mShowAllAdapter;
-
-        public ImageLabelAdapter(Context context, int textViewResourceId,
-                ArrayList<CharSequence> strings, ArrayList<Drawable> drawables,
-                ArrayList<String> packageNames, ArrayList<String> classNames) {
-            super(context, textViewResourceId, strings);
-            mStrings = strings;
-            mDrawables = drawables;
-            mPackageNames = packageNames;
-            mClassNames = classNames;
-        }
-
-        // Use this constructor if showing a "see all" option, to pass in the adapter
-        // that will be needed to quickly show all the remaining options.
-        public ImageLabelAdapter(Context context, int textViewResourceId,
-                ArrayList<CharSequence> strings, ArrayList<Drawable> drawables,
-                ArrayList<String> packageNames, ArrayList<String> classNames,
-                ImageLabelAdapter showAllAdapter) {
-            super(context, textViewResourceId, strings);
-            mStrings = strings;
-            mDrawables = drawables;
-            mPackageNames = packageNames;
-            mClassNames = classNames;
-            mShowAllAdapter = showAllAdapter;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater li = getActivity().getLayoutInflater();
-            View row = li.inflate(R.layout.popup_window_item, parent, false);
-            ((TextView) row.findViewById(R.id.title)).setText(
-                    mStrings.get(position));
-            row.findViewById(R.id.icon).setBackground(mDrawables.get(position));
-            return row;
-        }
-
-        public String getPackageName(int position) {
-            return mPackageNames.get(position);
-        }
-
-        public String getClassName(int position) {
-            return mClassNames.get(position);
-        }
-
-        public ImageLabelAdapter getShowAllAdapter() {
-            return mShowAllAdapter;
-        }
-    }
-
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (prefs.equals(PreferenceManager.getDefaultSharedPreferences(getActivity()))) {
@@ -1047,4 +758,93 @@ public class StopwatchFragment extends DeskClockFragment
         }
     }
 
+    @Override
+    public void onFabClick(View view){
+        rightButtonAction();
+    }
+
+    @Override
+    public void onLeftButtonClick(View view) {
+        final long time = Utils.getTimeNow();
+        final Context context = getActivity().getApplicationContext();
+        final Intent intent = new Intent(context, StopwatchService.class);
+        intent.putExtra(Stopwatches.MESSAGE_TIME, time);
+        intent.putExtra(Stopwatches.SHOW_NOTIF, false);
+        switch (mState) {
+            case Stopwatches.STOPWATCH_RUNNING:
+                // Save lap time
+                addLapTime(time);
+                doLap();
+                intent.setAction(Stopwatches.LAP_STOPWATCH);
+                context.startService(intent);
+                break;
+            case Stopwatches.STOPWATCH_STOPPED:
+                // do reset
+                doReset();
+                intent.setAction(Stopwatches.RESET_STOPWATCH);
+                context.startService(intent);
+                releaseWakeLock();
+                break;
+            default:
+                // Happens in monkey tests
+                LogUtils.i("Illegal state " + mState + " while pressing the left stopwatch button");
+                break;
+        }
+    }
+
+    @Override
+    public void onRightButtonClick(View view) {
+        shareResults();
+    }
+
+    @Override
+    public void setFabAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mFab == null || activity.getSelectedTab() != DeskClock.STOPWATCH_TAB_INDEX) {
+            return;
+        }
+        if (mState == Stopwatches.STOPWATCH_RUNNING) {
+            mFab.setImageResource(R.drawable.ic_fab_pause);
+            mFab.setContentDescription(getString(R.string.sw_stop_button));
+        } else {
+            mFab.setImageResource(R.drawable.ic_fab_play);
+            mFab.setContentDescription(getString(R.string.sw_start_button));
+        }
+        mFab.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setLeftRightButtonAppearance() {
+        final DeskClock activity = (DeskClock) getActivity();
+        if (mLeftButton == null || mRightButton == null ||
+                activity.getSelectedTab() != DeskClock.STOPWATCH_TAB_INDEX) {
+            return;
+        }
+        mRightButton.setImageResource(R.drawable.ic_share);
+        mRightButton.setContentDescription(getString(R.string.sw_share_button));
+
+        switch (mState) {
+            case Stopwatches.STOPWATCH_RESET:
+                mLeftButton.setImageResource(R.drawable.ic_lap);
+                mLeftButton.setContentDescription(getString(R.string.sw_lap_button));
+                mLeftButton.setEnabled(false);
+                mLeftButton.setVisibility(View.INVISIBLE);
+                mRightButton.setVisibility(View.INVISIBLE);
+                break;
+            case Stopwatches.STOPWATCH_RUNNING:
+                mLeftButton.setImageResource(R.drawable.ic_lap);
+                mLeftButton.setContentDescription(getString(R.string.sw_lap_button));
+                mLeftButton.setEnabled(!reachedMaxLaps());
+                mLeftButton.setVisibility(View.VISIBLE);
+                mRightButton.setVisibility(View.INVISIBLE);
+                break;
+            case Stopwatches.STOPWATCH_STOPPED:
+                mLeftButton.setImageResource(R.drawable.ic_reset);
+                mLeftButton.setContentDescription(getString(R.string.sw_reset_button));
+                mLeftButton.setEnabled(true);
+                mLeftButton.setVisibility(View.VISIBLE);
+                mRightButton.setVisibility(View.VISIBLE);
+                break;
+        }
+    }
 }
