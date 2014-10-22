@@ -41,9 +41,9 @@
 
     <dimen name="alarm_side_padding">12dip</dimen>
     <dimen name="clock_side_padding">12dip</dimen>
-    <!-- clock_side_padding_reduced = clock_side_padding - world_clock_end_padding -->
+    <!-- clock_side_padding_reduced = clock_side_padding - clock_fragment_end_padding -->
     <dimen name="clock_side_padding_reduced">0dip</dimen>
-    <dimen name="world_clock_end_padding">12dip</dimen>
+    <dimen name="clock_fragment_end_padding">12dip</dimen>
     <dimen name="alarm_clock_vertical_margin">12dip</dimen>
 
     <!-- Analog clock size in the the screen saver -->
