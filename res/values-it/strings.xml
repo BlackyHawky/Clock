@@ -98,15 +98,7 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"Disattiva suoneria dopo"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minuti"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mai"</string>
-  <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"5 minuti"</item>
-    <item msgid="3663730603519549990">"10 minuti"</item>
-    <item msgid="1385481095199681200">"15 minuti"</item>
-    <item msgid="420479821767342125">"20 minuti"</item>
-    <item msgid="2107936130151066746">"25 minuti"</item>
-    <item msgid="7219791437023378544">"30 minuti"</item>
-    <item msgid="4278641338024561333">"Mai"</item>
-  </string-array>
+    <!-- no translation found for auto_silence_entries:0 (3024545954917711306) -->
     <string name="done" msgid="6509722361933858451">"Fine"</string>
     <string name="revert" msgid="9100911171235162926">"Annulla modifiche"</string>
     <string name="delete" msgid="5732434972457000541">"Elimina"</string>
