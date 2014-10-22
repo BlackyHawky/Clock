@@ -48,6 +48,7 @@
     <dimen name="body_font_size">20sp</dimen>
     <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="alarm_info_font_size">48sp</dimen>
+    <dimen name="no_alarm_font_size">20sp</dimen>
     <dimen name="widget_label_font_size">16sp</dimen>
 
     <dimen name="body_font_padding">8dp</dimen>
