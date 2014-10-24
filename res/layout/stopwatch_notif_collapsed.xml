@@ -22,7 +22,7 @@
     android:layout_height="64dp"
     internal:layout_maxHeight="64dp"
     internal:layout_minHeight="64dp"
-    android:background="?android:attr/selectableItemBackground" >
+    android:background="@drawable/notification_background" >
 
     <include layout="@layout/stopwatch_notification_icon"/>
 
