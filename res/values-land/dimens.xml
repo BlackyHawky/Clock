@@ -51,6 +51,7 @@
     <dimen name="medium_font_size">48sp</dimen>
 
     <dimen name="circle_size">232dip</dimen>
+    <dimen name="stopwatch_list_bottom_spacing">0dip</dimen>
 
     <dimen name="world_clock_margin">8dp</dimen>
     <dimen name="sw_padding_end">8dp</dimen>
