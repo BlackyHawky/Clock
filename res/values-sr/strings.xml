@@ -99,12 +99,12 @@
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> минута"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Никада"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"5 минута"</item>
-    <item msgid="3663730603519549990">"10 минута"</item>
-    <item msgid="1385481095199681200">"15 минута"</item>
-    <item msgid="420479821767342125">"20 минута"</item>
-    <item msgid="2107936130151066746">"25 минута"</item>
-    <item msgid="7219791437023378544">"30 минута"</item>
+    <item msgid="3024545954917711306">"1 минут"</item>
+    <item msgid="5431906692406316549">"5 минута"</item>
+    <item msgid="7742728812068919959">"10 минута"</item>
+    <item msgid="2855948657259647629">"15 минута"</item>
+    <item msgid="6330196381284475079">"20 минута"</item>
+    <item msgid="7809240121716151904">"25 минута"</item>
     <item msgid="4278641338024561333">"Никада"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Готово"</string>
