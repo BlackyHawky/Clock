@@ -98,12 +98,15 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"နှိုးစက်သံကြာချိန်"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> မိနစ်"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"မည်သည့်အခါမှ"</string>
-    <!-- no translation found for auto_silence_entries:0 (3024545954917711306) -->
-    <!-- no translation found for auto_silence_entries:1 (5431906692406316549) -->
-    <!-- no translation found for auto_silence_entries:2 (7742728812068919959) -->
-    <!-- no translation found for auto_silence_entries:3 (2855948657259647629) -->
-    <!-- no translation found for auto_silence_entries:4 (6330196381284475079) -->
-    <!-- no translation found for auto_silence_entries:5 (7809240121716151904) -->
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"၁ မိနစ်"</item>
+    <item msgid="5431906692406316549">"၅ မိနစ်"</item>
+    <item msgid="7742728812068919959">"၁၀ မိနစ်"</item>
+    <item msgid="2855948657259647629">"၁၅ မိနစ်"</item>
+    <item msgid="6330196381284475079">"၂၀ မိနစ်"</item>
+    <item msgid="7809240121716151904">"၂၅ မိနစ်"</item>
+    <item msgid="4278641338024561333">"မည်သည့်အခါမှ"</item>
+  </string-array>
     <string name="done" msgid="6509722361933858451">"လုပ်ပြီး"</string>
     <string name="revert" msgid="9100911171235162926">"ပြန်လှန်"</string>
     <string name="delete" msgid="5732434972457000541">"ဖျက်ရန်"</string>

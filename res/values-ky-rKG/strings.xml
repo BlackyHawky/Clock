@@ -98,7 +98,6 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"Төмөнкүдөн кийин үнүн басып коюу"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> мүнөт"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Эч качан"</string>
-    <!-- no translation found for auto_silence_entries:0 (3024545954917711306) -->
     <!-- no translation found for auto_silence_entries:1 (5431906692406316549) -->
     <!-- no translation found for auto_silence_entries:2 (7742728812068919959) -->
     <!-- no translation found for auto_silence_entries:3 (2855948657259647629) -->
