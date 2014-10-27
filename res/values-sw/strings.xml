@@ -98,7 +98,15 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"Kimya baada ya"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> dakika"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Katu"</string>
-    <!-- no translation found for auto_silence_entries:0 (3024545954917711306) -->
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"Dakika 1"</item>
+    <item msgid="5431906692406316549">"Dakika 5"</item>
+    <item msgid="7742728812068919959">"Dakika 10"</item>
+    <item msgid="2855948657259647629">"Dakika 15"</item>
+    <item msgid="6330196381284475079">"Dakika 20"</item>
+    <item msgid="7809240121716151904">"Dakika 25"</item>
+    <item msgid="4278641338024561333">"Katu"</item>
+  </string-array>
     <string name="done" msgid="6509722361933858451">"Kwisha"</string>
     <string name="revert" msgid="9100911171235162926">"Rudi"</string>
     <string name="delete" msgid="5732434972457000541">"Futa"</string>

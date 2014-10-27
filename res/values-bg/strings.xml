@@ -98,7 +98,15 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"Заглушаване след"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> минути"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Никога"</string>
-    <!-- no translation found for auto_silence_entries:0 (3024545954917711306) -->
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1 минута"</item>
+    <item msgid="5431906692406316549">"5 минути"</item>
+    <item msgid="7742728812068919959">"10 минути"</item>
+    <item msgid="2855948657259647629">"15 минути"</item>
+    <item msgid="6330196381284475079">"20 минути"</item>
+    <item msgid="7809240121716151904">"25 минути"</item>
+    <item msgid="4278641338024561333">"Никога"</item>
+  </string-array>
     <string name="done" msgid="6509722361933858451">"Готово"</string>
     <string name="revert" msgid="9100911171235162926">"Възстановяване"</string>
     <string name="delete" msgid="5732434972457000541">"Изтриване"</string>
