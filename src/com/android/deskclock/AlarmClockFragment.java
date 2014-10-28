@@ -50,7 +50,6 @@ import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
@@ -754,6 +753,21 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.hairLine.setVisibility(expanded ? View.GONE : View.VISIBLE);
             itemHolder.arrow.setRotation(expanded ? ROTATE_180_DEGREE : 0);
 
+            // Add listener on the arrow to enable proper talkback functionality.
+            // Avoid setting content description on the entire card.
+            itemHolder.arrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (isAlarmExpanded(alarm)) {
+                        // Is expanded, make collapse call.
+                        collapseAlarm(itemHolder, true);
+                    } else {
+                        // Is collapsed, make expand call.
+                        expandAlarm(itemHolder, true);
+                    }
+                }
+            });
+
             // Set the repeat text or leave it blank if it does not repeat.
             final String daysOfWeekStr =
                     alarm.daysOfWeek.toString(AlarmClockFragment.this.getActivity(), false);
@@ -1087,6 +1101,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.expandArea.setVisibility(View.VISIBLE);
             itemHolder.delete.setVisibility(View.VISIBLE);
 
+            itemHolder.arrow.setContentDescription(getString(R.string.collapse_alarm));
+
             if (!animate) {
                 // Set the "end" layout and don't do the animation.
                 itemHolder.arrow.setRotation(ROTATE_180_DEGREE);
@@ -1198,6 +1214,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // Set the expand area to gone so we can measure the height to animate to.
             setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, false /* expanded */);
             itemHolder.expandArea.setVisibility(View.GONE);
+
+            itemHolder.arrow.setContentDescription(getString(R.string.expand_alarm));
 
             if (!animate) {
                 // Set the "end" layout and don't do the animation.
