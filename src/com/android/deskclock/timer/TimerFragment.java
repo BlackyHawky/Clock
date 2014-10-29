@@ -218,9 +218,22 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         boolean goToSetUpView;
         // Process extras that were sent to the app and were intended for the timer fragment
         final Intent newIntent = getActivity().getIntent();
-        if (newIntent != null && newIntent.getBooleanExtra(
-                TimerFullScreenFragment.GOTO_SETUP_VIEW, false)) {
+        if (newIntent != null
+                && newIntent.getBooleanExtra(TimerFullScreenFragment.GOTO_SETUP_VIEW, false)) {
             goToSetUpView = true;
+        } else if (newIntent != null
+                && newIntent.getBooleanExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, false)) {
+            // We use this extra to identify if a. this activity is launched from api call,
+            // and b. this fragment is resumed for the first time. If both are true,
+            // we should show the timer view instead of setup view.
+            goToSetUpView = false;
+            // Show the first timer because that's the newly created one
+            highlightPageIndicator(0);
+            mViewPager.setCurrentItem(0);
+
+            // Reset the extra to false to ensure when next time the fragment resume,
+            // we no longer care if it's from api call or not.
+            newIntent.putExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, false);
         } else {
             if (mViewState != null) {
                 final int currPage = mViewState.getInt(CURR_PAGE);
