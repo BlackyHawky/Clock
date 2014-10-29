@@ -159,19 +159,19 @@
             android:id="@+id/collapse_expand"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:contentDescription="@string/collapse_alarm">
+            android:layout_gravity="bottom">
 
             <ImageButton
                 android:id="@+id/delete"
-                android:layout_width="wrap_content"
-                android:layout_height="48dip"
+                android:layout_width="@dimen/touch_target_min_size"
+                android:layout_height="@dimen/touch_target_min_size"
+                android:layout_gravity="center_vertical|start"
                 android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
                 android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:layout_marginStart="4dip"
-                android:layout_gravity="start"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/delete_alarm"
+                android:scaleType="center"
                 android:src="@drawable/ic_delete_small" />
 
             <View
@@ -224,12 +224,13 @@
 
             <ImageView
                 android:id="@+id/arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="48dip"
+                android:layout_width="@dimen/touch_target_min_size"
+                android:layout_height="@dimen/touch_target_min_size"
                 android:layout_gravity="center_vertical|end"
                 android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
                 android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:contentDescription="@string/expand_alarm"
+                android:scaleType="center"
                 android:src="@drawable/ic_expand_down" />
         </FrameLayout>
     </FrameLayout>
