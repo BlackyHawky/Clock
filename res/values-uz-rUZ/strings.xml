@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Soat"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Uyg‘otkichlar"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Uyg‘otkich qo‘shish"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"KEYINGI UYG‘OTKICHLAR"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Ishchi stoli uchun soat"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Uyg‘otkichni tahrirlash"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Uyg‘otkichni o‘chirish"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"Uyg‘otkich ringtoni"</string>
     <string name="ringtone" msgid="9110746249688559579">"Rington"</string>
     <string name="time" msgid="8067216534232296518">"Vaqt"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Ertaga"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Bugun"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Uyg\'oning!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"O‘chirib qo‘yish"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Yopish"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Yopish"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"O‘tkazib yuborilgan uyg‘otkich"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Mudratilgan"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 daq."</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> daq."</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Budilnik o\'chirilgan"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Kechiktirish"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"1 daqiqaga kechiktirildi."</item>
@@ -134,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Taymer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Soat"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Sekundomer"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Uyg‘otkichlar"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Uyg‘otkich qo‘shish"</string>
     <string name="button_cities" msgid="4555761857494501363">"Shaharlar"</string>
     <string name="button_menu" msgid="6050484561842120282">"Yana"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Sozlamalar"</string>
@@ -182,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Bekor qilish"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Vaqt tugadi"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Taymer"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Maks. 4 ta taymer o‘rnatish mumkin"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Siz haqiqatdan ham Shumaxer ekansiz!"</item>
     <item msgid="6332879039890727169">"Siz juda yaxshi mehnat qildingiz."</item>
@@ -200,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Uy"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Shaharlar"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"SOAT"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Soat"</string>
     <string name="clock_style" msgid="2265011060429742344">"Turi"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Ko‘rsatkichli"</item>
@@ -303,14 +313,11 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"UYG‘OTKICHLAR"</string>
-    <string name="see_all" msgid="775983396630163739">"Barchasini ko‘rish…"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Uyg‘otkichlar"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Bildirishnomalarni ishga tushirish uchun sekundomer."</string>
     <string name="swn_stopped" msgid="783124901663086172">"To‘xtatildi"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Uyg‘otkichni yopish uchun barmog‘ingiz bilan ekranni o‘ngga suring"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Uyg‘otkichni kechiktirish uchun barmog‘ingiz bilan ekranni chapga suring"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Uyg‘otkichni yopish uchun barmog‘ingiz bilan ekranni yuqoriga suring"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Uyg‘otkichni kechiktirish uchun barmog‘ingiz bilan ekranni pastga suring"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"O‘tkazib yuborish uchun o‘ngga suring"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Kechiktirish uchun chapga suring"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Taymer to‘xtatildi"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"To‘xtatilgan taymerlar: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Taymerlarni ko‘rish uchun bosing"</string>
@@ -337,5 +344,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Ushbu shahar o‘chirib tashlansinmi?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Raqamli soat"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Hech qanday uyg‘otkich yo‘q"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Budilniklar o\'rnatilmagan"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"UYG‘OTKICHLAR YO‘Q"</string>
 </resources>

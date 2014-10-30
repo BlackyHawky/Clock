@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Saa"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Kengele"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Ongeza kengele"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"KENGELE ZINAZOFUATA"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Saa ya eneo kazi"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Hariri kengele"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Futa kengele"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"Mlio wa Kengele"</string>
     <string name="ringtone" msgid="9110746249688559579">"Mlio wa simu"</string>
     <string name="time" msgid="8067216534232296518">"Saa"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Kesho"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Leo"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Amka!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Imezimwa"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Kata"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Ondoa Sasa"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Kengele ambayo haikushughulikiwa"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Yamepumzishwa"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"Dakika 1"</item>
+    <item quantity="other" msgid="6731274475422132958">"Dakika <xliff:g id="NUMBER">%d</xliff:g>"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Kengele imezimwa"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Nikumbushe baadaye"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Inasinzia kwa dakika 1"</item>
@@ -55,14 +64,14 @@
     <item msgid="8458069283817013813">"Zimesalia <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Kengele imewekwa chini ya dakika 1 kutoka sasa."</item>
-    <item msgid="6002066367368421848">"Kengele imewekwa ya <xliff:g id="DAYS">%1$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="8824719306247973774">"Kengele imewekwa ya <xliff:g id="HOURS">%2$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="8182406852935468862">"Kengele imewekwa ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kuanzia sasa."</item>
+    <item msgid="6450913786084215050">"Kengele imewekwa na italia baada ya chini ya dakika 1 kutoka sasa."</item>
+    <item msgid="6002066367368421848">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> kutoka sasa."</item>
+    <item msgid="8824719306247973774">"Kengele imewekwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
+    <item msgid="8182406852935468862">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="HOURS">%2$s</xliff:g> kutoka sasa."</item>
     <item msgid="2532279224777213194">"Kengele imewekwa kwa <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="5936557894247187717">"Kengele imewekwa ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="9115697840826129603">"Kengele imewekwa ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
-    <item msgid="2332583385137381060">"Kengele imewekwa ya <xliff:g id="DAYS">%1$s</xliff:g> , <xliff:g id="HOURS">%2$s</xliff:g> , na <xliff:g id="MINUTES">%3$s</xliff:g> kuanzia sasa."</item>
+    <item msgid="5936557894247187717">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
+    <item msgid="9115697840826129603">"Kengele imewekwa na italia baada ya <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
+    <item msgid="2332583385137381060">"Kengele imewekwa na italia baada ya <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> na <xliff:g id="MINUTES">%3$s</xliff:g> kutoka sasa."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"siku 1"</string>
     <string name="days" msgid="2070509222727852210">"siku <xliff:g id="DAYS">%s</xliff:g>"</string>
@@ -105,7 +114,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Kimya"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Ahirisha au uondoe kengele."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (imesinzia)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Kengele imewekwa ya <xliff:g id="TIME">%s</xliff:g>. Gusa ili kughairi."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Kengele imewekwa na italia <xliff:g id="TIME">%s</xliff:g>. Gusa ili kughairi."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Vitufe vya kudhibiti sauti"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Athari ya kitufe"</string>
   <string-array name="volume_button_setting_entries">
@@ -134,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Kipima wakati"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Saa"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Saa ya kusitisha"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Kengele"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Ongeza kengele"</string>
     <string name="button_cities" msgid="4555761857494501363">"Miji"</string>
     <string name="button_menu" msgid="6050484561842120282">"Chaguo zaidi"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Mipangilio"</string>
@@ -145,7 +154,7 @@
     <string name="selected_cities_label" msgid="3607479399424246605">"Miji Iliyochaguliwa"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Endelea"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Anza"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Acha"</string>
+    <string name="sw_stop_button" msgid="8322958613123274451">"Simama"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Mzunguko"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Weka upya"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Shiriki"</string>
@@ -176,12 +185,13 @@
     <string name="timer_delete" msgid="8699122001991909302">"Futa"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Ongeza Dakika 1"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Ongeza dakika 1"</string>
-    <string name="timer_stop" msgid="3361154678667736722">"Acha"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Simama"</string>
     <string name="timer_done" msgid="2375990511982914051">"Imekamilika"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Weka upya"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Ghairi"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Muda umekwisha"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Kipima wakati"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Kiwango cha juu cha vipima muda 4"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Una kasi ya ajabu."</item>
     <item msgid="6332879039890727169">"Furahia matunda ya kazi yako."</item>
@@ -200,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Mwanzo"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Miji"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"SAA"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Saa"</string>
     <string name="clock_style" msgid="2265011060429742344">"Mtindo"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analogi"</item>
@@ -303,14 +313,11 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"KENGELE"</string>
-    <string name="see_all" msgid="775983396630163739">"Angalia zote..."</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Kengele"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Huduma ya saa ya kusitisha kuendesha arifa."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Imekomeshwa"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Telezesha kulia ili kuondoa"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Telezesha kushoto ili kuahirisha"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Telezesha juu ili kutupa"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Telezesha chini ili kuahirisha"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Telezesha kidole kulia ili uondoe"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Telezesha kidole kushoto ili uahirishe"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Kipima wakati kimesimamishwa"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g> vilivyosimamishwa"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Gusa ili kuona vipima wakati vyako"</string>
@@ -337,5 +344,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Iondoe mji huu?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Saa dijitali"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Hakuna Kengele Zilizowekwa"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Hakuna kengele zilizowekwa"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"HAKUNA KENGELE ZIJAZO"</string>
 </resources>

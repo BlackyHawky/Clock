@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Kello"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Herätykset"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Lisää herätys"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"SEUR. ILMOITUKSET"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Työpöydän kello"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Muokkaa herätystä"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Poista herätys"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"Herätyksen soittoääni"</string>
     <string name="ringtone" msgid="9110746249688559579">"Soittoääni"</string>
     <string name="time" msgid="8067216534232296518">"Aika"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Huomenna"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Tänään"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Herätys!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Ohita"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Hylkää"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Hylkää"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Vastaamaton ilmoitus"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Torkutettu"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 min"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Herätys oh."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Torkku"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Torkutettu yhden minuutin ajaksi."</item>
@@ -134,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Ajastin"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Kello"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Sekuntikello"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Herätykset"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Lisää hälytys"</string>
     <string name="button_cities" msgid="4555761857494501363">"Kaupungit"</string>
     <string name="button_menu" msgid="6050484561842120282">"Lisää asetuksia"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Asetukset"</string>
@@ -182,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Peruuta"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Aika loppui"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Ajastin"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Enintään neljä ajastinta"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Olet supernopea."</item>
     <item msgid="6332879039890727169">"Nauti työsi hedelmistä."</item>
@@ -200,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Koti"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Kaupungit"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"KELLO"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Kello"</string>
     <string name="clock_style" msgid="2265011060429742344">"Tyyli"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analoginen"</item>
@@ -303,14 +313,11 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"HERÄTYKSET"</string>
-    <string name="see_all" msgid="775983396630163739">"Näytä kaikki..."</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Herätykset"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Sekuntikello, joka näyttää ilmoituksen."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Pysäytetty"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Ohita liu\'uttamalla sormea oikealle ruudulla"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Torkuta liu\'uttamalla sormea vasemmalle ruudulla"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Ohita liu\'uttamalla sormea ylös ruudulla"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Torkuta liu\'uttamalla sormea alaspäin ruudulla"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Hylkää pyyhkäisemällä oikealle"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Torkuta pyyhkäisemällä vasemmalle"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ajastin pysäytetty"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ajastinta pysäytetty"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Kosketa ja näytä ajastimet"</string>
@@ -337,5 +344,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Poistetaanko tämä kaupunki?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitaalinen kello"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Ei herätyksiä"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Ei herätyksiä"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"EI TULEVIA HÄLYTYKSIÄ"</string>
 </resources>

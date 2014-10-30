@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"時計"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"アラーム"</string>
     <string name="add_alarm" msgid="5976616107390962899">"アラームの設定"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"次のアラーム"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"卓上時計"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"アラームを編集"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"アラームを削除"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"アラーム音"</string>
     <string name="ringtone" msgid="9110746249688559579">"着信音"</string>
     <string name="time" msgid="8067216534232296518">"時刻"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"明日"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"今日"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"起きて！"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"OFF"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"停止"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"今すぐ解除"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"聞き逃したアラーム"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"スヌーズ"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1分"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g>分"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"アラームOFF"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"スヌーズ"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"1分後に再通知します。"</item>
@@ -134,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"タイマー"</string>
     <string name="menu_clock" msgid="5612760670606829805">"時計"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"ストップウォッチ"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"アラーム"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"アラームを追加"</string>
     <string name="button_cities" msgid="4555761857494501363">"世界時計"</string>
     <string name="button_menu" msgid="6050484561842120282">"その他のオプション"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"設定"</string>
@@ -182,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"キャンセル"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"タイムアップ"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"タイマー"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"タイマーは最大4個まで"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"なかなかのスピード狂です。"</item>
     <item msgid="6332879039890727169">"まさに努力の賜物です。"</item>
@@ -200,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"自宅"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"世界時計"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"時刻"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"時計"</string>
     <string name="clock_style" msgid="2265011060429742344">"スタイル"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"アナログ"</item>
@@ -303,14 +313,11 @@
     <item msgid="5911600083231840181">"トンガ"</item>
     <item msgid="5176858645450908751">"ジャカルタ"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"アラーム"</string>
-    <string name="see_all" msgid="775983396630163739">"すべて見る…"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"アラーム"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"通知を行うためのストップウォッチサービスです。"</string>
     <string name="swn_stopped" msgid="783124901663086172">"停止"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"右にスライドすると解除できます"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"左にスライドするとスヌーズを設定できます"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"上にスライドすると解除できます"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"下にスライドするとスヌーズを設定できます"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"右にスワイプすると解除できます"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"左にスワイプするとスヌーズを設定できます"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"タイマーが停止しました"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g>件のタイマーが停止しました"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"タップしてタイマーを表示"</string>
@@ -337,5 +344,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"この都市を削除しますか？"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"デジタルクロック"</string>
     <string name="no_alarms" msgid="6429431324842022917">"アラームはありません"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"アラーム未設定"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"次のアラームはありません"</string>
 </resources>

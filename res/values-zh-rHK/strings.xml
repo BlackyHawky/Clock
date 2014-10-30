@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"時鐘"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"鬧鐘"</string>
     <string name="add_alarm" msgid="5976616107390962899">"新增鬧鐘"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"下次鬧鐘"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"桌面時鐘"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"編輯鬧鐘"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"刪除鬧鐘"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"鬧鐘鈴聲"</string>
     <string name="ringtone" msgid="9110746249688559579">"鈴聲"</string>
     <string name="time" msgid="8067216534232296518">"時間"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"明天"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"今天"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"醒醒！"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"關閉"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"關閉"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"立即關閉"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"聽不到鬧鐘"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"已延後"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 分鐘"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> 分鐘"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"關閉鬧鐘"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"延遲"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"延遲 1 分鐘。"</item>
@@ -134,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"計時器"</string>
     <string name="menu_clock" msgid="5612760670606829805">"時鐘"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"秒錶"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"鬧鐘"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"新增鬧鐘"</string>
     <string name="button_cities" msgid="4555761857494501363">"城市"</string>
     <string name="button_menu" msgid="6050484561842120282">"更多選項"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"設定"</string>
@@ -182,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"取消"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"時間已到"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"計時器"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"最多 4 個計時器"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"您就像閃電俠。"</item>
     <item msgid="6332879039890727169">"享受辛勞的成果。"</item>
@@ -200,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"住宅"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"城市"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"時鐘"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"時鐘"</string>
     <string name="clock_style" msgid="2265011060429742344">"樣式"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"類比"</item>
@@ -303,14 +313,11 @@
     <item msgid="5911600083231840181">"湯加"</item>
     <item msgid="5176858645450908751">"雅加達"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"鬧鐘"</string>
-    <string name="see_all" msgid="775983396630163739">"查看全部..."</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"鬧鐘"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"使用秒錶服務發出通知。"</string>
     <string name="swn_stopped" msgid="783124901663086172">"已停止"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"向右滑動即可關閉"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"向左滑動即可開啟重響"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"向上滑動即可關閉"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"向下滑動即可開啟重響"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"向右快速滑動可關閉鬧鐘"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"向左快速滑動可重響鬧鐘"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"計時器已停止"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器已停止"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"輕觸即可查看您的計時器"</string>
@@ -337,5 +344,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"要移除這個城市嗎？"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"數碼時鐘"</string>
     <string name="no_alarms" msgid="6429431324842022917">"沒有設定鬧鐘"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"未設定鬧鐘"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"沒有啟用中的鬧鐘"</string>
 </resources>

@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Kell"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Äratused"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Lisa äratus"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"JÄRGMISED ALARMID"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Lauakell"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Muuda äratust"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Kustuta äratus"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"Äratuse helin"</string>
     <string name="ringtone" msgid="9110746249688559579">"Helin"</string>
     <string name="time" msgid="8067216534232296518">"Kellaaeg"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Homme"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Täna"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Ärgake!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Välj."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Loobu"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Loobu nüüd"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Märkamata jäänud alarm"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Ed. lükat."</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 minut"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm väljas"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Lükka edasi"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Äratuse edasilükkamine 1 minuti võrra."</item>
@@ -134,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Taimer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Kell"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopper"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Alarmid"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Lisa äratus"</string>
     <string name="button_cities" msgid="4555761857494501363">"Linnad"</string>
     <string name="button_menu" msgid="6050484561842120282">"Rohkem valikuid"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Seaded"</string>
@@ -182,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Tühista"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Aeg on läbi"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Taimer"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Maksimaalselt võib olla 4 taimerit"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Olete ülikiire."</item>
     <item msgid="6332879039890727169">"Nautige oma töö vilju."</item>
@@ -200,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Kodu"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Linnad"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"KELL"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Kell"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stiil"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analoog"</item>
@@ -303,14 +313,11 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"ALARMID"</string>
-    <string name="see_all" msgid="775983396630163739">"Kuva kõik ..."</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Alarmid"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Märguandeid käitav stopperiteenus."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Peatatud"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Loobumiseks lohistage paremale"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Äratuse edasilükkamiseks lohistage vasakule"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Loobumiseks lohistage üles"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Äratuse edasilükkamiseks lohistage alla"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Loobumiseks pühkige paremale"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Edasilükkamiseks pühkige vasakule"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Taimer on peatatud"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> taimerit on peatatud"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Puudutage, et näha oma taimereid"</string>
@@ -337,5 +344,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Kas eemalda see linn?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitaalkell"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Alarme pole"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Alarme pole"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"TULEVASI ALARME POLE"</string>
 </resources>

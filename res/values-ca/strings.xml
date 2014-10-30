@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Rellotge"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Alarmes"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Afegeix una alarma"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"PROPERES ALARMES"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Rellotge d\'escriptori"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Edita l\'alarma"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Suprimeix l\'alarma"</string>
@@ -28,7 +27,7 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Vols suprimir aquesta alarma?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Mostra el rellotge"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Amaga el rellotge"</string>
-    <string name="label" msgid="162189613902857319">"Etiqueta"</string>
+    <string name="label" msgid="162189613902857319">"Nom de l\'alarma"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Defineix l\'alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibra"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"To de l\'alarma"</string>
     <string name="ringtone" msgid="9110746249688559579">"To"</string>
     <string name="time" msgid="8067216534232296518">"Hora"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Demà"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Avui"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Desperta\'t"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Apaga"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Omet"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Descarta ara"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perduda"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Posposada"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 min"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma apagada"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Repeteix"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Posposada 1 minut"</item>
@@ -55,14 +64,14 @@
     <item msgid="8458069283817013813">"Temps restant: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarma definida per a d\'aquí a menys d\'un minut."</item>
-    <item msgid="6002066367368421848">"Alarma definida per a d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-    <item msgid="8824719306247973774">"Alarma definida per a d\'aquí a <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="8182406852935468862">"Alarma definida per a d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="2532279224777213194">"Alarma definida per a d\'aquí a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="5936557894247187717">"Alarma definida per a d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="9115697840826129603">"Alarma definida per a d\'aquí a <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="2332583385137381060">"Alarma definida per a d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="6450913786084215050">"L\'alarma sonarà d\'aquí a menys d\'un minut."</item>
+    <item msgid="6002066367368421848">"L\'alarma sonarà d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"L\'alarma sonarà d\'aquí a <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8182406852935468862">"L\'alarma sonarà d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="2532279224777213194">"L\'alarma sonarà d\'aquí a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="5936557894247187717">"L\'alarma sonarà d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"L\'alarma sonarà d\'aquí a <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"L\'alarma sonarà d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 dia"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> dies"</string>
@@ -103,7 +112,7 @@
     <string name="delete" msgid="5732434972457000541">"Suprimeix"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volum de l\'alarma"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silenciosa"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Posposa o descarta l\'alarma."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Posposa o ignora l\'alarma"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (repetida)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarma definida per a les <xliff:g id="TIME">%s</xliff:g>. Toca per cancel·lar."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botons de volum"</string>
@@ -120,7 +129,7 @@
     <string name="nightmode_button_description" msgid="990894208217576381">"Dim"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Visualització del rellotge"</string>
-    <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
+    <string name="label_description" msgid="8736179296142915727">"Nom"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"To"</string>
     <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g> <xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"La informació meteorològica no està disponible en aquest moment."</string>
@@ -134,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Temporitzador"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Rellotge"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Cronòmetre"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Alarmes"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Afegeix una alarma"</string>
     <string name="button_cities" msgid="4555761857494501363">"Ciutats"</string>
     <string name="button_menu" msgid="6050484561842120282">"Més opcions"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Configuració"</string>
@@ -182,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Cancel·la"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"S\'ha esgotat el temps"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Temporitzador"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"4 temporitzadors com a màxim"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Ets un boig del volant."</item>
     <item msgid="6332879039890727169">"Gaudeix dels fruits de la teva feina."</item>
@@ -200,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Casa"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Ciutats"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"RELLOTGE"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Rellotge"</string>
     <string name="clock_style" msgid="2265011060429742344">"Estil"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analògic"</item>
@@ -303,14 +313,11 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"ALARMES"</string>
-    <string name="see_all" msgid="775983396630163739">"Mostra-ho tot..."</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servei de cronòmetre per executar les notificacions."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Aturada"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Fes lliscar el dit cap a la dreta per ometre"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Fes lliscar el dit cap a l\'esquerra per posposar"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Fes lliscar el dit cap amunt per ometre"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Fes lliscar el dit cap avall per posposar"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Fes lliscar cap a la dreta per ometre"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Fes lliscar cap a l\'esquerra per posposar"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"S\'ha aturat el temporitzador"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"S\'han aturat <xliff:g id="NUMBER">%d</xliff:g> temporitzadors"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca per veure els temporitzadors"</string>
@@ -337,5 +344,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Vols eliminar aquesta ciutat?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Rellotge digital"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Cap alarma"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Sense alarmes"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"NO HI HA ALARMES PROPERAMENT"</string>
 </resources>

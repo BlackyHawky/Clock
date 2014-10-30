@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Ρολόι"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Ειδοποιήσεις"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Προσθήκη ξυπνητηριού"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"ΕΠΟΜΕΝΕΣ ΕΙΔΟΠ."</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Ρολόι γραφείου"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Επεξεργασία ξυπνητηριού"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Διαγραφή ξυπνητηριού"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"Ήχος κλήσης ξυπνητηριού"</string>
     <string name="ringtone" msgid="9110746249688559579">"Ήχος κλήσης"</string>
     <string name="time" msgid="8067216534232296518">"Ώρα"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Αύριο"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Σήμερα"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Ξύπνα!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Ανεν."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Παράβλεψη"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Παράβλεψη τώρα"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Ειδοποίηση χωρίς σχετική ενέργεια"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Σε αναβολή"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 λεπτό"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> λεπτά"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Ανεν. ειδοπ."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Αναβολή αφύπνισης"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Αναβολή αφύπνισης για 1 λεπτό."</item>
@@ -134,7 +143,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Χρονόμετρο"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ρολόι"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Χρονόμετρο"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Ειδοποιήσεις"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Προσθήκη ξυπνητηριού"</string>
     <string name="button_cities" msgid="4555761857494501363">"Πόλεις"</string>
     <string name="button_menu" msgid="6050484561842120282">"Περισσότερες επιλογές"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Ρυθμίσεις"</string>
@@ -182,6 +191,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Ακύρωση"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Ο χρόνος έχει τελειώσει"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Ξυπνητήρι"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"4 χρονόμετρα το μέγιστο"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Είστε πάρα πολύ γρήγοροι."</item>
     <item msgid="6332879039890727169">"Απολαύστε"</item>
@@ -200,7 +210,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Οικία"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Πόλεις"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"ΡΟΛΟΙ"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Ρολόι"</string>
     <string name="clock_style" msgid="2265011060429742344">"Στυλ"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Αναλογικό"</item>
@@ -303,14 +313,11 @@
     <item msgid="5911600083231840181">"Τόνγκα"</item>
     <item msgid="5176858645450908751">"Τζακάρτα"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"ΞΥΠΝΗΤΗΡΙΑ"</string>
-    <string name="see_all" msgid="775983396630163739">"Εμφάνιση όλων…"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Ξυπνητήρια"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Υπηρεσία χρονόμετρου για την εκτέλεση της ειδοποίησης."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Διακόπηκε"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Ολίσθηση δεξιά για παράλειψη"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Ολίσθηση αριστερά για αναβολή"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Ολίσθηση επάνω για παράλειψη"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Ολίσθηση κάτω για αναβολή"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Σύρετε δεξιά για παράβλεψη"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Σύρετε αριστερά για αναβολή"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Το ξυπνητήρι διακόπηκε"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ξυπνητήρια διακόπηκαν"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Αγγίξτε για να δείτε τα ξυπνητήρια σας"</string>
@@ -337,5 +344,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Να διαγραφεί αυτή η πόλη;"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Ψηφιακό ρολόι"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Δεν υπάρχουν ξυπνητήρια"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Χωρίς ειδοπ."</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"ΧΩΡΙΣ ΠΡΟΣΕΧΕΙΣ ΕΙΔΟΠΟΙΗΣΕΙΣ"</string>
 </resources>
