@@ -16,32 +16,32 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginTop="4dip"
-    android:layout_marginBottom="4dip"
-    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layoutDirection="ltr"
     android:paddingTop="@dimen/body_font_padding"
     android:paddingBottom="@dimen/body_font_padding"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:gravity="center"
+    android:orientation="horizontal">
+
     <TextView
         android:id="@+id/lap_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/sw_item_space"
         android:layout_marginEnd="@dimen/sw_item_space"
         android:gravity="start"
         android:textAllCaps="false"
         android:textAppearance="@style/SecondaryLabelTextAppearance" />
+
     <TextView
         android:id="@+id/lap_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/sw_item_space"
         android:layout_marginEnd="@dimen/sw_item_space"
         android:gravity="end"
         android:textAllCaps="false"
         android:textAppearance="@style/PrimaryLabelTextAppearance" />
+
     <TextView
         android:id="@+id/lap_total"
         android:layout_height="wrap_content"
@@ -49,5 +49,5 @@
         android:gravity="end"
         android:textAllCaps="false"
         android:textAppearance="@style/PrimaryLabelTextAppearance" />
-</LinearLayout>
 
+</LinearLayout>
