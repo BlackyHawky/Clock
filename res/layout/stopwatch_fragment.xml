@@ -61,9 +61,4 @@
         android:layout_width="match_parent"
         android:layout_height="0dip" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/footer_button_size"
-        android:layout_margin="@dimen/footer_button_layout_margin" />
-
 </LinearLayout>

@@ -82,6 +82,10 @@ public class StopwatchFragment extends DeskClockFragment
     // Adapter for the ListView that shows the lap times.
     class LapsListAdapter extends BaseAdapter {
 
+        private static final int VIEW_TYPE_LAP = 0;
+        private static final int VIEW_TYPE_SPACE = 1;
+        private static final int VIEW_TYPE_COUNT = 2;
+
         ArrayList<Lap> mLaps = new ArrayList<Lap>();
         private final LayoutInflater mInflater;
         private final String[] mFormats;
@@ -111,19 +115,33 @@ public class StopwatchFragment extends DeskClockFragment
         }
 
         @Override
+        public int getItemViewType(int position) {
+            return position < mLaps.size() ? VIEW_TYPE_LAP : VIEW_TYPE_SPACE;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return VIEW_TYPE_COUNT;
+        }
+
+        @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (mLaps.size() == 0 || position >= mLaps.size()) {
+            if (getCount() == 0) {
                 return null;
             }
-            Lap lap = getItem(position);
-            View lapInfo;
-            if (convertView != null) {
-                lapInfo = convertView;
-            } else {
-                lapInfo = mInflater.inflate(R.layout.lap_view, parent, false);
+
+            // Handle request for the Spacer at the end
+            if (getItemViewType(position) == VIEW_TYPE_SPACE) {
+                return convertView != null ? convertView
+                        : mInflater.inflate(R.layout.stopwatch_spacer, parent, false);
             }
+
+            final View lapInfo = convertView != null ? convertView
+                    : mInflater.inflate(R.layout.lap_view, parent, false);
+            Lap lap = getItem(position);
             lapInfo.setTag(lap);
-            TextView count = (TextView)lapInfo.findViewById(R.id.lap_number);
+
+            TextView count = (TextView) lapInfo.findViewById(R.id.lap_number);
             count.setText(String.format(mLapFormat, mLaps.size() - position).toUpperCase());
             setTimeText(lapInfo, lap);
 
@@ -139,12 +157,13 @@ public class StopwatchFragment extends DeskClockFragment
 
         @Override
         public int getCount() {
-            return mLaps.size();
+            // Add 1 for the spacer if list is not empty
+            return mLaps.isEmpty() ? 0 : mLaps.size() + 1;
         }
 
         @Override
         public Lap getItem(int position) {
-            if (mLaps.size() == 0 || position >= mLaps.size()) {
+            if (position >= mLaps.size()) {
                 return null;
             }
             return mLaps.get(position);
