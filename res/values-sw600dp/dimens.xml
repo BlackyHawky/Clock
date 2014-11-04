@@ -76,6 +76,8 @@
     <dimen name="timer_circle_margin">96dp</dimen>
 
     <dimen name="circle_size">400dp</dimen>
+    <!-- stopwatch_list_bottom_spacing = footer_button_size + footer_button_layout_margin -->
+    <dimen name="stopwatch_list_bottom_spacing">96dip</dimen>
 
      <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">550dip</dimen>

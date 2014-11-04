@@ -51,13 +51,12 @@
 
     <ListView
         android:id="@+id/laps_list"
-        android:layout_marginTop="32dip"
-        android:layout_marginBottom="48dip"
-        android:layout_marginStart="@dimen/stopwatch_list_margin_start"
-        android:layout_marginEnd="16dip"
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:layout_marginTop="8dip"
+        android:layout_marginBottom="8dip"
+        android:layout_gravity="center" />
 
     <Space
             android:id="@+id/end_space"

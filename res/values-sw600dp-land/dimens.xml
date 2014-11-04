@@ -43,7 +43,7 @@
     <dimen name="timer_circle_margin">48dp</dimen>
 
     <dimen name="circle_size">360dip</dimen>
-    <dimen name="stopwatch_list_margin_start">128dip</dimen>
+    <dimen name="stopwatch_list_bottom_spacing">0dip</dimen>
 
     <dimen name="world_clock_margin">48dp</dimen>
     <dimen name="sw_padding_end">48dp</dimen>
