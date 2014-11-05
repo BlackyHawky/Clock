@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
-import android.widget.ListPopupWindow;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -46,7 +45,6 @@ public class StopwatchFragment extends DeskClockFragment
     private CircleTimerView mTime;
     private CountingTimerView mTimeText;
     private ListView mLapsList;
-    private ListPopupWindow mSharePopup;
     private WakeLock mWakeLock;
     private CircleButtonsLayout mCircleLayout;
 
@@ -55,6 +53,7 @@ public class StopwatchFragment extends DeskClockFragment
     private LayoutTransition mCircleLayoutTransition;
     private View mStartSpace;
     private View mEndSpace;
+    private View mBottomSpace;
     private boolean mSpacersUsed;
 
     // Used for calculating the time from the start taking into account the pause times
@@ -320,6 +319,10 @@ public class StopwatchFragment extends DeskClockFragment
         mStartSpace = v.findViewById(R.id.start_space);
         mEndSpace = v.findViewById(R.id.end_space);
         mSpacersUsed = mStartSpace != null || mEndSpace != null;
+
+        // Only applicable on portrait, only visible when there is no lap
+        mBottomSpace = v.findViewById(R.id.bottom_space);
+
         // Listener to invoke extra animation within the laps-list
         mLayoutTransition.addTransitionListener(new LayoutTransition.TransitionListener() {
             @Override
@@ -395,14 +398,10 @@ public class StopwatchFragment extends DeskClockFragment
 
         mLapsList.setVisibility(lapsVisible ? View.VISIBLE : View.GONE);
         if (mSpacersUsed) {
-            int spacersVisibility = lapsVisible ? View.GONE : View.VISIBLE;
-            if (mStartSpace != null) {
-                mStartSpace.setVisibility(spacersVisibility);
-            }
-            if (mEndSpace != null) {
-                mEndSpace.setVisibility(spacersVisibility);
-            }
+            showSpacerVisibility(lapsVisible);
         }
+        showBottomSpacerVisibility(lapsVisible);
+
         ((ViewGroup)getView()).setLayoutTransition(mLayoutTransition);
         mCircleLayout.setLayoutTransition(mCircleLayoutTransition);
     }
@@ -628,19 +627,17 @@ public class StopwatchFragment extends DeskClockFragment
         // the layout transition animation for the spacers, make the changes, then re-enable
         // the animation for the add/hide laps-list
         if (mSpacersUsed) {
-            int spacersVisibility = lapsVisible ? View.GONE : View.VISIBLE;
             ViewGroup rootView = (ViewGroup) getView();
             if (rootView != null) {
                 rootView.setLayoutTransition(null);
-                if (mStartSpace != null) {
-                    mStartSpace.setVisibility(spacersVisibility);
-                }
-                if (mEndSpace != null) {
-                    mEndSpace.setVisibility(spacersVisibility);
-                }
+
+                showSpacerVisibility(lapsVisible);
+
                 rootView.setLayoutTransition(mLayoutTransition);
             }
         }
+
+        showBottomSpacerVisibility(lapsVisible);
 
         if (lapsVisible) {
             // There are laps - show the laps-list
@@ -657,6 +654,22 @@ public class StopwatchFragment extends DeskClockFragment
                     mLayoutTransition.getDuration(LayoutTransition.DISAPPEARING);
             mCircleLayoutTransition.setStartDelay(LayoutTransition.CHANGING, startDelay);
             mLapsList.setVisibility(View.GONE);
+        }
+    }
+
+    private void showSpacerVisibility(boolean lapsVisible) {
+        final int spacersVisibility = lapsVisible ? View.GONE : View.VISIBLE;
+        if (mStartSpace != null) {
+            mStartSpace.setVisibility(spacersVisibility);
+        }
+        if (mEndSpace != null) {
+            mEndSpace.setVisibility(spacersVisibility);
+        }
+    }
+
+    private void showBottomSpacerVisibility(boolean lapsVisible) {
+        if (mBottomSpace != null) {
+            mBottomSpace.setVisibility(lapsVisible ? View.GONE : View.VISIBLE);
         }
     }
 
