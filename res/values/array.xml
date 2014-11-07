@@ -315,6 +315,7 @@
         <item>Tegucigalpa</item>
         <item>Paramaribo</item>
         <item>Quito</item>
+        <item>Ljubljana</item>
     </string-array>
 
     <string-array name="cities_tz" translatable="false">
@@ -617,6 +618,7 @@
         <item>America/Tegucigalpa</item>
         <item>America/Paramaribo</item>
         <item>America/Panama</item>
+        <item>Europe/Ljubljana</item>
     </string-array>
 
     <string-array name="cities_id" translatable="false">
@@ -919,5 +921,6 @@
         <item>C297</item>
         <item>C298</item>
         <item>C299</item>
+        <item>C300</item>
     </string-array>
 </resources>
