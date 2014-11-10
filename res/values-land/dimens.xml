@@ -25,7 +25,7 @@
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">24dip</dimen>
-    <dimen name="timer_list_padding_bottom">64dip</dimen>
+    <dimen name="timer_list_padding_bottom">80dip</dimen>
 
     <dimen name="dialpad_font_size">24sp</dimen>
     <dimen name="dialpad_digit_padding">14dip</dimen>
@@ -52,6 +52,7 @@
 
     <dimen name="circle_size">232dip</dimen>
     <dimen name="stopwatch_list_bottom_spacing">0dip</dimen>
+    <dimen name="stopwatch_circle_margin_bottom">80dip</dimen>
 
     <dimen name="world_clock_margin">8dp</dimen>
     <dimen name="sw_padding_end">8dp</dimen>
