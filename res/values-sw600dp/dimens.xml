@@ -46,6 +46,7 @@
     <dimen name="label_font_size">18sp</dimen>
     <dimen name="alarm_label_size">18sp</dimen>
     <dimen name="body_font_size">20sp</dimen>
+    <dimen name="day_button_font_size">20sp</dimen>
     <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="alarm_info_font_size">48sp</dimen>
     <dimen name="no_alarm_font_size">20sp</dimen>
