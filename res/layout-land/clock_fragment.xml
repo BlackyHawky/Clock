@@ -16,30 +16,34 @@
 
 <!-- Use this clock_fragment for landscape, which has main clock frame next to cities,
      with a spacing ratio dependent on the number of clocks per row (phone has 1, tablet has 2). -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingStart="@dimen/clock_side_padding"
     android:paddingEnd="@dimen/clock_side_padding"
     android:paddingTop="?android:attr/actionBarSize"
-    android:paddingBottom="@dimen/footer_button_size" >
+    android:orientation="horizontal">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:layout_marginBottom="@dimen/main_clock_bottom_margin"
         android:gravity="center">
+
         <include layout="@layout/main_clock_frame"
             android:id="@+id/main_clock_left_pane"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:layout_gravity="center" />
-        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <ListView
             android:id="@+id/cities"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="@integer/world_clocks_per_row"
-            android:clickable="false"
-            android:layout_gravity="center" />
-    </LinearLayout>
-</FrameLayout>
+            android:layout_gravity="center"
+            android:clickable="false" />
+
+</LinearLayout>
