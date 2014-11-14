@@ -19,7 +19,7 @@
     android:id="@+id/timers_list_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="32dip"
+    android:paddingTop="?android:attr/actionBarSize"
     android:baselineAligned="false">
 
     <include layout="@layout/timer_timer_view"/>
