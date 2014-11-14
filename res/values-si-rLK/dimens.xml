@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2012 The Android Open Source Project
+  ~ Copyright (C) 2014 The Android Open Source Project
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,13 +15,6 @@
   ~ limitations under the License
   -->
 
-<Button
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="0dp"
-    android:layout_height="48dp"
-    android:layout_weight="1"
-    android:background="@drawable/toggle_circle"
-    android:gravity="center"
-    android:minWidth="0dp"
-    android:minHeight="0dp"
-    android:textSize="@dimen/day_button_font_size" />
+<resources>
+    <dimen name="day_button_font_size">16sp</dimen>
+</resources>
