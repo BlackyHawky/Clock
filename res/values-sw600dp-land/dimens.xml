@@ -28,6 +28,7 @@
 
     <dimen name="alarm_side_padding">128dip</dimen>
     <dimen name="clock_side_padding">48dip</dimen>
+    <dimen name="main_clock_bottom_margin">112dip</dimen>
 
     <dimen name="dialpad_font_size">42sp</dimen>
     <dimen name="dialpad_digit_padding">26dip</dimen>
@@ -37,7 +38,7 @@
     <dimen name="timer_setup_label_size">24sp</dimen>
 
     <!-- Size of margin for circles. -->
-    <dimen name="circle_margin_top">16dp</dimen>
+    <dimen name="circle_margin_top">0dp</dimen>
     <dimen name="circle_margin">48dp</dimen>
     <dimen name="analog_clock_margin">48dp</dimen>
     <dimen name="timer_circle_margin">48dp</dimen>
