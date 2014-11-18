@@ -32,8 +32,11 @@ import android.widget.TextClock;
 import com.android.deskclock.Utils.ScreensaverMoveSaverRunnable;
 
 public class Screensaver extends DreamService {
-    static final boolean DEBUG = false;
-    static final String TAG = "DeskClock/Screensaver";
+
+    public static final int ORIENTATION_CHANGE_DELAY_MS = 250;
+
+    private static final boolean DEBUG = false;
+    private static final String TAG = "DeskClock/Screensaver";
 
     private View mContentView, mSaverView;
     private View mAnalogClock, mDigitalClock;
@@ -99,7 +102,7 @@ public class Screensaver extends DreamService {
         super.onConfigurationChanged(newConfig);
         mHandler.removeCallbacks(mMoveSaverRunnable);
         layoutClockSaver();
-        mHandler.post(mMoveSaverRunnable);
+        mHandler.postDelayed(mMoveSaverRunnable, ORIENTATION_CHANGE_DELAY_MS);
     }
 
     @Override
@@ -149,7 +152,7 @@ public class Screensaver extends DreamService {
     private void layoutClockSaver() {
         setContentView(R.layout.desk_clock_saver);
         mDigitalClock = findViewById(R.id.digital_clock);
-        mAnalogClock =findViewById(R.id.analog_clock);
+        mAnalogClock = findViewById(R.id.analog_clock);
         setClockStyle();
         Utils.setTimeFormat((TextClock)mDigitalClock,
             (int)getResources().getDimension(R.dimen.main_ampm_font_size));
