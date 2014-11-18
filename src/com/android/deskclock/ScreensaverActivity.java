@@ -152,7 +152,7 @@ public class ScreensaverActivity extends Activity {
         super.onConfigurationChanged(newConfig);
         mHandler.removeCallbacks(mMoveSaverRunnable);
         layoutClockSaver();
-        mHandler.postDelayed(mMoveSaverRunnable, 250);
+        mHandler.postDelayed(mMoveSaverRunnable, Screensaver.ORIENTATION_CHANGE_DELAY_MS);
     }
 
     @Override
