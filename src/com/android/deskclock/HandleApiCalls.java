@@ -98,6 +98,7 @@ public class HandleApiCalls extends Activity {
             createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
             startActivity(createAlarm);
             finish();
+            LogUtils.i("HandleApiCalls no/invalid time; opening UI");
             return;
         }
 
@@ -120,6 +121,7 @@ public class HandleApiCalls extends Activity {
             // Delete all old instances and create a new one with updated values
             AlarmStateManager.deleteAllInstances(this, alarm.id);
             setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
+            LogUtils.i("HandleApiCalls deleted old, created new alarm: %s", alarm);
             finish();
             return;
         }
@@ -147,12 +149,14 @@ public class HandleApiCalls extends Activity {
 
         alarm = Alarm.addAlarm(cr, alarm);
         setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
+        LogUtils.i("HandleApiCalls set up alarm: %s", alarm);
         finish();
     }
 
     private void handleShowAlarms() {
         startActivity(new Intent(this, DeskClock.class)
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX));
+        LogUtils.i("HandleApiCalls show alarms");
     }
 
     private void handleSetTimer(Intent intent) {
@@ -162,6 +166,7 @@ public class HandleApiCalls extends Activity {
             startActivity(new Intent(this, DeskClock.class)
                   .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
                   .putExtra(TimerFullScreenFragment.GOTO_SETUP_VIEW, true));
+            LogUtils.i("HandleApiCalls showing timer setup");
             return;
         }
 
@@ -207,6 +212,7 @@ public class HandleApiCalls extends Activity {
                     .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
                     .putExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, true));
         }
+        LogUtils.i("HandleApiCalls timer created: %s", timer);
     }
 
     private void setupInstance(AlarmInstance instance, boolean skipUi) {
