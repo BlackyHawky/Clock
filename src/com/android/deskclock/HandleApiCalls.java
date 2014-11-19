@@ -192,7 +192,7 @@ public class HandleApiCalls extends Activity {
         boolean skipUi = intent.getBooleanExtra(EXTRA_SKIP_UI, false);
         if (timer == null) {
             // Use a new timer
-            timer = new TimerObj(length, label);
+            timer = new TimerObj(length, label, this /* context */);
             // Timers set without presenting UI to the user will be deleted after use
             timer.mDeleteAfterUse = skipUi;
         }
