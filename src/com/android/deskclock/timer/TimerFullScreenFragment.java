@@ -955,7 +955,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
             if (timerLength == 0) {
                 return;
             }
-            TimerObj t = new TimerObj(timerLength * DateUtils.SECOND_IN_MILLIS);
+            TimerObj t = new TimerObj(timerLength * DateUtils.SECOND_IN_MILLIS, getActivity());
             t.mState = TimerObj.STATE_RUNNING;
             mAdapter.addTimer(t);
             updateTimersState(t, Timers.START_TIMER);
