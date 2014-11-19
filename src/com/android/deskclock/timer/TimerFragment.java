@@ -446,7 +446,8 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 @Override
                 public void onAnimationStart(Animator animation) {
                     final int timerLength = mSetupView.getTime();
-                    final TimerObj timerObj = new TimerObj(timerLength * DateUtils.SECOND_IN_MILLIS);
+                    final TimerObj timerObj = new TimerObj(timerLength * DateUtils.SECOND_IN_MILLIS,
+                        getActivity());
                     timerObj.mState = TimerObj.STATE_RUNNING;
                     updateTimerState(timerObj, Timers.START_TIMER);
 

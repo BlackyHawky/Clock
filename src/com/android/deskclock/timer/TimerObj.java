@@ -20,8 +20,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
@@ -34,6 +34,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class TimerObj implements Parcelable {
+
+    public static final String KEY_NEXT_TIMER_ID = "next_timer_id";
 
     private static final String TAG = "TimerObj";
     // Max timer length is 9 hours + 99 minutes + 9 seconds
@@ -137,10 +139,12 @@ public class TimerObj implements Parcelable {
         editor.remove(key);
         key = PREF_DELETE_AFTER_USE + id;
         editor.remove(key);
+        if (timersList.isEmpty()) {
+            editor.remove(KEY_NEXT_TIMER_ID);
+        }
         editor.commit();
         //dumpTimersFromSharedPrefs(prefs);
     }
-
 
     @Override
     public int describeContents() {
@@ -168,27 +172,41 @@ public class TimerObj implements Parcelable {
         mLabel = p.readString();
     }
 
-    public TimerObj() {
-        this(0);
+    private TimerObj() {
+        this(0 /* timerLength */, 0 /* timerId */);
     }
 
-    public TimerObj(long timerLength) {
-      init(timerLength);
+    public TimerObj(long timerLength, int timerId) {
+      init(timerLength, timerId);
     }
 
-    public TimerObj(long length, String label) {
-        this(length);
+    public TimerObj(long timerLength, Context context) {
+        init(timerLength, getNextTimerId(context));
+    }
+
+    public TimerObj(long length, String label, Context context) {
+        this(length, context);
         mLabel = label != null ? label : "";
     }
 
-    private void init (long length) {
+    private void init (long length, int timerId) {
         /* TODO: mTimerId must avoid StopwatchService.NOTIFICATION_ID,
          * TimerReceiver.IN_USE_NOTIFICATION_ID, and alarm ID's (which seem to be 1, 2, ..)
          */
-        mTimerId = (int) Utils.getTimeNow();
+        mTimerId = timerId;
         mStartTime = Utils.getTimeNow();
         mTimeLeft = mOriginalLength = mSetupLength = length;
         mLabel = "";
+    }
+
+    private int getNextTimerId(Context context) {
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final int nextTimerId;
+        synchronized (TimerObj.class) {
+            nextTimerId = prefs.getInt(KEY_NEXT_TIMER_ID, 0);
+            prefs.edit().putInt(KEY_NEXT_TIMER_ID, nextTimerId + 1).apply();
+        }
+        return nextTimerId;
     }
 
     public long updateTimeLeft(boolean forceUpdate) {
