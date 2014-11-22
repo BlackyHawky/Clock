@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2014 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="24dp"
+    android:width="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24" >
+    <group
+        android:name="clock_frame"
+        android:translateX="12"
+        android:translateY="12" >
+        <group
+            android:name="clock_frame_pivot"
+            android:translateX="-12"
+            android:translateY="-12" >
+            <group
+                android:name="hour_hand"
+                android:translateX="12.00763"
+                android:translateY="9.992" >
+                <path
+                    android:name="hour_hand_path"
+                    android:pathData="M 0.742004394531,2.99200439453 c 0.0,0.0 -1.48400878906,0.0 -1.48400878906,0.0 c 0.0,0.0 0.0,-5.98400878906 0.0,-5.98400878906 c 0.0,0.0 1.48400878906,0.0 1.48400878906,0.0 c 0.0,0.0 0.0,5.98400878906 0.0,5.98400878906 Z"
+                    android:fillColor="#FFFFFFFF"
+                    android:fillAlpha="1" />
+            </group>
+            <group
+                android:name="clock_frame_1"
+                android:translateX="12"
+                android:translateY="12" >
+                <path
+                    android:name="clock_ouline_path"
+                    android:pathData="M -0.0050048828125,-10 c -5.52699279785,0 -9.99499511719,4.47700500488 -9.99499511719,10 c 0,5.52299499512 4.46800231934,10 9.99499511719,10 c 5.52600097656,0 10.0050048828,-4.47700500488 10.0050048828,-10 c 0,-5.52299499512 -4.47900390625,-10 -10.0050048828,-10 Z M 0,8 c -4.41999816895,0 -8,-3.58200073242 -8,-8 c 0,-4.41799926758 3.58000183105,-8 8,-8 c 4.41999816895,0 8,3.58200073242 8,8 c 0,4.41799926758 -3.58000183105,8 -8,8 Z"
+                    android:fillColor="#FFFFFFFF"
+                    android:fillAlpha="1" />
+            </group>
+        </group>
+    </group>
+    <group
+        android:name="second_hand"
+        android:translateX="12"
+        android:translateY="12" >
+        <group
+            android:name="second_hand_pivot"
+            android:translateX="-12"
+            android:translateY="-12" >
+            <path
+                android:name="second_hand_path"
+                android:pathData="M 12.7418060303,12.9839935303 c 0.0,0.0 -1.48399353027,0.0 -1.48399353027,0.0 c 0.0,0.0 0.0,-5.98399353027 0.0,-5.98399353027 c 0.0,0 1.48399353027,0 1.48399353027,0 c 0.0,0 0.0,5.98399353027 0.0,5.98399353027 Z"
+                android:fillColor="#FFFFFFFF"
+                android:fillAlpha="1" />
+        </group>
+    </group>
+</vector>
