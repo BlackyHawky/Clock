@@ -204,22 +204,22 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
             mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
             mAlarmTab = mActionBar.newTab();
-            mAlarmTab.setIcon(R.drawable.alarm_tab);
+            mAlarmTab.setIcon(R.drawable.ic_alarm_animation);
             mAlarmTab.setContentDescription(R.string.menu_alarm);
             mTabsAdapter.addTab(mAlarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
 
             mClockTab = mActionBar.newTab();
-            mClockTab.setIcon(R.drawable.clock_tab);
+            mClockTab.setIcon(R.drawable.ic_clock_animation);
             mClockTab.setContentDescription(R.string.menu_clock);
             mTabsAdapter.addTab(mClockTab, ClockFragment.class, CLOCK_TAB_INDEX);
 
             mTimerTab = mActionBar.newTab();
-            mTimerTab.setIcon(R.drawable.timer_tab);
+            mTimerTab.setIcon(R.drawable.ic_timer_animation);
             mTimerTab.setContentDescription(R.string.menu_timer);
             mTabsAdapter.addTab(mTimerTab, TimerFragment.class, TIMER_TAB_INDEX);
 
             mStopwatchTab = mActionBar.newTab();
-            mStopwatchTab.setIcon(R.drawable.stopwatch_tab);
+            mStopwatchTab.setIcon(R.drawable.ic_stopwatch_animation);
             mStopwatchTab.setContentDescription(R.string.menu_stopwatch);
             mTabsAdapter.addTab(mStopwatchTab, StopwatchFragment.class, STOPWATCH_TAB_INDEX);
 
@@ -535,7 +535,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         }
 
         @Override
-        public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+        public void onTabReselected(Tab tab, FragmentTransaction arg1) {
             // Do nothing
         }
 
