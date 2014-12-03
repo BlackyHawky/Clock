@@ -720,16 +720,18 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             final CompoundButton.OnCheckedChangeListener onOffListener =
                     new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton compoundButton,
-                                boolean checked) {
-                            if (checked != alarm.enabled) {
-                                setDigitalTimeAlpha(itemHolder, checked);
-                                alarm.enabled = checked;
-                                asyncUpdateAlarm(alarm, alarm.enabled);
-                            }
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                    if (checked != alarm.enabled) {
+                        if (!isAlarmExpanded(alarm)) {
+                            // Only toggle this when alarm is collapsed
+                            setDigitalTimeAlpha(itemHolder, checked);
                         }
-                    };
+                        alarm.enabled = checked;
+                        asyncUpdateAlarm(alarm, alarm.enabled);
+                    }
+                }
+            };
 
             if (mRepeatChecked.contains(alarm.id) || itemHolder.alarm.daysOfWeek.isRepeating()) {
                 itemHolder.tomorrowLabel.setVisibility(View.GONE);
@@ -991,7 +993,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         // Sets the alpha of the digital time display. This gives a visual effect
-        // for enabled/disabled alarm while leaving the on/off switch more visible
+        // for enabled/disabled and expanded/collapsed alarm while leaving the
+        // on/off switch more visible
         private void setDigitalTimeAlpha(ItemHolder holder, boolean enabled) {
             float alpha = enabled ? 1f : 0.69f;
             holder.clock.setAlpha(alpha);
@@ -1006,30 +1009,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
                     turnOffDayOfWeek(holder, i);
                 }
             }
-        }
-
-        public void toggleSelectState(View v) {
-            // long press could be on the parent view or one of its childs, so find the parent view
-            v = getTopParent(v);
-            if (v != null) {
-                long id = ((ItemHolder)v.getTag()).alarm.id;
-                if (mSelectedAlarms.contains(id)) {
-                    mSelectedAlarms.remove(id);
-                } else {
-                    mSelectedAlarms.add(id);
-                }
-            }
-        }
-
-        private View getTopParent(View v) {
-            while (v != null && v.getId() != R.id.alarm_item) {
-                v = (View) v.getParent();
-            }
-            return v;
-        }
-
-        public int getSelectedItemsNum() {
-            return mSelectedAlarms.size();
         }
 
         private void turnOffDayOfWeek(ItemHolder holder, int dayIndex) {
@@ -1100,6 +1079,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
             itemHolder.expandArea.setVisibility(View.VISIBLE);
             itemHolder.delete.setVisibility(View.VISIBLE);
+            // Show digital time in full-opaque when expanded, even when alarm is disabled
+            setDigitalTimeAlpha(itemHolder, true /* enabled */);
 
             itemHolder.arrow.setContentDescription(getString(R.string.collapse_alarm));
 
@@ -1214,6 +1195,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // Set the expand area to gone so we can measure the height to animate to.
             setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, false /* expanded */);
             itemHolder.expandArea.setVisibility(View.GONE);
+            setDigitalTimeAlpha(itemHolder, itemHolder.onoff.isChecked());
 
             itemHolder.arrow.setContentDescription(getString(R.string.expand_alarm));
 
