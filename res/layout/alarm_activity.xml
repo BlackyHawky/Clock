@@ -69,7 +69,7 @@
             android:layout_gravity="center"
             android:background="@drawable/bg_circle_white" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/snooze"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,10 +78,10 @@
             android:layout_columnWeight="1"
             android:layout_gravity="center"
             android:background="@drawable/bg_circle_pink"
-            android:contentDescription="@string/alarm_alert_snooze_text"
+            android:contentDescription="@string/description_direction_left"
             android:src="@drawable/ic_snooze" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/dismiss"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,10 +90,10 @@
             android:layout_columnWeight="1"
             android:layout_gravity="center"
             android:background="@drawable/bg_circle_white"
-            android:contentDescription="@string/alarm_alert_dismiss_text"
+            android:contentDescription="@string/description_direction_right"
             android:src="@drawable/ic_alarm_off" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
