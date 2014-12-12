@@ -360,14 +360,20 @@ public class Utils {
 
     /** Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45) **/
     public static long getAlarmOnQuarterHour() {
-        Calendar nextQuarter = Calendar.getInstance();
+        final Calendar calendarInstance = Calendar.getInstance();
+        final long now = System.currentTimeMillis();
+        return getAlarmOnQuarterHour(calendarInstance, now);
+    }
+
+    static long getAlarmOnQuarterHour(Calendar calendar, long now) {
         //  Set 1 second to ensure quarter-hour threshold passed.
-        nextQuarter.set(Calendar.SECOND, 1);
-        nextQuarter.set(Calendar.MILLISECOND, 0);
-        int minute = nextQuarter.get(Calendar.MINUTE);
-        nextQuarter.add(Calendar.MINUTE, 15 - (minute % 15));
-        long alarmOnQuarterHour = nextQuarter.getTimeInMillis();
-        long now = System.currentTimeMillis();
+        calendar.set(Calendar.SECOND, 1);
+        calendar.set(Calendar.MILLISECOND, 0);
+        int minute = calendar.get(Calendar.MINUTE);
+        calendar.add(Calendar.MINUTE, 15 - (minute % 15));
+        long alarmOnQuarterHour = calendar.getTimeInMillis();
+
+        // Verify that alarmOnQuarterHour is within the next 15 minutes
         long delta = alarmOnQuarterHour - now;
         if (0 >= delta || delta > 901000) {
             // Something went wrong in the calculation, schedule something that is
