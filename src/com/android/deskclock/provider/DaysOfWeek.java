@@ -49,7 +49,7 @@ public final class DaysOfWeek {
      * Need to have monday start at index 0 to be backwards compatible. This converts
      * Calendar.DAY_OF_WEEK constants to our internal bit structure.
      */
-    private static int convertDayToBitIndex(int day) {
+    static int convertDayToBitIndex(int day) {
         return (day + 5) % DAYS_IN_A_WEEK;
     }
 
@@ -57,7 +57,7 @@ public final class DaysOfWeek {
      * Need to have monday start at index 0 to be backwards compatible. This converts
      * our bit structure to Calendar.DAY_OF_WEEK constant value.
      */
-    private static int convertBitIndexToDay(int bitIndex) {
+    static int convertBitIndexToDay(int bitIndex) {
         return (bitIndex + 1) % DAYS_IN_A_WEEK + 1;
     }
 
@@ -68,20 +68,20 @@ public final class DaysOfWeek {
         mBitSet = bitSet;
     }
 
-    public String toString(Context context, boolean showNever) {
-        return toString(context, showNever, false);
+    public String toString(Context context) {
+        return toString(context, false /* forAccessibility */);
     }
 
     public String toAccessibilityString(Context context) {
-        return toString(context, false, true);
+        return toString(context, true /* forAccessibility */);
     }
 
-    private String toString(Context context, boolean showNever, boolean forAccessibility) {
+    private String toString(Context context, boolean forAccessibility) {
         StringBuilder ret = new StringBuilder();
 
         // no days
         if (mBitSet == NO_DAYS_SET) {
-            return showNever ? context.getText(R.string.never).toString() : "";
+            return "";
         }
 
         // every day
@@ -103,7 +103,7 @@ public final class DaysOfWeek {
                 dfs.getWeekdays() :
                 dfs.getShortWeekdays();
 
-        // selected days
+        // selected days, starting from Monday
         for (int bitIndex = 0; bitIndex < DAYS_IN_A_WEEK; bitIndex++) {
             if ((mBitSet & (1 << bitIndex)) != 0) {
                 ret.append(dayList[convertBitIndexToDay(bitIndex)]);
@@ -145,6 +145,9 @@ public final class DaysOfWeek {
         return mBitSet;
     }
 
+    /**
+     * Returns set of Calendar.MONDAY, Calendar.TUESDAY, etc based on the current mBitSet value
+     */
     public HashSet<Integer> getSetDays() {
         final HashSet<Integer> result = new HashSet<Integer>();
         for (int bitIndex = 0; bitIndex < DAYS_IN_A_WEEK; bitIndex++) {
