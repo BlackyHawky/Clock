@@ -200,11 +200,6 @@
     <string name="every_day">Every day</string>
 
     <!-- Repeat options that appear under an alarm on main Alarm Clock
-         screen to identify repetition schedule: special case for when
-         the alarm is set to never repeat -->
-    <string name="never">Never</string>
-
-    <!-- Repeat options that appear under an alarm on main Alarm Clock
          screen to identify repetition schedule: concatenate days with
          this character, i.e. "Mon, Tue, Wed" -->
     <string name="day_concat">", "</string>

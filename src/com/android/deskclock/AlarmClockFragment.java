@@ -772,7 +772,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             // Set the repeat text or leave it blank if it does not repeat.
             final String daysOfWeekStr =
-                    alarm.daysOfWeek.toString(AlarmClockFragment.this.getActivity(), false);
+                    alarm.daysOfWeek.toString(AlarmClockFragment.this.getActivity());
             if (daysOfWeekStr != null && daysOfWeekStr.length() != 0) {
                 itemHolder.daysOfWeek.setText(daysOfWeekStr);
                 itemHolder.daysOfWeek.setContentDescription(alarm.daysOfWeek.toAccessibilityString(
