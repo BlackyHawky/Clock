@@ -48,7 +48,7 @@
     <item quantity="one" msgid="9092917312369131464">"1 min"</item>
     <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
   </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Herätys oh."</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Herätys ohi"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Torkku"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Torkutettu yhden minuutin ajaksi."</item>
@@ -80,7 +80,6 @@
     <string name="minute" msgid="2486157997434653710">"1 minuutti"</string>
     <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minuuttia"</string>
     <string name="every_day" msgid="4100909974923444602">"Joka päivä"</string>
-    <string name="never" msgid="54104287800571769">"Ei koskaan"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Valitse kello"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Analoginen kello"</string>
