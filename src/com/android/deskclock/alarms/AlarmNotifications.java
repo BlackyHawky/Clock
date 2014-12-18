@@ -22,6 +22,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v4.app.NotificationManagerCompat;
 
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.AlarmUtils;
@@ -32,6 +33,13 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
 public final class AlarmNotifications {
+    /*
+     * Given the hash code for a phone notification, return the hash code for the corresponding
+     * notification on the wear.
+     */
+    private static int getWearNotificationHashCode(int phoneNotificationHash) {
+        return -phoneNotificationHash;
+    }
 
     public static void registerNextAlarmWithAlarmManager(Context context, AlarmInstance instance)  {
         // Sets a surrogate alarm with alarm manager that provides the AlarmClockInfo for the
@@ -61,20 +69,17 @@ public final class AlarmNotifications {
 
     public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
-        NotificationManager nm = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
         Notification.Builder notification = new Notification.Builder(context)
                 .setContentTitle(resources.getString(R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
-                .setOngoing(false)
                 .setAutoCancel(false)
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setCategory(Notification.CATEGORY_ALARM)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
-                .setLocalOnly(true);
+                .setVisibility(Notification.VISIBILITY_PUBLIC);
 
         // Setup up hide notification
         Intent hideIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -102,16 +107,17 @@ public final class AlarmNotifications {
 
     public static void showHighPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying high priority notification for alarm instance: " + instance.mId);
-        NotificationManager nm = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
         Notification.Builder notification = new Notification.Builder(context)
                 .setContentTitle(resources.getString(R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
-                .setOngoing(true)
                 .setAutoCancel(false)
+                .setOngoing(true)
+                .setGroup(Integer.toString(instance.hashCode()))
+                .setGroupSummary(true)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
@@ -132,12 +138,20 @@ public final class AlarmNotifications {
 
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
+
+        // Set up non-ongoing wear notification
+        notification.setOngoing(false)
+                .setGroup(Integer.toString(instance.hashCode()))
+                .setGroupSummary(false)
+                .setLocalOnly(false);
+
+        nm.cancel(getWearNotificationHashCode(instance.hashCode()));
+        nm.notify(getWearNotificationHashCode(instance.hashCode()), notification.build());
     }
 
     public static void showSnoozeNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
-        NotificationManager nm = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
         Notification.Builder notification = new Notification.Builder(context)
@@ -145,8 +159,10 @@ public final class AlarmNotifications {
                 .setContentText(resources.getString(R.string.alarm_alert_snooze_until,
                         AlarmUtils.getFormattedTime(context, instance.getAlarmTime())))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
-                .setOngoing(true)
                 .setAutoCancel(false)
+                .setOngoing(true)
+                .setGroup(Integer.toString(instance.hashCode()))
+                .setGroupSummary(true)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
@@ -166,12 +182,20 @@ public final class AlarmNotifications {
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
+
+        // Set up non-ongoing wear notification
+        notification.setOngoing(false)
+                .setGroup(Integer.toString(instance.hashCode()))
+                .setGroupSummary(false)
+                .setLocalOnly(false);
+
+        nm.cancel(getWearNotificationHashCode(instance.hashCode()));
+        nm.notify(getWearNotificationHashCode(instance.hashCode()), notification.build());
     }
 
     public static void showMissedNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying missed notification for alarm instance: " + instance.mId);
-        NotificationManager nm = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         String label = instance.mLabel;
         String alarmTime = AlarmUtils.getFormattedTime(context, instance.getAlarmTime());
@@ -183,8 +207,7 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setCategory(Notification.CATEGORY_ALARM)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
-                .setLocalOnly(true);
+                .setVisibility(Notification.VISIBILITY_PUBLIC);
 
         // Setup dismiss intent
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -265,9 +288,12 @@ public final class AlarmNotifications {
 
     public static void clearNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Clearing notifications for alarm instance: " + instance.mId);
-        NotificationManager nm = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(instance.hashCode());
+
+        // Also clear corresponding watch notification when an upcoming or snoozed alarm is
+        // dismissed from either the phone or the wear.
+        nm.cancel(getWearNotificationHashCode(instance.hashCode()));
     }
 
     private static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
