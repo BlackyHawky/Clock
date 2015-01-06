@@ -53,6 +53,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.Timers;
 import com.android.deskclock.worldclock.CityObj;
@@ -78,10 +79,15 @@ public class Utils {
      */
     private static String sCachedVersionCode = null;
 
-    /**
-     * Array of single-character day of week symbols {'S', 'M', 'T', 'W', 'T', 'F', 'S'}
-     */
+    // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
     private static String[] sShortWeekdays = null;
+    private static final String DATE_FORMAT_SHORT = "EEEEE";
+
+    // Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
+    private static String[] sLongWeekdays = null;
+    private static final String DATE_FORMAT_LONG = "EEEE";
+
+    private static Locale sLocaleUsedForWeekdays;
 
     /** Types that may be used for clock displays. **/
     public static final String CLOCK_TYPE_DIGITAL = "digital";
@@ -624,20 +630,54 @@ public class Utils {
     }
 
     /**
-     * To get an array of single-character day of week symbols {'S', 'M', 'T', 'W', 'T', 'F', 'S'}
-     * @return the array of symbols
+     * @return Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
      */
-    public static String[] getShortWeekdays() {
-        if (sShortWeekdays == null) {
-            final String[] shortWeekdays = new String[7];
-            final SimpleDateFormat format = new SimpleDateFormat("EEEEE");
-            // Create a date (2014/07/20) that is a Sunday
-            long aSunday = new GregorianCalendar(2014, Calendar.JULY, 20).getTimeInMillis();
-            for (int day = 0; day < 7; day++) {
-                shortWeekdays[day] = format.format(new Date(aSunday + day * DateUtils.DAY_IN_MILLIS));
-            }
-            sShortWeekdays = shortWeekdays;
+    public static String getShortWeekday(int position) {
+        generateShortAndLongWeekdaysIfNeeded();
+        return sShortWeekdays[position];
+    }
+
+    /**
+     * @return Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
+     */
+    public static String getLongWeekday(int position) {
+        generateShortAndLongWeekdaysIfNeeded();
+        return sLongWeekdays[position];
+    }
+
+    private static boolean localeHasChanged() {
+        return sLocaleUsedForWeekdays != Locale.getDefault();
+    }
+
+    /**
+     * Generate arrays of short and long weekdays, starting from Sunday
+     */
+    private static void generateShortAndLongWeekdaysIfNeeded() {
+        if (sShortWeekdays != null && sLongWeekdays != null && !localeHasChanged()) {
+            // nothing to do
+            return;
         }
-        return sShortWeekdays;
+
+        if (sShortWeekdays == null) {
+            sShortWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
+        }
+        if (sLongWeekdays == null) {
+            sLongWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
+        }
+
+        final SimpleDateFormat shortFormat = new SimpleDateFormat(DATE_FORMAT_SHORT);
+        final SimpleDateFormat longFormat = new SimpleDateFormat(DATE_FORMAT_LONG);
+
+        // Create a date (2014/07/20) that is a Sunday
+        final long aSunday = new GregorianCalendar(2014, Calendar.JULY, 20).getTimeInMillis();
+
+        for (int i = 0; i < DaysOfWeek.DAYS_IN_A_WEEK; i++) {
+            final long dayMillis = aSunday + i * DateUtils.DAY_IN_MILLIS;
+            sShortWeekdays[i] = shortFormat.format(new Date(dayMillis));
+            sLongWeekdays[i] = longFormat.format(new Date(dayMillis));
+        }
+
+        // Track the Locale used to generate these weekdays
+        sLocaleUsedForWeekdays = Locale.getDefault();
     }
 }
