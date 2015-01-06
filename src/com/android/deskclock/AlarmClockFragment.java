@@ -494,10 +494,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
     public class AlarmItemAdapter extends CursorAdapter {
         private final Context mContext;
         private final LayoutInflater mFactory;
-        private final String[] mShortWeekDayStrings;
-        private final String[] mLongWeekDayStrings;
-        private final int mColorLit;
-        private final int mColorDim;
         private final Typeface mRobotoNormal;
         private final ListView mList;
 
@@ -570,13 +566,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             mFactory = LayoutInflater.from(context);
             mList = list;
 
-            DateFormatSymbols dfs = new DateFormatSymbols();
-            mShortWeekDayStrings = Utils.getShortWeekdays();
-            mLongWeekDayStrings = dfs.getWeekdays();
-
             Resources res = mContext.getResources();
-            mColorLit = res.getColor(R.color.clock_white);
-            mColorDim = res.getColor(R.color.clock_gray);
 
             mRobotoNormal = Typeface.create("sans-serif", Typeface.NORMAL);
 
@@ -668,8 +658,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             for (int i = 0; i < 7; i++) {
                 final Button dayButton = (Button) mFactory.inflate(
                         R.layout.day_button, holder.repeatDays, false /* attachToRoot */);
-                dayButton.setText(mShortWeekDayStrings[i]);
-                dayButton.setContentDescription(mLongWeekDayStrings[DAY_ORDER[i]]);
+                dayButton.setText(Utils.getShortWeekday(i));
+                dayButton.setContentDescription(Utils.getLongWeekday(i));
                 holder.repeatDays.addView(dayButton);
                 holder.dayButtons[i] = dayButton;
             }
