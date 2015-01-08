@@ -100,7 +100,8 @@
                 android:theme="@android:style/Theme.NoDisplay"
                 android:excludeFromRecents="true"
                 android:launchMode="singleTask"
-                android:permission="com.android.alarm.permission.SET_ALARM">
+                android:permission="com.android.alarm.permission.SET_ALARM"
+                android:taskAffinity="">
             <intent-filter>
                 <action android:name="android.intent.action.SET_ALARM" />
                 <category android:name="android.intent.category.DEFAULT" />
