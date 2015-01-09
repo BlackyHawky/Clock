@@ -648,9 +648,14 @@ public class TimerFullScreenFragment extends DeskClockFragment
     private void resetTimer(TimerObj t) {
         t.mState = TimerObj.STATE_RESTART;
         t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
-        ((TimerListItem) t.mView).stop();
-        ((TimerListItem) t.mView).setTime(t.mTimeLeft, false);
-        ((TimerListItem) t.mView).set(t.mOriginalLength, t.mTimeLeft, false);
+
+        // when multiple timers are firing, some timers will be off-screen and they will not
+        // have Fragment instances unless user scrolls down further. t.mView is null in this case.
+        if (t.mView != null) {
+            t.mView.stop();
+            t.mView.setTime(t.mTimeLeft, false);
+            t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
+        }
         updateTimersState(t, Timers.TIMER_RESET);
     }
 
