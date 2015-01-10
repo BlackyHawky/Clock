@@ -260,7 +260,6 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         // We need to update the system next alarm time on app startup because the
         // user might have clear our data.
         AlarmStateManager.updateNextAlarm(this);
-        ExtensionsFactory.init(getAssets());
     }
 
     @Override
