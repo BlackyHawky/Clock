@@ -22,25 +22,19 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.DeskClock;
+import com.android.deskclock.ExtensionsFactory;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
 public final class AlarmNotifications {
-    /*
-     * Given the hash code for a phone notification, return the hash code for the corresponding
-     * notification on the wear.
-     */
-    private static int getWearNotificationHashCode(int phoneNotificationHash) {
-        return -phoneNotificationHash;
-    }
-
     public static void registerNextAlarmWithAlarmManager(Context context, AlarmInstance instance)  {
         // Sets a surrogate alarm with alarm manager that provides the AlarmClockInfo for the
         // alarm that is going to fire next. The operation is constructed such that it is ignored
@@ -72,7 +66,7 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
-        Notification.Builder notification = new Notification.Builder(context)
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(resources.getString(R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
@@ -110,7 +104,7 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
-        Notification.Builder notification = new Notification.Builder(context)
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(resources.getString(R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
@@ -139,14 +133,8 @@ public final class AlarmNotifications {
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
 
-        // Set up non-ongoing wear notification
-        notification.setOngoing(false)
-                .setGroup(Integer.toString(instance.hashCode()))
-                .setGroupSummary(false)
-                .setLocalOnly(false);
-
-        nm.cancel(getWearNotificationHashCode(instance.hashCode()));
-        nm.notify(getWearNotificationHashCode(instance.hashCode()), notification.build());
+        ExtensionsFactory.getDeskClockExtensions().sendNotification(
+                nm, notification, instance, context);
     }
 
     public static void showSnoozeNotification(Context context, AlarmInstance instance) {
@@ -154,7 +142,7 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
-        Notification.Builder notification = new Notification.Builder(context)
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(instance.getLabelOrDefault(context))
                 .setContentText(resources.getString(R.string.alarm_alert_snooze_until,
                         AlarmUtils.getFormattedTime(context, instance.getAlarmTime())))
@@ -183,14 +171,7 @@ public final class AlarmNotifications {
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
 
-        // Set up non-ongoing wear notification
-        notification.setOngoing(false)
-                .setGroup(Integer.toString(instance.hashCode()))
-                .setGroupSummary(false)
-                .setLocalOnly(false);
-
-        nm.cancel(getWearNotificationHashCode(instance.hashCode()));
-        nm.notify(getWearNotificationHashCode(instance.hashCode()), notification.build());
+        ExtensionsFactory.getDeskClockExtensions().sendNotification(nm, notification, instance);
     }
 
     public static void showMissedNotification(Context context, AlarmInstance instance) {
@@ -291,9 +272,7 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(instance.hashCode());
 
-        // Also clear corresponding watch notification when an upcoming or snoozed alarm is
-        // dismissed from either the phone or the wear.
-        nm.cancel(getWearNotificationHashCode(instance.hashCode()));
+        ExtensionsFactory.getDeskClockExtensions().clearNotification(nm, instance);
     }
 
     private static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
