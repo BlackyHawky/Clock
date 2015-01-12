@@ -344,4 +344,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"沒有設定鬧鐘"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"未設定鬧鐘"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"沒有啟用中的鬧鐘"</string>
+    <!-- no translation found for open_alarms (3221109150605733345) -->
+    <skip />
 </resources>

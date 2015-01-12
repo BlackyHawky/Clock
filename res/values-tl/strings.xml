@@ -344,4 +344,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"Walang Mga Alarm"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Wala nakatakda alarm"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"WALANG PAPARATING NA ALARMA"</string>
+    <!-- no translation found for open_alarms (3221109150605733345) -->
+    <skip />
 </resources>

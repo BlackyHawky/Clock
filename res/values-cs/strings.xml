@@ -59,9 +59,9 @@
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zmeškaný budík byl smazán"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Zbývá méně než minuta"</item>
-    <item msgid="83197792732433351">"Zbývající čas: <xliff:g id="HOURS">%1$s</xliff:g> h"</item>
-    <item msgid="8919698220200894252">"Zbývající čas: <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
-    <item msgid="8458069283817013813">"Zbývající čas: <xliff:g id="HOURS">%1$s</xliff:g> h <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
+    <item msgid="83197792732433351">"Ještě <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"Ještě <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"Ještě <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Budík se spustí za méně než 1 minutu."</item>
@@ -344,4 +344,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"Žádné budíky"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Budíky nejsou nastaveny."</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"ŽÁDNÉ PLÁNOVANÉ BUDÍKY"</string>
+    <!-- no translation found for open_alarms (3221109150605733345) -->
+    <skip />
 </resources>
