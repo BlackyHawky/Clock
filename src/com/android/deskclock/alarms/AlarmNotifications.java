@@ -28,6 +28,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.DeskClock;
+import com.android.deskclock.DeskClockExtensions;
 import com.android.deskclock.ExtensionsFactory;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
@@ -73,6 +74,7 @@ public final class AlarmNotifications {
                 .setAutoCancel(false)
                 .setPriority(Notification.PRIORITY_DEFAULT)
                 .setCategory(Notification.CATEGORY_ALARM)
+                .setLocalOnly(true)
                 .setVisibility(Notification.VISIBILITY_PUBLIC);
 
         // Setup up hide notification
@@ -97,6 +99,9 @@ public final class AlarmNotifications {
 
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
+
+        ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
+                DeskClockExtensions.NotificationType.LOW_PRIO, instance.mAlarmId);
     }
 
     public static void showHighPriorityNotification(Context context, AlarmInstance instance) {
@@ -133,8 +138,8 @@ public final class AlarmNotifications {
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
 
-        ExtensionsFactory.getDeskClockExtensions().sendNotification(
-                nm, notification, instance, context);
+        ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
+                DeskClockExtensions.NotificationType.HIGH_PRIO, instance.mAlarmId);
     }
 
     public static void showSnoozeNotification(Context context, AlarmInstance instance) {
@@ -149,8 +154,6 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setGroup(Integer.toString(instance.hashCode()))
-                .setGroupSummary(true)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
@@ -171,7 +174,8 @@ public final class AlarmNotifications {
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
 
-        ExtensionsFactory.getDeskClockExtensions().sendNotification(nm, notification, instance);
+        ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
+                DeskClockExtensions.NotificationType.SNOOZE, instance.mAlarmId);
     }
 
     public static void showMissedNotification(Context context, AlarmInstance instance) {
@@ -188,6 +192,7 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setCategory(Notification.CATEGORY_ALARM)
+                .setLocalOnly(true)
                 .setVisibility(Notification.VISIBILITY_PUBLIC);
 
         // Setup dismiss intent
@@ -205,6 +210,9 @@ public final class AlarmNotifications {
 
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
+
+        ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
+                DeskClockExtensions.NotificationType.MISSED, instance.mAlarmId);
     }
 
     public static void showAlarmNotification(Context context, AlarmInstance instance) {
@@ -272,7 +280,8 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(instance.hashCode());
 
-        ExtensionsFactory.getDeskClockExtensions().clearNotification(nm, instance);
+        ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
+                DeskClockExtensions.NotificationType.CLEAR, instance.mAlarmId);
     }
 
     private static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {

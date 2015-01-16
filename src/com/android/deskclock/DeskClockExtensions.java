@@ -1,20 +1,18 @@
 package com.android.deskclock;
 
 import android.content.Context;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-
-import com.android.deskclock.provider.AlarmInstance;
 
 /** DeskClockExtensions. */
 public interface DeskClockExtensions {
+    // enum NotificationType
+    public enum NotificationType {
+        HIGH_PRIO,
+        LOW_PRIO,
+        MISSED,
+        SNOOZE,
+        CLEAR,
+    }
 
-    public void sendNotification(NotificationManagerCompat nm,
-            NotificationCompat.Builder notification,
-            AlarmInstance instance);
-
-    public void sendNotification(NotificationManagerCompat nm,
-            NotificationCompat.Builder notification, AlarmInstance instance, Context context);
-
-    public void clearNotification(NotificationManagerCompat nm, AlarmInstance instance);
+    public void sendNotification(Context context, NotificationType notificationType,
+            long alarmId);
 }
