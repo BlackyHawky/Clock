@@ -172,6 +172,15 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
+     * Get firing alarm instances by alarmId.
+     */
+    public static List<AlarmInstance> getFiringInstancesByAlarmId(ContentResolver contentResolver,
+            long alarmId) {
+        return getInstances(contentResolver, ALARM_ID + "=" + alarmId + " AND " + ALARM_STATE + "="
+                + FIRED_STATE);
+    }
+
+    /**
      * Get a list of instances given selection.
      *
      * @param contentResolver to perform the query on.
