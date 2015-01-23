@@ -1,10 +1,6 @@
 package com.android.deskclock;
 
 import android.content.Context;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
-
-import com.android.deskclock.provider.AlarmInstance;
 
 public class ExtensionsFactory {
     private static DeskClockExtensions sDeskClockExtensions = null;
@@ -25,16 +21,8 @@ public class ExtensionsFactory {
 
     private static class NullDeskClockExtensions implements DeskClockExtensions {
         @Override
-        public void sendNotification(NotificationManagerCompat nm,
-                NotificationCompat.Builder notification, AlarmInstance instance) { }
-
-        @Override
-        public void sendNotification(NotificationManagerCompat nm,
-                NotificationCompat.Builder notification, AlarmInstance instance, Context context) {
-        }
-
-        @Override
-        public void clearNotification(NotificationManagerCompat nm, AlarmInstance instance) {
+        public void sendNotification(Context context, NotificationType notificationType,
+                long alarmId) {
         }
     }
 }
