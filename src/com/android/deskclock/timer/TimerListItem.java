@@ -39,12 +39,6 @@ public class TimerListItem extends LinearLayout {
         this(context, null);
     }
 
-//    public void TimerListItem newInstance(Context context) {
-//        final LayoutInflater layoutInflater =
-//                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        layoutInflater.inflate(R.layout.timer_list_item, this);
-//    }
-
     public TimerListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -137,15 +131,4 @@ public class TimerListItem extends LinearLayout {
         }
         mTimerText.setTime(time, false, forceUpdate);
     }
-
-    // Used by animator to animate the size of a timer
-    @SuppressWarnings("unused")
-    public void setAnimatedHeight(int height) {
-        ViewGroup.LayoutParams layoutParams = getLayoutParams();
-        if (layoutParams != null) {
-            layoutParams.height = height;
-            requestLayout();
-        }
-    }
-
 }
