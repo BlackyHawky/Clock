@@ -197,7 +197,7 @@ public class HandleApiCalls extends Activity {
             timer.mDeleteAfterUse = skipUi;
         }
 
-        timer.mState = TimerObj.STATE_RUNNING;
+        timer.setState(TimerObj.STATE_RUNNING);
         timer.mStartTime = Utils.getTimeNow();
         timer.writeToSharedPref(prefs);
 

@@ -97,7 +97,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 return;
             }
 
-            t.mState = TimerObj.STATE_TIMESUP;
+            t.setState(TimerObj.STATE_TIMESUP);
             t.writeToSharedPref(prefs);
             // Play ringtone by using TimerRingService service with a default alarm.
             Log.d(TAG, "playing ringtone");
@@ -134,12 +134,12 @@ public class TimerReceiver extends BroadcastReceiver {
             }
 
             // Update timer state
-            t.mState = t.getDeleteAfterUse() ? TimerObj.STATE_DELETED : TimerObj.STATE_RESTART;
+            t.setState(t.getDeleteAfterUse() ? TimerObj.STATE_DELETED : TimerObj.STATE_RESTART);
             t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
             t.writeToSharedPref(prefs);
 
             // Flag to tell DeskClock to re-sync with the database
-            prefs.edit().putBoolean(Timers.FROM_NOTIFICATION, true).apply();
+            prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
 
             cancelTimesUpNotification(context, t);
 
@@ -161,13 +161,13 @@ public class TimerReceiver extends BroadcastReceiver {
             }
 
             // Restarting the timer with 1 minute left.
-            t.mState = TimerObj.STATE_RUNNING;
+            t.setState(TimerObj.STATE_RUNNING);
             t.mStartTime = Utils.getTimeNow();
             t.mTimeLeft = t. mOriginalLength = TimerObj.MINUTE_IN_MILLIS;
             t.writeToSharedPref(prefs);
 
             // Flag to tell DeskClock to re-sync with the database
-            prefs.edit().putBoolean(Timers.FROM_NOTIFICATION, true).apply();
+            prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
 
             cancelTimesUpNotification(context, t);
 
