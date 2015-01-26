@@ -1420,7 +1420,10 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        hideUndoBar(true, event);
+        if (mUndoShowing) {
+            hideUndoBar(true, event);
+            return true;
+        }
         return false;
     }
 
