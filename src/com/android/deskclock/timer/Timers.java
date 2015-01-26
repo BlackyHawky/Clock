@@ -37,30 +37,31 @@ public class Timers {
     public static final String NOTIF_IN_USE_SHOW = "notif_in_use_show";
     public static final String NOTIF_IN_USE_CANCEL = "notif_in_use_cancel";
     public static final String NOTIF_APP_OPEN = "notif_app_open";
-    public static final String FROM_NOTIFICATION = "from_notification";
     public static final String NOTIF_TIMES_UP_STOP = "notif_times_up_stop";
     public static final String NOTIF_TIMES_UP_PLUS_ONE = "notif_times_up_plus_one";
     public static final String NOTIF_TIMES_UP_SHOW = "notif_times_up_show";
     public static final String NOTIF_TIMES_UP_CANCEL = "notif_times_up_cancel";
-    public static final String FROM_ALERT = "from_alert";
     public static final String FIRST_LAUNCH_FROM_API_CALL = "first_launch_from_api_call";
 
     public static final String TIMESUP_MODE = "times_up";
 
+    /**
+     * Key to a shared preference that forces Timer user interfaces to refresh in order to reflect
+     * changes in the database.
+     */
+    public static final String REFRESH_UI_WITH_LATEST_DATA = "refresh_ui_with_latest_data";
+
     public static TimerObj findTimer(ArrayList<TimerObj> timers, int timerId) {
-        Iterator<TimerObj> i = timers.iterator();
-        while(i.hasNext()) {
-            TimerObj t = i.next();
+        for (TimerObj t : timers) {
             if (t.mTimerId == timerId) {
                 return t;
             }
         }
         return null;
     }
+
     public static TimerObj findExpiredTimer(ArrayList<TimerObj> timers) {
-        Iterator<TimerObj> i = timers.iterator();
-        while(i.hasNext()) {
-            TimerObj t = i.next();
+        for (TimerObj t : timers) {
             if (t.mState == TimerObj.STATE_TIMESUP) {
                 return t;
             }
@@ -69,11 +70,9 @@ public class Timers {
     }
 
     public static ArrayList<TimerObj> timersInUse(ArrayList<TimerObj> timers) {
-        ArrayList<TimerObj> result = (ArrayList<TimerObj>) timers.clone();
-        Iterator<TimerObj> it = result.iterator();
-        while(it.hasNext()) {
-            TimerObj timer = it.next();
-            if (!timer.isInUse()) {
+        final ArrayList<TimerObj> result = new ArrayList<>(timers);
+        for (Iterator<TimerObj> it = result.iterator(); it.hasNext();) {
+            if (!it.next().isInUse()) {
                 it.remove();
             }
         }
@@ -81,11 +80,9 @@ public class Timers {
     }
 
     public static ArrayList<TimerObj> timersInTimesUp(ArrayList<TimerObj> timers) {
-        ArrayList<TimerObj> result = (ArrayList<TimerObj>) timers.clone();
-        Iterator<TimerObj> it = result.iterator();
-        while(it.hasNext()) {
-            TimerObj timer = it.next();
-            if (timer.mState != TimerObj.STATE_TIMESUP) {
+        final ArrayList<TimerObj> result = new ArrayList<>(timers);
+        for (Iterator<TimerObj> it = result.iterator(); it.hasNext();) {
+            if (it.next().mState != TimerObj.STATE_TIMESUP) {
                 it.remove();
             }
         }
