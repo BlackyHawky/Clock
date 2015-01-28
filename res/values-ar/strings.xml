@@ -344,6 +344,5 @@
     <string name="no_alarms" msgid="6429431324842022917">"ليست هناك اشعارات"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"لم يتم تعيين تنبيهات"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"ليست هناك اشعارات مقبلة"</string>
-    <!-- no translation found for open_alarms (3221109150605733345) -->
-    <skip />
+    <string name="open_alarms" msgid="3221109150605733345">"إظهار جميع المنبهات"</string>
 </resources>
