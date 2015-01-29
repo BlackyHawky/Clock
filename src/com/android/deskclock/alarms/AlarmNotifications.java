@@ -147,10 +147,11 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
+        final String contentText = resources.getString(R.string.alarm_alert_snooze_until,
+                AlarmUtils.getFormattedTime(context, instance.getAlarmTime()));
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(instance.getLabelOrDefault(context))
-                .setContentText(resources.getString(R.string.alarm_alert_snooze_until,
-                        AlarmUtils.getFormattedTime(context, instance.getAlarmTime())))
+                .setContentText(contentText)
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
@@ -174,8 +175,8 @@ public final class AlarmNotifications {
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
 
-        ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
-                DeskClockExtensions.NotificationType.SNOOZE, instance.mAlarmId);
+        ExtensionsFactory.getDeskClockExtensions().sendNotificationWithExtra(context,
+                DeskClockExtensions.NotificationType.SNOOZE, instance.mAlarmId, contentText);
     }
 
     public static void showMissedNotification(Context context, AlarmInstance instance) {
