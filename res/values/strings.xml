@@ -849,8 +849,5 @@
 
     <!-- String for no enabled alarms in timeline view [CHAR LIMIT=30] -->
     <string name="no_upcoming_alarms">NO UPCOMING ALARMS</string>
-
-    <!-- String for opening view alarms from DeskClock extensions [CHAR LIMIT=20] -->
-    <string name="open_alarms">Show all alarms</string>
 </resources>
 
