@@ -23,8 +23,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Handler;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -40,6 +43,9 @@ public class ScreensaverActivity extends Activity {
     // This value must match android:defaultValue of
     // android:key="screensaver_clock_style" in dream_settings.xml
     static final String DEFAULT_CLOCK_STYLE = "digital";
+
+    private static final boolean PRE_L_DEVICE =
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
 
     private View mContentView, mSaverView;
     private View mAnalogClock, mDigitalClock;
@@ -86,6 +92,16 @@ public class ScreensaverActivity extends Activity {
         }
     };
 
+    /* Register ContentObserver to see alarm changes for pre-L */
+    private final ContentObserver mSettingsContentObserver = PRE_L_DEVICE
+        ? new ContentObserver(mHandler) {
+            @Override
+            public void onChange(boolean selfChange) {
+                Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+            }
+        }
+        : null;
+
     // Thread that runs every midnight and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
@@ -110,6 +126,12 @@ public class ScreensaverActivity extends Activity {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         registerReceiver(mIntentReceiver, filter);
+        if (PRE_L_DEVICE) {
+            getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
+                false,
+                mSettingsContentObserver);
+        }
     }
 
     @Override
@@ -142,6 +164,9 @@ public class ScreensaverActivity extends Activity {
 
     @Override
     public void onStop() {
+        if (PRE_L_DEVICE) {
+            getContentResolver().unregisterContentObserver(mSettingsContentObserver);
+        }
         unregisterReceiver(mIntentReceiver);
         super.onStop();
    }
