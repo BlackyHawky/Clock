@@ -22,6 +22,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -48,15 +50,24 @@ public final class AlarmNotifications {
                 AlarmStateManager.createIndicatorIntent(context), flags);
 
         if (instance != null) {
-            long alarmTime = instance.getAlarmTime().getTimeInMillis();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                long alarmTime = instance.getAlarmTime().getTimeInMillis();
 
-            // Create an intent that can be used to show or edit details of the next alarm.
-            PendingIntent viewIntent = PendingIntent.getActivity(context, instance.hashCode(),
-                    createViewAlarmIntent(context, instance), PendingIntent.FLAG_UPDATE_CURRENT);
+                // Create an intent that can be used to show or edit details of the next alarm.
+                PendingIntent viewIntent = PendingIntent.getActivity(context, instance.hashCode(),
+                        createViewAlarmIntent(context, instance), PendingIntent.FLAG_UPDATE_CURRENT);
 
-            AlarmManager.AlarmClockInfo info =
-                    new AlarmManager.AlarmClockInfo(alarmTime, viewIntent);
-            alarmManager.setAlarmClock(info, operation);
+                AlarmManager.AlarmClockInfo info =
+                        new AlarmManager.AlarmClockInfo(alarmTime, viewIntent);
+                alarmManager.setAlarmClock(info, operation);
+            } else {
+                // Write directly to NEXT_ALARM_FORMATTED in all pre-L versions
+                final String timeString = AlarmUtils.getFormattedTime(context,
+                        instance.getAlarmTime());
+                Settings.System.putString(context.getContentResolver(),
+                        Settings.System.NEXT_ALARM_FORMATTED,
+                        timeString);
+            }
         } else if (operation != null) {
             alarmManager.cancel(operation);
         }
