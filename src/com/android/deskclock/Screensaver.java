@@ -22,8 +22,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
+import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.service.dreams.DreamService;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +40,8 @@ public class Screensaver extends DreamService {
 
     private static final boolean DEBUG = false;
     private static final String TAG = "DeskClock/Screensaver";
+    private static final boolean PRE_L_DEVICE =
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
 
     private View mContentView, mSaverView;
     private View mAnalogClock, mDigitalClock;
@@ -46,6 +51,16 @@ public class Screensaver extends DreamService {
     private final Handler mHandler = new Handler();
 
     private final ScreensaverMoveSaverRunnable mMoveSaverRunnable;
+
+    /* Register ContentObserver to see alarm changes for pre-L */
+    private final ContentObserver mSettingsContentObserver = PRE_L_DEVICE
+        ? new ContentObserver(mHandler) {
+            @Override
+            public void onChange(boolean selfChange) {
+                Utils.refreshAlarm(Screensaver.this, mContentView);
+            }
+        }
+        : null;
 
     // Thread that runs every midnight and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
@@ -124,6 +139,13 @@ public class Screensaver extends DreamService {
         registerReceiver(mIntentReceiver, filter);
         Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
 
+        if (PRE_L_DEVICE) {
+            getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
+                false,
+                mSettingsContentObserver);
+        }
+
         mHandler.post(mMoveSaverRunnable);
     }
 
@@ -133,6 +155,10 @@ public class Screensaver extends DreamService {
         super.onDetachedFromWindow();
 
         mHandler.removeCallbacks(mMoveSaverRunnable);
+
+        if (PRE_L_DEVICE) {
+            getContentResolver().unregisterContentObserver(mSettingsContentObserver);
+        }
 
         // Tear down handlers for time reference changes and date updates.
         Utils.cancelMidnightUpdater(mHandler, mMidnightUpdater);

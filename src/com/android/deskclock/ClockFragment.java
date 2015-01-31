@@ -24,17 +24,18 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.database.ContentObserver;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextClock;
 
@@ -47,6 +48,8 @@ import com.android.deskclock.worldclock.WorldClockAdapter;
 public class ClockFragment extends DeskClockFragment implements OnSharedPreferenceChangeListener {
 
     private static final String BUTTONS_HIDDEN_KEY = "buttons_hidden";
+    private static final boolean PRE_L_DEVICE =
+            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
     private final static String TAG = "ClockFragment";
 
     private boolean mButtonsHidden = false;
@@ -98,6 +101,16 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     };
 
     private final Handler mHandler = new Handler();
+
+    /* Register ContentObserver to see alarm changes for pre-L */
+    private final ContentObserver mAlarmObserver = PRE_L_DEVICE
+            ? new ContentObserver(mHandler) {
+                @Override
+                public void onChange(boolean selfChange) {
+                    Utils.refreshAlarm(ClockFragment.this.getActivity(), mClockFrame);
+                }
+            }
+            : null;
 
     // Thread that runs on every quarter-hour and refreshes the date.
     private final Runnable mQuarterHourUpdater = new Runnable() {
@@ -251,6 +264,12 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
         Utils.refreshAlarm(activity, mClockFrame);
+        if (PRE_L_DEVICE) {
+            activity.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
+                false,
+                mAlarmObserver);
+        }
     }
 
     @Override
@@ -260,6 +279,9 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         Utils.cancelQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         Activity activity = getActivity();
         activity.unregisterReceiver(mIntentReceiver);
+        if (PRE_L_DEVICE) {
+            activity.getContentResolver().unregisterContentObserver(mAlarmObserver);
+        }
     }
 
     @Override
