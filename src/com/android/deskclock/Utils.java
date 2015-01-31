@@ -37,6 +37,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -476,13 +477,18 @@ public class Utils {
      */
     public static String getNextAlarm(Context context) {
         String timeString = null;
-        final AlarmManager.AlarmClockInfo info = ((AlarmManager) context.getSystemService(
-                Context.ALARM_SERVICE)).getNextAlarmClock();
-        if (info != null) {
-            final long triggerTime = info.getTriggerTime();
-            final Calendar alarmTime = Calendar.getInstance();
-            alarmTime.setTimeInMillis(triggerTime);
-            timeString = AlarmUtils.getFormattedTime(context, alarmTime);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            timeString = Settings.System.getString(context.getContentResolver(),
+                    Settings.System.NEXT_ALARM_FORMATTED);
+        } else {
+            final AlarmManager.AlarmClockInfo info = ((AlarmManager) context.getSystemService(
+                    Context.ALARM_SERVICE)).getNextAlarmClock();
+            if (info != null) {
+                final long triggerTime = info.getTriggerTime();
+                final Calendar alarmTime = Calendar.getInstance();
+                alarmTime.setTimeInMillis(triggerTime);
+                timeString = AlarmUtils.getFormattedTime(context, alarmTime);
+            }
         }
         return timeString;
     }
