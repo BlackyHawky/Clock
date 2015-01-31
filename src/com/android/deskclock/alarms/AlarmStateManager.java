@@ -15,6 +15,7 @@
  */
 package com.android.deskclock.alarms;
 
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -23,8 +24,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.android.deskclock.AlarmAlertWakeLock;
@@ -107,6 +110,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
     // Intent action for an AlarmManager alarm serving only to set the next alarm indicators
     private static final String INDICATOR_ACTION = "indicator";
 
+    // System intent action to notify AppWidget that we changed the alarm text.
+    public static final String SYSTEM_ALARM_CHANGE_ACTION = "android.intent.action.ALARM_CHANGED";
+
     // Extra key to set the desired state change.
     public static final String ALARM_STATE_EXTRA = "intent.extra.alarm.state";
 
@@ -150,7 +156,67 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 nextAlarm = instance;
             }
         }
-        AlarmNotifications.registerNextAlarmWithAlarmManager(context, nextAlarm);
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            updateNextAlarmInSystemSettings(context, nextAlarm);
+        } else {
+            updateNextAlarmInAlarmManager(context, nextAlarm);
+        }
+    }
+
+    /**
+     * Used in pre-L devices, where "next alarm" is stored in system settings.
+     */
+    private static void updateNextAlarmInSystemSettings(Context context, AlarmInstance nextAlarm) {
+        // Send broadcast message so pre-L AppWidgets will recognize an update
+        String timeString = "";
+        boolean showStatusIcon = false;
+        if (nextAlarm != null) {
+            timeString = AlarmUtils.getFormattedTime(context, nextAlarm.getAlarmTime());
+            showStatusIcon = true;
+        }
+
+        // Set and notify next alarm text to system
+        LogUtils.i("Displaying next alarm time: \'" + timeString + '\'');
+        // Write directly to NEXT_ALARM_FORMATTED in all pre-L versions
+        Settings.System.putString(context.getContentResolver(),
+                Settings.System.NEXT_ALARM_FORMATTED,
+                timeString);
+        Intent alarmChanged = new Intent(SYSTEM_ALARM_CHANGE_ACTION);
+        alarmChanged.putExtra("alarmSet", showStatusIcon);
+        context.sendBroadcast(alarmChanged);
+    }
+
+    /**
+     * Used in L and later devices where "next alarm" is stored in the Alarm Manager.
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static void updateNextAlarmInAlarmManager(Context context, AlarmInstance nextAlarm){
+        // Sets a surrogate alarm with alarm manager that provides the AlarmClockInfo for the
+        // alarm that is going to fire next. The operation is constructed such that it is ignored
+        // by AlarmStateManager.
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(
+                Context.ALARM_SERVICE);
+
+        int flags = nextAlarm == null ? PendingIntent.FLAG_NO_CREATE : 0;
+        PendingIntent operation = PendingIntent.getBroadcast(context, 0 /* requestCode */,
+                AlarmStateManager.createIndicatorIntent(context), flags);
+
+        if (nextAlarm != null) {
+            long alarmTime = nextAlarm.getAlarmTime().getTimeInMillis();
+
+            // Create an intent that can be used to show or edit details of the next alarm.
+            PendingIntent viewIntent = PendingIntent.getActivity(context, nextAlarm.hashCode(),
+                    AlarmNotifications.createViewAlarmIntent(context, nextAlarm),
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            AlarmManager.AlarmClockInfo info =
+                    new AlarmManager.AlarmClockInfo(alarmTime, viewIntent);
+            alarmManager.setAlarmClock(info, operation);
+        } else if (operation != null) {
+            alarmManager.cancel(operation);
+        }
     }
 
     /**
