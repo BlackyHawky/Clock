@@ -340,6 +340,4 @@
     <string name="no_alarms" msgid="6429431324842022917">"Ойготкуч жок"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Ойготкучтар коюлган жок"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"АЛДЫДА ОЙГОТКУЧ ЖОК"</string>
-    <!-- no translation found for open_alarms (3221109150605733345) -->
-    <skip />
 </resources>

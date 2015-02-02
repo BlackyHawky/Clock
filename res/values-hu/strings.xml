@@ -344,5 +344,4 @@
     <string name="no_alarms" msgid="6429431324842022917">"Nincs ébresztés"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Nincs riasztás"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"NINCS KÖZELGŐ RIASZTÁS"</string>
-    <string name="open_alarms" msgid="3221109150605733345">"Összes ébresztő"</string>
 </resources>
