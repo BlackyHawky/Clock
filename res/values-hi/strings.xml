@@ -344,6 +344,4 @@
     <string name="no_alarms" msgid="6429431324842022917">"कोई अलार्म नहीं"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"अलार्म सेट नहीं"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"कोई आगामी अलार्म नहीं"</string>
-    <!-- no translation found for open_alarms (3221109150605733345) -->
-    <skip />
 </resources>
