@@ -21,13 +21,12 @@ public class ExtensionsFactory {
 
     private static class NullDeskClockExtensions implements DeskClockExtensions {
         @Override
-        public void sendNotification(Context context, NotificationType notificationType,
-                long alarmId) {
+        public void clearNotification(Context context, long alarmId) {
         }
 
         @Override
-        public void sendNotificationWithExtra(Context context, NotificationType notificationType,
-                long alarmId, String extra) {
+        public void sendNotification(Context context, NotificationType notificationType,
+                long alarmId, String content, String title) {
         }
 
         @Override

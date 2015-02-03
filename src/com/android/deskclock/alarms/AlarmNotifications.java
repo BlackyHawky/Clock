@@ -40,9 +40,10 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
+        final String contentText = AlarmUtils.getAlarmText(context, instance);
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(resources.getString(R.string.alarm_alert_predismiss_title))
-                .setContentText(AlarmUtils.getAlarmText(context, instance))
+                .setContentText(contentText)
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setPriority(Notification.PRIORITY_DEFAULT)
@@ -74,7 +75,8 @@ public final class AlarmNotifications {
         nm.notify(instance.hashCode(), notification.build());
 
         ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
-                DeskClockExtensions.NotificationType.LOW_PRIO, instance.mAlarmId);
+                DeskClockExtensions.NotificationType.LOW_PRIO, instance.mAlarmId, contentText,
+                null);
     }
 
     public static void showHighPriorityNotification(Context context, AlarmInstance instance) {
@@ -82,9 +84,10 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
+        final String contentText = AlarmUtils.getAlarmText(context, instance);
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(resources.getString(R.string.alarm_alert_predismiss_title))
-                .setContentText(AlarmUtils.getAlarmText(context, instance))
+                .setContentText(contentText)
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
@@ -112,7 +115,8 @@ public final class AlarmNotifications {
         nm.notify(instance.hashCode(), notification.build());
 
         ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
-                DeskClockExtensions.NotificationType.HIGH_PRIO, instance.mAlarmId);
+                DeskClockExtensions.NotificationType.HIGH_PRIO, instance.mAlarmId, contentText,
+                null);
     }
 
     public static void showSnoozeNotification(Context context, AlarmInstance instance) {
@@ -120,10 +124,11 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         Resources resources = context.getResources();
+        final String title = instance.getLabelOrDefault(context);
         final String contentText = resources.getString(R.string.alarm_alert_snooze_until,
                 AlarmUtils.getFormattedTime(context, instance.getAlarmTime()));
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
-                .setContentTitle(instance.getLabelOrDefault(context))
+                .setContentTitle(title)
                 .setContentText(contentText)
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
@@ -148,8 +153,8 @@ public final class AlarmNotifications {
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
 
-        ExtensionsFactory.getDeskClockExtensions().sendNotificationWithExtra(context,
-                DeskClockExtensions.NotificationType.SNOOZE, instance.mAlarmId, contentText);
+        ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
+                DeskClockExtensions.NotificationType.SNOOZE, instance.mAlarmId, contentText, title);
     }
 
     public static void showMissedNotification(Context context, AlarmInstance instance) {
@@ -186,7 +191,7 @@ public final class AlarmNotifications {
         nm.notify(instance.hashCode(), notification.build());
 
         ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
-                DeskClockExtensions.NotificationType.MISSED, instance.mAlarmId);
+                DeskClockExtensions.NotificationType.MISSED, instance.mAlarmId, contextText, null);
     }
 
     public static void showAlarmNotification(Context context, AlarmInstance instance) {
@@ -254,8 +259,7 @@ public final class AlarmNotifications {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(instance.hashCode());
 
-        ExtensionsFactory.getDeskClockExtensions().sendNotification(context,
-                DeskClockExtensions.NotificationType.CLEAR, instance.mAlarmId);
+        ExtensionsFactory.getDeskClockExtensions().clearNotification(context, instance.mAlarmId);
     }
 
     public static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {

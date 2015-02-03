@@ -527,6 +527,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.mAlarmState = AlarmInstance.MISSED_STATE;
         AlarmInstance.updateInstance(contentResolver, instance);
 
+        ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
+                DeskClockExtensions.StateChangeType.DISMISS, instance.mAlarmId);
+
         // Setup instance notification and scheduling timers
         AlarmNotifications.showMissedNotification(context, instance);
         scheduleInstanceStateChange(context, instance.getMissedTimeToLive(),
@@ -534,7 +537,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Instance is not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
-
     }
 
     public static void setDismissState(Context context, AlarmInstance instance) {
