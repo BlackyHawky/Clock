@@ -441,7 +441,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         updateNextAlarm(context);
 
         ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
-                DeskClockExtensions.StateChangeType.FIRE, instance.mAlarmId);
+                DeskClockExtensions.StateChangeType.FIRE, instance.mAlarmId, instance.mLabel);
     }
 
     public static void setSnoozeState(Context context, AlarmInstance instance, boolean showToast) {
@@ -494,7 +494,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         if (useExtension) {
             ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
-                    DeskClockExtensions.StateChangeType.SNOOZE, instance.mAlarmId);
+                    DeskClockExtensions.StateChangeType.SNOOZE, instance.mAlarmId, null);
         }
     }
 
@@ -528,7 +528,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         AlarmInstance.updateInstance(contentResolver, instance);
 
         ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
-                DeskClockExtensions.StateChangeType.DISMISS, instance.mAlarmId);
+                DeskClockExtensions.StateChangeType.DISMISS, instance.mAlarmId, null);
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.showMissedNotification(context, instance);
@@ -572,7 +572,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         if (useExtension) {
             ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
-                    DeskClockExtensions.StateChangeType.DISMISS, instance.mAlarmId);
+                    DeskClockExtensions.StateChangeType.DISMISS, instance.mAlarmId, null);
         }
     }
 
