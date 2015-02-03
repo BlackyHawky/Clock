@@ -25,8 +25,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -36,7 +36,7 @@ import android.widget.RemoteViews;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
-import com.android.deskclock.alarms.AlarmNotifications;
+import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CitiesActivity;
 
@@ -104,8 +104,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                 cancelAlarmOnQuarterHour(context);
             }
             startAlarmOnQuarterHour(context);
-        } else if (AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED.equals(action)
-                || Intent.ACTION_SCREEN_ON.equals(action)) {
+        } else if (isNextAlarmChangedAction(action) || Intent.ACTION_SCREEN_ON.equals(action)) {
             // Refresh the next alarm
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             if (appWidgetManager != null) {
@@ -151,6 +150,20 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         float ratio = WidgetUtils.getScaleRatio(context, newOptions, appWidgetId);
         AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
         updateClock(context, widgetManager, appWidgetId, ratio);
+    }
+
+    /**
+     * Determine whether action received corresponds to a "next alarm" changed action depending
+     * on the SDK version.
+     */
+    private boolean isNextAlarmChangedAction(String action) {
+        final String nextAlarmIntentAction;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            nextAlarmIntentAction = AlarmStateManager.SYSTEM_ALARM_CHANGE_ACTION;
+        } else {
+            nextAlarmIntentAction = AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
+        }
+        return nextAlarmIntentAction.equals(action);
     }
 
     private void updateClock(

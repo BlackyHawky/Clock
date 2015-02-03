@@ -15,15 +15,12 @@
  */
 package com.android.deskclock.alarms;
 
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Build;
-import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -38,41 +35,6 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
 public final class AlarmNotifications {
-    public static void registerNextAlarmWithAlarmManager(Context context, AlarmInstance instance)  {
-        // Sets a surrogate alarm with alarm manager that provides the AlarmClockInfo for the
-        // alarm that is going to fire next. The operation is constructed such that it is ignored
-        // by AlarmStateManager.
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        int flags = instance == null ? PendingIntent.FLAG_NO_CREATE : 0;
-        PendingIntent operation = PendingIntent.getBroadcast(context, 0 /* requestCode */,
-                AlarmStateManager.createIndicatorIntent(context), flags);
-
-        if (instance != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                long alarmTime = instance.getAlarmTime().getTimeInMillis();
-
-                // Create an intent that can be used to show or edit details of the next alarm.
-                PendingIntent viewIntent = PendingIntent.getActivity(context, instance.hashCode(),
-                        createViewAlarmIntent(context, instance), PendingIntent.FLAG_UPDATE_CURRENT);
-
-                AlarmManager.AlarmClockInfo info =
-                        new AlarmManager.AlarmClockInfo(alarmTime, viewIntent);
-                alarmManager.setAlarmClock(info, operation);
-            } else {
-                // Write directly to NEXT_ALARM_FORMATTED in all pre-L versions
-                final String timeString = AlarmUtils.getFormattedTime(context,
-                        instance.getAlarmTime());
-                Settings.System.putString(context.getContentResolver(),
-                        Settings.System.NEXT_ALARM_FORMATTED,
-                        timeString);
-            }
-        } else if (operation != null) {
-            alarmManager.cancel(operation);
-        }
-    }
-
     public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
@@ -296,7 +258,7 @@ public final class AlarmNotifications {
                 DeskClockExtensions.NotificationType.CLEAR, instance.mAlarmId);
     }
 
-    private static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
+    public static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
         long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
         viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
