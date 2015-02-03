@@ -20,12 +20,10 @@ public interface DeskClockExtensions {
         DISMISS
     }
 
-    public void sendNotification(Context context, NotificationType notificationType,
-            long alarmId);
+    public void clearNotification(Context context, long alarmId);
 
-    public void sendNotificationWithExtra(Context context, NotificationType notificationType,
-            long alarmId, String extra);
+    public void sendNotification(Context context, NotificationType notificationType, long alarmId,
+            String content, String title /* Only used for snoozes */);
 
-    public void sendStateChange(Context context, StateChangeType stateChangeType,
-            long alarmId);
+    public void sendStateChange(Context context, StateChangeType stateChangeType, long alarmId);
 }
