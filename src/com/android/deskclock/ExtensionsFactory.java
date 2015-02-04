@@ -31,7 +31,7 @@ public class ExtensionsFactory {
 
         @Override
         public void sendStateChange(Context context, StateChangeType stateChangeType,
-                long alarmId) {
+                long alarmId, String label) {
         }
     }
 }
