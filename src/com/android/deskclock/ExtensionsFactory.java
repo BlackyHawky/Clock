@@ -28,10 +28,5 @@ public class ExtensionsFactory {
         public void sendNotification(Context context, NotificationType notificationType,
                 long alarmId, String content, String title) {
         }
-
-        @Override
-        public void sendStateChange(Context context, StateChangeType stateChangeType,
-                long alarmId, String label) {
-        }
     }
 }
