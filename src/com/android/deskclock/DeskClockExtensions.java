@@ -24,7 +24,4 @@ public interface DeskClockExtensions {
 
     public void sendNotification(Context context, NotificationType notificationType, long alarmId,
             String content, String title /* Only used for snoozes */);
-
-    public void sendStateChange(Context context, StateChangeType stateChangeType, long alarmId,
-            String label /* Only used for fire */);
 }

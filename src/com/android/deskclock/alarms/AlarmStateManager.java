@@ -439,13 +439,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Instance not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
-
-        ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
-                DeskClockExtensions.StateChangeType.FIRE, instance.mAlarmId, instance.mLabel);
-    }
-
-    public static void setSnoozeState(Context context, AlarmInstance instance, boolean showToast) {
-        setSnoozeState(context, instance, showToast, true);
     }
 
     /**
@@ -455,11 +448,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
      *
      * @param context application context
      * @param instance to set state to
-     * @param useExtension whether to make the additional call to DeskClockGoogleExtension
      *
      */
-    public static void setSnoozeState(Context context, AlarmInstance instance, boolean showToast,
-            boolean useExtension) {
+    public static void setSnoozeState(Context context, AlarmInstance instance, boolean showToast) {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
@@ -491,11 +482,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Instance time changed, so find next alarm that will fire and notify system
         updateNextAlarm(context);
-
-        if (useExtension) {
-            ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
-                    DeskClockExtensions.StateChangeType.SNOOZE, instance.mAlarmId, null);
-        }
     }
 
     public static int getSnoozedMinutes(Context context) {
@@ -527,9 +513,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         instance.mAlarmState = AlarmInstance.MISSED_STATE;
         AlarmInstance.updateInstance(contentResolver, instance);
 
-        ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
-                DeskClockExtensions.StateChangeType.DISMISS, instance.mAlarmId, null);
-
         // Setup instance notification and scheduling timers
         AlarmNotifications.showMissedNotification(context, instance);
         scheduleInstanceStateChange(context, instance.getMissedTimeToLive(),
@@ -539,10 +522,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
         updateNextAlarm(context);
     }
 
-    public static void setDismissState(Context context, AlarmInstance instance) {
-        setDismissState(context, instance, true);
-    }
-
     /**
      * This will set the alarm instance to the SILENT_STATE and update
      * the application notifications and schedule any state changes that need
@@ -550,10 +529,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
      *
      * @param context application context
      * @param instance to set state to
-     * @param useExtension whether to make the additional call to DeskClockGoogleExtension
      */
-    public static void setDismissState(Context context, AlarmInstance instance,
-        boolean useExtension) {
+    public static void setDismissState(Context context, AlarmInstance instance) {
         LogUtils.v("Setting dismissed state to instance " + instance.mId);
 
         // Remove all other timers and notifications associated to it
@@ -569,11 +546,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Instance is not valid anymore, so find next alarm that will fire and notify system
         updateNextAlarm(context);
-
-        if (useExtension) {
-            ExtensionsFactory.getDeskClockExtensions().sendStateChange(context,
-                    DeskClockExtensions.StateChangeType.DISMISS, instance.mAlarmId, null);
-        }
     }
 
     /**
