@@ -174,10 +174,10 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Get alarm instance by id and state.
      */
-    public static List<AlarmInstance> getInstancesByIdAndState(ContentResolver contentResolver,
-            long alarmId, int state) {
-        return getInstances(contentResolver, ALARM_ID + "=" + alarmId + " AND " + ALARM_STATE + "="
-                + state);
+    public static List<AlarmInstance> getInstancesByInstanceIdAndState(
+            ContentResolver contentResolver, long alarmInstanceId, int state) {
+        return getInstances(contentResolver, _ID + "=" + alarmInstanceId + " AND " + ALARM_STATE +
+                "=" + state);
     }
 
     /**
@@ -204,7 +204,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
             String selection, String ... selectionArgs) {
         Cursor cursor  = contentResolver.query(CONTENT_URI, QUERY_COLUMNS,
                 selection, selectionArgs, null);
-        List<AlarmInstance> result = new LinkedList<AlarmInstance>();
+        List<AlarmInstance> result = new LinkedList<>();
         if (cursor == null) {
             return result;
         }
