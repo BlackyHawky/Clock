@@ -184,6 +184,10 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
                 }
                 mInputPointer++;
                 mInput [0] = val;
+                // Update so talkback will read the number being deleted
+                mDelete.setContentDescription(
+                        getResources().getString(R.string.timer_descriptive_delete,
+                                Integer.toString(val)));
                 updateTime();
             }
             return;
@@ -199,6 +203,11 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
                 mInputPointer--;
                 updateTime();
             }
+            // update so talkback will read either the next number or its original description
+            // if there are no more numbers.
+            mDelete.setContentDescription(getResources().getString(
+                    R.string.timer_descriptive_delete,
+                    mInputPointer < 0 ? "" : Integer.toString(mInput[mInputPointer])));
         }
     }
 
