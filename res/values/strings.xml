@@ -523,13 +523,6 @@
         <item>Photonic velocity.</item>
     </string-array>
 
-    <plurals name="timers_num">
-        <!-- 1 timer -->
-        <item quantity="one">1 minute</item>
-        <!-- more -->
-        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> timers</item>
-    </plurals>
-
     <!-- Title with the clock on the main page displaying the user's regular timezone (shows when automatic_home_clock enabled) -->
     <string name="home_label">Home</string>
     <!-- Label for the Cities activity displayed on-screen when that activity must be represented to the user. -->
