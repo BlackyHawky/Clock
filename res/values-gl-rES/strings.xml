@@ -99,12 +99,12 @@
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"5 minutos"</item>
-    <item msgid="3663730603519549990">"10 minutos"</item>
-    <item msgid="1385481095199681200">"15 minutos"</item>
-    <item msgid="420479821767342125">"20 minutos"</item>
-    <item msgid="2107936130151066746">"25 minutos"</item>
-    <item msgid="7219791437023378544">"30 minutos"</item>
+    <item msgid="3024545954917711306">"1 minuto"</item>
+    <item msgid="5431906692406316549">"5 minutos"</item>
+    <item msgid="7742728812068919959">"10 minutos"</item>
+    <item msgid="2855948657259647629">"15 minutos"</item>
+    <item msgid="6330196381284475079">"20 minutos"</item>
+    <item msgid="7809240121716151904">"25 minutos"</item>
     <item msgid="4278641338024561333">"Nunca"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Feito"</string>
@@ -127,11 +127,10 @@
     <string name="gallery_button_description" msgid="1151743663255257668">"Galería"</string>
     <string name="music_button_description" msgid="1626593420810117999">"Música"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Tenue"</string>
-    <string name="home_button_description" msgid="3383859096809056157">"Menú de aplicacións"</string>
+    <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Pantalla do reloxo"</string>
     <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ton de chamada"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"A información meteorolóxica non está dispoñible neste momento."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Servizo de reprodución de son para alarmas definido en Reloxo."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Cargando ton de chamada..."</string>
@@ -143,7 +142,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Temporizador"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Reloxo"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Cronómetro"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Alarmas"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Engadir alarma"</string>
     <string name="button_cities" msgid="4555761857494501363">"Cidades"</string>
     <string name="button_menu" msgid="6050484561842120282">"Máis opcións"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Configuración"</string>
@@ -191,6 +190,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Cancelar"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Acabouse o tempo"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Temporizador"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"4 temporizadores como máximo"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Es o rei da velocidade."</item>
     <item msgid="6332879039890727169">"Goza dos froitos do teu traballo."</item>
@@ -313,13 +313,10 @@
     <item msgid="5176858645450908751">"Iacarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmas"</string>
-    <string name="see_all" msgid="775983396630163739">"Ver todo..."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servizo de cronómetro para executar a notificación."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Detido"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Pasa o dedo cara a dereita para rexeitar"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Pasa o dedo cara a esquerda para adiar"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Pasa o dedo cara arriba para rexeitar"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Pada o dedo cara abaixo para adiar"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Pasa o dedo cara a dereita para rexeitar"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Pasa o dedo cara a esquerda para adiar"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Temporizador detido"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores detidos"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca para ver os temporizadores"</string>

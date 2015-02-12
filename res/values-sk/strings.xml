@@ -58,10 +58,10 @@
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadchádzajúci budík"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zmeškaný budík bol odstránený"</string>
   <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"Zostáva menej ako minúta"</item>
-    <item msgid="83197792732433351">"Zostávajúci čas: <xliff:g id="HOURS">%1$s</xliff:g> h"</item>
-    <item msgid="8919698220200894252">"Zostávajúci čas: <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
-    <item msgid="8458069283817013813">"Zostávajúci čas: <xliff:g id="HOURS">%1$s</xliff:g> h <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
+    <item msgid="7760558912503484257">"Beží posledná minúta"</item>
+    <item msgid="83197792732433351">"Ešte <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"Ešte <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"Ešte <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Budík sa spustí o menej než 1 minútu"</item>
@@ -76,9 +76,9 @@
     <string name="day" msgid="7984755014526510295">"1 deň"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> d."</string>
     <string name="hour" msgid="2546819039651509323">"1 hodina"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> hod."</string>
+    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> h"</string>
     <string name="minute" msgid="2486157997434653710">"1 minúta"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> min."</string>
+    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> min"</string>
     <string name="every_day" msgid="4100909974923444602">"Každý deň"</string>
     <string name="never" msgid="54104287800571769">"Nikdy"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -89,14 +89,14 @@
     <string name="snooze_duration_title" msgid="1097309861110780483">"Dĺžka odloženia zvonenia"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minúta"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> min."</item>
+    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
   </plurals>
   <plurals name="snooze_picker_label">
     <item quantity="one" msgid="3783171637798575068">"minúta"</item>
-    <item quantity="other" msgid="1304056759541595077">"min."</item>
+    <item quantity="other" msgid="1304056759541595077">"min"</item>
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Stíšiť po uplynutí"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min."</string>
+    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minúta"</item>
@@ -169,11 +169,11 @@
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Kolo č. <xliff:g id="NUMBER">%d</xliff:g>"</string>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 hodina"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> hod."</item>
+    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> h"</item>
   </plurals>
   <plurals name="Nminutes_description">
     <item quantity="one" msgid="1001391305885322059">"1 minúta"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> min."</item>
+    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
   </plurals>
   <plurals name="Nseconds_description">
     <item quantity="one" msgid="6589853086641485725">"1 sekunda"</item>

@@ -98,15 +98,11 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"Төмөнкүдөн кийин үнүн басып коюу"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> мүнөт"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Эч качан"</string>
-  <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"5 мүнөт"</item>
-    <item msgid="3663730603519549990">"10 мүнөт"</item>
-    <item msgid="1385481095199681200">"15 мүнөт"</item>
-    <item msgid="420479821767342125">"20 мүнөт"</item>
-    <item msgid="2107936130151066746">"25 мүнөт"</item>
-    <item msgid="7219791437023378544">"30 мүнөт"</item>
-    <item msgid="4278641338024561333">"Эч качан"</item>
-  </string-array>
+    <!-- no translation found for auto_silence_entries:1 (5431906692406316549) -->
+    <!-- no translation found for auto_silence_entries:2 (7742728812068919959) -->
+    <!-- no translation found for auto_silence_entries:3 (2855948657259647629) -->
+    <!-- no translation found for auto_silence_entries:4 (6330196381284475079) -->
+    <!-- no translation found for auto_silence_entries:5 (7809240121716151904) -->
     <string name="done" msgid="6509722361933858451">"Аткарылды"</string>
     <string name="revert" msgid="9100911171235162926">"Мурунку абалга кайтаруу"</string>
     <string name="delete" msgid="5732434972457000541">"Жок кылуу"</string>
@@ -131,7 +127,6 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Саатты көрсөтүү"</string>
     <string name="label_description" msgid="8736179296142915727">"Белги"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Шыңгыр"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Учурда аба-ырайы жөнүндө маалымат жок."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Сааттагы ойготкучтарга үн коюу кызматы."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Шыңгыр жүктөлүүдө…"</string>
@@ -143,7 +138,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Саат"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Секунд менен өлчөгүч"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Ойготкучтар"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Ойготкуч кошуу"</string>
     <string name="button_cities" msgid="4555761857494501363">"Шаарлар"</string>
     <string name="button_menu" msgid="6050484561842120282">"Көбүрөөк параметрлер"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Жөндөөлөр"</string>
@@ -191,6 +186,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Жокко чыгаруу"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Бүттү"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Таймер"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Эң көп 4 таймер"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Чагылгандай тездик менен кыймылдайсыз го?!"</item>
     <item msgid="6332879039890727169">"Эмгегиңиздин акыбетин көрүңүз."</item>
@@ -313,13 +309,10 @@
     <item msgid="5176858645450908751">"Жакарта"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Ойготкучтар"</string>
-    <string name="see_all" msgid="775983396630163739">"Бардыгын көрүү…"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Эскертмени иштетүүчү секунда өлчөгүч кызматы."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Токтотулду"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Этибарга албоо үчүн оңго сүрүп коюңуз"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Тындыруу үчүн солго сүрүп коюңуз"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Этибарга албоо үчүн өйдө сүрүп коюңуз"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Тындыруу үчүн ылдый сүрүп коюңуз"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Өткөрүп салуу үчүн оңго сүрүңүз"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Тындыруу үчүн солго сүрүңүз."</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Таймер токтотулду"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> таймер токтоду"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Таймерлериңизди көрүү үчүн тийип коюңуз"</string>
