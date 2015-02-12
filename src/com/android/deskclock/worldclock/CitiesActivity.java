@@ -16,8 +16,6 @@
 
 package com.android.deskclock.worldclock;
 
-import android.app.ActionBar;
-import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +23,10 @@ import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.TypedValue;
@@ -42,8 +44,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
@@ -64,8 +64,8 @@ import java.util.TimeZone;
 /**
  * Cities chooser for the world clock
  */
-public class CitiesActivity extends Activity implements OnCheckedChangeListener,
-        View.OnClickListener, OnQueryTextListener {
+public class CitiesActivity extends AppCompatActivity implements OnCheckedChangeListener,
+        View.OnClickListener, SearchView.OnQueryTextListener {
 
     private static final String KEY_SEARCH_QUERY = "search_query";
     private static final String KEY_SEARCH_MODE = "search_mode";
@@ -484,7 +484,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
                 PreferenceManager.getDefaultSharedPreferences(this));
         mAdapter = new CityAdapter(this, mFactory);
         mCitiesList.setAdapter(mAdapter);
-        ActionBar actionBar = getActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
         }
@@ -556,7 +556,7 @@ public class CitiesActivity extends Activity implements OnCheckedChangeListener,
         }
 
         MenuItem searchMenu = menu.findItem(R.id.menu_item_search);
-        mSearchView = (SearchView) searchMenu.getActionView();
+        mSearchView = (SearchView) MenuItemCompat.getActionView(searchMenu);
         mSearchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         mSearchView.setOnSearchClickListener(new OnClickListener() {
 

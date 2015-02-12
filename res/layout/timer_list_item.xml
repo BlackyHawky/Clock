@@ -80,9 +80,9 @@
             android:layout_width="50dip"
             android:layout_height="50dip"
             android:layout_gravity="bottom|center_horizontal"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/timer_plus_one"
             android:gravity="center"
+            android:scaleType="center"
             android:src="@drawable/ic_plusone"/>
 
     </com.android.deskclock.CircleButtonsLayout>

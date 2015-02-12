@@ -14,25 +14,32 @@
      limitations under the License.
 -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ex="http://schemas.android.com/apk/res-auto">
+
     <item android:id="@+id/menu_item_search"
         android:title="@android:string/search_go"
         android:icon="@android:drawable/ic_menu_search"
-        android:showAsAction="ifRoom"
-        android:actionViewClass="android.widget.SearchView"
         android:imeOptions="actionSearch"
-        android:orderInCategory="1" />
+        android:orderInCategory="1"
+        ex:showAsAction="ifRoom"
+        ex:actionViewClass="android.support.v7.widget.SearchView" />
+
     <item android:id="@+id/menu_item_sort"
         android:title="@string/menu_item_sort_by_gmt_offset"
-        android:showAsAction="never" />
+        ex:showAsAction="never" />
+
     <item android:id="@+id/menu_item_settings"
         android:title="@string/menu_item_settings"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:showAsAction="never"/>
+        ex:showAsAction="never"/>
+
     <item android:id="@+id/menu_item_help"
         android:title="@string/menu_item_help"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:showAsAction="never"/>
+        ex:showAsAction="never"/>
+
 </menu>
 
 
