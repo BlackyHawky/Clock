@@ -56,7 +56,6 @@ import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CursorAdapter;
@@ -76,7 +75,6 @@ import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.widget.ActionableToastBar;
 import com.android.deskclock.widget.TextTime;
 
-import java.text.DateFormatSymbols;
 import java.util.Calendar;
 import java.util.HashSet;
 
@@ -530,7 +528,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
             TextView clickableLabel;
             CheckBox repeat;
             LinearLayout repeatDays;
-            Button[] dayButtons = new Button[7];
+            CompoundButton[] dayButtons = new CompoundButton[7];
             CheckBox vibrate;
             TextView ringtone;
             View hairLine;
@@ -654,7 +652,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
 
             // Build button for each day.
             for (int i = 0; i < 7; i++) {
-                final Button dayButton = (Button) mFactory.inflate(
+                final CompoundButton dayButton = (CompoundButton) mFactory.inflate(
                         R.layout.day_button, holder.repeatDays, false /* attachToRoot */);
                 dayButton.setText(Utils.getShortWeekday(i));
                 dayButton.setContentDescription(Utils.getLongWeekday(i));
@@ -1000,14 +998,16 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
 
         private void turnOffDayOfWeek(ItemHolder holder, int dayIndex) {
-            final Button dayButton = holder.dayButtons[dayIndex];
+            final CompoundButton dayButton = holder.dayButtons[dayIndex];
             dayButton.setActivated(false);
+            dayButton.setChecked(false);
             dayButton.setTextColor(getResources().getColor(R.color.clock_white));
         }
 
         private void turnOnDayOfWeek(ItemHolder holder, int dayIndex) {
-            final Button dayButton = holder.dayButtons[dayIndex];
+            final CompoundButton dayButton = holder.dayButtons[dayIndex];
             dayButton.setActivated(true);
+            dayButton.setChecked(true);
             dayButton.setTextColor(Utils.getCurrentHourColor());
         }
 
