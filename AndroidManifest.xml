@@ -200,7 +200,7 @@
         <!-- Settings activity for screensaver -->
         <activity android:name=".ScreensaverSettingsActivity"
                 android:label="@string/screensaver_settings"
-                android:theme="@style/ScreensaverSettingsActivityTheme"
+                android:theme="@style/SettingsTheme"
                 android:taskAffinity=""
                 android:excludeFromRecents="true"
                 android:exported="true"
