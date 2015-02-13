@@ -34,6 +34,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,7 +55,8 @@ import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.provider.AlarmInstance;
 
-public class AlarmActivity extends Activity implements View.OnClickListener, View.OnTouchListener {
+public class AlarmActivity extends AppCompatActivity
+        implements View.OnClickListener, View.OnTouchListener {
 
     /**
      * AlarmActivity listens for this broadcast intent, so that other applications can snooze the

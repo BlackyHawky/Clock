@@ -14,10 +14,10 @@
 
 package com.android.deskclock.timer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,7 +34,7 @@ import com.android.deskclock.timer.TimerFullScreenFragment.OnEmptyListListener;
  * shows over the lock screen.
  * This activity re-uses TimerFullScreenFragment GUI
  */
-public class TimerAlertFullScreen extends Activity implements OnEmptyListListener {
+public class TimerAlertFullScreen extends AppCompatActivity implements OnEmptyListListener {
 
     private static final String TAG = "TimerAlertFullScreen";
     private static final String FRAGMENT = "timer";

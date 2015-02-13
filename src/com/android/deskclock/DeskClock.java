@@ -18,12 +18,9 @@ package com.android.deskclock;
 
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +32,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBar.Tab;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -66,8 +67,8 @@ import java.util.TimeZone;
 /**
  * DeskClock clock view for desk docks.
  */
-public class DeskClock extends Activity implements LabelDialogFragment.TimerLabelDialogHandler,
-        LabelDialogFragment.AlarmLabelDialogHandler {
+public class DeskClock extends AppCompatActivity implements
+        LabelDialogFragment.TimerLabelDialogHandler, LabelDialogFragment.AlarmLabelDialogHandler {
     private static final boolean DEBUG = false;
     private static final String LOG_TAG = "DeskClock";
     // Alarm action for midnight (so we can update the date display).
@@ -197,7 +198,7 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
     }
 
     private void createTabs(int selectedIndex) {
-        mActionBar = getActionBar();
+        mActionBar = getSupportActionBar();
 
         if (mActionBar != null) {
             mActionBar.setDisplayOptions(0);
@@ -456,10 +457,10 @@ public class DeskClock extends Activity implements LabelDialogFragment.TimerLabe
         // Used for doing callbacks to fragments.
         HashSet<String> mFragmentTags = new HashSet<String>();
 
-        public TabsAdapter(Activity activity, ViewPager pager) {
+        public TabsAdapter(AppCompatActivity activity, ViewPager pager) {
             super(activity.getFragmentManager());
             mContext = activity;
-            mMainActionBar = activity.getActionBar();
+            mMainActionBar = activity.getSupportActionBar();
             mPager = pager;
             mPager.setAdapter(this);
             mPager.setOnPageChangeListener(this);

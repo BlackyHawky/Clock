@@ -21,6 +21,11 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 /**
  * Settings for the Alarm Clock Dream (com.android.deskclock.Screensaver).
@@ -28,16 +33,38 @@ import android.preference.PreferenceActivity;
 public class ScreensaverSettingsActivity extends PreferenceActivity
         implements Preference.OnPreferenceChangeListener {
 
-    static final String KEY_CLOCK_STYLE =
-            "screensaver_clock_style";
-    static final String KEY_NIGHT_MODE =
-            "screensaver_night_mode";
+    static final String KEY_CLOCK_STYLE = "screensaver_clock_style";
+    static final String KEY_NIGHT_MODE = "screensaver_night_mode";
+
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.dream_settings);
+
+        mToolbar.setTitle(getTitle());
     }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        final LayoutInflater inflater = LayoutInflater.from(this);
+        final ViewGroup view = (ViewGroup) inflater.inflate(R.layout.settings_activity,
+                new LinearLayout(this) /* root */, false /* attachToRoot */);
+
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        final ViewGroup mainView = (ViewGroup) view.findViewById(R.id.main);
+        inflater.inflate(layoutResID, mainView, true /* attachToRoot */);
+        getWindow().setContentView(view);
+    }
+
 
     @Override
     protected void onResume() {

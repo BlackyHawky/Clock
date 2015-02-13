@@ -10,7 +10,14 @@ LOCAL_OVERRIDES_PACKAGES := AlarmClock
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
 LOCAL_STATIC_JAVA_LIBRARIES := android-support-v13
+LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-appcompat
+
+APPCOMPAT_DIR := prebuilts/sdk/current/support/v7/appcompat
+
+LOCAL_RESOURCE_DIR := packages/apps/DeskClock/res
+LOCAL_RESOURCE_DIR += $(APPCOMPAT_DIR)/res
 
 LOCAL_AAPT_FLAGS := --auto-add-overlay
+LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.appcompat
 
 include $(BUILD_PACKAGE)

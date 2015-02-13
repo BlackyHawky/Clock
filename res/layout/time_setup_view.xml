@@ -37,8 +37,8 @@
             android:layout_gravity="center"
             android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
             android:padding="@dimen/timer_setup_delete_padding"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/timer_delete"
+            android:scaleType="center"
             android:src="@drawable/ic_backspace" />
 
     </com.android.deskclock.timer.TimerView>
@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:layout_marginBottom="8dip"
-        android:background="@color/dialog_gray" />
+        android:background="@color/dialog_gray" />```
 
     <include
         android:id="@+id/first"

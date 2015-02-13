@@ -24,6 +24,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.android.deskclock.alarms.AlarmStateManager;
@@ -51,7 +52,7 @@ import static android.provider.AlarmClock.EXTRA_SKIP_UI;
 import static android.provider.AlarmClock.EXTRA_VIBRATE;
 import static android.provider.AlarmClock.VALUE_RINGTONE_SILENT;
 
-public class HandleApiCalls extends Activity {
+public class HandleApiCalls extends AppCompatActivity {
 
     public static final long TIMER_MIN_LENGTH = 1000;
     public static final long TIMER_MAX_LENGTH = 24 * 60 * 60 * 1000;
