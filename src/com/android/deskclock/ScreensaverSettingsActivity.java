@@ -17,86 +17,68 @@
 package com.android.deskclock;
 
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.preference.PreferenceFragment;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 /**
- * Settings for the Alarm Clock Dream (com.android.deskclock.Screensaver).
+ * Settings for Clock Daydream
  */
-public class ScreensaverSettingsActivity extends PreferenceActivity
-        implements Preference.OnPreferenceChangeListener {
+public class ScreensaverSettingsActivity extends AppCompatActivity {
 
     static final String KEY_CLOCK_STYLE = "screensaver_clock_style";
     static final String KEY_NIGHT_MODE = "screensaver_night_mode";
 
-    private Toolbar mToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.dream_settings);
-
-        mToolbar.setTitle(getTitle());
+        setContentView(R.layout.screensaver_settings);
     }
 
     @Override
-    public void setContentView(int layoutResID) {
-        final LayoutInflater inflater = LayoutInflater.from(this);
-        final ViewGroup view = (ViewGroup) inflater.inflate(R.layout.settings_activity,
-                new LinearLayout(this) /* root */, false /* attachToRoot */);
-
-        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
                 finish();
-            }
-        });
-
-        final ViewGroup mainView = (ViewGroup) view.findViewById(R.id.main);
-        inflater.inflate(layoutResID, mainView, true /* attachToRoot */);
-        getWindow().setContentView(view);
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refresh();
-    }
-
-    @Override
-    public boolean onPreferenceChange(Preference pref, Object newValue) {
-        if (KEY_CLOCK_STYLE.equals(pref.getKey())) {
-            final ListPreference listPref = (ListPreference) pref;
-            final int idx = listPref.findIndexOfValue((String) newValue);
-            listPref.setSummary(listPref.getEntries()[idx]);
-        } else if (KEY_NIGHT_MODE.equals(pref.getKey())) {
-            boolean state = ((CheckBoxPreference) pref).isChecked();
+                return true;
+            default:
+                break;
         }
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
-    private void refresh() {
-        ListPreference listPref = (ListPreference) findPreference(KEY_CLOCK_STYLE);
-        listPref.setSummary(listPref.getEntry());
-        listPref.setOnPreferenceChangeListener(this);
 
-        Preference pref = findPreference(KEY_NIGHT_MODE);
-        boolean state = ((CheckBoxPreference) pref).isChecked();
-        pref.setOnPreferenceChangeListener(this);
-    }
+    public static class PrefsFragment extends PreferenceFragment
+            implements Preference.OnPreferenceChangeListener {
 
-    @Override
-    protected boolean isValidFragment(String fragmentName) {
-        // This activity is not exported so we can just approve everything
-        return true;
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.dream_settings);
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            refresh();
+        }
+
+        @Override
+        public boolean onPreferenceChange(Preference pref, Object newValue) {
+            if (KEY_CLOCK_STYLE.equals(pref.getKey())) {
+                final ListPreference clockStylePref = (ListPreference) pref;
+                final int index = clockStylePref.findIndexOfValue((String) newValue);
+                clockStylePref.setSummary(clockStylePref.getEntries()[index]);
+            }
+            return true;
+        }
+
+        private void refresh() {
+            final ListPreference clockStylePref = (ListPreference) findPreference(KEY_CLOCK_STYLE);
+            clockStylePref.setSummary(clockStylePref.getEntry());
+            clockStylePref.setOnPreferenceChangeListener(this);
+        }
     }
 }

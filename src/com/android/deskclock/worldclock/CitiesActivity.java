@@ -484,10 +484,6 @@ public class CitiesActivity extends AppCompatActivity implements OnCheckedChange
                 PreferenceManager.getDefaultSharedPreferences(this));
         mAdapter = new CityAdapter(this, mFactory);
         mCitiesList.setAdapter(mAdapter);
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
-        }
     }
 
     private void setFastScroll(boolean enabled) {
