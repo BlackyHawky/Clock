@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Outline;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,7 +46,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
-import android.view.ViewOutlineProvider;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -151,17 +149,9 @@ public class DeskClock extends AppCompatActivity implements
         }
     }
 
-    private static final ViewOutlineProvider OVAL_OUTLINE_PROVIDER = new ViewOutlineProvider() {
-        @Override
-        public void getOutline(View view, Outline outline) {
-            outline.setOval(0, 0, view.getWidth(), view.getHeight());
-        }
-    };
-
     private void initViews() {
         setContentView(R.layout.desk_clock);
         mFab = (ImageButton) findViewById(R.id.fab);
-        mFab.setOutlineProvider(OVAL_OUTLINE_PROVIDER);
         mLeftButton = (ImageButton) findViewById(R.id.left_button);
         mRightButton = (ImageButton) findViewById(R.id.right_button);
         if (mTabsAdapter == null) {
