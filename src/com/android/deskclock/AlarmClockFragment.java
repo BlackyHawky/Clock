@@ -24,7 +24,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.LoaderManager;
-import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -65,7 +64,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.android.deskclock.alarms.AlarmStateManager;
@@ -81,8 +79,8 @@ import java.util.HashSet;
 /**
  * AlarmClock application.
  */
-public class AlarmClockFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, OnTimeSetListener, View.OnTouchListener {
+public abstract class AlarmClockFragment extends DeskClockFragment implements
+        LoaderManager.LoaderCallbacks<Cursor>, View.OnTouchListener {
     private static final float EXPAND_DECELERATION = 1f;
     private static final float COLLAPSE_DECELERATION = 0.7f;
 
@@ -124,14 +122,14 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private ActionableToastBar mUndoBar;
     private View mUndoFrame;
 
-    private Alarm mSelectedAlarm;
-    private long mScrollToAlarmId = INVALID_ID;
+    protected Alarm mSelectedAlarm;
+    protected long mScrollToAlarmId = INVALID_ID;
 
     private Loader mCursorLoader = null;
 
     // Saved states for undo
     private Alarm mDeletedAlarm;
-    private Alarm mAddedAlarm;
+    protected Alarm mAddedAlarm;
     private boolean mUndoShowing;
 
     private Interpolator mExpandInterpolator;
@@ -140,6 +138,36 @@ public class AlarmClockFragment extends DeskClockFragment implements
     private Transition mAddRemoveTransition;
     private Transition mRepeatTransition;
     private Transition mEmptyViewTransition;
+
+    // Abstract methods to to be overridden by for post- and pre-L implementations as necessary
+    protected abstract void setTimePickerListener();
+    protected abstract void showTimeEditDialog(Alarm alarm);
+    protected abstract void startCreatingAlarm();
+
+    protected void processTimeSet(int hourOfDay, int minute) {
+        if (mSelectedAlarm == null) {
+            // If mSelectedAlarm is null then we're creating a new alarm.
+            Alarm a = new Alarm();
+            a.alert = RingtoneManager.getActualDefaultRingtoneUri(getActivity(),
+                    RingtoneManager.TYPE_ALARM);
+            if (a.alert == null) {
+                a.alert = Uri.parse("content://settings/system/alarm_alert");
+            }
+            a.hour = hourOfDay;
+            a.minutes = minute;
+            a.enabled = true;
+
+            mAddedAlarm = a;
+            asyncAddAlarm(a);
+        } else {
+            mSelectedAlarm.hour = hourOfDay;
+            mSelectedAlarm.minutes = minute;
+            mSelectedAlarm.enabled = true;
+            mScrollToAlarmId = mSelectedAlarm.id;
+            asyncUpdateAlarm(mSelectedAlarm, true);
+            mSelectedAlarm = null;
+        }
+    }
 
     public AlarmClockFragment() {
         // Basic provider required by Fragment.java
@@ -297,6 +325,8 @@ public class AlarmClockFragment extends DeskClockFragment implements
             // Remove the SCROLL_TO_ALARM extra now that we've processed it.
             intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
         }
+
+        setTimePickerListener();
     }
 
     private void hideUndoBar(boolean animate, MotionEvent event) {
@@ -354,32 +384,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         // home was pressed, just dismiss any existing toast bar when restarting
         // the app.
         hideUndoBar(false, null);
-    }
-
-    // Callback used by TimePickerDialog
-    @Override
-    public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-        if (mSelectedAlarm == null) {
-            // If mSelectedAlarm is null then we're creating a new alarm.
-            Alarm a = new Alarm();
-            a.alert = RingtoneManager.getActualDefaultRingtoneUri(getActivity(),
-                    RingtoneManager.TYPE_ALARM);
-            if (a.alert == null) {
-                a.alert = Uri.parse("content://settings/system/alarm_alert");
-            }
-            a.hour = hourOfDay;
-            a.minutes = minute;
-            a.enabled = true;
-            mAddedAlarm = a;
-            asyncAddAlarm(a);
-        } else {
-            mSelectedAlarm.hour = hourOfDay;
-            mSelectedAlarm.minutes = minute;
-            mSelectedAlarm.enabled = true;
-            mScrollToAlarmId = mSelectedAlarm.id;
-            asyncUpdateAlarm(mSelectedAlarm, true);
-            mSelectedAlarm = null;
-        }
     }
 
     private void showLabelDialog(final Alarm alarm) {
@@ -487,7 +491,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
     }
 
-    public class AlarmItemAdapter extends CursorAdapter {
+    private class AlarmItemAdapter extends CursorAdapter {
         private final Context mContext;
         private final LayoutInflater mFactory;
         private final Typeface mRobotoNormal;
@@ -698,7 +702,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onClick(View view) {
                     mSelectedAlarm = itemHolder.alarm;
-                    AlarmUtils.showTimeEditDialog(AlarmClockFragment.this, alarm);
+                    showTimeEditDialog(alarm);
                     expandAlarm(itemHolder, true);
                     itemHolder.alarmItem.post(mScrollRunnable);
                 }
@@ -1323,13 +1327,6 @@ public class AlarmClockFragment extends DeskClockFragment implements
         }
     }
 
-    private void startCreatingAlarm() {
-        // Set the "selected" alarm as null, and we'll create the new one when the timepicker
-        // comes back.
-        mSelectedAlarm = null;
-        AlarmUtils.showTimeEditDialog(this, null);
-    }
-
     private static AlarmInstance setupAlarmInstance(Context context, Alarm alarm) {
         ContentResolver cr = context.getContentResolver();
         AlarmInstance newInstance = alarm.createInstanceAfter(Calendar.getInstance());
@@ -1357,7 +1354,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         deleteTask.execute();
     }
 
-    private void asyncAddAlarm(final Alarm alarm) {
+    protected void asyncAddAlarm(final Alarm alarm) {
         final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
         final AsyncTask<Void, Void, AlarmInstance> updateTask =
                 new AsyncTask<Void, Void, AlarmInstance>() {
@@ -1388,7 +1385,7 @@ public class AlarmClockFragment extends DeskClockFragment implements
         updateTask.execute();
     }
 
-    private void asyncUpdateAlarm(final Alarm alarm, final boolean popToast) {
+    protected void asyncUpdateAlarm(final Alarm alarm, final boolean popToast) {
         final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
         final AsyncTask<Void, Void, AlarmInstance> updateTask =
                 new AsyncTask<Void, Void, AlarmInstance>() {
