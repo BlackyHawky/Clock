@@ -133,6 +133,9 @@
         <item name="android:colorControlActivated">@color/hot_pink</item>
     </style>
 
+    <!-- variants: v21 -->
+    <style name="FabStyle" />
+
     <style name="FastScrollStyle" parent="@android:style/Widget.Material.FastScroll">
         <item name="android:minWidth">48dip</item>
         <item name="android:minHeight">48dip</item>
