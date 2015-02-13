@@ -169,7 +169,6 @@
                 android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
                 android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:layout_marginStart="4dip"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/delete_alarm"
                 android:scaleType="center"
                 android:src="@drawable/ic_delete_small" />

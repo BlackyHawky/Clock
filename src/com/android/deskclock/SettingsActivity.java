@@ -16,7 +16,6 @@
 
 package com.android.deskclock;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
@@ -25,9 +24,14 @@ import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateUtils;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.android.deskclock.worldclock.Cities;
 
@@ -64,7 +68,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private static CharSequence[][] mTimezones;
     private long mTime;
-
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,10 +77,7 @@ public class SettingsActivity extends PreferenceActivity
 
         addPreferencesFromResource(R.xml.settings);
 
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP, ActionBar.DISPLAY_HOME_AS_UP);
-        }
+        mToolbar.setTitle(getTitle());
 
         // We don't want to reconstruct the timezone list every single time
         // onResume() is called so we do it once in onCreate
@@ -94,9 +95,29 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     @Override
+    public void setContentView(int layoutResID) {
+        final LayoutInflater inflater = LayoutInflater.from(this);
+        final ViewGroup view = (ViewGroup) inflater.inflate(R.layout.settings_activity,
+                new LinearLayout(this) /* root */, false /* attachToRoot */);
+
+        mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        final ViewGroup mainView = (ViewGroup) view.findViewById(R.id.main);
+        inflater.inflate(layoutResID, mainView, true /* attachToRoot */);
+        getWindow().setContentView(view);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         getWindow().getDecorView().setBackgroundColor(Utils.getCurrentHourColor());
+        mToolbar.setBackgroundColor(Utils.getCurrentHourColor());
         refresh();
     }
 

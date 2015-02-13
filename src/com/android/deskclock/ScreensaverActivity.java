@@ -16,7 +16,6 @@
 
 package com.android.deskclock;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -28,7 +27,7 @@ import android.os.BatteryManager;
 import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,7 +35,7 @@ import android.widget.TextClock;
 
 import com.android.deskclock.Utils.ScreensaverMoveSaverRunnable;
 
-public class ScreensaverActivity extends Activity {
+public class ScreensaverActivity extends AppCompatActivity {
     static final boolean DEBUG = false;
     static final String TAG = "DeskClock/ScreensaverActivity";
 
@@ -64,9 +63,7 @@ public class ScreensaverActivity extends Activity {
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (DEBUG) {
-                Log.v(TAG, "ScreensaverActivity onReceive, action: " + intent.getAction());
-            }
+            LogUtils.v(TAG, "ScreensaverActivity onReceive, action: " + intent.getAction());
 
             boolean changed = intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
                     || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED);
@@ -112,7 +109,7 @@ public class ScreensaverActivity extends Activity {
     };
 
     public ScreensaverActivity() {
-        if (DEBUG) Log.d(TAG, "Screensaver allocated");
+        LogUtils.d(TAG, "Screensaver allocated");
         mMoveSaverRunnable = new ScreensaverMoveSaverRunnable(mHandler);
     }
 
@@ -173,7 +170,7 @@ public class ScreensaverActivity extends Activity {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        if (DEBUG) Log.d(TAG, "Screensaver configuration changed");
+        LogUtils.d(TAG, "Screensaver configuration changed");
         super.onConfigurationChanged(newConfig);
         mHandler.removeCallbacks(mMoveSaverRunnable);
         layoutClockSaver();

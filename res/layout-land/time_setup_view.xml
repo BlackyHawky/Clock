@@ -51,8 +51,8 @@
                     android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
                     android:padding="@dimen/timer_setup_delete_padding"
                     android:contentDescription="@string/timer_delete"
-                    android:src="@drawable/ic_backspace"
-                    android:background="?android:attr/selectableItemBackgroundBorderless" />
+                    android:scaleType="center"
+                    android:src="@drawable/ic_backspace" />
 
             </com.android.deskclock.timer.TimerView>
 

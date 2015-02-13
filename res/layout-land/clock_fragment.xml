@@ -21,7 +21,6 @@
     android:layout_height="match_parent"
     android:paddingStart="@dimen/clock_side_padding"
     android:paddingEnd="@dimen/clock_side_padding"
-    android:paddingTop="?android:attr/actionBarSize"
     android:orientation="horizontal">
 
     <LinearLayout

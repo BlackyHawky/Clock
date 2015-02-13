@@ -23,13 +23,14 @@
 
     <ImageButton
         android:id="@+id/timer_cancel"
-        style="@style/button"
         android:layout_width="0dip"
         android:layout_weight="1"
         android:layout_height="match_parent"
         android:paddingEnd="20dip"
         android:contentDescription="@string/timer_cancel"
-        android:src="@drawable/ic_cancel" />
+        android:scaleType="center"
+        android:src="@drawable/ic_cancel"
+        android:textSize="@dimen/button_font_size" />
 
     <Space
         android:layout_width="0dip"
