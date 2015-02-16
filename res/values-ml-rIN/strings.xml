@@ -181,6 +181,7 @@
     <string name="timer_add_timer" msgid="862733633862574752">"ടൈമർ ചേർക്കുക"</string>
     <string name="timer_start" msgid="6158486445614356442">"ആരംഭിക്കുക"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ഇല്ലാതാക്കുക"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ഇല്ലാതാക്കുക"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"ഒരു മിനിറ്റ് ചേർക്കുക"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"ഒരു മിനിറ്റ് ചേർക്കുക"</string>
     <string name="timer_stop" msgid="3361154678667736722">"നിര്‍ത്തുക"</string>
@@ -202,10 +203,6 @@
     <item msgid="9071353477103826053">"നിങ്ങളുടെ തിരക്കിനായി ഒരു പാലറ്റുണ്ട്."</item>
     <item msgid="3785193933691117181">"ഫോട്ടോണിക്ക് പ്രവേഗം."</item>
   </string-array>
-  <plurals name="timers_num">
-    <item quantity="one" msgid="6764708652976799977">"ഒരു മിനിറ്റ്"</item>
-    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ"</item>
-  </plurals>
     <string name="home_label" msgid="4436139365695453870">"ഹോം"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"നഗരങ്ങൾ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ക്ലോക്ക്"</string>

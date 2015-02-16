@@ -177,6 +177,7 @@
     <string name="timer_add_timer" msgid="862733633862574752">"Таймер кошуу"</string>
     <string name="timer_start" msgid="6158486445614356442">"Баштоо"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Жок кылуу"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Жок кылуу <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"1 мүнөт кошуу"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 мүн кошуу"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Токтотуу"</string>
@@ -198,10 +199,6 @@
     <item msgid="9071353477103826053">"Шашылыш колдонула турган түстөр топтому бар."</item>
     <item msgid="3785193933691117181">"Фотондук тездик."</item>
   </string-array>
-  <plurals name="timers_num">
-    <item quantity="one" msgid="6764708652976799977">"1 мүнөт"</item>
-    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> таймер"</item>
-  </plurals>
     <string name="home_label" msgid="4436139365695453870">"Үй"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Шаарлар"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Саат"</string>
