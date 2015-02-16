@@ -44,16 +44,16 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"Kengele ambayo haikushughulikiwa"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Yamepumzishwa"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"Dakika 1"</item>
-    <item quantity="other" msgid="6731274475422132958">"Dakika <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other">Dak <xliff:g id="NUMBER">%d</xliff:g> </item>
+      <item quantity="one">Dak 1</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Kengele imezimwa"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Nikumbushe baadaye"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"Inasinzia kwa dakika 1"</item>
-    <item quantity="other" msgid="7377899473014259727">"Inasinzia kwa dakika <xliff:g id="MINUTES">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other">Inapumzisha kwa dakika <xliff:g id="MINUTES">%d</xliff:g>.</item>
+      <item quantity="one">Inapumzisha kwa dakika 1.</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Imeahirishwa hadi <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Kengele ijayo"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Kengele ambayo haikuitikiwa imefutwa"</string>
@@ -86,14 +86,14 @@
     <string name="help" msgid="7786263119482654015">"msaada"</string>
     <string name="settings" msgid="5849739030579520686">"Mipangilio"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Nikumbushe baada ya"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"Dakika 1"</item>
-    <item quantity="other" msgid="568504136093419703">"Dakika <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"dakika"</item>
-    <item quantity="other" msgid="1304056759541595077">"dakika"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="other">Dakika <xliff:g id="NUMBER">%d</xliff:g> </item>
+      <item quantity="one">Dakika 1</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="other">dakika </item>
+      <item quantity="one">dakika</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Kimya baada ya"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> dakika"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Katu"</string>
@@ -166,21 +166,22 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Muda wangu ni <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Muda wa mzunguko:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Mzunguko <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"Saa 1"</item>
-    <item quantity="other" msgid="7018184076091344797">"Saa <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"Dakika 1"</item>
-    <item quantity="other" msgid="6948360065351547776">"Dakika <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"Sekunde 1"</item>
-    <item quantity="other" msgid="7583230315175387547">"Sekunde <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="other">Saa <xliff:g id="NUMBER">%d</xliff:g></item>
+      <item quantity="one">Saa 1</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="other">Dakika <xliff:g id="NUMBER">%d</xliff:g> </item>
+      <item quantity="one">Dakika 1</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="other">Sekunde <xliff:g id="NUMBER">%d</xliff:g> </item>
+      <item quantity="one">Sekunde 1</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Ongeza Kipima wakati"</string>
     <string name="timer_start" msgid="6158486445614356442">"Anza"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Futa"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Futa <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Ongeza Dakika 1"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Ongeza dakika 1"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Simama"</string>
@@ -202,10 +203,6 @@
     <item msgid="9071353477103826053">"Una safu ya rangi ya kasi."</item>
     <item msgid="3785193933691117181">"Kasi ya picha."</item>
   </string-array>
-  <plurals name="timers_num">
-    <item quantity="one" msgid="6764708652976799977">"Dakika 1"</item>
-    <item quantity="other" msgid="3799129667336330616">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g>"</item>
-  </plurals>
     <string name="home_label" msgid="4436139365695453870">"Mwanzo"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Miji"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Saa"</string>
@@ -334,10 +331,10 @@
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> zimechaguliwa"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Imefutwa"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"Ifuta kengele iliyochaguliwa?"</item>
-    <item quantity="other" msgid="6918176478191272189">"Ifuta kengele zilizochaguliwa?"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="other">Ungependa kufuta kengele zilizochaguliwa?</item>
+      <item quantity="one">Ungependa kufuta kengele iliyochaguliwa?</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Futa kipima wakati hiki?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Iondoe mji huu?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Saa dijitali"</string>

@@ -44,16 +44,16 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"ໂມງປຸກທີ່ພາດ"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"​ເລື່ອນ​ແລ້ວ"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"1 ນ​ທ"</item>
-    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> ນ​ທ"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ນ​ທ</item>
+      <item quantity="one">1 ນ​ທ</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"​ປິດ​ໂມງ​ປຸກ"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"ປິດສຽງເຕືອນຊົ່ວຄາວ"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"ປິດສຽງເຕືອນຊົ່ວຄາວ 1 ນາທີ."</item>
-    <item quantity="other" msgid="7377899473014259727">"ປິດສຽງເຕືອນຊົ່ວຄາວ <xliff:g id="MINUTES">%d</xliff:g> ນາທີ."</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other">ເລື່ອນ​ແຈ້ງ​ເຕືອນ​ເປັນ​ເວ​ລາ <xliff:g id="MINUTES">%d</xliff:g> ນາ​ທີ.</item>
+      <item quantity="one">ເລື່ອນ​ແຈ້ງ​ເຕືອນ​ເປັນ​ເວ​ລາ 1 ນາ​ທີ.</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ປິດສຽງເຕືອນຊົ່ວຄາວຈົນກວ່າຈະຮອດ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ໂມງປຸກຖັດໄປ"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ການຕັ້ງໂມງປຸກທີ່ພາດໄປນັ້ນຖືກລຶບແລ້ວ"</string>
@@ -86,14 +86,14 @@
     <string name="help" msgid="7786263119482654015">"ຊ່ວຍເຫຼືອ"</string>
     <string name="settings" msgid="5849739030579520686">"ຕັ້ງຄ່າ"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"ຄວາມຍາວການປິດສຽງເຕືອນຊົ່ວຄາວ"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"1 ນາທີ"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> ນາທີ"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"ນາທີ"</item>
-    <item quantity="other" msgid="1304056759541595077">"ນາທີ"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ນາທີ</item>
+      <item quantity="one">1 ນາທີ</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="other">ນາທີ</item>
+      <item quantity="one">ນາທີ</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"ປິດສຽງຫຼັງຈາກ"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> ນາທີ"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"ບໍ່ໃຊ້"</string>
@@ -166,21 +166,22 @@
     <string name="sw_share_main" msgid="7703563468204234405">"ເວລາຂອງຂ້ອຍແມ່ນ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ເວລາຮອບ:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ຮອບ <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"1 ຊົ່ວໂມງ"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ຊົ່ວໂມງ"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"1 ນາທີ"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> ນາທີ"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"1 ວິນາທີ"</item>
-    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> ວິນາທີ"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ຊົ່ວໂມງ</item>
+      <item quantity="one">1 ຊົ່ວໂມງ</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ນາ​ທີ</item>
+      <item quantity="one">1 ນາທີ</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ວິ​ນາ​ທີ</item>
+      <item quantity="one">1 ວິ​ນາ​ທີ</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"ເພີ່ມໂມງນັບຖອຍຫຼັງ"</string>
     <string name="timer_start" msgid="6158486445614356442">"ເລີ່ມ"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ລຶບ"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"ລຶບ <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"ເພີ່ມ 1 ນາທີ"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"ເພີ່ມ 1 ນາທີ"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ຢຸດ"</string>
@@ -202,10 +203,6 @@
     <item msgid="9071353477103826053">"ທ່ານມີຖາດສີສຳລັບຄວາມໄວ."</item>
     <item msgid="3785193933691117181">"ຄວາມໄວໂຟໂຕນິກ."</item>
   </string-array>
-  <plurals name="timers_num">
-    <item quantity="one" msgid="6764708652976799977">"1 ນາທີ"</item>
-    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> ໂຕຈັບເວລາ"</item>
-  </plurals>
     <string name="home_label" msgid="4436139365695453870">"ຫນ້າທໍາອິດ"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"ເມືອງ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ໂມງ"</string>
@@ -334,10 +331,10 @@
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"ເລືອກ <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"ລຶບແລ້ວ"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"ລຶບໂມງປຸກທີ່ເລືອກ?"</item>
-    <item quantity="other" msgid="6918176478191272189">"ລຶບໂມງປຸກທີ່ເລືອກ?"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="other">ລຶບໂມງປຸກທີ່ເລືອກໄວ້​ບໍ?</item>
+      <item quantity="one">ລຶບໂມງປຸກທີ່ເລືອກໄວ້​ບໍ?</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"ລຶບໂມງນັບຖອຍຫລັງນີ້?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"ລຶບເມືອງນີ້ອອກ?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ໂມງດິຈິຕອນ"</string>

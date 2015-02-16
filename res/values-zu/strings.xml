@@ -44,16 +44,16 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"I-Alamu ekuphuthele"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Kusnuziwe"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"1 iminithi"</item>
-    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> iminithi"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> amaminithi</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> amaminithi</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"I-alamu ivaliwe"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ukusnuza"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"Isnuzwe iminithi engu-1"</item>
-    <item quantity="other" msgid="7377899473014259727">"Isnuza amaminithi angu-<xliff:g id="MINUTES">%d</xliff:g>."</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="one">Isnuza ngamaminithi angu-<xliff:g id="MINUTES">%d</xliff:g>.</item>
+      <item quantity="other">Isnuza ngamaminithi angu-<xliff:g id="MINUTES">%d</xliff:g>.</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snuza kuze kube ngu-<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"I-Alamu ezayo"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"I-Alamu yakho ekuphuthele isusiwe"</string>
@@ -86,14 +86,14 @@
     <string name="help" msgid="7786263119482654015">"usizo"</string>
     <string name="settings" msgid="5849739030579520686">"Izilungiselelo"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Ubude bokusnuza"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"1 iminithi"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> amaminithi"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"iminithi"</item>
-    <item quantity="other" msgid="1304056759541595077">"amaminithi"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> amaminithi</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> amaminithi</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="one">amaminithi</item>
+      <item quantity="other">amaminithi</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ukuthula ngemuva"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> amaminithi"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ungalokothi"</string>
@@ -166,21 +166,22 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Isikhathi sami ngu-<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Ukuhluka kwezikhathi:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Xhapha <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"1 ihora"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> amahora"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"1 iminithi"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> amamini"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"1 isekhondi"</item>
-    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> amasekhondi"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> amahora</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> amahora</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> amaminithi</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> amaminithi</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> amasekhondi</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> amasekhondi</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Engeza isibali sesikhathi"</string>
     <string name="timer_start" msgid="6158486445614356442">"Qala"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Susa"</string>
+    <string name="timer_descriptive_delete" msgid="8794915342760383536">"Susa i-<xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Engeza 1 imininithi"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Engeza iminithi elingu-1"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Misa"</string>
@@ -202,10 +203,6 @@
     <item msgid="9071353477103826053">"Unothando lezinto ezisheshayo."</item>
     <item msgid="3785193933691117181">"Isivinini sefonetiki."</item>
   </string-array>
-  <plurals name="timers_num">
-    <item quantity="one" msgid="6764708652976799977">"1 iminithi"</item>
-    <item quantity="other" msgid="3799129667336330616">"<xliff:g id="NUMBER">%d</xliff:g> izikhathi"</item>
-  </plurals>
     <string name="home_label" msgid="4436139365695453870">"Esasekhaya"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Amadolobha"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Iwashi"</string>
@@ -334,10 +331,10 @@
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> akhethiwe"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Kususiwe"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"Susa i-alamu ekhethiwe?"</item>
-    <item quantity="other" msgid="6918176478191272189">"Susa ama-alamu akhethiwe?"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="one">Susa ama-alamu akhethiwe?</item>
+      <item quantity="other">Susa ama-alamu akhethiwe?</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Susa lesi sikali sesikhathi?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Susa leli dolobha?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Iwashi elidijithali"</string>
