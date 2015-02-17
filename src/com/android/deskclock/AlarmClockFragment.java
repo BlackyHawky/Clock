@@ -41,6 +41,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.view.ViewCompat;
 import android.transition.AutoTransition;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -825,10 +826,10 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         private void setAlarmItemBackgroundAndElevation(LinearLayout layout, boolean expanded) {
             if (expanded) {
                 layout.setBackgroundColor(getTintedBackgroundColor());
-                layout.setElevation(ALARM_ELEVATION);
+                ViewCompat.setElevation(layout, ALARM_ELEVATION);
             } else {
                 layout.setBackgroundResource(R.drawable.alarm_background_normal);
-                layout.setElevation(0);
+                ViewCompat.setElevation(layout, 0);
             }
         }
 
