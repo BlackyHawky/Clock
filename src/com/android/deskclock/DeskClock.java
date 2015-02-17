@@ -196,26 +196,27 @@ public class DeskClock extends AppCompatActivity implements
             mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
             mAlarmTab = mActionBar.newTab();
-            mAlarmTab.setIcon(R.drawable.ic_alarm_animation);
+
+            mAlarmTab.setIcon(R.drawable.ic_tab_alarm);
             mAlarmTab.setContentDescription(R.string.menu_alarm);
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                mTabsAdapter.addTab(mAlarmTab, AlarmClockFragmentPreL.class, ALARM_TAB_INDEX);
-            } else {
-                mTabsAdapter.addTab(mAlarmTab, AlarmClockFragmentPostL.class, ALARM_TAB_INDEX);
-            }
+            mTabsAdapter.addTab(mAlarmTab,
+                    Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
+                            ? AlarmClockFragmentPreL.class
+                            : AlarmClockFragmentPostL.class,
+                    ALARM_TAB_INDEX);
 
             mClockTab = mActionBar.newTab();
-            mClockTab.setIcon(R.drawable.ic_clock_animation);
+            mClockTab.setIcon(R.drawable.ic_tab_clock);
             mClockTab.setContentDescription(R.string.menu_clock);
             mTabsAdapter.addTab(mClockTab, ClockFragment.class, CLOCK_TAB_INDEX);
 
             mTimerTab = mActionBar.newTab();
-            mTimerTab.setIcon(R.drawable.ic_timer_animation);
+            mTimerTab.setIcon(R.drawable.ic_tab_timer);
             mTimerTab.setContentDescription(R.string.menu_timer);
             mTabsAdapter.addTab(mTimerTab, TimerFragment.class, TIMER_TAB_INDEX);
 
             mStopwatchTab = mActionBar.newTab();
-            mStopwatchTab.setIcon(R.drawable.ic_stopwatch_animation);
+            mStopwatchTab.setIcon(R.drawable.ic_tab_stopwatch);
             mStopwatchTab.setContentDescription(R.string.menu_stopwatch);
             mTabsAdapter.addTab(mStopwatchTab, StopwatchFragment.class, STOPWATCH_TAB_INDEX);
 

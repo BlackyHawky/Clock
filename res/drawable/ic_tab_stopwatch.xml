@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2014 The Android Open Source Project
+     Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,25 +15,15 @@
      limitations under the License.
 -->
 
-<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_selected="false" android:state_focused="true"
-        android:drawable="@drawable/ic_tab_clock_activated" />
+        android:drawable="@drawable/ic_tab_stopwatch_activated" />
 
     <item android:id="@+id/on" android:state_selected="true"
-        android:drawable="@drawable/ic_tab_clock_activated" />
+        android:drawable="@drawable/ic_tab_stopwatch_activated" />
 
     <item android:id="@+id/off"
-        android:drawable="@drawable/ic_tab_clock_normal" />
+        android:drawable="@drawable/ic_tab_stopwatch_normal" />
 
-    <transition android:fromId="@id/off" android:toId="@id/on">
-        <animated-vector android:drawable="@drawable/ic_clock">
-            <target
-                android:name="second_hand"
-                android:animation="@animator/ic_clock_animation_second_hand" />
-        </animated-vector>
-    </transition>
-
-
-</animated-selector>
-
+</selector>
