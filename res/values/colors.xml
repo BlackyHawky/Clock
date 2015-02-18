@@ -49,4 +49,6 @@
 
     <color name="time_picker_gray">#212121</color>
 
+    <color name="control_highlight_color">#42ffffff</color>
+
 </resources>
