@@ -829,7 +829,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 ViewCompat.setElevation(layout, ALARM_ELEVATION);
             } else {
                 layout.setBackgroundResource(R.drawable.alarm_background_normal);
-                ViewCompat.setElevation(layout, 0);
+                ViewCompat.setElevation(layout, 0f);
             }
         }
 

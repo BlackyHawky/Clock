@@ -15,14 +15,17 @@
   ~ limitations under the License
   -->
 
-<CheckBox
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="0dp"
-    android:layout_height="48dp"
-    android:layout_weight="1"
-    android:background="@drawable/toggle_circle"
-    android:button="@null"
-    android:gravity="center"
-    android:minWidth="0dp"
-    android:minHeight="0dp"
-    android:textSize="@dimen/day_button_font_size" />
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/clock_white">
+    <item>
+        <bitmap
+            android:src="@drawable/bg_day_selected"
+            android:tint="@color/bg_day_tint_color"
+            android:gravity="center" />
+    </item>
+    <item android:id="@android:id/mask">
+        <bitmap
+            android:src="@drawable/bg_day_selected"
+            android:gravity="center" />
+    </item>
+</ripple>
