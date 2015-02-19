@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2008 The Android Open Source Project
+<!-- Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -311,11 +311,11 @@
     <!-- Notification content styles -->
     <style name="TextAppearance.StatusBar.EventContent">
         <item name="android:textSize">@dimen/notification_text_size</item>
-        <item name="android:textColor">@color/black_54p</item>
+        <item name="android:textColor">@color/notif_text_grey</item>
     </style>
     <style name="TextAppearance.StatusBar.EventContent.Title">
         <item name="android:textSize">@dimen/notification_title_text_size</item>
-        <item name="android:textColor">@color/black_87p</item>
+        <item name="android:textColor">@color/white</item>
     </style>
     <style name="ToastBarStyle">
         <item name="android:layout_width">match_parent</item>

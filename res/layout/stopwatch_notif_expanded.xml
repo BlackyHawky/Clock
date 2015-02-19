@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2012 The Android Open Source Project
+     Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -18,16 +18,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical" >
+    android:divider="@drawable/horizontal_divider"
+    android:orientation="vertical"
+    android:showDividers="middle">
 
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/swn_expanded_hitspace"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@drawable/notification_background" >
+        android:background="@drawable/notification_background">
 
-        <include layout="@layout/stopwatch_notification_icon"/>
+        <include layout="@layout/stopwatch_notification_icon" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,14 +41,14 @@
             android:orientation="vertical"
             android:paddingBottom="2dp"
             android:paddingEnd="8dp"
-            android:paddingTop="2dp" >
+            android:paddingTop="2dp">
 
             <LinearLayout
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:orientation="horizontal" >
+                android:orientation="horizontal">
 
                 <Chronometer
                     android:id="@+id/swn_expanded_chronometer"
@@ -70,51 +72,40 @@
         </LinearLayout>
     </FrameLayout>
 
-    <ImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:background="@color/black_16p"
-        android:contentDescription="@null" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/notification_icon_size"
+        android:divider="@drawable/divider"
+        android:dividerPadding="12dp"
+        android:orientation="horizontal"
+        android:showDividers="middle">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/swn_left_button"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/notification_background"
+            android:drawablePadding="8dp"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:paddingStart="8dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/notification_icon_size"
-            android:divider="@drawable/divider"
-            android:dividerPadding="12dp"
-            android:orientation="horizontal"
-            android:showDividers="middle" >
-
-            <TextView
-                android:id="@+id/swn_left_button"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@drawable/notification_background"
-                android:drawablePadding="8dp"
-                android:ellipsize="end"
-                android:gravity="start|center_vertical"
-                android:paddingStart="8dp"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
-
-            <TextView
-                android:id="@+id/swn_right_button"
-                android:layout_width="0dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@drawable/notification_background"
-                android:drawablePadding="8dp"
-                android:ellipsize="end"
-                android:gravity="start|center_vertical"
-                android:paddingStart="8dp"
-                android:singleLine="true"
-                android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
-        </LinearLayout>
-    </FrameLayout>
+        <TextView
+            android:id="@+id/swn_right_button"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/notification_background"
+            android:drawablePadding="8dp"
+            android:ellipsize="end"
+            android:gravity="start|center_vertical"
+            android:paddingStart="8dp"
+            android:singleLine="true"
+            android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
+    </LinearLayout>
 
 </LinearLayout>
