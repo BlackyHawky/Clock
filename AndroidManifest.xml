@@ -219,7 +219,7 @@
                 android:launchMode="singleInstance"
                 android:showOnLockScreen="true"
                 android:taskAffinity=""
-                android:configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"/>
+                android:configChanges="screenSize|keyboardHidden|keyboard|navigation"/>
 
         <service android:name="TimerRingService"
                 android:exported="false"
