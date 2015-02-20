@@ -30,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -37,6 +38,7 @@ import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewAnimationUtils;
@@ -507,6 +509,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
         }
 
         mTimersList.setAdapter(mAdapter);
+        setTimerListPosition(mAdapter.getCount());
+
         mLastVisibleView = null;   // Force a non animation setting of the view
         setPage();
         // View was hidden in onPause, make sure it is visible now.
@@ -531,6 +535,26 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 }, TimerFragment.ANIMATION_TIME_MILLIS);
             }
         });
+    }
+
+    private void setTimerListPosition(int numTimers) {
+        final LayoutParams timerListParams = mTimersList.getLayoutParams();
+        if (numTimers <= 1) {
+            // Set a fixed height so we can center it
+            final Resources resources = getResources();
+            timerListParams.height = (int) resources.getDimension(R.dimen.circle_size)
+                    + (int) resources.getDimension(R.dimen.timer_list_padding_bottom);
+
+            // Disable scrolling
+            mTimersList.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    return (event.getAction() == MotionEvent.ACTION_MOVE);
+                }
+            });
+        } else {
+            timerListParams.height = LayoutParams.MATCH_PARENT;
+            mTimersList.setOnTouchListener(null);
+        }
     }
 
     private void revealAnimation(final View centerView, int color) {
