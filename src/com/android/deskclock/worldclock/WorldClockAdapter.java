@@ -216,9 +216,8 @@ public class WorldClockAdapter extends BaseAdapter {
     }
 
     private void updateView(View clock, CityObj cityObj) {
-        View nameLayout= clock.findViewById(R.id.city_name_layout);
-        TextView name = (TextView)(nameLayout.findViewById(R.id.city_name));
-        TextView dayOfWeek = (TextView)(nameLayout.findViewById(R.id.city_day));
+        TextView name = (TextView)(clock.findViewById(R.id.city_name));
+        TextView dayOfWeek = (TextView)(clock.findViewById(R.id.city_day));
         TextClock dclock = (TextClock)(clock.findViewById(R.id.digital_clock));
         AnalogClock aclock = (AnalogClock)(clock.findViewById(R.id.analog_clock));
 
