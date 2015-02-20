@@ -15,15 +15,9 @@
      limitations under the License.
 -->
 
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@color/notification_bg"/>
-
-    <item>
-        <selector>
-            <item android:state_pressed="true"
-                android:drawable="@color/notification_pressed"/>
-            <item android:drawable="@color/transparent"/>
-        </selector>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/control_highlight_color">
+    <item android:id="@android:id/mask">
+        <color android:color="@android:color/white"/>
     </item>
-
-</layer-list>
+</ripple>

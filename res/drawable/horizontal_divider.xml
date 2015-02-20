@@ -14,20 +14,7 @@
      limitations under the License.
 -->
 
-<resources>
-
-    <style name="FabStyle">
-        <item name="android:elevation">8dip</item>
-    </style>
-
-    <!-- Custom notification content styles -->
-    <style name="TextAppearance.StatusBar.EventContent">
-        <item name="android:textSize">@dimen/notification_text_size</item>
-        <item name="android:textColor">@color/black_54p</item>
-    </style>
-    <style name="TextAppearance.StatusBar.EventContent.Title">
-        <item name="android:textSize">@dimen/notification_title_text_size</item>
-        <item name="android:textColor">@color/black_87p</item>
-    </style>
-
-</resources>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <size android:height="1dip" />
+    <solid android:color="@color/notification_divider" />
+</shape>

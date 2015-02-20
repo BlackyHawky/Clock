@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Values for custom notification -->
+    <color name="notification_divider">@color/black_16p</color>
+    <color name="control_highlight_color">#f3dbdbdb</color>
+
+</resources>
