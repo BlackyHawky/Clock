@@ -16,6 +16,7 @@
 
 package com.android.deskclock.timer;
 
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -24,6 +25,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -337,15 +339,12 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setOngoing(true)
                 .setPriority(priority)
                 .setShowWhen(false)
-                .setSmallIcon(R.drawable.stat_notify_timer)
-                .setCategory(Notification.CATEGORY_ALARM)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
-                .setLocalOnly(true);
+                .setSmallIcon(R.drawable.stat_notify_timer);
         if (showTicker) {
             builder.setTicker(text);
         }
 
-        Notification notification = builder.build();
+        Notification notification = setAdditionalNotificationParameters(builder).build();
         notification.contentIntent = pendingIntent;
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -440,7 +439,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Notification creation
-        Notification notification = new Notification.Builder(context)
+        final Notification.Builder builder = new Notification.Builder(context)
                 .setContentIntent(contentIntent)
                 .addAction(R.drawable.ic_menu_add,
                         context.getResources().getString(R.string.timer_plus_1_min),
@@ -460,11 +459,9 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setAutoCancel(false)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
-                .setWhen(0)
-                .setCategory(Notification.CATEGORY_ALARM)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
-                .setLocalOnly(true)
-                .build();
+                .setWhen(0);
+
+        final Notification notification = setAdditionalNotificationParameters(builder).build();
 
         // Send the notification using the timer's id to identify the
         // correct notification
@@ -474,6 +471,28 @@ public class TimerReceiver extends BroadcastReceiver {
             Log.v(TAG, "Setting times-up notification for "
                     + timerObj.getLabelOrDefault(context) + " #" + timerObj.mTimerId);
         }
+    }
+
+    /*
+     * Set additional notification parameters if necessary.
+     */
+    private static Notification.Builder setAdditionalNotificationParameters(
+            Notification.Builder builder) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            return setLNotificationParameters(builder);
+        } else {
+            return builder;
+        }
+    }
+
+    /*
+     * Set additional notification parameters on L+ devices
+     */
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static Notification.Builder setLNotificationParameters(Notification.Builder builder) {
+        return builder.setCategory(Notification.CATEGORY_ALARM)
+                      .setVisibility(Notification.VISIBILITY_PUBLIC)
+                      .setLocalOnly(true);
     }
 
     private void cancelTimesUpNotification(final Context context) {

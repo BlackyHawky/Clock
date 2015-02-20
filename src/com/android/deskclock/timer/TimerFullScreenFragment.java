@@ -21,6 +21,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -29,6 +30,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -43,7 +45,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.ViewGroupOverlay;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Interpolator;
 import android.view.animation.PathInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -75,8 +76,6 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
     private static final String TAG = "TimerFragment1";
     private static final String KEY_ENTRY_STATE = "entry_state";
-    private static final Interpolator REVEAL_INTERPOLATOR =
-            new PathInterpolator(0.0f, 0.0f, 0.2f, 1.0f);
     public static final String GOTO_SETUP_VIEW = "deskclock.timers.gotosetup";
 
     private Bundle mViewState;
@@ -534,7 +533,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
         });
     }
 
-    private  void revealAnimation(final View centerView, int color) {
+    private void revealAnimation(final View centerView, int color) {
         final Activity activity = getActivity();
         final View decorView = activity.getWindow().getDecorView();
         final ViewGroupOverlay overlay = (ViewGroupOverlay) decorView.getOverlay();
@@ -557,9 +556,19 @@ public class TimerFullScreenFragment extends DeskClockFragment
         final int yMax = Math.max(revealCenterY, decorView.getHeight() - revealCenterY);
         final float revealRadius = (float) Math.sqrt(Math.pow(xMax, 2.0) + Math.pow(yMax, 2.0));
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            showCircularReveal(revealView, revealCenterX, revealCenterY, revealRadius, overlay);
+        } else {
+            // TODO: show circular reveal
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private void showCircularReveal(final View revealView, int revealCenterX, int revealCenterY,
+                                    float revealRadius, final ViewGroupOverlay overlay) {
         final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
                 revealView, revealCenterX, revealCenterY, 0.0f, revealRadius);
-        revealAnimator.setInterpolator(REVEAL_INTERPOLATOR);
+        revealAnimator.setInterpolator(new PathInterpolator(0.0f, 0.0f, 0.2f, 1.0f));
 
         final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 1.0f);
         fadeAnimator.addListener(new AnimatorListenerAdapter() {
