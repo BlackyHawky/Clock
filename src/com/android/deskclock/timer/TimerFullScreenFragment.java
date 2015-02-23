@@ -224,9 +224,6 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 case TimerObj.STATE_TIMESUP:
                     v.timesUp();
                     break;
-                case TimerObj.STATE_DONE:
-                    v.done();
-                    break;
                 default:
                     break;
             }
@@ -397,8 +394,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
                         t.mView.setTime(timeLeft, false);
                     }
                 }
-                if (t.mTimeLeft <= 0 && t.mState != TimerObj.STATE_DONE
-                        && t.mState != TimerObj.STATE_RESTART) {
+                if (t.mTimeLeft <= 0 && t.mState != TimerObj.STATE_RESTART) {
                     t.setState(TimerObj.STATE_TIMESUP);
                     if (t.mView != null) {
                         t.mView.timesUp();
@@ -530,7 +526,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        updateAllTimesUpTimers(false /* stop */);
+                        updateAllTimesUpTimers();
                     }
                 }, TimerFragment.ANIMATION_TIME_MILLIS);
             }
@@ -681,12 +677,12 @@ public class TimerFullScreenFragment extends DeskClockFragment
         updateTimersState(t, Timers.TIMER_RESET);
     }
 
-    public void updateAllTimesUpTimers(boolean stop) {
+    public void updateAllTimesUpTimers() {
         boolean notifyChange = false;
         //  To avoid race conditions where a timer was dismissed and it is still in the timers list
         // and can be picked again, create a temporary list of timers to be removed first and
         // then removed them one by one
-        LinkedList<TimerObj> timesupTimers = new LinkedList<TimerObj>();
+        LinkedList<TimerObj> timesupTimers = new LinkedList<>();
         for (int i = 0; i < mAdapter.getCount(); i++) {
             TimerObj timerObj = mAdapter.getItem(i);
             if (timerObj.mState == TimerObj.STATE_TIMESUP) {
@@ -697,11 +693,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
         while (timesupTimers.size() > 0) {
             final TimerObj t = timesupTimers.remove();
-            if (stop) {
-                onStopButtonPressed(t);
-            } else {
-                resetTimer(t);
-            }
+            onStopButtonPressed(t);
         }
 
         if (notifyChange) {
@@ -819,7 +811,6 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 cancelTimerNotification(t.mTimerId);
                 break;
             case TimerObj.STATE_STOPPED:
-            case TimerObj.STATE_DONE:
                 t.setState(TimerObj.STATE_RESTART);
                 t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
                 t.mView.stop();
@@ -857,17 +848,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
                     t.setState(TimerObj.STATE_DELETED);
                     updateTimersState(t, Timers.DELETE_TIMER);
                 } else {
-                    t.setState(TimerObj.STATE_DONE);
-                    // Used in a context where the timer could be off-screen and without a view
-                    if (t.mView != null) {
-                        t.mView.done();
-                    }
-                    updateTimersState(t, Timers.TIMER_DONE);
-                    cancelTimerNotification(t.mTimerId);
-                    updateTimesUpMode(t);
+                    resetTimer(t);
                 }
-                break;
-            case TimerObj.STATE_DONE:
                 break;
             case TimerObj.STATE_RESTART:
                 t.setState(TimerObj.STATE_RUNNING);

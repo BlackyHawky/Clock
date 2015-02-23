@@ -135,7 +135,7 @@ public class TimerAlertFullScreen extends AppCompatActivity implements OnEmptyLi
     protected void stopAllTimesUpTimers() {
         TimerFullScreenFragment timerFragment = getFragment();
         if (timerFragment != null) {
-            timerFragment.updateAllTimesUpTimers(true /* stop */);
+            timerFragment.updateAllTimesUpTimers();
         }
     }
 
