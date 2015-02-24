@@ -19,7 +19,6 @@ package com.android.deskclock.timer;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -31,7 +30,6 @@ import android.widget.TextView;
 
 import com.android.deskclock.CircleButtonsLayout;
 import com.android.deskclock.DeskClock;
-import com.android.deskclock.DeskClock.OnTapListener;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.R;
 
@@ -85,9 +83,6 @@ public class TimerItemFragment extends Fragment {
                 break;
             case TimerObj.STATE_TIMESUP:
                 v.timesUp();
-                break;
-            case TimerObj.STATE_DONE:
-                v.done();
                 break;
             default:
                 break;

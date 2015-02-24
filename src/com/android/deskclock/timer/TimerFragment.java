@@ -114,8 +114,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                         }
                     }
                 }
-                if (t.mTimeLeft <= 0 && t.mState != TimerObj.STATE_DONE
-                        && t.mState != TimerObj.STATE_RESTART) {
+                if (t.mTimeLeft <= 0 && t.mState != TimerObj.STATE_RESTART) {
                     t.setState(TimerObj.STATE_TIMESUP);
                     if (t.mView != null) {
                         t.mView.timesUp();
@@ -363,9 +362,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_start));
                 mFab.setImageResource(R.drawable.ic_fab_play);
-                break;
-            case TimerObj.STATE_DONE: // time-up then stopped
-                mFab.setVisibility(View.INVISIBLE);
                 break;
             case TimerObj.STATE_TIMESUP: // time-up but didn't stopped, continue negative ticking
                 mFab.setVisibility(View.VISIBLE);
@@ -702,7 +698,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 updateTimerState(t, Timers.TIMER_UPDATE);
                 break;
             case TimerObj.STATE_STOPPED:
-            case TimerObj.STATE_DONE:
                 t.setState(TimerObj.STATE_RESTART);
                 t.mTimeLeft = t.mSetupLength;
                 t.mOriginalLength = t.mSetupLength;
