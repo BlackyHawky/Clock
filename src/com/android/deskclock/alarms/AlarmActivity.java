@@ -397,9 +397,9 @@ public class AlarmActivity extends AppCompatActivity
 
     private void setAnimatedFractions(float snoozeFraction, float dismissFraction) {
         final float alarmFraction = Math.max(snoozeFraction, dismissFraction);
-        mAlarmAnimator.setCurrentFraction(alarmFraction);
-        mSnoozeAnimator.setCurrentFraction(snoozeFraction);
-        mDismissAnimator.setCurrentFraction(dismissFraction);
+        AnimatorUtils.setAnimatedFraction(mAlarmAnimator, alarmFraction);
+        AnimatorUtils.setAnimatedFraction(mSnoozeAnimator, snoozeFraction);
+        AnimatorUtils.setAnimatedFraction(mDismissAnimator, dismissFraction);
     }
 
     private float getFraction(float x0, float x1, float x) {
