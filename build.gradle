@@ -32,6 +32,10 @@ android {
     }
 
     dependencies {
+        compile (project(":android-opt-datetimepicker")) {
+            exclude module: "support-v4"
+        }
+        compile project(":support-v7-appcompat")
         compile project(":support-v13")
     }
 }
