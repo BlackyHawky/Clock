@@ -293,6 +293,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 " at " + AlarmUtils.getFormattedTime(context, time) + " (" + timeInMillis + ")");
         Intent stateChangeIntent = createStateChangeIntent(context, ALARM_MANAGER_TAG, instance,
                 newState);
+        // Treat alarm state change as high priority, use foreground broadcasts
+        stateChangeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
                 stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
