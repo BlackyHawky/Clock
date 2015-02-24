@@ -30,7 +30,7 @@
     </style>
 
     <style name="AlarmSwitchTheme">
-        <item name="android:colorControlActivated">@color/hot_pink</item>
+        <item name="colorControlActivated">@color/hot_pink</item>
     </style>
 
     <style name="TimePickerTheme" parent="Theme.AppCompat.Dialog">

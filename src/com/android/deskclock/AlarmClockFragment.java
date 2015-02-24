@@ -63,7 +63,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -524,7 +523,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             LinearLayout alarmItem;
             TextTime clock;
             TextView tomorrowLabel;
-            Switch onoff;
+            CompoundButton onoff;
             TextView daysOfWeek;
             TextView label;
             ImageButton delete;
@@ -641,7 +640,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             holder.alarmItem = (LinearLayout) view.findViewById(R.id.alarm_item);
             holder.tomorrowLabel = (TextView) view.findViewById(R.id.tomorrowLabel);
             holder.clock = (TextTime) view.findViewById(R.id.digital_clock);
-            holder.onoff = (Switch) view.findViewById(R.id.onoff);
+            holder.onoff = (CompoundButton) view.findViewById(R.id.onoff);
             holder.onoff.setTypeface(mRobotoNormal);
             holder.daysOfWeek = (TextView) view.findViewById(R.id.daysOfWeek);
             holder.label = (TextView) view.findViewById(R.id.label);
