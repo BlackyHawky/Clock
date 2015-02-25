@@ -21,7 +21,9 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Property;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -76,7 +78,14 @@ public class AnimatorUtils {
 
         @Override
         public void set(ImageView view, Integer value) {
-            view.getDrawable().setTint(value);
+            // Ensure the drawable is wrapped using DrawableCompat.
+            final Drawable drawable = view.getDrawable();
+            final Drawable wrappedDrawable = DrawableCompat.wrap(drawable);
+            if (wrappedDrawable != drawable) {
+                view.setImageDrawable(wrappedDrawable);
+            }
+            // Set the new tint value via DrawableCompat.
+            DrawableCompat.setTint(wrappedDrawable, value);
         }
     };
 
