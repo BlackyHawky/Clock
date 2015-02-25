@@ -15,8 +15,6 @@
  */
 package com.android.deskclock.alarms;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -43,10 +41,10 @@ public final class AlarmNotifications {
                 .setContentText(AlarmUtils.getAlarmText(context, instance))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
-                .setPriority(Notification.PRIORITY_DEFAULT)
-                .setCategory(Notification.CATEGORY_ALARM)
-                .setLocalOnly(true)
-                .setVisibility(Notification.VISIBILITY_PUBLIC);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setLocalOnly(true);
 
         // Setup up hide notification
         Intent hideIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -84,9 +82,9 @@ public final class AlarmNotifications {
                 .setOngoing(true)
                 .setGroup(Integer.toString(instance.hashCode()))
                 .setGroupSummary(true)
-                .setPriority(Notification.PRIORITY_HIGH)
-                .setCategory(Notification.CATEGORY_ALARM)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
 
         // Setup up dismiss action
@@ -117,9 +115,9 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setPriority(Notification.PRIORITY_MAX)
-                .setCategory(Notification.CATEGORY_ALARM)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
 
         // Setup up dismiss action
@@ -144,15 +142,15 @@ public final class AlarmNotifications {
 
         String label = instance.mLabel;
         String alarmTime = AlarmUtils.getFormattedTime(context, instance.getAlarmTime());
-        Notification.Builder notification = new Notification.Builder(context)
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(R.string.alarm_missed_title))
                 .setContentText(instance.mLabel.isEmpty() ? alarmTime :
                         context.getString(R.string.alarm_missed_text, alarmTime, label))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
-                .setPriority(Notification.PRIORITY_HIGH)
-                .setCategory(Notification.CATEGORY_ALARM)
-                .setLocalOnly(true)
-                .setVisibility(Notification.VISIBILITY_PUBLIC);
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setLocalOnly(true);
 
         // Setup dismiss intent
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -173,23 +171,22 @@ public final class AlarmNotifications {
 
     public static void showAlarmNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
-        NotificationManager nm = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         // Close dialogs and window shade, so this will display
         context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 
         Resources resources = context.getResources();
-        Notification.Builder notification = new Notification.Builder(context)
+        NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(instance.getLabelOrDefault(context))
                 .setContentText(AlarmUtils.getFormattedTime(context, instance.getAlarmTime()))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setOngoing(true)
                 .setAutoCancel(false)
-                .setDefaults(Notification.DEFAULT_LIGHTS)
+                .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
                 .setWhen(0)
-                .setCategory(Notification.CATEGORY_ALARM)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
 
         // Setup Snooze Action
@@ -225,7 +222,7 @@ public final class AlarmNotifications {
                 Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         notification.setFullScreenIntent(PendingIntent.getActivity(context,
                 instance.hashCode(), fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT), true);
-        notification.setPriority(Notification.PRIORITY_MAX);
+        notification.setPriority(NotificationCompat.PRIORITY_MAX);
 
         nm.cancel(instance.hashCode());
         nm.notify(instance.hashCode(), notification.build());
