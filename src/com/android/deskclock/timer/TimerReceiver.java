@@ -16,17 +16,16 @@
 
 package com.android.deskclock.timer;
 
-import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.android.deskclock.DeskClock;
@@ -310,7 +309,7 @@ public class TimerReceiver extends BroadcastReceiver {
         activityIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
         PendingIntent pendingActivityIntent = PendingIntent.getActivity(context, 0, activityIntent,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-        showCollapsedNotification(context, title, text, Notification.PRIORITY_HIGH,
+        showCollapsedNotification(context, title, text, NotificationCompat.PRIORITY_HIGH,
                 pendingActivityIntent, IN_USE_NOTIFICATION_ID, false);
 
         if (nextBroadcastTime == null) {
@@ -331,7 +330,7 @@ public class TimerReceiver extends BroadcastReceiver {
 
     private static void showCollapsedNotification(final Context context, String title, String text,
             int priority, PendingIntent pendingIntent, int notificationId, boolean showTicker) {
-        Notification.Builder builder = new Notification.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setAutoCancel(false)
                 .setContentTitle(title)
                 .setContentText(text)
@@ -339,16 +338,17 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setOngoing(true)
                 .setPriority(priority)
                 .setShowWhen(false)
-                .setSmallIcon(R.drawable.stat_notify_timer);
+                .setSmallIcon(R.drawable.stat_notify_timer)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setLocalOnly(true);
         if (showTicker) {
             builder.setTicker(text);
         }
 
-        Notification notification = setAdditionalNotificationParameters(builder).build();
+        final Notification notification = builder.build();
         notification.contentIntent = pendingIntent;
-        NotificationManager notificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notificationId, notification);
+        NotificationManagerCompat.from(context).notify(notificationId, notification);
     }
 
     private String buildTimeRemaining(Context context, long timeLeft) {
@@ -408,9 +408,7 @@ public class TimerReceiver extends BroadcastReceiver {
     }
 
     private void cancelInUseNotification(final Context context) {
-        NotificationManager notificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(IN_USE_NOTIFICATION_ID);
+        NotificationManagerCompat.from(context).cancel(IN_USE_NOTIFICATION_ID);
     }
 
     private void showTimesUpNotification(final Context context) {
@@ -439,7 +437,7 @@ public class TimerReceiver extends BroadcastReceiver {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Notification creation
-        final Notification.Builder builder = new Notification.Builder(context)
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentIntent(contentIntent)
                 .addAction(R.drawable.ic_menu_add,
                         context.getResources().getString(R.string.timer_plus_1_min),
@@ -457,42 +455,17 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setOngoing(true)
                 .setAutoCancel(false)
-                .setPriority(Notification.PRIORITY_MAX)
-                .setDefaults(Notification.DEFAULT_LIGHTS)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
                 .setWhen(0);
-
-        final Notification notification = setAdditionalNotificationParameters(builder).build();
 
         // Send the notification using the timer's id to identify the
         // correct notification
-        ((NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE)).notify(
-                timerObj.mTimerId, notification);
+        NotificationManagerCompat.from(context).notify(timerObj.mTimerId, builder.build());
         if (Timers.LOGGING) {
             Log.v(TAG, "Setting times-up notification for "
                     + timerObj.getLabelOrDefault(context) + " #" + timerObj.mTimerId);
         }
-    }
-
-    /*
-     * Set additional notification parameters if necessary.
-     */
-    private static Notification.Builder setAdditionalNotificationParameters(
-            Notification.Builder builder) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return setLNotificationParameters(builder);
-        } else {
-            return builder;
-        }
-    }
-
-    /*
-     * Set additional notification parameters on L+ devices
-     */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private static Notification.Builder setLNotificationParameters(Notification.Builder builder) {
-        return builder.setCategory(Notification.CATEGORY_ALARM)
-                      .setVisibility(Notification.VISIBILITY_PUBLIC)
-                      .setLocalOnly(true);
     }
 
     private void cancelTimesUpNotification(final Context context) {
@@ -502,9 +475,7 @@ public class TimerReceiver extends BroadcastReceiver {
     }
 
     private void cancelTimesUpNotification(final Context context, TimerObj timerObj) {
-        NotificationManager notificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(timerObj.mTimerId);
+        NotificationManagerCompat.from(context).cancel(timerObj.mTimerId);
         if (Timers.LOGGING) {
             Log.v(TAG, "Canceling times-up notification for "
                     + timerObj.getLabelOrDefault(context) + " #" + timerObj.mTimerId);
