@@ -26,7 +26,6 @@
         <item name="android:colorControlActivated">@color/white</item>
         <item name="android:colorControlNormal">@color/white</item>
         <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
-        <item name="android:popupMenuStyle">?android:attr/actionOverflowMenuStyle</item>
     </style>
 
     <style name="AlarmSwitchTheme">

@@ -19,11 +19,10 @@ package com.android.deskclock;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.widget.PopupMenuCompat;
+import android.support.v7.widget.PopupMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.PopupMenu;
 
 public class DeskClockFragment extends Fragment {
 
@@ -87,7 +86,7 @@ public class DeskClockFragment extends Fragment {
             }
         });
 
-        menuButton.setOnTouchListener(PopupMenuCompat.getDragToOpenListener(fakeOverflow));
+        menuButton.setOnTouchListener(fakeOverflow.getDragToOpenListener());
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
