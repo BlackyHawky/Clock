@@ -1,8 +1,6 @@
-
 package com.android.deskclock.stopwatch;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -10,6 +8,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -27,7 +27,7 @@ public class StopwatchService extends Service {
     private long mElapsedTime;
     private long mStartTime;
     private boolean mLoadApp;
-    private NotificationManager mNotificationManager;
+    private NotificationManagerCompat mNotificationManager;
 
     // Constants for intent information
     // Make this a large number to avoid the alarm ID's which seem to be 1, 2, ...
@@ -45,7 +45,7 @@ public class StopwatchService extends Service {
         mElapsedTime = 0;
         mStartTime = 0;
         mLoadApp = false;
-        mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager = NotificationManagerCompat.from(this);
     }
 
     @Override
@@ -239,13 +239,14 @@ public class StopwatchService extends Service {
         Intent dismissIntent = new Intent(context, StopwatchService.class);
         dismissIntent.setAction(Stopwatches.RESET_STOPWATCH);
 
-        Notification notification = new Notification.Builder(context)
+        Notification notification = new NotificationCompat.Builder(context)
                 .setAutoCancel(!clockRunning)
                 .setContent(remoteViewsCollapsed)
                 .setOngoing(clockRunning)
                 .setDeleteIntent(PendingIntent.getService(context, 0, dismissIntent, 0))
                 .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
                 .setPriority(Notification.PRIORITY_MAX)
+                .setLocalOnly(true)
                 .build();
         notification.bigContentView = remoteViewsExpanded;
         mNotificationManager.notify(NOTIFICATION_ID, notification);
