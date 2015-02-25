@@ -24,6 +24,7 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Vibrator;
 
 import com.android.deskclock.LogUtils;
@@ -40,11 +41,6 @@ public class AlarmKlaxon {
 
     // Volume suggested by media team for in-call alarms.
     private static final float IN_CALL_VOLUME = 0.125f;
-
-    private static final AudioAttributes VIBRATION_ATTRIBUTES = new AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-            .setUsage(AudioAttributes.USAGE_ALARM)
-            .build();
 
     private static boolean sStarted = false;
     private static MediaPlayer sMediaPlayer = null;
@@ -123,7 +119,14 @@ public class AlarmKlaxon {
 
         if (instance.mVibrate) {
             Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            vibrator.vibrate(sVibratePattern, 0, VIBRATION_ATTRIBUTES);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                vibrator.vibrate(sVibratePattern, 0, new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .setUsage(AudioAttributes.USAGE_ALARM)
+                        .build());
+            } else {
+                vibrator.vibrate(sVibratePattern, 0);
+            }
         }
 
         sStarted = true;
