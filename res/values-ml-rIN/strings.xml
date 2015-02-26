@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"ക്ലോക്ക്"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"അലാറങ്ങൾ"</string>
     <string name="add_alarm" msgid="5976616107390962899">"അലാറം ചേർക്കുക"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"അടുത്ത അലാറങ്ങൾ"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ഡെസ്‌ക്ക് ക്ലോക്ക്"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"അലാറം എഡിറ്റുചെയ്യുക"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"അലാറം ഇല്ലാതാക്കുക"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"അലാറം റിംഗ്‌ടോൺ"</string>
     <string name="ringtone" msgid="9110746249688559579">"റിംഗ്ടോൺ"</string>
     <string name="time" msgid="8067216534232296518">"സമയം"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"നാളെ"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"ഇന്ന്"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"ഉണരൂ!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"ഓഫാക്കുക"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"നിരസിക്കുക"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"ഇപ്പോൾ നിരസിക്കുക"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"അലാറം നഷ്‌ടമായി"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"സ്‌നൂസ് ചെയ്‌തു"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 മിനിറ്റ്"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> മിനിറ്റ്"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"അലാറം ഓഫാണ്"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"സ്‌നൂസ് ചെയ്യുക"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"ഒരു മിനിറ്റ് നേരത്തേക്ക് സ്‌നൂസ് ചെയ്യുന്നു."</item>
@@ -74,7 +83,7 @@
     <string name="never" msgid="54104287800571769">"ഒരിക്കലുമില്ല"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ഒരു ക്ലോക്ക് തിരഞ്ഞെടുക്കുക"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"അനലോഗ് ക്ലോക്ക്"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"ക്ലോക്ക്"</string>
     <string name="help" msgid="7786263119482654015">"സഹായം"</string>
     <string name="settings" msgid="5849739030579520686">"ക്രമീകരണങ്ങൾ"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"സ്‌നൂസ് ചെയ്യൽ ദൈർഘ്യം"</string>
@@ -90,12 +99,12 @@
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> മിനിറ്റ്"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"ഒരിക്കലുമില്ല"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"5 മിനിറ്റ്"</item>
-    <item msgid="3663730603519549990">"10 മിനിറ്റ്"</item>
-    <item msgid="1385481095199681200">"15 മിനിറ്റ്"</item>
-    <item msgid="420479821767342125">"20 മിനിറ്റ്"</item>
-    <item msgid="2107936130151066746">"25 മിനിറ്റ്"</item>
-    <item msgid="7219791437023378544">"30 മിനിറ്റ്"</item>
+    <item msgid="3024545954917711306">"ഒരു മിനിറ്റ്"</item>
+    <item msgid="5431906692406316549">"5 മിനിറ്റ്"</item>
+    <item msgid="7742728812068919959">"10 മിനിറ്റ്"</item>
+    <item msgid="2855948657259647629">"15 മിനിറ്റ്"</item>
+    <item msgid="6330196381284475079">"20 മിനിറ്റ്"</item>
+    <item msgid="7809240121716151904">"25 മിനിറ്റ്"</item>
     <item msgid="4278641338024561333">"ഒരിക്കലുമില്ല"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"പൂർത്തിയായി"</string>
@@ -122,7 +131,6 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"ക്ലോക്ക് ഡിസ്പ്ലേ"</string>
     <string name="label_description" msgid="8736179296142915727">"ലേബൽ"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"റിംഗ്ടോൺ"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"കാലാവസ്ഥ വിവരം ഇപ്പോൾ ലഭ്യമല്ല."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"അലാറങ്ങൾക്കായുള്ള ശബ്‌ദ പ്ലേബാക്ക് സേവനം ക്ലോക്കിൽ സജ്ജീകരിച്ചിരിക്കുന്നു."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"റിംഗ്‌ടോൺ ലോഡുചെയ്യുന്നു…"</string>
@@ -134,7 +142,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"ടൈമർ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ക്ലോക്ക്"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"സ്‌റ്റോപ്പ്‌വാച്ച്"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"അലാറങ്ങൾ"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"അലാറം ചേർക്കുക"</string>
     <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
     <string name="button_menu" msgid="6050484561842120282">"കൂടുതൽ ഓപ്‌ഷനുകൾ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണങ്ങൾ"</string>
@@ -182,6 +190,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"റദ്ദാക്കുക"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"സമയം കഴിഞ്ഞു"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ടൈമർ"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"പരമാവധി 4 ടൈമറുകൾ"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"നിങ്ങൾ വളരെ വേഗത്തിലായിരിക്കുന്നു."</item>
     <item msgid="6332879039890727169">"നിങ്ങളുടെ കഠിനാദ്ധ്വാനത്തിന്റെ ഫലങ്ങൾ ആസ്വദിക്കുക."</item>
@@ -200,16 +209,16 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"ഹോം"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"നഗരങ്ങൾ"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"ക്ലോക്ക്"</string>
-    <string name="clock_style" msgid="2265011060429742344">"ശൈലി"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"ക്ലോക്ക്"</string>
+    <string name="clock_style" msgid="2265011060429742344">"സ്റ്റൈൽ"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"അനലോഗ്"</item>
     <item msgid="8483930821046925592">"ഡിജിറ്റൽ"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"യാന്ത്രിക സ്വദേശ ക്ലോക്ക്"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"മറ്റൊരു സമയമേഖലയിൽ സഞ്ചരിക്കുമ്പോൾ ഒരു സ്വദേശ ക്ലോക്ക് ചേർക്കുക"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"സ്വദേശ സമയ മേഖല"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"സ്വദേശ സമയ മേഖല"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"ഓട്ടമാറ്റിക് ഹോം ക്ലോക്ക്"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"മറ്റൊരു സമയമേഖലയിൽ സഞ്ചരിക്കുമ്പോൾ സ്വദേശത്തെ സമയമറിയാൻ ഒരു ക്ലോക്ക് ചേർക്കുക"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"സ്വരാജ്യത്തെ സമയമേഖല"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"സ്വരാജ്യത്തെ സമയമേഖല"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"റദ്ദാക്കുക"</string>
     <string name="time_picker_set" msgid="331153175471468051">"ശരി"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
@@ -303,14 +312,11 @@
     <item msgid="5911600083231840181">"ടോംഗ"</item>
     <item msgid="5176858645450908751">"ജക്കാര്‍ത്ത"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"അലാറങ്ങൾ"</string>
-    <string name="see_all" msgid="775983396630163739">"എല്ലാം കാണുക..."</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"അലാറങ്ങൾ"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"അറിയിപ്പ് പ്രവർത്തിപ്പിക്കുന്നതിനുള്ള സ്‌റ്റോപ്പ്‌വാച്ച് സേവനം."</string>
     <string name="swn_stopped" msgid="783124901663086172">"നിർത്തി"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"നിരസിക്കാൻ വലത്തോട്ട് സ്‌ലൈഡ് ചെയ്യുക"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ട് സ്‌ലൈഡ് ചെയ്യുക"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"നിരസിക്കാൻ മുകളിലോട്ട് സ്‌ലൈഡ് ചെയ്യുക"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"സ്‌നൂസ് ചെയ്യാൻ താഴോട്ട് സ്ലൈഡ് ചെയ്യുക"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"നിരസിക്കാൻ വലത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ടൈമർ നിർത്തി"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ നിർത്തി"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"നിങ്ങളുടെ ടൈമറുകൾ കാണുന്നതിന് സ്‌പർശിക്കുക"</string>
@@ -337,5 +343,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"ഈ നഗരം നീക്കം ചെയ്യണോ?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ഡിജിറ്റൽ ക്ലോക്ക്"</string>
     <string name="no_alarms" msgid="6429431324842022917">"അലാറങ്ങളില്ല"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"അലാറങ്ങളൊന്നും സജ്ജീകരിച്ചിട്ടില്ല"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"വരാനിരിക്കുന്ന അലാറങ്ങളൊന്നുമില്ല"</string>
 </resources>

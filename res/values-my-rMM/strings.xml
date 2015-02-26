@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"နာရီ"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"နှိုးစက်များ"</string>
     <string name="add_alarm" msgid="5976616107390962899">"နှိုးစက် ထည့်ရန်"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"လာမည့် နှိုးစက်များ"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"စားပွဲတင် နာရီ"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"နိုးစက် တည်းဖြတ်ရန်"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"နှိုးစက် ဖျက်ရန်"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"နှိုးစက် သံစဉ်"</string>
     <string name="ringtone" msgid="9110746249688559579">"သံစဉ်"</string>
     <string name="time" msgid="8067216534232296518">"အချိန်"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"နက်ဖြန်"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"ယနေ့"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"နှိုးလာပါ!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"မရှိ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ပယ်ရန်"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"ယခု ပယ်ရန်"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"လွတ်သွားသည့် နှိုးစက်"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"မှေးနေ"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"၁ မိနစ်"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> မိစန်"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"နှိုးစက် ပိတ်ထား"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"မှေးရန်"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"1 မိနစ်ကြာ မှေးမည်။"</item>
@@ -77,7 +86,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"လက်တံနာရီ"</string>
     <string name="help" msgid="7786263119482654015">"အကူအညီ"</string>
     <string name="settings" msgid="5849739030579520686">"ဆက်တင်များ"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"မှေး ကာလ"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"မှေးစက်ကာလ"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"၁ မိနစ်"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> မိနစ်"</item>
@@ -86,16 +95,16 @@
     <item quantity="one" msgid="3783171637798575068">"မိ​နစ်​"</item>
     <item quantity="other" msgid="1304056759541595077">"မိနစ်"</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"အကြာမှာ အသံတိတ်"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"နှိုးစက်သံကြာချိန်"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> မိနစ်"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"မည်သည့်အခါမှ"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"၅ မိနစ်"</item>
-    <item msgid="3663730603519549990">"၁၀ မိနစ်"</item>
-    <item msgid="1385481095199681200">"၁၅ မိနစ်"</item>
-    <item msgid="420479821767342125">"၂၀ မိနစ်"</item>
-    <item msgid="2107936130151066746">"၂၅ မိနစ်"</item>
-    <item msgid="7219791437023378544">"၃၀ မိနစ်"</item>
+    <item msgid="3024545954917711306">"၁ မိနစ်"</item>
+    <item msgid="5431906692406316549">"၅ မိနစ်"</item>
+    <item msgid="7742728812068919959">"၁၀ မိနစ်"</item>
+    <item msgid="2855948657259647629">"၁၅ မိနစ်"</item>
+    <item msgid="6330196381284475079">"၂၀ မိနစ်"</item>
+    <item msgid="7809240121716151904">"၂၅ မိနစ်"</item>
     <item msgid="4278641338024561333">"မည်သည့်အခါမှ"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"လုပ်ပြီး"</string>
@@ -106,7 +115,7 @@
     <string name="alarm_notify_text" msgid="4891014685945904766">"နှိုးစက်ကို မှေးရန် သို့မဟုတ် ပယ်ရန်။"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (မှေးထား)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"နှိုးစက်ကို<xliff:g id="TIME">%s</xliff:g> မှာ သတ်မှတ်ထားသည်။ ပယ်ဖျက်ရန် ထိပါ။"</string>
-    <string name="volume_button_setting_title" msgid="6937131248843413357">"ပမာဏ ခလုတ်များ"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"အသံခလုတ်များ"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"ခလုတ် အကျိုးသက်ရောက်မှု"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"မှေးရန်"</item>
@@ -122,7 +131,6 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"နာရီကို ပြသမှု"</string>
     <string name="label_description" msgid="8736179296142915727">"အညွှန်း"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"သံစဉ်"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"မိုးလေဝသ သတင်း လောလောဆယ်မှာ မရနိုင်ပါ။"</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"နာရီထဲမှာ သတ်မှတ်ထားသည့် နှိုးစက်များ အတွက် အသံ ဖွင့်ပေးရေး ဝန်ဆောင်မှု။"</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"သံစဉ်ကို တင်နေ…"</string>
@@ -134,7 +142,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"တိုင်မား"</string>
     <string name="menu_clock" msgid="5612760670606829805">"နာရီ"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"အချိန်ဖမ်းနာရီ"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"နှိုးစက်များ"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"နှိုးစက် ထည့်ရန်"</string>
     <string name="button_cities" msgid="4555761857494501363">"မြို့များ"</string>
     <string name="button_menu" msgid="6050484561842120282">"နောက်ထပ် ရွေးစရာများ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ဆက်တင်များ"</string>
@@ -179,9 +187,10 @@
     <string name="timer_stop" msgid="3361154678667736722">"ရပ်တန့်ရန်"</string>
     <string name="timer_done" msgid="2375990511982914051">"လုပ်ပြီး"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ပြန်ညှိရန်"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"ပယ်ဖျက်ရန်"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"ထားတော့"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"တိုင်မား အလုပ်ပြီးသွားပြီ"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"တိုင်မား"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"တိုင်မား အများဆုံး ၄ ခု"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"သင်၏ အတော့်ကို နှုန်း မြန်လွန်းနေသည်။"</item>
     <item msgid="6332879039890727169">"သင် ကြိုးစားခဲ့မှု အသီးအပွင့်များကို ခံစားနိုင်ပါပြီ။"</item>
@@ -200,17 +209,17 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"ပင်မ​"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"မြို့များ"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"နာရီ"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"နာရီ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ပုံစံ"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"လက်တံနာရီ"</item>
-    <item msgid="8483930821046925592">"ဒီဂျီတယ်"</item>
+    <item msgid="8483930821046925592">"ဒီဂျစ်တယ်"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"အလိုအလျောက် အိမ် နာရီ"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"အချိန်မတူသည့် ဒေသမှာ ခရီးထွက်နေစဉ်၊ အိမ်အတွက် နာရီကို ထည့်ပါ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"အိမ်၏ အချိန် ဇုန်"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"အိမ်၏ အချိန် ဇုန်"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"ပယ်ဖျက်ရန်"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"ထားတော့"</string>
     <string name="time_picker_set" msgid="331153175471468051">"အိုကေ"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
@@ -303,14 +312,11 @@
     <item msgid="5911600083231840181">"တွန်ဂါ"</item>
     <item msgid="5176858645450908751">"ဂျာကာတာ"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"နှိုးစက်များ"</string>
-    <string name="see_all" msgid="775983396630163739">"အားလုံးကို ကြည့်ရန်…"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"နှိုးစက်များ"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"အချိန်ဖမ်းနာရီ အတွက် အကြောင်းကြားချက်များ ပြသည့် ဝန်ဆောင်မှု။"</string>
     <string name="swn_stopped" msgid="783124901663086172">"ရပ်ထားပြီ"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"ပယ်ရန် ညာသို့ ပွတ်ဆွဲပါ"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"မှေးရန် ဘယ်သို့ ပွတ်ဆွဲပါ"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"ပယ်ရန် အပေါ်သို့ ပွတ်ဆွဲပါ"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"မှေးရန် အောက်သို့ ပွတ်ဆွဲပါ"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"ပယ်ချရန် ညာဘက်သို့ ပွတ်ဆွဲပါ"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"တစ်မှေးအိပ်ရန် ဘယ်ဘက်သို့ ပွတ်ဆွဲပါ"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"တိုင်မား ရပ်ထားပြီ"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> တိုင်မားများ ရပ်ထားပြီ"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"သင်၏ တိုင်မားများကို ကြည့်ရန် ထိပါ"</string>
@@ -335,7 +341,8 @@
   </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"ဤတိုင်မားကို ဖျက်မလား?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"ဤမြို့ကို ဖယ်ရှားရမလား?"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"ဒီဂျီတယ် နာရီ"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"ဒီဂျစ်တယ်နာရီ"</string>
     <string name="no_alarms" msgid="6429431324842022917">"နှိုးစက် မရှိ"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"နှိုးစက်များ သတ်မှတ် မထား"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"လာမည့် နှိုးစက်များ မရှိပါ"</string>
 </resources>

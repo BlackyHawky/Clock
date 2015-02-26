@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Đồng hồ"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Báo thức"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Thêm báo thức"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"BÁO THỨC TIẾP THEO"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Đồng hồ để bàn"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Chỉnh sửa báo thức"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Xóa báo thức"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"Nhạc chuông báo thức"</string>
     <string name="ringtone" msgid="9110746249688559579">"Nhạc chuông"</string>
     <string name="time" msgid="8067216534232296518">"Giờ"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Ngày mai"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Hôm nay"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Dậy đi!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Tắt"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Loại bỏ"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Loại bỏ bây giờ"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Báo thức bị nhỡ"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Được báo lại"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 phút"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> phút"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Tắt báo thức"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Báo lại"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Báo lại sau 1 phút."</item>
@@ -90,12 +99,12 @@
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> phút"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Không bao giờ"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"5 phút"</item>
-    <item msgid="3663730603519549990">"10 phút"</item>
-    <item msgid="1385481095199681200">"15 phút"</item>
-    <item msgid="420479821767342125">"20 phút"</item>
-    <item msgid="2107936130151066746">"25 phút"</item>
-    <item msgid="7219791437023378544">"30 phút"</item>
+    <item msgid="3024545954917711306">"1 phút"</item>
+    <item msgid="5431906692406316549">"5 phút"</item>
+    <item msgid="7742728812068919959">"10 phút"</item>
+    <item msgid="2855948657259647629">"15 phút"</item>
+    <item msgid="6330196381284475079">"20 phút"</item>
+    <item msgid="7809240121716151904">"25 phút"</item>
     <item msgid="4278641338024561333">"Không bao giờ"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Xong"</string>
@@ -122,7 +131,6 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Hiển thị đồng hồ"</string>
     <string name="label_description" msgid="8736179296142915727">"Nhãn"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Nhạc chuông"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g><xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Hiện không có thông tin thời tiết."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Dịch vụ phát âm thanh cho báo thức đã đặt trong Clock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Đang tải nhạc chuông…"</string>
@@ -134,7 +142,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Bộ hẹn giờ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Đồng hồ"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Đồng hồ bấm giờ"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Báo thức"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Thêm báo thức"</string>
     <string name="button_cities" msgid="4555761857494501363">"Thành phố"</string>
     <string name="button_menu" msgid="6050484561842120282">"Thêm tùy chọn"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Cài đặt"</string>
@@ -182,6 +190,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Hủy"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Hết giờ"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Bộ hẹn giờ"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Tối đa 4 bộ hẹn giờ"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Bạn đúng là con quỷ tốc độ."</item>
     <item msgid="6332879039890727169">"Tận hưởng thành quả lao động của bạn."</item>
@@ -200,7 +209,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Trang chủ"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Thành phố"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"ĐỒNG HỒ"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Đồng hồ"</string>
     <string name="clock_style" msgid="2265011060429742344">"Kiểu"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Đồng hồ kim"</item>
@@ -303,14 +312,11 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"BÁO THỨC"</string>
-    <string name="see_all" msgid="775983396630163739">"Xem tất cả..."</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Báo thức"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Dịch vụ đồng hồ bấm giờ để chạy thông báo."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Đã dừng"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Trượt sang phải để loại bỏ"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Trượt sang trái để báo lại"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Trượt lên để loại bỏ"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Trượt xuống để báo lại"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Vuốt sang phải để loại bỏ"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Vuốt sang trái để báo lại"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Đã dừng bộ tính giờ"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Đã dừng <xliff:g id="NUMBER">%d</xliff:g> bộ tính giờ"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Chạm để xem bộ tính giờ của bạn"</string>
@@ -337,5 +343,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Xóa thành phố này?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Đồng hồ số"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Không có báo thức"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Ko đặt báo thức"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"KHÔNG CÓ BÁO THỨC SẮP TỚI"</string>
 </resources>

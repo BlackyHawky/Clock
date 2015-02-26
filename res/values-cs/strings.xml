@@ -19,7 +19,6 @@
     <string name="app_label" msgid="6674495003718166674">"Hodiny"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Budíky"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Přidat budík"</string>
-    <string name="alarm_timeline_title_text" msgid="595912293949219821">"DALŠÍ BUDÍKY"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Stolní hodiny"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Upravit budík"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Smazat budík"</string>
@@ -36,10 +35,20 @@
     <string name="alert" msgid="6506982899651975645">"Vyzváněcí tón budíku"</string>
     <string name="ringtone" msgid="9110746249688559579">"Vyzváněcí tón"</string>
     <string name="time" msgid="8067216534232296518">"Čas"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"Zítra"</string>
+    <string name="alarm_today" msgid="7873594221106531654">"Dnes"</string>
+    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Vstávejte!"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Vypnuto"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Zavřít"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Vypnout budík"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Zmeškaný budík"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Odloženo"</string>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 min"</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
+  </plurals>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Budík je vypnut"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložit"</string>
   <plurals name="alarm_alert_snooze_set">
     <item quantity="one" msgid="7884410398338611019">"Odloženo o 1 minutu."</item>
@@ -50,9 +59,9 @@
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zmeškaný budík byl smazán"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Zbývá méně než minuta"</item>
-    <item msgid="83197792732433351">"Zbývající čas: <xliff:g id="HOURS">%1$s</xliff:g> h"</item>
-    <item msgid="8919698220200894252">"Zbývající čas: <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
-    <item msgid="8458069283817013813">"Zbývající čas: <xliff:g id="HOURS">%1$s</xliff:g> h <xliff:g id="MINUTES">%2$s</xliff:g> min"</item>
+    <item msgid="83197792732433351">"Ještě <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"Ještě <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"Ještě <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Budík se spustí za méně než 1 minutu."</item>
@@ -90,12 +99,12 @@
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3693401222993867634">"5 minutách"</item>
-    <item msgid="3663730603519549990">"10 minutách"</item>
-    <item msgid="1385481095199681200">"15 minutách"</item>
-    <item msgid="420479821767342125">"20 minutách"</item>
-    <item msgid="2107936130151066746">"25 minutách"</item>
-    <item msgid="7219791437023378544">"30 minutách"</item>
+    <item msgid="3024545954917711306">"1 minuta"</item>
+    <item msgid="5431906692406316549">"5 minutách"</item>
+    <item msgid="7742728812068919959">"10 minutách"</item>
+    <item msgid="2855948657259647629">"15 minutách"</item>
+    <item msgid="6330196381284475079">"20 minutách"</item>
+    <item msgid="7809240121716151904">"25 minutách"</item>
     <item msgid="4278641338024561333">"Nikdy"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Hotovo"</string>
@@ -122,7 +131,6 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Zobrazení hodin"</string>
     <string name="label_description" msgid="8736179296142915727">"Štítek"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Vyzváněcí tón"</string>
-    <string name="battery_charging_level" msgid="5251483622085889693">"<xliff:g id="NUMBER">%d</xliff:g> <xliff:g id="PERCENT">%%</xliff:g>"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Informace o počasí nejsou momentálně k dispozici."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Služba přehrávání zvuku budíků nastavených v aplikaci Hodiny."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Načítání vyzváněcího tónu..."</string>
@@ -134,7 +142,7 @@
     <string name="menu_timer" msgid="6459070074762877114">"Časovač"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Hodiny"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopky"</string>
-    <string name="button_alarms" msgid="8016103479617020265">"Budíky"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Přidat budík"</string>
     <string name="button_cities" msgid="4555761857494501363">"Města"</string>
     <string name="button_menu" msgid="6050484561842120282">"Další možnosti"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Nastavení"</string>
@@ -182,6 +190,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Zrušit"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Čas vypršel"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Časovač"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Můžete mít maximálně čtyři časovače"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Jste rychlí jako ďas."</item>
     <item msgid="6332879039890727169">"Vychutnejte si plody své práce."</item>
@@ -200,7 +209,7 @@
   </plurals>
     <string name="home_label" msgid="4436139365695453870">"Doma"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Města"</string>
-    <string name="clock_settings" msgid="8887845806151785393">"HODINY"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"Hodiny"</string>
     <string name="clock_style" msgid="2265011060429742344">"Styl"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analogové"</item>
@@ -303,14 +312,11 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="6049627772103646753">"BUDÍKY"</string>
-    <string name="see_all" msgid="775983396630163739">"Zobrazit vše"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Budíky"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Služba Stopky ke spouštění upozornění."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Zastaveno"</string>
-    <string name="description_direction_right" msgid="1615911557926085934">"Přejetím vpravo budík zrušíte"</string>
-    <string name="description_direction_left" msgid="6328816971226781776">"Přejetím vlevo budík odložíte"</string>
-    <string name="description_direction_up" msgid="7875287578324520904">"Přejetím nahoru budík zrušíte"</string>
-    <string name="description_direction_down" msgid="8240473964024874053">"Přejetím dolů budík odložíte"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Přejetím prstem vpravo budík zrušíte."</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Přejetím prsem vlevo budík odložíte."</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Časovač zastaven"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Zastavené časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dotykem zobrazíte časovače"</string>
@@ -337,5 +343,6 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Chcete toto město odebrat?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitální hodiny"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Žádné budíky"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Budíky nejsou nastaveny."</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"ŽÁDNÉ PLÁNOVANÉ BUDÍKY"</string>
 </resources>
