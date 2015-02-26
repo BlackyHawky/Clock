@@ -20,9 +20,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -42,14 +42,13 @@ import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
 import android.view.WindowManager;
-import android.view.animation.Interpolator;
-import android.view.animation.PathInterpolator;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.PathInterpolatorCompat;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
@@ -71,10 +70,10 @@ public class AlarmActivity extends AppCompatActivity
 
     private static final String LOGTAG = AlarmActivity.class.getSimpleName();
 
-    private static final Interpolator PULSE_INTERPOLATOR =
-            new PathInterpolator(0.4f, 0.0f, 0.2f, 1.0f);
-    private static final Interpolator REVEAL_INTERPOLATOR =
-            new PathInterpolator(0.0f, 0.0f, 0.2f, 1.0f);
+    private static final TimeInterpolator PULSE_INTERPOLATOR =
+            new PathInterpolatorCompat(0.4f, 0.0f, 0.2f, 1.0f);
+    private static final TimeInterpolator REVEAL_INTERPOLATOR =
+            new PathInterpolatorCompat(0.0f, 0.0f, 0.2f, 1.0f);
 
     private static final int PULSE_DURATION_MILLIS = 1000;
     private static final int ALARM_BOUNCE_DURATION_MILLIS = 500;
