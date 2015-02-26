@@ -3,8 +3,14 @@ include $(CLEAR_VARS)
 
 LOCAL_RESOURCE_DIR := packages/apps/DeskClock/res
 LOCAL_RESOURCE_DIR += frameworks/opt/datetimepicker/res
+
+ifeq ($(TARGET_BUILD_APPS),)
+LOCAL_RESOURCE_DIR += frameworks/support/v7/appcompat/res
+LOCAL_RESOURCE_DIR += frameworks/support/v7/gridlayout/res
+else
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/v7/appcompat/res
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/v7/gridlayout/res
+endif
 
 LOCAL_MODULE_TAGS := optional
 LOCAL_SDK_VERSION := current
