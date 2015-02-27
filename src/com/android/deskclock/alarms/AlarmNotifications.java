@@ -195,7 +195,7 @@ public final class AlarmNotifications {
         PendingIntent snoozePendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
                 snoozeIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        notification.addAction(R.drawable.ic_snooze_black,
+        notification.addAction(R.drawable.ic_snooze_24dp,
                 resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
 
         // Setup Dismiss Action
