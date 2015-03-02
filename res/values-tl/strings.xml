@@ -94,7 +94,7 @@
       <item quantity="one">minuto</item>
       <item quantity="other">na minuto</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Tahimik pagkatapos"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Tahimik pagkatapos nang"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> (na) minuto"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Hindi Kailanman"</string>
   <string-array name="auto_silence_entries">
@@ -114,7 +114,7 @@
     <string name="alarm_notify_text" msgid="4891014685945904766">"I-snooze o huwag pansinin ang alarm."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (naka-snooze)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Nakatakda ang alarm sa <xliff:g id="TIME">%s</xliff:g>. Pindutin upang kanselahin."</string>
-    <string name="volume_button_setting_title" msgid="6937131248843413357">"Pindutan ng volume"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Button ng volume"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Epekto ng pindutan"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"I-snooze"</item>

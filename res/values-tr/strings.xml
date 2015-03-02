@@ -67,11 +67,11 @@
     <item msgid="6450913786084215050">"Alarmın çalmasına şu andan itibaren bir dakikadan az var."</item>
     <item msgid="6002066367368421848">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> var."</item>
     <item msgid="8824719306247973774">"Alarmın çalmasına şu andan itibaren <xliff:g id="HOURS">%2$s</xliff:g> var."</item>
-    <item msgid="8182406852935468862">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> ve <xliff:g id="HOURS">%2$s</xliff:g> var."</item>
+    <item msgid="8182406852935468862">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> var."</item>
     <item msgid="2532279224777213194">"Alarmın çalmasına şu andan itibaren <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
-    <item msgid="5936557894247187717">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> ve <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
-    <item msgid="9115697840826129603">"Alarmın çalmasına şu andan itibaren <xliff:g id="HOURS">%2$s</xliff:g> ve <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
-    <item msgid="2332583385137381060">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> ve <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
+    <item msgid="5936557894247187717">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
+    <item msgid="9115697840826129603">"Alarmın çalmasına şu andan itibaren <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
+    <item msgid="2332583385137381060">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 gün"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> gün"</string>
@@ -237,7 +237,7 @@
     <item msgid="5425567073027744888">"Saskatchewan"</item>
     <item msgid="2877342865396629368">"Bogota"</item>
     <item msgid="568682398893899670">"Doğu Saati"</item>
-    <item msgid="668135984541863866">"Venezüella"</item>
+    <item msgid="668135984541863866">"Venezuela"</item>
     <item msgid="3737474220861486223">"Atlantik Saati (Barbados)"</item>
     <item msgid="6279116051273436870">"Atlantik Saati (Kanada)"</item>
     <item msgid="8513382867172014244">"Manaus"</item>
