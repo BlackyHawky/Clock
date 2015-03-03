@@ -32,22 +32,6 @@
         <item name="colorControlActivated">@color/hot_pink</item>
     </style>
 
-    <style name="TimePickerTheme" parent="Theme.AppCompat.Dialog">
-        <item name="android:background">@color/time_picker_gray</item>
-        <item name="android:timePickerStyle">@style/TimePickerStyle</item>
-        <item name="android:textColorPrimaryInverse">@color/hot_pink</item>
-        <item name="android:colorAccent">@color/hot_pink</item>
-    </style>
-
-    <style name="TimePickerStyle" parent="@android:style/Widget.Material.TimePicker" >
-        <item name="android:headerBackground">@color/time_picker_gray</item>
-        <item name="android:headerTimeTextAppearance">@style/TimeLabelTextAppearance</item>
-        <item name="android:headerAmPmTextAppearance">@style/AmPmTextAppearance</item>
-        <item name="android:numbersBackgroundColor">@color/time_picker_gray</item>
-        <item name="android:numbersTextColor">@color/white</item>
-        <item name="android:amPmTextColor">@color/white</item>
-    </style>
-
     <style name="TimeLabelTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">60sp</item>
