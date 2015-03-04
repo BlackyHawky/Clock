@@ -20,7 +20,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-<TextView
+    <TextView
         android:id="@+id/title"
         style="?android:attr/windowTitleStyle"
         android:layout_marginTop="24dip"
@@ -56,9 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:textSize="@dimen/dialog_button_font_size"
+            android:text="@string/time_picker_cancel"
+            android:textAllCaps="true"
             android:textColor="@color/clock_white"
-            android:text="@string/time_picker_cancel" />
+            android:textSize="@dimen/dialog_button_font_size" />
 
         <Button
             android:id="@+id/setButton"
@@ -66,9 +67,10 @@
             android:layout_height="wrap_content"
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:textSize="@dimen/dialog_button_font_size"
+            android:text="@string/time_picker_set"
+            android:textAllCaps="true"
             android:textColor="@color/hot_pink"
-            android:text="@string/time_picker_set" />
+            android:textSize="@dimen/dialog_button_font_size" />
 
     </LinearLayout>
 </RelativeLayout>

@@ -23,9 +23,9 @@
 
     <style name="DeskClockParentTheme" parent="Theme.AppCompat">
         <item name="android:statusBarColor">@color/status_bar</item>
-        <item name="android:colorControlActivated">@color/white</item>
-        <item name="android:colorControlNormal">@color/white</item>
         <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 
     <style name="AlarmSwitchTheme">
@@ -85,9 +85,6 @@
     <style name="SettingsTheme" parent="@style/DeskClockParentTheme">
         <item name="android:detailsElementBackground">@null</item>
         <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textColor">@color/white_69p</item>
-        <item name="android:textSize">@dimen/label_text_size</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
@@ -269,17 +266,19 @@
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
 
-    <style name="PrimaryLabelTextAppearance">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">@dimen/label_text_size</item>
+    <style name="PrimaryLabelTextParentAppearance">
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
     </style>
 
-    <style name="SecondaryLabelTextAppearance">
-        <item name="android:fontFamily">sans-serif-medium</item>
-        <item name="android:textSize">@dimen/label_text_size</item>
+    <style name="PrimaryLabelTextAppearance" parent="@style/PrimaryLabelTextParentAppearance" />
+
+    <style name="SecondaryLabelTextParentAppearance">
         <item name="android:textColor">@color/white_69p</item>
+        <item name="android:textSize">@dimen/label_text_size</item>
     </style>
+
+    <style name="SecondaryLabelTextAppearance" parent="@style/SecondaryLabelTextParentAppearance" />
 
     <style name="TextAppearance">
         <item name="android:textSize">16sp</item>
