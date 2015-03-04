@@ -46,4 +46,12 @@
         <item name="android:amPmTextColor">@color/white</item>
     </style>
 
+    <style name="PrimaryLabelTextAppearance" parent="@style/PrimaryLabelTextParentAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+    <style name="SecondaryLabelTextAppearance" parent="@style/SecondaryLabelTextParentAppearance">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
 </resources>
