@@ -35,4 +35,17 @@
         <attr name="format24Hour" format="string"/>
    </declare-styleable>
 
+    <declare-styleable name="CircleView">
+        <!-- Sets the center/radius of the circle relative to the view's bounds. -->
+        <attr name="android:gravity" />
+        <!-- The ARGB fill color of the circle. -->
+        <attr name="fillColor" format="color" />
+        <!-- The center x-coordinate of the circle. -->
+        <attr name="centerX" format="dimension" />
+        <!-- The center y-coordinate of the circle. -->
+        <attr name="centerY" format="dimension" />
+        <!-- The radius of the circle. -->
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
 </resources>

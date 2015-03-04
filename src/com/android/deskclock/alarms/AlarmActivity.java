@@ -29,18 +29,19 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
-import android.view.ViewGroupOverlay;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextClock;
@@ -53,6 +54,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.provider.AlarmInstance;
+import com.android.deskclock.widget.CircleView;
 
 public class AlarmActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnTouchListener {
@@ -77,7 +79,6 @@ public class AlarmActivity extends AppCompatActivity
 
     private static final int PULSE_DURATION_MILLIS = 1000;
     private static final int ALARM_BOUNCE_DURATION_MILLIS = 500;
-    private static final int ALERT_SOURCE_DURATION_MILLIS = 250;
     private static final int ALERT_REVEAL_DURATION_MILLIS = 500;
     private static final int ALERT_FADE_DURATION_MILLIS = 500;
     private static final int ALERT_DISMISS_DELAY_MILLIS = 2000;
@@ -118,8 +119,6 @@ public class AlarmActivity extends AppCompatActivity
     private String mVolumeBehavior;
     private int mCurrentHourColor;
     private boolean mReceiverRegistered;
-
-    private ViewGroup mContainerView;
 
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
@@ -181,13 +180,11 @@ public class AlarmActivity extends AppCompatActivity
 
         setContentView(R.layout.alarm_activity);
 
-        mContainerView = (ViewGroup) findViewById(android.R.id.content);
-
-        mAlertView = (ViewGroup) mContainerView.findViewById(R.id.alert);
+        mAlertView = (ViewGroup) findViewById(R.id.alert);
         mAlertTitleView = (TextView) mAlertView.findViewById(R.id.alert_title);
         mAlertInfoView = (TextView) mAlertView.findViewById(R.id.alert_info);
 
-        mContentView = (ViewGroup) mContainerView.findViewById(R.id.content);
+        mContentView = (ViewGroup) findViewById(R.id.content);
         mAlarmButton = (ImageButton) mContentView.findViewById(R.id.alarm);
         mSnoozeButton = (ImageButton) mContentView.findViewById(R.id.snooze);
         mDismissButton = (ImageButton) mContentView.findViewById(R.id.dismiss);
@@ -195,14 +192,14 @@ public class AlarmActivity extends AppCompatActivity
 
         final TextView titleView = (TextView) mContentView.findViewById(R.id.title);
         final TextClock digitalClock = (TextClock) mContentView.findViewById(R.id.digital_clock);
-        final View pulseView = mContentView.findViewById(R.id.pulse);
+        final CircleView pulseView = (CircleView) mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
         Utils.setTimeFormat(digitalClock,
                 getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size));
 
         mCurrentHourColor = Utils.getCurrentHourColor();
-        mContainerView.setBackgroundColor(mCurrentHourColor);
+        getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
 
         mAlarmButton.setOnTouchListener(this);
         mSnoozeButton.setOnClickListener(this);
@@ -212,9 +209,9 @@ public class AlarmActivity extends AppCompatActivity
         mSnoozeAnimator = getButtonAnimator(mSnoozeButton, Color.WHITE);
         mDismissAnimator = getButtonAnimator(mDismissButton, mCurrentHourColor);
         mPulseAnimator = ObjectAnimator.ofPropertyValuesHolder(pulseView,
-                PropertyValuesHolder.ofFloat(View.SCALE_X, 0.0f, 1.0f),
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, 0.0f, 1.0f),
-                PropertyValuesHolder.ofFloat(View.ALPHA, 1.0f, 0.0f));
+                PropertyValuesHolder.ofFloat(CircleView.RADIUS, 0.0f, pulseView.getRadius()),
+                PropertyValuesHolder.ofObject(CircleView.FILL_COLOR, AnimatorUtils.ARGB_EVALUATOR,
+                        ColorUtils.setAlphaComponent(pulseView.getFillColor(), 0)));
         mPulseAnimator.setDuration(PULSE_DURATION_MILLIS);
         mPulseAnimator.setInterpolator(PULSE_INTERPOLATOR);
         mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
@@ -437,39 +434,30 @@ public class AlarmActivity extends AppCompatActivity
     private Animator getAlertAnimator(final View source, final int titleResId,
             final String infoText, final String accessibilityText, final int revealColor,
             final int backgroundColor) {
-        final ViewGroupOverlay overlay = mContainerView.getOverlay();
+        final ViewGroup containerView = (ViewGroup) findViewById(android.R.id.content);
 
-        // Create a transient view for performing the reveal animation.
-        final View revealView = new View(this);
-        revealView.setRight(mContainerView.getWidth());
-        revealView.setBottom(mContainerView.getHeight());
-        revealView.setBackgroundColor(revealColor);
-        overlay.add(revealView);
+        final Rect sourceBounds = new Rect(0, 0, source.getHeight(), source.getWidth());
+        containerView.offsetDescendantRectToMyCoords(source, sourceBounds);
 
-        // Add the source to the containerView's overlay so that the animation can occur under the
-        // status bar, the source view will be automatically positioned in the overlay so that
-        // it maintains the same relative position on screen.
-        overlay.add(source);
+        final int centerX = sourceBounds.centerX();
+        final int centerY = sourceBounds.centerY();
 
-        final int centerX = Math.round((source.getLeft() + source.getRight()) / 2.0f);
-        final int centerY = Math.round((source.getTop() + source.getBottom()) / 2.0f);
-        final float startRadius = Math.max(source.getWidth(), source.getHeight()) / 2.0f;
+        final int xMax = Math.max(centerX, containerView.getWidth() - centerX);
+        final int yMax = Math.max(centerY, containerView.getHeight() - centerY);
 
-        final int xMax = Math.max(centerX, mContainerView.getWidth() - centerX);
-        final int yMax = Math.max(centerY, mContainerView.getHeight() - centerY);
-        final float endRadius = (float) Math.sqrt(Math.pow(xMax, 2.0) + Math.pow(yMax, 2.0));
+        final float startRadius = Math.max(sourceBounds.width(), sourceBounds.height()) / 2.0f;
+        final float endRadius = (float) Math.sqrt(xMax * xMax + yMax * yMax);
 
-        final ValueAnimator sourceAnimator = ObjectAnimator.ofFloat(source, View.ALPHA, 0.0f);
-        sourceAnimator.setDuration(ALERT_SOURCE_DURATION_MILLIS);
-        sourceAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                overlay.remove(source);
-            }
-        });
+        final CircleView revealView = new CircleView(this)
+                .setCenterX(centerX)
+                .setCenterY(centerY)
+                .setFillColor(revealColor);
+        containerView.addView(revealView);
 
-        final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
-                revealView, centerX, centerY, startRadius, endRadius);
+        // TODO: Fade out source icon over the reveal (like LOLLIPOP version).
+
+        final Animator revealAnimator = ObjectAnimator.ofFloat(
+                revealView, CircleView.RADIUS, startRadius, endRadius);
         revealAnimator.setDuration(ALERT_REVEAL_DURATION_MILLIS);
         revealAnimator.setInterpolator(REVEAL_INTERPOLATOR);
         revealAnimator.addListener(new AnimatorListenerAdapter() {
@@ -482,9 +470,9 @@ public class AlarmActivity extends AppCompatActivity
                     mAlertInfoView.setText(infoText);
                     mAlertInfoView.setVisibility(View.VISIBLE);
                 }
-                mAlertView.announceForAccessibility(accessibilityText);
                 mContentView.setVisibility(View.GONE);
-                mContainerView.setBackgroundColor(backgroundColor);
+
+                getWindow().setBackgroundDrawable(new ColorDrawable(backgroundColor));
             }
         });
 
@@ -493,15 +481,16 @@ public class AlarmActivity extends AppCompatActivity
         fadeAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                overlay.remove(revealView);
+                containerView.removeView(revealView);
             }
         });
 
         final AnimatorSet alertAnimator = new AnimatorSet();
-        alertAnimator.play(revealAnimator).with(sourceAnimator).before(fadeAnimator);
+        alertAnimator.play(revealAnimator).before(fadeAnimator);
         alertAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
+                mAlertView.announceForAccessibility(accessibilityText);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
