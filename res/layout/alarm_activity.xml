@@ -60,15 +60,18 @@
             ex:layout_columnSpan="3"
             ex:layout_gravity="fill_horizontal" />
 
-        <View
+        <com.android.deskclock.widget.CircleView
             android:id="@+id/pulse"
-            android:layout_width="@dimen/alarm_lockscreen_pulse_size"
-            android:layout_height="@dimen/alarm_lockscreen_pulse_size"
-            android:background="@drawable/bg_circle_white"
+            android:layout_width="0dip"
+            android:layout_height="0dip"
+            android:gravity="center"
+            android:layerType="hardware"
             ex:layout_row="2"
             ex:layout_column="0"
             ex:layout_columnSpan="3"
-            ex:layout_gravity="center" />
+            ex:layout_gravity="fill"
+            ex:fillColor="@android:color/white"
+            ex:radius="@dimen/alarm_lockscreen_pulse_radius" />
 
         <ImageView
             android:id="@+id/snooze"
