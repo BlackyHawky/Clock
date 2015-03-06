@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
@@ -62,6 +63,10 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     private static final TimeInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
     private static final TimeInterpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
     private static final long ROTATE_ANIM_DURATION_MILIS = 150;
+
+    // Transitions are available only in API 19+
+    private static final boolean USE_TRANSITION_FRAMEWORK =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
     private boolean mTicking = false;
     private TimerSetupView mSetupView;
@@ -169,9 +174,11 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 }
             }
         });
-        mDeleteTransition = new AutoTransition();
-        mDeleteTransition.setDuration(ANIMATION_TIME_MILLIS / 2);
-        mDeleteTransition.setInterpolator(new AccelerateDecelerateInterpolator());
+        if (USE_TRANSITION_FRAMEWORK) {
+            mDeleteTransition = new AutoTransition();
+            mDeleteTransition.setDuration(ANIMATION_TIME_MILLIS / 2);
+            mDeleteTransition.setInterpolator(new AccelerateDecelerateInterpolator());
+        }
 
         return view;
     }
@@ -585,7 +592,9 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             };
             createRotateAnimator(adapter, true).start();
         } else {
-            TransitionManager.beginDelayedTransition(mContentView, mDeleteTransition);
+            if (USE_TRANSITION_FRAMEWORK) {
+                TransitionManager.beginDelayedTransition(mContentView, mDeleteTransition);
+            }
             deleteTimer(timer);
         }
     }

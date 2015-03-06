@@ -39,6 +39,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.view.ViewCompat;
@@ -103,6 +104,10 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
     private static final int REQUEST_CODE_RINGTONE = 1;
     private static final long INVALID_ID = -1;
+
+    // Transitions are available only in API 19+
+    private static final boolean USE_TRANSITION_FRAMEWORK =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -203,18 +208,20 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         mExpandInterpolator = new DecelerateInterpolator(EXPAND_DECELERATION);
         mCollapseInterpolator = new DecelerateInterpolator(COLLAPSE_DECELERATION);
 
-        mAddRemoveTransition = new AutoTransition();
-        mAddRemoveTransition.setDuration(ANIMATION_DURATION);
+        if (USE_TRANSITION_FRAMEWORK) {
+            mAddRemoveTransition = new AutoTransition();
+            mAddRemoveTransition.setDuration(ANIMATION_DURATION);
 
-        mRepeatTransition = new AutoTransition();
-        mRepeatTransition.setDuration(ANIMATION_DURATION / 2);
-        mRepeatTransition.setInterpolator(new AccelerateDecelerateInterpolator());
+            mRepeatTransition = new AutoTransition();
+            mRepeatTransition.setDuration(ANIMATION_DURATION / 2);
+            mRepeatTransition.setInterpolator(new AccelerateDecelerateInterpolator());
 
-        mEmptyViewTransition = new TransitionSet()
-                .setOrdering(TransitionSet.ORDERING_SEQUENTIAL)
-                .addTransition(new Fade(Fade.OUT))
-                .addTransition(new Fade(Fade.IN))
-                .setDuration(ANIMATION_DURATION);
+            mEmptyViewTransition = new TransitionSet()
+                    .setOrdering(TransitionSet.ORDERING_SEQUENTIAL)
+                    .addTransition(new Fade(Fade.OUT))
+                    .addTransition(new Fade(Fade.IN))
+                    .setDuration(ANIMATION_DURATION);
+        }
 
         boolean isLandscape = getResources().getConfiguration().orientation
                 == Configuration.ORIENTATION_LANDSCAPE;
@@ -254,8 +261,9 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                     showUndoBar();
                 }
 
-                if ((count == 0 && prevAdapterCount > 0) ||  /* should fade in */
-                        (count > 0 && prevAdapterCount == 0) /* should fade out */) {
+                if (USE_TRANSITION_FRAMEWORK &&
+                    ((count == 0 && prevAdapterCount > 0) ||  /* should fade  in */
+                    (count > 0 && prevAdapterCount == 0) /* should fade out */)) {
                     TransitionManager.beginDelayedTransition(mMainLayout, mEmptyViewTransition);
                 }
                 mEmptyView.setVisibility(count == 0 ? View.VISIBLE : View.GONE);
@@ -622,7 +630,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
          */
         @Override
         public synchronized Cursor swapCursor(Cursor cursor) {
-            if (mAddedAlarm != null || mDeletedAlarm != null) {
+            if (USE_TRANSITION_FRAMEWORK && (mAddedAlarm != null || mDeletedAlarm != null)) {
                 TransitionManager.beginDelayedTransition(mAlarmsList, mAddRemoveTransition);
             }
 
@@ -875,7 +883,9 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onClick(View view) {
                     // Animate the resulting layout changes.
-                    TransitionManager.beginDelayedTransition(mList, mRepeatTransition);
+                    if (USE_TRANSITION_FRAMEWORK) {
+                        TransitionManager.beginDelayedTransition(mList, mRepeatTransition);
+                    }
 
                     final boolean checked = ((CheckBox) view).isChecked();
                     if (checked) {
@@ -926,8 +936,10 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
                             // See if this was the last day, if so, un-check the repeat box.
                             if (!alarm.daysOfWeek.isRepeating()) {
-                                // Animate the resulting layout changes.
-                                TransitionManager.beginDelayedTransition(mList, mRepeatTransition);
+                                if (USE_TRANSITION_FRAMEWORK) {
+                                    // Animate the resulting layout changes.
+                                    TransitionManager.beginDelayedTransition(mList, mRepeatTransition);
+                                }
 
                                 itemHolder.repeat.setChecked(false);
                                 itemHolder.repeatDays.setVisibility(View.GONE);
