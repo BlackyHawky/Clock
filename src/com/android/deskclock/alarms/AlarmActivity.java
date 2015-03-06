@@ -184,7 +184,7 @@ public class AlarmActivity extends AppCompatActivity
         mAlertTitleView = (TextView) mAlertView.findViewById(R.id.alert_title);
         mAlertInfoView = (TextView) mAlertView.findViewById(R.id.alert_info);
 
-        mContentView = (ViewGroup) mContainerView.findViewById(R.id.content);
+        mContentView = (ViewGroup) findViewById(R.id.content);
         mAlarmButton = (ImageView) mContentView.findViewById(R.id.alarm);
         mSnoozeButton = (ImageView) mContentView.findViewById(R.id.snooze);
         mDismissButton = (ImageView) mContentView.findViewById(R.id.dismiss);
