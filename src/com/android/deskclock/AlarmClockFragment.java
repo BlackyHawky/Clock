@@ -1040,6 +1040,10 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             if (title == null) {
                 // This is slow because a media player is created during Ringtone object creation.
                 Ringtone ringTone = RingtoneManager.getRingtone(mContext, uri);
+                if (ringTone == null) {
+                    LogUtils.i("No ringtone for uri %s", uri.toString());
+                    return title;
+                }
                 title = ringTone.getTitle(mContext);
                 if (title != null) {
                     mRingtoneTitleCache.putString(uri.toString(), title);

@@ -711,6 +711,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param state to change to
      */
     public void setAlarmState(Context context, AlarmInstance instance, int state) {
+        if (instance == null) {
+            LogUtils.e("Null alarm instance while setting state to %d", state);
+            return;
+        }
         switch(state) {
             case AlarmInstance.SILENT_STATE:
                 setSilentState(context, instance);
