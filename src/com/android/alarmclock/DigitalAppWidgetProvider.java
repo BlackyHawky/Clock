@@ -40,6 +40,7 @@ import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CitiesActivity;
 
+import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
@@ -94,7 +95,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                     RemoteViews widget = new RemoteViews(context.getPackageName(),
                             R.layout.digital_appwidget);
                     float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
-                    WidgetUtils.setTimeFormat(widget, 0/*no am/pm*/, R.id.the_clock);
+                    WidgetUtils.setTimeFormat(context, widget, 0/*no am/pm*/, R.id.the_clock);
                     WidgetUtils.setClockSize(context, widget, ratio);
                     refreshAlarm(context, widget);
                     appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
@@ -181,12 +182,15 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Setup alarm text clock's format and font sizes
         refreshAlarm(context, widget);
-        WidgetUtils.setTimeFormat(widget, 0/*no am/pm*/, R.id.the_clock);
+        WidgetUtils.setTimeFormat(context, widget, 0/*no am/pm*/, R.id.the_clock);
         WidgetUtils.setClockSize(context, widget, ratio);
 
         // Set today's date format
-        CharSequence dateFormat = DateFormat.getBestDateTimePattern(Locale.getDefault(),
-                context.getString(R.string.abbrev_wday_month_day_no_year));
+        final CharSequence dateFormat = Utils.isJBMR2OrLater()
+                ? DateFormat.getBestDateTimePattern(Locale.getDefault(),
+                        context.getString(R.string.abbrev_wday_month_day_no_year))
+                : ((SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT))
+                        .toPattern();
         widget.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
         widget.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
 

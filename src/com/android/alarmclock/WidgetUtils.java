@@ -21,11 +21,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.widget.RemoteViews;
-import android.widget.RemoteViews.RemoteView;
-import android.widget.TextClock;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
@@ -133,15 +130,18 @@ public class WidgetUtils {
     }
 
     /***
-     * Set the format of the time on the clock accrding to the locale
+     * Set the format of the time on the clock according to the locale
+     * @param context - Context used to get user's locale and time preferences
      * @param clock - view to format
      * @param amPmFontSize - size of am/pm label, zero size means no am/om label
      * @param clockId - id of TextClock view as defined in the clock's layout.
      */
-    public static void setTimeFormat(RemoteViews clock, int amPmFontSize, int clockId) {
+    public static void setTimeFormat(Context context, RemoteViews clock, int amPmFontSize,
+            int clockId) {
         if (clock != null) {
             // Set the best format for 12 hours mode according to the locale
-            clock.setCharSequence(clockId, "setFormat12Hour", Utils.get12ModeFormat(amPmFontSize));
+            clock.setCharSequence(clockId, "setFormat12Hour",
+                    Utils.get12ModeFormat(context, amPmFontSize));
             // Set the best format for 24 hours mode according to the locale
             clock.setCharSequence(clockId, "setFormat24Hour", Utils.get24ModeFormat());
         }

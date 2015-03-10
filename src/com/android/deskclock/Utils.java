@@ -82,7 +82,7 @@ public class Utils {
 
     // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
     private static String[] sShortWeekdays = null;
-    private static final String DATE_FORMAT_SHORT = "EEEEE";
+    private static final String DATE_FORMAT_SHORT = isJBMR2OrLater() ? "EEEEE" : "EEE";
 
     // Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
     private static String[] sLongWeekdays = null;
@@ -105,6 +105,13 @@ public class Utils {
      */
     public static boolean isKitKatOrLater() {
         return Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2;
+    }
+
+    /**
+     * @return {@code true} if the device is {@link Build.VERSION_CODES.JELLY_BEAN_MR2} or later
+     */
+    public static boolean isJBMR2OrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
 
@@ -518,38 +525,44 @@ public class Utils {
         dateDisplay = (TextView) clock.findViewById(R.id.date);
         if (dateDisplay != null) {
             final Locale l = Locale.getDefault();
-            String fmt = DateFormat.getBestDateTimePattern(l, dateFormat);
-            SimpleDateFormat sdf = new SimpleDateFormat(fmt, l);
-            dateDisplay.setText(sdf.format(now));
+            dateDisplay.setText(isJBMR2OrLater()
+                    ? new SimpleDateFormat(
+                            DateFormat.getBestDateTimePattern(l, dateFormat), l).format(now)
+                    : SimpleDateFormat.getDateInstance().format(now));
             dateDisplay.setVisibility(View.VISIBLE);
-            fmt = DateFormat.getBestDateTimePattern(l, dateFormatForAccessibility);
-            sdf = new SimpleDateFormat(fmt, l);
-            dateDisplay.setContentDescription(sdf.format(now));
+            dateDisplay.setContentDescription(isJBMR2OrLater()
+                    ? new SimpleDateFormat(
+                            DateFormat.getBestDateTimePattern(l, dateFormatForAccessibility), l)
+                            .format(now)
+                    : SimpleDateFormat.getDateInstance(java.text.DateFormat.FULL).format(now));
         }
     }
 
     /***
      * Formats the time in the TextClock according to the Locale with a special
      * formatting treatment for the am/pm label.
+     * @param context - Context used to get user's locale and time preferences
      * @param clock - TextClock to format
      * @param amPmFontSize - size of the am/pm label since it is usually smaller
-     *        than the clock time size.
      */
-    public static void setTimeFormat(TextClock clock, int amPmFontSize) {
+    public static void setTimeFormat(Context context, TextClock clock, int amPmFontSize) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(amPmFontSize));
+            clock.setFormat12Hour(get12ModeFormat(context, amPmFontSize));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat());
         }
     }
     /***
+     * @param context - context used to get time format string resource
      * @param amPmFontSize - size of am/pm label (label removed is size is 0).
      * @return format string for 12 hours mode time
      */
-    public static CharSequence get12ModeFormat(int amPmFontSize) {
-        String skeleton = "hma";
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+    public static CharSequence get12ModeFormat(Context context, int amPmFontSize) {
+        String pattern = isJBMR2OrLater()
+                ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma")
+                : context.getString(R.string.time_format_12_mode);
+
         // Remove the am/pm
         if (amPmFontSize <= 0) {
             pattern.replaceAll("a", "").trim();
@@ -572,8 +585,9 @@ public class Utils {
     }
 
     public static CharSequence get24ModeFormat() {
-        String skeleton = "Hm";
-        return DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
+        return isJBMR2OrLater()
+                ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm")
+                : (new SimpleDateFormat("k:mm", Locale.getDefault())).toLocalizedPattern();
     }
 
     public static CityObj[] loadCitiesFromXml(Context c) {
