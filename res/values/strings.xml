@@ -879,6 +879,6 @@
         mm represents minute with leading 0 in case of values < 10
         Ex: EEE, k:mm = Mon, 2:55
     -->
-    <string name="weekday_time_format_24_mode">EEE, k&#58;mm a</string>
+    <string name="weekday_time_format_24_mode">EEE, k&#58;mm</string>
 </resources>
 
