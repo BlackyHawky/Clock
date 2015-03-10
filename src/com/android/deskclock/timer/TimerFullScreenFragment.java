@@ -21,8 +21,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.app.NotificationManager;
@@ -31,9 +29,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
-import android.os.Build;
+import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -41,13 +39,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.ViewGroupOverlay;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.view.animation.PathInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -58,9 +53,11 @@ import com.android.deskclock.DeskClock.OnTapListener;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.PathInterpolatorCompat;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
 import com.android.deskclock.Utils;
+import com.android.deskclock.widget.CircleView;
 import com.android.deskclock.widget.sgv.GridAdapter;
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationIn;
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationOut;
@@ -522,13 +519,14 @@ public class TimerFullScreenFragment extends DeskClockFragment
         mFab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                revealAnimation(mFab, getActivity().getResources().getColor(R.color.clock_white));
-                new Handler().postDelayed(new Runnable() {
+                final Animator revealAnimator = getRevealAnimator(mFab, Color.WHITE);
+                revealAnimator.addListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void run() {
+                    public void onAnimationEnd(Animator animation) {
                         updateAllTimesUpTimers();
                     }
-                }, TimerFragment.ANIMATION_TIME_MILLIS);
+                });
+                revealAnimator.start();
             }
         });
     }
@@ -553,55 +551,45 @@ public class TimerFullScreenFragment extends DeskClockFragment
         }
     }
 
-    private void revealAnimation(final View centerView, int color) {
-        final Activity activity = getActivity();
-        final View decorView = activity.getWindow().getDecorView();
-        final ViewGroupOverlay overlay = (ViewGroupOverlay) decorView.getOverlay();
+    private Animator getRevealAnimator(View source, int revealColor) {
+        final ViewGroup containerView = (ViewGroup) source.getRootView()
+                .findViewById(android.R.id.content);
 
-        // Create a transient view for performing the reveal animation.
-        final View revealView = new View(activity);
-        revealView.setRight(decorView.getWidth());
-        revealView.setBottom(decorView.getHeight());
-        revealView.setBackgroundColor(color);
-        overlay.add(revealView);
+        final Rect sourceBounds = new Rect(0, 0, source.getHeight(), source.getWidth());
+        containerView.offsetDescendantRectToMyCoords(source, sourceBounds);
 
-        final int[] clearLocation = new int[2];
-        centerView.getLocationInWindow(clearLocation);
-        clearLocation[0] += centerView.getWidth() / 2;
-        clearLocation[1] += centerView.getHeight() / 2;
-        final int revealCenterX = clearLocation[0] - revealView.getLeft();
-        final int revealCenterY = clearLocation[1] - revealView.getTop();
+        final int centerX = sourceBounds.centerX();
+        final int centerY = sourceBounds.centerY();
 
-        final int xMax = Math.max(revealCenterX, decorView.getWidth() - revealCenterX);
-        final int yMax = Math.max(revealCenterY, decorView.getHeight() - revealCenterY);
-        final float revealRadius = (float) Math.sqrt(Math.pow(xMax, 2.0) + Math.pow(yMax, 2.0));
+        final int xMax = Math.max(centerX, containerView.getWidth() - centerX);
+        final int yMax = Math.max(centerY, containerView.getHeight() - centerY);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            showCircularReveal(revealView, revealCenterX, revealCenterY, revealRadius, overlay);
-        } else {
-            // TODO: show circular reveal
-        }
-    }
+        final float startRadius = Math.max(sourceBounds.width(), sourceBounds.height()) / 2.0f;
+        final float endRadius = (float) Math.sqrt(xMax * xMax + yMax * yMax);
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private void showCircularReveal(final View revealView, int revealCenterX, int revealCenterY,
-                                    float revealRadius, final ViewGroupOverlay overlay) {
-        final Animator revealAnimator = ViewAnimationUtils.createCircularReveal(
-                revealView, revealCenterX, revealCenterY, 0.0f, revealRadius);
-        revealAnimator.setInterpolator(new PathInterpolator(0.0f, 0.0f, 0.2f, 1.0f));
+        final CircleView revealView = new CircleView(source.getContext())
+                .setCenterX(centerX)
+                .setCenterY(centerY)
+                .setFillColor(revealColor);
+        containerView.addView(revealView);
 
-        final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 1.0f);
+        final Animator revealAnimator = ObjectAnimator.ofFloat(
+                revealView, CircleView.RADIUS, startRadius, endRadius);
+        revealAnimator.setInterpolator(new PathInterpolatorCompat(0.0f, 0.0f, 0.2f, 1.0f));
+
+        final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 0.0f);
         fadeAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
-                overlay.remove(revealView);
+                containerView.removeView(revealView);
             }
         });
 
-        final AnimatorSet alertAnimator = new AnimatorSet();
-        alertAnimator.setDuration(TimerFragment.ANIMATION_TIME_MILLIS);
-        alertAnimator.play(revealAnimator).before(fadeAnimator);
-        alertAnimator.start();
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.setDuration(TimerFragment.ANIMATION_TIME_MILLIS);
+        animatorSet.playSequentially(revealAnimator, fadeAnimator);
+
+        return revealAnimator;
     }
 
     @Override

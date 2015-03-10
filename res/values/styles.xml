@@ -21,6 +21,9 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
+    <!-- variants: v19 -->
+    <style name="AppCompatTranslucentDecorTheme" parent="Theme.AppCompat.NoActionBar" />
+
     <style name="DeskClockParentTheme" parent="Theme.AppCompat">
         <item name="android:statusBarColor">@color/status_bar</item>
         <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
@@ -124,14 +127,9 @@
         <item name="android:textSize">32sp</item>
     </style>
 
-    <!-- NOTE: This must be a fullscreen theme, or else the fullscreen alarm will
-         be unable to turn the screen on. -->
-    <style name="AlarmAlertFullScreenTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-    </style>
+    <style name="AlarmAlertFullScreenTheme" parent="AppCompatTranslucentDecorTheme" />
 
-    <style name="TimerAlertFullScreenTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:statusBarColor">@color/status_bar</item>
+    <style name="TimerAlertFullScreenTheme" parent="AppCompatTranslucentDecorTheme">
         <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
     </style>
 
