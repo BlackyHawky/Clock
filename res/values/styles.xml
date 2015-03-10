@@ -37,7 +37,7 @@
 
     <style name="TimeLabelTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">60sp</item>
+        <item name="android:textSize">60dp</item>
     </style>
 
     <style name="AmPmTextAppearance" parent="TextAppearance.AppCompat">
