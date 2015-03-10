@@ -24,7 +24,6 @@ import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -275,12 +274,17 @@ public class CitiesActivity extends AppCompatActivity implements OnCheckedChange
                 }
             }
 
-            mPattern24 = DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm");
+            mPattern24 = Utils.isJBMR2OrLater()
+                    ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm")
+                    : getString(R.string.time_format_24_mode);
 
             // There's an RTL layout bug that causes jank when fast-scrolling through
             // the list in 12-hour mode in an RTL locale. We can work around this by
             // ensuring the strings are the same length by using "hh" instead of "h".
-            String pattern12 = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
+            String pattern12 = Utils.isJBMR2OrLater()
+                    ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma")
+                    : getString(R.string.time_format_12_mode);
+
             if (mLayoutDirection == View.LAYOUT_DIRECTION_RTL) {
                 pattern12 = pattern12.replaceAll("h", "hh");
             }

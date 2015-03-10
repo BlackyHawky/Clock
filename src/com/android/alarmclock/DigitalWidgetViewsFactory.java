@@ -103,8 +103,8 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
             now.setTimeZone(TimeZone.getTimeZone(cityTZ));
             int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
 
-            WidgetUtils.setTimeFormat(clock,
-                    (int)mResources.getDimension(R.dimen.widget_label_font_size), clockId);
+            final int labelSize = mResources.getDimensionPixelSize(R.dimen.widget_label_font_size);
+            WidgetUtils.setTimeFormat(mContext, clock, labelSize, clockId);
             float fontSize = mFontScale * (DateFormat.is24HourFormat(mContext)
                     ? mFont24Size : mFontSize);
             clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);

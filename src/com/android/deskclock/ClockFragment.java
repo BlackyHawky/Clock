@@ -82,11 +82,10 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
                     // reload the cities list with new localized names
                     if (action.equals(Intent.ACTION_LOCALE_CHANGED)) {
                         if (mDigitalClock != null) {
-                            Utils.setTimeFormat(
-                                    (TextClock) (mDigitalClock.findViewById(R.id.digital_clock)),
-                                    (int) context.getResources().
-                                            getDimension(R.dimen.main_ampm_font_size)
-                            );
+                            Utils.setTimeFormat(context,
+                                (TextClock) mDigitalClock.findViewById(R.id.digital_clock),
+                                context.getResources().getDimensionPixelSize(
+                                    R.dimen.main_ampm_font_size));
                         }
                         mAdapter.loadCitiesDb(context);
                         mAdapter.notifyDataSetChanged();
@@ -204,8 +203,9 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
         mDigitalClock = mClockFrame.findViewById(R.id.digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
-        Utils.setTimeFormat((TextClock) (mDigitalClock.findViewById(R.id.digital_clock)),
-                (int) getResources().getDimension(R.dimen.main_ampm_font_size));
+        Utils.setTimeFormat(getActivity(),
+            (TextClock) mDigitalClock.findViewById(R.id.digital_clock),
+            getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size));
         View footerView = inflater.inflate(R.layout.blank_footer_view, mList, false);
         mList.addFooterView(footerView, null, false);
         mAdapter = new WorldClockAdapter(getActivity());
