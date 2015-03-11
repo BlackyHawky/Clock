@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="TimeLabelTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@drawable/timepicker_time</item>
+        <item name="android:textColor">@color/timepicker_time</item>
         <item name="android:textSize">60dp</item>
     </style>
 
     <style name="AmPmTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@drawable/timepicker_ampm</item>
+        <item name="android:textColor">@color/timepicker_ampm</item>
         <item name="android:textSize">16sp</item>
     </style>
 </resources>
