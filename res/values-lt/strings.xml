@@ -341,4 +341,9 @@
     <string name="no_alarms" msgid="6429431324842022917">"Signalų nėra"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Signalų nenust."</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"NĖRA BŪSIMŲ SIGNALŲ"</string>
+    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
+    <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
+    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
+    <!-- no translation found for weekday_time_format_24_mode (152964494051478631) -->
+    <skip />
 </resources>

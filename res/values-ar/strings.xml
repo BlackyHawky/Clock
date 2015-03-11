@@ -341,4 +341,9 @@
     <string name="no_alarms" msgid="6429431324842022917">"ليست هناك اشعارات"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"لم يتم تعيين تنبيهات"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"ليست هناك اشعارات مقبلة"</string>
+    <string name="time_format_12_mode" msgid="1619464909892545536">"س:دد ص"</string>
+    <string name="time_format_24_mode" msgid="7998512313148074539">"ك:دد"</string>
+    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"‏EEE، س:دد ص"</string>
+    <!-- no translation found for weekday_time_format_24_mode (152964494051478631) -->
+    <skip />
 </resources>
