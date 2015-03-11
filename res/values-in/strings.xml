@@ -341,4 +341,9 @@
     <string name="no_alarms" msgid="6429431324842022917">"Tidak Ada Alarm"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Tak ada alarm"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"TIDAK ADA ALARM MENDATANG"</string>
+    <string name="time_format_12_mode" msgid="1619464909892545536">"j.mm"</string>
+    <string name="time_format_24_mode" msgid="7998512313148074539">"j.mm"</string>
+    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"HHH, j.mm"</string>
+    <!-- no translation found for weekday_time_format_24_mode (152964494051478631) -->
+    <skip />
 </resources>

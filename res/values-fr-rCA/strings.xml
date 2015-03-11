@@ -341,4 +341,9 @@
     <string name="no_alarms" msgid="6429431324842022917">"Aucune alarme"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Aucune alarme"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"AUCUNE ALARME À VENIR"</string>
+    <string name="time_format_12_mode" msgid="1619464909892545536">"h h mm min"</string>
+    <string name="time_format_24_mode" msgid="7998512313148074539">"k h mm"</string>
+    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h h mm"</string>
+    <!-- no translation found for weekday_time_format_24_mode (152964494051478631) -->
+    <skip />
 </resources>
