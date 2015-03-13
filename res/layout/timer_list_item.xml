@@ -48,8 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:layout_marginTop="0dip"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/label">
+            android:background="?attr/selectableItemBackgroundBorderless">
 
             <TextView
                 android:id="@+id/timer_label_text"
