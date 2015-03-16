@@ -45,10 +45,10 @@
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Отложено"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-      <item quantity="one">на <xliff:g id="NUMBER">%d</xliff:g> мин.</item>
-      <item quantity="few">на <xliff:g id="NUMBER">%d</xliff:g> мин.</item>
-      <item quantity="many">на <xliff:g id="NUMBER">%d</xliff:g> мин.</item>
-      <item quantity="other">на <xliff:g id="NUMBER">%d</xliff:g> мин.</item>
+      <item quantity="one">на <xliff:g id="NUMBER">%d</xliff:g> минуту</item>
+      <item quantity="few">на <xliff:g id="NUMBER">%d</xliff:g> минуты</item>
+      <item quantity="many">на <xliff:g id="NUMBER">%d</xliff:g> минут</item>
+      <item quantity="other">на <xliff:g id="NUMBER">%d</xliff:g> минуты</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Выключено"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Отложить"</string>
@@ -360,6 +360,5 @@
     <string name="time_format_12_mode" msgid="1619464909892545536">"H:mm"</string>
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm"</string>
-    <!-- no translation found for weekday_time_format_24_mode (152964494051478631) -->
-    <skip />
+    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
 </resources>

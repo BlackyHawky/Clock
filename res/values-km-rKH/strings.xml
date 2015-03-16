@@ -341,12 +341,8 @@
     <string name="no_alarms" msgid="6429431324842022917">"គ្មាន​ការ​ជូនដំណឹង"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"មិនមានសំឡេងរោទ៍"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"គ្មាន​ការ​ជូនដំណឹង​ដែល​នឹង​កើត​ឡើង"</string>
-    <!-- no translation found for time_format_12_mode (1619464909892545536) -->
-    <skip />
-    <!-- no translation found for time_format_24_mode (7998512313148074539) -->
-    <skip />
-    <!-- no translation found for weekday_time_format_12_mode (8648842975829470646) -->
-    <skip />
-    <!-- no translation found for weekday_time_format_24_mode (152964494051478631) -->
-    <skip />
+    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
+    <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
+    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
+    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
 </resources>
