@@ -73,9 +73,9 @@ public class AlarmActivity extends AppCompatActivity
     private static final String LOGTAG = AlarmActivity.class.getSimpleName();
 
     private static final TimeInterpolator PULSE_INTERPOLATOR =
-            new PathInterpolatorCompat(0.4f, 0.0f, 0.2f, 1.0f);
+            PathInterpolatorCompat.create(0.4f, 0.0f, 0.2f, 1.0f);
     private static final TimeInterpolator REVEAL_INTERPOLATOR =
-            new PathInterpolatorCompat(0.0f, 0.0f, 0.2f, 1.0f);
+            PathInterpolatorCompat.create(0.0f, 0.0f, 0.2f, 1.0f);
 
     private static final int PULSE_DURATION_MILLIS = 1000;
     private static final int ALARM_BOUNCE_DURATION_MILLIS = 500;
