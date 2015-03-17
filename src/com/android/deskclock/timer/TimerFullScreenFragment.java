@@ -575,7 +575,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
         final Animator revealAnimator = ObjectAnimator.ofFloat(
                 revealView, CircleView.RADIUS, startRadius, endRadius);
-        revealAnimator.setInterpolator(new PathInterpolatorCompat(0.0f, 0.0f, 0.2f, 1.0f));
+        revealAnimator.setInterpolator(PathInterpolatorCompat.create(0.0f, 0.0f, 0.2f, 1.0f));
 
         final ValueAnimator fadeAnimator = ObjectAnimator.ofFloat(revealView, View.ALPHA, 0.0f);
         fadeAnimator.addListener(new AnimatorListenerAdapter() {
