@@ -43,7 +43,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -125,9 +125,9 @@ public class AlarmActivity extends AppCompatActivity
     private TextView mAlertInfoView;
 
     private ViewGroup mContentView;
-    private ImageButton mAlarmButton;
-    private ImageButton mSnoozeButton;
-    private ImageButton mDismissButton;
+    private ImageView mAlarmButton;
+    private ImageView mSnoozeButton;
+    private ImageView mDismissButton;
     private TextView mHintView;
 
     private ValueAnimator mAlarmAnimator;
@@ -185,9 +185,9 @@ public class AlarmActivity extends AppCompatActivity
         mAlertInfoView = (TextView) mAlertView.findViewById(R.id.alert_info);
 
         mContentView = (ViewGroup) findViewById(R.id.content);
-        mAlarmButton = (ImageButton) mContentView.findViewById(R.id.alarm);
-        mSnoozeButton = (ImageButton) mContentView.findViewById(R.id.snooze);
-        mDismissButton = (ImageButton) mContentView.findViewById(R.id.dismiss);
+        mAlarmButton = (ImageView) mContentView.findViewById(R.id.alarm);
+        mSnoozeButton = (ImageView) mContentView.findViewById(R.id.snooze);
+        mDismissButton = (ImageView) mContentView.findViewById(R.id.dismiss);
         mHintView = (TextView) mContentView.findViewById(R.id.hint);
 
         final TextView titleView = (TextView) mContentView.findViewById(R.id.title);
@@ -402,7 +402,7 @@ public class AlarmActivity extends AppCompatActivity
         return Math.max(Math.min((x - x0) / (x1 - x0), 1.0f), 0.0f);
     }
 
-    private ValueAnimator getButtonAnimator(ImageButton button, int tintColor) {
+    private ValueAnimator getButtonAnimator(ImageView button, int tintColor) {
         return ObjectAnimator.ofPropertyValuesHolder(button,
                 PropertyValuesHolder.ofFloat(View.SCALE_X, BUTTON_SCALE_DEFAULT, 1.0f),
                 PropertyValuesHolder.ofFloat(View.SCALE_Y, BUTTON_SCALE_DEFAULT, 1.0f),
