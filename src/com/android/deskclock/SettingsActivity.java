@@ -220,10 +220,12 @@ public class SettingsActivity extends AppCompatActivity {
             snoozePref.setSummary();
 
             final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
-            final CharSequence entry = weekStartPref.getEntry();
             // Set the default value programmatically
-            weekStartPref.setSummary(
-                    entry == null ? String.valueOf(Utils.DEFAULT_WEEK_START) : entry);
+            final String value = weekStartPref.getValue();
+            final int idx = weekStartPref.findIndexOfValue(
+                    value == null ? String.valueOf(Utils.DEFAULT_WEEK_START) : value);
+            weekStartPref.setValueIndex(idx);
+            weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
             weekStartPref.setOnPreferenceChangeListener(this);
         }
 
