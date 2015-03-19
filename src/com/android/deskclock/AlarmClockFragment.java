@@ -514,7 +514,10 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         private final boolean mHasVibrator;
         private final int mCollapseExpandHeight;
 
-        // This determines the order in which it is shown and processed in the UI.
+        // Determines the order that days of the week are shown in the UI
+        private int[] mDayOrder;
+
+        // A reference used to create mDayOrder
         private final int[] DAY_ORDER = new int[] {
                 Calendar.SUNDAY,
                 Calendar.MONDAY,
@@ -593,6 +596,8 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                     .hasVibrator();
 
             mCollapseExpandHeight = (int) res.getDimension(R.dimen.collapse_expand_height);
+
+            setDayOrder();
         }
 
         public void removeSelectedId(int id) {
@@ -642,6 +647,17 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             return c;
         }
 
+        private void setDayOrder() {
+            // Value from preferences corresponds to Calendar.<WEEKDAY> value
+            // -1 in order to correspond to DAY_ORDER indexing
+            final int startDay = Utils.getZeroIndexedFirstDayOfWeek(mContext);
+            mDayOrder = new int[DaysOfWeek.DAYS_IN_A_WEEK];
+
+            for (int i = 0; i < DaysOfWeek.DAYS_IN_A_WEEK; ++i) {
+                mDayOrder[i] = DAY_ORDER[(startDay + i) % 7];
+            }
+        }
+
         private void setNewHolder(View view) {
             // standard view holder optimization
             final ItemHolder holder = new ItemHolder();
@@ -666,8 +682,8 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             for (int i = 0; i < 7; i++) {
                 final CompoundButton dayButton = (CompoundButton) mFactory.inflate(
                         R.layout.day_button, holder.repeatDays, false /* attachToRoot */);
-                dayButton.setText(Utils.getShortWeekday(i));
-                dayButton.setContentDescription(Utils.getLongWeekday(i));
+                dayButton.setText(Utils.getShortWeekday(mContext, i));
+                dayButton.setContentDescription(Utils.getLongWeekday(mContext, i));
                 holder.repeatDays.addView(dayButton);
                 holder.dayButtons[i] = dayButton;
             }
@@ -899,7 +915,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                         final int bitSet = mPreviousDaysOfWeekMap.getInt("" + alarm.id);
                         alarm.daysOfWeek.setBitSet(bitSet);
                         if (!alarm.daysOfWeek.isRepeating()) {
-                            alarm.daysOfWeek.setDaysOfWeek(true, DAY_ORDER);
+                            alarm.daysOfWeek.setDaysOfWeek(true, mDayOrder);
                         }
                         updateDaysOfWeekButtons(itemHolder, alarm.daysOfWeek);
                     } else {
@@ -928,7 +944,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                     public void onClick(View view) {
                         final boolean isActivated =
                                 itemHolder.dayButtons[buttonIndex].isActivated();
-                        alarm.daysOfWeek.setDaysOfWeek(!isActivated, DAY_ORDER[buttonIndex]);
+                        alarm.daysOfWeek.setDaysOfWeek(!isActivated, mDayOrder[buttonIndex]);
                         if (!isActivated) {
                             turnOnDayOfWeek(itemHolder, buttonIndex);
                         } else {
@@ -1005,7 +1021,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         private void updateDaysOfWeekButtons(ItemHolder holder, DaysOfWeek daysOfWeek) {
             HashSet<Integer> setDays = daysOfWeek.getSetDays();
             for (int i = 0; i < 7; i++) {
-                if (setDays.contains(DAY_ORDER[i])) {
+                if (setDays.contains(mDayOrder[i])) {
                     turnOnDayOfWeek(holder, i);
                 } else {
                     turnOffDayOfWeek(holder, i);

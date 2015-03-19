@@ -88,6 +88,8 @@ public class Utils {
     private static String[] sLongWeekdays = null;
     private static final String DATE_FORMAT_LONG = "EEEE";
 
+    public static final int DEFAULT_WEEK_START = Calendar.getInstance().getFirstDayOfWeek();
+
     private static Locale sLocaleUsedForWeekdays;
 
     /** Types that may be used for clock displays. **/
@@ -652,17 +654,32 @@ public class Utils {
     /**
      * @return Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
      */
-    public static String getShortWeekday(int position) {
-        generateShortAndLongWeekdaysIfNeeded();
-        return sShortWeekdays[position];
+    public static String getShortWeekday(Context context, int position) {
+        generateShortAndLongWeekdaysIfNeeded(context);
+        return sShortWeekdays[(position + getZeroIndexedFirstDayOfWeek(context)) %
+                DaysOfWeek.DAYS_IN_A_WEEK];
     }
 
     /**
      * @return Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
      */
-    public static String getLongWeekday(int position) {
-        generateShortAndLongWeekdaysIfNeeded();
-        return sLongWeekdays[position];
+    public static String getLongWeekday(Context context, int position) {
+        generateShortAndLongWeekdaysIfNeeded(context);
+        return sLongWeekdays[(position + getZeroIndexedFirstDayOfWeek(context)) %
+                DaysOfWeek.DAYS_IN_A_WEEK];
+    }
+
+    // Return the first day of the week value corresponding to Calendar.<WEEKDAY> value, which is
+    // 1-indexed starting with Sunday.
+    public static int getFirstDayOfWeek(Context context) {
+        return Integer.parseInt(PreferenceManager
+                .getDefaultSharedPreferences(context)
+                .getString(SettingsActivity.KEY_WEEK_START, String.valueOf(DEFAULT_WEEK_START)));
+    }
+
+    // Return the first day of the week value corresponding to a week with Sunday at 0 index.
+    public static int getZeroIndexedFirstDayOfWeek(Context context) {
+        return getFirstDayOfWeek(context) - 1;
     }
 
     private static boolean localeHasChanged() {
@@ -672,12 +689,11 @@ public class Utils {
     /**
      * Generate arrays of short and long weekdays, starting from Sunday
      */
-    private static void generateShortAndLongWeekdaysIfNeeded() {
+    private static void generateShortAndLongWeekdaysIfNeeded(Context context) {
         if (sShortWeekdays != null && sLongWeekdays != null && !localeHasChanged()) {
             // nothing to do
             return;
         }
-
         if (sShortWeekdays == null) {
             sShortWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
         }
