@@ -65,5 +65,12 @@
             android:entries="@array/volume_button_setting_entries"
             android:entryValues="@array/volume_button_setting_values"
             android:defaultValue="0" />
+
+        <ListPreference
+            android:key="week_start"
+            android:title="@string/week_start_title"
+            android:dialogTitle="@string/week_start_title"
+            android:entries="@array/week_start_entries"
+            android:entryValues="@array/week_start_values" />
     </PreferenceCategory>
 </PreferenceScreen>

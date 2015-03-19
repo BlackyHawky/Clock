@@ -54,4 +54,23 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
+    <style name="CitiesTheme" parent="DeskClockParentTheme">
+        <item name="android:fastScrollThumbDrawable">@drawable/red_fastscroll_thumb</item>
+        <item name="android:fastScrollStyle">@style/FastScrollStyle</item>
+        <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
+    </style>
+
+    <style name="FastScrollStyle" parent="android:Widget.Material.FastScroll">
+        <item name="android:minWidth">48dip</item>
+        <item name="android:minHeight">48dip</item>
+        <item name="android:padding">16dip</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <!-- This is to control the FastScroll background color -->
+    <style name="CitiesListViewThemeOverlay">
+        <item name="android:colorControlActivated">@color/hot_pink</item>
+    </style>
+
 </resources>

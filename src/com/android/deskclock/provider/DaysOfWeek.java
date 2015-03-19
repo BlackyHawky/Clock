@@ -19,6 +19,7 @@ package com.android.deskclock.provider;
 import android.content.Context;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -103,9 +104,14 @@ public final class DaysOfWeek {
                 dfs.getWeekdays() :
                 dfs.getShortWeekdays();
 
-        // selected days, starting from Monday
-        for (int bitIndex = 0; bitIndex < DAYS_IN_A_WEEK; bitIndex++) {
-            if ((mBitSet & (1 << bitIndex)) != 0) {
+        // In this system, Mon = 0, Sun = 6, etc.
+        // startDay is stored corresponding to Calendar.DAY_OF_WEEK where Sun = 0, Mon = 2, etc.
+        final int startDay = convertDayToBitIndex(Utils.getFirstDayOfWeek(context));
+
+        // selected days, starting from user-selected start day of week
+        // iterate starting from user-selected start of day
+        for (int bitIndex = startDay; bitIndex < DAYS_IN_A_WEEK + startDay; ++bitIndex) {
+            if ((mBitSet & (1 << (bitIndex % DAYS_IN_A_WEEK))) != 0) {
                 ret.append(dayList[convertBitIndexToDay(bitIndex)]);
                 dayCount -= 1;
                 if (dayCount > 0) ret.append(context.getText(R.string.day_concat));
