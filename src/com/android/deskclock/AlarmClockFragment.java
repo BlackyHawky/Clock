@@ -682,8 +682,9 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             for (int i = 0; i < 7; i++) {
                 final CompoundButton dayButton = (CompoundButton) mFactory.inflate(
                         R.layout.day_button, holder.repeatDays, false /* attachToRoot */);
-                dayButton.setText(Utils.getShortWeekday(mContext, i));
-                dayButton.setContentDescription(Utils.getLongWeekday(mContext, i));
+                final int firstDay = Utils.getZeroIndexedFirstDayOfWeek(mContext);
+                dayButton.setText(Utils.getShortWeekday(i, firstDay));
+                dayButton.setContentDescription(Utils.getLongWeekday(i, firstDay));
                 holder.repeatDays.addView(dayButton);
                 holder.dayButtons[i] = dayButton;
             }
@@ -786,11 +787,11 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
             // Set the repeat text or leave it blank if it does not repeat.
             final String daysOfWeekStr =
-                    alarm.daysOfWeek.toString(AlarmClockFragment.this.getActivity());
+                    alarm.daysOfWeek.toString(context, Utils.getFirstDayOfWeek(context));
             if (daysOfWeekStr != null && daysOfWeekStr.length() != 0) {
                 itemHolder.daysOfWeek.setText(daysOfWeekStr);
                 itemHolder.daysOfWeek.setContentDescription(alarm.daysOfWeek.toAccessibilityString(
-                        AlarmClockFragment.this.getActivity()));
+                        context, Utils.getFirstDayOfWeek(context)));
                 itemHolder.daysOfWeek.setVisibility(View.VISIBLE);
                 itemHolder.daysOfWeek.setOnClickListener(new View.OnClickListener() {
                     @Override

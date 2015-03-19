@@ -19,7 +19,6 @@ package com.android.deskclock.provider;
 import android.content.Context;
 
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 
 import java.text.DateFormatSymbols;
 import java.util.Calendar;
@@ -69,15 +68,15 @@ public final class DaysOfWeek {
         mBitSet = bitSet;
     }
 
-    public String toString(Context context) {
-        return toString(context, false /* forAccessibility */);
+    public String toString(Context context, int firstDay) {
+        return toString(context, firstDay, false /* forAccessibility */);
     }
 
-    public String toAccessibilityString(Context context) {
-        return toString(context, true /* forAccessibility */);
+    public String toAccessibilityString(Context context, int firstDay) {
+        return toString(context, firstDay, true /* forAccessibility */);
     }
 
-    private String toString(Context context, boolean forAccessibility) {
+    private String toString(Context context, int firstDay, boolean forAccessibility) {
         StringBuilder ret = new StringBuilder();
 
         // no days
@@ -106,7 +105,7 @@ public final class DaysOfWeek {
 
         // In this system, Mon = 0, Sun = 6, etc.
         // startDay is stored corresponding to Calendar.DAY_OF_WEEK where Sun = 0, Mon = 2, etc.
-        final int startDay = convertDayToBitIndex(Utils.getFirstDayOfWeek(context));
+        final int startDay = convertDayToBitIndex(firstDay);
 
         // selected days, starting from user-selected start day of week
         // iterate starting from user-selected start of day
