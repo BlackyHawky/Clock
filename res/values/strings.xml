@@ -268,6 +268,23 @@
       <item>-1</item> <!-- Off -->
       </string-array>
 
+    <!-- Week start day preference title. -->
+    <string name="week_start_title">Start week on</string>
+
+    <!-- Entries listed in ListPreference for start day. -->
+    <string-array name="week_start_entries">
+        <item>Saturday</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+    </string-array>
+
+    <!-- Values for ListPreference for start day of week. -->
+    <string-array name="week_start_values" translatable="false">
+        <item>7</item> <!-- Calendar.SATURDAY -->
+        <item>1</item> <!-- Calendar.SUNDAY -->
+        <item>2</item> <!-- Calendar.MONDAY -->
+    </string-array>
+
     <!-- Done button when editing an alarm. -->
     <string name="done">Done</string>
 

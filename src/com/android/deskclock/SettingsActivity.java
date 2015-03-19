@@ -48,6 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String KEY_HOME_TZ = "home_time_zone";
     public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
+    public static final String KEY_WEEK_START = "week_start";
 
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
@@ -117,6 +118,8 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onResume() {
             super.onResume();
+            // By default, do not recreate the DeskClock activity
+            getActivity().setResult(RESULT_CANCELED);
             refresh();
         }
 
@@ -144,7 +147,13 @@ public class SettingsActivity extends AppCompatActivity {
                 final ListPreference volumeButtonsPref = (ListPreference) pref;
                 final int index = volumeButtonsPref.findIndexOfValue((String) newValue);
                 volumeButtonsPref.setSummary(volumeButtonsPref.getEntries()[index]);
+            } else if (KEY_WEEK_START.equals(pref.getKey())) {
+                final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
+                final int idx = weekStartPref.findIndexOfValue((String) newValue);
+                weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
             }
+            // Set result so DeskClock knows to refresh itself
+            getActivity().setResult(RESULT_OK);
             return true;
         }
 
@@ -209,6 +218,13 @@ public class SettingsActivity extends AppCompatActivity {
             final SnoozeLengthDialog snoozePref =
                     (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
             snoozePref.setSummary();
+
+            final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
+            final CharSequence entry = weekStartPref.getEntry();
+            // Set the default value programmatically
+            weekStartPref.setSummary(
+                    entry == null ? String.valueOf(Utils.DEFAULT_WEEK_START) : entry);
+            weekStartPref.setOnPreferenceChangeListener(this);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {
@@ -224,7 +240,6 @@ public class SettingsActivity extends AppCompatActivity {
             Intent i = new Intent(Cities.WORLDCLOCK_UPDATE_INTENT);
             getActivity().sendBroadcast(i);
         }
-
 
         private class TimeZoneRow implements Comparable<TimeZoneRow> {
             private static final boolean SHOW_DAYLIGHT_SAVINGS_INDICATOR = false;

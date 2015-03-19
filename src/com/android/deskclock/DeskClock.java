@@ -113,6 +113,9 @@ public class DeskClock extends AppCompatActivity implements
     public static final int RTL_STOPWATCH_TAB_INDEX = 0;
     public static final String SELECT_TAB_INTENT_EXTRA = "deskclock.select.tab";
 
+    // Request code used when SettingsActivity is launched.
+    private static final int REQUEST_CHANGE_SETTINGS = 1;
+
     // TODO(rachelzhang): adding a broadcast receiver to adjust color when the timezone/time
     // changes in the background.
 
@@ -353,10 +356,19 @@ public class DeskClock extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Recreate the activity if any settings have been changed
+        if (requestCode == REQUEST_CHANGE_SETTINGS && resultCode == RESULT_OK) {
+           recreate();
+        }
+    }
+
     private boolean processMenuClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_settings:
-                startActivity(new Intent(DeskClock.this, SettingsActivity.class));
+                startActivityForResult(new Intent(DeskClock.this, SettingsActivity.class),
+                        REQUEST_CHANGE_SETTINGS);
                 return true;
             case R.id.menu_item_help:
                 Intent i = item.getIntent();
