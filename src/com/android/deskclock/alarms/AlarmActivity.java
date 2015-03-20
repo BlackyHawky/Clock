@@ -40,6 +40,7 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.ColorUtils;
+import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -52,7 +53,6 @@ import android.widget.TextView;
 
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.LogUtils;
-import com.android.deskclock.PathInterpolatorCompat;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
