@@ -652,21 +652,21 @@ public class Utils {
     }
 
     /**
+     * @param firstDay is the result from getZeroIndexedFirstDayOfWeek
      * @return Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
      */
-    public static String getShortWeekday(Context context, int position) {
-        generateShortAndLongWeekdaysIfNeeded(context);
-        return sShortWeekdays[(position + getZeroIndexedFirstDayOfWeek(context)) %
-                DaysOfWeek.DAYS_IN_A_WEEK];
+    public static String getShortWeekday(int position, int firstDay) {
+        generateShortAndLongWeekdaysIfNeeded();
+        return sShortWeekdays[(position + firstDay) % DaysOfWeek.DAYS_IN_A_WEEK];
     }
 
     /**
+     * @param firstDay is the result from getZeroIndexedFirstDayOfWeek
      * @return Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
      */
-    public static String getLongWeekday(Context context, int position) {
-        generateShortAndLongWeekdaysIfNeeded(context);
-        return sLongWeekdays[(position + getZeroIndexedFirstDayOfWeek(context)) %
-                DaysOfWeek.DAYS_IN_A_WEEK];
+    public static String getLongWeekday(int position, int firstDay) {
+        generateShortAndLongWeekdaysIfNeeded();
+        return sLongWeekdays[(position + firstDay) % DaysOfWeek.DAYS_IN_A_WEEK];
     }
 
     // Return the first day of the week value corresponding to Calendar.<WEEKDAY> value, which is
@@ -689,7 +689,7 @@ public class Utils {
     /**
      * Generate arrays of short and long weekdays, starting from Sunday
      */
-    private static void generateShortAndLongWeekdaysIfNeeded(Context context) {
+    private static void generateShortAndLongWeekdaysIfNeeded() {
         if (sShortWeekdays != null && sLongWeekdays != null && !localeHasChanged()) {
             // nothing to do
             return;
