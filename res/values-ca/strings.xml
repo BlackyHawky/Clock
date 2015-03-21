@@ -106,6 +106,12 @@
     <item msgid="7809240121716151904">"25 minuts"</item>
     <item msgid="4278641338024561333">"Mai"</item>
   </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"La setmana comença"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"Dissabte"</item>
+    <item msgid="3993530639455360921">"Diumenge"</item>
+    <item msgid="8594709368683324282">"Dilluns"</item>
+  </string-array>
     <string name="done" msgid="6509722361933858451">"Fet"</string>
     <string name="revert" msgid="9100911171235162926">"Reverteix"</string>
     <string name="delete" msgid="5732434972457000541">"Suprimeix"</string>

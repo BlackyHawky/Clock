@@ -106,6 +106,12 @@
     <item msgid="7809240121716151904">"25 minutter"</item>
     <item msgid="4278641338024561333">"Aldri"</item>
   </string-array>
+    <string name="week_start_title" msgid="4268917518596832096">"Begynn uken på"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"Lørdag"</item>
+    <item msgid="3993530639455360921">"Søndag"</item>
+    <item msgid="8594709368683324282">"Mandag"</item>
+  </string-array>
     <string name="done" msgid="6509722361933858451">"OK"</string>
     <string name="revert" msgid="9100911171235162926">"Tilbakestill"</string>
     <string name="delete" msgid="5732434972457000541">"Slett"</string>
