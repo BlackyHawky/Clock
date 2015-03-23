@@ -612,29 +612,21 @@ public class Utils {
     }
 
     /**
-     * Returns string denoting the timezone hour offset (e.g. GMT-8:00)
+     * Returns string denoting the timezone hour offset (e.g. GMT -8:00)
+     * @param useShortForm Whether to return a short form of the header that rounds to the
+     *                     nearest hour and excludes the "GMT" prefix
      */
-    public static String getGMTHourOffset(TimeZone timezone, boolean showMinutes) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("GMT  ");
-        int gmtOffset = timezone.getRawOffset();
-        if (gmtOffset < 0) {
-            sb.append('-');
+    public static String getGMTHourOffset(TimeZone timezone, boolean useShortForm) {
+        final int gmtOffset = timezone.getRawOffset();
+        final long hour = gmtOffset / DateUtils.HOUR_IN_MILLIS;
+        final long min = (Math.abs(gmtOffset) % DateUtils.HOUR_IN_MILLIS) /
+                DateUtils.MINUTE_IN_MILLIS;
+
+        if (useShortForm) {
+            return String.format("%+d", hour);
         } else {
-            sb.append('+');
+            return String.format("GMT %+d:%02d", hour, min);
         }
-        sb.append(Math.abs(gmtOffset) / DateUtils.HOUR_IN_MILLIS); // Hour
-
-        if (showMinutes) {
-            final int min = (Math.abs(gmtOffset) / (int) DateUtils.MINUTE_IN_MILLIS) % 60;
-            sb.append(':');
-            if (min < 10) {
-                sb.append('0');
-            }
-            sb.append(min);
-        }
-
-        return sb.toString();
     }
 
     public static String getCityName(CityObj city, CityObj dbCity) {

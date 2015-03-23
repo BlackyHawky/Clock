@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
@@ -202,7 +203,12 @@ public class CitiesActivity extends AppCompatActivity implements OnCheckedChange
                                 int newOffset = timezone.getOffset(currentTime);
                                 if (offset != newOffset) {
                                     offset = newOffset;
-                                    String offsetString = Utils.getGMTHourOffset(timezone, true);
+                                    // Because JB fastscroll only supports ~1 char strings
+                                    // and KK ellipsizes strings, trim section headers to the
+                                    // nearest hour.
+                                    final String offsetString = Utils.getGMTHourOffset(timezone,
+                                            Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT
+                                            /* useShortForm */ );
                                     sectionHeaders.add(offsetString);
                                     sectionPositions.add(filteredList.size());
                                     city.isHeader = true;
@@ -376,7 +382,7 @@ public class CitiesActivity extends AppCompatActivity implements OnCheckedChange
                     } else { // SORT_BY_GMT_OFFSET
                         holder.index.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
                         holder.index.setText(Utils.getGMTHourOffset(
-                                TimeZone.getTimeZone(c.mTimeZone), true));
+                                TimeZone.getTimeZone(c.mTimeZone), false));
                     }
                 } else {
                     // If not a header, use the invisible index for left padding
