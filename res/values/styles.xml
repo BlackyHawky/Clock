@@ -100,8 +100,10 @@
     </style>
 
     <style name="CitiesTheme" parent="@style/DeskClockParentTheme">
+        <item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_preview</item>
+        <item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_preview</item>
+        <item name="android:fastScrollTextColor">@color/white</item>
         <item name="android:fastScrollThumbDrawable">@drawable/red_fastscroll_thumb</item>
-        <item name="android:fastScrollStyle">@style/FastScrollStyle</item>
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
     </style>
 
@@ -111,21 +113,8 @@
         <item name="displayOptions">homeAsUp</item>
     </style>
 
-    <!-- This is to control the FastScroll background color -->
-    <style name="CitiesListViewTheme" parent="@style/CitiesTheme">
-        <item name="android:colorControlActivated">@color/hot_pink</item>
-    </style>
-
     <!-- variants: v21 -->
     <style name="FabStyle" />
-
-    <style name="FastScrollStyle" parent="@android:style/Widget.Material.FastScroll">
-        <item name="android:minWidth">48dip</item>
-        <item name="android:minHeight">48dip</item>
-        <item name="android:padding">16dip</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">32sp</item>
-    </style>
 
     <style name="AlarmAlertFullScreenTheme" parent="AppCompatTranslucentDecorTheme" />
 
