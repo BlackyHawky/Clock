@@ -106,11 +106,12 @@
     <item msgid="7809240121716151904">"25 минута"</item>
     <item msgid="4278641338024561333">"Никада"</item>
   </string-array>
-    <!-- no translation found for week_start_title (4268917518596832096) -->
-    <skip />
-    <!-- no translation found for week_start_entries:0 (9010198173394482639) -->
-    <!-- no translation found for week_start_entries:1 (3993530639455360921) -->
-    <!-- no translation found for week_start_entries:2 (8594709368683324282) -->
+    <string name="week_start_title" msgid="4268917518596832096">"Започни седмицу у"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"суботу"</item>
+    <item msgid="3993530639455360921">"недељу"</item>
+    <item msgid="8594709368683324282">"понедељак"</item>
+  </string-array>
     <string name="done" msgid="6509722361933858451">"Готово"</string>
     <string name="revert" msgid="9100911171235162926">"Врати"</string>
     <string name="delete" msgid="5732434972457000541">"Избриши"</string>

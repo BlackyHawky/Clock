@@ -106,11 +106,12 @@
     <item msgid="7809240121716151904">"25 minit"</item>
     <item msgid="4278641338024561333">"Jangan sekali-kali"</item>
   </string-array>
-    <!-- no translation found for week_start_title (4268917518596832096) -->
-    <skip />
-    <!-- no translation found for week_start_entries:0 (9010198173394482639) -->
-    <!-- no translation found for week_start_entries:1 (3993530639455360921) -->
-    <!-- no translation found for week_start_entries:2 (8594709368683324282) -->
+    <string name="week_start_title" msgid="4268917518596832096">"Mulakan minggu pada"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"Sabtu"</item>
+    <item msgid="3993530639455360921">"Ahad"</item>
+    <item msgid="8594709368683324282">"Isnin"</item>
+  </string-array>
     <string name="done" msgid="6509722361933858451">"Selesai"</string>
     <string name="revert" msgid="9100911171235162926">"Berbalik"</string>
     <string name="delete" msgid="5732434972457000541">"Padam"</string>

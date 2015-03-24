@@ -106,11 +106,12 @@
     <item msgid="7809240121716151904">"25 മിനിറ്റ്"</item>
     <item msgid="4278641338024561333">"ഒരിക്കലുമില്ല"</item>
   </string-array>
-    <!-- no translation found for week_start_title (4268917518596832096) -->
-    <skip />
-    <!-- no translation found for week_start_entries:0 (9010198173394482639) -->
-    <!-- no translation found for week_start_entries:1 (3993530639455360921) -->
-    <!-- no translation found for week_start_entries:2 (8594709368683324282) -->
+    <string name="week_start_title" msgid="4268917518596832096">"ആഴ്‌ചയിലെ ആദ്യദിവസം"</string>
+  <string-array name="week_start_entries">
+    <item msgid="9010198173394482639">"ശനി"</item>
+    <item msgid="3993530639455360921">"ഞായർ"</item>
+    <item msgid="8594709368683324282">"തിങ്കള്‍"</item>
+  </string-array>
     <string name="done" msgid="6509722361933858451">"പൂർത്തിയായി"</string>
     <string name="revert" msgid="9100911171235162926">"പഴയപടിയാക്കുക"</string>
     <string name="delete" msgid="5732434972457000541">"ഇല്ലാതാക്കുക"</string>
