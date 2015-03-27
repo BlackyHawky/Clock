@@ -193,7 +193,7 @@
     <string name="timer_stop" msgid="3361154678667736722">"रोकें"</string>
     <string name="timer_done" msgid="2375990511982914051">"यहां हटाया गया"</string>
     <string name="timer_reset" msgid="7848424809190171640">"रीसेट करें"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"रहने दें"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"अभी नहीं"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"समय समाप्त"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"टाइमर"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"अधिकतम 4 टाइमर"</string>
@@ -221,7 +221,7 @@
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"भिन्न समय वाले किसी क्षेत्र में यात्रा करते समय, अपने देश की घड़ी जोड़ें"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"देश का समय क्षेत्र"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"देश का समय क्षेत्र"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"रहने दें"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"अभी नहीं"</string>
     <string name="time_picker_set" msgid="331153175471468051">"ठीक है"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
