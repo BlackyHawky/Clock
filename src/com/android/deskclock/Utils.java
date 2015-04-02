@@ -638,11 +638,6 @@ public class Utils {
         return Color.parseColor(BACKGROUND_SPECTRUM[hourOfDay]);
     }
 
-    public static int getNextHourColor() {
-        final int currHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        return Color.parseColor(BACKGROUND_SPECTRUM[currHour < 24 ? currHour + 1 : 1]);
-    }
-
     /**
      * @param firstDay is the result from getZeroIndexedFirstDayOfWeek
      * @return Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'

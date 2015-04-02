@@ -25,7 +25,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -47,6 +46,7 @@ import android.widget.ListView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.android.deskclock.BaseActivity;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
@@ -64,7 +64,7 @@ import java.util.TimeZone;
 /**
  * Cities chooser for the world clock
  */
-public class CitiesActivity extends AppCompatActivity implements OnCheckedChangeListener,
+public class CitiesActivity extends BaseActivity implements OnCheckedChangeListener,
         View.OnClickListener, SearchView.OnQueryTextListener {
 
     private static final String KEY_SEARCH_QUERY = "search_query";
@@ -509,8 +509,6 @@ public class CitiesActivity extends AppCompatActivity implements OnCheckedChange
         if (mAdapter != null) {
             mAdapter.set24HoursMode(this);
         }
-
-        getWindow().getDecorView().setBackgroundColor(Utils.getCurrentHourColor());
     }
 
     @Override
