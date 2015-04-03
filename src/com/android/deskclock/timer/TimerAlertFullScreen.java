@@ -17,7 +17,6 @@ package com.android.deskclock.timer;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.android.deskclock.BaseActivity;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.timer.TimerFullScreenFragment.OnEmptyListListener;
@@ -34,7 +34,7 @@ import com.android.deskclock.timer.TimerFullScreenFragment.OnEmptyListListener;
  * shows over the lock screen.
  * This activity re-uses TimerFullScreenFragment GUI
  */
-public class TimerAlertFullScreen extends AppCompatActivity implements OnEmptyListListener {
+public class TimerAlertFullScreen extends BaseActivity implements OnEmptyListListener {
 
     private static final String TAG = "TimerAlertFullScreen";
     private static final String FRAGMENT = "timer";
@@ -76,8 +76,6 @@ public class TimerAlertFullScreen extends AppCompatActivity implements OnEmptyLi
     @Override
     protected void onResume() {
         super.onResume();
-
-        getWindow().getDecorView().setBackgroundColor(Utils.getCurrentHourColor());
 
         // Only show notifications for times-up when this activity closed.
         Utils.cancelTimesUpNotifications(this);
