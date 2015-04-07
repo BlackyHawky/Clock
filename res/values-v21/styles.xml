@@ -34,7 +34,9 @@
         <item name="android:background">@color/time_picker_gray</item>
         <item name="android:timePickerStyle">@style/TimePickerStyle</item>
         <item name="android:textColorPrimaryInverse">@color/hot_pink</item>
-        <item name="android:colorAccent">@color/hot_pink</item>
+
+        <!-- Propagates to android:colorAccent via the appcompat theme. -->
+        <item name="colorAccent">@color/hot_pink</item>
     </style>
 
     <style name="TimePickerStyle" parent="@android:style/Widget.Material.TimePicker" >
