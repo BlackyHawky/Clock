@@ -103,7 +103,8 @@
         <item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollTextColor">@color/white</item>
-        <item name="android:fastScrollThumbDrawable">@drawable/red_fastscroll_thumb</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
+        <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
     </style>
 

@@ -57,8 +57,15 @@
     </style>
 
     <style name="CitiesTheme" parent="DeskClockParentTheme">
-        <item name="android:fastScrollThumbDrawable">@drawable/red_fastscroll_thumb</item>
+        <item name="android:fastScrollPreviewBackgroundLeft">
+            @drawable/fastscroll_preview_left
+        </item>
+        <item name="android:fastScrollPreviewBackgroundRight">
+            @drawable/fastscroll_preview_right
+        </item>
         <item name="android:fastScrollStyle">@style/FastScrollStyle</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
+        <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
     </style>
 
