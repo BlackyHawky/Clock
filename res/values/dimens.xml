@@ -179,4 +179,10 @@
     <!-- The minimum height/width of any touch target -->
     <dimen name="touch_target_min_size">48dip</dimen>
 
+    <!-- Dimens for cities fastscroll -->
+    <dimen name="fastscroll_thumb_height">48dp</dimen>
+    <dimen name="fastscroll_thumb_width">8dp</dimen>
+    <dimen name="fastscroll_preview_padding">8dp</dimen>
+    <dimen name="fastscroll_track_width">8dp</dimen>
+
 </resources>

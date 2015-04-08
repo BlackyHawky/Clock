@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 The Android Open Source Project
+<!-- Copyright (C) 2015 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,11 +14,12 @@
      limitations under the License.
 -->
 
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:state_pressed="true"
-        android:drawable="@drawable/fastscroll_thumb_pressed_holo" />
-
-    <item android:state_pressed="false"
-        android:drawable="@drawable/fastscroll_thumb_default_holo" />
-</selector>
+<inset xmlns:android="http://schemas.android.com/apk/res/android"
+    android:insetRight="@dimen/fastscroll_preview_padding"
+    android:insetLeft="@dimen/fastscroll_preview_padding">
+    <shape xmlns:android="http://schemas.android.com/apk/res/android"
+        android:shape="rectangle">
+        <corners android:radius="44dp"/>
+        <solid android:color="@color/hot_pink" />
+    </shape>
+</inset>
