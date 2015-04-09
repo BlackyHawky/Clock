@@ -24,9 +24,11 @@ import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
 import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -34,6 +36,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.ColorUtils;
@@ -58,17 +61,6 @@ import com.android.deskclock.widget.CircleView;
 
 public class AlarmActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnTouchListener {
-
-    /**
-     * AlarmActivity listens for this broadcast intent, so that other applications can snooze the
-     * alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
-     */
-    public static final String ALARM_SNOOZE_ACTION = "com.android.deskclock.ALARM_SNOOZE";
-    /**
-     * AlarmActivity listens for this broadcast intent, so that other applications can dismiss
-     * the alarm (after ALARM_ALERT_ACTION and before ALARM_DONE_ACTION).
-     */
-    public static final String ALARM_DISMISS_ACTION = "com.android.deskclock.ALARM_DISMISS";
 
     private static final String LOGTAG = AlarmActivity.class.getSimpleName();
 
@@ -95,10 +87,10 @@ public class AlarmActivity extends AppCompatActivity
 
             if (!mAlarmHandled) {
                 switch (action) {
-                    case ALARM_SNOOZE_ACTION:
+                    case AlarmService.ALARM_SNOOZE_ACTION:
                         snooze();
                         break;
-                    case ALARM_DISMISS_ACTION:
+                    case AlarmService.ALARM_DISMISS_ACTION:
                         dismiss();
                         break;
                     case AlarmService.ALARM_DONE_ACTION:
@@ -114,11 +106,26 @@ public class AlarmActivity extends AppCompatActivity
         }
     };
 
+    private final ServiceConnection mConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            LogUtils.i("Finished binding to AlarmService");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            LogUtils.i("Disconnected from AlarmService");
+        }
+    };
+
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
     private String mVolumeBehavior;
     private int mCurrentHourColor;
     private boolean mReceiverRegistered;
+    /** Whether the AlarmService is currently bound */
+    private boolean mServiceBound;
+
 
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
@@ -219,22 +226,48 @@ public class AlarmActivity extends AppCompatActivity
 
         // Set the animators to their initial values.
         setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
-
-        // Register to get the alarm done/snooze/dismiss intent.
-        final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
-        filter.addAction(ALARM_SNOOZE_ACTION);
-        filter.addAction(ALARM_DISMISS_ACTION);
-        registerReceiver(mReceiver, filter);
-        mReceiverRegistered = true;
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    protected void onStart() {
+        super.onStart();
+
+        // Bind to AlarmService
+        bindService(new Intent(this, AlarmService.class), mConnection, Context.BIND_AUTO_CREATE);
+        mServiceBound = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Verify that the alarm is still firing before showing the activity
+        if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
+            LogUtils.i(LOGTAG, "Skip displaying alarm for instance: %s", mAlarmInstance);
+            finish();
+            return;
+        }
+
+        if (!mReceiverRegistered) {
+            // Register to get the alarm done/snooze/dismiss intent.
+            final IntentFilter filter = new IntentFilter(AlarmService.ALARM_DONE_ACTION);
+            filter.addAction(AlarmService.ALARM_SNOOZE_ACTION);
+            filter.addAction(AlarmService.ALARM_DISMISS_ACTION);
+            registerReceiver(mReceiver, filter);
+            mReceiverRegistered = true;
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        unbindAlarmService();
 
         // Skip if register didn't happen to avoid IllegalArgumentException
         if (mReceiverRegistered) {
             unregisterReceiver(mReceiver);
+            mReceiverRegistered = false;
         }
     }
 
@@ -362,6 +395,9 @@ public class AlarmActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Perform snooze animation and send snooze intent.
+     */
     private void snooze() {
         mAlarmHandled = true;
         LogUtils.v(LOGTAG, "Snoozed: %s", mAlarmInstance);
@@ -377,18 +413,40 @@ public class AlarmActivity extends AppCompatActivity
 
         getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText,
                 accessibilityText, alertColor, alertColor).start();
+
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
+
+        // Unbind here, otherwise alarm will keep ringing until activity finishes.
+        unbindAlarmService();
     }
 
+    /**
+     * Perform dismiss animation and send dismiss intent.
+     */
     private void dismiss() {
         mAlarmHandled = true;
         LogUtils.v(LOGTAG, "Dismissed: %s", mAlarmInstance);
 
         setAnimatedFractions(0.0f /* snoozeFraction */, 1.0f /* dismissFraction */);
+
         getAlertAnimator(mDismissButton, R.string.alarm_alert_off_text, null /* infoText */,
                 getString(R.string.alarm_alert_off_text) /* accessibilityText */,
                 Color.WHITE, mCurrentHourColor).start();
+
         AlarmStateManager.setDismissState(this, mAlarmInstance);
+
+        // Unbind here, otherwise alarm will keep ringing until activity finishes.
+        unbindAlarmService();
+    }
+
+    /**
+     * Unbind AlarmService if bound.
+     */
+    private void unbindAlarmService() {
+        if (mServiceBound) {
+            unbindService(mConnection);
+            mServiceBound = false;
+        }
     }
 
     private void setAnimatedFractions(float snoozeFraction, float dismissFraction) {
