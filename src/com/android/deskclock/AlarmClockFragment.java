@@ -1070,7 +1070,12 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         }
 
         public void setNewAlarm(long alarmId) {
-            mExpandedId = alarmId;
+            if (mExpandedId != alarmId) {
+                if (mExpandedItemHolder != null) {
+                    collapseAlarm(mExpandedItemHolder, true);
+                }
+                mExpandedId = alarmId;
+            }
         }
 
         /**
@@ -1112,6 +1117,9 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             if (!animate) {
                 // Set the "end" layout and don't do the animation.
                 itemHolder.arrow.setRotation(ROTATE_180_DEGREE);
+                itemHolder.summary.setVisibility(View.GONE);
+                itemHolder.hairLine.setVisibility(View.GONE);
+                itemHolder.delete.setVisibility(View.VISIBLE);
                 return;
             }
 
@@ -1228,6 +1236,9 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 // Set the "end" layout and don't do the animation.
                 itemHolder.arrow.setRotation(0);
                 itemHolder.hairLine.setTranslationY(0);
+                itemHolder.hairLine.setVisibility(View.VISIBLE);
+                itemHolder.summary.setAlpha(1);
+                itemHolder.summary.setVisibility(View.VISIBLE);
                 return;
             }
 
