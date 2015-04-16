@@ -124,6 +124,9 @@ public class DeskClock extends BaseActivity implements
             mViewPager = (ViewPager) findViewById(R.id.desk_clock_pager);
             // Keep all four tabs to minimize jank.
             mViewPager.setOffscreenPageLimit(3);
+            // Set Accessibility Delegate to null so ViewPager doesn't intercept movements and
+            // prevent the fab from being selected.
+            mViewPager.setAccessibilityDelegate(null);
             mTabsAdapter = new TabsAdapter(this, mViewPager);
             createTabs(mSelectedTab);
         }
