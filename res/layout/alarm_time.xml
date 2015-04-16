@@ -188,6 +188,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
+                android:layout_marginEnd="@dimen/touch_target_min_size"
                 android:gravity="center_vertical">
 
                 <TextView
