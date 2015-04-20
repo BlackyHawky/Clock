@@ -175,6 +175,9 @@ public class AlarmActivity extends AppCompatActivity
         // Hide navigation bar to minimize accidental tap on Home key
         hideNavigationBar();
 
+        // Close dialogs and window shade, so this is fully visible
+        sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+
         // In order to allow tablets to freely rotate and phones to stick
         // with "nosensor" (use default device orientation) we have to have
         // the manifest start with an orientation of unspecified" and only limit
