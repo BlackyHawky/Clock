@@ -173,9 +173,6 @@ public final class AlarmNotifications {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
-        // Close dialogs and window shade, so this will display
-        context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
-
         Resources resources = context.getResources();
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(instance.getLabelOrDefault(context))
