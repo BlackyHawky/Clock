@@ -233,6 +233,7 @@ public class AlarmService extends Service {
                         instanceId, mCurrentAlarm.mId);
                 return Service.START_NOT_STICKY;
             }
+            stopCurrentAlarm();
             stopSelf();
         }
 
