@@ -271,9 +271,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        if (mAdapter != null) {
-            mAdapter.saveTimersToSharedPrefs();
-        }
         if (mSetupView != null) {
             outState.putBoolean(KEY_SETUP_SELECTED, mSetupView.getVisibility() == View.VISIBLE);
             mSetupView.saveEntryState(outState, KEY_ENTRY_STATE);
