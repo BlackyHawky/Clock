@@ -781,6 +781,10 @@
          be on the left even on RTL languages so please do not reverse this during
          translation. -->
     <string name="description_direction_left">Swipe left to snooze</string>
+    <!-- Text instruction for alarm icon on alarm lock screen. The snooze button will still
+         be on the left even on RTL languages so please do not reverse this during
+         translation. -->
+    <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
 
     <!-- Notification title when timer is stopped. -->
     <string name="timer_stopped">Timer stopped</string>
