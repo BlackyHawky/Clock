@@ -47,6 +47,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageView;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -126,6 +127,7 @@ public class AlarmActivity extends AppCompatActivity
     /** Whether the AlarmService is currently bound */
     private boolean mServiceBound;
 
+    private AccessibilityManager mAccessibilityManager;
 
     private ViewGroup mAlertView;
     private TextView mAlertTitleView;
@@ -187,6 +189,8 @@ public class AlarmActivity extends AppCompatActivity
         if (!getResources().getBoolean(R.bool.config_rotateAlarmAlert)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
+
+        mAccessibilityManager = (AccessibilityManager) getSystemService(ACCESSIBILITY_SERVICE);
 
         setContentView(R.layout.alarm_activity);
 
@@ -317,6 +321,16 @@ public class AlarmActivity extends AppCompatActivity
             return;
         }
         LogUtils.v(LOGTAG, "onClick: %s", view);
+
+        // If in accessibility mode, allow snooze/dismiss by double tapping on respective icons.
+        if (mAccessibilityManager != null && mAccessibilityManager.isTouchExplorationEnabled()) {
+            if (view == mSnoozeButton) {
+                snooze();
+            } else if (view == mDismissButton) {
+                dismiss();
+            }
+            return;
+        }
 
         final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
