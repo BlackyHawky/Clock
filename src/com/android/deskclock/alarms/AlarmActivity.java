@@ -56,6 +56,7 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.widget.CircleView;
 
@@ -419,6 +420,8 @@ public class AlarmActivity extends AppCompatActivity
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
 
+        Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
+
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
     }
@@ -437,6 +440,8 @@ public class AlarmActivity extends AppCompatActivity
                 Color.WHITE, mCurrentHourColor).start();
 
         AlarmStateManager.setDismissState(this, mAlarmInstance);
+
+        Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
