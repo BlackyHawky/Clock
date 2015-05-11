@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Aturada"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Fes lliscar cap a la dreta per ometre"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Fes lliscar cap a l\'esquerra per posposar"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Fes lliscar la pantalla cap a l\'esquerra per posposar l\'alarma o cap a la dreta per anul·lar-la"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"S\'ha aturat el temporitzador"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"S\'han aturat <xliff:g id="NUMBER">%d</xliff:g> temporitzadors"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca per veure els temporitzadors"</string>

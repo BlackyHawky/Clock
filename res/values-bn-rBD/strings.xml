@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"থেমেছে"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"খারিজ করতে সোয়াইপ করুন"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"পরে মনে করিয়ে দিতে বামে সোয়াইপ করুন"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"মনে করিয়ে দিতে বাম দিকে বা খারিজ করতে ডান দিকে সোয়াইপ করুন"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"টাইমার থেমেছে"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> টি টাইমার বন্ধ হয়েছে"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"আপনার টাইমারগুলি দেখার জন্য ছোঁন"</string>

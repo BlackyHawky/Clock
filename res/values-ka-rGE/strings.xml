@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"შეჩერდა"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"დასახურად გადაფურცლეთ მარჯვნივ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"ჩაჩუმებისათვის გადაფურცლეთ მარცხნივ"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"ჩასაჩუმებლად გადაფურცლეთ მარცხნივ ან მარჯვნივ გასაუქმებლად"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ტაიმერი შეჩერდა"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ტაიმერი შეჩერდა"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"შეეხეთ, რათა ნახოთ თქვენი ტაიმერები"</string>
