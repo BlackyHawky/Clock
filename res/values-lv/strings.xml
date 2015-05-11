@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Apturēts"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Lai nerādītu, velciet pa labi"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Lai atliktu, velciet pa kreisi"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Velciet pa kreisi, lai atliktu, vai pa labi, lai noraidītu"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Taimeris ir apturēts."</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> taimeri ir apturēti."</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Pieskarieties, lai skatītu savus taimerus."</string>
