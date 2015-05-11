@@ -46,6 +46,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.stopwatch.StopwatchService;
@@ -96,6 +97,7 @@ public class DeskClock extends BaseActivity implements
 
     private TabsAdapter mTabsAdapter;
     private int mSelectedTab;
+    private boolean mActivityResumed;
 
     @Override
     public void onNewIntent(Intent newIntent) {
@@ -244,10 +246,12 @@ public class DeskClock extends BaseActivity implements
         Intent timerIntent = new Intent();
         timerIntent.setAction(Timers.NOTIF_IN_USE_CANCEL);
         sendBroadcast(timerIntent);
+        mActivityResumed = true;
     }
 
     @Override
     public void onPause() {
+        mActivityResumed = false;
         Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
         intent.setAction(Stopwatches.SHOW_NOTIF);
         startService(intent);
@@ -495,6 +499,23 @@ public class DeskClock extends BaseActivity implements
             final int position = info.getPosition();
             final int rtlSafePosition = getRtlPosition(position);
             mSelectedTab = position;
+
+            if (mActivityResumed) {
+                switch (mSelectedTab) {
+                    case ALARM_TAB_INDEX:
+                        Events.sendAlarmEvent(R.string.action_show, R.string.label_deskclock);
+                        break;
+                    case CLOCK_TAB_INDEX:
+                        Events.sendClockEvent(R.string.action_show, R.string.label_deskclock);
+                        break;
+                    case TIMER_TAB_INDEX:
+                        Events.sendTimerEvent(R.string.action_show, R.string.label_deskclock);
+                        break;
+                    case STOPWATCH_TAB_INDEX:
+                        Events.sendStopwatchEvent(R.string.action_show, R.string.label_deskclock);
+                        break;
+                }
+            }
 
             final DeskClockFragment f = (DeskClockFragment) getItem(rtlSafePosition);
             if (f != null) {

@@ -39,6 +39,7 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -113,6 +114,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
     // Extra key to set the desired state change.
     public static final String ALARM_STATE_EXTRA = "intent.extra.alarm.state";
+
+    // Extra key to indicate the state change was launched from a notification.
+    public static final String FROM_NOTIFICATION_EXTRA = "intent.extra.from.notification";
 
     // Extra key to set the global broadcast id.
     private static final String ALARM_GLOBAL_ID_EXTRA = "intent.extra.alarm.global.id";
@@ -791,6 +795,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
                         !intent.hasCategory(ALARM_SNOOZE_TAG)) {
                     LogUtils.i("Ignoring old Intent");
                     return;
+                }
+            }
+
+            if (intent.getBooleanExtra(FROM_NOTIFICATION_EXTRA, false)) {
+                if (intent.hasCategory(ALARM_DISMISS_TAG)) {
+                    Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_notification);
+                } else if (intent.hasCategory(ALARM_SNOOZE_TAG)) {
+                    Events.sendAlarmEvent(R.string.action_snooze, R.string.label_notification);
                 }
             }
 

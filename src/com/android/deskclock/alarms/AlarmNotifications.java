@@ -189,6 +189,7 @@ public final class AlarmNotifications {
         // Setup Snooze Action
         Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
+        snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
         PendingIntent snoozePendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
                 snoozeIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
@@ -198,6 +199,7 @@ public final class AlarmNotifications {
         // Setup Dismiss Action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
+        dismissIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
         PendingIntent dismissPendingIntent = PendingIntent.getBroadcast(context,
                 instance.hashCode(), dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notification.addAction(R.drawable.ic_alarm_off_24dp,

@@ -68,6 +68,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
@@ -1387,6 +1388,8 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             protected Void doInBackground(Void... parameters) {
                 // Activity may be closed at this point , make sure data is still valid
                 if (context != null && alarm != null) {
+                    Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
+
                     ContentResolver cr = context.getContentResolver();
                     AlarmStateManager.deleteAllInstances(context, alarm.id);
                     Alarm.deleteAlarm(cr, alarm.id);
@@ -1405,6 +1408,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             @Override
             protected AlarmInstance doInBackground(Void... parameters) {
                 if (context != null && alarm != null) {
+                    Events.sendAlarmEvent(R.string.action_create, R.string.label_deskclock);
                     ContentResolver cr = context.getContentResolver();
 
                     // Add alarm to db
@@ -1435,6 +1439,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 new AsyncTask<Void, Void, AlarmInstance>() {
             @Override
             protected AlarmInstance doInBackground(Void ... parameters) {
+                Events.sendAlarmEvent(R.string.action_update, R.string.label_deskclock);
                 ContentResolver cr = context.getContentResolver();
 
                 // Dismiss all old instances
