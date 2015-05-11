@@ -28,6 +28,8 @@ import android.telephony.TelephonyManager;
 
 import com.android.deskclock.AlarmAlertWakeLock;
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.R;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
 
 /**
@@ -141,6 +143,9 @@ public class AlarmService extends Service {
         }
 
         AlarmAlertWakeLock.acquireCpuWakeLock(this);
+
+        Events.sendEvent(R.string.category_alarm, R.string.action_fire, 0);
+
         mCurrentAlarm = instance;
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
         mInitialCallState = mTelephonyManager.getCallState();
@@ -184,10 +189,12 @@ public class AlarmService extends Service {
                 // If this broadcast receiver is handling the snooze intent then AlarmActivity
                 // must not be showing, so always show snooze toast.
                 AlarmStateManager.setSnoozeState(context, mCurrentAlarm, true /* showToast */);
+                Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
                 break;
             case ALARM_DISMISS_ACTION:
                 // Set the alarm state to dismissed.
                 AlarmStateManager.setDismissState(context, mCurrentAlarm);
+                Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
                 break;
             default:
                 break;
