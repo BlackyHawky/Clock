@@ -57,6 +57,7 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerSetupView;
 import com.android.deskclock.Utils;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.widget.CircleView;
 import com.android.deskclock.widget.sgv.GridAdapter;
 import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationIn;
@@ -663,6 +664,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
             t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
         }
         updateTimersState(t, Timers.TIMER_RESET);
+        Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
     }
 
     public void updateAllTimesUpTimers() {
@@ -766,6 +768,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 // timer
                 t.setState(TimerObj.STATE_DELETED);
                 updateTimersState(t, Timers.DELETE_TIMER);
+
+                Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
                 break;
             case ClickAction.ACTION_PLUS_ONE:
                 onPlusOneButtonPressed(clickAction.mTimer);
@@ -787,6 +791,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 t.mView.setLength(timeLeft);
                 mAdapter.notifyDataSetChanged();
                 updateTimersState(t, Timers.TIMER_UPDATE);
+
+                Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
                 break;
             case TimerObj.STATE_TIMESUP:
                 // +1 min when the time is up will restart the timer with 1 minute left.
@@ -794,7 +800,11 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 t.mStartTime = Utils.getTimeNow();
                 t.mTimeLeft = t.mOriginalLength = TimerObj.MINUTE_IN_MILLIS;
                 updateTimersState(t, Timers.TIMER_RESET);
+                Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
+
                 updateTimersState(t, Timers.START_TIMER);
+                Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
+
                 updateTimesUpMode(t);
                 cancelTimerNotification(t.mTimerId);
                 break;
@@ -805,6 +815,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 t.mView.setTime(t.mTimeLeft, false);
                 t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
                 updateTimersState(t, Timers.TIMER_RESET);
+
+                Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
                 break;
             default:
                 break;
@@ -819,6 +831,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 t.mView.pause();
                 t.updateTimeLeft(true);
                 updateTimersState(t, Timers.TIMER_STOP);
+
+                Events.sendTimerEvent(R.string.action_stop, R.string.label_deskclock);
                 break;
             case TimerObj.STATE_STOPPED:
                 // Reset the remaining time and continue timer
@@ -826,6 +840,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 t.mStartTime = Utils.getTimeNow() - (t.mOriginalLength - t.mTimeLeft);
                 t.mView.start();
                 updateTimersState(t, Timers.START_TIMER);
+
+                Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
                 break;
             case TimerObj.STATE_TIMESUP:
                 if (t.mDeleteAfterUse) {
@@ -835,6 +851,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
                     // timer
                     t.setState(TimerObj.STATE_DELETED);
                     updateTimersState(t, Timers.DELETE_TIMER);
+                    Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
                 } else {
                     resetTimer(t);
                 }
@@ -844,6 +861,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
                 t.mStartTime = Utils.getTimeNow() - (t.mOriginalLength - t.mTimeLeft);
                 t.mView.start();
                 updateTimersState(t, Timers.START_TIMER);
+                Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
                 break;
             default:
                 break;
@@ -949,6 +967,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
             t.setState(TimerObj.STATE_RUNNING);
             mAdapter.addTimer(t);
             updateTimersState(t, Timers.START_TIMER);
+            Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
             gotoTimersView();
             mTimerSetup.reset(); // Make sure the setup is cleared for next time
 

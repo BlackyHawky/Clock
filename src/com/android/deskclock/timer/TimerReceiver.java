@@ -32,6 +32,7 @@ import com.android.deskclock.DeskClock;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerRingService;
 import com.android.deskclock.Utils;
+import com.android.deskclock.events.Events;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -59,7 +60,7 @@ public class TimerReceiver extends BroadcastReceiver {
 
         // Get the updated timers data.
         if (mTimers == null) {
-            mTimers = new ArrayList<TimerObj> ();
+            mTimers = new ArrayList<>();
         }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         TimerObj.getTimersFromSharedPrefs(prefs, mTimers);
@@ -100,6 +101,8 @@ public class TimerReceiver extends BroadcastReceiver {
 
             t.setState(TimerObj.STATE_TIMESUP);
             t.writeToSharedPref(prefs);
+            Events.sendEvent(R.string.category_timer, R.string.action_fire, 0);
+
             // Play ringtone by using TimerRingService service with a default alarm.
             Log.d(TAG, "playing ringtone");
             Intent si = new Intent();

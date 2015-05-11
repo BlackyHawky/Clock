@@ -27,6 +27,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
@@ -97,7 +98,6 @@ public class HandleApiCalls extends Activity {
             createAlarm.putExtra(AlarmClockFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
             createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
             startActivity(createAlarm);
-            finish();
             LogUtils.i("HandleApiCalls no/invalid time; opening UI");
             return;
         }
@@ -105,7 +105,7 @@ public class HandleApiCalls extends Activity {
         final boolean skipUi = intent.getBooleanExtra(EXTRA_SKIP_UI, false);
 
         final StringBuilder selection = new StringBuilder();
-        final List<String> args = new ArrayList<String>();
+        final List<String> args = new ArrayList<>();
         setSelectionFromIntent(intent, hour, minutes, selection, args);
 
         // Check if the alarm already exists and handle it
@@ -122,7 +122,6 @@ public class HandleApiCalls extends Activity {
             AlarmStateManager.deleteAllInstances(this, alarm.id);
             setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
             LogUtils.i("HandleApiCalls deleted old, created new alarm: %s", alarm);
-            finish();
             return;
         }
 
@@ -150,18 +149,18 @@ public class HandleApiCalls extends Activity {
         alarm = Alarm.addAlarm(cr, alarm);
         setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
         LogUtils.i("HandleApiCalls set up alarm: %s", alarm);
-        finish();
     }
 
     private void handleShowAlarms() {
         startActivity(new Intent(this, DeskClock.class)
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX));
+        Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
         LogUtils.i("HandleApiCalls show alarms");
     }
 
     private void handleSetTimer(Intent intent) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        // If no length is supplied , show the timer setup view
+        // If no length is supplied, show the timer setup view
         if (!intent.hasExtra(EXTRA_LENGTH)) {
             startActivity(new Intent(this, DeskClock.class)
                   .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
@@ -179,7 +178,7 @@ public class HandleApiCalls extends Activity {
 
         TimerObj timer = null;
         // Find an existing matching time
-        final ArrayList<TimerObj> timers = new ArrayList<TimerObj>();
+        final List<TimerObj> timers = new ArrayList<>();
         TimerObj.getTimersFromSharedPrefs(prefs, timers);
         for (TimerObj t : timers) {
             if (t.mSetupLength == length && (TextUtils.equals(label, t.mLabel))
@@ -195,11 +194,15 @@ public class HandleApiCalls extends Activity {
             timer = new TimerObj(length, label, this /* context */);
             // Timers set without presenting UI to the user will be deleted after use
             timer.mDeleteAfterUse = skipUi;
+
+            Events.sendTimerEvent(R.string.action_create, R.string.label_intent);
         }
 
         timer.setState(TimerObj.STATE_RUNNING);
         timer.mStartTime = Utils.getTimeNow();
         timer.writeToSharedPref(prefs);
+
+        Events.sendTimerEvent(R.string.action_start, R.string.label_intent);
 
         // Tell TimerReceiver that the timer was started
         sendBroadcast(new Intent().setAction(Timers.START_TIMER)
