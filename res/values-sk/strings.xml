@@ -333,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Zastavené"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Prejdením prstom doprava budík zrušíte"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Prejdením prstom doľava budík odložíte"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Prejdením prstom doľava budík odložíte, prejdením prstom doprava ho zrušíte"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Časovač sa zastavil"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Počet zastavených časovačov: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dotykom zobrazíte časovače"</string>

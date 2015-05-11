@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"បាន​ឈប់"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"អូស​ទៅ​ស្ដាំ​ដើម្បី​បដិសេធ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"អូស​ទៅ​ឆ្វេង​ដើម្បី​ផ្អាក"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"អូសទៅឆ្វេងដើម្បីផ្អាក ឬទៅស្តាំដើម្បីបញ្ឈប់"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"កម្មវិធី​កំណត់​ពេល​បាន​ឈប់"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> កម្មវិធី​កំណត់​ពេល​បាន​ឈប់"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"ប៉ះ​ដើម្បី​មើល​កម្មវិធី​កំណត់​ពេល​របស់​អ្នក"</string>

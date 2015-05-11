@@ -319,6 +319,8 @@
     <string name="swn_stopped" msgid="783124901663086172">"Зогсоосон"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Хаахын тулд баруун шудрана уу"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Түр хойшлуулахын тулд зүүн шудрана уу"</string>
+    <!-- no translation found for description_direction_both (1841309486023845685) -->
+    <skip />
     <string name="timer_stopped" msgid="2730331837832462008">"Цаг хэмжигч зогссон"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> цаг хэмжигч зогссон"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Цаг хэмжигчийг харахын тулд хүрнэ үү"</string>

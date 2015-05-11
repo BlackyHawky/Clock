@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"રોક્યું"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"કાઢી નાખવા માટે જમણે સવાઇપ કરો"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"સ્નૂઝ કરવા માટે ડાબે સ્વાઇપ કરો"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"સ્નૂઝ કરવા માટે ડાબે અથવા છોડી દેવા માટે જમણે સવાઇપ કરો"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ટાઇમર બંધ કર્યું"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ટાઇમર્સ બંધ કર્યાં"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"તમારા ટાઇમર્સ જોવા માટે ટચ કરો"</string>

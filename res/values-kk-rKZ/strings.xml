@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Тоқтатылды"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Қабылдамау үшін оңға жанаңыз"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Кейінге қалдыру үшін солға жанаңыз"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Кідірту үшін солға немесе жою үшін оңға жылжытыңыз"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Таймер тоқтатылды"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> таймер тоқтатылды"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Таймерлерді көру үшін түртіңіз"</string>

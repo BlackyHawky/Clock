@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"ఆపివేయబడింది"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"తీసివేయడానికి కుడి వైపుకి స్వైప్ చేయండి"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"తాత్కాలికంగా ఆపివేయడానికి ఎడమ వైపుకి స్వైప్ చేయండి"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"తాత్కాలికంగా ఆపివేయడానికి ఎడమవైపుకు, తీసివేయడానికి కుడి వైపుకు స్వైప్ చేయండి"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"టైమర్ ఆపివేయబడింది"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు ఆపివేయబడ్డాయి"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"మీ టైమర్‌లను చూడటానికి తాకండి"</string>
