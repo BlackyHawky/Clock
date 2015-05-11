@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.android.deskclock.stopwatch;
 
 import android.animation.LayoutTransition;
@@ -28,6 +43,7 @@ import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.timer.CountingTimerView;
 
 import java.util.ArrayList;
@@ -85,7 +101,7 @@ public class StopwatchFragment extends DeskClockFragment
         private static final int VIEW_TYPE_SPACE = 1;
         private static final int VIEW_TYPE_COUNT = 2;
 
-        ArrayList<Lap> mLaps = new ArrayList<Lap>();
+        ArrayList<Lap> mLaps = new ArrayList<>();
         private final LayoutInflater mInflater;
         private final String[] mFormats;
         private final String[] mLapFormatSet;
@@ -265,6 +281,8 @@ public class StopwatchFragment extends DeskClockFragment
                 long curTime = Utils.getTimeNow();
                 mAccumulatedTime += (curTime - mStartTime);
                 doStop();
+                Events.sendStopwatchEvent(R.string.action_stop, R.string.label_deskclock);
+
                 intent.setAction(Stopwatches.STOP_STOPWATCH);
                 context.startService(intent);
                 releaseWakeLock();
@@ -273,6 +291,8 @@ public class StopwatchFragment extends DeskClockFragment
             case Stopwatches.STOPWATCH_STOPPED:
                 // do start
                 doStart(time);
+                Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
+
                 intent.setAction(Stopwatches.START_STOPWATCH);
                 context.startService(intent);
                 acquireWakeLock();
@@ -814,12 +834,16 @@ public class StopwatchFragment extends DeskClockFragment
                 // Save lap time
                 addLapTime(time);
                 doLap();
+                Events.sendStopwatchEvent(R.string.action_lap, R.string.label_deskclock);
+
                 intent.setAction(Stopwatches.LAP_STOPWATCH);
                 context.startService(intent);
                 break;
             case Stopwatches.STOPWATCH_STOPPED:
                 // do reset
                 doReset();
+                Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
+
                 intent.setAction(Stopwatches.RESET_STOPWATCH);
                 context.startService(intent);
                 releaseWakeLock();
