@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"تم الإيقاف"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"مرر بسرعة إلى اليسار للإلغاء"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"مرر بسرعة إلى اليمين لإجراء غفوة"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"مرر يسارًا للغفوة أو يمينًا للتجاهل"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"تم إيقاف الموقت"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"تم إيقاف <xliff:g id="NUMBER">%d</xliff:g> من الموقتات"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"المس للاطلاع على الموقتات"</string>

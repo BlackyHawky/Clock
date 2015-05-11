@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"நிறுத்தப்பட்டது"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"நிராகரிக்க வலதுபுறம் ஸ்வைப் செய்யவும்"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"உறக்கநிலையில் வைக்க இடதுபுறம் ஸ்வைப் செய்யவும்"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"உறக்கநிலையாக்க இடதுபுறம் அல்லது நிராகரிக்க வலதுபுறம் ஸ்வைப் செய்யவும்"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"டைமர் நிறுத்தப்பட்டது"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள் நிறுத்தப்பட்டன"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"உங்கள் டைமர்களைப் பார்க்க தொடவும்"</string>

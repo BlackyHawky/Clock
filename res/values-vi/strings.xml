@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Đã dừng"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Vuốt sang phải để loại bỏ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Vuốt sang trái để báo lại"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Vuốt sang trái để báo lại hoặc phải để bỏ qua"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Đã dừng bộ tính giờ"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Đã dừng <xliff:g id="NUMBER">%d</xliff:g> bộ tính giờ"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Chạm để xem bộ tính giờ của bạn"</string>

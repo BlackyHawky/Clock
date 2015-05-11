@@ -319,6 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Parado"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Deslize para a direita para dispensar"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Deslize para a esquerda para adiar"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Deslize para a esquerda para adiar ou para a direita para dispensar"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Temporizador parado"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores parados"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toque para ver seus temporizadores"</string>
