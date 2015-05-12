@@ -231,9 +231,6 @@ public class AlarmActivity extends AppCompatActivity
         mPulseAnimator.setInterpolator(PULSE_INTERPOLATOR);
         mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mPulseAnimator.start();
-
-        // Set the animators to their initial values.
-        setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
     }
 
     @Override
@@ -264,6 +261,9 @@ public class AlarmActivity extends AppCompatActivity
             registerReceiver(mReceiver, filter);
             mReceiverRegistered = true;
         }
+
+        // Set the animators to their initial values.
+        setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
     }
 
     @Override
