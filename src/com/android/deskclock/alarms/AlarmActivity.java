@@ -152,7 +152,7 @@ public class AlarmActivity extends AppCompatActivity
         final long instanceId = AlarmInstance.getId(getIntent().getData());
         mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
         if (mAlarmInstance == null) {
-            // The alarm got deleted before the activity got created, so just finish()
+            // The alarm was deleted before the activity got created, so just finish()
             LogUtils.e(LOGTAG, "Error displaying alarm for intent: %s", getIntent());
             finish();
             return;
