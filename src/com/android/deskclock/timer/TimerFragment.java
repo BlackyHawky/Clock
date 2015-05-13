@@ -699,7 +699,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         timer.mLabel = label;
         updateTimerState(timer, Timers.TIMER_UPDATE);
         // Make sure the new label is visible.
-        mAdapter.notifyDataSetChanged();
+        mAdapter.populateTimersFromPref();
     }
 
     public void onPlusOneButtonPressed(TimerObj t) {
