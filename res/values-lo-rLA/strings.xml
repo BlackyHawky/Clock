@@ -319,8 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"ຢຸດແລ້ວ"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"​ປັດ​ໄປ​ຂວາ​ເພື່ອ​ປິດ​ໄວ້"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"​ປັດ​ໄປ​ຊ້າຍ​ເພື່ອ​ເລື່ອນ​ອອກ​ໄປ​ກ່ອນ"</string>
-    <!-- no translation found for description_direction_both (1841309486023845685) -->
-    <skip />
+    <string name="description_direction_both" msgid="1841309486023845685">"ປັດ​ໄປ​ທາງ​ຊ້າຍ​ເພື່ອ​ເລື່ອນ ຫຼື​ທາງ​ຂວາ ເພື່ອ​ປິດ​ໄວ້"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ຢຸດນັບຖອຍຫຼັງແລ້ວ"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ໂມງນັບຖອຍຫຼັງຢຸດແລ້ວ"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"ແຕະເພື່ອເບິ່ງໂຕຈັບເວລາຂອງທ່ານ"</string>
