@@ -319,8 +319,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"중지됨"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"오른쪽으로 스와이프하여 해제"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"왼쪽으로 스와이프하여 일시 중지"</string>
-    <!-- no translation found for description_direction_both (1841309486023845685) -->
-    <skip />
+    <string name="description_direction_both" msgid="1841309486023845685">"왼쪽으로 스와이프하여 일시 중지하거나 오른쪽으로 스와이프하여 해제"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"타이머가 정지됨"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g>개의 타이머가 정지됨"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"타이머를 보려면 터치하세요."</string>
