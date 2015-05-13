@@ -83,69 +83,62 @@ public class TimerObj implements Parcelable {
     };
 
     public void writeToSharedPref(SharedPreferences prefs) {
-        final SharedPreferences.Editor editor = prefs.edit();
         final String id = Integer.toString(mTimerId);
-        editor.putInt(PREF_TIMER_ID + id, mTimerId);
-        editor.putLong(PREF_START_TIME + id, mStartTime);
-        editor.putLong(PREF_TIME_LEFT + id, mTimeLeft);
-        editor.putLong(PREF_ORIGINAL_TIME + id, mOriginalLength);
-        editor.putLong(PREF_SETUP_TIME + id, mSetupLength);
-        editor.putInt(PREF_STATE + id, mState);
-        editor.putInt(PREF_PRIOR_STATE + id, mPriorState);
-        final Set <String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
+
+        final Set<String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
         timersList.add(id);
-        editor.putStringSet(PREF_TIMERS_LIST, timersList);
-        editor.putString(PREF_LABEL + id, mLabel);
-        editor.putBoolean(PREF_DELETE_AFTER_USE + id, mDeleteAfterUse);
+
+        final SharedPreferences.Editor editor = prefs.edit()
+                .putInt(PREF_TIMER_ID + id, mTimerId)
+                .putLong(PREF_START_TIME + id, mStartTime)
+                .putLong(PREF_TIME_LEFT + id, mTimeLeft)
+                .putLong(PREF_ORIGINAL_TIME + id, mOriginalLength)
+                .putLong(PREF_SETUP_TIME + id, mSetupLength)
+                .putInt(PREF_STATE + id, mState)
+                .putInt(PREF_PRIOR_STATE + id, mPriorState)
+                .putStringSet(PREF_TIMERS_LIST, timersList)
+                .putString(PREF_LABEL + id, mLabel)
+                .putBoolean(PREF_DELETE_AFTER_USE + id, mDeleteAfterUse);
+
         editor.apply();
     }
 
     public void readFromSharedPref(SharedPreferences prefs) {
-        String id = Integer.toString(mTimerId);
-        String key = PREF_START_TIME + id;
-        mStartTime = prefs.getLong(key, 0);
-        key = PREF_TIME_LEFT + id;
-        mTimeLeft = prefs.getLong(key, 0);
-        key = PREF_ORIGINAL_TIME + id;
-        mOriginalLength = prefs.getLong(key, 0);
-        key = PREF_SETUP_TIME + id;
-        mSetupLength = prefs.getLong(key, 0);
-        key = PREF_STATE + id;
-        mState = prefs.getInt(key, 0);
-        key = PREF_PRIOR_STATE + id;
-        mPriorState = prefs.getInt(key, 0);
-        key = PREF_LABEL + id;
-        mLabel = prefs.getString(key, "");
-        key = PREF_DELETE_AFTER_USE + id;
-        mDeleteAfterUse = prefs.getBoolean(key, false);
+        final String id = Integer.toString(mTimerId);
+
+        mStartTime = prefs.getLong(PREF_START_TIME + id, 0);
+        mTimeLeft = prefs.getLong(PREF_TIME_LEFT + id, 0);
+        mOriginalLength = prefs.getLong(PREF_ORIGINAL_TIME + id, 0);
+        mSetupLength = prefs.getLong(PREF_SETUP_TIME + id, 0);
+        mState = prefs.getInt(PREF_STATE + id, 0);
+        mPriorState = prefs.getInt(PREF_PRIOR_STATE + id, 0);
+        mLabel = prefs.getString(PREF_LABEL + id, "");
+        mDeleteAfterUse = prefs.getBoolean(PREF_DELETE_AFTER_USE + id, false);
     }
 
-    public void deleteFromSharedPref(SharedPreferences prefs) {
-        SharedPreferences.Editor editor = prefs.edit();
-        String key = PREF_TIMER_ID + Integer.toString(mTimerId);
-        String id = Integer.toString(mTimerId);
-        editor.remove (key);
-        key = PREF_START_TIME + id;
-        editor.remove (key);
-        key = PREF_TIME_LEFT + id;
-        editor.remove (key);
-        key = PREF_ORIGINAL_TIME + id;
-        editor.remove (key);
-        key = PREF_SETUP_TIME + id;
-        editor.remove (key);
-        key = PREF_STATE + id;
-        editor.remove (key);
-        Set <String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
+    public boolean deleteFromSharedPref(SharedPreferences prefs) {
+        final String id = Integer.toString(mTimerId);
+
+        final Set<String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
         timersList.remove(id);
-        editor.putStringSet(PREF_TIMERS_LIST, timersList);
-        key = PREF_LABEL + id;
-        editor.remove(key);
-        key = PREF_DELETE_AFTER_USE + id;
-        editor.remove(key);
+
+        final SharedPreferences.Editor editor = prefs.edit()
+                .remove(PREF_TIMER_ID + id)
+                .remove(PREF_START_TIME + id)
+                .remove(PREF_TIME_LEFT + id)
+                .remove(PREF_ORIGINAL_TIME + id)
+                .remove(PREF_SETUP_TIME + id)
+                .remove(PREF_STATE + id)
+                .remove(PREF_PRIOR_STATE + id)
+                .putStringSet(PREF_TIMERS_LIST, timersList)
+                .remove(PREF_LABEL + id)
+                .remove(PREF_DELETE_AFTER_USE + id);
+
         if (timersList.isEmpty()) {
             editor.remove(KEY_NEXT_TIMER_ID);
         }
-        editor.commit();
+
+        return editor.commit();
     }
 
     @Override
