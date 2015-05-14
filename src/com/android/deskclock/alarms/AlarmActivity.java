@@ -246,6 +246,10 @@ public class AlarmActivity extends AppCompatActivity
     protected void onResume() {
         super.onResume();
 
+        // Re-query for AlarmInstance in case the state has changed externally
+        final long instanceId = AlarmInstance.getId(getIntent().getData());
+        mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
+
         // Verify that the alarm is still firing before showing the activity
         if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
             LogUtils.i(LOGTAG, "Skip displaying alarm for instance: %s", mAlarmInstance);
