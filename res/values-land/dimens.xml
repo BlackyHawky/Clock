@@ -60,4 +60,8 @@
 
     <dimen name="alarm_alert_clock_padding_left">32dp</dimen>
 
+    <!-- Size of big analog clock in world clock. For 320dp landscape, match time zone clocks.-->
+    <dimen name="main_world_clock_analog_width">100dp</dimen>
+    <dimen name="main_world_clock_analog_height">100dp</dimen>
+
 </resources>
