@@ -226,17 +226,6 @@ public class TimerFullScreenFragment extends DeskClockFragment
                     break;
             }
 
-            // Timer text serves as a virtual start/stop button.
-            final CountingTimerView countingTimerView = (CountingTimerView)
-                    v.findViewById(R.id.timer_time_text);
-            countingTimerView.registerVirtualButtonAction(new Runnable() {
-                @Override
-                public void run() {
-                    TimerFullScreenFragment.this.onClickHelper(
-                            new ClickAction(ClickAction.ACTION_STOP, o));
-                }
-            });
-
             CircleButtonsLayout circleLayout =
                     (CircleButtonsLayout) v.findViewById(R.id.timer_circle);
             circleLayout.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label,
