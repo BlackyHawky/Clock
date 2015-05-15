@@ -389,8 +389,11 @@ public class AlarmActivity extends AppCompatActivity
                     if (snoozeFraction > 0.0f || dismissFraction > 0.0f) {
                         // Animate back to the initial state.
                         AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
-                    } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
-                        // User touched the alarm button, hint the dismiss action.
+                    } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()
+                            && mAccessibilityManager == null) {
+                        // User touched the alarm button, hint the dismiss action unless in
+                        // accessibility mode. In accessibility mode, the click on the dismiss
+                        // button triggers dismiss().
                         mDismissButton.performClick();
                     }
 
