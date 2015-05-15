@@ -21,6 +21,10 @@
 -->
 <resources>
 
-    <dimen name="circle_size">232dip</dimen>
+  <dimen name="circle_size">232dip</dimen>
+
+  <!-- Size of big analog clock in world clock. -->
+  <dimen name="main_world_clock_analog_width">@dimen/match_parent</dimen>
+  <dimen name="main_world_clock_analog_height">@dimen/wrap_content</dimen>
 
 </resources>
