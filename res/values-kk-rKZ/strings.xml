@@ -112,7 +112,7 @@
     <item msgid="3993530639455360921">"Жексенбі"</item>
     <item msgid="8594709368683324282">"Дүйсенбі"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"Орындалды"</string>
+    <string name="done" msgid="6509722361933858451">"Дайын"</string>
     <string name="revert" msgid="9100911171235162926">"Қайтару"</string>
     <string name="delete" msgid="5732434972457000541">"Жою"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Дабылдың дыбыс деңгейі"</string>
@@ -191,7 +191,7 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"1 минут қосу"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 мин. қосу"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Тоқтату"</string>
-    <string name="timer_done" msgid="2375990511982914051">"Орындалды"</string>
+    <string name="timer_done" msgid="2375990511982914051">"Дайын"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Қалпына келтіру"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Бас тарту"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Уақыт аяқталды"</string>
