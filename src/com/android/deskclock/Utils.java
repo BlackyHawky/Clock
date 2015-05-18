@@ -82,7 +82,7 @@ public class Utils {
 
     // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
     private static String[] sShortWeekdays = null;
-    private static final String DATE_FORMAT_SHORT = isJBMR2OrLater() ? "EEEEE" : "EEE";
+    private static final String DATE_FORMAT_SHORT = isJBMR2OrLater() ? "ccccc" : "ccc";
 
     // Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
     private static String[] sLongWeekdays = null;
