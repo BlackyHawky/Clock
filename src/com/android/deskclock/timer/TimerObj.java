@@ -85,8 +85,8 @@ public class TimerObj implements Parcelable {
     public void writeToSharedPref(SharedPreferences prefs) {
         final String id = Integer.toString(mTimerId);
 
-        final Set<String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
-        timersList.add(id);
+        final Set<String> timerIds = getTimerIds(prefs);
+        timerIds.add(id);
 
         final SharedPreferences.Editor editor = prefs.edit()
                 .putInt(PREF_TIMER_ID + id, mTimerId)
@@ -96,7 +96,7 @@ public class TimerObj implements Parcelable {
                 .putLong(PREF_SETUP_TIME + id, mSetupLength)
                 .putInt(PREF_STATE + id, mState)
                 .putInt(PREF_PRIOR_STATE + id, mPriorState)
-                .putStringSet(PREF_TIMERS_LIST, timersList)
+                .putStringSet(PREF_TIMERS_LIST, timerIds)
                 .putString(PREF_LABEL + id, mLabel)
                 .putBoolean(PREF_DELETE_AFTER_USE + id, mDeleteAfterUse);
 
@@ -119,8 +119,8 @@ public class TimerObj implements Parcelable {
     public boolean deleteFromSharedPref(SharedPreferences prefs) {
         final String id = Integer.toString(mTimerId);
 
-        final Set<String> timersList = prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
-        timersList.remove(id);
+        final Set<String> timerIds = getTimerIds(prefs);
+        timerIds.remove(id);
 
         final SharedPreferences.Editor editor = prefs.edit()
                 .remove(PREF_TIMER_ID + id)
@@ -130,11 +130,11 @@ public class TimerObj implements Parcelable {
                 .remove(PREF_SETUP_TIME + id)
                 .remove(PREF_STATE + id)
                 .remove(PREF_PRIOR_STATE + id)
-                .putStringSet(PREF_TIMERS_LIST, timersList)
+                .putStringSet(PREF_TIMERS_LIST, timerIds)
                 .remove(PREF_LABEL + id)
                 .remove(PREF_DELETE_AFTER_USE + id);
 
-        if (timersList.isEmpty()) {
+        if (timerIds.isEmpty()) {
             editor.remove(KEY_NEXT_TIMER_ID);
         }
 
@@ -306,6 +306,7 @@ public class TimerObj implements Parcelable {
     }
 
     private static Set<String> getTimerIds(SharedPreferences prefs) {
-        return prefs.getStringSet(PREF_TIMERS_LIST, new HashSet<String>());
+        // return a defensive copy that is safe to mutate; see doc for getStringSet() for details
+        return new HashSet<>(prefs.getStringSet(PREF_TIMERS_LIST, Collections.<String>emptySet()));
     }
 }
