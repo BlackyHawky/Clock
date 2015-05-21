@@ -315,7 +315,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Токтотулду"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Өткөрүп салуу үчүн оңго сүрүңүз"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Тындыруу үчүн солго сүрүңүз."</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Тындыруу үчүн солго же өткөрүп салуу үчүн оңго сүрүңүз"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Тындыруу үчүн солго же этибарга албоо үчүн оңго серпиңиз"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Таймер токтотулду"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> таймер токтоду"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Таймерлериңизди көрүү үчүн тийип коюңуз"</string>
