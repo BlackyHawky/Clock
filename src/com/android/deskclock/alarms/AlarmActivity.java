@@ -262,8 +262,7 @@ public class AlarmActivity extends AppCompatActivity
             mReceiverRegistered = true;
         }
 
-        // Set the animators to their initial values.
-        setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
+        resetAnimations();
     }
 
     @Override
@@ -397,6 +396,9 @@ public class AlarmActivity extends AppCompatActivity
                     }
                 }
                 break;
+            case MotionEvent.ACTION_CANCEL:
+                resetAnimations();
+                break;
             default:
                 break;
         }
@@ -410,6 +412,19 @@ public class AlarmActivity extends AppCompatActivity
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+
+    /**
+     * Set animators to initial values and restart pulse on alarm button.
+     */
+    private void resetAnimations() {
+        // Set the animators to their initial values.
+        setAnimatedFractions(0.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
+        // Restart the pulse.
+        mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
+        if (!mPulseAnimator.isStarted()) {
+            mPulseAnimator.start();
         }
     }
 
