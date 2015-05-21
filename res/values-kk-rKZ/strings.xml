@@ -30,7 +30,7 @@
     <string name="label" msgid="162189613902857319">"Белгі"</string>
     <string name="default_label" msgid="5590025289805630372">"Дабыл"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Дабыл орнату"</string>
-    <string name="alarm_vibrate" msgid="3476686921490362230">"Дірілдеу"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Діріл"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Қайталау"</string>
     <string name="alert" msgid="6506982899651975645">"Дабылдың қоңырау әуені"</string>
     <string name="ringtone" msgid="9110746249688559579">"Қоңырау әуені"</string>
@@ -39,7 +39,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Бүгін"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Ояныңыз!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Өшірулі"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Бас тарту"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Өшіру"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Қазір бас тарту"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Өткізіп алған дабыл"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -64,14 +64,14 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> қалды"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Дабыл қазірден бастап 1 минуттан азыраққа орнатылған."</item>
-    <item msgid="6002066367368421848">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> күнге орнатылған."</item>
-    <item msgid="8824719306247973774">"Дабыл қазірден бастап <xliff:g id="HOURS">%2$s</xliff:g> күнге орнатылған."</item>
-    <item msgid="8182406852935468862">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> күн және <xliff:g id="HOURS">%2$s</xliff:g> сағатқа орнатылған."</item>
-    <item msgid="2532279224777213194">"Дабыл қазірден бастап <xliff:g id="MINUTES">%3$s</xliff:g> күнге орнатылған."</item>
-    <item msgid="5936557894247187717">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> күн және <xliff:g id="MINUTES">%3$s</xliff:g> сағатқа орнатылған."</item>
-    <item msgid="9115697840826129603">"Дабыл қазірден бастап <xliff:g id="HOURS">%2$s</xliff:g> күн және <xliff:g id="MINUTES">%3$s</xliff:g> сағатқа орнатылған."</item>
-    <item msgid="2332583385137381060">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> күн, <xliff:g id="HOURS">%2$s</xliff:g> сағат және <xliff:g id="MINUTES">%3$s</xliff:g> минутқа орнатылған."</item>
+    <item msgid="6450913786084215050">"Дабыл қазірден бастап 1 минуттан аз уақыт өткен соң беріледі."</item>
+    <item msgid="6002066367368421848">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> өткен соң беріледі."</item>
+    <item msgid="8824719306247973774">"Дабыл қазірден бастап <xliff:g id="HOURS">%2$s</xliff:g> өткен соң беріледі."</item>
+    <item msgid="8182406852935468862">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> және <xliff:g id="HOURS">%2$s</xliff:g> өткен соң беріледі."</item>
+    <item msgid="2532279224777213194">"Дабыл қазірден бастап <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
+    <item msgid="5936557894247187717">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
+    <item msgid="9115697840826129603">"Дабыл қазірден бастап <xliff:g id="HOURS">%2$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
+    <item msgid="2332583385137381060">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 күн"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> күн"</string>
@@ -112,7 +112,7 @@
     <item msgid="3993530639455360921">"Жексенбі"</item>
     <item msgid="8594709368683324282">"Дүйсенбі"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"Орындалды"</string>
+    <string name="done" msgid="6509722361933858451">"Дайын"</string>
     <string name="revert" msgid="9100911171235162926">"Қайтару"</string>
     <string name="delete" msgid="5732434972457000541">"Жою"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Дабылдың дыбыс деңгейі"</string>
@@ -120,7 +120,7 @@
     <string name="alarm_notify_text" msgid="4891014685945904766">"Дабылды кейінге қалдыру немесе одан бас тарту."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (кейінге қалдырылған)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Дабыл <xliff:g id="TIME">%s</xliff:g> уақытына орнатылған. Бас тарту үшін түртіңіз."</string>
-    <string name="volume_button_setting_title" msgid="6937131248843413357">"Дыбыс деңгейі түй-рі"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Дыбыс түймелері"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Түйме әсері"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Кейінге қалдыру"</item>
@@ -159,19 +159,19 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Жалғастыру"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Бастау"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Тоқтату"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Аралық"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Айналым"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Қалпына келтіру"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Бөлісу"</string>
     <string name="hours_label" msgid="3393478155635368097">"с"</string>
     <string name="minutes_label" msgid="3568098128251438588">"м"</string>
     <string name="seconds_label" msgid="124655952824003246">"с"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"сағаттар"</string>
-    <string name="minutes_label_description" msgid="965686733490357796">"минуттар"</string>
+    <string name="minutes_label_description" msgid="965686733490357796">"минут"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"секундтар"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Менің уақытым – <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Аралық уақыттары:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g> аралығы"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>-айналым"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> сағат</item>
       <item quantity="one">1 сағат</item>
@@ -191,7 +191,7 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"1 минут қосу"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 мин. қосу"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Тоқтату"</string>
-    <string name="timer_done" msgid="2375990511982914051">"Орындалды"</string>
+    <string name="timer_done" msgid="2375990511982914051">"Дайын"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Қалпына келтіру"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Бас тарту"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Уақыт аяқталды"</string>
@@ -212,13 +212,13 @@
     <string name="home_label" msgid="4436139365695453870">"Негізгі"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Қалалар"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Cағат"</string>
-    <string name="clock_style" msgid="2265011060429742344">"Мәнер"</string>
+    <string name="clock_style" msgid="2265011060429742344">"Стиль"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Аналогтық"</item>
     <item msgid="8483930821046925592">"Сандық"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Автоматты үй сағаты"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Уақыт басқа аумақта саяхаттап жүргенде үй үшін сағат қосу"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Басқа уақыт белдеуінде жүргенде, үй уақытын да көрсету"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Үй уақыт белдеуі"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Үй уақыт белдеуі"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Бас тарту"</string>
@@ -236,7 +236,7 @@
     <item msgid="7156402158716866161">"Тихуана"</item>
     <item msgid="1144117502254612241">"Аризона"</item>
     <item msgid="101284182011722637">"Чихуахуа"</item>
-    <item msgid="689121094232986897">"MТ"</item>
+    <item msgid="689121094232986897">"Тау уақыты (АҚШ)"</item>
     <item msgid="5445331923942302756">"Орталық Америка"</item>
     <item msgid="2749806434052452351">"Орталық уақыт"</item>
     <item msgid="3997138870229703753">"Мехико"</item>
@@ -265,7 +265,7 @@
     <item msgid="402008965928320066">"Виндхук"</item>
     <item msgid="6436942724959275569">"Батыс Африка уақыты"</item>
     <item msgid="954536568417204026">"Амман, Йордания"</item>
-    <item msgid="8932745482008902551">"Афины, Стамбул"</item>
+    <item msgid="8932745482008902551">"Афина, Ыстамбұл"</item>
     <item msgid="320025725949024510">"Бейрут, Ливан"</item>
     <item msgid="7242083112551905970">"Каир"</item>
     <item msgid="7241520146011450419">"Хельсинки"</item>
@@ -283,7 +283,7 @@
     <item msgid="1941122257623887992">"Дубай"</item>
     <item msgid="9194797225058249720">"Кабул"</item>
     <item msgid="6486569254364577332">"Исламабад, Карачи"</item>
-    <item msgid="5487724896895412089">"Уральск"</item>
+    <item msgid="5487724896895412089">"Орал"</item>
     <item msgid="364906869710826982">"Екатеринбург"</item>
     <item msgid="2106505051751383358">"Калькутта"</item>
     <item msgid="6851586621581501447">"Шри-Ланка"</item>
@@ -292,7 +292,7 @@
     <item msgid="8645125891971581128">"Янгон"</item>
     <item msgid="2886407505119737794">"Красноярск"</item>
     <item msgid="3408222398188107090">"Бангкок"</item>
-    <item msgid="4441612937172851228">"Пекин"</item>
+    <item msgid="4441612937172851228">"Бейжің"</item>
     <item msgid="4936715789028996930">"Гонконг"</item>
     <item msgid="4261031143777385525">"Иркутск"</item>
     <item msgid="3538060959338191835">"Kуала-Лумпур"</item>
@@ -319,18 +319,18 @@
     <string name="swn_stopped" msgid="783124901663086172">"Тоқтатылды"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Қабылдамау үшін оңға жанаңыз"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Кейінге қалдыру үшін солға жанаңыз"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Кідірту үшін солға немесе жою үшін оңға жылжытыңыз"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Кідірту үшін солға, ал өшіру үшін оңға сырғытыңыз"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Таймер тоқтатылды"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> таймер тоқтатылды"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Таймерлерді көру үшін түртіңіз"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> таймер"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Келесі таймер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Экран сақтағыш параметрлері"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Қалғу параметрлері"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Түнгі режим"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Өте күңгірт дисплей (күңгірт бөлмелер үшін)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Дабылды жаю"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Дабылды тасалау"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"болдырмау"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"кері қайтару"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"Дабыл жойылды."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
