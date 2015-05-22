@@ -58,6 +58,9 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                     TimerObj.resetTimersInSharedPrefs(prefs);
                     Utils.clearSwSharedPref(prefs);
 
+                    // Dismiss snoozed alarms after boot
+                    AlarmStateManager.dismissSnoozedAlarms(context);
+
                     if (!prefs.getBoolean(PREF_VOLUME_DEF_DONE, false)) {
                         // Fix the default
                         LogUtils.v("AlarmInitReceiver - resetting volume button default");
