@@ -30,6 +30,7 @@ import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.accessibility.AccessibilityManager;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.BaseAdapter;
@@ -54,6 +55,8 @@ public class StopwatchFragment extends DeskClockFragment
 
     private static final String TAG = "StopwatchFragment";
     private static final int STOPWATCH_REFRESH_INTERVAL_MILLIS = 25;
+    // Lower the refresh rate in accessibility mode to give talkback time to catch up
+    private static final int STOPWATCH_ACCESSIBILTY_REFRESH_INTERVAL_MILLIS = 500;
 
     int mState = Stopwatches.STOPWATCH_RESET;
 
@@ -71,6 +74,8 @@ public class StopwatchFragment extends DeskClockFragment
     private View mEndSpace;
     private View mBottomSpace;
     private boolean mSpacersUsed;
+
+    private AccessibilityManager mAccessibilityManager;
 
     // Used for calculating the time from the start taking into account the pause times
     long mStartTime = 0;
@@ -431,6 +436,9 @@ public class StopwatchFragment extends DeskClockFragment
 
         ((ViewGroup)getView()).setLayoutTransition(mLayoutTransition);
         mCircleLayout.setLayoutTransition(mCircleLayoutTransition);
+
+        mAccessibilityManager = (AccessibilityManager) getActivity().getSystemService(
+                Context.ACCESSIBILITY_SERVICE);
     }
 
     @Override
@@ -719,7 +727,9 @@ public class StopwatchFragment extends DeskClockFragment
             if (mLapsAdapter.getCount() > 0) {
                 updateCurrentLap(totalTime);
             }
-            mTime.postDelayed(mTimeUpdateThread, STOPWATCH_REFRESH_INTERVAL_MILLIS);
+            mTime.postDelayed(mTimeUpdateThread, mAccessibilityManager == null
+                    ? STOPWATCH_REFRESH_INTERVAL_MILLIS
+                    : STOPWATCH_ACCESSIBILTY_REFRESH_INTERVAL_MILLIS);
         }
     };
 
