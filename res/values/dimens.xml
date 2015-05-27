@@ -135,12 +135,6 @@
     <!-- Bottom padding for alarm lock screen hint text -->
     <dimen name="alarm_alert_hint_padding">32dip</dimen>
 
-    <!-- Size of big analog clock in world clock. -->
-    <dimen name="match_parent">-1dp</dimen>
-    <dimen name="wrap_content">-2dp</dimen>
-    <dimen name="main_world_clock_analog_width">@dimen/match_parent</dimen>
-    <dimen name="main_world_clock_analog_height">@dimen/wrap_content</dimen>
-
     <!-- Size of time zone analog clocks in world clock. -->
     <dimen name="world_clock_analog_size">100dip</dimen>
     <dimen name="world_clock_margin">32dp</dimen>
