@@ -336,12 +336,11 @@ public class AlarmActivity extends AppCompatActivity
             return;
         }
 
-        final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
-        final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
-        final float translationX = Math.max(view.getLeft() - alarmRight, 0)
-                + Math.min(view.getRight() - alarmLeft, 0);
-        getAlarmBounceAnimator(translationX, translationX < 0.0f ?
-                R.string.description_direction_left : R.string.description_direction_right).start();
+        if (view == mSnoozeButton) {
+            hintSnooze();
+        } else if (view == mDismissButton) {
+            hintDismiss();
+        }
     }
 
     @Override
@@ -388,12 +387,9 @@ public class AlarmActivity extends AppCompatActivity
                     if (snoozeFraction > 0.0f || dismissFraction > 0.0f) {
                         // Animate back to the initial state.
                         AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
-                    } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()
-                            && mAccessibilityManager == null) {
-                        // User touched the alarm button, hint the dismiss action unless in
-                        // accessibility mode. In accessibility mode, the click on the dismiss
-                        // button triggers dismiss().
-                        mDismissButton.performClick();
+                    } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
+                        // User touched the alarm button, hint the dismiss action
+                        hintDismiss();
                     }
 
                     // Restart the pulse.
@@ -420,6 +416,24 @@ public class AlarmActivity extends AppCompatActivity
                     | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                     | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+    }
+
+    private void hintSnooze() {
+        final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
+        final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
+        final float translationX = Math.max(mSnoozeButton.getLeft() - alarmRight, 0)
+                + Math.min(mSnoozeButton.getRight() - alarmLeft, 0);
+        getAlarmBounceAnimator(translationX, translationX < 0.0f ?
+                R.string.description_direction_left : R.string.description_direction_right).start();
+    }
+
+    private void hintDismiss() {
+        final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
+        final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
+        final float translationX = Math.max(mDismissButton.getLeft() - alarmRight, 0)
+                + Math.min(mDismissButton.getRight() - alarmLeft, 0);
+        getAlarmBounceAnimator(translationX, translationX < 0.0f ?
+                R.string.description_direction_left : R.string.description_direction_right).start();
     }
 
     /**
