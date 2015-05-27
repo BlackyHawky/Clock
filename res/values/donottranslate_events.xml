@@ -33,6 +33,7 @@
     <string name="action_show">Show</string>
     <string name="action_add_minute">Add Minute</string>
     <string name="action_lap">Lap</string>
+    <string name="action_disable">Disable</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->
     <string name="label_deskclock">DeskClock</string>

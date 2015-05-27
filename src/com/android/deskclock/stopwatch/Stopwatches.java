@@ -28,10 +28,6 @@ import java.text.DecimalFormatSymbols;
  */
 public class Stopwatches {
     // Actions processed by stopwatch receiver
-    public static final String START_STOPWATCH = "start_stopwatch";
-    public static final String LAP_STOPWATCH = "lap_stopwatch";
-    public static final String STOP_STOPWATCH = "stop_stopwatch";
-    public static final String RESET_STOPWATCH = "reset_stopwatch";
     public static final String SHARE_STOPWATCH = "share_stopwatch";
     public static final String RESET_AND_LAUNCH_STOPWATCH = "reset_and_launch_stopwatch";
     public static final String MESSAGE_TIME = "message_time";

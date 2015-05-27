@@ -46,6 +46,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.timer.CountingTimerView;
+import com.android.deskclock.voice.HandleVoiceApiCalls;
 
 import java.util.ArrayList;
 
@@ -288,7 +289,7 @@ public class StopwatchFragment extends DeskClockFragment
                 doStop();
                 Events.sendStopwatchEvent(R.string.action_stop, R.string.label_deskclock);
 
-                intent.setAction(Stopwatches.STOP_STOPWATCH);
+                intent.setAction(HandleVoiceApiCalls.VOICE_ACTION_STOP_STOPWATCH);
                 context.startService(intent);
                 releaseWakeLock();
                 break;
@@ -298,7 +299,7 @@ public class StopwatchFragment extends DeskClockFragment
                 doStart(time);
                 Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
 
-                intent.setAction(Stopwatches.START_STOPWATCH);
+                intent.setAction(HandleVoiceApiCalls.VOICE_ACTION_START_STOPWATCH);
                 context.startService(intent);
                 acquireWakeLock();
                 break;
@@ -724,9 +725,7 @@ public class StopwatchFragment extends DeskClockFragment
             if (mTime != null) {
                 mTimeText.setTime(totalTime, true, true);
             }
-            if (mLapsAdapter.getCount() > 0) {
-                updateCurrentLap(totalTime);
-            }
+            updateCurrentLap(totalTime);
             mTime.postDelayed(mTimeUpdateThread, mAccessibilityManager == null
                     ? STOPWATCH_REFRESH_INTERVAL_MILLIS
                     : STOPWATCH_ACCESSIBILTY_REFRESH_INTERVAL_MILLIS);
@@ -846,7 +845,7 @@ public class StopwatchFragment extends DeskClockFragment
                 doLap();
                 Events.sendStopwatchEvent(R.string.action_lap, R.string.label_deskclock);
 
-                intent.setAction(Stopwatches.LAP_STOPWATCH);
+                intent.setAction(HandleVoiceApiCalls.VOICE_ACTION_LAP_STOPWATCH);
                 context.startService(intent);
                 break;
             case Stopwatches.STOPWATCH_STOPPED:
@@ -854,7 +853,7 @@ public class StopwatchFragment extends DeskClockFragment
                 doReset();
                 Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
 
-                intent.setAction(Stopwatches.RESET_STOPWATCH);
+                intent.setAction(HandleVoiceApiCalls.VOICE_ACTION_RESET_STOPWATCH);
                 context.startService(intent);
                 releaseWakeLock();
                 break;

@@ -30,6 +30,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.provider.AlarmClock;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.transition.AutoTransition;
@@ -446,7 +447,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     timerObj.setState(TimerObj.STATE_RUNNING);
                     Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
 
-                    updateTimerState(timerObj, Timers.START_TIMER);
+                    updateTimerState(timerObj, AlarmClock.ACTION_SET_TIMER);
                     Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
 
                     // Go to the newly created timer view
@@ -472,7 +473,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     t.setState(TimerObj.STATE_STOPPED);
                     t.mView.pause();
                     t.updateTimeLeft(true);
-                    updateTimerState(t, Timers.TIMER_STOP);
+                    updateTimerState(t, Timers.STOP_TIMER);
                     Events.sendTimerEvent(R.string.action_stop, R.string.label_deskclock);
                     break;
                 case TimerObj.STATE_STOPPED:
@@ -481,7 +482,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     t.setState(TimerObj.STATE_RUNNING);
                     t.mStartTime = Utils.getTimeNow() - (t.mOriginalLength - t.mTimeLeft);
                     t.mView.start();
-                    updateTimerState(t, Timers.START_TIMER);
+                    updateTimerState(t, AlarmClock.ACTION_SET_TIMER);
                     Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
                     break;
                 case TimerObj.STATE_TIMESUP:
@@ -500,7 +501,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                         t.mView.stop();
                         t.mView.setTime(t.mTimeLeft, false);
                         t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
-                        updateTimerState(t, Timers.TIMER_RESET);
+                        updateTimerState(t, Timers.RESET_TIMER);
                         cancelTimerNotification(t.mTimerId);
                         Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
                     }
@@ -721,7 +722,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 t.mView.stop();
                 t.mView.setTime(t.mTimeLeft, false);
                 t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
-                updateTimerState(t, Timers.TIMER_RESET);
+                updateTimerState(t, Timers.RESET_TIMER);
 
                 Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
                 break;
@@ -733,10 +734,10 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 t.mView.setTime(t.mTimeLeft, false);
                 t.mView.set(t.mOriginalLength, t.mTimeLeft, true);
                 t.mView.start();
-                updateTimerState(t, Timers.TIMER_RESET);
+                updateTimerState(t, Timers.RESET_TIMER);
                 Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
 
-                updateTimerState(t, Timers.START_TIMER);
+                updateTimerState(t, AlarmClock.ACTION_SET_TIMER);
                 cancelTimerNotification(t.mTimerId);
                 break;
         }
