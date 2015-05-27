@@ -25,10 +25,10 @@ public class Timers {
 
     // Private actions processed by the receiver
     public static final String START_TIMER = "start_timer";
+    public static final String STOP_TIMER = "stop_timer";
     public static final String DELETE_TIMER = "delete_timer";
+    public static final String RESET_TIMER = "reset_timer";
     public static final String TIMES_UP = "times_up";
-    public static final String TIMER_RESET = "timer_reset";
-    public static final String TIMER_STOP = "timer_stop";
     public static final String TIMER_DONE = "timer_done";
     public static final String TIMER_UPDATE = "timer_update";
 

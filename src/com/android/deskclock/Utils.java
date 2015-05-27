@@ -63,6 +63,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -534,8 +535,8 @@ public class Utils {
             dateDisplay.setVisibility(View.VISIBLE);
             dateDisplay.setContentDescription(isJBMR2OrLater()
                     ? new SimpleDateFormat(
-                            DateFormat.getBestDateTimePattern(l, dateFormatForAccessibility), l)
-                            .format(now)
+                    DateFormat.getBestDateTimePattern(l, dateFormatForAccessibility), l)
+                    .format(now)
                     : SimpleDateFormat.getDateInstance(java.text.DateFormat.FULL).format(now));
         }
     }
@@ -596,19 +597,29 @@ public class Utils {
         Resources r = c.getResources();
         // Read strings array of name,timezone, id
         // make sure the list are the same length
-        String[] cities = r.getStringArray(R.array.cities_names);
+        String[] cityNames = r.getStringArray(R.array.cities_names);
         String[] timezones = r.getStringArray(R.array.cities_tz);
         String[] ids = r.getStringArray(R.array.cities_id);
-        int minLength = cities.length;
-        if (cities.length != timezones.length || ids.length != cities.length) {
-            minLength = Math.min(cities.length, Math.min(timezones.length, ids.length));
+        int minLength = cityNames.length;
+        if (cityNames.length != timezones.length || ids.length != cityNames.length) {
+            minLength = Math.min(cityNames.length, Math.min(timezones.length, ids.length));
             LogUtils.e("City lists sizes are not the same, truncating");
         }
-        CityObj[] tempList = new CityObj[minLength];
+        CityObj[] cities = new CityObj[minLength];
         for (int i = 0; i < cities.length; i++) {
-            tempList[i] = new CityObj(cities[i], timezones[i], ids[i]);
+            cities[i] = new CityObj(cityNames[i], timezones[i], ids[i]);
         }
-        return tempList;
+        return cities;
+    }
+
+    public static HashMap<String, CityObj> loadCityMapFromXml(Context c) {
+        CityObj[] cities = loadCitiesFromXml(c);
+
+        final HashMap<String, CityObj> map = new HashMap<>(cities.length);
+        for (int i = 0; i < cities.length; i++) {
+            map.put(cities[i].mCityName, cities[i]);
+        }
+        return map;
     }
 
     /**
