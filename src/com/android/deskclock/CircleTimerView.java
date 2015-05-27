@@ -193,7 +193,7 @@ public class CircleTimerView extends View {
             drawRedDot(canvas, redPercent, xCenter, yCenter, radius);
         }
         if (mAnimate) {
-            invalidate();
+            postInvalidateOnAnimation();
         }
    }
 

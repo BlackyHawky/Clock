@@ -122,7 +122,7 @@ public class TimerReceiver extends BroadcastReceiver {
             timersAlert.setFlags(
                     Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
             context.startActivity(timersAlert);
-        } else if (Timers.TIMER_RESET.equals(actionType)
+        } else if (Timers.RESET_TIMER.equals(actionType)
                 || Timers.DELETE_TIMER.equals(actionType)
                 || Timers.TIMER_DONE.equals(actionType)) {
             // Stop Ringtone if all timers are not in times-up status
@@ -410,7 +410,7 @@ public class TimerReceiver extends BroadcastReceiver {
         }
     }
 
-    private void cancelInUseNotification(final Context context) {
+    public static void cancelInUseNotification(final Context context) {
         NotificationManagerCompat.from(context).cancel(IN_USE_NOTIFICATION_ID);
     }
 
