@@ -26,7 +26,6 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.TextView;
 
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
@@ -406,7 +405,7 @@ public class CountingTimerView extends View {
         if (update) {
             setContentDescription(getTimeStringForAccessibility((int) hours, (int) minutes,
                     (int) seconds, showNeg, getResources()));
-            invalidate();
+            postInvalidateOnAnimation();
         }
     }
 

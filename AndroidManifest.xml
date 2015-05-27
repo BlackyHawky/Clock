@@ -140,6 +140,93 @@
             android:exported="true">
         </activity-alias>
 
+        <activity android:name=".voice.HandleVoiceApiCalls"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.NoDisplay"
+            android:permission="com.android.alarm.permission.SET_ALARM">
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_SHOW_CLOCK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_ADD_CLOCK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_DELETE_CLOCK" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VOICE_CANCEL_ALARM" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_DISMISS_UPCOMING_ALARM" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VOICE_DELETE_ALARM" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_START_TIMER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_RESET_TIMER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_STOP_TIMER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_SHOW_TIMERS" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_DELETE_TIMER" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_SHOW_STOPWATCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_START_STOPWATCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_STOP_STOPWATCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_LAP_STOPWATCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.android.deskclock.action.VOICE_RESET_STOPWATCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+        </activity>
 
         <receiver android:name="AlarmInitReceiver">
             <intent-filter>
@@ -212,7 +299,7 @@
 
         <!-- This activity is basically like the TimerFragment in DeskClock
          but only during lock screen
-         so that is only has the fired timers -->
+         so that it only has the fired timers -->
         <activity android:name="com.android.deskclock.timer.TimerAlertFullScreen"
                 android:excludeFromRecents="true"
                 android:theme="@style/TimerAlertFullScreenTheme"

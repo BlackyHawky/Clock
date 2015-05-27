@@ -31,6 +31,10 @@ public final class Events {
         sEventTrackers.add(eventTracker);
     }
 
+    public static void removeEventTracker(EventTracker eventTracker) {
+        sEventTrackers.remove(eventTracker);
+    }
+
     /**
      * Tracks an alarm event.
      *
