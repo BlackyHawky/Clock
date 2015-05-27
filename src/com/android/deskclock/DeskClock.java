@@ -28,6 +28,7 @@ import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.VisibleForTesting;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
@@ -155,7 +156,8 @@ public class DeskClock extends BaseActivity implements
         mActionBar.setSelectedNavigationItem(mSelectedTab);
     }
 
-    private DeskClockFragment getSelectedFragment() {
+    @VisibleForTesting
+    DeskClockFragment getSelectedFragment() {
         return (DeskClockFragment) mTabsAdapter.getItem(getRtlPosition(mSelectedTab));
     }
 

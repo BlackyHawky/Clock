@@ -150,20 +150,32 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param context application context
      */
     public static void updateNextAlarm(Context context) {
-        AlarmInstance nextAlarm = null;
-        ContentResolver cr = context.getContentResolver();
-        String activeAlarmQuery = AlarmInstance.ALARM_STATE + "<" + AlarmInstance.FIRED_STATE;
-        for (AlarmInstance instance : AlarmInstance.getInstances(cr, activeAlarmQuery)) {
-            if (nextAlarm == null || instance.getAlarmTime().before(nextAlarm.getAlarmTime())) {
-                nextAlarm = instance;
-            }
-        }
+        final AlarmInstance nextAlarm = getNextFiringAlarm(context);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             updateNextAlarmInSystemSettings(context, nextAlarm);
         } else {
             updateNextAlarmInAlarmManager(context, nextAlarm);
         }
+    }
+
+    /**
+     * Returns an alarm instance of an alarm that's going to fire next.
+     * @param context application context
+     * @return an alarm instance that will fire earliest relative to current time.
+     */
+    public static AlarmInstance getNextFiringAlarm(Context context) {
+        final ContentResolver cr = context.getContentResolver();
+        final String activeAlarmQuery = AlarmInstance.ALARM_STATE + "<" + AlarmInstance.FIRED_STATE;
+        final List<AlarmInstance> alarmInstances = AlarmInstance.getInstances(cr, activeAlarmQuery);
+
+        AlarmInstance nextAlarm = null;
+        for (AlarmInstance instance : alarmInstances) {
+            if (nextAlarm == null || instance.getAlarmTime().before(nextAlarm.getAlarmTime())) {
+                nextAlarm = instance;
+            }
+        }
+        return nextAlarm;
     }
 
     /**
@@ -322,10 +334,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Create a PendingIntent that will match any one set for this instance
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
                 createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, null),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.FLAG_NO_CREATE);
 
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.cancel(pendingIntent);
+        if (pendingIntent != null) {
+            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            am.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
     }
 
 
