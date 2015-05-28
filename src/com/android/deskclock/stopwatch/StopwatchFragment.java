@@ -727,9 +727,10 @@ public class StopwatchFragment extends DeskClockFragment
             if (mLapsAdapter.getCount() > 0) {
                 updateCurrentLap(totalTime);
             }
-            mTime.postDelayed(mTimeUpdateThread, mAccessibilityManager == null
-                    ? STOPWATCH_REFRESH_INTERVAL_MILLIS
-                    : STOPWATCH_ACCESSIBILTY_REFRESH_INTERVAL_MILLIS);
+            mTime.postDelayed(mTimeUpdateThread, mAccessibilityManager != null &&
+                    mAccessibilityManager.isTouchExplorationEnabled()
+                    ? STOPWATCH_ACCESSIBILTY_REFRESH_INTERVAL_MILLIS
+                    : STOPWATCH_REFRESH_INTERVAL_MILLIS);
         }
     };
 
