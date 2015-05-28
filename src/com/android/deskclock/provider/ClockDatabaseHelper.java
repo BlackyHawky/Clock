@@ -52,11 +52,16 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
      */
     private static final int VERSION_7 = 7;
 
+    /**
+     * Added dismissTime and dismissType to alarm table.
+     */
+    private static final int VERSION_8 = 8;
+
     // This creates a default alarm at 8:30 for every Mon,Tue,Wed,Thu,Fri
-    private static final String DEFAULT_ALARM_1 = "(8, 30, 31, 0, 0, '', NULL, 0);";
+    private static final String DEFAULT_ALARM_1 = "(8, 30, 31, 0, 0, '', NULL, 0, -1, 0);";
 
     // This creates a default alarm at 9:30 for every Sat,Sun
-    private static final String DEFAULT_ALARM_2 = "(9, 00, 96, 0, 0, '', NULL, 0);";
+    private static final String DEFAULT_ALARM_2 = "(9, 00, 96, 0, 0, '', NULL, 0, -1, 0);";
 
     // Database and table names
     static final String DATABASE_NAME = "alarms.db";
@@ -75,7 +80,11 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.VIBRATE + " INTEGER NOT NULL, " +
                 ClockContract.AlarmsColumns.LABEL + " TEXT NOT NULL, " +
                 ClockContract.AlarmsColumns.RINGTONE + " TEXT, " +
-                ClockContract.AlarmsColumns.DELETE_AFTER_USE + " INTEGER NOT NULL DEFAULT 0);");
+                ClockContract.AlarmsColumns.DELETE_AFTER_USE + " INTEGER NOT NULL DEFAULT 0, " +
+                ClockContract.AlarmsColumns.DISMISS_TIME + " LONG NOT NULL DEFAULT " +
+                        Alarm.NO_DISMISS_TIME + ", " +
+                ClockContract.AlarmsColumns.DISMISS_TYPE + " INTEGER NOT NULL DEFAULT " +
+                    Alarm.NO_RECORDED_DISMISS + ", " + ");");
         LogUtils.i("Alarms Table created");
     }
 
@@ -110,7 +119,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
     private Context mContext;
 
     public ClockDatabaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, VERSION_7);
+        super(context, DATABASE_NAME, null, VERSION_8);
         mContext = context;
     }
 
@@ -131,7 +140,9 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.VIBRATE + cs +
                 ClockContract.AlarmsColumns.LABEL + cs +
                 ClockContract.AlarmsColumns.RINGTONE + cs +
-                ClockContract.AlarmsColumns.DELETE_AFTER_USE + ") VALUES ";
+                ClockContract.AlarmsColumns.DELETE_AFTER_USE + cs +
+                ClockContract.AlarmsColumns.DISMISS_TIME + cs +
+                ClockContract.AlarmsColumns.DISMISS_TYPE + ") VALUES ";
         db.execSQL(insertMe + DEFAULT_ALARM_1);
         db.execSQL(insertMe + DEFAULT_ALARM_2);
     }
@@ -142,60 +153,84 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 + oldVersion + " to " + currentVersion);
 
         if (oldVersion <= VERSION_6) {
-            // These were not used in DB_VERSION_6, so we can just drop them.
-            db.execSQL("DROP TABLE IF EXISTS " + INSTANCES_TABLE_NAME + ";");
-            db.execSQL("DROP TABLE IF EXISTS " + CITIES_TABLE_NAME + ";");
-
-            // Create new alarms table and copy over the data
-            createAlarmsTable(db);
-            createInstanceTable(db);
-            createCitiesTable(db);
-
-            LogUtils.i("Copying old alarms to new table");
-            String[] OLD_TABLE_COLUMNS = {
-                    "_id",
-                    "hour",
-                    "minutes",
-                    "daysofweek",
-                    "enabled",
-                    "vibrate",
-                    "message",
-                    "alert",
-            };
-            Cursor cursor = db.query(OLD_ALARMS_TABLE_NAME, OLD_TABLE_COLUMNS,
-                    null, null, null, null, null);
-            Calendar currentTime = Calendar.getInstance();
-            while (cursor.moveToNext()) {
-                Alarm alarm = new Alarm();
-                alarm.id = cursor.getLong(0);
-                alarm.hour = cursor.getInt(1);
-                alarm.minutes = cursor.getInt(2);
-                alarm.daysOfWeek = new DaysOfWeek(cursor.getInt(3));
-                alarm.enabled = cursor.getInt(4) == 1;
-                alarm.vibrate = cursor.getInt(5) == 1;
-                alarm.label = cursor.getString(6);
-
-                String alertString = cursor.getString(7);
-                if ("silent".equals(alertString)) {
-                    alarm.alert = Alarm.NO_RINGTONE_URI;
-                } else {
-                    alarm.alert = TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
-                }
-
-                // Save new version of alarm and create alarminstance for it
-                db.insert(ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
-                if (alarm.enabled) {
-                    AlarmInstance newInstance = alarm.createInstanceAfter(currentTime);
-                    db.insert(INSTANCES_TABLE_NAME, null,
-                            AlarmInstance.createContentValues(newInstance));
-                }
-            }
-            cursor.close();
-
-            LogUtils.i("Dropping old alarm table");
-            db.execSQL("DROP TABLE IF EXISTS " + OLD_ALARMS_TABLE_NAME + ";");
+            upgradeFrom6OrOlder(db);
+        } else if (oldVersion == VERSION_7) {
+            upgradeFrom7(db);
         }
     }
+
+    /**
+     * Upgrade from version 6 or older to version 8
+     * @param db
+     */
+    void upgradeFrom6OrOlder(SQLiteDatabase db) {
+        // These were not used in DB_VERSION_6, so we can just drop them.
+        db.execSQL("DROP TABLE IF EXISTS " + INSTANCES_TABLE_NAME + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + CITIES_TABLE_NAME + ";");
+
+        // Create new alarms table and copy over the data
+        createAlarmsTable(db);
+        createInstanceTable(db);
+        createCitiesTable(db);
+
+        LogUtils.i("Copying old alarms to new table");
+        String[] OLD_TABLE_COLUMNS = {
+                "_id",
+                "hour",
+                "minutes",
+                "daysofweek",
+                "enabled",
+                "vibrate",
+                "message",
+                "alert",
+        };
+        Cursor cursor = db.query(OLD_ALARMS_TABLE_NAME, OLD_TABLE_COLUMNS,
+                null, null, null, null, null);
+        Calendar currentTime = Calendar.getInstance();
+        while (cursor.moveToNext()) {
+            Alarm alarm = new Alarm();
+            alarm.id = cursor.getLong(0);
+            alarm.hour = cursor.getInt(1);
+            alarm.minutes = cursor.getInt(2);
+            alarm.daysOfWeek = new DaysOfWeek(cursor.getInt(3));
+            alarm.enabled = cursor.getInt(4) == 1;
+            alarm.vibrate = cursor.getInt(5) == 1;
+            alarm.label = cursor.getString(6);
+            alarm.dismissTime = Alarm.NO_DISMISS_TIME;
+            alarm.dismissType = Alarm.NO_RECORDED_DISMISS;
+
+            String alertString = cursor.getString(7);
+            if ("silent".equals(alertString)) {
+                alarm.alert = Alarm.NO_RINGTONE_URI;
+            } else {
+                alarm.alert = TextUtils.isEmpty(alertString) ? null : Uri.parse(alertString);
+            }
+
+            // Save new version of alarm and create alarminstance for it
+            db.insert(ALARMS_TABLE_NAME, null, Alarm.createContentValues(alarm));
+            if (alarm.enabled) {
+                AlarmInstance newInstance = alarm.createInstanceAfter(currentTime);
+                db.insert(INSTANCES_TABLE_NAME, null,
+                        AlarmInstance.createContentValues(newInstance));
+            }
+        }
+        cursor.close();
+
+        LogUtils.i("Dropping old alarm table");
+        db.execSQL("DROP TABLE IF EXISTS " + OLD_ALARMS_TABLE_NAME + ";");
+    }
+
+    /**
+     * Upgrade from version 7 to version 8
+     * @param db
+     */
+    void upgradeFrom7(SQLiteDatabase db) {
+        db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN "
+                + Alarm.DISMISS_TIME + " LONG NOT NULL DEFAULT " + Alarm.NO_DISMISS_TIME);
+        db.execSQL("ALTER TABLE " + ALARMS_TABLE_NAME + " ADD COLUMN "
+                + Alarm.DISMISS_TYPE + " INTEGER NOT NULL DEFAULT " + Alarm.NO_RECORDED_DISMISS);
+    }
+
 
     long fixAlarmInsert(ContentValues values) {
         // Why are we doing this? Is this not a programming bug if we try to
