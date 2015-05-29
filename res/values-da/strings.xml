@@ -39,8 +39,8 @@
     <string name="alarm_today" msgid="7873594221106531654">"I dag"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Vågn op!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Fra"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Luk"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Afvis nu"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Slå fra"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Slå fra nu"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Ubesvaret alarm"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Udsat"</string>
@@ -64,12 +64,12 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> tilbage"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarm er indstillet til mindre end 1 minut fra nu."</item>
-    <item msgid="6002066367368421848">"Alarm er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> fra nu."</item>
-    <item msgid="8824719306247973774">"Alarm er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</item>
-    <item msgid="8182406852935468862">"Alarm er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</item>
+    <item msgid="6450913786084215050">"Alarmen er indstillet til mindre end 1 minut fra nu."</item>
+    <item msgid="6002066367368421848">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> fra nu."</item>
+    <item msgid="8824719306247973774">"Alarmen er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</item>
+    <item msgid="8182406852935468862">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="HOURS">%2$s</xliff:g> fra nu."</item>
     <item msgid="2532279224777213194">"Alarmen går i gang om <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="5936557894247187717">"Alarm er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
+    <item msgid="5936557894247187717">"Alarmen er indstillet til <xliff:g id="DAYS">%1$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
     <item msgid="9115697840826129603">"Alarm er indstillet til <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
     <item msgid="2332583385137381060">"Alarm indstillet til <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
   </string-array>
@@ -117,14 +117,14 @@
     <string name="delete" msgid="5732434972457000541">"Slet"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lydstyrke for alarm"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Lydløs"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Udsæt eller annuller alarm."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Udsæt eller afvis alarm."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (udsat)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarmen er indstillet til <xliff:g id="TIME">%s</xliff:g>. Vælg for at annullere."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Lydstyrkeknapper"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knapeffekt"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Udsætter"</item>
-    <item msgid="3450979320164769576">"Annullerer"</item>
+    <item msgid="3450979320164769576">"Slår fra"</item>
     <item msgid="6302517608411378024">"Gør intet"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Angiv standardringetone"</string>
@@ -317,9 +317,9 @@
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmer"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stopurstjeneste, der skal køre underretningen."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Stoppet"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Stryg til højre for at afvise"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Stryg til højre for at slå fra"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Stryg til venstre for at udsætte"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Stryg til venstre for at udsætte eller til højre for at annullere"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Stryg til venstre for at udsætte eller til højre for at slå fra"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ur stoppet"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ure stoppet"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tryk for at se dine ure"</string>
