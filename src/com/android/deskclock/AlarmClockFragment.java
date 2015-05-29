@@ -659,7 +659,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             }
         }
 
-        private void setNewHolder(View view) {
+        private ItemHolder setNewHolder(View view) {
             // standard view holder optimization
             final ItemHolder holder = new ItemHolder();
             holder.alarmItem = (LinearLayout) view.findViewById(R.id.alarm_item);
@@ -693,6 +693,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             holder.ringtone = (TextView) view.findViewById(R.id.choose_ringtone);
 
             view.setTag(holder);
+            return holder;
         }
 
         @Override
@@ -701,7 +702,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             Object tag = view.getTag();
             if (tag == null) {
                 // The view was converted but somehow lost its tag.
-                setNewHolder(view);
+                tag = setNewHolder(view);
             }
             final ItemHolder itemHolder = (ItemHolder) tag;
             itemHolder.alarm = alarm;
