@@ -117,7 +117,7 @@
     <string name="delete" msgid="5732434972457000541">"Elimina"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volume sveglia"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silenzioso"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Ripeti o elimina sveglia."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Posticipa o elimina sveglia."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (sospeso)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"La sveglia sarà attivata alle <xliff:g id="TIME">%s</xliff:g>. Tocca per annullare."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Pulsanti volume"</string>
@@ -217,7 +217,7 @@
     <item msgid="917900462224167608">"Analogico"</item>
     <item msgid="8483930821046925592">"Digitale"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Orologio di casa automatico"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Ora di casa automatica"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Quando viaggi in una zona dove l\'ora è diversa, aggiungi il tuo fuso orario"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Fuso orario di casa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Fuso orario di casa"</string>
