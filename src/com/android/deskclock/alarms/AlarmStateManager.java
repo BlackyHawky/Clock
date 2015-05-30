@@ -708,6 +708,18 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
+     * Dismiss all snoozed alarms
+     */
+    public static void dismissSnoozedAlarms(Context context) {
+        ContentResolver contentResolver = context.getContentResolver();
+        for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
+            if (instance.mAlarmState == AlarmInstance.SNOOZE_STATE) {
+                AlarmStateManager.setDismissState(context, instance);
+            }
+        }
+    }
+
+    /**
      * Fix and update all alarm instance when a time change event occurs.
      *
      * @param context application context
@@ -717,9 +729,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // TODO: Refactor this code to not use the overloaded registerInstance method.
         ContentResolver contentResolver = context.getContentResolver();
         for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
-            final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
-            instance.setAlarmTime(alarm.getNextAlarmTime(Calendar.getInstance()));
-            AlarmInstance.updateInstance(contentResolver, instance);
+            // If the alarm is snoozed, keep the current next alarm time; do not set the time to
+            // the next scheduled alarm.
+            // This means that if the time has adjusted past the originally intended fire time,
+            // we will schedule for the old time. AlarmManager will then fire the alarm immediately.
+            if (instance.mAlarmState != AlarmInstance.SNOOZE_STATE) {
+                final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+                instance.setAlarmTime(alarm.getNextAlarmTime(Calendar.getInstance()));
+                AlarmInstance.updateInstance(contentResolver, instance);
+            }
             AlarmStateManager.registerInstance(context, instance, false);
         }
         AlarmStateManager.updateNextAlarm(context);
