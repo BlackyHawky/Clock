@@ -58,7 +58,7 @@
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Kommende alarm"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Din ubesvarede alarm er blevet slettet"</string>
   <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"Mindre end et minut tilbage"</item>
+    <item msgid="7760558912503484257">"Mindre end 1 minut tilbage"</item>
     <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> tilbage"</item>
     <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> tilbage"</item>
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> tilbage"</item>
@@ -188,7 +188,7 @@
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Slet"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Slet <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
-    <string name="timer_plus_one" msgid="6631211310420106116">"Tilføj ét minut"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Tilføj 1 minut"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Tilføj 1 min."</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
     <string name="timer_done" msgid="2375990511982914051">"Afvis"</string>
@@ -321,10 +321,10 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Stryg til venstre for at udsætte"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Stryg til venstre for at udsætte eller til højre for at slå fra"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ur stoppet"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ure stoppet"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tryk for at se dine ure"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ure"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Næste ur: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> timere stoppet"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tryk for at se dine timere"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timere"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Næste timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Indstillinger for Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nattilstand"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Meget mørk skærm (til mørke rum)"</string>
