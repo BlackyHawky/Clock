@@ -710,7 +710,18 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             // We must unset the listener first because this maybe a recycled view so changing the
             // state would affect the wrong alarm.
             itemHolder.onoff.setOnCheckedChangeListener(null);
-            itemHolder.onoff.setChecked(alarm.enabled);
+
+            // Hack to workaround b/21459481: the SwitchCompat instance must be detached from
+            // its parent in order to avoid running the checked animation, which may get stuck
+            // when ListView calls View#jumpDrawablesToCurrentState() on a recycled view.
+            if (itemHolder.onoff.isChecked() != alarm.enabled) {
+                final ViewGroup onoffParent = (ViewGroup) itemHolder.onoff.getParent();
+                final int onoffIndex = onoffParent.indexOfChild(itemHolder.onoff);
+
+                onoffParent.removeView(itemHolder.onoff);
+                itemHolder.onoff.setChecked(alarm.enabled);
+                onoffParent.addView(itemHolder.onoff, onoffIndex);
+            }
 
             if (mSelectedAlarms.contains(itemHolder.alarm.id)) {
                 setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
