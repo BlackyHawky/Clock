@@ -65,13 +65,13 @@
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"এখন থেকে ১ মিনিটের কম সময়ের জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="6002066367368421848">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="8824719306247973774">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="8182406852935468862">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="HOURS">%2$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="2532279224777213194">"এখন থেকে <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="5936557894247187717">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="9115697840826129603">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="2332583385137381060">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="6002066367368421848">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="8824719306247973774">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="8182406852935468862">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="HOURS">%2$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="2532279224777213194">"এখন থেকে <xliff:g id="MINUTES">%3$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="5936557894247187717">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="9115697840826129603">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="2332583385137381060">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, ও <xliff:g id="MINUTES">%3$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 দিন"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> দিন"</string>
@@ -217,8 +217,8 @@
     <item msgid="917900462224167608">"অ্যানালগ"</item>
     <item msgid="8483930821046925592">"ডিজিটাল"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"স্বয়ংক্রিয় হোম ঘড়ি"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ভিন্ন সময়ের কোনো স্থানে ভ্রমনের সময় বাড়ির জন্য একটি ঘড়ি জুড়ুন"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"স্বয়ংক্রিয়ভাবে দেশের সময় দেখান"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ভিন্ন সময়ের কোনো স্থানে ভ্রমনের সময় নিজের দেশের সময় দেখার জন্য একটি ঘড়ি জুড়ুন"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"হোম সময় অঞ্চল"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"হোম সময় অঞ্চল"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"বাতিল করুন"</string>

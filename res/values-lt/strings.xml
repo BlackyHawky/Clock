@@ -92,9 +92,9 @@
   </plurals>
   <plurals name="snooze_picker_label">
     <item quantity="one" msgid="3783171637798575068">"minutė"</item>
-    <item quantity="other" msgid="1304056759541595077">"minutės"</item>
+    <item quantity="other" msgid="1304056759541595077">"min."</item>
   </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Po to nutildyti"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Nutildyti po"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min."</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Niekada"</string>
   <string-array name="auto_silence_entries">
@@ -331,7 +331,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Išskleisti signalą"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sutraukti signalą"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"anuliuoti"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Įspėjimas ištrintas."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Signalas ištrintas."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Kitas signalas: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>

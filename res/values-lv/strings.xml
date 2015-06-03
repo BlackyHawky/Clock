@@ -171,7 +171,7 @@
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mans laiks ir: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Intervāla laiki:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. intervāls"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. aplis"</string>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 stunda"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> stundas"</item>
@@ -217,7 +217,7 @@
     <item msgid="917900462224167608">"Analogais"</item>
     <item msgid="8483930821046925592">"Digitālais"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Automātiski rādīt dzīvesvietas laiku"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Rādīt dzīvesvietas laiku"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Ceļojot teritorijā, kurā ir atšķirīgs laiks, pievienot mājas laiku"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Dzīvesvietas laika josla"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Dzīvesvietas laika josla"</string>

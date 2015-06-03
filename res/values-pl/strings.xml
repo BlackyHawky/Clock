@@ -64,14 +64,14 @@
     <item msgid="8458069283817013813">"Jeszcze <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarm włączy się za mniej niż 1 minutę."</item>
-    <item msgid="6002066367368421848">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-    <item msgid="8824719306247973774">"Alarm włączy się za <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="8182406852935468862">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="2532279224777213194">"Alarm włączy się za <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="5936557894247187717">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="9115697840826129603">"Alarm włączy się za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="2332583385137381060">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="6450913786084215050">"Alarm włączy się za mniej niż 1 minutę"</item>
+    <item msgid="6002066367368421848">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>"</item>
+    <item msgid="8824719306247973774">"Alarm włączy się za <xliff:g id="HOURS">%2$s</xliff:g>"</item>
+    <item msgid="8182406852935468862">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>"</item>
+    <item msgid="2532279224777213194">"Alarm włączy się za <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="5936557894247187717">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="9115697840826129603">"Alarm włączy się za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
+    <item msgid="2332583385137381060">"Alarm włączy się za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>"</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 dzień"</string>
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> dni"</string>
