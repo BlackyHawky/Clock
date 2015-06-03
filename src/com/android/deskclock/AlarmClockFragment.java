@@ -17,7 +17,6 @@
 package com.android.deskclock;
 
 import android.animation.Animator;
-import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.app.Activity;
@@ -106,9 +105,9 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
     private static final int REQUEST_CODE_RINGTONE = 1;
     private static final long INVALID_ID = -1;
 
-    // Transitions are available only in API 19+
+    // Use transitions only in API 21+
     private static final boolean USE_TRANSITION_FRAMEWORK =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -1136,6 +1135,10 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 return;
             }
 
+            // Mark the alarmItem as having transient state to prevent it from being recycled
+            // while it is animating.
+            itemHolder.alarmItem.setHasTransientState(true);
+
             // Add an onPreDrawListener, which gets called after measurement but before the draw.
             // This way we can check the height we need to animate to before any drawing.
             // Note the series of events:
@@ -1196,27 +1199,20 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                         }
                     });
                     // Set everything to their final values when the animation's done.
-                    animator.addListener(new AnimatorListener() {
+                    animator.addListener(new AnimatorListenerAdapter() {
                         @Override
                         public void onAnimationEnd(Animator animation) {
                             // Set it back to wrap content since we'd explicitly set the height.
                             itemHolder.alarmItem.getLayoutParams().height =
                                     LayoutParams.WRAP_CONTENT;
                             itemHolder.arrow.setRotation(ROTATE_180_DEGREE);
+                            itemHolder.summary.setAlpha(1);
+                            itemHolder.hairLine.setAlpha(1);
                             itemHolder.summary.setVisibility(View.GONE);
                             itemHolder.hairLine.setVisibility(View.GONE);
                             itemHolder.delete.setVisibility(View.VISIBLE);
+                            itemHolder.alarmItem.setHasTransientState(false);
                         }
-
-                        @Override
-                        public void onAnimationCancel(Animator animation) {
-                            // TODO we may have to deal with cancelations of the animation.
-                        }
-
-                        @Override
-                        public void onAnimationRepeat(Animator animation) { }
-                        @Override
-                        public void onAnimationStart(Animator animation) { }
                     });
                     animator.start();
 
@@ -1254,6 +1250,10 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 itemHolder.summary.setVisibility(View.VISIBLE);
                 return;
             }
+
+            // Mark the alarmItem as having transient state to prevent it from being recycled
+            // while it is animating.
+            itemHolder.alarmItem.setHasTransientState(true);
 
             // Add an onPreDrawListener, which gets called after measurement but before the draw.
             // This way we can check the height we need to animate to before any drawing.
@@ -1322,6 +1322,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
                             itemHolder.expandArea.setVisibility(View.GONE);
                             itemHolder.arrow.setRotation(0);
+                            itemHolder.alarmItem.setHasTransientState(false);
                         }
                     });
                     animator.start();
