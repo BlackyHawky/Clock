@@ -17,6 +17,7 @@
 package com.android.deskclock.voice;
 
 import android.app.Activity;
+import android.app.VoiceInteractor;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -45,6 +46,7 @@ import com.android.deskclock.worldclock.CitiesActivity;
 import com.android.deskclock.worldclock.CityObj;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -94,40 +96,44 @@ public class HandleVoiceApiCalls extends Activity {
 
     @Override
     protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        final Intent intent = getIntent();
-        if (intent == null) {
-            return;
-        }
+        try {
+            super.onCreate(icicle);
 
-        final String action = intent.getAction();
-        switch (action) {
-            case VOICE_ACTION_START_STOPWATCH:
-            case VOICE_ACTION_STOP_STOPWATCH:
-            case VOICE_ACTION_LAP_STOPWATCH:
-            case VOICE_ACTION_SHOW_STOPWATCH:
-            case VOICE_ACTION_RESET_STOPWATCH:
-                handleStopwatchIntent(action);
-                break;
-            case AlarmClock.ACTION_VOICE_CANCEL_ALARM:
-            case AlarmClock.ACTION_VOICE_DELETE_ALARM:
-            case VOICE_ACTION_DISMISS_UPCOMING_ALARM:
-                handleAlarmIntent(action);
-                break;
-            case VOICE_ACTION_SHOW_TIMERS:
-            case VOICE_ACTION_DELETE_TIMER:
-            case VOICE_ACTION_RESET_TIMER:
-            case VOICE_ACTION_STOP_TIMER:
-            case VOICE_ACTION_START_TIMER:
-                handleTimerIntent(action);
-                break;
-            case VOICE_ACTION_SHOW_CLOCK:
-            case VOICE_ACTION_ADD_CLOCK:
-            case VOICE_ACTION_DELETE_CLOCK:
-                handleClockIntent(action);
-                break;
+            final Intent intent = getIntent();
+            if (intent == null) {
+                return;
+            }
+
+            final String action = intent.getAction();
+            switch (action) {
+                case VOICE_ACTION_START_STOPWATCH:
+                case VOICE_ACTION_STOP_STOPWATCH:
+                case VOICE_ACTION_LAP_STOPWATCH:
+                case VOICE_ACTION_SHOW_STOPWATCH:
+                case VOICE_ACTION_RESET_STOPWATCH:
+                    handleStopwatchIntent(action);
+                    break;
+                case AlarmClock.ACTION_VOICE_CANCEL_ALARM:
+                case AlarmClock.ACTION_VOICE_DELETE_ALARM:
+                case VOICE_ACTION_DISMISS_UPCOMING_ALARM:
+                    handleAlarmIntent(action);
+                    break;
+                case VOICE_ACTION_SHOW_TIMERS:
+                case VOICE_ACTION_DELETE_TIMER:
+                case VOICE_ACTION_RESET_TIMER:
+                case VOICE_ACTION_STOP_TIMER:
+                case VOICE_ACTION_START_TIMER:
+                    handleTimerIntent(action);
+                    break;
+                case VOICE_ACTION_SHOW_CLOCK:
+                case VOICE_ACTION_ADD_CLOCK:
+                case VOICE_ACTION_DELETE_CLOCK:
+                    handleClockIntent(action);
+                    break;
+            }
+        } finally {
+            finish();
         }
-        finish();
     }
 
     private void handleAlarmIntent(final String action) {
@@ -137,61 +143,174 @@ public class HandleVoiceApiCalls extends Activity {
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
         startActivity(alarmIntent);
 
-        // Check if the alarm already exists and handle it
-        final ContentResolver cr = getContentResolver();
-        final List<Alarm> alarms = Alarm.getAlarms(cr, null);
-        if (alarms.isEmpty()) {
-            return;
-        }
         // choose the most recently created  alarm if there is no other way to find out
         // which alarm the user means
-        final Alarm alarm = alarms.get(alarms.size() - 1);
         final Context context = this;
+        final Intent intent = getIntent();
 
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... parameters) {
-                switch (action) {
-                    case AlarmClock.ACTION_VOICE_DELETE_ALARM:
-                        AlarmStateManager.deleteAllInstances(context, alarm.id);
-                        Alarm.deleteAlarm(cr, alarm.id);
-                        LogUtils.i("Delete alarm %s", alarm);
-                        Events.sendAlarmEvent(R.string.action_delete, R.string.label_voice);
-                        break;
-                    case AlarmClock.ACTION_VOICE_CANCEL_ALARM:
-                        alarm.enabled = false;
-                        Alarm.updateAlarm(cr, alarm);
-                        LogUtils.i("Cancel alarm %s", alarm);
-                        Events.sendAlarmEvent(R.string.action_disable, R.string.label_voice);
-                        break;
-                    case VOICE_ACTION_DISMISS_UPCOMING_ALARM:
+        switch (action) {
+            case AlarmClock.ACTION_VOICE_CANCEL_ALARM:
+            case AlarmClock.ACTION_VOICE_DELETE_ALARM:
+                new AsyncTask<Void, Void, List<Alarm>>() {
+                    @Override
+                    protected List<Alarm> doInBackground(Void... parameters) {
+                        // Check if the alarm already exists and handle it
+                        final List<Alarm> alarms = Alarm.getAlarms(getContentResolver(), null);
+                        if (alarms.isEmpty()) {
+                            LogUtils.i("No alarms to cancel or delete.");
+                            return null;
+                        }
+                        final String searchMode =
+                                intent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
+                        return processAlarmSearchMode(alarms, searchMode, action);
+                    }
+
+                    @Override
+                    protected void onPostExecute(List<Alarm> alarms) {
+                        if (alarms != null) {
+                            // TODO: if SEARCH_MODE is empty launch UI to pick an alarm
+                            // alarms are used by pickAlarm
+                        }
+                    }
+                }.execute();
+                break;
+            case VOICE_ACTION_DISMISS_UPCOMING_ALARM:
+                new AsyncTask<Void, Void, Void>() {
+                    @Override
+                    protected Void doInBackground(Void... parameters) {
                         // checks if the next firing alarm is coming up in less than 2 hours
                         final AlarmInstance nextAlarm =
                                 AlarmStateManager.getNextFiringAlarm(context);
                         if (nextAlarm != null) {
-                            final long nextAlarmTimeMillis =
-                                    nextAlarm.getAlarmTime().getTimeInMillis();
-                            final long twoHours = AlarmInstance.LOW_NOTIFICATION_HOUR_OFFSET *
-                                    DateUtils.HOUR_IN_MILLIS;
-                            if (System.currentTimeMillis() - nextAlarmTimeMillis >= twoHours) {
+                            final Calendar nextAlarmTime = nextAlarm.getAlarmTime();
+                            if (isWithinTwoHours(nextAlarmTime)) {
                                 AlarmStateManager.setDismissState(context, nextAlarm);
-                                LogUtils.i("Dismiss", nextAlarm.getAlarmTime().toString());
+                                LogUtils.i("Dismiss " + nextAlarm.getAlarmTime());
                                 Events.sendAlarmEvent(R.string.action_dismiss,
                                         R.string.label_voice);
                             } else {
                                 LogUtils.i("Alarm " + nextAlarm.getAlarmTime().toString()
-                                        + " wasn't dismissed because it's not firing in "
-                                        + "the next two hours.");
+                                        + " wasn't dismissed, still more than two hours away.");
                             }
                         } else {
-                            LogUtils.i("Alarm wasn't dismissed because there is no upcoming alarm");
+                            LogUtils.i("No upcoming alarms to dismiss");
                         }
-                        break;
-                }
+                        return null;
+                    }
+                 }.execute();
+                break;
+        }
+    }
 
+    private List<Alarm> processAlarmSearchMode(List<Alarm> alarms, String searchMode,
+                String action) {
+        // returns alarms to be processed by pickAlarms that shows the UI to pick an alarm
+        if (searchMode == null) {
+            return alarms;
+        }
+
+        final Collection<Alarm> matchingAlarms = new ArrayList<>();
+        switch (searchMode) {
+            case AlarmClock.ALARM_SEARCH_MODE_TIME:
+                // at least one of these has to be specified in this search mode.
+                final int hour = getIntent().getIntExtra(AlarmClock.EXTRA_HOUR, -1);
+                // if minutes weren't specified default to 0
+                final int minutes = getIntent().getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
+                final boolean isPm = getIntent().getBooleanExtra(AlarmClock.EXTRA_IS_PM, false);
+                final int hour24 = (isPm && hour < 12) ? (hour + 12) : hour;
+
+                if (hour24 < 0 || hour24 > 23 || minutes < 0 || minutes > 59) {
+                    final String pmam = isPm? "pm" : "am";
+                    notifyFailure("Invalid time specified: " + hour24 + ":" + minutes + " " + pmam);
+                    LogUtils.e("Invalid time specified: " + hour24 + ":" + minutes + " " + pmam);
+                    return null;
+                }
+                final List<Alarm> selectedAlarms = getAlarmsByHourMinutes(hour24, minutes);
+                if (selectedAlarms.isEmpty()) {
+                    LogUtils.i("No alarm at %d:%d.", hour24, minutes);
+                    return null;
+                } else if (selectedAlarms.size() == 1){
+                    matchingAlarms.add(selectedAlarms.get(0));
+                } else {
+                    // TODO: if there are multiple matching ones show the UI to pick alarms
+                }
+                break;
+            case AlarmClock.ALARM_SEARCH_MODE_NEXT:
+                // TODO: handle the case when there are multiple alarms firing at the same time
+                final AlarmInstance nextAlarm = AlarmStateManager.getNextFiringAlarm(this);
+                matchingAlarms.add(Alarm.getAlarm(getContentResolver(), nextAlarm.mAlarmId));
+                break;
+            case AlarmClock.ALARM_SEARCH_MODE_ALL:
+                matchingAlarms.addAll(alarms);
+                break;
+            default:
+                // TODO: if SEARCH_MODE is empty launch UI to pick an alarm
                 return null;
+        }
+
+        for (Alarm alarm : matchingAlarms) {
+            switch (action) {
+                case AlarmClock.ACTION_VOICE_CANCEL_ALARM:
+                    disableAlarm(alarm);
+                    break;
+                case AlarmClock.ACTION_VOICE_DELETE_ALARM:
+                    deleteAlarm(alarm);
+                    break;
             }
-        }.execute();
+        }
+
+        return null;
+    }
+
+    private List<Alarm> getAlarmsByHourMinutes(int hour24, int minutes) {
+        final List<String> args = new ArrayList<>();
+        final String selection = String.format("%s=? AND %s=?", Alarm.HOUR, Alarm.MINUTES);
+        args.add(String.valueOf(hour24));
+        args.add(String.valueOf(minutes));
+
+        return Alarm.getAlarms(getContentResolver(), selection,
+                args.toArray(new String[args.size()]));
+    }
+
+    private boolean isWithinTwoHours(Calendar nextAlarmTime) {
+        final long nextAlarmTimeMillis =
+                nextAlarmTime.getTimeInMillis();
+        final long twoHours = AlarmInstance.LOW_NOTIFICATION_HOUR_OFFSET * -1 *
+                DateUtils.HOUR_IN_MILLIS;
+        return nextAlarmTimeMillis - System.currentTimeMillis() <= twoHours;
+    }
+
+    protected void notifySuccess(CharSequence prompt) {
+        if (getVoiceInteractor() != null) {
+            getVoiceInteractor().submitRequest(
+                    new VoiceInteractor.CompleteVoiceRequest(prompt, null));
+        }
+    }
+
+    /**
+     * Indicates when the setting could not be changed.
+     */
+    protected void notifyFailure(CharSequence reason) {
+        getVoiceInteractor().submitRequest(
+                new VoiceInteractor.AbortVoiceRequest(reason, null));
+    }
+
+    private void disableAlarm(Alarm alarm) {
+        final ContentResolver cr = getContentResolver();
+        alarm.enabled = false;
+        Alarm.updateAlarm(cr, alarm);
+        LogUtils.i("Cancel alarm %s", alarm);
+        notifySuccess("Alarm " + alarm + " is canceled.");
+        Events.sendAlarmEvent(R.string.action_disable, R.string.label_voice);
+    }
+
+    private void deleteAlarm(Alarm alarm) {
+        final ContentResolver cr = getContentResolver();
+        AlarmStateManager.deleteAllInstances(this, alarm.id);
+        Alarm.deleteAlarm(cr, alarm.id);
+        LogUtils.i("Delete alarm %s", alarm);
+        notifySuccess("Alarm " + alarm + " is deleted.");
+        Events.sendAlarmEvent(R.string.action_delete, R.string.label_voice);
     }
 
     private void handleStopwatchIntent(String action) {
@@ -201,6 +320,28 @@ public class HandleVoiceApiCalls extends Activity {
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.STOPWATCH_TAB_INDEX);
         startActivity(stopwatchIntent);
         LogUtils.i("HandleVoiceApiCalls " + action);
+
+        // checking if the stopwatch is already running
+        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final boolean stopwatchAlreadyRunning =
+                prefs.getBoolean(Stopwatches.NOTIF_CLOCK_RUNNING, false);
+
+        if (stopwatchAlreadyRunning) {
+            // don't fire START_STOPWATCH or RESET_STOPWATCH if a stopwatch is already running
+            if (VOICE_ACTION_START_STOPWATCH.equals(action) ||
+                    VOICE_ACTION_RESET_STOPWATCH.equals(action)) {
+                LogUtils.i("Can't fire " + action + " if stopwatch already running");
+                return;
+            }
+        } else {
+            // if a stopwatch isn't running, don't try to stop or lap it
+            if (VOICE_ACTION_STOP_STOPWATCH.equals(action) ||
+                VOICE_ACTION_LAP_STOPWATCH.equals(action)) {
+                notifyFailure("Can't fire " + action + " if stopwatch isn't running");
+                LogUtils.i("Can't fire " + action + " if stopwatch isn't running");
+                return;
+            }
+         }
 
         // Events setup
         switch (action) {
@@ -223,28 +364,9 @@ public class HandleVoiceApiCalls extends Activity {
                 return;
         }
 
-        // checking if the stopwatch is already running
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        final boolean stopwatchAlreadyRunning =
-                prefs.getBoolean(Stopwatches.NOTIF_CLOCK_RUNNING, false);
-
-        if (stopwatchAlreadyRunning) {
-            // don't fire START_STOPWATCH or RESET_STOPWATCH if a stopwatch is already running
-            if (VOICE_ACTION_START_STOPWATCH.equals(action) ||
-                    VOICE_ACTION_RESET_STOPWATCH.equals(action)) {
-                LogUtils.i("Can't fire " + action + " if stopwatch already running");
-                return;
-            }
-        } else {
-            // if a stopwatch isn't running, don't try to stop or lap it
-            if (VOICE_ACTION_STOP_STOPWATCH.equals(action) ||
-                VOICE_ACTION_LAP_STOPWATCH.equals(action)) {
-                LogUtils.i("Can't fire " + action + " if stopwatch isn't running");
-                return;
-            }
-         }
         final Intent intent = new Intent(this, StopwatchService.class).setAction(action);
         startService(intent);
+        notifySuccess("Stopwatch mode was changed.");
     }
 
     private void handleTimerIntent(final String action) {
@@ -264,6 +386,9 @@ public class HandleVoiceApiCalls extends Activity {
                 break;
             case VOICE_ACTION_STOP_TIMER:
                 timerIntent.setAction(Timers.STOP_TIMER);
+                break;
+            case VOICE_ACTION_SHOW_TIMERS:
+                // no action necessary
                 break;
             default:
                 return;
@@ -301,6 +426,9 @@ public class HandleVoiceApiCalls extends Activity {
                         // adjust mStartTime to reflect that starting time changed,
                         // VOICE_ACTION_START_TIMER considers that a part of
                         // the timer's length might have elapsed
+                        if (timer.mState == TimerObj.STATE_RUNNING) {
+                            return null;
+                        }
                         timer.setState(TimerObj.STATE_RUNNING);
                         timer.mStartTime = Utils.getTimeNow() -
                                 (timer.mSetupLength - timer.mTimeLeft);
@@ -315,9 +443,13 @@ public class HandleVoiceApiCalls extends Activity {
                             Events.sendTimerEvent(R.string.action_reset, R.string.label_voice);
                         } else {
                             LogUtils.i("Timer can't be reset because it isn't stopped");
+                            return null;
                         }
                         break;
                     case VOICE_ACTION_STOP_TIMER:
+                        if (timer.mState == TimerObj.STATE_STOPPED) {
+                            return null;
+                        }
                         timer.setState(TimerObj.STATE_STOPPED);
                         timer.writeToSharedPref(prefs);
                         Events.sendTimerEvent(R.string.action_stop, R.string.label_voice);
@@ -338,14 +470,14 @@ public class HandleVoiceApiCalls extends Activity {
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.CLOCK_TAB_INDEX);
         startActivity(handleClock);
 
-        final String cityExtra = getIntent().getStringExtra(EXTRA_CITY);
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         final Context context = this;
 
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... parameters) {
-
+                final String cityExtra = getIntent().getStringExtra(EXTRA_CITY);
+                final SharedPreferences prefs =
+                        PreferenceManager.getDefaultSharedPreferences(context);
                 switch (action) {
                     case VOICE_ACTION_ADD_CLOCK:
                         // if a city isn't specified open CitiesActivity to choose a city
@@ -383,6 +515,8 @@ public class HandleVoiceApiCalls extends Activity {
                         final Collection<CityObj> col = selectedCities.values();
                         // if there's no extra delete a city from the list
                         if (cityExtra == null) {
+                            // TODO: change default behavior to delete a city only if it's specified
+                            // if it's not specified show a UI to pick the city
                             final Iterator<CityObj> i = col.iterator();
                             // gets one of the cities. Cities are not sorted by any logical order.
                             if (i.hasNext()) {
