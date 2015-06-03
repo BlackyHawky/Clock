@@ -28,7 +28,7 @@
     <string name="show_clock" msgid="8358759982675616915">"Soatni ko‘rsatish"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Soatni yashirish"</string>
     <string name="label" msgid="162189613902857319">"Tavsif"</string>
-    <string name="default_label" msgid="5590025289805630372">"Uyg‘otadigan soat"</string>
+    <string name="default_label" msgid="5590025289805630372">"Uyg‘otkich"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Uyg‘otkich o‘rnatish"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Tebranish"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Takrorlash"</string>
@@ -49,7 +49,7 @@
       <item quantity="one">1 daq</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"O‘chirilgan"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Kechiktirish"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Qoldirish"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> daqiqaga kechiktirildi.</item>
       <item quantity="one">1 daqiqaga kechiktirildi.</item>
@@ -64,7 +64,7 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> qoldi"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Uyg‘otkich signali 1 daqiqadan kamroq vaqtdan so‘ng chalinadi."</item>
+    <item msgid="6450913786084215050">"Uyg‘otkich signali 1 daqiqa ichida chalinadi."</item>
     <item msgid="6002066367368421848">"Uyg‘otkich signali <xliff:g id="DAYS">%1$s</xliff:g>dan so‘ng chalinadi."</item>
     <item msgid="8824719306247973774">"Uyg‘otkich signali <xliff:g id="HOURS">%2$s</xliff:g>dan so‘ng chalinadi."</item>
     <item msgid="8182406852935468862">"Uyg‘otkich signali <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>dan so‘ng chalinadi."</item>
@@ -85,7 +85,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Soat"</string>
     <string name="help" msgid="7786263119482654015">"yordam"</string>
     <string name="settings" msgid="5849739030579520686">"Sozlamalar"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Kechiktirish vaqti"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Takrorlanish oralig‘i"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> daqiqa</item>
       <item quantity="one">1 daqiqa</item>
@@ -123,9 +123,9 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Ovoz tugmalari"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Tugmalarning funksiyasi"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Kechiktirish"</item>
+    <item msgid="7972756698723318690">"Qoldirish"</item>
     <item msgid="3450979320164769576">"Yopish"</item>
-    <item msgid="6302517608411378024">"Hech narsa qilinmasin"</item>
+    <item msgid="6302517608411378024">"Hech narsa"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Birlamchi ringtonni o‘rnatish"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Signallar"</string>
@@ -143,7 +143,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Uyg‘otkich o‘rnatish"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
-    <string name="menu_alarm" msgid="4772010125376647519">"Uyg‘otadigan soat"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"Uyg‘otkich"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Taymer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Soat"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Sekundomer"</string>
