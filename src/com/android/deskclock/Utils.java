@@ -204,20 +204,6 @@ public class Utils {
         }
     }
 
-    /**  The pressed color used throughout the app. If this method is changed, it will not have
-     *   any effect on the button press states, and those must be changed separately.
-    **/
-    public static int getPressedColorId() {
-        return R.color.hot_pink;
-    }
-
-    /**  The un-pressed color used throughout the app. If this method is changed, it will not have
-     *   any effect on the button press states, and those must be changed separately.
-    **/
-    public static int getGrayColorId() {
-        return R.color.clock_gray;
-    }
-
     /**
      * Clears the persistent data of stopwatch (start time, state, laps, etc...).
      */

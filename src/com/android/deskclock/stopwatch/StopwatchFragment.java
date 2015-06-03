@@ -334,7 +334,7 @@ public class StopwatchFragment extends DeskClockFragment
 
         mCircleLayout = (CircleButtonsLayout)v.findViewById(R.id.stopwatch_circle);
         mCircleLayout.setCircleTimerViewIds(R.id.stopwatch_time, 0 /* stopwatchId */ ,
-                0 /* labelId */,  0 /* labeltextId */);
+                0 /* labelId */);
 
         // Animation setup
         mLayoutTransition = new LayoutTransition();
