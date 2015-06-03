@@ -44,13 +44,11 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.android.deskclock.CircleButtonsLayout;
 import com.android.deskclock.DeskClock;
-import com.android.deskclock.DeskClock.OnTapListener;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
@@ -60,8 +58,6 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.widget.CircleView;
 import com.android.deskclock.widget.sgv.GridAdapter;
-import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationIn;
-import com.android.deskclock.widget.sgv.SgvAnimationHelper.AnimationOut;
 import com.android.deskclock.widget.sgv.StaggeredGridView;
 
 import java.util.ArrayList;
@@ -107,33 +103,25 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
     // Container Activity that requests TIMESUP_MODE must implement this interface
     public interface OnEmptyListListener {
-        public void onEmptyList();
-
-        public void onListChanged();
+        void onEmptyList();
+        void onListChanged();
     }
 
-    TimersListAdapter createAdapter(Context context, SharedPreferences prefs) {
+    TimersListAdapter createAdapter(Context context) {
         if (mOnEmptyListListener == null) {
-            return new TimersListAdapter(context, prefs);
+            return new TimersListAdapter(context);
         } else {
-            return new TimesUpListAdapter(context, prefs);
+            return new TimesUpListAdapter(context);
         }
     }
 
     private class TimersListAdapter extends GridAdapter {
 
-        ArrayList<TimerObj> mTimers = new ArrayList<TimerObj>();
-        Context mContext;
-        SharedPreferences mmPrefs;
+        protected final ArrayList<TimerObj> mTimers = new ArrayList<>();
+        private final LayoutInflater mLayoutInflater;
 
-        private void clear() {
-            mTimers.clear();
-            notifyDataSetChanged();
-        }
-
-        public TimersListAdapter(Context context, SharedPreferences prefs) {
-            mContext = context;
-            mmPrefs = prefs;
+        public TimersListAdapter(Context context) {
+            mLayoutInflater = LayoutInflater.from(context);
         }
 
         @Override
@@ -159,32 +147,6 @@ public class TimerFullScreenFragment extends DeskClockFragment
             return 0;
         }
 
-        public void deleteTimer(int id) {
-            for (int i = 0; i < mTimers.size(); i++) {
-                TimerObj t = mTimers.get(i);
-
-                if (t.mTimerId == id) {
-                    if (t.mView != null) {
-                        t.mView.stop();
-                    }
-                    t.deleteFromSharedPref(mmPrefs);
-                    mTimers.remove(i);
-                    if (mTimers.size() == 1 && mColumnCount > 1) {
-                        // If we're going from two timers to one (in the same row), we don't want to
-                        // animate the translation because we're changing the layout params span
-                        // from 1 to 2, and the animation doesn't handle that very well. So instead,
-                        // just fade out and in.
-                        mTimersList.setAnimationMode(AnimationIn.FADE, AnimationOut.FADE);
-                    } else {
-                        mTimersList.setAnimationMode(
-                                AnimationIn.FLY_IN_NEW_VIEWS, AnimationOut.FADE);
-                    }
-                    notifyDataSetChanged();
-                    return;
-                }
-            }
-        }
-
         protected int findTimerPositionById(int id) {
             for (int i = 0; i < mTimers.size(); i++) {
                 TimerObj t = mTimers.get(i);
@@ -205,10 +167,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            final LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(
-                    Context.LAYOUT_INFLATER_SERVICE);
-            final TimerListItem v = (TimerListItem) inflater.inflate(R.layout.timer_list_item,
-                    null);
+            final TimerListItem v = (TimerListItem) mLayoutInflater.inflate(
+                    R.layout.timer_list_item, parent, false /* attachToRoot */);
             final TimerObj o = getItem(position);
             o.mView = v;
             long timeLeft = o.updateTimeLeft(false);
@@ -228,32 +188,22 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
             CircleButtonsLayout circleLayout =
                     (CircleButtonsLayout) v.findViewById(R.id.timer_circle);
-            circleLayout.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label,
-                    R.id.timer_label_text);
+            circleLayout.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label);
 
             ImageButton resetAddButton = (ImageButton) v.findViewById(R.id.reset_add);
             resetAddButton.setTag(new ClickAction(ClickAction.ACTION_PLUS_ONE, o));
             v.setResetAddButton(true, TimerFullScreenFragment.this);
-            FrameLayout label = (FrameLayout) v.findViewById(R.id.timer_label);
-            TextView labelIcon = (TextView) v.findViewById(R.id.timer_label_placeholder);
-            TextView labelText = (TextView) v.findViewById(R.id.timer_label_text);
-            if (o.mLabel.equals("")) {
-                labelText.setVisibility(View.GONE);
-                labelIcon.setVisibility(View.VISIBLE);
-            } else {
-                labelText.setText(o.mLabel);
-                labelText.setVisibility(View.VISIBLE);
-                labelIcon.setVisibility(View.GONE);
-            }
+            TextView label = (TextView) v.findViewById(R.id.timer_label);
             if (getActivity() instanceof DeskClock) {
-                label.setOnTouchListener(new OnTapListener(getActivity(), labelText) {
+                label.setText(o.mLabel);
+                label.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    protected void processClick(View v) {
+                    public void onClick(View v) {
                         onLabelPressed(o);
                     }
                 });
             } else {
-                labelIcon.setVisibility(View.INVISIBLE);
+                label.setVisibility(View.INVISIBLE);
             }
             return v;
         }
@@ -275,16 +225,16 @@ public class TimerFullScreenFragment extends DeskClockFragment
         }
 
         public void onSaveInstanceState(Bundle outState) {
-            TimerObj.putTimersInSharedPrefs(mmPrefs, mTimers);
+            TimerObj.putTimersInSharedPrefs(mPrefs, mTimers);
         }
 
         public void onRestoreInstanceState(Bundle outState) {
-            TimerObj.getTimersFromSharedPrefs(mmPrefs, mTimers);
+            TimerObj.getTimersFromSharedPrefs(mPrefs, mTimers);
             sort();
         }
 
         public void saveGlobalState() {
-            TimerObj.putTimersInSharedPrefs(mmPrefs, mTimers);
+            TimerObj.putTimersInSharedPrefs(mPrefs, mTimers);
         }
 
         public void sort() {
@@ -328,8 +278,8 @@ public class TimerFullScreenFragment extends DeskClockFragment
 
     private class TimesUpListAdapter extends TimersListAdapter {
 
-        public TimesUpListAdapter(Context context, SharedPreferences prefs) {
-            super(context, prefs);
+        public TimesUpListAdapter(Context context) {
+            super(context);
         }
 
         @Override
@@ -347,7 +297,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
         @Override
         public void onRestoreInstanceState(Bundle outState) {
             // This adapter loads a subset
-            TimerObj.getTimersFromSharedPrefs(mmPrefs, mTimers, TimerObj.STATE_TIMESUP);
+            TimerObj.getTimersFromSharedPrefs(mPrefs, mTimers, TimerObj.STATE_TIMESUP);
 
             if (getCount() == 0) {
                 mOnEmptyListListener.onEmptyList();
@@ -468,7 +418,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
         super.onResume();
         mPrefs.registerOnSharedPreferenceChangeListener(this);
 
-        mAdapter = createAdapter(getActivity(), mPrefs);
+        mAdapter = createAdapter(getActivity());
         mAdapter.onRestoreInstanceState(null);
 
         LayoutParams params;
@@ -916,7 +866,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
     }
 
     public void restartAdapter() {
-        mAdapter = createAdapter(getActivity(), mPrefs);
+        mAdapter = createAdapter(getActivity());
         mAdapter.onRestoreInstanceState(null);
     }
 
@@ -935,7 +885,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
             if (key.equals(Timers.REFRESH_UI_WITH_LATEST_DATA) && prefs.getBoolean(key, false)) {
                 // Clear the flag forcing a fresh of the adapter to reflect changes in the database.
                 mPrefs.edit().putBoolean(key, false).apply();
-                mAdapter = createAdapter(getActivity(), mPrefs);
+                mAdapter = createAdapter(getActivity());
                 mAdapter.onRestoreInstanceState(null);
                 mTimersList.setAdapter(mAdapter);
             }
