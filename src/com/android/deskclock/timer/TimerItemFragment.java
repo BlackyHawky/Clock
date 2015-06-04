@@ -90,8 +90,7 @@ public class TimerItemFragment extends Fragment {
 
         final CircleButtonsLayout circleLayout =
                 (CircleButtonsLayout) v.findViewById(R.id.timer_circle);
-        circleLayout.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label,
-                R.id.timer_label_text);
+        circleLayout.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label);
 
         return v;
     }
@@ -103,27 +102,18 @@ public class TimerItemFragment extends Fragment {
         if (v == null) {
             return;
         }
-        final FrameLayout labelLayout = (FrameLayout) v.findViewById(R.id.timer_label);
-        final TextView labelPlaceholder = (TextView) v.findViewById(R.id.timer_label_placeholder);
-        final TextView labelText = (TextView) v.findViewById(R.id.timer_label_text);
-        if (TextUtils.isEmpty(mTimerObj.mLabel)) {
-            labelText.setVisibility(View.GONE);
-            labelPlaceholder.setVisibility(View.VISIBLE);
-        } else {
-            labelText.setText(mTimerObj.mLabel);
-            labelText.setVisibility(View.VISIBLE);
-            labelPlaceholder.setVisibility(View.GONE);
-        }
-        final Activity activity = getActivity();
-        if (activity instanceof DeskClock) {
-            labelLayout.setOnClickListener(new OnClickListener() {
+
+        TextView label = (TextView) v.findViewById(R.id.timer_label);
+        if (getActivity() instanceof DeskClock) {
+            label.setText(mTimerObj.mLabel);
+            label.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View v) {
                     onLabelPressed(mTimerObj);
                 }
             });
         } else {
-            labelPlaceholder.setVisibility(View.INVISIBLE);
+            label.setVisibility(View.INVISIBLE);
         }
     }
 
