@@ -49,25 +49,24 @@
         android:layout_marginLeft="16dip"
         android:layout_marginRight="16dip"
         android:layout_marginBottom="16dip"
-        android:layout_below="@id/labelBox">
+        android:layout_below="@id/labelBox"
+        android:gravity="end">
 
         <Button
             android:id="@+id/cancelButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_height="wrap_content"
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:text="@string/time_picker_cancel"
             android:textAllCaps="true"
-            android:textColor="@color/clock_white"
+            android:textColor="@color/hot_pink"
             android:textSize="@dimen/dialog_button_font_size" />
 
         <Button
             android:id="@+id/setButton"
             style="?android:attr/borderlessButtonStyle"
             android:layout_height="wrap_content"
-            android:layout_width="0dip"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:text="@string/time_picker_set"
             android:textAllCaps="true"
             android:textColor="@color/hot_pink"
