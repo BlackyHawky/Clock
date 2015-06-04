@@ -223,7 +223,7 @@
 
             </com.android.deskclock.widget.EllipsizeLayout>
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/arrow"
                 android:layout_width="@dimen/touch_target_min_size"
                 android:layout_height="@dimen/touch_target_min_size"
