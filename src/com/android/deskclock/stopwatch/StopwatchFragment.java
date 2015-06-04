@@ -131,6 +131,11 @@ public class StopwatchFragment extends DeskClockFragment
         }
 
         @Override
+        public boolean isEnabled(int position) {
+            return false;
+        }
+
+        @Override
         public long getItemId(int position) {
             return position;
         }
