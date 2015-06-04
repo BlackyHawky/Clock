@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
@@ -18,13 +17,11 @@ public class CircleButtonsLayout extends FrameLayout {
     private int mCircleTimerViewId;
     private int mResetAddButtonId;
     private int mLabelId;
-    private int mLabelTextId;
     private float mStrokeSize;
     private float mDiamOffset;
     private CircleTimerView mCtv;
     private ImageButton mResetAddButton;
-    private FrameLayout mLabel;
-    private TextView mLabelText;
+    private TextView mLabel;
 
     @SuppressWarnings("unused")
     public CircleButtonsLayout(Context context) {
@@ -37,11 +34,10 @@ public class CircleButtonsLayout extends FrameLayout {
         mContext = context;
     }
 
-    public void setCircleTimerViewIds(int circleTimerViewId, int stopButtonId,  int labelId, int labelTextId) {
+    public void setCircleTimerViewIds(int circleTimerViewId, int stopButtonId,  int labelId) {
         mCircleTimerViewId = circleTimerViewId;
         mResetAddButtonId = stopButtonId;
         mLabelId = labelId;
-        mLabelTextId = labelTextId;
 
         float dotStrokeSize = mContext.getResources().getDimension(R.dimen.circletimer_dot_size);
         float markerStrokeSize =
@@ -67,8 +63,7 @@ public class CircleButtonsLayout extends FrameLayout {
                 return;
             }
             mResetAddButton = (ImageButton) findViewById(mResetAddButtonId);
-            mLabel = (FrameLayout) findViewById(mLabelId);
-            mLabelText = (TextView) findViewById(mLabelTextId);
+            mLabel = (TextView) findViewById(mLabelId);
         }
 
         int frameWidth = mCtv.getMeasuredWidth();
@@ -150,7 +145,7 @@ public class CircleButtonsLayout extends FrameLayout {
             // New maximum width of the label.
             double w = 2 * Math.sqrt((r + y) * (r - y));
 
-            mLabelText.setMaxWidth((int) w);
+            mLabel.setMaxWidth((int) w);
         }
     }
 }

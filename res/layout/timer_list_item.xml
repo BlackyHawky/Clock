@@ -21,8 +21,8 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:gravity="center_vertical"
-    android:paddingBottom="@dimen/timer_list_padding_bottom"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/timer_list_padding_bottom">
 
     <com.android.deskclock.CircleButtonsLayout
         android:id="@+id/timer_circle"
@@ -35,44 +35,25 @@
         <com.android.deskclock.CircleTimerView
             android:id="@+id/timer_time"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <com.android.deskclock.timer.CountingTimerView
             android:id="@+id/timer_time_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
-        <FrameLayout
+        <Button
             android:id="@+id/timer_label"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="56dip"
             android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="0dip"
-            android:background="?attr/selectableItemBackgroundBorderless">
-
-            <TextView
-                android:id="@+id/timer_label_text"
-                android:layout_width="wrap_content"
-                android:layout_height="56dip"
-                android:layout_gravity="center_horizontal"
-                android:ellipsize="end"
-                android:enabled="false"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="@string/label_unlabeled"
-                android:textAppearance="@style/SecondaryLabelTextAppearance" />
-
-            <TextView
-                android:id="@+id/timer_label_placeholder"
-                android:layout_width="wrap_content"
-                android:layout_height="56dip"
-                android:layout_gravity="center_horizontal"
-                android:contentDescription="@string/label"
-                android:enabled="false"
-                android:src="@drawable/ic_label"
-                android:text="@string/label"
-                android:textAppearance="@style/SecondaryLabelTextAppearance" />
-        </FrameLayout>
+            android:ellipsize="end"
+            android:gravity="center"
+            android:hint="@string/label"
+            android:singleLine="true"
+            android:src="@drawable/ic_label"
+            android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
         <ImageButton
             android:id="@+id/reset_add"
@@ -82,7 +63,7 @@
             android:contentDescription="@string/timer_plus_one"
             android:gravity="center"
             android:scaleType="center"
-            android:src="@drawable/ic_plusone"/>
+            android:src="@drawable/ic_plusone" />
 
     </com.android.deskclock.CircleButtonsLayout>
 
