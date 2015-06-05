@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"ساعت"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"زنگ‌های ساعت"</string>
+    <string name="alarm_list_title" msgid="7589940465292950600">"هشدارها"</string>
     <string name="add_alarm" msgid="5976616107390962899">"افزودن زنگ ساعت"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ساعت رومیزی"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"ویرایش زنگ ساعت"</string>
@@ -66,7 +66,7 @@
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"هشدار برای کمتر از ۱ دقیقه از حالا تنظیم شد."</item>
     <item msgid="6002066367368421848">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> از حالا تنظیم شد."</item>
-    <item msgid="8824719306247973774">"هشدار از هم‌اکنون برای <xliff:g id="HOURS">%2$s</xliff:g> تنظیم شد."</item>
+    <item msgid="8824719306247973774">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> دیگر تنظیم شد."</item>
     <item msgid="8182406852935468862">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> از حالا تنظیم شد."</item>
     <item msgid="2532279224777213194">"هشدار به مدت <xliff:g id="MINUTES">%3$s</xliff:g> دقیقه از هم‌اکنون تنظیم شد."</item>
     <item msgid="5936557894247187717">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> از حالا تنظیم شد."</item>
@@ -115,7 +115,7 @@
     <string name="done" msgid="6509722361933858451">"انجام شد"</string>
     <string name="revert" msgid="9100911171235162926">"برگشت"</string>
     <string name="delete" msgid="5732434972457000541">"حذف"</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"میزان صدای زنگ ساعت"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"میزان صدای هشدار"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"ساکت"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"هشدار را موقتاً یا به طور کامل قطع کنید."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (معوق)"</string>
@@ -128,7 +128,7 @@
     <item msgid="6302517608411378024">"كاری انجام نشود"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"تنظیم صدای زنگ پیش‌فرض"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"زنگ‌های ساعت"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"هشدارها"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"گالری"</string>
     <string name="music_button_description" msgid="1626593420810117999">"موسیقی"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"کم شدن صدا"</string>
@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"زمان من <xliff:g id="TIME">%s</xliff:g> است"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"زمان‌های دور:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"دور <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"۱ ساعت"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ساعت"</item>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"هشدار بعدی: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> انتخاب شد"</string>
     <string name="deleted_message" msgid="1220848140260509437">"حذف شد"</string>
   <plurals name="alarm_delete_confirmation">
@@ -346,7 +347,7 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"این شهر حذف شود؟"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ساعت دیجیتال"</string>
     <string name="no_alarms" msgid="6429431324842022917">"بدون هشدار"</string>
-    <string name="no_alarms_set" msgid="4887558279496044764">"هشدار تنظیم نشده"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"هشداری تنظیم نشده است"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"هشداری در آینده فعال نیست"</string>
     <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>

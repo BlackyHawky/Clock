@@ -106,7 +106,7 @@
     <item msgid="7809240121716151904">"25 phút"</item>
     <item msgid="4278641338024561333">"Không bao giờ"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Bắt đầu tuần vào"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Tuần bắt đầu vào"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Thứ Bảy"</item>
     <item msgid="3993530639455360921">"Chủ Nhật"</item>
@@ -170,8 +170,10 @@
     <string name="seconds_label_description" msgid="3821620053141299692">"giây"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Thời gian của tôi là <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"Số lần bấm giờ:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g> bấm giờ"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Số vòng chạy:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Vòng chạy <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 giờ"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> giờ"</item>
@@ -184,7 +186,7 @@
     <item quantity="one" msgid="6589853086641485725">"1 giây"</item>
     <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> giây"</item>
   </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Thêm bộ tính giờ"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Thêm bộ hẹn giờ"</string>
     <string name="timer_start" msgid="6158486445614356442">"Bắt đầu"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Xóa"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Xóa <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -217,7 +219,7 @@
     <item msgid="917900462224167608">"Đồng hồ kim"</item>
     <item msgid="8483930821046925592">"Đồng hồ số"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Đồng hồ tự động trên màn hình chính"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Đồng hồ tự động"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Trong khi đi qua khu vực có giờ khác nhau, hãy thêm đồng hồ cho màn hình chính"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Múi giờ chính"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Múi giờ chính"</string>
@@ -320,11 +322,11 @@
     <string name="description_direction_right" msgid="5709209043267548985">"Vuốt sang phải để loại bỏ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Vuốt sang trái để báo lại"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Vuốt sang trái để báo lại hoặc phải để bỏ qua"</string>
-    <string name="timer_stopped" msgid="2730331837832462008">"Đã dừng bộ tính giờ"</string>
+    <string name="timer_stopped" msgid="2730331837832462008">"Đã dừng bộ hẹn giờ"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Đã dừng <xliff:g id="NUMBER">%d</xliff:g> bộ tính giờ"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Chạm để xem bộ tính giờ của bạn"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> bộ tính giờ"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Bộ tính giờ tiếp theo: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Bộ hẹn giờ tiếp theo: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Cài đặt trình bảo vệ màn hình Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Chế độ ban đêm"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Màn hình rất mờ (đối với phòng tối)"</string>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Báo thức tiếp theo: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> được chọn"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Đã xóa"</string>
   <plurals name="alarm_delete_confirmation">

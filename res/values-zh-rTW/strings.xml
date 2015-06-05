@@ -96,7 +96,7 @@
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"鬧鐘鈴響持續時間："</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> 分鐘"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"永遠不要"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"無限期"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 分鐘"</item>
     <item msgid="5431906692406316549">"5 分鐘"</item>
@@ -104,7 +104,7 @@
     <item msgid="2855948657259647629">"15 分鐘"</item>
     <item msgid="6330196381284475079">"20 分鐘"</item>
     <item msgid="7809240121716151904">"25 分鐘"</item>
-    <item msgid="4278641338024561333">"永遠不要"</item>
+    <item msgid="4278641338024561333">"無限期"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"一週的第一天"</string>
   <string-array name="week_start_entries">
@@ -123,7 +123,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按鈕"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"按鈕功用"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"延後"</item>
+    <item msgid="7972756698723318690">"暫停"</item>
     <item msgid="3450979320164769576">"關閉"</item>
     <item msgid="6302517608411378024">"不執行任何動作"</item>
   </string-array>
@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"我的時間：<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"單圈時間："</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"第 <xliff:g id="NUMBER">%d</xliff:g> 圈"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 小時"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> 小時"</item>
@@ -218,7 +220,7 @@
     <item msgid="8483930821046925592">"數位"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"自動增加居住地時鐘"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"旅遊至不同時區的地區時新增居住地時鐘"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"在其他時區旅行時顯示居住地時鐘"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"居住地時區"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"居住地時區"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"取消"</string>
@@ -236,11 +238,11 @@
     <item msgid="7156402158716866161">"蒂華納"</item>
     <item msgid="1144117502254612241">"亞利桑那"</item>
     <item msgid="101284182011722637">"赤瓦瓦"</item>
-    <item msgid="689121094232986897">"山岳標準時間"</item>
+    <item msgid="689121094232986897">"山區時間"</item>
     <item msgid="5445331923942302756">"中美洲"</item>
     <item msgid="2749806434052452351">"中部時間"</item>
     <item msgid="3997138870229703753">"墨西哥城"</item>
-    <item msgid="5425567073027744888">"薩克斯其萬省"</item>
+    <item msgid="5425567073027744888">"薩克其萬"</item>
     <item msgid="2877342865396629368">"波哥大"</item>
     <item msgid="568682398893899670">"東部時間"</item>
     <item msgid="668135984541863866">"委內瑞拉"</item>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"下次鬧鐘時間：<xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"已選取 <xliff:g id="ALARMS">%d</xliff:g> 個鬧鈴時間"</string>
     <string name="deleted_message" msgid="1220848140260509437">"已刪除"</string>
   <plurals name="alarm_delete_confirmation">

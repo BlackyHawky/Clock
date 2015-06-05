@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"私の時間は<xliff:g id="TIME">%s</xliff:g>です"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ラップ時間:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ラップ<xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1時間"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g>時間"</item>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"次のアラーム: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g>件選択されています"</string>
     <string name="deleted_message" msgid="1220848140260509437">"削除しました"</string>
   <plurals name="alarm_delete_confirmation">

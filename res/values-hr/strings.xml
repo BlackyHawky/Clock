@@ -58,19 +58,19 @@
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Predstojeći alarm"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Propušteni je alarm izbrisan"</string>
   <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"Preostalo je manje od minute"</item>
-    <item msgid="83197792732433351">"Preostalo je <xliff:g id="HOURS">%1$s</xliff:g>"</item>
-    <item msgid="8919698220200894252">"Preostalo je <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
-    <item msgid="8458069283817013813">"Preostalo je <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="7760558912503484257">"Preostalo manje od minute"</item>
+    <item msgid="83197792732433351">"Preostalo <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"Preostalo <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"Preostalo <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarm je od ovog trenutka postavljen za manje od 1 minute."</item>
-    <item msgid="6002066367368421848">"Alarm je od ovog trenutka postavljen za <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-    <item msgid="8824719306247973774">"Alarm je od ovog trenutka postavljen za <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="8182406852935468862">"Alarm je od ovog trenutka postavljen za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="6450913786084215050">"Alarm će se oglasiti za manje od 1 minute."</item>
+    <item msgid="6002066367368421848">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"Alarm će se oglasiti za <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8182406852935468862">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</item>
     <item msgid="2532279224777213194">"Alarm je postavljen od ovog trenutka za sljedeći broj minuta: <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="5936557894247187717">"Alarm je od ovog trenutka postavljen za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="9115697840826129603">"Alarm je od ovog trenutka postavljen za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="5936557894247187717">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"Alarm će se oglasiti za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"Alarm je postavljen za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 dan"</string>
@@ -85,7 +85,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Analogni sat"</string>
     <string name="help" msgid="7786263119482654015">"pomoć"</string>
     <string name="settings" msgid="5849739030579520686">"Postavke"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Duljina odgode alarma"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Trajanje odgode alarma"</string>
   <plurals name="snooze_duration">
     <item quantity="one" msgid="7406963706727564418">"1 minuta"</item>
     <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Moje je vrijeme <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Vremena krugova:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. krug"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 sat"</item>
     <item quantity="other" msgid="7018184076091344797">"Broj sati: <xliff:g id="NUMBER">%d</xliff:g>"</item>
@@ -214,8 +216,8 @@
     <string name="clock_settings" msgid="8317286807280600391">"Sat"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stil"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"Analogno"</item>
-    <item msgid="8483930821046925592">"Digitalno"</item>
+    <item msgid="917900462224167608">"Analogni"</item>
+    <item msgid="8483930821046925592">"Digitalni"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatski kućni sat"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Dok ste u nekoj drugoj vremenskoj zoni, dodajte sat za vremensku zonu kod kuće"</string>
@@ -324,7 +326,7 @@
     <string name="timers_stopped" msgid="2393640808691864520">"Broj zaustavljenih mjerača vremena: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dodirnite da biste vidjeli svoje mjerače vremena"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> mjerača vremena"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći mjerač vremena: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći mjerač: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Postavke sna"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noćni način"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Jako zatamnjeni zaslon (za mračne sobe)"</string>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Sljedeći alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"Odabrano: <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Izbrisano"</string>
   <plurals name="alarm_delete_confirmation">

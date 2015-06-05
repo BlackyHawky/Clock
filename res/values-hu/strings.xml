@@ -55,13 +55,13 @@
     <item quantity="other" msgid="7377899473014259727">"Elhalasztva <xliff:g id="MINUTES">%d</xliff:g> perccel."</item>
   </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ébresztés elhalasztása eddig: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Következő riasztás"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Az elmulasztott riasztás törlődött"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Következő ébresztés"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Elmulasztott ébresztés törölve"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Kevesebb mint 1 perc van hátra"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> óra van hátra"</item>
-    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> perc van hátra"</item>
-    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> óra <xliff:g id="MINUTES">%2$s</xliff:g> perc van hátra"</item>
+    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> van hátra"</item>
+    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> van hátra"</item>
+    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> van hátra"</item>
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Riasztás beállítva: a jelenlegi időponttól számított kevesebb mint 1 perc múlva."</item>
@@ -106,7 +106,7 @@
     <item msgid="7809240121716151904">"25 perc"</item>
     <item msgid="4278641338024561333">"Soha"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Hét kezdő napja"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Hét kezdőnapja"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Szombat"</item>
     <item msgid="3993530639455360921">"Vasárnap"</item>
@@ -125,7 +125,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Szundi"</item>
     <item msgid="3450979320164769576">"Elvetés"</item>
-    <item msgid="6302517608411378024">"Nincs teendő"</item>
+    <item msgid="6302517608411378024">"Nincs funkciójuk"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Az alapértelmezett csengőhang beállítása"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Ébresztések"</string>
@@ -172,6 +172,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Az én időm: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Köridők:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. kör"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"Körök száma <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"Körök száma <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 óra"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> óra"</item>
@@ -331,11 +335,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Ébresztő megnyitása"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Ébresztő bezárása"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"visszavonás"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Ébresztés törölve."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Törölve."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Következő ébresztés: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> kijelölve"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Törölve"</string>
   <plurals name="alarm_delete_confirmation">
@@ -346,8 +349,8 @@
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Eltávolítja ezt a várost?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitális óra"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Nincs ébresztés"</string>
-    <string name="no_alarms_set" msgid="4887558279496044764">"Nincs riasztás"</string>
-    <string name="no_upcoming_alarms" msgid="2889840988069436254">"NINCS KÖZELGŐ RIASZTÁS"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"Nincs ébresztés"</string>
+    <string name="no_upcoming_alarms" msgid="2889840988069436254">"NINCS KÖZELGŐ ÉBRESZTÉS"</string>
     <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>

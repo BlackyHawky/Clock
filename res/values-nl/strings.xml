@@ -39,7 +39,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Vandaag"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Word wakker!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Uit"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Negeren"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Uitzetten"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Nu sluiten"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm gemist"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -58,19 +58,19 @@
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Aankomend alarm"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Uw gemiste alarm is verwijderd"</string>
   <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"Minder dan een minuut resterend"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> resterend"</item>
-    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> resterend"</item>
-    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> resterend"</item>
+    <item msgid="7760558912503484257">"Nog minder dan een minuut"</item>
+    <item msgid="83197792732433351">"Nog <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"Nog <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"Nog <xliff:g id="HOURS">%1$s</xliff:g> en <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarm is ingesteld voor minder dan 1 minuut vanaf nu."</item>
-    <item msgid="6002066367368421848">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g> vanaf nu."</item>
-    <item msgid="8824719306247973774">"Alarm is ingesteld voor <xliff:g id="HOURS">%2$s</xliff:g> vanaf nu."</item>
-    <item msgid="8182406852935468862">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> vanaf nu."</item>
+    <item msgid="6450913786084215050">"Alarm gaat over minder dan 1 minuut af."</item>
+    <item msgid="6002066367368421848">"Alarm gaat over <xliff:g id="DAYS">%1$s</xliff:g> af."</item>
+    <item msgid="8824719306247973774">"Alarm gaat over <xliff:g id="HOURS">%2$s</xliff:g> af."</item>
+    <item msgid="8182406852935468862">"Alarm gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> af."</item>
     <item msgid="2532279224777213194">"Alarm gaat over <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
-    <item msgid="5936557894247187717">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> vanaf nu."</item>
-    <item msgid="9115697840826129603">"Alarm is ingesteld voor <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> vanaf nu."</item>
+    <item msgid="5936557894247187717">"Alarm gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
+    <item msgid="9115697840826129603">"Alarm gaat over <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
     <item msgid="2332583385137381060">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> vanaf nu."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 dag"</string>
@@ -124,7 +124,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knopeffect"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Snooze"</item>
-    <item msgid="3450979320164769576">"Sluiten"</item>
+    <item msgid="3450979320164769576">"Uitzetten"</item>
     <item msgid="6302517608411378024">"Niets doen"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Standaardbeltoon instellen"</string>
@@ -160,7 +160,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"Starten"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stoppen"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Ronde"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Opnieuw instellen"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Resetten"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Delen"</string>
     <string name="hours_label" msgid="3393478155635368097">"u"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Mijn tijd is <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Rondetijden:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Ronde <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 uur"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> uur"</item>
@@ -192,7 +194,7 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 min. toevoegen"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stoppen"</string>
     <string name="timer_done" msgid="2375990511982914051">"Gereed"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Opnieuw instellen"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Resetten"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Annuleren"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"De tijd is om"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
@@ -218,7 +220,7 @@
     <item msgid="8483930821046925592">"Digitaal"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatische klok voor thuis"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Voeg een klok voor thuis toe wanneer u in een gebied in een andere tijdzone reist."</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Voeg een klok voor thuis toe wanneer u in een andere tijdzone reist."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Eigen tijdzone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Eigen tijdzone"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Annuleren"</string>
@@ -229,7 +231,7 @@
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshalleilanden"</item>
-    <item msgid="4196408495909011020">"Midway"</item>
+    <item msgid="4196408495909011020">"Midway Island"</item>
     <item msgid="1414384194857730006">"Hawaï"</item>
     <item msgid="2687091371581931926">"Alaska"</item>
     <item msgid="1922100269679049660">"Pacific Time"</item>
@@ -331,11 +333,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Alarm uitvouwen"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Alarm samenvouwen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Alarm verwijderd."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Verwijderd."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Volgend alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> geselecteerd"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Verwijderd"</string>
   <plurals name="alarm_delete_confirmation">

@@ -96,7 +96,7 @@
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"闹铃时长"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g>分钟"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"永不"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"不停歇"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 分钟"</item>
     <item msgid="5431906692406316549">"5 分钟"</item>
@@ -104,7 +104,7 @@
     <item msgid="2855948657259647629">"15 分钟"</item>
     <item msgid="6330196381284475079">"20 分钟"</item>
     <item msgid="7809240121716151904">"25 分钟"</item>
-    <item msgid="4278641338024561333">"永不"</item>
+    <item msgid="4278641338024561333">"不停歇"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"一周的第一天"</string>
   <string-array name="week_start_entries">
@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"我的时间：<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"各圈时间："</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"第<xliff:g id="NUMBER">%d</xliff:g>圈"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1小时"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g>小时"</item>
@@ -236,7 +238,7 @@
     <item msgid="7156402158716866161">"蒂华纳"</item>
     <item msgid="1144117502254612241">"亚利桑那"</item>
     <item msgid="101284182011722637">"奇瓦瓦"</item>
-    <item msgid="689121094232986897">"山区时区"</item>
+    <item msgid="689121094232986897">"山区时间"</item>
     <item msgid="5445331923942302756">"中美洲"</item>
     <item msgid="2749806434052452351">"中部时间"</item>
     <item msgid="3997138870229703753">"墨西哥城"</item>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"下次闹钟时间：<xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"已选择<xliff:g id="ALARMS">%d</xliff:g>个"</string>
     <string name="deleted_message" msgid="1220848140260509437">"已删除"</string>
   <plurals name="alarm_delete_confirmation">
