@@ -27,7 +27,6 @@
     <dimen name="timer_setup_button_size">36sp</dimen>
     <dimen name="timer_setup_delete_start_margin">38sp</dimen>
     <dimen name="timer_setup_label_size">24sp</dimen>
-    <dimen name="digital_screensaver_clock_text_size">120sp</dimen>
 
     <dimen name="alarm_side_padding">192dip</dimen>
     <dimen name="clock_side_padding">96dip</dimen>
