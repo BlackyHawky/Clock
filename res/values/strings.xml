@@ -473,7 +473,7 @@
     </string-array>
 
     <!-- Label to enumerate the number of laps the user has counted -->
-    <string-array name="sw_lap_number_set" translatable="false">
+    <string-array name="sw_lap_number_set" translatable="true">
         <item># <xliff:g id="number">%d</xliff:g></item>
         <item># <xliff:g id="number">%02d</xliff:g></item>
     </string-array>
