@@ -17,21 +17,20 @@
 package com.android.deskclock;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.timer.TimerObj;
@@ -46,7 +45,7 @@ public class LabelDialogFragment extends DialogFragment {
     private static final String KEY_TIMER = "timer";
     private static final String KEY_TAG = "tag";
 
-    private EditText mLabelBox;
+    private AppCompatEditText mLabelBox;
 
     public static LabelDialogFragment newInstance(Alarm alarm, String label, String tag) {
         final LabelDialogFragment frag = new LabelDialogFragment();
@@ -71,23 +70,21 @@ public class LabelDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         final String label = bundle.getString(KEY_LABEL);
         final Alarm alarm = bundle.getParcelable(KEY_ALARM);
         final TimerObj timer = bundle.getParcelable(KEY_TIMER);
         final String tag = bundle.getString(KEY_TAG);
 
-        final View view = inflater.inflate(R.layout.label_dialog, container, false);
+        final Context context = getActivity();
 
-        mLabelBox = (EditText) view.findViewById(R.id.labelBox);
+        mLabelBox = new AppCompatEditText(context);
         mLabelBox.setText(label);
-        mLabelBox.setOnEditorActionListener(new OnEditorActionListener() {
+        mLabelBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -111,28 +108,30 @@ public class LabelDialogFragment extends DialogFragment {
             public void afterTextChanged(Editable editable) {
             }
         });
+        mLabelBox.selectAll();
         setLabelBoxBackground(TextUtils.isEmpty(label));
 
-        final Button cancelButton = (Button) view.findViewById(R.id.cancelButton);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dismiss();
-            }
-        });
+        final AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogTheme)
+                .setView(mLabelBox)
+                .setPositiveButton(R.string.time_picker_set, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        set(alarm, timer, tag);
+                    }
+                })
+                .setNegativeButton(R.string.time_picker_cancel,
+                        new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dismiss();
+                        }
+                })
+                .setMessage(R.string.label)
+                .create();
 
-        final Button setButton = (Button) view.findViewById(R.id.setButton);
-        setButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                set(alarm, timer, tag);
-            }
-        });
-
-        getDialog().getWindow().setSoftInputMode(
+        alertDialog.getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-
-        return view;
+        return alertDialog;
     }
 
     private void set(Alarm alarm, TimerObj timer, String tag) {
@@ -155,7 +154,7 @@ public class LabelDialogFragment extends DialogFragment {
         final Activity activity = getActivity();
         // TODO just pass in a listener in newInstance()
         if (activity instanceof AlarmLabelDialogHandler) {
-            ((DeskClock) getActivity()).onDialogLabelSet(alarm, label, tag);
+            ((DeskClock) activity).onDialogLabelSet(alarm, label, tag);
         } else {
             LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
                     + "AlarmLabelDialogHandler");
@@ -167,7 +166,7 @@ public class LabelDialogFragment extends DialogFragment {
         final Activity activity = getActivity();
         // TODO just pass in a listener in newInstance()
         if (activity instanceof TimerLabelDialogHandler){
-            ((DeskClock) getActivity()).onDialogLabelSet(timer, label, tag);
+            ((DeskClock) activity).onDialogLabelSet(timer, label, tag);
         } else {
             LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
                     + "AlarmLabelDialogHandler or TimerLabelDialogHandler");
