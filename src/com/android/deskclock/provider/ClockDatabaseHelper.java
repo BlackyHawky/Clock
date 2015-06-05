@@ -84,7 +84,7 @@ class ClockDatabaseHelper extends SQLiteOpenHelper {
                 ClockContract.AlarmsColumns.DISMISS_TIME + " LONG NOT NULL DEFAULT " +
                         Alarm.NO_DISMISS_TIME + ", " +
                 ClockContract.AlarmsColumns.DISMISS_TYPE + " INTEGER NOT NULL DEFAULT " +
-                    Alarm.NO_RECORDED_DISMISS + ", " + ");");
+                    Alarm.NO_RECORDED_DISMISS + ");");
         LogUtils.i("Alarms Table created");
     }
 
