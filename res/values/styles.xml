@@ -45,6 +45,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="colorAccent">@color/hot_pink</item>
+    </style>
+
     <style name="DeskClock" parent="@style/DeskClockParentTheme">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@color/default_background</item>
