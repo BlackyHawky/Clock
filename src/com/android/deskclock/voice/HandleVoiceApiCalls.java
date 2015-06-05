@@ -113,8 +113,7 @@ public class HandleVoiceApiCalls extends Activity {
                 case VOICE_ACTION_RESET_STOPWATCH:
                     handleStopwatchIntent(action);
                     break;
-                case AlarmClock.ACTION_VOICE_CANCEL_ALARM:
-                case AlarmClock.ACTION_VOICE_DELETE_ALARM:
+                case AlarmClock.ACTION_DISMISS_ALARM:
                 case VOICE_ACTION_DISMISS_UPCOMING_ALARM:
                     handleAlarmIntent(action);
                     break;
@@ -149,8 +148,7 @@ public class HandleVoiceApiCalls extends Activity {
         final Intent intent = getIntent();
 
         switch (action) {
-            case AlarmClock.ACTION_VOICE_CANCEL_ALARM:
-            case AlarmClock.ACTION_VOICE_DELETE_ALARM:
+            case AlarmClock.ACTION_DISMISS_ALARM:
                 new AsyncTask<Void, Void, List<Alarm>>() {
                     @Override
                     protected List<Alarm> doInBackground(Void... parameters) {
@@ -250,11 +248,8 @@ public class HandleVoiceApiCalls extends Activity {
 
         for (Alarm alarm : matchingAlarms) {
             switch (action) {
-                case AlarmClock.ACTION_VOICE_CANCEL_ALARM:
+                case AlarmClock.ACTION_DISMISS_ALARM:
                     disableAlarm(alarm);
-                    break;
-                case AlarmClock.ACTION_VOICE_DELETE_ALARM:
-                    deleteAlarm(alarm);
                     break;
             }
         }
