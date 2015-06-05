@@ -48,7 +48,6 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
             style="@style/big_thin"
-            android:textSize="@dimen/digital_screensaver_clock_text_size"
             android:textColor="@color/clock_white" />
 
         <com.android.deskclock.AnalogClock

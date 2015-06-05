@@ -35,7 +35,6 @@
     <dimen name="bottom_text_spacing_digital">-18dp</dimen>
     <dimen name="bottom_text_spacing_analog">18dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">10dp</dimen>
-    <dimen name="digital_screensaver_clock_text_size">104sp</dimen>
 
     <dimen name="alarm_side_padding">48dip</dimen>
     <dimen name="clock_side_padding">48dip</dimen>
