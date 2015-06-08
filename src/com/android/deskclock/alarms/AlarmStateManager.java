@@ -542,6 +542,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
+     * Calls setDismissState for now
+     * TODO(afchin): Make this schedule a state change to DISMISS_STATE at the firing time
+     * @param context
+     * @param instance
+     */
+    public static void setPreDismissState(Context context, AlarmInstance instance) {
+        LogUtils.v("Setting predismissed state to instance " + instance.mId);
+        setDismissState(context, instance);
+    }
+
+    /**
      * This will set the alarm instance to the SILENT_STATE and update
      * the application notifications and schedule any state changes that need
      * to occur in the future.
@@ -776,6 +787,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 break;
             case AlarmInstance.MISSED_STATE:
                 setMissedState(context, instance);
+                break;
+            case AlarmInstance.PREDISMISSED_STATE:
+                setPreDismissState(context, instance);
                 break;
             case AlarmInstance.DISMISSED_STATE:
                 setDismissState(context, instance);
