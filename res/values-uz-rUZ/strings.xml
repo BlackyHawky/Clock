@@ -115,7 +115,7 @@
     <string name="done" msgid="6509722361933858451">"Tayyor"</string>
     <string name="revert" msgid="9100911171235162926">"Bekor qilish"</string>
     <string name="delete" msgid="5732434972457000541">"O‘chirish"</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"Signal balandligi"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"Signal ovozi"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Ovozsiz"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Uyg‘otkichni kechiktirish yoki bekor qilish."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (kechiktirildi)"</string>
@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Mening vaqtim: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Aylanish vaqti:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>-davra"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> soat</item>
       <item quantity="one">1 soat</item>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Keyingi uyg‘otkich: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"Tanlandi: <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"O‘chirib tashlandi"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">

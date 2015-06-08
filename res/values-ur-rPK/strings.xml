@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="6674495003718166674">"کلاک"</string>
+    <string name="app_label" msgid="6674495003718166674">"گھڑی"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"الارمز"</string>
     <string name="add_alarm" msgid="5976616107390962899">"الارم شامل کریں"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ڈیسک کلاک"</string>
@@ -145,7 +145,7 @@
     <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"الارم"</string>
     <string name="menu_timer" msgid="6459070074762877114">"ٹائمر"</string>
-    <string name="menu_clock" msgid="5612760670606829805">"کلاک"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"گھڑی"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"اسٹاپ واچ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"الارم شامل کریں"</string>
     <string name="button_cities" msgid="4555761857494501363">"شہر"</string>
@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"میرا وقت ہے <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"لیپ اوقات:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"لیپ <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> گھنٹے</item>
       <item quantity="one">1 گھنٹہ</item>
@@ -211,7 +213,7 @@
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"ہوم"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"شہر"</string>
-    <string name="clock_settings" msgid="8317286807280600391">"کلاک"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"گھڑی"</string>
     <string name="clock_style" msgid="2265011060429742344">"طرز"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"اینالاگ"</item>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"اگلا الارم: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> منتخب کیے گئے"</string>
     <string name="deleted_message" msgid="1220848140260509437">"حذف کردہ"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">

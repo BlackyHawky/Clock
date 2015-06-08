@@ -160,7 +160,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"시작"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"중지"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"랩 타임"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"재설정"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"초기화"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"공유"</string>
     <string name="hours_label" msgid="3393478155635368097">"시"</string>
     <string name="minutes_label" msgid="3568098128251438588">"분"</string>
@@ -172,6 +172,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"내 시간: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"랩 타임:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"랩 타임 <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"<xliff:g id="NUMBER">%d</xliff:g>번"</item>
+    <item msgid="316923361931627987">"<xliff:g id="NUMBER">%02d</xliff:g>번"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>시간</item>
       <item quantity="one">1시간</item>
@@ -192,7 +196,7 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1분 추가"</string>
     <string name="timer_stop" msgid="3361154678667736722">"중지"</string>
     <string name="timer_done" msgid="2375990511982914051">"완료"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"재설정"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"초기화"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"취소"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"시간이 다 되었습니다."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"타이머"</string>
@@ -335,7 +339,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"다음 알람: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g>개 선택됨"</string>
     <string name="deleted_message" msgid="1220848140260509437">"삭제됨"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">

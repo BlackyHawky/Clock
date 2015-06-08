@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="6674495003718166674">"Orasan"</string>
+    <string name="app_label" msgid="6674495003718166674">"Clock"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Mga Alarm"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Magdagdag ng alarm"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Desk na orasan"</string>
@@ -39,7 +39,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Ngayon"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Gising na!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Naka-off"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Balewalain"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"I-dismiss"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"I-dismiss Ngayon"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Napalampas ang alarma"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -94,7 +94,7 @@
       <item quantity="one">minuto</item>
       <item quantity="other">na minuto</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Tahimik pagkatapos nang"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Tahimik pagkatapos ng"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> (na) minuto"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Hindi Kailanman"</string>
   <string-array name="auto_silence_entries">
@@ -152,9 +152,9 @@
     <string name="button_menu" msgid="6050484561842120282">"Higit pang mga pagpipilian"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Mga Setting"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Tulong"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Mode na panggabi"</string>
-    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Pag-uri-uriin ayon sa oras"</string>
-    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Pag-uri-uriin ayon sa pangalan"</string>
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"Night mode"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Uriin ayon sa oras"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Uriin ayon sa pangalan"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Mga Piniling Lungsod"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Ituloy"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Simulan"</string>
@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Ang aking oras ay <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Mga lap time:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Lap <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> oras</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> na oras</item>
@@ -218,7 +220,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Awtomatikong orasan sa tahanan"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Habang naglalakbay sa isang lugar kung saan iba ang oras, magdagdag ng orasan para sa tahanan"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Habang nasa isang lugar kung saan iba ang oras, magdagdag ng orasan para sa tahanan"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Time zone sa tahanan"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Time zone sa tahanan"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Kanselahin"</string>
@@ -326,16 +328,15 @@
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> (na) timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Susunod na timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Mga setting ng dream"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"Mode na panggabi"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"Night mode"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Napakadilim na display (para sa madidilim na kuwarto)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Alarm sa pagpalawak"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Alarma sa pagtiklop"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"i-undo"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Natanggal ang alarm."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Na-delete ang alarm."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Susunod na alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"Napili ang <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Tinanggal"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">

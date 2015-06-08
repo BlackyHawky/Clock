@@ -172,6 +172,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Ο χρόνος μου είναι <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Χρόνοι γύρων:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Γύρος <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ώρες</item>
       <item quantity="one">1 ώρα</item>
@@ -195,7 +199,7 @@
     <string name="timer_reset" msgid="7848424809190171640">"Επαναφορά"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Ακύρωση"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Ο χρόνος έχει τελειώσει"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"Ξυπνητήρι"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Χρονόμετρο"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"4 χρονόμετρα το μέγιστο"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Είστε πάρα πολύ γρήγοροι."</item>
@@ -320,29 +324,28 @@
     <string name="description_direction_right" msgid="5709209043267548985">"Σύρετε δεξιά για παράβλεψη"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Σύρετε αριστερά για αναβολή"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Σύρετε το δάχτυλό σας προς τα αριστερά για αναβολή ή προς τα δεξιά για απόρριψη"</string>
-    <string name="timer_stopped" msgid="2730331837832462008">"Το ξυπνητήρι διακόπηκε"</string>
+    <string name="timer_stopped" msgid="2730331837832462008">"Το χρονόμετρο διακόπηκε"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ξυπνητήρια διακόπηκαν"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Αγγίξτε για να δείτε τα ξυπνητήρια σας"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ξυπνητήρια"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Επόμενο ξυπνητήρι: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Επόμενο χρονόμετρο: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Ρυθμίσεις λειτουργίας Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Λειτουργία νύχτας"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Πολύ χαμηλή φωτεινότητα οθόνης (για σκοτεινά δωμάτια)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Ανάπτυξη ξυπνητηριού"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Σύμπτυξη ξυπνητηριού"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"αναίρεση"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Το ξυπνητήρι έχει διαγραφεί."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Το ξυπν. διαγράφ."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Επόμενο ξυπνητήρι: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> έχουν επιλεγεί"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Διαγράφηκε"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
       <item quantity="other">Διαγραφή επιλεγμένων ειδοποιήσεων;</item>
       <item quantity="one">Διαγραφή επιλεγμένης ειδοποίησης;</item>
     </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Διαγραφή αυτού του ξυπνητηριού;"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Διαγραφή αυτού του χρονόμετρου;"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Να διαγραφεί αυτή η πόλη;"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Ψηφιακό ρολόι"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Δεν υπάρχουν ξυπνητήρια"</string>
