@@ -320,10 +320,10 @@
                 android:exported="false">
             <intent-filter>
                 <action android:name="start_timer" />
+                <action android:name="stop_timer" />
                 <action android:name="delete_timer" />
+                <action android:name="reset_timer" />
                 <action android:name="times_up" />
-                <action android:name="timer_stop" />
-                <action android:name="timer_reset" />
                 <action android:name="timer_done" />
                 <action android:name="timer_update" />
                 <action android:name="notif_in_use_show" />
