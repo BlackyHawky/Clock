@@ -95,28 +95,6 @@ public final class ClockContract {
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/alarms");
 
         /**
-         *  DISMISS_TIME when the alarm has not yet been dismissed, preemptively or naturally.
-         */
-        public static final long NO_DISMISS_TIME = -1;
-
-        /**
-         * DISMISS_TYPE when this instance has not been dismissed.
-         */
-        public static final int NO_RECORDED_DISMISS = 0;
-
-        /**
-         * DISMISS_TYPE when this instance has been preemptively dismissed (dismissed before the
-         * alarm has actually fired).
-         */
-        public static final int PREEMPTIVE_DISMISS = 1;
-
-        /**
-         * DISMISS_TYPE when this instance has been naturally dismissed (dismissed after the alarm
-         * has fired, possibly after being snoozed).
-         */
-        public static final int NATURAL_DISMISS = 2;
-
-        /**
          * Hour in 24-hour localtime 0 - 23.
          * <p>Type: INTEGER</p>
          */
@@ -147,20 +125,6 @@ public final class ClockContract {
          * <p>Type: INTEGER</p>
          */
         public static final String DELETE_AFTER_USE = "delete_after_use";
-
-        /**
-         * Time of last dismiss in ms (preemptive or natural)
-         * <p>Type: long </p>
-         */
-        public static final String DISMISS_TIME = "dismiss_time";
-
-        /**
-         * Type of last dismiss (preemptive or natural)
-         * One of {@link #NO_RECORDED_DISMISS}, {@link #PREEMPTIVE_DISMISS},
-         * {@link #NATURAL_DISMISS}
-         * <p>Type: INTEGER </p>
-         */
-        public static final String DISMISS_TYPE = "dismiss_type";
     }
 
     /**
