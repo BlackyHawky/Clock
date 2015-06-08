@@ -204,6 +204,11 @@ public final class ClockContract {
         public static final int DISMISSED_STATE = 7;
 
         /**
+         * Alarm state when alarm has been dismissed before its intended firing time.
+         */
+        public static final int PREDISMISSED_STATE = 8;
+
+        /**
          * Alarm year.
          *
          * <p>Type: INTEGER</p>
