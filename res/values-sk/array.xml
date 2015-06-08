@@ -76,7 +76,7 @@
     <item msgid="2738888001225341531">"Indianapolis"</item>
     <item msgid="5335614190119698790">"Knox"</item>
     <item msgid="9056292535030679310">"Marengo"</item>
-    <item msgid="1049051761793330471">"Petrohrad"</item>
+    <item msgid="1049051761793330471">"Petersburg"</item>
     <item msgid="4086392912705989429">"Tell City"</item>
     <item msgid="4953356468739912331">"Vevay"</item>
     <item msgid="879918079035739958">"Vincennes"</item>
@@ -90,7 +90,7 @@
     <item msgid="3688923880208568496">"Martinik"</item>
     <item msgid="3124245926616896140">"Mendoza"</item>
     <item msgid="8264013691437690644">"Metlakatla"</item>
-    <item msgid="3242307788223843671">"Mexico City"</item>
+    <item msgid="3242307788223843671">"Ciudad de México"</item>
     <item msgid="3904210242491724008">"Monterrey"</item>
     <item msgid="2049700402307558992">"Montevideo"</item>
     <item msgid="6972371385309297826">"Montreal"</item>
@@ -105,7 +105,7 @@
     <item msgid="5255184875289196899">"Port-au-Prince"</item>
     <item msgid="7039428977566254389">"Portoriko"</item>
     <item msgid="1577859671465557300">"Santo Domingo"</item>
-    <item msgid="3956700126827381905">"Sao Paulo"</item>
+    <item msgid="3956700126827381905">"São Paulo"</item>
     <item msgid="3851056559336304908">"St. Johns"</item>
     <item msgid="7620601490016157459">"Sv. Krištof a Nevis"</item>
     <item msgid="256494147725561888">"Svätá Lucia"</item>
@@ -119,7 +119,7 @@
     <item msgid="4656709932014204632">"Almaty"</item>
     <item msgid="2173021164159165084">"Ammán"</item>
     <item msgid="5365315490101319010">"Anadyr"</item>
-    <item msgid="2203136550754775298">"Aqtau"</item>
+    <item msgid="2203136550754775298">"Aktau"</item>
     <item msgid="6373057865921966096">"Bagdad"</item>
     <item msgid="7705451629446449789">"Bahrajn"</item>
     <item msgid="2201480850069597815">"Baku"</item>
@@ -138,12 +138,12 @@
     <item msgid="514551483895638508">"Jeruzalem"</item>
     <item msgid="7852405794661778785">"Kábul"</item>
     <item msgid="2733033767438957766">"Karáči"</item>
-    <item msgid="5644311217186397680">"Káthmandú"</item>
+    <item msgid="5644311217186397680">"Káthmandu"</item>
     <item msgid="1242216853434928489">"Kuala Lumpur"</item>
     <item msgid="4933780769758115782">"Kuvajt"</item>
     <item msgid="6882764635090995312">"Macao"</item>
     <item msgid="3986352476396048104">"Manila"</item>
-    <item msgid="7941758124259560958">"Muscat"</item>
+    <item msgid="7941758124259560958">"Maskat"</item>
     <item msgid="2671480270494284192">"Phnompenh"</item>
     <item msgid="3585358766120768888">"Pchjongjang"</item>
     <item msgid="282733287703161268">"Katar"</item>
@@ -227,7 +227,7 @@
     <item msgid="8427795435830682122">"Fidži"</item>
     <item msgid="1158779814198631169">"Guam"</item>
     <item msgid="5893704879373137457">"Honolulu"</item>
-    <item msgid="1770338947698194275">"Vianočný ostrov"</item>
+    <item msgid="1770338947698194275">"Kiritimati"</item>
     <item msgid="3115018823853432422">"Nouméa"</item>
     <item msgid="8930848797035435014">"Samoa"</item>
     <item msgid="5520094948583238358">"Tahiti"</item>
@@ -272,13 +272,13 @@
     <item msgid="527393217276418005">"Mountain View"</item>
     <item msgid="1744025839066009857">"Reno"</item>
     <item msgid="6276904698731697502">"Black Rock City"</item>
-    <item msgid="2844451059935789778">"Doha"</item>
+    <item msgid="2844451059935789778">"Dauha"</item>
     <item msgid="4108653157206192019">"Peking"</item>
     <item msgid="6115360044399896579">"Bombaj"</item>
     <item msgid="7140676596549732117">"Dillí"</item>
     <item msgid="1236127343975476693">"Osaka"</item>
-    <item msgid="6470041111418276646">"Lahore"</item>
-    <item msgid="5672665774945554582">"Sana\'a"</item>
+    <item msgid="6470041111418276646">"Láhaur"</item>
+    <item msgid="5672665774945554582">"Saná"</item>
     <item msgid="4227294244388933650">"Barcelona"</item>
     <item msgid="2404605478532633099">"Mníchov"</item>
     <item msgid="2402973841037462176">"Miláno"</item>
@@ -295,8 +295,8 @@
     <item msgid="7006632817384692182">"Cambridge"</item>
     <item msgid="7233704593042272414">"Kirkland"</item>
     <item msgid="717352875658559544">"Madison"</item>
-    <item msgid="3567009426051313507">"Guangzhou"</item>
-    <item msgid="2738289235744819761">"Hyderabad"</item>
+    <item msgid="3567009426051313507">"Kanton"</item>
+    <item msgid="2738289235744819761">"Hajdarábad"</item>
     <item msgid="35629823970779893">"Reston"</item>
     <item msgid="2620375619174484543">"Belo Horizonte"</item>
     <item msgid="3949247113051549869">"Santiago"</item>
