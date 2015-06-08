@@ -172,6 +172,8 @@
     <string name="sw_share_main" msgid="7703563468204234405">"ເວລາຂອງຂ້ອຍແມ່ນ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ເວລາຮອບ:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ຮອບ <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ຊົ່ວໂມງ</item>
       <item quantity="one">1 ຊົ່ວໂມງ</item>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"ໂມງປຸກຄັ້ງຕໍ່ໄປ: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"ເລືອກ <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"ລຶບແລ້ວ"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">

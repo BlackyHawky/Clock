@@ -49,13 +49,13 @@
       <item quantity="one">1 min</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarma apagada"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Repeteix"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Posposa"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="other">S\'ha posposat <xliff:g id="MINUTES">%d</xliff:g> minuts.</item>
       <item quantity="one">S\'ha posposat 1 minut.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Es posposarà fins a les <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Propera alarma"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Pròxima alarma"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"L\'alarma perduda s\'ha suprimit"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Queda menys d\'un minut"</item>
@@ -170,8 +170,10 @@
     <string name="seconds_label_description" msgid="3821620053141299692">"segons"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"La meva hora: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"Temps per volta:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Etapa <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"Durada de les voltes:"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Volta <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
+    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> hores</item>
       <item quantity="one">1 hora</item>
@@ -219,8 +221,8 @@
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Rellotge de la teva ciutat automàtic"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Quan viatgis a una zona amb una hora diferent, afegeix un rellotge per a l\'hora de la teva ciutat"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Zona horària local"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Zona horària local"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Zona horària de casa"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Zona horària de casa"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Cancel·la"</string>
     <string name="time_picker_set" msgid="331153175471468051">"D\'acord"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
@@ -247,7 +249,7 @@
     <item msgid="3737474220861486223">"Hora Atl. (Barbados)"</item>
     <item msgid="6279116051273436870">"Hora Atlàn. (Canadà)"</item>
     <item msgid="8513382867172014244">"Manaus"</item>
-    <item msgid="7776299003105932407">"Santiago"</item>
+    <item msgid="7776299003105932407">"Santiago de Xile"</item>
     <item msgid="8636989494746218677">"Terranova"</item>
     <item msgid="4402541016410147505">"Brasília"</item>
     <item msgid="2251184440733164084">"Buenos Aires"</item>
@@ -317,17 +319,17 @@
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servei de cronòmetre per executar les notificacions."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Aturada"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Fes lliscar cap a la dreta per ometre"</string>
-    <string name="description_direction_left" msgid="7448141043674998679">"Fes lliscar cap a l\'esquerra per posposar"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Fes lliscar la pantalla cap a l\'esquerra per posposar l\'alarma o cap a la dreta per anul·lar-la"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Llisca cap a la dreta per ometre"</string>
+    <string name="description_direction_left" msgid="7448141043674998679">"Llisca cap a l\'esquerra per posposar"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Llisca cap a l\'esquerra per posposar l\'alarma o cap a la dreta per ignorar-la"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"S\'ha aturat el temporitzador"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"S\'han aturat <xliff:g id="NUMBER">%d</xliff:g> temporitzadors"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca per veure els temporitzadors"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporitzadors"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Temporitzador següent: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Configuració del somni"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Configuració de l\'estalvi de pantalla"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Mode nocturn"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla molt tènue (per a sales fosques)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla molt tènue (per a espais foscos)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Amplia l\'alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Redueix l\'alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"desfés"</string>
@@ -335,7 +337,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Propera alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> seleccionada"</string>
     <string name="deleted_message" msgid="1220848140260509437">"S\'ha suprimit"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">

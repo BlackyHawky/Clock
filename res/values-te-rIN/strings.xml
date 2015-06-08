@@ -172,6 +172,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"నా సమయం <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ల్యాప్ సమయాలు:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ల్యాప్ <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> గంటలు</item>
       <item quantity="one">1 గంట</item>
@@ -325,7 +329,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"మీ టైమర్‌లను చూడటానికి తాకండి"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"తదుపరి టైమర్: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"కల సెట్టింగ్‌లు"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"డ్రీమ్ సెట్టింగ్‌లు"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"రాత్రి మోడ్"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"డిస్‌ప్లే అత్యంత కాంతివిహీనంగా ఉంది (చీకటిగా ఉండే గదుల కోసం)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"అలారంను విస్తరింపజేయండి"</string>
@@ -335,7 +339,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"తదుపరి అలారం: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> ఎంచుకోబడ్డాయి"</string>
     <string name="deleted_message" msgid="1220848140260509437">"తొలగించబడింది"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">

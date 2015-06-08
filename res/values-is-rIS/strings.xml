@@ -172,6 +172,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Tíminn minn er <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Millitímar:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Hringur <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"Nr. <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"Nr. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> klukkustund</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> klukkustundir</item>
@@ -335,7 +339,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Næsti vekjari: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> valdir"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Eytt"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
