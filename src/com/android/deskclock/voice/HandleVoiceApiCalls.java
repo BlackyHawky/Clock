@@ -184,7 +184,7 @@ public class HandleVoiceApiCalls extends Activity {
                         if (nextAlarm != null) {
                             final Calendar nextAlarmTime = nextAlarm.getAlarmTime();
                             if (isWithinTwoHours(nextAlarmTime)) {
-                                AlarmStateManager.setDismissState(context, nextAlarm);
+                                AlarmStateManager.setPreDismissState(context, nextAlarm);
                                 LogUtils.i("Dismiss " + nextAlarm.getAlarmTime());
                                 Events.sendAlarmEvent(R.string.action_dismiss,
                                         R.string.label_voice);
