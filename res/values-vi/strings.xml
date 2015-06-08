@@ -172,8 +172,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Thời gian của tôi là <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Số vòng chạy:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Vòng chạy <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
-    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 giờ"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> giờ"</item>
@@ -327,7 +329,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Chạm để xem bộ tính giờ của bạn"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> bộ tính giờ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Bộ hẹn giờ tiếp theo: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Cài đặt trình bảo vệ màn hình Dream"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Cài đặt bảo vệ màn hình"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Chế độ ban đêm"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Màn hình rất mờ (đối với phòng tối)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Mở rộng báo thức"</string>
