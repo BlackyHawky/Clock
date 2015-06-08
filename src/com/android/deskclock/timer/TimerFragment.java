@@ -30,7 +30,6 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.AlarmClock;
 import android.support.v4.view.ViewPager;
 import android.text.format.DateUtils;
 import android.transition.AutoTransition;
@@ -447,7 +446,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     timerObj.setState(TimerObj.STATE_RUNNING);
                     Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
 
-                    updateTimerState(timerObj, AlarmClock.ACTION_SET_TIMER);
+                    updateTimerState(timerObj, Timers.START_TIMER);
                     Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
 
                     // Go to the newly created timer view
@@ -482,7 +481,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     t.setState(TimerObj.STATE_RUNNING);
                     t.mStartTime = Utils.getTimeNow() - (t.mOriginalLength - t.mTimeLeft);
                     t.mView.start();
-                    updateTimerState(t, AlarmClock.ACTION_SET_TIMER);
+                    updateTimerState(t, Timers.START_TIMER);
                     Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
                     break;
                 case TimerObj.STATE_TIMESUP:
@@ -737,7 +736,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 updateTimerState(t, Timers.RESET_TIMER);
                 Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
 
-                updateTimerState(t, AlarmClock.ACTION_SET_TIMER);
+                updateTimerState(t, Timers.START_TIMER);
                 cancelTimerNotification(t.mTimerId);
                 break;
         }
