@@ -57,9 +57,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             VIBRATE,
             LABEL,
             RINGTONE,
-            DELETE_AFTER_USE,
-            DISMISS_TIME,
-            DISMISS_TYPE
+            DELETE_AFTER_USE
     };
 
     /**
@@ -75,10 +73,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int LABEL_INDEX = 6;
     private static final int RINGTONE_INDEX = 7;
     private static final int DELETE_AFTER_USE_INDEX = 8;
-    private static final int DISMISS_TIME_INDEX = 9;
-    private static final int DISMISS_TYPE_INDEX = 10;
 
-    private static final int COLUMN_COUNT = DISMISS_TYPE_INDEX + 1;
+    private static final int COLUMN_COUNT = DELETE_AFTER_USE_INDEX + 1;
 
     public static ContentValues createContentValues(Alarm alarm) {
         ContentValues values = new ContentValues(COLUMN_COUNT);
@@ -93,8 +89,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         values.put(VIBRATE, alarm.vibrate ? 1 : 0);
         values.put(LABEL, alarm.label);
         values.put(DELETE_AFTER_USE, alarm.deleteAfterUse);
-        values.put(DISMISS_TIME, NO_DISMISS_TIME);
-        values.put(DISMISS_TYPE, NO_RECORDED_DISMISS);
         if (alarm.alert == null) {
             // We want to put null, so default alarm changes
             values.putNull(RINGTONE);
@@ -199,7 +193,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     public static boolean updateAlarm(ContentResolver contentResolver, Alarm alarm) {
-        if (alarm.id == INVALID_ID) return false;
+        if (alarm.id == Alarm.INVALID_ID) return false;
         ContentValues values = createContentValues(alarm);
         long rowsUpdated = contentResolver.update(getUri(alarm.id), values, null, null);
         return rowsUpdated == 1;
@@ -232,8 +226,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String label;
     public Uri alert;
     public boolean deleteAfterUse;
-    public long dismissTime;
-    public int dismissType;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -249,8 +241,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.label = "";
         this.alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         this.deleteAfterUse = false;
-        this.dismissTime = NO_DISMISS_TIME;
-        this.dismissType = NO_RECORDED_DISMISS;
     }
 
     public Alarm(Cursor c) {
@@ -262,8 +252,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         vibrate = c.getInt(VIBRATE_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
-        dismissTime = c.getLong(DISMISS_TIME_INDEX);
-        dismissType = c.getInt(DISMISS_TYPE_INDEX);
 
         if (c.isNull(RINGTONE_INDEX)) {
             // Should we be saving this with the current ringtone or leave it null
@@ -284,8 +272,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         label = p.readString();
         alert = (Uri) p.readParcelable(null);
         deleteAfterUse = p.readInt() == 1;
-        dismissTime = p.readLong();
-        dismissType = p.readInt();
     }
 
     public String getLabelOrDefault(Context context) {
@@ -305,8 +291,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         p.writeString(label);
         p.writeParcelable(alert, flags);
         p.writeInt(deleteAfterUse ? 1 : 0);
-        p.writeLong(dismissTime);
-        p.writeInt(dismissType);
     }
 
     public int describeContents() {
@@ -369,8 +353,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
                 ", vibrate=" + vibrate +
                 ", label='" + label + '\'' +
                 ", deleteAfterUse=" + deleteAfterUse +
-                ", mDismissTime=" + dismissTime +
-                ", mDismissType=" + dismissType +
                 '}';
     }
 }
