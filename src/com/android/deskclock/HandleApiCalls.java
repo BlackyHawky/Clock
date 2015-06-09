@@ -89,31 +89,13 @@ public class HandleApiCalls extends Activity {
             return;
         }
 
-        final boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
         Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
+        final boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
 
         final StringBuilder selection = new StringBuilder();
         final List<String> args = new ArrayList<>();
         setSelectionFromIntent(intent, hour, minutes, selection, args);
 
-        // Check if the alarm already exists and handle it
-        final ContentResolver cr = getContentResolver();
-        final List<Alarm> alarms = Alarm.getAlarms(cr,
-                selection.toString(),
-                args.toArray(new String[args.size()]));
-        if (!alarms.isEmpty()) {
-            Alarm alarm = alarms.get(0);
-            alarm.enabled = true;
-            Alarm.updateAlarm(cr, alarm);
-
-            // Delete all old instances and create a new one with updated values
-            AlarmStateManager.deleteAllInstances(this, alarm.id);
-            setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
-            LogUtils.i("HandleApiCalls deleted old, created new alarm: %s", alarm);
-            return;
-        }
-
-        // Otherwise insert it and handle it
         final String message = getMessageFromIntent(intent);
         final DaysOfWeek daysOfWeek = getDaysFromIntent(intent);
         final boolean vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, false);
@@ -134,6 +116,7 @@ public class HandleApiCalls extends Activity {
         }
         alarm.deleteAfterUse = !daysOfWeek.isRepeating() && skipUi;
 
+        final ContentResolver cr = getContentResolver();
         alarm = Alarm.addAlarm(cr, alarm);
         setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
         LogUtils.i("HandleApiCalls set up alarm: %s", alarm);
