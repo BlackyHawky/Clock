@@ -250,6 +250,12 @@ public class AlarmActivity extends AppCompatActivity
         final long instanceId = AlarmInstance.getId(getIntent().getData());
         mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
 
+        if (mAlarmInstance == null) {
+            LogUtils.i(LOGTAG, "No alarm instance for instanceId: %d", instanceId);
+            finish();
+            return;
+        }
+
         // Verify that the alarm is still firing before showing the activity
         if (mAlarmInstance.mAlarmState != AlarmInstance.FIRED_STATE) {
             LogUtils.i(LOGTAG, "Skip displaying alarm for instance: %s", mAlarmInstance);
