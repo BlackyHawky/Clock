@@ -172,8 +172,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Իմ ժամանակն է <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Շրջանի ժամանակը՝"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Շրջան <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
-    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 ժամ"</item>
     <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ժամ"</item>

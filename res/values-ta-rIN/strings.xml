@@ -66,7 +66,7 @@
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"இப்போதிலிருந்து 1 நிமிடத்திற்கும் குறைவான நேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="6002066367368421848">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
+    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g>-க்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="8182406852935468862">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="2532279224777213194">"இப்போதிலிருந்து <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="5936557894247187717">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
@@ -216,7 +216,7 @@
     <string name="home_label" msgid="4436139365695453870">"தாய்நாடு"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"நகரங்கள்"</string>
     <string name="clock_settings" msgid="8317286807280600391">"கடிகாரம்"</string>
-    <string name="clock_style" msgid="2265011060429742344">"நடை"</string>
+    <string name="clock_style" msgid="2265011060429742344">"வகை"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"அனலாக்"</item>
     <item msgid="8483930821046925592">"டிஜிட்டல்"</item>
