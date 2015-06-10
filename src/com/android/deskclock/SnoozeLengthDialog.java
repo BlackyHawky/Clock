@@ -2,7 +2,6 @@ package com.android.deskclock;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -91,9 +90,8 @@ public class SnoozeLengthDialog extends DialogPreference {
     }
 
     public void setSummary() {
-        setSummary(String.format(mContext.getResources()
-                .getQuantityText(R.plurals.snooze_duration, mSnoozeMinutes).toString(),
-                mSnoozeMinutes));
+        setSummary(mContext.getResources().getQuantityString(R.plurals.snooze_duration,
+                mSnoozeMinutes, mSnoozeMinutes));
     }
 
     public int getCurrentValue() {

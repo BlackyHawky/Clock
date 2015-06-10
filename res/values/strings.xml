@@ -239,7 +239,13 @@
     <string name="auto_silence_title">Silence after</string>
 
     <!-- Auto silence summary string set based on the preference value. -->
-    <string name="auto_silence_summary"><xliff:g id="minutes">%d</xliff:g> minutes</string>
+    <plurals name="auto_silence_summary">
+        <!-- Duration for one minute -->
+        <item quantity="one">1 minute</item>
+        <!-- Duration for more than one minute -->
+        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> minutes</item>
+    </plurals>
+
 
     <!-- Auto silence summary when turned off -->
     <string name="auto_silence_never">Never</string>
