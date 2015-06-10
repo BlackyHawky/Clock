@@ -171,7 +171,7 @@
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mi hora es <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Duración:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Duración <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Vuelta <xliff:g id="NUMBER">%d</xliff:g>"</string>
   <string-array name="sw_lap_number_set">
     <item msgid="2816627565030953899">"N.º <xliff:g id="NUMBER">%d</xliff:g>"</item>
     <item msgid="316923361931627987">"N.º <xliff:g id="NUMBER">%02d</xliff:g>"</item>

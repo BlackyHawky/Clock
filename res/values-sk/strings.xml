@@ -180,8 +180,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Môj čas je <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Intervalové časy:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. etapa"</string>
-    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
-    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"Č. <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"Č. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> hodiny</item>
       <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> hodiny</item>
@@ -341,9 +343,9 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dotykom zobrazíte časovače"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Ďalší časovač: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Nastavenia funkcie Sny"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Nastavenia šetriča"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nočný režim"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Veľmi stlmený jas displeja (pre tmavé miestnosti)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Stlmený jas (pre tmavé miestnosti)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Rozbaliť budík"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Zbaliť budík"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"späť"</string>
