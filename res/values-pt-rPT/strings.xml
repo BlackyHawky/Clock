@@ -85,7 +85,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Relógio analógico"</string>
     <string name="help" msgid="7786263119482654015">"ajuda"</string>
     <string name="settings" msgid="5849739030579520686">"Definições"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Duração do alarme"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Duração da suspensão"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
@@ -328,7 +328,7 @@
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores parados"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toque para ver os seus temporizadores"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Temporizador seguinte: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Temp. seguinte: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Definições de sonho"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo noturno"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Apresentação muito esbatida (para salas escuras)"</string>

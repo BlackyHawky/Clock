@@ -172,8 +172,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Mijn tijd is <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Rondetijden:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Ronde <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <!-- no translation found for sw_lap_number_set:0 (2816627565030953899) -->
-    <!-- no translation found for sw_lap_number_set:1 (316923361931627987) -->
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"Nr. <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"Nr. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> uur</item>
       <item quantity="one">1 uur</item>
