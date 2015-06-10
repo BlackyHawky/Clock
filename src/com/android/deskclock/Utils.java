@@ -65,6 +65,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 
@@ -597,13 +598,13 @@ public class Utils {
         }
         return cities;
     }
-
-    public static HashMap<String, CityObj> loadCityMapFromXml(Context c) {
+    // Returns a map of cities where the key is lowercase
+    public static Map<String, CityObj> loadCityMapFromXml(Context c) {
         CityObj[] cities = loadCitiesFromXml(c);
 
-        final HashMap<String, CityObj> map = new HashMap<>(cities.length);
-        for (int i = 0; i < cities.length; i++) {
-            map.put(cities[i].mCityName, cities[i]);
+        final Map<String, CityObj> map = new HashMap<>(cities.length);
+        for (CityObj city : cities) {
+            map.put(city.mCityName.toLowerCase(), city);
         }
         return map;
     }

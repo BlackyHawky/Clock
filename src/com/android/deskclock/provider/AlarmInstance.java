@@ -172,6 +172,27 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
+     * Get the next instance of an alarm given its alarmId
+     * @param contentResolver to perform query on
+     * @param alarmId of instance desired
+     * @return the next instance of an alarm by alarmId.
+     */
+    public static AlarmInstance getNextUpcomingInstanceByAlarmId(ContentResolver contentResolver,
+                                                                 long alarmId) {
+        final List<AlarmInstance> alarmInstances = getInstancesByAlarmId(contentResolver, alarmId);
+        if (alarmInstances.isEmpty()) {
+            return null;
+        }
+        AlarmInstance nextAlarmInstance = alarmInstances.get(0);
+        for (AlarmInstance instance : alarmInstances) {
+            if (instance.getAlarmTime().before(nextAlarmInstance.getAlarmTime())) {
+                nextAlarmInstance = instance;
+            }
+        }
+        return nextAlarmInstance;
+    }
+
+    /**
      * Get alarm instance by id and state.
      */
     public static List<AlarmInstance> getInstancesByInstanceIdAndState(
