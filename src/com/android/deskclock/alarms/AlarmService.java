@@ -220,7 +220,7 @@ public class AlarmService extends Service {
 
         final long instanceId = AlarmInstance.getId(intent.getData());
         switch (intent.getAction()) {
-            case START_ALARM_ACTION: {
+            case START_ALARM_ACTION:
                 final ContentResolver cr = this.getContentResolver();
                 final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
                 if (instance == null) {
@@ -237,8 +237,8 @@ public class AlarmService extends Service {
                     break;
                 }
                 startAlarm(instance);
-            }
-            case STOP_ALARM_ACTION: {
+                break;
+            case STOP_ALARM_ACTION:
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {
                     LogUtils.e("Can't stop alarm for instance: %d because current alarm is: %d",
                             instanceId, mCurrentAlarm.mId);
@@ -246,7 +246,6 @@ public class AlarmService extends Service {
                 }
                 stopCurrentAlarm();
                 stopSelf();
-            }
         }
 
         return Service.START_NOT_STICKY;
