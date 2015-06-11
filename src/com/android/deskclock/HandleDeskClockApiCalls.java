@@ -29,15 +29,16 @@ import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFullScreenFragment;
 import com.android.deskclock.timer.TimerObj;
-import com.android.deskclock.timer.Timers;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CitiesActivity;
 import com.android.deskclock.worldclock.CityObj;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class HandleDeskClockApiCalls extends Activity {
     private Context mAppContext;
@@ -177,25 +178,6 @@ public class HandleDeskClockApiCalls extends Activity {
         final Intent timerIntent = new Intent(mAppContext, DeskClock.class)
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
                 .putExtra(TimerFullScreenFragment.GOTO_SETUP_VIEW, false);
-        switch (action) {
-            case ACTION_DELETE_TIMER:
-                timerIntent.setAction(Timers.DELETE_TIMER);
-                break;
-            case ACTION_START_TIMER:
-                timerIntent.setAction(Timers.START_TIMER);
-                break;
-            case ACTION_RESET_TIMER:
-                timerIntent.setAction(Timers.RESET_TIMER);
-                break;
-            case ACTION_STOP_TIMER:
-                timerIntent.setAction(Timers.STOP_TIMER);
-                break;
-            case ACTION_SHOW_TIMERS:
-                // no action necessary
-                break;
-            default:
-                return;
-        }
         startActivity(timerIntent);
         LogUtils.i("HandleDeskClockApiCalls " + action);
 
@@ -225,6 +207,10 @@ public class HandleDeskClockApiCalls extends Activity {
             mContext = context;
             mAction = action;
         }
+        // STOP_TIMER and START_TIMER should only be triggered if there is one timer that is
+        // not stopped or not started respectively. This method checks all timers to find only
+        // one that corresponds to that.
+        // Only change the mode of the timer if no disambiguation is necessary
 
         @Override
         protected Void doInBackground(Void... parameters) {
@@ -235,55 +221,106 @@ public class HandleDeskClockApiCalls extends Activity {
                 LogUtils.i("There are no timers");
                 return null;
             }
-            // Delete the most recently created timer, the one that
-            // shows up first on the Timers tab
-            final TimerObj timer = timers.get(timers.size() - 1);
-
             switch (mAction) {
-                case ACTION_DELETE_TIMER:
+                case ACTION_DELETE_TIMER: {
+                    // Delete a timer only if there's one available
+                    if (timers.size() != 1) {
+                        return null;
+                    }
+                    final TimerObj timer = timers.get(0);
                     timer.deleteFromSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_delete, R.string.label_intent);
                     LogUtils.i("Timer was successfully deleted");
                     break;
-                case ACTION_START_TIMER:
-                    // adjust mStartTime to reflect that starting time changed,
-                    // ACTION_START_TIMER considers that a part of
-                    // the timer's length might have elapsed
-                    if (timer.mState == TimerObj.STATE_RUNNING) {
-                        LogUtils.i("Timer is already running");
+                }
+                case ACTION_START_TIMER: {
+                    final TimerObj timer = getTimerWithStateToIgnore(timers, TimerObj.STATE_RUNNING);
+                    // Only start a timer if there's one non-running timer available
+                    if (timer == null) {
                         return null;
                     }
                     timer.setState(TimerObj.STATE_RUNNING);
-                    timer.mStartTime = Utils.getTimeNow() -
-                            (timer.mSetupLength - timer.mTimeLeft);
+                    timer.mStartTime = Utils.getTimeNow() - (timer.mSetupLength - timer.mTimeLeft);
                     timer.writeToSharedPref(prefs);
-                    LogUtils.i("Timer was successfully started");
                     Events.sendTimerEvent(R.string.action_start, R.string.label_intent);
                     break;
-                case ACTION_RESET_TIMER:
-                    // timer can be reset only if it's stopped
-                    if (timer.mState == TimerObj.STATE_STOPPED) {
-                        timer.mTimeLeft = timer.mOriginalLength;
-                        timer.writeToSharedPref(prefs);
-                        LogUtils.i("Timer was successfully reset");
-                        Events.sendTimerEvent(R.string.action_reset, R.string.label_intent);
-                    } else {
-                        LogUtils.i("Timer can't be reset because it isn't stopped");
+                }
+                case ACTION_RESET_TIMER: {
+                    // Since timer can be reset only if it's stopped
+                    // it's only triggered when there's only one stopped timer
+                    final Set<Integer> statesToInclude = new HashSet<>();
+                    statesToInclude.add(TimerObj.STATE_STOPPED);
+                    final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude);
+                    if (timer == null) {
                         return null;
                     }
+                    timer.setState(TimerObj.STATE_RESTART);
+                    timer.mTimeLeft = timer.mOriginalLength;
+                    timer.writeToSharedPref(prefs);
+                    Events.sendTimerEvent(R.string.action_reset, R.string.label_intent);
                     break;
-                case ACTION_STOP_TIMER:
-                    if (timer.mState == TimerObj.STATE_STOPPED) {
-                        LogUtils.i("Timer is already stopped");
+                }
+                case ACTION_STOP_TIMER: {
+                    final Set<Integer> statesToInclude = new HashSet<>();
+                    statesToInclude.add(TimerObj.STATE_TIMESUP);
+                    statesToInclude.add(TimerObj.STATE_RUNNING);
+                    // Timer is stopped if there's only one running timer
+                    final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude);
+                    if (timer == null) {
                         return null;
                     }
-                    LogUtils.i("Timer was successfully stopped");
                     timer.setState(TimerObj.STATE_STOPPED);
                     timer.writeToSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_stop, R.string.label_intent);
                     break;
+                }
             }
             return null;
+        }
+
+        /**
+         * @param timers available to the user
+         * @param stateToIgnore the opposite of the state that the timer should be in
+         * @return a timer only if there's one timer available that is of a state
+         * other than the state that's passed
+         * in all other cases returns null
+         */
+        private TimerObj getTimerWithStateToIgnore(List<TimerObj> timers, int stateToIgnore) {
+            TimerObj soleTimer = null;
+            for (TimerObj timer : timers) {
+                if (timer.mState != stateToIgnore) {
+                    if (soleTimer == null) {
+                        soleTimer = timer;
+                    } else {
+                        // soleTimer has already been set
+                        return null;
+                    }
+                }
+            }
+            return soleTimer;
+        }
+
+        /**
+         * @param timers available to the user
+         * @param statesToInclude acceptable states of the timer
+         * @return a timer only if there's one timer available that is of the state
+         * that is passed in
+         * in all other cases returns null
+         */
+        private TimerObj getTimerWithStatesToInclude(
+                List<TimerObj> timers, Set<Integer> statesToInclude) {
+            TimerObj soleTimer = null;
+            for (TimerObj timer : timers) {
+                if (statesToInclude.contains(timer.mState)) {
+                    if (soleTimer == null) {
+                        soleTimer = timer;
+                    } else {
+                        // soleTimer has already been set
+                        return null;
+                    }
+                }
+            }
+            return soleTimer;
         }
     }
 
