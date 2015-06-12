@@ -52,11 +52,9 @@
             android:title="@string/snooze_duration_title"
             android:defaultValue="10"/>
 
-        <VolumePreference
+        <Preference
             android:key="volume_setting"
-            android:title="@string/alarm_volume_title"
-            android:dialogTitle="@string/alarm_volume_title"
-            android:streamType="alarm" />
+            android:title="@string/alarm_volume_title" />
 
         <ListPreference
             android:key="volume_button_setting"
