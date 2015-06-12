@@ -59,6 +59,7 @@ import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.Timers;
 import com.android.deskclock.worldclock.CityObj;
 
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -700,5 +701,16 @@ public class Utils {
 
         // Track the Locale used to generate these weekdays
         sLocaleUsedForWeekdays = Locale.getDefault();
+    }
+
+    /**
+     * @param context
+     * @param id Resource id of the plural
+     * @param quantity integer value
+     * @return string with properly localized numbers
+     */
+    public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
+        final String localizedQuantity = NumberFormat.getInstance().format(quantity);
+        return context.getResources().getQuantityString(id, quantity, localizedQuantity);
     }
 }

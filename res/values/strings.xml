@@ -176,23 +176,29 @@
         <item>Alarm set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g>, <xliff:g id="HOURS" example="2 hours">%2$s</xliff:g>, and <xliff:g id="MINUTES" example="2 minutes">%3$s</xliff:g> from now.</item>
     </string-array>
 
-    <!-- Alarm confirmation toast: singular day -->
-    <string name="day">"1 day"</string>
+    <!-- Alarm confirmation toast: days -->
+    <plurals name="days">
+        <!-- Duration for one day -->
+        <item quantity="one">1 day</item>
+        <!-- Duration for more than one day -->
+        <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> days</item>
+    </plurals>
 
-    <!-- Alarm confirmation toast: plural days -->
-    <string name="days">"<xliff:g id="days">%s</xliff:g> days"</string>
+    <!-- Alarm confirmation toast and timer notification: hours -->
+    <plurals name="hours">
+        <!-- Duration for one hour -->
+        <item quantity="one">1 hour</item>
+        <!-- Duration for more than one hour -->
+        <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> hours</item>
+    </plurals>
 
-    <!-- Alarm confirmation toast: singular hour -->
-    <string name="hour">1 hour</string>
-
-    <!-- Alarm confirmation toast: plural hours -->
-    <string name="hours"><xliff:g id="hours">%s</xliff:g> hours</string>
-
-    <!-- Alarm confirmation toast: singular minute  -->
-    <string name="minute">"1 minute"</string>
-
-    <!-- Alarm confirmation toast: plural minutes  -->
-    <string name="minutes">"<xliff:g id="minutes">%s</xliff:g> minutes"</string>
+    <!-- Alarm confirmation toast and timer notification: minutes -->
+    <plurals name="minutes">
+        <!-- Duration for one minute -->
+        <item quantity="one">1 minute</item>
+        <!-- Duration for more than one minute -->
+        <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> minutes</item>
+    </plurals>
 
     <!-- Repeat options that appear under an alarm on main Alarm Clock
          screen to identify repetition schedule: special case for when
@@ -225,7 +231,7 @@
         <!-- Duration for one minute -->
         <item quantity="one">1 minute</item>
         <!-- Duration for more than one minute -->
-        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> minutes</item>
+        <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> minutes</item>
     </plurals>
 
     <plurals name="snooze_picker_label">
@@ -243,7 +249,7 @@
         <!-- Duration for one minute -->
         <item quantity="one">1 minute</item>
         <!-- Duration for more than one minute -->
-        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> minutes</item>
+        <item quantity="other"><xliff:g id="formatted_number" example="7">%s</xliff:g> minutes</item>
     </plurals>
 
 

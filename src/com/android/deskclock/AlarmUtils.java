@@ -116,27 +116,20 @@ public class AlarmUtils {
     }
 
     /**
-     * format "Alarm set for 2 days 7 hours and 53 minutes from
-     * now"
+     * format "Alarm set for 2 days 7 hours and 53 minutes from now"
      */
     private static String formatToast(Context context, long timeInMillis) {
-        long delta = timeInMillis - System.currentTimeMillis();
-        long hours = delta / (1000 * 60 * 60);
-        long minutes = delta / (1000 * 60) % 60;
-        long days = hours / 24;
+        final long delta = timeInMillis - System.currentTimeMillis();
+        int hours = (int) delta / (1000 * 60 * 60);
+        final int minutes = (int) delta / (1000 * 60) % 60;
+        final int days = hours / 24;
         hours = hours % 24;
 
-        String daySeq = (days == 0) ? "" :
-                (days == 1) ? context.getString(R.string.day) :
-                        context.getString(R.string.days, Long.toString(days));
+        String daySeq = Utils.getNumberFormattedQuantityString(context, R.plurals.days, days);
 
-        String minSeq = (minutes == 0) ? "" :
-                (minutes == 1) ? context.getString(R.string.minute) :
-                        context.getString(R.string.minutes, Long.toString(minutes));
+        String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, minutes);
 
-        String hourSeq = (hours == 0) ? "" :
-                (hours == 1) ? context.getString(R.string.hour) :
-                        context.getString(R.string.hours, Long.toString(hours));
+        String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hours);
 
         boolean dispDays = days > 0;
         boolean dispHour = hours > 0;

@@ -90,8 +90,8 @@ public class SnoozeLengthDialog extends DialogPreference {
     }
 
     public void setSummary() {
-        setSummary(mContext.getResources().getQuantityString(R.plurals.snooze_duration,
-                mSnoozeMinutes, mSnoozeMinutes));
+        setSummary(Utils.getNumberFormattedQuantityString(mContext, R.plurals.snooze_duration,
+                        mSnoozeMinutes));
     }
 
     public int getCurrentValue() {
