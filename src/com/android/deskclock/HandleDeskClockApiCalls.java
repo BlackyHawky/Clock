@@ -146,23 +146,23 @@ public class HandleDeskClockApiCalls extends Activity {
         // Events setup
         switch (action) {
             case ACTION_START_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_start, R.string.label_voice);
+                Events.sendStopwatchEvent(R.string.action_start, R.string.label_intent);
                 LogUtils.i("Stopwatch was started.");
                 break;
             case ACTION_STOP_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_stop, R.string.label_voice);
+                Events.sendStopwatchEvent(R.string.action_stop, R.string.label_intent);
                 LogUtils.i("Stopwatch was stopped.");
                 break;
             case ACTION_LAP_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_lap, R.string.label_voice);
+                Events.sendStopwatchEvent(R.string.action_lap, R.string.label_intent);
                 LogUtils.i("Stopwatch was lapped.");
                 break;
             case ACTION_SHOW_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_show, R.string.label_voice);
+                Events.sendStopwatchEvent(R.string.action_show, R.string.label_intent);
                 LogUtils.i("Stopwatch tab was shown.");
                 break;
             case ACTION_RESET_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_reset, R.string.label_voice);
+                Events.sendStopwatchEvent(R.string.action_reset, R.string.label_intent);
                 LogUtils.i("Stopwatch was reset.");
                 break;
             default:
@@ -200,7 +200,7 @@ public class HandleDeskClockApiCalls extends Activity {
         LogUtils.i("HandleDeskClockApiCalls " + action);
 
         if (ACTION_SHOW_TIMERS.equals(action)) {
-            Events.sendTimerEvent(R.string.action_show, R.string.label_voice);
+            Events.sendTimerEvent(R.string.action_show, R.string.label_intent);
             return;
         }
         new HandleTimersAsync(mAppContext, action).execute();
@@ -242,7 +242,7 @@ public class HandleDeskClockApiCalls extends Activity {
             switch (mAction) {
                 case ACTION_DELETE_TIMER:
                     timer.deleteFromSharedPref(prefs);
-                    Events.sendTimerEvent(R.string.action_delete, R.string.label_voice);
+                    Events.sendTimerEvent(R.string.action_delete, R.string.label_intent);
                     LogUtils.i("Timer was successfully deleted");
                     break;
                 case ACTION_START_TIMER:
@@ -258,7 +258,7 @@ public class HandleDeskClockApiCalls extends Activity {
                             (timer.mSetupLength - timer.mTimeLeft);
                     timer.writeToSharedPref(prefs);
                     LogUtils.i("Timer was successfully started");
-                    Events.sendTimerEvent(R.string.action_start, R.string.label_voice);
+                    Events.sendTimerEvent(R.string.action_start, R.string.label_intent);
                     break;
                 case ACTION_RESET_TIMER:
                     // timer can be reset only if it's stopped
@@ -266,7 +266,7 @@ public class HandleDeskClockApiCalls extends Activity {
                         timer.mTimeLeft = timer.mOriginalLength;
                         timer.writeToSharedPref(prefs);
                         LogUtils.i("Timer was successfully reset");
-                        Events.sendTimerEvent(R.string.action_reset, R.string.label_voice);
+                        Events.sendTimerEvent(R.string.action_reset, R.string.label_intent);
                     } else {
                         LogUtils.i("Timer can't be reset because it isn't stopped");
                         return null;
@@ -280,7 +280,7 @@ public class HandleDeskClockApiCalls extends Activity {
                     LogUtils.i("Timer was successfully stopped");
                     timer.setState(TimerObj.STATE_STOPPED);
                     timer.writeToSharedPref(prefs);
-                    Events.sendTimerEvent(R.string.action_stop, R.string.label_voice);
+                    Events.sendTimerEvent(R.string.action_stop, R.string.label_intent);
                     break;
             }
             return null;
@@ -307,7 +307,7 @@ public class HandleDeskClockApiCalls extends Activity {
                     if (cityExtra == null) {
                         LogUtils.i("No city specified");
                         mContext.startActivity(new Intent(mContext, CitiesActivity.class));
-                        Events.sendClockEvent(R.string.action_create, R.string.label_voice);
+                        Events.sendClockEvent(R.string.action_create, R.string.label_intent);
                         break;
                     }
 
@@ -330,7 +330,7 @@ public class HandleDeskClockApiCalls extends Activity {
 
                     Cities.saveCitiesToSharedPrefs(prefs, selectedCities);
                     LogUtils.i("%s was successfully added", city.mCityName);
-                    Events.sendClockEvent(R.string.action_start, R.string.label_voice);
+                    Events.sendClockEvent(R.string.action_start, R.string.label_intent);
                     break;
                 }
                 case ACTION_DELETE_CLOCK: {
@@ -338,7 +338,7 @@ public class HandleDeskClockApiCalls extends Activity {
                         // if a city isn't specified open CitiesActivity to choose a city
                         LogUtils.i("No city specified");
                         mContext.startActivity(new Intent(mContext, CitiesActivity.class));
-                        Events.sendClockEvent(R.string.action_create, R.string.label_voice);
+                        Events.sendClockEvent(R.string.action_create, R.string.label_intent);
                         break;
                     }
 
@@ -356,12 +356,12 @@ public class HandleDeskClockApiCalls extends Activity {
                     if (selectedCities.remove(city.mCityId) != null) {
                         Cities.saveCitiesToSharedPrefs(prefs, selectedCities);
                         LogUtils.i("%s was successfully deleted", city.mCityName);
-                        Events.sendClockEvent(R.string.action_delete, R.string.label_voice);
+                        Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
                     }
                     break;
                 }
                 case ACTION_SHOW_CLOCK:
-                    Events.sendClockEvent(R.string.action_show, R.string.label_voice);
+                    Events.sendClockEvent(R.string.action_show, R.string.label_intent);
                     break;
             }
             return null;

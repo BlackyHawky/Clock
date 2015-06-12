@@ -109,7 +109,7 @@ public class HandleApiCalls extends Activity {
         if (Utils.isAlarmWithin24Hours(alarmInstance)) {
             AlarmStateManager.setPreDismissState(context, alarmInstance);
             LogUtils.i("Dismiss %d:%d",alarm.hour, alarm.minutes);
-            Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_voice);
+            Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
         } else {
             LogUtils.i("%s wasn't dismissed, still more than 24 hours away.", alarm);
         }
