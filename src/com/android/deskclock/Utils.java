@@ -54,6 +54,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.Timers;
@@ -488,6 +489,14 @@ public class Utils {
             }
         }
         return timeString;
+    }
+
+    public static boolean isAlarmWithinTwoHours(AlarmInstance alarmInstance) {
+        final Calendar nextAlarmTime = alarmInstance.getAlarmTime();
+        final long nextAlarmTimeMillis = nextAlarmTime.getTimeInMillis();
+        final long twoHours = -AlarmInstance.LOW_NOTIFICATION_HOUR_OFFSET *
+                DateUtils.HOUR_IN_MILLIS;
+        return nextAlarmTimeMillis - System.currentTimeMillis() <= twoHours;
     }
 
     /** Clock views can call this to refresh their alarm to the next upcoming value. **/

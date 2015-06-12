@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock.voice;
+package com.android.deskclock;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.os.Looper;
 import android.provider.AlarmClock;
 
-import com.android.deskclock.LogUtils;
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -33,7 +32,7 @@ import java.util.List;
 
 /**
  * Returns a list of alarms that are specified by the intent
- * processed by HandleVoiceApiCalls
+ * processed by HandleDeskClockApiCalls
  * if there are more than 1 matching alarms and the SEARCH_MODE is not ALL
  * we show a picker UI dialog
  */
