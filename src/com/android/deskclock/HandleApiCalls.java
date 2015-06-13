@@ -73,6 +73,8 @@ public class HandleApiCalls extends Activity {
                 case AlarmClock.ACTION_DISMISS_ALARM:
                     handleDismissAlarm(intent.getAction());
                     break;
+                case AlarmClock.ACTION_SNOOZE_ALARM:
+                    handleSnoozeAlarm();
             }
         } finally {
             finish();
@@ -127,7 +129,7 @@ public class HandleApiCalls extends Activity {
 
         @Override
         protected Void doInBackground(Void... parameters) {
-            final List<Alarm> alarms = getEnabledAlarms();
+            final List<Alarm> alarms = getEnabledAlarms(mContext);
             if (alarms.isEmpty()) {
                 LogUtils.i("No alarms are scheduled.");
                 return null;
@@ -173,12 +175,52 @@ public class HandleApiCalls extends Activity {
             return null;
         }
 
-        private List<Alarm> getEnabledAlarms() {
-            // since we want to dismiss we should only add enabled alarms
+        private static List<Alarm> getEnabledAlarms(Context context) {
             final String selection = String.format("%s=?", Alarm.ENABLED);
             final String[] args = { "1" };
-            return Alarm.getAlarms(mContext.getContentResolver(), selection, args);
+            return Alarm.getAlarms(context.getContentResolver(), selection, args);
         }
+    }
+
+    private void handleSnoozeAlarm() {
+        new SnoozeAlarmAsync(mAppContext).execute();
+    }
+
+    private static class SnoozeAlarmAsync extends AsyncTask<Void, Void, Void> {
+
+        private final Context mContext;
+
+        public SnoozeAlarmAsync(Context context) {
+            mContext = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... parameters) {
+            final List<AlarmInstance> alarmInstances = AlarmInstance.getInstancesByState(
+                    mContext.getContentResolver(), AlarmInstance.FIRED_STATE);
+            if (alarmInstances.isEmpty()) {
+                LogUtils.i("No alarms are firing.");
+                return null;
+            }
+
+            for (AlarmInstance firingAlarmInstance : alarmInstances) {
+                snoozeAlarm(firingAlarmInstance, mContext);
+                LogUtils.i("Alarm %s is snoozed", firingAlarmInstance);
+            }
+            return null;
+        }
+    }
+
+    static void snoozeAlarm(AlarmInstance alarmInstance, Context context) {
+        // only allow on background thread
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            throw new IllegalStateException("snoozeAlarm must be called on a " +
+                    "background thread");
+        }
+
+        AlarmStateManager.setSnoozeState(context, alarmInstance, true);
+        LogUtils.i("Snooze %d:%d", alarmInstance.mHour, alarmInstance.mMinute);
+        Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
     }
 
     /***
