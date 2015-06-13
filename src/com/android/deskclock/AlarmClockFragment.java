@@ -765,7 +765,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             } else {
                 itemHolder.tomorrowLabel.setVisibility(View.VISIBLE);
                 final Resources resources = getResources();
-                final String labelText = isTomorrow(alarm) ?
+                final String labelText = Alarm.isTomorrow(alarm) ?
                         resources.getString(R.string.alarm_tomorrow) :
                         resources.getString(R.string.alarm_today);
                 itemHolder.tomorrowLabel.setText(labelText);
@@ -875,14 +875,6 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             final int green = Color.green(c) + (int) (TINTED_LEVEL * (255 - Color.green(c)));
             final int blue = Color.blue(c) + (int) (TINTED_LEVEL * (255 - Color.blue(c)));
             return Color.rgb(red, green, blue);
-        }
-
-        private boolean isTomorrow(Alarm alarm) {
-            final Calendar now = Calendar.getInstance();
-            final int alarmHour = alarm.hour;
-            final int currHour = now.get(Calendar.HOUR_OF_DAY);
-            return alarmHour < currHour ||
-                        (alarmHour == currHour && alarm.minutes <= now.get(Calendar.MINUTE));
         }
 
         private void bindExpandArea(final ItemHolder itemHolder, final Alarm alarm) {
