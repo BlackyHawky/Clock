@@ -491,12 +491,10 @@ public class Utils {
         return timeString;
     }
 
-    public static boolean isAlarmWithinTwoHours(AlarmInstance alarmInstance) {
+    public static boolean isAlarmWithin24Hours(AlarmInstance alarmInstance) {
         final Calendar nextAlarmTime = alarmInstance.getAlarmTime();
         final long nextAlarmTimeMillis = nextAlarmTime.getTimeInMillis();
-        final long twoHours = -AlarmInstance.LOW_NOTIFICATION_HOUR_OFFSET *
-                DateUtils.HOUR_IN_MILLIS;
-        return nextAlarmTimeMillis - System.currentTimeMillis() <= twoHours;
+        return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
     /** Clock views can call this to refresh their alarm to the next upcoming value. **/
