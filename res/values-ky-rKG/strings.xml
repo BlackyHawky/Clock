@@ -95,7 +95,10 @@
     <item quantity="other" msgid="1304056759541595077">"мүнөт"</item>
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Төмөнкүдөн кийин үнүн басып коюу"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> мүнөт"</string>
+  <plurals name="auto_silence_summary">
+    <item quantity="one" msgid="9154751931006678420">"1 мүнөт"</item>
+    <item quantity="other" msgid="7874713752283844687">"<xliff:g id="NUMBER">%d</xliff:g> мүнөт"</item>
+  </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Эч качан"</string>
     <!-- no translation found for auto_silence_entries:1 (5431906692406316549) -->
     <!-- no translation found for auto_silence_entries:2 (7742728812068919959) -->
@@ -351,4 +354,5 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"к:мм"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, с:мм"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, к:мм"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Ойготкучту этибарга албоо"</string>
 </resources>

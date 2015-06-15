@@ -95,7 +95,10 @@
     <item quantity="other" msgid="1304056759541595077">"ደቂቃዎች"</item>
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"ጸጥታ ከዚህ በኋላ፦"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> ደቂቃዎች"</string>
+  <plurals name="auto_silence_summary">
+    <item quantity="one" msgid="9154751931006678420">"1 ደቂቃ"</item>
+    <item quantity="other" msgid="7874713752283844687">"<xliff:g id="NUMBER">%d</xliff:g> ደቂቃዎች"</item>
+  </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"በጭራሽ"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 ደቂቃ"</item>
@@ -355,4 +358,5 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"ሰ:ደደ"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE፣ ሰ:ደደ a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE፣ k:mm"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"ማንቂያ ሰርዝ"</string>
 </resources>

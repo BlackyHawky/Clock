@@ -95,7 +95,8 @@
     <item quantity="other" msgid="1304056759541595077">"minutos"</item>
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar automáticamente"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
+    <!-- no translation found for auto_silence_summary:one (9154751931006678420) -->
+    <!-- no translation found for auto_silence_summary:other (7874713752283844687) -->
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minuto"</item>
@@ -329,7 +330,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca para ver tus temporizadores."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo temporizador: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Configuración del protector de pantalla"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Configuración"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo nocturno"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para ambientes poco iluminados)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarma"</string>
@@ -355,4 +356,6 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <!-- no translation found for dismiss_alarm (7204593078688533541) -->
+    <skip />
 </resources>

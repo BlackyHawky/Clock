@@ -95,7 +95,8 @@
     <item quantity="other" msgid="1304056759541595077">"dakika"</item>
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Şu süreden sonra sessiz:"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> dakika"</string>
+    <!-- no translation found for auto_silence_summary:one (9154751931006678420) -->
+    <!-- no translation found for auto_silence_summary:other (7874713752283844687) -->
     <string name="auto_silence_never" msgid="4821982647348750809">"Hiçbir zaman"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 dakika"</item>
@@ -188,7 +189,7 @@
     <item quantity="one" msgid="6589853086641485725">"1 saniye"</item>
     <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> saniye"</item>
   </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Kronometre Ekle"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Zamanlayıcı Ekle"</string>
     <string name="timer_start" msgid="6158486445614356442">"Başlat"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Sil"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> rakamını sil"</string>
@@ -355,4 +356,6 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <!-- no translation found for dismiss_alarm (7204593078688533541) -->
+    <skip />
 </resources>

@@ -95,7 +95,10 @@
     <item quantity="other" msgid="1304056759541595077">"минуттар"</item>
   </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Дыбысын автоматты өшіру"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> минут"</string>
+  <plurals name="auto_silence_summary">
+    <item quantity="one" msgid="9154751931006678420">"1 минут"</item>
+    <item quantity="other" msgid="7874713752283844687">"<xliff:g id="NUMBER">%d</xliff:g> минут"</item>
+  </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ешқашан"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 минут"</item>
@@ -173,8 +176,8 @@
     <string name="sw_share_laps" msgid="614390674795945007">"Аралық уақыттары:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>-айналым"</string>
   <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+    <item msgid="2816627565030953899">"№ <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"№ <xliff:g id="NUMBER">%02d</xliff:g>"</item>
   </string-array>
   <plurals name="Nhours_description">
     <item quantity="one" msgid="371227238759147245">"1 сағат"</item>
@@ -234,7 +237,7 @@
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Маршалл аралдары"</item>
     <item msgid="4196408495909011020">"Мидуэй аралы"</item>
-    <item msgid="1414384194857730006">"Hawaii"</item>
+    <item msgid="1414384194857730006">"Гавайи"</item>
     <item msgid="2687091371581931926">"Аляска"</item>
     <item msgid="1922100269679049660">"Тынық мұхит уақыты"</item>
     <item msgid="7156402158716866161">"Тихуана"</item>
@@ -355,4 +358,5 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"к:мм"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, сағ: мм а"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, к: мм"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Дабылды қабылдамау"</string>
 </resources>
