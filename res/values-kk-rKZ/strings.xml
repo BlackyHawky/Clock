@@ -173,8 +173,8 @@
     <string name="sw_share_laps" msgid="614390674795945007">"Аралық уақыттары:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>-айналым"</string>
   <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+    <item msgid="2816627565030953899">"№ <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"№ <xliff:g id="NUMBER">%02d</xliff:g>"</item>
   </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> сағат</item>
@@ -234,7 +234,7 @@
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Маршалл аралдары"</item>
     <item msgid="4196408495909011020">"Мидуэй аралы"</item>
-    <item msgid="1414384194857730006">"Hawaii"</item>
+    <item msgid="1414384194857730006">"Гавайи"</item>
     <item msgid="2687091371581931926">"Аляска"</item>
     <item msgid="1922100269679049660">"Тынық мұхит уақыты"</item>
     <item msgid="7156402158716866161">"Тихуана"</item>
