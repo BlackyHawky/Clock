@@ -188,7 +188,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> saniye</item>
       <item quantity="one">1 saniye</item>
     </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Kronometre Ekle"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Zamanlayıcı Ekle"</string>
     <string name="timer_start" msgid="6158486445614356442">"Başlat"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Sil"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> rakamını sil"</string>
