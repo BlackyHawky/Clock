@@ -44,16 +44,16 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"부재중 알람"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"일시 중지됨"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"1분"</item>
-    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g>분"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>분</item>
+      <item quantity="one">1분</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"알람 끄기"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"다시 울림"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"1분 동안 알림 일시 중지"</item>
-    <item quantity="other" msgid="7377899473014259727">"<xliff:g id="MINUTES">%d</xliff:g>분 동안 알람 일시 중지"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g>분 동안 알림 일시 중지</item>
+      <item quantity="one">1분 동안 알림 일시 중지</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g>까지 일시 중지"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"예정된 알람"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"부재중 알람이 삭제되었습니다."</string>
@@ -86,14 +86,14 @@
     <string name="help" msgid="7786263119482654015">"도움말"</string>
     <string name="settings" msgid="5849739030579520686">"설정"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"알람 일시중지 간격"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"1분"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g>분"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"분"</item>
-    <item quantity="other" msgid="1304056759541595077">"분"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>분</item>
+      <item quantity="one">1분</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="other">분</item>
+      <item quantity="one">분</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"알람 해제 시간"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g>분"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"사용 안함"</string>
@@ -160,7 +160,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"시작"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"중지"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"랩 타임"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"재설정"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"초기화"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"공유"</string>
     <string name="hours_label" msgid="3393478155635368097">"시"</string>
     <string name="minutes_label" msgid="3568098128251438588">"분"</string>
@@ -172,18 +172,18 @@
     <string name="sw_share_main" msgid="7703563468204234405">"내 시간: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"랩 타임:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"랩 타임 <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"1시간"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g>시간"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"1분"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g>분"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"1초"</item>
-    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g>초"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>시간</item>
+      <item quantity="one">1시간</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>분</item>
+      <item quantity="one">1분</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>초</item>
+      <item quantity="one">1초</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"타이머 추가"</string>
     <string name="timer_start" msgid="6158486445614356442">"시작"</string>
     <string name="timer_delete" msgid="8699122001991909302">"삭제"</string>
@@ -192,7 +192,7 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1분 추가"</string>
     <string name="timer_stop" msgid="3361154678667736722">"중지"</string>
     <string name="timer_done" msgid="2375990511982914051">"완료"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"재설정"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"초기화"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"취소"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"시간이 다 되었습니다."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"타이머"</string>
@@ -338,10 +338,10 @@
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g>개 선택됨"</string>
     <string name="deleted_message" msgid="1220848140260509437">"삭제됨"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"선택한 알람을 삭제하시겠습니까?"</item>
-    <item quantity="other" msgid="6918176478191272189">"선택한 알람을 삭제하시겠습니까?"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="other">선택한 알람을 삭제하시겠습니까?</item>
+      <item quantity="one">선택한 알람을 삭제하시겠습니까?</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"이 타이머를 삭제하시겠습니까?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"이 도시를 삭제하시겠습니까?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"디지털 시계"</string>

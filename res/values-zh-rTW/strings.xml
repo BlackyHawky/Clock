@@ -44,16 +44,16 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"已錯過鬧鐘"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"已延後"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"1 分鐘"</item>
-    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> 分鐘"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 分鐘</item>
+      <item quantity="one">1 分鐘</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"關閉鬧鐘"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"貪睡"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"延後 1 分鐘。"</item>
-    <item quantity="other" msgid="7377899473014259727">"延後 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="other">延後 <xliff:g id="MINUTES">%d</xliff:g> 分鐘。</item>
+      <item quantity="one">延後 1 分鐘。</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"延後到 <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"預定的鬧鐘"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"您錯過的鬧鐘已刪除"</string>
@@ -86,17 +86,17 @@
     <string name="help" msgid="7786263119482654015">"說明"</string>
     <string name="settings" msgid="5849739030579520686">"設定"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"延後時間長度"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"1 分鐘"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> 分鐘"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"分鐘"</item>
-    <item quantity="other" msgid="1304056759541595077">"分鐘"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 分鐘</item>
+      <item quantity="one">1 分鐘</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="other">分鐘</item>
+      <item quantity="one">分鐘</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"鬧鐘鈴響持續時間："</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> 分鐘"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"永遠不要"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"無限期"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 分鐘"</item>
     <item msgid="5431906692406316549">"5 分鐘"</item>
@@ -104,7 +104,7 @@
     <item msgid="2855948657259647629">"15 分鐘"</item>
     <item msgid="6330196381284475079">"20 分鐘"</item>
     <item msgid="7809240121716151904">"25 分鐘"</item>
-    <item msgid="4278641338024561333">"永遠不要"</item>
+    <item msgid="4278641338024561333">"無限期"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"一週的第一天"</string>
   <string-array name="week_start_entries">
@@ -123,7 +123,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按鈕"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"按鈕功用"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"延後"</item>
+    <item msgid="7972756698723318690">"暫停"</item>
     <item msgid="3450979320164769576">"關閉"</item>
     <item msgid="6302517608411378024">"不執行任何動作"</item>
   </string-array>
@@ -172,18 +172,18 @@
     <string name="sw_share_main" msgid="7703563468204234405">"我的時間：<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"單圈時間："</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"第 <xliff:g id="NUMBER">%d</xliff:g> 圈"</string>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"1 小時"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> 小時"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"1 分鐘"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> 分鐘"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"秒"</item>
-    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> 秒"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 小時</item>
+      <item quantity="one">1 小時</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 分鐘</item>
+      <item quantity="one">1 分鐘</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> 秒</item>
+      <item quantity="one">1 秒</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"新增計時器"</string>
     <string name="timer_start" msgid="6158486445614356442">"開始"</string>
     <string name="timer_delete" msgid="8699122001991909302">"刪除"</string>
@@ -218,7 +218,7 @@
     <item msgid="8483930821046925592">"數位"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"自動增加居住地時鐘"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"旅遊至不同時區的地區時新增居住地時鐘"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"在其他時區旅行時顯示居住地時鐘"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"居住地時區"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"居住地時區"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"取消"</string>
@@ -236,11 +236,11 @@
     <item msgid="7156402158716866161">"蒂華納"</item>
     <item msgid="1144117502254612241">"亞利桑那"</item>
     <item msgid="101284182011722637">"赤瓦瓦"</item>
-    <item msgid="689121094232986897">"山岳標準時間"</item>
+    <item msgid="689121094232986897">"山區時間"</item>
     <item msgid="5445331923942302756">"中美洲"</item>
     <item msgid="2749806434052452351">"中部時間"</item>
     <item msgid="3997138870229703753">"墨西哥城"</item>
-    <item msgid="5425567073027744888">"薩克斯其萬省"</item>
+    <item msgid="5425567073027744888">"薩克其萬"</item>
     <item msgid="2877342865396629368">"波哥大"</item>
     <item msgid="568682398893899670">"東部時間"</item>
     <item msgid="668135984541863866">"委內瑞拉"</item>
@@ -338,10 +338,10 @@
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"已選取 <xliff:g id="ALARMS">%d</xliff:g> 個鬧鈴時間"</string>
     <string name="deleted_message" msgid="1220848140260509437">"已刪除"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"刪除所選的鬧鐘？"</item>
-    <item quantity="other" msgid="6918176478191272189">"刪除所選的鬧鐘？"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="other">刪除選取的多個鬧鐘？</item>
+      <item quantity="one">刪除選取的一個鬧鐘？</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"刪除這個計時器？"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"移除這個城市？"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"數位時鐘"</string>

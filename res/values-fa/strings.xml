@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"ساعت"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"زنگ‌های ساعت"</string>
+    <string name="alarm_list_title" msgid="7589940465292950600">"هشدارها"</string>
     <string name="add_alarm" msgid="5976616107390962899">"افزودن زنگ ساعت"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ساعت رومیزی"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"ویرایش زنگ ساعت"</string>
@@ -44,16 +44,16 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"هشدارهای بی‌پاسخ"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"به تعویق افتاده"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"۱ دقیقه"</item>
-    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> دقیقه"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="one">‏<xliff:g id="NUMBER">%d</xliff:g> دقیقه</item>
+      <item quantity="other">‏<xliff:g id="NUMBER">%d</xliff:g> دقیقه</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"هشدار خاموش"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"تعویق"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"تعویق به مدت ۱ دقیقه."</item>
-    <item quantity="other" msgid="7377899473014259727">"تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه."</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="one">تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه.</item>
+      <item quantity="other">تعویق به مدت <xliff:g id="MINUTES">%d</xliff:g> دقیقه.</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"تعویق تا <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"هشدار بعدی"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"هشدار بی‌پاسخ حذف شد"</string>
@@ -64,9 +64,9 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> باقیمانده"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"هشدار برای کمتر از ۱ دقیقه از حالا تنظیم شد."</item>
+    <item msgid="6450913786084215050">"هشدار برای کمتر از ۱ دقیقه دیگر تنظیم شد."</item>
     <item msgid="6002066367368421848">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> از حالا تنظیم شد."</item>
-    <item msgid="8824719306247973774">"هشدار از هم‌اکنون برای <xliff:g id="HOURS">%2$s</xliff:g> تنظیم شد."</item>
+    <item msgid="8824719306247973774">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> دیگر تنظیم شد."</item>
     <item msgid="8182406852935468862">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> از حالا تنظیم شد."</item>
     <item msgid="2532279224777213194">"هشدار به مدت <xliff:g id="MINUTES">%3$s</xliff:g> دقیقه از هم‌اکنون تنظیم شد."</item>
     <item msgid="5936557894247187717">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> از حالا تنظیم شد."</item>
@@ -86,17 +86,17 @@
     <string name="help" msgid="7786263119482654015">"راهنما"</string>
     <string name="settings" msgid="5849739030579520686">"تنظیمات"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"طول تعویق"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"۱ دقیقه"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> دقیقه"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"دقیقه"</item>
-    <item quantity="other" msgid="1304056759541595077">"دقیقه"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="one">‏<xliff:g id="NUMBER">%d</xliff:g> دقیقه</item>
+      <item quantity="other">‏<xliff:g id="NUMBER">%d</xliff:g> دقیقه</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="one">دقیقه</item>
+      <item quantity="other">دقیقه</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"سکوت پس از"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> دقیقه"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"هیچوقت"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"هیچ‌وقت"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"۱ دقیقه"</item>
     <item msgid="5431906692406316549">"۵ دقیقه"</item>
@@ -104,7 +104,7 @@
     <item msgid="2855948657259647629">"۱۵ دقیقه"</item>
     <item msgid="6330196381284475079">"۲۰ دقیقه"</item>
     <item msgid="7809240121716151904">"۲۵ دقیقه"</item>
-    <item msgid="4278641338024561333">"هیچوقت"</item>
+    <item msgid="4278641338024561333">"هیچ‌وقت"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"شروع هفته از"</string>
   <string-array name="week_start_entries">
@@ -115,9 +115,9 @@
     <string name="done" msgid="6509722361933858451">"انجام شد"</string>
     <string name="revert" msgid="9100911171235162926">"برگشت"</string>
     <string name="delete" msgid="5732434972457000541">"حذف"</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"میزان صدای زنگ ساعت"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"میزان صدای هشدار"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"ساکت"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"هشدار را موقتاً یا به طور کامل قطع کنید."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"هشدار را قطع کنید یا به‌تعویق بیندازید."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (معوق)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"زنگ هشدار برای <xliff:g id="TIME">%s</xliff:g> تنظیم شد. جهت لغو لمس کنید."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"دکمه‌های میزان صدا"</string>
@@ -128,7 +128,7 @@
     <item msgid="6302517608411378024">"كاری انجام نشود"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"تنظیم صدای زنگ پیش‌فرض"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"زنگ‌های ساعت"</string>
+    <string name="alarm_button_description" msgid="740283647046258651">"هشدارها"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"گالری"</string>
     <string name="music_button_description" msgid="1626593420810117999">"موسیقی"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"کم شدن صدا"</string>
@@ -172,18 +172,18 @@
     <string name="sw_share_main" msgid="7703563468204234405">"زمان من <xliff:g id="TIME">%s</xliff:g> است"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"زمان‌های دور:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"دور <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"۱ ساعت"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ساعت"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"۱ دقیقه"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> دقیقه"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"۱ ثانیه"</item>
-    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> ثانیه"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="one">‏<xliff:g id="NUMBER">%d</xliff:g> ساعت</item>
+      <item quantity="other">‏<xliff:g id="NUMBER">%d</xliff:g> ساعت</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="one">‏<xliff:g id="NUMBER">%d</xliff:g> دقیقه</item>
+      <item quantity="other">‏<xliff:g id="NUMBER">%d</xliff:g> دقیقه</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="one">‏<xliff:g id="NUMBER">%d</xliff:g> ثانیه</item>
+      <item quantity="other">‏<xliff:g id="NUMBER">%d</xliff:g> ثانیه</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"افزودن تایمر"</string>
     <string name="timer_start" msgid="6158486445614356442">"شروع"</string>
     <string name="timer_delete" msgid="8699122001991909302">"حذف"</string>
@@ -217,8 +217,8 @@
     <item msgid="917900462224167608">"آنالوگ"</item>
     <item msgid="8483930821046925592">"دیجیتال"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"ساعت خودکار مبدأ"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"هنگام سفر در منطقه‌ای که با منطقه شما تفاوت زمانی دارد، یک ساعت برای محل زندگی‌تان اضافه کنید"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"ساعت خودکار برای مبدأ"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"هنگام سفر در منطقه‌ای که با منطقه شما اختلاف زمانی دارد، می‌توانید ساعتی برای محل زندگی‌تان اضافه کنید"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"منطقهٔ زمانی مبدأ"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"منطقهٔ زمانی مبدأ"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"لغو"</string>
@@ -233,10 +233,10 @@
     <item msgid="1414384194857730006">"هاوایی"</item>
     <item msgid="2687091371581931926">"آلاسکا"</item>
     <item msgid="1922100269679049660">"وقت اقیانوس آرام"</item>
-    <item msgid="7156402158716866161">"تیجوانا"</item>
+    <item msgid="7156402158716866161">"تیهوانا"</item>
     <item msgid="1144117502254612241">"آریزونا"</item>
-    <item msgid="101284182011722637">"چی هواهوا"</item>
-    <item msgid="689121094232986897">"وقت کوهستانی"</item>
+    <item msgid="101284182011722637">"چیواوا"</item>
+    <item msgid="689121094232986897">"وقت کوه‌های راکی"</item>
     <item msgid="5445331923942302756">"آمریکای مرکزی"</item>
     <item msgid="2749806434052452351">"وقت مرکزی"</item>
     <item msgid="3997138870229703753">"مکزیکوسیتی"</item>
@@ -248,7 +248,7 @@
     <item msgid="6279116051273436870">"زمان اقیانوس اطلس (کانادا)"</item>
     <item msgid="8513382867172014244">"ماناوس"</item>
     <item msgid="7776299003105932407">"سانتیاگو"</item>
-    <item msgid="8636989494746218677">"نیوفوندلند"</item>
+    <item msgid="8636989494746218677">"نیوفاندلند"</item>
     <item msgid="4402541016410147505">"برازیلیا"</item>
     <item msgid="2251184440733164084">"بوینوس آیرس"</item>
     <item msgid="6202926618569004969">"گرینلند"</item>
@@ -261,7 +261,7 @@
     <item msgid="5970179539479320905">"آمستردام، برلین"</item>
     <item msgid="5396319478750517962">"بلگراد"</item>
     <item msgid="8688787475056663004">"بروکسل"</item>
-    <item msgid="3415827874921681622">"سارایه وو"</item>
+    <item msgid="3415827874921681622">"سارایوو"</item>
     <item msgid="402008965928320066">"ويندهوک"</item>
     <item msgid="6436942724959275569">"وقت غرب آفریقا"</item>
     <item msgid="954536568417204026">"عمان، اردن"</item>
@@ -330,7 +330,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"نمایشگر بسیار تیره (برای اتاق‌های تاریک)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"هشدار بزرگ‌کردن"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"هشدار کوچک‌کردن"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"لغو"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"واگرد"</string>
     <string name="alarm_deleted" msgid="5017075127290219443">"هشدار حذف شد."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
@@ -338,15 +338,15 @@
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> انتخاب شد"</string>
     <string name="deleted_message" msgid="1220848140260509437">"حذف شد"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"هشدار انتخابی حذف شود؟"</item>
-    <item quantity="other" msgid="6918176478191272189">"هشدارهای انتخابی حذف شوند؟"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="one">هشدارهای انتخاب شده حذف شوند؟</item>
+      <item quantity="other">هشدارهای انتخاب شده حذف شوند؟</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"این تایمر حذف شود؟"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"این شهر حذف شود؟"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ساعت دیجیتال"</string>
     <string name="no_alarms" msgid="6429431324842022917">"بدون هشدار"</string>
-    <string name="no_alarms_set" msgid="4887558279496044764">"هشدار تنظیم نشده"</string>
+    <string name="no_alarms_set" msgid="4887558279496044764">"هشداری تنظیم نشده است"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"هشداری در آینده فعال نیست"</string>
     <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>

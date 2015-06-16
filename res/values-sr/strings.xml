@@ -44,16 +44,18 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"Пропуштени аларм"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Одложено"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"1 мин"</item>
-    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> мин"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> мин</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> мин</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> мин</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Аларм је искљ."</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Одложи"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"Одложено је за 1 минут."</item>
-    <item quantity="other" msgid="7377899473014259727">"Одложено је за <xliff:g id="MINUTES">%d</xliff:g> минута."</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="one">Одложено је за <xliff:g id="MINUTES">%d</xliff:g> минут.</item>
+      <item quantity="few">Одложено је за <xliff:g id="MINUTES">%d</xliff:g> минута.</item>
+      <item quantity="other">Одложено је за <xliff:g id="MINUTES">%d</xliff:g> минута.</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Одлагање до <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Предстојећи аларм"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Пропуштени аларм је избрисан"</string>
@@ -64,7 +66,7 @@
     <item msgid="8458069283817013813">"Преостало је <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Аларм ће се укључити за мање од 1 минут."</item>
+    <item msgid="6450913786084215050">"Аларм ће се укључити за мање од 1 минута."</item>
     <item msgid="6002066367368421848">"Аларм ће се укључити за <xliff:g id="DAYS">%1$s</xliff:g>."</item>
     <item msgid="8824719306247973774">"Аларм ће се укључити за <xliff:g id="HOURS">%2$s</xliff:g>."</item>
     <item msgid="8182406852935468862">"Аларм ће се укључити за <xliff:g id="DAYS">%1$s</xliff:g> и <xliff:g id="HOURS">%2$s</xliff:g>."</item>
@@ -86,14 +88,16 @@
     <string name="help" msgid="7786263119482654015">"помоћ"</string>
     <string name="settings" msgid="5849739030579520686">"Подешавања"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Дужина одлагања"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"1 минут"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> минута"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"минут"</item>
-    <item quantity="other" msgid="1304056759541595077">"минута"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> минут</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> минута</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> минута</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="one">минут</item>
+      <item quantity="few">минута</item>
+      <item quantity="other">минута</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Утишај након"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> минута"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Никада"</string>
@@ -104,7 +108,7 @@
     <item msgid="2855948657259647629">"15 минута"</item>
     <item msgid="6330196381284475079">"20 минута"</item>
     <item msgid="7809240121716151904">"25 минута"</item>
-    <item msgid="4278641338024561333">"Никада"</item>
+    <item msgid="4278641338024561333">"Немој утишавати"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Започни седмицу у"</string>
   <string-array name="week_start_entries">
@@ -144,7 +148,7 @@
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Аларм"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Мерач времена"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Тајмер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Сат"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Штоперица"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Додај аларм"</string>
@@ -172,18 +176,21 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Моје време је <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Пролазна времена:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. круг"</string>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"1 сат"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> сата(и)"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"1 минут"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> минута"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"1 секунда"</item>
-    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> секунде(и)"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> сат</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> сата</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> сати</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> минут</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> минута</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> минута</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> секунда</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> секунде</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> секунди</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Додај тајмер"</string>
     <string name="timer_start" msgid="6158486445614356442">"Започни"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Избриши"</string>
@@ -218,7 +225,7 @@
     <item msgid="8483930821046925592">"Дигитални"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Аутоматски сат са временом код куће"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Када путујете у другој временској зони, додајте сат са временом код куће"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Кад путујем у другој временској зони, додај сат са временом код куће"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Матична временска зона"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Матична временска зона"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Откажи"</string>
@@ -338,10 +345,11 @@
     <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"Изабраних: <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Избрисано је"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"Желите ли да избришете изабрани аларм?"</item>
-    <item quantity="other" msgid="6918176478191272189">"Желите ли да избришете изабране аларме?"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="one">Желите ли да избришете изабране аларме?</item>
+      <item quantity="few">Желите ли да избришете изабране аларме?</item>
+      <item quantity="other">Желите ли да избришете изабране аларме?</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Желите ли да избришете овај тајмер?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Желите ли да уклоните овај град?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Дигитални сат"</string>
