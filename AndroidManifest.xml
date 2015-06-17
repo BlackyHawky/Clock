@@ -125,6 +125,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
             <intent-filter>
+                <action android:name="android.intent.action.DISMISS_ALARM" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.SHOW_ALARMS" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -139,81 +143,63 @@
             android:exported="true">
         </activity-alias>
 
-        <activity android:name=".voice.HandleVoiceApiCalls"
+        <activity android:name=".HandleDeskClockApiCalls"
             android:excludeFromRecents="true"
             android:launchMode="singleTask"
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay"
             android:permission="com.android.alarm.permission.SET_ALARM">
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_SHOW_CLOCK" />
+                <action android:name="com.android.deskclock.action.SHOW_CLOCK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_ADD_CLOCK" />
+                <action android:name="com.android.deskclock.action.ADD_CLOCK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_DELETE_CLOCK" />
+                <action android:name="com.android.deskclock.action.DELETE_CLOCK" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.DISMISS_ALARM" />
+                <action android:name="com.android.deskclock.action.START_TIMER" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_START_TIMER" />
+                <action android:name="com.android.deskclock.action.RESET_TIMER" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_RESET_TIMER" />
+                <action android:name="com.android.deskclock.action.STOP_TIMER" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_STOP_TIMER" />
+                <action android:name="com.android.deskclock.action.SHOW_TIMERS" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_SHOW_TIMERS" />
+                <action android:name="com.android.deskclock.action.DELETE_TIMER" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_DELETE_TIMER" />
+                <action android:name="com.android.deskclock.action.SHOW_STOPWATCH" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_SHOW_STOPWATCH" />
+                <action android:name="com.android.deskclock.action.START_STOPWATCH" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_START_STOPWATCH" />
+                <action android:name="com.android.deskclock.action.STOP_STOPWATCH" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_STOP_STOPWATCH" />
+                <action android:name="com.android.deskclock.action.LAP_STOPWATCH" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_LAP_STOPWATCH" />
+                <action android:name="com.android.deskclock.action.RESET_STOPWATCH" />
                 <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_RESET_STOPWATCH" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
             </intent-filter>
         </activity>
 
