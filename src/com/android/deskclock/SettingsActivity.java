@@ -226,7 +226,8 @@ public class SettingsActivity extends BaseActivity {
             if (i == -1) {
                 listPref.setSummary(R.string.auto_silence_never);
             } else {
-                listPref.setSummary(getString(R.string.auto_silence_summary, i));
+                listPref.setSummary(getResources().getQuantityString(R.plurals.auto_silence_summary,
+                        i, i));
             }
         }
 
