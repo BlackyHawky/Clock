@@ -73,15 +73,17 @@ class FetchMatchingAlarmsAction implements Runnable {
                 // if minutes weren't specified default to 0
                 final int minutes = mIntent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
                 final Boolean isPm = (Boolean) mIntent.getExtras().get(AlarmClock.EXTRA_IS_PM);
+                boolean badInput = isPm != null && hour > 12 && isPm;
+                badInput |= hour < 0 || hour > 23;
+                badInput |= minutes < 0 || minutes > 59;
 
-                if (hour < 0 || hour > 23 || minutes < 0 || minutes > 59 || (hour > 12 && isPm)) {
-                    final String amPm = isPm ? "pm" : "am";
+                if (badInput) {
+                    final String amPm = isPm == null ? "null" : (isPm ? "pm" : "am");
                     LogUtils.e("Invalid time specified: %d:%d %s", hour, minutes, amPm);
                     return;
                 }
 
-                final int hour24 =
-                        (isPm != null && isPm && hour >= 0 && hour < 12) ? (hour + 12) : hour;
+                final int hour24 = Boolean.TRUE.equals(isPm) ? (hour + 12) : hour;
 
                 final List<Alarm> selectedAlarms = new ArrayList<>();
                 for (Alarm alarm : mAlarms) {
