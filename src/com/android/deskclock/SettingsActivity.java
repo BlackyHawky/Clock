@@ -16,6 +16,8 @@
 
 package com.android.deskclock;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
@@ -41,6 +43,7 @@ import java.util.TimeZone;
 public class SettingsActivity extends BaseActivity {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
+    public static final String KEY_ALARM_VOLUME = "volume_setting";
     public static final String KEY_VOLUME_BEHAVIOR = "volume_button_setting";
     public static final String KEY_AUTO_SILENCE = "auto_silence";
     public static final String KEY_CLOCK_STYLE = "clock_style";
@@ -84,7 +87,7 @@ public class SettingsActivity extends BaseActivity {
 
 
     public static class PrefsFragment extends PreferenceFragment
-            implements Preference.OnPreferenceChangeListener {
+            implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
 
         private static CharSequence[][] mTimezones;
         private long mTime;
@@ -149,6 +152,23 @@ public class SettingsActivity extends BaseActivity {
             return true;
         }
 
+        @Override
+        public boolean onPreferenceClick(Preference pref) {
+            final Activity activity = getActivity();
+            if (activity == null) {
+                return false;
+            }
+
+            if (KEY_ALARM_VOLUME.equals(pref.getKey())) {
+                final AudioManager audioManager =
+                        (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
+                audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM,
+                        AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
+                return true;
+            }
+            return false;
+        }
+
         /**
          * Returns an array of ids/time zones. This returns a double indexed array
          * of ids and time zones for Calendar. It is an inefficient method and
@@ -206,6 +226,9 @@ public class SettingsActivity extends BaseActivity {
                     (ListPreference) findPreference(KEY_VOLUME_BUTTONS);
             volumeButtonsPref.setSummary(volumeButtonsPref.getEntry());
             volumeButtonsPref.setOnPreferenceChangeListener(this);
+
+            final Preference volumePref = findPreference(KEY_ALARM_VOLUME);
+            volumePref.setOnPreferenceClickListener(this);
 
             final SnoozeLengthDialog snoozePref =
                     (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
