@@ -38,5 +38,4 @@
     <string name="label_deskclock">DeskClock</string>
     <string name="label_notification">Notification</string>
     <string name="label_intent">Intent</string>
-    <string name="label_voice">Voice</string>
 </resources>
