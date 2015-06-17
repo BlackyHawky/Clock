@@ -31,6 +31,8 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
 public final class AlarmNotifications {
+    public static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
+
     public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
@@ -152,21 +154,24 @@ public final class AlarmNotifications {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
 
+        final int hashCode = instance.hashCode();
+
         // Setup dismiss intent
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
-        notification.setDeleteIntent(PendingIntent.getBroadcast(context, instance.hashCode(),
+        notification.setDeleteIntent(PendingIntent.getBroadcast(context, hashCode,
                 dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup content intent
         Intent showAndDismiss = AlarmInstance.createIntent(context, AlarmStateManager.class,
                 instance.mId);
+        showAndDismiss.putExtra(EXTRA_NOTIFICATION_ID, hashCode);
         showAndDismiss.setAction(AlarmStateManager.SHOW_AND_DISMISS_ALARM_ACTION);
-        notification.setContentIntent(PendingIntent.getBroadcast(context, instance.hashCode(),
+        notification.setContentIntent(PendingIntent.getBroadcast(context, hashCode,
                 showAndDismiss, PendingIntent.FLAG_UPDATE_CURRENT));
 
-        nm.cancel(instance.hashCode());
-        nm.notify(instance.hashCode(), notification.build());
+        nm.cancel(hashCode);
+        nm.notify(hashCode, notification.build());
     }
 
     public static void showAlarmNotification(Context context, AlarmInstance instance) {
