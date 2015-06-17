@@ -18,11 +18,14 @@ package com.android.deskclock;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.AlarmClock;
 import android.text.TextUtils;
@@ -45,21 +48,137 @@ public class HandleApiCalls extends Activity {
     public static final long TIMER_MIN_LENGTH = 1000;
     public static final long TIMER_MAX_LENGTH = 24 * 60 * 60 * 1000;
 
+    private Context mAppContext;
+
     @Override
     protected void onCreate(Bundle icicle) {
         try {
             super.onCreate(icicle);
+            mAppContext = getApplicationContext();
             final Intent intent = getIntent();
             final String action = intent == null ? null : intent.getAction();
-            if (AlarmClock.ACTION_SET_ALARM.equals(action)) {
-                handleSetAlarm(intent);
-            } else if (AlarmClock.ACTION_SHOW_ALARMS.equals(action)) {
-                handleShowAlarms();
-            } else if (AlarmClock.ACTION_SET_TIMER.equals(action)) {
-                handleSetTimer(intent);
+            if (action == null) {
+                return;
+            }
+            switch (action) {
+                case AlarmClock.ACTION_SET_ALARM:
+                    handleSetAlarm(intent);
+                    break;
+                case AlarmClock.ACTION_SHOW_ALARMS:
+                    handleShowAlarms();
+                    break;
+                case AlarmClock.ACTION_SET_TIMER:
+                    handleSetTimer(intent);
+                    break;
+                case AlarmClock.ACTION_DISMISS_ALARM:
+                    handleDismissAlarm(intent.getAction());
+                    break;
             }
         } finally {
             finish();
+        }
+    }
+
+    private void handleDismissAlarm(final String action) {
+        // Opens the UI for Alarms
+        final Intent alarmIntent =
+                Alarm.createIntent(mAppContext, DeskClock.class, Alarm.INVALID_ID)
+                        .setAction(action)
+                        .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+        startActivity(alarmIntent);
+
+        final Intent intent = getIntent();
+
+        new DismissAlarmAsync(mAppContext, intent).execute();
+    }
+
+    static void dismissAlarm(Alarm alarm, Context context) {
+        // only allow on background thread
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            throw new IllegalStateException("dismissAlarm must be called on a " +
+                    "background thread");
+        }
+
+        final AlarmInstance alarmInstance = AlarmInstance.getNextUpcomingInstanceByAlarmId(
+                context.getContentResolver(), alarm.id);
+        if (alarmInstance == null) {
+            LogUtils.i("There are no alarm instances for this alarm id");
+            return;
+        }
+
+        if (Utils.isAlarmWithinTwoHours(alarmInstance)) {
+            AlarmStateManager.setPreDismissState(context, alarmInstance);
+            LogUtils.i("Dismiss %d:%d",alarm.hour, alarm.minutes);
+            Events.sendAlarmEvent(R.string.action_dismiss,
+                    R.string.label_voice);
+        } else {
+            LogUtils.i("%s wasn't dismissed, still more than two hours away.", alarm);
+        }
+    }
+
+    private static class DismissAlarmAsync extends AsyncTask<Void, Void, Void> {
+
+        private final Context mContext;
+        private final Intent mIntent;
+
+        public DismissAlarmAsync(Context context, Intent intent) {
+            mContext = context;
+            mIntent = intent;
+        }
+
+        @Override
+        protected Void doInBackground(Void... parameters) {
+            final List<Alarm> alarms = getEnabledAlarms();
+            if (alarms.isEmpty()) {
+                LogUtils.i("No alarms are scheduled.");
+                return null;
+            }
+
+            final String searchMode = mIntent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
+            if (searchMode == null && alarms.size() > 1) {
+                // TODO: add picker UI
+                // shows the UI where user picks which alarm they want to DISMISS
+//                final Intent pickSelectionIntent = new Intent(mContext, PickSelectionActivity.class)
+//                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        .setAction(mIntent.getAction())
+//                        .putExtra(PickSelectionActivity.EXTRA_ALARMS,
+//                                alarms.toArray(new Parcelable[alarms.size()]));
+//                mContext.startActivity(pickSelectionIntent);
+                return null;
+            }
+
+            // fetch the alarms that are specified by the intent
+            final FetchMatchingAlarmsAction fmaa =
+                    new FetchMatchingAlarmsAction(mContext, alarms, mIntent);
+            fmaa.run();
+            final List<Alarm> matchingAlarms = fmaa.getMatchingAlarms();
+
+            // If there are multiple matching alarms and it wasn't expected
+            // disambiguate what the user meant
+            if (!AlarmClock.ALARM_SEARCH_MODE_ALL.equals(searchMode) && matchingAlarms.size() > 1) {
+                // TODO: add picker UI
+//              final Intent pickSelectionIntent = new Intent(mContext, PickSelectionActivity.class)
+//                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        .setAction(mIntent.getAction())
+//                        .putExtra(PickSelectionActivity.EXTRA_ALARMS,
+//                                matchingAlarms.toArray(new Parcelable[matchingAlarms.size()]));
+//                mContext.startActivity(pickSelectionIntent);
+                return null;
+            }
+
+            // Apply the action to the matching alarms
+            for (Alarm alarm : matchingAlarms) {
+                dismissAlarm(alarm, mContext);
+                LogUtils.i("Alarm %s is dismissed", alarm);
+            }
+            return null;
+        }
+
+        private List<Alarm> getEnabledAlarms() {
+            // since we want to dismiss we should only add enabled alarms
+            final String selection = String.format("%s=?", Alarm.ENABLED);
+            final String[] args = { "1" };
+            return Alarm.getAlarms(mContext.getContentResolver(), selection, args);
         }
     }
 

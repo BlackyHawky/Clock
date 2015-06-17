@@ -41,12 +41,12 @@ import com.android.deskclock.CircleButtonsLayout;
 import com.android.deskclock.CircleTimerView;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClockFragment;
+import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.timer.CountingTimerView;
-import com.android.deskclock.voice.HandleVoiceApiCalls;
 
 import java.util.ArrayList;
 
@@ -294,7 +294,7 @@ public class StopwatchFragment extends DeskClockFragment
                 doStop();
                 Events.sendStopwatchEvent(R.string.action_stop, R.string.label_deskclock);
 
-                intent.setAction(HandleVoiceApiCalls.VOICE_ACTION_STOP_STOPWATCH);
+                intent.setAction(HandleDeskClockApiCalls.ACTION_STOP_STOPWATCH);
                 context.startService(intent);
                 releaseWakeLock();
                 break;
@@ -304,7 +304,7 @@ public class StopwatchFragment extends DeskClockFragment
                 doStart(time);
                 Events.sendStopwatchEvent(R.string.action_start, R.string.label_deskclock);
 
-                intent.setAction(HandleVoiceApiCalls.VOICE_ACTION_START_STOPWATCH);
+                intent.setAction(HandleDeskClockApiCalls.ACTION_START_STOPWATCH);
                 context.startService(intent);
                 acquireWakeLock();
                 break;
@@ -851,7 +851,7 @@ public class StopwatchFragment extends DeskClockFragment
                 doLap();
                 Events.sendStopwatchEvent(R.string.action_lap, R.string.label_deskclock);
 
-                intent.setAction(HandleVoiceApiCalls.VOICE_ACTION_LAP_STOPWATCH);
+                intent.setAction(HandleDeskClockApiCalls.ACTION_LAP_STOPWATCH);
                 context.startService(intent);
                 break;
             case Stopwatches.STOPWATCH_STOPPED:
@@ -859,7 +859,7 @@ public class StopwatchFragment extends DeskClockFragment
                 doReset();
                 Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
 
-                intent.setAction(HandleVoiceApiCalls.VOICE_ACTION_RESET_STOPWATCH);
+                intent.setAction(HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH);
                 context.startService(intent);
                 releaseWakeLock();
                 break;
