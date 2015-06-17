@@ -168,9 +168,42 @@ public final class DaysOfWeek {
     }
 
     /**
-     * Returns number of days from today until next alarm.
+     * Returns number of days backwards from today to previous alarm.
+     * ex:
+     * Daily alarm, current = Tuesday -> 1
+     * Weekly alarm on Wednesday, current = Tuesday -> 6
+     * One time alarm -> -1
      *
      * @param current must be set to today
+     */
+    public int calculateDaysToPreviousAlarm(Calendar current) {
+        if (!isRepeating()) {
+            return -1;
+        }
+
+        // We only use this on preemptively dismissed alarms, and alarms can only fire once a day,
+        // so there is no chance that the previous fire time is on the same day. Start dayCount on
+        // previous day.
+        int dayCount = -1;
+        int currentDayIndex = convertDayToBitIndex(current.get(Calendar.DAY_OF_WEEK));
+        for (; dayCount >= -DAYS_IN_A_WEEK; dayCount--) {
+            int previousAlarmBitIndex = (currentDayIndex + dayCount);
+            if (previousAlarmBitIndex < 0) {
+                // Ex. previousAlarmBitIndex = -1 means the day before index 0 = index 6
+                previousAlarmBitIndex = previousAlarmBitIndex + DAYS_IN_A_WEEK;
+            }
+            if (isBitEnabled(previousAlarmBitIndex)) {
+                break;
+            }
+        }
+        // return a positive value
+        return dayCount * -1;
+    }
+
+    /**
+     * Returns number of days from today until next alarm.
+     *
+     * @param current must be set to today or the day after the currentTime
      */
     public int calculateDaysToNextAlarm(Calendar current) {
         if (!isRepeating()) {
@@ -178,10 +211,10 @@ public final class DaysOfWeek {
         }
 
         int dayCount = 0;
-        int currentDayBit = convertDayToBitIndex(current.get(Calendar.DAY_OF_WEEK));
+        int currentDayIndex = convertDayToBitIndex(current.get(Calendar.DAY_OF_WEEK));
         for (; dayCount < DAYS_IN_A_WEEK; dayCount++) {
-            int nextAlarmBit = (currentDayBit + dayCount) % DAYS_IN_A_WEEK;
-            if (isBitEnabled(nextAlarmBit)) {
+            int nextAlarmBitIndex = (currentDayIndex + dayCount) % DAYS_IN_A_WEEK;
+            if (isBitEnabled(nextAlarmBitIndex)) {
                 break;
             }
         }
