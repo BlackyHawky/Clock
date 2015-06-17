@@ -26,6 +26,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.AlarmClock;
 import android.text.TextUtils;
@@ -41,6 +42,7 @@ import com.android.deskclock.timer.Timers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 
 public class HandleApiCalls extends Activity {
@@ -94,7 +96,7 @@ public class HandleApiCalls extends Activity {
         new DismissAlarmAsync(mAppContext, intent).execute();
     }
 
-    static void dismissAlarm(Alarm alarm, Context context) {
+    public static void dismissAlarm(Alarm alarm, Context context) {
         // only allow on background thread
         if (Looper.myLooper() == Looper.getMainLooper()) {
             throw new IllegalStateException("dismissAlarm must be called on a " +
@@ -135,16 +137,25 @@ public class HandleApiCalls extends Activity {
                 return null;
             }
 
+            // remove Alarms in MISSED, DISMISSED, and PREDISMISSED states
+            for (Iterator<Alarm> i = alarms.iterator(); i.hasNext();) {
+                final AlarmInstance alarmInstance = AlarmInstance.getNextUpcomingInstanceByAlarmId(
+                        mContext.getContentResolver(), i.next().id);
+                if (alarmInstance == null ||
+                        alarmInstance.mAlarmState > AlarmInstance.FIRED_STATE) {
+                    i.remove();
+                }
+            }
+
             final String searchMode = mIntent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
             if (searchMode == null && alarms.size() > 1) {
-                // TODO: add picker UI
                 // shows the UI where user picks which alarm they want to DISMISS
-//                final Intent pickSelectionIntent = new Intent(mContext, PickSelectionActivity.class)
-//                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        .setAction(mIntent.getAction())
-//                        .putExtra(PickSelectionActivity.EXTRA_ALARMS,
-//                                alarms.toArray(new Parcelable[alarms.size()]));
-//                mContext.startActivity(pickSelectionIntent);
+                final Intent pickSelectionIntent = new Intent(mContext,
+                        AlarmSelectionActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .putExtra(AlarmSelectionActivity.EXTRA_ALARMS,
+                                alarms.toArray(new Parcelable[alarms.size()]));
+                mContext.startActivity(pickSelectionIntent);
                 return null;
             }
 
@@ -157,13 +168,11 @@ public class HandleApiCalls extends Activity {
             // If there are multiple matching alarms and it wasn't expected
             // disambiguate what the user meant
             if (!AlarmClock.ALARM_SEARCH_MODE_ALL.equals(searchMode) && matchingAlarms.size() > 1) {
-                // TODO: add picker UI
-//              final Intent pickSelectionIntent = new Intent(mContext, PickSelectionActivity.class)
-//                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                        .setAction(mIntent.getAction())
-//                        .putExtra(PickSelectionActivity.EXTRA_ALARMS,
-//                                matchingAlarms.toArray(new Parcelable[matchingAlarms.size()]));
-//                mContext.startActivity(pickSelectionIntent);
+              final Intent pickSelectionIntent = new Intent(mContext, AlarmSelectionActivity.class)
+                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        .putExtra(AlarmSelectionActivity.EXTRA_ALARMS,
+                                matchingAlarms.toArray(new Parcelable[matchingAlarms.size()]));
+                mContext.startActivity(pickSelectionIntent);
                 return null;
             }
 

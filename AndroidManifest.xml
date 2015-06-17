@@ -276,6 +276,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".AlarmSelectionActivity"
+            android:label="@string/dismiss_alarm"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+
         <!-- This activity is basically like the TimerFragment in DeskClock
          but only during lock screen
          so that it only has the fired timers -->
