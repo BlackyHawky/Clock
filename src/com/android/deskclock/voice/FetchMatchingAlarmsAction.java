@@ -83,7 +83,7 @@ class FetchMatchingAlarmsAction implements Runnable {
                     return;
                 }
 
-                final int hour24 = Boolean.TRUE.equals(isPm) ? (hour + 12) : hour;
+                final int hour24 = Boolean.TRUE.equals(isPm) && hour < 12 ? (hour + 12) : hour;
 
                 final List<Alarm> selectedAlarms = new ArrayList<>();
                 for (Alarm alarm : mAlarms) {
