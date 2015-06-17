@@ -161,17 +161,7 @@
                 <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="android.intent.action.VOICE_CANCEL_ALARM" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.VOICE_DISMISS_UPCOMING_ALARM" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VOICE_DELETE_ALARM" />
+                <action android:name="android.intent.action.DISMISS_ALARM" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.VOICE" />
             </intent-filter>
