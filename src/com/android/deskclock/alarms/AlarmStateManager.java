@@ -542,14 +542,23 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
-     * Calls setDismissState for now
-     * TODO(afchin): Make this schedule a state change to DISMISS_STATE at the firing time
+     * This will set the alarm instance to the PREDISMISSED_STATE and schedule an instance state
+     * change to DISMISSED_STATE at the regularly scheduled firing time.
      * @param context
      * @param instance
      */
     public static void setPreDismissState(Context context, AlarmInstance instance) {
         LogUtils.v("Setting predismissed state to instance " + instance.mId);
-        setDismissState(context, instance);
+
+        // Update alarm in db
+        final ContentResolver contentResolver = context.getContentResolver();
+        instance.mAlarmState = AlarmInstance.PREDISMISSED_STATE;
+        AlarmInstance.updateInstance(contentResolver, instance);
+
+        // Setup instance notification and scheduling timers
+        AlarmNotifications.clearNotification(context, instance);
+        scheduleInstanceStateChange(context, instance.getAlarmTime(), instance,
+                AlarmInstance.DISMISSED_STATE);
     }
 
     /**
@@ -603,6 +612,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      *
      * <ul>
      *     <li>Make sure all dismissed alarms are never re-activated</li>
+     *     <li>Make sure pre-dismissed alarms stay predismissed</li>
      *     <li>Make sure firing alarms stayed fired unless they should be auto-silenced</li>
      *     <li>Missed instance that have parents should be re-enabled if we went back in time</li>
      *     <li>If alarm was SNOOZED, then show the notification but don't update time</li>
@@ -617,6 +627,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static void registerInstance(Context context, AlarmInstance instance,
             boolean updateNextAlarm) {
+        final ContentResolver cr = context.getContentResolver();
+        final Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
         Calendar currentTime = Calendar.getInstance();
         Calendar alarmTime = instance.getAlarmTime();
         Calendar timeoutTime = instance.getTimeout(context);
@@ -652,13 +664,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
                 // Make sure we re-enable the parent alarm of the instance
                 // because it will get activated by by the below code
-                ContentResolver cr = context.getContentResolver();
-                Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
                 alarm.enabled = true;
                 Alarm.updateAlarm(cr, alarm);
             }
         }
-
         // Fix states that are time sensitive
         if (currentTime.after(missedTTL)) {
             // Alarm is so old, just dismiss it
@@ -681,6 +690,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
             AlarmNotifications.showSnoozeNotification(context, instance);
             scheduleInstanceStateChange(context, instance.getAlarmTime(),
                     instance, AlarmInstance.FIRED_STATE);
+        } else if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
+            setPreDismissState(context, instance);
         } else if (currentTime.after(highNotificationTime)) {
             setHighNotificationState(context, instance);
         } else if (currentTime.after(lowNotificationTime)) {
@@ -731,6 +742,46 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
+     * If the instance is in SNOOZE_STATE or PREDISMISSED_STATE, we may not want to change the next
+     * firing time.
+     * @param contentResolver
+     * @param instance
+     */
+    private static void adjustAlarmStateIfNeeded(ContentResolver contentResolver,
+                                                 AlarmInstance instance) {
+        final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+        // If the alarm is predismissed, stay predismissed if we land in the right window.
+        // Otherwise, simply schedule the alarm to ring at the next calculated firing time by
+        // falling back to getNextAlarmTime() in the next if block.
+        if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
+            final Calendar currentTime = Calendar.getInstance();
+            final Calendar previousFireTime = alarm.getPreviousAlarmTime(currentTime);
+            final Calendar alarmTime = instance.getAlarmTime();
+            final Calendar lowPrioAlarmTime = instance.getAlarmTime();
+            lowPrioAlarmTime.add(Calendar.HOUR_OF_DAY, AlarmInstance.LOW_NOTIFICATION_HOUR_OFFSET);
+            if ((previousFireTime == null && currentTime.before(alarmTime)) ||
+                    (previousFireTime.before(currentTime) && currentTime.before(alarmTime))) {
+                if (currentTime.after(lowPrioAlarmTime)) {
+                    // Right window: currentTime is after previousFireTime (if it exists), before
+                    // original alarmTime, and within LOW_NOTIFICATION_HOUR_OFFSET before alarmTime.
+                    // In this case, stay in PREDISMISSED_STATE.
+                    return;
+                } else {
+                    instance.mAlarmState = AlarmInstance.SILENT_STATE;
+                }
+            }
+        }
+        // If the alarm is snoozed, keep the current next alarm time; do not set the time to
+        // the next scheduled alarm.
+        // This means that if the time has adjusted past the originally intended fire time,
+        // we will schedule for the old time. AlarmManager will then fire the alarm immediately.
+        if (instance.mAlarmState != AlarmInstance.SNOOZE_STATE) {
+            instance.setAlarmTime(alarm.getNextAlarmTime(Calendar.getInstance()));
+            AlarmInstance.updateInstance(contentResolver, instance);
+        }
+    }
+
+    /**
      * Fix and update all alarm instance when a time change event occurs.
      *
      * @param context application context
@@ -738,20 +789,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void fixAlarmInstances(Context context) {
         // Register all instances after major time changes or when phone restarts
         // TODO: Refactor this code to not use the overloaded registerInstance method.
-        ContentResolver contentResolver = context.getContentResolver();
+        final ContentResolver contentResolver = context.getContentResolver();
         for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
-            // If the alarm is snoozed, keep the current next alarm time; do not set the time to
-            // the next scheduled alarm.
-            // This means that if the time has adjusted past the originally intended fire time,
-            // we will schedule for the old time. AlarmManager will then fire the alarm immediately.
-            if (instance.mAlarmState != AlarmInstance.SNOOZE_STATE) {
-                final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
-                instance.setAlarmTime(alarm.getNextAlarmTime(Calendar.getInstance()));
-                AlarmInstance.updateInstance(contentResolver, instance);
-            }
-            AlarmStateManager.registerInstance(context, instance, false);
+            adjustAlarmStateIfNeeded(contentResolver, instance);
+            registerInstance(context, instance, false);
         }
-        AlarmStateManager.updateNextAlarm(context);
+        updateNextAlarm(context);
     }
 
     /**
