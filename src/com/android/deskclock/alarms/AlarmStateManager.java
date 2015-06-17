@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.v4.app.NotificationManagerCompat;
 import android.widget.Toast;
 
 import com.android.deskclock.AlarmAlertWakeLock;
@@ -924,6 +925,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
             Uri uri = intent.getData();
             AlarmInstance instance = AlarmInstance.getInstance(context.getContentResolver(),
                     AlarmInstance.getId(uri));
+
+            if (instance == null) {
+                LogUtils.e("Null alarminstance for SHOW_AND_DISMISS");
+                // dismiss the notification
+                final int id = intent.getIntExtra(AlarmNotifications.EXTRA_NOTIFICATION_ID, -1);
+                if (id != -1) {
+                    NotificationManagerCompat.from(context).cancel(id);
+                }
+            }
 
             long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
             Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
