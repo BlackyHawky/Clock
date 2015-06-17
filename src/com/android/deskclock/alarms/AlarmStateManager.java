@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -469,14 +470,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      *
      */
-    public static void setSnoozeState(Context context, AlarmInstance instance, boolean showToast) {
+    public static void setSnoozeState(final Context context, AlarmInstance instance,
+                                      boolean showToast) {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
         // Calculate the new snooze alarm time
         String snoozeMinutesStr = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(SettingsActivity.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE_MINUTES);
-        int snoozeMinutes = Integer.parseInt(snoozeMinutesStr);
+        final int snoozeMinutes = Integer.parseInt(snoozeMinutesStr);
         Calendar newAlarmTime = Calendar.getInstance();
         newAlarmTime.add(Calendar.MINUTE, snoozeMinutes);
 
@@ -494,9 +496,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Display the snooze minutes in a toast.
         if (showToast) {
-            String displayTime = String.format(context.getResources().getQuantityText
-                    (R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(), snoozeMinutes);
-            Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
+            final Handler mainHandler = new Handler(context.getMainLooper());
+            final Runnable myRunnable = new Runnable() {
+                @Override
+                public void run() {
+                    String displayTime = String.format(context.getResources().getQuantityText
+                            (R.plurals.alarm_alert_snooze_set, snoozeMinutes).toString(),
+                            snoozeMinutes);
+                    Toast.makeText(context, displayTime, Toast.LENGTH_LONG).show();
+                }
+            };
+            mainHandler.post(myRunnable);
         }
 
         // Instance time changed, so find next alarm that will fire and notify system
