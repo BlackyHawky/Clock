@@ -900,5 +900,11 @@
         Ex: EEE, k:mm = Mon, 2:55
     -->
     <string name="weekday_time_format_24_mode">EEE, k&#58;mm</string>
+
+    <!-- String that shows up in the action bar for the Picker Activity
+         where a use gets to pick which alarm to dismiss
+   [CHAR LIMIT=NONE]
+   -->
+    <string name="dismiss_alarm">Dismiss alarm</string>
 </resources>
 
