@@ -355,5 +355,5 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"к:мм"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, сағ: мм а"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, к: мм"</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Дабылды қабылдамау"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Дабылды өшіру"</string>
 </resources>
