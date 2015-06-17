@@ -20,6 +20,16 @@
         <item name="android:elevation">8dip</item>
     </style>
 
+    <style name="SettingsTheme" parent="@style/DeskClockParentTheme">
+        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:detailsElementBackground">@null</item>
+        <item name="android:dialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
+    </style>
+
     <!-- Custom notification content styles -->
     <style name="TextAppearance.StatusBar.EventContent">
         <item name="android:textSize">@dimen/notification_text_size</item>
