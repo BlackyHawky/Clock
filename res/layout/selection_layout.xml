@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal|top"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/alarm_picker_dialog_horizontal_margin"
+    android:paddingRight="@dimen/alarm_picker_dialog_horizontal_margin"
+    android:paddingTop="@dimen/alarm_picker_dialog_vertical_margin">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dismiss_alarm"
+        android:textColor="@color/black"
+        android:textSize="@dimen/header_font_size"
+        android:layout_marginBottom="@dimen/alarm_picker_margin_bottom"/>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:dividerHeight="0dp"
+        android:divider="@null"/>
+
+    <Button
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/time_picker_cancel"
+        android:clickable="true"
+        android:gravity="end"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/holo_blue_light"/>
+
+</LinearLayout>

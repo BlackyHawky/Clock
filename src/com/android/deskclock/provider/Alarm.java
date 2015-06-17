@@ -185,6 +185,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return result;
     }
 
+    public static boolean isTomorrow(Alarm alarm) {
+        final Calendar now = Calendar.getInstance();
+        final int alarmHour = alarm.hour;
+        final int currHour = now.get(Calendar.HOUR_OF_DAY);
+        return alarmHour < currHour ||
+                (alarmHour == currHour && alarm.minutes <= now.get(Calendar.MINUTE));
+    }
+
     public static Alarm addAlarm(ContentResolver contentResolver, Alarm alarm) {
         ContentValues values = createContentValues(alarm);
         Uri uri = contentResolver.insert(CONTENT_URI, values);
