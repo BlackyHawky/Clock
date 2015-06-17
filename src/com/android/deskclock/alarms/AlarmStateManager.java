@@ -559,6 +559,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
         AlarmNotifications.clearNotification(context, instance);
         scheduleInstanceStateChange(context, instance.getAlarmTime(), instance,
                 AlarmInstance.DISMISSED_STATE);
+
+        final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+        // if it's a one time alarm set the toggle to off
+        if (alarm != null && !alarm.daysOfWeek.isRepeating()) {
+            // Check parent if it needs to reschedule, disable or delete itself
+            if (instance.mAlarmId != null) {
+                updateParentAlarm(context, instance);
+            }
+        }
     }
 
     /**
