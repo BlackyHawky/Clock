@@ -15,6 +15,7 @@
  */
 package com.android.deskclock;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -39,7 +40,7 @@ public class AlarmSelectionActivity extends ListActivity {
     public static final String EXTRA_ALARMS = "com.android.deskclock.EXTRA_ALARMS";
 
     private final List<AlarmSelection> mSelections = new ArrayList<>();
-    private final Map<Long, Alarm> mAlarmsMap = new ArrayMap<>();;
+    private final Map<Long, Alarm> mAlarmsMap = new ArrayMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class AlarmSelectionActivity extends ListActivity {
         final AlarmSelection selection = mSelections.get((int) id);
         final Alarm alarm = selection.getAlarm();
         if (alarm != null) {
-            new ProcessAlarmActionAsync(this, alarm).execute();
+            new ProcessAlarmActionAsync(this, alarm, this).execute();
         }
         finish();
     }
@@ -96,15 +97,17 @@ public class AlarmSelectionActivity extends ListActivity {
 
         private final Context mContext;
         private final Alarm mAlarm;
+        private final Activity mActivity;
 
-        public ProcessAlarmActionAsync(Context context, Alarm alarm) {
+        public ProcessAlarmActionAsync(Context context, Alarm alarm, Activity activity) {
             mContext = context;
             mAlarm = alarm;
+            mActivity = activity;
         }
 
         @Override
         protected Void doInBackground(Void... parameters) {
-            HandleApiCalls.dismissAlarm(mAlarm, mContext);
+            HandleApiCalls.dismissAlarm(mAlarm, mContext, mActivity);
             return null;
         }
     }
