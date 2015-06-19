@@ -361,22 +361,20 @@ public class TimerReceiver extends BroadcastReceiver {
             return null;
         }
 
-        long hundreds, seconds, minutes, hours;
+        long seconds, minutes, hours;
         seconds = timeLeft / 1000;
         minutes = seconds / 60;
-        seconds = seconds - minutes * 60;
         hours = minutes / 60;
         minutes = minutes - hours * 60;
         if (hours > 99) {
             hours = 0;
         }
 
-        String hourSeq = (hours == 0) ? "" :
-            ( (hours == 1) ? context.getString(R.string.hour) :
-                context.getString(R.string.hours, Long.toString(hours)) );
-        String minSeq = (minutes == 0) ? "" :
-            ( (minutes == 1) ? context.getString(R.string.minute) :
-                context.getString(R.string.minutes, Long.toString(minutes)) );
+        String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes,
+                (int) minutes);
+
+        String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours,
+                (int) hours);
 
         boolean dispHour = hours > 0;
         boolean dispMinute = minutes > 0;
