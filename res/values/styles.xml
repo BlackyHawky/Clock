@@ -238,6 +238,11 @@
         <item name="android:textSize">@dimen/body_font_size</item>
     </style>
 
+    <style name="undo_toast" parent="body">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/hot_pink</item>
+    </style>
+
     <style name="body_not_caps" parent="body">
         <item name="android:textAllCaps">false</item>
     </style>
