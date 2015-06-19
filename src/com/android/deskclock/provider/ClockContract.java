@@ -18,6 +18,8 @@ package com.android.deskclock.provider;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.android.deskclock.BuildConfig;
+
 /**
  * <p>
  * The contract between the clock provider and desk clock. Contains
@@ -40,7 +42,7 @@ public final class ClockContract {
      * This authority is used for writing to or querying from the clock
      * provider.
      */
-    public static final String AUTHORITY = "com.android.deskclock";
+    public static final String AUTHORITY = BuildConfig.APPLICATION_ID;
 
     /**
      * This utility class cannot be instantiated
