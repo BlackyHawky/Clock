@@ -907,10 +907,175 @@
     -->
     <string name="weekday_time_format_24_mode">EEE, k&#58;mm</string>
 
+    <!-- String that represents that invalid time for an alarm was specified, e.g. 23:00am
+     or 27:68pm.
+    First %d represents hour, second %d represents minutes,
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="invalid_time">Invalid time <xliff:g id="invalid_hour" example="25">%d</xliff:g>:<xliff:g id="invalid_minutes" example="63">%d</xliff:g></string>
+
+    <!-- String that represents that no alarm has been specified for a requested hour:minutes.
+    This happens when a user sends a voice command 'dismiss my alarm at 3:00pm' but they have no
+    alarms specified for that time. %s represents the time of the alarm.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="no_alarm_at">No alarm at <xliff:g id="alarm_time" example="14:20">%s</xliff:g></string>
+
+    <!-- String that represents that the user doesn't have any alarms scheduled. This happens when
+    a user sends a voice command 'dismiss next alarm' or 'dismiss all of my alarms' but they have
+    no alarms scheduled in the app.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="no_scheduled_alarms">No scheduled alarms</string>
+
+    <!-- String that represents that the user has sent a voice command 'start a stopwatch' when
+    the stopwatch was already running so the command wasn't executed.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="stopwatch_already_running">Stopwatch is already running</string>
+
+    <!-- String that represents that the user has sent a voice command 'stop the stopwatch' or
+    'lap the stopwatch' when the stopwatch wasn't running so the command wasn't executed.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="stopwatch_isnt_running">Stopwatch isn\'t running</string>
+
+    <!-- String that represents that the user has successfully sent a voice command changing a mode
+     for the stopwatch and it was executed.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="stopwatch_mode_changed">Stopwatch mode changed</string>
+
+    <!-- String that represents that the user mentioned a specific alarm in a voice command,
+    e.g. 'dismiss my alarm for 2pm' but for some reason there were two alarm instances scheduled for
+    this alarm id (shouldn't normally happen) so the command wasn't executed.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="more_than_one_instance_for_this_alarm_id">There is more than one alarm scheduled for this time</string>
+
+    <!-- String that represents that the user has sent a voice command 'dismiss my alarm at 3pm' when
+    there was no alarm scheduled for that time (they might have had an alarm for 3pm on the list
+    but it was disabled).
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="no_alarm_instances_for_this_id">No alarm scheduled for this time</string>
+
+    <!-- String that represents that the user has canceled an alarm through a voice action.
+    %s represents alarm time, e.g. 14:20
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_canceled"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm canceled</string>
+
+    <!-- String that represents that the user has deleted an alarm through a voice action.
+    %s represents alarm time, e.g. 14:20
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_deleted"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm deleted</string>
+
+    <!-- String that represents that the user has dismissed an alarm through a voice action.
+    %s represents alarm time, e.g. 14:20
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_dismissed"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm dismissed</string>
+
+    <!-- String that represents that the user attempted to send a voice action 'delete a timer'
+    when there were no timers available.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="no_timer_set">No timer set</string>
+
+    <!-- String that represents that the user has successfully deleted a timer through a voice action.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="timer_deleted">Timer deleted</string>
+
+    <!-- String that represents that the user has attempted to start a timer when a timer was
+    already running.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="timer_already_running">Timer already running</string>
+
+    <!-- String that represents that the user has successfully started a timer through a voice action.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="timer_started">Timer started</string>
+
+    <!-- String that represents that the user has successfully reset a timer through a voice action.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="timer_was_reset">Timer reset</string>
+
+    <!-- String that represents that the user attempted to reset a timer through a voice action but
+    the timer wasn't stopped (resetting is only allowed when a timer is stopped).
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="timer_cant_be_reset_because_its_running">Timer can\'t be reset because it\'s still running. Stop timer to reset.</string>
+
+    <!-- String that represents that the user attempted to stop a timer through a voice action but
+    the timer was already stopped (resetting is only allowed when a timer is stopped).
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="timer_already_stopped">Timer already stopped</string>
+
+    <!-- String that represents that the user attempted to add or delete a world clock through
+    a voice action
+    but they didn't specify a city so no world clock was selected.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="no_city_selected">No city selected</string>
+
+    <!-- String that represents that the user attempted to add or delete a world clock through
+    a voice action
+    but the city they specified wasn't listed in the database.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="the_city_you_specified_is_not_available">The city you specified is not available</string>
+
+    <!-- String that represents that the user attempted to add a world clock through a voice action
+    but the city they specified is already added to the list.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="the_city_already_added">That city has already been added</string>
+
+    <!-- String that represents that the user successfully added a world clock through a
+    voice action
+    %s represents the name of the city they added.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="city_added"><xliff:g id="city_name" example="Paris">%s</xliff:g> added</string>
+
+    <!-- String that represents that the user successfully deleted a world clock through
+    a voice action
+    %s represents the name of the city they deleted.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="city_deleted"><xliff:g id="city_name" example="Paris">%s</xliff:g> deleted</string>
+
+    <!-- String that represents that the user attempted to dismiss an alarm that is more than
+    2 hours away
+    %s represents the time of the alarm (e.g. 15:39)
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm can't be dismissed yet, still more than 24 hours away</string>
+
     <!-- String that shows up in the action bar for the Picker Activity
          where a use gets to pick which alarm to dismiss
    [CHAR LIMIT=NONE]
    -->
     <string name="dismiss_alarm">Dismiss alarm</string>
+
+    <!-- String that represents that the user doesn't have any alarms firing at the moment.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="no_firing_alarms">No firing alarms</string>
+
+    <!-- String that represents that the user has snoozed an alarm through a voice action for 10
+    minutes.
+    %s represents alarm time, e.g. 14:20
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_snoozed"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm snoozed for 10 minutes</string>
+
+
 </resources>
 
