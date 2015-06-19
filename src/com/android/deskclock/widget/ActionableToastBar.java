@@ -25,7 +25,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -43,12 +42,8 @@ public class ActionableToastBar extends LinearLayout {
     private Animator mHideAnimation;
     private final int mBottomMarginSizeInConversation;
 
-    /** Icon for the description. */
-    private ImageView mActionDescriptionIcon;
     /** The clickable view */
     private View mActionButton;
-    /** Icon for the action button. */
-    private View mActionIcon;
     /** The view that contains the description. */
     private TextView mActionDescriptionView;
     /** The view that contains the text for the action button. */
@@ -74,10 +69,8 @@ public class ActionableToastBar extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        mActionDescriptionIcon = (ImageView) findViewById(R.id.description_icon);
         mActionDescriptionView = (TextView) findViewById(R.id.description_text);
         mActionButton = findViewById(R.id.action_button);
-        mActionIcon = findViewById(R.id.action_icon);
         mActionText = (TextView) findViewById(R.id.action_text);
     }
 
@@ -122,16 +115,7 @@ public class ActionableToastBar extends LinearLayout {
             }
         });
 
-        // Set description icon.
-        if (descriptionIconResourceId == 0) {
-            mActionDescriptionIcon.setVisibility(GONE);
-        } else {
-            mActionDescriptionIcon.setVisibility(VISIBLE);
-            mActionDescriptionIcon.setImageResource(descriptionIconResourceId);
-        }
-
         mActionDescriptionView.setText(descriptionText);
-        mActionIcon.setVisibility(showActionIcon ? VISIBLE : GONE);
         mActionText.setText(actionTextResource);
 
         mHidden = false;
