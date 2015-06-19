@@ -306,9 +306,6 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             setLeftRightButtonAppearance();
         }
 
-        if (mAdapter != null) {
-            mAdapter.notifyDataSetChanged();
-        }
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = getActivity().getIntent();
         if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
