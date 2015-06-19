@@ -1056,7 +1056,7 @@
     %s represents the time of the alarm (e.g. 15:39)
     [CHAR LIMIT=NONE]
     -->
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm can't be dismissed yet, still more than 24 hours away</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm can\'t be dismissed yet, still more than 24 hours away</string>
 
     <!-- String that shows up in the action bar for the Picker Activity
          where a use gets to pick which alarm to dismiss
