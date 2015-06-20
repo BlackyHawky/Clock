@@ -155,7 +155,6 @@ public class ScreensaverActivity extends AppCompatActivity {
     public void onPause() {
         mHandler.removeCallbacks(mMoveSaverRunnable);
         Utils.cancelMidnightUpdater(mHandler, mMidnightUpdater);
-        finish();
         super.onPause();
     }
 
