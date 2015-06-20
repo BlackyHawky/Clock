@@ -249,7 +249,7 @@ public class SettingsActivity extends BaseActivity {
             if (i == -1) {
                 listPref.setSummary(R.string.auto_silence_never);
             } else {
-                listPref.setSummary(Utils.getNumberFormattedQuantityString(getContext(),
+                listPref.setSummary(Utils.getNumberFormattedQuantityString(getActivity(),
                         R.plurals.auto_silence_summary, i));
             }
         }
