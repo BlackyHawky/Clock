@@ -73,12 +73,18 @@
     <item msgid="9115697840826129603">"ඇඟවීම දැන් සිට <xliff:g id="HOURS">%2$s</xliff:g> සහ <xliff:g id="MINUTES">%3$s</xliff:g> කින් සකසා ඇත."</item>
     <item msgid="2332583385137381060">"ඇඟවීම දැන් සිට <xliff:g id="DAYS">%1$s</xliff:g>,<xliff:g id="HOURS">%2$s</xliff:g> සහ <xliff:g id="MINUTES">%3$s</xliff:g> කින් සකසා ඇත."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"දවස් 1 ක්"</string>
-    <string name="days" msgid="2070509222727852210">"දවස් <xliff:g id="DAYS">%s</xliff:g>"</string>
-    <string name="hour" msgid="2546819039651509323">"පැය 1"</string>
-    <string name="hours" msgid="2071487018566991613">"පැය <xliff:g id="HOURS">%s</xliff:g>"</string>
-    <string name="minute" msgid="2486157997434653710">"මිනිත්තු 1"</string>
-    <string name="minutes" msgid="6115838729146292526">"මිනිත්තු <xliff:g id="MINUTES">%s</xliff:g>"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="one">දින <xliff:g id="NUMBER">%s</xliff:g></item>
+      <item quantity="other">දින <xliff:g id="NUMBER">%s</xliff:g></item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="one">පැය <xliff:g id="NUMBER">%s</xliff:g></item>
+      <item quantity="other">පැය <xliff:g id="NUMBER">%s</xliff:g></item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="one">මිනිත්තු <xliff:g id="NUMBER">%s</xliff:g></item>
+      <item quantity="other">මිනිත්තු <xliff:g id="NUMBER">%s</xliff:g></item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"සෑමදාම"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ඔරලෝසුවක් තෝරන්න"</string>
@@ -87,15 +93,18 @@
     <string name="settings" msgid="5849739030579520686">"සැකසුම්"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"යළි සිහිකැඳවන දිග"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="one">මිනිත්තු <xliff:g id="NUMBER">%d</xliff:g></item>
-      <item quantity="other">මිනිත්තු <xliff:g id="NUMBER">%d</xliff:g></item>
+      <item quantity="one">මිනිත්තු <xliff:g id="NUMBER">%s</xliff:g></item>
+      <item quantity="other">මිනිත්තු <xliff:g id="NUMBER">%s</xliff:g></item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
       <item quantity="one">මිනිත්තු</item>
       <item quantity="other">මිනිත්තු</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"නිහඬවන්නෙ පසු"</string>
-    <!-- no translation found for auto_silence_summary (4866064251613566299) -->
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="one">මිනිත්තු <xliff:g id="FORMATTED_NUMBER">%s</xliff:g></item>
+      <item quantity="other">මිනිත්තු <xliff:g id="FORMATTED_NUMBER">%s</xliff:g></item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"කවදාවත් නොවේ"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"මිනිත්තු 1"</item>
@@ -335,7 +344,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"ඇඟවීම දිග හරින්න"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ඇඟවීම අකුලන්න"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"අස් කරන්න"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"ඇඟවීම මකාදැමිණි."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"එලාමය නොමකන ලදී"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"මීළඟ ඇඟවීම: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
@@ -355,5 +364,31 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2938232623456109180">"වලංගු නොවන කාලය <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="6879712060034435529">"<xliff:g id="ALARM_TIME">%s</xliff:g> ට එලාම කිසිවක් නැත"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"කාල සටහන්ගත කළ එලාම නැත"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"විරාම ඝටිකාව දැනටමත් ධාවනය වේ"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"විරාම ඝටිකාව ධාවනය නොවේ"</string>
+    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"විරාම ඝටිකා ප්‍රකාරය වෙනස් කරන ලදී"</string>
+    <string name="more_than_one_instance_for_this_alarm_id" msgid="2234399757112307135">"මෙම කාලය සඳහා එලාම එකකට වඩා කාල සටහන්ගත කර ඇත."</string>
+    <string name="no_alarm_instances_for_this_id" msgid="2083029511278199378">"මෙම කාලය සඳහා එලාම කාල සටහන්ගත කර නැත."</string>
+    <string name="alarm_is_canceled" msgid="1519270868702473120">"<xliff:g id="ALARM_TIME">%s</xliff:g> එලාමය අවලංගු කරන ලදී"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"<xliff:g id="ALARM_TIME">%s</xliff:g> එලාමය මකන ලදී"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> එලාමය ඉවතලන ලදී"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"ටයිමරය සකසා නැත"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"ටයිමරය මකන ලදී"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"ටයිමරය දැනටමත් ධාවනය වේ"</string>
+    <string name="timer_started" msgid="6715582052946641641">"ටයිමරය ආරම්භ කරන ලදී"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"ටයිමරය යළි සකසන ලදී"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"ටයිමරය තවම ධාවනය වන බැවින් එය යළි සැකසීමට නොහැකිය. යළි සැකසීමට ටයිමරය නවත්වන්න."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"ටයිමරය දැනටමත් නතර කර ඇත"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"නගරය තෝරා නොමැත"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"ඔබ නිශ්චිතව දක්වන ලද නගරය ලබා ගත නොහැකිය"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"එම නගරය දැනටමත් එක් කර ඇත"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> එක් කරන ලදී"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> මකන ලදී"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> එලාමය තවම ඉවතලීමට නොහැකිය, තව පැය 24 කට වඩා ඈතිනි."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"එලාමය අස් කරන්න"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"ගිනි එලාම නැත"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> එලාමය මිනිත්තු 10 ක් ස්නූස් කරන ලදී"</string>
 </resources>

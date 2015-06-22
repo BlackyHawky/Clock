@@ -75,12 +75,9 @@
     <item msgid="9115697840826129603">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="HOURS">%2$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"Signāls ir iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 diena"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> diena(-as)"</string>
-    <string name="hour" msgid="2546819039651509323">"1 stunda"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> stunda(-as)"</string>
-    <string name="minute" msgid="2486157997434653710">"1 minūte"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minūte(-es)"</string>
+    <!-- no translation found for days (3706846447285206235) -->
+    <!-- no translation found for hours (3871283109767171655) -->
+    <!-- no translation found for minutes (5484431721696058697) -->
     <string name="every_day" msgid="4100909974923444602">"Katru dienu"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Izvēlieties pulksteni"</string>
@@ -89,9 +86,9 @@
     <string name="settings" msgid="5849739030579520686">"Iestatījumi"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Snaudas ilgums"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> minūtes</item>
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> minūte</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minūtes</item>
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minūte</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
       <item quantity="zero">minūtes</item>
@@ -99,7 +96,7 @@
       <item quantity="other">minūtes</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Izslēgt skaņu pēc:"</string>
-    <!-- no translation found for auto_silence_summary (4866064251613566299) -->
+    <!-- no translation found for auto_silence_summary (6579258788774360396) -->
     <string name="auto_silence_never" msgid="4821982647348750809">"Nekad"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minūte"</item>
@@ -342,7 +339,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Izvēršanas signāls"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sakļaušanas signāls"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"atsaukt"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Signāls ir izdzēsts."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Signāls ir izdzēsts"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Nākamais signāls: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
@@ -363,5 +360,57 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, plkst. h:mm priekšpusdienā"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, plkst. k:mm"</string>
+    <!-- no translation found for invalid_time (2938232623456109180) -->
+    <skip />
+    <!-- no translation found for no_alarm_at (6879712060034435529) -->
+    <skip />
+    <!-- no translation found for no_scheduled_alarms (2115420148192753534) -->
+    <skip />
+    <!-- no translation found for stopwatch_already_running (6598258908106423672) -->
+    <skip />
+    <!-- no translation found for stopwatch_isnt_running (7147219965448204727) -->
+    <skip />
+    <!-- no translation found for stopwatch_mode_changed (2096052973378533405) -->
+    <skip />
+    <!-- no translation found for more_than_one_instance_for_this_alarm_id (2234399757112307135) -->
+    <skip />
+    <!-- no translation found for no_alarm_instances_for_this_id (2083029511278199378) -->
+    <skip />
+    <!-- no translation found for alarm_is_canceled (1519270868702473120) -->
+    <skip />
+    <!-- no translation found for alarm_is_deleted (4593667023633842085) -->
+    <skip />
+    <!-- no translation found for alarm_is_dismissed (5509897230565826642) -->
+    <skip />
+    <!-- no translation found for no_timer_set (3326365650863016606) -->
+    <skip />
+    <!-- no translation found for timer_deleted (9110322362460029392) -->
+    <skip />
+    <!-- no translation found for timer_already_running (1259351124772803097) -->
+    <skip />
+    <!-- no translation found for timer_started (6715582052946641641) -->
+    <skip />
+    <!-- no translation found for timer_was_reset (6495796785185062631) -->
+    <skip />
+    <!-- no translation found for timer_cant_be_reset_because_its_running (7880015473706806640) -->
+    <skip />
+    <!-- no translation found for timer_already_stopped (8865820275829449054) -->
+    <skip />
+    <!-- no translation found for no_city_selected (1007596865203283741) -->
+    <skip />
+    <!-- no translation found for the_city_you_specified_is_not_available (1753597460426454543) -->
+    <skip />
+    <!-- no translation found for the_city_already_added (3799050213771793020) -->
+    <skip />
+    <!-- no translation found for city_added (1335509457349179514) -->
+    <skip />
+    <!-- no translation found for city_deleted (3935141305276867838) -->
+    <skip />
+    <!-- no translation found for alarm_cant_be_dismissed_still_more_than_24_hours_away (8810520940995307437) -->
+    <skip />
     <string name="dismiss_alarm" msgid="7204593078688533541">"Noraidīt signālu"</string>
+    <!-- no translation found for no_firing_alarms (4986161963178722289) -->
+    <skip />
+    <!-- no translation found for alarm_is_snoozed (7044644119744928846) -->
+    <skip />
 </resources>
