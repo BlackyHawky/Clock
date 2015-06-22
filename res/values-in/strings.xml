@@ -73,12 +73,18 @@
     <item msgid="9115697840826129603">"Alarm disetel untuk <xliff:g id="HOURS">%2$s</xliff:g> dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
     <item msgid="2332583385137381060">"Alarm disetel untuk <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, dan <xliff:g id="MINUTES">%3$s</xliff:g> dari sekarang."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 hari"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> hari"</string>
-    <string name="hour" msgid="2546819039651509323">"1 jam"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> jam"</string>
-    <string name="minute" msgid="2486157997434653710">"1 menit"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> menit"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hari</item>
+      <item quantity="one">1 hari</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> jam</item>
+      <item quantity="one">1 jam</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> menit</item>
+      <item quantity="one">1 menit</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Setiap hari"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Pilih jam"</string>
@@ -87,7 +93,7 @@
     <string name="settings" msgid="5849739030579520686">"Setelan"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Panjang penundaan"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> menit</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> menit</item>
       <item quantity="one">1 menit</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,7 +101,10 @@
       <item quantity="one">menit</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Disenyapkan setelah"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> menit"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> menit</item>
+      <item quantity="one">1 menit</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Tidak Pernah"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 menit"</item>
@@ -335,7 +344,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Luaskan alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Ciutkan alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"urungkan"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Alarm dihapus."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarm dihapus"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Alarm berikutnya: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
@@ -355,4 +364,31 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"j.mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"HHH, j.mm"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"H, j.mm"</string>
+    <string name="invalid_time" msgid="2938232623456109180">"Waktu tidak valid <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="6879712060034435529">"Tidak ada alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Tidak ada jadwal alarm"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Stopwatch sudah berjalan"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Stopwatch tidak berjalan"</string>
+    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Mode stopwatch diubah"</string>
+    <string name="more_than_one_instance_for_this_alarm_id" msgid="2234399757112307135">"Ada lebih dari satu jadwal alarm untuk waktu ini"</string>
+    <string name="no_alarm_instances_for_this_id" msgid="2083029511278199378">"Tidak ada jadwal alarm untuk waktu ini"</string>
+    <string name="alarm_is_canceled" msgid="1519270868702473120">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> dibatalkan"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> dihapus"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> ditutup"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"Pewaktu tidak disetel"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Pewaktu dihapus"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Pewaktu sudah berjalan"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Pewaktu dimulai"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Pewaktu disetel ulang"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Pewaktu tidak dapat disetel ulang karena masih berjalan. Hentikan pewaktu untuk menyetel ulang."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Pewaktu sudah dihentikan"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"Tidak ada kota yang dipilih"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Kota yang Anda sebutkan tidak tersedia"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Kota tersebut telah ditambahkan"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> ditambahkan"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> dihapus"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> belum dapat ditutup, masih 24 jam lagi"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Tutup alarm"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Tidak ada alarm yang aktif"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> ditunda selama 10 menit"</string>
 </resources>
