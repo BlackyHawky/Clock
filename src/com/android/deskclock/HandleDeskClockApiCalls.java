@@ -132,14 +132,18 @@ public class HandleDeskClockApiCalls extends Activity {
             // don't fire START_STOPWATCH or RESET_STOPWATCH if a stopwatch is already running
             if (ACTION_START_STOPWATCH.equals(action) ||
                     ACTION_RESET_STOPWATCH.equals(action)) {
-                LogUtils.i("Stopwatch is already running");
+                final String reason = getString(R.string.stopwatch_already_running);
+                Voice.notifyFailure(this, reason);
+                LogUtils.i(reason);
                 return;
             }
         } else {
             // if a stopwatch isn't running, don't try to stop or lap it
             if (ACTION_STOP_STOPWATCH.equals(action) ||
                     ACTION_LAP_STOPWATCH.equals(action)) {
-                LogUtils.i("Stopwatch isn't running");
+                final String reason = getString(R.string.stopwatch_isnt_running);
+                Voice.notifyFailure(this, reason);
+                LogUtils.i(reason);
                 return;
             }
         }
@@ -171,6 +175,9 @@ public class HandleDeskClockApiCalls extends Activity {
         }
         final Intent intent = new Intent(mAppContext, StopwatchService.class).setAction(action);
         startService(intent);
+        final String reason = getString(R.string.stopwatch_mode_changed);
+        Voice.notifySuccess(this, reason);
+        LogUtils.i(reason);
     }
 
     private void handleTimerIntent(final String action) {
@@ -185,7 +192,7 @@ public class HandleDeskClockApiCalls extends Activity {
             Events.sendTimerEvent(R.string.action_show, R.string.label_intent);
             return;
         }
-        new HandleTimersAsync(mAppContext, action).execute();
+        new HandleTimersAsync(mAppContext, action, this).execute();
     }
 
     private void handleClockIntent(final String action) {
@@ -196,16 +203,18 @@ public class HandleDeskClockApiCalls extends Activity {
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.CLOCK_TAB_INDEX);
         startActivity(handleClock);
 
-        new HandleClockAsync(mAppContext, getIntent()).execute();
+        new HandleClockAsync(mAppContext, getIntent(), this).execute();
     }
 
     private static class HandleTimersAsync extends AsyncTask<Void, Void, Void> {
         private final Context mContext;
         private final String mAction;
+        private final Activity mActivity;
 
-        public HandleTimersAsync(Context context, String action) {
+        public HandleTimersAsync(Context context, String action, Activity activity) {
             mContext = context;
             mAction = action;
+            mActivity = activity;
         }
         // STOP_TIMER and START_TIMER should only be triggered if there is one timer that is
         // not stopped or not started respectively. This method checks all timers to find only
@@ -218,7 +227,9 @@ public class HandleDeskClockApiCalls extends Activity {
             final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
             TimerObj.getTimersFromSharedPrefs(prefs, timers);
             if (timers.isEmpty()) {
-                LogUtils.i("There are no timers");
+                final String reason = mContext.getString(R.string.no_timer_set);
+                LogUtils.i(reason);
+                Voice.notifyFailure(mActivity, reason);
                 return null;
             }
             switch (mAction) {
@@ -230,18 +241,24 @@ public class HandleDeskClockApiCalls extends Activity {
                     final TimerObj timer = timers.get(0);
                     timer.deleteFromSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_delete, R.string.label_intent);
-                    LogUtils.i("Timer was successfully deleted");
+                    final String reason = mContext.getString(R.string.timer_deleted);
+                    Voice.notifySuccess(mActivity, reason);
+                    LogUtils.i(reason);
                     break;
                 }
                 case ACTION_START_TIMER: {
                     final TimerObj timer = getTimerWithStateToIgnore(timers, TimerObj.STATE_RUNNING);
                     // Only start a timer if there's one non-running timer available
                     if (timer == null) {
+                        // notifyFailure was already triggered
                         return null;
                     }
                     timer.setState(TimerObj.STATE_RUNNING);
                     timer.mStartTime = Utils.getTimeNow() - (timer.mSetupLength - timer.mTimeLeft);
                     timer.writeToSharedPref(prefs);
+                    final String reason = mContext.getString(R.string.timer_started);
+                    Voice.notifySuccess(mActivity, reason);
+                    LogUtils.i(reason);
                     Events.sendTimerEvent(R.string.action_start, R.string.label_intent);
                     break;
                 }
@@ -252,8 +269,16 @@ public class HandleDeskClockApiCalls extends Activity {
                     statesToInclude.add(TimerObj.STATE_STOPPED);
                     final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude);
                     if (timer == null) {
+                        // all timers are running
+                        final String reason = mContext.getString(
+                                R.string.timer_cant_be_reset_because_its_running);
+                        LogUtils.i(reason);
+                        Voice.notifyFailure(mActivity, reason);
                         return null;
                     }
+                    final String reason = mContext.getString(R.string.timer_was_reset);
+                    Voice.notifySuccess(mActivity, reason);
+                    LogUtils.i(reason);
                     timer.setState(TimerObj.STATE_RESTART);
                     timer.mTimeLeft = timer.mOriginalLength;
                     timer.writeToSharedPref(prefs);
@@ -267,8 +292,15 @@ public class HandleDeskClockApiCalls extends Activity {
                     // Timer is stopped if there's only one running timer
                     final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude);
                     if (timer == null) {
+                        // no running timers
+                        final String reason = mContext.getString(R.string.timer_already_stopped);
+                        LogUtils.i(reason);
+                        Voice.notifyFailure(mActivity, reason);
                         return null;
                     }
+                    final String reason = mContext.getString(R.string.timer_stopped);
+                    LogUtils.i(reason);
+                    Voice.notifySuccess(mActivity, reason);
                     timer.setState(TimerObj.STATE_STOPPED);
                     timer.writeToSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_stop, R.string.label_intent);
@@ -293,6 +325,9 @@ public class HandleDeskClockApiCalls extends Activity {
                         soleTimer = timer;
                     } else {
                         // soleTimer has already been set
+                        final String reason = mContext.getString(R.string.multiple_timers_available);
+                        LogUtils.i(reason);
+                        Voice.notifyFailure(mActivity, reason);
                         return null;
                     }
                 }
@@ -316,6 +351,10 @@ public class HandleDeskClockApiCalls extends Activity {
                         soleTimer = timer;
                     } else {
                         // soleTimer has already been set
+                        final String reason = mContext.getString(
+                                R.string.multiple_timers_available);
+                        LogUtils.i(reason);
+                        Voice.notifyFailure(mActivity, reason);
                         return null;
                     }
                 }
@@ -327,10 +366,12 @@ public class HandleDeskClockApiCalls extends Activity {
     private static class HandleClockAsync extends AsyncTask<Void, Void, Void> {
         private final Context mContext;
         private final Intent mIntent;
+        private final Activity mActivity;
 
-        public HandleClockAsync(Context context, Intent intent) {
+        public HandleClockAsync(Context context, Intent intent, Activity activity) {
             mContext = context;
             mIntent = intent;
+            mActivity = activity;
         }
 
         @Override
@@ -342,7 +383,9 @@ public class HandleDeskClockApiCalls extends Activity {
                 case ACTION_ADD_CLOCK: {
                     // if a city isn't specified open CitiesActivity to choose a city
                     if (cityExtra == null) {
-                        LogUtils.i("No city specified");
+                        final String reason = mContext.getString(R.string.no_city_selected);
+                        Voice.notifyFailure(mActivity, reason);
+                        LogUtils.i(reason);
                         mContext.startActivity(new Intent(mContext, CitiesActivity.class));
                         Events.sendClockEvent(R.string.action_create, R.string.label_intent);
                         break;
@@ -353,7 +396,10 @@ public class HandleDeskClockApiCalls extends Activity {
                     final CityObj city = cities.get(cityExtra.toLowerCase());
                     // check if this city exists in the list of available cities
                     if (city == null) {
-                        LogUtils.i("The city you specified is not available");
+                        final String reason = mContext.getString(
+                                R.string.the_city_you_specified_is_not_available);
+                        Voice.notifyFailure(mActivity, reason);
+                        LogUtils.i(reason);
                         break;
                     }
 
@@ -361,19 +407,25 @@ public class HandleDeskClockApiCalls extends Activity {
                             Cities.readCitiesFromSharedPrefs(prefs);
                     // if this city is already added don't add it
                     if (selectedCities.put(city.mCityId, city) != null) {
-                        LogUtils.i("The city you specified is already added");
+                        final String reason = mContext.getString(R.string.the_city_already_added);
+                        Voice.notifyFailure(mActivity, reason);
+                        LogUtils.i(reason);
                         break;
                     }
 
                     Cities.saveCitiesToSharedPrefs(prefs, selectedCities);
-                    LogUtils.i("%s was successfully added", city.mCityName);
+                    final String reason = mContext.getString(R.string.city_added, city.mCityName);
+                    Voice.notifySuccess(mActivity, reason);
+                    LogUtils.i(reason);
                     Events.sendClockEvent(R.string.action_start, R.string.label_intent);
                     break;
                 }
                 case ACTION_DELETE_CLOCK: {
                     if (cityExtra == null) {
                         // if a city isn't specified open CitiesActivity to choose a city
-                        LogUtils.i("No city specified");
+                        final String reason = mContext.getString(R.string.no_city_selected);
+                        Voice.notifyFailure(mActivity, reason);
+                        LogUtils.i(reason);
                         mContext.startActivity(new Intent(mContext, CitiesActivity.class));
                         Events.sendClockEvent(R.string.action_create, R.string.label_intent);
                         break;
@@ -384,15 +436,21 @@ public class HandleDeskClockApiCalls extends Activity {
                     // check if this city exists in the list of available cities
                     final CityObj city = cities.get(cityExtra.toLowerCase());
                     if (city == null) {
-                        LogUtils.i("The city you specified is not available");
+                        final String reason = mContext.getString(
+                                R.string.the_city_you_specified_is_not_available);
+                        Voice.notifyFailure(mActivity, reason);
+                        LogUtils.i(reason);
                         break;
                     }
 
                     final HashMap<String, CityObj> selectedCities =
                             Cities.readCitiesFromSharedPrefs(prefs);
                     if (selectedCities.remove(city.mCityId) != null) {
+                        final String reason = String.format(mContext.getString(
+                                R.string.city_deleted), city.mCityName);
+                        Voice.notifySuccess(mActivity, reason);
+                        LogUtils.i(reason);
                         Cities.saveCitiesToSharedPrefs(prefs, selectedCities);
-                        LogUtils.i("%s was successfully deleted", city.mCityName);
                         Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
                     }
                     break;
