@@ -16,6 +16,7 @@
 
 package com.android.deskclock;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -42,12 +43,15 @@ class FetchMatchingAlarmsAction implements Runnable {
     private final List<Alarm> mAlarms;
     private final Intent mIntent;
     private final List<Alarm> mMatchingAlarms = new ArrayList<>();
+    private final Activity mActivity;
 
-    public FetchMatchingAlarmsAction(Context context, List<Alarm> alarms, Intent intent) {
+    public FetchMatchingAlarmsAction(Context context, List<Alarm> alarms, Intent intent,
+                                     Activity activity) {
         mContext = context;
         // only enabled alarms are passed
         mAlarms = alarms;
         mIntent = intent;
+        mActivity = activity;
     }
 
     @Override
@@ -78,7 +82,9 @@ class FetchMatchingAlarmsAction implements Runnable {
 
                 if (badInput) {
                     final String amPm = isPm == null ? "null" : (isPm ? "pm" : "am");
-                    LogUtils.e("Invalid time specified: %d:%d %s", hour, minutes, amPm);
+                    final String reason = mContext.getString(R.string.invalid_time, hour, minutes,
+                            amPm);
+                    notifyFailureAndLog(reason, mActivity);
                     return;
                 }
 
@@ -91,7 +97,8 @@ class FetchMatchingAlarmsAction implements Runnable {
                     }
                 }
                 if (selectedAlarms.isEmpty()) {
-                    LogUtils.i("No alarm at %d:%d", hour24, minutes);
+                    final String reason = mContext.getString(R.string.no_alarm_at, hour24, minutes);
+                    notifyFailureAndLog(reason, mActivity);
                     return;
                 }
                 // there might me multiple alarms at the same time
@@ -100,7 +107,8 @@ class FetchMatchingAlarmsAction implements Runnable {
             case AlarmClock.ALARM_SEARCH_MODE_NEXT:
                 final AlarmInstance nextAlarm = AlarmStateManager.getNextFiringAlarm(mContext);
                 if (nextAlarm == null) {
-                    LogUtils.i("No alarms are scheduled.");
+                    final String reason = mContext.getString(R.string.no_scheduled_alarms);
+                    notifyFailureAndLog(reason, mActivity);
                     return;
                 }
 
@@ -127,5 +135,10 @@ class FetchMatchingAlarmsAction implements Runnable {
 
     public List<Alarm> getMatchingAlarms() {
         return mMatchingAlarms;
+    }
+
+    private void notifyFailureAndLog(String reason, Activity activity) {
+        LogUtils.e(reason);
+        Voice.notifyFailure(activity, reason);
     }
 }
