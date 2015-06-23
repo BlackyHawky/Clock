@@ -364,6 +364,9 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 break;
             case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_RESTART:
+            // It is possible for a Timer from an older version of Clock to be in STATE_DELETED and
+            // still exist in the list
+            case TimerObj.STATE_DELETED:
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_start));
                 mFab.setImageResource(R.drawable.ic_fab_play);
@@ -477,6 +480,9 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     break;
                 case TimerObj.STATE_STOPPED:
                 case TimerObj.STATE_RESTART:
+                // It is possible for a Timer from an older version of Clock to be in STATE_DELETED and
+                // still exist in the list
+                case TimerObj.STATE_DELETED:
                     // Reset the remaining time and continue timer
                     t.setState(TimerObj.STATE_RUNNING);
                     t.mStartTime = Utils.getTimeNow() - (t.mOriginalLength - t.mTimeLeft);
