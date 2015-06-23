@@ -33,9 +33,9 @@
     <style name="TimePickerTheme" parent="Theme.AppCompat.Dialog">
         <item name="android:background">@color/time_picker_gray</item>
         <item name="android:timePickerStyle">@style/TimePickerStyle</item>
-        <item name="android:textColorPrimaryInverse">@color/hot_pink</item>
+        <item name="android:textColorPrimaryInverse">?attr/colorAccent</item>
 
-        <!-- Propagates to android:colorAccent via the appcompat theme. -->
+        <!-- Attributes from support.v7.appcompat -->
         <item name="colorAccent">@color/hot_pink</item>
     </style>
 
@@ -56,7 +56,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="CitiesTheme" parent="DeskClockParentTheme">
+    <style name="CitiesTheme" parent="BaseActivityTheme">
         <item name="android:fastScrollPreviewBackgroundLeft">
             @drawable/fastscroll_preview_left
         </item>
@@ -75,11 +75,6 @@
         <item name="android:padding">16dip</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">32sp</item>
-    </style>
-
-    <!-- This is to control the FastScroll background color -->
-    <style name="CitiesListViewThemeOverlay">
-        <item name="android:colorControlActivated">@color/hot_pink</item>
     </style>
 
 </resources>

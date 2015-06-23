@@ -14,30 +14,38 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="clock">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <!-- variants: v19 -->
-    <style name="AppCompatTranslucentDecorTheme" parent="Theme.AppCompat.NoActionBar" />
+    <style name="AppCompatTranslucentDecorTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
 
-    <style name="DeskClockParentTheme" parent="Theme.AppCompat">
-        <item name="android:statusBarColor">@color/status_bar</item>
+    <style name="BaseActivityTheme" parent="Theme.AppCompat">
         <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
+
+        <!-- Attributes from support.v7.appcompat -->
+        <item name="colorAccent">@color/hot_pink</item>
+        <item name="colorPrimaryDark">@color/status_bar</item>
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
     </style>
 
-    <style name="AlarmSwitchTheme">
-        <item name="colorControlActivated">@color/hot_pink</item>
+    <style name="ControlAccentThemeOverlay">
+        <!-- Attributes from support.v7.appcompat -->
+        <item name="colorControlActivated">?attr/colorAccent</item>
     </style>
 
     <style name="TimeLabelTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">60dp</item>
+        <item name="android:textSize" tools:ignore="SpUsage">60dp</item>
     </style>
 
     <style name="AmPmTextAppearance" parent="TextAppearance.AppCompat">
@@ -45,14 +53,11 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="DeskClock" parent="@style/DeskClockParentTheme">
+    <style name="DeskClock" parent="@style/BaseActivityTheme">
         <item name="android:windowActionBarOverlay">true</item>
         <item name="android:windowBackground">@color/default_background</item>
-        <item name="android:actionBarStyle">@style/DeskClockActionBarStyle</item>
-        <item name="android:actionBarTabStyle">@style/DeskClockTabStyle</item>
-        <item name="android:actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
-        <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
-        <!-- For support library -->
+
+        <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/DeskClockActionBarStyle</item>
         <item name="actionBarTabStyle">@style/DeskClockTabStyle</item>
         <item name="actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
@@ -71,7 +76,7 @@
     <style name="DeskClockTabBarStyle" parent="Widget.AppCompat.ActionBar.TabBar">
         <item name="android:dividerPadding">12dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:showDividers">none</item>
+        <!-- Attributes from support.v7.appcompat -->
         <item name="showDividers">none</item>
     </style>
 
@@ -79,38 +84,41 @@
         <item name="android:background">@null</item>
         <item name="android:backgroundStacked">@null</item>
         <item name="android:backgroundSplit">@null</item>
-        <!-- Empty displayOptions is to hide App title at app launch -->
-        <item name="android:displayOptions"></item>
+        <!--suppress CheckTagEmptyBody Empty displayOptions to hide app title at launch. -->
+        <item name="displayOptions"></item>
     </style>
 
-    <style name="DeskClockDropDownListView" parent="Widget.AppCompat.ListView.DropDown" />
-
-    <style name="SettingsTheme" parent="@style/DeskClockParentTheme">
+    <style name="SettingsTheme" parent="@style/BaseActivityTheme">
         <item name="android:detailsElementBackground">@null</item>
-        <item name="android:dropDownListViewStyle">@style/DeskClockDropDownListView</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
+
+        <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
     </style>
 
     <style name="SettingsActionBarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:background">@null</item>
-        <item name="android:displayOptions">showTitle|homeAsUp</item>
+
+        <!-- Attributes from support.v7.appcompat -->
         <item name="displayOptions">showTitle|homeAsUp</item>
     </style>
 
-    <style name="CitiesTheme" parent="@style/DeskClockParentTheme">
+    <style name="CitiesTheme" parent="@style/BaseActivityTheme">
         <item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollTextColor">@color/white</item>
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
         <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
+
+        <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
     </style>
 
     <style name="CitiesActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@null</item>
-        <item name="android:displayOptions">homeAsUp</item>
+
+        <!-- Attributes from support.v7.appcompat -->
         <item name="displayOptions">homeAsUp</item>
     </style>
 
@@ -123,10 +131,7 @@
         <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
     </style>
 
-    <style name="ScreensaverActivityTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Hide navigation bar when Dream is started from within the Clock app -->
-        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
-    </style>
+    <style name="ScreensaverActivityTheme" parent="Theme.AppCompat.NoActionBar" />
 
     <style name="ImageButtonStyle" parent="android:Widget.DeviceDefault.ImageButton">
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
@@ -283,10 +288,12 @@
         <item name="android:textSize">@dimen/notification_text_size</item>
         <item name="android:textColor">@color/notif_text_grey</item>
     </style>
+
     <style name="TextAppearance.StatusBar.EventContent.Title">
         <item name="android:textSize">@dimen/notification_title_text_size</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
     <style name="ToastBarStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">48dip</item>

@@ -51,7 +51,7 @@
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/onoff"
-            android:theme="@style/AlarmSwitchTheme"
+            android:theme="@style/ControlAccentThemeOverlay"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/touch_target_min_size"
             android:layout_gravity="center_vertical|end" />
