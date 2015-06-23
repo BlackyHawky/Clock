@@ -965,6 +965,12 @@
     -->
     <string name="alarm_is_dismissed"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm dismissed</string>
 
+    <!-- String that represents that the user has dismissed an alarm through a voice action.
+    %s represents alarm time, e.g. 14:20
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_set">Alarm is set for <xliff:g id="alarm_time" example="14:20">%s</xliff:g></string>
+
     <!-- String that represents that the user attempted to send a voice action 'delete a timer'
     when there were no timers available.
     [CHAR LIMIT=NONE]
@@ -989,11 +995,21 @@
      -->
     <string name="multiple_timers_available">Unable to complete your request, multiple timers available</string>
 
-
     <!-- String that represents that the user has successfully started a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
     <string name="timer_started">Timer started</string>
+
+    <!-- String that represents that the user has successfully created a timer through a voice action.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="timer_created">Timer created</string>
+
+    <!-- String that represents that the user attempted to start a timer through a voice action
+    but specified invalid length.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="invalid_timer_length">Invalid timer length</string>
 
     <!-- String that represents that the user has successfully reset a timer through a voice action.
     [CHAR LIMIT=NONE]
