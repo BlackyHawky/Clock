@@ -36,13 +36,15 @@ public final class Voice {
     }
 
     public static void notifySuccess(Activity activity, String message) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+        // TODO change this to Build.VERSION.SDK_INT > Build.VERSION.LOLLIPOP_MR1
+        if (Build.VERSION.CODENAME.equals("MNC")) {
             sDelegate.notifySuccess(activity.getVoiceInteractor(), message);
         }
     }
 
     public static void notifyFailure(Activity activity, String message) {
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+        // TODO change this to Build.VERSION.SDK_INT > Build.VERSION.LOLLIPOP_MR1
+        if (Build.VERSION.CODENAME.equals("MNC")) {
             sDelegate.notifyFailure(activity.getVoiceInteractor(), message);
         }
     }
