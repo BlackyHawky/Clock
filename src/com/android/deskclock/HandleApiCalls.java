@@ -170,6 +170,7 @@ public class HandleApiCalls extends Activity {
                         .putExtra(AlarmSelectionActivity.EXTRA_ALARMS,
                                 alarms.toArray(new Parcelable[alarms.size()]));
                 mContext.startActivity(pickSelectionIntent);
+                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_dismiss));
                 return null;
             }
 
@@ -187,8 +188,7 @@ public class HandleApiCalls extends Activity {
                         .putExtra(AlarmSelectionActivity.EXTRA_ALARMS,
                                 matchingAlarms.toArray(new Parcelable[matchingAlarms.size()]));
                 mContext.startActivity(pickSelectionIntent);
-                final String reason = mContext.getString(R.string.pick_alarm_to_dismiss);
-                Voice.notifySuccess(mActivity, reason);
+                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_dismiss));
                 return null;
             }
 
@@ -277,7 +277,7 @@ public class HandleApiCalls extends Activity {
             createAlarm.putExtra(AlarmClockFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
             createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
             startActivity(createAlarm);
-            Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes));
+            Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
             LogUtils.i("HandleApiCalls no/invalid time; opening UI");
             return;
         }
