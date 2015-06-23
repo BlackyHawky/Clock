@@ -272,6 +272,7 @@ public class HandleApiCalls extends Activity {
             createAlarm.putExtra(AlarmClockFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
             createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
             startActivity(createAlarm);
+            Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes));
             LogUtils.i("HandleApiCalls no/invalid time; opening UI");
             return;
         }
@@ -306,6 +307,7 @@ public class HandleApiCalls extends Activity {
         final ContentResolver cr = getContentResolver();
         alarm = Alarm.addAlarm(cr, alarm);
         setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
+        Voice.notifySuccess(this, getString(R.string.alarm_is_set, alarm));
         LogUtils.i("HandleApiCalls set up alarm: %s", alarm);
     }
 
@@ -329,6 +331,7 @@ public class HandleApiCalls extends Activity {
 
         final long length = 1000l * intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0);
         if (length < TIMER_MIN_LENGTH || length > TIMER_MAX_LENGTH) {
+            Voice.notifyFailure(this, getString(R.string.invalid_timer_length));
             LogUtils.i("Invalid timer length requested: " + length);
             return;
         }
@@ -373,6 +376,7 @@ public class HandleApiCalls extends Activity {
                     .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
                     .putExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, true));
         }
+        Voice.notifySuccess(this, getString(R.string.timer_created));
         LogUtils.i("HandleApiCalls timer created: %s", timer);
     }
 
