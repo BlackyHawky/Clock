@@ -446,8 +446,8 @@ public class HandleDeskClockApiCalls extends Activity {
                     final HashMap<String, CityObj> selectedCities =
                             Cities.readCitiesFromSharedPrefs(prefs);
                     if (selectedCities.remove(city.mCityId) != null) {
-                        final String reason = String.format(mContext.getString(
-                                R.string.city_deleted), city.mCityName);
+                        final String reason = mContext.getString(R.string.city_deleted,
+                                city.mCityName);
                         Voice.notifySuccess(mActivity, reason);
                         LogUtils.i(reason);
                         Cities.saveCitiesToSharedPrefs(prefs, selectedCities);
