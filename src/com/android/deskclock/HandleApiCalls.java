@@ -30,6 +30,7 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.AlarmClock;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.events.Events;
@@ -112,15 +113,17 @@ public class HandleApiCalls extends Activity {
             return;
         }
 
+        final String time = DateFormat.getTimeFormat(context).format(
+                alarmInstance.getAlarmTime().getTime());
         if (Utils.isAlarmWithin24Hours(alarmInstance)) {
             AlarmStateManager.setPreDismissState(context, alarmInstance);
-            final String reason = context.getString(R.string.alarm_is_dismissed, alarm);
+            final String reason = context.getString(R.string.alarm_is_dismissed, time);
             LogUtils.i(reason);
             Voice.notifySuccess(activity, reason);
             Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
         } else {
             final String reason = context.getString(
-                    R.string.alarm_cant_be_dismissed_still_more_than_24_hours_away, alarm);
+                    R.string.alarm_cant_be_dismissed_still_more_than_24_hours_away, time);
             Voice.notifyFailure(activity, reason);
             LogUtils.i(reason);
         }
@@ -242,7 +245,9 @@ public class HandleApiCalls extends Activity {
             throw new IllegalStateException("snoozeAlarm must be called on a " +
                     "background thread");
         }
-        final String reason = context.getString(R.string.alarm_is_snoozed, alarmInstance);
+        final String time = DateFormat.getTimeFormat(context).format(
+                alarmInstance.getAlarmTime().getTime());
+        final String reason = context.getString(R.string.alarm_is_snoozed, time);
         LogUtils.i(reason);
         Voice.notifySuccess(activity, reason);
         AlarmStateManager.setSnoozeState(context, alarmInstance, true);
@@ -306,8 +311,11 @@ public class HandleApiCalls extends Activity {
 
         final ContentResolver cr = getContentResolver();
         alarm = Alarm.addAlarm(cr, alarm);
-        setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
-        Voice.notifySuccess(this, getString(R.string.alarm_is_set, alarm));
+        final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
+        setupInstance(alarmInstance, skipUi);
+        final String time = DateFormat.getTimeFormat(mAppContext).format(
+                alarmInstance.getAlarmTime().getTime());
+        Voice.notifySuccess(this, getString(R.string.alarm_is_set, time));
         LogUtils.i("HandleApiCalls set up alarm: %s", alarm);
     }
 
