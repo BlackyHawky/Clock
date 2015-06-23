@@ -102,7 +102,7 @@ public class AlarmKlaxon {
                 }
                 startAlarm(context, sMediaPlayer);
             } catch (Exception ex) {
-                LogUtils.v("Using the fallback ringtone");
+                LogUtils.e("Use the fallback ringtone, original was " + alarmNoise, ex);
                 // The alarmNoise may be on the sd card which could be busy right
                 // now. Use the fallback ringtone.
                 try {
