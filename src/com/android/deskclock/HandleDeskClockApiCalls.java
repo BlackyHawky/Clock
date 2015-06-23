@@ -452,6 +452,10 @@ public class HandleDeskClockApiCalls extends Activity {
                         LogUtils.i(reason);
                         Cities.saveCitiesToSharedPrefs(prefs, selectedCities);
                         Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
+                    } else {
+                        // the specified city hasn't been added to the user's list yet
+                        Voice.notifyFailure(mActivity, mContext.getString(
+                                R.string.the_city_you_specified_is_not_available));
                     }
                     break;
                 }
