@@ -111,7 +111,7 @@ public class LabelDialogFragment extends DialogFragment {
         mLabelBox.selectAll();
         setLabelBoxBackground(TextUtils.isEmpty(label));
 
-        final AlertDialog alertDialog = new AlertDialog.Builder(context, R.style.AlertDialogTheme)
+        final AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setView(mLabelBox)
                 .setPositiveButton(R.string.time_picker_set, new DialogInterface.OnClickListener() {
                     @Override

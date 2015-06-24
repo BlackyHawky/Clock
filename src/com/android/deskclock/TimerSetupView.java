@@ -44,7 +44,9 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     protected ImageButton mDelete;
     protected TimerView mEnteredTime;
     protected View mDivider;
-    protected final Context mContext;
+
+    private final int mColorAccent;
+    private final int mColorHairline;
 
     private final AnimatorListenerAdapter mHideFabAnimatorListener = new AnimatorListenerAdapter() {
         @Override
@@ -67,15 +69,16 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     };
 
     public TimerSetupView(Context context) {
-        this(context, null);
+        this(context, null /* attrs */);
     }
 
     public TimerSetupView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
-        LayoutInflater layoutInflater =
-                (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(R.layout.time_setup_view, this);
+
+        mColorAccent = Utils.obtainStyledColor(context, R.attr.colorAccent, Color.RED);
+        mColorHairline = context.getResources().getColor(R.color.hairline);
+
+        LayoutInflater.from(context).inflate(R.layout.time_setup_view, this);
     }
 
     @Override
@@ -140,7 +143,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         final boolean enabled = isInputHasValue();
         if (mDelete != null) {
             mDelete.setEnabled(enabled);
-            mDivider.setBackgroundResource(enabled ? R.color.hot_pink : R.color.dialog_gray);
+            mDivider.setBackgroundColor(enabled ? mColorAccent : mColorHairline);
         }
     }
 
