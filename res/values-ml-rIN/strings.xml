@@ -364,21 +364,25 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="2938232623456109180">"അസാധുവായ സമയം <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="6879712060034435529">"<xliff:g id="ALARM_TIME">%s</xliff:g> മണിക്ക് അലാറമില്ല"</string>
+    <string name="invalid_time" msgid="8369328732811670187">"അസാധുവായ സമയം <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>-ന് അലാറം ഒന്നുമില്ല"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"ഷെഡ്യൂൾ ചെയ്ത അലാറമുകളൊന്നുമില്ല"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"സ്റ്റോപ്പ്‌വാച്ച് ഇതിനകം തന്നെ പ്രവർത്തിക്കുന്നുണ്ട്"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"സ്റ്റോപ്പ്‌വാച്ച് പ്രവർത്തിക്കുന്നില്ല"</string>
     <string name="stopwatch_mode_changed" msgid="2096052973378533405">"സ്റ്റോപ്പ്‌വാച്ച് മോഡ് മാറ്റി"</string>
-    <string name="more_than_one_instance_for_this_alarm_id" msgid="2234399757112307135">"ഈ സമയത്തേക്ക് ഒന്നിലധികം അലാറം ഷെഡ്യൂൾ ചെയ്തിരിക്കുന്നു"</string>
-    <string name="no_alarm_instances_for_this_id" msgid="2083029511278199378">"ഈ സമയത്തേക്ക് അലാറമൊന്നും ഷെഡ്യൂൾ ചെയ്തിട്ടില്ല"</string>
-    <string name="alarm_is_canceled" msgid="1519270868702473120">"<xliff:g id="ALARM_TIME">%s</xliff:g> അലാറം റദ്ദാക്കി"</string>
-    <string name="alarm_is_deleted" msgid="4593667023633842085">"<xliff:g id="ALARM_TIME">%s</xliff:g> അലാറം ഇല്ലാതാക്കി"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ഈ സമയത്തേക്കായി അലാറമുകളൊന്നും ഷെഡ്യൂൾ ചെയ്തിട്ടില്ല"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> അലാറം ഡിസ്മിസ് ചെയ്തു"</string>
+    <!-- no translation found for alarm_is_set (5503226382620011088) -->
+    <skip />
     <string name="no_timer_set" msgid="3326365650863016606">"സജ്ജമാക്കിയ ടൈമറുകളൊന്നുമില്ല"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"ടൈമർ ഇല്ലാതാക്കി"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"ടൈമർ ഇതിനകം തന്നെ പ്രവർത്തിക്കുന്നു"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"അഭ്യർത്ഥന പൂർത്തിയാക്കാനാവുന്നില്ല, ഒന്നിലധികം ടൈമറുകൾ ലഭ്യം"</string>
     <string name="timer_started" msgid="6715582052946641641">"ടൈമർ ആരംഭിച്ചു"</string>
+    <!-- no translation found for timer_created (4381027137335885547) -->
+    <skip />
+    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
+    <skip />
     <string name="timer_was_reset" msgid="6495796785185062631">"ടൈമർ പുനഃസജ്ജമാക്കി"</string>
     <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"ടൈമർ ഇതിനകം തന്നെ പ്രവർത്തിക്കുന്നതിനാൽ, പുനഃസജ്ജമാക്കാൻ കഴിയില്ല. പുനഃസജ്ജമാക്കാൻ ടൈമർ നിർത്തുക."</string>
     <string name="timer_already_stopped" msgid="8865820275829449054">"ടൈമർ ഇതിനകം തന്നെ നിർത്തി"</string>
@@ -389,6 +393,7 @@
     <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> ഇല്ലാതാക്കി"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> മണിക്കുള്ള അലാറം ഡിസ്മിസ് ചെയ്യാൻ കഴിയില്ല, അതിന് ഇനിയും 24 മണിക്കൂറിൽ കൂടുതൽ സമയമുണ്ട്"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"അലാറം ഡിസ്മിസ് ചെയ്യുക"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"ഡിസ്മിസ് ചെയ്യേണ്ട അലാറം തിരഞ്ഞെടുക്കുക"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"ശബ്ദമുണ്ടാക്കുന്ന അലാറമുകളൊന്നുമില്ല"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> അലാറം 10 മിനിറ്റ് സ്നൂസ് ചെയ്തു"</string>
 </resources>

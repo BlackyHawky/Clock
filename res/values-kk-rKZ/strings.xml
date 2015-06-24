@@ -364,21 +364,25 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"к:мм"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, сағ: мм а"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, к: мм"</string>
-    <string name="invalid_time" msgid="2938232623456109180">"<xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> жарамсыз уақыты"</string>
-    <string name="no_alarm_at" msgid="6879712060034435529">"<xliff:g id="ALARM_TIME">%s</xliff:g> уақытында дабыл жоқ"</string>
+    <string name="invalid_time" msgid="8369328732811670187">"Жарамсыз уақыт: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> уақытында дабыл жоқ"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Жоспарланған дабылдар жоқ"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"Секунд өлшегіш бұрыннан іске қосылған"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Секунд өлшегіш іске қосылмаған"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Секунд өлшегіш режимі өзгерді"</string>
-    <string name="more_than_one_instance_for_this_alarm_id" msgid="2234399757112307135">"Осы уақытқа бірнеше дабыл жоспарланған"</string>
-    <string name="no_alarm_instances_for_this_id" msgid="2083029511278199378">"Осы уақытқа дабыл жоспарланбаған"</string>
-    <string name="alarm_is_canceled" msgid="1519270868702473120">"<xliff:g id="ALARM_TIME">%s</xliff:g> дабылынан бас тартылды"</string>
-    <string name="alarm_is_deleted" msgid="4593667023633842085">"<xliff:g id="ALARM_TIME">%s</xliff:g> дабылы жойылды"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> дабылы қабылданбады"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"Таймерлер жиынтығы жоқ"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Секундомер істеп тұр"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Секундомер істеп тұрған жоқ"</string>
+    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Секундомер режимі өзгерді"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Осы уақытқа ешқандай дабыл жоспарланбаған"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> дабылы өшірілді"</string>
+    <!-- no translation found for alarm_is_set (5503226382620011088) -->
+    <skip />
+    <string name="no_timer_set" msgid="3326365650863016606">"Таймер орнатылмаған"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Таймер жойылды"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"Таймер бұрыннан іске қосылған"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Таймер басталды"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Таймер істеп тұр"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Сұрауды аяқтау мүмкін емес, бірнеше таймер қол жетімді"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Таймер қосылды"</string>
+    <!-- no translation found for timer_created (4381027137335885547) -->
+    <skip />
+    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
+    <skip />
     <string name="timer_was_reset" msgid="6495796785185062631">"Таймер ысырылды"</string>
     <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Таймерді ысыру мүмкін емес, өйткені ол әлі жұмыс істеп тұр. Ысыру үшін таймерді тоқтатыңыз."</string>
     <string name="timer_already_stopped" msgid="8865820275829449054">"Таймер тоқтап қалған"</string>
@@ -387,8 +391,9 @@
     <string name="the_city_already_added" msgid="3799050213771793020">"Бұл қала бұрыннан қосылған"</string>
     <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> қосылды"</string>
     <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> жойылды"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> дабылын қабылдамау әлі мүмкін емес, әлі 24 сағаттан көбірек қалған"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> дабылын өшіру мүмкін емес, әлі 24 сағаттан артық уақыт бар"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Дабылды өшіру"</string>
-    <string name="no_firing_alarms" msgid="4986161963178722289">"Естіліп жатқан дабылдар жоқ"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> дабылы 10 минутқа кейінге қалдырылды"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Қабылдамайтын дабылды таңдаңыз"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Соғылып жатқан дабылдар жоқ"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> дабылы 10 минут кейінге қалдырылды"</string>
 </resources>

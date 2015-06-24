@@ -73,9 +73,18 @@
     <item msgid="9115697840826129603">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரம் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="2332583385137381060">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள், <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரம் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
   </string-array>
-    <!-- no translation found for days (3706846447285206235) -->
-    <!-- no translation found for hours (3871283109767171655) -->
-    <!-- no translation found for minutes (5484431721696058697) -->
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நாட்கள்</item>
+      <item quantity="one">1 நாள்</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> மணிநேரம்</item>
+      <item quantity="one">1 மணிநேரம்</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நிமிடங்கள்</item>
+      <item quantity="one">1 நிமிடம்</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"ஒவ்வொரு நாளும்"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"கடிகாரத்தைத் தேர்வுசெய்யவும்"</string>
@@ -92,7 +101,10 @@
       <item quantity="one">நிமிடம்</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"அமைதியாக்க வெண்டியது"</string>
-    <!-- no translation found for auto_silence_summary (6579258788774360396) -->
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> நிமிடங்கள்</item>
+      <item quantity="one">1 நிமிடம்</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"எப்போதும் வேண்டாம்"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 நிமிடம்"</item>
@@ -332,8 +344,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"அலாரத்தை விரிவாக்கு"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"அலாரத்தைச் சுருக்கு"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"செயல்தவிர்"</string>
-    <!-- no translation found for alarm_deleted (6131529309389084785) -->
-    <skip />
+    <string name="alarm_deleted" msgid="6131529309389084785">"அலாரம் நீக்கப்பட்டது"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"அடுத்த அலாரம்: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
@@ -353,57 +364,36 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <!-- no translation found for invalid_time (2938232623456109180) -->
+    <string name="invalid_time" msgid="8369328732811670187">"தவறான நேரம் <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>க்கு அலாரம் எதுவுமில்லை"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"அலாரங்கள் எதுவும் அமைக்கப்படவில்லை"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"ஸ்டாப்வாட்ச் இயங்கிக்கொண்டிருக்கிறது"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"ஸ்டாப்வாட்ச் இயங்கவில்லை"</string>
+    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"ஸ்டாப்வாட்சின் முறை மாற்றப்பட்டது"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"இந்த நேரத்திற்கு அலாரம் எதுவும் அமைக்கப்படவில்லை"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> அலாரம் விலக்கப்பட்டது"</string>
+    <!-- no translation found for alarm_is_set (5503226382620011088) -->
     <skip />
-    <!-- no translation found for no_alarm_at (6879712060034435529) -->
+    <string name="no_timer_set" msgid="3326365650863016606">"டைமர் எதுவும் அமைக்கப்படவில்லை"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"டைமர் நீக்கப்பட்டது"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"டைமர் இயங்கிக்கொண்டிருக்கிறது"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"பல டைமர்கள் உள்ளதால், கோரிக்கையை நிறைவேற்ற முடியவில்லை"</string>
+    <string name="timer_started" msgid="6715582052946641641">"டைமர் தொடங்கியது"</string>
+    <!-- no translation found for timer_created (4381027137335885547) -->
     <skip />
-    <!-- no translation found for no_scheduled_alarms (2115420148192753534) -->
+    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
     <skip />
-    <!-- no translation found for stopwatch_already_running (6598258908106423672) -->
-    <skip />
-    <!-- no translation found for stopwatch_isnt_running (7147219965448204727) -->
-    <skip />
-    <!-- no translation found for stopwatch_mode_changed (2096052973378533405) -->
-    <skip />
-    <!-- no translation found for more_than_one_instance_for_this_alarm_id (2234399757112307135) -->
-    <skip />
-    <!-- no translation found for no_alarm_instances_for_this_id (2083029511278199378) -->
-    <skip />
-    <!-- no translation found for alarm_is_canceled (1519270868702473120) -->
-    <skip />
-    <!-- no translation found for alarm_is_deleted (4593667023633842085) -->
-    <skip />
-    <!-- no translation found for alarm_is_dismissed (5509897230565826642) -->
-    <skip />
-    <!-- no translation found for no_timer_set (3326365650863016606) -->
-    <skip />
-    <!-- no translation found for timer_deleted (9110322362460029392) -->
-    <skip />
-    <!-- no translation found for timer_already_running (1259351124772803097) -->
-    <skip />
-    <!-- no translation found for timer_started (6715582052946641641) -->
-    <skip />
-    <!-- no translation found for timer_was_reset (6495796785185062631) -->
-    <skip />
-    <!-- no translation found for timer_cant_be_reset_because_its_running (7880015473706806640) -->
-    <skip />
-    <!-- no translation found for timer_already_stopped (8865820275829449054) -->
-    <skip />
-    <!-- no translation found for no_city_selected (1007596865203283741) -->
-    <skip />
-    <!-- no translation found for the_city_you_specified_is_not_available (1753597460426454543) -->
-    <skip />
-    <!-- no translation found for the_city_already_added (3799050213771793020) -->
-    <skip />
-    <!-- no translation found for city_added (1335509457349179514) -->
-    <skip />
-    <!-- no translation found for city_deleted (3935141305276867838) -->
-    <skip />
-    <!-- no translation found for alarm_cant_be_dismissed_still_more_than_24_hours_away (8810520940995307437) -->
-    <skip />
+    <string name="timer_was_reset" msgid="6495796785185062631">"டைமர் மீட்டமைக்கப்பட்டது"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"டைமர் இயங்குவதால் மீட்டமைக்க முடியாது. மீட்டமைக்க, டைமரை நிறுத்தவும்."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"டைமர் ஏற்கனவே நிறுத்தப்பட்டது"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"நகரம் எதுவும் தேர்ந்தெடுக்கப்படவில்லை"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"குறிப்பிட்ட நகரம் இல்லை"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"நகரம் ஏற்கனவே சேர்க்கப்பட்டுள்ளது"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> சேர்க்கப்பட்டது"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> நீக்கப்பட்டது"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"இன்னும் 24 மணிநேரத்திற்கு அதிகமாக இருப்பதால், <xliff:g id="ALARM_TIME">%s</xliff:g> அலாரத்தை விலக்க முடியாது"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"அலாரத்தை விலக்கு"</string>
-    <!-- no translation found for no_firing_alarms (4986161963178722289) -->
-    <skip />
-    <!-- no translation found for alarm_is_snoozed (7044644119744928846) -->
-    <skip />
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"விலக்க வேண்டிய அலாரத்தைத் தேர்வுசெய்க"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"தீ எச்சரிக்கை அலாரங்கள் எதுவுமில்லை"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> அலாரம் 10 நிமிடங்களுக்கு உறக்கநிலையில் வைக்கப்பட்டது"</string>
 </resources>
