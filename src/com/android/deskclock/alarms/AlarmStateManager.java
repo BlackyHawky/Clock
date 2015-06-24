@@ -29,6 +29,7 @@ import android.os.Handler;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.text.format.DateFormat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.widget.Toast;
 
@@ -65,7 +66,7 @@ import java.util.List;
  *
  * LOW_NOTIFICATION_STATE:
  * This state is used to notify the user that the alarm will go off
- * {@link AlarmInstance.LOW_NOTIFICATION_HOUR_OFFSET}. This
+ * {@link AlarmInstance#LOW_NOTIFICATION_HOUR_OFFSET}. This
  * state handles the state changes to HIGH_NOTIFICATION_STATE, HIDE_NOTIFICATION_STATE and
  * DISMISS_STATE.
  *
@@ -91,7 +92,7 @@ import java.util.List;
  * it. At this point the alarm instance is dead and we check the parent alarm to see if we need
  * to disable or schedule a new alarm_instance. There is also a notification shown to the user
  * that he/she missed the alarm and that stays for
- * {@link AlarmInstance.MISSED_TIME_TO_LIVE_HOUR_OFFSET} or until the user acknownledges it.
+ * {@link AlarmInstance#MISSED_TIME_TO_LIVE_HOUR_OFFSET} or until the user acknownledges it.
  *
  * DISMISS_STATE:
  * This is really a transient state that will properly delete the alarm instance. Use this state,
@@ -133,6 +134,28 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
     // Buffer time in seconds to fire alarm instead of marking it missed.
     public static final int ALARM_FIRE_BUFFER = 15;
+
+    // A factory for the current time; can be mocked for testing purposes.
+    private static CurrentTimeFactory sCurrentTimeFactory;
+
+    // Schedules alarm state transitions; can be mocked for testing purposes.
+    private static StateChangeScheduler sStateChangeScheduler =
+            new AlarmManagerStateChangeScheduler();
+
+    private static Calendar getCurrentTime() {
+        return sCurrentTimeFactory == null ?
+                Calendar.getInstance() : sCurrentTimeFactory.getCurrentTime();
+    }
+    static void setCurrentTimeFactory(CurrentTimeFactory currentTimeFactory) {
+        sCurrentTimeFactory = currentTimeFactory;
+    }
+
+    static void setStateChangeScheduler(StateChangeScheduler stateChangeScheduler) {
+        if (stateChangeScheduler == null) {
+            stateChangeScheduler = new AlarmManagerStateChangeScheduler();
+        }
+        sStateChangeScheduler = stateChangeScheduler;
+    }
 
     public static int getGlobalIntentId(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -260,14 +283,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 Alarm.updateAlarm(cr, alarm);
             }
         } else {
-            // This is a optimization for really old alarm instances. This prevent us
-            // from scheduling and dismissing alarms up to current time.
-            Calendar currentTime = Calendar.getInstance();
-            Calendar alarmTime = instance.getAlarmTime();
-            if (currentTime.after(alarmTime)) {
-                alarmTime = currentTime;
-            }
-            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(alarmTime);
+            // Schedule the next repeating instance after the current time
+            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(getCurrentTime());
             LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
                     AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
             AlarmInstance.addInstance(cr, nextRepeatedInstance);
@@ -299,50 +316,24 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * Schedule alarm instance state changes with {@link AlarmManager}.
      *
-     * @param context application context
+     * @param ctx application context
      * @param time to trigger state change
      * @param instance to change state to
      * @param newState to change to
      */
-    private static void scheduleInstanceStateChange(Context context, Calendar time,
+    private static void scheduleInstanceStateChange(Context ctx, Calendar time,
             AlarmInstance instance, int newState) {
-        long timeInMillis = time.getTimeInMillis();
-        LogUtils.v("Scheduling state change " + newState + " to instance " + instance.mId +
-                " at " + AlarmUtils.getFormattedTime(context, time) + " (" + timeInMillis + ")");
-        Intent stateChangeIntent = createStateChangeIntent(context, ALARM_MANAGER_TAG, instance,
-                newState);
-        // Treat alarm state change as high priority, use foreground broadcasts
-        stateChangeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
-                stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (Utils.isKitKatOrLater()) {
-            am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-        } else {
-            am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-        }
+        sStateChangeScheduler.scheduleInstanceStateChange(ctx, time, instance, newState);
     }
 
     /**
      * Cancel all {@link AlarmManager} timers for instance.
      *
-     * @param context application context
+     * @param ctx application context
      * @param instance to disable all {@link AlarmManager} timers
      */
-    private static void cancelScheduledInstance(Context context, AlarmInstance instance) {
-        LogUtils.v("Canceling instance " + instance.mId + " timers");
-
-        // Create a PendingIntent that will match any one set for this instance
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
-                createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, null),
-                PendingIntent.FLAG_NO_CREATE);
-
-        if (pendingIntent != null) {
-            AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            am.cancel(pendingIntent);
-            pendingIntent.cancel();
-        }
+    private static void cancelScheduledInstanceStateChange(Context ctx, AlarmInstance instance) {
+        sStateChangeScheduler.cancelScheduledInstanceStateChange(ctx, instance);
     }
 
 
@@ -449,6 +440,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
         ContentResolver contentResolver = context.getContentResolver();
         instance.mAlarmState = AlarmInstance.FIRED_STATE;
         AlarmInstance.updateInstance(contentResolver, instance);
+
+        if (instance.mAlarmId != null) {
+            // if the time changed *backward* and pushed an instance from missed back to fired,
+            // remove any other scheduled instances that may exist
+            AlarmInstance.deleteOtherInstances(contentResolver, instance.mAlarmId, instance.mId);
+        }
 
         // Start the alarm and schedule timeout timer for it
         AlarmService.startAlarm(context, instance);
@@ -618,7 +615,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
         AlarmNotifications.clearNotification(context, instance);
-        cancelScheduledInstance(context, instance);
+        cancelScheduledInstanceStateChange(context, instance);
     }
 
     /**
@@ -649,12 +646,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
             boolean updateNextAlarm) {
         final ContentResolver cr = context.getContentResolver();
         final Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
-        Calendar currentTime = Calendar.getInstance();
-        Calendar alarmTime = instance.getAlarmTime();
-        Calendar timeoutTime = instance.getTimeout(context);
-        Calendar lowNotificationTime = instance.getLowNotificationTime();
-        Calendar highNotificationTime = instance.getHighNotificationTime();
-        Calendar missedTTL = instance.getMissedTimeToLive();
+        final Calendar currentTime = getCurrentTime();
+        final Calendar alarmTime = instance.getAlarmTime();
+        final Calendar timeoutTime = instance.getTimeout(context);
+        final Calendar lowNotificationTime = instance.getLowNotificationTime();
+        final Calendar highNotificationTime = instance.getHighNotificationTime();
+        final Calendar missedTTL = instance.getMissedTimeToLive();
 
         // Handle special use cases here
         if (instance.mAlarmState == AlarmInstance.DISMISSED_STATE) {
@@ -687,7 +684,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 alarm.enabled = true;
                 Alarm.updateAlarm(cr, alarm);
             }
+        } else if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
+            if (currentTime.before(alarmTime)) {
+                setPreDismissState(context, instance);
+            } else {
+                setDismissState(context, instance);
+            }
+            return;
         }
+
         // Fix states that are time sensitive
         if (currentTime.after(missedTTL)) {
             // Alarm is so old, just dismiss it
@@ -710,8 +715,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
             AlarmNotifications.showSnoozeNotification(context, instance);
             scheduleInstanceStateChange(context, instance.getAlarmTime(),
                     instance, AlarmInstance.FIRED_STATE);
-        } else if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
-            setPreDismissState(context, instance);
         } else if (currentTime.after(highNotificationTime)) {
             setHighNotificationState(context, instance);
         } else if (currentTime.after(lowNotificationTime)) {
@@ -762,58 +765,34 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
-     * If the instance is in SNOOZE_STATE or PREDISMISSED_STATE, we may not want to change the next
-     * firing time.
-     * @param contentResolver
-     * @param instance
-     */
-    private static void adjustAlarmStateIfNeeded(ContentResolver contentResolver,
-                                                 AlarmInstance instance) {
-        final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
-        // If the alarm is predismissed, stay predismissed if we land in the right window.
-        // Otherwise, simply schedule the alarm to ring at the next calculated firing time by
-        // falling back to getNextAlarmTime() in the next if block.
-        if (instance.mAlarmState == AlarmInstance.PREDISMISSED_STATE) {
-            final Calendar currentTime = Calendar.getInstance();
-            final Calendar previousFireTime = alarm.getPreviousAlarmTime(currentTime);
-            final Calendar alarmTime = instance.getAlarmTime();
-            final Calendar lowPrioAlarmTime = instance.getAlarmTime();
-            lowPrioAlarmTime.add(Calendar.HOUR_OF_DAY, AlarmInstance.LOW_NOTIFICATION_HOUR_OFFSET);
-            if ((previousFireTime == null && currentTime.before(alarmTime)) ||
-                    (previousFireTime.before(currentTime) && currentTime.before(alarmTime))) {
-                if (currentTime.after(lowPrioAlarmTime)) {
-                    // Right window: currentTime is after previousFireTime (if it exists), before
-                    // original alarmTime, and within LOW_NOTIFICATION_HOUR_OFFSET before alarmTime.
-                    // In this case, stay in PREDISMISSED_STATE.
-                    return;
-                } else {
-                    instance.mAlarmState = AlarmInstance.SILENT_STATE;
-                }
-            }
-        }
-        // If the alarm is snoozed, keep the current next alarm time; do not set the time to
-        // the next scheduled alarm.
-        // This means that if the time has adjusted past the originally intended fire time,
-        // we will schedule for the old time. AlarmManager will then fire the alarm immediately.
-        if (instance.mAlarmState != AlarmInstance.SNOOZE_STATE) {
-            instance.setAlarmTime(alarm.getNextAlarmTime(Calendar.getInstance()));
-            AlarmInstance.updateInstance(contentResolver, instance);
-        }
-    }
-
-    /**
      * Fix and update all alarm instance when a time change event occurs.
      *
      * @param context application context
      */
     public static void fixAlarmInstances(Context context) {
         // Register all instances after major time changes or when phone restarts
-        // TODO: Refactor this code to not use the overloaded registerInstance method.
         final ContentResolver contentResolver = context.getContentResolver();
+        final Calendar currentTime = getCurrentTime();
         for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
-            adjustAlarmStateIfNeeded(contentResolver, instance);
-            registerInstance(context, instance, false);
+            final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+            final Calendar priorAlarmTime = alarm.getPreviousAlarmTime(instance.getAlarmTime());
+            final Calendar missedTTLTime = instance.getMissedTimeToLive();
+            if (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime)) {
+                final Calendar oldAlarmTime = instance.getAlarmTime();
+                final Calendar newAlarmTime = alarm.getNextAlarmTime(currentTime);
+                final CharSequence oldTime = DateFormat.format("MM/dd/yyyy hh:mm a", oldAlarmTime);
+                final CharSequence newTime = DateFormat.format("MM/dd/yyyy hh:mm a", newAlarmTime);
+                LogUtils.i("A time change has caused an existing alarm scheduled to fire at %s to" +
+                        " be replaced by a new alarm scheduled to fire at %s", oldTime, newTime);
+
+                // The time change is so dramatic the AlarmInstance doesn't make any sense;
+                // remove it and schedule the new appropriate instance.
+                AlarmStateManager.setDismissState(context, instance);
+            } else {
+                registerInstance(context, instance, false);
+            }
         }
+        
         updateNextAlarm(context);
     }
 
@@ -933,6 +912,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 if (id != -1) {
                     NotificationManagerCompat.from(context).cancel(id);
                 }
+                return;
             }
 
             long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
@@ -951,5 +931,68 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static Intent createIndicatorIntent(Context context) {
         return new Intent(context, AlarmStateManager.class).setAction(INDICATOR_ACTION);
+    }
+
+    /**
+     * Abstract away how the current time is computed. If no implementation of this interface is
+     * given the default is to return {@link Calendar#getInstance()}. Otherwise, the factory
+     * instance is consulted for the current time.
+     */
+    interface CurrentTimeFactory {
+        Calendar getCurrentTime();
+    }
+
+    /**
+     * Abstracts away how state changes are scheduled. The {@link AlarmManagerStateChangeScheduler}
+     * implementation schedules callbacks within the system AlarmManager. Alternate
+     * implementations, such as test case mocks can subvert this behavior.
+     */
+    interface StateChangeScheduler {
+        void scheduleInstanceStateChange(Context context, Calendar time,
+                AlarmInstance instance, int newState);
+
+        void cancelScheduledInstanceStateChange(Context context, AlarmInstance instance);
+    }
+
+    /**
+     * Schedules state change callbacks within the AlarmManager.
+     */
+    private static class AlarmManagerStateChangeScheduler implements StateChangeScheduler {
+        @Override
+        public void scheduleInstanceStateChange(Context context, Calendar time,
+                AlarmInstance instance, int newState) {
+            final long timeInMillis = time.getTimeInMillis();
+            LogUtils.v("Scheduling state change %d to instance %d at %s (%d)", newState,
+                    instance.mId, AlarmUtils.getFormattedTime(context, time), timeInMillis);
+            final Intent stateChangeIntent =
+                    createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, newState);
+            // Treat alarm state change as high priority, use foreground broadcasts
+            stateChangeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
+                    stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (Utils.isKitKatOrLater()) {
+                am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+            } else {
+                am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
+            }
+        }
+
+        @Override
+        public void cancelScheduledInstanceStateChange(Context context, AlarmInstance instance) {
+            LogUtils.v("Canceling instance " + instance.mId + " timers");
+
+            // Create a PendingIntent that will match any one set for this instance
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
+                    createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, null),
+                    PendingIntent.FLAG_NO_CREATE);
+
+            if (pendingIntent != null) {
+                AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+                am.cancel(pendingIntent);
+                pendingIntent.cancel();
+            }
+        }
     }
 }
