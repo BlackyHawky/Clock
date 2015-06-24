@@ -77,8 +77,8 @@
     <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> дни"</string>
     <string name="hour" msgid="2546819039651509323">"1 час"</string>
     <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> часа"</string>
-    <string name="minute" msgid="2486157997434653710">"1 минута"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> минути"</string>
+    <string name="minute" msgid="2486157997434653710">"1 мин"</string>
+    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> мин"</string>
     <string name="every_day" msgid="4100909974923444602">"всеки ден"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Избор на часовник"</string>
@@ -335,7 +335,6 @@
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Следващ будилник: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"Избрахте <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Изтрито"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
