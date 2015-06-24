@@ -105,7 +105,7 @@ public class Screensaver extends DreamService {
         if (DEBUG) Log.d(TAG, "Screensaver created");
         super.onCreate();
 
-        setTheme(R.style.DeskClockParentTheme);
+        setTheme(R.style.ScreensaverActivityTheme);
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);

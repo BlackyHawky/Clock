@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -100,11 +101,40 @@ public class Utils {
     public static final String CLOCK_TYPE_DIGITAL = "digital";
     public static final String CLOCK_TYPE_ANALOG = "analog";
 
-    /** The background colors of the app, it changes thru out the day to mimic the sky. **/
-    public static final String[] BACKGROUND_SPECTRUM = { "#212121", "#27232e", "#2d253a",
-            "#332847", "#382a53", "#3e2c5f", "#442e6c", "#393a7a", "#2e4687", "#235395", "#185fa2",
-            "#0d6baf", "#0277bd", "#0d6cb1", "#1861a6", "#23569b", "#2d4a8f", "#383f84", "#433478",
-            "#3d3169", "#382e5b", "#322b4d", "#2c273e", "#272430" };
+    /**
+     * Temporary array used by {@link #obtainStyledColor(Context, int, int)}.
+     */
+    private static final int[] TEMP_ARRAY = new int[1];
+
+    /**
+     * The background colors of the app - it changes throughout out the day to mimic the sky.
+     */
+    private static final int[] BACKGROUND_SPECTRUM = {
+            0xFF212121 /* 12 AM */,
+            0xFF27232E /*  1 AM */,
+            0xFF2D253A /*  2 AM */,
+            0xFF332847 /*  3 AM */,
+            0xFF382A53 /*  4 AM */,
+            0xFF3E2C5f /*  5 AM */,
+            0xFF442E6C /*  6 AM */,
+            0xFF393A7A /*  7 AM */,
+            0xFF2E4687 /*  8 AM */,
+            0xFF235395 /*  9 AM */,
+            0xFF185fA2 /* 10 AM */,
+            0xFF0D6BAF /* 11 AM */,
+            0xFF0277BD /* 12 PM */,
+            0xFF0D6CB1 /*  1 PM */,
+            0xFF1861A6 /*  2 PM */,
+            0xFF23569B /*  3 PM */,
+            0xFF2D4A8F /*  4 PM */,
+            0xFF383F84 /*  5 PM */,
+            0xFF433478 /*  6 PM */,
+            0xFF3D3169 /*  7 PM */,
+            0xFF382E5B /*  8 PM */,
+            0xFF322B4D /*  9 PM */,
+            0xFF2C273E /* 10 PM */,
+            0xFF272430 /* 11 PM */
+    };
 
     /**
      * Returns whether the SDK is KitKat or later
@@ -114,7 +144,7 @@ public class Utils {
     }
 
     /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES.JELLY_BEAN_MR2} or later
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#JELLY_BEAN_MR2} or later
      */
     public static boolean isJBMR2OrLater() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
@@ -639,9 +669,29 @@ public class Utils {
         return (city.mCityId == null || dbCity == null) ? city.mCityName : dbCity.mCityName;
     }
 
+    /**
+     * Convenience method for retrieving a themed color value.
+     *
+     * @param context  the {@link Context} to resolve the theme attribute against
+     * @param attr     the attribute corresponding to the color to resolve
+     * @param defValue the default color value to use if the attribute cannot be resolved
+     * @return the color value of the resolve attribute
+     */
+    public static int obtainStyledColor(Context context, int attr, int defValue) {
+        TEMP_ARRAY[0] = attr;
+        final TypedArray a = context.obtainStyledAttributes(TEMP_ARRAY);
+        try {
+            return a.getColor(0, defValue);
+        } finally {
+            a.recycle();
+        }
+    }
+
+    /**
+     * Returns the background color to use based on the current time.
+     */
     public static int getCurrentHourColor() {
-        final int hourOfDay = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
-        return Color.parseColor(BACKGROUND_SPECTRUM[hourOfDay]);
+        return BACKGROUND_SPECTRUM[Calendar.getInstance().get(Calendar.HOUR_OF_DAY)];
     }
 
     /**

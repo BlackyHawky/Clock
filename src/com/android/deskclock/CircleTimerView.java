@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -18,7 +19,6 @@ import com.android.deskclock.stopwatch.Stopwatches;
  * Stopwatch counts up. In this mode the animation is clockwise and will run until stopped.
  */
 public class CircleTimerView extends View {
-
 
     private int mAccentColor;
     private int mWhiteColor;
@@ -121,7 +121,7 @@ public class CircleTimerView extends View {
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mWhiteColor = resources.getColor(R.color.clock_white);
-        mAccentColor = resources.getColor(R.color.hot_pink);
+        mAccentColor = Utils.obtainStyledColor(c, R.attr.colorAccent, Color.RED);
         mScreenDensity = resources.getDisplayMetrics().density;
         mFill.setAntiAlias(true);
         mFill.setStyle(Paint.Style.FILL);
