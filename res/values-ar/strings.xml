@@ -412,21 +412,25 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"ك:دد"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"‏EEE، س:دد ص"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"‏EEE، ‏س:دد"</string>
-    <string name="invalid_time" msgid="2938232623456109180">"الوقت غير صالح <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="6879712060034435529">"لم يتم تعيين منبه للوقت <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="invalid_time" msgid="8369328732811670187">"وقت غير صالح <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"لم يتم تعيين منبه للوقت <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"لم يتم تعيين أي منبه"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"ساعة الإيقاف قيد التشغيل حاليًا"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"ساعة الإيقاف ليست قيد التشغيل"</string>
     <string name="stopwatch_mode_changed" msgid="2096052973378533405">"تم تغيير وضع ساعة الإيقاف"</string>
-    <string name="more_than_one_instance_for_this_alarm_id" msgid="2234399757112307135">"هناك أكثر من منبه تم تعيينه لهذا الوقت"</string>
-    <string name="no_alarm_instances_for_this_id" msgid="2083029511278199378">"لم يتم تعيين منبه لهذا الوقت"</string>
-    <string name="alarm_is_canceled" msgid="1519270868702473120">"تم إلغاء المنبه <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="alarm_is_deleted" msgid="4593667023633842085">"تم حذف المنبه <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"لم يتم تعيين منبه لهذا الوقت"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"تم تجاهل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <!-- no translation found for alarm_is_set (5503226382620011088) -->
+    <skip />
     <string name="no_timer_set" msgid="3326365650863016606">"لم يتم تعيين أي موَقِّت"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"تم حذف الموقِّت"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"الموقِّت قيد التشغيل حاليًا"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"تعذر إكمال طلبك، هناك عدة مؤقتات متاحة"</string>
     <string name="timer_started" msgid="6715582052946641641">"تم بدء الموقّت"</string>
+    <!-- no translation found for timer_created (4381027137335885547) -->
+    <skip />
+    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
+    <skip />
     <string name="timer_was_reset" msgid="6495796785185062631">"تمت إعادة تعيين الموقِّت"</string>
     <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"لا يمكن إعادة تعيين الموقِّت لأنه لا يزال قيد التشغيل. عليك إيقاف الموقِّت لإعادة تعيينه."</string>
     <string name="timer_already_stopped" msgid="8865820275829449054">"تم إيقاف الموقِّت من قبل"</string>
@@ -437,6 +441,7 @@
     <string name="city_deleted" msgid="3935141305276867838">"تم حذف <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"لا يمكن تجاهل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> في الوقت الحالي، لأن موعده لا يزال يبعد أكثر من 24 ساعة"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"تجاهل التنبيه"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"اختر المنبه المراد تجاهله"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"ليس هناك أي منبه نشط الآن"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"تم تأجيل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> لمدة 10 دقائق"</string>
 </resources>

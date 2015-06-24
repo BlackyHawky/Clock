@@ -73,9 +73,18 @@
     <item msgid="9115697840826129603">"ໂມງປຸກຖືກຕັ້ງໄວ້ <xliff:g id="HOURS">%2$s</xliff:g> ແລະ <xliff:g id="MINUTES">%3$s</xliff:g> ຈາກຕອນນີ້."</item>
     <item msgid="2332583385137381060">"ໂມງປຸກຖືກຕັ້ງໄວ້ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, ແລະ <xliff:g id="MINUTES">%3$s</xliff:g> ຈາກຕອນນີ້."</item>
   </string-array>
-    <!-- no translation found for days (3706846447285206235) -->
-    <!-- no translation found for hours (3871283109767171655) -->
-    <!-- no translation found for minutes (5484431721696058697) -->
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ວັນ</item>
+      <item quantity="one">1 ວັນ</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ຊົ່ວ​ໂມງ</item>
+      <item quantity="one">1 ຊົ່ວໂມງ</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ນາ​ທີ</item>
+      <item quantity="one">1 ນາທີ</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"ທຸກໆມື້"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ເລືອກໂມງ"</string>
@@ -92,7 +101,10 @@
       <item quantity="one">ນາທີ</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"ປິດສຽງຫຼັງຈາກ"</string>
-    <!-- no translation found for auto_silence_summary (6579258788774360396) -->
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ນາ​ທີ</item>
+      <item quantity="one">1 ນາທີ</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"ບໍ່ໃຊ້"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 ນາທີ"</item>
@@ -332,8 +344,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"ຂະຫຍາຍໂມງປຸກ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ຫຍໍ້ແຖບໂມງປຸກ"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ຍົກເລີກ"</string>
-    <!-- no translation found for alarm_deleted (6131529309389084785) -->
-    <skip />
+    <string name="alarm_deleted" msgid="6131529309389084785">"ໂມງປຸກຖືກລຶບແລ້ວ."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"ໂມງປຸກຄັ້ງຕໍ່ໄປ: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
@@ -353,57 +364,36 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"ວວ​ວ, ຊມ:ນ​ທ a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"ວວວ, k:mm"</string>
-    <!-- no translation found for invalid_time (2938232623456109180) -->
+    <string name="invalid_time" msgid="8369328732811670187">"ເວ​ລາ​ໃຊ້​ບໍ່​ໄດ້ <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"ບໍ່​ມີ​ໂມງ​ປຸກ​ຕັ້ງ​ໄວ້​ໃນ​ເວ​ລາ <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"ບໍ່​ມີ​ການ​ເຕືອນ​ກຳ​ນົດ​ໄວ້"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"ໂມງ​ຈັບ​ເວ​ລາ​ແລ່ນ​ຢູ່​ແລ້ວ"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"ໂມງ​ຈັບ​ເວ​ລາ​ບໍ່​ແລ່ນ​ຢູ່"</string>
+    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"ໂໝດ​ໂມງ​ຈັບ​ເວ​ລາ​ປ່ຽນ​ແປງ​ແລ້ວ"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ບໍ່​ມີໂມງ​ປຸກ​ກຳ​ນົດ​ເວ​ລາ​ໃຫ້ກັບ​ເວ​ລາ​ນີ້"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> ໂມງ​ປຸກ​ຖືກ​ປິດ​ໄວ້​ແລ້ວ"</string>
+    <!-- no translation found for alarm_is_set (5503226382620011088) -->
     <skip />
-    <!-- no translation found for no_alarm_at (6879712060034435529) -->
+    <string name="no_timer_set" msgid="3326365650863016606">"ບໍ່​ມີການ​ຈັບ​ເວ​ລາ​ກຳ​ນົດ​ໄວ້"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"ລຶບ​ເຄື່ອງ​ຈັບ​ເວ​ລາ​ແລ້ວ"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"ເຄື່ອງ​ຈັບ​ເວ​ລາ​ແລ່ນ​ຢູ່​ແລ້ວ"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"ບໍ່​ສາ​ມາດ​ດຳ​ເນີນ​ການ​ຂໍ​ຂອ​ງ​ທ່ານ​ໃຫ້​ສຳ​ເລັດ​ໄດ້, ມີ​ການ​ຈັບ​ເວ​ລາ​ຫຼາຍ​ອັນ​ຢູ່​ໃຫ້"</string>
+    <string name="timer_started" msgid="6715582052946641641">"​ເລີ່ມ​ການ​ຈັບ​ເວ​ລາ​ແລ້ວ"</string>
+    <!-- no translation found for timer_created (4381027137335885547) -->
     <skip />
-    <!-- no translation found for no_scheduled_alarms (2115420148192753534) -->
+    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
     <skip />
-    <!-- no translation found for stopwatch_already_running (6598258908106423672) -->
-    <skip />
-    <!-- no translation found for stopwatch_isnt_running (7147219965448204727) -->
-    <skip />
-    <!-- no translation found for stopwatch_mode_changed (2096052973378533405) -->
-    <skip />
-    <!-- no translation found for more_than_one_instance_for_this_alarm_id (2234399757112307135) -->
-    <skip />
-    <!-- no translation found for no_alarm_instances_for_this_id (2083029511278199378) -->
-    <skip />
-    <!-- no translation found for alarm_is_canceled (1519270868702473120) -->
-    <skip />
-    <!-- no translation found for alarm_is_deleted (4593667023633842085) -->
-    <skip />
-    <!-- no translation found for alarm_is_dismissed (5509897230565826642) -->
-    <skip />
-    <!-- no translation found for no_timer_set (3326365650863016606) -->
-    <skip />
-    <!-- no translation found for timer_deleted (9110322362460029392) -->
-    <skip />
-    <!-- no translation found for timer_already_running (1259351124772803097) -->
-    <skip />
-    <!-- no translation found for timer_started (6715582052946641641) -->
-    <skip />
-    <!-- no translation found for timer_was_reset (6495796785185062631) -->
-    <skip />
-    <!-- no translation found for timer_cant_be_reset_because_its_running (7880015473706806640) -->
-    <skip />
-    <!-- no translation found for timer_already_stopped (8865820275829449054) -->
-    <skip />
-    <!-- no translation found for no_city_selected (1007596865203283741) -->
-    <skip />
-    <!-- no translation found for the_city_you_specified_is_not_available (1753597460426454543) -->
-    <skip />
-    <!-- no translation found for the_city_already_added (3799050213771793020) -->
-    <skip />
-    <!-- no translation found for city_added (1335509457349179514) -->
-    <skip />
-    <!-- no translation found for city_deleted (3935141305276867838) -->
-    <skip />
-    <!-- no translation found for alarm_cant_be_dismissed_still_more_than_24_hours_away (8810520940995307437) -->
-    <skip />
+    <string name="timer_was_reset" msgid="6495796785185062631">"ການ​ຈັດ​ເວ​ລາ​ຕັ້ງ​ຄ່າ​ຄືນ​ໃໝ່​ແລ້ວ"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"ບໍ່​ສາ​ມາ​ຕັ້ງ​ຄ່າການ​ຈັບ​ເວ​ລາ​ຄືນ​ໃໝ່​ໄດ້ ເພາະ​ວ່າ​ມັນ​ກຳ​ລັງ​ແລ່ນ​ຢູ່. ຢຸດການ​ຈັບ​ເວ​ລາ ເພື່ອ​ຕັ້ງ​ຄືນ​ໃໝ່."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"ເຄື່ອງ​ຈັບ​ເວ​ລາ​ຢຸດ​ແລ້ວ"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"ບໍ່​ມີ​ເມືອງ​ຖືກ​ເລືອກ​ໄວ້"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"ບໍ່​ມີ​ເມືອງ​ທີ່​ທ່ານ​ລະ​ບຸນັ້ນ​ຢູ່"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"ເພີ່ມ​ເມືອງນັ້ນ​ໃສ່​ຮຽບ​ຮ້ອຍ​ແລ້ວ"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> ເພີ່ມ​ໃສ່​ແລ້ວ"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> ລຶບ​ແລ້ວ"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> ໂມງ​ປຸກ​ບໍ່​ສາ​ມາດ​ປ່ອຍ​ໄວ້​ໄດ້, ຍັງ​ຫຼາຍ​ກ່​ວາ 24 ຊົ່ວ​ໂມງ"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"ບອກເລີກ​ການ​ເຕືອນ​"</string>
-    <!-- no translation found for no_firing_alarms (4986161963178722289) -->
-    <skip />
-    <!-- no translation found for alarm_is_snoozed (7044644119744928846) -->
-    <skip />
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"ເລືອກວ່າ​ຈະ​ປິດ​ໂມງ​ປຸກ​ໃດ​ໄວ້"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"ບໍ່​ມີ​ສັນ​ຍານ​ເຕືອນ​ໄຟ​ໄໝ້"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> ໂມງ​ປຸກ​ຖືກ​ເລື່ອນ​ແຈ້ງ​ເຕືອນ​ໄປ​ເປັນ​ເວ​ລາ 10 ວິ​ນາ​ທີ"</string>
 </resources>
