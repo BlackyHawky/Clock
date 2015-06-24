@@ -23,7 +23,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.android.deskclock.timer.Timers;
 
 /**
  * Base activity class that changes with window's background color dynamically based on the
@@ -81,6 +84,10 @@ public class BaseActivity extends AppCompatActivity {
 
         // Ensure the background color is up-to-date.
         setBackgroundColor(Utils.getCurrentHourColor(), true /* animate */);
+
+        // Disable times up notifications.
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(
+                Timers.NOTIF_APP_OPEN, true).apply();
     }
 
     @Override
@@ -92,6 +99,10 @@ public class BaseActivity extends AppCompatActivity {
             unregisterReceiver(mOnTimeChangedReceiver);
             mOnTimeChangedReceiver = null;
         }
+
+        // Enable times up notifications.
+        PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean(
+                Timers.NOTIF_APP_OPEN, false).apply();
     }
 
     @Override

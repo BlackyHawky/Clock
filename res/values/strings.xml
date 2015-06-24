@@ -528,6 +528,8 @@
     <string name="timer_plus_1_min">Add 1 min</string>
     <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
+    <!-- Describes the purpose of the button to stop all currently firing timers. [CHAR LIMIT=25] -->
+    <string name="timer_stop_all">Stop all timers</string>
     <!-- Describes the purpose of the button to stop and delete the timer. -->
     <string name="timer_done">Done</string>
     <!-- Describes the purpose of the button to return the timer to it's original starting value. -->
@@ -536,6 +538,11 @@
     <string name="timer_cancel">Cancel</string>
     <!-- Notification content shown when a timer has completed and has no more time remaining -->
     <string name="timer_times_up">Time\'s up</string>
+    <!--
+        Notification content shown when multiple timers have completed and have no more time
+        remaining. Arg is the number of timers. [CHAR LIMIT=25]
+    -->
+    <string name="timer_multi_times_up"><xliff:g id="NUM_TIMERS" example="2">%d</xliff:g> timers expired</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
     <!-- Toast content shown when user attempts to create a new timer when there are already 4 timers -->

@@ -241,9 +241,8 @@ public class DeskClock extends BaseActivity
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Timers.NOTIF_APP_OPEN, true);
         editor.apply();
-        Intent timerIntent = new Intent();
-        timerIntent.setAction(Timers.NOTIF_IN_USE_CANCEL);
-        sendBroadcast(timerIntent);
+        Utils.cancelTimesUpNotifications(this);
+        Utils.updateTimesUpNotification(this);
         mActivityResumed = true;
     }
 
@@ -259,6 +258,7 @@ public class DeskClock extends BaseActivity
         editor.putBoolean(Timers.NOTIF_APP_OPEN, false);
         editor.apply();
         Utils.showInUseNotifications(this);
+        Utils.updateTimesUpNotification(this);
 
         super.onPause();
     }

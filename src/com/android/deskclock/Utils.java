@@ -284,6 +284,15 @@ public class Utils {
     }
 
     /**
+     * Broadcast a message to update the timer times-up HUN
+     */
+    public static void updateTimesUpNotification(Context context) {
+        final Intent timerHUNIntent = new Intent();
+        timerHUNIntent.setAction(Timers.NOTIF_UPDATE);
+        context.sendBroadcast(timerHUNIntent);
+    }
+
+    /**
      * Broadcast a message to show the in-use timers in the notifications
      */
     public static void showTimesUpNotifications(Context context) {
