@@ -462,7 +462,7 @@ public class AlarmActivity extends AppCompatActivity
         mAlarmHandled = true;
         LogUtils.v(LOGTAG, "Snoozed: %s", mAlarmInstance);
 
-        final int alertColor = getResources().getColor(R.color.hot_pink);
+        final int accentColor = Utils.obtainStyledColor(this, R.attr.colorAccent, Color.RED);
         setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
 
         final int snoozeMinutes = AlarmStateManager.getSnoozedMinutes(this);
@@ -472,7 +472,7 @@ public class AlarmActivity extends AppCompatActivity
                 R.plurals.alarm_alert_snooze_set, snoozeMinutes, snoozeMinutes);
 
         getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText,
-                accessibilityText, alertColor, alertColor).start();
+                accessibilityText, accentColor, accentColor).start();
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
 
