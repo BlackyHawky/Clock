@@ -73,9 +73,18 @@
     <item msgid="9115697840826129603">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="HOURS">%2$s</xliff:g> និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</item>
     <item msgid="2332583385137381060">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, និង <xliff:g id="MINUTES">%3$s</xliff:g> ទៀត។"</item>
   </string-array>
-    <!-- no translation found for days (3706846447285206235) -->
-    <!-- no translation found for hours (3871283109767171655) -->
-    <!-- no translation found for minutes (5484431721696058697) -->
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ថ្ងៃ</item>
+      <item quantity="one">1 ថ្ងៃ</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ម៉ោង</item>
+      <item quantity="one">1 ម៉ោង</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> នាទី</item>
+      <item quantity="one">1 នាទី</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"រាល់ថ្ងៃ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ជ្រើស​នាឡិកា"</string>
@@ -92,7 +101,10 @@
       <item quantity="one">នាទី</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"បិទ​សំឡេង​បន្ទាប់ពី"</string>
-    <!-- no translation found for auto_silence_summary (6579258788774360396) -->
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> នាទី</item>
+      <item quantity="one">1 នាទី</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"កុំ"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"១​នាទី"</item>
@@ -332,8 +344,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"ពង្រីក​សំឡេង​រោទ៍"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"បង្រួម​សំឡេង​រោទ៍"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"​មិន​​ធ្វើ​វិញ"</string>
-    <!-- no translation found for alarm_deleted (6131529309389084785) -->
-    <skip />
+    <string name="alarm_deleted" msgid="6131529309389084785">"បានលុបម៉ោងរោទិ៍"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"សំឡេង​រោទ៍​បន្ទាប់៖ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
@@ -353,57 +364,36 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <!-- no translation found for invalid_time (2938232623456109180) -->
+    <string name="invalid_time" msgid="8369328732811670187">"ម៉ោងមិនត្រឹមត្រូវ <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"គ្មានម៉ោងរោទិ៍នៅ <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"គ្មានម៉ោងរោទិ៍បានកំណត់ទេ"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"នាឡិកាបញ្ឈប់កំពុងដំណើរហើយ"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"នាឡិកាបញ្ឈប់មិនដំណើរការទេ"</string>
+    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"បានប្តូររបៀបនាឡិកាបញ្ឈប់"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"គ្មានការកំណត់ម៉ោងរោទិ៍សម្រាប់ពេលនេះទេ"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"បានបដិសេធម៉ោងរោទិ៍ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <!-- no translation found for alarm_is_set (5503226382620011088) -->
     <skip />
-    <!-- no translation found for no_alarm_at (6879712060034435529) -->
+    <string name="no_timer_set" msgid="3326365650863016606">"គ្មានការកំណត់កម្មវិធីកំណត់ពេលទេ"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"បានលុបកម្មវិធីកំណត់ពេល"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"កម្មវិធីកំណត់ពេលកំពុងដំណើរការហើយ"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"មិនអាចបញ្ចប់សំណើរបស់អ្នកបានទេ ព្រោះមានកម្មវិធីកំណត់ម៉ោងច្រើន"</string>
+    <string name="timer_started" msgid="6715582052946641641">"​​ចាប់ផ្ដើមកម្មវិធីកំណត់ពេល"</string>
+    <!-- no translation found for timer_created (4381027137335885547) -->
     <skip />
-    <!-- no translation found for no_scheduled_alarms (2115420148192753534) -->
+    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
     <skip />
-    <!-- no translation found for stopwatch_already_running (6598258908106423672) -->
-    <skip />
-    <!-- no translation found for stopwatch_isnt_running (7147219965448204727) -->
-    <skip />
-    <!-- no translation found for stopwatch_mode_changed (2096052973378533405) -->
-    <skip />
-    <!-- no translation found for more_than_one_instance_for_this_alarm_id (2234399757112307135) -->
-    <skip />
-    <!-- no translation found for no_alarm_instances_for_this_id (2083029511278199378) -->
-    <skip />
-    <!-- no translation found for alarm_is_canceled (1519270868702473120) -->
-    <skip />
-    <!-- no translation found for alarm_is_deleted (4593667023633842085) -->
-    <skip />
-    <!-- no translation found for alarm_is_dismissed (5509897230565826642) -->
-    <skip />
-    <!-- no translation found for no_timer_set (3326365650863016606) -->
-    <skip />
-    <!-- no translation found for timer_deleted (9110322362460029392) -->
-    <skip />
-    <!-- no translation found for timer_already_running (1259351124772803097) -->
-    <skip />
-    <!-- no translation found for timer_started (6715582052946641641) -->
-    <skip />
-    <!-- no translation found for timer_was_reset (6495796785185062631) -->
-    <skip />
-    <!-- no translation found for timer_cant_be_reset_because_its_running (7880015473706806640) -->
-    <skip />
-    <!-- no translation found for timer_already_stopped (8865820275829449054) -->
-    <skip />
-    <!-- no translation found for no_city_selected (1007596865203283741) -->
-    <skip />
-    <!-- no translation found for the_city_you_specified_is_not_available (1753597460426454543) -->
-    <skip />
-    <!-- no translation found for the_city_already_added (3799050213771793020) -->
-    <skip />
-    <!-- no translation found for city_added (1335509457349179514) -->
-    <skip />
-    <!-- no translation found for city_deleted (3935141305276867838) -->
-    <skip />
-    <!-- no translation found for alarm_cant_be_dismissed_still_more_than_24_hours_away (8810520940995307437) -->
-    <skip />
+    <string name="timer_was_reset" msgid="6495796785185062631">"កំណត់កម្មវិធីកំណត់ពេលឡើងវិញ"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"មិនអាចកំណត់កម្មវិធីកំណត់ពេលឡើងវិញបានទេ វាកំពុងដំណើរការនៅឡើយ។ សូមបញ្ឈប់កម្មវិធីកំណត់ពេលដើម្បីកំណត់ឡើងវិញ។"</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"កម្មវិធីកំណត់ពេលបានឈប់ហើយ"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"មិនបានជ្រើសទីក្រុងទេ"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"ទីក្រុងដែលអ្នកបានបញ្ជាក់មិនមានទេ"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"បានបន្ថែមទីក្រុងនោះរួចហើយ"</string>
+    <string name="city_added" msgid="1335509457349179514">"បានបន្ថែម <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"បានលុប <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"មិនអាចបដិសេធម៉ោងរោទិ៍ <xliff:g id="ALARM_TIME">%s</xliff:g> បាននៅឡើយទេ នៅសល់ជាង 24 ម៉ោងទៀត"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"បដិសេធម៉ោងរោទិ៍"</string>
-    <!-- no translation found for no_firing_alarms (4986161963178722289) -->
-    <skip />
-    <!-- no translation found for alarm_is_snoozed (7044644119744928846) -->
-    <skip />
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"រើសម៉ោងរោទិ៍ដែលត្រូវលុប"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"គ្មានម៉ោងរោទិ៍បន្លឺឡើងទេ"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"បានផ្អាកម៉ោងរោទិ៍ <xliff:g id="ALARM_TIME">%s</xliff:g> រយៈពេល 10 នាទី"</string>
 </resources>

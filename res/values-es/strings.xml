@@ -73,9 +73,18 @@
     <item msgid="9115697840826129603">"La alarma sonará en <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"La alarma sonará en <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
-    <!-- no translation found for days (3706846447285206235) -->
-    <!-- no translation found for hours (3871283109767171655) -->
-    <!-- no translation found for minutes (5484431721696058697) -->
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> días</item>
+      <item quantity="one">1 día</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
+      <item quantity="one">1 hora</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
+      <item quantity="one">1 minuto</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Todos los días"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Seleccionar un reloj"</string>
@@ -92,7 +101,10 @@
       <item quantity="one">minuto</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar después de"</string>
-    <!-- no translation found for auto_silence_summary (6579258788774360396) -->
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
+      <item quantity="one">1 minuto</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minuto"</item>
@@ -352,57 +364,41 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <!-- no translation found for invalid_time (2938232623456109180) -->
+    <!-- no translation found for invalid_time (8369328732811670187) -->
     <skip />
-    <!-- no translation found for no_alarm_at (6879712060034435529) -->
+    <!-- no translation found for no_alarm_at (8140632482969193119) -->
     <skip />
-    <!-- no translation found for no_scheduled_alarms (2115420148192753534) -->
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"No hay ninguna alarma programada"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Ya se está utilizando el cronómetro"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"No se está utilizando el cronómetro"</string>
+    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Modo de cronómetro cambiado"</string>
+    <!-- no translation found for no_alarm_scheduled_for_this_time (4463069177414482818) -->
     <skip />
-    <!-- no translation found for stopwatch_already_running (6598258908106423672) -->
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> ignorada"</string>
+    <!-- no translation found for alarm_is_set (5503226382620011088) -->
     <skip />
-    <!-- no translation found for stopwatch_isnt_running (7147219965448204727) -->
+    <string name="no_timer_set" msgid="3326365650863016606">"No se ha establecido ningún temporizador"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Temporizador eliminado"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Ya se está utilizando el temporizador"</string>
+    <!-- no translation found for multiple_timers_available (6722110840279707462) -->
     <skip />
-    <!-- no translation found for stopwatch_mode_changed (2096052973378533405) -->
+    <string name="timer_started" msgid="6715582052946641641">"Temporizador iniciado"</string>
+    <!-- no translation found for timer_created (4381027137335885547) -->
     <skip />
-    <!-- no translation found for more_than_one_instance_for_this_alarm_id (2234399757112307135) -->
+    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
     <skip />
-    <!-- no translation found for no_alarm_instances_for_this_id (2083029511278199378) -->
-    <skip />
-    <!-- no translation found for alarm_is_canceled (1519270868702473120) -->
-    <skip />
-    <!-- no translation found for alarm_is_deleted (4593667023633842085) -->
-    <skip />
-    <!-- no translation found for alarm_is_dismissed (5509897230565826642) -->
-    <skip />
-    <!-- no translation found for no_timer_set (3326365650863016606) -->
-    <skip />
-    <!-- no translation found for timer_deleted (9110322362460029392) -->
-    <skip />
-    <!-- no translation found for timer_already_running (1259351124772803097) -->
-    <skip />
-    <!-- no translation found for timer_started (6715582052946641641) -->
-    <skip />
-    <!-- no translation found for timer_was_reset (6495796785185062631) -->
-    <skip />
-    <!-- no translation found for timer_cant_be_reset_because_its_running (7880015473706806640) -->
-    <skip />
-    <!-- no translation found for timer_already_stopped (8865820275829449054) -->
-    <skip />
-    <!-- no translation found for no_city_selected (1007596865203283741) -->
-    <skip />
-    <!-- no translation found for the_city_you_specified_is_not_available (1753597460426454543) -->
-    <skip />
-    <!-- no translation found for the_city_already_added (3799050213771793020) -->
-    <skip />
-    <!-- no translation found for city_added (1335509457349179514) -->
-    <skip />
-    <!-- no translation found for city_deleted (3935141305276867838) -->
-    <skip />
-    <!-- no translation found for alarm_cant_be_dismissed_still_more_than_24_hours_away (8810520940995307437) -->
-    <skip />
+    <string name="timer_was_reset" msgid="6495796785185062631">"Temporizador restablecido"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"No se puede restablecer el temporizador porque aún se está utilizando. Debes detenerlo para restablecerlo."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Ya se ha detenido el temporizador"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"No has seleccionado ninguna ciudad"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"La ciudad especificada no está disponible"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Esa ciudad ya se ha añadido"</string>
+    <string name="city_added" msgid="1335509457349179514">"Se ha añadido <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"Se ha eliminado <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Aún no se puede ignorar la alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> porque quedan más de 24 horas"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ignorar alarma"</string>
-    <!-- no translation found for no_firing_alarms (4986161963178722289) -->
+    <!-- no translation found for pick_alarm_to_dismiss (5408769235866082896) -->
     <skip />
-    <!-- no translation found for alarm_is_snoozed (7044644119744928846) -->
-    <skip />
+    <string name="no_firing_alarms" msgid="4986161963178722289">"No hay ninguna alarma activada"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> pospuesta 10 minutos"</string>
 </resources>
