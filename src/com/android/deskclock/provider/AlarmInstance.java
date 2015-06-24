@@ -91,7 +91,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     private static final int ALARM_STATE_INDEX = 10;
 
     private static final int COLUMN_COUNT = ALARM_STATE_INDEX + 1;
-    private Calendar mTimeout;
 
     public static ContentValues createContentValues(AlarmInstance instance) {
         ContentValues values = new ContentValues(COLUMN_COUNT);
@@ -277,6 +276,21 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         if (instanceId == INVALID_ID) return false;
         int deletedRows = contentResolver.delete(getUri(instanceId), "", null);
         return deletedRows == 1;
+    }
+
+    /**
+     * @param contentResolver to access the content provider
+     * @param alarmId identifies the alarm in question
+     * @param instanceId identifies the instance to keep; all other instances will be removed
+     */
+    public static void deleteOtherInstances(ContentResolver contentResolver, long alarmId,
+            long instanceId) {
+        final List<AlarmInstance> instances = getInstancesByAlarmId(contentResolver, alarmId);
+        for (AlarmInstance instance : instances) {
+            if (instance.mId != instanceId) {
+                deleteInstance(contentResolver, instance.mId);
+            }
+        }
     }
 
     // Public fields
