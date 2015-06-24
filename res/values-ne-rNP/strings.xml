@@ -364,21 +364,25 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="2938232623456109180">"अमान्य समय <xliff:g id="INVALID_HOUR">%d</xliff:g> : <xliff:g id="INVALID_MINUTES">%d</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="6879712060034435529">"<xliff:g id="ALARM_TIME">%s</xliff:g>मा कुनै अलार्म छैन"</string>
+    <string name="invalid_time" msgid="8369328732811670187">"अमान्य समय <xliff:g id="INVALID_HOUR">%d</xliff:g> : <xliff:g id="INVALID_MINUTES">%d</xliff:g><xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g> : <xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>मा कुनै अलार्म छैन"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"कुनै मिलाइएको कार्यतालिका अलार्म छैन"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"स्टपवाच पहिले नै चलिरहेको छ"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"स्टपवाच चलिरहेको छैन"</string>
     <string name="stopwatch_mode_changed" msgid="2096052973378533405">"स्टपवाच मोड परिवर्तन भयो"</string>
-    <string name="more_than_one_instance_for_this_alarm_id" msgid="2234399757112307135">"यस समयका लागि एकभन्दा बढी अलार्म कार्यतालिका मिलाइएको छ"</string>
-    <string name="no_alarm_instances_for_this_id" msgid="2083029511278199378">"यस समयका लागि कुनै कार्यतालिका मिलाइएको छैन"</string>
-    <string name="alarm_is_canceled" msgid="1519270868702473120">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म रद्द गरियो"</string>
-    <string name="alarm_is_deleted" msgid="4593667023633842085">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म मेटियो"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"यस समयका लागि कुनै कार्यतालिका मिलाइएको छैन"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म खारेज गरियो"</string>
+    <!-- no translation found for alarm_is_set (5503226382620011088) -->
+    <skip />
     <string name="no_timer_set" msgid="3326365650863016606">"कुनै घडी सेट भएको छैन"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"घडी मेटियो"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"घडी पहिले नै चलिरहेको छ"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"तपाईँको अनुरोध सम्पन्न गर्न असमर्थ, धेरै घडीहरू उपलब्ध छन्"</string>
     <string name="timer_started" msgid="6715582052946641641">"घडी सुरु भयो"</string>
+    <!-- no translation found for timer_created (4381027137335885547) -->
+    <skip />
+    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
+    <skip />
     <string name="timer_was_reset" msgid="6495796785185062631">"घडी रिसेट गरियो"</string>
     <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"यो अझै चलिरहेका कारणले घडी रिसेट हुन सक्दैन। रिसेट गर्न घडी रोक्नुहोस्।"</string>
     <string name="timer_already_stopped" msgid="8865820275829449054">"घडी पहिले नै रोकियो"</string>
@@ -389,6 +393,7 @@
     <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> मेटियो"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म अझै खारेज गर्न सक्दैन, अझै २४ घन्टाभन्दा बढी छ"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"अलार्म खारेज गर्नुहोस्"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"कुने अलार्म खारेज गर्ने छान्नुहोस्"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"कुनै गोलीबारी अलार्म छैन"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म १० मिनेटका लागि  स्नुज गरियो"</string>
 </resources>
