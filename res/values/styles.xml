@@ -22,21 +22,26 @@
         <item name="android:layout_gravity">center_horizontal</item>
     </style>
 
-    <style name="AppCompatTranslucentDecorTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-    </style>
-
     <style name="BaseActivityTheme" parent="Theme.AppCompat">
         <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
 
         <!-- Attributes from support.v7.appcompat -->
-        <item name="colorAccent">@color/hot_pink</item>
+        <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimaryDark">@color/status_bar</item>
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
     </style>
+
+    <style name="TranslucentDecorActivityTheme" parent="BaseActivityTheme">
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+
+        <!-- Attributes from support.v7.appcompat -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 
     <style name="ControlAccentThemeOverlay">
         <!-- Attributes from support.v7.appcompat -->
@@ -125,11 +130,9 @@
     <!-- variants: v21 -->
     <style name="FabStyle" />
 
-    <style name="AlarmAlertFullScreenTheme" parent="AppCompatTranslucentDecorTheme" />
+    <style name="AlarmAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
 
-    <style name="TimerAlertFullScreenTheme" parent="AppCompatTranslucentDecorTheme">
-        <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
-    </style>
+    <style name="TimerAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
 
     <style name="ScreensaverActivityTheme" parent="Theme.AppCompat.NoActionBar" />
 
