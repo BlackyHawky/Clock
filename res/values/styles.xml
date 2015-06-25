@@ -248,7 +248,7 @@
 
     <style name="undo_toast" parent="body">
         <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/hot_pink</item>
+        <item name="android:textColor">@color/color_accent</item>
     </style>
 
     <style name="body_not_caps" parent="body">
