@@ -17,7 +17,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/hot_pink" />
+            <solid android:color="@color/color_accent" />
         </shape>
     </item>
     <item>
