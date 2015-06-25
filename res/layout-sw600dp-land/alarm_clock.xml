@@ -48,7 +48,7 @@
         <ImageButton
             android:id="@+id/menu_button"
             android:contentDescription="@string/button_menu"
-            style="?android:attr/actionOverflowButtonStyle"
+            style="?attr/actionOverflowButtonStyle"
             android:layout_gravity="end|center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
