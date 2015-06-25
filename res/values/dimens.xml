@@ -71,7 +71,8 @@
     <dimen name="medium_font_size">56sp</dimen>
     <dimen name="small_font_size">32sp</dimen>
     <dimen name="label_font_size">16sp</dimen>
-    <dimen name="widget_label_font_size">14sp</dimen>
+    <!-- Use dp on purpose to ensure consistency across multiple screen sizes. -->
+    <dimen name="widget_label_font_size">14dp</dimen>
     <dimen name="main_ampm_font_size">32sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
@@ -153,7 +154,8 @@
 
     <!-- Digital Widget settings (keyguard|home_screen) -->
     <!-- Clock and world clock sizes -->
-    <dimen name="widget_big_font_size">75sp</dimen>
+    <!-- Use dp on purpose to ensure consistency across multiple screen sizes. -->
+    <dimen name="widget_big_font_size">75dp</dimen>
     <dimen name="widget_medium_font_size">32sp</dimen>
     <dimen name="widget_24_medium_font_size">40sp</dimen>
 
