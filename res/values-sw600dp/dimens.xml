@@ -50,7 +50,8 @@
     <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="alarm_info_font_size">48sp</dimen>
     <dimen name="no_alarm_font_size">20sp</dimen>
-    <dimen name="widget_label_font_size">16sp</dimen>
+    <!-- Use dp on purpose to ensure consistency across multiple screen sizes -->
+    <dimen name="widget_label_font_size">16dp</dimen>
 
     <dimen name="body_font_padding">8dp</dimen>
     <dimen name="medium_font_padding">24dp</dimen>
@@ -89,7 +90,8 @@
 
     <!-- Digital Widget settings (keyguard|home_screen) -->
     <!-- Use larger fonts -->
-    <dimen name="widget_big_font_size">120sp</dimen>
+    <!-- Use dp on purpose to ensure consistency across multiple screen sizes -->
+    <dimen name="widget_big_font_size">120dp</dimen>
     <dimen name="widget_medium_font_size">52sp</dimen>
     <dimen name="widget_24_medium_font_size">65sp</dimen>
     <dimen name="widget_big_time_margin_right">12dip</dimen>
