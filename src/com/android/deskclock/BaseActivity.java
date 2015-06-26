@@ -44,12 +44,7 @@ public class BaseActivity extends AppCompatActivity {
     /**
      * {@link BroadcastReceiver} to update the background color whenever the system time changes.
      */
-    private final BroadcastReceiver mOnTimeChangedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            setBackgroundColor(Utils.getCurrentHourColor(), true /* animate */);
-        }
-    };
+    private BroadcastReceiver mOnTimeChangedReceiver;
 
     /**
      * {@link ColorDrawable} used to draw the window's background.
@@ -70,12 +65,19 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Update the current background color periodically.
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_TIME_TICK);
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        registerReceiver(mOnTimeChangedReceiver, filter);
+        // Register mOnTimeChangedReceiver to update current background color periodically.
+        if (mOnTimeChangedReceiver == null) {
+            final IntentFilter filter = new IntentFilter();
+            filter.addAction(Intent.ACTION_TIME_TICK);
+            filter.addAction(Intent.ACTION_TIME_CHANGED);
+            filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+            registerReceiver(mOnTimeChangedReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    setBackgroundColor(Utils.getCurrentHourColor(), true /* animate */);
+                }
+            }, filter);
+        }
 
         // Ensure the background color is up-to-date.
         setBackgroundColor(Utils.getCurrentHourColor(), true /* animate */);
@@ -86,7 +88,10 @@ public class BaseActivity extends AppCompatActivity {
         super.onPause();
 
         // Stop updating the background color when not active.
-        unregisterReceiver(mOnTimeChangedReceiver);
+        if (mOnTimeChangedReceiver != null) {
+            unregisterReceiver(mOnTimeChangedReceiver);
+            mOnTimeChangedReceiver = null;
+        }
     }
 
     @Override
