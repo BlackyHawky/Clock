@@ -753,18 +753,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
-     * Dismiss all snoozed alarms
-     */
-    public static void dismissSnoozedAlarms(Context context) {
-        ContentResolver contentResolver = context.getContentResolver();
-        for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
-            if (instance.mAlarmState == AlarmInstance.SNOOZE_STATE) {
-                AlarmStateManager.setDismissState(context, instance);
-            }
-        }
-    }
-
-    /**
      * Fix and update all alarm instance when a time change event occurs.
      *
      * @param context application context
