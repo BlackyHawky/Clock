@@ -104,15 +104,15 @@ public class TimerItemFragment extends Fragment {
         }
 
         TextView label = (TextView) v.findViewById(R.id.timer_label);
+        label.setText(mTimerObj.mLabel);
         if (getActivity() instanceof DeskClock) {
-            label.setText(mTimerObj.mLabel);
             label.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onLabelPressed(mTimerObj);
                 }
             });
-        } else {
+        } else if (TextUtils.isEmpty(mTimerObj.mLabel)) {
             label.setVisibility(View.INVISIBLE);
         }
     }
