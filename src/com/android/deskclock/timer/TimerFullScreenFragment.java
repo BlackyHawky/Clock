@@ -34,6 +34,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.animation.PathInterpolatorCompat;
+import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -193,18 +194,20 @@ public class TimerFullScreenFragment extends DeskClockFragment
             ImageButton resetAddButton = (ImageButton) v.findViewById(R.id.reset_add);
             resetAddButton.setTag(new ClickAction(ClickAction.ACTION_PLUS_ONE, o));
             v.setResetAddButton(true, TimerFullScreenFragment.this);
+
             TextView label = (TextView) v.findViewById(R.id.timer_label);
+            label.setText(o.mLabel);
             if (getActivity() instanceof DeskClock) {
-                label.setText(o.mLabel);
                 label.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         onLabelPressed(o);
                     }
                 });
-            } else {
+            }  else if (TextUtils.isEmpty(o.mLabel)) {
                 label.setVisibility(View.INVISIBLE);
             }
+
             return v;
         }
 
