@@ -27,6 +27,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -41,6 +42,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.v4.view.ViewCompat;
 import android.transition.AutoTransition;
 import android.transition.Fade;
@@ -104,6 +106,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
     private static final int REQUEST_CODE_RINGTONE = 1;
     private static final long INVALID_ID = -1;
+    private static final String PREF_KEY_DEFAULT_ALARM_RINGTONE_URI = "default_alarm_ringtone_uri";
 
     // Use transitions only in API 21+
     private static final boolean USE_TRANSITION_FRAMEWORK =
@@ -153,8 +156,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             Alarm a = new Alarm();
-            a.alert = RingtoneManager.getActualDefaultRingtoneUri(getActivity(),
-                    RingtoneManager.TYPE_ALARM);
+            a.alert = getDefaultRingtoneUri();
             if (a.alert == null) {
                 a.alert = Uri.parse("content://settings/system/alarm_alert");
             }
@@ -286,14 +288,6 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             showUndoBar();
         }
         return v;
-    }
-
-    private void setUndoBarRightMargin(int margin) {
-        FrameLayout.LayoutParams params =
-                (FrameLayout.LayoutParams) mUndoBar.getLayoutParams();
-        ((FrameLayout.LayoutParams) mUndoBar.getLayoutParams())
-            .setMargins(params.leftMargin, params.topMargin, margin, params.bottomMargin);
-        mUndoBar.requestLayout();
     }
 
     @Override
@@ -476,11 +470,33 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         mSelectedAlarm.alert = uri;
 
         // Save the last selected ringtone as the default for new alarms
-        if (!Alarm.NO_RINGTONE_URI.equals(uri)) {
-            RingtoneManager.setActualDefaultRingtoneUri(
-                    getActivity(), RingtoneManager.TYPE_ALARM, uri);
-        }
+        setDefaultRingtoneUri(uri);
+
         asyncUpdateAlarm(mSelectedAlarm, false);
+    }
+
+    private Uri getDefaultRingtoneUri() {
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final String ringtoneUriString = sp.getString(PREF_KEY_DEFAULT_ALARM_RINGTONE_URI, null);
+
+        final Uri ringtoneUri;
+        if (ringtoneUriString != null) {
+            ringtoneUri = Uri.parse(ringtoneUriString);
+        } else {
+            ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(getActivity(),
+                    RingtoneManager.TYPE_ALARM);
+        }
+
+        return ringtoneUri;
+    }
+
+    private void setDefaultRingtoneUri(Uri uri) {
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (uri == null) {
+            sp.edit().remove(PREF_KEY_DEFAULT_ALARM_RINGTONE_URI).apply();
+        } else {
+            sp.edit().putString(PREF_KEY_DEFAULT_ALARM_RINGTONE_URI, uri.toString()).apply();
+        }
     }
 
     @Override
@@ -504,8 +520,8 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
         private long mExpandedId;
         private ItemHolder mExpandedItemHolder;
-        private final HashSet<Long> mRepeatChecked = new HashSet<Long>();
-        private final HashSet<Long> mSelectedAlarms = new HashSet<Long>();
+        private final HashSet<Long> mRepeatChecked = new HashSet<>();
+        private final HashSet<Long> mSelectedAlarms = new HashSet<>();
         private Bundle mPreviousDaysOfWeekMap = new Bundle();
 
         private final boolean mHasVibrator;
@@ -595,10 +611,6 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             mCollapseExpandHeight = (int) res.getDimension(R.dimen.collapse_expand_height);
 
             setDayOrder();
-        }
-
-        public void removeSelectedId(int id) {
-            mSelectedAlarms.remove(id);
         }
 
         @Override
@@ -988,8 +1000,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.vibrate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final boolean checked = ((CheckBox) v).isChecked();
-                    alarm.vibrate = checked;
+                    alarm.vibrate = ((CheckBox) v).isChecked();
                     asyncUpdateAlarm(alarm, false);
                 }
             });
@@ -1060,7 +1071,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 Ringtone ringTone = RingtoneManager.getRingtone(mContext, uri);
                 if (ringTone == null) {
                     LogUtils.i("No ringtone for uri %s", uri.toString());
-                    return title;
+                    return null;
                 }
                 title = ringTone.getTitle(mContext);
                 if (title != null) {
