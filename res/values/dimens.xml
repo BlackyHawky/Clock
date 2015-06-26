@@ -67,7 +67,7 @@
     <dimen name="alarm_lockscreen_pulse_radius">128dp</dimen>
     <dimen name="alarm_lockscreen_bottom_margin">40dp</dimen>
 
-    <dimen name="big_font_size">88sp</dimen>
+    <dimen name="big_font_size">60sp</dimen>
     <dimen name="medium_font_size">56sp</dimen>
     <dimen name="small_font_size">32sp</dimen>
     <dimen name="label_font_size">16sp</dimen>
