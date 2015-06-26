@@ -150,8 +150,7 @@ public class AlarmService extends Service {
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
         mInitialCallState = mTelephonyManager.getCallState();
         mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
-        final boolean inCall = mInitialCallState != TelephonyManager.CALL_STATE_IDLE;
-        AlarmKlaxon.start(this, mCurrentAlarm, inCall);
+        AlarmKlaxon.start(this, mCurrentAlarm);
         sendBroadcast(new Intent(ALARM_ALERT_ACTION));
     }
 
