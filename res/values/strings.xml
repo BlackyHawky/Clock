@@ -934,6 +934,19 @@
     -->
     <string name="no_scheduled_alarms">No scheduled alarms</string>
 
+    <!-- String that represents that the user specified that they want to select an alarm to
+    dismiss by specifying a 'label' but they didn't specify any labels.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="no_label_specified">No label specified</string>
+
+    <!-- String that represents that no alarm has been specified for a requested label.
+    This happens when a user sends a voice command 'dismiss my alarm with label pick up kids'
+     but they have no alarms with that label.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="no_alarms_with_label">No alarms contain the label</string>
+
     <!-- String that represents that the user has sent a voice command 'start a stopwatch' when
     the stopwatch was already running so the command wasn't executed.
     [CHAR LIMIT=NONE]
