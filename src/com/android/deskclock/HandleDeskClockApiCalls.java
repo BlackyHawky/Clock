@@ -123,6 +123,11 @@ public class HandleDeskClockApiCalls extends Activity {
         startActivity(stopwatchIntent);
         LogUtils.i("HandleDeskClockApiCalls " + action);
 
+        if (action.equals(ACTION_SHOW_STOPWATCH)) {
+            Events.sendStopwatchEvent(R.string.action_show, R.string.label_intent);
+            return;
+        }
+
         // checking if the stopwatch is already running
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mAppContext);
         final boolean stopwatchAlreadyRunning =
@@ -130,9 +135,13 @@ public class HandleDeskClockApiCalls extends Activity {
 
         if (stopwatchAlreadyRunning) {
             // don't fire START_STOPWATCH or RESET_STOPWATCH if a stopwatch is already running
-            if (ACTION_START_STOPWATCH.equals(action) ||
-                    ACTION_RESET_STOPWATCH.equals(action)) {
+            if (ACTION_START_STOPWATCH.equals(action)) {
                 final String reason = getString(R.string.stopwatch_already_running);
+                Voice.notifyFailure(this, reason);
+                LogUtils.i(reason);
+                return;
+            } else if (ACTION_RESET_STOPWATCH.equals(action)) { // RESET_STOPWATCH
+                final String reason = getString(R.string.stopwatch_cant_be_reset_because_is_running);
                 Voice.notifyFailure(this, reason);
                 LogUtils.i(reason);
                 return;
@@ -148,34 +157,30 @@ public class HandleDeskClockApiCalls extends Activity {
             }
         }
 
-        // Events setup
+        final String reason;
+        // Events and voice interactor setup
         switch (action) {
             case ACTION_START_STOPWATCH:
                 Events.sendStopwatchEvent(R.string.action_start, R.string.label_intent);
-                LogUtils.i("Stopwatch was started.");
+                reason = getString(R.string.stopwatch_started);
                 break;
             case ACTION_STOP_STOPWATCH:
                 Events.sendStopwatchEvent(R.string.action_stop, R.string.label_intent);
-                LogUtils.i("Stopwatch was stopped.");
+                reason = getString(R.string.stopwatch_stopped);
                 break;
             case ACTION_LAP_STOPWATCH:
                 Events.sendStopwatchEvent(R.string.action_lap, R.string.label_intent);
-                LogUtils.i("Stopwatch was lapped.");
-                break;
-            case ACTION_SHOW_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_show, R.string.label_intent);
-                LogUtils.i("Stopwatch tab was shown.");
+                reason = getString(R.string.stopwatch_lapped);
                 break;
             case ACTION_RESET_STOPWATCH:
                 Events.sendStopwatchEvent(R.string.action_reset, R.string.label_intent);
-                LogUtils.i("Stopwatch was reset.");
+                reason = getString(R.string.stopwatch_reset);
                 break;
             default:
                 return;
         }
         final Intent intent = new Intent(mAppContext, StopwatchService.class).setAction(action);
         startService(intent);
-        final String reason = getString(R.string.stopwatch_mode_changed);
         Voice.notifySuccess(this, reason);
         LogUtils.i(reason);
     }
@@ -235,9 +240,13 @@ public class HandleDeskClockApiCalls extends Activity {
             switch (mAction) {
                 case ACTION_DELETE_TIMER: {
                     // Delete a timer only if there's one available
-                    if (timers.size() != 1) {
+                    if (timers.size() > 1) {
+                        final String reason = mContext.getString(R.string.multiple_timers_available);
+                        LogUtils.i(reason);
+                        Voice.notifyFailure(mActivity, reason);
                         return null;
                     }
+
                     final TimerObj timer = timers.get(0);
                     timer.deleteFromSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_delete, R.string.label_intent);
@@ -267,13 +276,9 @@ public class HandleDeskClockApiCalls extends Activity {
                     // it's only triggered when there's only one stopped timer
                     final Set<Integer> statesToInclude = new HashSet<>();
                     statesToInclude.add(TimerObj.STATE_STOPPED);
-                    final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude);
+                    final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude,
+                            mAction);
                     if (timer == null) {
-                        // all timers are running
-                        final String reason = mContext.getString(
-                                R.string.timer_cant_be_reset_because_its_running);
-                        LogUtils.i(reason);
-                        Voice.notifyFailure(mActivity, reason);
                         return null;
                     }
                     final String reason = mContext.getString(R.string.timer_was_reset);
@@ -290,12 +295,9 @@ public class HandleDeskClockApiCalls extends Activity {
                     statesToInclude.add(TimerObj.STATE_TIMESUP);
                     statesToInclude.add(TimerObj.STATE_RUNNING);
                     // Timer is stopped if there's only one running timer
-                    final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude);
+                    final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude,
+                            mAction);
                     if (timer == null) {
-                        // no running timers
-                        final String reason = mContext.getString(R.string.timer_already_stopped);
-                        LogUtils.i(reason);
-                        Voice.notifyFailure(mActivity, reason);
                         return null;
                     }
                     final String reason = mContext.getString(R.string.timer_stopped);
@@ -343,7 +345,7 @@ public class HandleDeskClockApiCalls extends Activity {
          * in all other cases returns null
          */
         private TimerObj getTimerWithStatesToInclude(
-                List<TimerObj> timers, Set<Integer> statesToInclude) {
+                List<TimerObj> timers, Set<Integer> statesToInclude, String action) {
             TimerObj soleTimer = null;
             for (TimerObj timer : timers) {
                 if (statesToInclude.contains(timer.mState)) {
@@ -357,6 +359,22 @@ public class HandleDeskClockApiCalls extends Activity {
                         Voice.notifyFailure(mActivity, reason);
                         return null;
                     }
+                }
+            }
+            // if there are no timers of desired property
+            // announce it to the user
+            if (soleTimer == null) {
+                if (action.equals(ACTION_RESET_TIMER)) {
+                    // all timers are running
+                    final String reason = mContext.getString(
+                            R.string.timer_cant_be_reset_because_its_running);
+                    LogUtils.i(reason);
+                    Voice.notifyFailure(mActivity, reason);
+                } else if (action.equals(ACTION_STOP_TIMER)) {
+                    // no running timers
+                    final String reason = mContext.getString(R.string.timer_already_stopped);
+                    LogUtils.i(reason);
+                    Voice.notifyFailure(mActivity, reason);
                 }
             }
             return soleTimer;

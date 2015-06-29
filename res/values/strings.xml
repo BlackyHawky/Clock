@@ -946,11 +946,35 @@
     -->
     <string name="stopwatch_isnt_running">Stopwatch isn\'t running</string>
 
-    <!-- String that represents that the user has successfully sent a voice command changing a mode
-     for the stopwatch and it was executed.
+    <!-- String that represents that the user has sent a voice command 'reset the stopwatch' or
+     when the stopwatch was running so the command wasn't executed.
     [CHAR LIMIT=NONE]
     -->
-    <string name="stopwatch_mode_changed">Stopwatch mode changed</string>
+    <string name="stopwatch_cant_be_reset_because_is_running">Stopwatch cannot be reset because it is running</string>
+
+    <!-- String that represents that the user has successfully sent a voice command stopping
+     the stopwatch.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="stopwatch_stopped">Stopwatch stopped</string>
+
+    <!-- String that represents that the user has successfully sent a voice command resetting
+    the stopwatch.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="stopwatch_reset">Stopwatch reset</string>
+
+    <!-- String that represents that the user has successfully sent a voice command lapping
+    the stopwatch.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="stopwatch_lapped">Stopwatch lapped</string>
+
+    <!-- String that represents that the user has successfully sent a voice command starting
+    the stopwatch.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="stopwatch_started">Stopwatch started</string>
 
     <!-- String that represents that the user has sent a voice command 'dismiss my alarm at 3pm' when
     there was no alarm scheduled for that time (they might have had an alarm for 3pm on the list
@@ -1093,7 +1117,6 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="alarm_is_snoozed"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm snoozed for 10 minutes</string>
-
 
 </resources>
 
