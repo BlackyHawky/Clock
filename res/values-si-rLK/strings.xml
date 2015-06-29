@@ -372,20 +372,17 @@
     <string name="stopwatch_mode_changed" msgid="2096052973378533405">"විරාම ඝටිකා ප්‍රකාරය වෙනස් කරන ලදී"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"මෙම වේලාව සඳහා සීනුවක් නොමැත"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> එලාමය ඉවතලන ලදී"</string>
-    <!-- no translation found for alarm_is_set (5503226382620011088) -->
-    <skip />
-    <string name="no_timer_set" msgid="3326365650863016606">"ටයිමරය සකසා නැත"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"ටයිමරය මකන ලදී"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"ටයිමරය දැනටමත් ධාවනය වේ"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> ට සීනුව සකසන ලදි"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"මුහුර්තකය සකසා නැත"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"මුහුර්තකය මකන ලදී"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"මුහුර්තකය දැනටමත් ධාවනය වේ"</string>
     <string name="multiple_timers_available" msgid="6722110840279707462">"ඔබගේ ඉල්ලීම සම්පූර්ණ කිරීමට නොහැකි විය, ටයිමර කිහිපයක් ඇත"</string>
-    <string name="timer_started" msgid="6715582052946641641">"ටයිමරය ආරම්භ කරන ලදී"</string>
-    <!-- no translation found for timer_created (4381027137335885547) -->
-    <skip />
-    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
-    <skip />
-    <string name="timer_was_reset" msgid="6495796785185062631">"ටයිමරය යළි සකසන ලදී"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"ටයිමරය තවම ධාවනය වන බැවින් එය යළි සැකසීමට නොහැකිය. යළි සැකසීමට ටයිමරය නවත්වන්න."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"ටයිමරය දැනටමත් නතර කර ඇත"</string>
+    <string name="timer_started" msgid="6715582052946641641">"මුහුර්තකය ආරම්භ කරන ලදී"</string>
+    <string name="timer_created" msgid="4381027137335885547">"ටයිමරයක් සාදන ලදි"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"වලංගු නොවන ටයිමර වේලාව"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"මුහුර්තකය යළි සකසන ලදී"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"මුහුර්තකය තවම ධාවනය වන බැවින් එය යළි සැකසීමට නොහැකිය. යළි සැකසීමට මුහුර්තකය නවත්වන්න."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"මුහුර්තකය දැනටමත් නතර කර ඇත"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"නගරය තෝරා නොමැත"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"ඔබ නිශ්චිතව දක්වන ලද නගරය ලබා ගත නොහැකිය"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"එම නගරය දැනටමත් එක් කර ඇත"</string>
