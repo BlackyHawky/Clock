@@ -440,7 +440,7 @@ public class TimerReceiver extends BroadcastReceiver {
         // Notification creation
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentIntent(contentIntent)
-                .addAction(R.drawable.ic_menu_add,
+                .addAction(R.drawable.ic_add_24dp,
                         context.getResources().getString(R.string.timer_plus_1_min),
                         addOneMinuteAction)
                 .addAction(
