@@ -372,17 +372,14 @@
     <string name="stopwatch_mode_changed" msgid="2096052973378533405">"အချိန်မှတ်နာရီမုဒ် ပြောင်းလိုက်ပြီ"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ဤအချိန်အတွက် နိုးစက်မစီစဉ်ထားပါ"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> နိုးစက် ဖျက်လိုက်ပြီ"</string>
-    <!-- no translation found for alarm_is_set (5503226382620011088) -->
-    <skip />
+    <string name="alarm_is_set" msgid="5503226382620011088">"နိုးစက်ပေးထားသော အချိန်<xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timer_set" msgid="3326365650863016606">"အချိန်တိုင်းစက် မသတ်မှတ်ရသေးပါ"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"အချိန်သတ်မှတ်ခြင်း ဖျက်လိုက်ပါပြီ"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"အချိန်သတ်မှတ်ခြင်း ဖွင့်ထားပြီးပါပြီ"</string>
     <string name="multiple_timers_available" msgid="6722110840279707462">"သင့်တောင်းဆိုချက် မပြီးမြောက်နိုင်ပါ၊ အချိန်တိုင်းစက် များစွာ ရှိနေ၏"</string>
     <string name="timer_started" msgid="6715582052946641641">"တိုင်မားစတင်ပါပြီ"</string>
-    <!-- no translation found for timer_created (4381027137335885547) -->
-    <skip />
-    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
-    <skip />
+    <string name="timer_created" msgid="4381027137335885547">"အချိန်ကိုက်ကိရိယာ ဖန်တီးလိုက်ပါပြီ"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"မမှန်ကန်သည့် အချိန်ကိုက် အလျား"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"အချိန်သတ်မှတ်ခြင်း ပြန်လည်သတ်မှတ်လိုက်ပါပြီ"</string>
     <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"အချိန်သတ်မှတ်ခြင်း ဖွင့်ထားသောကြောင့် ပြန်လည်သတ်မှတ်၍မရပါ။ ပြန်လည်သတ်မှတ်ရန် အချိန်သတ်မှတ်ခြင်းကို ရပ်ပါ။"</string>
     <string name="timer_already_stopped" msgid="8865820275829449054">"အချိန်သတ်မှတ်ခြင်း ရပ်ထားပါပြီ"</string>
