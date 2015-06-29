@@ -372,17 +372,14 @@
     <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Modalità cronometro cambiata"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nessuna sveglia pianificata per questo orario"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> ignorata"</string>
-    <!-- no translation found for alarm_is_set (5503226382620011088) -->
-    <skip />
+    <string name="alarm_is_set" msgid="5503226382620011088">"Sveglia impostata per le ore <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timer_set" msgid="3326365650863016606">"Nessun timer impostato"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Timer eliminato"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"Timer già in esecuzione"</string>
     <string name="multiple_timers_available" msgid="6722110840279707462">"Impossibile completare la richiesta. Diversi timer disponibili"</string>
     <string name="timer_started" msgid="6715582052946641641">"Timer avviato"</string>
-    <!-- no translation found for timer_created (4381027137335885547) -->
-    <skip />
-    <!-- no translation found for invalid_timer_length (3104567893212932487) -->
-    <skip />
+    <string name="timer_created" msgid="4381027137335885547">"Timer creato"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Durata del timer non valida"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"Timer reimpostato"</string>
     <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Impossibile reimpostare il timer perché è ancora in esecuzione. Per reimpostare il timer, interrompilo."</string>
     <string name="timer_already_stopped" msgid="8865820275829449054">"Timer già interrotto"</string>
@@ -391,7 +388,7 @@
     <string name="the_city_already_added" msgid="3799050213771793020">"La città è già stata aggiunta"</string>
     <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> aggiunta"</string>
     <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> eliminata"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Non è ancora possibile ignorare la sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> perché mancano ancora più di 24 ore alla sveglia"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Non è ancora possibile ignorare la sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> perché mancano ancora più di 24 ore all\'orario impostato"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ignora sveglia"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Scegli la sveglia da ignorare"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nessuna sveglia da attivare"</string>
