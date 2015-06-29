@@ -351,11 +351,16 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     }
 
     private void setTimerViewFabIcon(TimerObj timer) {
-        final Context context = getActivity();
-        if (context == null || timer == null || mFab == null) {
+        final DeskClock deskClock = (DeskClock) getActivity();
+        if (deskClock == null || timer == null || mFab == null) {
             return;
         }
-        final Resources r = context.getResources();
+
+        if (deskClock.getSelectedTab() != DeskClock.TIMER_TAB_INDEX) {
+            return;
+        }
+
+        final Resources r = deskClock.getResources();
         switch (timer.mState) {
             case TimerObj.STATE_RUNNING:
                 mFab.setVisibility(View.VISIBLE);
