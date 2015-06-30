@@ -27,6 +27,7 @@ import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -81,7 +82,8 @@ class FetchMatchingAlarmsAction implements Runnable {
                 badInput |= minutes < 0 || minutes > 59;
 
                 if (badInput) {
-                    final String amPm = isPm == null ? "null" : (isPm ? "pm" : "am");
+                    final String[] ampm = new DateFormatSymbols().getAmPmStrings();
+                    final String amPm = isPm == null ? "" : (isPm ? ampm[1] : ampm[0]);
                     final String reason = mContext.getString(R.string.invalid_time, hour, minutes,
                             amPm);
                     notifyFailureAndLog(reason, mActivity);
