@@ -1100,7 +1100,7 @@
     <string name="city_deleted"><xliff:g id="city_name" example="Paris">%s</xliff:g> deleted</string>
 
     <!-- String that represents that the user attempted to dismiss an alarm that is more than
-    2 hours away
+    24 hours away
     %s represents the time of the alarm (e.g. 15:39)
     [CHAR LIMIT=NONE]
     -->
