@@ -37,9 +37,8 @@ public final class AlarmKlaxon {
     private AlarmKlaxon() {}
 
     public static void stop(Context context) {
-        LogUtils.v("AlarmKlaxon.stop()");
-
         if (sStarted) {
+            LogUtils.v("AlarmKlaxon.stop()");
             sStarted = false;
             getAsyncRingtonePlayer(context).stop();
             ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).cancel();
