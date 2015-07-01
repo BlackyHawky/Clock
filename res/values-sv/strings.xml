@@ -49,7 +49,7 @@
       <item quantity="one">1 minut</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm av"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooza"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="other">Alarmet återupptas om <xliff:g id="MINUTES">%d</xliff:g> minuter.</item>
       <item quantity="one">Alarmet återupptas om 1 minut.</item>
@@ -123,7 +123,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volymknappar"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knappfunktion"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Snooze"</item>
+    <item msgid="7972756698723318690">"Snooza"</item>
     <item msgid="3450979320164769576">"Stäng av"</item>
     <item msgid="6302517608411378024">"Gör ingenting"</item>
   </string-array>
