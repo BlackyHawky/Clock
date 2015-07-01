@@ -171,7 +171,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             mSelectedAlarm.minutes = minute;
             mSelectedAlarm.enabled = true;
             mScrollToAlarmId = mSelectedAlarm.id;
-            asyncUpdateAlarm(mSelectedAlarm, true);
+            asyncUpdateAlarm(mSelectedAlarm, true, false);
             mSelectedAlarm = null;
         }
     }
@@ -401,7 +401,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
     public void setLabel(Alarm alarm, String label) {
         alarm.label = label;
-        asyncUpdateAlarm(alarm, false);
+        asyncUpdateAlarm(alarm, false, true);
     }
 
     @Override
@@ -472,7 +472,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         // Save the last selected ringtone as the default for new alarms
         setDefaultRingtoneUri(uri);
 
-        asyncUpdateAlarm(mSelectedAlarm, false);
+        asyncUpdateAlarm(mSelectedAlarm, false, true);
 
         // If the user chose an external ringtone and has not yet granted the permission to read
         // external storage, ask them for that permission now.
@@ -779,7 +779,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                             setDigitalTimeAlpha(itemHolder, checked);
                         }
                         alarm.enabled = checked;
-                        asyncUpdateAlarm(alarm, alarm.enabled);
+                        asyncUpdateAlarm(alarm, alarm.enabled, false);
                     }
                 }
             };
@@ -967,7 +967,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                     final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
                     final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
 
-                    asyncUpdateAlarm(alarm, popupToast);
+                    asyncUpdateAlarm(alarm, popupToast, false);
                 }
             });
 
@@ -1012,7 +1012,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                         final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
                         final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
 
-                        asyncUpdateAlarm(alarm, popupToast);
+                        asyncUpdateAlarm(alarm, popupToast, false);
                     }
                 });
             }
@@ -1032,7 +1032,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onClick(View v) {
                     alarm.vibrate = ((CheckBox) v).isChecked();
-                    asyncUpdateAlarm(alarm, false);
+                    asyncUpdateAlarm(alarm, false, true);
                 }
             });
 
@@ -1484,7 +1484,14 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         updateTask.execute();
     }
 
-    protected void asyncUpdateAlarm(final Alarm alarm, final boolean popToast) {
+    /**
+     * @param alarm
+     * @param popToast
+     * @param minorUpdate If the alarm update is superficial and cannot affect the timing of the
+     *                    next firing instance (e.g. a label, ringtone, or vibration change).
+     */
+    protected void asyncUpdateAlarm(final Alarm alarm, final boolean popToast,
+                                    final boolean minorUpdate) {
         final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
         final AsyncTask<Void, Void, AlarmInstance> updateTask =
                 new AsyncTask<Void, Void, AlarmInstance>() {
@@ -1493,8 +1500,12 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 Events.sendAlarmEvent(R.string.action_update, R.string.label_deskclock);
                 ContentResolver cr = context.getContentResolver();
 
-                // Dismiss all old instances
-                AlarmStateManager.deleteAllInstances(context, alarm.id);
+                if (minorUpdate) {
+                    // For minor updates, we don't want to affect any currently snoozed instances.
+                    AlarmStateManager.deleteNonSnoozeInstances(context, alarm.id);
+                } else {
+                    AlarmStateManager.deleteAllInstances(context, alarm.id);
+                }
 
                 // Update alarm
                 Alarm.updateAlarm(cr, alarm);

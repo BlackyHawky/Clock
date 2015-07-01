@@ -753,6 +753,23 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
+     * Delete and unregister all instances unless they are snoozed. This is used whenever an alarm
+     * is modified superficially (label, vibrate, or ringtone change).
+     */
+    public static void deleteNonSnoozeInstances(Context context, long alarmId) {
+        ContentResolver cr = context.getContentResolver();
+        List<AlarmInstance> instances = AlarmInstance.getInstancesByAlarmId(cr, alarmId);
+        for (AlarmInstance instance : instances) {
+            if (instance.mAlarmState == AlarmInstance.SNOOZE_STATE) {
+                continue;
+            }
+            unregisterInstance(context, instance);
+            AlarmInstance.deleteInstance(context.getContentResolver(), instance.mId);
+        }
+        updateNextAlarm(context);
+    }
+
+    /**
      * Fix and update all alarm instance when a time change event occurs.
      *
      * @param context application context
