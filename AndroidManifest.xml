@@ -35,6 +35,10 @@
 
     <application android:label="@string/app_label"
                  android:name=".DeskClockApplication"
+                 android:allowBackup="true"
+                 android:backupAgent="DeskClockBackupAgent"
+                 android:fullBackupContent="@xml/backup_scheme"
+                 android:fullBackupOnly="true"
                  android:icon="@mipmap/ic_launcher_alarmclock"
                  android:requiredForAllUsers="true"
                  android:supportsRtl="true">
@@ -47,8 +51,7 @@
                 android:label="@string/app_label"
                 android:theme="@style/DeskClock"
                 android:icon="@mipmap/ic_launcher_alarmclock"
-                android:launchMode="singleTask"
-                >
+                android:launchMode="singleTask">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
