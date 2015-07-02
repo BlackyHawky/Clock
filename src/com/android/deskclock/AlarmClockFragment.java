@@ -917,6 +917,9 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                         TransitionManager.beginDelayedTransition(mList, mRepeatTransition);
                     }
 
+                    final Calendar now = Calendar.getInstance();
+                    final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
+
                     final boolean checked = ((CheckBox) view).isChecked();
                     if (checked) {
                         // Show days
@@ -945,7 +948,11 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                         alarm.daysOfWeek.clearAllDays();
                     }
 
-                    asyncUpdateAlarm(alarm, false);
+                    // if the change altered the next scheduled alarm time, tell the user
+                    final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
+                    final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
+
+                    asyncUpdateAlarm(alarm, popupToast);
                 }
             });
 
@@ -958,7 +965,11 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                     public void onClick(View view) {
                         final boolean isActivated =
                                 itemHolder.dayButtons[buttonIndex].isActivated();
+
+                        final Calendar now = Calendar.getInstance();
+                        final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
                         alarm.daysOfWeek.setDaysOfWeek(!isActivated, mDayOrder[buttonIndex]);
+
                         if (!isActivated) {
                             turnOnDayOfWeek(itemHolder, buttonIndex);
                         } else {
@@ -981,7 +992,12 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                                         DaysOfWeek.NO_DAYS_SET);
                             }
                         }
-                        asyncUpdateAlarm(alarm, false);
+
+                        // if the change altered the next scheduled alarm time, tell the user
+                        final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
+                        final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
+
+                        asyncUpdateAlarm(alarm, popupToast);
                     }
                 });
             }
