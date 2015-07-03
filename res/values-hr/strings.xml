@@ -70,10 +70,10 @@
     <item msgid="6002066367368421848">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g>."</item>
     <item msgid="8824719306247973774">"Alarm će se oglasiti za <xliff:g id="HOURS">%2$s</xliff:g>."</item>
     <item msgid="8182406852935468862">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="2532279224777213194">"Alarm je postavljen od ovog trenutka za sljedeći broj minuta: <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2532279224777213194">"Alarm će se oglasiti za <xliff:g id="MINUTES">%3$s</xliff:g> min."</item>
     <item msgid="5936557894247187717">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="9115697840826129603">"Alarm će se oglasiti za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="2332583385137381060">"Alarm je postavljen za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dan</item>
@@ -136,7 +136,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Bešumno"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Odgodite ili obustavite alarm."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (odgoda alarma)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm je postavljen na vrijeme: <xliff:g id="TIME">%s</xliff:g>. Dodirnite za poništavanje."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm će se oglasiti u <xliff:g id="TIME">%s</xliff:g>. Dodirnite za poništavanje."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Gumbi za glasnoću"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Efekt gumba"</string>
   <string-array name="volume_button_setting_entries">
@@ -376,15 +376,21 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"Vrijeme <xliff:g id="INVALID_HOUR">%d</xliff:g>.<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g> nije važeće"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Vrijeme <xliff:g id="INVALID_HOUR">%d</xliff:g>.<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> nije važeće"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Nema alarma u <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>.<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nema postavljenih alarma"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Nije navedena oznaka"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Nema alarma s tom oznakom"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Štoperica je već pokrenuta"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Štoperica nije pokrenuta"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Promijenjen je način štoperice"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Štoperica se ne može poništiti jer je pokrenuta"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Štoperica je zaustavljena"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Štoperica je poništena"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Novi krug štoperice"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Štoperica je pokrenuta"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Za to vrijeme nema postavljenih alarma"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Odbačen je alarm u <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Alarm je postavljen na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarm će se oglasiti u <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timer_set" msgid="3326365650863016606">"Nema postavljenih tajmera"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Tajmer je izbrisan"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"Tajmer je već pokrenut"</string>

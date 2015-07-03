@@ -164,7 +164,7 @@
     <string name="menu_item_night_mode" msgid="3486930302245398975">"ರಾತ್ರಿ ಮೋಡ್"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"ಸಮಯದ ಪ್ರಕಾರ ವಿಂಗಡಿಸಿ"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"ಹೆಸರಿನ ಪ್ರಕಾರ ವಿಂಗಡಿಸಿ"</string>
-    <string name="selected_cities_label" msgid="3607479399424246605">"ಆಯ್ಕೆಮಾಡಿದ ನಗರಗಳು"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"ಆಯ್ದ ನಗರಗಳು"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"ಮುಂದುವರಿಸು"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"ಪ್ರಾರಂಭಿಸು"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"ನಿಲ್ಲಿಸು"</string>
@@ -364,12 +364,18 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"ಮಾನ್ಯವಲ್ಲದ ಸಮಯ <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"ಅಮಾನ್ಯ ಸಮಯ <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g> ಸಮಯಕ್ಕೆ ಯಾವುದೇ ಅಲಾರಮ್ ಇಲ್ಲ:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"ಯಾವುದೇ ನಿಗದಿಪಡಿಸಿದ ಅಲಾರಮ್‌ಗಳಿಲ್ಲ"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"ಯಾವುದೇ ಲೇಬಲ್ ನಿರ್ದಿಷ್ಟಪಡಿಸಲಾಗಿಲ್ಲ"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"ಯಾವುದೇ ಅಲಾರಮ್‌ಗಳು ಲೇಬಲ್ ಹೊಂದಿಲ್ಲ"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"ಸ್ಟಾಪ್‌ವಾಚ್ ಈಗಾಗಲೇ ರನ್ ಆಗುತ್ತಿದೆ"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"ಸ್ಟಾಪ್‌ವಾಚ್ ರನ್ ಆಗುತ್ತಿಲ್ಲ"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"ಸ್ಟಾಪ್‌ವಾಚ್ ಮೋಡ್ ಬದಲಾಯಿಸಲಾಗಿದೆ"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"ಸ್ಟಾಪ್‌ವಾಚ್ ರನ್ ಆಗುತ್ತಿರುವ ಕಾರಣ ಅದನ್ನು ಮರುಹೊಂದಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"ಸ್ಟಾಪ್‌ವಾಚ್ ನಿಲ್ಲಿಸಲಾಗಿದೆ"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"ಸ್ಟಾಪ್‌ವಾಚ್ ಮರುಹೊಂದಿಸಿ"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"ಸ್ಟಾಪ್‌ವಾಚ್ ಸ್ವೀಕರಿಸಲಾಗಿದೆ"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"ಸ್ಟಾಪ್‌ವಾಚ್ ಪ್ರಾರಂಭಿಸಲಾಗಿದೆ"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ಈ ಸಮಯಕ್ಕೆ ಯಾವುದೇ ಅಲಾರಮ್ ನಿಗದಿಪಡಿಸಲಾಗಿಲ್ಲ"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> ಅಲಾರಮ್ ವಜಾಗೊಳಿಸಲಾಗಿದೆ"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> ಗಂಟೆಗೆ ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ"</string>

@@ -55,7 +55,7 @@
       <item quantity="one">ปิดเสียงเตือนชั่วคราว 1 นาที</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ปิดเสียงเตือนชั่วคราวจนถึง <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"การปลุกที่กำลังจะมาถึง"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ตั้งปลุกครั้งต่อไป"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ลบการปลุกที่พลาดออกไปแล้ว"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"เหลืออีกไม่ถึงหนึ่งนาที"</item>
@@ -231,7 +231,7 @@
     <item msgid="8483930821046925592">"ดิจิทัล"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"นาฬิกาอัตโนมัติสำหรับที่บ้าน"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ในขณะที่เดินทางในพื้นที่ที่เวลาต่างออกไป ให้เพิ่มนาฬิกาสำหรับบ้าน"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"เมื่อเดินทางไปในที่ที่เวลาต่างออกไป ให้เพิ่มนาฬิกาแสดงเวลาที่บ้าน"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"เขตเวลาท้องถิ่น"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"เขตเวลาท้องถิ่น"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"ยกเลิก"</string>
@@ -364,12 +364,18 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"เวลาไม่ถูกต้อง <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"เวลาไม่ถูกต้อง <xliff:g id="INVALID_HOUR">%d</xliff:g>.<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"ไม่มีการปลุกที่เวลา <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"ไม่มีการตั้งปลุก"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"ไม่ได้ระบุป้ายกำกับ"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"ไม่มีการปลุกที่มีป้ายกำกับนี้"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"นาฬิกาจับเวลากำลังทำงานอยู่แล้ว"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"นาฬิกาจับเวลาไม่ได้ทำงานอยู่"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"เปลี่ยนแปลงโหมดนาฬิกาจับเวลาแล้ว"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"ไม่สามารถรีเซ็ตนาฬิกาจับเวลา เพราะกำลังทำงานอยู่"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"หยุดจับเวลาแล้ว"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"รีเซ็ตนาฬิกาจับเวลาแล้ว"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"จับเวลาที่ล่วงไปแล้ว"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"เริ่มจับเวลาแล้ว"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ไม่ได้ตั้งปลุกสำหรับเวลานี้"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"ปิดการปลุกเวลา <xliff:g id="ALARM_TIME">%s</xliff:g> แล้ว"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"ตั้งการปลุกที่เวลา <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
