@@ -64,14 +64,14 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> باقیمانده"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"هشدار برای کمتر از ۱ دقیقه دیگر تنظیم شد."</item>
-    <item msgid="6002066367368421848">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> از حالا تنظیم شد."</item>
-    <item msgid="8824719306247973774">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> دیگر تنظیم شد."</item>
+    <item msgid="6450913786084215050">"هشدار برای کمتر از ۱ دقیقه دیگر از حالا تنظیم شد."</item>
+    <item msgid="6002066367368421848">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> دیگر از حالا تنظیم شد."</item>
+    <item msgid="8824719306247973774">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> دیگر از حالا تنظیم شد."</item>
     <item msgid="8182406852935468862">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> از حالا تنظیم شد."</item>
-    <item msgid="2532279224777213194">"هشدار به مدت <xliff:g id="MINUTES">%3$s</xliff:g> دقیقه از هم‌اکنون تنظیم شد."</item>
-    <item msgid="5936557894247187717">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> از حالا تنظیم شد."</item>
-    <item msgid="9115697840826129603">"هشدار از هم‌اکنون برای <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> تنظیم شد."</item>
-    <item msgid="2332583385137381060">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> از حالا تنظیم شد."</item>
+    <item msgid="2532279224777213194">"هشدار برای <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</item>
+    <item msgid="5936557894247187717">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</item>
+    <item msgid="9115697840826129603">"هشدار برای <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</item>
+    <item msgid="2332583385137381060">"هشدار برای <xliff:g id="DAYS">%1$s</xliff:g> و <xliff:g id="HOURS">%2$s</xliff:g> و <xliff:g id="MINUTES">%3$s</xliff:g> دیگر از حالا تنظیم شد."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> روز</item>
@@ -115,10 +115,10 @@
     <item msgid="7809240121716151904">"۲۵ دقیقه"</item>
     <item msgid="4278641338024561333">"هیچ‌وقت"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"شروع هفته از"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"روز اول هفته"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"شنبه"</item>
-    <item msgid="3993530639455360921">"یکشنبه"</item>
+    <item msgid="3993530639455360921">"یک‌شنبه"</item>
     <item msgid="8594709368683324282">"دوشنبه"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"انجام شد"</string>
@@ -128,7 +128,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"ساکت"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"هشدار را قطع کنید یا به‌تعویق بیندازید."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (معوق)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"زنگ هشدار برای <xliff:g id="TIME">%s</xliff:g> تنظیم شد. جهت لغو لمس کنید."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"هشدار برای <xliff:g id="TIME">%s</xliff:g> تنظیم شد. جهت لغو لمس کنید."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"دکمه‌های میزان صدا"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"تأثیر دکمه"</string>
   <string-array name="volume_button_setting_entries">
@@ -364,15 +364,21 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"‏EEE، ‏h:mm ‏a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"‏EEE، ‏k:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"زمان نامعتبر <xliff:g id="INVALID_PMAM">%s</xliff:g> ‏<xliff:g id="INVALID_MINUTES">%d</xliff:g>:‏<xliff:g id="INVALID_HOUR">%d</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"زمان نامعتبر است <xliff:g id="INVALID_AMPM">%s</xliff:g> ‏<xliff:g id="INVALID_MINUTES">%d</xliff:g>:‏<xliff:g id="INVALID_HOUR">%d</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"زنگ هشداری برای <xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>‏:<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g> تنظیم نشده است"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"هیچ زنگ هشدار زمان‌بندی‌شده‌ای وجود ندارد"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"هیچ برچسبی مشخص نشده است"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"هیچ زنگ هشداری دارای این برچسب نیست"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"کرونومتر در حال حاضر فعال است"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"کرونومتر فعال نیست"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"حالت کرونومتر تغییر کرد"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"نمی‌توان کرنومتر را بازنشانی کرد، چون در حال استفاده است"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"کرنومتر متوقف شد"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"کرنومتر بازنشانی شد"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"صفحه کرنومتر برای خوانش زمان ثابت شد"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"کرنومتر شروع شد"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"هیچ زنگ هشداری برای این زمان برنامه‌ریزی نشده است"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"زنگ هشدار <xliff:g id="ALARM_TIME">%s</xliff:g> خاموش شد"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"هشدار برای <xliff:g id="ALARM_TIME">%s</xliff:g> تنظیم شد"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"هشدار برای <xliff:g id="ALARM_TIME">%s</xliff:g> تنظیم می‌شود"</string>
     <string name="no_timer_set" msgid="3326365650863016606">"هیچ تایمری تنظیم نشده است"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"تایمر حذف شد"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"تایمر در حال حاضر فعال است"</string>

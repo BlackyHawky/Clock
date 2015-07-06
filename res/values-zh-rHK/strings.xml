@@ -364,12 +364,18 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE，a h:mm"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE，K:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"無效時間 <xliff:g id="INVALID_PMAM">%s</xliff:g> <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"無效時間 <xliff:g id="INVALID_AMPM">%s</xliff:g> <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"沒有 <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> 的鬧鐘"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"沒有已預設的鬧鐘"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"沒有指定標籤"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"沒有鬧鐘加入此標籤"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"秒錶已開始計時"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"秒錶尚未開始計時"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"已更改秒錶模式"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"由於秒錶正在運作，因此無法重設。"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"已停止秒錶"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"已重設秒錶"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"已分段秒錶"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"已啟動秒錶"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"尚未為這個時間預設鬧鐘"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"已關閉 <xliff:g id="ALARM_TIME">%s</xliff:g> 的鬧鐘"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"鬧鐘已設定為 <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
