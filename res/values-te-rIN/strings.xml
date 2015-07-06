@@ -58,7 +58,7 @@
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"అలారం సమయం ఆసన్నం కాబోతోంది"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"మీరు ప్రతిస్పందించని అలారం తొలగించబడింది"</string>
   <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"నిమిషం కంటే తక్కువ సమయం మిగిలి ఉంది"</item>
+    <item msgid="7760558912503484257">"నిమిషం కంటే తక్కువ సమయం ఉంది"</item>
     <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> మిగిలి ఉంది"</item>
     <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> మిగిలి ఉంది"</item>
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> మిగిలి ఉంది"</item>
@@ -327,7 +327,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"తదుపరి టైమర్: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"డ్రీమ్ సెట్టింగ్‌లు"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"రాత్రి మోడ్"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"డిస్‌ప్లే అత్యంత కాంతివిహీనంగా ఉంది (చీకటిగా ఉండే గదుల కోసం)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"డిస్‌ప్లే అత్యంత కాంతివిహీనంగా ఉంటుంది (చీకటిగా ఉండే గదుల కోసం)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"అలారంను విస్తరింపజేయండి"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"అలారం వివరాలు కుదించు"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"చర్య రద్దు చేయి"</string>

@@ -55,7 +55,7 @@
       <item quantity="one">ปิดเสียงเตือนชั่วคราว 1 นาที</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ปิดเสียงเตือนชั่วคราวจนถึง <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"การปลุกที่กำลังจะมาถึง"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ตั้งปลุกครั้งต่อไป"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ลบการปลุกที่พลาดออกไปแล้ว"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"เหลืออีกไม่ถึงหนึ่งนาที"</item>
@@ -218,7 +218,7 @@
     <item msgid="8483930821046925592">"ดิจิทัล"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"นาฬิกาอัตโนมัติสำหรับที่บ้าน"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ในขณะที่เดินทางในพื้นที่ที่เวลาต่างออกไป ให้เพิ่มนาฬิกาสำหรับบ้าน"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"เมื่อเดินทางไปในที่ที่เวลาต่างออกไป ให้เพิ่มนาฬิกาแสดงเวลาที่บ้าน"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"เขตเวลาท้องถิ่น"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"เขตเวลาท้องถิ่น"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"ยกเลิก"</string>
@@ -325,7 +325,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"แตะเพื่อดูนาฬิกาจับเวลาของคุณ"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"นาฬิกาจับเวลา <xliff:g id="NUMBER">%d</xliff:g> เรือน"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"นาฬิกาจับเวลาถัดไป: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"การตั้งค่า Dream"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"การตั้งค่าเดย์ดรีม"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"โหมดกลางคืน"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"หน้าจอมืดมาก (สำหรับห้องมืด)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ขยายการแจ้งเตือน"</string>

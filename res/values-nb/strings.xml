@@ -123,7 +123,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumknapper"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knappefunksjon"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Utsett"</item>
+    <item msgid="7972756698723318690">"Slumre"</item>
     <item msgid="3450979320164769576">"Avvis"</item>
     <item msgid="6302517608411378024">"Ikke gjør noe"</item>
   </string-array>
@@ -184,7 +184,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> sekunder</item>
       <item quantity="one">1 sekund</item>
     </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Legg til stoppeklokke"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Legg til tidtaker"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Slett"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Slett <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -196,7 +196,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Avbryt"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tiden er ute"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Tidtaker"</string>
-    <string name="timers_max_count_reached" msgid="9140022846793903813">"Du kan ha maksimalt fire tidtakere"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Du kan ha maksimalt fire nedtellinger"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Du er litt av et fartsmonster."</item>
     <item msgid="6332879039890727169">"Høst fruktene av arbeidet ditt."</item>
@@ -341,7 +341,7 @@
       <item quantity="other">Vil du slette de valgte alarmene?</item>
       <item quantity="one">Vil du slette den valgte alarmen?</item>
     </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vil du slette denne tidtakeren?"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vil du slette denne nedtellingen?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Vil du fjerne denne byen?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digital klokke"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Ingen alarmer"</string>

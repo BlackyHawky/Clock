@@ -39,7 +39,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Sot"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Zgjohu!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Çaktivizuar"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Largoje"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Injoro"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Largoje tani"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm i humbur"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -94,7 +94,7 @@
       <item quantity="other">minuta</item>
       <item quantity="one">minutë</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Hesht pas"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Kalo në heshtje për"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minuta"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Asnjeherë"</string>
   <string-array name="auto_silence_entries">
@@ -123,8 +123,8 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butonat e volumit"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Efekti i butonit"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Dremit"</item>
-    <item msgid="3450979320164769576">"Largoje"</item>
+    <item msgid="7972756698723318690">"Shty alarmin"</item>
+    <item msgid="3450979320164769576">"Ndalo alarmin"</item>
     <item msgid="6302517608411378024">"Mos bëj asgjë"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Cakto zilen e parazgjedhur"</string>
@@ -144,9 +144,9 @@
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Alarmi"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Kohëmatës"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Kohëmatësi"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ora"</string>
-    <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometër"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometri"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Shto alarm"</string>
     <string name="button_cities" msgid="4555761857494501363">"Qytetet"</string>
     <string name="button_menu" msgid="6050484561842120282">"Opsione të tjera"</string>
@@ -214,11 +214,11 @@
     <string name="clock_settings" msgid="8317286807280600391">"Ora"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stili"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"Analoge"</item>
-    <item msgid="8483930821046925592">"Dixhitale"</item>
+    <item msgid="917900462224167608">"Analog"</item>
+    <item msgid="8483930821046925592">"Dixhital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Ora automatike e ekranit bazë"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Kur udhëton në një zonë ku ora ndryshon, shto një orë për ekranin bazë"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Në rast se udhëton në zona ku ora ndryshon, shto në ekran edhe një orë tjetër - atë të vendit tënd ku jeton."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Brezi orar i zonës ku gjendesh"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Brezi orar i zonës ku gjendesh"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Anulo"</string>

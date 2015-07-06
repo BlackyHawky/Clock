@@ -160,7 +160,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"Indítás"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Leállítás"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Kör"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Alaphelyzet"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Nullázás"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Megosztás"</string>
     <string name="hours_label" msgid="3393478155635368097">"ó"</string>
     <string name="minutes_label" msgid="3568098128251438588">"p"</string>

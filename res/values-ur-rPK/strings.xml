@@ -217,8 +217,8 @@
     <item msgid="917900462224167608">"اینالاگ"</item>
     <item msgid="8483930821046925592">"ڈیجیٹل"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"خود کار ہوم کلاک"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"کسی مختلف وقت والے علاقے میں سفر کرتے وقت، ہوم کیلئے ایک کلاک شامل کریں"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"خود کار ہوم گھڑی"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"کسی مختلف وقت والے علاقے میں سفر کرتے وقت، ہوم کیلئے ایک گھڑی شامل کریں"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"ہوم ٹائم زون"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"ہوم ٹائم زون"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"منسوخ کریں"</string>

@@ -40,7 +40,7 @@
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Wstawaj!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Wył."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Wyłącz"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Zamknij teraz"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Wyłącz teraz"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Przegapiony alarm"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Uśpiony"</string>
@@ -132,7 +132,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Działanie przycisku"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Drzemka"</item>
-    <item msgid="3450979320164769576">"Zamknij"</item>
+    <item msgid="3450979320164769576">"Wyłącz"</item>
     <item msgid="6302517608411378024">"Nic nie rób"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Ustaw dzwonek domyślny"</string>
@@ -345,7 +345,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Rozwiń alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Zwiń alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"cofnij"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Alarm usunięty."</string>
+    <string name="alarm_deleted" msgid="5017075127290219443">"Alarm usunięto."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Następny alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>

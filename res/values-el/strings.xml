@@ -55,7 +55,7 @@
       <item quantity="one">Αναβολή για 1 λεπτό.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Αναβολή έως τις <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Προσεχείς ειδοποιήσεις"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Επόμενο ξυπνητήρι"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Η ειδοποίηση που παραβλέψατε έχει διαγραφεί"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Απομένει λιγότερο από ένα λεπτό"</item>
@@ -106,7 +106,7 @@
     <item msgid="7809240121716151904">"25 λεπτά"</item>
     <item msgid="4278641338024561333">"Ποτέ"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Έναρξη εβδομάδας σε"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Έναρξη εβδομάδας"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Σάββατο"</item>
     <item msgid="3993530639455360921">"Κυριακή"</item>
@@ -120,7 +120,7 @@
     <string name="alarm_notify_text" msgid="4891014685945904766">"Αναβολή αφύπνισης ή παράβλεψη ξυπνητηριού."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (αναβολή)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Το ξυπνητήρι ρυθμίστηκε για τις <xliff:g id="TIME">%s</xliff:g>. Αγγίξτε για να ακυρώσετε."</string>
-    <string name="volume_button_setting_title" msgid="6937131248843413357">"Κουμπί έντασης"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"Κουμπιά έντασης"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Εφέ κουμπιού"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Αναβολή αφύπνισης"</item>
@@ -323,9 +323,9 @@
     <string name="timer_stopped" msgid="2730331837832462008">"Το χρονόμετρο διακόπηκε"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ξυπνητήρια διακόπηκαν"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Αγγίξτε για να δείτε τα ξυπνητήρια σας"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ξυπνητήρια"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> χρονόμετρα"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Επόμενο χρονόμετρο: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Ρυθμίσεις λειτουργίας Dream"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Ρυθμίσεις Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Λειτουργία νύχτας"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Πολύ χαμηλή φωτεινότητα οθόνης (για σκοτεινά δωμάτια)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Ανάπτυξη ξυπνητηριού"</string>

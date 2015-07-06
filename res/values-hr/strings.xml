@@ -70,10 +70,10 @@
     <item msgid="6002066367368421848">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g>."</item>
     <item msgid="8824719306247973774">"Alarm će se oglasiti za <xliff:g id="HOURS">%2$s</xliff:g>."</item>
     <item msgid="8182406852935468862">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="2532279224777213194">"Alarm je postavljen od ovog trenutka za sljedeći broj minuta: <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2532279224777213194">"Alarm će se oglasiti za <xliff:g id="MINUTES">%3$s</xliff:g> min."</item>
     <item msgid="5936557894247187717">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="9115697840826129603">"Alarm će se oglasiti za <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="2332583385137381060">"Alarm je postavljen za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"Alarm će se oglasiti za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> i <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <string name="day" msgid="7984755014526510295">"1 dan"</string>
     <string name="days" msgid="2070509222727852210">"Broj dana: <xliff:g id="DAYS">%s</xliff:g>"</string>
@@ -123,7 +123,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Bešumno"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Odgodite ili obustavite alarm."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (odgoda alarma)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm je postavljen na vrijeme: <xliff:g id="TIME">%s</xliff:g>. Dodirnite za poništavanje."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm će se oglasiti u <xliff:g id="TIME">%s</xliff:g>. Dodirnite za poništavanje."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Gumbi za glasnoću"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Efekt gumba"</string>
   <string-array name="volume_button_setting_entries">
@@ -331,7 +331,7 @@
     <string name="timers_stopped" msgid="2393640808691864520">"Broj zaustavljenih mjerača vremena: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dodirnite da biste vidjeli svoje mjerače vremena"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> mjerača vremena"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći mjerač: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Postavke sna"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noćni način"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Jako zatamnjeni zaslon (za mračne sobe)"</string>

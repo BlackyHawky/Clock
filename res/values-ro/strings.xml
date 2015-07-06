@@ -49,7 +49,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> de minute</item>
       <item quantity="one">un minut</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarmă opr."</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarmă oprită"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Amânaţi"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="few">Se amână pentru <xliff:g id="MINUTES">%d</xliff:g> minute.</item>

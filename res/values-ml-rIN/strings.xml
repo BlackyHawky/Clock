@@ -64,9 +64,9 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ശേഷിക്കുന്നു"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"ഇപ്പോൾ മുതൽ ഒരു മിനിറ്റിൽ കുറഞ്ഞ നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="6450913786084215050">"ഇപ്പോൾ 1 മിനിറ്റിൽ താഴെ സമയത്തിനുള്ളിൽ അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
     <item msgid="6002066367368421848">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g> ദിവസത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
-    <item msgid="8824719306247973774">"ഇപ്പോൾ മുതൽ <xliff:g id="HOURS">%2$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="8824719306247973774">"ഇപ്പോൾ <xliff:g id="HOURS">%2$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
     <item msgid="8182406852935468862">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
     <item msgid="2532279224777213194">"ഇപ്പോൾ മുതൽ <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
     <item msgid="5936557894247187717">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
@@ -96,7 +96,7 @@
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"ഇതിനുശേഷം നിശബ്‌ദമാക്കുക"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> മിനിറ്റ്"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"ഒരിക്കലുമില്ല"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"ഒരിക്കലും"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"ഒരു മിനിറ്റ്"</item>
     <item msgid="5431906692406316549">"5 മിനിറ്റ്"</item>
@@ -104,7 +104,7 @@
     <item msgid="2855948657259647629">"15 മിനിറ്റ്"</item>
     <item msgid="6330196381284475079">"20 മിനിറ്റ്"</item>
     <item msgid="7809240121716151904">"25 മിനിറ്റ്"</item>
-    <item msgid="4278641338024561333">"ഒരിക്കലുമില്ല"</item>
+    <item msgid="4278641338024561333">"ഒരിക്കലും"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"തുടങ്ങേണ്ട ദിവസം"</string>
   <string-array name="week_start_entries">
@@ -125,7 +125,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"സ്‌നൂസ് ചെയ്യുക"</item>
     <item msgid="3450979320164769576">"നിരസിക്കുക"</item>
-    <item msgid="6302517608411378024">"ഒന്നും ചെയ്യരുത്"</item>
+    <item msgid="6302517608411378024">"ഒന്നും ചെയ്യേണ്ടതില്ല"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"സ്ഥിര റിംഗ്‌ടോൺ സജ്ജീകരിക്കുക"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"അലാറങ്ങൾ"</string>

@@ -325,7 +325,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Zum Ansehen der Timer berühren"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> Timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Nächster Timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Dream-Einstellungen"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Daydream-Einstellungen"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nachtmodus"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Stark gedimmtes Display (für dunkle Räume)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Wecker maximieren"</string>
