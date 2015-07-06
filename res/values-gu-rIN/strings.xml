@@ -171,7 +171,7 @@
     <string name="sw_lap_button" msgid="6992264696039004233">"લેપ"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"રીસેટ કરો"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"શેર કરો"</string>
-    <string name="hours_label" msgid="3393478155635368097">"સહાય"</string>
+    <string name="hours_label" msgid="3393478155635368097">"ક"</string>
     <string name="minutes_label" msgid="3568098128251438588">"મી."</string>
     <string name="seconds_label" msgid="124655952824003246">"સે."</string>
     <string name="hours_label_description" msgid="8652842524970971830">"કલાક"</string>
@@ -230,8 +230,8 @@
     <item msgid="917900462224167608">"એનાલોગ"</item>
     <item msgid="8483930821046925592">"ડિજિટલ"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"સ્વચલિત ઘર ઘડિયાળ"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"એવા ક્ષેત્રોમાં સફર કરતી વખતે કે જ્યાં સમય અલગ હોય, ઘર માટે ઘડિયાળ ઉમેરો"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"સ્વચલિત તમારા દેશની ઘડિયાળ બતાવો"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"એવા ક્ષેત્રોમાં સફર કરતી વખતે કે જ્યાં સમય અલગ હોય, તમારા દેશની ઘડિયાળ ઉમેરો"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"હોમ સમય ઝોન"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"હોમ સમય ઝોન"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"રદ કરો"</string>
@@ -338,7 +338,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"તમારા ટાઇમર્સ જોવા માટે ટચ કરો"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ટાઇમર્સ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"આગલું ટાઇમર: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"સ્વપ્ન સેટિંગ્સ"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"ડ્રીમ સેટિંગ્સ"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"રાત્રિ મોડ"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"ખૂબ આછું પ્રદર્શન (અંધારા રૂમ્સ માટે)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"એલાર્મ વિસ્તૃત કરો"</string>

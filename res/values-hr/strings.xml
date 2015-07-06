@@ -348,7 +348,7 @@
     <string name="timers_stopped" msgid="2393640808691864520">"Broj zaustavljenih mjerača vremena: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dodirnite da biste vidjeli svoje mjerače vremena"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> mjerača vremena"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći mjerač: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Postavke sna"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noćni način"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Jako zatamnjeni zaslon (za mračne sobe)"</string>

@@ -338,7 +338,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"แตะเพื่อดูนาฬิกาจับเวลาของคุณ"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"นาฬิกาจับเวลา <xliff:g id="NUMBER">%d</xliff:g> เรือน"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"นาฬิกาจับเวลาถัดไป: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"การตั้งค่า Dream"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"การตั้งค่าเดย์ดรีม"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"โหมดกลางคืน"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"หน้าจอมืดมาก (สำหรับห้องมืด)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ขยายการแจ้งเตือน"</string>

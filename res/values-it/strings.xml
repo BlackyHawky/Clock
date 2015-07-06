@@ -374,7 +374,7 @@
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Impossibile reimpostare il cronometro perché è in funzione"</string>
     <string name="stopwatch_stopped" msgid="6927081018816192999">"Cronometro interrotto"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Cronometro reimpostato"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Cronometro impostato su tempo al giro"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Cronometro impostato sul giro"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Cronometro avviato"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nessuna sveglia pianificata per questo orario"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> ignorata"</string>

@@ -371,9 +371,9 @@
     <string name="no_alarms_with_label" msgid="6250998794542941665">"അലാറമുകളിലൊന്നും ഈ ലേബൽ അടങ്ങിയിട്ടില്ല"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"സ്റ്റോപ്പ്‌വാച്ച് ഇതിനകം തന്നെ പ്രവർത്തിക്കുന്നുണ്ട്"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"സ്റ്റോപ്പ്‌വാച്ച് പ്രവർത്തിക്കുന്നില്ല"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"പ്രവർത്തിച്ചുകൊണ്ടിരിക്കുന്നതിനാൽ സ്റ്റോപ്പ്‌വാച്ച് സജ്ജമാക്കാൻ കഴിയില്ല"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"പ്രവർത്തിച്ചുകൊണ്ടിരിക്കുന്നതിനാൽ സ്റ്റോപ്പ്‌വാച്ച് പുനഃക്രമീകരിക്കാൻ കഴിയില്ല"</string>
     <string name="stopwatch_stopped" msgid="6927081018816192999">"സ്റ്റോപ്പ്‌വാച്ച് നിലച്ചു"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"സ്റ്റോപ്പ്‌വാച്ച് പുനഃസജ്ജമാക്കി"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"സ്റ്റോപ്പ്‌വാച്ച് പുനഃക്രമീകരിച്ചു"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"സ്റ്റോപ്പ്‌വാച്ച് ലാപ്പുചെയ്തു"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"സ്റ്റോപ്പ്‌വാച്ച് ആരംഭിച്ചു"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ഈ സമയത്തേക്കായി അലാറമുകളൊന്നും ഷെഡ്യൂൾ ചെയ്തിട്ടില്ല"</string>

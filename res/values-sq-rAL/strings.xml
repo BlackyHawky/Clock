@@ -39,7 +39,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Sot"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Zgjohu!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Çaktivizuar"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Largoje"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Injoro"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Largoje tani"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm i humbur"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -132,8 +132,8 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butonat e volumit"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Efekti i butonit"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Dremit"</item>
-    <item msgid="3450979320164769576">"Largoje"</item>
+    <item msgid="7972756698723318690">"Shty alarmin"</item>
+    <item msgid="3450979320164769576">"Ndalo alarmin"</item>
     <item msgid="6302517608411378024">"Mos bëj asgjë"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Cakto zilen e parazgjedhur"</string>
@@ -364,7 +364,7 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"Ora e pavlefshme <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> është orë e pavlefshme"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Nuk ka asnjë alarm në <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nuk ka asnjë alarm të planifikuar"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Nuk u specifikua asnjë etiketë"</string>

@@ -370,7 +370,7 @@
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Секунд эсептегич иштеп жаткандыктан, аны баштапкы абалга келтирүү мүмкүн эмес"</string>
     <string name="stopwatch_stopped" msgid="6927081018816192999">"Секунд эсептегич токтотулду"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Секунд эсептегич баштапкы абалга келтирилди"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Секунд эсептегич бөлүндү"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Секунд эсептегичте бир айлана кошулду"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Секунд эсептегич башталды"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Бул убакытка коюлган ойготкуч жок"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Саат <xliff:g id="ALARM_TIME">%s</xliff:g> коюлган ойготкуч өчүрүлдү"</string>

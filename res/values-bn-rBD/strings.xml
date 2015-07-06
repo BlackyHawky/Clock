@@ -39,7 +39,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"আজ"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"জেগে উঠুন!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"বন্ধ করুন"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"খারিজ করুন"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"খারিজ"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"এখন খারিজ করুন"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"মিসড অ্যালার্ম"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -133,7 +133,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"বোতাম প্রভাব"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"স্নুজ"</item>
-    <item msgid="3450979320164769576">"খারিজ করুন"</item>
+    <item msgid="3450979320164769576">"খারিজ"</item>
     <item msgid="6302517608411378024">"কিছু করবেন না"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"ডিফল্ট রিংটোন সেট করুন"</string>
@@ -338,7 +338,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"আপনার টাইমারগুলি দেখার জন্য ছোঁন"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> টি টাইমার"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"পরবর্তী টাইমার: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"স্বপ্নের সেটিংস"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"স্ক্রিনসেভার সেটিংস"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"রাতের মোড"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"অত্যন্ত অস্পষ্ট প্রদর্শন (অন্ধকার ঘরের জন্য)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"অ্যালার্ম প্রসারিত করুন"</string>

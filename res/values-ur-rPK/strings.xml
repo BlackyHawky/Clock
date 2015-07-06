@@ -230,8 +230,8 @@
     <item msgid="917900462224167608">"اینالاگ"</item>
     <item msgid="8483930821046925592">"ڈیجیٹل"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"خود کار ہوم کلاک"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"کسی مختلف وقت والے علاقے میں سفر کرتے وقت، ہوم کیلئے ایک کلاک شامل کریں"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"خود کار ہوم گھڑی"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"کسی مختلف وقت والے علاقے میں سفر کرتے وقت، ہوم کیلئے ایک گھڑی شامل کریں"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"ہوم ٹائم زون"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"ہوم ٹائم زون"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"منسوخ کریں"</string>
@@ -364,7 +364,7 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"غلط وقت <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"‏غلط وقت <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g>‎ <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> پر کوئی الارم نہیں"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"کوئی الارم مقرر نہیں"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"کوئی لیبل مختص نہیں کیا گیا"</string>
