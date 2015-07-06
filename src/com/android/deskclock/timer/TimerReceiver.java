@@ -196,8 +196,10 @@ public class TimerReceiver extends BroadcastReceiver {
                 showTimesUpNotification(context, t);
             }
         }
-        // Update the next "Times up" alarm
-        updateNextTimesup(context);
+        if (intent.getBooleanExtra(Timers.UPDATE_NEXT_TIMESUP, true)) {
+            // Update the next "Times up" alarm unless explicitly told not to.
+            updateNextTimesup(context);
+        }
     }
 
     private void stopRingtoneIfNoTimesup(final Context context) {
