@@ -333,6 +333,14 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     }
 
     private void updateTimerState(TimerObj t, String action) {
+        updateTimerState(t, action, true);
+    }
+
+    /**
+     * @param update indicates whether to call updateNextTimesup in TimerReceiver. This is false
+     *               only for label changes.
+     */
+    private void updateTimerState(TimerObj t, String action, boolean update) {
         if (Timers.DELETE_TIMER.equals(action)) {
             mAdapter.deleteTimer(t.mTimerId);
             if (mAdapter.getCount() == 0) {
@@ -345,6 +353,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         final Intent i = new Intent();
         i.setAction(action);
         i.putExtra(Timers.TIMER_INTENT_EXTRA, t.mTimerId);
+        i.putExtra(Timers.UPDATE_NEXT_TIMESUP, update);
         // Make sure the receiver is getting the intent ASAP.
         i.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
         getActivity().sendBroadcast(i);
@@ -708,7 +717,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
 
     public void setLabel(TimerObj timer, String label) {
         timer.mLabel = label;
-        updateTimerState(timer, Timers.TIMER_UPDATE);
+        updateTimerState(timer, Timers.TIMER_UPDATE, false);
         // Make sure the new label is visible.
         mAdapter.populateTimersFromPref();
     }

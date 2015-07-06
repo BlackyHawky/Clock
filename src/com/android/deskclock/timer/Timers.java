@@ -34,6 +34,8 @@ public class Timers {
 
     public static final String TIMER_INTENT_EXTRA = "timer.intent.extra";
 
+    public static final String UPDATE_NEXT_TIMESUP = "timer_update_next_timesup";
+
     public static final String NOTIF_IN_USE_SHOW = "notif_in_use_show";
     public static final String NOTIF_IN_USE_CANCEL = "notif_in_use_cancel";
     public static final String NOTIF_APP_OPEN = "notif_app_open";
