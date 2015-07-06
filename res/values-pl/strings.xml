@@ -40,7 +40,7 @@
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Wstawaj!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Wył."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Wyłącz"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Zamknij teraz"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Wyłącz teraz"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Przegapiony alarm"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Uśpiony"</string>
@@ -149,7 +149,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Działanie przycisku"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Drzemka"</item>
-    <item msgid="3450979320164769576">"Zamknij"</item>
+    <item msgid="3450979320164769576">"Wyłącz"</item>
     <item msgid="6302517608411378024">"Nic nie rób"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Ustaw dzwonek domyślny"</string>
@@ -366,7 +366,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Rozwiń alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Zwiń alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"cofnij"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Alarm usunięty"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarm usunięto"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Następny alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
@@ -388,12 +388,18 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"Nieprawidłowa godzina <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Nieprawidłowa godzina <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Brak alarmu o <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Brak zaplanowanych alarmów"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Nie określono etykiety"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Brak alarmów zawierających etykietę"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Stoper jest już uruchomiony"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Stoper nie jest uruchomiony"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Tryb stopera zmieniony"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Nie można zresetować stopera, bo jest uruchomiony"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Stoper został zatrzymany"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Stoper został zresetowany"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Stoper zapisał czas pośredni"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Stoper został uruchomiony"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Na tę godzinę nie ma żadnego alarmu"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarm na <xliff:g id="ALARM_TIME">%s</xliff:g> został zamknięty"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm jest ustawiony na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>

@@ -132,7 +132,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumknapper"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knappefunksjon"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Utsett"</item>
+    <item msgid="7972756698723318690">"Slumre"</item>
     <item msgid="3450979320164769576">"Avvis"</item>
     <item msgid="6302517608411378024">"Ikke gjør noe"</item>
   </string-array>
@@ -197,7 +197,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> sekunder</item>
       <item quantity="one">1 sekund</item>
     </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Legg til stoppeklokke"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Legg til tidtaker"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Slett"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Slett <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -209,7 +209,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Avbryt"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tiden er ute"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Tidtaker"</string>
-    <string name="timers_max_count_reached" msgid="9140022846793903813">"Du kan ha maksimalt fire tidtakere"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Du kan ha maksimalt fire nedtellinger"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Du er litt av et fartsmonster."</item>
     <item msgid="6332879039890727169">"Høst fruktene av arbeidet ditt."</item>
@@ -354,7 +354,7 @@
       <item quantity="other">Vil du slette de valgte alarmene?</item>
       <item quantity="one">Vil du slette den valgte alarmen?</item>
     </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vil du slette denne tidtakeren?"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vil du slette denne nedtellingen?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Vil du fjerne denne byen?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digital klokke"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Ingen alarmer"</string>
@@ -364,12 +364,18 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"HH:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE – HH:mm"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"Ugyldig tid <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Ugyldig tid <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Ingen alarm kl. <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Ingen alarmer er angitt"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Ingen etikett er spesifisert"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Ingen alarmer inneholder etiketten"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Stoppeklokken er allerede aktiv"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Stoppeklokken er ikke aktiv"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Modusen for stoppeklokken er endret"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Stoppeklokken kan ikke tilbakestilles fordi den er aktiv nå"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Stoppeklokken er stoppet"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Stoppeklokken er tilbakestilt"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Stoppeklokken har lagret rundetiden"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Stoppeklokken er startet"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Ingen alarm er angitt for dette tidspunktet"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmen <xliff:g id="ALARM_TIME">%s</xliff:g> er fjernet"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarmen er angitt for <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
