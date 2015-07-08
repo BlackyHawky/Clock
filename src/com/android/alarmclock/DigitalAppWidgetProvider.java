@@ -25,7 +25,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -159,10 +158,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private boolean isNextAlarmChangedAction(String action) {
         final String nextAlarmIntentAction;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            nextAlarmIntentAction = AlarmStateManager.SYSTEM_ALARM_CHANGE_ACTION;
-        } else {
+        if (Utils.isLOrLater()) {
             nextAlarmIntentAction = AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
+        } else {
+            nextAlarmIntentAction = AlarmStateManager.SYSTEM_ALARM_CHANGE_ACTION;
         }
         return nextAlarmIntentAction.equals(action);
     }
