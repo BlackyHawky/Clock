@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
@@ -170,9 +169,9 @@ public class DeskClock extends BaseActivity
             alarmTab.setIcon(R.drawable.ic_tab_alarm);
             alarmTab.setContentDescription(R.string.menu_alarm);
             mTabsAdapter.addTab(alarmTab,
-                    Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
-                            ? AlarmClockFragmentPreL.class
-                            : AlarmClockFragmentPostL.class,
+                    Utils.isLOrLater()
+                            ? AlarmClockFragmentPostL.class
+                            : AlarmClockFragmentPreL.class,
                     ALARM_TAB_INDEX);
 
             final Tab clockTab = mActionBar.newTab();
