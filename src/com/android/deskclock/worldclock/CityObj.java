@@ -23,16 +23,19 @@ public class CityObj {
     private static final String CITY_NAME = "city_name_";
     private static final String CITY_TIME_ZONE = "city_tz_";
     private static final String CITY_ID = "city_id_";
+    private static final String CITY_INDEX = "city_index_";
 
     public String mCityName;
     public String mTimeZone;
     public String mCityId;
+    public String mCityIndex;
     public boolean isHeader;
 
-    public CityObj(String name, String timezone, String id) {
+    public CityObj(String name, String timezone, String id, String index) {
         mCityName = name;
         mTimeZone = timezone;
         mCityId = id;
+        mCityIndex = index;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class CityObj {
                 "name=" + mCityName +
                 ", timezone=" + mTimeZone +
                 ", id=" + mCityId +
+                ", index=" + mCityIndex +
                 '}';
     }
 
@@ -48,11 +52,13 @@ public class CityObj {
         mCityName = prefs.getString(CITY_NAME + index, null);
         mTimeZone = prefs.getString(CITY_TIME_ZONE + index, null);
         mCityId = prefs.getString(CITY_ID + index, null);
+        mCityIndex = prefs.getString(CITY_INDEX + index, null);
     }
 
     public void saveCityToSharedPrefs(SharedPreferences.Editor editor, int index) {
-        editor.putString (CITY_NAME + index, mCityName);
-        editor.putString (CITY_TIME_ZONE + index, mTimeZone);
-        editor.putString (CITY_ID + index, mCityId);
+        editor.putString(CITY_NAME + index, mCityName);
+        editor.putString(CITY_TIME_ZONE + index, mTimeZone);
+        editor.putString(CITY_ID + index, mCityId);
+        editor.putString(CITY_INDEX + index, mCityIndex);
     }
 }
