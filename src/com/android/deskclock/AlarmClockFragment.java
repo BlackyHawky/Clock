@@ -39,7 +39,6 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
@@ -109,8 +108,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
     private static final String PREF_KEY_DEFAULT_ALARM_RINGTONE_URI = "default_alarm_ringtone_uri";
 
     // Use transitions only in API 21+
-    private static final boolean USE_TRANSITION_FRAMEWORK =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    private static final boolean USE_TRANSITION_FRAMEWORK = Utils.isLOrLater();
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
