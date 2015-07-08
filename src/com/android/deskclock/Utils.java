@@ -150,6 +150,26 @@ public class Utils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
     }
 
+    /**
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP} or later
+     */
+    public static boolean isLOrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    /**
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP_MR1} or later
+     */
+    public static boolean isLMR1OrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1;
+    }
+
+    /**
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#MNC} or later
+     */
+    public static boolean isMOrLater() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.MNC;
+    }
 
     public static void prepareHelpMenuItem(Context context, MenuItem helpMenuItem) {
         String helpUrlString = context.getResources().getString(R.string.desk_clock_help_url);
