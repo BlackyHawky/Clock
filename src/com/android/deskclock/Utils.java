@@ -632,7 +632,23 @@ public class Utils {
         }
         CityObj[] cities = new CityObj[minLength];
         for (int i = 0; i < cities.length; i++) {
-            cities[i] = new CityObj(cityNames[i], timezones[i], ids[i]);
+            // Default to using the first character of the city name as the index unless one is
+            // specified. The indicator for a specified index is the addition of character(s)
+            // before the "=" separator.
+            final String parseString = cityNames[i];
+            final int separatorIndex = parseString.indexOf("=");
+            final String index;
+            final String cityName;
+            if (separatorIndex == 0) {
+                // Default to using second character (the first character after the = separator)
+                // as the index.
+                index = parseString.substring(1, 2);
+                cityName = parseString.substring(1, parseString.length());
+            } else {
+                 index = parseString.substring(0, separatorIndex);
+                 cityName = parseString.substring(separatorIndex + 1, parseString.length());
+            }
+            cities[i] = new CityObj(cityName, timezones[i], ids[i], index);
         }
         return cities;
     }
