@@ -91,7 +91,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"아날로그 시계"</string>
     <string name="help" msgid="7786263119482654015">"도움말"</string>
     <string name="settings" msgid="5849739030579520686">"설정"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"알람 일시중지 간격"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"다시 울림 간격"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>분</item>
       <item quantity="one">1분</item>
@@ -132,7 +132,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"버튼 효과"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"알람 일시중지"</item>
+    <item msgid="7972756698723318690">"다시 울림"</item>
     <item msgid="3450979320164769576">"알람 해제"</item>
     <item msgid="6302517608411378024">"기능 없음"</item>
   </string-array>
@@ -338,7 +338,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"타이머를 보려면 터치하세요."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"스크린 세이버 설정"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"화면 보호기 설정"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"야간 모드"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"디스플레이 아주 어둡게 하기(어두운 장소용)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"알람 펼치기"</string>
@@ -371,9 +371,9 @@
     <string name="no_alarms_with_label" msgid="6250998794542941665">"라벨이 포함된 알람이 없습니다."</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"스톱워치가 이미 실행 중임"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"스톱워치가 실행되고 있지 않음"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"실행 중이므로 스톱워치를 재설정할 수 없습니다."</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"스톱워치가 실행 중이므로 초기화할 수 없습니다."</string>
     <string name="stopwatch_stopped" msgid="6927081018816192999">"스톱워치가 중지되었습니다."</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"스톱워치가 재설정되었습니다."</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"스톱워치가 초기화되었습니다."</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"랩타임이 측정되었습니다."</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"스톱워치가 시작되었습니다."</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"이 시간에 예약된 알람 없음"</string>

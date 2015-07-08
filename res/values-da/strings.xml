@@ -372,9 +372,9 @@
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Stopuret er allerede i gang"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Stopuret er ikke i gang"</string>
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Stopuret kan ikke nulstilles, fordi det kører"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"Stopur er stoppet"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Stopuret er stoppet"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Stopuret blev nulstillet"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Stopuret har registreret en mellemtid"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Stopuret har registreret en omgangstid"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Stopuret er startet"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Der er ikke angivet nogen alarm på dette tidspunkt"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmen kl. <xliff:g id="ALARM_TIME">%s</xliff:g> er afvist"</string>
