@@ -23,7 +23,9 @@ import android.app.FragmentTransaction;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.os.Build;
+import android.support.annotation.VisibleForTesting;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.widget.Toast;
 
 import com.android.deskclock.provider.Alarm;
@@ -85,7 +87,7 @@ public class AlarmUtils {
         }
         ft.commit();
 
-        if (dialog != null && !dialog.isAdded()) {
+        if (!dialog.isAdded()) {
             dialog.show(manager, FRAG_TAG_TIME_PICKER);
         }
     }
@@ -116,36 +118,45 @@ public class AlarmUtils {
     }
 
     /**
-     * format "Alarm set for 2 days 7 hours and 53 minutes from now"
+     * format "Alarm set for 2 days, 7 hours, and 53 minutes from now."
      */
-    private static String formatToast(Context context, long timeInMillis) {
-        final long delta = timeInMillis - System.currentTimeMillis();
+    @VisibleForTesting
+    static String formatElapsedTimeUntilAlarm(Context context, long delta) {
+        // If the alarm will ring within 60 seconds, just report "less than a minute."
+        final String[] formats = context.getResources().getStringArray(R.array.alarm_set);
+        if (delta < DateUtils.MINUTE_IN_MILLIS) {
+            return formats[0];
+        }
+
+        // Otherwise, format the remaining time until the alarm rings.
+
+        // Round delta upwards to the nearest whole minute. (e.g. 7m 58s -> 8m)
+        final long remainder = delta % DateUtils.MINUTE_IN_MILLIS;
+        delta += remainder == 0 ? 0 : (DateUtils.MINUTE_IN_MILLIS - remainder);
+
         int hours = (int) delta / (1000 * 60 * 60);
         final int minutes = (int) delta / (1000 * 60) % 60;
         final int days = hours / 24;
         hours = hours % 24;
 
         String daySeq = Utils.getNumberFormattedQuantityString(context, R.plurals.days, days);
-
         String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, minutes);
-
         String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hours);
 
-        boolean dispDays = days > 0;
-        boolean dispHour = hours > 0;
-        boolean dispMinute = minutes > 0;
+        final boolean showDays = days > 0;
+        final boolean showHours = hours > 0;
+        final boolean showMinutes = minutes > 0;
 
-        int index = (dispDays ? 1 : 0) |
-                (dispHour ? 2 : 0) |
-                (dispMinute ? 4 : 0);
+        // Compute the index of the most appropriate time format based on the time delta.
+        final int index = (showDays ? 1 : 0) | (showHours ? 2 : 0) | (showMinutes ? 4 : 0);
 
-        String[] formats = context.getResources().getStringArray(R.array.alarm_set);
         return String.format(formats[index], daySeq, hourSeq, minSeq);
     }
 
-    public static void popAlarmSetToast(Context context, long timeInMillis) {
-        String toastText = formatToast(context, timeInMillis);
-        Toast toast = Toast.makeText(context, toastText, Toast.LENGTH_LONG);
+    public static void popAlarmSetToast(Context context, long alarmTime) {
+        final long alarmTimeDelta = alarmTime - System.currentTimeMillis();
+        final String text = formatElapsedTimeUntilAlarm(context, alarmTimeDelta);
+        Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
         ToastMaster.setToast(toast);
         toast.show();
     }
