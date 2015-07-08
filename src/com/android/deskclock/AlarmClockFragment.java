@@ -16,6 +16,7 @@
 
 package com.android.deskclock;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
@@ -105,6 +106,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
     private static final String KEY_SELECTED_ALARM = "selectedAlarm";
 
     private static final int REQUEST_CODE_RINGTONE = 1;
+    private static final int REQUEST_CODE_PERMISSIONS = 2;
     private static final long INVALID_ID = -1;
     private static final String PREF_KEY_DEFAULT_ALARM_RINGTONE_URI = "default_alarm_ringtone_uri";
 
@@ -473,6 +475,13 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         setDefaultRingtoneUri(uri);
 
         asyncUpdateAlarm(mSelectedAlarm, false);
+
+        // If the user chose an external ringtone and has not yet granted the permission to read
+        // external storage, ask them for that permission now.
+        if (!AlarmUtils.hasPermissionToDisplayRingtoneTitle(getActivity(), uri)) {
+            final String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
+            requestPermissions(perms, REQUEST_CODE_PERMISSIONS);
+        }
     }
 
     private Uri getDefaultRingtoneUri() {
@@ -510,6 +519,14 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                     LogUtils.w("Unhandled request code in onActivityResult: " + requestCode);
             }
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            int[] grantResults) {
+        // The permission change may alter the cached ringtone titles so clear them.
+        // (e.g. READ_EXTERNAL_STORAGE is granted or revoked)
+        mRingtoneTitleCache.clear();
     }
 
     private class AlarmItemAdapter extends CursorAdapter {
@@ -1083,13 +1100,20 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             // Try the cache first
             String title = mRingtoneTitleCache.getString(uri.toString());
             if (title == null) {
-                // This is slow because a media player is created during Ringtone object creation.
-                Ringtone ringTone = RingtoneManager.getRingtone(mContext, uri);
-                if (ringTone == null) {
-                    LogUtils.i("No ringtone for uri %s", uri.toString());
-                    return null;
+                // If the user cannot read the ringtone file, insert our own name rather than the
+                // ugly one returned by Ringtone.getTitle().
+                if (!AlarmUtils.hasPermissionToDisplayRingtoneTitle(mContext, uri)) {
+                    title = getString(R.string.custom_ringtone);
+                } else {
+                    // This is slow because a media player is created during Ringtone object creation.
+                    final Ringtone ringTone = RingtoneManager.getRingtone(mContext, uri);
+                    if (ringTone == null) {
+                        LogUtils.i("No ringtone for uri %s", uri.toString());
+                        return null;
+                    }
+                    title = ringTone.getTitle(mContext);
                 }
-                title = ringTone.getTitle(mContext);
+
                 if (title != null) {
                     mRingtoneTitleCache.putString(uri.toString(), title);
                 }
