@@ -367,8 +367,8 @@
     <string name="invalid_time" msgid="2782334750243998633">"Geçersiz saat: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Şu saate ayarlanmış alarm yok: <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Programlanmış alarm yok"</string>
-    <string name="no_label_specified" msgid="2008482054428460626">"Hiçbir etiket belirtilmedi"</string>
-    <string name="no_alarms_with_label" msgid="6250998794542941665">"Hiçbir alarm etiket içermiyor"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Etiket belirtilmedi"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Etiketi içeren alarm yok"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Kronomotre zaten çalışıyor"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Kronometre çalışmıyor"</string>
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Kronometre çalışıyor olduğundan sıfırlanamaz."</string>

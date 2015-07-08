@@ -351,7 +351,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Postavke sna"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noćni način"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Jako zatamnjeni zaslon (za mračne sobe)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Jako zatamnjeni zaslon (za tamne komore)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Proširi alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sažmi alarm"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"poništi"</string>

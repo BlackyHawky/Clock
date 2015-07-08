@@ -40,7 +40,7 @@
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Word wakker!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Uit"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Uitzetten"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Nu sluiten"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Nu negeren"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm gemist"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Gesnoozed"</string>
@@ -49,13 +49,13 @@
       <item quantity="one">1 min.</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm uit"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snoozen"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="other">Snooze is ingesteld op <xliff:g id="MINUTES">%d</xliff:g> minuten.</item>
       <item quantity="one">Snooze is ingesteld op 1 minuut.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozen tot <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Aankomend alarm"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Volgend alarm"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Uw gemiste alarm is verwijderd"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Nog minder dan een minuut"</item>
@@ -71,7 +71,7 @@
     <item msgid="2532279224777213194">"Alarm gaat over <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
     <item msgid="5936557894247187717">"Alarm gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
     <item msgid="9115697840826129603">"Alarm gaat over <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
-    <item msgid="2332583385137381060">"Alarm is ingesteld voor <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> vanaf nu."</item>
+    <item msgid="2332583385137381060">"Alarm gaat af over <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dagen</item>
@@ -132,7 +132,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumeknoppen"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knopeffect"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Snooze"</item>
+    <item msgid="7972756698723318690">"Snoozen"</item>
     <item msgid="3450979320164769576">"Uitzetten"</item>
     <item msgid="6302517608411378024">"Niets doen"</item>
   </string-array>
@@ -344,7 +344,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Alarm uitvouwen"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Alarm samenvouwen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ongedaan maken"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Alarm verwijderd"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Verwijderd"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Volgend alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>

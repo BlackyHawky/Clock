@@ -64,14 +64,14 @@
     <item msgid="8458069283817013813">"Còn <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Báo thức được đặt cho dưới 1 phút tính từ bây giờ."</item>
-    <item msgid="6002066367368421848">"Báo thức được đặt cho <xliff:g id="DAYS">%1$s</xliff:g> tính từ bây giờ."</item>
-    <item msgid="8824719306247973774">"Báo thức được đặt cho <xliff:g id="HOURS">%2$s</xliff:g> tính từ bây giờ."</item>
-    <item msgid="8182406852935468862">"Báo thức được đặt cho <xliff:g id="DAYS">%1$s</xliff:g> và <xliff:g id="HOURS">%2$s</xliff:g> tính từ bây giờ."</item>
-    <item msgid="2532279224777213194">"Báo thức được đặt cho <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
-    <item msgid="5936557894247187717">"Báo thức được đặt cho <xliff:g id="DAYS">%1$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
-    <item msgid="9115697840826129603">"Báo thức được đặt cho <xliff:g id="HOURS">%2$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
-    <item msgid="2332583385137381060">"Báo thức được đặt cho <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> tính từ bây giờ."</item>
+    <item msgid="6450913786084215050">"Báo thức được đặt đổ chuông sau dưới 1 phút nữa tính từ bây giờ."</item>
+    <item msgid="6002066367368421848">"Báo thức được đặt đổ chuông sau <xliff:g id="DAYS">%1$s</xliff:g> nữa tính từ bây giờ."</item>
+    <item msgid="8824719306247973774">"Báo thức được đặt đổ chuông sau <xliff:g id="HOURS">%2$s</xliff:g> nữa tính từ bây giờ."</item>
+    <item msgid="8182406852935468862">"Báo thức được đặt đổ chuông sau <xliff:g id="DAYS">%1$s</xliff:g> và <xliff:g id="HOURS">%2$s</xliff:g> nữa tính từ bây giờ."</item>
+    <item msgid="2532279224777213194">"Báo thức được đặt đổ chuông sau <xliff:g id="MINUTES">%3$s</xliff:g> nữa tính từ bây giờ."</item>
+    <item msgid="5936557894247187717">"Báo thức được đặt đổ chuông sau <xliff:g id="DAYS">%1$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> nữa tính từ bây giờ."</item>
+    <item msgid="9115697840826129603">"Báo thức được đặt đổ chuông sau <xliff:g id="HOURS">%2$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> nữa tính từ bây giờ."</item>
+    <item msgid="2332583385137381060">"Báo thức được đặt đổ chuông sau <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> và <xliff:g id="MINUTES">%3$s</xliff:g> nữa tính từ bây giờ."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ngày</item>
@@ -128,7 +128,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Im lặng"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Báo lại hoặc hủy báo thức."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (báo lại)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Báo thức được đặt cho <xliff:g id="TIME">%s</xliff:g>. Chạm để hủy."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Báo thức được đặt đổ chuông sau <xliff:g id="TIME">%s</xliff:g> nữa. Chạm để hủy."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Nút âm lượng"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Hiệu ứng nút"</string>
   <string-array name="volume_button_setting_entries">
@@ -148,7 +148,7 @@
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Hiện không có thông tin thời tiết."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Dịch vụ phát âm thanh cho báo thức đã đặt trong Clock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Đang tải nhạc chuông…"</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Dịch vụ phát âm thanh cho báo thức đã đặt trong Đồng hồ."</string>
+    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Dịch vụ phát âm thanh cho bộ hẹn giờ đã đặt trong Đồng hồ."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Đặt báo thức"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
@@ -334,9 +334,9 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Vuốt sang trái để báo lại"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Vuốt sang trái để báo lại hoặc phải để bỏ qua"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Đã dừng bộ hẹn giờ"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"Đã dừng <xliff:g id="NUMBER">%d</xliff:g> bộ tính giờ"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Chạm để xem bộ tính giờ của bạn"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> bộ tính giờ"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"Đã dừng <xliff:g id="NUMBER">%d</xliff:g> bộ hẹn giờ"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Chạm để xem bộ hẹn giờ của bạn"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> bộ hẹn giờ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Bộ hẹn giờ tiếp theo: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Cài đặt bảo vệ màn hình"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Chế độ ban đêm"</string>
@@ -378,11 +378,11 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"Đã bắt đầu đồng hồ bấm giờ"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Chưa có báo thức nào được lên lịch cho thời gian này"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Đã loại bỏ báo thức <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Đã đặt báo thức vào <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Đã đặt báo thức đổ chuông lúc <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timer_set" msgid="3326365650863016606">"Chưa đặt bộ hẹn giờ"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Đã xóa bộ hẹn giờ"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"Bộ hẹn giờ vẫn đang chạy"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"Không thể hoàn tất yêu cầu của bạn, có nhiều mức hẹn giờ"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Không thể hoàn tất yêu cầu của bạn, có nhiều bộ hẹn giờ"</string>
     <string name="timer_started" msgid="6715582052946641641">"Đã khởi động bộ hẹn giờ"</string>
     <string name="timer_created" msgid="4381027137335885547">"Đã tạo bộ hẹn giờ"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Thời lượng không hợp lệ trên bộ hẹn giờ"</string>

@@ -374,7 +374,7 @@
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"स्टपवाच चलिरहेका कारणले रिसेट गर्न सकिँदैन"</string>
     <string name="stopwatch_stopped" msgid="6927081018816192999">"स्टपवाच रोकियो"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"स्टपवाच रिसेट गर्नुहोस्"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"स्टपवाच ल्याप भयो"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"स्टपवाचलाई ल्याप गरियो"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"स्टपवाच सुरु भयो"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"यस समयका लागि कुनै कार्यतालिका मिलाइएको छैन"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म खारेज गरियो"</string>
