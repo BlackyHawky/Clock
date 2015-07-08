@@ -70,6 +70,9 @@
     <!-- Setting labels on Set alarm screen: Select alarm ringtone  -->
     <string name="alert">Alarm Ringtone</string>
 
+    <!-- Label on expanded alarm edit view indicating the ringtone is custom. -->
+    <string name="custom_ringtone">Custom Ringtone</string>
+
     <!-- Label on expanded alarm edit view. -->
     <string name="ringtone">Ringtone</string>
 
