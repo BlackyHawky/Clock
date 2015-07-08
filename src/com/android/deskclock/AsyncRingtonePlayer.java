@@ -7,7 +7,6 @@ import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -151,8 +150,7 @@ public class AsyncRingtonePlayer {
      */
     private PlaybackDelegate getPlaybackDelegate() {
         if (mPlaybackDelegate == null) {
-            // TODO change this to Build.VERSION.SDK_INT > Build.VERSION.LOLLIPOP_MR1
-            if (Build.VERSION.CODENAME.equals("MNC")) {
+            if (Utils.isMOrLater()) {
                 // Use the newer Ringtone-based playback delegate because it does not require
                 // any permissions to read from the SD card. (M+)
                 mPlaybackDelegate = new RingtonePlaybackDelegate();
@@ -255,7 +253,7 @@ public class AsyncRingtonePlayer {
         private void startAlarm(MediaPlayer player) throws IOException {
             // do not play alarms if stream volume is 0 (typically because ringer mode is silent).
             if (mAudioManager.getStreamVolume(AudioManager.STREAM_ALARM) != 0) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                if (Utils.isLOrLater()) {
                     player.setAudioAttributes(new AudioAttributes.Builder()
                             .setUsage(AudioAttributes.USAGE_ALARM)
                             .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
@@ -369,7 +367,7 @@ public class AsyncRingtonePlayer {
                 return;
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Utils.isLOrLater()) {
                 mRingtone.setAudioAttributes(new AudioAttributes.Builder()
                         .setUsage(AudioAttributes.USAGE_ALARM)
                         .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)

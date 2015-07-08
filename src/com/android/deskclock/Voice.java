@@ -18,7 +18,6 @@ package com.android.deskclock;
 
 import android.app.Activity;
 import android.app.VoiceInteractor;
-import android.os.Build;
 
 /**
  * Notifies Voice Interactor about whether the action
@@ -36,15 +35,13 @@ public final class Voice {
     }
 
     public static void notifySuccess(Activity activity, String message) {
-        // TODO change this to Build.VERSION.SDK_INT > Build.VERSION.LOLLIPOP_MR1
-        if (Build.VERSION.CODENAME.equals("MNC")) {
+        if (Utils.isMOrLater()) {
             sDelegate.notifySuccess(activity.getVoiceInteractor(), message);
         }
     }
 
     public static void notifyFailure(Activity activity, String message) {
-        // TODO change this to Build.VERSION.SDK_INT > Build.VERSION.LOLLIPOP_MR1
-        if (Build.VERSION.CODENAME.equals("MNC")) {
+        if (Utils.isMOrLater()) {
             sDelegate.notifyFailure(activity.getVoiceInteractor(), message);
         }
     }

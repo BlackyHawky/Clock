@@ -21,7 +21,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.util.Property;
 import android.view.View;
@@ -94,7 +93,7 @@ public class AnimatorUtils {
     private static boolean sTryAnimateValue = true;
 
     public static void setAnimatedFraction(ValueAnimator animator, float fraction) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP_MR1) {
+        if (Utils.isLMR1OrLater()) {
             animator.setCurrentFraction(fraction);
             return;
         }
