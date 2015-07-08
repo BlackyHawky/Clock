@@ -91,7 +91,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Jam analog"</string>
     <string name="help" msgid="7786263119482654015">"bantuan"</string>
     <string name="settings" msgid="5849739030579520686">"Setelan"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Panjang penundaan"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Lama penundaan"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> menit</item>
       <item quantity="one">1 menit</item>

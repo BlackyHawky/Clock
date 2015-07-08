@@ -64,7 +64,7 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> शेष"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"अलार्म अब से 1 मिनट से कम के लिए सेट."</item>
+    <item msgid="6450913786084215050">"अब से 1 मिनट या उससे भी कम के भीतर का अलार्म सेट है."</item>
     <item msgid="6002066367368421848">"अलार्म अब से <xliff:g id="DAYS">%1$s</xliff:g> के लिए सेट."</item>
     <item msgid="8824719306247973774">"अलार्म अब से <xliff:g id="HOURS">%2$s</xliff:g> के लिए सेट."</item>
     <item msgid="8182406852935468862">"अलार्म अब से <xliff:g id="DAYS">%1$s</xliff:g> और <xliff:g id="HOURS">%2$s</xliff:g> के लिए सेट."</item>
@@ -91,7 +91,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"ऐनालॉग घड़ी"</string>
     <string name="help" msgid="7786263119482654015">"सहायता"</string>
     <string name="settings" msgid="5849739030579520686">"सेटिंग"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"इतनी देर के बाद याद दिलाएं:"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"इतनी देर के बाद याद दिलाएं"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> मिनट</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनट</item>
@@ -100,7 +100,7 @@
       <item quantity="one">मिनट</item>
       <item quantity="other">मिनट</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"इतनी देर के बाद आवाज़ बंद करें:"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"इतनी देर के बाद शांत करें"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> मिनट</item>
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> मिनट</item>
@@ -124,12 +124,12 @@
     <string name="done" msgid="6509722361933858451">"हो गया"</string>
     <string name="revert" msgid="9100911171235162926">"पहले जैसा करें"</string>
     <string name="delete" msgid="5732434972457000541">"हटाएं"</string>
-    <string name="alarm_volume_title" msgid="8506245173912428522">"अलार्म की आवाज़"</string>
+    <string name="alarm_volume_title" msgid="8506245173912428522">"अलार्म का वॉल्‍यूम"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"मौन"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"थोडी देर बाद याद दिलाएं/बंद करें."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (याद दिलाया जाएगा)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"अलार्म <xliff:g id="TIME">%s</xliff:g> के लिए सेट. रद्द करने के लिए स्‍पर्श करें."</string>
-    <string name="volume_button_setting_title" msgid="6937131248843413357">"आवाज़ बटन को दबाने पर"</string>
+    <string name="volume_button_setting_title" msgid="6937131248843413357">"वॉल्‍यूम बटन को दबाने पर"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"बटन प्रभाव"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"बाद में याद दिलाएं"</item>
@@ -230,7 +230,7 @@
     <item msgid="917900462224167608">"ऐनालॉग"</item>
     <item msgid="8483930821046925592">"डिजिटल"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"अपनेआप देश की घड़ी दिखाएं"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"स्वचालित रूप से देश की घड़ी दिखाएं"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"भिन्न समय वाले किसी क्षेत्र में यात्रा करते समय, अपने देश की घड़ी जोड़ें"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"देश का समय क्षेत्र"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"देश का समय क्षेत्र"</string>
