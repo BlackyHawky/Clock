@@ -39,7 +39,7 @@
     <string name="alarm_today" msgid="7873594221106531654">"Astăzi"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Trezirea!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Opr."</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Renunţaţi"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Închideți"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Ignorați"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarmă ratată"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -331,7 +331,7 @@
     <string name="timers_stopped" msgid="2393640808691864520">"Au fost oprite <xliff:g id="NUMBER">%d</xliff:g> contoare"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Atingeţi pentru a vedea contoarele"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> contoare"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Următorul contor: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Următorul temporizator: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Setări Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modul Noapte"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Afişaj cu luminozitate redusă (pentru camere întunecate)"</string>

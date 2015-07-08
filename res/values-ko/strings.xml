@@ -85,7 +85,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"아날로그 시계"</string>
     <string name="help" msgid="7786263119482654015">"도움말"</string>
     <string name="settings" msgid="5849739030579520686">"설정"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"알람 일시중지 간격"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"다시 울림 간격"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>분</item>
       <item quantity="one">1분</item>
@@ -123,7 +123,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"버튼 효과"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"알람 일시중지"</item>
+    <item msgid="7972756698723318690">"다시 울림"</item>
     <item msgid="3450979320164769576">"알람 해제"</item>
     <item msgid="6302517608411378024">"기능 없음"</item>
   </string-array>
@@ -325,7 +325,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"타이머를 보려면 터치하세요."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"스크린 세이버 설정"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"화면 보호기 설정"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"야간 모드"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"디스플레이 아주 어둡게 하기(어두운 장소용)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"알람 펼치기"</string>

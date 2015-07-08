@@ -171,7 +171,7 @@
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Времето ми е <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Междинни резултати:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Междинен резултат <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Етап <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> часа</item>
       <item quantity="one">1 час</item>

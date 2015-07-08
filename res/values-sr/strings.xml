@@ -142,7 +142,7 @@
     <string name="ringtone_description" msgid="7580922112921069925">"Мелодија звона"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Информације о времену тренутно нису доступне."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Услуга репродукције звука за аларме подешене у Сату."</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"Учитавање звука звона..."</string>
+    <string name="loading_ringtone" msgid="6523322777415268044">"Учитава се звук звона..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Услуга пуштања звука за тајмере подешене у Сату."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Подеси аларм"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->

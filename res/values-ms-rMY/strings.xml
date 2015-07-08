@@ -59,7 +59,7 @@
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Penggera terlepas anda telah dipadamkan"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Tinggal kurang satu minit"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> yang tinggal"</item>
+    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> lagi"</item>
     <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> lagi"</item>
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> lagi"</item>
   </string-array>
