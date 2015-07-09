@@ -63,7 +63,7 @@ public class StopwatchService extends Service {
         String actionType = intent.getAction();
         long actionTime = intent.getLongExtra(Stopwatches.MESSAGE_TIME, Utils.getTimeNow());
         boolean showNotif = intent.getBooleanExtra(Stopwatches.SHOW_NOTIF, true);
-        boolean updateCircle = showNotif; // Don't save updates to the cirle if we're in the app.
+        boolean updateCircle = !showNotif; // Update the stopwatch circle when the app is open.
         switch(actionType) {
             case HandleDeskClockApiCalls.ACTION_START_STOPWATCH:
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this) ;
