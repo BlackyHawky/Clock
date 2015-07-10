@@ -808,6 +808,11 @@
          translation. -->
     <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
 
+    <!-- Header in the preferences settings for the section pertaining to timers. -->
+    <string name="timer_settings">Timers</string>
+    <!-- Description for timer ringtone setting. -->
+    <string name="timer_ringtone_title">Timer ringtone</string>
+
     <!-- Notification title when timer is stopped. -->
     <string name="timer_stopped">Timer stopped</string>
     <!-- Notification title when multiple timers are stopped. -->

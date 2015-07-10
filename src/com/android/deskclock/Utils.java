@@ -16,6 +16,7 @@
 
 package com.android.deskclock;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -25,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -33,6 +35,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
@@ -55,6 +59,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.stopwatch.Stopwatches;
@@ -97,6 +102,9 @@ public class Utils {
 
     private static Locale sLocaleUsedForWeekdays;
 
+    // Used to cache the current timer ringtone name.
+    private static String sTimerRingtoneName;
+
     /** Types that may be used for clock displays. **/
     public static final String CLOCK_TYPE_DIGITAL = "digital";
     public static final String CLOCK_TYPE_ANALOG = "analog";
@@ -135,6 +143,16 @@ public class Utils {
             0xFF202233 /* 10 PM */,
             0xFF20222A /* 11 PM */
     };
+
+    // Path to timer_expire.ogg
+    // In order to keep currently satisfied users happy, default to using
+    // the current timer_expire.ogg ringtone. If the user opens the
+    // timer ringtone preference, they'll be able to pick from
+    // RingtoneManager's alarm selection. This also means that they will
+    // never be able to get timer_expire back unless they clear their
+    // SharedPreferences, because timer_expire is not one of
+    // RingtoneManager's provided ringtones.
+    private static String sDefaultTimerRingtone;
 
     /**
      * Returns whether the SDK is KitKat or later
@@ -308,6 +326,30 @@ public class Utils {
         Intent timerIntent = new Intent();
         timerIntent.setAction(Timers.NOTIF_TIMES_UP_CANCEL);
         context.sendBroadcast(timerIntent);
+    }
+
+    /**
+     * @return {@code true} iff the user has granted permission to read the ringtone at the given
+     *      uri or no permission is required to read the ringtone
+     */
+    public static boolean hasPermissionToDisplayRingtoneTitle(Context context, Uri ringtoneUri) {
+        final PackageManager pm = context.getPackageManager();
+        final String packageName = context.getPackageName();
+
+        // If no ringtone is specified, return true.
+        if (ringtoneUri == null || ringtoneUri == Alarm.NO_RINGTONE_URI) {
+            return true;
+        }
+
+        // If the permission is already granted, return true.
+        if (pm.checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, packageName)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+
+        // If the ringtone is internal, return true;
+        // external ringtones require the permission to see their title
+        return ringtoneUri.toString().startsWith("content://media/internal/");
     }
 
     /** Runnable for use with screensaver and dream, to move the clock every minute.
@@ -584,7 +626,7 @@ public class Utils {
             final Locale l = Locale.getDefault();
             dateDisplay.setText(isJBMR2OrLater()
                     ? new SimpleDateFormat(
-                            DateFormat.getBestDateTimePattern(l, dateFormat), l).format(now)
+                    DateFormat.getBestDateTimePattern(l, dateFormat), l).format(now)
                     : SimpleDateFormat.getDateInstance().format(now));
             dateDisplay.setVisibility(View.VISIBLE);
             dateDisplay.setContentDescription(isJBMR2OrLater()
@@ -815,4 +857,38 @@ public class Utils {
         final String localizedQuantity = NumberFormat.getInstance().format(quantity);
         return context.getResources().getQuantityString(id, quantity, localizedQuantity);
     }
+
+    public static Uri getTimerRingtoneUri(Context context) {
+        // Need package name to initialize this, but only need to initialize once.
+        if (sDefaultTimerRingtone == null) {
+            sDefaultTimerRingtone =
+                    "android.resource://" + context.getPackageName() + "/" + R.raw.timer_expire;
+        }
+        return Uri.parse(PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(SettingsActivity.KEY_TIMER_RINGTONE, sDefaultTimerRingtone));
+    }
+
+    // Update the cached timer ringtone.
+    public static void setTimerRingtoneUri(Context context, Uri ringtone) {
+        // If the user cannot read the ringtone file, insert our own name rather than the
+        // ugly one returned by Ringtone.getTitle().
+        if (!Utils.hasPermissionToDisplayRingtoneTitle(context, ringtone)) {
+            sTimerRingtoneName = context.getString(R.string.custom_ringtone);
+        } else {
+            // This is slow because a media player is created during Ringtone object creation.
+            final Ringtone ringTone = RingtoneManager.getRingtone(context, ringtone);
+            if (ringTone == null) {
+                LogUtils.i("No timer ringtone for uri %s", ringtone.toString());
+            }
+            sTimerRingtoneName = ringTone.getTitle(context);
+        }
+    }
+
+    // Return the cached ringtone name value.
+    public static String getTimerRingtoneName(Context context) {
+        return sTimerRingtoneName == null
+                ? context.getString(R.string.custom_ringtone)
+                : sTimerRingtoneName;
+    }
+
 }

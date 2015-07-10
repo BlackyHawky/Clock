@@ -71,4 +71,13 @@
             android:entries="@array/week_start_entries"
             android:entryValues="@array/week_start_values" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/timer_settings">
+        <RingtonePreference
+            android:key="timer_ringtone"
+            android:title="@string/timer_ringtone_title"
+            android:ringtoneType="alarm" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

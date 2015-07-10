@@ -16,16 +16,19 @@
 
 package com.android.deskclock;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.RingtonePreference;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +47,7 @@ public class SettingsActivity extends BaseActivity {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_VOLUME = "volume_setting";
+    public static final String KEY_TIMER_RINGTONE = "timer_ringtone";
     public static final String KEY_VOLUME_BEHAVIOR = "volume_button_setting";
     public static final String KEY_AUTO_SILENCE = "auto_silence";
     public static final String KEY_CLOCK_STYLE = "clock_style";
@@ -55,6 +59,8 @@ public class SettingsActivity extends BaseActivity {
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
+
+    private static final int REQUEST_CODE_PERMISSIONS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,32 +126,55 @@ public class SettingsActivity extends BaseActivity {
 
         @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
-            if (KEY_AUTO_SILENCE.equals(pref.getKey())) {
-                final ListPreference autoSilencePref = (ListPreference) pref;
-                String delay = (String) newValue;
-                updateAutoSnoozeSummary(autoSilencePref, delay);
-            } else if (KEY_CLOCK_STYLE.equals(pref.getKey())) {
-                final ListPreference clockStylePref = (ListPreference) pref;
-                final int idx = clockStylePref.findIndexOfValue((String) newValue);
-                clockStylePref.setSummary(clockStylePref.getEntries()[idx]);
-            } else if (KEY_HOME_TZ.equals(pref.getKey())) {
-                final ListPreference homeTimezonePref = (ListPreference) pref;
-                final int idx = homeTimezonePref.findIndexOfValue((String) newValue);
-                homeTimezonePref.setSummary(homeTimezonePref.getEntries()[idx]);
-                notifyHomeTimeZoneChanged();
-            } else if (KEY_AUTO_HOME_CLOCK.equals(pref.getKey())) {
-                final boolean autoHomeClockEnabled = ((CheckBoxPreference) pref).isChecked();
-                final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
-                homeTimeZonePref.setEnabled(!autoHomeClockEnabled);
-                notifyHomeTimeZoneChanged();
-            } else if (KEY_VOLUME_BUTTONS.equals(pref.getKey())) {
-                final ListPreference volumeButtonsPref = (ListPreference) pref;
-                final int index = volumeButtonsPref.findIndexOfValue((String) newValue);
-                volumeButtonsPref.setSummary(volumeButtonsPref.getEntries()[index]);
-            } else if (KEY_WEEK_START.equals(pref.getKey())) {
-                final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
-                final int idx = weekStartPref.findIndexOfValue((String) newValue);
-                weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
+            final int idx;
+            switch (pref.getKey()) {
+                case KEY_AUTO_SILENCE:
+                    final ListPreference autoSilencePref = (ListPreference) pref;
+                    String delay = (String) newValue;
+                    updateAutoSnoozeSummary(autoSilencePref, delay);
+                    break;
+                case KEY_CLOCK_STYLE:
+                    final ListPreference clockStylePref = (ListPreference) pref;
+                    idx = clockStylePref.findIndexOfValue((String) newValue);
+                    clockStylePref.setSummary(clockStylePref.getEntries()[idx]);
+                    break;
+                case KEY_HOME_TZ:
+                    final ListPreference homeTimezonePref = (ListPreference) pref;
+                    idx = homeTimezonePref.findIndexOfValue((String) newValue);
+                    homeTimezonePref.setSummary(homeTimezonePref.getEntries()[idx]);
+                    notifyHomeTimeZoneChanged();
+                    break;
+                case KEY_AUTO_HOME_CLOCK:
+                    final boolean autoHomeClockEnabled = ((CheckBoxPreference) pref).isChecked();
+                    final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
+                    homeTimeZonePref.setEnabled(!autoHomeClockEnabled);
+                    notifyHomeTimeZoneChanged();
+                    break;
+                case KEY_VOLUME_BUTTONS:
+                    final ListPreference volumeButtonsPref = (ListPreference) pref;
+                    final int index = volumeButtonsPref.findIndexOfValue((String) newValue);
+                    volumeButtonsPref.setSummary(volumeButtonsPref.getEntries()[index]);
+                    break;
+                case KEY_WEEK_START:
+                    final ListPreference weekStartPref = (ListPreference)
+                        findPreference(KEY_WEEK_START);
+                    idx = weekStartPref.findIndexOfValue((String) newValue);
+                    weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
+                    break;
+                case KEY_TIMER_RINGTONE:
+                    final RingtonePreference timerRingtonePref = (RingtonePreference)
+                            findPreference(KEY_TIMER_RINGTONE);
+                    final Uri uri = Uri.parse((String) newValue);
+                    Utils.setTimerRingtoneUri(getActivity(), uri);
+
+                    // If the user chose an external ringtone and has not yet granted the permission to read
+                    // external storage, ask them for that permission now.
+                    if (!Utils.hasPermissionToDisplayRingtoneTitle(getActivity(), uri)) {
+                        final String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                        requestPermissions(perms, REQUEST_CODE_PERMISSIONS);
+                    }
+                    timerRingtonePref.setSummary(Utils.getTimerRingtoneName(getActivity()));
+                    break;
             }
             // Set result so DeskClock knows to refresh itself
             getActivity().setResult(RESULT_OK);
@@ -242,6 +271,10 @@ public class SettingsActivity extends BaseActivity {
             weekStartPref.setValueIndex(idx);
             weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
             weekStartPref.setOnPreferenceChangeListener(this);
+
+            final Preference ringtonePref = findPreference(KEY_TIMER_RINGTONE);
+            ringtonePref.setSummary(Utils.getTimerRingtoneName(getActivity()));
+            ringtonePref.setOnPreferenceChangeListener(this);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

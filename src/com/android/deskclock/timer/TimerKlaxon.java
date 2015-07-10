@@ -17,11 +17,10 @@
 package com.android.deskclock.timer;
 
 import android.content.Context;
-import android.net.Uri;
 
 import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 
 public abstract class TimerKlaxon {
 
@@ -45,9 +44,7 @@ public abstract class TimerKlaxon {
         stop(context);
 
         // For now play a default ringtone; TODO: Look up user-selected preference
-        final Uri defaultRing = Uri.parse("android.resource://" + context.getPackageName() + "/"
-                + R.raw.timer_expire);
-        getAsyncRingtonePlayer(context).play(defaultRing);
+        getAsyncRingtonePlayer(context).play(Utils.getTimerRingtoneUri(context));
 
         sStarted = true;
     }

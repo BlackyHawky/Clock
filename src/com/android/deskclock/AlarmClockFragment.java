@@ -476,7 +476,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
         // If the user chose an external ringtone and has not yet granted the permission to read
         // external storage, ask them for that permission now.
-        if (!AlarmUtils.hasPermissionToDisplayRingtoneTitle(getActivity(), uri)) {
+        if (!Utils.hasPermissionToDisplayRingtoneTitle(getActivity(), uri)) {
             final String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
             requestPermissions(perms, REQUEST_CODE_PERMISSIONS);
         }
@@ -1100,7 +1100,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             if (title == null) {
                 // If the user cannot read the ringtone file, insert our own name rather than the
                 // ugly one returned by Ringtone.getTitle().
-                if (!AlarmUtils.hasPermissionToDisplayRingtoneTitle(mContext, uri)) {
+                if (!Utils.hasPermissionToDisplayRingtoneTitle(mContext, uri)) {
                     title = getString(R.string.custom_ringtone);
                 } else {
                     // This is slow because a media player is created during Ringtone object creation.
