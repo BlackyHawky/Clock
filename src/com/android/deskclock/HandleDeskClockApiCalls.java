@@ -404,7 +404,7 @@ public class HandleDeskClockApiCalls extends Activity {
                         final String reason = mContext.getString(R.string.no_city_selected);
                         Voice.notifyFailure(mActivity, reason);
                         LogUtils.i(reason);
-                        mContext.startActivity(new Intent(mContext, CitiesActivity.class));
+                        startCitiesActivity();
                         Events.sendClockEvent(R.string.action_create, R.string.label_intent);
                         break;
                     }
@@ -444,7 +444,7 @@ public class HandleDeskClockApiCalls extends Activity {
                         final String reason = mContext.getString(R.string.no_city_selected);
                         Voice.notifyFailure(mActivity, reason);
                         LogUtils.i(reason);
-                        mContext.startActivity(new Intent(mContext, CitiesActivity.class));
+                        startCitiesActivity();
                         Events.sendClockEvent(R.string.action_create, R.string.label_intent);
                         break;
                     }
@@ -482,6 +482,11 @@ public class HandleDeskClockApiCalls extends Activity {
                     break;
             }
             return null;
+        }
+
+        private void startCitiesActivity() {
+            mContext.startActivity(new Intent(mContext, CitiesActivity.class).addFlags(
+                    Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }
