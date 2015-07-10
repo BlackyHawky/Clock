@@ -97,9 +97,15 @@ public class TimerReceiver extends BroadcastReceiver {
         TimerObj t = Timers.findTimer(mTimers, timerId);
 
         if (Timers.TIMES_UP.equals(actionType)) {
-            // Find the timer (if it doesn't exists, it was probably deleted).
+            // Find the timer (if it doesn't exist, it was probably deleted).
             if (t == null) {
                 LogUtils.d(TAG, "Timer not found in list - do nothing");
+                return;
+            }
+
+            // Perform an extra check just to verify that time is actually up.
+            if (t.getTimesupTime() > Utils.getTimeNow()) {
+                LogUtils.i(TAG, "Times up time is still in the future; not firing.");
                 return;
             }
 
