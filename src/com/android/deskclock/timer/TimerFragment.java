@@ -506,7 +506,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     break;
                 case TimerObj.STATE_TIMESUP:
                     if (t.mDeleteAfterUse) {
-                        cancelTimerNotification(t.mTimerId);
                         // Tell receiver the timer was deleted.
                         // It will stop all activity related to the
                         // timer
@@ -521,7 +520,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                         t.mView.setTime(t.mTimeLeft, false);
                         t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
                         updateTimerState(t, Timers.RESET_TIMER);
-                        cancelTimerNotification(t.mTimerId);
                         Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
                     }
                     break;
@@ -529,7 +527,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             setTimerViewFabIcon(t);
         }
     }
-
 
     private TimerObj getCurrentTimer() {
         if (mViewPager == null) {
@@ -757,14 +754,10 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
 
                 updateTimerState(t, Timers.START_TIMER);
-                cancelTimerNotification(t.mTimerId);
                 break;
         }
         // This will change status of the timer, so update fab
         setFabAppearance();
-    }
-
-    private void cancelTimerNotification(int timerId) {
-        mNotificationManager.cancel(timerId);
+        Utils.updateTimesUpNotification(getActivity());
     }
 }

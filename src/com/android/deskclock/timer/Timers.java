@@ -39,6 +39,8 @@ public class Timers {
     public static final String NOTIF_IN_USE_SHOW = "notif_in_use_show";
     public static final String NOTIF_IN_USE_CANCEL = "notif_in_use_cancel";
     public static final String NOTIF_APP_OPEN = "notif_app_open";
+    public static final String NOTIF_UPDATE = "notif_update";
+    public static final String NOTIF_STOP_ALL_TIMERS = "notif_stop_all_timers";
     public static final String NOTIF_TIMES_UP_STOP = "notif_times_up_stop";
     public static final String NOTIF_TIMES_UP_PLUS_ONE = "notif_times_up_plus_one";
     public static final String NOTIF_TIMES_UP_SHOW = "notif_times_up_show";
