@@ -33,14 +33,16 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Tebranish"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Takrorlash"</string>
     <string name="alert" msgid="6506982899651975645">"Uyg‘otkich ringtoni"</string>
+    <!-- no translation found for custom_ringtone (3477418548382111184) -->
+    <skip />
     <string name="ringtone" msgid="9110746249688559579">"Rington"</string>
     <string name="time" msgid="8067216534232296518">"Vaqt"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Ertaga"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Bugun"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Uyg\'oning!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"O‘chirib qo‘yish"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Yopish"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Yopish"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"O‘chirish"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Bekor qilish"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"O‘tkazib yuborilgan uyg‘otkich"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Mudratilgan"</string>
@@ -133,7 +135,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Tugmalarning funksiyasi"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Qoldirish"</item>
-    <item msgid="3450979320164769576">"Yopish"</item>
+    <item msgid="3450979320164769576">"O‘chirish"</item>
     <item msgid="6302517608411378024">"Hech narsa"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Birlamchi ringtonni o‘rnatish"</string>
@@ -364,12 +366,18 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"<xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g> – vaqt noto‘g‘ri"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> – vaqt noto‘g‘ri"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> uchun hech qanday signal o‘rnatilmagan"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Hech qanday signal o‘rnatilmagan"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Hech qanday tavsif qo‘shilmagan"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Hech qaysi signal tavsifi yo‘q"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Sekundomer allaqachon ishga tushgan"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Sekundomer ishlamayapti"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Sekundomer rejimi o‘zgardi"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Sekundomerni nolga qaytarib bo‘lmaydi, chunki u hozir ishlayapti"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Sekundomer to‘xtadi"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Sekundomer nolga qaytarildi"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Sekundomer bir marta aylanib o‘tdi"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Sekundomer ishga tushdi"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Bu vaqt uchun hech qanday signal o‘rnatilmagan"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> dagi signal rad etildi"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Signal <xliff:g id="ALARM_TIME">%s</xliff:g> ga o‘rnatildi"</string>

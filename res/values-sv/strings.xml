@@ -33,6 +33,8 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrera"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Upprepa"</string>
     <string name="alert" msgid="6506982899651975645">"Ringsignal för alarm"</string>
+    <!-- no translation found for custom_ringtone (3477418548382111184) -->
+    <skip />
     <string name="ringtone" msgid="9110746249688559579">"Ringsignal"</string>
     <string name="time" msgid="8067216534232296518">"Tid"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"I morgon"</string>
@@ -49,7 +51,7 @@
       <item quantity="one">1 minut</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm av"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooze"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooza"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="other">Alarmet återupptas om <xliff:g id="MINUTES">%d</xliff:g> minuter.</item>
       <item quantity="one">Alarmet återupptas om 1 minut.</item>
@@ -132,7 +134,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volymknappar"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knappfunktion"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Snooze"</item>
+    <item msgid="7972756698723318690">"Snooza"</item>
     <item msgid="3450979320164769576">"Stäng av"</item>
     <item msgid="6302517608411378024">"Gör ingenting"</item>
   </string-array>
@@ -222,7 +224,7 @@
     <item msgid="9071353477103826053">"Du har smak för snabbhet."</item>
     <item msgid="3785193933691117181">"Med ljusets hastighet."</item>
   </string-array>
-    <string name="home_label" msgid="4436139365695453870">"Startsida"</string>
+    <string name="home_label" msgid="4436139365695453870">"Hemma"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Orter"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Klocka"</string>
     <string name="clock_style" msgid="2265011060429742344">"Format"</string>
@@ -364,12 +366,18 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
-    <string name="invalid_time" msgid="8369328732811670187">"Ogiltig tid: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_PMAM">%s</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Ogiltig tid: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Inget alarm den här tiden: <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Inga inställda alarm"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Ingen etikett har angetts"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Inga alarm innehåller den här etiketten"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Tidtagaruret har redan startats"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Tidtagaruret har inte startats"</string>
-    <string name="stopwatch_mode_changed" msgid="2096052973378533405">"Läget för tidtagaruret har ändrats"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Tidtagaruret kan inte återställas eftersom det används"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Tidtagaruret har stoppats"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Tidtagaruret har återställts"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Tidtagaruret har gått ett varv"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Tidtagaruret har startat"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Det finns inga alarm den här tiden"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmet som var inställt på <xliff:g id="ALARM_TIME">%s</xliff:g> har ignorerats"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarmet ringer <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
