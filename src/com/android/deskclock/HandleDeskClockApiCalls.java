@@ -303,7 +303,15 @@ public class HandleDeskClockApiCalls extends Activity {
                     final String reason = mContext.getString(R.string.timer_stopped);
                     LogUtils.i(reason);
                     Voice.notifySuccess(mActivity, reason);
-                    timer.setState(TimerObj.STATE_STOPPED);
+                    if (timer.mState == TimerObj.STATE_RUNNING) {
+                        timer.setState(TimerObj.STATE_STOPPED);
+                    }
+                    else {
+                        // if the time is up on the timer
+                        // restart it and reset the length
+                        timer.setState(TimerObj.STATE_RESTART);
+                        timer.mTimeLeft = timer.mOriginalLength;
+                    }
                     timer.writeToSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_stop, R.string.label_intent);
                     break;
