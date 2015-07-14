@@ -85,8 +85,7 @@ public class TimerRingService extends Service implements AudioManager.OnAudioFoc
         }
 
         play();
-        // Record the initial call state here so that the new alarm has the
-        // newest state.
+        // Record the initial call state here so that the new alarm has the newest state.
         mInitialCallState = mTelephonyManager.getCallState();
 
         return START_STICKY;
