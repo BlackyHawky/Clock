@@ -285,7 +285,7 @@ public class HandleDeskClockApiCalls extends Activity {
                     Voice.notifySuccess(mActivity, reason);
                     LogUtils.i(reason);
                     timer.setState(TimerObj.STATE_RESTART);
-                    timer.mTimeLeft = timer.mOriginalLength;
+                    timer.mTimeLeft = timer.mSetupLength;
                     timer.writeToSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_reset, R.string.label_intent);
                     break;
@@ -310,7 +310,7 @@ public class HandleDeskClockApiCalls extends Activity {
                         // if the time is up on the timer
                         // restart it and reset the length
                         timer.setState(TimerObj.STATE_RESTART);
-                        timer.mTimeLeft = timer.mOriginalLength;
+                        timer.mTimeLeft = timer.mSetupLength;
                     }
                     timer.writeToSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_stop, R.string.label_intent);
