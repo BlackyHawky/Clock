@@ -29,6 +29,7 @@ import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFullScreenFragment;
 import com.android.deskclock.timer.TimerObj;
+import com.android.deskclock.timer.Timers;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CitiesActivity;
 import com.android.deskclock.worldclock.CityObj;
@@ -237,8 +238,11 @@ public class HandleDeskClockApiCalls extends Activity {
                 Voice.notifyFailure(mActivity, reason);
                 return null;
             }
+            final TimerObj timer;
+            final String timerAction;
             switch (mAction) {
                 case ACTION_DELETE_TIMER: {
+                    timerAction = Timers.DELETE_TIMER;
                     // Delete a timer only if there's one available
                     if (timers.size() > 1) {
                         final String reason = mContext.getString(R.string.multiple_timers_available);
@@ -247,7 +251,7 @@ public class HandleDeskClockApiCalls extends Activity {
                         return null;
                     }
 
-                    final TimerObj timer = timers.get(0);
+                    timer = timers.get(0);
                     timer.deleteFromSharedPref(prefs);
                     Events.sendTimerEvent(R.string.action_delete, R.string.label_intent);
                     final String reason = mContext.getString(R.string.timer_deleted);
@@ -256,7 +260,8 @@ public class HandleDeskClockApiCalls extends Activity {
                     break;
                 }
                 case ACTION_START_TIMER: {
-                    final TimerObj timer = getTimerWithStateToIgnore(timers, TimerObj.STATE_RUNNING);
+                    timerAction = Timers.START_TIMER;
+                    timer = getTimerWithStateToIgnore(timers, TimerObj.STATE_RUNNING);
                     // Only start a timer if there's one non-running timer available
                     if (timer == null) {
                         // notifyFailure was already triggered
@@ -272,12 +277,12 @@ public class HandleDeskClockApiCalls extends Activity {
                     break;
                 }
                 case ACTION_RESET_TIMER: {
+                    timerAction = Timers.RESET_TIMER;
                     // Since timer can be reset only if it's stopped
                     // it's only triggered when there's only one stopped timer
                     final Set<Integer> statesToInclude = new HashSet<>();
                     statesToInclude.add(TimerObj.STATE_STOPPED);
-                    final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude,
-                            mAction);
+                    timer = getTimerWithStatesToInclude(timers, statesToInclude, mAction);
                     if (timer == null) {
                         return null;
                     }
@@ -291,12 +296,12 @@ public class HandleDeskClockApiCalls extends Activity {
                     break;
                 }
                 case ACTION_STOP_TIMER: {
+                    timerAction = Timers.STOP_TIMER;
                     final Set<Integer> statesToInclude = new HashSet<>();
                     statesToInclude.add(TimerObj.STATE_TIMESUP);
                     statesToInclude.add(TimerObj.STATE_RUNNING);
                     // Timer is stopped if there's only one running timer
-                    final TimerObj timer = getTimerWithStatesToInclude(timers, statesToInclude,
-                            mAction);
+                    timer = getTimerWithStatesToInclude(timers, statesToInclude, mAction);
                     if (timer == null) {
                         return null;
                     }
@@ -305,8 +310,7 @@ public class HandleDeskClockApiCalls extends Activity {
                     Voice.notifySuccess(mActivity, reason);
                     if (timer.mState == TimerObj.STATE_RUNNING) {
                         timer.setState(TimerObj.STATE_STOPPED);
-                    }
-                    else {
+                    } else {
                         // if the time is up on the timer
                         // restart it and reset the length
                         timer.setState(TimerObj.STATE_RESTART);
@@ -316,7 +320,17 @@ public class HandleDeskClockApiCalls extends Activity {
                     Events.sendTimerEvent(R.string.action_stop, R.string.label_intent);
                     break;
                 }
+                default:
+                    return null;
             }
+            // updating the time for next firing timer
+            final Intent i = new Intent()
+                    .setAction(timerAction)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timer.mTimerId)
+                    .putExtra(Timers.UPDATE_NEXT_TIMESUP, true)
+                    // Make sure the receiver is getting the intent ASAP.
+                    .addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+            mContext.sendBroadcast(i);
             return null;
         }
 
