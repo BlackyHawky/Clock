@@ -659,14 +659,23 @@ public class Utils {
             final int separatorIndex = parseString.indexOf("=");
             final String index;
             final String cityName;
+            if (parseString.length() <= 1 && separatorIndex >= 0) {
+                LogUtils.w("Cannot parse city name %s; skipping", parseString);
+                continue;
+            }
             if (separatorIndex == 0) {
                 // Default to using second character (the first character after the = separator)
                 // as the index.
                 index = parseString.substring(1, 2);
-                cityName = parseString.substring(1, parseString.length());
+                cityName = parseString.substring(1);
+            } else if (separatorIndex == -1) {
+                // Default to using the first character as the index
+                index = parseString.substring(0, 1);
+                cityName = parseString;
+                LogUtils.e("Missing expected separator character =");
             } else {
                  index = parseString.substring(0, separatorIndex);
-                 cityName = parseString.substring(separatorIndex + 1, parseString.length());
+                 cityName = parseString.substring(separatorIndex + 1);
             }
             cities[i] = new CityObj(cityName, timezones[i], ids[i], index);
         }
