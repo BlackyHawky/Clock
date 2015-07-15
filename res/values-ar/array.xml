@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="cities_names">
+    <item msgid="4653806289288974388">"ا<xliff:g id="SEPARATOR">=</xliff:g>أبيدجان"</item>
+    <item msgid="4864167603178202155">"ا<xliff:g id="SEPARATOR">=</xliff:g>أكرا"</item>
+    <item msgid="6478898553803167749">"ا<xliff:g id="SEPARATOR">=</xliff:g>أديس أبابا"</item>
+    <item msgid="5618029992528436448">"ج<xliff:g id="SEPARATOR">=</xliff:g>الجزائر"</item>
+    <item msgid="2906834750114790793">"<xliff:g id="SEPARATOR">=</xliff:g>بلانتيري"</item>
+    <item msgid="8153571933836629863">"<xliff:g id="SEPARATOR">=</xliff:g>برازافيل"</item>
+    <item msgid="3703129580594640833">"ق<xliff:g id="SEPARATOR">=</xliff:g>القاهرة"</item>
+    <item msgid="2300915410194647320">"د<xliff:g id="SEPARATOR">=</xliff:g>الدار البيضاء"</item>
+    <item msgid="1217039002304887948">"<xliff:g id="SEPARATOR">=</xliff:g>كوناكري"</item>
+    <item msgid="8775104707806220928">"<xliff:g id="SEPARATOR">=</xliff:g>داكار"</item>
+    <item msgid="5948764589113643811">"<xliff:g id="SEPARATOR">=</xliff:g>دار السلام"</item>
+    <item msgid="6306254507715416077">"<xliff:g id="SEPARATOR">=</xliff:g>جيبوتي"</item>
+    <item msgid="4286108029159501866">"<xliff:g id="SEPARATOR">=</xliff:g>فريتاون"</item>
+    <item msgid="4514786733035528116">"<xliff:g id="SEPARATOR">=</xliff:g>غابورون"</item>
+    <item msgid="7367496854968219671">"<xliff:g id="SEPARATOR">=</xliff:g>هراري"</item>
+    <item msgid="6837746379726020288">"<xliff:g id="SEPARATOR">=</xliff:g>جوهانسبرغ"</item>
+    <item msgid="6284185156591171506">"<xliff:g id="SEPARATOR">=</xliff:g>كامبالا"</item>
+    <item msgid="3299518884693668985">"خ<xliff:g id="SEPARATOR">=</xliff:g>الخرطوم"</item>
+    <item msgid="4614879508966043969">"<xliff:g id="SEPARATOR">=</xliff:g>كيغالي"</item>
+    <item msgid="8878437043772547732">"<xliff:g id="SEPARATOR">=</xliff:g>كينشاسا"</item>
+    <item msgid="6325601635544067909">"<xliff:g id="SEPARATOR">=</xliff:g>لاغوس"</item>
+    <item msgid="6094357506290323524">"<xliff:g id="SEPARATOR">=</xliff:g>ماسيرو"</item>
+    <item msgid="7270525814400329098">"<xliff:g id="SEPARATOR">=</xliff:g>مقديشو"</item>
+    <item msgid="353110101402547540">"<xliff:g id="SEPARATOR">=</xliff:g>نيروبي"</item>
+    <item msgid="1688121892646984549">"<xliff:g id="SEPARATOR">=</xliff:g>ساو تومي"</item>
+    <item msgid="3642219084651687800">"<xliff:g id="SEPARATOR">=</xliff:g>تمبكتو"</item>
+    <item msgid="7287513493631179463">"<xliff:g id="SEPARATOR">=</xliff:g>طرابلس"</item>
+    <item msgid="5052614613671591560">"<xliff:g id="SEPARATOR">=</xliff:g>تونس"</item>
+    <item msgid="7976303179193839859">"ا<xliff:g id="SEPARATOR">=</xliff:g>أنكوريج"</item>
+    <item msgid="193703779380497120">"<xliff:g id="SEPARATOR">=</xliff:g>مندوزا"</item>
+    <item msgid="5448884981082519628">"ا<xliff:g id="SEPARATOR">=</xliff:g>أروبا"</item>
+    <item msgid="1577938273323914773">"ا<xliff:g id="SEPARATOR">=</xliff:g>أسونسيون"</item>
+    <item msgid="5617155978105010520">"<xliff:g id="SEPARATOR">=</xliff:g>باربادوس"</item>
+    <item msgid="3600025702357376322">"<xliff:g id="SEPARATOR">=</xliff:g>بليز"</item>
+    <item msgid="2847679817118467051">"<xliff:g id="SEPARATOR">=</xliff:g>بوغوتا"</item>
+    <item msgid="9029003541681282929">"<xliff:g id="SEPARATOR">=</xliff:g>بوينس آيرس"</item>
+    <item msgid="2338367960332622522">"<xliff:g id="SEPARATOR">=</xliff:g>كانكون"</item>
+    <item msgid="4339797536047170278">"<xliff:g id="SEPARATOR">=</xliff:g>كاراكاس"</item>
+    <item msgid="9199080438977757863">"<xliff:g id="SEPARATOR">=</xliff:g>جزر كايمان"</item>
+    <item msgid="1993203473281589891">"<xliff:g id="SEPARATOR">=</xliff:g>شيكاغو"</item>
+    <item msgid="7990342776303470263">"<xliff:g id="SEPARATOR">=</xliff:g>كوستا ريكا"</item>
+    <item msgid="5676109900908808628">"<xliff:g id="SEPARATOR">=</xliff:g>كوراساو"</item>
+    <item msgid="5519120432577564812">"<xliff:g id="SEPARATOR">=</xliff:g>داوسون كريك"</item>
+    <item msgid="2126228972377380680">"<xliff:g id="SEPARATOR">=</xliff:g>دنفر"</item>
+    <item msgid="3298410632922319193">"<xliff:g id="SEPARATOR">=</xliff:g>ديترويت"</item>
+    <item msgid="2819032085688382805">"د<xliff:g id="SEPARATOR">=</xliff:g>الدومينيكا"</item>
+    <item msgid="6170433208654553821">"ا<xliff:g id="SEPARATOR">=</xliff:g>ادمنتون"</item>
+    <item msgid="795461860173291499">"س<xliff:g id="SEPARATOR">=</xliff:g>السلفادور"</item>
+    <item msgid="7872196528637597794">"<xliff:g id="SEPARATOR">=</xliff:g>فورتاليزا"</item>
+    <item msgid="5801558418916235541">"<xliff:g id="SEPARATOR">=</xliff:g>غراند ترك"</item>
+    <item msgid="2103759276235503048">"<xliff:g id="SEPARATOR">=</xliff:g>غرينادا"</item>
+    <item msgid="1490069759176391533">"<xliff:g id="SEPARATOR">=</xliff:g>غواتيمالا"</item>
+    <item msgid="525959305652046261">"<xliff:g id="SEPARATOR">=</xliff:g>غيانا"</item>
+    <item msgid="7565596629973190931">"<xliff:g id="SEPARATOR">=</xliff:g>هاليفاكس"</item>
+    <item msgid="3811169155065582644">"<xliff:g id="SEPARATOR">=</xliff:g>هافانا"</item>
+    <item msgid="3733555435078090201">"ا<xliff:g id="SEPARATOR">=</xliff:g>إنديانابوليس"</item>
+    <item msgid="226982663848410981">"<xliff:g id="SEPARATOR">=</xliff:g>نوكس"</item>
+    <item msgid="3815293080342229459">"<xliff:g id="SEPARATOR">=</xliff:g>مارينغو"</item>
+    <item msgid="6594853515451547389">"<xliff:g id="SEPARATOR">=</xliff:g>بطرسبورغ"</item>
+    <item msgid="6091571889213283534">"<xliff:g id="SEPARATOR">=</xliff:g>تل سيتي"</item>
+    <item msgid="3089369312058696669">"<xliff:g id="SEPARATOR">=</xliff:g>فيفاي"</item>
+    <item msgid="1334860422444068943">"<xliff:g id="SEPARATOR">=</xliff:g>فينسينس"</item>
+    <item msgid="7775105082093691756">"<xliff:g id="SEPARATOR">=</xliff:g>ويناماك"</item>
+    <item msgid="4043335541899184547">"<xliff:g id="SEPARATOR">=</xliff:g>كينغستون"</item>
+    <item msgid="1063757593477259280">"<xliff:g id="SEPARATOR">=</xliff:g>نوسترا سينورا دي لاباز"</item>
+    <item msgid="349901732062388869">"<xliff:g id="SEPARATOR">=</xliff:g>ليما"</item>
+    <item msgid="4977592519316837842">"<xliff:g id="SEPARATOR">=</xliff:g>لوس أنجلوس"</item>
+    <item msgid="7713051790509638572">"<xliff:g id="SEPARATOR">=</xliff:g>لويفيل"</item>
+    <item msgid="8460620935898405225">"<xliff:g id="SEPARATOR">=</xliff:g>ماناغوا"</item>
+    <item msgid="8328345293081464192">"<xliff:g id="SEPARATOR">=</xliff:g>مارتينيك"</item>
+    <item msgid="8010357327448619637">"<xliff:g id="SEPARATOR">=</xliff:g>مندوزا"</item>
+    <item msgid="2046777213916219253">"<xliff:g id="SEPARATOR">=</xliff:g>ميتلاكاتلا"</item>
+    <item msgid="2227885609632709258">"<xliff:g id="SEPARATOR">=</xliff:g>مكسيكو سيتي"</item>
+    <item msgid="9089629663998569289">"<xliff:g id="SEPARATOR">=</xliff:g>مونتيري"</item>
+    <item msgid="2782276175306930748">"<xliff:g id="SEPARATOR">=</xliff:g>مونتيفيديو"</item>
+    <item msgid="4942386959622269480">"<xliff:g id="SEPARATOR">=</xliff:g>مونتريال"</item>
+    <item msgid="3068203952968918165">"<xliff:g id="SEPARATOR">=</xliff:g>ناساو"</item>
+    <item msgid="4234515454127289962">"<xliff:g id="SEPARATOR">=</xliff:g>نيويورك"</item>
+    <item msgid="1660551302087304308">"<xliff:g id="SEPARATOR">=</xliff:g>بيولا"</item>
+    <item msgid="415823390775449071">"<xliff:g id="SEPARATOR">=</xliff:g>سنتر"</item>
+    <item msgid="6644186958433380884">"<xliff:g id="SEPARATOR">=</xliff:g>نيو سالم"</item>
+    <item msgid="6408587617047971798">"<xliff:g id="SEPARATOR">=</xliff:g>بنما"</item>
+    <item msgid="5576899364199447991">"<xliff:g id="SEPARATOR">=</xliff:g>فينيكس"</item>
+    <item msgid="5541266909095409447">"<xliff:g id="SEPARATOR">=</xliff:g>بورت أوف سبين"</item>
+    <item msgid="6417519313622785932">"<xliff:g id="SEPARATOR">=</xliff:g>بورت أو برنس"</item>
+    <item msgid="2078589249210571366">"<xliff:g id="SEPARATOR">=</xliff:g>بورتوريكو"</item>
+    <item msgid="8522030474373927681">"<xliff:g id="SEPARATOR">=</xliff:g>سانتو دومينغو"</item>
+    <item msgid="4763853453317431594">"<xliff:g id="SEPARATOR">=</xliff:g>ساو باولو"</item>
+    <item msgid="2713153284784311646">"<xliff:g id="SEPARATOR">=</xliff:g>سانت جونز"</item>
+    <item msgid="8252666620333105271">"<xliff:g id="SEPARATOR">=</xliff:g>سانت كيتس"</item>
+    <item msgid="4851597775036027515">"<xliff:g id="SEPARATOR">=</xliff:g>سانت لوسيا"</item>
+    <item msgid="2395485473100271503">"<xliff:g id="SEPARATOR">=</xliff:g>سانت توماس"</item>
+    <item msgid="4148037555658225145">"<xliff:g id="SEPARATOR">=</xliff:g>تيخوانا"</item>
+    <item msgid="3491199166042475853">"<xliff:g id="SEPARATOR">=</xliff:g>تورونتو"</item>
+    <item msgid="1506838283840737263">"<xliff:g id="SEPARATOR">=</xliff:g>فانكوفر"</item>
+    <item msgid="8935386104773857399">"<xliff:g id="SEPARATOR">=</xliff:g>وينيبيغ"</item>
+    <item msgid="1132634022412399582">"ق<xliff:g id="SEPARATOR">=</xliff:g>القطب الجنوبي"</item>
+    <item msgid="4076962667198039206">"<xliff:g id="SEPARATOR">=</xliff:g>لونغياربين"</item>
+    <item msgid="3784788073896028355">"ا<xliff:g id="SEPARATOR">=</xliff:g>ألماتي"</item>
+    <item msgid="7895695236056852523">"<xliff:g id="SEPARATOR">=</xliff:g>عمّان"</item>
+    <item msgid="1795426532295280371">"ا<xliff:g id="SEPARATOR">=</xliff:g>أنادير"</item>
+    <item msgid="7194236926158343552">"ا<xliff:g id="SEPARATOR">=</xliff:g>أكاتو"</item>
+    <item msgid="4796350130854360870">"<xliff:g id="SEPARATOR">=</xliff:g>بغداد"</item>
+    <item msgid="4020105434451091851">"ب<xliff:g id="SEPARATOR">=</xliff:g>البحرين"</item>
+    <item msgid="3895868797052686484">"<xliff:g id="SEPARATOR">=</xliff:g>باكو"</item>
+    <item msgid="228001522630057957">"<xliff:g id="SEPARATOR">=</xliff:g>بانكوك"</item>
+    <item msgid="5555647809114820537">"<xliff:g id="SEPARATOR">=</xliff:g>بيروت"</item>
+    <item msgid="2960873998178478784">"<xliff:g id="SEPARATOR">=</xliff:g>كلكتا"</item>
+    <item msgid="8765555959722950691">"<xliff:g id="SEPARATOR">=</xliff:g>دمشق"</item>
+    <item msgid="4979709428925196546">"<xliff:g id="SEPARATOR">=</xliff:g>دكا"</item>
+    <item msgid="310419600200885308">"<xliff:g id="SEPARATOR">=</xliff:g>دبي"</item>
+    <item msgid="1203379132329159260">"<xliff:g id="SEPARATOR">=</xliff:g>غزة"</item>
+    <item msgid="2359068282340162319">"خ<xliff:g id="SEPARATOR">=</xliff:g>الخليل"</item>
+    <item msgid="6223396610551759129">"<xliff:g id="SEPARATOR">=</xliff:g>هو تشي منه"</item>
+    <item msgid="4731022818651322736">"<xliff:g id="SEPARATOR">=</xliff:g>هونغ كونغ"</item>
+    <item msgid="8104778702069607166">"ا<xliff:g id="SEPARATOR">=</xliff:g>إسطنبول"</item>
+    <item msgid="758800913783999425">"<xliff:g id="SEPARATOR">=</xliff:g>جاكرتا"</item>
+    <item msgid="8956406398692698126">"ق<xliff:g id="SEPARATOR">=</xliff:g>القدس"</item>
+    <item msgid="1664426577433326419">"<xliff:g id="SEPARATOR">=</xliff:g>كابول"</item>
+    <item msgid="7700349511508357396">"<xliff:g id="SEPARATOR">=</xliff:g>كراتشي"</item>
+    <item msgid="5273241794521591984">"<xliff:g id="SEPARATOR">=</xliff:g>كاتماندو"</item>
+    <item msgid="4754850915168634158">"<xliff:g id="SEPARATOR">=</xliff:g>كوالا لمبور"</item>
+    <item msgid="5187849635785055693">"ك<xliff:g id="SEPARATOR">=</xliff:g>الكويت"</item>
+    <item msgid="2923385979252179376">"<xliff:g id="SEPARATOR">=</xliff:g>ماكاو"</item>
+    <item msgid="722458682107911739">"<xliff:g id="SEPARATOR">=</xliff:g>مانيلا"</item>
+    <item msgid="6033964325069060422">"<xliff:g id="SEPARATOR">=</xliff:g>مسقط"</item>
+    <item msgid="6077458941399984780">"<xliff:g id="SEPARATOR">=</xliff:g>بنوم بنه"</item>
+    <item msgid="935474308903572975">"<xliff:g id="SEPARATOR">=</xliff:g>بيونغ يانغ"</item>
+    <item msgid="5336632319992664889">"<xliff:g id="SEPARATOR">=</xliff:g>قطر"</item>
+    <item msgid="1667243110545095146">"<xliff:g id="SEPARATOR">=</xliff:g>رانغون"</item>
+    <item msgid="4460370766685855731">"ر<xliff:g id="SEPARATOR">=</xliff:g>الرياض"</item>
+    <item msgid="4229224905931739201">"<xliff:g id="SEPARATOR">=</xliff:g>سايغون"</item>
+    <item msgid="8705359848250215620">"<xliff:g id="SEPARATOR">=</xliff:g>سيول"</item>
+    <item msgid="583367295371395814">"<xliff:g id="SEPARATOR">=</xliff:g>شنغهاي"</item>
+    <item msgid="1422156732794771136">"<xliff:g id="SEPARATOR">=</xliff:g>سنغافورة"</item>
+    <item msgid="1972491729911039207">"<xliff:g id="SEPARATOR">=</xliff:g>تايبيه"</item>
+    <item msgid="5563193560935461106">"<xliff:g id="SEPARATOR">=</xliff:g>طهران"</item>
+    <item msgid="8629402941285674273">"<xliff:g id="SEPARATOR">=</xliff:g>تل أبيب"</item>
+    <item msgid="8499164674454654525">"<xliff:g id="SEPARATOR">=</xliff:g>طوكيو"</item>
+    <item msgid="1705804745888992744">"ا<xliff:g id="SEPARATOR">=</xliff:g>أولان باتور"</item>
+    <item msgid="2028626988021468640">"<xliff:g id="SEPARATOR">=</xliff:g>برمودا"</item>
+    <item msgid="4527109966513690429">"ك<xliff:g id="SEPARATOR">=</xliff:g>الكناري"</item>
+    <item msgid="4886308317040330383">"ر<xliff:g id="SEPARATOR">=</xliff:g>الرأس الأخضر"</item>
+    <item msgid="1003307362164178007">"<xliff:g id="SEPARATOR">=</xliff:g>ريكيافيك"</item>
+    <item msgid="6742010412815268657">"<xliff:g id="SEPARATOR">=</xliff:g>ستانلي"</item>
+    <item msgid="5659389449738592757">"ا<xliff:g id="SEPARATOR">=</xliff:g>أديليد"</item>
+    <item msgid="4567804576346784523">"<xliff:g id="SEPARATOR">=</xliff:g>بريسبان"</item>
+    <item msgid="8730590400362815585">"<xliff:g id="SEPARATOR">=</xliff:g>كانبرا"</item>
+    <item msgid="6416990927714140153">"<xliff:g id="SEPARATOR">=</xliff:g>داروين"</item>
+    <item msgid="3073969292696516135">"<xliff:g id="SEPARATOR">=</xliff:g>ملبورن"</item>
+    <item msgid="1719286228375722176">"<xliff:g id="SEPARATOR">=</xliff:g>نيو ساوث ويلز"</item>
+    <item msgid="3663940748056976266">"<xliff:g id="SEPARATOR">=</xliff:g>بيرث"</item>
+    <item msgid="3383881736858438153">"<xliff:g id="SEPARATOR">=</xliff:g>كوينزلاند"</item>
+    <item msgid="971889339240879138">"<xliff:g id="SEPARATOR">=</xliff:g>سيدني"</item>
+    <item msgid="5542803438162180311">"<xliff:g id="SEPARATOR">=</xliff:g>فيكتوريا"</item>
+    <item msgid="11828841481838883">"<xliff:g id="SEPARATOR">=</xliff:g>نيوفاوندلاند"</item>
+    <item msgid="1734331918410561807">"<xliff:g id="SEPARATOR">=</xliff:g>ساسكاتشوان"</item>
+    <item msgid="9184412695613864979">"<xliff:g id="SEPARATOR">=</xliff:g>جزيرة الفصح"</item>
+    <item msgid="1014282454239014527">"ا<xliff:g id="SEPARATOR">=</xliff:g>أمستردام"</item>
+    <item msgid="4928363054269791193">"ا<xliff:g id="SEPARATOR">=</xliff:g>أندورا"</item>
+    <item msgid="912290900213826368">"ا<xliff:g id="SEPARATOR">=</xliff:g>أثينا"</item>
+    <item msgid="6097000352459209495">"<xliff:g id="SEPARATOR">=</xliff:g>بلفاست"</item>
+    <item msgid="3285885824311481790">"<xliff:g id="SEPARATOR">=</xliff:g>بلغراد"</item>
+    <item msgid="911055049821251982">"<xliff:g id="SEPARATOR">=</xliff:g>برلين"</item>
+    <item msgid="9099244516556291111">"<xliff:g id="SEPARATOR">=</xliff:g>براتيسلافا"</item>
+    <item msgid="158977749726480076">"<xliff:g id="SEPARATOR">=</xliff:g>بروكسل"</item>
+    <item msgid="8875102297676173346">"<xliff:g id="SEPARATOR">=</xliff:g>بوخارست"</item>
+    <item msgid="804451569472542912">"<xliff:g id="SEPARATOR">=</xliff:g>بودابست"</item>
+    <item msgid="6827506774445509939">"<xliff:g id="SEPARATOR">=</xliff:g>كيشيناو"</item>
+    <item msgid="487345893088732797">"<xliff:g id="SEPARATOR">=</xliff:g>كوبنهاغن"</item>
+    <item msgid="7760953471297773537">"<xliff:g id="SEPARATOR">=</xliff:g>دبلن"</item>
+    <item msgid="323414429034825249">"<xliff:g id="SEPARATOR">=</xliff:g>جبل طارق"</item>
+    <item msgid="1785566206078328830">"<xliff:g id="SEPARATOR">=</xliff:g>هلسنكي"</item>
+    <item msgid="5938185647271923359">"<xliff:g id="SEPARATOR">=</xliff:g>جزيرة مان"</item>
+    <item msgid="5974864320735263245">"ا<xliff:g id="SEPARATOR">=</xliff:g>إسطنبول"</item>
+    <item msgid="3567775364750772947">"<xliff:g id="SEPARATOR">=</xliff:g>كييف"</item>
+    <item msgid="540344101798867007">"<xliff:g id="SEPARATOR">=</xliff:g>لشبونة"</item>
+    <item msgid="5091062403792923657">"<xliff:g id="SEPARATOR">=</xliff:g>لندن"</item>
+    <item msgid="7075006205000490364">"<xliff:g id="SEPARATOR">=</xliff:g>لوكسمبورغ"</item>
+    <item msgid="4901781246584739451">"<xliff:g id="SEPARATOR">=</xliff:g>مدريد"</item>
+    <item msgid="9047080834315777144">"<xliff:g id="SEPARATOR">=</xliff:g>مالطا"</item>
+    <item msgid="8200456520732452034">"<xliff:g id="SEPARATOR">=</xliff:g>مينسك"</item>
+    <item msgid="5452744619736513383">"<xliff:g id="SEPARATOR">=</xliff:g>موناكو"</item>
+    <item msgid="3513517408062322298">"<xliff:g id="SEPARATOR">=</xliff:g>موسكو"</item>
+    <item msgid="7917103295878081674">"ا<xliff:g id="SEPARATOR">=</xliff:g>أوسلو"</item>
+    <item msgid="4245547231693746977">"<xliff:g id="SEPARATOR">=</xliff:g>باريس"</item>
+    <item msgid="3778652900196715557">"<xliff:g id="SEPARATOR">=</xliff:g>براغ"</item>
+    <item msgid="1827175423974383675">"<xliff:g id="SEPARATOR">=</xliff:g>ريغا"</item>
+    <item msgid="2095130417232677930">"<xliff:g id="SEPARATOR">=</xliff:g>روما"</item>
+    <item msgid="7631654618289353520">"<xliff:g id="SEPARATOR">=</xliff:g>سان مارينو"</item>
+    <item msgid="7219835179107610398">"<xliff:g id="SEPARATOR">=</xliff:g>سراييفو"</item>
+    <item msgid="7199868165463282240">"<xliff:g id="SEPARATOR">=</xliff:g>سيمفيروبول"</item>
+    <item msgid="2786395006682246794">"<xliff:g id="SEPARATOR">=</xliff:g>سكوبيه"</item>
+    <item msgid="4706927178872100023">"<xliff:g id="SEPARATOR">=</xliff:g>صوفيا"</item>
+    <item msgid="1982417589953195308">"<xliff:g id="SEPARATOR">=</xliff:g>ستوكهولم"</item>
+    <item msgid="1596083919400921960">"<xliff:g id="SEPARATOR">=</xliff:g>تالين"</item>
+    <item msgid="3079313598974879114">"ف<xliff:g id="SEPARATOR">=</xliff:g>الفاتيكان"</item>
+    <item msgid="6516636001856910888">"<xliff:g id="SEPARATOR">=</xliff:g>فيينا"</item>
+    <item msgid="6377314532157945456">"<xliff:g id="SEPARATOR">=</xliff:g>فيلنيوس"</item>
+    <item msgid="3427175235616698721">"<xliff:g id="SEPARATOR">=</xliff:g>وارسو"</item>
+    <item msgid="8404354243761332922">"<xliff:g id="SEPARATOR">=</xliff:g>زغرب"</item>
+    <item msgid="1457280242717152391">"<xliff:g id="SEPARATOR">=</xliff:g>زيورخ"</item>
+    <item msgid="1065940089741359291">"ا<xliff:g id="SEPARATOR">=</xliff:g>أنتاناناريفو"</item>
+    <item msgid="5176181880014090003">"<xliff:g id="SEPARATOR">=</xliff:g>جزر المالديف"</item>
+    <item msgid="8281854645557426433">"<xliff:g id="SEPARATOR">=</xliff:g>موريشيوس"</item>
+    <item msgid="2686249517389816420">"ا<xliff:g id="SEPARATOR">=</xliff:g>أوكلاند"</item>
+    <item msgid="279925671775807392">"<xliff:g id="SEPARATOR">=</xliff:g>فيجي"</item>
+    <item msgid="7971492669765264840">"<xliff:g id="SEPARATOR">=</xliff:g>غوام"</item>
+    <item msgid="889371273355762733">"<xliff:g id="SEPARATOR">=</xliff:g>هونولولو"</item>
+    <item msgid="5516500578074269817">"<xliff:g id="SEPARATOR">=</xliff:g>كيريتيماس"</item>
+    <item msgid="2740704911915073056">"<xliff:g id="SEPARATOR">=</xliff:g>نوميا"</item>
+    <item msgid="8732832728949672807">"<xliff:g id="SEPARATOR">=</xliff:g>ساموا"</item>
+    <item msgid="6489500698846864993">"<xliff:g id="SEPARATOR">=</xliff:g>تاهيتي"</item>
+    <item msgid="3983121625709442324">"ا<xliff:g id="SEPARATOR">=</xliff:g>أنتيغوا"</item>
+    <item msgid="2650510570709806322">"ا<xliff:g id="SEPARATOR">=</xliff:g>أوستن"</item>
+    <item msgid="5257283506227357911">"<xliff:g id="SEPARATOR">=</xliff:g>بوسطن"</item>
+    <item msgid="6326368958641850267">"<xliff:g id="SEPARATOR">=</xliff:g>كالغاري"</item>
+    <item msgid="8830116365016232583">"<xliff:g id="SEPARATOR">=</xliff:g>كولومبوس"</item>
+    <item msgid="6986556538341883811">"<xliff:g id="SEPARATOR">=</xliff:g>دالاس"</item>
+    <item msgid="836479352500251902">"<xliff:g id="SEPARATOR">=</xliff:g>نوكسفيل"</item>
+    <item msgid="8495291458467378851">"<xliff:g id="SEPARATOR">=</xliff:g>ممفيس"</item>
+    <item msgid="2788807207554683122">"<xliff:g id="SEPARATOR">=</xliff:g>ميامي"</item>
+    <item msgid="3984640407077208471">"<xliff:g id="SEPARATOR">=</xliff:g>مينيابوليس"</item>
+    <item msgid="6997305266329324161">"ا<xliff:g id="SEPARATOR">=</xliff:g>أوتاوا"</item>
+    <item msgid="5191741145278683016">"<xliff:g id="SEPARATOR">=</xliff:g>فيلادلفيا"</item>
+    <item msgid="5898032730733441936">"<xliff:g id="SEPARATOR">=</xliff:g>بورتلاند"</item>
+    <item msgid="9070160716002203069">"<xliff:g id="SEPARATOR">=</xliff:g>سان دييغو"</item>
+    <item msgid="1829944133410079040">"<xliff:g id="SEPARATOR">=</xliff:g>سان فرانسيسكو"</item>
+    <item msgid="8407905318529692654">"<xliff:g id="SEPARATOR">=</xliff:g>سولت ليك سيتي"</item>
+    <item msgid="3091392589347990898">"<xliff:g id="SEPARATOR">=</xliff:g>سان خوسيه"</item>
+    <item msgid="7080627414383807284">"<xliff:g id="SEPARATOR">=</xliff:g>سان سلفادور"</item>
+    <item msgid="3430371213266252049">"<xliff:g id="SEPARATOR">=</xliff:g>سياتل"</item>
+    <item msgid="9177491393818757071">"<xliff:g id="SEPARATOR">=</xliff:g>سانت لويس"</item>
+    <item msgid="6234359686676312837">"<xliff:g id="SEPARATOR">=</xliff:g>واشنطن العاصمة"</item>
+    <item msgid="4325057056005132331">"<xliff:g id="SEPARATOR">=</xliff:g>هيوستن"</item>
+    <item msgid="38148255938075867">"<xliff:g id="SEPARATOR">=</xliff:g>سان أنطونيو"</item>
+    <item msgid="3601481860893666763">"<xliff:g id="SEPARATOR">=</xliff:g>جاكسونفيل"</item>
+    <item msgid="3987471437354665534">"<xliff:g id="SEPARATOR">=</xliff:g>بالتيمور"</item>
+    <item msgid="3389674262267006887">"<xliff:g id="SEPARATOR">=</xliff:g>ناشفيل"</item>
+    <item msgid="7521690366448637309">"<xliff:g id="SEPARATOR">=</xliff:g>ميلووكي"</item>
+    <item msgid="2231069593975740859">"ا<xliff:g id="SEPARATOR">=</xliff:g>أوكلاهوما سيتي"</item>
+    <item msgid="1970008262236914770">"<xliff:g id="SEPARATOR">=</xliff:g>لاس فيغاس"</item>
+    <item msgid="7113811028304266017">"ا<xliff:g id="SEPARATOR">=</xliff:g>البوكيرك"</item>
+    <item msgid="6481469458896644678">"<xliff:g id="SEPARATOR">=</xliff:g>توسون"</item>
+    <item msgid="5970857542995467466">"<xliff:g id="SEPARATOR">=</xliff:g>ساكرامنتو"</item>
+    <item msgid="1999267306329214429">"ا<xliff:g id="SEPARATOR">=</xliff:g>أتلانتا"</item>
+    <item msgid="8761847787537443648">"<xliff:g id="SEPARATOR">=</xliff:g>كليفلاند"</item>
+    <item msgid="2987455647692324208">"<xliff:g id="SEPARATOR">=</xliff:g>نيو أورليانز"</item>
+    <item msgid="8104109426412705845">"<xliff:g id="SEPARATOR">=</xliff:g>تامبا"</item>
+    <item msgid="1410067233842240795">"<xliff:g id="SEPARATOR">=</xliff:g>بيتسبرغ"</item>
+    <item msgid="3339955740367374442">"<xliff:g id="SEPARATOR">=</xliff:g>سينسيناتي"</item>
+    <item msgid="6091407424772799978">"<xliff:g id="SEPARATOR">=</xliff:g>ماونتن فيو"</item>
+    <item msgid="150299708499753555">"<xliff:g id="SEPARATOR">=</xliff:g>رينو"</item>
+    <item msgid="9155068631060038769">"<xliff:g id="SEPARATOR">=</xliff:g>بلاك روك سيتي"</item>
+    <item msgid="8498761319928979900">"د<xliff:g id="SEPARATOR">=</xliff:g>الدوحة"</item>
+    <item msgid="8307897251088048641">"<xliff:g id="SEPARATOR">=</xliff:g>بكين"</item>
+    <item msgid="8605970953750147428">"<xliff:g id="SEPARATOR">=</xliff:g>مومباي"</item>
+    <item msgid="6668274273067049125">"<xliff:g id="SEPARATOR">=</xliff:g>دلهي"</item>
+    <item msgid="2933410189478233292">"ا<xliff:g id="SEPARATOR">=</xliff:g>أوساكا"</item>
+    <item msgid="9011026093638055579">"<xliff:g id="SEPARATOR">=</xliff:g>لاهور"</item>
+    <item msgid="1448378291805481500">"<xliff:g id="SEPARATOR">=</xliff:g>صنعاء"</item>
+    <item msgid="5233119846682408301">"<xliff:g id="SEPARATOR">=</xliff:g>برشلونة"</item>
+    <item msgid="9146746514265554721">"<xliff:g id="SEPARATOR">=</xliff:g>ميونخ"</item>
+    <item msgid="157866084892734979">"<xliff:g id="SEPARATOR">=</xliff:g>ميلان"</item>
+    <item msgid="2787346322341414963">"<xliff:g id="SEPARATOR">=</xliff:g>فرانكفورت"</item>
+    <item msgid="8407511504088696581">"<xliff:g id="SEPARATOR">=</xliff:g>هانوي"</item>
+    <item msgid="5184417944073499453">"ا<xliff:g id="SEPARATOR">=</xliff:g>أنقرة"</item>
+    <item msgid="4028784954452197920">"<xliff:g id="SEPARATOR">=</xliff:g>بنغالور"</item>
+    <item msgid="190152483600862776">"<xliff:g id="SEPARATOR">=</xliff:g>برازيليا"</item>
+    <item msgid="8009516135735104388">"<xliff:g id="SEPARATOR">=</xliff:g>كيب تاون"</item>
+    <item msgid="6057191797622953016">"ا<xliff:g id="SEPARATOR">=</xliff:g>اسلام آباد"</item>
+    <item msgid="2702029416591153210">"<xliff:g id="SEPARATOR">=</xliff:g>ريو دي جانيرو"</item>
+    <item msgid="1753927312634708098">"ا<xliff:g id="SEPARATOR">=</xliff:g>آن أربور"</item>
+    <item msgid="4225721108475278979">"<xliff:g id="SEPARATOR">=</xliff:g>بولدر"</item>
+    <item msgid="6393177386755796069">"<xliff:g id="SEPARATOR">=</xliff:g>كامبريدج"</item>
+    <item msgid="759409010285366934">"<xliff:g id="SEPARATOR">=</xliff:g>كيركلاند"</item>
+    <item msgid="6308007059287569663">"<xliff:g id="SEPARATOR">=</xliff:g>ماديسون"</item>
+    <item msgid="6971636434858330021">"<xliff:g id="SEPARATOR">=</xliff:g>ﻛﻮﺍﻧﻐﺘﺸﻮ"</item>
+    <item msgid="1185109514180068650">"<xliff:g id="SEPARATOR">=</xliff:g>حيدر آباد"</item>
+    <item msgid="3032295682584784261">"<xliff:g id="SEPARATOR">=</xliff:g>ريستون"</item>
+    <item msgid="7722837296297332268">"<xliff:g id="SEPARATOR">=</xliff:g>بيلو هوريزونتي"</item>
+    <item msgid="3593516299122577780">"<xliff:g id="SEPARATOR">=</xliff:g>سانتياغو"</item>
+    <item msgid="2293331653589266583">"<xliff:g id="SEPARATOR">=</xliff:g>مونروفيا"</item>
+    <item msgid="7899128359620301710">"<xliff:g id="SEPARATOR">=</xliff:g>كولمبو"</item>
+    <item msgid="5294489752262543829">"<xliff:g id="SEPARATOR">=</xliff:g>شيواوا"</item>
+    <item msgid="8066356061184206341">"س<xliff:g id="SEPARATOR">=</xliff:g>السلفادور"</item>
+    <item msgid="4806867741334453982">"<xliff:g id="SEPARATOR">=</xliff:g>جورجاون"</item>
+    <item msgid="2585780177649876827">"<xliff:g id="SEPARATOR">=</xliff:g>مانشستر"</item>
+    <item msgid="234104953526248139">"<xliff:g id="SEPARATOR">=</xliff:g>كييف"</item>
+    <item msgid="5245429461217350012">"<xliff:g id="SEPARATOR">=</xliff:g>سانت بطرسبورغ"</item>
+    <item msgid="6738531308006017215">"<xliff:g id="SEPARATOR">=</xliff:g>كراكوف"</item>
+    <item msgid="8972702613339139467">"<xliff:g id="SEPARATOR">=</xliff:g>فروتسواف"</item>
+    <item msgid="187278924459096566">"<xliff:g id="SEPARATOR">=</xliff:g>هامبورغ"</item>
+    <item msgid="6173267862207394917">"ا<xliff:g id="SEPARATOR">=</xliff:g>أولو"</item>
+    <item msgid="5639324478037405990">"<xliff:g id="SEPARATOR">=</xliff:g>حيفا"</item>
+    <item msgid="3157180661352354058">"<xliff:g id="SEPARATOR">=</xliff:g>سان خوان"</item>
+    <item msgid="6995939579417282715">"<xliff:g id="SEPARATOR">=</xliff:g>تيغوسيغالبا"</item>
+    <item msgid="1641840677391275004">"<xliff:g id="SEPARATOR">=</xliff:g>باراماريبو"</item>
+    <item msgid="7317049454800260290">"<xliff:g id="SEPARATOR">=</xliff:g>كيتو"</item>
+    <item msgid="4524380876433343244">"<xliff:g id="SEPARATOR">=</xliff:g>ليوبليانا"</item>
+  </string-array>
+</resources>

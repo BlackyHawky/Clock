@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="cities_names">
+    <item msgid="4653806289288974388">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਬਿਦਜਾਨ"</item>
+    <item msgid="4864167603178202155">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਐਕਰਾ"</item>
+    <item msgid="6478898553803167749">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਐਡਿਸ ਅਬਾਬਾ"</item>
+    <item msgid="5618029992528436448">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਲਜੀਅਰਸ"</item>
+    <item msgid="2906834750114790793">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਲਾਂਟਾਇਰ"</item>
+    <item msgid="8153571933836629863">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬ੍ਰੈਜ਼ਾਵਿਲੇ"</item>
+    <item msgid="3703129580594640833">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਾਇਰੋ"</item>
+    <item msgid="2300915410194647320">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਾਸਾਬਲਾਂਕਾ"</item>
+    <item msgid="1217039002304887948">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਕੋਨਾਕਰਾਈ"</item>
+    <item msgid="8775104707806220928">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡਕਾਰ"</item>
+    <item msgid="5948764589113643811">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡਰ ਐਸ ਸਲਾਮ"</item>
+    <item msgid="6306254507715416077">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਜਾਇਬੂਟੀ"</item>
+    <item msgid="4286108029159501866">"ਫ<xliff:g id="SEPARATOR">=</xliff:g>ਫ੍ਰੀਟਾਊਨ"</item>
+    <item msgid="4514786733035528116">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗੈਬਰੋਨ"</item>
+    <item msgid="7367496854968219671">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹਰਾਰੇ"</item>
+    <item msgid="6837746379726020288">"ਜ<xliff:g id="SEPARATOR">=</xliff:g>ਜੋਹਨਸਬਰਗ"</item>
+    <item msgid="6284185156591171506">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੰਪਾਲਾ"</item>
+    <item msgid="3299518884693668985">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਖਰਟੂਮ"</item>
+    <item msgid="4614879508966043969">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਿਗਾਲੀ"</item>
+    <item msgid="8878437043772547732">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਿੰਸ਼ਾਸਾ"</item>
+    <item msgid="6325601635544067909">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲਾਗੋਸ"</item>
+    <item msgid="6094357506290323524">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਸੈਰੁ"</item>
+    <item msgid="7270525814400329098">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੋਗਾਦਿਸ਼ੁ"</item>
+    <item msgid="353110101402547540">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨੈਰੋਬੀ"</item>
+    <item msgid="1688121892646984549">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਾਓ ਤੋਮੇ"</item>
+    <item msgid="3642219084651687800">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟਿਮਬੁਕਤੁ"</item>
+    <item msgid="7287513493631179463">"ਤ<xliff:g id="SEPARATOR">=</xliff:g>ਤ੍ਰਿਪੋਲੀ"</item>
+    <item msgid="5052614613671591560">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟਿਊਨਿਸ"</item>
+    <item msgid="7976303179193839859">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਐਂਕੋਰੇਜ"</item>
+    <item msgid="193703779380497120">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੈਡੋਜ਼ਾ"</item>
+    <item msgid="5448884981082519628">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਰੂਬਾ"</item>
+    <item msgid="1577938273323914773">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਸਨਸਿਓਨ"</item>
+    <item msgid="5617155978105010520">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਾਰਬਾਡੋਜ਼"</item>
+    <item msgid="3600025702357376322">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੈਲੀਜ਼"</item>
+    <item msgid="2847679817118467051">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੋਗੋਟਾ"</item>
+    <item msgid="9029003541681282929">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੁਏਨੋਸ ਐਰਸ"</item>
+    <item msgid="2338367960332622522">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੈਨਕੁਨ"</item>
+    <item msgid="4339797536047170278">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਾਰਾਕੈਸ"</item>
+    <item msgid="9199080438977757863">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੇਮੈਨ"</item>
+    <item msgid="1993203473281589891">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸ਼ਿਕਾਗੋ"</item>
+    <item msgid="7990342776303470263">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੋਸਟਾ ਰੀਕਾ"</item>
+    <item msgid="5676109900908808628">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੁਰਾਸਾਓ"</item>
+    <item msgid="5519120432577564812">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡੌਸਨ ਕ੍ਰੀਕ"</item>
+    <item msgid="2126228972377380680">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡੈਨਵਰ"</item>
+    <item msgid="3298410632922319193">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡੈਟਰੋਇਟ"</item>
+    <item msgid="2819032085688382805">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡੋਮੀਨਿਕਾ"</item>
+    <item msgid="6170433208654553821">"ਐ<xliff:g id="SEPARATOR">=</xliff:g>ਐਡਮੋਂਟਨ"</item>
+    <item msgid="795461860173291499">"ਐ<xliff:g id="SEPARATOR">=</xliff:g>ਅਲ ਸਾਲਵਾਡੋਰ"</item>
+    <item msgid="7872196528637597794">"ਫ<xliff:g id="SEPARATOR">=</xliff:g>ਫੋਰਟਾਲੈਜ਼ਾ"</item>
+    <item msgid="5801558418916235541">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗ੍ਰਾਂਡ ਤੁਰਕ"</item>
+    <item msgid="2103759276235503048">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗ੍ਰੇਨਾਡਾ"</item>
+    <item msgid="1490069759176391533">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗੁਆਟੇਮਾਲਾ"</item>
+    <item msgid="525959305652046261">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗੁਆਨਾ"</item>
+    <item msgid="7565596629973190931">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹੈਲੀਫੈਕਸ"</item>
+    <item msgid="3811169155065582644">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹਵਾਨਾ"</item>
+    <item msgid="3733555435078090201">"ਇ<xliff:g id="SEPARATOR">=</xliff:g>ਇੰਡੀਅਨਪੋਲਿਸ"</item>
+    <item msgid="226982663848410981">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਨੌਕਸ"</item>
+    <item msgid="3815293080342229459">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਰੈਂਗੋ"</item>
+    <item msgid="6594853515451547389">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪੀਟਰਸਬਰਗ"</item>
+    <item msgid="6091571889213283534">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟੈਲ ਸਿਟੀ"</item>
+    <item msgid="3089369312058696669">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵੈਵੇ"</item>
+    <item msgid="1334860422444068943">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵਿੰਸੀਨਸ"</item>
+    <item msgid="7775105082093691756">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵਿਨਾਮੈਕ"</item>
+    <item msgid="4043335541899184547">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਿੰਗਸਟਨ"</item>
+    <item msgid="1063757593477259280">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨਿਉਸਤ੍ਰਾ ਸੈਨੋਰਾ ਦੇ ਲਾ ਪਾਜ਼"</item>
+    <item msgid="349901732062388869">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲਿਮਾ"</item>
+    <item msgid="4977592519316837842">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲੌਸ ਏਂਜਲਸ"</item>
+    <item msgid="7713051790509638572">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲੁਈਸਵਿਲੇ"</item>
+    <item msgid="8460620935898405225">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਾਨਾਗੁਆ"</item>
+    <item msgid="8328345293081464192">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਾਰਟੀਨੀਕਿਉ"</item>
+    <item msgid="8010357327448619637">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੈਂਡੋਜ਼ਾ"</item>
+    <item msgid="2046777213916219253">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੈਟਲਾਕਤਲਾ"</item>
+    <item msgid="2227885609632709258">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੈਕਸੀਕੋ ਸਿਟੀ"</item>
+    <item msgid="9089629663998569289">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੋਟੈਂਰੋ"</item>
+    <item msgid="2782276175306930748">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੋਂਟੈਵੀਡੀਓ"</item>
+    <item msgid="4942386959622269480">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੋਂਟੀਰੀਅਲ"</item>
+    <item msgid="3068203952968918165">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨਸਾਉ"</item>
+    <item msgid="4234515454127289962">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨਿਊ ਯੌਰਕ"</item>
+    <item msgid="1660551302087304308">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੈਉਲਾ"</item>
+    <item msgid="415823390775449071">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟਰ"</item>
+    <item msgid="6644186958433380884">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨਿਊ ਸਲੇਮ"</item>
+    <item msgid="6408587617047971798">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪਨਾਮਾ"</item>
+    <item msgid="5576899364199447991">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਫੋਨਿਕਸ"</item>
+    <item msgid="5541266909095409447">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪੋਰਟ ਔਫ ਸਪੇਨ"</item>
+    <item msgid="6417519313622785932">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪੋਰਟ-ਔ-ਪ੍ਰਿੰਸ"</item>
+    <item msgid="2078589249210571366">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪਿਉਰਟੋ ਰੀਕੋ"</item>
+    <item msgid="8522030474373927681">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟੋ ਡੋਮਿੰਗੋ"</item>
+    <item msgid="4763853453317431594">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਾਓ ਪਉਲੋ"</item>
+    <item msgid="2713153284784311646">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟ ਜੋਨਸ"</item>
+    <item msgid="8252666620333105271">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟ ਕਿਟਸ"</item>
+    <item msgid="4851597775036027515">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟ ਲੁਸੀਆ"</item>
+    <item msgid="2395485473100271503">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟ ਥੌਮਸ"</item>
+    <item msgid="4148037555658225145">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟਿਜੁੁਆਨਾ"</item>
+    <item msgid="3491199166042475853">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟੋਰੰਟੋ"</item>
+    <item msgid="1506838283840737263">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵੈਨਕੂਵਰ"</item>
+    <item msgid="8935386104773857399">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵਿਨੀਪੈਗ"</item>
+    <item msgid="1132634022412399582">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਾਊਥ ਪੋਲੈ"</item>
+    <item msgid="4076962667198039206">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲੋਂਗੀਈਅਰਬਿਆਨ"</item>
+    <item msgid="3784788073896028355">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਲਮੈਟੀ"</item>
+    <item msgid="7895695236056852523">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਮਾਨ"</item>
+    <item msgid="1795426532295280371">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਐਨਾਡਰ"</item>
+    <item msgid="7194236926158343552">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਕਤਾਉ"</item>
+    <item msgid="4796350130854360870">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਗਦਾਦ"</item>
+    <item msgid="4020105434451091851">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਹਿਰੈਨ"</item>
+    <item msgid="3895868797052686484">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਾਕੁ"</item>
+    <item msgid="228001522630057957">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੈਂਕਾਕ"</item>
+    <item msgid="5555647809114820537">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੈਰੁਤ"</item>
+    <item msgid="2960873998178478784">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਲਕੱਤਾ"</item>
+    <item msgid="8765555959722950691">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡੈਮਸਕਸ"</item>
+    <item msgid="4979709428925196546">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਢਾਕਾ"</item>
+    <item msgid="310419600200885308">"ਦ<xliff:g id="SEPARATOR">=</xliff:g>ਦੁਬਈ"</item>
+    <item msgid="1203379132329159260">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗਾਜ਼ਾ"</item>
+    <item msgid="2359068282340162319">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹੈਬਰੋਨ"</item>
+    <item msgid="6223396610551759129">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹੋ ਚੀ ਮਿਨ੍ਹ"</item>
+    <item msgid="4731022818651322736">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹਾਂਗ ਕਾਂਗ"</item>
+    <item msgid="8104778702069607166">"ਇ<xliff:g id="SEPARATOR">=</xliff:g>ਇਸਤਾਨਬੁਲ"</item>
+    <item msgid="758800913783999425">"ਜ<xliff:g id="SEPARATOR">=</xliff:g>ਜਕਾਰਤਾ"</item>
+    <item msgid="8956406398692698126">"ਜ<xliff:g id="SEPARATOR">=</xliff:g>ਜੇਰੁਸਲੇਮ"</item>
+    <item msgid="1664426577433326419">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਾਬੁਲ"</item>
+    <item msgid="7700349511508357396">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਰਾਚੀ"</item>
+    <item msgid="5273241794521591984">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਾਠਮਾਂਡੂ"</item>
+    <item msgid="4754850915168634158">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੁਆਲਾਲਮਪੁਰ"</item>
+    <item msgid="5187849635785055693">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੁਵੈਤ"</item>
+    <item msgid="2923385979252179376">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਕਾਉ"</item>
+    <item msgid="722458682107911739">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਨੀਲਾ"</item>
+    <item msgid="6033964325069060422">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਸਕਟ"</item>
+    <item msgid="6077458941399984780">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਫਨੋਮ ਪੈਨ੍ਹ"</item>
+    <item msgid="935474308903572975">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪਿਓਂਗਯਾਂਗ"</item>
+    <item msgid="5336632319992664889">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਤਰ"</item>
+    <item msgid="1667243110545095146">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਰੰਗੂਨ"</item>
+    <item msgid="4460370766685855731">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਰਿਆਧ"</item>
+    <item msgid="4229224905931739201">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਾਈਗੋਨ"</item>
+    <item msgid="8705359848250215620">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਿਓਲ"</item>
+    <item msgid="583367295371395814">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸ਼ੰਘਾਈ"</item>
+    <item msgid="1422156732794771136">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਿੰਗਾਪੁਰ"</item>
+    <item msgid="1972491729911039207">"ਤ<xliff:g id="SEPARATOR">=</xliff:g>ਤਾਈਪੇਈ"</item>
+    <item msgid="5563193560935461106">"ਤ<xliff:g id="SEPARATOR">=</xliff:g>ਤੇਹਰਾਨ"</item>
+    <item msgid="8629402941285674273">"ਤ<xliff:g id="SEPARATOR">=</xliff:g>ਟੈਲ ਅਵੀਵ"</item>
+    <item msgid="8499164674454654525">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟੋਕਿਓ"</item>
+    <item msgid="1705804745888992744">"ਉ<xliff:g id="SEPARATOR">=</xliff:g>ਉਲਾਨਬਾਤਰ"</item>
+    <item msgid="2028626988021468640">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਰਮੁਡਾ"</item>
+    <item msgid="4527109966513690429">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੈਨਰੀ"</item>
+    <item msgid="4886308317040330383">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੇਪ ਵਰਡੇ"</item>
+    <item msgid="1003307362164178007">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਰੈਕਜਾਵਿਕ"</item>
+    <item msgid="6742010412815268657">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਟੈਨਲੀ"</item>
+    <item msgid="5659389449738592757">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਦੈਲੇਡ"</item>
+    <item msgid="4567804576346784523">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬ੍ਰਿਸਬੇਨ"</item>
+    <item msgid="8730590400362815585">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੈਨਬੈਰਾ"</item>
+    <item msgid="6416990927714140153">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡਰਵਿਨ"</item>
+    <item msgid="3073969292696516135">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੈਲਬੋਰਨ"</item>
+    <item msgid="1719286228375722176">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨਿਊ ਸਾਊਥ ਵੇਲਸ"</item>
+    <item msgid="3663940748056976266">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪਰਥ"</item>
+    <item msgid="3383881736858438153">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਵੀਂਸਲੈਂਡ"</item>
+    <item msgid="971889339240879138">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਿਡਨੀ"</item>
+    <item msgid="5542803438162180311">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵਿਕਟੋਰੀਆ"</item>
+    <item msgid="11828841481838883">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨਿਊਫਾਊਂਡਲੈਂਡ"</item>
+    <item msgid="1734331918410561807">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਸਕੈਚਵਾਨ"</item>
+    <item msgid="9184412695613864979">"ਈ<xliff:g id="SEPARATOR">=</xliff:g>ਈਸਟਰ ਆਈਲੈਂਡ"</item>
+    <item msgid="1014282454239014527">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਮਸਟਰਡੈਮ"</item>
+    <item msgid="4928363054269791193">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅੰਡੋਰਾ"</item>
+    <item msgid="912290900213826368">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਐਥਨਸ"</item>
+    <item msgid="6097000352459209495">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੈਲਫਾਸਟ"</item>
+    <item msgid="3285885824311481790">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੈਲਗ੍ਰੇਡ"</item>
+    <item msgid="911055049821251982">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਰਲਿਨ"</item>
+    <item msgid="9099244516556291111">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬ੍ਰਾਟੀਸਲਾਵਾ"</item>
+    <item msgid="158977749726480076">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬ੍ਰਸਲਸ"</item>
+    <item msgid="8875102297676173346">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੁਕਾਰੈਸਟ"</item>
+    <item msgid="804451569472542912">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੁਦਾਪੈਸਟ"</item>
+    <item msgid="6827506774445509939">"ਚ<xliff:g id="SEPARATOR">=</xliff:g>ਚਿਸੀਨਉ"</item>
+    <item msgid="487345893088732797">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੋਪਨਹੈਗਨ"</item>
+    <item msgid="7760953471297773537">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡਬਲਿਨ"</item>
+    <item msgid="323414429034825249">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗਿਬਲਰਤਾਰ"</item>
+    <item msgid="1785566206078328830">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹੈਲਸਿੰਕੀ"</item>
+    <item msgid="5938185647271923359">"ਇ<xliff:g id="SEPARATOR">=</xliff:g>ਆਇਲ ਔਫ ਮੈਨ"</item>
+    <item msgid="5974864320735263245">"ਇ<xliff:g id="SEPARATOR">=</xliff:g>ਇਸਤਾਨਬੁਲ"</item>
+    <item msgid="3567775364750772947">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਾਈਵ"</item>
+    <item msgid="540344101798867007">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲਿਸਬਨ"</item>
+    <item msgid="5091062403792923657">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲੰਡਨ"</item>
+    <item msgid="7075006205000490364">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲਕਜ਼ਮਬਰਗ"</item>
+    <item msgid="4901781246584739451">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਦਰੀਦ"</item>
+    <item msgid="9047080834315777144">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਾਲਟਾ"</item>
+    <item msgid="8200456520732452034">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਿੰਸਕ"</item>
+    <item msgid="5452744619736513383">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੋਨੈਕੋ"</item>
+    <item msgid="3513517408062322298">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਾਸਕੋ"</item>
+    <item msgid="7917103295878081674">"ਓ<xliff:g id="SEPARATOR">=</xliff:g>ਓਸਲੋ"</item>
+    <item msgid="4245547231693746977">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪੈਰਿਸ"</item>
+    <item msgid="3778652900196715557">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪਰਾਗ"</item>
+    <item msgid="1827175423974383675">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਰੀਗਾ"</item>
+    <item msgid="2095130417232677930">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਰੋਮ"</item>
+    <item msgid="7631654618289353520">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਨ ਮਾਰੀਨੋ"</item>
+    <item msgid="7219835179107610398">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਾਰਾਜੈਵੋ"</item>
+    <item msgid="7199868165463282240">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਿੰਫੈਰੋਪੋਲ"</item>
+    <item msgid="2786395006682246794">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਕੋਪਜੈ"</item>
+    <item msgid="4706927178872100023">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੋਫੀਆ"</item>
+    <item msgid="1982417589953195308">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਟੌਕਹੋਲਮ"</item>
+    <item msgid="1596083919400921960">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟੈਲਿਨ"</item>
+    <item msgid="3079313598974879114">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵੈਟੀਕੈਨ"</item>
+    <item msgid="6516636001856910888">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵਿਏਨਾ"</item>
+    <item msgid="6377314532157945456">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵਿਲਨਿਅਸ"</item>
+    <item msgid="3427175235616698721">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵਾਰਸੌ"</item>
+    <item msgid="8404354243761332922">"ਜ਼<xliff:g id="SEPARATOR">=</xliff:g>ਜ਼ਗਰੈਬ"</item>
+    <item msgid="1457280242717152391">"ਜ਼<xliff:g id="SEPARATOR">=</xliff:g>ਜ਼ਿਉਰਿਕ"</item>
+    <item msgid="1065940089741359291">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅੰਤਾਨਾਨਾਨਾਰੀਵੋ"</item>
+    <item msgid="5176181880014090003">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਾਲਦੀਵਸ"</item>
+    <item msgid="8281854645557426433">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੌਰਸ਼ੀਅਸ"</item>
+    <item msgid="2686249517389816420">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਔਕਲੈਂਡ"</item>
+    <item msgid="279925671775807392">"ਫ<xliff:g id="SEPARATOR">=</xliff:g>ਫਿਜੀ"</item>
+    <item msgid="7971492669765264840">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗੁਆਮ"</item>
+    <item msgid="889371273355762733">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹੋਨੋਲੁਲੁ"</item>
+    <item msgid="5516500578074269817">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਿਰਿਤੀਮਤੀ"</item>
+    <item msgid="2740704911915073056">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨੋਮੈਆ"</item>
+    <item msgid="8732832728949672807">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਮੋਆ"</item>
+    <item msgid="6489500698846864993">"ਤ<xliff:g id="SEPARATOR">=</xliff:g>ਤਹੀਤੀ"</item>
+    <item msgid="3983121625709442324">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਐਂਟੀਗੁਆ"</item>
+    <item msgid="2650510570709806322">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਔਸਟਿਨ"</item>
+    <item msgid="5257283506227357911">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੋਸਟਨ"</item>
+    <item msgid="6326368958641850267">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਾਲਗਰੀ"</item>
+    <item msgid="8830116365016232583">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੋਲੰਬਸ"</item>
+    <item msgid="6986556538341883811">"ਡ<xliff:g id="SEPARATOR">=</xliff:g>ਡਲਾਸ"</item>
+    <item msgid="836479352500251902">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਨੌਕਸਵਿਲੇ"</item>
+    <item msgid="8495291458467378851">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੈਮਫਿਸ"</item>
+    <item msgid="2788807207554683122">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਿਆਮੀ"</item>
+    <item msgid="3984640407077208471">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਿਨੀਆਪੋਲਿਸ"</item>
+    <item msgid="6997305266329324161">"ਓ<xliff:g id="SEPARATOR">=</xliff:g>ਓਟਵਾ"</item>
+    <item msgid="5191741145278683016">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਫਿਲਾਡੈਲਫਿਆ"</item>
+    <item msgid="5898032730733441936">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪੋਰਟਲੈਂਡ"</item>
+    <item msgid="9070160716002203069">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਨ ਡਿਏਗੋ"</item>
+    <item msgid="1829944133410079040">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਨ ਫ੍ਰਾਂਸਿਸਕੋ"</item>
+    <item msgid="8407905318529692654">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਾਲਟ ਲੇਕ ਸਿਟੀ"</item>
+    <item msgid="3091392589347990898">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਨ ਜੋਸ"</item>
+    <item msgid="7080627414383807284">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਨ ਸਾਲਵਾਡੋਰ"</item>
+    <item msgid="3430371213266252049">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੀਟਲ"</item>
+    <item msgid="9177491393818757071">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟ ਲੁਈਸ"</item>
+    <item msgid="6234359686676312837">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਵਾਸ਼ਿੰਗਟਨ ਡੀ.ਸੀ."</item>
+    <item msgid="4325057056005132331">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹੌਸਟਨ"</item>
+    <item msgid="38148255938075867">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਨ ਅੰਟੋਨੀਓ"</item>
+    <item msgid="3601481860893666763">"ਜ<xliff:g id="SEPARATOR">=</xliff:g>ਜੈਕਸਨਵਿਲੇ"</item>
+    <item msgid="3987471437354665534">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਾਲਟੀਮੋਰ"</item>
+    <item msgid="3389674262267006887">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨਾਸ਼ਵਿਲੇ"</item>
+    <item msgid="7521690366448637309">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਿਲਵੌਕੀ"</item>
+    <item msgid="2231069593975740859">"ਓ<xliff:g id="SEPARATOR">=</xliff:g>ਓਕਲਾਹੋਮਾ ਸਿਟੀ"</item>
+    <item msgid="1970008262236914770">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲਾਸ ਵੇਗਸ"</item>
+    <item msgid="7113811028304266017">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਲਬੁਕੇਰਕਿਉ"</item>
+    <item msgid="6481469458896644678">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟਕਸਨ"</item>
+    <item msgid="5970857542995467466">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਕਰਾਪੈਂਟੋ"</item>
+    <item msgid="1999267306329214429">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅਟਲਾਂਟਾ"</item>
+    <item msgid="8761847787537443648">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਲੀਵਲੈਂਡ"</item>
+    <item msgid="2987455647692324208">"ਨ<xliff:g id="SEPARATOR">=</xliff:g>ਨਿਊ ਓਰਲੀਂਸ"</item>
+    <item msgid="8104109426412705845">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟੈਂਪਾ"</item>
+    <item msgid="1410067233842240795">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪਿਟਸਬਰਗ"</item>
+    <item msgid="3339955740367374442">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਿਨਸਨੈਟੀ"</item>
+    <item msgid="6091407424772799978">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਾਊਂਟੇਨ ਵਿਊ"</item>
+    <item msgid="150299708499753555">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਰੈਨੋ"</item>
+    <item msgid="9155068631060038769">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਲੈਕ ਰੌਕ ਸਿਟੀ"</item>
+    <item msgid="8498761319928979900">"ਦੋ<xliff:g id="SEPARATOR">=</xliff:g>ਦੋਹਾ"</item>
+    <item msgid="8307897251088048641">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੀਜਿੰਗ"</item>
+    <item msgid="8605970953750147428">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੁੰਬਈ"</item>
+    <item msgid="6668274273067049125">"ਦ<xliff:g id="SEPARATOR">=</xliff:g>ਦਿੱਲੀ"</item>
+    <item msgid="2933410189478233292">"ਓ<xliff:g id="SEPARATOR">=</xliff:g>ਓਸਾਕਾ"</item>
+    <item msgid="9011026093638055579">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਲਾਹੌਰ"</item>
+    <item msgid="1448378291805481500">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਾਨਾ"</item>
+    <item msgid="5233119846682408301">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬਾਰਸੀਲੋਨਾ"</item>
+    <item msgid="9146746514265554721">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਿਊਨਿਕ"</item>
+    <item msgid="157866084892734979">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮਿਲਨ"</item>
+    <item msgid="2787346322341414963">"ਫ<xliff:g id="SEPARATOR">=</xliff:g>ਫ੍ਰੈਕਫਰਟ"</item>
+    <item msgid="8407511504088696581">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹਨੋਈ"</item>
+    <item msgid="5184417944073499453">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅੰਕਾਰਾ"</item>
+    <item msgid="4028784954452197920">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੰਗਲੌਰ"</item>
+    <item msgid="190152483600862776">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬ੍ਰਾਸੀਲੀਆ"</item>
+    <item msgid="8009516135735104388">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੇਪ ਟਾਊਨ"</item>
+    <item msgid="6057191797622953016">"ਇ<xliff:g id="SEPARATOR">=</xliff:g>ਇਸਲਾਮਾਬਾਦ"</item>
+    <item msgid="2702029416591153210">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਰਿਓ ਦੇ ਜਨੈਰੋ"</item>
+    <item msgid="1753927312634708098">"ਅ<xliff:g id="SEPARATOR">=</xliff:g>ਅੰਨ ਆਰਬਰ"</item>
+    <item msgid="4225721108475278979">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਬੌਲਡੈਰ"</item>
+    <item msgid="6393177386755796069">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੈਂਬ੍ਰਿਜ਼"</item>
+    <item msgid="759409010285366934">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਿਰਕਲੈਂਡ"</item>
+    <item msgid="6308007059287569663">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੈਡੀਸਨ"</item>
+    <item msgid="6971636434858330021">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗੁਆਂਗਜ਼ੌ"</item>
+    <item msgid="1185109514180068650">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹੈਦਰਾਬਾਦ"</item>
+    <item msgid="3032295682584784261">"ਰ<xliff:g id="SEPARATOR">=</xliff:g>ਰੈਸਟਨ"</item>
+    <item msgid="7722837296297332268">"ਬ<xliff:g id="SEPARATOR">=</xliff:g>ਬੈਲੋ ਹੋਰੀਜ਼ੋਂਟੈ"</item>
+    <item msgid="3593516299122577780">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟਿਆਗੋ"</item>
+    <item msgid="2293331653589266583">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੋਨਰੋਵੀਆ"</item>
+    <item msgid="7899128359620301710">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੋਲੰਬੋ"</item>
+    <item msgid="5294489752262543829">"ਚ<xliff:g id="SEPARATOR">=</xliff:g>ਚਿਹੁਆਹੁਆ"</item>
+    <item msgid="8066356061184206341">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਾਲਵਾਡੋਰ"</item>
+    <item msgid="4806867741334453982">"ਗ<xliff:g id="SEPARATOR">=</xliff:g>ਗੁੜਗਾਓਂ"</item>
+    <item msgid="2585780177649876827">"ਮ<xliff:g id="SEPARATOR">=</xliff:g>ਮੈਨਚੈਸਟਰ"</item>
+    <item msgid="234104953526248139">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕਾਈਵ"</item>
+    <item msgid="5245429461217350012">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸੈਂਟ ਪੀਟਰਸਬਰਗ"</item>
+    <item msgid="6738531308006017215">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕ੍ਰਾਕੋ"</item>
+    <item msgid="8972702613339139467">"ਵ<xliff:g id="SEPARATOR">=</xliff:g>ਰੋਕਲੌ"</item>
+    <item msgid="187278924459096566">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹੈਮਬਰਗ"</item>
+    <item msgid="6173267862207394917">"ਓ<xliff:g id="SEPARATOR">=</xliff:g>ਔਲੁ"</item>
+    <item msgid="5639324478037405990">"ਹ<xliff:g id="SEPARATOR">=</xliff:g>ਹਾਇਫਾ"</item>
+    <item msgid="3157180661352354058">"ਸ<xliff:g id="SEPARATOR">=</xliff:g>ਸਨ ਜੁਆਨ"</item>
+    <item msgid="6995939579417282715">"ਟ<xliff:g id="SEPARATOR">=</xliff:g>ਟੈਗੁਸਿਗਾਲਪਾ"</item>
+    <item msgid="1641840677391275004">"ਪ<xliff:g id="SEPARATOR">=</xliff:g>ਪੈਰਾਮਰੀਬੋ"</item>
+    <item msgid="7317049454800260290">"ਕ<xliff:g id="SEPARATOR">=</xliff:g>ਕੁਇਟੋ"</item>
+    <item msgid="4524380876433343244">"ਲ<xliff:g id="SEPARATOR">=</xliff:g>ਜੁਬਲਜਾਨਾ"</item>
+  </string-array>
+</resources>

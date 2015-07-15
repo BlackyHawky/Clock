@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="cities_names">
+    <item msgid="4653806289288974388">"አ<xliff:g id="SEPARATOR">=</xliff:g>አቢጃን"</item>
+    <item msgid="4864167603178202155">"አ<xliff:g id="SEPARATOR">=</xliff:g>አክራ"</item>
+    <item msgid="6478898553803167749">"አ<xliff:g id="SEPARATOR">=</xliff:g>አዲስ አበባ"</item>
+    <item msgid="5618029992528436448">"አ<xliff:g id="SEPARATOR">=</xliff:g>አልጀርስ"</item>
+    <item msgid="2906834750114790793">"ብ<xliff:g id="SEPARATOR">=</xliff:g>ብላንታይር"</item>
+    <item msgid="8153571933836629863">"ብ<xliff:g id="SEPARATOR">=</xliff:g>ብራዛቪል"</item>
+    <item msgid="3703129580594640833">"ካ<xliff:g id="SEPARATOR">=</xliff:g> ካይሮ"</item>
+    <item msgid="2300915410194647320">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካዛብላንካ"</item>
+    <item msgid="1217039002304887948">"ኮ<xliff:g id="SEPARATOR">=</xliff:g>ኮናክሪ"</item>
+    <item msgid="8775104707806220928">"ዳ<xliff:g id="SEPARATOR">=</xliff:g>ዳካር"</item>
+    <item msgid="5948764589113643811">"ዳ<xliff:g id="SEPARATOR">=</xliff:g>ዳሬሰላም"</item>
+    <item msgid="6306254507715416077">"ጅ<xliff:g id="SEPARATOR">=</xliff:g>ጅቡቲ"</item>
+    <item msgid="4286108029159501866">"ፍ<xliff:g id="SEPARATOR">=</xliff:g>ፍሪታውን"</item>
+    <item msgid="4514786733035528116">"ጋ<xliff:g id="SEPARATOR">=</xliff:g>ጋቦሮኒ"</item>
+    <item msgid="7367496854968219671">"ሃ<xliff:g id="SEPARATOR">=</xliff:g>ሃራሬ"</item>
+    <item msgid="6837746379726020288">"ጆ<xliff:g id="SEPARATOR">=</xliff:g>ጆሃንስበርግ"</item>
+    <item msgid="6284185156591171506">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካምፓላ"</item>
+    <item msgid="3299518884693668985">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካርቱም"</item>
+    <item msgid="4614879508966043969">"ኪ<xliff:g id="SEPARATOR">=</xliff:g>ኪጋሊ"</item>
+    <item msgid="8878437043772547732">"ኪ<xliff:g id="SEPARATOR">=</xliff:g>ኪንሻሳ"</item>
+    <item msgid="6325601635544067909">"ሌ<xliff:g id="SEPARATOR">=</xliff:g>ሌጎስ"</item>
+    <item msgid="6094357506290323524">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማሴሩ"</item>
+    <item msgid="7270525814400329098">"ሞ<xliff:g id="SEPARATOR">=</xliff:g>ሞቃዲሾ"</item>
+    <item msgid="353110101402547540">"ና<xliff:g id="SEPARATOR">=</xliff:g>ናይሮቢ"</item>
+    <item msgid="1688121892646984549">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳኦ ቶሜ"</item>
+    <item msgid="3642219084651687800">"ቲ<xliff:g id="SEPARATOR">=</xliff:g>ቲምቡክቱ"</item>
+    <item msgid="7287513493631179463">"ት<xliff:g id="SEPARATOR">=</xliff:g>ትሪፖሊ"</item>
+    <item msgid="5052614613671591560">"ቱ<xliff:g id="SEPARATOR">=</xliff:g>ቱኒዝ"</item>
+    <item msgid="7976303179193839859">"አ<xliff:g id="SEPARATOR">=</xliff:g>አንኮሬጅ"</item>
+    <item msgid="193703779380497120">"ሜ<xliff:g id="SEPARATOR">=</xliff:g>ሜንዶዛ"</item>
+    <item msgid="5448884981082519628">"አ<xliff:g id="SEPARATOR">=</xliff:g>አሩባ"</item>
+    <item msgid="1577938273323914773">"አ<xliff:g id="SEPARATOR">=</xliff:g>አሱንሲዮን"</item>
+    <item msgid="5617155978105010520">"ባ<xliff:g id="SEPARATOR">=</xliff:g>ባርቤዶስ"</item>
+    <item msgid="3600025702357376322">"ቤ<xliff:g id="SEPARATOR">=</xliff:g>ቤሊዝ"</item>
+    <item msgid="2847679817118467051">"ቦ<xliff:g id="SEPARATOR">=</xliff:g>ቦጎታ"</item>
+    <item msgid="9029003541681282929">"ቦ<xliff:g id="SEPARATOR">=</xliff:g>ቦነስ አይረስ"</item>
+    <item msgid="2338367960332622522">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካንኩን"</item>
+    <item msgid="4339797536047170278">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካራካስ"</item>
+    <item msgid="9199080438977757863">"ኬ<xliff:g id="SEPARATOR">=</xliff:g>ኬይማን"</item>
+    <item msgid="1993203473281589891">"ቺ<xliff:g id="SEPARATOR">=</xliff:g>ቺካጎ"</item>
+    <item msgid="7990342776303470263">"ኮ<xliff:g id="SEPARATOR">=</xliff:g>ኮስታ ሪካ"</item>
+    <item msgid="5676109900908808628">"ኩ<xliff:g id="SEPARATOR">=</xliff:g>ኩራሳኦ"</item>
+    <item msgid="5519120432577564812">"ዳ<xliff:g id="SEPARATOR">=</xliff:g>ዳውሰን ክሪክ"</item>
+    <item msgid="2126228972377380680">"ዴ<xliff:g id="SEPARATOR">=</xliff:g>ዴንቨር"</item>
+    <item msgid="3298410632922319193">"ዲ<xliff:g id="SEPARATOR">=</xliff:g>ዲትሮይት"</item>
+    <item msgid="2819032085688382805">"ዶ<xliff:g id="SEPARATOR">=</xliff:g>ዶሚኒካ"</item>
+    <item msgid="6170433208654553821">"ኤ<xliff:g id="SEPARATOR">=</xliff:g>ኤድመንተን"</item>
+    <item msgid="795461860173291499">"ኤ<xliff:g id="SEPARATOR">=</xliff:g>ኤል ሳልቫዶር"</item>
+    <item msgid="7872196528637597794">"ፎፈ<xliff:g id="SEPARATOR">=</xliff:g>ፎርታሌዛ"</item>
+    <item msgid="5801558418916235541">"ግ<xliff:g id="SEPARATOR">=</xliff:g>ግራንድ ትራክ"</item>
+    <item msgid="2103759276235503048">"ግ<xliff:g id="SEPARATOR">=</xliff:g>ግሬናዳ"</item>
+    <item msgid="1490069759176391533">"ጉ<xliff:g id="SEPARATOR">=</xliff:g>ጉዋቲማላ"</item>
+    <item msgid="525959305652046261">"ጉ<xliff:g id="SEPARATOR">=</xliff:g>ጉያና"</item>
+    <item msgid="7565596629973190931">"ሃ<xliff:g id="SEPARATOR">=</xliff:g>ሃሊፋክስ"</item>
+    <item msgid="3811169155065582644">"ሀ<xliff:g id="SEPARATOR">=</xliff:g>ሀቫና"</item>
+    <item msgid="3733555435078090201">"ኢ<xliff:g id="SEPARATOR">=</xliff:g>ኢንዲያናፓሊስ"</item>
+    <item msgid="226982663848410981">"ኖ<xliff:g id="SEPARATOR">=</xliff:g>ኖክስ"</item>
+    <item msgid="3815293080342229459">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማሬንጎ"</item>
+    <item msgid="6594853515451547389">"ፒ<xliff:g id="SEPARATOR">=</xliff:g>ፒተርስበርግ"</item>
+    <item msgid="6091571889213283534">"ቴ<xliff:g id="SEPARATOR">=</xliff:g>ቴል ሲቲ"</item>
+    <item msgid="3089369312058696669">"ቬ<xliff:g id="SEPARATOR">=</xliff:g>ቬቫይ"</item>
+    <item msgid="1334860422444068943">"ቪ<xliff:g id="SEPARATOR">=</xliff:g>ቪንሰንስ"</item>
+    <item msgid="7775105082093691756">"ዊ<xliff:g id="SEPARATOR">=</xliff:g>ዊናማክ"</item>
+    <item msgid="4043335541899184547">"ኪ<xliff:g id="SEPARATOR">=</xliff:g>ኪንግስቶን"</item>
+    <item msgid="1063757593477259280">"ኒ<xliff:g id="SEPARATOR">=</xliff:g>ኒዌስትራ ሴኞራ ዴ ላ ፓዝ"</item>
+    <item msgid="349901732062388869">"ሊ<xliff:g id="SEPARATOR">=</xliff:g>ሊማ"</item>
+    <item msgid="4977592519316837842">"ሎ<xliff:g id="SEPARATOR">=</xliff:g>ሎስ አንጀለስ"</item>
+    <item msgid="7713051790509638572">"ሉ<xliff:g id="SEPARATOR">=</xliff:g>ሉዊስ ቪሌ"</item>
+    <item msgid="8460620935898405225">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማናጉዋ"</item>
+    <item msgid="8328345293081464192">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማርቲኒክ"</item>
+    <item msgid="8010357327448619637">"ሜ<xliff:g id="SEPARATOR">=</xliff:g>ሜንዶዛ"</item>
+    <item msgid="2046777213916219253">"ሜ<xliff:g id="SEPARATOR">=</xliff:g>ሜትላካትላ"</item>
+    <item msgid="2227885609632709258">"ሜ<xliff:g id="SEPARATOR">=</xliff:g>ሜክሲኮ ሲቲ"</item>
+    <item msgid="9089629663998569289">"ሞ<xliff:g id="SEPARATOR">=</xliff:g>ሞንቴሬይ"</item>
+    <item msgid="2782276175306930748">"ሞ<xliff:g id="SEPARATOR">=</xliff:g>ሞንቴቪዲዮ"</item>
+    <item msgid="4942386959622269480">"ሞ<xliff:g id="SEPARATOR">=</xliff:g>ሞንትሪያል"</item>
+    <item msgid="3068203952968918165">"ና<xliff:g id="SEPARATOR">=</xliff:g>ናሳው"</item>
+    <item msgid="4234515454127289962">"ኒ<xliff:g id="SEPARATOR">=</xliff:g> ኒው ዮርክ"</item>
+    <item msgid="1660551302087304308">"ቤ<xliff:g id="SEPARATOR">=</xliff:g>ቤውላህ"</item>
+    <item msgid="415823390775449071">"ሴ<xliff:g id="SEPARATOR">=</xliff:g>ሴንተር"</item>
+    <item msgid="6644186958433380884">"ኒ<xliff:g id="SEPARATOR">=</xliff:g>ኒው ሳሌም"</item>
+    <item msgid="6408587617047971798">"ፓ<xliff:g id="SEPARATOR">=</xliff:g>ፓናማ"</item>
+    <item msgid="5576899364199447991">"ፊ<xliff:g id="SEPARATOR">=</xliff:g>ፊኒክስ"</item>
+    <item msgid="5541266909095409447">"ፖ<xliff:g id="SEPARATOR">=</xliff:g>ፓርት ኦፍ ስፔይን"</item>
+    <item msgid="6417519313622785932">"ፖ<xliff:g id="SEPARATOR">=</xliff:g>ፓርት-ኦ-ፕሪንስ"</item>
+    <item msgid="2078589249210571366">"ፑ<xliff:g id="SEPARATOR">=</xliff:g>ፑዌርቶ ሪኮ"</item>
+    <item msgid="8522030474373927681">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳንቶ ዶሚንጎ"</item>
+    <item msgid="4763853453317431594">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳዎ ፓሎ"</item>
+    <item msgid="2713153284784311646">"ሴ<xliff:g id="SEPARATOR">=</xliff:g>ሴንት ጆንስ"</item>
+    <item msgid="8252666620333105271">"ሴ<xliff:g id="SEPARATOR">=</xliff:g>ሴይንት ኪትስ"</item>
+    <item msgid="4851597775036027515">"ሴ<xliff:g id="SEPARATOR">=</xliff:g>ሴይንት ሉሲያ"</item>
+    <item msgid="2395485473100271503">"ሴ<xliff:g id="SEPARATOR">=</xliff:g>ሴይንት ቶማስ"</item>
+    <item msgid="4148037555658225145">"ቲ<xliff:g id="SEPARATOR">=</xliff:g>ቲጇና"</item>
+    <item msgid="3491199166042475853">"ቶ<xliff:g id="SEPARATOR">=</xliff:g>ቶሮንቶ"</item>
+    <item msgid="1506838283840737263">"ቫ<xliff:g id="SEPARATOR">=</xliff:g>ቫንኮቨር"</item>
+    <item msgid="8935386104773857399">"ዊ<xliff:g id="SEPARATOR">=</xliff:g>ዊኒፔግ"</item>
+    <item msgid="1132634022412399582">"ደ<xliff:g id="SEPARATOR">=</xliff:g>ደቡብ ዋልታ"</item>
+    <item msgid="4076962667198039206">"ለ<xliff:g id="SEPARATOR">=</xliff:g>ሎንግየርቢየን"</item>
+    <item msgid="3784788073896028355">"አ<xliff:g id="SEPARATOR">=</xliff:g>አልማቲ"</item>
+    <item msgid="7895695236056852523">"አ<xliff:g id="SEPARATOR">=</xliff:g>አማን"</item>
+    <item msgid="1795426532295280371">"አ<xliff:g id="SEPARATOR">=</xliff:g>አናዲር"</item>
+    <item msgid="7194236926158343552">"አ<xliff:g id="SEPARATOR">=</xliff:g>አክታው"</item>
+    <item msgid="4796350130854360870">"ባ<xliff:g id="SEPARATOR">=</xliff:g>ባግዳድ"</item>
+    <item msgid="4020105434451091851">"ባ<xliff:g id="SEPARATOR">=</xliff:g>ባህሬን"</item>
+    <item msgid="3895868797052686484">"ባ<xliff:g id="SEPARATOR">=</xliff:g>ባኩ"</item>
+    <item msgid="228001522630057957">"ባ<xliff:g id="SEPARATOR">=</xliff:g>ባንኮክ"</item>
+    <item msgid="5555647809114820537">"ቤ<xliff:g id="SEPARATOR">=</xliff:g>ቤይሩት"</item>
+    <item msgid="2960873998178478784">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካልካታ"</item>
+    <item msgid="8765555959722950691">"ደ<xliff:g id="SEPARATOR">=</xliff:g>ደማስቆ"</item>
+    <item msgid="4979709428925196546">"ዳ<xliff:g id="SEPARATOR">=</xliff:g>ዳካ"</item>
+    <item msgid="310419600200885308">"ዱ<xliff:g id="SEPARATOR">=</xliff:g>ዱባይ"</item>
+    <item msgid="1203379132329159260">"ጋ<xliff:g id="SEPARATOR">=</xliff:g>ጋዛ"</item>
+    <item msgid="2359068282340162319">"ሔ<xliff:g id="SEPARATOR">=</xliff:g>ሔብሮን"</item>
+    <item msgid="6223396610551759129">"ሆ<xliff:g id="SEPARATOR">=</xliff:g>ሆ ቺ ሚንህ"</item>
+    <item msgid="4731022818651322736">"ሆ<xliff:g id="SEPARATOR">=</xliff:g>ሆንግ ኮንግ"</item>
+    <item msgid="8104778702069607166">"ኢ<xliff:g id="SEPARATOR">=</xliff:g>ኢስታንቡል"</item>
+    <item msgid="758800913783999425">"ጃ<xliff:g id="SEPARATOR">=</xliff:g>ጃካርታ"</item>
+    <item msgid="8956406398692698126">"እ<xliff:g id="SEPARATOR">=</xliff:g>እየሩሳሌም"</item>
+    <item msgid="1664426577433326419">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካቡል"</item>
+    <item msgid="7700349511508357396">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካራቺ"</item>
+    <item msgid="5273241794521591984">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካትማንዱ"</item>
+    <item msgid="4754850915168634158">"ኩ<xliff:g id="SEPARATOR">=</xliff:g>ኩዋላ ላምፑር"</item>
+    <item msgid="5187849635785055693">"ኩ<xliff:g id="SEPARATOR">=</xliff:g>ኩዌት"</item>
+    <item msgid="2923385979252179376">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማካው"</item>
+    <item msgid="722458682107911739">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማኒላ"</item>
+    <item msgid="6033964325069060422">"ሙ<xliff:g id="SEPARATOR">=</xliff:g>ሙስካት"</item>
+    <item msgid="6077458941399984780">"ፍ<xliff:g id="SEPARATOR">=</xliff:g>ፍኖም ፔን"</item>
+    <item msgid="935474308903572975">"ፒ<xliff:g id="SEPARATOR">=</xliff:g>ፒዮንግያንግ"</item>
+    <item msgid="5336632319992664889">"ኳ<xliff:g id="SEPARATOR">=</xliff:g>ኳታር"</item>
+    <item msgid="1667243110545095146">"ራ<xliff:g id="SEPARATOR">=</xliff:g>ራንጉን"</item>
+    <item msgid="4460370766685855731">"ሪ<xliff:g id="SEPARATOR">=</xliff:g>ሪያድ"</item>
+    <item msgid="4229224905931739201">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳይጎን"</item>
+    <item msgid="8705359848250215620">"ሴ<xliff:g id="SEPARATOR">=</xliff:g>ሴዖል"</item>
+    <item msgid="583367295371395814">"ሻ<xliff:g id="SEPARATOR">=</xliff:g>ሻንጋይ"</item>
+    <item msgid="1422156732794771136">"ሲ<xliff:g id="SEPARATOR">=</xliff:g>ሲንጋፖር"</item>
+    <item msgid="1972491729911039207">"ታ<xliff:g id="SEPARATOR">=</xliff:g>ታይፔይ"</item>
+    <item msgid="5563193560935461106">"ቴ<xliff:g id="SEPARATOR">=</xliff:g>ቴህራን"</item>
+    <item msgid="8629402941285674273">"ቴ<xliff:g id="SEPARATOR">=</xliff:g>ቴልቪቭ"</item>
+    <item msgid="8499164674454654525">"ቶ<xliff:g id="SEPARATOR">=</xliff:g>ቶኪዮ"</item>
+    <item msgid="1705804745888992744">"ኡ<xliff:g id="SEPARATOR">=</xliff:g>ኡላንባታር"</item>
+    <item msgid="2028626988021468640">"ቤ<xliff:g id="SEPARATOR">=</xliff:g>ቤርሙዳ"</item>
+    <item msgid="4527109966513690429">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካናሪ"</item>
+    <item msgid="4886308317040330383">"ኬ<xliff:g id="SEPARATOR">=</xliff:g>ኬፕ ቨርዴ"</item>
+    <item msgid="1003307362164178007">"ሬ<xliff:g id="SEPARATOR">=</xliff:g>ሬይክጃቪክ"</item>
+    <item msgid="6742010412815268657">"ስ<xliff:g id="SEPARATOR">=</xliff:g>ስታንሊ"</item>
+    <item msgid="5659389449738592757">"ኤ<xliff:g id="SEPARATOR">=</xliff:g>ኤዴላይድ"</item>
+    <item msgid="4567804576346784523">"ብ<xliff:g id="SEPARATOR">=</xliff:g>ብሪስቤን"</item>
+    <item msgid="8730590400362815585">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካንቤራ"</item>
+    <item msgid="6416990927714140153">"ዳ<xliff:g id="SEPARATOR">=</xliff:g>ዳርዊን"</item>
+    <item msgid="3073969292696516135">"ሜ<xliff:g id="SEPARATOR">=</xliff:g>ሜልቦርን"</item>
+    <item msgid="1719286228375722176">"ኒ<xliff:g id="SEPARATOR">=</xliff:g>ኒው ሳውዝ ዌልስ"</item>
+    <item msgid="3663940748056976266">"ፐ<xliff:g id="SEPARATOR">=</xliff:g>ፐርት"</item>
+    <item msgid="3383881736858438153">"ኲ<xliff:g id="SEPARATOR">=</xliff:g>ኲንስላንድ"</item>
+    <item msgid="971889339240879138">"ሲ<xliff:g id="SEPARATOR">=</xliff:g>ሲድኒ"</item>
+    <item msgid="5542803438162180311">"ቪ<xliff:g id="SEPARATOR">=</xliff:g>ቪክቶሪያ"</item>
+    <item msgid="11828841481838883">"ኒ<xliff:g id="SEPARATOR">=</xliff:g>ኒውፋውንድላንድ"</item>
+    <item msgid="1734331918410561807">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳስካቼዋን"</item>
+    <item msgid="9184412695613864979">"ኢ<xliff:g id="SEPARATOR">=</xliff:g>ኢስተር አይላንድ"</item>
+    <item msgid="1014282454239014527">"አ<xliff:g id="SEPARATOR">=</xliff:g>አምስተርዳም"</item>
+    <item msgid="4928363054269791193">"አ<xliff:g id="SEPARATOR">=</xliff:g>አንዶራ"</item>
+    <item msgid="912290900213826368">"አ<xliff:g id="SEPARATOR">=</xliff:g>አቴንስ"</item>
+    <item msgid="6097000352459209495">"ቤ<xliff:g id="SEPARATOR">=</xliff:g>ቤልፋስት"</item>
+    <item msgid="3285885824311481790">"ቤ<xliff:g id="SEPARATOR">=</xliff:g>ቤልግሬድ"</item>
+    <item msgid="911055049821251982">"በ<xliff:g id="SEPARATOR">=</xliff:g>በርሊን"</item>
+    <item msgid="9099244516556291111">"በ<xliff:g id="SEPARATOR">=</xliff:g>ብራቲስላቫ"</item>
+    <item msgid="158977749726480076">"ብ<xliff:g id="SEPARATOR">=</xliff:g>ብራስልስ"</item>
+    <item msgid="8875102297676173346">"ቡ<xliff:g id="SEPARATOR">=</xliff:g>ቡካሬስት"</item>
+    <item msgid="804451569472542912">"በ<xliff:g id="SEPARATOR">=</xliff:g>ቡዳፔስት"</item>
+    <item msgid="6827506774445509939">"ቺ<xliff:g id="SEPARATOR">=</xliff:g>ቺሲናው"</item>
+    <item msgid="487345893088732797">"ኮ<xliff:g id="SEPARATOR">=</xliff:g>ኮፐንሃገን"</item>
+    <item msgid="7760953471297773537">"ደ<xliff:g id="SEPARATOR">=</xliff:g>ደብሊን"</item>
+    <item msgid="323414429034825249">"ጂ<xliff:g id="SEPARATOR">=</xliff:g>ጂብራልታር"</item>
+    <item msgid="1785566206078328830">"ሄ<xliff:g id="SEPARATOR">=</xliff:g>ሄልሲንኪ"</item>
+    <item msgid="5938185647271923359">"አ<xliff:g id="SEPARATOR">=</xliff:g>አይስል ኦፍ ማን"</item>
+    <item msgid="5974864320735263245">"ኢ<xliff:g id="SEPARATOR">=</xliff:g>ኢስታንቡል"</item>
+    <item msgid="3567775364750772947">"ኪዬ<xliff:g id="SEPARATOR">=</xliff:g>ኪዬቭ"</item>
+    <item msgid="540344101798867007">"ሊ<xliff:g id="SEPARATOR">=</xliff:g>ሊዝበን"</item>
+    <item msgid="5091062403792923657">"ለ<xliff:g id="SEPARATOR">=</xliff:g>ለንደን"</item>
+    <item msgid="7075006205000490364">"ኩ<xliff:g id="SEPARATOR">=</xliff:g>ሉክዘምበርግ"</item>
+    <item msgid="4901781246584739451">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማድሪድ"</item>
+    <item msgid="9047080834315777144">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማልታ"</item>
+    <item msgid="8200456520732452034">"ሚ<xliff:g id="SEPARATOR">=</xliff:g>ሚንስክ"</item>
+    <item msgid="5452744619736513383">"ሞ<xliff:g id="SEPARATOR">=</xliff:g>ሞናኮ"</item>
+    <item msgid="3513517408062322298">"ሞ<xliff:g id="SEPARATOR">=</xliff:g>ሞስኮ"</item>
+    <item msgid="7917103295878081674">"ኦ<xliff:g id="SEPARATOR">=</xliff:g>ኦስሎ"</item>
+    <item msgid="4245547231693746977">"ፓ<xliff:g id="SEPARATOR">=</xliff:g>ፓሪስ"</item>
+    <item msgid="3778652900196715557">"ፕ<xliff:g id="SEPARATOR">=</xliff:g>ፕራግ"</item>
+    <item msgid="1827175423974383675">"ሪ<xliff:g id="SEPARATOR">=</xliff:g>ሪጋ"</item>
+    <item msgid="2095130417232677930">"ሮ<xliff:g id="SEPARATOR">=</xliff:g>ሮም"</item>
+    <item msgid="7631654618289353520">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳን ማሪኖ"</item>
+    <item msgid="7219835179107610398">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳራዬቮ"</item>
+    <item msgid="7199868165463282240">"ሲ<xliff:g id="SEPARATOR">=</xliff:g>ሲምፈሮፓል"</item>
+    <item msgid="2786395006682246794">"ስ<xliff:g id="SEPARATOR">=</xliff:g>ስኮፕዬ"</item>
+    <item msgid="4706927178872100023">"ሶ<xliff:g id="SEPARATOR">=</xliff:g>ሶፊያ"</item>
+    <item msgid="1982417589953195308">"ስ<xliff:g id="SEPARATOR">=</xliff:g>ስቶክሆልም"</item>
+    <item msgid="1596083919400921960">"ታ<xliff:g id="SEPARATOR">=</xliff:g>ታሊን"</item>
+    <item msgid="3079313598974879114">"ቫ<xliff:g id="SEPARATOR">=</xliff:g>ቫቲካን"</item>
+    <item msgid="6516636001856910888">"ቪ<xliff:g id="SEPARATOR">=</xliff:g>ቪዬና"</item>
+    <item msgid="6377314532157945456">"ቪ<xliff:g id="SEPARATOR">=</xliff:g>ቪልኒየስ"</item>
+    <item msgid="3427175235616698721">"ዋ<xliff:g id="SEPARATOR">=</xliff:g>ዋርሳው"</item>
+    <item msgid="8404354243761332922">"ዛ<xliff:g id="SEPARATOR">=</xliff:g>ዛግሬብ"</item>
+    <item msgid="1457280242717152391">"ዙ<xliff:g id="SEPARATOR">=</xliff:g>ዙሪክ"</item>
+    <item msgid="1065940089741359291">"አ<xliff:g id="SEPARATOR">=</xliff:g>አንታናናሪቮ"</item>
+    <item msgid="5176181880014090003">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማልድቪስ"</item>
+    <item msgid="8281854645557426433">"ሞ<xliff:g id="SEPARATOR">=</xliff:g>ሞሪሺየስ"</item>
+    <item msgid="2686249517389816420">"ኦ<xliff:g id="SEPARATOR">=</xliff:g>ኦክላንድ"</item>
+    <item msgid="279925671775807392">"ፊ<xliff:g id="SEPARATOR">=</xliff:g>ፊጂ"</item>
+    <item msgid="7971492669765264840">"ጉ<xliff:g id="SEPARATOR">=</xliff:g>ጉዋም"</item>
+    <item msgid="889371273355762733">"ሆ<xliff:g id="SEPARATOR">=</xliff:g>ሆኖሉሉ"</item>
+    <item msgid="5516500578074269817">"ኪ<xliff:g id="SEPARATOR">=</xliff:g>ኪሪቲማቲ"</item>
+    <item msgid="2740704911915073056">"ኖ<xliff:g id="SEPARATOR">=</xliff:g>ኖሚያ"</item>
+    <item msgid="8732832728949672807">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳሞአ"</item>
+    <item msgid="6489500698846864993">"ታ<xliff:g id="SEPARATOR">=</xliff:g>ታሂቲ"</item>
+    <item msgid="3983121625709442324">"አ<xliff:g id="SEPARATOR">=</xliff:g>አንቲጉዋ"</item>
+    <item msgid="2650510570709806322">"አ<xliff:g id="SEPARATOR">=</xliff:g>ኦስቲን"</item>
+    <item msgid="5257283506227357911">"ቦ<xliff:g id="SEPARATOR">=</xliff:g>ቦስተን"</item>
+    <item msgid="6326368958641850267">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካልጋሪ"</item>
+    <item msgid="8830116365016232583">"ኮ<xliff:g id="SEPARATOR">=</xliff:g>ኮሎምበስ"</item>
+    <item msgid="6986556538341883811">"ዳ<xliff:g id="SEPARATOR">=</xliff:g>ዳላስ"</item>
+    <item msgid="836479352500251902">"ኖ<xliff:g id="SEPARATOR">=</xliff:g>ኖክስቪል"</item>
+    <item msgid="8495291458467378851">"ሜ<xliff:g id="SEPARATOR">=</xliff:g>ሜምፊስ"</item>
+    <item msgid="2788807207554683122">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማያሚ"</item>
+    <item msgid="3984640407077208471">"ሚ<xliff:g id="SEPARATOR">=</xliff:g>ሚኒያፖሊስ"</item>
+    <item msgid="6997305266329324161">"ኦ<xliff:g id="SEPARATOR">=</xliff:g>ኦታዋ"</item>
+    <item msgid="5191741145278683016">"ፊ<xliff:g id="SEPARATOR">=</xliff:g>ፊላደልፊያ"</item>
+    <item msgid="5898032730733441936">"ፖ<xliff:g id="SEPARATOR">=</xliff:g>ፓርትላንድ"</item>
+    <item msgid="9070160716002203069">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳን ዲያጎ"</item>
+    <item msgid="1829944133410079040">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳን ፍራንሲስኮ"</item>
+    <item msgid="8407905318529692654">"ሶ<xliff:g id="SEPARATOR">=</xliff:g>ሶልት ሌክ ሲቲ"</item>
+    <item msgid="3091392589347990898">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳን ጆዜ"</item>
+    <item msgid="7080627414383807284">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳን ሳልቫዶር"</item>
+    <item msgid="3430371213266252049">"ሲ<xliff:g id="SEPARATOR">=</xliff:g>ሲያትል"</item>
+    <item msgid="9177491393818757071">"ሴ<xliff:g id="SEPARATOR">=</xliff:g>ሴንት ሉዊስ"</item>
+    <item msgid="6234359686676312837">"ዋ<xliff:g id="SEPARATOR">=</xliff:g>ዋሽንግተን ዲሲ"</item>
+    <item msgid="4325057056005132331">"ሂ<xliff:g id="SEPARATOR">=</xliff:g>ሂውስተን"</item>
+    <item msgid="38148255938075867">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳን አንቶኒዮ"</item>
+    <item msgid="3601481860893666763">"ጃ<xliff:g id="SEPARATOR">=</xliff:g>ጃክሰንቪል"</item>
+    <item msgid="3987471437354665534">"ባ<xliff:g id="SEPARATOR">=</xliff:g>ባልቲሞር"</item>
+    <item msgid="3389674262267006887">"ና<xliff:g id="SEPARATOR">=</xliff:g>ናሽቪል"</item>
+    <item msgid="7521690366448637309">"ሚ<xliff:g id="SEPARATOR">=</xliff:g>ሚልዋውኪ"</item>
+    <item msgid="2231069593975740859">"ኦ<xliff:g id="SEPARATOR">=</xliff:g>ኦክሎሃማ ሲቲ"</item>
+    <item msgid="1970008262236914770">"ላ<xliff:g id="SEPARATOR">=</xliff:g>ላስ ቬጋስ"</item>
+    <item msgid="7113811028304266017">"አ<xliff:g id="SEPARATOR">=</xliff:g>አልበከርኪ"</item>
+    <item msgid="6481469458896644678">"ቱ<xliff:g id="SEPARATOR">=</xliff:g>ቱስከን"</item>
+    <item msgid="5970857542995467466">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳክራሜንቶ"</item>
+    <item msgid="1999267306329214429">"አ<xliff:g id="SEPARATOR">=</xliff:g>አትላንታ"</item>
+    <item msgid="8761847787537443648">"ክ<xliff:g id="SEPARATOR">=</xliff:g>ክሊቭላንድ"</item>
+    <item msgid="2987455647692324208">"ኒ<xliff:g id="SEPARATOR">=</xliff:g>ኒው ኦርሌንስ"</item>
+    <item msgid="8104109426412705845">"ታ<xliff:g id="SEPARATOR">=</xliff:g>ታምፓ"</item>
+    <item msgid="1410067233842240795">"ፒ<xliff:g id="SEPARATOR">=</xliff:g>ፒትስበርግ"</item>
+    <item msgid="3339955740367374442">"ሲ<xliff:g id="SEPARATOR">=</xliff:g>ሲንስናቲ"</item>
+    <item msgid="6091407424772799978">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማውንቴን ቪው"</item>
+    <item msgid="150299708499753555">"ሬ<xliff:g id="SEPARATOR">=</xliff:g>ሬኖ"</item>
+    <item msgid="9155068631060038769">"ብ<xliff:g id="SEPARATOR">=</xliff:g>ብላክ ሮክ ሲቲ"</item>
+    <item msgid="8498761319928979900">"ዶ<xliff:g id="SEPARATOR">=</xliff:g>ዶሃ"</item>
+    <item msgid="8307897251088048641">"ቤ<xliff:g id="SEPARATOR">=</xliff:g>ቤጂንግ"</item>
+    <item msgid="8605970953750147428">"ሙ<xliff:g id="SEPARATOR">=</xliff:g>ሙምባይ"</item>
+    <item msgid="6668274273067049125">"ዴ<xliff:g id="SEPARATOR">=</xliff:g>ዴልሂ"</item>
+    <item msgid="2933410189478233292">"ኦ<xliff:g id="SEPARATOR">=</xliff:g>ኦሳካ"</item>
+    <item msgid="9011026093638055579">"ላ<xliff:g id="SEPARATOR">=</xliff:g>ላሆር"</item>
+    <item msgid="1448378291805481500">"ሰ<xliff:g id="SEPARATOR">=</xliff:g>ሰነዓ"</item>
+    <item msgid="5233119846682408301">"ባ<xliff:g id="SEPARATOR">=</xliff:g>ባርሴሎና"</item>
+    <item msgid="9146746514265554721">"ሙ<xliff:g id="SEPARATOR">=</xliff:g>ሙኒክ"</item>
+    <item msgid="157866084892734979">"ሚ<xliff:g id="SEPARATOR">=</xliff:g>ሚላን"</item>
+    <item msgid="2787346322341414963">"ፍ<xliff:g id="SEPARATOR">=</xliff:g>ፍራንክፈርት"</item>
+    <item msgid="8407511504088696581">"ሃ<xliff:g id="SEPARATOR">=</xliff:g>ሃኖይ"</item>
+    <item msgid="5184417944073499453">"አ<xliff:g id="SEPARATOR">=</xliff:g>አንካራ"</item>
+    <item msgid="4028784954452197920">"ባ<xliff:g id="SEPARATOR">=</xliff:g>ባንጋሎሬ"</item>
+    <item msgid="190152483600862776">"ብ<xliff:g id="SEPARATOR">=</xliff:g>ብራዚሊያ"</item>
+    <item msgid="8009516135735104388">"ኬ<xliff:g id="SEPARATOR">=</xliff:g>ኬፕ ታውን"</item>
+    <item msgid="6057191797622953016">"ኢ<xliff:g id="SEPARATOR">=</xliff:g>ኢስላማባድ"</item>
+    <item msgid="2702029416591153210">"ሪ<xliff:g id="SEPARATOR">=</xliff:g>ሪዮ ዴ ጀኔሮ"</item>
+    <item msgid="1753927312634708098">"አ<xliff:g id="SEPARATOR">=</xliff:g>አን አርቦር"</item>
+    <item msgid="4225721108475278979">"ቦ<xliff:g id="SEPARATOR">=</xliff:g>ቦልደር"</item>
+    <item msgid="6393177386755796069">"ካ<xliff:g id="SEPARATOR">=</xliff:g>ካምብሪጅ"</item>
+    <item msgid="759409010285366934">"ክ<xliff:g id="SEPARATOR">=</xliff:g>ኪርክላንድ"</item>
+    <item msgid="6308007059287569663">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማዲሰን"</item>
+    <item msgid="6971636434858330021">"ጓ<xliff:g id="SEPARATOR">=</xliff:g>ጓንግንዡ"</item>
+    <item msgid="1185109514180068650">"ሃ<xliff:g id="SEPARATOR">=</xliff:g>ሃይደራባድ"</item>
+    <item msgid="3032295682584784261">"ሬ<xliff:g id="SEPARATOR">=</xliff:g>ሬስተን"</item>
+    <item msgid="7722837296297332268">"በ<xliff:g id="SEPARATOR">=</xliff:g>ቤሎ ሆሪዞንቴ"</item>
+    <item msgid="3593516299122577780">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳንቲያጎ"</item>
+    <item msgid="2293331653589266583">"ሞ<xliff:g id="SEPARATOR">=</xliff:g>ሞኖሮቪያ"</item>
+    <item msgid="7899128359620301710">"ኮ<xliff:g id="SEPARATOR">=</xliff:g>ኮሎምቦ"</item>
+    <item msgid="5294489752262543829">"ቺ<xliff:g id="SEPARATOR">=</xliff:g>ቺዋዋ"</item>
+    <item msgid="8066356061184206341">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳልቫዶር"</item>
+    <item msgid="4806867741334453982">"ጉ<xliff:g id="SEPARATOR">=</xliff:g>ጉርጋዎን"</item>
+    <item msgid="2585780177649876827">"ማ<xliff:g id="SEPARATOR">=</xliff:g>ማንችስተር"</item>
+    <item msgid="234104953526248139">"ኪ<xliff:g id="SEPARATOR">=</xliff:g>ኪዪቭ"</item>
+    <item msgid="5245429461217350012">"ሴ<xliff:g id="SEPARATOR">=</xliff:g>ሴንት ፒተርስበርግ"</item>
+    <item msgid="6738531308006017215">"ክ<xliff:g id="SEPARATOR">=</xliff:g>ክራኮው"</item>
+    <item msgid="8972702613339139467">"ውወ<xliff:g id="SEPARATOR">=</xliff:g>ውሮክላው"</item>
+    <item msgid="187278924459096566">"ሃ<xliff:g id="SEPARATOR">=</xliff:g>ሃምበርግ"</item>
+    <item msgid="6173267862207394917">"ኡ<xliff:g id="SEPARATOR">=</xliff:g>ኡሉ"</item>
+    <item msgid="5639324478037405990">"ሃ<xliff:g id="SEPARATOR">=</xliff:g>ሃይፋ"</item>
+    <item msgid="3157180661352354058">"ሳ<xliff:g id="SEPARATOR">=</xliff:g>ሳን ጁዋን"</item>
+    <item msgid="6995939579417282715">"ቴ<xliff:g id="SEPARATOR">=</xliff:g>ቴጉቺጋልፓ"</item>
+    <item msgid="1641840677391275004">"ፓ<xliff:g id="SEPARATOR">=</xliff:g>ፓራማሪቦ"</item>
+    <item msgid="7317049454800260290">"ኲ<xliff:g id="SEPARATOR">=</xliff:g>ኲቶ"</item>
+    <item msgid="4524380876433343244">"ል<xliff:g id="SEPARATOR">=</xliff:g>ልዩብልያና"</item>
+  </string-array>
+</resources>

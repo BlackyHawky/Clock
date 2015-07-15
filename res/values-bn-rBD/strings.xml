@@ -33,8 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"কম্পন"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"পুনরাবৃত্তি করুন"</string>
     <string name="alert" msgid="6506982899651975645">"অ্যালার্ম রিংটোন"</string>
-    <!-- no translation found for custom_ringtone (3477418548382111184) -->
-    <skip />
+    <string name="custom_ringtone" msgid="3477418548382111184">"কাস্টম রিংয়ের শব্দ"</string>
     <string name="ringtone" msgid="9110746249688559579">"রিংটোন"</string>
     <string name="time" msgid="8067216534232296518">"সময়"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"আগামীকাল"</string>

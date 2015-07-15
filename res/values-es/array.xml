@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="cities_names">
+    <item msgid="4653806289288974388">"<xliff:g id="SEPARATOR">=</xliff:g>Abiyán"</item>
+    <item msgid="4864167603178202155">"<xliff:g id="SEPARATOR">=</xliff:g>Acra"</item>
+    <item msgid="6478898553803167749">"<xliff:g id="SEPARATOR">=</xliff:g>Adís Abeba"</item>
+    <item msgid="5618029992528436448">"<xliff:g id="SEPARATOR">=</xliff:g>Argel"</item>
+    <item msgid="2906834750114790793">"<xliff:g id="SEPARATOR">=</xliff:g>Blantyre"</item>
+    <item msgid="8153571933836629863">"<xliff:g id="SEPARATOR">=</xliff:g>Brazzaville"</item>
+    <item msgid="3703129580594640833">"E<xliff:g id="SEPARATOR">=</xliff:g>El Cairo"</item>
+    <item msgid="2300915410194647320">"<xliff:g id="SEPARATOR">=</xliff:g>Casablanca"</item>
+    <item msgid="1217039002304887948">"<xliff:g id="SEPARATOR">=</xliff:g>Conakri"</item>
+    <item msgid="8775104707806220928">"<xliff:g id="SEPARATOR">=</xliff:g>Dakar"</item>
+    <item msgid="5948764589113643811">"<xliff:g id="SEPARATOR">=</xliff:g>Dar es-Salam"</item>
+    <item msgid="6306254507715416077">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yibuti"</item>
+    <item msgid="4286108029159501866">"<xliff:g id="SEPARATOR">=</xliff:g>Freetown"</item>
+    <item msgid="4514786733035528116">"<xliff:g id="SEPARATOR">=</xliff:g>Gaborone"</item>
+    <item msgid="7367496854968219671">"<xliff:g id="SEPARATOR">=</xliff:g>Harare"</item>
+    <item msgid="6837746379726020288">"<xliff:g id="SEPARATOR">=</xliff:g>Johannesburgo"</item>
+    <item msgid="6284185156591171506">"<xliff:g id="SEPARATOR">=</xliff:g>Kampala"</item>
+    <item msgid="3299518884693668985">"J<xliff:g id="SEPARATOR">=</xliff:g>Jartum"</item>
+    <item msgid="4614879508966043969">"<xliff:g id="SEPARATOR">=</xliff:g>Kigali"</item>
+    <item msgid="8878437043772547732">"<xliff:g id="SEPARATOR">=</xliff:g>Kinsasa"</item>
+    <item msgid="6325601635544067909">"<xliff:g id="SEPARATOR">=</xliff:g>Lagos"</item>
+    <item msgid="6094357506290323524">"<xliff:g id="SEPARATOR">=</xliff:g>Maseru"</item>
+    <item msgid="7270525814400329098">"<xliff:g id="SEPARATOR">=</xliff:g>Mogadiscio"</item>
+    <item msgid="353110101402547540">"<xliff:g id="SEPARATOR">=</xliff:g>Nairobi"</item>
+    <item msgid="1688121892646984549">"<xliff:g id="SEPARATOR">=</xliff:g>São Tomé"</item>
+    <item msgid="3642219084651687800">"<xliff:g id="SEPARATOR">=</xliff:g>Tombuctú"</item>
+    <item msgid="7287513493631179463">"<xliff:g id="SEPARATOR">=</xliff:g>Trípoli"</item>
+    <item msgid="5052614613671591560">"<xliff:g id="SEPARATOR">=</xliff:g>Túnez"</item>
+    <item msgid="7976303179193839859">"<xliff:g id="SEPARATOR">=</xliff:g>Anchorage"</item>
+    <item msgid="193703779380497120">"C<xliff:g id="SEPARATOR">=</xliff:g>Ciudad de Mendoza"</item>
+    <item msgid="5448884981082519628">"<xliff:g id="SEPARATOR">=</xliff:g>Aruba"</item>
+    <item msgid="1577938273323914773">"<xliff:g id="SEPARATOR">=</xliff:g>Asunción"</item>
+    <item msgid="5617155978105010520">"<xliff:g id="SEPARATOR">=</xliff:g>Barbados"</item>
+    <item msgid="3600025702357376322">"<xliff:g id="SEPARATOR">=</xliff:g>Belice"</item>
+    <item msgid="2847679817118467051">"<xliff:g id="SEPARATOR">=</xliff:g>Bogotá"</item>
+    <item msgid="9029003541681282929">"<xliff:g id="SEPARATOR">=</xliff:g>Buenos Aires"</item>
+    <item msgid="2338367960332622522">"<xliff:g id="SEPARATOR">=</xliff:g>Cancún"</item>
+    <item msgid="4339797536047170278">"<xliff:g id="SEPARATOR">=</xliff:g>Caracas"</item>
+    <item msgid="9199080438977757863">"I<xliff:g id="SEPARATOR">=</xliff:g>Islas Caimán"</item>
+    <item msgid="1993203473281589891">"<xliff:g id="SEPARATOR">=</xliff:g>Chicago"</item>
+    <item msgid="7990342776303470263">"<xliff:g id="SEPARATOR">=</xliff:g>Costa Rica"</item>
+    <item msgid="5676109900908808628">"<xliff:g id="SEPARATOR">=</xliff:g>Curaçao"</item>
+    <item msgid="5519120432577564812">"<xliff:g id="SEPARATOR">=</xliff:g>Dawson Creek"</item>
+    <item msgid="2126228972377380680">"<xliff:g id="SEPARATOR">=</xliff:g>Denver"</item>
+    <item msgid="3298410632922319193">"<xliff:g id="SEPARATOR">=</xliff:g>Detroit"</item>
+    <item msgid="2819032085688382805">"<xliff:g id="SEPARATOR">=</xliff:g>Dominica"</item>
+    <item msgid="6170433208654553821">"<xliff:g id="SEPARATOR">=</xliff:g>Edmonton"</item>
+    <item msgid="795461860173291499">"<xliff:g id="SEPARATOR">=</xliff:g>El Salvador"</item>
+    <item msgid="7872196528637597794">"<xliff:g id="SEPARATOR">=</xliff:g>Fortaleza"</item>
+    <item msgid="5801558418916235541">"I<xliff:g id="SEPARATOR">=</xliff:g>Isla Gran Turca"</item>
+    <item msgid="2103759276235503048">"<xliff:g id="SEPARATOR">=</xliff:g>Granada"</item>
+    <item msgid="1490069759176391533">"<xliff:g id="SEPARATOR">=</xliff:g>Guatemala"</item>
+    <item msgid="525959305652046261">"<xliff:g id="SEPARATOR">=</xliff:g>Guyana"</item>
+    <item msgid="7565596629973190931">"<xliff:g id="SEPARATOR">=</xliff:g>Halifax"</item>
+    <item msgid="3811169155065582644">"L<xliff:g id="SEPARATOR">=</xliff:g>La Habana"</item>
+    <item msgid="3733555435078090201">"<xliff:g id="SEPARATOR">=</xliff:g>Indianápolis"</item>
+    <item msgid="226982663848410981">"<xliff:g id="SEPARATOR">=</xliff:g>Knox"</item>
+    <item msgid="3815293080342229459">"<xliff:g id="SEPARATOR">=</xliff:g>Marengo"</item>
+    <item msgid="6594853515451547389">"<xliff:g id="SEPARATOR">=</xliff:g>Petersburg"</item>
+    <item msgid="6091571889213283534">"<xliff:g id="SEPARATOR">=</xliff:g>Tell City"</item>
+    <item msgid="3089369312058696669">"<xliff:g id="SEPARATOR">=</xliff:g>Vevay"</item>
+    <item msgid="1334860422444068943">"<xliff:g id="SEPARATOR">=</xliff:g>Vincennes"</item>
+    <item msgid="7775105082093691756">"<xliff:g id="SEPARATOR">=</xliff:g>Winamac"</item>
+    <item msgid="4043335541899184547">"<xliff:g id="SEPARATOR">=</xliff:g>Kingston"</item>
+    <item msgid="1063757593477259280">"<xliff:g id="SEPARATOR">=</xliff:g>Nuestra Señora de La Paz"</item>
+    <item msgid="349901732062388869">"<xliff:g id="SEPARATOR">=</xliff:g>Lima"</item>
+    <item msgid="4977592519316837842">"<xliff:g id="SEPARATOR">=</xliff:g>Los Ángeles"</item>
+    <item msgid="7713051790509638572">"<xliff:g id="SEPARATOR">=</xliff:g>Louisville"</item>
+    <item msgid="8460620935898405225">"<xliff:g id="SEPARATOR">=</xliff:g>Managua"</item>
+    <item msgid="8328345293081464192">"<xliff:g id="SEPARATOR">=</xliff:g>Martinica"</item>
+    <item msgid="8010357327448619637">"C<xliff:g id="SEPARATOR">=</xliff:g>Ciudad de Mendoza"</item>
+    <item msgid="2046777213916219253">"<xliff:g id="SEPARATOR">=</xliff:g>Metlakatla"</item>
+    <item msgid="2227885609632709258">"C<xliff:g id="SEPARATOR">=</xliff:g>Ciudad de México"</item>
+    <item msgid="9089629663998569289">"<xliff:g id="SEPARATOR">=</xliff:g>Monterrey"</item>
+    <item msgid="2782276175306930748">"<xliff:g id="SEPARATOR">=</xliff:g>Montevideo"</item>
+    <item msgid="4942386959622269480">"<xliff:g id="SEPARATOR">=</xliff:g>Montreal"</item>
+    <item msgid="3068203952968918165">"<xliff:g id="SEPARATOR">=</xliff:g>Nasáu"</item>
+    <item msgid="4234515454127289962">"<xliff:g id="SEPARATOR">=</xliff:g>Nueva York"</item>
+    <item msgid="1660551302087304308">"<xliff:g id="SEPARATOR">=</xliff:g>Beulah"</item>
+    <item msgid="415823390775449071">"<xliff:g id="SEPARATOR">=</xliff:g>Center"</item>
+    <item msgid="6644186958433380884">"<xliff:g id="SEPARATOR">=</xliff:g>New Salem"</item>
+    <item msgid="6408587617047971798">"<xliff:g id="SEPARATOR">=</xliff:g>Panamá"</item>
+    <item msgid="5576899364199447991">"<xliff:g id="SEPARATOR">=</xliff:g>Phoenix"</item>
+    <item msgid="5541266909095409447">"<xliff:g id="SEPARATOR">=</xliff:g>Puerto España"</item>
+    <item msgid="6417519313622785932">"<xliff:g id="SEPARATOR">=</xliff:g>Puerto Príncipe"</item>
+    <item msgid="2078589249210571366">"<xliff:g id="SEPARATOR">=</xliff:g>Puerto Rico"</item>
+    <item msgid="8522030474373927681">"<xliff:g id="SEPARATOR">=</xliff:g>Santo Domingo"</item>
+    <item msgid="4763853453317431594">"<xliff:g id="SEPARATOR">=</xliff:g>São Paulo"</item>
+    <item msgid="2713153284784311646">"<xliff:g id="SEPARATOR">=</xliff:g>Saint John"</item>
+    <item msgid="8252666620333105271">"I<xliff:g id="SEPARATOR">=</xliff:g>Isla de San Cristóbal"</item>
+    <item msgid="4851597775036027515">"<xliff:g id="SEPARATOR">=</xliff:g>Santa Lucía"</item>
+    <item msgid="2395485473100271503">"<xliff:g id="SEPARATOR">=</xliff:g>Saint Thomas"</item>
+    <item msgid="4148037555658225145">"<xliff:g id="SEPARATOR">=</xliff:g>Tijuana"</item>
+    <item msgid="3491199166042475853">"<xliff:g id="SEPARATOR">=</xliff:g>Toronto"</item>
+    <item msgid="1506838283840737263">"<xliff:g id="SEPARATOR">=</xliff:g>Vancouver"</item>
+    <item msgid="8935386104773857399">"<xliff:g id="SEPARATOR">=</xliff:g>Winnipeg"</item>
+    <item msgid="1132634022412399582">"P<xliff:g id="SEPARATOR">=</xliff:g>Polo Sur"</item>
+    <item msgid="4076962667198039206">"<xliff:g id="SEPARATOR">=</xliff:g>Longyearbyen"</item>
+    <item msgid="3784788073896028355">"<xliff:g id="SEPARATOR">=</xliff:g>Almatý"</item>
+    <item msgid="7895695236056852523">"<xliff:g id="SEPARATOR">=</xliff:g>Amán"</item>
+    <item msgid="1795426532295280371">"<xliff:g id="SEPARATOR">=</xliff:g>Anádyr"</item>
+    <item msgid="7194236926158343552">"<xliff:g id="SEPARATOR">=</xliff:g>Aktau"</item>
+    <item msgid="4796350130854360870">"<xliff:g id="SEPARATOR">=</xliff:g>Bagdad"</item>
+    <item msgid="4020105434451091851">"<xliff:g id="SEPARATOR">=</xliff:g>Bahréin"</item>
+    <item msgid="3895868797052686484">"<xliff:g id="SEPARATOR">=</xliff:g>Bakú"</item>
+    <item msgid="228001522630057957">"<xliff:g id="SEPARATOR">=</xliff:g>Bangkok"</item>
+    <item msgid="5555647809114820537">"<xliff:g id="SEPARATOR">=</xliff:g>Beirut"</item>
+    <item msgid="2960873998178478784">"<xliff:g id="SEPARATOR">=</xliff:g>Calcuta"</item>
+    <item msgid="8765555959722950691">"<xliff:g id="SEPARATOR">=</xliff:g>Damasco"</item>
+    <item msgid="4979709428925196546">"<xliff:g id="SEPARATOR">=</xliff:g>Dacca"</item>
+    <item msgid="310419600200885308">"<xliff:g id="SEPARATOR">=</xliff:g>Dubái"</item>
+    <item msgid="1203379132329159260">"<xliff:g id="SEPARATOR">=</xliff:g>Gaza"</item>
+    <item msgid="2359068282340162319">"<xliff:g id="SEPARATOR">=</xliff:g>Hebrón"</item>
+    <item msgid="6223396610551759129">"<xliff:g id="SEPARATOR">=</xliff:g>Ho Chi Minh"</item>
+    <item msgid="4731022818651322736">"<xliff:g id="SEPARATOR">=</xliff:g>Hong Kong"</item>
+    <item msgid="8104778702069607166">"E<xliff:g id="SEPARATOR">=</xliff:g>Estambul"</item>
+    <item msgid="758800913783999425">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yakarta"</item>
+    <item msgid="8956406398692698126">"<xliff:g id="SEPARATOR">=</xliff:g>Jerusalén"</item>
+    <item msgid="1664426577433326419">"<xliff:g id="SEPARATOR">=</xliff:g>Kabul"</item>
+    <item msgid="7700349511508357396">"<xliff:g id="SEPARATOR">=</xliff:g>Karachi"</item>
+    <item msgid="5273241794521591984">"<xliff:g id="SEPARATOR">=</xliff:g>Katmandú"</item>
+    <item msgid="4754850915168634158">"<xliff:g id="SEPARATOR">=</xliff:g>Kuala Lumpur"</item>
+    <item msgid="5187849635785055693">"<xliff:g id="SEPARATOR">=</xliff:g>Kuwait"</item>
+    <item msgid="2923385979252179376">"<xliff:g id="SEPARATOR">=</xliff:g>Macao"</item>
+    <item msgid="722458682107911739">"<xliff:g id="SEPARATOR">=</xliff:g>Manila"</item>
+    <item msgid="6033964325069060422">"<xliff:g id="SEPARATOR">=</xliff:g>Mascate"</item>
+    <item msgid="6077458941399984780">"<xliff:g id="SEPARATOR">=</xliff:g>Phnom Penh"</item>
+    <item msgid="935474308903572975">"<xliff:g id="SEPARATOR">=</xliff:g>Pionyang"</item>
+    <item msgid="5336632319992664889">"C<xliff:g id="SEPARATOR">=</xliff:g>Catar"</item>
+    <item msgid="1667243110545095146">"<xliff:g id="SEPARATOR">=</xliff:g>Rangún"</item>
+    <item msgid="4460370766685855731">"<xliff:g id="SEPARATOR">=</xliff:g>Riad"</item>
+    <item msgid="4229224905931739201">"<xliff:g id="SEPARATOR">=</xliff:g>Saigón"</item>
+    <item msgid="8705359848250215620">"<xliff:g id="SEPARATOR">=</xliff:g>Seúl"</item>
+    <item msgid="583367295371395814">"<xliff:g id="SEPARATOR">=</xliff:g>Shanghái"</item>
+    <item msgid="1422156732794771136">"<xliff:g id="SEPARATOR">=</xliff:g>Singapur"</item>
+    <item msgid="1972491729911039207">"<xliff:g id="SEPARATOR">=</xliff:g>Taipéi"</item>
+    <item msgid="5563193560935461106">"<xliff:g id="SEPARATOR">=</xliff:g>Teherán"</item>
+    <item msgid="8629402941285674273">"<xliff:g id="SEPARATOR">=</xliff:g>Tel Aviv"</item>
+    <item msgid="8499164674454654525">"<xliff:g id="SEPARATOR">=</xliff:g>Tokio"</item>
+    <item msgid="1705804745888992744">"<xliff:g id="SEPARATOR">=</xliff:g>Ulán Bator"</item>
+    <item msgid="2028626988021468640">"<xliff:g id="SEPARATOR">=</xliff:g>Bermudas"</item>
+    <item msgid="4527109966513690429">"<xliff:g id="SEPARATOR">=</xliff:g>Canarias"</item>
+    <item msgid="4886308317040330383">"<xliff:g id="SEPARATOR">=</xliff:g>Cabo Verde"</item>
+    <item msgid="1003307362164178007">"<xliff:g id="SEPARATOR">=</xliff:g>Reikiavik"</item>
+    <item msgid="6742010412815268657">"<xliff:g id="SEPARATOR">=</xliff:g>Stanley"</item>
+    <item msgid="5659389449738592757">"<xliff:g id="SEPARATOR">=</xliff:g>Adelaida"</item>
+    <item msgid="4567804576346784523">"<xliff:g id="SEPARATOR">=</xliff:g>Brisbane"</item>
+    <item msgid="8730590400362815585">"<xliff:g id="SEPARATOR">=</xliff:g>Canberra"</item>
+    <item msgid="6416990927714140153">"<xliff:g id="SEPARATOR">=</xliff:g>Darwin"</item>
+    <item msgid="3073969292696516135">"<xliff:g id="SEPARATOR">=</xliff:g>Melburne"</item>
+    <item msgid="1719286228375722176">"<xliff:g id="SEPARATOR">=</xliff:g>Nueva Gales del Sur"</item>
+    <item msgid="3663940748056976266">"<xliff:g id="SEPARATOR">=</xliff:g>Perth"</item>
+    <item msgid="3383881736858438153">"<xliff:g id="SEPARATOR">=</xliff:g>Queensland"</item>
+    <item msgid="971889339240879138">"<xliff:g id="SEPARATOR">=</xliff:g>Sídney"</item>
+    <item msgid="5542803438162180311">"<xliff:g id="SEPARATOR">=</xliff:g>Victoria"</item>
+    <item msgid="11828841481838883">"T<xliff:g id="SEPARATOR">=</xliff:g>Terranova y Labrador"</item>
+    <item msgid="1734331918410561807">"<xliff:g id="SEPARATOR">=</xliff:g>Saskatchewan"</item>
+    <item msgid="9184412695613864979">"I<xliff:g id="SEPARATOR">=</xliff:g>Isla de Pascua"</item>
+    <item msgid="1014282454239014527">"<xliff:g id="SEPARATOR">=</xliff:g>Ámsterdam"</item>
+    <item msgid="4928363054269791193">"<xliff:g id="SEPARATOR">=</xliff:g>Andorra"</item>
+    <item msgid="912290900213826368">"<xliff:g id="SEPARATOR">=</xliff:g>Atenas"</item>
+    <item msgid="6097000352459209495">"<xliff:g id="SEPARATOR">=</xliff:g>Belfast"</item>
+    <item msgid="3285885824311481790">"<xliff:g id="SEPARATOR">=</xliff:g>Belgrado"</item>
+    <item msgid="911055049821251982">"<xliff:g id="SEPARATOR">=</xliff:g>Berlín"</item>
+    <item msgid="9099244516556291111">"<xliff:g id="SEPARATOR">=</xliff:g>Bratislava"</item>
+    <item msgid="158977749726480076">"<xliff:g id="SEPARATOR">=</xliff:g>Bruselas"</item>
+    <item msgid="8875102297676173346">"<xliff:g id="SEPARATOR">=</xliff:g>Bucarest"</item>
+    <item msgid="804451569472542912">"<xliff:g id="SEPARATOR">=</xliff:g>Budapest"</item>
+    <item msgid="6827506774445509939">"<xliff:g id="SEPARATOR">=</xliff:g>Chisináu"</item>
+    <item msgid="487345893088732797">"<xliff:g id="SEPARATOR">=</xliff:g>Copenhage"</item>
+    <item msgid="7760953471297773537">"<xliff:g id="SEPARATOR">=</xliff:g>Dublín"</item>
+    <item msgid="323414429034825249">"<xliff:g id="SEPARATOR">=</xliff:g>Gibraltar"</item>
+    <item msgid="1785566206078328830">"<xliff:g id="SEPARATOR">=</xliff:g>Helsinki"</item>
+    <item msgid="5938185647271923359">"<xliff:g id="SEPARATOR">=</xliff:g>Isla de Man"</item>
+    <item msgid="5974864320735263245">"E<xliff:g id="SEPARATOR">=</xliff:g>Estambul"</item>
+    <item msgid="3567775364750772947">"<xliff:g id="SEPARATOR">=</xliff:g>Kiev"</item>
+    <item msgid="540344101798867007">"<xliff:g id="SEPARATOR">=</xliff:g>Lisboa"</item>
+    <item msgid="5091062403792923657">"<xliff:g id="SEPARATOR">=</xliff:g>Londres"</item>
+    <item msgid="7075006205000490364">"<xliff:g id="SEPARATOR">=</xliff:g>Luxemburgo"</item>
+    <item msgid="4901781246584739451">"<xliff:g id="SEPARATOR">=</xliff:g>Madrid"</item>
+    <item msgid="9047080834315777144">"<xliff:g id="SEPARATOR">=</xliff:g>Malta"</item>
+    <item msgid="8200456520732452034">"<xliff:g id="SEPARATOR">=</xliff:g>Minsk"</item>
+    <item msgid="5452744619736513383">"<xliff:g id="SEPARATOR">=</xliff:g>Mónaco"</item>
+    <item msgid="3513517408062322298">"<xliff:g id="SEPARATOR">=</xliff:g>Moscú"</item>
+    <item msgid="7917103295878081674">"<xliff:g id="SEPARATOR">=</xliff:g>Oslo"</item>
+    <item msgid="4245547231693746977">"<xliff:g id="SEPARATOR">=</xliff:g>París"</item>
+    <item msgid="3778652900196715557">"<xliff:g id="SEPARATOR">=</xliff:g>Praga"</item>
+    <item msgid="1827175423974383675">"<xliff:g id="SEPARATOR">=</xliff:g>Riga"</item>
+    <item msgid="2095130417232677930">"<xliff:g id="SEPARATOR">=</xliff:g>Roma"</item>
+    <item msgid="7631654618289353520">"<xliff:g id="SEPARATOR">=</xliff:g>San Marino"</item>
+    <item msgid="7219835179107610398">"<xliff:g id="SEPARATOR">=</xliff:g>Sarajevo"</item>
+    <item msgid="7199868165463282240">"<xliff:g id="SEPARATOR">=</xliff:g>Simferópol"</item>
+    <item msgid="2786395006682246794">"<xliff:g id="SEPARATOR">=</xliff:g>Skopie"</item>
+    <item msgid="4706927178872100023">"<xliff:g id="SEPARATOR">=</xliff:g>Sofía"</item>
+    <item msgid="1982417589953195308">"E<xliff:g id="SEPARATOR">=</xliff:g>Estocolmo"</item>
+    <item msgid="1596083919400921960">"<xliff:g id="SEPARATOR">=</xliff:g>Tallin"</item>
+    <item msgid="3079313598974879114">"<xliff:g id="SEPARATOR">=</xliff:g>Vaticano"</item>
+    <item msgid="6516636001856910888">"<xliff:g id="SEPARATOR">=</xliff:g>Viena"</item>
+    <item msgid="6377314532157945456">"<xliff:g id="SEPARATOR">=</xliff:g>Vilna"</item>
+    <item msgid="3427175235616698721">"V<xliff:g id="SEPARATOR">=</xliff:g>Varsovia"</item>
+    <item msgid="8404354243761332922">"<xliff:g id="SEPARATOR">=</xliff:g>Zagreb"</item>
+    <item msgid="1457280242717152391">"<xliff:g id="SEPARATOR">=</xliff:g>Zúrich"</item>
+    <item msgid="1065940089741359291">"<xliff:g id="SEPARATOR">=</xliff:g>Antananarivo"</item>
+    <item msgid="5176181880014090003">"<xliff:g id="SEPARATOR">=</xliff:g>Maldivas"</item>
+    <item msgid="8281854645557426433">"<xliff:g id="SEPARATOR">=</xliff:g>Mauricio"</item>
+    <item msgid="2686249517389816420">"<xliff:g id="SEPARATOR">=</xliff:g>Auckland"</item>
+    <item msgid="279925671775807392">"<xliff:g id="SEPARATOR">=</xliff:g>Fiyi"</item>
+    <item msgid="7971492669765264840">"<xliff:g id="SEPARATOR">=</xliff:g>Guaján"</item>
+    <item msgid="889371273355762733">"<xliff:g id="SEPARATOR">=</xliff:g>Honolulú"</item>
+    <item msgid="5516500578074269817">"<xliff:g id="SEPARATOR">=</xliff:g>Kiritimati"</item>
+    <item msgid="2740704911915073056">"<xliff:g id="SEPARATOR">=</xliff:g>Numea"</item>
+    <item msgid="8732832728949672807">"<xliff:g id="SEPARATOR">=</xliff:g>Samoa"</item>
+    <item msgid="6489500698846864993">"<xliff:g id="SEPARATOR">=</xliff:g>Tahití"</item>
+    <item msgid="3983121625709442324">"<xliff:g id="SEPARATOR">=</xliff:g>Antigua"</item>
+    <item msgid="2650510570709806322">"<xliff:g id="SEPARATOR">=</xliff:g>Austin"</item>
+    <item msgid="5257283506227357911">"<xliff:g id="SEPARATOR">=</xliff:g>Boston"</item>
+    <item msgid="6326368958641850267">"<xliff:g id="SEPARATOR">=</xliff:g>Calgary"</item>
+    <item msgid="8830116365016232583">"<xliff:g id="SEPARATOR">=</xliff:g>Columbus"</item>
+    <item msgid="6986556538341883811">"<xliff:g id="SEPARATOR">=</xliff:g>Dallas"</item>
+    <item msgid="836479352500251902">"<xliff:g id="SEPARATOR">=</xliff:g>Knoxville"</item>
+    <item msgid="8495291458467378851">"<xliff:g id="SEPARATOR">=</xliff:g>Memphis"</item>
+    <item msgid="2788807207554683122">"<xliff:g id="SEPARATOR">=</xliff:g>Miami"</item>
+    <item msgid="3984640407077208471">"<xliff:g id="SEPARATOR">=</xliff:g>Minneapolis"</item>
+    <item msgid="6997305266329324161">"<xliff:g id="SEPARATOR">=</xliff:g>Ottawa"</item>
+    <item msgid="5191741145278683016">"F<xliff:g id="SEPARATOR">=</xliff:g>Filadelfia"</item>
+    <item msgid="5898032730733441936">"<xliff:g id="SEPARATOR">=</xliff:g>Portland"</item>
+    <item msgid="9070160716002203069">"<xliff:g id="SEPARATOR">=</xliff:g>San Diego"</item>
+    <item msgid="1829944133410079040">"<xliff:g id="SEPARATOR">=</xliff:g>San Francisco"</item>
+    <item msgid="8407905318529692654">"<xliff:g id="SEPARATOR">=</xliff:g>Salt Lake City"</item>
+    <item msgid="3091392589347990898">"<xliff:g id="SEPARATOR">=</xliff:g>San José"</item>
+    <item msgid="7080627414383807284">"<xliff:g id="SEPARATOR">=</xliff:g>San Salvador"</item>
+    <item msgid="3430371213266252049">"<xliff:g id="SEPARATOR">=</xliff:g>Seattle"</item>
+    <item msgid="9177491393818757071">"C<xliff:g id="SEPARATOR">=</xliff:g>Ciudad de San Luis"</item>
+    <item msgid="6234359686676312837">"<xliff:g id="SEPARATOR">=</xliff:g>Washington D.C."</item>
+    <item msgid="4325057056005132331">"<xliff:g id="SEPARATOR">=</xliff:g>Houston"</item>
+    <item msgid="38148255938075867">"<xliff:g id="SEPARATOR">=</xliff:g>San Antonio"</item>
+    <item msgid="3601481860893666763">"<xliff:g id="SEPARATOR">=</xliff:g>Jacksonville"</item>
+    <item msgid="3987471437354665534">"<xliff:g id="SEPARATOR">=</xliff:g>Baltimore"</item>
+    <item msgid="3389674262267006887">"<xliff:g id="SEPARATOR">=</xliff:g>Nashville"</item>
+    <item msgid="7521690366448637309">"<xliff:g id="SEPARATOR">=</xliff:g>Milwaukee"</item>
+    <item msgid="2231069593975740859">"C<xliff:g id="SEPARATOR">=</xliff:g>Ciudad de Oklahoma"</item>
+    <item msgid="1970008262236914770">"<xliff:g id="SEPARATOR">=</xliff:g>Las Vegas"</item>
+    <item msgid="7113811028304266017">"<xliff:g id="SEPARATOR">=</xliff:g>Albuquerque"</item>
+    <item msgid="6481469458896644678">"<xliff:g id="SEPARATOR">=</xliff:g>Tucsón"</item>
+    <item msgid="5970857542995467466">"<xliff:g id="SEPARATOR">=</xliff:g>Sacramento"</item>
+    <item msgid="1999267306329214429">"<xliff:g id="SEPARATOR">=</xliff:g>Atlanta"</item>
+    <item msgid="8761847787537443648">"<xliff:g id="SEPARATOR">=</xliff:g>Cleveland"</item>
+    <item msgid="2987455647692324208">"<xliff:g id="SEPARATOR">=</xliff:g>Nueva Orleans"</item>
+    <item msgid="8104109426412705845">"<xliff:g id="SEPARATOR">=</xliff:g>Tampa"</item>
+    <item msgid="1410067233842240795">"<xliff:g id="SEPARATOR">=</xliff:g>Pittsburgh"</item>
+    <item msgid="3339955740367374442">"<xliff:g id="SEPARATOR">=</xliff:g>Cincinnati"</item>
+    <item msgid="6091407424772799978">"<xliff:g id="SEPARATOR">=</xliff:g>Mountain View"</item>
+    <item msgid="150299708499753555">"<xliff:g id="SEPARATOR">=</xliff:g>Reno"</item>
+    <item msgid="9155068631060038769">"<xliff:g id="SEPARATOR">=</xliff:g>Black Rock City"</item>
+    <item msgid="8498761319928979900">"<xliff:g id="SEPARATOR">=</xliff:g>Doha"</item>
+    <item msgid="8307897251088048641">"<xliff:g id="SEPARATOR">=</xliff:g>Pekín"</item>
+    <item msgid="8605970953750147428">"B<xliff:g id="SEPARATOR">=</xliff:g>Bombay"</item>
+    <item msgid="6668274273067049125">"<xliff:g id="SEPARATOR">=</xliff:g>Delhi"</item>
+    <item msgid="2933410189478233292">"<xliff:g id="SEPARATOR">=</xliff:g>Osaka"</item>
+    <item msgid="9011026093638055579">"<xliff:g id="SEPARATOR">=</xliff:g>Lahore"</item>
+    <item msgid="1448378291805481500">"<xliff:g id="SEPARATOR">=</xliff:g>Saná"</item>
+    <item msgid="5233119846682408301">"<xliff:g id="SEPARATOR">=</xliff:g>Barcelona"</item>
+    <item msgid="9146746514265554721">"<xliff:g id="SEPARATOR">=</xliff:g>Múnich"</item>
+    <item msgid="157866084892734979">"<xliff:g id="SEPARATOR">=</xliff:g>Milán"</item>
+    <item msgid="2787346322341414963">"<xliff:g id="SEPARATOR">=</xliff:g>Fráncfort"</item>
+    <item msgid="8407511504088696581">"<xliff:g id="SEPARATOR">=</xliff:g>Hanói"</item>
+    <item msgid="5184417944073499453">"<xliff:g id="SEPARATOR">=</xliff:g>Ankara"</item>
+    <item msgid="4028784954452197920">"<xliff:g id="SEPARATOR">=</xliff:g>Bangalore"</item>
+    <item msgid="190152483600862776">"<xliff:g id="SEPARATOR">=</xliff:g>Brasilia"</item>
+    <item msgid="8009516135735104388">"<xliff:g id="SEPARATOR">=</xliff:g>Ciudad del Cabo"</item>
+    <item msgid="6057191797622953016">"<xliff:g id="SEPARATOR">=</xliff:g>Islamabad"</item>
+    <item msgid="2702029416591153210">"<xliff:g id="SEPARATOR">=</xliff:g>Río de Janeiro"</item>
+    <item msgid="1753927312634708098">"<xliff:g id="SEPARATOR">=</xliff:g>Ann Arbor"</item>
+    <item msgid="4225721108475278979">"<xliff:g id="SEPARATOR">=</xliff:g>Boulder"</item>
+    <item msgid="6393177386755796069">"<xliff:g id="SEPARATOR">=</xliff:g>Cambridge"</item>
+    <item msgid="759409010285366934">"<xliff:g id="SEPARATOR">=</xliff:g>Kirkland"</item>
+    <item msgid="6308007059287569663">"<xliff:g id="SEPARATOR">=</xliff:g>Madison"</item>
+    <item msgid="6971636434858330021">"<xliff:g id="SEPARATOR">=</xliff:g>Cantón"</item>
+    <item msgid="1185109514180068650">"<xliff:g id="SEPARATOR">=</xliff:g>Hyderabad"</item>
+    <item msgid="3032295682584784261">"<xliff:g id="SEPARATOR">=</xliff:g>Reston"</item>
+    <item msgid="7722837296297332268">"<xliff:g id="SEPARATOR">=</xliff:g>Belo Horizonte"</item>
+    <item msgid="3593516299122577780">"<xliff:g id="SEPARATOR">=</xliff:g>Santiago"</item>
+    <item msgid="2293331653589266583">"<xliff:g id="SEPARATOR">=</xliff:g>Monrovia"</item>
+    <item msgid="7899128359620301710">"<xliff:g id="SEPARATOR">=</xliff:g>Colombo"</item>
+    <item msgid="5294489752262543829">"<xliff:g id="SEPARATOR">=</xliff:g>Chihuahua"</item>
+    <item msgid="8066356061184206341">"E<xliff:g id="SEPARATOR">=</xliff:g>El Salvador"</item>
+    <item msgid="4806867741334453982">"<xliff:g id="SEPARATOR">=</xliff:g>Gurgaon"</item>
+    <item msgid="2585780177649876827">"<xliff:g id="SEPARATOR">=</xliff:g>Mánchester"</item>
+    <item msgid="234104953526248139">"<xliff:g id="SEPARATOR">=</xliff:g>Kiev"</item>
+    <item msgid="5245429461217350012">"<xliff:g id="SEPARATOR">=</xliff:g>San Petersburgo"</item>
+    <item msgid="6738531308006017215">"C<xliff:g id="SEPARATOR">=</xliff:g>Cracovia"</item>
+    <item msgid="8972702613339139467">"B<xliff:g id="SEPARATOR">=</xliff:g>Breslavia"</item>
+    <item msgid="187278924459096566">"<xliff:g id="SEPARATOR">=</xliff:g>Hamburgo"</item>
+    <item msgid="6173267862207394917">"<xliff:g id="SEPARATOR">=</xliff:g>Oulu"</item>
+    <item msgid="5639324478037405990">"<xliff:g id="SEPARATOR">=</xliff:g>Haifa"</item>
+    <item msgid="3157180661352354058">"<xliff:g id="SEPARATOR">=</xliff:g>San Juan"</item>
+    <item msgid="6995939579417282715">"<xliff:g id="SEPARATOR">=</xliff:g>Tegucigalpa"</item>
+    <item msgid="1641840677391275004">"<xliff:g id="SEPARATOR">=</xliff:g>Paramaribo"</item>
+    <item msgid="7317049454800260290">"<xliff:g id="SEPARATOR">=</xliff:g>Quito"</item>
+    <item msgid="4524380876433343244">"<xliff:g id="SEPARATOR">=</xliff:g>Liubliana"</item>
+  </string-array>
+</resources>

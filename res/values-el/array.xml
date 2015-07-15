@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="cities_names">
+    <item msgid="4653806289288974388">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αμπιτζάν"</item>
+    <item msgid="4864167603178202155">"Α<xliff:g id="SEPARATOR">=</xliff:g>Άκκρα"</item>
+    <item msgid="6478898553803167749">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αντίς Αμπέμπα"</item>
+    <item msgid="5618029992528436448">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αλγέρι"</item>
+    <item msgid="2906834750114790793">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπλαντάιρ"</item>
+    <item msgid="8153571933836629863">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπραζαβίλ"</item>
+    <item msgid="3703129580594640833">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κάιρο"</item>
+    <item msgid="2300915410194647320">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Καζαμπλάνκα"</item>
+    <item msgid="1217039002304887948">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κονακρί"</item>
+    <item msgid="8775104707806220928">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντακάρ"</item>
+    <item msgid="5948764589113643811">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νταρ ες Σαλάμ"</item>
+    <item msgid="6306254507715416077">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τζιμπουτί"</item>
+    <item msgid="4286108029159501866">"Φ<xliff:g id="SEPARATOR">=</xliff:g>Φρίταουν"</item>
+    <item msgid="4514786733035528116">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γκαμπορόνε"</item>
+    <item msgid="7367496854968219671">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χαράρε"</item>
+    <item msgid="6837746379726020288">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γιοχάνεσμπουργκ"</item>
+    <item msgid="6284185156591171506">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Καμπάλα"</item>
+    <item msgid="3299518884693668985">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χαρτούμ"</item>
+    <item msgid="4614879508966043969">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κιγκάλι"</item>
+    <item msgid="8878437043772547732">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κινσάσα"</item>
+    <item msgid="6325601635544067909">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λάγος"</item>
+    <item msgid="6094357506290323524">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μαζέρου"</item>
+    <item msgid="7270525814400329098">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μογκαντίσου"</item>
+    <item msgid="353110101402547540">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ναϊρόμπι"</item>
+    <item msgid="1688121892646984549">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σάο Τομέ"</item>
+    <item msgid="3642219084651687800">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τιμπουκτού"</item>
+    <item msgid="7287513493631179463">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τρίπολη"</item>
+    <item msgid="5052614613671591560">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τύνιδα"</item>
+    <item msgid="7976303179193839859">"Α<xliff:g id="SEPARATOR">=</xliff:g>Ανκορέιτζ"</item>
+    <item msgid="193703779380497120">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μεντόζα"</item>
+    <item msgid="5448884981082519628">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αρούμπα"</item>
+    <item msgid="1577938273323914773">"Α<xliff:g id="SEPARATOR">=</xliff:g>Ασουνσιόν"</item>
+    <item msgid="5617155978105010520">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπαρμπάντος"</item>
+    <item msgid="3600025702357376322">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπελίζ"</item>
+    <item msgid="2847679817118467051">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπογκοτά"</item>
+    <item msgid="9029003541681282929">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπουένος Άιρες"</item>
+    <item msgid="2338367960332622522">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κανκούν"</item>
+    <item msgid="4339797536047170278">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Καράκας"</item>
+    <item msgid="9199080438977757863">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κάιμαν"</item>
+    <item msgid="1993203473281589891">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σικάγο"</item>
+    <item msgid="7990342776303470263">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κόστα Ρίκα"</item>
+    <item msgid="5676109900908808628">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κουρασάο"</item>
+    <item msgid="5519120432577564812">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντόσον Κρικ"</item>
+    <item msgid="2126228972377380680">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντένβερ"</item>
+    <item msgid="3298410632922319193">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντιτρόιτ"</item>
+    <item msgid="2819032085688382805">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντομίνικα"</item>
+    <item msgid="6170433208654553821">"Ε<xliff:g id="SEPARATOR">=</xliff:g>Έντμοντον"</item>
+    <item msgid="795461860173291499">"Ε<xliff:g id="SEPARATOR">=</xliff:g>Ελ Σαλβαδόρ"</item>
+    <item msgid="7872196528637597794">"Φ<xliff:g id="SEPARATOR">=</xliff:g>Φορταλέζα"</item>
+    <item msgid="5801558418916235541">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κόκμπερν Τάουν"</item>
+    <item msgid="2103759276235503048">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γρενάδα"</item>
+    <item msgid="1490069759176391533">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γουατεμάλα"</item>
+    <item msgid="525959305652046261">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γουιάνα"</item>
+    <item msgid="7565596629973190931">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χάλιφαξ"</item>
+    <item msgid="3811169155065582644">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αβάνα"</item>
+    <item msgid="3733555435078090201">"Ι<xliff:g id="SEPARATOR">=</xliff:g>Ιντιανάπολις"</item>
+    <item msgid="226982663848410981">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νοξ"</item>
+    <item msgid="3815293080342229459">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μαρένγκο"</item>
+    <item msgid="6594853515451547389">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πετρούπολη"</item>
+    <item msgid="6091571889213283534">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τελ Σίτι"</item>
+    <item msgid="3089369312058696669">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βεβέ"</item>
+    <item msgid="1334860422444068943">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βιντσένες"</item>
+    <item msgid="7775105082093691756">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βιναμάκ"</item>
+    <item msgid="4043335541899184547">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κίνγκστον"</item>
+    <item msgid="1063757593477259280">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λα Πας"</item>
+    <item msgid="349901732062388869">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λίμα"</item>
+    <item msgid="4977592519316837842">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λος Άντζελες"</item>
+    <item msgid="7713051790509638572">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λούισβιλ"</item>
+    <item msgid="8460620935898405225">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μανάγουα"</item>
+    <item msgid="8328345293081464192">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μαρτινίκα"</item>
+    <item msgid="8010357327448619637">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μεντόζα"</item>
+    <item msgid="2046777213916219253">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μετλακάτλα"</item>
+    <item msgid="2227885609632709258">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πόλη Του Μεξικό"</item>
+    <item msgid="9089629663998569289">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μοντερέι"</item>
+    <item msgid="2782276175306930748">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μοντεβιδέο"</item>
+    <item msgid="4942386959622269480">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μόντρεαλ"</item>
+    <item msgid="3068203952968918165">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νασσάου"</item>
+    <item msgid="4234515454127289962">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νέα Υόρκη"</item>
+    <item msgid="1660551302087304308">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπεουλάχ"</item>
+    <item msgid="415823390775449071">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κέντρο"</item>
+    <item msgid="6644186958433380884">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νέο Σάλεμ"</item>
+    <item msgid="6408587617047971798">"Π<xliff:g id="SEPARATOR">=</xliff:g>Παναμάς"</item>
+    <item msgid="5576899364199447991">"Φ<xliff:g id="SEPARATOR">=</xliff:g>Φοίνιξ"</item>
+    <item msgid="5541266909095409447">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λιμάνι της Ισπανίας"</item>
+    <item msgid="6417519313622785932">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πορτ-ο-Πρενς"</item>
+    <item msgid="2078589249210571366">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πουέρτο Ρίκο"</item>
+    <item msgid="8522030474373927681">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σάντο Ντομίνγκο"</item>
+    <item msgid="4763853453317431594">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σάο Πάολο"</item>
+    <item msgid="2713153284784311646">"Α<xliff:g id="SEPARATOR">=</xliff:g>Άγιος Ιωάννης"</item>
+    <item msgid="8252666620333105271">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σεντ Κιτς"</item>
+    <item msgid="4851597775036027515">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αγία Λουκία"</item>
+    <item msgid="2395485473100271503">"Α<xliff:g id="SEPARATOR">=</xliff:g>Άγιος Θωμάς"</item>
+    <item msgid="4148037555658225145">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τιχουάνα"</item>
+    <item msgid="3491199166042475853">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τορόντο"</item>
+    <item msgid="1506838283840737263">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βανκούβερ"</item>
+    <item msgid="8935386104773857399">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γουίνιπεγκ"</item>
+    <item msgid="1132634022412399582">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νότιο Πόλο"</item>
+    <item msgid="4076962667198039206">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λονγκιαρμπίεν"</item>
+    <item msgid="3784788073896028355">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αλμάτι"</item>
+    <item msgid="7895695236056852523">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αμάν"</item>
+    <item msgid="1795426532295280371">"Α<xliff:g id="SEPARATOR">=</xliff:g>Ανάντιρ"</item>
+    <item msgid="7194236926158343552">"Α<xliff:g id="SEPARATOR">=</xliff:g>Ακτάου"</item>
+    <item msgid="4796350130854360870">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βαγδάτη"</item>
+    <item msgid="4020105434451091851">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπαχρέιν"</item>
+    <item msgid="3895868797052686484">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπακού"</item>
+    <item msgid="228001522630057957">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπανγκόκ"</item>
+    <item msgid="5555647809114820537">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βηρυτός"</item>
+    <item msgid="2960873998178478784">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Καλκούτα"</item>
+    <item msgid="8765555959722950691">"Δ<xliff:g id="SEPARATOR">=</xliff:g>Δαμασκός"</item>
+    <item msgid="4979709428925196546">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντάκα"</item>
+    <item msgid="310419600200885308">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντουμπάι"</item>
+    <item msgid="1203379132329159260">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γάζα"</item>
+    <item msgid="2359068282340162319">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χεβρώνα"</item>
+    <item msgid="6223396610551759129">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χο Τσι Μινχ"</item>
+    <item msgid="4731022818651322736">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χονγκ Κονγκ"</item>
+    <item msgid="8104778702069607166">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κωνσταντινούπολη"</item>
+    <item msgid="758800913783999425">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τζακάρτα"</item>
+    <item msgid="8956406398692698126">"Ι<xliff:g id="SEPARATOR">=</xliff:g>Ιερουσαλήμ"</item>
+    <item msgid="1664426577433326419">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Καμπούλ"</item>
+    <item msgid="7700349511508357396">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Καράτσι"</item>
+    <item msgid="5273241794521591984">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κατμαντού"</item>
+    <item msgid="4754850915168634158">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κουάλα Λουμπούρ"</item>
+    <item msgid="5187849635785055693">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κουβέιτ"</item>
+    <item msgid="2923385979252179376">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μακάου"</item>
+    <item msgid="722458682107911739">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μανίλα"</item>
+    <item msgid="6033964325069060422">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μουσκάτ"</item>
+    <item msgid="6077458941399984780">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πνομ Πενχ"</item>
+    <item msgid="935474308903572975">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πιονγκγιάνγκ"</item>
+    <item msgid="5336632319992664889">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κατάρ"</item>
+    <item msgid="1667243110545095146">"Ρ<xliff:g id="SEPARATOR">=</xliff:g>Ρανγκούν"</item>
+    <item msgid="4460370766685855731">"Ρ<xliff:g id="SEPARATOR">=</xliff:g>Ριάντ"</item>
+    <item msgid="4229224905931739201">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαϊγκόν"</item>
+    <item msgid="8705359848250215620">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σεούλ"</item>
+    <item msgid="583367295371395814">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαγκάη"</item>
+    <item msgid="1422156732794771136">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σιγκαπούρη"</item>
+    <item msgid="1972491729911039207">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Ταϊπέι"</item>
+    <item msgid="5563193560935461106">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τεχεράνη"</item>
+    <item msgid="8629402941285674273">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τελ Αβίβ"</item>
+    <item msgid="8499164674454654525">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τόκιο"</item>
+    <item msgid="1705804745888992744">"Ο<xliff:g id="SEPARATOR">=</xliff:g>Ουλάν Μπατόρ"</item>
+    <item msgid="2028626988021468640">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βερμούδα"</item>
+    <item msgid="4527109966513690429">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κανάρια"</item>
+    <item msgid="4886308317040330383">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πράσινο Ακρωτήριο"</item>
+    <item msgid="1003307362164178007">"Ρ<xliff:g id="SEPARATOR">=</xliff:g>Ρέικιαβικ"</item>
+    <item msgid="6742010412815268657">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Στάνλεϊ"</item>
+    <item msgid="5659389449738592757">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αδελαΐδα"</item>
+    <item msgid="4567804576346784523">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπρίσμπεϊν"</item>
+    <item msgid="8730590400362815585">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Καμπέρα"</item>
+    <item msgid="6416990927714140153">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντάργουιν"</item>
+    <item msgid="3073969292696516135">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μελβούρνη"</item>
+    <item msgid="1719286228375722176">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νέα Νότια Ουαλία"</item>
+    <item msgid="3663940748056976266">"Π<xliff:g id="SEPARATOR">=</xliff:g>Περθ"</item>
+    <item msgid="3383881736858438153">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κουίνσλαντ"</item>
+    <item msgid="971889339240879138">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σίδνεϊ"</item>
+    <item msgid="5542803438162180311">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βικτόρια"</item>
+    <item msgid="11828841481838883">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νέα Γη"</item>
+    <item msgid="1734331918410561807">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σασκάτσουαν"</item>
+    <item msgid="9184412695613864979">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νησί του Πάσχα"</item>
+    <item msgid="1014282454239014527">"Α<xliff:g id="SEPARATOR">=</xliff:g>Άμστερνταμ"</item>
+    <item msgid="4928363054269791193">"Α<xliff:g id="SEPARATOR">=</xliff:g>Ανδόρα"</item>
+    <item msgid="912290900213826368">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αθήνα"</item>
+    <item msgid="6097000352459209495">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπέλφαστ"</item>
+    <item msgid="3285885824311481790">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βελιγράδι"</item>
+    <item msgid="911055049821251982">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βερολίνο"</item>
+    <item msgid="9099244516556291111">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπρατισλάβα"</item>
+    <item msgid="158977749726480076">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βρυξέλλες"</item>
+    <item msgid="8875102297676173346">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βουκουρέστι"</item>
+    <item msgid="804451569472542912">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βουδαπέστη"</item>
+    <item msgid="6827506774445509939">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κισινάου"</item>
+    <item msgid="487345893088732797">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κοπεγχάγη"</item>
+    <item msgid="7760953471297773537">"Δ<xliff:g id="SEPARATOR">=</xliff:g>Δουβλίνο"</item>
+    <item msgid="323414429034825249">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γιβραλτάρ"</item>
+    <item msgid="1785566206078328830">"Ε<xliff:g id="SEPARATOR">=</xliff:g>Ελσίνκι"</item>
+    <item msgid="5938185647271923359">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νήσος του Μαν"</item>
+    <item msgid="5974864320735263245">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κωνσταντινούπολη"</item>
+    <item msgid="3567775364750772947">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κίεβο"</item>
+    <item msgid="540344101798867007">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λισαβόνα"</item>
+    <item msgid="5091062403792923657">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λονδίνο"</item>
+    <item msgid="7075006205000490364">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λουξεμβούργο"</item>
+    <item msgid="4901781246584739451">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μαδρίτη"</item>
+    <item msgid="9047080834315777144">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μάλτα"</item>
+    <item msgid="8200456520732452034">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μινσκ"</item>
+    <item msgid="5452744619736513383">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μονακό"</item>
+    <item msgid="3513517408062322298">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μόσχα"</item>
+    <item msgid="7917103295878081674">"Ο<xliff:g id="SEPARATOR">=</xliff:g>Όσλο"</item>
+    <item msgid="4245547231693746977">"Π<xliff:g id="SEPARATOR">=</xliff:g>Παρίσι"</item>
+    <item msgid="3778652900196715557">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πράγα"</item>
+    <item msgid="1827175423974383675">"Ρ<xliff:g id="SEPARATOR">=</xliff:g>Ρίγα"</item>
+    <item msgid="2095130417232677930">"Ρ<xliff:g id="SEPARATOR">=</xliff:g>Ρώμη"</item>
+    <item msgid="7631654618289353520">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαν Μαρίνο"</item>
+    <item msgid="7219835179107610398">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαράγεβο"</item>
+    <item msgid="7199868165463282240">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Συμφερούπολη"</item>
+    <item msgid="2786395006682246794">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σκόπια"</item>
+    <item msgid="4706927178872100023">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σόφια"</item>
+    <item msgid="1982417589953195308">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Στοκχόλμη"</item>
+    <item msgid="1596083919400921960">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Ταλίν"</item>
+    <item msgid="3079313598974879114">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βατικανό"</item>
+    <item msgid="6516636001856910888">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βιέννη"</item>
+    <item msgid="6377314532157945456">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βίλνιους"</item>
+    <item msgid="3427175235616698721">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βαρσοβία"</item>
+    <item msgid="8404354243761332922">"Ζ<xliff:g id="SEPARATOR">=</xliff:g>Ζάγκρεμπ"</item>
+    <item msgid="1457280242717152391">"Ζ<xliff:g id="SEPARATOR">=</xliff:g>Ζυρίχη"</item>
+    <item msgid="1065940089741359291">"Α<xliff:g id="SEPARATOR">=</xliff:g>Ανταναναρίβο"</item>
+    <item msgid="5176181880014090003">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μαλδίβες"</item>
+    <item msgid="8281854645557426433">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μαυρίκιος"</item>
+    <item msgid="2686249517389816420">"Ο<xliff:g id="SEPARATOR">=</xliff:g>Όκλαντ"</item>
+    <item msgid="279925671775807392">"Φ<xliff:g id="SEPARATOR">=</xliff:g>Φίτζι"</item>
+    <item msgid="7971492669765264840">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γκουάμ"</item>
+    <item msgid="889371273355762733">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χονολουλού"</item>
+    <item msgid="5516500578074269817">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κιριτιμάτι"</item>
+    <item msgid="2740704911915073056">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νουμέα"</item>
+    <item msgid="8732832728949672807">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαμόα"</item>
+    <item msgid="6489500698846864993">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Ταϊτή"</item>
+    <item msgid="3983121625709442324">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αντίγκουα"</item>
+    <item msgid="2650510570709806322">"Ω<xliff:g id="SEPARATOR">=</xliff:g>Ώστιν"</item>
+    <item msgid="5257283506227357911">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βοστόνη"</item>
+    <item msgid="6326368958641850267">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κάλγκαρυ"</item>
+    <item msgid="8830116365016232583">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κολόμβος"</item>
+    <item msgid="6986556538341883811">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντάλας"</item>
+    <item msgid="836479352500251902">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νόξβιλ"</item>
+    <item msgid="8495291458467378851">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μέμφις"</item>
+    <item msgid="2788807207554683122">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μαϊάμι"</item>
+    <item msgid="3984640407077208471">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μινεάπολις"</item>
+    <item msgid="6997305266329324161">"Ο<xliff:g id="SEPARATOR">=</xliff:g>Οττάβα"</item>
+    <item msgid="5191741145278683016">"Φ<xliff:g id="SEPARATOR">=</xliff:g>Φιλαδέλφεια"</item>
+    <item msgid="5898032730733441936">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πόρτλαντ"</item>
+    <item msgid="9070160716002203069">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαν Ντιέγκο"</item>
+    <item msgid="1829944133410079040">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαν Φρανσίσκο"</item>
+    <item msgid="8407905318529692654">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σολτ Λέικ Σίτι"</item>
+    <item msgid="3091392589347990898">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαν Χοσέ"</item>
+    <item msgid="7080627414383807284">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαν Σαλβαδόρ"</item>
+    <item msgid="3430371213266252049">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σιάτλ"</item>
+    <item msgid="9177491393818757071">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαιντ Λούις"</item>
+    <item msgid="6234359686676312837">"Ο<xliff:g id="SEPARATOR">=</xliff:g>Ουάσιγκτον"</item>
+    <item msgid="4325057056005132331">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χιούστον"</item>
+    <item msgid="38148255938075867">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαν Αντόνιο"</item>
+    <item msgid="3601481860893666763">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τζάκσονβιλ"</item>
+    <item msgid="3987471437354665534">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βαλτιμόρη"</item>
+    <item msgid="3389674262267006887">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νάσβιλ"</item>
+    <item msgid="7521690366448637309">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μιλγουόκι"</item>
+    <item msgid="2231069593975740859">"Ο<xliff:g id="SEPARATOR">=</xliff:g>Οκλαχόμα Σίτι"</item>
+    <item msgid="1970008262236914770">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λας Βέγκας"</item>
+    <item msgid="7113811028304266017">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αλμπουκέρκη"</item>
+    <item msgid="6481469458896644678">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τούσον"</item>
+    <item msgid="5970857542995467466">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σακραμέντο"</item>
+    <item msgid="1999267306329214429">"Α<xliff:g id="SEPARATOR">=</xliff:g>Ατλάντα"</item>
+    <item msgid="8761847787537443648">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κλίβελαντ"</item>
+    <item msgid="2987455647692324208">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Νέα Ορλεάνη"</item>
+    <item msgid="8104109426412705845">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τάμπα"</item>
+    <item msgid="1410067233842240795">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πίτσμπουργκ"</item>
+    <item msgid="3339955740367374442">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σινσινάτι"</item>
+    <item msgid="6091407424772799978">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μάουντεν Βιου"</item>
+    <item msgid="150299708499753555">"Ρ<xliff:g id="SEPARATOR">=</xliff:g>Ρίνο"</item>
+    <item msgid="9155068631060038769">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπλακ Ροκ Σίτι"</item>
+    <item msgid="8498761319928979900">"Ν<xliff:g id="SEPARATOR">=</xliff:g>Ντόχα"</item>
+    <item msgid="8307897251088048641">"Π<xliff:g id="SEPARATOR">=</xliff:g>Πεκίνο"</item>
+    <item msgid="8605970953750147428">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βομβάη"</item>
+    <item msgid="6668274273067049125">"Δ<xliff:g id="SEPARATOR">=</xliff:g>Δελχί"</item>
+    <item msgid="2933410189478233292">"Ο<xliff:g id="SEPARATOR">=</xliff:g>Οζάκα"</item>
+    <item msgid="9011026093638055579">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λαχόρη"</item>
+    <item msgid="1448378291805481500">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαναά"</item>
+    <item msgid="5233119846682408301">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βαρκελώνη"</item>
+    <item msgid="9146746514265554721">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μόναχο"</item>
+    <item msgid="157866084892734979">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μιλάνο"</item>
+    <item msgid="2787346322341414963">"Φ<xliff:g id="SEPARATOR">=</xliff:g>Φρανκφούρτη"</item>
+    <item msgid="8407511504088696581">"Α<xliff:g id="SEPARATOR">=</xliff:g>Ανόι"</item>
+    <item msgid="5184417944073499453">"Α<xliff:g id="SEPARATOR">=</xliff:g>Άγκυρα"</item>
+    <item msgid="4028784954452197920">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπανγκαλόρ"</item>
+    <item msgid="190152483600862776">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπραζίλια"</item>
+    <item msgid="8009516135735104388">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κέιπ Τάουν"</item>
+    <item msgid="6057191797622953016">"Ι<xliff:g id="SEPARATOR">=</xliff:g>Ισλαμαμπάντ"</item>
+    <item msgid="2702029416591153210">"Ρ<xliff:g id="SEPARATOR">=</xliff:g>Ρίο Ντε Τζανέιρο"</item>
+    <item msgid="1753927312634708098">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αν Άρμπορ"</item>
+    <item msgid="4225721108475278979">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπούλντερ"</item>
+    <item msgid="6393177386755796069">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κέιμπριτζ"</item>
+    <item msgid="759409010285366934">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κίρκλαντ"</item>
+    <item msgid="6308007059287569663">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μάντισον"</item>
+    <item msgid="6971636434858330021">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κουανγκτσόου"</item>
+    <item msgid="1185109514180068650">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χαϊντεραμπάντ"</item>
+    <item msgid="3032295682584784261">"Ρ<xliff:g id="SEPARATOR">=</xliff:g>Ρέστον"</item>
+    <item msgid="7722837296297332268">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μπέλο Οριζόντε"</item>
+    <item msgid="3593516299122577780">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαντιάγκο"</item>
+    <item msgid="2293331653589266583">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μονρόβια"</item>
+    <item msgid="7899128359620301710">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κολόμπο"</item>
+    <item msgid="5294489752262543829">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τσιουάουα"</item>
+    <item msgid="8066356061184206341">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαλβαντόρ"</item>
+    <item msgid="4806867741334453982">"Γ<xliff:g id="SEPARATOR">=</xliff:g>Γκουργκαόν"</item>
+    <item msgid="2585780177649876827">"Μ<xliff:g id="SEPARATOR">=</xliff:g>Μάντσεστερ"</item>
+    <item msgid="234104953526248139">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κίεβο"</item>
+    <item msgid="5245429461217350012">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αγία Πετρούπολη"</item>
+    <item msgid="6738531308006017215">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κρακοβία"</item>
+    <item msgid="8972702613339139467">"Β<xliff:g id="SEPARATOR">=</xliff:g>Βρότσλαβ"</item>
+    <item msgid="187278924459096566">"Α<xliff:g id="SEPARATOR">=</xliff:g>Αμβούργο"</item>
+    <item msgid="6173267862207394917">"Ο<xliff:g id="SEPARATOR">=</xliff:g>Οούλου"</item>
+    <item msgid="5639324478037405990">"Χ<xliff:g id="SEPARATOR">=</xliff:g>Χάιφα"</item>
+    <item msgid="3157180661352354058">"Σ<xliff:g id="SEPARATOR">=</xliff:g>Σαν Χουάν"</item>
+    <item msgid="6995939579417282715">"Τ<xliff:g id="SEPARATOR">=</xliff:g>Τεγκουσιγκάλπα"</item>
+    <item msgid="1641840677391275004">"Π<xliff:g id="SEPARATOR">=</xliff:g>Παραμαρίμπο"</item>
+    <item msgid="7317049454800260290">"Κ<xliff:g id="SEPARATOR">=</xliff:g>Κίτο"</item>
+    <item msgid="4524380876433343244">"Λ<xliff:g id="SEPARATOR">=</xliff:g>Λουμπλιάνα"</item>
+  </string-array>
+</resources>

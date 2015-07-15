@@ -25,7 +25,7 @@
     <string name="enable_alarm" msgid="1834599140632142536">"એલાર્મ ચાલુ કરો"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"એલાર્મ બંધ કરો"</string>
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"આ એલાર્મ કાઢી નાખીએ?"</string>
-    <string name="show_clock" msgid="8358759982675616915">"ઘડિયાળ દર્શાવો"</string>
+    <string name="show_clock" msgid="8358759982675616915">"ઘડિયાળ બતાવો"</string>
     <string name="hide_clock" msgid="3217727306480505694">"ઘડિયાળ છુપાવો"</string>
     <string name="label" msgid="162189613902857319">"લેબલ"</string>
     <string name="default_label" msgid="5590025289805630372">"એલાર્મ"</string>
@@ -33,8 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"વાઇબ્રેટ"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"પુનરાવર્તન"</string>
     <string name="alert" msgid="6506982899651975645">"એલાર્મ રિંગટોન"</string>
-    <!-- no translation found for custom_ringtone (3477418548382111184) -->
-    <skip />
+    <string name="custom_ringtone" msgid="3477418548382111184">"કસ્ટમ રિંગટોન"</string>
     <string name="ringtone" msgid="9110746249688559579">"રિંગટોન"</string>
     <string name="time" msgid="8067216534232296518">"સમય"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"આવતીકાલે"</string>

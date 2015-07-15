@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2012 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+  <string-array name="cities_names">
+    <item msgid="4653806289288974388">"అ<xliff:g id="SEPARATOR">=</xliff:g>అబిడ్జాన్"</item>
+    <item msgid="4864167603178202155">"అ<xliff:g id="SEPARATOR">=</xliff:g>అక్రా"</item>
+    <item msgid="6478898553803167749">"అ<xliff:g id="SEPARATOR">=</xliff:g>అడ్డిస్ అబాబా"</item>
+    <item msgid="5618029992528436448">"అ<xliff:g id="SEPARATOR">=</xliff:g>అల్జీయర్స్"</item>
+    <item msgid="2906834750114790793">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్లాంటైర్"</item>
+    <item msgid="8153571933836629863">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్రజావిల్"</item>
+    <item msgid="3703129580594640833">"క<xliff:g id="SEPARATOR">=</xliff:g>కెయిరో"</item>
+    <item msgid="2300915410194647320">"క<xliff:g id="SEPARATOR">=</xliff:g>కాసబ్లాంకా"</item>
+    <item msgid="1217039002304887948">"క<xliff:g id="SEPARATOR">=</xliff:g>కొనాక్రి"</item>
+    <item msgid="8775104707806220928">"ద<xliff:g id="SEPARATOR">=</xliff:g>దకర్"</item>
+    <item msgid="5948764589113643811">"ద<xliff:g id="SEPARATOR">=</xliff:g>దర్ ఎస్ సలామ్"</item>
+    <item msgid="6306254507715416077">"డ<xliff:g id="SEPARATOR">=</xliff:g>డిజ్బౌటి"</item>
+    <item msgid="4286108029159501866">"ఫ<xliff:g id="SEPARATOR">=</xliff:g>ఫ్రీటౌన్"</item>
+    <item msgid="4514786733035528116">"గ<xliff:g id="SEPARATOR">=</xliff:g>గబ్రోన్"</item>
+    <item msgid="7367496854968219671">"హ<xliff:g id="SEPARATOR">=</xliff:g>హరారే"</item>
+    <item msgid="6837746379726020288">"జ<xliff:g id="SEPARATOR">=</xliff:g>జోహాన్స్‌బర్గ్"</item>
+    <item msgid="6284185156591171506">"క<xliff:g id="SEPARATOR">=</xliff:g>కంపాలా"</item>
+    <item msgid="3299518884693668985">"ఖ<xliff:g id="SEPARATOR">=</xliff:g>ఖార్టోమ్"</item>
+    <item msgid="4614879508966043969">"క<xliff:g id="SEPARATOR">=</xliff:g>కిగలి"</item>
+    <item msgid="8878437043772547732">"క<xliff:g id="SEPARATOR">=</xliff:g>కిన్షాస"</item>
+    <item msgid="6325601635544067909">"ల<xliff:g id="SEPARATOR">=</xliff:g>లాగోస్"</item>
+    <item msgid="6094357506290323524">"మ<xliff:g id="SEPARATOR">=</xliff:g>మసెరు"</item>
+    <item msgid="7270525814400329098">"మ<xliff:g id="SEPARATOR">=</xliff:g>మొగడిషు"</item>
+    <item msgid="353110101402547540">"న<xliff:g id="SEPARATOR">=</xliff:g>నైరోబీ"</item>
+    <item msgid="1688121892646984549">"స<xliff:g id="SEPARATOR">=</xliff:g>సావ్ టోమ్"</item>
+    <item msgid="3642219084651687800">"ట<xliff:g id="SEPARATOR">=</xliff:g>టింబక్టు"</item>
+    <item msgid="7287513493631179463">"ట<xliff:g id="SEPARATOR">=</xliff:g>ట్రిపోలి"</item>
+    <item msgid="5052614613671591560">"ట<xliff:g id="SEPARATOR">=</xliff:g>ట్యునిస్"</item>
+    <item msgid="7976303179193839859">"య<xliff:g id="SEPARATOR">=</xliff:g>యాంకరేజ్"</item>
+    <item msgid="193703779380497120">"మ<xliff:g id="SEPARATOR">=</xliff:g>మెండోజా"</item>
+    <item msgid="5448884981082519628">"అ<xliff:g id="SEPARATOR">=</xliff:g>అరుబా"</item>
+    <item msgid="1577938273323914773">"అ<xliff:g id="SEPARATOR">=</xliff:g>అసున్ష్యాన్"</item>
+    <item msgid="5617155978105010520">"బ<xliff:g id="SEPARATOR">=</xliff:g>బార్బడోస్"</item>
+    <item msgid="3600025702357376322">"బ<xliff:g id="SEPARATOR">=</xliff:g>బెలిజ్"</item>
+    <item msgid="2847679817118467051">"బ<xliff:g id="SEPARATOR">=</xliff:g>బొగొటా"</item>
+    <item msgid="9029003541681282929">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్యునోస్ ఎయిర్స్"</item>
+    <item msgid="2338367960332622522">"క<xliff:g id="SEPARATOR">=</xliff:g>కాంకూన్"</item>
+    <item msgid="4339797536047170278">"క<xliff:g id="SEPARATOR">=</xliff:g>కరాకస్"</item>
+    <item msgid="9199080438977757863">"క<xliff:g id="SEPARATOR">=</xliff:g>కేమన్"</item>
+    <item msgid="1993203473281589891">"చ<xliff:g id="SEPARATOR">=</xliff:g>చికాగో"</item>
+    <item msgid="7990342776303470263">"క<xliff:g id="SEPARATOR">=</xliff:g>కోస్టా రికా"</item>
+    <item msgid="5676109900908808628">"క<xliff:g id="SEPARATOR">=</xliff:g>కురసావ్"</item>
+    <item msgid="5519120432577564812">"డ<xliff:g id="SEPARATOR">=</xliff:g>డాసన్ క్రీక్"</item>
+    <item msgid="2126228972377380680">"డ<xliff:g id="SEPARATOR">=</xliff:g>డెన్వర్"</item>
+    <item msgid="3298410632922319193">"డ<xliff:g id="SEPARATOR">=</xliff:g>డెట్రాయిట్"</item>
+    <item msgid="2819032085688382805">"డ<xliff:g id="SEPARATOR">=</xliff:g>డొమినికా"</item>
+    <item msgid="6170433208654553821">"ఎ<xliff:g id="SEPARATOR">=</xliff:g>ఎడ్మాన్టన్"</item>
+    <item msgid="795461860173291499">"ఎ<xliff:g id="SEPARATOR">=</xliff:g>ఎల్ సాల్వడోర్"</item>
+    <item msgid="7872196528637597794">"ఫ<xliff:g id="SEPARATOR">=</xliff:g>ఫోర్టలెజా"</item>
+    <item msgid="5801558418916235541">"గ<xliff:g id="SEPARATOR">=</xliff:g>గ్రాండ్ టర్క్"</item>
+    <item msgid="2103759276235503048">"గ<xliff:g id="SEPARATOR">=</xliff:g>గ్రెనడా"</item>
+    <item msgid="1490069759176391533">"గ<xliff:g id="SEPARATOR">=</xliff:g>గ్వాటిమాలా"</item>
+    <item msgid="525959305652046261">"గ<xliff:g id="SEPARATOR">=</xliff:g>గయానా"</item>
+    <item msgid="7565596629973190931">"హ<xliff:g id="SEPARATOR">=</xliff:g>హాలిఫ్యాక్స్"</item>
+    <item msgid="3811169155065582644">"హ<xliff:g id="SEPARATOR">=</xliff:g>హవానా"</item>
+    <item msgid="3733555435078090201">"ఇ<xliff:g id="SEPARATOR">=</xliff:g>ఇండియానాపొలిస్"</item>
+    <item msgid="226982663848410981">"న<xliff:g id="SEPARATOR">=</xliff:g>నాక్స్"</item>
+    <item msgid="3815293080342229459">"మ<xliff:g id="SEPARATOR">=</xliff:g>మరెంగో"</item>
+    <item msgid="6594853515451547389">"ప<xliff:g id="SEPARATOR">=</xliff:g>పీటర్స్‌బర్గ్"</item>
+    <item msgid="6091571889213283534">"ట<xliff:g id="SEPARATOR">=</xliff:g>టెల్ నగరం"</item>
+    <item msgid="3089369312058696669">"వ<xliff:g id="SEPARATOR">=</xliff:g>వెవే"</item>
+    <item msgid="1334860422444068943">"వ<xliff:g id="SEPARATOR">=</xliff:g>విన్సెన్నెస్"</item>
+    <item msgid="7775105082093691756">"వ<xliff:g id="SEPARATOR">=</xliff:g>వినామక్"</item>
+    <item msgid="4043335541899184547">"క<xliff:g id="SEPARATOR">=</xliff:g>కింగ్‌స్టన్"</item>
+    <item msgid="1063757593477259280">"న<xliff:g id="SEPARATOR">=</xliff:g>న్యూస్ట్రా సెనోరా డి లా పాజ్"</item>
+    <item msgid="349901732062388869">"ల<xliff:g id="SEPARATOR">=</xliff:g>లిమా"</item>
+    <item msgid="4977592519316837842">"ల<xliff:g id="SEPARATOR">=</xliff:g>లాస్ ఏంజిల్స్"</item>
+    <item msgid="7713051790509638572">"ల<xliff:g id="SEPARATOR">=</xliff:g>లూయిస్‌విల్"</item>
+    <item msgid="8460620935898405225">"మ<xliff:g id="SEPARATOR">=</xliff:g>మనాగువా"</item>
+    <item msgid="8328345293081464192">"మ<xliff:g id="SEPARATOR">=</xliff:g>మార్టినిక్యూ"</item>
+    <item msgid="8010357327448619637">"మ<xliff:g id="SEPARATOR">=</xliff:g>మెండోజా"</item>
+    <item msgid="2046777213916219253">"మ<xliff:g id="SEPARATOR">=</xliff:g>మెట్లకట్ల"</item>
+    <item msgid="2227885609632709258">"మ<xliff:g id="SEPARATOR">=</xliff:g>మెక్సికో నగరం"</item>
+    <item msgid="9089629663998569289">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాంటెర్రే"</item>
+    <item msgid="2782276175306930748">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాంటెవీడియో"</item>
+    <item msgid="4942386959622269480">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాంట్రియల్"</item>
+    <item msgid="3068203952968918165">"న<xliff:g id="SEPARATOR">=</xliff:g>నస్సావ్"</item>
+    <item msgid="4234515454127289962">"న<xliff:g id="SEPARATOR">=</xliff:g>న్యూయార్క్"</item>
+    <item msgid="1660551302087304308">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్యులా"</item>
+    <item msgid="415823390775449071">"స<xliff:g id="SEPARATOR">=</xliff:g>సెంటర్"</item>
+    <item msgid="6644186958433380884">"న<xliff:g id="SEPARATOR">=</xliff:g>న్యూ సేలం"</item>
+    <item msgid="6408587617047971798">"ప<xliff:g id="SEPARATOR">=</xliff:g>పనామా"</item>
+    <item msgid="5576899364199447991">"ఫ<xliff:g id="SEPARATOR">=</xliff:g>ఫినిక్స్"</item>
+    <item msgid="5541266909095409447">"ప<xliff:g id="SEPARATOR">=</xliff:g>పోర్ట్ ఆఫ్ స్పెయిన్"</item>
+    <item msgid="6417519313622785932">"ప<xliff:g id="SEPARATOR">=</xliff:g>పోర్టో ప్రిన్స్"</item>
+    <item msgid="2078589249210571366">"ప<xliff:g id="SEPARATOR">=</xliff:g>ప్యూర్టో రికో"</item>
+    <item msgid="8522030474373927681">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాంటో డొమింగో"</item>
+    <item msgid="4763853453317431594">"స<xliff:g id="SEPARATOR">=</xliff:g>సావో పాలో"</item>
+    <item msgid="2713153284784311646">"స<xliff:g id="SEPARATOR">=</xliff:g>సెయిం. జాన్స్"</item>
+    <item msgid="8252666620333105271">"స<xliff:g id="SEPARATOR">=</xliff:g>సెయిం. కిట్స్"</item>
+    <item msgid="4851597775036027515">"స<xliff:g id="SEPARATOR">=</xliff:g>సెయిం. లూసియా"</item>
+    <item msgid="2395485473100271503">"స<xliff:g id="SEPARATOR">=</xliff:g>సెయిం. థామస్"</item>
+    <item msgid="4148037555658225145">"ట<xliff:g id="SEPARATOR">=</xliff:g>టుజువానా"</item>
+    <item msgid="3491199166042475853">"ట<xliff:g id="SEPARATOR">=</xliff:g>టొరంటో"</item>
+    <item msgid="1506838283840737263">"వ<xliff:g id="SEPARATOR">=</xliff:g>వాంకోవర్"</item>
+    <item msgid="8935386104773857399">"వ<xliff:g id="SEPARATOR">=</xliff:g>విన్నిపెగ్"</item>
+    <item msgid="1132634022412399582">"స<xliff:g id="SEPARATOR">=</xliff:g>సౌత్ పోల్"</item>
+    <item msgid="4076962667198039206">"ల<xliff:g id="SEPARATOR">=</xliff:g>లాంగ్యియర్‌బ్యెన్"</item>
+    <item msgid="3784788073896028355">"ఆ<xliff:g id="SEPARATOR">=</xliff:g>ఆల్మటి"</item>
+    <item msgid="7895695236056852523">"అ<xliff:g id="SEPARATOR">=</xliff:g>అమ్మన్"</item>
+    <item msgid="1795426532295280371">"అ<xliff:g id="SEPARATOR">=</xliff:g>అనాడిర్"</item>
+    <item msgid="7194236926158343552">"అ<xliff:g id="SEPARATOR">=</xliff:g>అక్టావ్"</item>
+    <item msgid="4796350130854360870">"బ<xliff:g id="SEPARATOR">=</xliff:g>బాగ్దాద్"</item>
+    <item msgid="4020105434451091851">"బ<xliff:g id="SEPARATOR">=</xliff:g>బహ్రెయిన్"</item>
+    <item msgid="3895868797052686484">"బ<xliff:g id="SEPARATOR">=</xliff:g>బాకు"</item>
+    <item msgid="228001522630057957">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్యాంకాక్"</item>
+    <item msgid="5555647809114820537">"బ<xliff:g id="SEPARATOR">=</xliff:g>బీరట్"</item>
+    <item msgid="2960873998178478784">"క<xliff:g id="SEPARATOR">=</xliff:g>కలకత్తా"</item>
+    <item msgid="8765555959722950691">"డ<xliff:g id="SEPARATOR">=</xliff:g>డమాస్కస్"</item>
+    <item msgid="4979709428925196546">"ఢ<xliff:g id="SEPARATOR">=</xliff:g>ఢాకా"</item>
+    <item msgid="310419600200885308">"ద<xliff:g id="SEPARATOR">=</xliff:g>దుబాయ్"</item>
+    <item msgid="1203379132329159260">"గ<xliff:g id="SEPARATOR">=</xliff:g>గాజా"</item>
+    <item msgid="2359068282340162319">"హ<xliff:g id="SEPARATOR">=</xliff:g>హెబ్రాన్"</item>
+    <item msgid="6223396610551759129">"హ<xliff:g id="SEPARATOR">=</xliff:g>హొ చి మిన్హ్"</item>
+    <item msgid="4731022818651322736">"హ<xliff:g id="SEPARATOR">=</xliff:g>హాంకాంగ్"</item>
+    <item msgid="8104778702069607166">"ఇ<xliff:g id="SEPARATOR">=</xliff:g>ఇస్తాంబుల్"</item>
+    <item msgid="758800913783999425">"జ<xliff:g id="SEPARATOR">=</xliff:g>జకార్తా"</item>
+    <item msgid="8956406398692698126">"జ<xliff:g id="SEPARATOR">=</xliff:g>జెరుసలేం"</item>
+    <item msgid="1664426577433326419">"క<xliff:g id="SEPARATOR">=</xliff:g>కాబుల్"</item>
+    <item msgid="7700349511508357396">"క<xliff:g id="SEPARATOR">=</xliff:g>కరాచి"</item>
+    <item msgid="5273241794521591984">"ఖ<xliff:g id="SEPARATOR">=</xliff:g>ఖాట్మండు"</item>
+    <item msgid="4754850915168634158">"క<xliff:g id="SEPARATOR">=</xliff:g>కౌలాలంపుర్"</item>
+    <item msgid="5187849635785055693">"క<xliff:g id="SEPARATOR">=</xliff:g>కువైట్"</item>
+    <item msgid="2923385979252179376">"మ<xliff:g id="SEPARATOR">=</xliff:g>మకావ్"</item>
+    <item msgid="722458682107911739">"మ<xliff:g id="SEPARATOR">=</xliff:g>మనీలా"</item>
+    <item msgid="6033964325069060422">"మ<xliff:g id="SEPARATOR">=</xliff:g>మస్కట్"</item>
+    <item msgid="6077458941399984780">"ప<xliff:g id="SEPARATOR">=</xliff:g>ప్నోమ్ పెన్హ్"</item>
+    <item msgid="935474308903572975">"ప<xliff:g id="SEPARATOR">=</xliff:g>ప్యాంగ్యాంగ్"</item>
+    <item msgid="5336632319992664889">"ఖ<xliff:g id="SEPARATOR">=</xliff:g>ఖతార్"</item>
+    <item msgid="1667243110545095146">"ర<xliff:g id="SEPARATOR">=</xliff:g>రంగూన్"</item>
+    <item msgid="4460370766685855731">"ర<xliff:g id="SEPARATOR">=</xliff:g>రియాద్"</item>
+    <item msgid="4229224905931739201">"స<xliff:g id="SEPARATOR">=</xliff:g>సైగన్"</item>
+    <item msgid="8705359848250215620">"స<xliff:g id="SEPARATOR">=</xliff:g>సియోల్"</item>
+    <item msgid="583367295371395814">"ష<xliff:g id="SEPARATOR">=</xliff:g>షాంఘై"</item>
+    <item msgid="1422156732794771136">"స<xliff:g id="SEPARATOR">=</xliff:g>సింగపూర్"</item>
+    <item msgid="1972491729911039207">"త<xliff:g id="SEPARATOR">=</xliff:g>తైపై"</item>
+    <item msgid="5563193560935461106">"త<xliff:g id="SEPARATOR">=</xliff:g>తెహ్రాన్"</item>
+    <item msgid="8629402941285674273">"ట<xliff:g id="SEPARATOR">=</xliff:g>టెల్ అవివ్"</item>
+    <item msgid="8499164674454654525">"ట<xliff:g id="SEPARATOR">=</xliff:g>టోక్యో"</item>
+    <item msgid="1705804745888992744">"య<xliff:g id="SEPARATOR">=</xliff:g>యులాన్‌బాటర్"</item>
+    <item msgid="2028626988021468640">"బ<xliff:g id="SEPARATOR">=</xliff:g>బెర్ముడా"</item>
+    <item msgid="4527109966513690429">"క<xliff:g id="SEPARATOR">=</xliff:g>క్యానరీ"</item>
+    <item msgid="4886308317040330383">"క<xliff:g id="SEPARATOR">=</xliff:g>కేప్ వెర్డె"</item>
+    <item msgid="1003307362164178007">"ర<xliff:g id="SEPARATOR">=</xliff:g>రెక్జావిక్"</item>
+    <item msgid="6742010412815268657">"స<xliff:g id="SEPARATOR">=</xliff:g>స్టాన్లీ"</item>
+    <item msgid="5659389449738592757">"అ<xliff:g id="SEPARATOR">=</xliff:g>అడిలైడ్"</item>
+    <item msgid="4567804576346784523">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్రిస్బేన్"</item>
+    <item msgid="8730590400362815585">"క<xliff:g id="SEPARATOR">=</xliff:g>కాన్‌బెర్రా"</item>
+    <item msgid="6416990927714140153">"డ<xliff:g id="SEPARATOR">=</xliff:g>డార్విన్"</item>
+    <item msgid="3073969292696516135">"మ<xliff:g id="SEPARATOR">=</xliff:g>మెల్బోర్న్"</item>
+    <item msgid="1719286228375722176">"న<xliff:g id="SEPARATOR">=</xliff:g>న్యూ సౌత్ వేల్స్"</item>
+    <item msgid="3663940748056976266">"ప<xliff:g id="SEPARATOR">=</xliff:g>పెర్త్"</item>
+    <item msgid="3383881736858438153">"క<xliff:g id="SEPARATOR">=</xliff:g>క్వీన్స్‌ల్యాండ్"</item>
+    <item msgid="971889339240879138">"స<xliff:g id="SEPARATOR">=</xliff:g>సిడ్నీ"</item>
+    <item msgid="5542803438162180311">"వ<xliff:g id="SEPARATOR">=</xliff:g>విక్టోరియా"</item>
+    <item msgid="11828841481838883">"న<xliff:g id="SEPARATOR">=</xliff:g>న్యూఫౌండ్‌ల్యాండ్"</item>
+    <item msgid="1734331918410561807">"స<xliff:g id="SEPARATOR">=</xliff:g>సాస్కాచువన్"</item>
+    <item msgid="9184412695613864979">"ఈ<xliff:g id="SEPARATOR">=</xliff:g>ఈస్టర్ దీవి"</item>
+    <item msgid="1014282454239014527">"ఆ<xliff:g id="SEPARATOR">=</xliff:g>ఆమ్‌స్టర్‌డామ్"</item>
+    <item msgid="4928363054269791193">"అ<xliff:g id="SEPARATOR">=</xliff:g>అండోర్రా"</item>
+    <item msgid="912290900213826368">"ఏ<xliff:g id="SEPARATOR">=</xliff:g>ఏథేన్స్"</item>
+    <item msgid="6097000352459209495">"బ<xliff:g id="SEPARATOR">=</xliff:g>బెల్‌ఫాస్ట్"</item>
+    <item msgid="3285885824311481790">"బ<xliff:g id="SEPARATOR">=</xliff:g>బెల్‌గ్రేడ్"</item>
+    <item msgid="911055049821251982">"బ<xliff:g id="SEPARATOR">=</xliff:g>బెర్లిన్"</item>
+    <item msgid="9099244516556291111">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్రటిస్లావా"</item>
+    <item msgid="158977749726480076">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్రసెల్స్"</item>
+    <item msgid="8875102297676173346">"బ<xliff:g id="SEPARATOR">=</xliff:g>బుకారెస్ట్"</item>
+    <item msgid="804451569472542912">"బ<xliff:g id="SEPARATOR">=</xliff:g>బుడాపెస్ట్"</item>
+    <item msgid="6827506774445509939">"చ<xliff:g id="SEPARATOR">=</xliff:g>చిసినావ్"</item>
+    <item msgid="487345893088732797">"క<xliff:g id="SEPARATOR">=</xliff:g>కొపెన్హెగన్"</item>
+    <item msgid="7760953471297773537">"డ<xliff:g id="SEPARATOR">=</xliff:g>డబ్లిన్"</item>
+    <item msgid="323414429034825249">"జ<xliff:g id="SEPARATOR">=</xliff:g>జిబ్రాల్టర్"</item>
+    <item msgid="1785566206078328830">"హ<xliff:g id="SEPARATOR">=</xliff:g>హెల్సింకి"</item>
+    <item msgid="5938185647271923359">"ఐ<xliff:g id="SEPARATOR">=</xliff:g>ఐల్ ఆఫ్ మ్యాన్"</item>
+    <item msgid="5974864320735263245">"ఇ<xliff:g id="SEPARATOR">=</xliff:g>ఇస్తాంబుల్"</item>
+    <item msgid="3567775364750772947">"క<xliff:g id="SEPARATOR">=</xliff:g>కివ్"</item>
+    <item msgid="540344101798867007">"ల<xliff:g id="SEPARATOR">=</xliff:g>లిస్బన్"</item>
+    <item msgid="5091062403792923657">"ల<xliff:g id="SEPARATOR">=</xliff:g>లండన్"</item>
+    <item msgid="7075006205000490364">"ల<xliff:g id="SEPARATOR">=</xliff:g>లక్సెంబర్గ్"</item>
+    <item msgid="4901781246584739451">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాడ్రిడ్"</item>
+    <item msgid="9047080834315777144">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాల్టా"</item>
+    <item msgid="8200456520732452034">"మ<xliff:g id="SEPARATOR">=</xliff:g>మిన్స్క్"</item>
+    <item msgid="5452744619736513383">"మ<xliff:g id="SEPARATOR">=</xliff:g>మొనాకొ"</item>
+    <item msgid="3513517408062322298">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాస్కో"</item>
+    <item msgid="7917103295878081674">"ఒ<xliff:g id="SEPARATOR">=</xliff:g>ఒస్లో"</item>
+    <item msgid="4245547231693746977">"ప<xliff:g id="SEPARATOR">=</xliff:g>ప్యారిస్"</item>
+    <item msgid="3778652900196715557">"ప<xliff:g id="SEPARATOR">=</xliff:g>ప్రాగ్"</item>
+    <item msgid="1827175423974383675">"ర<xliff:g id="SEPARATOR">=</xliff:g>రిగా"</item>
+    <item msgid="2095130417232677930">"ర<xliff:g id="SEPARATOR">=</xliff:g>రోమ్"</item>
+    <item msgid="7631654618289353520">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాన్ మారినో"</item>
+    <item msgid="7219835179107610398">"స<xliff:g id="SEPARATOR">=</xliff:g>సరాజెవో"</item>
+    <item msgid="7199868165463282240">"స<xliff:g id="SEPARATOR">=</xliff:g>సిమ్ఫెరోపోల్"</item>
+    <item msgid="2786395006682246794">"స<xliff:g id="SEPARATOR">=</xliff:g>స్కోప్జ్"</item>
+    <item msgid="4706927178872100023">"స<xliff:g id="SEPARATOR">=</xliff:g>సోఫియా"</item>
+    <item msgid="1982417589953195308">"స<xliff:g id="SEPARATOR">=</xliff:g>స్టాక్‌హోమ్"</item>
+    <item msgid="1596083919400921960">"త<xliff:g id="SEPARATOR">=</xliff:g>తాల్లిన్"</item>
+    <item msgid="3079313598974879114">"వ<xliff:g id="SEPARATOR">=</xliff:g>వాటికన్"</item>
+    <item msgid="6516636001856910888">"వ<xliff:g id="SEPARATOR">=</xliff:g>వియెన్నా"</item>
+    <item msgid="6377314532157945456">"వ<xliff:g id="SEPARATOR">=</xliff:g>విల్నియస్"</item>
+    <item msgid="3427175235616698721">"వ<xliff:g id="SEPARATOR">=</xliff:g>వార్సా"</item>
+    <item msgid="8404354243761332922">"జ<xliff:g id="SEPARATOR">=</xliff:g>జాగ్రెబ్"</item>
+    <item msgid="1457280242717152391">"జ<xliff:g id="SEPARATOR">=</xliff:g>జ్యూరిచ్"</item>
+    <item msgid="1065940089741359291">"అ<xliff:g id="SEPARATOR">=</xliff:g>అంటాననరివో"</item>
+    <item msgid="5176181880014090003">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాల్దీవులు"</item>
+    <item msgid="8281854645557426433">"మ<xliff:g id="SEPARATOR">=</xliff:g>మారిషస్"</item>
+    <item msgid="2686249517389816420">"ఆ<xliff:g id="SEPARATOR">=</xliff:g>ఆక్లాండ్"</item>
+    <item msgid="279925671775807392">"ఫ<xliff:g id="SEPARATOR">=</xliff:g>ఫిజి"</item>
+    <item msgid="7971492669765264840">"గ<xliff:g id="SEPARATOR">=</xliff:g>గ్వామ్"</item>
+    <item msgid="889371273355762733">"హ<xliff:g id="SEPARATOR">=</xliff:g>హొనొలులు"</item>
+    <item msgid="5516500578074269817">"క<xliff:g id="SEPARATOR">=</xliff:g>కిరీటిమతి"</item>
+    <item msgid="2740704911915073056">"న<xliff:g id="SEPARATOR">=</xliff:g>నొమేయా"</item>
+    <item msgid="8732832728949672807">"స<xliff:g id="SEPARATOR">=</xliff:g>సమోవా"</item>
+    <item msgid="6489500698846864993">"త<xliff:g id="SEPARATOR">=</xliff:g>తహితి"</item>
+    <item msgid="3983121625709442324">"ఆ<xliff:g id="SEPARATOR">=</xliff:g>ఆంటిగ్వా"</item>
+    <item msgid="2650510570709806322">"ఆ<xliff:g id="SEPARATOR">=</xliff:g>ఆస్టిన్"</item>
+    <item msgid="5257283506227357911">"బ<xliff:g id="SEPARATOR">=</xliff:g>బోస్టన్"</item>
+    <item msgid="6326368958641850267">"క<xliff:g id="SEPARATOR">=</xliff:g>కాల్గెరీ"</item>
+    <item msgid="8830116365016232583">"క<xliff:g id="SEPARATOR">=</xliff:g>కొలంబస్"</item>
+    <item msgid="6986556538341883811">"డ<xliff:g id="SEPARATOR">=</xliff:g>డల్లాస్"</item>
+    <item msgid="836479352500251902">"న<xliff:g id="SEPARATOR">=</xliff:g>నాక్స్‌విల్"</item>
+    <item msgid="8495291458467378851">"మ<xliff:g id="SEPARATOR">=</xliff:g>మెమ్ఫిస్"</item>
+    <item msgid="2788807207554683122">"మ<xliff:g id="SEPARATOR">=</xliff:g>మియామి"</item>
+    <item msgid="3984640407077208471">"మ<xliff:g id="SEPARATOR">=</xliff:g>మిన్నియాపొలిస్"</item>
+    <item msgid="6997305266329324161">"అ<xliff:g id="SEPARATOR">=</xliff:g>అటోవా"</item>
+    <item msgid="5191741145278683016">"ఫ<xliff:g id="SEPARATOR">=</xliff:g>ఫిలడెల్ఫియా"</item>
+    <item msgid="5898032730733441936">"ప<xliff:g id="SEPARATOR">=</xliff:g>పోర్ట్‌ల్యాండ్"</item>
+    <item msgid="9070160716002203069">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాన్ డియాగో"</item>
+    <item msgid="1829944133410079040">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాన్ ఫ్రాన్సిస్కో"</item>
+    <item msgid="8407905318529692654">"స<xliff:g id="SEPARATOR">=</xliff:g>సాల్ట్ లేక్ నగరం"</item>
+    <item msgid="3091392589347990898">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాన్ జోస్"</item>
+    <item msgid="7080627414383807284">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాన్ సాల్వడోర్"</item>
+    <item msgid="3430371213266252049">"స<xliff:g id="SEPARATOR">=</xliff:g>సీటెల్"</item>
+    <item msgid="9177491393818757071">"స<xliff:g id="SEPARATOR">=</xliff:g>సెయిం. లూయిస్"</item>
+    <item msgid="6234359686676312837">"వ<xliff:g id="SEPARATOR">=</xliff:g>వాషింగ్టన్ డి.సి."</item>
+    <item msgid="4325057056005132331">"హ<xliff:g id="SEPARATOR">=</xliff:g>హోస్టన్"</item>
+    <item msgid="38148255938075867">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాన్ ఆంటోనియో"</item>
+    <item msgid="3601481860893666763">"జ<xliff:g id="SEPARATOR">=</xliff:g>జాక్సన్‌విల్"</item>
+    <item msgid="3987471437354665534">"బ<xliff:g id="SEPARATOR">=</xliff:g>బాల్టిమోర్"</item>
+    <item msgid="3389674262267006887">"న<xliff:g id="SEPARATOR">=</xliff:g>నాష్విల్"</item>
+    <item msgid="7521690366448637309">"మ<xliff:g id="SEPARATOR">=</xliff:g>మిల్వాకీ"</item>
+    <item msgid="2231069593975740859">"ఒ<xliff:g id="SEPARATOR">=</xliff:g>ఒక్లహోమా నగరం"</item>
+    <item msgid="1970008262236914770">"ల<xliff:g id="SEPARATOR">=</xliff:g>లాస్ వెగాస్"</item>
+    <item msgid="7113811028304266017">"అ<xliff:g id="SEPARATOR">=</xliff:g>అల్బక్వెరక్యు"</item>
+    <item msgid="6481469458896644678">"ట<xliff:g id="SEPARATOR">=</xliff:g>టుసాన్"</item>
+    <item msgid="5970857542995467466">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాక్రమెంటో"</item>
+    <item msgid="1999267306329214429">"అ<xliff:g id="SEPARATOR">=</xliff:g>అట్లాంటా"</item>
+    <item msgid="8761847787537443648">"క<xliff:g id="SEPARATOR">=</xliff:g>క్లీవ్‌ల్యాండ్"</item>
+    <item msgid="2987455647692324208">"న<xliff:g id="SEPARATOR">=</xliff:g>న్యూ ఓర్లీన్స్"</item>
+    <item msgid="8104109426412705845">"ట<xliff:g id="SEPARATOR">=</xliff:g>ట్యాంపా"</item>
+    <item msgid="1410067233842240795">"ప<xliff:g id="SEPARATOR">=</xliff:g>పిట్స్‌బర్గ్"</item>
+    <item msgid="3339955740367374442">"స<xliff:g id="SEPARATOR">=</xliff:g>సిన్సినాటి"</item>
+    <item msgid="6091407424772799978">"మ<xliff:g id="SEPARATOR">=</xliff:g>మౌంటెయిన్ వ్యూ"</item>
+    <item msgid="150299708499753555">"ర<xliff:g id="SEPARATOR">=</xliff:g>రెనో"</item>
+    <item msgid="9155068631060038769">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్లాక్ రాక్ నగరం"</item>
+    <item msgid="8498761319928979900">"ద<xliff:g id="SEPARATOR">=</xliff:g>దోహా"</item>
+    <item msgid="8307897251088048641">"బ<xliff:g id="SEPARATOR">=</xliff:g>బీజింగ్"</item>
+    <item msgid="8605970953750147428">"మ<xliff:g id="SEPARATOR">=</xliff:g>ముంబై"</item>
+    <item msgid="6668274273067049125">"ఢ<xliff:g id="SEPARATOR">=</xliff:g>ఢిల్లీ"</item>
+    <item msgid="2933410189478233292">"ఒ<xliff:g id="SEPARATOR">=</xliff:g>ఒసాకా"</item>
+    <item msgid="9011026093638055579">"ల<xliff:g id="SEPARATOR">=</xliff:g>లాహోర్"</item>
+    <item msgid="1448378291805481500">"స<xliff:g id="SEPARATOR">=</xliff:g>సనా"</item>
+    <item msgid="5233119846682408301">"బ<xliff:g id="SEPARATOR">=</xliff:g>బార్సిలోనా"</item>
+    <item msgid="9146746514265554721">"మ<xliff:g id="SEPARATOR">=</xliff:g>మ్యూనిచ్"</item>
+    <item msgid="157866084892734979">"మ<xliff:g id="SEPARATOR">=</xliff:g>మిలన్"</item>
+    <item msgid="2787346322341414963">"ఫ<xliff:g id="SEPARATOR">=</xliff:g>ఫ్రాంక్‌ఫర్ట్"</item>
+    <item msgid="8407511504088696581">"హ<xliff:g id="SEPARATOR">=</xliff:g>హనాయ్"</item>
+    <item msgid="5184417944073499453">"అ<xliff:g id="SEPARATOR">=</xliff:g>అంకార"</item>
+    <item msgid="4028784954452197920">"బ<xliff:g id="SEPARATOR">=</xliff:g>బెంగుళూరు"</item>
+    <item msgid="190152483600862776">"బ<xliff:g id="SEPARATOR">=</xliff:g>బ్రసిలియా"</item>
+    <item msgid="8009516135735104388">"క<xliff:g id="SEPARATOR">=</xliff:g>కేప్ టౌన్"</item>
+    <item msgid="6057191797622953016">"ఇ<xliff:g id="SEPARATOR">=</xliff:g>ఇస్లామాబాద్"</item>
+    <item msgid="2702029416591153210">"ర<xliff:g id="SEPARATOR">=</xliff:g>రియో డి జెనేరో"</item>
+    <item msgid="1753927312634708098">"అ<xliff:g id="SEPARATOR">=</xliff:g>అన్న్ ఆర్బర్"</item>
+    <item msgid="4225721108475278979">"బ<xliff:g id="SEPARATOR">=</xliff:g>బౌల్డర్"</item>
+    <item msgid="6393177386755796069">"క<xliff:g id="SEPARATOR">=</xliff:g>కేంబ్రిడ్జ్"</item>
+    <item msgid="759409010285366934">"క<xliff:g id="SEPARATOR">=</xliff:g>కిర్క్‌ల్యాండ్"</item>
+    <item msgid="6308007059287569663">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాడిసన్"</item>
+    <item msgid="6971636434858330021">"గ<xliff:g id="SEPARATOR">=</xliff:g>గ్వాంగ్జో"</item>
+    <item msgid="1185109514180068650">"హ<xliff:g id="SEPARATOR">=</xliff:g>హైదరాబాద్"</item>
+    <item msgid="3032295682584784261">"ర<xliff:g id="SEPARATOR">=</xliff:g>రెస్టన్"</item>
+    <item msgid="7722837296297332268">"బ<xliff:g id="SEPARATOR">=</xliff:g>బెలొ హారిజాంటో"</item>
+    <item msgid="3593516299122577780">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాంటియాగో"</item>
+    <item msgid="2293331653589266583">"మ<xliff:g id="SEPARATOR">=</xliff:g>మొన్రోవియా"</item>
+    <item msgid="7899128359620301710">"క<xliff:g id="SEPARATOR">=</xliff:g>కొలంబో"</item>
+    <item msgid="5294489752262543829">"చ<xliff:g id="SEPARATOR">=</xliff:g>చివావా"</item>
+    <item msgid="8066356061184206341">"స<xliff:g id="SEPARATOR">=</xliff:g>సాల్వడోర్"</item>
+    <item msgid="4806867741334453982">"గ<xliff:g id="SEPARATOR">=</xliff:g>గుర్గావ్"</item>
+    <item msgid="2585780177649876827">"మ<xliff:g id="SEPARATOR">=</xliff:g>మాంచెస్టర్"</item>
+    <item msgid="234104953526248139">"క<xliff:g id="SEPARATOR">=</xliff:g>క్యివ్"</item>
+    <item msgid="5245429461217350012">"స<xliff:g id="SEPARATOR">=</xliff:g>సెయిం. పీటర్స్‌బర్గ్"</item>
+    <item msgid="6738531308006017215">"క<xliff:g id="SEPARATOR">=</xliff:g>క్రాకో"</item>
+    <item msgid="8972702613339139467">"వ<xliff:g id="SEPARATOR">=</xliff:g>వ్రోక్లా"</item>
+    <item msgid="187278924459096566">"హ<xliff:g id="SEPARATOR">=</xliff:g>హాంబర్గ్"</item>
+    <item msgid="6173267862207394917">"ఓ<xliff:g id="SEPARATOR">=</xliff:g>ఓలు"</item>
+    <item msgid="5639324478037405990">"హ<xliff:g id="SEPARATOR">=</xliff:g>హైఫా"</item>
+    <item msgid="3157180661352354058">"శ<xliff:g id="SEPARATOR">=</xliff:g>శాన్ జువన్"</item>
+    <item msgid="6995939579417282715">"ట<xliff:g id="SEPARATOR">=</xliff:g>టెగుసిగాల్ప"</item>
+    <item msgid="1641840677391275004">"ప<xliff:g id="SEPARATOR">=</xliff:g>పరామరిబో"</item>
+    <item msgid="7317049454800260290">"క<xliff:g id="SEPARATOR">=</xliff:g>క్విటో"</item>
+    <item msgid="4524380876433343244">"ల<xliff:g id="SEPARATOR">=</xliff:g>లుబ్లియానా"</item>
+  </string-array>
+</resources>
