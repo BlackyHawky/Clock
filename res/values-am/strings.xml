@@ -45,16 +45,16 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"ያመለጠ ማንቂያ"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"አንቀላፍቷል"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"1 ደቂቃ"</item>
-    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> ደቂቃ"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ደቂቃ</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ደቂቃ</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"ማንቂያ ጠፍቷል"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"አሸልብ"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"ለ1 ደቂቃ በማሸለብ ላይ"</item>
-    <item quantity="other" msgid="7377899473014259727">"ለ<xliff:g id="MINUTES">%d</xliff:g> ደቂቃዎች በማሸለብ ላይ።"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="one">ለ<xliff:g id="MINUTES">%d</xliff:g> ደቂቃዎች በማሸለብ ላይ</item>
+      <item quantity="other">ለ<xliff:g id="MINUTES">%d</xliff:g> ደቂቃዎች በማሸለብ ላይ</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"እስከ <xliff:g id="TIME">%s</xliff:g> ድረስ በማሸለብ ላይ"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"በቅርብ ጊዜ የሚሆን ማንቂያ"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"የእርስዎ ያልታየ ማንቂያ ተሰርዟል"</string>
@@ -74,12 +74,18 @@
     <item msgid="9115697840826129603">" ማንቂያ ከአሁን ጀምሮ ለ <xliff:g id="HOURS">%2$s</xliff:g> እና <xliff:g id="MINUTES">%3$s</xliff:g> የተዘጋጀ ነው።"</item>
     <item msgid="2332583385137381060">"ይህ ማንቂያ ከአሁን ጀምሮ ለ<xliff:g id="DAYS">%1$s</xliff:g><xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>  የተዘጋጀ ነው።"</item>
   </string-array>
-    <!-- no translation found for days:one (4578913148646348411) -->
-    <!-- no translation found for days:other (4500992812430701290) -->
-    <!-- no translation found for hours:one (520282542825968069) -->
-    <!-- no translation found for hours:other (6319935255376656198) -->
-    <!-- no translation found for minutes:one (2935725533024485773) -->
-    <!-- no translation found for minutes:other (3139411599723456900) -->
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ቀኖች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ቀኖች</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ሰዓቶች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ሰዓቶች</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"በየቀኑ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ሰዓት ምረጥ"</string>
@@ -87,16 +93,19 @@
     <string name="help" msgid="7786263119482654015">"እገዛ"</string>
     <string name="settings" msgid="5849739030579520686">"ቅንብሮች"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"የአሸልብ ርዝመት"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"1 ደቂቃ"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"ደቂቃ"</item>
-    <item quantity="other" msgid="1304056759541595077">"ደቂቃዎች"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="one">ደቂቃዎች</item>
+      <item quantity="other">ደቂቃዎች</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"ጸጥታ ከዚህ በኋላ፦"</string>
-    <!-- no translation found for auto_silence_summary:other (7723894969648239520) -->
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ደቂቃዎች</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ደቂቃዎች</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"በጭራሽ"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 ደቂቃ"</item>
@@ -177,18 +186,18 @@
     <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
     <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
   </string-array>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"1 ሰዓት"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> ሰዓቶች"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"1 ደቂቃ"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> ደቂቃዎች"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"1 ሴኮንድ"</item>
-    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> ሰከንዶች"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ሰዓቶች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ሰዓቶች</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ደቂቃዎች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ደቂቃዎች</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ሰከንዶች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ሰከንዶች</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"ጊዜ ቆጣሪን አክል"</string>
     <string name="timer_start" msgid="6158486445614356442">"ጀምር"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ሰርዝ"</string>
@@ -346,10 +355,10 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"ቀጣዩ ማንቂያ፦ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> ተመርጠዋል"</string>
     <string name="deleted_message" msgid="1220848140260509437">"ተሰርዟል"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"የተመረጠው ማንቂያ ይሰረዝ?"</item>
-    <item quantity="other" msgid="6918176478191272189">"የተመረጡት ማንቂያዎች ይሰረዙ?"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="one">የተመረጡ ማንቂያዎች ይሰረዙ?</item>
+      <item quantity="other">የተመረጡ ማንቂያዎች ይሰረዙ?</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"ይህ የሰዓት ቆጣሪ ይሰረዝ?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"ይህ ከተማ ይወገድ?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ዲጂታል ሰዓት"</string>
