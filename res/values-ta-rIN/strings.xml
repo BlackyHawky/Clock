@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"அதிர்வு"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"மீண்டும்"</string>
     <string name="alert" msgid="6506982899651975645">"அலார ரிங்டோன்"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"தனிப்பயன் ரிங்டோன்"</string>
     <string name="ringtone" msgid="9110746249688559579">"ரிங்டோன்"</string>
     <string name="time" msgid="8067216534232296518">"நேரம்"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"நாளை"</string>
@@ -64,9 +65,9 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> மணிநேரம் <xliff:g id="MINUTES">%2$s</xliff:g> நிமிடங்கள் மீதமுள்ளன"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"இப்போதிலிருந்து 1 நிமிடத்திற்கும் குறைவான நேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
+    <item msgid="6450913786084215050">"இப்போதிலிருந்து 1 நிமிடத்திற்கும் குறைவான நேரத்தில் அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="6002066367368421848">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g>-க்கு அலாரம் அமைக்கப்பட்டது."</item>
+    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> அளவில் அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="8182406852935468862">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="2532279224777213194">"இப்போதிலிருந்து <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="5936557894247187717">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
@@ -91,7 +92,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"கடிகாரம்"</string>
     <string name="help" msgid="7786263119482654015">"உதவி"</string>
     <string name="settings" msgid="5849739030579520686">"அமைப்பு"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"உறக்கநிலையில் இருக்கும் காலஅளவு"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"உறக்கநிலையின் காலஅளவு"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நிமிடங்கள்</item>
       <item quantity="one">1 நிமிடம்</item>
@@ -204,10 +205,12 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"1 நிமிடத்தைச் சேர்"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 நிமிடம் சேர்"</string>
     <string name="timer_stop" msgid="3361154678667736722">"நிறுத்து"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"எல்லா டைமர்களையும் நிறுத்து"</string>
     <string name="timer_done" msgid="2375990511982914051">"முடிந்தது"</string>
     <string name="timer_reset" msgid="7848424809190171640">"மீட்டமை"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"ரத்துசெய்"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"நேரம் முடிந்தது"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> டைமர்கள் முடிந்துவிட்டன"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"டைமர்"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"அதிகபட்சம் 4 டைமர்கள்"</string>
   <string-array name="sw_share_strings">
@@ -333,6 +336,8 @@
     <string name="description_direction_right" msgid="5709209043267548985">"நிராகரிக்க வலதுபுறம் ஸ்வைப் செய்யவும்"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"உறக்கநிலையில் வைக்க இடதுபுறம் ஸ்வைப் செய்யவும்"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"உறக்கநிலையாக்க இடதுபுறம் அல்லது விலக்க வலதுபுறம் ஸ்வைப் செய்யவும்"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"டைமர்கள்"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"டைமர் ரிங்டோன்"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"டைமர் நிறுத்தப்பட்டது"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள் நிறுத்தப்பட்டன"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"உங்கள் டைமர்களைப் பார்க்க தொடவும்"</string>

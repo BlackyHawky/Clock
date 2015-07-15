@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Dlidliza"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Phindaphinda"</string>
     <string name="alert" msgid="6506982899651975645">"Ithoni yokukhala ye-alamu"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Ithoni yokukhala yangokwezifiso"</string>
     <string name="ringtone" msgid="9110746249688559579">"Ithoni yokukhala"</string>
     <string name="time" msgid="8067216534232296518">"Isikhathi"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Kusasa"</string>
@@ -204,10 +205,12 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"Engeza 1 imininithi"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Engeza iminithi elingu-1"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Misa"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"Misa zonke izibali-sikhathi"</string>
     <string name="timer_done" msgid="2375990511982914051">"Kwenziwe"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Setha kabusha"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Khansela"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Isikhathi siphelile"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> izibali-skhathi ziphelelwe isikhathi"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Isikali sesikhathi"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"4 ubukhulu bezibali sikhathi"</string>
   <string-array name="sw_share_strings">
@@ -333,6 +336,8 @@
     <string name="description_direction_right" msgid="5709209043267548985">"Swayipha ngakwesokudla ukuze ucashise"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Swayipha ngakwesokunxele ukuze usnuze"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Swayiphela ngakwesokunxele ukuze usnuze noma ngakwesokudla ukuze ucashise"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"Izibali sikhathi"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"Ithoni yokukhala yesibali-sikhathi"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Isikhathi simisiwe"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> izikhathi ezimisiwe"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Thinta ukuze ubone izikhathi zakho"</string>
