@@ -44,16 +44,16 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"Өткізіп алған дабыл"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Кейінге қалдырылды"</string>
-    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> мин</item>
-      <item quantity="one">1 мин</item>
-    </plurals>
+  <plurals name="alarm_alert_snooze_duration">
+    <item quantity="one" msgid="9092917312369131464">"1 мин."</item>
+    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> мин."</item>
+  </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Дабыл өшірулі"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Кейінге қалдыру"</string>
-    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-      <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> минутқа кейінге қалдыру.</item>
-      <item quantity="one">1 минутқа кейінге қалдыру.</item>
-    </plurals>
+  <plurals name="alarm_alert_snooze_set">
+    <item quantity="one" msgid="7884410398338611019">"1 минутқа кейінге қалдыру."</item>
+    <item quantity="other" msgid="7377899473014259727">"<xliff:g id="MINUTES">%d</xliff:g> минутқа кейінге қалдыру."</item>
+  </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> дейін кейінге қалдыру"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Келе жатқан дабыл"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Өткізіп алған дабыл жойылды"</string>
@@ -86,14 +86,14 @@
     <string name="help" msgid="7786263119482654015">"анықтама"</string>
     <string name="settings" msgid="5849739030579520686">"Параметрлер"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Кейінге қалдыру ұзақтығы"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> минут</item>
-      <item quantity="one">1 минут</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="other">минуттар</item>
-      <item quantity="one">минут</item>
-    </plurals>
+  <plurals name="snooze_duration">
+    <item quantity="one" msgid="7406963706727564418">"1 минут"</item>
+    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> минут"</item>
+  </plurals>
+  <plurals name="snooze_picker_label">
+    <item quantity="one" msgid="3783171637798575068">"минут"</item>
+    <item quantity="other" msgid="1304056759541595077">"минуттар"</item>
+  </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Дыбысын автоматты өшіру"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> минут"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Ешқашан"</string>
@@ -172,18 +172,18 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Менің уақытым – <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Аралық уақыттары:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>-айналым"</string>
-    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> сағат</item>
-      <item quantity="one">1 сағат</item>
-    </plurals>
-    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> минут</item>
-      <item quantity="one">1 минут</item>
-    </plurals>
-    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> секунд</item>
-      <item quantity="one">1 секунд</item>
-    </plurals>
+  <plurals name="Nhours_description">
+    <item quantity="one" msgid="371227238759147245">"1 сағат"</item>
+    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> сағат"</item>
+  </plurals>
+  <plurals name="Nminutes_description">
+    <item quantity="one" msgid="1001391305885322059">"1 минут"</item>
+    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> минут"</item>
+  </plurals>
+  <plurals name="Nseconds_description">
+    <item quantity="one" msgid="6589853086641485725">"1 секунд"</item>
+    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> секунд"</item>
+  </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Таймер қосу"</string>
     <string name="timer_start" msgid="6158486445614356442">"Бастау"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Жою"</string>
@@ -337,10 +337,10 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Келесі дабыл: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> таңдалған"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Жойылған"</string>
-    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
-      <item quantity="other">Таңдалған дабылдарды жою керек пе?</item>
-      <item quantity="one">Таңдалған дабылды жою керек пе?</item>
-    </plurals>
+  <plurals name="alarm_delete_confirmation">
+    <item quantity="one" msgid="111940612131906802">"Таңдалған дабылды жою керек пе?"</item>
+    <item quantity="other" msgid="6918176478191272189">"Таңдалған дабылдарды жою керек пе?"</item>
+  </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Осы таймерді жою керек пе?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Осы қаланы жою керек пе?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Сандық сағат"</string>
