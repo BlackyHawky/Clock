@@ -115,9 +115,13 @@ public class Screensaver extends DreamService {
     public void onConfigurationChanged(Configuration newConfig) {
         if (DEBUG) Log.d(TAG, "Screensaver configuration changed");
         super.onConfigurationChanged(newConfig);
-        mHandler.removeCallbacks(mMoveSaverRunnable);
-        layoutClockSaver();
-        mHandler.postDelayed(mMoveSaverRunnable, ORIENTATION_CHANGE_DELAY_MS);
+
+        // Ignore the configuration change if no window exists.
+        if (getWindow() != null) {
+            mHandler.removeCallbacks(mMoveSaverRunnable);
+            layoutClockSaver();
+            mHandler.postDelayed(mMoveSaverRunnable, ORIENTATION_CHANGE_DELAY_MS);
+        }
     }
 
     @Override
@@ -133,7 +137,7 @@ public class Screensaver extends DreamService {
         layoutClockSaver();
 
         // Setup handlers for time reference changes and date updates.
-        IntentFilter filter = new IntentFilter();
+        final IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         registerReceiver(mIntentReceiver, filter);
