@@ -38,6 +38,7 @@ import com.android.deskclock.worldclock.Cities;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -55,6 +56,8 @@ public class SettingsActivity extends BaseActivity {
     public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String KEY_WEEK_START = "week_start";
+
+    public static final String TIMEZONE_LOCALE = "tz_locale";
 
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
@@ -102,23 +105,12 @@ public class SettingsActivity extends BaseActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.settings);
-
-            // We don't want to reconstruct the timezone list every single time onResume() is
-            // called so we do it once in onCreate
-            if (mTimezones == null) {
-                mTime = System.currentTimeMillis();
-                mTimezones = getAllTimezones();
-            }
-            final ListPreference homeTimezonePref = (ListPreference) findPreference(KEY_HOME_TZ);
-            homeTimezonePref.setEntryValues(mTimezones[0]);
-            homeTimezonePref.setEntries(mTimezones[1]);
-            homeTimezonePref.setSummary(homeTimezonePref.getEntry());
-            homeTimezonePref.setOnPreferenceChangeListener(this);
         }
 
         @Override
         public void onResume() {
             super.onResume();
+            loadTimeZoneList();
             // By default, do not recreate the DeskClock activity
             getActivity().setResult(RESULT_CANCELED);
             refresh();
@@ -196,6 +188,25 @@ public class SettingsActivity extends BaseActivity {
                 return true;
             }
             return false;
+        }
+
+        /**
+         * Reconstruct the timezone list. We don't want to do this unnecessary, so proceed only if
+         * this is the initial load or the locale has changed since the last load.
+         */
+        private void loadTimeZoneList() {
+            final Locale currentLocale = getResources().getConfiguration().locale;
+            final Context context = getActivity();
+            if (mTimezones == null || Utils.getTimezoneLocale(context) != currentLocale) {
+                mTime = System.currentTimeMillis();
+                mTimezones = getAllTimezones();
+                Utils.setTimezoneLocale(context, currentLocale);
+            }
+            final ListPreference homeTimezonePref = (ListPreference) findPreference(KEY_HOME_TZ);
+            homeTimezonePref.setEntryValues(mTimezones[0]);
+            homeTimezonePref.setEntries(mTimezones[1]);
+            homeTimezonePref.setSummary(homeTimezonePref.getEntry());
+            homeTimezonePref.setOnPreferenceChangeListener(this);
         }
 
         /**
