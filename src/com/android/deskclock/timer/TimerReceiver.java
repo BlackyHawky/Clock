@@ -241,7 +241,10 @@ public class TimerReceiver extends BroadcastReceiver {
                 Log.d(TAG, "Setting times up to " + nextTimesup);
             }
         } else {
+            // if no timer is found Pending Intents should be canceled
+            // to keep the internal state consistent with the UI
             mngr.cancel(p);
+            p.cancel();
             if (Timers.LOGGING) {
                 Log.v(TAG, "no next times up");
             }
