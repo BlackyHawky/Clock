@@ -54,10 +54,12 @@ public class AlarmUtils {
         return (String) DateFormat.format(pattern, time);
     }
 
-    public static String getAlarmText(Context context, AlarmInstance instance) {
+    public static String getAlarmText(Context context, AlarmInstance instance,
+            boolean includeLabel) {
         String alarmTimeStr = getFormattedTime(context, instance.getAlarmTime());
-        return !instance.mLabel.isEmpty() ? alarmTimeStr + " - " + instance.mLabel
-                : alarmTimeStr;
+        return (instance.mLabel.isEmpty() || !includeLabel)
+                ? alarmTimeStr
+                : alarmTimeStr + " - " + instance.mLabel;
     }
 
     // show time picker dialog for pre-L devices

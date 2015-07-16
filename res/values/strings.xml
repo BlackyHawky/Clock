@@ -851,7 +851,7 @@
     <!-- Displays the number of alarms selected from the list of alarms. -->
     <string name="alarms_selected"><xliff:g id="alarms">%d</xliff:g> selected</string>
 
-    <!-- message used by the talkback accessebility app to say that something was deleted -->
+    <!-- message used by the talkback accessibility app to say that something was deleted -->
     <string name="deleted_message">Deleted</string>
 
     <!-- Alarm deletion confirmation message-->

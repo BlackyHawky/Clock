@@ -577,9 +577,14 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             View hairLine;
             View arrow;
             View collapseExpandArea;
+            View preemptiveDismissCollapsed;
+            TextView preemptiveDismissCollapsedButton;
+            View preemptiveDismissExpanded;
+            TextView preemptiveDismissExpandedButton;
 
             // Other states
             Alarm alarm;
+            AlarmInstance instance;
         }
 
         // Used for scrolling an expanded item in the list to make sure it is fully visible.
@@ -701,6 +706,13 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             holder.clickableLabel = (TextView) view.findViewById(R.id.edit_label);
             holder.repeatDays = (LinearLayout) view.findViewById(R.id.repeat_days);
             holder.collapseExpandArea = view.findViewById(R.id.collapse_expand);
+            holder.preemptiveDismissCollapsed = view.findViewById(
+                    R.id.preemptive_dismiss_collapsed);
+            holder.preemptiveDismissCollapsedButton = (TextView) holder.preemptiveDismissCollapsed
+                    .findViewById(R.id.preemptive_dismiss_button);
+            holder.preemptiveDismissExpanded = view.findViewById(R.id.preemptive_dismiss_expanded);
+            holder.preemptiveDismissExpandedButton = (TextView) holder.preemptiveDismissExpanded
+                    .findViewById(R.id.preemptive_dismiss_button);
 
             // Build button for each day.
             for (int i = 0; i < 7; i++) {
@@ -774,12 +786,14 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                     if (checked != alarm.enabled) {
-                        if (!isAlarmExpanded(alarm)) {
+                        final boolean expanded = isAlarmExpanded(alarm);
+                        if (!expanded) {
                             // Only toggle this when alarm is collapsed
                             setDigitalTimeAlpha(itemHolder, checked);
                         }
                         alarm.enabled = checked;
                         asyncUpdateAlarm(alarm, alarm.enabled, false);
+                        bindPreemptiveDismissView(itemHolder, expanded);
                     }
                 }
             };
@@ -803,7 +817,11 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             itemHolder.expandArea.setVisibility(expanded? View.VISIBLE : View.GONE);
             itemHolder.delete.setVisibility(expanded ? View.VISIBLE : View.GONE);
             itemHolder.summary.setVisibility(expanded? View.GONE : View.VISIBLE);
-            itemHolder.hairLine.setVisibility(expanded ? View.GONE : View.VISIBLE);
+            if (canPreemptivelyDismiss(itemHolder.alarm)) {
+                itemHolder.hairLine.setVisibility(View.GONE);
+            } else {
+                itemHolder.hairLine.setVisibility(expanded ? View.GONE : View.VISIBLE);
+            }
             itemHolder.arrow.setRotation(expanded ? ROTATE_180_DEGREE : 0);
 
             // Add listener on the arrow to enable proper talkback functionality.
@@ -881,6 +899,34 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                     }
                 }
             });
+
+            if (canPreemptivelyDismiss(itemHolder.alarm)) {
+                itemHolder.instance = new AlarmInstance(cursor, true /* joinedTable */);
+            } else {
+                itemHolder.instance = null;
+            }
+
+            bindPreemptiveDismissView(itemHolder, !isAlarmExpanded(alarm));
+            if (canPreemptivelyDismiss(alarm)) {
+                final View.OnClickListener preemptiveClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (itemHolder.instance == null) {
+                            LogUtils.e("Uninitialized alarm instance");
+                            return;
+                        }
+                        final Intent dismissIntent = AlarmStateManager.createStateChangeIntent(
+                                mContext, AlarmStateManager.ALARM_DISMISS_TAG, itemHolder.instance,
+                                AlarmInstance.PREDISMISSED_STATE);
+                        mContext.sendBroadcast(dismissIntent);
+                        // TODO: pop toast that alarm has been dismissed
+                    }
+                };
+                itemHolder.preemptiveDismissExpandedButton
+                        .setOnClickListener(preemptiveClickListener);
+                itemHolder.preemptiveDismissCollapsedButton
+                        .setOnClickListener(preemptiveClickListener);
+            }
         }
 
         private void setAlarmItemBackgroundAndElevation(LinearLayout layout, boolean expanded) {
@@ -1158,6 +1204,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             // Set the expand area to visible so we can measure the height to animate to.
             setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
             itemHolder.expandArea.setVisibility(View.VISIBLE);
+            bindPreemptiveDismissView(itemHolder, false /* collapsed */);
             itemHolder.delete.setVisibility(View.VISIBLE);
             // Show digital time in full-opaque when expanded, even when alarm is disabled
             setDigitalTimeAlpha(itemHolder, true /* enabled */);
@@ -1265,6 +1312,52 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             return mExpandedId == alarm.id;
         }
 
+        /**
+         * Whether the alarm is in a state to show preemptive dismiss. Valid states are SNOOZE_STATE
+         * HIGH_NOTIFICATION, and LOW_NOTIFICATION. TODO: firing state?
+         */
+        private boolean canPreemptivelyDismiss(Alarm alarm) {
+            return alarm.instanceState == AlarmInstance.SNOOZE_STATE
+                    || alarm.instanceState == AlarmInstance.HIGH_NOTIFICATION_STATE
+                    || alarm.instanceState == AlarmInstance.LOW_NOTIFICATION_STATE;
+        }
+
+        /**
+         * Add the preemptive dismiss button and hairline to the proper view depending on if the
+         * alarm view is collapsed or expanded.
+         */
+        private void bindPreemptiveDismissView(ItemHolder itemHolder, boolean collapsed) {
+            // Determine which view is to show and which one is to hide depending on
+            // collapse/expand state.
+            final View showView = collapsed
+                    ? itemHolder.preemptiveDismissCollapsed
+                    : itemHolder.preemptiveDismissExpanded;
+            final View hideView = collapsed
+                    ? itemHolder.preemptiveDismissExpanded
+                    : itemHolder.preemptiveDismissCollapsed;
+
+            // Always hide this view regardless of current alarm state.
+            hideView.setVisibility(View.GONE);
+
+            // Set visibility of show view depending on alarm state.
+            if (!canPreemptivelyDismiss(itemHolder.alarm)) {
+                showView.setVisibility(View.GONE);
+                return;
+            }
+            showView.setVisibility(View.VISIBLE);
+
+            // Set button text; select button based on collapse/expand state
+            final TextView button = collapsed
+                    ? itemHolder.preemptiveDismissCollapsedButton
+                    : itemHolder.preemptiveDismissExpandedButton;
+            final String buttonText =
+                    itemHolder.alarm.instanceState == AlarmInstance.SNOOZE_STATE
+                            ? mContext.getString(R.string.alarm_alert_snooze_until,
+                            AlarmUtils.getAlarmText(mContext, itemHolder.instance, false))
+                            : mContext.getString(R.string.alarm_alert_dismiss_now_text);
+            button.setText(buttonText);
+        }
+
         private void collapseAlarm(final ItemHolder itemHolder, boolean animate) {
             mExpandedId = AlarmClockFragment.INVALID_ID;
             mExpandedItemHolder = null;
@@ -1283,11 +1376,17 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 // Set the "end" layout and don't do the animation.
                 itemHolder.arrow.setRotation(0);
                 itemHolder.hairLine.setTranslationY(0);
-                itemHolder.hairLine.setVisibility(View.VISIBLE);
+                if (canPreemptivelyDismiss(itemHolder.alarm)) {
+                    itemHolder.hairLine.setVisibility(View.GONE);
+                } else {
+                    itemHolder.hairLine.setVisibility(View.VISIBLE);
+                }
                 itemHolder.summary.setAlpha(1);
                 itemHolder.summary.setVisibility(View.VISIBLE);
                 return;
             }
+
+            bindPreemptiveDismissView(itemHolder, true);
 
             // Mark the alarmItem as having transient state to prevent it from being recycled
             // while it is animating.
@@ -1319,7 +1418,8 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                     itemHolder.expandArea.setVisibility(View.VISIBLE);
                     itemHolder.delete.setVisibility(View.GONE);
                     itemHolder.summary.setVisibility(View.VISIBLE);
-                    itemHolder.hairLine.setVisibility(View.VISIBLE);
+                    itemHolder.hairLine.setVisibility(
+                            canPreemptivelyDismiss(itemHolder.alarm) ? View.GONE : View.VISIBLE);
                     itemHolder.summary.setAlpha(1);
 
                     // Set up the animator to animate the expansion.

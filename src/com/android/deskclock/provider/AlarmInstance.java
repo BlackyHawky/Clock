@@ -149,7 +149,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
 
         try {
             if (cursor.moveToFirst()) {
-                result = new AlarmInstance(cursor);
+                result = new AlarmInstance(cursor, false /* joinedTable */);
             }
         } finally {
             cursor.close();
@@ -232,7 +232,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         try {
             if (cursor.moveToFirst()) {
                 do {
-                    result.add(new AlarmInstance(cursor));
+                    result.add(new AlarmInstance(cursor, false /* joinedTable */));
                 } while (cursor.moveToNext());
             }
         } finally {
@@ -320,15 +320,26 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mAlarmState = SILENT_STATE;
     }
 
-    public AlarmInstance(Cursor c) {
-        mId = c.getLong(ID_INDEX);
-        mYear = c.getInt(YEAR_INDEX);
-        mMonth = c.getInt(MONTH_INDEX);
-        mDay = c.getInt(DAY_INDEX);
-        mHour = c.getInt(HOUR_INDEX);
-        mMinute = c.getInt(MINUTES_INDEX);
-        mLabel = c.getString(LABEL_INDEX);
-        mVibrate = c.getInt(VIBRATE_INDEX) == 1;
+    public AlarmInstance(Cursor c, boolean joinedTable) {
+        if (joinedTable) {
+            mId = c.getLong(Alarm.INSTANCE_ID_INDEX);
+            mYear = c.getInt(Alarm.INSTANCE_YEAR_INDEX);
+            mMonth = c.getInt(Alarm.INSTANCE_MONTH_INDEX);
+            mDay = c.getInt(Alarm.INSTANCE_DAY_INDEX);
+            mHour = c.getInt(Alarm.INSTANCE_HOUR_INDEX);
+            mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
+            mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
+            mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
+        } else {
+            mId = c.getLong(ID_INDEX);
+            mYear = c.getInt(YEAR_INDEX);
+            mMonth = c.getInt(MONTH_INDEX);
+            mDay = c.getInt(DAY_INDEX);
+            mHour = c.getInt(HOUR_INDEX);
+            mMinute = c.getInt(MINUTES_INDEX);
+            mLabel = c.getString(LABEL_INDEX);
+            mVibrate = c.getInt(VIBRATE_INDEX) == 1;
+        }
         if (c.isNull(RINGTONE_INDEX)) {
             // Should we be saving this with the current ringtone or leave it null
             // so it changes when user changes default ringtone?
