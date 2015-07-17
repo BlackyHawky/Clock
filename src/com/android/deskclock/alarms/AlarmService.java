@@ -215,7 +215,7 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        LogUtils.v("AlarmService.onStartCommand() with intent: %s", intent.toString());
+        LogUtils.v("AlarmService.onStartCommand() with %s", intent);
 
         final long instanceId = AlarmInstance.getId(intent.getData());
         switch (intent.getAction()) {
