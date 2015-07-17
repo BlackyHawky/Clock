@@ -900,4 +900,15 @@ public class Utils {
                 : sTimerRingtoneName;
     }
 
+    public static void setTimezoneLocale(Context context, Locale locale) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(SettingsActivity.TIMEZONE_LOCALE, locale.toString()).apply();
+    }
+
+    public static Locale getTimezoneLocale(Context context) {
+       final String localeString = PreferenceManager.getDefaultSharedPreferences(context)
+               .getString(SettingsActivity.TIMEZONE_LOCALE,
+                       context.getResources().getConfiguration().locale.toString());
+       return new Locale(localeString);
+    }
 }
