@@ -382,7 +382,8 @@ public class HandleApiCalls extends Activity {
         } else {
             startActivity(new Intent(this, DeskClock.class)
                     .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
-                    .putExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, true));
+                    .putExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, true)
+                    .putExtra(Timers.SCROLL_TO_TIMER_ID, timer.mTimerId));
         }
         Voice.notifySuccess(this, getString(R.string.timer_created));
         LogUtils.i("HandleApiCalls timer created: %s", timer);
