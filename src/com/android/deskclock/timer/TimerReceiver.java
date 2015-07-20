@@ -127,6 +127,10 @@ public class TimerReceiver extends BroadcastReceiver {
                 || Timers.TIMER_DONE.equals(actionType)) {
             // Stop Ringtone if all timers are not in times-up status
             stopRingtoneIfNoTimesup(context);
+
+            if (t != null) {
+                cancelTimesUpNotification(context, t);
+            }
         } else if (Timers.NOTIF_TIMES_UP_STOP.equals(actionType)) {
             // Find the timer (if it doesn't exists, it was probably deleted).
             if (t == null) {
