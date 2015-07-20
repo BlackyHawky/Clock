@@ -205,7 +205,7 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"1 daqiqa qo‘shish"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 daqiqa qo‘shish"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
-    <string name="timer_stop_all" msgid="9080780442843034376">"Hamma taymerni to’xtatish"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"Hamma taymerni to‘xtatish"</string>
     <string name="timer_done" msgid="2375990511982914051">"Tayyor"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Boshidan"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Bekor qilish"</string>

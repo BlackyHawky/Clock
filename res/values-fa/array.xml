@@ -18,8 +18,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="cities_names">
-    <item msgid="4653806289288974388">"ا<xliff:g id="SEPARATOR">=</xliff:g>آبیجان"</item>
-    <item msgid="4864167603178202155">"ا<xliff:g id="SEPARATOR">=</xliff:g>آکرا"</item>
+    <item msgid="4653806289288974388">"<xliff:g id="SEPARATOR">=</xliff:g>ابیجان"</item>
+    <item msgid="4864167603178202155">"<xliff:g id="SEPARATOR">=</xliff:g>آکرا"</item>
     <item msgid="6478898553803167749">"ا<xliff:g id="SEPARATOR">=</xliff:g>آدیس‌آبابا"</item>
     <item msgid="5618029992528436448">"<xliff:g id="SEPARATOR">=</xliff:g>الجزایر"</item>
     <item msgid="2906834750114790793">"<xliff:g id="SEPARATOR">=</xliff:g>بلانتیر"</item>
@@ -118,8 +118,8 @@
     <item msgid="4076962667198039206">"<xliff:g id="SEPARATOR">=</xliff:g>لانگیربین"</item>
     <item msgid="3784788073896028355">"ا<xliff:g id="SEPARATOR">=</xliff:g>آلماتی"</item>
     <item msgid="7895695236056852523">"<xliff:g id="SEPARATOR">=</xliff:g>امان"</item>
-    <item msgid="1795426532295280371">"ا<xliff:g id="SEPARATOR">=</xliff:g>آنادیر"</item>
-    <item msgid="7194236926158343552">"ا<xliff:g id="SEPARATOR">=</xliff:g>آکتاو"</item>
+    <item msgid="1795426532295280371">"<xliff:g id="SEPARATOR">=</xliff:g>آنادیر"</item>
+    <item msgid="7194236926158343552">"<xliff:g id="SEPARATOR">=</xliff:g>آکتاو"</item>
     <item msgid="4796350130854360870">"<xliff:g id="SEPARATOR">=</xliff:g>بغداد"</item>
     <item msgid="4020105434451091851">"<xliff:g id="SEPARATOR">=</xliff:g>بحرین"</item>
     <item msgid="3895868797052686484">"<xliff:g id="SEPARATOR">=</xliff:g>باکو"</item>
@@ -163,12 +163,12 @@
     <item msgid="4886308317040330383">"<xliff:g id="SEPARATOR">=</xliff:g>کیپ‌ورد"</item>
     <item msgid="1003307362164178007">"<xliff:g id="SEPARATOR">=</xliff:g>ریکیاویک"</item>
     <item msgid="6742010412815268657">"<xliff:g id="SEPARATOR">=</xliff:g>استنلی"</item>
-    <item msgid="5659389449738592757">"ا<xliff:g id="SEPARATOR">=</xliff:g>آدلاید"</item>
+    <item msgid="5659389449738592757">"<xliff:g id="SEPARATOR">=</xliff:g>ادلید"</item>
     <item msgid="4567804576346784523">"<xliff:g id="SEPARATOR">=</xliff:g>بریزبن"</item>
     <item msgid="8730590400362815585">"<xliff:g id="SEPARATOR">=</xliff:g>کانبرا"</item>
     <item msgid="6416990927714140153">"<xliff:g id="SEPARATOR">=</xliff:g>داروین"</item>
     <item msgid="3073969292696516135">"<xliff:g id="SEPARATOR">=</xliff:g>ملبورن"</item>
-    <item msgid="1719286228375722176">"<xliff:g id="SEPARATOR">=</xliff:g>ولز جنوبی جدید"</item>
+    <item msgid="1719286228375722176">"<xliff:g id="SEPARATOR">=</xliff:g>نیو ساوت ویلز"</item>
     <item msgid="3663940748056976266">"<xliff:g id="SEPARATOR">=</xliff:g>پرت"</item>
     <item msgid="3383881736858438153">"<xliff:g id="SEPARATOR">=</xliff:g>کوئینزلند"</item>
     <item msgid="971889339240879138">"<xliff:g id="SEPARATOR">=</xliff:g>سیدنی"</item>
@@ -191,7 +191,7 @@
     <item msgid="7760953471297773537">"<xliff:g id="SEPARATOR">=</xliff:g>دوبلین"</item>
     <item msgid="323414429034825249">"<xliff:g id="SEPARATOR">=</xliff:g>جبل‌الطارق"</item>
     <item msgid="1785566206078328830">"<xliff:g id="SEPARATOR">=</xliff:g>هلسینکی"</item>
-    <item msgid="5938185647271923359">"<xliff:g id="SEPARATOR">=</xliff:g>جزیزه من"</item>
+    <item msgid="5938185647271923359">"<xliff:g id="SEPARATOR">=</xliff:g>آیل آومن"</item>
     <item msgid="5974864320735263245">"<xliff:g id="SEPARATOR">=</xliff:g>استانبول"</item>
     <item msgid="3567775364750772947">"<xliff:g id="SEPARATOR">=</xliff:g>کی‌یف"</item>
     <item msgid="540344101798867007">"<xliff:g id="SEPARATOR">=</xliff:g>لیسبون"</item>
@@ -231,8 +231,8 @@
     <item msgid="2740704911915073056">"<xliff:g id="SEPARATOR">=</xliff:g>نومئا"</item>
     <item msgid="8732832728949672807">"<xliff:g id="SEPARATOR">=</xliff:g>ساموآ"</item>
     <item msgid="6489500698846864993">"<xliff:g id="SEPARATOR">=</xliff:g>تاهیتی"</item>
-    <item msgid="3983121625709442324">"ا<xliff:g id="SEPARATOR">=</xliff:g>آنتیگوا"</item>
-    <item msgid="2650510570709806322">"ا<xliff:g id="SEPARATOR">=</xliff:g>آستین"</item>
+    <item msgid="3983121625709442324">"<xliff:g id="SEPARATOR">=</xliff:g>آنتیگوا"</item>
+    <item msgid="2650510570709806322">"<xliff:g id="SEPARATOR">=</xliff:g>آستین"</item>
     <item msgid="5257283506227357911">"<xliff:g id="SEPARATOR">=</xliff:g>بوستون"</item>
     <item msgid="6326368958641850267">"<xliff:g id="SEPARATOR">=</xliff:g>کلگری"</item>
     <item msgid="8830116365016232583">"<xliff:g id="SEPARATOR">=</xliff:g>کلمبوس"</item>
@@ -240,7 +240,7 @@
     <item msgid="836479352500251902">"<xliff:g id="SEPARATOR">=</xliff:g>ناکسویل"</item>
     <item msgid="8495291458467378851">"<xliff:g id="SEPARATOR">=</xliff:g>ممفیس"</item>
     <item msgid="2788807207554683122">"<xliff:g id="SEPARATOR">=</xliff:g>میامی"</item>
-    <item msgid="3984640407077208471">"<xliff:g id="SEPARATOR">=</xliff:g>مینابولیس"</item>
+    <item msgid="3984640407077208471">"<xliff:g id="SEPARATOR">=</xliff:g>مینیاپولیس"</item>
     <item msgid="6997305266329324161">"<xliff:g id="SEPARATOR">=</xliff:g>اتاوا"</item>
     <item msgid="5191741145278683016">"<xliff:g id="SEPARATOR">=</xliff:g>فیلادلفیا"</item>
     <item msgid="5898032730733441936">"<xliff:g id="SEPARATOR">=</xliff:g>پورتلند"</item>
@@ -279,7 +279,7 @@
     <item msgid="2933410189478233292">"<xliff:g id="SEPARATOR">=</xliff:g>اوزاکا"</item>
     <item msgid="9011026093638055579">"<xliff:g id="SEPARATOR">=</xliff:g>لاهور"</item>
     <item msgid="1448378291805481500">"<xliff:g id="SEPARATOR">=</xliff:g>صنعا"</item>
-    <item msgid="5233119846682408301">"<xliff:g id="SEPARATOR">=</xliff:g>بارسلونا"</item>
+    <item msgid="5233119846682408301">"<xliff:g id="SEPARATOR">=</xliff:g>بارسلون"</item>
     <item msgid="9146746514265554721">"<xliff:g id="SEPARATOR">=</xliff:g>مونیخ"</item>
     <item msgid="157866084892734979">"<xliff:g id="SEPARATOR">=</xliff:g>میلان"</item>
     <item msgid="2787346322341414963">"<xliff:g id="SEPARATOR">=</xliff:g>فرانکفورت"</item>
