@@ -44,16 +44,20 @@
     <string name="alarm_missed_title" msgid="3828345099754063392">"Zmeškaný budík"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Odloženo"</string>
-  <plurals name="alarm_alert_snooze_duration">
-    <item quantity="one" msgid="9092917312369131464">"1 min"</item>
-    <item quantity="other" msgid="6731274475422132958">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> min</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> min</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min</item>
+      <item quantity="one">1 min</item>
+    </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Budík je vypnut"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Odložit"</string>
-  <plurals name="alarm_alert_snooze_set">
-    <item quantity="one" msgid="7884410398338611019">"Odloženo o 1 minutu."</item>
-    <item quantity="other" msgid="7377899473014259727">"Odloženo o <xliff:g id="MINUTES">%d</xliff:g> min."</item>
-  </plurals>
+    <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
+      <item quantity="few">Odloženo o <xliff:g id="MINUTES">%d</xliff:g> minuty.</item>
+      <item quantity="many">Odloženo o <xliff:g id="MINUTES">%d</xliff:g> minuty.</item>
+      <item quantity="other">Odloženo o <xliff:g id="MINUTES">%d</xliff:g> minut.</item>
+      <item quantity="one">Odloženo o 1 minutu.</item>
+    </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Odloženo do <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Nadcházející budík"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zmeškaný budík byl smazán"</string>
@@ -86,14 +90,18 @@
     <string name="help" msgid="7786263119482654015">"nápověda"</string>
     <string name="settings" msgid="5849739030579520686">"Nastavení"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Délka odložení zvonění"</string>
-  <plurals name="snooze_duration">
-    <item quantity="one" msgid="7406963706727564418">"1 minuta"</item>
-    <item quantity="other" msgid="568504136093419703">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
-  </plurals>
-  <plurals name="snooze_picker_label">
-    <item quantity="one" msgid="3783171637798575068">"min"</item>
-    <item quantity="other" msgid="1304056759541595077">"min"</item>
-  </plurals>
+    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> minuty</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> minuty</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minut</item>
+      <item quantity="one">1 minuta</item>
+    </plurals>
+    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
+      <item quantity="few">minuty</item>
+      <item quantity="many">minuty</item>
+      <item quantity="other">minut</item>
+      <item quantity="one">1 minuta</item>
+    </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ztišit po"</string>
     <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min"</string>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
@@ -172,18 +180,24 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Můj čas je <xliff:g id="TIME">%s</xliff:g>."</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Časy etap:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. úsek"</string>
-  <plurals name="Nhours_description">
-    <item quantity="one" msgid="371227238759147245">"1 hodina"</item>
-    <item quantity="other" msgid="7018184076091344797">"<xliff:g id="NUMBER">%d</xliff:g> h"</item>
-  </plurals>
-  <plurals name="Nminutes_description">
-    <item quantity="one" msgid="1001391305885322059">"1 min"</item>
-    <item quantity="other" msgid="6948360065351547776">"<xliff:g id="NUMBER">%d</xliff:g> min"</item>
-  </plurals>
-  <plurals name="Nseconds_description">
-    <item quantity="one" msgid="6589853086641485725">"1 s"</item>
-    <item quantity="other" msgid="7583230315175387547">"<xliff:g id="NUMBER">%d</xliff:g> s"</item>
-  </plurals>
+    <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> hodiny</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> hodiny</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> hodin</item>
+      <item quantity="one">1 hodina</item>
+    </plurals>
+    <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> minuty</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> minuty</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minut</item>
+      <item quantity="one">1 minuta</item>
+    </plurals>
+    <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> sekundy</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> sekundy</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> sekund</item>
+      <item quantity="one">1 sekunda</item>
+    </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Přidat časovač"</string>
     <string name="timer_start" msgid="6158486445614356442">"Spustit"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Smazat"</string>
@@ -337,10 +351,12 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Další budík: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarms_selected" msgid="1075308195332888260">"Počet vybraných budíků: <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Smazáno"</string>
-  <plurals name="alarm_delete_confirmation">
-    <item quantity="one" msgid="111940612131906802">"Chcete vybraný budík smazat?"</item>
-    <item quantity="other" msgid="6918176478191272189">"Chcete vybrané budíky smazat?"</item>
-  </plurals>
+    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
+      <item quantity="few">Chcete vybrané budíky smazat?</item>
+      <item quantity="many">Chcete vybrané budíky smazat?</item>
+      <item quantity="other">Chcete vybrané budíky smazat?</item>
+      <item quantity="one">Chcete vybraný budík smazat?</item>
+    </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"Chcete tento časovač smazat?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Chcete toto město odebrat?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitální hodiny"</string>
