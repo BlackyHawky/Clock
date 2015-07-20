@@ -228,9 +228,13 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             // and b. this fragment is resumed for the first time. If both are true,
             // we should show the timer view instead of setup view.
             goToSetUpView = false;
-            // Show the first timer because that's the newly created one
             highlightPageIndicator(0);
-            mViewPager.setCurrentItem(0);
+            // Find the id of the timer to scroll to. Timers are loaded from SharedPrefs using a
+            // HashSet as an intermediary, so we need to find the position in this specific
+            // Adapter instance instead of just passing the position through the intent.
+            final int timerPosition = ((TimerFragmentAdapter) mViewPager.getAdapter())
+                    .getTimerPosition(newIntent.getIntExtra(Timers.SCROLL_TO_TIMER_ID, 0));
+            mViewPager.setCurrentItem(timerPosition);
 
             // Reset the extra to false to ensure when next time the fragment resume,
             // we no longer care if it's from api call or not.
