@@ -20,7 +20,7 @@
   <string-array name="cities_names">
     <item msgid="4653806289288974388">"A<xliff:g id="SEPARATOR">=</xliff:g>Abidjã"</item>
     <item msgid="4864167603178202155">"A<xliff:g id="SEPARATOR">=</xliff:g>Accra"</item>
-    <item msgid="6478898553803167749">"A<xliff:g id="SEPARATOR">=</xliff:g>Addis Ababa"</item>
+    <item msgid="6478898553803167749">"A<xliff:g id="SEPARATOR">=</xliff:g>Addis Abeba"</item>
     <item msgid="5618029992528436448">"A<xliff:g id="SEPARATOR">=</xliff:g>Argel"</item>
     <item msgid="2906834750114790793">"B<xliff:g id="SEPARATOR">=</xliff:g>Blantyre"</item>
     <item msgid="8153571933836629863">"B<xliff:g id="SEPARATOR">=</xliff:g>Brazzaville"</item>
@@ -228,7 +228,7 @@
     <item msgid="7971492669765264840">"G<xliff:g id="SEPARATOR">=</xliff:g>Guam"</item>
     <item msgid="889371273355762733">"H<xliff:g id="SEPARATOR">=</xliff:g>Honolulu"</item>
     <item msgid="5516500578074269817">"K<xliff:g id="SEPARATOR">=</xliff:g>Kiritimati"</item>
-    <item msgid="2740704911915073056">"N<xliff:g id="SEPARATOR">=</xliff:g>Noumea"</item>
+    <item msgid="2740704911915073056">"N<xliff:g id="SEPARATOR">=</xliff:g>Nouméa"</item>
     <item msgid="8732832728949672807">"S<xliff:g id="SEPARATOR">=</xliff:g>Samoa"</item>
     <item msgid="6489500698846864993">"T<xliff:g id="SEPARATOR">=</xliff:g>Taiti"</item>
     <item msgid="3983121625709442324">"A<xliff:g id="SEPARATOR">=</xliff:g>Antígua"</item>
