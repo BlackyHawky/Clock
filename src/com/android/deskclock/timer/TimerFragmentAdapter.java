@@ -94,4 +94,16 @@ public class TimerFragmentAdapter extends FragmentStatePagerAdapter2 {
         notifyDataSetChanged();
         return;
     }
+
+    // Return position of the timer with the given timerId. If the timer is not in the list,
+    // return 0 so we get the position of the newest timer.
+    public int getTimerPosition(int id) {
+        for (int i = 0; i < mTimerList.size(); i++) {
+            TimerObj timer = mTimerList.get(i);
+            if (timer.mTimerId == id) {
+                return i;
+            }
+        }
+        return 0;
+    }
 }
