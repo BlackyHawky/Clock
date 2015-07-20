@@ -33,7 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrasiya etdir"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Təkrarla"</string>
     <string name="alert" msgid="6506982899651975645">"Siqnalın Zəng səsi"</string>
-    <string name="custom_ringtone" msgid="3477418548382111184">"Xüsusi Zəng"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Fərdi Zəng"</string>
     <string name="ringtone" msgid="9110746249688559579">"Zəng səsi"</string>
     <string name="time" msgid="8067216534232296518">"Vaxt"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Sabah"</string>

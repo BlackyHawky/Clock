@@ -46,7 +46,7 @@
     <item msgid="3642219084651687800">"ٹ<xliff:g id="SEPARATOR">=</xliff:g>ٹمبکٹو"</item>
     <item msgid="7287513493631179463">"ٹ<xliff:g id="SEPARATOR">=</xliff:g>ٹرائی پولی"</item>
     <item msgid="5052614613671591560">"ت<xliff:g id="SEPARATOR">=</xliff:g>تیونس"</item>
-    <item msgid="7976303179193839859">"ا<xliff:g id="SEPARATOR">=</xliff:g>انکوریج"</item>
+    <item msgid="7976303179193839859">"<xliff:g id="SEPARATOR">=</xliff:g>انکوریج"</item>
     <item msgid="193703779380497120">"م<xliff:g id="SEPARATOR">=</xliff:g>مینڈوزا"</item>
     <item msgid="5448884981082519628">"<xliff:g id="SEPARATOR">=</xliff:g>اروبا"</item>
     <item msgid="1577938273323914773">"<xliff:g id="SEPARATOR">=</xliff:g>اسنسیؤن"</item>
@@ -60,15 +60,15 @@
     <item msgid="1993203473281589891">"ش<xliff:g id="SEPARATOR">=</xliff:g>شکاگو"</item>
     <item msgid="7990342776303470263">"ک<xliff:g id="SEPARATOR">=</xliff:g>کوسٹا ریکا"</item>
     <item msgid="5676109900908808628">"ک<xliff:g id="SEPARATOR">=</xliff:g>کیورا کاؤ"</item>
-    <item msgid="5519120432577564812">"ڈ<xliff:g id="SEPARATOR">=</xliff:g>ڈاسن کریک"</item>
-    <item msgid="2126228972377380680">"ڈ<xliff:g id="SEPARATOR">=</xliff:g>ڈینور"</item>
-    <item msgid="3298410632922319193">"ڈ<xliff:g id="SEPARATOR">=</xliff:g>ڈیٹروئٹ"</item>
-    <item msgid="2819032085688382805">"ڈ<xliff:g id="SEPARATOR">=</xliff:g>ڈومینیکا"</item>
+    <item msgid="5519120432577564812">"<xliff:g id="SEPARATOR">=</xliff:g>ڈاسن کریک"</item>
+    <item msgid="2126228972377380680">"<xliff:g id="SEPARATOR">=</xliff:g>ڈینور"</item>
+    <item msgid="3298410632922319193">"<xliff:g id="SEPARATOR">=</xliff:g>ڈیٹروئٹ"</item>
+    <item msgid="2819032085688382805">"<xliff:g id="SEPARATOR">=</xliff:g>ڈومینیکا"</item>
     <item msgid="6170433208654553821">"<xliff:g id="SEPARATOR">=</xliff:g>ایڈمونٹن"</item>
     <item msgid="795461860173291499">"<xliff:g id="SEPARATOR">=</xliff:g>ایلسلواڈور"</item>
     <item msgid="7872196528637597794">"ف<xliff:g id="SEPARATOR">=</xliff:g>فورٹالیزا"</item>
     <item msgid="5801558418916235541">"گ<xliff:g id="SEPARATOR">=</xliff:g>گرینڈ ٹرک"</item>
-    <item msgid="2103759276235503048">"گ<xliff:g id="SEPARATOR">=</xliff:g>گرینیڈا"</item>
+    <item msgid="2103759276235503048">"غ<xliff:g id="SEPARATOR">=</xliff:g>غرناطہ"</item>
     <item msgid="1490069759176391533">"گ<xliff:g id="SEPARATOR">=</xliff:g>گوئٹے مالا"</item>
     <item msgid="525959305652046261">"گ<xliff:g id="SEPARATOR">=</xliff:g>گیانا"</item>
     <item msgid="7565596629973190931">"ہ<xliff:g id="SEPARATOR">=</xliff:g>ہیلیفیکس"</item>
@@ -76,7 +76,7 @@
     <item msgid="3733555435078090201">"<xliff:g id="SEPARATOR">=</xliff:g>انڈیانا پولس"</item>
     <item msgid="226982663848410981">"ن<xliff:g id="SEPARATOR">=</xliff:g>ناکس"</item>
     <item msgid="3815293080342229459">"م<xliff:g id="SEPARATOR">=</xliff:g>میرنگو"</item>
-    <item msgid="6594853515451547389">"پ<xliff:g id="SEPARATOR">=</xliff:g>پیٹسبرگ"</item>
+    <item msgid="6594853515451547389">"پ<xliff:g id="SEPARATOR">=</xliff:g>پیٹرزبرگ"</item>
     <item msgid="6091571889213283534">"ٹ<xliff:g id="SEPARATOR">=</xliff:g>ٹیل سٹی"</item>
     <item msgid="3089369312058696669">"<xliff:g id="SEPARATOR">=</xliff:g>ویوے"</item>
     <item msgid="1334860422444068943">"<xliff:g id="SEPARATOR">=</xliff:g>ونسن"</item>
@@ -100,7 +100,7 @@
     <item msgid="415823390775449071">"س<xliff:g id="SEPARATOR">=</xliff:g>سنٹر"</item>
     <item msgid="6644186958433380884">"ن<xliff:g id="SEPARATOR">=</xliff:g>نیوسیلم"</item>
     <item msgid="6408587617047971798">"پ<xliff:g id="SEPARATOR">=</xliff:g>پاناما"</item>
-    <item msgid="5576899364199447991">"ف<xliff:g id="SEPARATOR">=</xliff:g>فونکس"</item>
+    <item msgid="5576899364199447991">"ف<xliff:g id="SEPARATOR">=</xliff:g>فینکس"</item>
     <item msgid="5541266909095409447">"پ<xliff:g id="SEPARATOR">=</xliff:g>پورٹ آف سپین"</item>
     <item msgid="6417519313622785932">"پ<xliff:g id="SEPARATOR">=</xliff:g>پورٹ او پرنس"</item>
     <item msgid="2078589249210571366">"پ<xliff:g id="SEPARATOR">=</xliff:g>پوئیرٹوریکو"</item>
@@ -147,7 +147,7 @@
     <item msgid="6077458941399984780">"پ<xliff:g id="SEPARATOR">=</xliff:g>پنوم پن"</item>
     <item msgid="935474308903572975">"پ<xliff:g id="SEPARATOR">=</xliff:g>پیونگ یانگ"</item>
     <item msgid="5336632319992664889">"ق<xliff:g id="SEPARATOR">=</xliff:g>قطر"</item>
-    <item msgid="1667243110545095146">"ر<xliff:g id="SEPARATOR">=</xliff:g>رنگون"</item>
+    <item msgid="1667243110545095146">"<xliff:g id="SEPARATOR">=</xliff:g>رنگون"</item>
     <item msgid="4460370766685855731">"<xliff:g id="SEPARATOR">=</xliff:g>ریاض"</item>
     <item msgid="4229224905931739201">"س<xliff:g id="SEPARATOR">=</xliff:g>سائگون"</item>
     <item msgid="8705359848250215620">"س<xliff:g id="SEPARATOR">=</xliff:g>سیول"</item>
@@ -188,10 +188,10 @@
     <item msgid="804451569472542912">"ب<xliff:g id="SEPARATOR">=</xliff:g>بوداپیسٹ"</item>
     <item msgid="6827506774445509939">"ک<xliff:g id="SEPARATOR">=</xliff:g>کیشیناؤ"</item>
     <item msgid="487345893088732797">"ک<xliff:g id="SEPARATOR">=</xliff:g>کوپن ہیگن"</item>
-    <item msgid="7760953471297773537">"ڈ<xliff:g id="SEPARATOR">=</xliff:g>ڈبلن"</item>
+    <item msgid="7760953471297773537">"<xliff:g id="SEPARATOR">=</xliff:g>ڈبلن"</item>
     <item msgid="323414429034825249">"ج<xliff:g id="SEPARATOR">=</xliff:g>جبرالٹر"</item>
     <item msgid="1785566206078328830">"ہ<xliff:g id="SEPARATOR">=</xliff:g>ہیلنسکی"</item>
-    <item msgid="5938185647271923359">"م<xliff:g id="SEPARATOR">=</xliff:g>جزائرمان"</item>
+    <item msgid="5938185647271923359">"<xliff:g id="SEPARATOR">=</xliff:g>آئل آف مین"</item>
     <item msgid="5974864320735263245">"<xliff:g id="SEPARATOR">=</xliff:g>استنبول"</item>
     <item msgid="3567775364750772947">"ک<xliff:g id="SEPARATOR">=</xliff:g>کیو"</item>
     <item msgid="540344101798867007">"ل<xliff:g id="SEPARATOR">=</xliff:g>لسبن"</item>
@@ -199,7 +199,7 @@
     <item msgid="7075006205000490364">"ل<xliff:g id="SEPARATOR">=</xliff:g>لکسمبرگ"</item>
     <item msgid="4901781246584739451">"م<xliff:g id="SEPARATOR">=</xliff:g>میڈرڈ"</item>
     <item msgid="9047080834315777144">"م<xliff:g id="SEPARATOR">=</xliff:g>مالٹا"</item>
-    <item msgid="8200456520732452034">"م<xliff:g id="SEPARATOR">=</xliff:g>مالٹا"</item>
+    <item msgid="8200456520732452034">"م<xliff:g id="SEPARATOR">=</xliff:g>منسک"</item>
     <item msgid="5452744619736513383">"م<xliff:g id="SEPARATOR">=</xliff:g>موناکو"</item>
     <item msgid="3513517408062322298">"م<xliff:g id="SEPARATOR">=</xliff:g>ماسکو"</item>
     <item msgid="7917103295878081674">"<xliff:g id="SEPARATOR">=</xliff:g>اوسلو"</item>
@@ -222,7 +222,7 @@
     <item msgid="1457280242717152391">"<xliff:g id="SEPARATOR">=</xliff:g>زیورخ"</item>
     <item msgid="1065940089741359291">"<xliff:g id="SEPARATOR">=</xliff:g>انتاناناریوو"</item>
     <item msgid="5176181880014090003">"م<xliff:g id="SEPARATOR">=</xliff:g>مالدیپ"</item>
-    <item msgid="8281854645557426433">"م<xliff:g id="SEPARATOR">=</xliff:g>موريشيوس"</item>
+    <item msgid="8281854645557426433">"م<xliff:g id="SEPARATOR">=</xliff:g>ماریشس"</item>
     <item msgid="2686249517389816420">"<xliff:g id="SEPARATOR">=</xliff:g>آکلینڈ"</item>
     <item msgid="279925671775807392">"ف<xliff:g id="SEPARATOR">=</xliff:g>فجی"</item>
     <item msgid="7971492669765264840">"گ<xliff:g id="SEPARATOR">=</xliff:g>گوآم"</item>
@@ -234,7 +234,7 @@
     <item msgid="3983121625709442324">"<xliff:g id="SEPARATOR">=</xliff:g>اینٹی گوا"</item>
     <item msgid="2650510570709806322">"<xliff:g id="SEPARATOR">=</xliff:g>آسٹن"</item>
     <item msgid="5257283506227357911">"ب<xliff:g id="SEPARATOR">=</xliff:g>بوسٹن"</item>
-    <item msgid="6326368958641850267">"ک<xliff:g id="SEPARATOR">=</xliff:g>کالگرے"</item>
+    <item msgid="6326368958641850267">"ک<xliff:g id="SEPARATOR">=</xliff:g>کیلگری"</item>
     <item msgid="8830116365016232583">"ک<xliff:g id="SEPARATOR">=</xliff:g>کولمبس"</item>
     <item msgid="6986556538341883811">"<xliff:g id="SEPARATOR">=</xliff:g>ڈلاس"</item>
     <item msgid="836479352500251902">"ن<xliff:g id="SEPARATOR">=</xliff:g>نوکس ولے"</item>
@@ -244,15 +244,15 @@
     <item msgid="6997305266329324161">"<xliff:g id="SEPARATOR">=</xliff:g>اوٹاوا"</item>
     <item msgid="5191741145278683016">"ف<xliff:g id="SEPARATOR">=</xliff:g>فلاڈیلفیا"</item>
     <item msgid="5898032730733441936">"پ<xliff:g id="SEPARATOR">=</xliff:g>پورٹ لینڈ"</item>
-    <item msgid="9070160716002203069">"س<xliff:g id="SEPARATOR">=</xliff:g>سان ڈیگو"</item>
+    <item msgid="9070160716002203069">"س<xliff:g id="SEPARATOR">=</xliff:g>سان ڈیاگو"</item>
     <item msgid="1829944133410079040">"س<xliff:g id="SEPARATOR">=</xliff:g>سان فرانسسکو"</item>
     <item msgid="8407905318529692654">"س<xliff:g id="SEPARATOR">=</xliff:g>سالٹ لیک سٹی"</item>
     <item msgid="3091392589347990898">"س<xliff:g id="SEPARATOR">=</xliff:g>سان جوزے"</item>
     <item msgid="7080627414383807284">"س<xliff:g id="SEPARATOR">=</xliff:g>سان سلواڈور"</item>
     <item msgid="3430371213266252049">"س<xliff:g id="SEPARATOR">=</xliff:g>سیاٹل"</item>
     <item msgid="9177491393818757071">"س<xliff:g id="SEPARATOR">=</xliff:g>سینٹ لوئس"</item>
-    <item msgid="6234359686676312837">"و<xliff:g id="SEPARATOR">=</xliff:g>واشنگٹن ڈی سی"</item>
-    <item msgid="4325057056005132331">"ہ<xliff:g id="SEPARATOR">=</xliff:g>ہاؤسٹن"</item>
+    <item msgid="6234359686676312837">"<xliff:g id="SEPARATOR">=</xliff:g>واشنگٹن ڈی سی"</item>
+    <item msgid="4325057056005132331">"ہ<xliff:g id="SEPARATOR">=</xliff:g>ہیوسٹن"</item>
     <item msgid="38148255938075867">"س<xliff:g id="SEPARATOR">=</xliff:g>سان انٹونیو"</item>
     <item msgid="3601481860893666763">"ج<xliff:g id="SEPARATOR">=</xliff:g>جیکسن ولے"</item>
     <item msgid="3987471437354665534">"ب<xliff:g id="SEPARATOR">=</xliff:g>بالٹی مور"</item>
@@ -284,7 +284,7 @@
     <item msgid="157866084892734979">"م<xliff:g id="SEPARATOR">=</xliff:g>میلان"</item>
     <item msgid="2787346322341414963">"ف<xliff:g id="SEPARATOR">=</xliff:g>فرینکفرٹ"</item>
     <item msgid="8407511504088696581">"ہ<xliff:g id="SEPARATOR">=</xliff:g>ہنوئی"</item>
-    <item msgid="5184417944073499453">"<xliff:g id="SEPARATOR">=</xliff:g>انکارا"</item>
+    <item msgid="5184417944073499453">"<xliff:g id="SEPARATOR">=</xliff:g>انقرہ"</item>
     <item msgid="4028784954452197920">"ب<xliff:g id="SEPARATOR">=</xliff:g>بنگلور"</item>
     <item msgid="190152483600862776">"ب<xliff:g id="SEPARATOR">=</xliff:g>براسیلیا"</item>
     <item msgid="8009516135735104388">"ک<xliff:g id="SEPARATOR">=</xliff:g>کیپ ٹاؤن"</item>
@@ -307,7 +307,7 @@
     <item msgid="4806867741334453982">"گ<xliff:g id="SEPARATOR">=</xliff:g>گڑگاؤں"</item>
     <item msgid="2585780177649876827">"م<xliff:g id="SEPARATOR">=</xliff:g>مانچسٹر"</item>
     <item msgid="234104953526248139">"ک<xliff:g id="SEPARATOR">=</xliff:g>کیو"</item>
-    <item msgid="5245429461217350012">"س<xliff:g id="SEPARATOR">=</xliff:g>سینٹ پیٹسبرگ"</item>
+    <item msgid="5245429461217350012">"س<xliff:g id="SEPARATOR">=</xliff:g>سینٹ پیٹرزبرگ"</item>
     <item msgid="6738531308006017215">"ک<xliff:g id="SEPARATOR">=</xliff:g>کراکاؤ"</item>
     <item msgid="8972702613339139467">"<xliff:g id="SEPARATOR">=</xliff:g>راکلا"</item>
     <item msgid="187278924459096566">"ہ<xliff:g id="SEPARATOR">=</xliff:g>ہیمبرگ"</item>
