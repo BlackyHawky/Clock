@@ -77,7 +77,7 @@
                 android:layout_height="48dip"
                 android:layout_gravity="center_vertical|start"
                 android:text="@string/alarm_repeat"
-                android:textSize="16sp"
+                android:textSize="@dimen/alarm_text_font_size"
                 android:paddingStart="12dip"
                 android:textColor="@color/clock_white" />
 
@@ -87,9 +87,8 @@
                 android:layout_height="48dip"
                 android:layout_gravity="top"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="gone"/>
                 <!-- Day buttons are put here programatically -->
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -114,9 +113,8 @@
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textAlignment="viewStart"
-                    android:textSize="16sp"
-                    android:textColor="@color/clock_white"
-                    />
+                    android:textSize="@dimen/alarm_text_font_size"
+                    android:textColor="@color/clock_white" />
 
                 <CheckBox
                     android:id="@+id/vibrate_onoff"
@@ -127,8 +125,9 @@
                     android:includeFontPadding="false"
                     android:text="@string/alarm_vibrate"
                     android:paddingStart="16dip"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/alarm_text_font_size"
                     android:textColor="@color/white" />
+
             </LinearLayout>
 
             <TextView
@@ -144,15 +143,19 @@
                 android:paddingStart="18dp"
                 android:paddingTop="12dp"
                 android:singleLine="true"
-                android:textSize="16sp"
+                android:textSize="@dimen/alarm_text_font_size"
                 android:textColor="@color/white" />
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/hairline_height"
-                android:layout_marginLeft="12dip"
-                android:layout_marginRight="12dip"
+                android:layout_marginEnd="@dimen/alarm_side_padding"
+                android:layout_marginStart="@dimen/alarm_side_padding"
                 android:background="@color/hairline" />
+
+            <include
+                android:id="@+id/preemptive_dismiss_expanded"
+                layout="@layout/preemptive_dismiss" />
 
         </LinearLayout>
 
@@ -177,7 +180,7 @@
             <View
                 android:id="@+id/hairline"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
+                android:layout_height="@dimen/hairline_height"
                 android:layout_gravity="bottom"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
@@ -187,7 +190,7 @@
                 android:id="@+id/summary"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
+                android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/touch_target_min_size"
                 android:gravity="center_vertical">
 
@@ -198,7 +201,7 @@
                     android:ellipsize="none"
                     android:singleLine="true"
                     android:paddingEnd="4dip"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/alarm_text_font_size"
                     android:textColor="@color/clock_gray" />
 
                 <TextView
@@ -207,7 +210,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/alarm_text_font_size"
                     android:textStyle="bold"
                     android:textColor="@color/clock_white" />
 
@@ -217,7 +220,7 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/alarm_text_font_size"
                     android:textStyle="bold"
                     android:textColor="@color/clock_white" />
 
@@ -228,12 +231,16 @@
                 android:layout_width="@dimen/touch_target_min_size"
                 android:layout_height="@dimen/touch_target_min_size"
                 android:layout_gravity="center_vertical|end"
-                android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
-                android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:contentDescription="@string/expand_alarm"
                 android:scaleType="center"
                 android:src="@drawable/ic_expand_down" />
+
         </FrameLayout>
+
     </FrameLayout>
+
+    <include
+        android:id="@+id/preemptive_dismiss_collapsed"
+        layout="@layout/preemptive_dismiss" />
 
 </LinearLayout>

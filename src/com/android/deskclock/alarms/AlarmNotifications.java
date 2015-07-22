@@ -40,7 +40,8 @@ public final class AlarmNotifications {
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(
                         R.string.alarm_alert_predismiss_title))
-                .setContentText(AlarmUtils.getAlarmText(context, instance))
+                .setContentText(AlarmUtils.getAlarmText(context, instance,
+                        true /* includeLabel */))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -78,7 +79,8 @@ public final class AlarmNotifications {
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
-                .setContentText(AlarmUtils.getAlarmText(context, instance))
+                .setContentText(AlarmUtils.getAlarmText(context, instance,
+                        true /* includeLabel */))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)

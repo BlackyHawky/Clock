@@ -44,9 +44,9 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * The default sort order for this table
      */
     private static final String DEFAULT_SORT_ORDER =
-            HOUR + ", " +
-            MINUTES + " ASC" + ", " +
-            _ID + " DESC";
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR + ", " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." +  MINUTES + " ASC" + ", " +
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ClockContract.AlarmsColumns._ID + " DESC";
 
     private static final String[] QUERY_COLUMNS = {
             _ID,
@@ -58,6 +58,28 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
             LABEL,
             RINGTONE,
             DELETE_AFTER_USE
+    };
+
+    private static final String[] QUERY_ALARMS_WITH_INSTANCES_COLUMNS = {
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + _ID,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + HOUR,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + MINUTES,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DAYS_OF_WEEK,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + ENABLED,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + VIBRATE,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + LABEL,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + RINGTONE,
+            ClockDatabaseHelper.ALARMS_TABLE_NAME + "." + DELETE_AFTER_USE,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "."
+                    + ClockContract.InstancesColumns.ALARM_STATE,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns._ID,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.YEAR,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MONTH,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.DAY,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.HOUR,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.MINUTES,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.LABEL,
+            ClockDatabaseHelper.INSTANCES_TABLE_NAME + "." + ClockContract.InstancesColumns.VIBRATE
     };
 
     /**
@@ -73,8 +95,18 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     private static final int LABEL_INDEX = 6;
     private static final int RINGTONE_INDEX = 7;
     private static final int DELETE_AFTER_USE_INDEX = 8;
+    private static final int INSTANCE_STATE_INDEX = 9;
+    public static final int INSTANCE_ID_INDEX = 10;
+    public static final int INSTANCE_YEAR_INDEX = 11;
+    public static final int INSTANCE_MONTH_INDEX = 12;
+    public static final int INSTANCE_DAY_INDEX = 13;
+    public static final int INSTANCE_HOUR_INDEX = 14;
+    public static final int INSTANCE_MINUTE_INDEX = 15;
+    public static final int INSTANCE_LABEL_INDEX = 16;
+    public static final int INSTANCE_VIBRATE_INDEX = 17;
 
     private static final int COLUMN_COUNT = DELETE_AFTER_USE_INDEX + 1;
+    private static final int ALARM_JOIN_INSTANCE_COLUMN_COUNT = INSTANCE_VIBRATE_INDEX + 1;
 
     public static ContentValues createContentValues(Alarm alarm) {
         ContentValues values = new ContentValues(COLUMN_COUNT);
@@ -122,8 +154,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @return cursor loader with all the alarms.
      */
     public static CursorLoader getAlarmsCursorLoader(Context context) {
-        return new CursorLoader(context, ClockContract.AlarmsColumns.CONTENT_URI,
-                QUERY_COLUMNS, null, null, DEFAULT_SORT_ORDER);
+        return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI,
+                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER);
     }
 
     /**
@@ -234,6 +266,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     public String label;
     public Uri alert;
     public boolean deleteAfterUse;
+    public int instanceState;
+    public int instanceId;
 
     // Creates a default alarm at the current time.
     public Alarm() {
@@ -260,6 +294,11 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         vibrate = c.getInt(VIBRATE_INDEX) == 1;
         label = c.getString(LABEL_INDEX);
         deleteAfterUse = c.getInt(DELETE_AFTER_USE_INDEX) == 1;
+
+        if (c.getColumnCount() == ALARM_JOIN_INSTANCE_COLUMN_COUNT) {
+            instanceState = c.getInt(INSTANCE_STATE_INDEX);
+            instanceId = c.getInt(INSTANCE_ID_INDEX);
+        }
 
         if (c.isNull(RINGTONE_INDEX)) {
             // Should we be saving this with the current ringtone or leave it null

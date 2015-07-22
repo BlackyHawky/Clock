@@ -190,4 +190,6 @@
     <dimen name="fastscroll_preview_padding">8dp</dimen>
     <dimen name="fastscroll_track_width">8dp</dimen>
 
+    <!-- Dimens for dismiss icon padding on Alarms tab -->
+    <dimen name="dismiss_icon_padding">10dp</dimen>
 </resources>

@@ -95,6 +95,13 @@ public final class ClockContract {
         public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/alarms");
 
         /**
+         * The content:// style URL for the alarms with instance tables, which is used to get the
+         * next firing instance and the current state of an alarm.
+         */
+        public static final Uri ALARMS_WITH_INSTANCES_URI = Uri.parse("content://" + AUTHORITY
+                + "/alarms_with_instances");
+
+        /**
          * Hour in 24-hour localtime 0 - 23.
          * <p>Type: INTEGER</p>
          */
