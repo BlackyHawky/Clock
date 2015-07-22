@@ -243,6 +243,7 @@ public class DeskClock extends BaseActivity
         editor.apply();
         Utils.cancelTimesUpNotifications(this);
         Utils.updateTimesUpNotification(this);
+        sendBroadcast(new Intent(Timers.NOTIF_IN_USE_CANCEL));
         mActivityResumed = true;
     }
 
