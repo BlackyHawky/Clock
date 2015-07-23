@@ -341,6 +341,11 @@
                 <action android:name="notif_times_up_plus_one" />
                 <action android:name="notif_times_up_show" />
                 <action android:name="notif_times_up_cancel" />
+                <action android:name="notif_pause_timer" />
+                <action android:name="notif_plus_one_timer" />
+                <action android:name="notif_resume_timer" />
+                <action android:name="notif_reset_timer" />
+                <action android:name="notif_reset_all_timers" />
                 <action android:name="notif_update" />
             </intent-filter>
         </receiver>

@@ -414,17 +414,24 @@
     <!-- Label for selected cities in Cities list view -->
     <string name="selected_cities_label">Selected Cities</string>
 
-    <!-- Stop Watch strings -->
-    <!-- Describes the purpose of the button to resume running a stopwatch -->
+    <!-- Stopwatch and Timer shared strings -->
+    <!-- Describes the purpose of the button to resume running a stopwatch or timer. [CHAR LIMIT=15] -->
     <string name="sw_resume_button">Resume</string>
+    <!--
+        Describes the purpose of the button
+            for stopwatch: return stopwatch to zero and remove the lap times.
+            for timer: return timer to originally set duration.
+        [CHAR LIMIT=15]
+    -->
+    <string name="sw_reset_button">Reset</string>
+
+    <!-- Stopwatch strings -->
     <!-- Describes the purpose of the button to begin running a stopwatch -->
     <string name="sw_start_button">Start</string>
     <!-- Describes the purpose of the button to pause a stopwatch. -->
     <string name="sw_stop_button">Stop</string>
     <!-- Describes the purpose of the button to record current the stopwatch value into the4 collection of lap times. -->
     <string name="sw_lap_button">Lap</string>
-    <!-- Describes the purpose of the button to return the stopwatch to zero and remove the lap times. -->
-    <string name="sw_reset_button">Reset</string>
     <!-- Describes the purpose of the button to share the stopwatch value.
          Also used as title for chooser when sharing stopwatch results. -->
     <string name="sw_share_button">Share</string>
@@ -547,6 +554,10 @@
     <string name="timer_notification_label">Timer</string>
     <!-- Toast content shown when user attempts to create a new timer when there are already 4 timers -->
     <string name="timers_max_count_reached">4 timers maximum</string>
+    <!-- Describes the purpose of the notification button to pause the timer. [CHAR LIMIT=15] -->
+    <string name="timer_pause">Pause</string>
+    <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=15] -->
+    <string name="timer_reset_all">Reset all timers</string>
 
     <!-- Jocular content that user may append when sharing the lap times -->
     <string-array name="sw_share_strings" translatable="true">
@@ -813,11 +824,14 @@
     <!-- Description for timer ringtone setting. -->
     <string name="timer_ringtone_title">Timer ringtone</string>
 
-    <!-- Notification title when timer is stopped. -->
+    <!-- Description when timer is stopped. -->
     <string name="timer_stopped">Timer stopped</string>
-    <!-- Notification title when multiple timers are stopped. -->
-    <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers stopped</string>
-    <!-- Notification text when multiple timers are stopped. -->
+
+    <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
+    <string name="timer_paused">Timer paused</string>
+    <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 25] -->
+    <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers paused</string>
+    <!-- Notification text when multiple timers are paused. -->
     <string name="all_timers_stopped_notif">Touch to see your timers</string>
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
     <string name="timers_in_use"><xliff:g id="number" example="7">%d</xliff:g> timers</string>

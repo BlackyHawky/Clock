@@ -32,6 +32,7 @@
     <string name="action_reset">Reset</string>
     <string name="action_show">Show</string>
     <string name="action_add_minute">Add Minute</string>
+    <string name="action_resume">Resume</string>
     <string name="action_lap">Lap</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->
