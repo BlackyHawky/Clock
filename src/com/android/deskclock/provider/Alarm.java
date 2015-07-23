@@ -217,12 +217,17 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return result;
     }
 
-    public static boolean isTomorrow(Alarm alarm) {
-        final Calendar now = Calendar.getInstance();
+    public static boolean isTomorrow(Alarm alarm, Calendar now) {
         final int alarmHour = alarm.hour;
         final int currHour = now.get(Calendar.HOUR_OF_DAY);
-        return alarmHour < currHour ||
-                (alarmHour == currHour && alarm.minutes <= now.get(Calendar.MINUTE));
+        // If the alarm is not snoozed and the time is less than the current time, it must be
+        // firing tomorrow.
+        // If the alarm is snoozed, return "false" to indicate that this alarm is firing today.
+        // (The alarm must have already rung today in order to be snoozed, and this function is only
+        // called on non-repeating alarms.)
+        return alarm.instanceState != AlarmInstance.SNOOZE_STATE
+                && (alarmHour < currHour
+                || (alarmHour == currHour && alarm.minutes <= now.get(Calendar.MINUTE)));
     }
 
     public static Alarm addAlarm(ContentResolver contentResolver, Alarm alarm) {
