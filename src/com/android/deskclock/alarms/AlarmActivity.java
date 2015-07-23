@@ -166,7 +166,7 @@ public class AlarmActivity extends AppCompatActivity
 
         // Get the volume/camera button behavior setting
         mVolumeBehavior = PreferenceManager.getDefaultSharedPreferences(this)
-                .getString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
+                .getString(SettingsActivity.KEY_VOLUME_BUTTONS,
                         SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED

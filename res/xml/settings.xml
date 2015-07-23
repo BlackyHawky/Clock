@@ -56,6 +56,11 @@
             android:key="volume_setting"
             android:title="@string/alarm_volume_title" />
 
+        <com.android.deskclock.CrescendoLengthDialog
+            android:key="alarm_crescendo_duration"
+            android:title="@string/crescendo_duration_title"
+            android:defaultValue="0"/>
+
         <ListPreference
             android:key="volume_button_setting"
             android:title="@string/volume_button_setting_title"
@@ -78,6 +83,11 @@
             android:key="timer_ringtone"
             android:title="@string/timer_ringtone_title"
             android:ringtoneType="alarm" />
+
+        <com.android.deskclock.CrescendoLengthDialog
+            android:key="timer_crescendo_duration"
+            android:title="@string/crescendo_duration_title"
+            android:defaultValue="0"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.NumberPicker;
@@ -13,13 +14,13 @@ import android.widget.TextView;
  * A dialog preference that shows a number picker for selecting snooze length
  */
 public class SnoozeLengthDialog extends DialogPreference {
+
+    private static final String DEFAULT_SNOOZE_TIME = "10";
+
     private NumberPicker mNumberPickerView;
     private TextView mNumberPickerMinutesView;
     private final Context mContext;
     private int mSnoozeMinutes;
-
-    private static final String DEFAULT_SNOOZE_TIME = "10";
-
 
     public SnoozeLengthDialog(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -36,24 +37,24 @@ public class SnoozeLengthDialog extends DialogPreference {
     }
 
     @Override
-    protected void onBindDialogView(View view) {
+    protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
         mNumberPickerMinutesView = (TextView) view.findViewById(R.id.title);
         mNumberPickerView = (NumberPicker) view.findViewById(R.id.minutes_picker);
         mNumberPickerView.setMinValue(1);
         mNumberPickerView.setMaxValue(30);
         mNumberPickerView.setValue(mSnoozeMinutes);
-        updateDays();
+        updateUnits();
         mNumberPickerView.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                updateDays();
+                updateUnits();
             }
         });
     }
 
     @Override
-    protected void onSetInitialValue (boolean restorePersistedValue, Object defaultValue) {
+    protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
         String val;
         if (restorePersistedValue) {
             val = getPersistedString(DEFAULT_SNOOZE_TIME);
@@ -74,11 +75,11 @@ public class SnoozeLengthDialog extends DialogPreference {
         return a.getString(index);
     }
 
-    private void updateDays() {
-        mNumberPickerMinutesView.setText(String.format(mContext.getResources()
-                .getQuantityText(R.plurals.snooze_picker_label, mNumberPickerView.getValue())
-                .toString()));
+    private void updateUnits() {
+        mNumberPickerMinutesView.setText(mContext.getResources()
+                .getQuantityText(R.plurals.snooze_picker_label, mNumberPickerView.getValue()));
     }
+
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         if (positiveResult) {
@@ -92,10 +93,6 @@ public class SnoozeLengthDialog extends DialogPreference {
     public void setSummary() {
         setSummary(Utils.getNumberFormattedQuantityString(mContext, R.plurals.snooze_duration,
                         mSnoozeMinutes));
-    }
-
-    public int getCurrentValue() {
-        return mSnoozeMinutes;
     }
 }
 
