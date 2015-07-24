@@ -803,7 +803,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             } else {
                 itemHolder.tomorrowLabel.setVisibility(View.VISIBLE);
                 final Resources resources = getResources();
-                final String labelText = Alarm.isTomorrow(alarm) ?
+                final String labelText = Alarm.isTomorrow(alarm, Calendar.getInstance()) ?
                         resources.getString(R.string.alarm_tomorrow) :
                         resources.getString(R.string.alarm_today);
                 itemHolder.tomorrowLabel.setText(labelText);
