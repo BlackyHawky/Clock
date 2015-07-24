@@ -144,6 +144,10 @@ public class TimerAlertFullScreen extends BaseActivity implements OnEmptyListLis
         }
         onListChanged();
         finish();
+
+        // Removes the specific transition between the timer firing screen and the DeskClock
+        // TimerFragment (when there is one underneath). The reveal animation is sufficient.
+        overridePendingTransition(0, android.R.anim.fade_out);
     }
 
     @Override
