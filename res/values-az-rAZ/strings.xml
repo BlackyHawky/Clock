@@ -65,7 +65,7 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> qaldı"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Siqbalı ən az 1 dəqiqə sonraya qur."</item>
+    <item msgid="6450913786084215050">"Siqnalı ən az 1 dəqiqə sonraya qur."</item>
     <item msgid="6002066367368421848">"Siqnalı <xliff:g id="DAYS">%1$s</xliff:g> sonraya qur."</item>
     <item msgid="8824719306247973774">"Siqnalı <xliff:g id="HOURS">%2$s</xliff:g> sonraya qur."</item>
     <item msgid="8182406852935468862">"Siqnalı <xliff:g id="DAYS">%1$s</xliff:g> və <xliff:g id="HOURS">%2$s</xliff:g> sonraya qur."</item>
