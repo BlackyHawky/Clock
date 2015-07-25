@@ -24,7 +24,7 @@
             android:entryValues="@array/clock_style_values"
             android:defaultValue="@string/default_clock_style"
             android:dialogTitle="@string/clock_style" />
-        <CheckBoxPreference
+        <SwitchPreference
             android:key="automatic_home_clock"
             android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
