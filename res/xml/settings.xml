@@ -24,17 +24,23 @@
             android:entryValues="@array/clock_style_values"
             android:defaultValue="@string/default_clock_style"
             android:dialogTitle="@string/clock_style" />
+
         <SwitchPreference
             android:key="automatic_home_clock"
             android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
             android:defaultValue="true" />
+
         <ListPreference
             android:key="home_time_zone"
             android:entries="@array/timezone_labels"
             android:entryValues="@array/timezone_values"
             android:dialogTitle="@string/home_time_zone_title"
             android:title="@string/home_time_zone" />
+
+        <Preference
+            android:key="date_time"
+            android:title="@string/open_date_settings" />
     </PreferenceCategory>
 
     <PreferenceCategory

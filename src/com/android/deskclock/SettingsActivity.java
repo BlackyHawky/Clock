@@ -29,6 +29,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
+import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -55,6 +56,7 @@ public class SettingsActivity extends BaseActivity {
     public static final String KEY_CLOCK_STYLE = "clock_style";
     public static final String KEY_HOME_TZ = "home_time_zone";
     public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
+    public static final String KEY_DATE_TIME = "date_time";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String KEY_WEEK_START = "week_start";
 
@@ -181,14 +183,21 @@ public class SettingsActivity extends BaseActivity {
                 return false;
             }
 
-            if (KEY_ALARM_VOLUME.equals(pref.getKey())) {
-                final AudioManager audioManager =
-                        (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-                audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM,
-                        AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
-                return true;
+            switch (pref.getKey()) {
+                case KEY_DATE_TIME:
+                    Intent dialogIntent = new Intent(Settings.ACTION_DATE_SETTINGS);
+                    dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(dialogIntent);
+                    return true;
+                case KEY_ALARM_VOLUME:
+                    final AudioManager audioManager =
+                            (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
+                    audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM,
+                            AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
+                    return true;
+                default:
+                    return false;
             }
-            return false;
         }
 
         /**
@@ -273,7 +282,7 @@ public class SettingsActivity extends BaseActivity {
             final SnoozeLengthDialog snoozePref =
                     (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
             snoozePref.setSummary();
-
+            
             final CrescendoLengthDialog alarmCrescendoPref =
                     (CrescendoLengthDialog) findPreference(KEY_ALARM_CRESCENDO);
             alarmCrescendoPref.setSummary();
@@ -281,6 +290,9 @@ public class SettingsActivity extends BaseActivity {
             final CrescendoLengthDialog timerCrescendoPref =
                     (CrescendoLengthDialog) findPreference(KEY_TIMER_CRESCENDO);
             timerCrescendoPref.setSummary();
+
+            final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
+            dateAndTimeSetting.setOnPreferenceClickListener(this);
 
             final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
             // Set the default value programmatically

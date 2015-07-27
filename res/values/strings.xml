@@ -596,6 +596,9 @@
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
 
+    <!-- Title for preference to change date & time -->
+    <string name="open_date_settings">Change Date \u0026 time</string>
+
     <!-- Entries listed in the ListPreference when invoking the clock style
          preference. -->
     <string-array name="clock_style_entries">
