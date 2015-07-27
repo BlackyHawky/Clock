@@ -48,8 +48,9 @@ public class SettingsActivity extends BaseActivity {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_VOLUME = "volume_setting";
+    public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
+    public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
     public static final String KEY_TIMER_RINGTONE = "timer_ringtone";
-    public static final String KEY_VOLUME_BEHAVIOR = "volume_button_setting";
     public static final String KEY_AUTO_SILENCE = "auto_silence";
     public static final String KEY_CLOCK_STYLE = "clock_style";
     public static final String KEY_HOME_TZ = "home_time_zone";
@@ -272,6 +273,14 @@ public class SettingsActivity extends BaseActivity {
             final SnoozeLengthDialog snoozePref =
                     (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
             snoozePref.setSummary();
+
+            final CrescendoLengthDialog alarmCrescendoPref =
+                    (CrescendoLengthDialog) findPreference(KEY_ALARM_CRESCENDO);
+            alarmCrescendoPref.setSummary();
+
+            final CrescendoLengthDialog timerCrescendoPref =
+                    (CrescendoLengthDialog) findPreference(KEY_TIMER_CRESCENDO);
+            timerCrescendoPref.setSummary();
 
             final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
             // Set the default value programmatically

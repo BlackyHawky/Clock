@@ -20,6 +20,7 @@ import android.content.Context;
 
 import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 
 public abstract class TimerKlaxon {
@@ -39,11 +40,11 @@ public abstract class TimerKlaxon {
     }
 
     public static void start(Context context) {
-        LogUtils.i("TimerKlaxon.start()");
         // Make sure we are stopped before starting
         stop(context);
+        LogUtils.i("TimerKlaxon.start()");
 
-        // For now play a default ringtone; TODO: Look up user-selected preference
+        // Look up user-selected timer ringtone.
         getAsyncRingtonePlayer(context).play(Utils.getTimerRingtoneUri(context));
 
         sStarted = true;
@@ -51,7 +52,8 @@ public abstract class TimerKlaxon {
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
         if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext(),
+                    SettingsActivity.KEY_TIMER_CRESCENDO);
         }
 
         return sAsyncRingtonePlayer;

@@ -23,6 +23,7 @@ import android.os.Vibrator;
 
 import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.provider.AlarmInstance;
 
 /**
@@ -46,9 +47,9 @@ public final class AlarmKlaxon {
     }
 
     public static void start(Context context, AlarmInstance instance) {
-        LogUtils.v("AlarmKlaxon.start()");
         // Make sure we are stopped before starting
         stop(context);
+        LogUtils.v("AlarmKlaxon.start()");
 
         if (!AlarmInstance.NO_RINGTONE_URI.equals(instance.mRingtone)) {
             getAsyncRingtonePlayer(context).play(instance.mRingtone);
@@ -71,7 +72,8 @@ public final class AlarmKlaxon {
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
         if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext(),
+                    SettingsActivity.KEY_ALARM_CRESCENDO);
         }
 
         return sAsyncRingtonePlayer;

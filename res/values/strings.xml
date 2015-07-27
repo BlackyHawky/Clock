@@ -244,6 +244,18 @@
         <item quantity="other">minutes</item>
     </plurals>
 
+    <!-- Setting title for changing the crescendo duration. -->
+    <string name="crescendo_duration_title">Gradually increase volume</string>
+
+    <!-- Summary value for changing the crescendo duration to 0. -->
+    <string name="no_crescendo_duration">Off</string>
+
+    <!-- Summary value for changing the crescendo duration. -->
+    <string name="crescendo_duration"><xliff:g id="number" example="7">%s</xliff:g> seconds</string>
+
+    <!-- Setting label when changing the crescendo duration. -->
+    <string name="crescendo_picker_label">seconds</string>
+
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?><!--
 /**
- * Copyright (c) 2012, Google Inc.
+ * Copyright (c) 2015, Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,14 @@
  */
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
 
     <com.android.deskclock.NumberPickerCompat
-        android:id="@+id/minutes_picker"
+        android:id="@+id/seconds_picker"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:focusable="true"
