@@ -79,6 +79,8 @@ public class TimerAlertFullScreen extends BaseActivity implements OnEmptyListLis
 
         // Only show notifications for times-up when this activity closed.
         Utils.cancelTimesUpNotifications(this);
+
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override

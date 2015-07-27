@@ -132,7 +132,8 @@ public class TimerReceiver extends BroadcastReceiver {
                 // Start the TimerAlertFullScreen activity.
                 Intent timersAlert = new Intent(context, TimerAlertFullScreen.class);
                 timersAlert.setFlags(
-                        Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+                        Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION
+                        | Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 context.startActivity(timersAlert);
             }
         } else if (Timers.RESET_TIMER.equals(actionType)
