@@ -21,6 +21,8 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
@@ -86,9 +88,11 @@ public class LabelDialogFragment extends DialogFragment {
                 savedInstanceState.getString(KEY_LABEL) : bundle.getString(KEY_LABEL);
 
         final Context context = getActivity();
+        final int colorAccent = Utils.obtainStyledColor(context, R.attr.colorAccent, Color.RED);
+        final int colorControlNormal =
+                Utils.obtainStyledColor(context, R.attr.colorControlNormal, Color.WHITE);
 
         mLabelBox = new AppCompatEditText(context);
-        mLabelBox.setText(label);
         mLabelBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -106,18 +110,20 @@ public class LabelDialogFragment extends DialogFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setLabelBoxBackground(s == null || TextUtils.isEmpty(s));
+                final int color = TextUtils.isEmpty(s) ? colorControlNormal : colorAccent;
+                mLabelBox.setSupportBackgroundTintList(ColorStateList.valueOf(color));
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
             }
         });
+        mLabelBox.setText(label);
         mLabelBox.selectAll();
-        setLabelBoxBackground(TextUtils.isEmpty(label));
 
+        final int padding = getResources().getDimensionPixelSize(R.dimen.label_edittext_padding);
         final AlertDialog alertDialog = new AlertDialog.Builder(context)
-                .setView(mLabelBox)
+                .setView(mLabelBox, padding, 0, padding, 0)
                 .setPositiveButton(R.string.time_picker_set, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -126,10 +132,10 @@ public class LabelDialogFragment extends DialogFragment {
                 })
                 .setNegativeButton(R.string.time_picker_cancel,
                         new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dismiss();
-                        }
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dismiss();
+                            }
                 })
                 .setMessage(R.string.label)
                 .create();
@@ -175,11 +181,6 @@ public class LabelDialogFragment extends DialogFragment {
                     + "AlarmLabelDialogHandler or TimerLabelDialogHandler");
         }
         dismiss();
-    }
-
-    private void setLabelBoxBackground(boolean emptyText) {
-        mLabelBox.setBackgroundResource(emptyText ?
-                R.drawable.bg_edittext_default : R.drawable.bg_edittext_activated);
     }
 
     interface AlarmLabelDialogHandler {
