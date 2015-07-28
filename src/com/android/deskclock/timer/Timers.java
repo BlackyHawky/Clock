@@ -32,6 +32,13 @@ public class Timers {
     public static final String TIMER_DONE = "timer_done";
     public static final String TIMER_UPDATE = "timer_update";
 
+    // Actions from notifications. Will include timer id extra.
+    public static final String NOTIF_PAUSE_TIMER = "notif_pause_timer";
+    public static final String NOTIF_PLUS_ONE_TIMER = "notif_plus_one_timer";
+    public static final String NOTIF_RESET_TIMER = "notif_reset_timer";
+    public static final String NOTIF_RESET_ALL_TIMERS = "notif_reset_all_timers";
+    public static final String NOTIF_RESUME_TIMER = "notif_resume_timer";
+
     public static final String TIMER_INTENT_EXTRA = "timer.intent.extra";
 
     public static final String UPDATE_NEXT_TIMESUP = "timer_update_next_timesup";

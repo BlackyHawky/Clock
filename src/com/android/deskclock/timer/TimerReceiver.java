@@ -47,6 +47,8 @@ public class TimerReceiver extends BroadcastReceiver {
     // There will only be one times up timer notification at a time.
     private static final int TIMER_TIMESUP_NOTIFICATION_ID = Integer.MAX_VALUE - 3;
 
+    private static final int NO_SINGLE_RUNNING_TIMER = Integer.MAX_VALUE - 4;
+
     ArrayList<TimerObj> mTimers;
 
     @Override
@@ -79,6 +81,9 @@ public class TimerReceiver extends BroadcastReceiver {
             case Timers.NOTIF_TIMES_UP_CANCEL:
                 cancelTimesUpNotification(context);
                 return;
+            case Timers.NOTIF_RESET_ALL_TIMERS:
+                resetAllTimers(context, prefs);
+                return;
         }
 
         // Remaining actions provide a timer Id
@@ -95,6 +100,22 @@ public class TimerReceiver extends BroadcastReceiver {
         }
 
         TimerObj t = Timers.findTimer(mTimers, timerId);
+
+        // Actions from notifications that control a single active but not firing timer.
+        switch (actionType) {
+            case Timers.NOTIF_PAUSE_TIMER:
+                pauseTimer(context, prefs, t);
+                return;
+            case Timers.NOTIF_PLUS_ONE_TIMER:
+                plusOneTimer(context, prefs, t);
+                return;
+            case Timers.NOTIF_RESUME_TIMER:
+                resumeTimer(context, prefs, t);
+                return;
+            case Timers.NOTIF_RESET_TIMER:
+                resetSingleTimer(context, prefs, t);
+                return;
+        }
 
         if (Timers.TIMES_UP.equals(actionType)) {
             // Find the timer (if it doesn't exist, it was probably deleted).
@@ -193,6 +214,76 @@ public class TimerReceiver extends BroadcastReceiver {
         updateTimesUpNotification(context);
     }
 
+    private void pauseTimer(Context context, SharedPreferences prefs, TimerObj t) {
+        t.setState(TimerObj.STATE_STOPPED);
+        t.writeToSharedPref(prefs);
+        t.updateTimeLeft(true);
+
+        updateNextTimesup(context);
+
+        // Update the in use notification.
+        showInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_stop, R.string.label_notification);
+    }
+
+    private void plusOneTimer(Context context, SharedPreferences prefs, TimerObj t) {
+        t.setState(TimerObj.STATE_RUNNING);
+        t.addTime(TimerObj.MINUTE_IN_MILLIS);
+        t.updateTimeLeft(true);
+        t.writeToSharedPref(prefs);
+
+        updateNextTimesup(context);
+
+        // Update the in use notification.
+        showInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_add_minute, R.string.label_notification);
+    }
+
+    private void resumeTimer(Context context, SharedPreferences prefs, TimerObj t) {
+        t.setState(TimerObj.STATE_RUNNING);
+        t.updateTimeLeft(true);
+        t.writeToSharedPref(prefs);
+
+        updateNextTimesup(context);
+
+        // Update the in use notification.
+        showInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_resume, R.string.label_notification);
+    }
+
+    private void resetTimer(SharedPreferences prefs, TimerObj t) {
+        t.setState(TimerObj.STATE_RESTART);
+        t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
+        t.writeToSharedPref(prefs);
+    }
+
+    private void resetSingleTimer(Context context, SharedPreferences prefs, TimerObj t) {
+        resetTimer(prefs, t);
+
+        updateNextTimesup(context);
+
+        // Remove the in use notification.
+        cancelInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
+    }
+
+    private void resetAllTimers(Context context, SharedPreferences prefs) {
+        for (TimerObj t: Timers.timersInUse(mTimers)) {
+            resetTimer(prefs, t);
+        }
+        updateNextTimesup(context);
+
+        // Remove the in use notification.
+        cancelInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
+    }
+
+
     private void stopTimer(SharedPreferences prefs, TimerObj t) {
         LogUtils.i(TAG, "Stopping timer id: " + t.mTimerId);
         if (t == null) {
@@ -274,16 +365,20 @@ public class TimerReceiver extends BroadcastReceiver {
         String title, contentText;
         Long nextBroadcastTime = null;
         long now = Utils.getTimeNow();
+        // This is the TimerObj corresponding to the single in use timer when there is only one.
+        // It is null when there are multiple timers in use.
+        TimerObj inUseTimer = null;
         if (timersInUse.size() == 1) {
-            TimerObj timer = timersInUse.get(0);
+            final TimerObj timer = timersInUse.get(0);
             boolean timerIsTicking = timer.isTicking();
             String label = timer.getLabelOrDefault(context);
-            title = timerIsTicking ? label : context.getString(R.string.timer_stopped);
+            title = timerIsTicking ? label : context.getString(R.string.timer_paused);
             long timeLeft = timerIsTicking ? timer.getTimesupTime() - now : timer.mTimeLeft;
             contentText = buildTimeRemaining(context, timeLeft);
             if (timerIsTicking && timeLeft > TimerObj.MINUTE_IN_MILLIS) {
                 nextBroadcastTime = getBroadcastTime(now, timeLeft);
             }
+            inUseTimer = timer;
         } else {
             TimerObj timer = getNextRunningTimer(timersInUse, false, now);
             if (timer == null) {
@@ -311,7 +406,8 @@ public class TimerReceiver extends BroadcastReceiver {
                 }
             }
         }
-        showCollapsedNotificationWithNext(context, title, contentText, nextBroadcastTime);
+        showCollapsedNotificationWithNext(context, title, contentText, nextBroadcastTime,
+                inUseTimer);
     }
 
     private long getBroadcastTime(long now, long timeUntilBroadcast) {
@@ -320,24 +416,51 @@ public class TimerReceiver extends BroadcastReceiver {
         return now + (seconds * 1000);
     }
 
+    /**
+     * Show collapsed timer notification and set up AlarmManager to update the notification when
+     * the next timer update will occur.
+     * @param inUseTimer is the single running timer TimerObj when there is only one and null when
+     *                   there are multiple paused/running timers
+     */
     private void showCollapsedNotificationWithNext(
-            final Context context, String title, String text, Long nextBroadcastTime) {
-        Intent activityIntent = new Intent(context, DeskClock.class);
-        activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activityIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
-        PendingIntent pendingActivityIntent = PendingIntent.getActivity(context, 0, activityIntent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+            Context context, String title, String text, Long nextBroadcastTime,
+            TimerObj inUseTimer) {
+        final Intent activityIntent = new Intent(context, DeskClock.class);
+        activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
+                .putExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, true);
+
+        // Scroll to an active timer.
+        if (inUseTimer != null) {
+            activityIntent.putExtra(Timers.SCROLL_TO_TIMER_ID, inUseTimer.mTimerId);
+        } else {
+            // Scroll to the first non-paused timer if there is one; otherwise, just pick the first
+            // in use timer in the list.
+            final ArrayList<TimerObj> inUseTimers = Timers.timersInUse(mTimers);
+            int scrollId = inUseTimers.get(0).mTimerId;
+            for (TimerObj t : inUseTimers) {
+                if (t.mState == TimerObj.STATE_RUNNING) {
+                    scrollId = t.mTimerId;
+                    break;
+                }
+            }
+            activityIntent.putExtra(Timers.SCROLL_TO_TIMER_ID, scrollId);
+        }
+
+        final PendingIntent pendingActivityIntent = PendingIntent.getActivity(context, 0,
+                activityIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         showCollapsedNotification(context, title, text, NotificationCompat.PRIORITY_HIGH,
-                pendingActivityIntent, IN_USE_NOTIFICATION_ID, false);
+                pendingActivityIntent, IN_USE_NOTIFICATION_ID, inUseTimer);
 
         if (nextBroadcastTime == null) {
             return;
         }
-        Intent nextBroadcast = new Intent();
+
+        final Intent nextBroadcast = new Intent();
         nextBroadcast.setAction(Timers.NOTIF_IN_USE_SHOW);
-        PendingIntent pendingNextBroadcast =
+        final PendingIntent pendingNextBroadcast =
                 PendingIntent.getBroadcast(context, 0, nextBroadcast, 0);
-        AlarmManager alarmManager =
+        final AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         if (Utils.isKitKatOrLater()) {
             alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
@@ -346,8 +469,58 @@ public class TimerReceiver extends BroadcastReceiver {
         }
     }
 
+    /**
+     * Add appropriate actions to builder depending on timer state.
+     */
+    private static NotificationCompat.Builder getSingleTimerNotificationActions(Context context,
+            TimerObj inUseTimer, NotificationCompat.Builder builder, int notificationId) {
+        final boolean isPaused = !inUseTimer.isTicking();
+        final int timerId = inUseTimer.mTimerId;
+
+        if (isPaused) {
+            // Paused single timer - show resume and reset.
+            final Intent resumeIntent = new Intent(Timers.NOTIF_RESUME_TIMER)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+            final PendingIntent pendingResumeIntent = PendingIntent.getBroadcast(context,
+                    notificationId, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            final Intent resetIntent = new Intent(Timers.NOTIF_RESET_TIMER)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+            final PendingIntent pendingResetIntent = PendingIntent.getBroadcast(context,
+                    notificationId, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.addAction(R.drawable.ic_start_24dp,
+                    context.getString(R.string.sw_resume_button), pendingResumeIntent);
+            builder.addAction(R.drawable.ic_reset_24dp,
+                    context.getString(R.string.sw_reset_button), pendingResetIntent);
+        } else {
+            // Running single timer - show pause and add minute.
+            final Intent pauseIntent = new Intent(Timers.NOTIF_PAUSE_TIMER)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+            final PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(context,
+                    notificationId, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            final Intent addMinuteIntent = new Intent(Timers.NOTIF_PLUS_ONE_TIMER)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+            final PendingIntent pendingAddIntent = PendingIntent.getBroadcast(context,
+                    notificationId, addMinuteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.addAction(R.drawable.ic_add_24dp, context.getString(R.string.action_add_minute),
+                    pendingAddIntent);
+            builder.addAction(R.drawable.ic_pause_24dp, context.getString(R.string.timer_pause),
+                    pendingPauseIntent);
+        }
+        return builder;
+    }
+
+    /**
+     * If single running timer, show a notification with pause and +1 actions and clicking
+     * the notification should take you to the specific timer in the list.
+     * If single paused timer, show resume and reset options.
+     * Otherwise (multiple running and/or paused timers) show  a "reset all" option.
+     */
     private static void showCollapsedNotification(final Context context, String title, String text,
-            int priority, PendingIntent pendingIntent, int notificationId, boolean showTicker) {
+            int priority, PendingIntent pendingIntent, int notificationId, TimerObj inUseTimer) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setAutoCancel(false)
                 .setContentTitle(title)
@@ -360,10 +533,16 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
-        if (showTicker) {
-            builder.setTicker(text);
-        }
 
+        if (inUseTimer != null) {
+            getSingleTimerNotificationActions(context, inUseTimer, builder, notificationId);
+        } else {
+            final Intent resetAllIntent = new Intent(Timers.NOTIF_RESET_ALL_TIMERS);
+            final PendingIntent pendingResetAllIntent = PendingIntent.getBroadcast(context,
+                    notificationId, resetAllIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.addAction(R.drawable.ic_reset_24dp,
+                    context.getString(R.string.timer_reset_all), pendingResetAllIntent);
+        }
         final Notification notification = builder.build();
         notification.contentIntent = pendingIntent;
         NotificationManagerCompat.from(context).notify(notificationId, notification);
