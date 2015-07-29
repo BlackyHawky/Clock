@@ -1340,7 +1340,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             hideView.setVisibility(View.GONE);
 
             // Set visibility of show view depending on alarm state.
-            if (!canPreemptivelyDismiss(itemHolder.alarm)) {
+            if (!canPreemptivelyDismiss(itemHolder.alarm) || itemHolder.instance == null) {
                 showView.setVisibility(View.GONE);
                 return;
             }
