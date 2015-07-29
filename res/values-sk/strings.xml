@@ -115,6 +115,14 @@
       <item quantity="other"> minút</item>
       <item quantity="one"> minúta</item>
     </plurals>
+    <!-- no translation found for crescendo_duration_title (8606408542726189528) -->
+    <skip />
+    <!-- no translation found for no_crescendo_duration (383801592865899932) -->
+    <skip />
+    <!-- no translation found for crescendo_duration (6641284876778266541) -->
+    <skip />
+    <!-- no translation found for crescendo_picker_label (7758024047003091056) -->
+    <skip />
     <string name="auto_silence_title" msgid="2012754009554434544">"Stíšiť po uplynutí"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minúty</item>
@@ -183,10 +191,10 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Zoradiť podľa názvu"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Vybrané mestá"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Obnoviť"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Obnoviť"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Spustiť"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Zastaviť"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Etapa"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Obnoviť"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Zdieľať"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -235,6 +243,10 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Vypršané časovače: <xliff:g id="NUM_TIMERS">%d</xliff:g>"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Časovač"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"maximálne 4 časovače"</string>
+    <!-- no translation found for timer_pause (3748323712728398743) -->
+    <skip />
+    <!-- no translation found for timer_reset_all (7530633132757866087) -->
+    <skip />
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Ste pánom rýchlosti."</item>
     <item msgid="6332879039890727169">"Užite si plody svojej práce."</item>
@@ -251,6 +263,8 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Mestá"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Hodiny"</string>
     <string name="clock_style" msgid="2265011060429742344">"Štýl"</string>
+    <!-- no translation found for open_date_settings (5915966847691221307) -->
+    <skip />
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analógové"</item>
     <item msgid="8483930821046925592">"Digitálne"</item>
@@ -361,7 +375,10 @@
     <string name="timer_settings" msgid="7955522143086154795">"Časovače"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Tón zvonenia časovača"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Časovač sa zastavil"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"Zastavené časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
+    <!-- no translation found for timer_paused (5941160896040771462) -->
+    <skip />
+    <!-- no translation found for timers_stopped (3186191253226005149) -->
+    <skip />
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dotykom zobrazíte časovače"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Ďalší časovač: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>

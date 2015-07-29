@@ -101,6 +101,10 @@
       <item quantity="other">분</item>
       <item quantity="one">분</item>
     </plurals>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"볼륨 점점 크게"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"사용 안함"</string>
+    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g>초"</string>
+    <string name="crescendo_picker_label" msgid="7758024047003091056">"초"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"알람 해제 시간"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g>분</item>
@@ -167,10 +171,10 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"이름순 정렬"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"선택된 도시"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"다시 시작"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"초기화"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"시작"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"중지"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"랩 타임"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"초기화"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"공유"</string>
     <string name="hours_label" msgid="3393478155635368097">"시"</string>
     <string name="minutes_label" msgid="3568098128251438588">"분"</string>
@@ -213,6 +217,10 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g>개 타이머 만료"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"타이머"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"만들 수 있는 타이머는 최대 4개입니다."</string>
+    <!-- no translation found for timer_pause (3748323712728398743) -->
+    <skip />
+    <!-- no translation found for timer_reset_all (7530633132757866087) -->
+    <skip />
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"속도광이시군요."</item>
     <item msgid="6332879039890727169">"결과를 확인하세요."</item>
@@ -229,6 +237,8 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"도시"</string>
     <string name="clock_settings" msgid="8317286807280600391">"시계"</string>
     <string name="clock_style" msgid="2265011060429742344">"종류"</string>
+    <!-- no translation found for open_date_settings (5915966847691221307) -->
+    <skip />
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"아날로그"</item>
     <item msgid="8483930821046925592">"디지털"</item>
@@ -339,7 +349,10 @@
     <string name="timer_settings" msgid="7955522143086154795">"타이머"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"타이머 벨소리"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"타이머가 정지됨"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g>개의 타이머가 정지됨"</string>
+    <!-- no translation found for timer_paused (5941160896040771462) -->
+    <skip />
+    <!-- no translation found for timers_stopped (3186191253226005149) -->
+    <skip />
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"타이머를 보려면 터치하세요."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>

@@ -39,7 +39,7 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Ertaga"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Bugun"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Uyg\'oning!"</string>
-    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"O‘chirib qo‘yish"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"O‘ch."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"O‘chirish"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Bekor qilish"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"O‘tkazib yuborilgan uyg‘otkich"</string>
@@ -49,7 +49,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> daq</item>
       <item quantity="one">1 daq</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"O‘chirilgan"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"O‘chiq"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Qoldirish"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> daqiqaga kechiktirildi.</item>
@@ -101,6 +101,14 @@
       <item quantity="other">daqiqa</item>
       <item quantity="one">daqiqa</item>
     </plurals>
+    <!-- no translation found for crescendo_duration_title (8606408542726189528) -->
+    <skip />
+    <!-- no translation found for no_crescendo_duration (383801592865899932) -->
+    <skip />
+    <!-- no translation found for crescendo_duration (6641284876778266541) -->
+    <skip />
+    <!-- no translation found for crescendo_picker_label (7758024047003091056) -->
+    <skip />
     <string name="auto_silence_title" msgid="2012754009554434544">"Avtomatik o‘chirish"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> daqiqa</item>
@@ -167,10 +175,10 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Nomi bo‘yicha saralash"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Tanlangan shaharlar"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Davom ettirish"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Boshidan"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stop"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Davra"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Boshidan"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Ulashish"</string>
     <string name="hours_label" msgid="3393478155635368097">"s"</string>
     <string name="minutes_label" msgid="3568098128251438588">"d"</string>
@@ -213,6 +221,10 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ta taymer vaqti tugadi"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Taymer"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Maks. 4 ta taymer o‘rnatish mumkin"</string>
+    <!-- no translation found for timer_pause (3748323712728398743) -->
+    <skip />
+    <!-- no translation found for timer_reset_all (7530633132757866087) -->
+    <skip />
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Siz haqiqatdan ham Shumaxer ekansiz!"</item>
     <item msgid="6332879039890727169">"Siz juda yaxshi mehnat qildingiz."</item>
@@ -229,6 +241,8 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Shaharlar"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Soat"</string>
     <string name="clock_style" msgid="2265011060429742344">"Soat turi"</string>
+    <!-- no translation found for open_date_settings (5915966847691221307) -->
+    <skip />
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Soat mili"</item>
     <item msgid="8483930821046925592">"Raqamli"</item>
@@ -339,7 +353,10 @@
     <string name="timer_settings" msgid="7955522143086154795">"Taymerlar"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Taymer ringtoni"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Taymer to‘xtatildi"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"To‘xtatilgan taymerlar: <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <!-- no translation found for timer_paused (5941160896040771462) -->
+    <skip />
+    <!-- no translation found for timers_stopped (3186191253226005149) -->
+    <skip />
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Taymerlarni ko‘rish uchun bosing"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ta taymer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Keyingi taymer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>

@@ -115,6 +115,14 @@
       <item quantity="other">minuty</item>
       <item quantity="one">minuta</item>
     </plurals>
+    <!-- no translation found for crescendo_duration_title (8606408542726189528) -->
+    <skip />
+    <!-- no translation found for no_crescendo_duration (383801592865899932) -->
+    <skip />
+    <!-- no translation found for crescendo_duration (6641284876778266541) -->
+    <skip />
+    <!-- no translation found for crescendo_picker_label (7758024047003091056) -->
+    <skip />
     <string name="auto_silence_title" msgid="2012754009554434544">"Wycisz za"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuty</item>
@@ -183,10 +191,10 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortuj według nazwy"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Wybrane miasta"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Wznów"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Resetuj"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Stop"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Okrążenie"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Resetuj"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Udostępnij"</string>
     <string name="hours_label" msgid="3393478155635368097">"g"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -235,6 +243,10 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Minutniki, których czas upłynął: <xliff:g id="NUM_TIMERS">%d</xliff:g>"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Minutnik"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"maksymalnie cztery minutniki"</string>
+    <!-- no translation found for timer_pause (3748323712728398743) -->
+    <skip />
+    <!-- no translation found for timer_reset_all (7530633132757866087) -->
+    <skip />
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Niezły z Ciebie demon prędkości."</item>
     <item msgid="6332879039890727169">"Ciesz się owocami pracy."</item>
@@ -251,6 +263,8 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Miasta"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Zegar"</string>
     <string name="clock_style" msgid="2265011060429742344">"Wygląd"</string>
+    <!-- no translation found for open_date_settings (5915966847691221307) -->
+    <skip />
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analogowy"</item>
     <item msgid="8483930821046925592">"Cyfrowy"</item>
@@ -361,7 +375,10 @@
     <string name="timer_settings" msgid="7955522143086154795">"Minutniki"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Dzwonek minutnika"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Minutnik zatrzymany"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> zatrzymane minutniki"</string>
+    <!-- no translation found for timer_paused (5941160896040771462) -->
+    <skip />
+    <!-- no translation found for timers_stopped (3186191253226005149) -->
+    <skip />
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Kliknij, by zobaczyć minutniki"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minutniki"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Następny minutnik: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
