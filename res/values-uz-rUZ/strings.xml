@@ -39,7 +39,7 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Ertaga"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Bugun"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Uyg\'oning!"</string>
-    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"O‘chirib qo‘yish"</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"O‘ch."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"O‘chirish"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Bekor qilish"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"O‘tkazib yuborilgan uyg‘otkich"</string>
@@ -49,7 +49,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> daq</item>
       <item quantity="one">1 daq</item>
     </plurals>
-    <string name="alarm_alert_off_text" msgid="4472073417593915002">"O‘chirilgan"</string>
+    <string name="alarm_alert_off_text" msgid="4472073417593915002">"O‘chiq"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Qoldirish"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="other"><xliff:g id="MINUTES">%d</xliff:g> daqiqaga kechiktirildi.</item>
