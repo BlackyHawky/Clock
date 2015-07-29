@@ -23,7 +23,7 @@
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Modificaţi alarma"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Ștergeţi alarma"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Porniţi alarma"</string>
-    <string name="disable_alarm" msgid="5889378670229554109">"Opriţi alarma"</string>
+    <string name="disable_alarm" msgid="5889378670229554109">"Opriți alarma"</string>
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Ștergeţi această alarmă?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Afişaţi ceasul"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Ascundeţi ceasul"</string>
@@ -176,7 +176,7 @@
     <string name="selected_cities_label" msgid="3607479399424246605">"Orașele selectate"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Reluaţi"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Porniţi"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Opriţi"</string>
+    <string name="sw_stop_button" msgid="8322958613123274451">"Opriți"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Circuit"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Resetaţi"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Distribuiţi"</string>
@@ -215,7 +215,7 @@
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Ștergeți <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Adăugaţi 1 minut"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Adăugați 1 min."</string>
-    <string name="timer_stop" msgid="3361154678667736722">"Opriţi"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Opriți"</string>
     <string name="timer_done" msgid="2375990511982914051">"Terminat"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Resetaţi"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Anulați"</string>
