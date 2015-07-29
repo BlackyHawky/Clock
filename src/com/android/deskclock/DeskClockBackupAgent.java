@@ -23,11 +23,17 @@ import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.provider.AlarmInstance;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.List;
 
 public class DeskClockBackupAgent extends BackupAgent {
+
+    private static final String TAG = "DeskClockBackupAgent";
 
     @Override
     public void onBackup(ParcelFileDescriptor oldState, BackupDataOutput data,
@@ -53,6 +59,25 @@ public class DeskClockBackupAgent extends BackupAgent {
     @Override
     public void onRestoreFinished() {
         // Now that alarms have been restored, schedule them in AlarmManager.
-        AlarmStateManager.fixAlarmInstances(this);
+        final List<Alarm> alarms = Alarm.getAlarms(getContentResolver(), null);
+
+        final Calendar now = Calendar.getInstance();
+        for (Alarm alarm : alarms) {
+            // Remove any instances that may currently exist for the alarm;
+            // these aren't relevant on the restore device and we'll recreate them below.
+            AlarmStateManager.deleteAllInstances(this, alarm.id);
+
+            if (alarm.enabled) {
+                // Create the next alarm instance to schedule.
+                AlarmInstance alarmInstance = alarm.createInstanceAfter(now);
+
+                // Add the next alarm instance to the database.
+                alarmInstance = AlarmInstance.addInstance(getContentResolver(), alarmInstance);
+
+                // Schedule the next alarm instance in AlarmManager.
+                AlarmStateManager.registerInstance(this, alarmInstance, true);
+                LogUtils.i(TAG, "DeskClockBackupAgent scheduled alarm instance: %s", alarmInstance);
+            }
+        }
     }
 }
