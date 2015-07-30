@@ -568,7 +568,7 @@
     <string name="timers_max_count_reached">4 timers maximum</string>
     <!-- Describes the purpose of the notification button to pause the timer. [CHAR LIMIT=15] -->
     <string name="timer_pause">Pause</string>
-    <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=15] -->
+    <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=31] -->
     <string name="timer_reset_all">Reset all timers</string>
 
     <!-- Jocular content that user may append when sharing the lap times -->
