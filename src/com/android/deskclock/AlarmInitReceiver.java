@@ -33,8 +33,16 @@ public class AlarmInitReceiver extends BroadcastReceiver {
     private static final String PREF_VOLUME_DEF_DONE = "vol_def_done";
 
     /**
-     * Sets alarm on ACTION_BOOT_COMPLETED.  Resets alarm on
-     * TIME_SET, TIMEZONE_CHANGED
+     * This receiver handles a variety of actions:
+     *
+     * <ul>
+     *     <li>Clean up backup data that was recently restored to this device on
+     *     ACTION_COMPLETE_RESTORE.</li>
+     *     <li>Clean up backup data that was recently restored to this device and reset timers and
+     *     clear stopwatch on ACTION_BOOT_COMPLETED</li>
+     *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED,
+     *     and LOCALE_CHANGED</li>
+     * </ul>
      */
     @Override
     public void onReceive(final Context context, Intent intent) {
@@ -45,32 +53,37 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
         wl.acquire();
 
-        // We need to increment the global id out of the async task to prevent
-        // race conditions
+        // We need to increment the global id out of the async task to prevent race conditions
         AlarmStateManager.updateGlobalIntentId(context);
+
         AsyncHandler.post(new Runnable() {
             @Override public void run() {
-                if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-                    // Clear stopwatch and timers data
-                    SharedPreferences prefs =
-                            PreferenceManager.getDefaultSharedPreferences(context);
-                    LogUtils.v("AlarmInitReceiver - Reset timers and clear stopwatch data");
-                    TimerObj.resetTimersInSharedPrefs(prefs);
-                    Utils.clearSwSharedPref(prefs);
+                try {
+                    if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+                        // Clear stopwatch and timers data
+                        final SharedPreferences prefs =
+                                PreferenceManager.getDefaultSharedPreferences(context);
+                        LogUtils.v("AlarmInitReceiver - Reset timers and clear stopwatch data");
+                        TimerObj.resetTimersInSharedPrefs(prefs);
+                        Utils.clearSwSharedPref(prefs);
 
-                    if (!prefs.getBoolean(PREF_VOLUME_DEF_DONE, false)) {
-                        // Fix the default
-                        LogUtils.v("AlarmInitReceiver - resetting volume button default");
-                        switchVolumeButtonDefault(prefs);
+                        if (!prefs.getBoolean(PREF_VOLUME_DEF_DONE, false)) {
+                            // Fix the default
+                            LogUtils.v("AlarmInitReceiver - resetting volume button default");
+                            switchVolumeButtonDefault(prefs);
+                        }
                     }
+
+                    // Process restored data if any exists
+                    if (!DeskClockBackupAgent.processRestoredData(context)) {
+                        // Update all the alarm instances on time change event
+                        AlarmStateManager.fixAlarmInstances(context);
+                    }
+                } finally {
+                    result.finish();
+                    wl.release();
+                    LogUtils.v("AlarmInitReceiver finished");
                 }
-
-                // Update all the alarm instances on time change event
-                AlarmStateManager.fixAlarmInstances(context);
-
-                result.finish();
-                LogUtils.v("AlarmInitReceiver finished");
-                wl.release();
             }
         });
     }
