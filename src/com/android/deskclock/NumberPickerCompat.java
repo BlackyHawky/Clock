@@ -36,9 +36,9 @@ public class NumberPickerCompat extends NumberPicker {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void tintSelectionDivider(Context context) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
-                || Build.VERSION.SDK_INT > Build.VERSION_CODES.MNC) {
+                || Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
             // Accent color in KK will stay system blue, so leave divider color matching.
-            // The divider is correctly tinted to controlColorNormal in MNC.
+            // The divider is correctly tinted to controlColorNormal in M.
             return;
         }
 
