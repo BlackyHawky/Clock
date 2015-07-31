@@ -37,7 +37,6 @@ import static com.android.deskclock.provider.ClockContract.InstancesColumns;
 import static com.android.deskclock.provider.ClockDatabaseHelper.ALARMS_TABLE_NAME;
 import static com.android.deskclock.provider.ClockDatabaseHelper.INSTANCES_TABLE_NAME;
 
-
 public class ClockProvider extends ContentProvider {
     private ClockDatabaseHelper mOpenHelper;
 
@@ -52,8 +51,7 @@ public class ClockProvider extends ContentProvider {
     /**
      * Projection map used by query for snoozed alarms.
      */
-    private static final Map<String, String> sAlarmsWithInstancesProjection =
-            new ArrayMap<>();
+    private static final Map<String, String> sAlarmsWithInstancesProjection = new ArrayMap<>();
     static {
         sAlarmsWithInstancesProjection.put(ALARMS_TABLE_NAME + "." + AlarmsColumns._ID,
                 ALARMS_TABLE_NAME + "." + AlarmsColumns._ID);

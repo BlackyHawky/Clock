@@ -161,32 +161,24 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     /**
      * Get alarm by id.
      *
-     * @param contentResolver to perform the query on.
+     * @param cr to perform the query on.
      * @param alarmId for the desired alarm.
      * @return alarm if found, null otherwise
      */
-    public static Alarm getAlarm(ContentResolver contentResolver, long alarmId) {
-        Cursor cursor = contentResolver.query(getUri(alarmId), QUERY_COLUMNS, null, null, null);
-        Alarm result = null;
-        if (cursor == null) {
-            return result;
-        }
-
-        try {
+    public static Alarm getAlarm(ContentResolver cr, long alarmId) {
+        try (Cursor cursor = cr.query(getUri(alarmId), QUERY_COLUMNS, null, null, null)) {
             if (cursor.moveToFirst()) {
-                result = new Alarm(cursor);
+                return new Alarm(cursor);
             }
-        } finally {
-            cursor.close();
         }
 
-        return result;
+        return null;
     }
 
     /**
      * Get all alarms given conditions.
      *
-     * @param contentResolver to perform the query on.
+     * @param cr to perform the query on.
      * @param selection A filter declaring which rows to return, formatted as an
      *         SQL WHERE clause (excluding the WHERE itself). Passing null will
      *         return all rows for the given URI.
@@ -195,23 +187,15 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      *         appear in the selection. The values will be bound as Strings.
      * @return list of alarms matching where clause or empty list if none found.
      */
-    public static List<Alarm> getAlarms(ContentResolver contentResolver,
-            String selection, String ... selectionArgs) {
-        Cursor cursor  = contentResolver.query(CONTENT_URI, QUERY_COLUMNS,
-                selection, selectionArgs, null);
-        List<Alarm> result = new LinkedList<Alarm>();
-        if (cursor == null) {
-            return result;
-        }
-
-        try {
-            if (cursor.moveToFirst()) {
+    public static List<Alarm> getAlarms(ContentResolver cr, String selection,
+            String... selectionArgs) {
+        final List<Alarm> result = new LinkedList<>();
+        try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
                 do {
                     result.add(new Alarm(cursor));
                 } while (cursor.moveToNext());
             }
-        } finally {
-            cursor.close();
         }
 
         return result;

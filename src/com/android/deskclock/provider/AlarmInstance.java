@@ -136,26 +136,18 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Get alarm instance from instanceId.
      *
-     * @param contentResolver to perform the query on.
+     * @param cr to perform the query on.
      * @param instanceId for the desired instance.
      * @return instance if found, null otherwise
      */
-    public static AlarmInstance getInstance(ContentResolver contentResolver, long instanceId) {
-        Cursor cursor = contentResolver.query(getUri(instanceId), QUERY_COLUMNS, null, null, null);
-        AlarmInstance result = null;
-        if (cursor == null) {
-            return result;
-        }
-
-        try {
-            if (cursor.moveToFirst()) {
-                result = new AlarmInstance(cursor, false /* joinedTable */);
+    public static AlarmInstance getInstance(ContentResolver cr, long instanceId) {
+        try (Cursor cursor = cr.query(getUri(instanceId), QUERY_COLUMNS, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                return new AlarmInstance(cursor, false /* joinedTable */);
             }
-        } finally {
-            cursor.close();
         }
 
-        return result;
+        return null;
     }
 
     /**
@@ -211,7 +203,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Get a list of instances given selection.
      *
-     * @param contentResolver to perform the query on.
+     * @param cr to perform the query on.
      * @param selection A filter declaring which rows to return, formatted as an
      *         SQL WHERE clause (excluding the WHERE itself). Passing null will
      *         return all rows for the given URI.
@@ -220,23 +212,15 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *         appear in the selection. The values will be bound as Strings.
      * @return list of alarms matching where clause or empty list if none found.
      */
-    public static List<AlarmInstance> getInstances(ContentResolver contentResolver,
-            String selection, String ... selectionArgs) {
-        Cursor cursor  = contentResolver.query(CONTENT_URI, QUERY_COLUMNS,
-                selection, selectionArgs, null);
-        List<AlarmInstance> result = new LinkedList<>();
-        if (cursor == null) {
-            return result;
-        }
-
-        try {
+    public static List<AlarmInstance> getInstances(ContentResolver cr, String selection,
+                                                   String... selectionArgs) {
+        final List<AlarmInstance> result = new LinkedList<>();
+        try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
             if (cursor.moveToFirst()) {
                 do {
                     result.add(new AlarmInstance(cursor, false /* joinedTable */));
                 } while (cursor.moveToNext());
             }
-        } finally {
-            cursor.close();
         }
 
         return result;
