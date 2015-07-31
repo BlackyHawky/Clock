@@ -94,10 +94,10 @@ public class WorldClockAdapter extends BaseAdapter {
         if (needHomeCity()) {
             SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
             String homeTZ = sharedPref.getString(SettingsActivity.KEY_HOME_TZ, "");
-            CityObj c = new CityObj(
-                    mContext.getResources().getString(R.string.home_label), homeTZ, null, null);
             Object[] temp = new Object[mCitiesList.length + 1];
-            temp[0] = c;
+            temp[0] = new CityObj(mContext.getResources().getString(R.string.home_label),
+                    null /* phoneticName */, homeTZ /* timeZone */, null /* id */,
+                    null /* index */);
             for (int i = 0; i < mCitiesList.length; i++) {
                 temp[i + 1] = mCitiesList[i];
             }

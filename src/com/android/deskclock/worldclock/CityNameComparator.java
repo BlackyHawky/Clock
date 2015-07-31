@@ -18,7 +18,7 @@ package com.android.deskclock.worldclock;
 import java.text.Collator;
 import java.util.Comparator;
 
-public class CityNameComparator implements Comparator<CityObj> {
+public final class CityNameComparator implements Comparator<CityObj> {
 
     private Collator mCollator;
 
@@ -28,6 +28,14 @@ public class CityNameComparator implements Comparator<CityObj> {
 
     @Override
     public int compare(CityObj c1, CityObj c2) {
-        return mCollator.compare(c1.mCityName, c2.mCityName);
+        final int naturalIndexOrder = c1.mCityNumericIndex - c2.mCityNumericIndex;
+        if (naturalIndexOrder != 0) {
+            return naturalIndexOrder;
+        }
+        final int indexOrder = mCollator.compare(c1.mCityIndex, c2.mCityIndex);
+        if (indexOrder != 0) {
+            return indexOrder;
+        }
+        return mCollator.compare(c1.mCityPhoneticName, c2.mCityPhoneticName);
     }
 }
