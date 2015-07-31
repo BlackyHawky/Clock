@@ -33,7 +33,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.DataSetObserver;
-import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.Ringtone;
@@ -43,7 +42,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
-import android.support.v4.view.ViewCompat;
 import android.transition.AutoTransition;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -92,8 +90,6 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
     private static final int COLLAPSE_DURATION = 250;
 
     private static final int ROTATE_180_DEGREE = 180;
-    private static final float ALARM_ELEVATION = 8f;
-    private static final float TINTED_LEVEL = 0.09f;
 
     private static final String KEY_EXPANDED_ID = "expandedId";
     private static final String KEY_REPEAT_CHECKED_IDS = "repeatCheckedIds";
@@ -759,12 +755,12 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             }
 
             if (mSelectedAlarms.contains(itemHolder.alarm.id)) {
-                setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
+                itemHolder.alarmItem.setActivated(true);
                 setDigitalTimeAlpha(itemHolder, true);
                 itemHolder.onoff.setEnabled(false);
             } else {
                 itemHolder.onoff.setEnabled(true);
-                setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, false /* expanded */);
+                itemHolder.alarmItem.setActivated(false);
                 setDigitalTimeAlpha(itemHolder, itemHolder.onoff.isChecked());
             }
             itemHolder.clock.setFormat(mContext,
@@ -929,24 +925,6 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             }
         }
 
-        private void setAlarmItemBackgroundAndElevation(LinearLayout layout, boolean expanded) {
-            if (expanded) {
-                layout.setBackgroundColor(getTintedBackgroundColor());
-                ViewCompat.setElevation(layout, ALARM_ELEVATION);
-            } else {
-                layout.setBackgroundResource(R.drawable.alarm_background_normal);
-                ViewCompat.setElevation(layout, 0f);
-            }
-        }
-
-        private int getTintedBackgroundColor() {
-            final int c = Utils.getCurrentHourColor();
-            final int red = Color.red(c) + (int) (TINTED_LEVEL * (255 - Color.red(c)));
-            final int green = Color.green(c) + (int) (TINTED_LEVEL * (255 - Color.green(c)));
-            final int blue = Color.blue(c) + (int) (TINTED_LEVEL * (255 - Color.blue(c)));
-            return Color.rgb(red, green, blue);
-        }
-
         private void bindExpandArea(final ItemHolder itemHolder, final Alarm alarm) {
             // Views in here are not bound until the item is expanded.
 
@@ -1024,14 +1002,13 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
                 itemHolder.dayButtons[i].setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        final boolean isActivated =
-                                itemHolder.dayButtons[buttonIndex].isActivated();
+                        final boolean isChecked = itemHolder.dayButtons[buttonIndex].isChecked();
 
                         final Calendar now = Calendar.getInstance();
                         final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
-                        alarm.daysOfWeek.setDaysOfWeek(!isActivated, mDayOrder[buttonIndex]);
+                        alarm.daysOfWeek.setDaysOfWeek(isChecked, mDayOrder[buttonIndex]);
 
-                        if (!isActivated) {
+                        if (isChecked) {
                             turnOnDayOfWeek(itemHolder, buttonIndex);
                         } else {
                             turnOffDayOfWeek(itemHolder, buttonIndex);
@@ -1121,14 +1098,12 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
 
         private void turnOffDayOfWeek(ItemHolder holder, int dayIndex) {
             final CompoundButton dayButton = holder.dayButtons[dayIndex];
-            dayButton.setActivated(false);
             dayButton.setChecked(false);
             dayButton.setTextColor(getResources().getColor(R.color.clock_white));
         }
 
         private void turnOnDayOfWeek(ItemHolder holder, int dayIndex) {
             final CompoundButton dayButton = holder.dayButtons[dayIndex];
-            dayButton.setActivated(true);
             dayButton.setChecked(true);
             dayButton.setTextColor(Utils.getCurrentHourColor());
         }
@@ -1202,7 +1177,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             final int startingHeight = itemHolder.alarmItem.getHeight();
 
             // Set the expand area to visible so we can measure the height to animate to.
-            setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, true /* expanded */);
+            itemHolder.alarmItem.setActivated(true);
             itemHolder.expandArea.setVisibility(View.VISIBLE);
             bindPreemptiveDismissView(itemHolder, false /* collapsed */);
             itemHolder.delete.setVisibility(View.VISIBLE);
@@ -1366,7 +1341,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             final int startingHeight = itemHolder.alarmItem.getHeight();
 
             // Set the expand area to gone so we can measure the height to animate to.
-            setAlarmItemBackgroundAndElevation(itemHolder.alarmItem, false /* expanded */);
+            itemHolder.alarmItem.setActivated(false);
             itemHolder.expandArea.setVisibility(View.GONE);
             setDigitalTimeAlpha(itemHolder, itemHolder.onoff.isChecked());
 
