@@ -38,15 +38,14 @@ import static com.android.deskclock.provider.ClockDatabaseHelper.ALARMS_TABLE_NA
 import static com.android.deskclock.provider.ClockDatabaseHelper.INSTANCES_TABLE_NAME;
 
 public class ClockProvider extends ContentProvider {
+
     private ClockDatabaseHelper mOpenHelper;
 
     private static final int ALARMS = 1;
     private static final int ALARMS_ID = 2;
     private static final int INSTANCES = 3;
     private static final int INSTANCES_ID = 4;
-    private static final int CITIES = 5;
-    private static final int CITIES_ID = 6;
-    private static final int ALARMS_WITH_INSTANCES = 7;
+    private static final int ALARMS_WITH_INSTANCES = 5;
 
     /**
      * Projection map used by query for snoozed alarms.
@@ -102,8 +101,6 @@ public class ClockProvider extends ContentProvider {
         sURIMatcher.addURI(ClockContract.AUTHORITY, "alarms/#", ALARMS_ID);
         sURIMatcher.addURI(ClockContract.AUTHORITY, "instances", INSTANCES);
         sURIMatcher.addURI(ClockContract.AUTHORITY, "instances/#", INSTANCES_ID);
-        sURIMatcher.addURI(ClockContract.AUTHORITY, "cities", CITIES);
-        sURIMatcher.addURI(ClockContract.AUTHORITY, "cities/*", CITIES_ID);
         sURIMatcher.addURI(ClockContract.AUTHORITY, "alarms_with_instances", ALARMS_WITH_INSTANCES);
     }
 
@@ -141,14 +138,6 @@ public class ClockProvider extends ContentProvider {
                 qb.appendWhere(InstancesColumns._ID + "=");
                 qb.appendWhere(uri.getLastPathSegment());
                 break;
-            case CITIES:
-                qb.setTables(ClockDatabaseHelper.CITIES_TABLE_NAME);
-                break;
-            case CITIES_ID:
-                qb.setTables(ClockDatabaseHelper.CITIES_TABLE_NAME);
-                qb.appendWhere(ClockContract.CitiesColumns.CITY_ID + "=");
-                qb.appendWhere(uri.getLastPathSegment());
-                break;
             case ALARMS_WITH_INSTANCES:
                 qb.setTables(ALARM_JOIN_INSTANCE_TABLE_STATEMENT);
                 qb.setProjectionMap(sAlarmsWithInstancesProjection);
@@ -180,10 +169,6 @@ public class ClockProvider extends ContentProvider {
                 return "vnd.android.cursor.dir/instances";
             case INSTANCES_ID:
                 return "vnd.android.cursor.item/instances";
-            case CITIES:
-                return "vnd.android.cursor.dir/cities";
-            case CITIES_ID:
-                return "vnd.android.cursor.item/cities";
             default:
                 throw new IllegalArgumentException("Unknown URI");
         }
@@ -207,15 +192,8 @@ public class ClockProvider extends ContentProvider {
                         InstancesColumns._ID + "=" + alarmId,
                         null);
                 break;
-            case CITIES_ID:
-                alarmId = uri.getLastPathSegment();
-                count = db.update(ClockDatabaseHelper.CITIES_TABLE_NAME, values,
-                        ClockContract.CitiesColumns.CITY_ID + "=" + alarmId,
-                        null);
-                break;
             default: {
-                throw new UnsupportedOperationException(
-                        "Cannot update URI: " + uri);
+                throw new UnsupportedOperationException("Cannot update URI: " + uri);
             }
         }
         LogUtils.v("*** notifyChange() id: " + alarmId + " url " + uri);
@@ -233,9 +211,6 @@ public class ClockProvider extends ContentProvider {
                 break;
             case INSTANCES:
                 rowId = db.insert(INSTANCES_TABLE_NAME, null, initialValues);
-                break;
-            case CITIES:
-                rowId = db.insert(ClockDatabaseHelper.CITIES_TABLE_NAME, null, initialValues);
                 break;
             default:
                 throw new IllegalArgumentException("Cannot insert from URI: " + uri);
@@ -260,8 +235,7 @@ public class ClockProvider extends ContentProvider {
                 if (TextUtils.isEmpty(where)) {
                     where = AlarmsColumns._ID + "=" + primaryKey;
                 } else {
-                    where = AlarmsColumns._ID + "=" + primaryKey +
-                            " AND (" + where + ")";
+                    where = AlarmsColumns._ID + "=" + primaryKey + " AND (" + where + ")";
                 }
                 count = db.delete(ALARMS_TABLE_NAME, where, whereArgs);
                 break;
@@ -273,23 +247,9 @@ public class ClockProvider extends ContentProvider {
                 if (TextUtils.isEmpty(where)) {
                     where = InstancesColumns._ID + "=" + primaryKey;
                 } else {
-                    where = InstancesColumns._ID + "=" + primaryKey +
-                            " AND (" + where + ")";
+                    where = InstancesColumns._ID + "=" + primaryKey + " AND (" + where + ")";
                 }
                 count = db.delete(INSTANCES_TABLE_NAME, where, whereArgs);
-                break;
-            case CITIES:
-                count = db.delete(ClockDatabaseHelper.CITIES_TABLE_NAME, where, whereArgs);
-                break;
-            case CITIES_ID:
-                primaryKey = uri.getLastPathSegment();
-                if (TextUtils.isEmpty(where)) {
-                    where = ClockContract.CitiesColumns.CITY_ID + "=" + primaryKey;
-                } else {
-                    where = ClockContract.CitiesColumns.CITY_ID +"=" + primaryKey +
-                            " AND (" + where + ")";
-                }
-                count = db.delete(ClockDatabaseHelper.CITIES_TABLE_NAME, where, whereArgs);
                 break;
             default:
                 throw new IllegalArgumentException("Cannot delete from URI: " + uri);
