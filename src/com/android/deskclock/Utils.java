@@ -165,10 +165,10 @@ public class Utils {
     }
 
     /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#MNC} or later
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#M} or later
      */
     public static boolean isMOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.MNC;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     public static void prepareHelpMenuItem(Context context, MenuItem helpMenuItem) {
