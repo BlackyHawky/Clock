@@ -101,14 +101,10 @@
       <item quantity="other">წუთი</item>
       <item quantity="one">წუთი</item>
     </plurals>
-    <!-- no translation found for crescendo_duration_title (8606408542726189528) -->
-    <skip />
-    <!-- no translation found for no_crescendo_duration (383801592865899932) -->
-    <skip />
-    <!-- no translation found for crescendo_duration (6641284876778266541) -->
-    <skip />
-    <!-- no translation found for crescendo_picker_label (7758024047003091056) -->
-    <skip />
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"ხმის თანდათანობით გაზრდა"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"გამორთული"</string>
+    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> წამი"</string>
+    <string name="crescendo_picker_label" msgid="7758024047003091056">"წამები"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"სიჩუმე გააქტიურდება:"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> წუთი</item>
@@ -221,10 +217,8 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ტაიმერის დრო ამოიწურა"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ტაიმერი"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"მაქსიმუმ 4 ტაიმერი"</string>
-    <!-- no translation found for timer_pause (3748323712728398743) -->
-    <skip />
-    <!-- no translation found for timer_reset_all (7530633132757866087) -->
-    <skip />
+    <string name="timer_pause" msgid="3748323712728398743">"პაუზა"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"ყვ.ტაიმ.ჩამოყრა"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"საკმაოდ სწრაფი ხართ."</item>
     <item msgid="6332879039890727169">"ისიამოვნეთ თქვენი შრომის ნაყოფით."</item>
@@ -241,8 +235,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"ქალაქები"</string>
     <string name="clock_settings" msgid="8317286807280600391">"საათი"</string>
     <string name="clock_style" msgid="2265011060429742344">"სტილი"</string>
-    <!-- no translation found for open_date_settings (5915966847691221307) -->
-    <skip />
+    <string name="open_date_settings" msgid="5915966847691221307">"დროისა და თარიღის შეცვლა"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"ანალოგი"</item>
     <item msgid="8483930821046925592">"ციფრული"</item>
@@ -353,10 +346,8 @@
     <string name="timer_settings" msgid="7955522143086154795">"ტაიმერები"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"ტაიმერის ზარი"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ტაიმერი შეჩერდა"</string>
-    <!-- no translation found for timer_paused (5941160896040771462) -->
-    <skip />
-    <!-- no translation found for timers_stopped (3186191253226005149) -->
-    <skip />
+    <string name="timer_paused" msgid="5941160896040771462">"ტაიმერი დაპაუზებულია"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"დაპაუზებულია <xliff:g id="NUMBER">%d</xliff:g> ტაიმერი"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"შეეხეთ, რათა ნახოთ თქვენი ტაიმერები"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ტაიმერი"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"მომდევნო ტაიმერი: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>

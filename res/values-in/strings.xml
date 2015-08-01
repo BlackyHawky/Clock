@@ -217,10 +217,8 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> pewaktu telah berakhir"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Pewaktu"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"maksimum 4 pewaktu"</string>
-    <!-- no translation found for timer_pause (3748323712728398743) -->
-    <skip />
-    <!-- no translation found for timer_reset_all (7530633132757866087) -->
-    <skip />
+    <string name="timer_pause" msgid="3748323712728398743">"Jeda"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Setel ulang semua pewaktu"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Anda benar-benar cepat."</item>
     <item msgid="6332879039890727169">"Nikmati hasil kerja keras Anda."</item>
@@ -237,8 +235,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Kota"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Jam"</string>
     <string name="clock_style" msgid="2265011060429742344">"Gaya"</string>
-    <!-- no translation found for open_date_settings (5915966847691221307) -->
-    <skip />
+    <string name="open_date_settings" msgid="5915966847691221307">"Ubah Tanggal &amp; waktu"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analog"</item>
     <item msgid="8483930821046925592">"Digital"</item>
@@ -349,10 +346,8 @@
     <string name="timer_settings" msgid="7955522143086154795">"Pewaktu"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Nada dering pewaktu"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Pewaktu dihentikan"</string>
-    <!-- no translation found for timer_paused (5941160896040771462) -->
-    <skip />
-    <!-- no translation found for timers_stopped (3186191253226005149) -->
-    <skip />
+    <string name="timer_paused" msgid="5941160896040771462">"Pewaktu dijeda"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> pewaktu dijeda"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Sentuh untuk melihat pewaktu Anda"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> pewaktu"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Pewaktu Berikutnya: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>

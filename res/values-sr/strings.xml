@@ -108,14 +108,10 @@
       <item quantity="few">минута</item>
       <item quantity="other">минута</item>
     </plurals>
-    <!-- no translation found for crescendo_duration_title (8606408542726189528) -->
-    <skip />
-    <!-- no translation found for no_crescendo_duration (383801592865899932) -->
-    <skip />
-    <!-- no translation found for crescendo_duration (6641284876778266541) -->
-    <skip />
-    <!-- no translation found for crescendo_picker_label (7758024047003091056) -->
-    <skip />
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено повећај јачину звука"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"Искључено"</string>
+    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> сек"</string>
+    <string name="crescendo_picker_label" msgid="7758024047003091056">"секунде"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Утишај након"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> минут</item>
@@ -232,10 +228,8 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Истеклих тајмера: <xliff:g id="NUM_TIMERS">%d</xliff:g>"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Тајмер"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Дозвољено је највише 4 тајмера"</string>
-    <!-- no translation found for timer_pause (3748323712728398743) -->
-    <skip />
-    <!-- no translation found for timer_reset_all (7530633132757866087) -->
-    <skip />
+    <string name="timer_pause" msgid="3748323712728398743">"Паузирај"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Рес. све тајм."</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Брзи сте као муња."</item>
     <item msgid="6332879039890727169">"Уживајте у плодовима свог рада."</item>
@@ -252,8 +246,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Градови"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Сат"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стил"</string>
-    <!-- no translation found for open_date_settings (5915966847691221307) -->
-    <skip />
+    <string name="open_date_settings" msgid="5915966847691221307">"Промените датум и време"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Аналогни"</item>
     <item msgid="8483930821046925592">"Дигитални"</item>
@@ -364,10 +357,8 @@
     <string name="timer_settings" msgid="7955522143086154795">"Тајмери"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Мелодија звона тајмера"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Тајмер је заустављен"</string>
-    <!-- no translation found for timer_paused (5941160896040771462) -->
-    <skip />
-    <!-- no translation found for timers_stopped (3186191253226005149) -->
-    <skip />
+    <string name="timer_paused" msgid="5941160896040771462">"Тајмер је паузиран"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"Паузираних тајмера: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Додирните да бисте видели тајмере"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> тајмера"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Следећи тајмер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>

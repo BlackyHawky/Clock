@@ -101,14 +101,10 @@
       <item quantity="other">minuuttia</item>
       <item quantity="one">minuutti</item>
     </plurals>
-    <!-- no translation found for crescendo_duration_title (8606408542726189528) -->
-    <skip />
-    <!-- no translation found for no_crescendo_duration (383801592865899932) -->
-    <skip />
-    <!-- no translation found for crescendo_duration (6641284876778266541) -->
-    <skip />
-    <!-- no translation found for crescendo_picker_label (7758024047003091056) -->
-    <skip />
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Lisää äänenvoimakkuutta vähitellen"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"Ei käytössä"</string>
+    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> sekuntia"</string>
+    <string name="crescendo_picker_label" msgid="7758024047003091056">"sekuntia"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Herätyksen kesto"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuuttia</item>
@@ -221,10 +217,8 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ajastinta umpeutui"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Ajastin"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Enintään neljä ajastinta"</string>
-    <!-- no translation found for timer_pause (3748323712728398743) -->
-    <skip />
-    <!-- no translation found for timer_reset_all (7530633132757866087) -->
-    <skip />
+    <string name="timer_pause" msgid="3748323712728398743">"Keskeytä"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Nollaa ajastimet"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Olet supernopea."</item>
     <item msgid="6332879039890727169">"Nauti työsi hedelmistä."</item>
@@ -241,8 +235,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Kaupungit"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Kello"</string>
     <string name="clock_style" msgid="2265011060429742344">"Tyyli"</string>
-    <!-- no translation found for open_date_settings (5915966847691221307) -->
-    <skip />
+    <string name="open_date_settings" msgid="5915966847691221307">"Vaihda päivämäärä ja aika"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analoginen"</item>
     <item msgid="8483930821046925592">"Digitaalinen"</item>
@@ -353,10 +346,8 @@
     <string name="timer_settings" msgid="7955522143086154795">"Ajastimet"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Ajastimen soittoääni"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ajastin pysäytetty"</string>
-    <!-- no translation found for timer_paused (5941160896040771462) -->
-    <skip />
-    <!-- no translation found for timers_stopped (3186191253226005149) -->
-    <skip />
+    <string name="timer_paused" msgid="5941160896040771462">"Ajastin keskeytetty"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ajastinta keskeytetty"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Kosketa ja näytä ajastimet"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ajastinta"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Seuraava ajastin: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>

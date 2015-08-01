@@ -101,14 +101,10 @@
       <item quantity="one">મિનિટ</item>
       <item quantity="other">મિનિટ</item>
     </plurals>
-    <!-- no translation found for crescendo_duration_title (8606408542726189528) -->
-    <skip />
-    <!-- no translation found for no_crescendo_duration (383801592865899932) -->
-    <skip />
-    <!-- no translation found for crescendo_duration (6641284876778266541) -->
-    <skip />
-    <!-- no translation found for crescendo_picker_label (7758024047003091056) -->
-    <skip />
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"ધીમે-ધીમે વૉલ્યૂમ વધારો"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"બંધ"</string>
+    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> સેકંડ"</string>
+    <string name="crescendo_picker_label" msgid="7758024047003091056">"સેકંડ"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"આના પછી શાંતિ"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> મિનિટ</item>
@@ -221,10 +217,8 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ટાઇમર્સનો સમય સમાપ્ત થયો"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ટાઇમર"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"મહત્તમ 4 ટાઇમર્સ"</string>
-    <!-- no translation found for timer_pause (3748323712728398743) -->
-    <skip />
-    <!-- no translation found for timer_reset_all (7530633132757866087) -->
-    <skip />
+    <string name="timer_pause" msgid="3748323712728398743">"થોભાવો"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"બધા ટાઇમર્સ ફરીથી સેટ કરો"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"તમે એકદમ વેગવાન રાક્ષસ છો."</item>
     <item msgid="6332879039890727169">"તમારી મહેનતના ફળનો આનંદ લો."</item>
@@ -241,8 +235,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"શહેરો"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ઘડિયાળ"</string>
     <string name="clock_style" msgid="2265011060429742344">"શૈલી"</string>
-    <!-- no translation found for open_date_settings (5915966847691221307) -->
-    <skip />
+    <string name="open_date_settings" msgid="5915966847691221307">"તારીખ અને સમય બદલો"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"એનાલોગ"</item>
     <item msgid="8483930821046925592">"ડિજિટલ"</item>
@@ -353,10 +346,8 @@
     <string name="timer_settings" msgid="7955522143086154795">"ટાઇમર્સ"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"ટાઇમર રિંગટોન"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ટાઇમર બંધ કર્યું"</string>
-    <!-- no translation found for timer_paused (5941160896040771462) -->
-    <skip />
-    <!-- no translation found for timers_stopped (3186191253226005149) -->
-    <skip />
+    <string name="timer_paused" msgid="5941160896040771462">"ટાઇમર થોભાવ્યું"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ટાઇમર્સ થોભાવ્યાં"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"તમારા ટાઇમર્સ જોવા માટે ટચ કરો"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ટાઇમર્સ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"આગલું ટાઇમર: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
