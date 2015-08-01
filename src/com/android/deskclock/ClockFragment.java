@@ -25,7 +25,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.ContentObserver;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -48,8 +47,6 @@ import com.android.deskclock.worldclock.WorldClockAdapter;
 public class ClockFragment extends DeskClockFragment implements OnSharedPreferenceChangeListener {
 
     private static final String BUTTONS_HIDDEN_KEY = "buttons_hidden";
-    private static final boolean PRE_L_DEVICE =
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
     private final static String TAG = "ClockFragment";
 
     private boolean mButtonsHidden = false;
@@ -59,8 +56,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private SharedPreferences mPrefs;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-    private String mDefaultClockStyle;
-    private String mClockStyle;
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
@@ -102,7 +97,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     private final Handler mHandler = new Handler();
 
     /* Register ContentObserver to see alarm changes for pre-L */
-    private final ContentObserver mAlarmObserver = PRE_L_DEVICE
+    private final ContentObserver mAlarmObserver = Utils.isPreL()
             ? new ContentObserver(mHandler) {
                 @Override
                 public void onChange(boolean selfChange) {
@@ -128,8 +123,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle icicle) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.clock_fragment, container, false);
         if (icicle != null) {
@@ -141,9 +135,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         OnTouchListener longPressNightMode = new OnTouchListener() {
             private float mMaxMovementAllowed = -1;
             private int mLongPressTimeout = -1;
-            private float mLastTouchX
-                    ,
-                    mLastTouchY;
+            private float mLastTouchX, mLastTouchY;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -154,7 +146,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
                 switch (event.getAction()) {
                     case (MotionEvent.ACTION_DOWN):
-                        long time = Utils.getTimeNow();
                         mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -215,7 +206,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         mList.setAdapter(mAdapter);
 
         mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mDefaultClockStyle = getActivity().getResources().getString(R.string.default_clock_style);
         return v;
     }
 
@@ -249,10 +239,8 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             mAdapter.reloadData(activity);
         }
         // Resume can invoked after changing the clock style.
-        View clockView = Utils.setClockStyle(activity, mDigitalClock, mAnalogClock,
+        Utils.setClockStyle(activity, mDigitalClock, mAnalogClock,
                 SettingsActivity.KEY_CLOCK_STYLE);
-        mClockStyle = (clockView == mDigitalClock ?
-                Utils.CLOCK_TYPE_DIGITAL : Utils.CLOCK_TYPE_ANALOG);
 
         // Center the main clock frame if cities are empty.
         if (getView().findViewById(R.id.main_clock_left_pane) != null && mAdapter.getCount() == 0) {
@@ -264,7 +252,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
         Utils.refreshAlarm(activity, mClockFrame);
-        if (PRE_L_DEVICE) {
+        if (Utils.isPreL()) {
             activity.getContentResolver().registerContentObserver(
                 Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
                 false,
@@ -279,7 +267,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         Utils.cancelQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         Activity activity = getActivity();
         activity.unregisterReceiver(mIntentReceiver);
-        if (PRE_L_DEVICE) {
+        if (Utils.isPreL()) {
             activity.getContentResolver().unregisterContentObserver(mAlarmObserver);
         }
     }
@@ -293,7 +281,6 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
         if (key == SettingsActivity.KEY_CLOCK_STYLE) {
-            mClockStyle = prefs.getString(SettingsActivity.KEY_CLOCK_STYLE, mDefaultClockStyle);
             mAdapter.notifyDataSetChanged();
         }
     }

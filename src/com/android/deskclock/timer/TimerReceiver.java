@@ -332,23 +332,18 @@ public class TimerReceiver extends BroadcastReceiver {
         if (!mTimers.isEmpty()) {
             intent.putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
         }
-        AlarmManager mngr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent p = PendingIntent.getBroadcast(context,
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final PendingIntent p = PendingIntent.getBroadcast(context,
                 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         if (t != null) {
-            if (Utils.isKitKatOrLater()) {
-                mngr.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
-            } else {
-                mngr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
-            }
+            am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
             LogUtils.d(TAG, "Setting times up to " + nextTimesup);
         } else {
             // if no timer is found Pending Intents should be canceled
             // to keep the internal state consistent with the UI
-            mngr.cancel(p);
+            am.cancel(p);
             p.cancel();
             LogUtils.v(TAG, "No next times up");
-
         }
     }
 
@@ -456,17 +451,11 @@ public class TimerReceiver extends BroadcastReceiver {
             return;
         }
 
-        final Intent nextBroadcast = new Intent();
-        nextBroadcast.setAction(Timers.NOTIF_IN_USE_SHOW);
+        final Intent nextBroadcast = new Intent(Timers.NOTIF_IN_USE_SHOW);
         final PendingIntent pendingNextBroadcast =
                 PendingIntent.getBroadcast(context, 0, nextBroadcast, 0);
-        final AlarmManager alarmManager =
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (Utils.isKitKatOrLater()) {
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
-        } else {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
-        }
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setExact(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
     }
 
     /**

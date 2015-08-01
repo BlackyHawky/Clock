@@ -921,42 +921,6 @@
     <!-- String for no enabled alarms in timeline view [CHAR LIMIT=30] -->
     <string name="no_upcoming_alarms">NO UPCOMING ALARMS</string>
 
-    <!--
-        String that represents time format for 12-hour time.
-        h represents hour in range (1-12) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        a represents am/pm
-        Ex: h:mm a = 12:54 am, 8:05 pm
-    -->
-    <string name="time_format_12_mode">h&#58;mm a</string>
-
-    <!--
-        String that represents time format for 24-hour time.
-        k represents hour in range (0-23) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        Ex: k:mm = 13:51, 5:05
-    -->
-    <string name="time_format_24_mode">k&#58;mm</string>
-
-    <!--
-        String that represents weekday, time format for 12-hour time.
-        EEE represents weekday name in short form (ex. Mon, Tue, Wed)
-        h represents hour in range (1-12) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        a represents am/pm
-        Ex: EEE, h:mm a = Mon, 2:55 pm
-    -->
-    <string name="weekday_time_format_12_mode">EEE, h&#58;mm a</string>
-
-    <!--
-        String that represents weekday, time format for 24-hour time.
-        EEE represents weekday name in short form (ex. Mon, Tue, Wed)
-        k represents hour in range (0-23) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        Ex: EEE, k:mm = Mon, 2:55
-    -->
-    <string name="weekday_time_format_24_mode">EEE, k&#58;mm</string>
-
     <!-- String that represents that invalid time for an alarm was specified, e.g. 23:00am
      or 27:68pm.
     First %d represents hour, second %d represents minutes, %s represents am/pm,

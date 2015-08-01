@@ -177,7 +177,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void updateNextAlarm(Context context) {
         final AlarmInstance nextAlarm = getNextFiringAlarm(context);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Utils.isPreL()) {
             updateNextAlarmInSystemSettings(context, nextAlarm);
         } else {
             updateNextAlarmInAlarmManager(context, nextAlarm);
@@ -977,11 +977,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (Utils.isKitKatOrLater()) {
-                am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-            } else {
-                am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-            }
+            am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
         }
 
         @Override

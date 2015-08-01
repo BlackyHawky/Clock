@@ -21,7 +21,9 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,7 +78,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-
 public class Utils {
     private final static String PARAM_LANGUAGE_CODE = "hl";
 
@@ -92,7 +93,7 @@ public class Utils {
 
     // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
     private static String[] sShortWeekdays = null;
-    private static final String DATE_FORMAT_SHORT = isJBMR2OrLater() ? "ccccc" : "ccc";
+    private static final String DATE_FORMAT_SHORT = "ccccc";
 
     // Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
     private static String[] sLongWeekdays = null;
@@ -155,17 +156,19 @@ public class Utils {
     private static String sDefaultTimerRingtone;
 
     /**
-     * Returns whether the SDK is KitKat or later
+     * @return {@code true} if the device is prior to {@link Build.VERSION_CODES#LOLLIPOP}
      */
-    public static boolean isKitKatOrLater() {
-        return Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2;
+    public static boolean isPreL() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
     }
 
     /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#JELLY_BEAN_MR2} or later
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP} or
+     *      {@link Build.VERSION_CODES#LOLLIPOP_MR1}
      */
-    public static boolean isJBMR2OrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
+    public static boolean isLOrLMR1() {
+        final int sdkInt = Build.VERSION.SDK_INT;
+        return sdkInt == Build.VERSION_CODES.LOLLIPOP || sdkInt == Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
     /**
@@ -576,21 +579,27 @@ public class Utils {
      * @return The next alarm from {@link AlarmManager}
      */
     public static String getNextAlarm(Context context) {
-        String timeString = null;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            timeString = Settings.System.getString(context.getContentResolver(),
-                    Settings.System.NEXT_ALARM_FORMATTED);
-        } else {
-            final AlarmManager.AlarmClockInfo info = ((AlarmManager) context.getSystemService(
-                    Context.ALARM_SERVICE)).getNextAlarmClock();
-            if (info != null) {
-                final long triggerTime = info.getTriggerTime();
-                final Calendar alarmTime = Calendar.getInstance();
-                alarmTime.setTimeInMillis(triggerTime);
-                timeString = AlarmUtils.getFormattedTime(context, alarmTime);
-            }
+        return isPreL() ? getNextAlarmPreL(context) : getNextAlarmLOrLater(context);
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private static String getNextAlarmPreL(Context context) {
+        final ContentResolver cr = context.getContentResolver();
+        return Settings.System.getString(cr, Settings.System.NEXT_ALARM_FORMATTED);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static String getNextAlarmLOrLater(Context context) {
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager.AlarmClockInfo info = am.getNextAlarmClock();
+        if (info != null) {
+            final long triggerTime = info.getTriggerTime();
+            final Calendar alarmTime = Calendar.getInstance();
+            alarmTime.setTimeInMillis(triggerTime);
+            return AlarmUtils.getFormattedTime(context, alarmTime);
         }
-        return timeString;
+
+        return null;
     }
 
     public static boolean isAlarmWithin24Hours(AlarmInstance alarmInstance) {
@@ -599,42 +608,40 @@ public class Utils {
         return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
-    /** Clock views can call this to refresh their alarm to the next upcoming value. **/
+    /** Clock views can call this to refresh their alarm to the next upcoming value. */
     public static void refreshAlarm(Context context, View clock) {
-        final String nextAlarm = getNextAlarm(context);
-        TextView nextAlarmView;
-        nextAlarmView = (TextView) clock.findViewById(R.id.nextAlarm);
-        if (!TextUtils.isEmpty(nextAlarm) && nextAlarmView != null) {
-            nextAlarmView.setText(
-                    context.getString(R.string.control_set_alarm_with_existing, nextAlarm));
-            nextAlarmView.setContentDescription(context.getResources().getString(
-                    R.string.next_alarm_description, nextAlarm));
+        final TextView nextAlarmView = (TextView) clock.findViewById(R.id.nextAlarm);
+        if (nextAlarmView == null) {
+            return;
+        }
+
+        final String alarm = getNextAlarm(context);
+        if (!TextUtils.isEmpty(alarm)) {
+            final String text = context.getString(R.string.control_set_alarm_with_existing, alarm);
+            final String description = context.getString(R.string.next_alarm_description, alarm);
+            nextAlarmView.setText(text);
+            nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
-        } else  {
+        } else {
             nextAlarmView.setVisibility(View.GONE);
         }
     }
 
     /** Clock views can call this to refresh their date. **/
-    public static void updateDate(
-            String dateFormat, String dateFormatForAccessibility, View clock) {
-
-        Date now = new Date();
-        TextView dateDisplay;
-        dateDisplay = (TextView) clock.findViewById(R.id.date);
-        if (dateDisplay != null) {
-            final Locale l = Locale.getDefault();
-            dateDisplay.setText(isJBMR2OrLater()
-                    ? new SimpleDateFormat(
-                    DateFormat.getBestDateTimePattern(l, dateFormat), l).format(now)
-                    : SimpleDateFormat.getDateInstance().format(now));
-            dateDisplay.setVisibility(View.VISIBLE);
-            dateDisplay.setContentDescription(isJBMR2OrLater()
-                    ? new SimpleDateFormat(
-                    DateFormat.getBestDateTimePattern(l, dateFormatForAccessibility), l)
-                    .format(now)
-                    : SimpleDateFormat.getDateInstance(java.text.DateFormat.FULL).format(now));
+    public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock) {
+        final TextView dateDisplay = (TextView) clock.findViewById(R.id.date);
+        if (dateDisplay == null) {
+            return;
         }
+
+        final Locale l = Locale.getDefault();
+        final String datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton);
+        final String descriptionPattern = DateFormat.getBestDateTimePattern(l, descriptionSkeleton);
+
+        final Date now = new Date();
+        dateDisplay.setText(new SimpleDateFormat(datePattern, l).format(now));
+        dateDisplay.setVisibility(View.VISIBLE);
+        dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
     }
 
     /***
@@ -658,13 +665,11 @@ public class Utils {
      * @return format string for 12 hours mode time
      */
     public static CharSequence get12ModeFormat(Context context, int amPmFontSize) {
-        String pattern = isJBMR2OrLater()
-                ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma")
-                : context.getString(R.string.time_format_12_mode);
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
 
         // Remove the am/pm
         if (amPmFontSize <= 0) {
-            pattern.replaceAll("a", "").trim();
+            pattern = pattern.replaceAll("a", "").trim();
         }
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll(" ", "\u200A");
@@ -684,9 +689,7 @@ public class Utils {
     }
 
     public static CharSequence get24ModeFormat() {
-        return isJBMR2OrLater()
-                ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm")
-                : (new SimpleDateFormat("k:mm", Locale.getDefault())).toLocalizedPattern();
+        return DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm");
     }
 
     public static CityObj[] loadCitiesFromXml(Context c) {
@@ -878,18 +881,19 @@ public class Utils {
     }
 
     // Update the cached timer ringtone.
-    public static void setTimerRingtoneUri(Context context, Uri ringtone) {
+    public static void setTimerRingtoneName(Context context, Uri ringtoneUri) {
         // If the user cannot read the ringtone file, insert our own name rather than the
         // ugly one returned by Ringtone.getTitle().
-        if (!Utils.hasPermissionToDisplayRingtoneTitle(context, ringtone)) {
+        if (!Utils.hasPermissionToDisplayRingtoneTitle(context, ringtoneUri)) {
             sTimerRingtoneName = context.getString(R.string.custom_ringtone);
         } else {
             // This is slow because a media player is created during Ringtone object creation.
-            final Ringtone ringTone = RingtoneManager.getRingtone(context, ringtone);
-            if (ringTone == null) {
-                LogUtils.i("No timer ringtone for uri %s", ringtone.toString());
+            final Ringtone ringtone = RingtoneManager.getRingtone(context, ringtoneUri);
+            if (ringtone == null) {
+                LogUtils.i("No timer ringtone for uri %s", ringtoneUri);
+            } else {
+                sTimerRingtoneName = ringtone.getTitle(context);
             }
-            sTimerRingtoneName = ringTone.getTitle(context);
         }
     }
 
