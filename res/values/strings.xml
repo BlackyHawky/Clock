@@ -844,7 +844,7 @@
 
     <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
     <string name="timer_paused">Timer paused</string>
-    <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 25] -->
+    <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
     <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers paused</string>
     <!-- Notification text when multiple timers are paused. -->
     <string name="all_timers_stopped_notif">Touch to see your timers</string>
