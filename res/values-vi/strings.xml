@@ -218,7 +218,7 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Bộ hẹn giờ"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Tối đa 4 bộ hẹn giờ"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Tạm dừng"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Đặt lại giờ hẹn"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Đặt lại hẹn giờ"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Bạn đúng là con quỷ tốc độ."</item>
     <item msgid="6332879039890727169">"Tận hưởng thành quả lao động của bạn."</item>
@@ -347,7 +347,7 @@
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Nhạc chuông bộ hẹn giờ"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Đã dừng bộ hẹn giờ"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Đã tạm dừng hẹn giờ"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"Đã tạm dừng <xliff:g id="NUMBER">%d</xliff:g> giờ hẹn"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"Đã tạm dừng <xliff:g id="NUMBER">%d</xliff:g> hẹn giờ"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Chạm để xem bộ hẹn giờ của bạn"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> bộ hẹn giờ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Bộ hẹn giờ tiếp theo: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>

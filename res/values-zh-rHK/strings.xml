@@ -101,7 +101,7 @@
       <item quantity="other"> 分鐘</item>
       <item quantity="one">1 分鐘</item>
     </plurals>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"逐步提升音量"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"逐步提高音量"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"關閉"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> 秒"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"秒"</string>
