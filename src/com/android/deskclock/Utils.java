@@ -339,6 +339,12 @@ public class Utils {
         final PackageManager pm = context.getPackageManager();
         final String packageName = context.getPackageName();
 
+        // If the default alarm alert ringtone URI is given, resolve it to the actual URI.
+        if (Settings.System.DEFAULT_ALARM_ALERT_URI.equals(ringtoneUri)) {
+            ringtoneUri = RingtoneManager.getActualDefaultRingtoneUri(context,
+                    RingtoneManager.TYPE_ALARM);
+        }
+
         // If no ringtone is specified, return true.
         if (ringtoneUri == null || ringtoneUri == Alarm.NO_RINGTONE_URI) {
             return true;
