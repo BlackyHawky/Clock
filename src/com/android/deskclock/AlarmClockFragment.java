@@ -42,6 +42,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
+import android.text.format.DateFormat;
 import android.transition.AutoTransition;
 import android.transition.Fade;
 import android.transition.Transition;
@@ -67,6 +68,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.alarms.TimePickerCompat;
+import com.android.deskclock.alarms.TimePickerCompat.OnTimeSetListener;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -80,8 +83,8 @@ import java.util.HashSet;
 /**
  * AlarmClock application.
  */
-public abstract class AlarmClockFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, View.OnTouchListener {
+public final class AlarmClockFragment extends DeskClockFragment implements
+        LoaderManager.LoaderCallbacks<Cursor>, View.OnTouchListener, OnTimeSetListener {
     private static final float EXPAND_DECELERATION = 1f;
     private static final float COLLAPSE_DECELERATION = 0.7f;
 
@@ -143,12 +146,8 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
     private Transition mRepeatTransition;
     private Transition mEmptyViewTransition;
 
-    // Abstract methods to to be overridden by for post- and pre-L implementations as necessary
-    protected abstract void setTimePickerListener();
-    protected abstract void showTimeEditDialog(Alarm alarm);
-    protected abstract void startCreatingAlarm();
-
-    protected void processTimeSet(int hourOfDay, int minute) {
+    @Override
+    public void processTimeSet(int hourOfDay, int minute) {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             Alarm a = new Alarm();
@@ -320,8 +319,6 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             // Remove the SCROLL_TO_ALARM extra now that we've processed it.
             intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
         }
-
-        setTimePickerListener();
     }
 
     private void hideUndoBar(boolean animate, MotionEvent event) {
@@ -1633,5 +1630,15 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
         }
         mLeftButton.setVisibility(View.INVISIBLE);
         mRightButton.setVisibility(View.INVISIBLE);
+    }
+
+    private void showTimeEditDialog(Alarm alarm) {
+        TimePickerCompat.showTimeEditDialog(this, alarm, DateFormat.is24HourFormat(getActivity()));
+    }
+
+    private void startCreatingAlarm() {
+        mSelectedAlarm = null;
+        TimePickerCompat.showTimeEditDialog(this, null /* alarm */,
+                DateFormat.is24HourFormat(getActivity()));
     }
 }
