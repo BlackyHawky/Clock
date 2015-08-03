@@ -160,7 +160,7 @@ public class SettingsActivity extends BaseActivity {
                     final RingtonePreference timerRingtonePref = (RingtonePreference)
                             findPreference(KEY_TIMER_RINGTONE);
                     final Uri uri = Uri.parse((String) newValue);
-                    Utils.setTimerRingtoneUri(getActivity(), uri);
+                    Utils.setTimerRingtoneName(getActivity(), uri);
 
                     // If the user chose an external ringtone and has not yet granted the permission to read
                     // external storage, ask them for that permission now.

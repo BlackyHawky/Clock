@@ -21,7 +21,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
@@ -206,8 +205,7 @@ public class CitiesActivity extends BaseActivity implements OnCheckedChangeListe
                                     // and KK ellipsizes strings, trim section headers to the
                                     // nearest hour.
                                     final String offsetString = Utils.getGMTHourOffset(timezone,
-                                            Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT
-                                            /* useShortForm */ );
+                                            Utils.isPreL() /* useShortForm */);
                                     sectionHeaders.add(offsetString);
                                     sectionPositions.add(filteredList.size());
                                     city.isHeader = true;
@@ -279,18 +277,13 @@ public class CitiesActivity extends BaseActivity implements OnCheckedChangeListe
                 }
             }
 
-            mPattern24 = Utils.isJBMR2OrLater()
-                    ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm")
-                    : getString(R.string.time_format_24_mode);
+            mPattern24 = DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm");
 
-            // There's an RTL layout bug that causes jank when fast-scrolling through
-            // the list in 12-hour mode in an RTL locale. We can work around this by
-            // ensuring the strings are the same length by using "hh" instead of "h".
-            String pattern12 = Utils.isJBMR2OrLater()
-                    ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma")
-                    : getString(R.string.time_format_12_mode);
-
+            String pattern12 = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
             if (mLayoutDirection == View.LAYOUT_DIRECTION_RTL) {
+                // There's an RTL layout bug that causes jank when fast-scrolling through
+                // the list in 12-hour mode in an RTL locale. We can work around this by
+                // ensuring the strings are the same length by using "hh" instead of "h".
                 pattern12 = pattern12.replaceAll("h", "hh");
             }
             mPattern12 = pattern12;

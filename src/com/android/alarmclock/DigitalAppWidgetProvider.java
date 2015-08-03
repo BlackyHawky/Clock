@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -39,7 +40,6 @@ import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.worldclock.Cities;
 import com.android.deskclock.worldclock.CitiesActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
@@ -72,7 +72,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         String action = intent.getAction();
         if (DigitalAppWidgetService.LOGGING) {
             Log.i(TAG, "onReceive: " + action);
@@ -185,13 +185,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         WidgetUtils.setClockSize(context, widget, ratio);
 
         // Set today's date format
-        final CharSequence dateFormat = Utils.isJBMR2OrLater()
-                ? DateFormat.getBestDateTimePattern(Locale.getDefault(),
-                        context.getString(R.string.abbrev_wday_month_day_no_year))
-                : ((SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT))
-                        .toPattern();
-        widget.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
-        widget.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
+        final Locale locale = Locale.getDefault();
+        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
+        final CharSequence timeFormat = DateFormat.getBestDateTimePattern(locale, skeleton);
+        widget.setCharSequence(R.id.date, "setFormat12Hour", timeFormat);
+        widget.setCharSequence(R.id.date, "setFormat24Hour", timeFormat);
 
         // Set up R.id.digital_appwidget_listview to use a remote views adapter
         // That remote views adapter connects to a RemoteViewsService through intent.
@@ -237,15 +235,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private void startAlarmOnQuarterHour(Context context) {
         if (context != null) {
-            long onQuarterHour = Utils.getAlarmOnQuarterHour();
-            PendingIntent quarterlyIntent = getOnQuarterHourPendingIntent(context);
-            AlarmManager alarmManager = ((AlarmManager) context
-                    .getSystemService(Context.ALARM_SERVICE));
-            if (Utils.isKitKatOrLater()) {
-                alarmManager.setExact(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
-            } else {
-                alarmManager.set(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
-            }
+            final long onQuarterHour = Utils.getAlarmOnQuarterHour();
+            final PendingIntent quarterlyIntent = getOnQuarterHourPendingIntent(context);
+            final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            am.setExact(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
             if (DigitalAppWidgetService.LOGGING) {
                 Log.v(TAG, "startAlarmOnQuarterHour " + context.toString());
             }

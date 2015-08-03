@@ -41,16 +41,8 @@ public class AlarmUtils {
     public static final String FRAG_TAG_TIME_PICKER = "time_dialog";
 
     public static String getFormattedTime(Context context, Calendar time) {
-        String pattern;
-        if (Utils.isJBMR2OrLater()) {
-            final String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
-            pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
-            return (String) DateFormat.format(pattern, time);
-        } else {
-            pattern = DateFormat.is24HourFormat(context)
-                    ? context.getString(R.string.weekday_time_format_24_mode)
-                    : context.getString(R.string.weekday_time_format_12_mode);
-        }
+        final String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
+        final String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), skeleton);
         return (String) DateFormat.format(pattern, time);
     }
 
