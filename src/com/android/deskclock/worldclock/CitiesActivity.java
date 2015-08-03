@@ -133,8 +133,6 @@ public class CitiesActivity extends BaseActivity implements OnCheckedChangeListe
         private final String mPattern12;
         private final String mPattern24;
 
-        private int mSelectedEndPosition = 0;
-
         private Filter mFilter = new Filter() {
 
             @Override
@@ -154,7 +152,7 @@ public class CitiesActivity extends BaseActivity implements OnCheckedChangeListe
                     if (mSelectedCities.length > 0) {
                         sectionHeaders.add("+");
                         sectionPositions.add(0);
-                        filteredList.add(new CityObj(mSelectedCitiesHeaderString,
+                        filteredList.add(new CityObj(mSelectedCitiesHeaderString, null,
                                 mSelectedCitiesHeaderString, null, null));
                     }
                     for (CityObj city : mSelectedCities) {
@@ -167,7 +165,6 @@ public class CitiesActivity extends BaseActivity implements OnCheckedChangeListe
                 for (CityObj c : mSelectedCities) {
                     selectedCityIds.add(c.mCityId);
                 }
-                mSelectedEndPosition = filteredList.size();
 
                 long currentTime = System.currentTimeMillis();
                 String val = null;

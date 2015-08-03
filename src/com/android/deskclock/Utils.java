@@ -700,7 +700,7 @@ public class Utils {
 
     public static CityObj[] loadCitiesFromXml(Context c) {
         Resources r = c.getResources();
-        // Read strings array of name,timezone, id
+        // Read strings array of [index, name, phonetic name, timezone, id]
         // make sure the list are the same length
         String[] cityNames = r.getStringArray(R.array.cities_names);
         String[] timezones = r.getStringArray(R.array.cities_tz);
@@ -715,33 +715,41 @@ public class Utils {
             // Default to using the first character of the city name as the index unless one is
             // specified. The indicator for a specified index is the addition of character(s)
             // before the "=" separator.
-            final String parseString = cityNames[i];
+            String parseString = cityNames[i];
             final int separatorIndex = parseString.indexOf("=");
             final String index;
-            final String cityName;
             if (parseString.length() <= 1 && separatorIndex >= 0) {
                 LogUtils.w("Cannot parse city name %s; skipping", parseString);
                 continue;
             }
+            // Parse Index.
             if (separatorIndex == 0) {
                 // Default to using second character (the first character after the = separator)
                 // as the index.
                 index = parseString.substring(1, 2);
-                cityName = parseString.substring(1);
+                parseString = parseString.substring(1);
             } else if (separatorIndex == -1) {
                 // Default to using the first character as the index
                 index = parseString.substring(0, 1);
-                cityName = parseString;
                 LogUtils.e("Missing expected separator character =");
             } else {
                  index = parseString.substring(0, separatorIndex);
-                 cityName = parseString.substring(separatorIndex + 1);
+                 parseString = parseString.substring(separatorIndex + 1);
             }
-            cities[i] = new CityObj(cityName, timezones[i], ids[i], index);
+            // Separate city name and phonetic name.
+            final String[] names = parseString.split(":");
+            if (names.length == 2) {
+                cities[i] = new CityObj(names[0], names[1], timezones[i], ids[i], index);
+            } else {
+                cities[i] = new CityObj(names[0], null, timezones[i], ids[i], index);
+            }
         }
         return cities;
     }
-    // Returns a map of cities where the key is lowercase
+
+    /**
+     * Returns a map of cities where the key is lowercase
+     */
     public static Map<String, CityObj> loadCityMapFromXml(Context c) {
         CityObj[] cities = loadCitiesFromXml(c);
 
