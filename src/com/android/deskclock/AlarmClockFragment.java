@@ -255,9 +255,6 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
             public void onChanged() {
 
                 final int count = mAdapter.getCount();
-                if (mDeletedAlarm != null && prevAdapterCount > count) {
-                    showUndoBar();
-                }
 
                 if (USE_TRANSITION_FRAMEWORK &&
                     ((count == 0 && prevAdapterCount > 0) ||  /* should fade  in */
@@ -1508,22 +1505,29 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private void asyncDeleteAlarm(final Alarm alarm) {
-        final Context context = AlarmClockFragment.this.getActivity().getApplicationContext();
-        final AsyncTask<Void, Void, Void> deleteTask = new AsyncTask<Void, Void, Void>() {
+        final Context context = getActivity().getApplicationContext();
+        final AsyncTask<Void, Void, Boolean> deleteTask = new AsyncTask<Void, Void, Boolean>() {
             @Override
-            protected Void doInBackground(Void... parameters) {
+            protected Boolean doInBackground(Void... parameters) {
                 // Activity may be closed at this point , make sure data is still valid
-                if (context != null && alarm != null) {
-                    Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
-
-                    ContentResolver cr = context.getContentResolver();
-                    AlarmStateManager.deleteAllInstances(context, alarm.id);
-                    Alarm.deleteAlarm(cr, alarm.id);
+                if (context == null || alarm == null) {
+                    // Nothing to do here, just return.
+                    return false;
                 }
-                return null;
+                Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
+                AlarmStateManager.deleteAllInstances(context, alarm.id);
+                return Alarm.deleteAlarm(context.getContentResolver(), alarm.id);
+            }
+
+            @Override
+            protected void onPostExecute(Boolean deleted) {
+                if (deleted) {
+                    mUndoShowing = true;
+                    mDeletedAlarm = alarm;
+                    showUndoBar();
+                }
             }
         };
-        mUndoShowing = true;
         deleteTask.execute();
     }
 
