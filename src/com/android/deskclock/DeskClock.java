@@ -168,11 +168,7 @@ public class DeskClock extends BaseActivity
 
             alarmTab.setIcon(R.drawable.ic_tab_alarm);
             alarmTab.setContentDescription(R.string.menu_alarm);
-            mTabsAdapter.addTab(alarmTab,
-                    Utils.isLOrLater()
-                            ? AlarmClockFragmentPostL.class
-                            : AlarmClockFragmentPreL.class,
-                    ALARM_TAB_INDEX);
+            mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
 
             final Tab clockTab = mActionBar.newTab();
             clockTab.setIcon(R.drawable.ic_tab_clock);

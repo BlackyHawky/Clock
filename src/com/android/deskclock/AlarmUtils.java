@@ -16,19 +16,12 @@
 
 package com.android.deskclock;
 
-import android.annotation.TargetApi;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.app.TimePickerDialog;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.VisibleForTesting;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.widget.Toast;
 
-import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
 import java.util.Calendar;
@@ -38,7 +31,6 @@ import java.util.Locale;
  * Static utility methods for Alarms.
  */
 public class AlarmUtils {
-    public static final String FRAG_TAG_TIME_PICKER = "time_dialog";
 
     public static String getFormattedTime(Context context, Calendar time) {
         final String skeleton = DateFormat.is24HourFormat(context) ? "EHm" : "Ehma";
@@ -52,63 +44,6 @@ public class AlarmUtils {
         return (instance.mLabel.isEmpty() || !includeLabel)
                 ? alarmTimeStr
                 : alarmTimeStr + " - " + instance.mLabel;
-    }
-
-    // show time picker dialog for pre-L devices
-    public static void showTimeEditDialog(FragmentManager manager, final Alarm alarm,
-          com.android.datetimepicker.time.TimePickerDialog.OnTimeSetListener listener,
-          boolean is24HourMode) {
-
-        final int hour, minutes;
-        if (alarm == null) {
-            hour = 0;
-            minutes = 0;
-        } else {
-            hour = alarm.hour;
-            minutes = alarm.minutes;
-        }
-        com.android.datetimepicker.time.TimePickerDialog dialog =
-                com.android.datetimepicker.time.TimePickerDialog.newInstance(listener,
-                    hour, minutes, is24HourMode);
-        dialog.setThemeDark(true);
-
-        // Make sure the dialog isn't already added.
-        manager.executePendingTransactions();
-        final FragmentTransaction ft = manager.beginTransaction();
-        final Fragment prev = manager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.commit();
-
-        if (!dialog.isAdded()) {
-            dialog.show(manager, FRAG_TAG_TIME_PICKER);
-        }
-    }
-
-    /**
-     * Show the time picker dialog for post-L devices.
-     * This is called from AlarmClockFragment to set alarm.
-     * @param fragment The calling fragment (which is also a onTimeSetListener),
-     *                 we use it as the target fragment of the TimePickerFragment, so later the
-     *                 latter can retrieve it and set it as its onTimeSetListener when the fragment
-     *                 is recreated.
-     * @param alarm The clicked alarm, it can be null if user was clicking the fab instead.
-     */
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void showTimeEditDialog(Fragment fragment, final Alarm alarm) {
-        final FragmentManager manager = fragment.getFragmentManager();
-        final FragmentTransaction ft = manager.beginTransaction();
-        final Fragment prev = manager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.commit();
-        final TimePickerFragment timePickerFragment = new TimePickerFragment();
-        timePickerFragment.setTargetFragment(fragment, 0);
-        timePickerFragment.setOnTimeSetListener((TimePickerDialog.OnTimeSetListener) fragment);
-        timePickerFragment.setAlarm(alarm);
-        timePickerFragment.show(manager, FRAG_TAG_TIME_PICKER);
     }
 
     /**
