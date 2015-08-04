@@ -37,6 +37,7 @@ android {
         }
         compile project(":support-v7-appcompat")
         compile project(":support-v7-gridlayout")
+        compile project(":support-v7-recyclerview")
         compile project(":support-v13")
     }
 }
