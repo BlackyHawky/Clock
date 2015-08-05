@@ -32,7 +32,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.media.Ringtone;
@@ -44,10 +43,8 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.text.format.DateFormat;
 import android.transition.AutoTransition;
-import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionManager;
-import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -75,6 +72,7 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.widget.ActionableToastBar;
+import com.android.deskclock.widget.EmptyViewController;
 import com.android.deskclock.widget.TextTime;
 
 import java.util.Calendar;
@@ -117,7 +115,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     // can not be found, and toast message will pop up that the alarm has be deleted.
     public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
 
-    private FrameLayout mMainLayout;
+    private ViewGroup mMainLayout;
     private ListView mAlarmsList;
     private AlarmItemAdapter mAdapter;
     private View mEmptyView;
@@ -137,12 +135,13 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     protected Alarm mAddedAlarm;
     private boolean mUndoShowing;
 
+    private EmptyViewController mEmptyViewController;
+
     private Interpolator mExpandInterpolator;
     private Interpolator mCollapseInterpolator;
 
     private Transition mAddRemoveTransition;
     private Transition mRepeatTransition;
-    private Transition mEmptyViewTransition;
 
     @Override
     public void processTimeSet(int hourOfDay, int minute) {
@@ -206,12 +205,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             mRepeatTransition = new AutoTransition();
             mRepeatTransition.setDuration(ANIMATION_DURATION / 2);
             mRepeatTransition.setInterpolator(new AccelerateDecelerateInterpolator());
-
-            mEmptyViewTransition = new TransitionSet()
-                    .setOrdering(TransitionSet.ORDERING_SEQUENTIAL)
-                    .addTransition(new Fade(Fade.OUT))
-                    .addTransition(new Fade(Fade.IN))
-                    .setDuration(ANIMATION_DURATION);
         }
 
         boolean isLandscape = getResources().getConfiguration().orientation
@@ -228,38 +221,18 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mEmptyView = v.findViewById(R.id.alarms_empty_view);
 
-        mMainLayout = (FrameLayout) v.findViewById(R.id.main);
         mAlarmsList = (ListView) v.findViewById(R.id.alarms_list);
 
         mUndoBar = (ActionableToastBar) v.findViewById(R.id.undo_bar);
         mUndoFrame = v.findViewById(R.id.undo_frame);
         mUndoFrame.setOnTouchListener(this);
 
+        mMainLayout = (ViewGroup) v.findViewById(R.id.main);
         mFooterView = v.findViewById(R.id.alarms_footer_view);
         mFooterView.setOnTouchListener(this);
 
         mAdapter = new AlarmItemAdapter(getActivity(), expandedId, previousDayMap, mAlarmsList);
-        mAdapter.registerDataSetObserver(new DataSetObserver() {
-
-            private int prevAdapterCount = -1;
-
-            @Override
-            public void onChanged() {
-
-                final int count = mAdapter.getCount();
-
-                if (USE_TRANSITION_FRAMEWORK &&
-                    ((count == 0 && prevAdapterCount > 0) ||  /* should fade  in */
-                    (count > 0 && prevAdapterCount == 0) /* should fade out */)) {
-                    TransitionManager.beginDelayedTransition(mMainLayout, mEmptyViewTransition);
-                }
-                mEmptyView.setVisibility(count == 0 ? View.VISIBLE : View.GONE);
-
-                // Cache this adapter's count for when the adapter changes.
-                prevAdapterCount = count;
-                super.onChanged();
-            }
-        });
+        mEmptyViewController = new EmptyViewController(mMainLayout, mAlarmsList, mEmptyView);
 
         if (mRingtoneTitleCache == null) {
             mRingtoneTitleCache = new Bundle();
@@ -393,6 +366,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, final Cursor data) {
         mAdapter.swapCursor(data);
+        mEmptyViewController.setEmpty(data.getCount() == 0);
         if (mScrollToAlarmId != INVALID_ID) {
             scrollToAlarm(mScrollToAlarmId);
             mScrollToAlarmId = INVALID_ID;
