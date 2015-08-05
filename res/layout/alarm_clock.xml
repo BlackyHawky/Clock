@@ -20,16 +20,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/alarms_list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alarms_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/button_footer_height"
-        android:clipToPadding="false"
         android:descendantFocusability="beforeDescendants"
-        android:divider="@null"
-        android:dividerHeight="0dip"
-        />
+        android:fadingEdgeLength="0dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical" />
 
     <include layout="@layout/alarm_empty_view" />
 

@@ -802,7 +802,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 registerInstance(context, instance, false);
             }
         }
-        
+
         updateNextAlarm(context);
     }
 
