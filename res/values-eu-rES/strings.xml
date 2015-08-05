@@ -218,7 +218,7 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Tenporizadorea"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Lau tenporizadore gehienez"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Pausatu"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Berrezarri tenporizadore guztiak"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Berrezarri guztiak"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Suziria bezain bizkorra zara."</item>
     <item msgid="6332879039890727169">"Gozatu zure lanaren fruituez."</item>
@@ -346,7 +346,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Tenporizadoreak"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Tenporizadorearen tonua"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Tenporizadorea gelditu da"</string>
-    <string name="timer_paused" msgid="5941160896040771462">"Pausatu egin da tenporizadorea"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"Pausatu da tenporizadorea"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore pausatuta"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tenporizadoreak ikusteko, ukitu hau"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> tenporizadore"</string>
@@ -373,10 +373,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"Alarmarik ez"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Ez da alarmarik ezarri"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"EZ DAGO ALARMARIK"</string>
-    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
-    <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
-    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
-    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Ordu honek ez du balio: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Ez dago alarmarik (<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>)"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Ez dago alarmarik programatuta"</string>

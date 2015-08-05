@@ -373,10 +373,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"គ្មាន​ការ​ជូនដំណឹង"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"មិនមានសំឡេងរោទ៍"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"គ្មាន​ការ​ជូនដំណឹង​ដែល​នឹង​កើត​ឡើង"</string>
-    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
-    <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
-    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
-    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"ម៉ោងមិនត្រឹមត្រូវ <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"គ្មានម៉ោងរោទិ៍នៅ <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"គ្មានម៉ោងរោទិ៍បានកំណត់ទេ"</string>

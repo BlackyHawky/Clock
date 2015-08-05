@@ -101,10 +101,10 @@
       <item quantity="other">मिनेट</item>
       <item quantity="one">मिनेट</item>
     </plurals>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"बिस्तारै मात्रा  बढ्छ"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"बिस्तारै मात्रा  बढाउनुहोस्"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"बन्द"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> सेकेन्ड"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"सेकेण्ड"</string>
+    <string name="crescendo_picker_label" msgid="7758024047003091056">"सेकेन्ड"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"यस पछि मौन"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> मिनेट</item>
@@ -347,7 +347,7 @@
     <string name="timer_ringtone_title" msgid="7630214935791599619">"टाइमरको रिङटोन"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"घडी रोकियो"</string>
     <string name="timer_paused" msgid="5941160896040771462">"टाइमर रोकियो"</string>
-    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> टइमरहरू रोकिए"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> टाइमरहरू रोकिए"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"तपाईँको घडी हेर्न छुनुहोस्"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> घडीहरू"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"अर्को घडी: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
@@ -373,10 +373,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"आलार्महरू छैनन्"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"अलार्म सेट छैन"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"कुनै अगामी आलार्महरू छैनन्"</string>
-    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
-    <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
-    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
-    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"अमान्य समय <xliff:g id="INVALID_HOUR">%d</xliff:g> : <xliff:g id="INVALID_MINUTES">%d</xliff:g><xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g> : <xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>मा कुनै अलार्म छैन"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"कुनै तालिकाबद्ध अलार्म छैन"</string>

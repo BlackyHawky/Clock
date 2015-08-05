@@ -373,10 +373,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"Дабылдар жоқ"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Дабылдар орнатылмаған"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"КЕЛЕ ЖАТҚАН ДАБЫЛДАР ЖОҚ"</string>
-    <string name="time_format_12_mode" msgid="1619464909892545536">"с:мм a"</string>
-    <string name="time_format_24_mode" msgid="7998512313148074539">"к:мм"</string>
-    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, сағ: мм а"</string>
-    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, к: мм"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Жарамсыз уақыт: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> уақытында дабыл жоқ"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Жоспарланған дабылдар жоқ"</string>

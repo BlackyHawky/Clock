@@ -218,7 +218,7 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"ტაიმერი"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"მაქსიმუმ 4 ტაიმერი"</string>
     <string name="timer_pause" msgid="3748323712728398743">"პაუზა"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"ყვ.ტაიმ.ჩამოყრა"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"ტაიმერებ.ჩამოყრა"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"საკმაოდ სწრაფი ხართ."</item>
     <item msgid="6332879039890727169">"ისიამოვნეთ თქვენი შრომის ნაყოფით."</item>
@@ -373,10 +373,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"მაღვიძარები არ არის"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"მაღვიძ. არ არის"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"მომავალი მაღვიძარები არ არის"</string>
-    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
-    <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
-    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
-    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"არასწორი დრო <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>-ზე მაღვიძარა არ არის"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"დაგეგმილი მაღვიძარა არ არის"</string>
