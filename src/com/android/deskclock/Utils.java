@@ -165,10 +165,19 @@ public class Utils {
     }
 
     /**
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP} or
+     *      {@link Build.VERSION_CODES#LOLLIPOP_MR1}
+     */
+    public static boolean isLOrLMR1() {
+        final int sdkInt = Build.VERSION.SDK_INT;
+        return sdkInt == Build.VERSION_CODES.LOLLIPOP || sdkInt == Build.VERSION_CODES.LOLLIPOP_MR1;
+    }
+
+    /**
      * @return {@code true} if the device is {@link Build.VERSION_CODES#MNC} or later
      */
     public static boolean isMOrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.MNC;
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
     public static void prepareHelpMenuItem(Context context, MenuItem helpMenuItem) {

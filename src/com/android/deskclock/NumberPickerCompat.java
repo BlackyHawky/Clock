@@ -35,14 +35,10 @@ public class NumberPickerCompat extends NumberPicker {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void tintSelectionDivider(Context context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
-                || Build.VERSION.SDK_INT > Build.VERSION_CODES.MNC) {
-            // Accent color in KK will stay system blue, so leave divider color matching.
-            // The divider is correctly tinted to controlColorNormal in MNC.
-            return;
-        }
+        // Accent color in KK will stay system blue, so leave divider color matching.
+        // The divider is correctly tinted to controlColorNormal in MNC.
 
-        if (sTrySelectionDivider) {
+        if (Utils.isLOrLMR1() && sTrySelectionDivider) {
             final TypedArray a = context.obtainStyledAttributes(
                     new int[] { android.R.attr.colorControlNormal });
              // White is default color if colorControlNormal is not defined.
