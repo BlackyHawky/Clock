@@ -763,6 +763,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final Calendar currentTime = getCurrentTime();
         for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
             final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+            if (alarm == null) {
+                AlarmInstance.deleteInstance(contentResolver, instance.mId);
+                LogUtils.e("Found instance without matching alarm; deleting instance %s", instance);
+                continue;
+            }
             final Calendar priorAlarmTime = alarm.getPreviousAlarmTime(instance.getAlarmTime());
             final Calendar missedTTLTime = instance.getMissedTimeToLive();
             if (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime)) {
