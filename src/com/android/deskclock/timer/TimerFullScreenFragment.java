@@ -46,6 +46,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.deskclock.CircleButtonsLayout;
@@ -79,7 +80,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
     private StaggeredGridView mTimersList;
     private View mTimersListPage;
     private int mColumnCount;
-    private ImageButton mFab;
+    private ImageView mFab;
     private TimerSetupView mTimerSetup;
     private TimersListAdapter mAdapter;
     private boolean mTicking = false;
@@ -383,7 +384,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
             }
         }
 
-        mFab = (ImageButton) v.findViewById(R.id.fab);
+        mFab = (ImageView) v.findViewById(R.id.fab);
         mTimersList = (StaggeredGridView) v.findViewById(R.id.timers_list);
         // For tablets in landscape, the count will be 2. All else will be 1.
         mColumnCount = getResources().getInteger(R.integer.timer_column_count);

@@ -193,4 +193,8 @@
 
     <!-- Dimens for dismiss icon padding on Alarms tab -->
     <dimen name="dismiss_icon_padding">10dp</dimen>
+
+    <!-- Floating action button style -->
+    <dimen name="fab_margin">0dp</dimen>
+    <dimen name="fab_elevation">8dp</dimen>
 </resources>

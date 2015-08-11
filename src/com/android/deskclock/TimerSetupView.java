@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.deskclock.timer.TimerView;
@@ -40,7 +41,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     protected int mInput [] = new int [mInputSize];
     protected int mInputPointer = -1;
     protected Button mLeft, mRight;
-    protected ImageButton mStart;
+    protected ImageView mStart;
     protected ImageButton mDelete;
     protected TimerView mEnteredTime;
     protected View mDivider;
@@ -124,7 +125,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         updateTime();
     }
 
-    public void registerStartButton(ImageButton start) {
+    public void registerStartButton(ImageView start) {
         mStart = start;
         initializeStartButtonVisibility();
     }

@@ -131,9 +131,6 @@
         <item name="displayOptions">homeAsUp</item>
     </style>
 
-    <!-- variants: v21 -->
-    <style name="FabStyle" />
-
     <style name="AlarmAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
 
     <style name="TimerAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
