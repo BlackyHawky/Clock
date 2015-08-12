@@ -371,7 +371,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             case TimerObj.STATE_RUNNING:
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_stop));
-                mFab.setImageResource(R.drawable.ic_fab_pause);
+                mFab.setImageResource(R.drawable.ic_pause_white_24dp);
                 break;
             case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_RESTART:
@@ -380,12 +380,12 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             case TimerObj.STATE_DELETED:
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_start));
-                mFab.setImageResource(R.drawable.ic_fab_play);
+                mFab.setImageResource(R.drawable.ic_start_white_24dp);
                 break;
             case TimerObj.STATE_TIMESUP: // time-up but didn't stopped, continue negative ticking
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_stop));
-                mFab.setImageResource(R.drawable.ic_fab_stop);
+                mFab.setImageResource(R.drawable.ic_stop_white_24dp);
                 break;
             default:
         }
@@ -553,7 +553,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             setTimerViewFabIcon(getCurrentTimer());
         } else if (mSetupView != null) {
             mSetupView.registerStartButton(mFab);
-            mFab.setImageResource(R.drawable.ic_fab_play);
+            mFab.setImageResource(R.drawable.ic_start_white_24dp);
             mFab.setContentDescription(getString(R.string.timer_start));
         }
     }

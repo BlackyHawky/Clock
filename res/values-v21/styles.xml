@@ -16,10 +16,6 @@
 
 <resources>
 
-    <style name="FabStyle">
-        <item name="android:elevation">8dip</item>
-    </style>
-
     <style name="SettingsTheme" parent="BaseActivityTheme">
         <item name="android:alertDialogTheme">@style/SettingsAlertDialogTheme</item>
         <item name="android:detailsElementBackground">@null</item>

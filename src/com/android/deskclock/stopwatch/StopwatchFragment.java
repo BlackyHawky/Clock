@@ -882,10 +882,10 @@ public class StopwatchFragment extends DeskClockFragment
             return;
         }
         if (mState == Stopwatches.STOPWATCH_RUNNING) {
-            mFab.setImageResource(R.drawable.ic_fab_pause);
+            mFab.setImageResource(R.drawable.ic_pause_white_24dp);
             mFab.setContentDescription(getString(R.string.sw_stop_button));
         } else {
-            mFab.setImageResource(R.drawable.ic_fab_play);
+            mFab.setImageResource(R.drawable.ic_start_white_24dp);
             mFab.setContentDescription(getString(R.string.sw_start_button));
         }
         mFab.setVisibility(View.VISIBLE);

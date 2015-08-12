@@ -298,7 +298,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
             return;
         }
         mFab.setVisibility(View.VISIBLE);
-        mFab.setImageResource(R.drawable.ic_globe);
+        mFab.setImageResource(R.drawable.ic_language_white_24dp);
         mFab.setContentDescription(getString(R.string.button_cities));
     }
 

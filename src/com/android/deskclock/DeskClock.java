@@ -40,6 +40,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.events.Events;
@@ -88,7 +89,7 @@ public class DeskClock extends BaseActivity
     private ActionBar mActionBar;
     private Menu mMenu;
     private ViewPager mViewPager;
-    private ImageButton mFab;
+    private ImageView mFab;
     private ImageButton mLeftButton;
     private ImageButton mRightButton;
 
@@ -116,7 +117,7 @@ public class DeskClock extends BaseActivity
 
     private void initViews() {
         setContentView(R.layout.desk_clock);
-        mFab = (ImageButton) findViewById(R.id.fab);
+        mFab = (ImageView) findViewById(R.id.fab);
         mLeftButton = (ImageButton) findViewById(R.id.left_button);
         mRightButton = (ImageButton) findViewById(R.id.right_button);
         if (mTabsAdapter == null) {
@@ -606,7 +607,7 @@ public class DeskClock extends BaseActivity
         return position;
     }
 
-    public ImageButton getFab() {
+    public ImageView getFab() {
         return mFab;
     }
 
