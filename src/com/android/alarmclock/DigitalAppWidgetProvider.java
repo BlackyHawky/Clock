@@ -33,17 +33,17 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.DeskClock;
+import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmStateManager;
-import com.android.deskclock.worldclock.Cities;
-import com.android.deskclock.worldclock.CitiesActivity;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Locale;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
-    private static final String TAG = "DigitalAppWidgetProvider";
+    private static final String TAG = "DigAppWidgetProvider";
 
     /**
      * Intent to be used for checking if a world clock's date has changed. Must be every fifteen
@@ -116,7 +116,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                     appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
                 }
             }
-        } else if (Cities.WORLDCLOCK_UPDATE_INTENT.equals(action)) {
+        } else if (DataModel.ACTION_CITIES_CHANGED.equals(action)) {
             // Refresh the world cities list
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             if (appWidgetManager != null) {
@@ -175,8 +175,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         if (newOptions != null &&
                 newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, -1)
                 != AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD) {
-            widget.setOnClickPendingIntent(R.id.digital_appwidget,
-                    PendingIntent.getActivity(context, 0, new Intent(context, DeskClock.class), 0));
+            final Intent showClock = new Intent(HandleDeskClockApiCalls.ACTION_SHOW_CLOCK)
+                    .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_WIDGET, true);
+            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, showClock, 0);
+            widget.setOnClickPendingIntent(R.id.digital_appwidget, pendingIntent);
         }
 
         // Setup alarm text clock's format and font sizes
@@ -200,9 +202,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Set up the click on any world clock to start the Cities Activity
         //TODO: Should this be in the options guard above?
+        final Intent selectCitiesIntent = new Intent(context, CitySelectionActivity.class);
         widget.setPendingIntentTemplate(R.id.digital_appwidget_listview,
-                PendingIntent.
-                        getActivity(context, 0, new Intent(context, CitiesActivity.class), 0));
+                PendingIntent.getActivity(context, 0, selectCitiesIntent, 0));
 
         // Refresh the widget
         appWidgetManager.notifyAppWidgetViewDataChanged(

@@ -16,7 +16,7 @@
 
 package com.android.alarmclock;
 
-import com.android.deskclock.DeskClock;
+import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 
 import android.app.PendingIntent;
@@ -27,29 +27,24 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 /**
- * Simple widget to show analog clock.
+ * Simple widget to show an analog clock.
  */
 public class AnalogAppWidgetProvider extends BroadcastReceiver {
-    static final String TAG = "AnalogAppWidgetProvider";
-
     @Override
     public void onReceive(Context context, Intent intent) {
-        String action = intent.getAction();
-
-        if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(action)) {
-            RemoteViews views = new RemoteViews(context.getPackageName(),
-                    R.layout.analog_appwidget);
-
-            views.setOnClickPendingIntent(R.id.analog_appwidget,
-                    PendingIntent.getActivity(context, 0,
-                        new Intent(context, DeskClock.class), 0));
-
-            int[] appWidgetIds = intent.getIntArrayExtra(
-                    AppWidgetManager.EXTRA_APPWIDGET_IDS);
-
-            AppWidgetManager gm = AppWidgetManager.getInstance(context);
-            gm.updateAppWidget(appWidgetIds, views);
+        if (!AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(intent.getAction())) {
+            return;
         }
+
+        final String packageName = context.getPackageName();
+        final RemoteViews views = new RemoteViews(packageName, R.layout.analog_appwidget);
+
+        final Intent showClock = new Intent(HandleDeskClockApiCalls.ACTION_SHOW_CLOCK)
+                .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_WIDGET, true);
+        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, showClock, 0);
+        views.setOnClickPendingIntent(R.id.analog_appwidget, pendingIntent);
+
+        final int[] appWidgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
+        AppWidgetManager.getInstance(context).updateAppWidget(appWidgetIds, views);
     }
 }
-

@@ -42,6 +42,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -54,6 +55,7 @@ import android.text.format.Time;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.util.ArraySet;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -61,21 +63,20 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.Timers;
-import com.android.deskclock.worldclock.CityObj;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
 
 public class Utils {
@@ -154,6 +155,18 @@ public class Utils {
     // SharedPreferences, because timer_expire is not one of
     // RingtoneManager's provided ringtones.
     private static String sDefaultTimerRingtone;
+
+    public static void enforceMainLooper() {
+        if (Looper.getMainLooper() != Looper.myLooper()) {
+            throw new IllegalAccessError("May only call from main thread.");
+        }
+    }
+
+    public static void enforceNotMainLooper() {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            throw new IllegalAccessError("May not call from main thread.");
+        }
+    }
 
     /**
      * @return {@code true} if the device is prior to {@link Build.VERSION_CODES#LOLLIPOP}
@@ -550,23 +563,40 @@ public class Utils {
      * For screensavers to set whether the digital or analog clock should be displayed.
      * Returns the view to be displayed.
      */
-    public static View setClockStyle(Context context, View digitalClock, View analogClock,
-            String clockStyleKey) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        String defaultClockStyle = context.getResources().getString(R.string.default_clock_style);
-        String style = sharedPref.getString(clockStyleKey, defaultClockStyle);
-        View returnView;
-        if (style.equals(CLOCK_TYPE_ANALOG)) {
-            digitalClock.setVisibility(View.GONE);
-            analogClock.setVisibility(View.VISIBLE);
-            returnView = analogClock;
-        } else {
-            digitalClock.setVisibility(View.VISIBLE);
-            analogClock.setVisibility(View.GONE);
-            returnView = digitalClock;
+    public static View setClockStyle(View digitalClock, View analogClock) {
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+        switch (clockStyle) {
+            case ANALOG:
+                digitalClock.setVisibility(View.GONE);
+                analogClock.setVisibility(View.VISIBLE);
+                return analogClock;
+            case DIGITAL:
+                digitalClock.setVisibility(View.VISIBLE);
+                analogClock.setVisibility(View.GONE);
+                return digitalClock;
         }
 
-        return returnView;
+        throw new IllegalStateException("unexpected clock style: " + clockStyle);
+    }
+
+    /**
+     * For screensavers to set whether the digital or analog clock should be displayed.
+     * Returns the view to be displayed.
+     */
+    public static View setScreensaverClockStyle(View digitalClock, View analogClock) {
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+        switch (clockStyle) {
+            case ANALOG:
+                digitalClock.setVisibility(View.GONE);
+                analogClock.setVisibility(View.VISIBLE);
+                return analogClock;
+            case DIGITAL:
+                digitalClock.setVisibility(View.VISIBLE);
+                analogClock.setVisibility(View.GONE);
+                return digitalClock;
+        }
+
+        throw new IllegalStateException("unexpected clock style: " + clockStyle);
     }
 
     /**
@@ -665,7 +695,8 @@ public class Utils {
             clock.setFormat24Hour(get24ModeFormat());
         }
     }
-    /***
+
+    /**
      * @param context - context used to get time format string resource
      * @param amPmFontSize - size of am/pm label (label removed is size is 0).
      * @return format string for 12 hours mode time
@@ -698,68 +729,6 @@ public class Utils {
         return DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm");
     }
 
-    public static CityObj[] loadCitiesFromXml(Context c) {
-        Resources r = c.getResources();
-        // Read strings array of [index, name, phonetic name, timezone, id]
-        // make sure the list are the same length
-        String[] cityNames = r.getStringArray(R.array.cities_names);
-        String[] timezones = r.getStringArray(R.array.cities_tz);
-        String[] ids = r.getStringArray(R.array.cities_id);
-        int minLength = cityNames.length;
-        if (cityNames.length != timezones.length || ids.length != cityNames.length) {
-            minLength = Math.min(cityNames.length, Math.min(timezones.length, ids.length));
-            LogUtils.e("City lists sizes are not the same, truncating");
-        }
-        CityObj[] cities = new CityObj[minLength];
-        for (int i = 0; i < cities.length; i++) {
-            // Default to using the first character of the city name as the index unless one is
-            // specified. The indicator for a specified index is the addition of character(s)
-            // before the "=" separator.
-            String parseString = cityNames[i];
-            final int separatorIndex = parseString.indexOf("=");
-            final String index;
-            if (parseString.length() <= 1 && separatorIndex >= 0) {
-                LogUtils.w("Cannot parse city name %s; skipping", parseString);
-                continue;
-            }
-            // Parse Index.
-            if (separatorIndex == 0) {
-                // Default to using second character (the first character after the = separator)
-                // as the index.
-                index = parseString.substring(1, 2);
-                parseString = parseString.substring(1);
-            } else if (separatorIndex == -1) {
-                // Default to using the first character as the index
-                index = parseString.substring(0, 1);
-                LogUtils.e("Missing expected separator character =");
-            } else {
-                 index = parseString.substring(0, separatorIndex);
-                 parseString = parseString.substring(separatorIndex + 1);
-            }
-            // Separate city name and phonetic name.
-            final String[] names = parseString.split(":");
-            if (names.length == 2) {
-                cities[i] = new CityObj(names[0], names[1], timezones[i], ids[i], index);
-            } else {
-                cities[i] = new CityObj(names[0], null, timezones[i], ids[i], index);
-            }
-        }
-        return cities;
-    }
-
-    /**
-     * Returns a map of cities where the key is lowercase
-     */
-    public static Map<String, CityObj> loadCityMapFromXml(Context c) {
-        CityObj[] cities = loadCitiesFromXml(c);
-
-        final Map<String, CityObj> map = new HashMap<>(cities.length);
-        for (CityObj city : cities) {
-            map.put(city.mCityName.toLowerCase(), city);
-        }
-        return map;
-    }
-
     /**
      * Returns string denoting the timezone hour offset (e.g. GMT -8:00)
      * @param useShortForm Whether to return a short form of the header that rounds to the
@@ -776,10 +745,6 @@ public class Utils {
         } else {
             return String.format("GMT %+d:%02d", hour, min);
         }
-    }
-
-    public static String getCityName(CityObj city, CityObj dbCity) {
-        return (city.mCityId == null || dbCity == null) ? city.mCityName : dbCity.mCityName;
     }
 
     /**
@@ -928,5 +893,11 @@ public class Utils {
                .getString(SettingsActivity.TIMEZONE_LOCALE,
                        context.getResources().getConfiguration().locale.toString());
        return new Locale(localeString);
+    }
+
+    public static <E> ArraySet<E> newArraySet(Collection<E> collection) {
+        final ArraySet<E> arraySet = new ArraySet<>(collection.size());
+        arraySet.addAll(collection);
+        return arraySet;
     }
 }
