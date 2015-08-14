@@ -28,8 +28,6 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.android.deskclock.R;
-
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -129,10 +127,6 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         }
 
         return values;
-    }
-
-    public static Intent createIntent(String action, long alarmId) {
-        return new Intent(action).setData(getUri(alarmId));
     }
 
     public static Intent createIntent(Context context, Class<?> cls, long alarmId) {
@@ -310,11 +304,14 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         deleteAfterUse = p.readInt() == 1;
     }
 
-    public String getLabelOrDefault(Context context) {
-        if (label == null || label.length() == 0) {
-            return context.getString(R.string.default_label);
-        }
-        return label;
+    /**
+     * Whether the alarm is in a state to show preemptive dismiss. Valid states are SNOOZE_STATE
+     * HIGH_NOTIFICATION, and LOW_NOTIFICATION. TODO: firing state?
+     */
+    public boolean canPreemptivelyDismiss() {
+        return instanceState == AlarmInstance.SNOOZE_STATE
+                || instanceState == AlarmInstance.HIGH_NOTIFICATION_STATE
+                || instanceState == AlarmInstance.LOW_NOTIFICATION_STATE;
     }
 
     public void writeToParcel(Parcel p, int flags) {
