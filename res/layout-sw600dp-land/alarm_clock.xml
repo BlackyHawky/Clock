@@ -38,21 +38,6 @@
 
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/alarms_footer_view"
-        android:layout_width="@dimen/footer_button_size"
-        android:layout_height="@dimen/footer_button_size"
-        android:layout_gravity="bottom|end">
-
-        <ImageButton
-            android:id="@+id/menu_button"
-            style="?attr/actionOverflowButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end|center_vertical"
-            android:contentDescription="@string/button_menu" />
-    </FrameLayout>
-
     <include layout="@layout/alarm_empty_view" />
 
     <FrameLayout

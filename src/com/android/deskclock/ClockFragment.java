@@ -106,13 +106,6 @@ public class ClockFragment extends DeskClockFragment {
             fragmentView.setOnTouchListener(startScreenSaverListener);
         }
 
-        // If the current layout has a fake overflow menu button, let the parent activity set up its
-        // click and touch listeners.
-        final View menuButton = fragmentView.findViewById(R.id.menu_button);
-        if (menuButton != null) {
-            setupFakeOverflowMenuButton(menuButton);
-        }
-
         mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
 
