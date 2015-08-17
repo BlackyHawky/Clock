@@ -185,8 +185,7 @@ public class ScreensaverActivity extends AppCompatActivity {
     }
 
     private void setClockStyle() {
-        Utils.setClockStyle(this, mDigitalClock, mAnalogClock,
-                SettingsActivity.KEY_CLOCK_STYLE);
+        Utils.setClockStyle(mDigitalClock, mAnalogClock);
         mSaverView = findViewById(R.id.main_clock);
         Utils.dimClockView(true, mSaverView);
     }

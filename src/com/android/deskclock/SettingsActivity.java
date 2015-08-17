@@ -34,8 +34,6 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.android.deskclock.worldclock.Cities;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -137,13 +135,11 @@ public class SettingsActivity extends BaseActivity {
                     final ListPreference homeTimezonePref = (ListPreference) pref;
                     idx = homeTimezonePref.findIndexOfValue((String) newValue);
                     homeTimezonePref.setSummary(homeTimezonePref.getEntries()[idx]);
-                    notifyHomeTimeZoneChanged();
                     break;
                 case KEY_AUTO_HOME_CLOCK:
                     final boolean autoHomeClockEnabled = ((SwitchPreference) pref).isChecked();
                     final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
                     homeTimeZonePref.setEnabled(!autoHomeClockEnabled);
-                    notifyHomeTimeZoneChanged();
                     break;
                 case KEY_VOLUME_BUTTONS:
                     final ListPreference volumeButtonsPref = (ListPreference) pref;
@@ -316,11 +312,6 @@ public class SettingsActivity extends BaseActivity {
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(getActivity(),
                         R.plurals.auto_silence_summary, i));
             }
-        }
-
-        private void notifyHomeTimeZoneChanged() {
-            Intent i = new Intent(Cities.WORLDCLOCK_UPDATE_INTENT);
-            getActivity().sendBroadcast(i);
         }
 
         private class TimeZoneRow implements Comparable<TimeZoneRow> {

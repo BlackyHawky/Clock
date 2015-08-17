@@ -28,7 +28,7 @@ import android.view.MenuItem;
  */
 public class ScreensaverSettingsActivity extends AppCompatActivity {
 
-    static final String KEY_CLOCK_STYLE = "screensaver_clock_style";
+    public static final String KEY_CLOCK_STYLE = "screensaver_clock_style";
     static final String KEY_NIGHT_MODE = "screensaver_night_mode";
 
     @Override

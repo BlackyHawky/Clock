@@ -89,12 +89,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".worldclock.CitiesActivity"
+        <activity android:name=".worldclock.CitySelectionActivity"
                 android:label="@string/cities_activity_title"
                 android:theme="@style/CitiesTheme"
                 android:taskAffinity=""
-                android:excludeFromRecents="true"
-                >
+                android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -241,36 +240,44 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.android.alarmclock.AnalogAppWidgetProvider" android:label="@string/analog_gadget"
-           android:icon="@mipmap/ic_launcher_alarmclock">
+        <receiver
+            android:name="com.android.alarmclock.AnalogAppWidgetProvider"
+            android:icon="@mipmap/ic_launcher_alarmclock"
+            android:label="@string/analog_gadget">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
-            <meta-data android:name="android.appwidget.oldName" android:value="com.android.deskclock.AnalogAppWidgetProvider" />
-            <meta-data android:name="android.appwidget.provider" android:resource="@xml/analog_appwidget" />
+
+            <meta-data
+                android:name="android.appwidget.oldName"
+                android:value="com.android.deskclock.AnalogAppWidgetProvider"/>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/analog_appwidget"/>
         </receiver>
 
-        <receiver android:name="com.android.alarmclock.DigitalAppWidgetProvider" android:label="@string/digital_gadget"
-           android:icon="@mipmap/ic_launcher_alarmclock">
+        <receiver
+            android:name="com.android.alarmclock.DigitalAppWidgetProvider"
+            android:icon="@mipmap/ic_launcher_alarmclock"
+            android:label="@string/digital_gadget">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.android.deskclock.ON_QUARTER_HOUR" />
-                <action android:name="android.intent.action.DATE_CHANGED" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="android.intent.action.SCREEN_ON" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
-                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
-                <action android:name="com.android.deskclock.worldclock.update" />
-                </intent-filter>
-            <meta-data android:name="android.appwidget.provider" android:resource="@xml/digital_appwidget" />
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.SCREEN_ON"/>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="com.android.deskclock.CITIES_CHANGED"/>
+                <action android:name="com.android.deskclock.ON_QUARTER_HOUR"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/digital_appwidget"/>
         </receiver>
 
         <service android:name="com.android.alarmclock.DigitalAppWidgetService"
              android:permission="android.permission.BIND_REMOTEVIEWS"
-             android:exported="false" />
-
-        <receiver android:name="com.android.alarmclock.DigitalWidgetViewsFactory"
              android:exported="false" />
 
         <!-- Dream (screensaver) implementation -->
