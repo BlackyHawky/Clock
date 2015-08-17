@@ -576,6 +576,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 updateParentAlarm(context, instance);
             }
         }
+
+        updateNextAlarm(context);
     }
 
     /**
