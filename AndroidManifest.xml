@@ -51,7 +51,7 @@
 
         <activity android:name="DeskClock"
                 android:label="@string/app_label"
-                android:theme="@style/DeskClock"
+                android:theme="@style/DeskClockTheme"
                 android:icon="@mipmap/ic_launcher_alarmclock"
                 android:launchMode="singleTask">
 
@@ -65,7 +65,7 @@
         <activity-alias android:name="DockClock"
                 android:targetActivity="DeskClock"
                 android:label="@string/app_label"
-                android:theme="@style/DeskClock"
+                android:theme="@style/DeskClockTheme"
                 android:icon="@mipmap/ic_launcher_alarmclock"
                 android:launchMode="singleTask"
                 android:enabled="@bool/config_dockAppEnabled"
