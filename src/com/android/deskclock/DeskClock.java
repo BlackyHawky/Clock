@@ -18,7 +18,6 @@ package com.android.deskclock;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,6 +41,11 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
+import com.android.deskclock.actionbarmenu.HelpMenuItemController;
+import com.android.deskclock.actionbarmenu.MenuItemController;
+import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
+import com.android.deskclock.actionbarmenu.SettingMenuItemController;
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
@@ -71,16 +75,16 @@ public class DeskClock extends BaseActivity
     private static final String KEY_SELECTED_TAB = "selected_tab";
     public static final String SELECT_TAB_INTENT_EXTRA = "deskclock.select.tab";
 
-    // Request code used when SettingsActivity is launched.
-    private static final int REQUEST_CHANGE_SETTINGS = 1;
-
     public static final int ALARM_TAB_INDEX = 0;
     public static final int CLOCK_TAB_INDEX = 1;
     public static final int TIMER_TAB_INDEX = 2;
     public static final int STOPWATCH_TAB_INDEX = 3;
 
+    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
+    private final MenuItemController nightModeMenuItemController =
+            new NightModeMenuItemController(this);
+
     private TabLayout mTabLayout;
-    private Menu mMenu;
     private RtlViewPager mViewPager;
     private ImageView mFab;
     private ImageButton mLeftButton;
@@ -177,6 +181,9 @@ public class DeskClock extends BaseActivity
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        mActionBarMenuManager.addMenuController(new SettingMenuItemController(this))
+                .addMenuController(new HelpMenuItemController(this))
+                .addMenuController(nightModeMenuItemController);
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         if (icicle != null) {
@@ -252,78 +259,32 @@ public class DeskClock extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // We only want to show it as a menu in landscape, and only for clock/alarm fragment.
-        mMenu = menu;
-        // Clear the menu so that it doesn't get duplicate items in case onCreateOptionsMenu
-        // was called multiple times.
-        menu.clear();
-        getMenuInflater().inflate(R.menu.desk_clock_menu, menu);
-        // Always return true, regardless of whether we've inflated the menu, so
-        // that when we switch tabs this method will get called and we can inflate the menu.
+        mActionBarMenuManager.createOptionsMenu(menu, getMenuInflater());
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        updateMenu(menu);
+        super.onPrepareOptionsMenu(menu);
+        mActionBarMenuManager.prepareShowMenu(menu);
         return true;
-    }
-
-    private void updateMenu(Menu menu) {
-        // Hide "help" if we don't have a URI for it.
-        MenuItem help = menu.findItem(R.id.menu_item_help);
-        if (help != null) {
-            Utils.prepareHelpMenuItem(this, help);
-        }
-
-        // Hide "lights out" for timer.
-        MenuItem nightMode = menu.findItem(R.id.menu_item_night_mode);
-        if (mTabLayout.getSelectedTabPosition() == CLOCK_TAB_INDEX) {
-            nightMode.setVisible(true);
-        } else {
-            nightMode.setVisible(false);
-        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (processMenuClick(item)) {
+        if (mActionBarMenuManager.handleMenuItemClick(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Recreate the activity if any settings have been changed
-        if (requestCode == REQUEST_CHANGE_SETTINGS && resultCode == RESULT_OK) {
+        if (requestCode == SettingMenuItemController.REQUEST_CHANGE_SETTINGS
+                && resultCode == RESULT_OK) {
             recreate();
         }
-    }
-
-    private boolean processMenuClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_settings:
-                startActivityForResult(new Intent(DeskClock.this, SettingsActivity.class),
-                        REQUEST_CHANGE_SETTINGS);
-                return true;
-            case R.id.menu_item_help:
-                Intent i = item.getIntent();
-                if (i != null) {
-                    try {
-                        startActivity(i);
-                    } catch (ActivityNotFoundException e) {
-                        // No activity found to match the intent - ignore
-                    }
-                }
-                return true;
-            case R.id.menu_item_night_mode:
-                startActivity(new Intent(DeskClock.this, ScreensaverActivity.class));
-            default:
-                break;
-        }
-        return true;
     }
 
     /**
@@ -444,13 +405,8 @@ public class DeskClock extends BaseActivity
             mTabLayout.getTabAt(position).select();
             notifyPageChanged(position);
 
-            // Only show the overflow menu for alarm and world clock.
-            if (mMenu != null) {
-                // Make sure the menu's been initialized.
-                mMenu.setGroupVisible(R.id.menu_items, true);
-                onCreateOptionsMenu(mMenu);
-            }
             mSelectedTab = position;
+            nightModeMenuItemController.setEnabled(mSelectedTab == CLOCK_TAB_INDEX);
 
             if (mActivityResumed) {
                 switch (mSelectedTab) {
@@ -510,7 +466,6 @@ public class DeskClock extends BaseActivity
         public void unregisterPageChangedListener(DeskClockFragment frag) {
             mFragmentTags.remove(frag.getTag());
         }
-
     }
 
     /**
