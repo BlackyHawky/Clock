@@ -18,6 +18,7 @@ package com.android.deskclock.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.R;
@@ -40,18 +41,10 @@ final class SettingsDAO {
 
     private SettingsDAO() {}
 
-    private static SharedPreferences getSharedPreferences(Context context) {
-        if (sPrefs == null) {
-            sPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        }
-
-        return sPrefs;
-    }
-
     /**
      * @return an enumerated value indicating the order in which cities are ordered
      */
-    public static CitySort getCitySort(Context context) {
+    static CitySort getCitySort(Context context) {
         final int defaultSortOrdinal = CitySort.NAME.ordinal();
         final SharedPreferences prefs = getSharedPreferences(context);
         final int citySortOrdinal = prefs.getInt(KEY_SORT_PREFERENCE, defaultSortOrdinal);
@@ -61,7 +54,7 @@ final class SettingsDAO {
     /**
      * Adjust the sort order of cities.
      */
-    public static void toggleCitySort(Context context) {
+    static void toggleCitySort(Context context) {
         final CitySort oldSort = getCitySort(context);
         final CitySort newSort = oldSort == CitySort.NAME ? CitySort.UTC_OFFSET : CitySort.NAME;
         final SharedPreferences prefs = getSharedPreferences(context);
@@ -72,7 +65,7 @@ final class SettingsDAO {
      * @return {@code true} if a clock for the user's home timezone should be automatically
      *      displayed when it doesn't match the current timezone
      */
-    public static boolean getAutoShowHomeClock(Context context) {
+    static boolean getAutoShowHomeClock(Context context) {
         final SharedPreferences prefs = getSharedPreferences(context);
         return prefs.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, false);
     }
@@ -80,7 +73,7 @@ final class SettingsDAO {
     /**
      * @return the user's home timezone
      */
-    public static TimeZone getHomeTimeZone(Context context) {
+    static TimeZone getHomeTimeZone(Context context) {
         final SharedPreferences prefs = getSharedPreferences(context);
         final String defaultTimeZoneId = TimeZone.getDefault().getID();
         final String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, defaultTimeZoneId);
@@ -90,15 +83,25 @@ final class SettingsDAO {
     /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
-    public static ClockStyle getClockStyle(Context context) {
+    static ClockStyle getClockStyle(Context context) {
         return getClockStyle(context, SettingsActivity.KEY_CLOCK_STYLE);
     }
 
     /**
      * @return a value indicating whether analog or digital clocks are displayed on the screensaver
      */
-    public static ClockStyle getScreensaverClockStyle(Context context) {
+    static ClockStyle getScreensaverClockStyle(Context context) {
         return getClockStyle(context, ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
+    }
+
+    /**
+     * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
+     *      has yet been made
+     */
+    static Uri getTimerRingtoneUri(Context context, Uri defaultUri) {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        final String uriString = prefs.getString(SettingsActivity.KEY_TIMER_RINGTONE, null);
+        return uriString == null ? defaultUri : Uri.parse(uriString);
     }
 
     private static ClockStyle getClockStyle(Context context, String prefKey) {
@@ -106,5 +109,13 @@ final class SettingsDAO {
         final SharedPreferences prefs = getSharedPreferences(context);
         final String clockStyle = prefs.getString(prefKey, defaultStyle);
         return ClockStyle.valueOf(clockStyle.toUpperCase());
+    }
+
+    private static SharedPreferences getSharedPreferences(Context context) {
+        if (sPrefs == null) {
+            sPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        }
+
+        return sPrefs;
     }
 }

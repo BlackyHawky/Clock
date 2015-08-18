@@ -17,6 +17,7 @@
 package com.android.deskclock.data;
 
 import android.content.Context;
+import android.net.Uri;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -45,8 +46,11 @@ public final class DataModel {
     /** The model from which settings are fetched. */
     private SettingsModel mSettingsModel;
 
-    /** The model from which {@link City} objects are fetched. */
+    /** The model from which city data are fetched. */
     private CityModel mCityModel;
+
+    /** The model from which timer data are fetched. */
+    private TimerModel mTimerModel;
 
     public static DataModel getDataModel() {
         return sDataModel;
@@ -64,6 +68,7 @@ public final class DataModel {
         mContext = context.getApplicationContext();
         mSettingsModel = new SettingsModel(mContext);
         mCityModel = new CityModel(mContext, mSettingsModel);
+        mTimerModel = new TimerModel(mContext, mSettingsModel);
     }
 
     //
@@ -141,6 +146,26 @@ public final class DataModel {
     public void toggleCitySort() {
         enforceMainLooper();
         mCityModel.toggleCitySort();
+    }
+
+    //
+    // Timers
+    //
+
+    /**
+     * @return the uri of the ringtone to play for all timers
+     */
+    public Uri getTimerRingtoneUri() {
+        enforceMainLooper();
+        return mTimerModel.getTimerRingtoneUri();
+    }
+
+    /**
+     * @return the title of the ringtone that is played for all timers
+     */
+    public String getTimerRingtoneTitle() {
+        enforceMainLooper();
+        return mTimerModel.getTimerRingtoneTitle();
     }
 
     //

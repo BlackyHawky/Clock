@@ -17,7 +17,9 @@
 package com.android.deskclock.data;
 
 import android.content.Context;
+import android.net.Uri;
 
+import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 
@@ -29,6 +31,9 @@ import java.util.TimeZone;
 final class SettingsModel {
 
     private final Context mContext;
+
+    /** Lazily created; cached for the life of the application. */
+    private Uri mDefaultTimerRingtoneUri;
 
     SettingsModel(Context context) {
         mContext = context;
@@ -64,5 +69,20 @@ final class SettingsModel {
         final TimeZone homeTimeZone = SettingsDAO.getHomeTimeZone(mContext);
         final long now = System.currentTimeMillis();
         return homeTimeZone.getOffset(now) != TimeZone.getDefault().getOffset(now);
+    }
+
+    Uri getDefaultTimerRingtoneUri() {
+        if (mDefaultTimerRingtoneUri == null) {
+            final String packageName = mContext.getPackageName();
+            final int resId = R.raw.timer_expire;
+            final String uriString = String.format("android.resource://%s/%d", packageName, resId);
+            mDefaultTimerRingtoneUri = Uri.parse(uriString);
+        }
+
+        return mDefaultTimerRingtoneUri;
+    }
+
+    Uri getTimerRingtoneUri() {
+        return SettingsDAO.getTimerRingtoneUri(mContext, getDefaultTimerRingtoneUri());
     }
 }

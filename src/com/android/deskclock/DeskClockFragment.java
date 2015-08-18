@@ -42,10 +42,13 @@ public class DeskClockFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        final DeskClock deskclock = getDeskClock();
-        mFab = deskclock.getFab();
-        mLeftButton = deskclock.getLeftButton();
-        mRightButton = deskclock.getRightButton();
+        final Activity activity = getActivity();
+        if (activity instanceof DeskClock) {
+            final DeskClock deskClockActivity = (DeskClock) activity;
+            mFab = deskClockActivity.getFab();
+            mLeftButton = deskClockActivity.getLeftButton();
+            mRightButton = deskClockActivity.getRightButton();
+        }
     }
 
     public void setFabAppearance() {

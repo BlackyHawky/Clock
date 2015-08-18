@@ -16,7 +16,6 @@
 
 package com.android.deskclock.alarms;
 
-import android.Manifest;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +27,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 import com.android.deskclock.provider.Alarm;
 
 /**
@@ -41,13 +38,11 @@ public final class RingtoneDataManager {
     private static final String PREF_KEY_DEFAULT_ALARM_RINGTONE_URI = "default_alarm_ringtone_uri";
 
     private final Bundle mCache; // Key: ringtone uri, value: ringtone title
-    private final Fragment mFragment;
     private final Context mAppContext;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
 
     public RingtoneDataManager(Fragment fragment, Bundle savedState,
             AlarmUpdateHandler alarmUpdateHandler) {
-        mFragment = fragment;
         mAppContext = fragment.getActivity().getApplicationContext();
         mAlarmUpdateHandler = alarmUpdateHandler;
         Bundle cache = null;
@@ -71,32 +66,19 @@ public final class RingtoneDataManager {
         // Try the cache first
         String title = mCache.getString(uri.toString());
         if (title == null) {
-            // If the user cannot read the ringtone file, insert our own name rather than the
-            // ugly one returned by Ringtone.getTitle().
-            if (!Utils.hasPermissionToDisplayRingtoneTitle(mAppContext, uri)) {
-                title = mAppContext.getString(R.string.custom_ringtone);
-            } else {
-                // This is slow because a media player is created during Ringtone object creation.
-                final Ringtone ringTone = RingtoneManager.getRingtone(mAppContext, uri);
-                if (ringTone == null) {
-                    LogUtils.i("No ringtone for uri %s", uri.toString());
-                    return null;
-                }
-                title = ringTone.getTitle(mAppContext);
+            // This is slow because a media player is created during Ringtone object creation.
+            final Ringtone ringTone = RingtoneManager.getRingtone(mAppContext, uri);
+            if (ringTone == null) {
+                LogUtils.i("No ringtone for uri %s", uri.toString());
+                return null;
             }
+            title = ringTone.getTitle(mAppContext);
 
             if (title != null) {
                 mCache.putString(uri.toString(), title);
             }
         }
         return title;
-    }
-
-    /**
-     * Clears the cached ringtone titles.
-     */
-    public void clearTitleCache() {
-        mCache.clear();
     }
 
     /**
@@ -136,12 +118,5 @@ public final class RingtoneDataManager {
         }
 
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-
-        // If the user chose an external ringtone and has not yet granted the permission to read
-        // external storage, ask them for that permission now.
-        if (!Utils.hasPermissionToDisplayRingtoneTitle(mAppContext, uri)) {
-            final String[] perms = { Manifest.permission.READ_EXTERNAL_STORAGE };
-            mFragment.requestPermissions(perms, R.id.request_permission_code_external_storage);
-        }
     }
 }
