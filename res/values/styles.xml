@@ -24,6 +24,7 @@
 
     <style name="BaseActivityTheme" parent="Theme.AppCompat">
         <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
+        <item name="android:windowBackground">@color/default_background</item>
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="colorAccent">@color/color_accent</item>
@@ -62,39 +63,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="DeskClock" parent="@style/BaseActivityTheme">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@color/default_background</item>
-
-        <!-- Attributes from support.v7.appcompat -->
-        <item name="actionBarStyle">@style/DeskClockActionBarStyle</item>
-        <item name="actionBarTabStyle">@style/DeskClockTabStyle</item>
-        <item name="actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
-    </style>
-
     <style name="DeskClockTabBaseStyle" parent="Widget.AppCompat.ActionBar.TabView">
         <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
         <item name="android:paddingRight">@dimen/actionbar_tab_padding</item>
         <item name="android:gravity">center</item>
-    </style>
-
-    <style name="DeskClockTabStyle" parent="DeskClockTabBaseStyle">
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-    </style>
-
-    <style name="DeskClockTabBarStyle" parent="Widget.AppCompat.ActionBar.TabBar">
-        <item name="android:dividerPadding">12dp</item>
-        <item name="android:gravity">center</item>
-        <!-- Attributes from support.v7.appcompat -->
-        <item name="showDividers">none</item>
-    </style>
-
-    <style name="DeskClockActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@null</item>
-        <item name="android:backgroundStacked">@null</item>
-        <item name="android:backgroundSplit">@null</item>
-        <!--suppress CheckTagEmptyBody Empty displayOptions to hide app title at launch. -->
-        <item name="displayOptions"></item>
     </style>
 
     <style name="SettingsTheme" parent="BaseActivityTheme">
@@ -132,6 +104,8 @@
     </style>
 
     <style name="AlarmAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
+
+    <style name="DeskClockTheme" parent="@style/TranslucentDecorActivityTheme" />
 
     <style name="TimerAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
 
