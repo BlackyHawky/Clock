@@ -16,13 +16,11 @@
 
 package com.android.deskclock;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -33,6 +31,8 @@ import android.provider.Settings;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.android.deskclock.data.DataModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,8 +63,6 @@ public class SettingsActivity extends BaseActivity {
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
-
-    private static final int REQUEST_CODE_PERMISSIONS = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,16 +153,7 @@ public class SettingsActivity extends BaseActivity {
                 case KEY_TIMER_RINGTONE:
                     final RingtonePreference timerRingtonePref = (RingtonePreference)
                             findPreference(KEY_TIMER_RINGTONE);
-                    final Uri uri = Uri.parse((String) newValue);
-                    Utils.setTimerRingtoneName(getActivity(), uri);
-
-                    // If the user chose an external ringtone and has not yet granted the permission to read
-                    // external storage, ask them for that permission now.
-                    if (!Utils.hasPermissionToDisplayRingtoneTitle(getActivity(), uri)) {
-                        final String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                        requestPermissions(perms, REQUEST_CODE_PERMISSIONS);
-                    }
-                    timerRingtonePref.setSummary(Utils.getTimerRingtoneName(getActivity()));
+                    timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
                     break;
             }
             // Set result so DeskClock knows to refresh itself
@@ -278,7 +267,7 @@ public class SettingsActivity extends BaseActivity {
             final SnoozeLengthDialog snoozePref =
                     (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
             snoozePref.setSummary();
-            
+
             final CrescendoLengthDialog alarmCrescendoPref =
                     (CrescendoLengthDialog) findPreference(KEY_ALARM_CRESCENDO);
             alarmCrescendoPref.setSummary();
@@ -299,9 +288,12 @@ public class SettingsActivity extends BaseActivity {
             weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
             weekStartPref.setOnPreferenceChangeListener(this);
 
-            final Preference ringtonePref = findPreference(KEY_TIMER_RINGTONE);
-            ringtonePref.setSummary(Utils.getTimerRingtoneName(getActivity()));
-            ringtonePref.setOnPreferenceChangeListener(this);
+            final RingtonePreference timerRingtonePref =
+                    (RingtonePreference) findPreference(KEY_TIMER_RINGTONE);
+            timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+            timerRingtonePref.setOnPreferenceChangeListener(this);
+            timerRingtonePref.setShowSilent(false);
+            timerRingtonePref.setShowDefault(false);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

@@ -33,7 +33,6 @@
     <!-- READ_PHONE_STATE is required to determine when a phone call exists prior to M -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- READ_EXTERNAL_STORAGE is required to play custom ringtones from the SD card prior to M -->
-    <!-- It is also required to display user-friendly names for custom ringtones in the UI. -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application android:label="@string/app_label"

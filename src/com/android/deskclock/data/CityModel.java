@@ -76,11 +76,11 @@ final class CityModel {
         mContext = context;
         mSettingsModel = settingsModel;
 
-        // Clear caches effected by locale when locale changes.
+        // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
         mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
 
-        // Clear caches effected by preferences when preferences change.
+        // Clear caches affected by preferences when preferences change.
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
@@ -177,7 +177,7 @@ final class CityModel {
     void setSelectedCities(Collection<City> cities) {
         CityDAO.setSelectedCities(mContext, cities);
 
-        // Clear caches effected by this update.
+        // Clear caches affected by this update.
         mAllCities = null;
         mSelectedCities = null;
         mUnselectedCities = null;
@@ -211,7 +211,7 @@ final class CityModel {
     void toggleCitySort() {
         mSettingsModel.toggleCitySort();
 
-        // Clear caches effected by this update.
+        // Clear caches affected by this update.
         mAllCities = null;
         mUnselectedCities = null;
     }

@@ -83,8 +83,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.alarm_clock, container, false);
 
@@ -258,14 +257,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            int[] grantResults) {
-        // The permission change may alter the cached ringtone titles so clear them.
-        // (e.g. READ_EXTERNAL_STORAGE is granted or revoked)
-        mRingtoneDataManager.clearTitleCache();
-    }
-
-    @Override
     public void setSmoothScrollStableId(long stableId) {
         mScrollToAlarmId = stableId;
     }
@@ -278,8 +269,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void setFabAppearance() {
-        final DeskClock activity = (DeskClock) getActivity();
-        if (mFab == null || activity.getSelectedTab() != DeskClock.ALARM_TAB_INDEX) {
+        if (mFab == null || getDeskClock().getSelectedTab() != DeskClock.ALARM_TAB_INDEX) {
             return;
         }
         mFab.setVisibility(View.VISIBLE);
@@ -289,9 +279,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void setLeftRightButtonAppearance() {
-        final DeskClock activity = (DeskClock) getActivity();
         if (mLeftButton == null || mRightButton == null ||
-                activity.getSelectedTab() != DeskClock.ALARM_TAB_INDEX) {
+                getDeskClock().getSelectedTab() != DeskClock.ALARM_TAB_INDEX) {
             return;
         }
         mLeftButton.setVisibility(View.INVISIBLE);
