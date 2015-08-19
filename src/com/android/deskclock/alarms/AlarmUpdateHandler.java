@@ -19,12 +19,15 @@ package com.android.deskclock.alarms;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.text.format.DateFormat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.ToastMaster;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -169,6 +172,20 @@ public final class AlarmUpdateHandler implements View.OnTouchListener {
             }
         };
         deleteTask.execute();
+    }
+
+    /**
+     * Show a toast when an alarm is predismissed.
+     *
+     * @param instance Instance being predismissed.
+     */
+    public void showPredismissToast(AlarmInstance instance) {
+        final String time = DateFormat.getTimeFormat(mAppContext).format(
+                instance.getAlarmTime().getTime());
+        final String text = mAppContext.getString(R.string.alarm_is_dismissed, time);
+        Toast toast = Toast.makeText(mAppContext, text, Toast.LENGTH_LONG);
+        ToastMaster.setToast(toast);
+        toast.show();
     }
 
     /**
