@@ -20,7 +20,6 @@ import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.res.Configuration;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -57,7 +56,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     // Views
     private ViewGroup mMainLayout;
     private RecyclerView mRecyclerView;
-    private View mFooterView;
 
     // Data
     private long mScrollToAlarmId = Alarm.INVALID_ID;
@@ -87,18 +85,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.alarm_clock, container, false);
 
-        boolean isLandscape = getResources().getConfiguration().orientation
-                == Configuration.ORIENTATION_LANDSCAPE;
-        View menuButton = v.findViewById(R.id.menu_button);
-        if (menuButton != null) {
-            if (isLandscape) {
-                menuButton.setVisibility(View.GONE);
-            } else {
-                menuButton.setVisibility(View.VISIBLE);
-                setupFakeOverflowMenuButton(menuButton);
-            }
-        }
-
         mRecyclerView = (RecyclerView) v.findViewById(R.id.alarms_recycler_view);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -108,10 +94,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler = new AlarmUpdateHandler(getActivity(), this,
                 (ViewGroup) v.findViewById(R.id.undo_frame));
         mRingtoneDataManager = new RingtoneDataManager(this, savedState, mAlarmUpdateHandler);
-
-        mFooterView = v.findViewById(R.id.alarms_footer_view);
-        mFooterView.setOnTouchListener(mAlarmUpdateHandler);
-
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView,
                 v.findViewById(R.id.alarms_empty_view));
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mRingtoneDataManager,

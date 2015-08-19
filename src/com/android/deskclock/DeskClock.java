@@ -22,7 +22,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -255,19 +254,13 @@ public class DeskClock extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // We only want to show it as a menu in landscape, and only for clock/alarm fragment.
         mMenu = menu;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            if (mTabLayout.getSelectedTabPosition() == ALARM_TAB_INDEX ||
-                    mTabLayout.getSelectedTabPosition() == CLOCK_TAB_INDEX) {
-                // Clear the menu so that it doesn't get duplicate items in case onCreateOptionsMenu
-                // was called multiple times.
-                menu.clear();
-                getMenuInflater().inflate(R.menu.desk_clock_menu, menu);
-            }
-            // Always return true for landscape, regardless of whether we've inflated the menu, so
-            // that when we switch tabs this method will get called and we can inflate the menu.
-            return true;
-        }
-        return false;
+        // Clear the menu so that it doesn't get duplicate items in case onCreateOptionsMenu
+        // was called multiple times.
+        menu.clear();
+        getMenuInflater().inflate(R.menu.desk_clock_menu, menu);
+        // Always return true, regardless of whether we've inflated the menu, so
+        // that when we switch tabs this method will get called and we can inflate the menu.
+        return true;
     }
 
     @Override
@@ -285,10 +278,10 @@ public class DeskClock extends BaseActivity
 
         // Hide "lights out" for timer.
         MenuItem nightMode = menu.findItem(R.id.menu_item_night_mode);
-        if (mTabLayout.getSelectedTabPosition() == ALARM_TAB_INDEX) {
-            nightMode.setVisible(false);
-        } else if (mTabLayout.getSelectedTabPosition() == CLOCK_TAB_INDEX) {
+        if (mTabLayout.getSelectedTabPosition() == CLOCK_TAB_INDEX) {
             nightMode.setVisible(true);
+        } else {
+            nightMode.setVisible(false);
         }
     }
 
@@ -454,12 +447,8 @@ public class DeskClock extends BaseActivity
             // Only show the overflow menu for alarm and world clock.
             if (mMenu != null) {
                 // Make sure the menu's been initialized.
-                if (position == ALARM_TAB_INDEX || position == CLOCK_TAB_INDEX) {
-                    mMenu.setGroupVisible(R.id.menu_items, true);
-                    onCreateOptionsMenu(mMenu);
-                } else {
-                    mMenu.setGroupVisible(R.id.menu_items, false);
-                }
+                mMenu.setGroupVisible(R.id.menu_items, true);
+                onCreateOptionsMenu(mMenu);
             }
             mSelectedTab = position;
 
