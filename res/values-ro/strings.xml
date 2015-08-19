@@ -51,7 +51,7 @@
       <item quantity="one">un minut</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarmă oprită"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Amânaţi"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Amânați"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="few">Se amână pentru <xliff:g id="MINUTES">%d</xliff:g> minute.</item>
       <item quantity="other">Se amână pentru <xliff:g id="MINUTES">%d</xliff:g> de minute.</item>
@@ -135,15 +135,15 @@
     <string name="delete" msgid="5732434972457000541">"Ștergeţi"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volum alarmă"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silenţios"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Amânaţi sau anulaţi alarma."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Amânați sau anulați alarma."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (amânat)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarmă setată pentru <xliff:g id="TIME">%s</xliff:g>. Atingeţi pentru a anula."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butoane de volum"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Funcţii buton"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Amânaţi"</item>
-    <item msgid="3450979320164769576">"Închideţi"</item>
-    <item msgid="6302517608411378024">"Nu faceţi nimic"</item>
+    <item msgid="7972756698723318690">"Amânați"</item>
+    <item msgid="3450979320164769576">"Închideți"</item>
+    <item msgid="6302517608411378024">"Nu faceți nimic"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Setaţi tonul de apel prestabilit"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Alarme"</string>
@@ -209,7 +209,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> de secunde</item>
       <item quantity="one">O secundă</item>
     </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Adăugaţi un temporizator"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Adăugați un temporizator"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Ștergeţi"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Ștergeți <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -243,7 +243,7 @@
     <item msgid="8483930821046925592">"Digital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Ceas automat pentru ora de acasă"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Când călătoriţi într-o zonă în care ora este diferită, adăugaţi un ceas pentru ora de acasă"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Când călătoriți într-o zonă în care ora este diferită, adăugați un ceas pentru ora de acasă"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Fus orar de acasă"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Fus orar de acasă"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Anulați"</string>
