@@ -152,7 +152,7 @@ public final class AlarmTimeClickHandler {
                 context, AlarmStateManager.ALARM_DISMISS_TAG, alarmInstance,
                 AlarmInstance.PREDISMISSED_STATE);
         context.sendBroadcast(dismissIntent);
-        // TODO: pop toast that alarm has been dismissed
+        mAlarmUpdateHandler.showPredismissToast(alarmInstance);
     }
 
     public void onRingtoneClicked(Alarm alarm) {
