@@ -120,6 +120,7 @@ public class ActionableToastBar extends LinearLayout {
 
         mHidden = false;
         getShowAnimation().start();
+        announceForAccessibility(descriptionText);
     }
 
     /**

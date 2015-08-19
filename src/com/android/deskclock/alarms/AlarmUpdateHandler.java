@@ -212,7 +212,7 @@ public final class AlarmUpdateHandler implements View.OnTouchListener {
                               mDeletedAlarm = null;
                               asyncAddAlarm(deletedAlarm);
                           }
-                      }, 0, mAppContext.getResources().getString(R.string.alarm_deleted),
+                      }, 0, mAppContext.getString(R.string.alarm_deleted),
                 true, R.string.alarm_undo, true);
     }
 
