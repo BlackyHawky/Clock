@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.text.format.DateFormat;
 
 import com.android.deskclock.LabelDialogFragment;
@@ -89,6 +90,15 @@ public final class AlarmTimeClickHandler {
             alarm.vibrate = newState;
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
             LogUtils.d(TAG, "Updating vibrate state to " + newState);
+
+            if (newState) {
+                // Buzz the vibrator to preview the alarm firing behavior.
+                final Context context = mFragment.getActivity();
+                final Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                if (v.hasVibrator()) {
+                    v.vibrate(300);
+                }
+            }
         }
     }
 
