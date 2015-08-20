@@ -324,8 +324,11 @@
     <!-- Setting title for changing the alarm volume. -->
     <string name="alarm_volume_title">Alarm volume</string>
 
-    <!-- Summary for the alarm preference when silent is chosen. -->
-    <string name="silent_alarm_summary">Silent</string>
+    <!-- Title for the silent ringtone. -->
+    <string name="silent_ringtone_title">Silent</string>
+
+    <!-- Title for ringtones that cannot be located by uri. -->
+    <string name="unknown_ringtone_title">Unknown</string>
 
     <!-- Text to display in the small text of the notification -->
     <string name="alarm_notify_text">Snooze or dismiss alarm.</string>

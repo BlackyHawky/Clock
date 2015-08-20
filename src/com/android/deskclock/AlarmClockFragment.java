@@ -21,6 +21,8 @@ import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,10 +34,10 @@ import android.widget.Toast;
 
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.alarms.AlarmUpdateHandler;
-import com.android.deskclock.alarms.RingtoneDataManager;
 import com.android.deskclock.alarms.ScrollHandler;
 import com.android.deskclock.alarms.TimePickerCompat;
 import com.android.deskclock.alarms.dataadapter.AlarmTimeAdapter;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.widget.EmptyViewController;
 
@@ -65,7 +67,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private AlarmTimeAdapter mAlarmTimeAdapter;
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private EmptyViewController mEmptyViewController;
-    private RingtoneDataManager mRingtoneDataManager;
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
     private LinearLayoutManager mLayoutManager;
 
@@ -93,12 +94,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
         mAlarmUpdateHandler = new AlarmUpdateHandler(getActivity(), this,
                 (ViewGroup) v.findViewById(R.id.undo_frame));
-        mRingtoneDataManager = new RingtoneDataManager(this, savedState, mAlarmUpdateHandler);
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView,
                 v.findViewById(R.id.alarms_empty_view));
-        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mRingtoneDataManager,
-                mAlarmUpdateHandler, this);
-        mAlarmTimeAdapter = new AlarmTimeAdapter(getActivity(), savedState, mRingtoneDataManager,
+        mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler,
+                this);
+        mAlarmTimeAdapter = new AlarmTimeAdapter(getActivity(), savedState,
                 mAlarmTimeClickHandler, this);
         mRecyclerView.setAdapter(mAlarmTimeAdapter);
 
@@ -151,7 +151,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         super.onSaveInstanceState(outState);
         mAlarmTimeAdapter.saveInstance(outState);
         mAlarmTimeClickHandler.saveInstance(outState);
-        mRingtoneDataManager.saveInstance(outState);
     }
 
     @Override
@@ -226,15 +225,31 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK) {
-            switch (requestCode) {
-                case R.id.request_code_ringtone:
-                    mRingtoneDataManager.saveRingtoneUri(
-                            mAlarmTimeClickHandler.getSelectedAlarm(), data);
-                    break;
-                default:
-                    LogUtils.w("Unhandled request code in onActivityResult: " + requestCode);
-            }
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        switch (requestCode) {
+            case R.id.request_code_ringtone:
+                // Extract the selected ringtone uri.
+                Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
+                if (uri == null) {
+                    uri = Alarm.NO_RINGTONE_URI;
+                }
+
+                // Update the default ringtone for future new alarms.
+                DataModel.getDataModel().setDefaultAlarmRingtoneUri(uri);
+
+                // Set the ringtone uri on the alarm.
+                final Alarm alarm = mAlarmTimeClickHandler.getSelectedAlarm();
+                alarm.alert = uri;
+
+                // Save the change to alarm.
+                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false /* popToast */,
+                        true /* minorUpdate */);
+                break;
+            default:
+                LogUtils.w("Unhandled request code in onActivityResult: " + requestCode);
         }
     }
 

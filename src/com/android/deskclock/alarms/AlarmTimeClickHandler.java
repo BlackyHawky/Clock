@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.text.format.DateFormat;
 
 import com.android.deskclock.LabelDialogFragment;
@@ -44,7 +43,6 @@ public final class AlarmTimeClickHandler {
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
 
     private final Fragment mFragment;
-    private final RingtoneDataManager mRingtoneDataManager;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
     private final ScrollHandler mScrollHandler;
 
@@ -53,10 +51,8 @@ public final class AlarmTimeClickHandler {
     private int[] mDayOrder;
 
     public AlarmTimeClickHandler(Fragment fragment, Bundle savedState,
-            RingtoneDataManager ringtoneDataManager, AlarmUpdateHandler alarmUpdateHandler,
-            ScrollHandler smoothScrollController) {
+            AlarmUpdateHandler alarmUpdateHandler, ScrollHandler smoothScrollController) {
         mFragment = fragment;
-        mRingtoneDataManager = ringtoneDataManager;
         mAlarmUpdateHandler = alarmUpdateHandler;
         mScrollHandler = smoothScrollController;
         if (savedState != null) {
@@ -184,10 +180,6 @@ public final class AlarmTimeClickHandler {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             final Alarm a = new Alarm();
-            a.alert = mRingtoneDataManager.getDefaultRingtoneUri();
-            if (a.alert == null) {
-                a.alert = Settings.System.DEFAULT_ALARM_ALERT_URI;
-            }
             a.hour = hourOfDay;
             a.minutes = minute;
             a.enabled = true;
