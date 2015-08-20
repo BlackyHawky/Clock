@@ -17,6 +17,7 @@
 package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -87,6 +88,7 @@ public final class CollapsedAlarmViewHolder extends AlarmTimeViewHolder {
         boolean boundPreemptiveDismiss =
                 bindPreemptiveDismissButton(context, alarm, alarmInstance);
         hairLine.setVisibility(boundPreemptiveDismiss ? View.GONE : View.VISIBLE);
+        itemView.setContentDescription(clock.getContentDescription());
     }
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {
@@ -103,7 +105,7 @@ public final class CollapsedAlarmViewHolder extends AlarmTimeViewHolder {
     private void bindRepeatText(Context context, Alarm alarm) {
         final String daysOfWeekText =
                 alarm.daysOfWeek.toString(context, Utils.getFirstDayOfWeek(context));
-        if (daysOfWeek != null && daysOfWeek.length() != 0) {
+        if (!TextUtils.isEmpty(daysOfWeekText)) {
             daysOfWeek.setText(daysOfWeekText);
             daysOfWeek.setContentDescription(alarm.daysOfWeek.toAccessibilityString(
                     context, Utils.getFirstDayOfWeek(context)));
