@@ -182,9 +182,9 @@ public class DeskClock extends BaseActivity
     @Override
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
-        mActionBarMenuManager.addMenuController(new SettingMenuItemController(this))
-                .addMenuController(new HelpMenuItemController(this))
-                .addMenuController(nightModeMenuItemController);
+        mActionBarMenuManager.addMenuItemController(new SettingMenuItemController(this))
+                .addMenuItemController(new HelpMenuItemController(this))
+                .addMenuItemController(nightModeMenuItemController);
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         if (icicle != null) {

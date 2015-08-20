@@ -36,6 +36,9 @@ import com.android.deskclock.BaseActivity;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
+import com.android.deskclock.actionbarmenu.HelpMenuItemController;
+import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.android.deskclock.data.DataModel;
 
 import java.util.ArrayList;
@@ -68,35 +71,36 @@ public final class SettingsActivity extends BaseActivity {
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
 
+    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_ALARM);
         setContentView(R.layout.settings);
+        mActionBarMenuManager.addMenuItemController(new HelpMenuItemController(this))
+                .addMenuItemController(new NavUpMenuItemController(this));
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                break;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        mActionBarMenuManager.createOptionsMenu(menu, getMenuInflater());
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        mActionBarMenuManager.prepareShowMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mActionBarMenuManager.handleMenuItemClick(item)) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.settings_menu, menu);
-        MenuItem help = menu.findItem(R.id.menu_item_help);
-        if (help != null) {
-            Utils.prepareHelpMenuItem(this, help);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
 
     public static class PrefsFragment extends PreferenceFragment
             implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
@@ -150,7 +154,7 @@ public final class SettingsActivity extends BaseActivity {
                     break;
                 case KEY_WEEK_START:
                     final ListPreference weekStartPref = (ListPreference)
-                        findPreference(KEY_WEEK_START);
+                            findPreference(KEY_WEEK_START);
                     idx = weekStartPref.findIndexOfValue((String) newValue);
                     weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
                     break;

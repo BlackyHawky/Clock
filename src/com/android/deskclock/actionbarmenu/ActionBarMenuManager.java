@@ -42,7 +42,7 @@ public final class ActionBarMenuManager {
      * <p/>
      * This should be called before activity's onPrepareOptionsMenu event.
      */
-    public ActionBarMenuManager addMenuController(MenuItemController menuItemController) {
+    public ActionBarMenuManager addMenuItemController(MenuItemController menuItemController) {
         mControllers.put(menuItemController.getId(), menuItemController);
         return this;
     }
