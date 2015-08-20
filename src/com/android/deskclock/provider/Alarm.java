@@ -28,6 +28,8 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.android.deskclock.data.DataModel;
+
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -264,7 +266,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         this.vibrate = true;
         this.daysOfWeek = new DaysOfWeek(0);
         this.label = "";
-        this.alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        this.alert = DataModel.getDataModel().getDefaultAlarmRingtoneUri();
         this.deleteAfterUse = false;
     }
 
@@ -300,7 +302,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         daysOfWeek = new DaysOfWeek(p.readInt());
         vibrate = p.readInt() == 1;
         label = p.readString();
-        alert = (Uri) p.readParcelable(null);
+        alert = p.readParcelable(null);
         deleteAfterUse = p.readInt() == 1;
     }
 

@@ -52,6 +52,9 @@ public final class DataModel {
     /** The model from which timer data are fetched. */
     private TimerModel mTimerModel;
 
+    /** The model from which alarm data are fetched. */
+    private AlarmModel mAlarmModel;
+
     public static DataModel getDataModel() {
         return sDataModel;
     }
@@ -69,6 +72,7 @@ public final class DataModel {
         mSettingsModel = new SettingsModel(mContext);
         mCityModel = new CityModel(mContext, mSettingsModel);
         mTimerModel = new TimerModel(mContext, mSettingsModel);
+        mAlarmModel = new AlarmModel(mContext, mSettingsModel);
     }
 
     //
@@ -166,6 +170,35 @@ public final class DataModel {
     public String getTimerRingtoneTitle() {
         enforceMainLooper();
         return mTimerModel.getTimerRingtoneTitle();
+    }
+
+    //
+    // Alarms
+    //
+
+    /**
+     * @return the uri of the ringtone to which all new alarms default
+     */
+    public Uri getDefaultAlarmRingtoneUri() {
+        enforceMainLooper();
+        return mAlarmModel.getDefaultAlarmRingtoneUri();
+    }
+
+    /**
+     * @param uri the uri of the ringtone to which future new alarms will default
+     */
+    public void setDefaultAlarmRingtoneUri(Uri uri) {
+        enforceMainLooper();
+        mAlarmModel.setDefaultAlarmRingtoneUri(uri);
+    }
+
+    /**
+     * @param uri the uri of a ringtone
+     * @return the title of the ringtone with the {@code uri}; {@code null} if it cannot be fetched
+     */
+    public String getAlarmRingtoneTitle(Uri uri) {
+        enforceMainLooper();
+        return mAlarmModel.getAlarmRingtoneTitle(uri);
     }
 
     //

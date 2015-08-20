@@ -18,6 +18,7 @@ package com.android.deskclock.data;
 
 import android.content.Context;
 import android.net.Uri;
+import android.provider.Settings;
 
 import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel.CitySort;
@@ -32,7 +33,7 @@ final class SettingsModel {
 
     private final Context mContext;
 
-    /** Lazily created; cached for the life of the application. */
+    /** The uri of the default ringtone to use for timers until the user explicitly chooses one. */
     private Uri mDefaultTimerRingtoneUri;
 
     SettingsModel(Context context) {
@@ -84,5 +85,14 @@ final class SettingsModel {
 
     Uri getTimerRingtoneUri() {
         return SettingsDAO.getTimerRingtoneUri(mContext, getDefaultTimerRingtoneUri());
+    }
+
+    Uri getDefaultAlarmRingtoneUri() {
+        return SettingsDAO.getDefaultAlarmRingtoneUri(mContext,
+                Settings.System.DEFAULT_ALARM_ALERT_URI);
+    }
+
+    void setDefaultAlarmRingtoneUri(Uri uri) {
+        SettingsDAO.setDefaultAlarmRingtoneUri(mContext, uri);
     }
 }

@@ -300,12 +300,12 @@ public class HandleApiCalls extends Activity {
         alarm.daysOfWeek = daysOfWeek;
         alarm.vibrate = vibrate;
 
-        if (alert == null) {
-            alarm.alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        } else if (AlarmClock.VALUE_RINGTONE_SILENT.equals(alert) || alert.isEmpty()) {
-            alarm.alert = Alarm.NO_RINGTONE_URI;
-        } else {
-            alarm.alert = Uri.parse(alert);
+        if (alert != null) {
+            if (AlarmClock.VALUE_RINGTONE_SILENT.equals(alert) || alert.isEmpty()) {
+                alarm.alert = Alarm.NO_RINGTONE_URI;
+            } else {
+                alarm.alert = Uri.parse(alert);
+            }
         }
         alarm.deleteAfterUse = !daysOfWeek.isRepeating() && skipUi;
 

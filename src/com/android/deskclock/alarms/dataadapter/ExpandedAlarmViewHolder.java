@@ -32,8 +32,8 @@ import android.widget.TextView;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
-import com.android.deskclock.alarms.RingtoneDataManager;
 import com.android.deskclock.alarms.utils.DayOrderUtils;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
@@ -55,19 +55,16 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
     public final View preemptiveDismissContainer;
     public final TextView preemptiveDismissButton;
 
-    private final RingtoneDataManager mRingtoneDataManager;
     private final boolean mHasVibrator;
     private final int[] mDayOrder;
 
     public ExpandedAlarmViewHolder(View itemView,
             final boolean hasVibrator,
-            final RingtoneDataManager ringtoneDataManager,
             final AlarmTimeClickHandler alarmTimeClickHandler,
             final AlarmTimeAdapter alarmTimeAdapter) {
         super(itemView, alarmTimeClickHandler);
         final Context context = itemView.getContext();
         mHasVibrator = hasVibrator;
-        mRingtoneDataManager = ringtoneDataManager;
         mDayOrder = DayOrderUtils.getDayOrder(context);
         final Resources.Theme theme = context.getTheme();
         int[] attrs = new int[] { android.R.attr.selectableItemBackground };
@@ -186,15 +183,11 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
     }
 
     private void bindRingtoneTitle(Context context, Alarm alarm) {
-        final String ringtoneText;
-        if (Alarm.NO_RINGTONE_URI.equals(alarm.alert)) {
-            ringtoneText = context.getString(R.string.silent_alarm_summary);
-        } else {
-            ringtoneText = mRingtoneDataManager.getRingtoneTitle(alarm.alert);
-        }
-        ringtone.setText(ringtoneText);
-        ringtone.setContentDescription(
-                context.getString(R.string.ringtone_description) + " " + ringtone);
+        final String title = DataModel.getDataModel().getAlarmRingtoneTitle(alarm.alert);
+        final String description = context.getString(R.string.ringtone_description);
+
+        ringtone.setText(title);
+        ringtone.setContentDescription(description + " " + title);
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm) {
