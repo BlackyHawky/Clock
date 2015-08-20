@@ -91,7 +91,6 @@
         <item name="android:fastScrollTextColor">@color/white</item>
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
         <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
-
         <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
     </style>
