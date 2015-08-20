@@ -35,6 +35,7 @@ import java.util.TimeZone;
 final class SettingsDAO {
 
     private static final String KEY_SORT_PREFERENCE = "sort_preference";
+    private static final String KEY_DEFAULT_ALARM_RINGTONE_URI = "default_alarm_ringtone_uri";
 
     // Lazily instantiated and cached for the life of the application.
     private static SharedPreferences sPrefs;
@@ -102,6 +103,24 @@ final class SettingsDAO {
         final SharedPreferences prefs = getSharedPreferences(context);
         final String uriString = prefs.getString(SettingsActivity.KEY_TIMER_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
+    }
+
+    /**
+     * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
+     *      has yet been made
+     */
+    static Uri getDefaultAlarmRingtoneUri(Context context, Uri defaultUri) {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE_URI, null);
+        return uriString == null ? defaultUri : Uri.parse(uriString);
+    }
+
+    /**
+     * @param uri identifies the default ringtone to play for new alarms
+     */
+    static void setDefaultAlarmRingtoneUri(Context context, Uri uri) {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        prefs.edit().putString(KEY_DEFAULT_ALARM_RINGTONE_URI, uri.toString()).apply();
     }
 
     private static ClockStyle getClockStyle(Context context, String prefKey) {

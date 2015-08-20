@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
-import com.android.deskclock.alarms.RingtoneDataManager;
 import com.android.deskclock.alarms.ScrollHandler;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -45,7 +44,6 @@ public final class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHo
     private final Context mContext;
     private final LayoutInflater mInflater;
 
-    private final RingtoneDataManager mRingtoneDataManager;
     private final AlarmTimeClickHandler mAlarmTimeClickHandler;
     private final ScrollHandler mScrollHandler;
 
@@ -55,12 +53,10 @@ public final class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHo
     private Cursor mCursor;
 
     public AlarmTimeAdapter(Context context, Bundle savedState,
-            RingtoneDataManager ringtoneDataManager, AlarmTimeClickHandler alarmTimeClickHandler,
-            ScrollHandler smoothScrollController) {
+            AlarmTimeClickHandler alarmTimeClickHandler, ScrollHandler smoothScrollController) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         mScrollHandler = smoothScrollController;
-        mRingtoneDataManager = ringtoneDataManager;
         mAlarmTimeClickHandler = alarmTimeClickHandler;
         mHasVibrator = ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE))
                 .hasVibrator();
@@ -77,8 +73,7 @@ public final class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHo
         if (viewType == VIEW_TYPE_ALARM_TIME_COLLAPSED) {
             return new CollapsedAlarmViewHolder(v, mAlarmTimeClickHandler, this);
         } else {
-            return new ExpandedAlarmViewHolder(v, mHasVibrator, mRingtoneDataManager,
-                    mAlarmTimeClickHandler, this);
+            return new ExpandedAlarmViewHolder(v, mHasVibrator, mAlarmTimeClickHandler, this);
         }
     }
 
