@@ -169,7 +169,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler.hideUndoBar(false, null);
     }
 
-
     public void setLabel(Alarm alarm, String label) {
         alarm.label = label;
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
