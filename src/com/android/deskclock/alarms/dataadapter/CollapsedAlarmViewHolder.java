@@ -88,6 +88,7 @@ public final class CollapsedAlarmViewHolder extends AlarmTimeViewHolder {
         boolean boundPreemptiveDismiss =
                 bindPreemptiveDismissButton(context, alarm, alarmInstance);
         hairLine.setVisibility(boundPreemptiveDismiss ? View.GONE : View.VISIBLE);
+        itemView.setContentDescription(clock.getContentDescription());
     }
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {
