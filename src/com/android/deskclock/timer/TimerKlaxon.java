@@ -21,8 +21,8 @@ import android.net.Uri;
 
 import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
-import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.settings.SettingsActivity;
 
 public abstract class TimerKlaxon {
 

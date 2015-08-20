@@ -45,6 +45,7 @@ import android.widget.ImageView;
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.stopwatch.Stopwatches;

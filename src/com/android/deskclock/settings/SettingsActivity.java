@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.android.deskclock.settings;
 
 import android.app.Activity;
 import android.content.Context;
@@ -32,6 +32,10 @@ import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.deskclock.BaseActivity;
+import com.android.deskclock.LogUtils;
+import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 
 import java.util.ArrayList;
@@ -43,7 +47,7 @@ import java.util.TimeZone;
 /**
  * Settings for the Alarm Clock.
  */
-public class SettingsActivity extends BaseActivity {
+public final class SettingsActivity extends BaseActivity {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_VOLUME = "volume_setting";
@@ -293,7 +297,6 @@ public class SettingsActivity extends BaseActivity {
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
             timerRingtonePref.setOnPreferenceChangeListener(this);
             timerRingtonePref.setShowSilent(false);
-            timerRingtonePref.setShowDefault(false);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

@@ -25,9 +25,9 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel.CitySort;
+import com.android.deskclock.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.Collection;

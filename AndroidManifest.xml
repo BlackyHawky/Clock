@@ -77,7 +77,7 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name="SettingsActivity"
+        <activity android:name=".settings.SettingsActivity"
                 android:label="@string/settings"
                 android:theme="@style/SettingsTheme"
                 android:taskAffinity=""
@@ -295,7 +295,7 @@
         </service>
 
         <!-- Settings activity for screensaver -->
-        <activity android:name=".ScreensaverSettingsActivity"
+        <activity android:name=".settings.ScreensaverSettingsActivity"
                 android:label="@string/screensaver_settings"
                 android:theme="@style/SettingsTheme"
                 android:taskAffinity=""

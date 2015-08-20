@@ -24,9 +24,9 @@ import android.os.Vibrator;
 
 import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
-import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.provider.AlarmInstance;
+import com.android.deskclock.settings.SettingsActivity;
 
 /**
  * Manages playing ringtone and vibrating the device.

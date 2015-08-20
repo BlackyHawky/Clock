@@ -24,7 +24,7 @@ import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.alarms.AlarmStateManager;
-
+import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {

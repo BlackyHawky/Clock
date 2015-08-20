@@ -157,6 +157,14 @@ public final class DataModel {
     //
 
     /**
+     * @return the uri of the default ringtone to play for all timers when no user selection exists
+     */
+    public Uri getDefaultTimerRingtoneUri() {
+        enforceMainLooper();
+        return mTimerModel.getDefaultTimerRingtoneUri();
+    }
+
+    /**
      * @return the uri of the ringtone to play for all timers
      */
     public Uri getTimerRingtoneUri() {
