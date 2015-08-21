@@ -1,4 +1,4 @@
-package com.android.deskclock;
+package com.android.deskclock.settings;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.android.deskclock.R;
+
 /**
  * A dialog preference that shows a number picker for selecting crescendo length
  */
-public class CrescendoLengthDialog extends DialogPreference {
+public final class CrescendoLengthDialog extends DialogPreference {
 
     private static final String DEFAULT_CRESCENDO_TIME = "0";
     private static final int CRESCENDO_TIME_STEP = 5;

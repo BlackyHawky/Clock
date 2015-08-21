@@ -22,10 +22,10 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.R;
-import com.android.deskclock.ScreensaverSettingsActivity;
-import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
+import com.android.deskclock.settings.ScreensaverSettingsActivity;
+import com.android.deskclock.settings.SettingsActivity;
 
 import java.util.TimeZone;
 

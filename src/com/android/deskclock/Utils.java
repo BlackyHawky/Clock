@@ -62,6 +62,7 @@ import android.widget.TextView;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
+import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.Timers;
 

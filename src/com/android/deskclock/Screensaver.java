@@ -32,6 +32,7 @@ import android.view.View;
 import android.widget.TextClock;
 
 import com.android.deskclock.Utils.ScreensaverMoveSaverRunnable;
+import com.android.deskclock.settings.ScreensaverSettingsActivity;
 
 public class Screensaver extends DreamService {
 

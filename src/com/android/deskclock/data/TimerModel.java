@@ -25,7 +25,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
+import com.android.deskclock.settings.SettingsActivity;
 
 /**
  * All timer data will eventually be accessed via this model.
@@ -58,6 +58,10 @@ final class TimerModel {
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
 
+    Uri getDefaultTimerRingtoneUri() {
+        return mSettingsModel.getDefaultTimerRingtoneUri();
+    }
+
     Uri getTimerRingtoneUri() {
         if (mTimerRingtoneUri == null) {
             mTimerRingtoneUri = mSettingsModel.getTimerRingtoneUri();
@@ -68,7 +72,7 @@ final class TimerModel {
 
     String getTimerRingtoneTitle() {
         if (mTimerRingtoneTitle == null) {
-            final Uri defaultUri = mSettingsModel.getDefaultTimerRingtoneUri();
+            final Uri defaultUri = getDefaultTimerRingtoneUri();
             final Uri uri = getTimerRingtoneUri();
 
             if (defaultUri.equals(uri)) {

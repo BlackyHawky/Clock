@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.android.deskclock.settings;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -23,13 +23,15 @@ import android.preference.PreferenceFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.android.deskclock.R;
+
 /**
  * Settings for Clock Daydream
  */
-public class ScreensaverSettingsActivity extends AppCompatActivity {
+public final class ScreensaverSettingsActivity extends AppCompatActivity {
 
     public static final String KEY_CLOCK_STYLE = "screensaver_clock_style";
-    static final String KEY_NIGHT_MODE = "screensaver_night_mode";
+    public static final String KEY_NIGHT_MODE = "screensaver_night_mode";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

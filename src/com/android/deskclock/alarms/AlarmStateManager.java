@@ -40,7 +40,7 @@ import com.android.deskclock.AsyncHandler;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
+import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;

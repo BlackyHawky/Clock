@@ -28,7 +28,7 @@ import android.preference.PreferenceManager;
 
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
+import com.android.deskclock.settings.SettingsActivity;
 
 import java.util.Calendar;
 import java.util.LinkedList;

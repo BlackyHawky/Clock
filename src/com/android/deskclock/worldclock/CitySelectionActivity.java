@@ -42,10 +42,10 @@ import android.widget.TextView;
 
 import com.android.deskclock.BaseActivity;
 import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
