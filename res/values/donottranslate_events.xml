@@ -22,6 +22,7 @@
 
     <!-- Action names for events describe what type of manipulation was performed. -->
     <string name="action_dismiss">Dismiss</string>
+    <string name="action_hide">Hide</string>
     <string name="action_snooze">Snooze</string>
     <string name="action_create">Create</string>
     <string name="action_delete">Delete</string>
