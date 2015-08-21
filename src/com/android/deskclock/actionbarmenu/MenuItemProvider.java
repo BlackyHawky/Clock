@@ -19,12 +19,12 @@ package com.android.deskclock.actionbarmenu;
 import android.app.Activity;
 
 /**
- * Provider for a {@link MenuItemController} instance that handles help menu.
+ * Provider for a {@link MenuItemController} instances.
  */
-public interface HelpMenuItemProvider {
+public interface MenuItemProvider {
 
     /**
-     * provides an implementation of {@link MenuItemController} that handles Help menu.
+     * provides a {@link MenuItemController} that handles menu item.
      */
     MenuItemController provide(Activity activity);
 }

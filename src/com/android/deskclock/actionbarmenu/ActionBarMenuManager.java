@@ -38,13 +38,15 @@ public final class ActionBarMenuManager {
     }
 
     /**
-     * Add a {@link MenuItemController} to the actionbar menu.
+     * Add one or more {@link MenuItemController} to the actionbar menu.
      * <p/>
      * This should be called before activity's onPrepareOptionsMenu event.
      */
-    public ActionBarMenuManager addMenuItemController(MenuItemController menuItemController) {
-        if (menuItemController != null) {
-            mControllers.put(menuItemController.getId(), menuItemController);
+    public ActionBarMenuManager addMenuItemController(MenuItemController... menuItemControllers) {
+        if (menuItemControllers != null) {
+            for (MenuItemController controller : menuItemControllers) {
+                mControllers.put(controller.getId(), controller);
+            }
         }
         return this;
     }

@@ -110,8 +110,8 @@ public final class CitySelectionActivity extends BaseActivity {
                 .addMenuItemController(mSearchMenuItemController)
                 .addMenuItemController(new SortOrderMenuItemController())
                 .addMenuItemController(new SettingMenuItemController(this))
-                .addMenuItemController(
-                        MenuItemControllerFactory.getInstance().buildHelpMenuItemController(this));
+                .addMenuItemController(MenuItemControllerFactory.getInstance()
+                        .buildMenuItemControllers(this));
         mCitiesList = (ListView) findViewById(R.id.cities_list);
         mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mCitiesList.setAdapter(mCitiesAdapter);

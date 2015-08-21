@@ -18,6 +18,9 @@ package com.android.deskclock.actionbarmenu;
 
 import android.app.Activity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Factory that builds optional {@link MenuItemController} instances.
  */
@@ -29,13 +32,23 @@ public final class MenuItemControllerFactory {
         return INSTANCE;
     }
 
-    private HelpMenuItemProvider mHelpMenuItemProvider;
+    private final List<MenuItemProvider> mMenuItemProviders;
 
-    public void setFeedbackMenuItemProvider(HelpMenuItemProvider provider) {
-        mHelpMenuItemProvider = provider;
+    private MenuItemControllerFactory() {
+        mMenuItemProviders = new ArrayList<>();
     }
 
-    public MenuItemController buildHelpMenuItemController(Activity activity) {
-        return mHelpMenuItemProvider == null ? null : mHelpMenuItemProvider.provide(activity);
+    public MenuItemControllerFactory addMenuItemProvider(MenuItemProvider provider) {
+        mMenuItemProviders.add(provider);
+        return this;
+    }
+
+    public MenuItemController[] buildMenuItemControllers(Activity activity) {
+        final int providerSize = mMenuItemProviders.size();
+        final MenuItemController[] controllers = new MenuItemController[providerSize];
+        for (int i = 0; i < providerSize; i++) {
+            controllers[i] = mMenuItemProviders.get(i).provide(activity);
+        }
+        return controllers;
     }
 }
