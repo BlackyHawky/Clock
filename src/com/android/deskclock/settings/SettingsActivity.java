@@ -37,7 +37,7 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
-import com.android.deskclock.actionbarmenu.HelpMenuItemController;
+import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.android.deskclock.data.DataModel;
 
@@ -78,8 +78,9 @@ public final class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_ALARM);
         setContentView(R.layout.settings);
-        mActionBarMenuManager.addMenuItemController(new HelpMenuItemController(this))
-                .addMenuItemController(new NavUpMenuItemController(this));
+        mActionBarMenuManager.addMenuItemController(new NavUpMenuItemController(this))
+            .addMenuItemController(
+                    MenuItemControllerFactory.getInstance().buildHelpMenuItemController(this));
     }
 
     @Override

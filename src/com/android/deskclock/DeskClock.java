@@ -42,8 +42,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
-import com.android.deskclock.actionbarmenu.HelpMenuItemController;
 import com.android.deskclock.actionbarmenu.MenuItemController;
+import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
 import com.android.deskclock.actionbarmenu.SettingMenuItemController;
 import com.android.deskclock.alarms.AlarmStateManager;
@@ -183,7 +183,8 @@ public class DeskClock extends BaseActivity
     protected void onCreate(Bundle icicle) {
         super.onCreate(icicle);
         mActionBarMenuManager.addMenuItemController(new SettingMenuItemController(this))
-                .addMenuItemController(new HelpMenuItemController(this))
+                .addMenuItemController(
+                        MenuItemControllerFactory.getInstance().buildHelpMenuItemController(this))
                 .addMenuItemController(nightModeMenuItemController);
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 

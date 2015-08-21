@@ -41,7 +41,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.actionbarmenu.AbstractMenuItemController;
 import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
-import com.android.deskclock.actionbarmenu.HelpMenuItemController;
+import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.android.deskclock.actionbarmenu.SearchMenuItemController;
 import com.android.deskclock.actionbarmenu.SettingMenuItemController;
@@ -110,7 +110,8 @@ public final class CitySelectionActivity extends BaseActivity {
                 .addMenuItemController(mSearchMenuItemController)
                 .addMenuItemController(new SortOrderMenuItemController())
                 .addMenuItemController(new SettingMenuItemController(this))
-                .addMenuItemController(new HelpMenuItemController(this));
+                .addMenuItemController(
+                        MenuItemControllerFactory.getInstance().buildHelpMenuItemController(this));
         mCitiesList = (ListView) findViewById(R.id.cities_list);
         mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mCitiesList.setAdapter(mCitiesAdapter);
