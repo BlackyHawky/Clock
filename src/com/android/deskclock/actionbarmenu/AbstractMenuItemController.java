@@ -15,12 +15,14 @@
  */
 package com.android.deskclock.actionbarmenu;
 
+import android.view.Menu;
+
 /**
  * Base of all {@link MenuItemController}. It contains basic implementation for enabling controller.
  */
 public abstract class AbstractMenuItemController implements MenuItemController {
     // Whether or not the controller is enabled. By default it's enabled.
-    protected boolean mEnabled = true;
+    private boolean mEnabled = true;
 
     @Override
     public void setEnabled(boolean enabled) {
@@ -30,5 +32,10 @@ public abstract class AbstractMenuItemController implements MenuItemController {
     @Override
     public boolean isEnabled() {
         return mEnabled;
+    }
+
+    @Override
+    public void setInitialState(Menu menu) {
+        // By default, there is nothing to initialize.
     }
 }
