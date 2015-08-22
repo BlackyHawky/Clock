@@ -121,7 +121,7 @@ public final class AlarmTimeAdapter extends RecyclerView.Adapter<AlarmTimeViewHo
     }
 
     /**
-     * Request the UI to expand the alarm at selected position.
+     * Request the UI to expand the alarm at selected position and scroll it into view.
      */
     public void expand(int position) {
         final long stableId = getItemId(position);
