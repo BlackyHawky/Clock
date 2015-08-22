@@ -16,12 +16,9 @@
 
 package com.android.deskclock.worldclock;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
@@ -32,7 +29,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -43,9 +39,14 @@ import android.widget.TextView;
 import com.android.deskclock.BaseActivity;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.actionbarmenu.AbstractMenuItemController;
+import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
+import com.android.deskclock.actionbarmenu.HelpMenuItemController;
+import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
+import com.android.deskclock.actionbarmenu.SearchMenuItemController;
+import com.android.deskclock.actionbarmenu.SettingMenuItemController;
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
-import com.android.deskclock.settings.SettingsActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -72,35 +73,44 @@ import java.util.TimeZone;
  */
 public final class CitySelectionActivity extends BaseActivity {
 
-    /** Key in the state bundle by which the user's query is stored. */
-    private static final String KEY_SEARCH_QUERY = "search_query";
-
-    /** Key in the state bundle by which the user's search mode is stored. */
-    private static final String KEY_SEARCH_MODE = "search_mode";
-
-    /** {@code true} when the user has entered search mode. */
-    private boolean mSearchMode = false;
-
     /** The list of all selected and unselected cities, indexed and possibly filtered. */
     private ListView mCitiesList;
 
     /** The adapter that presents all of the selected and unselected cities. */
     private CityAdapter mCitiesAdapter;
 
+    /** Manages all action bar menu display and click handling. */
+    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
+
+    /** Menu item controller for search view. */
+    private SearchMenuItemController mSearchMenuItemController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
-        mCitiesAdapter = new CityAdapter(this);
-
-        // Restore state information if it exists.
-        if (savedInstanceState != null) {
-            mSearchMode = savedInstanceState.getBoolean(KEY_SEARCH_MODE);
-            mCitiesAdapter.setQueryText(savedInstanceState.getString(KEY_SEARCH_QUERY));
-        }
-
         setContentView(R.layout.cities_activity);
+        mSearchMenuItemController =
+                new SearchMenuItemController(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String query) {
+                        mCitiesAdapter.filter(query);
+                        updateFastScrolling();
+                        return true;
+                    }
+                }, savedInstanceState);
+        mCitiesAdapter = new CityAdapter(this, mSearchMenuItemController);
+        mActionBarMenuManager.addMenuItemController(new NavUpMenuItemController(this))
+                .addMenuItemController(mSearchMenuItemController)
+                .addMenuItemController(new SortOrderMenuItemController())
+                .addMenuItemController(new SettingMenuItemController(this))
+                .addMenuItemController(new HelpMenuItemController(this));
         mCitiesList = (ListView) findViewById(R.id.cities_list);
         mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mCitiesList.setAdapter(mCitiesAdapter);
@@ -111,8 +121,7 @@ public final class CitySelectionActivity extends BaseActivity {
     @Override
     public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
-        bundle.putString(KEY_SEARCH_QUERY, mCitiesAdapter.getQueryText());
-        bundle.putBoolean(KEY_SEARCH_MODE, mSearchMode);
+        mSearchMenuItemController.saveInstance(bundle);
     }
 
     @Override
@@ -133,70 +142,20 @@ public final class CitySelectionActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.cities_menu, menu);
-
-        final MenuItem help = menu.findItem(R.id.menu_item_help);
-        Utils.prepareHelpMenuItem(this, help);
-
-        final SearchListener searchListener = new SearchListener();
-        final MenuItem search = menu.findItem(R.id.menu_item_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
-        searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-        searchView.setQuery(mCitiesAdapter.getQueryText(), false);
-        searchView.setOnCloseListener(searchListener);
-        searchView.setOnQueryTextListener(searchListener);
-        searchView.setOnSearchClickListener(searchListener);
-
-        if (mSearchMode) {
-            searchView.requestFocus();
-            searchView.setIconified(false);
-        }
-
-        return super.onCreateOptionsMenu(menu);
+        mActionBarMenuManager.createOptionsMenu(menu, getMenuInflater());
+        return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        final MenuItem sort = menu.findItem(R.id.menu_item_sort);
-
-        // Adjust the title of the sort menu item to the opposite of the current sort order.
-        if (DataModel.getDataModel().getCitySort() == DataModel.CitySort.NAME) {
-            sort.setTitle(getString(R.string.menu_item_sort_by_gmt_offset));
-        } else {
-            sort.setTitle(getString(R.string.menu_item_sort_by_name));
-        }
-        return super.onPrepareOptionsMenu(menu);
+        mActionBarMenuManager.prepareShowMenu(menu);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.menu_item_sort:
-                // Save the new sort order.
-                DataModel.getDataModel().toggleCitySort();
-
-                // Section headers are influenced by sort order and must be cleared.
-                mCitiesAdapter.clearSectionHeaders();
-
-                // Honor the new sort order in the adapter.
-                mCitiesAdapter.filter(mCitiesAdapter.getQueryText());
-                return true;
-            case R.id.menu_item_settings:
-                startActivity(new Intent(this, SettingsActivity.class));
-                return true;
-            case R.id.menu_item_help:
-                final Intent i = item.getIntent();
-                if (i != null) {
-                    try {
-                        startActivity(i);
-                    } catch (ActivityNotFoundException e) {
-                        // No activity found to match the intent - ignore
-                    }
-                }
-                return true;
+        if (mActionBarMenuManager.handleMenuItemClick(item)) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -208,35 +167,6 @@ public final class CitySelectionActivity extends BaseActivity {
         final boolean enabled = !mCitiesAdapter.isFiltering();
         mCitiesList.setFastScrollAlwaysVisible(enabled);
         mCitiesList.setFastScrollEnabled(enabled);
-    }
-
-    /**
-     * Listeners that update the UI state in response to changes in the search component.
-     */
-    private final class SearchListener implements View.OnClickListener, SearchView.OnCloseListener,
-            SearchView.OnQueryTextListener {
-        @Override
-        public void onClick(View v) {
-            mSearchMode = true;
-        }
-
-        @Override
-        public boolean onClose() {
-            mSearchMode = false;
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String queryText) {
-            mCitiesAdapter.filter(queryText);
-            updateFastScrolling();
-            return true;
-        }
-
-        @Override
-        public boolean onQueryTextSubmit(String s) {
-            return false;
-        }
     }
 
     /**
@@ -306,11 +236,12 @@ public final class CitySelectionActivity extends BaseActivity {
         /** The corresponding location of each precomputed section header. */
         private Integer[] mSectionHeaderPositions;
 
-        /** The query text currently filtering the cities. */
-        private String mQueryText = "";
+        /** Menu item controller for search. Search query is maintained here. */
+        private final SearchMenuItemController mSearchMenuItemController;
 
-        public CityAdapter(Context context) {
+        public CityAdapter(Context context, SearchMenuItemController searchMenuItemController) {
             mContext = context;
+            mSearchMenuItemController = searchMenuItemController;
             mInflater = LayoutInflater.from(context);
 
             mCalendar = Calendar.getInstance();
@@ -522,15 +453,15 @@ public final class CitySelectionActivity extends BaseActivity {
             clearSectionHeaders();
 
             // Recompute filtered cities.
-            filter(getQueryText());
+            filter(mSearchMenuItemController.getQueryText());
         }
 
         /**
          * Filter the cities using the given {@code queryText}.
          */
         private void filter(String queryText) {
-            setQueryText(queryText);
-            final String query = mQueryText.trim().toUpperCase();
+            mSearchMenuItemController.setQueryText(queryText);
+            final String query = queryText.trim().toUpperCase();
 
             // Compute the filtered list of cities.
             final List<City> filteredCities;
@@ -551,9 +482,10 @@ public final class CitySelectionActivity extends BaseActivity {
             notifyDataSetChanged();
         }
 
-        private String getQueryText() { return mQueryText; }
-        private void setQueryText(String queryText) { mQueryText = queryText; }
-        private boolean isFiltering() { return !TextUtils.isEmpty(mQueryText.trim()); }
+        private boolean isFiltering() {
+            return !TextUtils.isEmpty(mSearchMenuItemController.getQueryText().trim());
+        }
+
         private Collection<City> getSelectedCities() { return mUserSelectedCities; }
         private boolean hasHeader() { return !isFiltering() && mOriginalUserSelectionCount > 0; }
 
@@ -620,6 +552,42 @@ public final class CitySelectionActivity extends BaseActivity {
                 this.time = time;
                 this.selected = selected;
             }
+        }
+    }
+
+    private final class SortOrderMenuItemController extends AbstractMenuItemController {
+
+        private static final int SORT_MENU_RES_ID = R.id.menu_item_sort;
+
+        @Override
+        public int getId() {
+            return SORT_MENU_RES_ID;
+        }
+
+        @Override
+        public void showMenuItem(Menu menu) {
+            final MenuItem sortMenuItem = menu.findItem(SORT_MENU_RES_ID);
+            final String title;
+            if (DataModel.getDataModel().getCitySort() == DataModel.CitySort.NAME) {
+                title = getString(R.string.menu_item_sort_by_gmt_offset);
+            } else {
+                title = getString(R.string.menu_item_sort_by_name);
+            }
+            sortMenuItem.setTitle(title);
+            sortMenuItem.setVisible(true);
+        }
+
+        @Override
+        public boolean handleMenuItemClick(MenuItem item) {
+            // Save the new sort order.
+            DataModel.getDataModel().toggleCitySort();
+
+            // Section headers are influenced by sort order and must be cleared.
+            mCitiesAdapter.clearSectionHeaders();
+
+            // Honor the new sort order in the adapter.
+            mCitiesAdapter.filter(mSearchMenuItemController.getQueryText());
+            return true;
         }
     }
 }

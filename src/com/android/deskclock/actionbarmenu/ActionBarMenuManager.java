@@ -57,6 +57,14 @@ public final class ActionBarMenuManager {
             throw new IllegalStateException("Menu has already been inflated.");
         }
         inflater.inflate(R.menu.desk_clock_menu, menu);
+
+        final int controllerSize = mControllers.size();
+        for (int i = 0; i < controllerSize; i++) {
+            final MenuItemController controller = mControllers.valueAt(i);
+            if (controller.isEnabled()) {
+                controller.setInitialState(menu);
+            }
+        }
     }
 
     /**

@@ -39,6 +39,11 @@ public interface MenuItemController {
     int getId();
 
     /**
+     * Sets the initial state for the menu item.
+     */
+    void setInitialState(Menu menu);
+
+    /**
      * Find the menu item this controller cares about, and make it visible.
      *
      * @param menu The menu object containing an item that controller can handle.
