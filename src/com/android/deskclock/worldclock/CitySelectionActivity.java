@@ -106,11 +106,11 @@ public final class CitySelectionActivity extends BaseActivity {
                     }
                 }, savedInstanceState);
         mCitiesAdapter = new CityAdapter(this, mSearchMenuItemController);
-        mActionBarMenuManager.addMenuController(new NavUpMenuItemController(this))
-                .addMenuController(mSearchMenuItemController)
-                .addMenuController(new SortOrderMenuItemController())
-                .addMenuController(new SettingMenuItemController(this))
-                .addMenuController(new HelpMenuItemController(this));
+        mActionBarMenuManager.addMenuItemController(new NavUpMenuItemController(this))
+                .addMenuItemController(mSearchMenuItemController)
+                .addMenuItemController(new SortOrderMenuItemController())
+                .addMenuItemController(new SettingMenuItemController(this))
+                .addMenuItemController(new HelpMenuItemController(this));
         mCitiesList = (ListView) findViewById(R.id.cities_list);
         mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mCitiesList.setAdapter(mCitiesAdapter);
