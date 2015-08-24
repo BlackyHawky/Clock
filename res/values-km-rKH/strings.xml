@@ -33,8 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"ញ័រ"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"ធ្វើ​ម្ដងទៀត"</string>
     <string name="alert" msgid="6506982899651975645">"សំឡេង​រោទ៍"</string>
-    <!-- no translation found for default_timer_ringtone_title (1370799536406862317) -->
-    <skip />
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"កម្មវិធីកំណត់ពេលបានផុតកំណត់"</string>
     <string name="ringtone" msgid="9110746249688559579">"សំឡេង​រោទ៍"</string>
     <string name="time" msgid="8067216534232296518">"ពេលវេលា"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ថ្ងៃស្អែក"</string>
@@ -131,7 +130,8 @@
     <string name="revert" msgid="9100911171235162926">"ត្រឡប់​ទៅ​ដើម"</string>
     <string name="delete" msgid="5732434972457000541">"លុប"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"កម្រិត​សំឡេង​រោទ៍"</string>
-    <string name="silent_alarm_summary" msgid="8605302849408279221">"ស្ងាត់"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"ស្ងាត់"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"មិនស្គាល់"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"ផ្អាក ឬ​បោះបង់​សំឡេង​រោទ៍។"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (បាន​ផ្អាក)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="TIME">%s</xliff:g> ទៀត។  ប៉ះ​ដើម្បី​បោះបង់។"</string>
