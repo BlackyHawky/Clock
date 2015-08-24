@@ -33,8 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"震動"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"重複"</string>
     <string name="alert" msgid="6506982899651975645">"鬧鐘鈴聲"</string>
-    <!-- no translation found for default_timer_ringtone_title (1370799536406862317) -->
-    <skip />
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"計時完畢"</string>
     <string name="ringtone" msgid="9110746249688559579">"鈴聲"</string>
     <string name="time" msgid="8067216534232296518">"時間"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明天"</string>
@@ -131,7 +130,8 @@
     <string name="revert" msgid="9100911171235162926">"復原"</string>
     <string name="delete" msgid="5732434972457000541">"刪除"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"鬧鐘音量"</string>
-    <string name="silent_alarm_summary" msgid="8605302849408279221">"靜音"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"靜音"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"不明"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"繼續貪睡或關閉鬧鐘。"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (貪睡)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"已將鬧鐘設定在 <xliff:g id="TIME">%s</xliff:g>，輕觸即可取消。"</string>
