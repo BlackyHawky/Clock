@@ -336,8 +336,16 @@ public class TimerReceiver extends BroadcastReceiver {
         final PendingIntent p = PendingIntent.getBroadcast(context,
                 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         if (t != null) {
-            am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
-            LogUtils.d(TAG, "Setting times up to " + nextTimesup);
+            if (Utils.isMOrLater()) {
+                // Make sure we fire the timer even when device is in doze mode.
+                // The timer is not guaranteed to fire at the exact time. It can have up to 15
+                // minutes delay.
+                am.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+                LogUtils.d(TAG, "Setting times up to (approximately) " + nextTimesup);
+            } else {
+                am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+                LogUtils.d(TAG, "Setting times up to (exactly) " + nextTimesup);
+            }
         } else {
             // if no timer is found Pending Intents should be canceled
             // to keep the internal state consistent with the UI
