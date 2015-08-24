@@ -69,13 +69,12 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="SettingsTheme" parent="BaseActivityTheme">
+    <style name="SettingsTheme" parent="TranslucentDecorActivityTheme">
         <item name="android:detailsElementBackground">@null</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-
         <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <style name="SettingsActionBarStyle" parent="@style/Widget.AppCompat.Toolbar">
@@ -85,13 +84,15 @@
         <item name="displayOptions">showTitle|homeAsUp</item>
     </style>
 
-    <style name="CitiesTheme" parent="BaseActivityTheme">
+    <style name="CitiesTheme" parent="TranslucentDecorActivityTheme">
         <item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollTextColor">@color/white</item>
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
         <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
         <!-- Attributes from support.v7.appcompat -->
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
     </style>
 
