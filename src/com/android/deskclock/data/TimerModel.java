@@ -26,6 +26,7 @@ import android.preference.PreferenceManager;
 
 import com.android.deskclock.R;
 import com.android.deskclock.settings.SettingsActivity;
+import com.android.deskclock.settings.TimerRingtonePreference;
 
 /**
  * All timer data will eventually be accessed via this model.
@@ -77,6 +78,9 @@ final class TimerModel {
 
             if (defaultUri.equals(uri)) {
                 mTimerRingtoneTitle = mContext.getString(R.string.default_timer_ringtone_title);
+            } else if (TimerRingtonePreference.NO_RINGTONE_URI.equals(uri)) {
+                // Special case: no ringtone has a title of "Silent".
+                mTimerRingtoneTitle = mContext.getString(R.string.silent_timer_ringtone_title);
             } else {
                 final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
                 mTimerRingtoneTitle = ringtone.getTitle(mContext);

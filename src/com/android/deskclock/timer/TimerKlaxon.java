@@ -23,6 +23,7 @@ import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.settings.SettingsActivity;
+import com.android.deskclock.settings.TimerRingtonePreference;
 
 public abstract class TimerKlaxon {
 
@@ -47,8 +48,12 @@ public abstract class TimerKlaxon {
 
         // Look up user-selected timer ringtone.
         final Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
-        getAsyncRingtonePlayer(context).play(uri);
-
+        if (uri.equals(TimerRingtonePreference.NO_RINGTONE_URI)) {
+            // Special case: Silent ringtone
+            LogUtils.i("Playing silent ringtone");
+        } else {
+            getAsyncRingtonePlayer(context).play(uri);
+        }
         sStarted = true;
     }
 
