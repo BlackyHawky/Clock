@@ -58,7 +58,6 @@
     <dimen name="alarm_text_padding">15dp</dimen>
     <dimen name="alarm_text_font_size">16sp</dimen>
     <dimen name="alarm_min_distance">2dp</dimen>
-    <dimen name="alarm_undo_bar_horizontal_margin">8dp</dimen>
     <dimen name="circletimer_dot_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">16dip</dimen>
@@ -143,8 +142,6 @@
     <!-- Size of time zone analog clocks in world clock. -->
     <dimen name="world_clock_analog_size">100dip</dimen>
     <dimen name="world_clock_margin">32dp</dimen>
-
-    <dimen name="toast_bar_bottom_margin_in_conversation">24dip</dimen>
 
     <!-- Height of the button footers. 56 height and 16 on top and bottom. -->
     <dimen name="button_footer_height">88dip</dimen>

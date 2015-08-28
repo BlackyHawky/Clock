@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.android.deskclock;
+package com.android.deskclock.widget.toast;
 
 import android.widget.Toast;
 
-public class ToastMaster {
+public final class ToastManager {
 
     private static Toast sToast = null;
 
-    private ToastMaster() {
+    private ToastManager() {
 
     }
 

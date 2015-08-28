@@ -19,19 +19,17 @@ package com.android.deskclock.alarms;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.text.format.DateFormat;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.ToastMaster;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.widget.ActionableToastBar;
+import com.android.deskclock.widget.toast.SnackbarManager;
 
 import java.util.Calendar;
 import java.util.List;
@@ -39,28 +37,20 @@ import java.util.List;
 /**
  * API for asynchronously mutating a single alarm.
  */
-public final class AlarmUpdateHandler implements View.OnTouchListener {
+public final class AlarmUpdateHandler {
 
     private final Context mAppContext;
     private final ScrollHandler mScrollHandler;
-    private final ViewGroup mUndoFrame;
+    private final View mSnackbarAnchor;
 
     // For undo
     private Alarm mDeletedAlarm;
-    private ActionableToastBar mUndoBar;
 
-    public AlarmUpdateHandler(Context context, ScrollHandler scrollHandler, ViewGroup undoFrame) {
+    public AlarmUpdateHandler(Context context, ScrollHandler scrollHandler,
+            ViewGroup snackbarAnchor) {
         mAppContext = context.getApplicationContext();
         mScrollHandler = scrollHandler;
-        mUndoFrame = undoFrame;
-        mUndoFrame.setOnTouchListener(this);
-        mUndoBar = (ActionableToastBar) mUndoFrame.findViewById(R.id.undo_bar);
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        hideUndoBar(true, event);
-        return false;
+        mSnackbarAnchor = snackbarAnchor;
     }
 
     /**
@@ -94,8 +84,8 @@ public final class AlarmUpdateHandler implements View.OnTouchListener {
                     @Override
                     protected void onPostExecute(AlarmInstance instance) {
                         if (instance != null) {
-                            AlarmUtils.popAlarmSetToast(
-                                    mAppContext, instance.getAlarmTime().getTimeInMillis());
+                            AlarmUtils.popAlarmSetSnackbar(
+                                    mSnackbarAnchor, instance.getAlarmTime().getTimeInMillis());
                         }
                     }
                 };
@@ -151,8 +141,8 @@ public final class AlarmUpdateHandler implements View.OnTouchListener {
                     @Override
                     protected void onPostExecute(AlarmInstance instance) {
                         if (popToast && instance != null) {
-                            AlarmUtils.popAlarmSetToast(
-                                    mAppContext, instance.getAlarmTime().getTimeInMillis());
+                            AlarmUtils.popAlarmSetSnackbar(
+                                    mSnackbarAnchor, instance.getAlarmTime().getTimeInMillis());
                         }
                     }
                 };
@@ -198,37 +188,29 @@ public final class AlarmUpdateHandler implements View.OnTouchListener {
         final String time = DateFormat.getTimeFormat(mAppContext).format(
                 instance.getAlarmTime().getTime());
         final String text = mAppContext.getString(R.string.alarm_is_dismissed, time);
-        Toast toast = Toast.makeText(mAppContext, text, Toast.LENGTH_LONG);
-        ToastMaster.setToast(toast);
-        toast.show();
+        SnackbarManager.show(Snackbar.make(mSnackbarAnchor, text, Snackbar.LENGTH_SHORT));
     }
 
     /**
      * Hides any undo toast.
      */
-    public void hideUndoBar(boolean animate, MotionEvent event) {
-        if (mUndoBar != null) {
-            mUndoFrame.setVisibility(View.GONE);
-            if (event != null && mUndoBar.isEventInToastBar(event)) {
-                // Avoid touches inside the undo bar.
-                return;
-            }
-            mUndoBar.hide(animate);
-        }
+    public void hideUndoBar() {
         mDeletedAlarm = null;
+        SnackbarManager.dismiss();
     }
 
     private void showUndoBar() {
         final Alarm deletedAlarm = mDeletedAlarm;
-        mUndoFrame.setVisibility(View.VISIBLE);
-        mUndoBar.show(new ActionableToastBar.ActionClickedListener() {
-                          @Override
-                          public void onActionClicked() {
-                              mDeletedAlarm = null;
-                              asyncAddAlarm(deletedAlarm);
-                          }
-                      }, 0, mAppContext.getString(R.string.alarm_deleted),
-                true, R.string.alarm_undo, true);
+        final Snackbar snackbar = Snackbar.make(mSnackbarAnchor,
+                mAppContext.getString(R.string.alarm_deleted), Snackbar.LENGTH_LONG)
+                .setAction(R.string.alarm_undo, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mDeletedAlarm = null;
+                        asyncAddAlarm(deletedAlarm);
+                    }
+                });
+        SnackbarManager.show(snackbar);
     }
 
     private AlarmInstance setupAlarmInstance(Alarm alarm) {
