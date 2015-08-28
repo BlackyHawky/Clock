@@ -215,8 +215,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     protected void refreshAlarm(Context context, RemoteViews widget) {
         final String nextAlarm = Utils.getNextAlarm(context);
         if (!TextUtils.isEmpty(nextAlarm)) {
-            widget.setTextViewText(R.id.nextAlarm,
-                    context.getString(R.string.control_set_alarm_with_existing, nextAlarm));
+            widget.setTextViewText(R.id.nextAlarm, nextAlarm);
             widget.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
             if (DigitalAppWidgetService.LOGGING) {
                 Log.v(TAG, "DigitalWidget sets next alarm string to " + nextAlarm);

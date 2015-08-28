@@ -532,9 +532,8 @@ public class Utils {
 
         final String alarm = getNextAlarm(context);
         if (!TextUtils.isEmpty(alarm)) {
-            final String text = context.getString(R.string.control_set_alarm_with_existing, alarm);
             final String description = context.getString(R.string.next_alarm_description, alarm);
-            nextAlarmView.setText(text);
+            nextAlarmView.setText(alarm);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
         } else {

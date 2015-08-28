@@ -398,9 +398,6 @@
     <!-- Label on the main screen control used to set alarm [CHAR LIMIT=30]-->
     <string name="control_set_alarm">Set alarm</string>
 
-    <!-- Label on the main screen control used to set alarm when there is already an existing alarm [CHAR LIMIT=30]-->
-    <string name="control_set_alarm_with_existing"><xliff:g id="time">%s</xliff:g></string>
-
     <!--  ActionBar strings -->
     <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->
     <string name="menu_alarm">Alarm</string>
