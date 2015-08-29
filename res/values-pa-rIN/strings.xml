@@ -34,6 +34,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"ਦੁਹਰਾਓ"</string>
     <string name="alert" msgid="6506982899651975645">"ਅਲਾਰਮ ਰਿੰਗਟੋਨ"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ਟਾਈਮਰ ਦੀ ਮਿਆਦ ਪੁੱਗੀ"</string>
+    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"ਸਾਈਲੈਂਟ"</string>
     <string name="ringtone" msgid="9110746249688559579">"ਰਿੰਗਟੋਨ"</string>
     <string name="time" msgid="8067216534232296518">"ਸਮਾਂ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ਕੱਲ੍ਹ ਨੂੰ"</string>
@@ -156,8 +157,6 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"ਰਿੰਗਟੋਨ ਲੋਡ ਕਰ ਰਿਹਾ ਹੈ…"</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"ਟਾਈਮਰਾਂ ਲਈ ਅਵਾਜ਼ ਪਲੇਬੈਕ ਸੇਵਾ ਘੜੀ ਵਿੱਚ ਸੈਟ ਕੀਤੀ।"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"ਅਲਾਰਮ ਸੈਟ ਕਰੋ"</string>
-    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
-    <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"ਅਲਾਰਮ"</string>
     <string name="menu_timer" msgid="6459070074762877114">"ਟਾਈਮਰ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ਘੜੀ"</string>

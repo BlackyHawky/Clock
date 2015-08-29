@@ -34,6 +34,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Ulangi"</string>
     <string name="alert" msgid="6506982899651975645">"Nada Dering Alarm"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Pewaktu Berakhir"</string>
+    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Senyap"</string>
     <string name="ringtone" msgid="9110746249688559579">"Nada Dering"</string>
     <string name="time" msgid="8067216534232296518">"Waktu"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Besok"</string>
@@ -156,8 +157,6 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Memuat nada dering…"</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Layanan pemutaran suara untuk pewaktu yang disetel di Clock."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Setel alarm"</string>
-    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
-    <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Pewaktu"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Jam"</string>

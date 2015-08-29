@@ -34,6 +34,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Repetă"</string>
     <string name="alert" msgid="6506982899651975645">"Ton de apel pentru alarmă"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizatorul a expirat"</string>
+    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Silențios"</string>
     <string name="ringtone" msgid="9110746249688559579">"Ton de apel"</string>
     <string name="time" msgid="8067216534232296518">"Ora"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mâine"</string>
@@ -164,8 +165,6 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Se încarcă tonul soneriei..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Serviciul de redare a sunetului pentru setarea temporizatoarelor în aplicația Ceas."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Setaţi alarma"</string>
-    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
-    <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Alarmă"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Temporizator"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ceas"</string>
