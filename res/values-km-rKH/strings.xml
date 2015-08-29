@@ -34,6 +34,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"ធ្វើ​ម្ដងទៀត"</string>
     <string name="alert" msgid="6506982899651975645">"សំឡេង​រោទ៍"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"កម្មវិធីកំណត់ពេលបានផុតកំណត់"</string>
+    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"ស្ងាត់"</string>
     <string name="ringtone" msgid="9110746249688559579">"សំឡេង​រោទ៍"</string>
     <string name="time" msgid="8067216534232296518">"ពេលវេលា"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ថ្ងៃស្អែក"</string>
@@ -156,8 +157,6 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"កំពុង​ផ្ទុក​សំឡេង​រោទ៍…"</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"បាន​កំណត់​សេវាកម្ម​បន្លឺ​សំឡេង​រោទ៍​នៅ​ក្នុង​នាឡិកា។"</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"កំណត់​សំឡេង​រោទ៍"</string>
-    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
-    <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"ការ​ជូនដំណឹង"</string>
     <string name="menu_timer" msgid="6459070074762877114">"កម្មវិធី​កំណត់​ពេល"</string>
     <string name="menu_clock" msgid="5612760670606829805">"នាឡិកា"</string>

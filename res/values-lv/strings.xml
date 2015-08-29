@@ -34,6 +34,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Atkārtošana"</string>
     <string name="alert" msgid="6506982899651975645">"Modinātāja signāls"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Taimera laiks ir beidzies"</string>
+    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Klusums"</string>
     <string name="ringtone" msgid="9110746249688559579">"Zvana signāls"</string>
     <string name="time" msgid="8067216534232296518">"Laiks"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Rīt"</string>
@@ -164,8 +165,6 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Notiek zvana signāla ielāde…"</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Skaņas atskaņošanas pakalpojums lietotnē Pulkstenis iestatītajiem taimeriem."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Iestatīt signālu"</string>
-    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
-    <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Signāls"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Taimeris"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Pulkstenis"</string>
