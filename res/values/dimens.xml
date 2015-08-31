@@ -182,6 +182,9 @@
     <!-- Divider height -->
     <dimen name="hairline_height">1dip</dimen>
 
+    <!-- Divider side padding -->
+    <dimen name="hairline_side_padding">6dp</dimen>
+
     <!-- The minimum height/width of any touch target -->
     <dimen name="touch_target_min_size">48dip</dimen>
 
@@ -191,8 +194,14 @@
     <dimen name="fastscroll_preview_padding">8dp</dimen>
     <dimen name="fastscroll_track_width">8dp</dimen>
 
-    <!-- Dimens for dismiss icon padding on Alarms tab -->
-    <dimen name="dismiss_icon_padding">10dp</dimen>
+    <!-- Dimens for drawable padding on Alarms tab -->
+    <dimen name="alarm_horizontal_padding">16dp</dimen>
+
+    <!-- Dimens for icon padding on Alarms tab -->
+    <dimen name="icon_margin">4dp</dimen>
+
+    <!-- Dimens for taller rows on Alarms tab -->
+    <dimen name="tall_row_height">58dp</dimen>
 
     <!-- Floating action button style -->
     <dimen name="fab_margin">0dp</dimen>
