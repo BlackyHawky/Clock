@@ -301,7 +301,6 @@ public final class SettingsActivity extends BaseActivity {
                     (RingtonePreference) findPreference(KEY_TIMER_RINGTONE);
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
             timerRingtonePref.setOnPreferenceChangeListener(this);
-            timerRingtonePref.setShowSilent(false);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

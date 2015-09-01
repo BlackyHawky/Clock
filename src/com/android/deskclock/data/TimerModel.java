@@ -26,7 +26,6 @@ import android.preference.PreferenceManager;
 
 import com.android.deskclock.R;
 import com.android.deskclock.settings.SettingsActivity;
-import com.android.deskclock.settings.TimerRingtonePreference;
 
 /**
  * All timer data will eventually be accessed via this model.
@@ -63,6 +62,10 @@ final class TimerModel {
         return mSettingsModel.getDefaultTimerRingtoneUri();
     }
 
+    boolean isTimerRingtoneSilent() {
+        return Uri.EMPTY.equals(getTimerRingtoneUri());
+    }
+
     Uri getTimerRingtoneUri() {
         if (mTimerRingtoneUri == null) {
             mTimerRingtoneUri = mSettingsModel.getTimerRingtoneUri();
@@ -73,17 +76,20 @@ final class TimerModel {
 
     String getTimerRingtoneTitle() {
         if (mTimerRingtoneTitle == null) {
-            final Uri defaultUri = getDefaultTimerRingtoneUri();
-            final Uri uri = getTimerRingtoneUri();
-
-            if (defaultUri.equals(uri)) {
-                mTimerRingtoneTitle = mContext.getString(R.string.default_timer_ringtone_title);
-            } else if (TimerRingtonePreference.NO_RINGTONE_URI.equals(uri)) {
+            if (isTimerRingtoneSilent()) {
                 // Special case: no ringtone has a title of "Silent".
                 mTimerRingtoneTitle = mContext.getString(R.string.silent_timer_ringtone_title);
             } else {
-                final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
-                mTimerRingtoneTitle = ringtone.getTitle(mContext);
+                final Uri defaultUri = getDefaultTimerRingtoneUri();
+                final Uri uri = getTimerRingtoneUri();
+
+                if (defaultUri.equals(uri)) {
+                    // Special case: default ringtone has a title of "Timer Expired".
+                    mTimerRingtoneTitle = mContext.getString(R.string.default_timer_ringtone_title);
+                } else {
+                    final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
+                    mTimerRingtoneTitle = ringtone.getTitle(mContext);
+                }
             }
         }
 
