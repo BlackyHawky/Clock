@@ -19,26 +19,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:visibility="gone">
+    android:visibility="gone" >
 
     <Button
         android:id="@+id/preemptive_dismiss_button"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/touch_target_min_size"
+        android:layout_height="@dimen/tall_row_height"
         android:background="?attr/selectableItemBackground"
         android:drawableStart="@drawable/ic_alarm_off_white_24dp"
-        android:drawablePadding="@dimen/dismiss_icon_padding"
+        android:drawablePadding="@dimen/alarm_horizontal_padding"
         android:gravity="start|center_vertical"
+        android:paddingStart="@dimen/icon_margin"
         android:textAllCaps="false"
         android:textColor="@color/clock_white"
         android:textSize="@dimen/alarm_text_font_size" />
 
     <View
         android:id="@+id/preemptive_dismiss_hairline"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/hairline_height"
-        android:layout_marginEnd="@dimen/alarm_side_padding"
-        android:layout_marginStart="@dimen/alarm_side_padding"
+        android:layout_marginEnd="@dimen/hairline_side_padding"
+        android:layout_marginStart="@dimen/hairline_side_padding"
         android:background="@color/hairline" />
 
 </LinearLayout>
