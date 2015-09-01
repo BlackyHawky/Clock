@@ -18,7 +18,9 @@ package com.android.deskclock.settings;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
@@ -94,9 +96,22 @@ public final class SnoozeLengthDialog extends DialogPreference {
         return a.getString(index);
     }
 
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        // Restore the value to the NumberPicker.
+        super.onRestoreInstanceState(state);
+
+        // Update the unit display in response to the new value.
+        updateUnits();
+    }
+
     private void updateUnits() {
-        mNumberPickerMinutesView.setText(mContext.getResources()
-                .getQuantityText(R.plurals.snooze_picker_label, mNumberPickerView.getValue()));
+        if (mNumberPickerView != null) {
+            final Resources res = mContext.getResources();
+            final int value = mNumberPickerView.getValue();
+            final CharSequence units = res.getQuantityText(R.plurals.snooze_picker_label, value);
+            mNumberPickerMinutesView.setText(units);
+        }
     }
 
     @Override

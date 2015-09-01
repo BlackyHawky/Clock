@@ -3,6 +3,7 @@ package com.android.deskclock.settings;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.os.Parcelable;
 import android.preference.DialogPreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
@@ -85,9 +86,21 @@ public final class CrescendoLengthDialog extends DialogPreference {
         return a.getString(index);
     }
 
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        // Restore the value to the NumberPicker.
+        super.onRestoreInstanceState(state);
+
+        // Update the unit display in response to the new value.
+        updateUnits();
+    }
+
     private void updateUnits() {
-        final int visibility = mNumberPickerView.getValue() == 0 ? View.INVISIBLE : View.VISIBLE;
-        mNumberPickerSecondsView.setVisibility(visibility);
+        if (mNumberPickerView != null) {
+            final int value = mNumberPickerView.getValue();
+            final int visibility = value == 0 ? View.INVISIBLE : View.VISIBLE;
+            mNumberPickerSecondsView.setVisibility(visibility);
+        }
     }
 
     @Override
