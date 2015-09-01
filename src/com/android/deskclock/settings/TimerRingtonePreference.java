@@ -18,7 +18,6 @@ package com.android.deskclock.settings;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.preference.RingtonePreference;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
@@ -30,7 +29,6 @@ import com.android.deskclock.data.DataModel;
  * behind the default selection.
  */
 public final class TimerRingtonePreference extends RingtonePreference {
-    public static final Uri NO_RINGTONE_URI = Uri.EMPTY;
 
     public TimerRingtonePreference(Context context) {
         super(context);
@@ -56,8 +54,5 @@ public final class TimerRingtonePreference extends RingtonePreference {
         // Replace the default ringtone uri with the beeping ringtone for timers.
         ringtonePickerIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_DEFAULT_URI,
                 DataModel.getDataModel().getDefaultTimerRingtoneUri());
-
-        // Add a "None" option. If selected, the value of the preference will be NO_RINGTONE_URI.
-        ringtonePickerIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, true);
     }
 }

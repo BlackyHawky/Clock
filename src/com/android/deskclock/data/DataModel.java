@@ -165,6 +165,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} iff the ringtone to play for all timers is the silent ringtone
+     */
+    public boolean isTimerRingtoneSilent() {
+        enforceMainLooper();
+        return mTimerModel.isTimerRingtoneSilent();
+    }
+
+    /**
      * @return the uri of the ringtone to play for all timers
      */
     public Uri getTimerRingtoneUri() {
