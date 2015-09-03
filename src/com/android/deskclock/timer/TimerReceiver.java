@@ -97,7 +97,8 @@ public class TimerReceiver extends BroadcastReceiver {
 
         TimerObj t = Timers.findTimer(mTimers, timerId);
 
-        // Actions from notifications that control a single active but not firing timer.
+        // Actions from in-use notifications that control a single active but not firing timer.
+        // If these are being used, we must not be in the app
         switch (actionType) {
             case Timers.NOTIF_PAUSE_TIMER:
                 pauseTimer(context, prefs, t);
@@ -144,20 +145,16 @@ public class TimerReceiver extends BroadcastReceiver {
                 showInUseNotification(context);
             }
 
-            if (PreferenceManager.getDefaultSharedPreferences(context)
-                    .getBoolean(Timers.NOTIF_APP_OPEN, false)) {
-                // Start the TimerAlertFullScreen activity.
-                Intent timersAlert = new Intent(context, TimerAlertFullScreen.class);
-                timersAlert.setFlags(
-                        Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION
-                        | Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                context.startActivity(timersAlert);
-            }
+            // Flag to tell DeskClock to re-sync with the database. Important if the timer
+            // expires while we are still on the timerfragment page; we need to update the fab.
+            prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
+            updateTimesUpNotification(context);
         } else if (Timers.RESET_TIMER.equals(actionType)
                 || Timers.DELETE_TIMER.equals(actionType)
                 || Timers.TIMER_DONE.equals(actionType)) {
             // Stop Ringtone if all timers are not in times-up status
             stopRingtoneIfNoTimesup(context);
+            updateTimesUpNotification(context);
         } else if (Timers.NOTIF_TIMES_UP_STOP.equals(actionType)) {
             if (intent.getBooleanExtra(Timers.NOTIF_STOP_ALL_TIMERS, false)) {
                 LogUtils.d(TAG, "Stopping all timers");
@@ -171,6 +168,7 @@ public class TimerReceiver extends BroadcastReceiver {
             // Flag to tell DeskClock to re-sync with the database. Important if the HUN stop is
             // clicked while TimerFragment is open.
             prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
+            updateTimesUpNotification(context);
         } else if (Timers.NOTIF_TIMES_UP_PLUS_ONE.equals(actionType)) {
             // Find the timer (if it doesn't exists, it was probably deleted).
             if (t == null) {
@@ -197,20 +195,23 @@ public class TimerReceiver extends BroadcastReceiver {
 
             // Stop Ringtone if no timers are in times-up status
             stopRingtoneIfNoTimesup(context);
+            updateTimesUpNotification(context);
         } else if (Timers.TIMER_UPDATE.equals(actionType)) {
             // Find the timer (if it doesn't exists, it was probably deleted).
             if (t == null) {
                 LogUtils.d(TAG, "Timer to update not found in list - do nothing");
                 return;
             }
+            updateTimesUpNotification(context);
+        } else {
+            // In this case, we do not want to update the times up notification because any other
+            // actions (such as updating timer state) do not change the set of Times Up timers,
+            // so that would result in a distracting and unnnecessary refresh of the notification.
         }
         if (intent.getBooleanExtra(Timers.UPDATE_NEXT_TIMESUP, true)) {
             // Update the next "Times up" alarm unless explicitly told not to.
             updateNextTimesup(context);
         }
-
-        // Always update the Times Up notification. This can remove, update, or no-op.
-        updateTimesUpNotification(context);
     }
 
     private void pauseTimer(Context context, SharedPreferences prefs, TimerObj t) {
