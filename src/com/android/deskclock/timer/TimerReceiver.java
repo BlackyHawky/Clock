@@ -501,10 +501,10 @@ public class TimerReceiver extends BroadcastReceiver {
             final PendingIntent pendingAddIntent = PendingIntent.getBroadcast(context,
                     notificationId, addMinuteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            builder.addAction(R.drawable.ic_add_24dp, context.getString(R.string.action_add_minute),
-                    pendingAddIntent);
             builder.addAction(R.drawable.ic_pause_24dp, context.getString(R.string.timer_pause),
                     pendingPauseIntent);
+            builder.addAction(R.drawable.ic_add_24dp, context.getString(R.string.timer_plus_1_min),
+                    pendingAddIntent);
         }
         return builder;
     }
@@ -686,17 +686,16 @@ public class TimerReceiver extends BroadcastReceiver {
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
             // If only one timer is firing, add the +1 button
-            builder.addAction(R.drawable.ic_add_24dp,
-                    context.getString(R.string.timer_plus_1_min),
-                    addOneMinuteAction)
-                    .addAction(
-                            timerObj.getDeleteAfterUse()
+            builder.addAction(timerObj.getDeleteAfterUse()
                                     ? android.R.drawable.ic_menu_close_clear_cancel
                                     : R.drawable.ic_stop_24dp,
                             timerObj.getDeleteAfterUse()
                                     ? context.getString(R.string.timer_done)
                                     : context.getString(R.string.timer_stop),
                             stopIntent)
+                    .addAction(R.drawable.ic_add_24dp,
+                    context.getString(R.string.timer_plus_1_min),
+                    addOneMinuteAction)
                     .setContentTitle(timerObj.getLabelOrDefault(context))
                     .setContentText(context.getString(R.string.timer_times_up));
         }
