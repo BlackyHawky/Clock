@@ -74,12 +74,8 @@ public class TimerReceiver extends BroadcastReceiver {
             case Timers.NOTIF_IN_USE_SHOW:
                 showInUseNotification(context);
                 return;
-            case Timers.NOTIF_TIMES_UP_SHOW:
             case Timers.NOTIF_UPDATE:
                 updateTimesUpNotification(context);
-                return;
-            case Timers.NOTIF_TIMES_UP_CANCEL:
-                cancelTimesUpNotification(context);
                 return;
             case Timers.NOTIF_RESET_ALL_TIMERS:
                 resetAllTimers(context, prefs);
@@ -172,6 +168,9 @@ public class TimerReceiver extends BroadcastReceiver {
                 stopTimer(prefs, t);
             }
             stopRingtoneIfNoTimesup(context);
+            // Flag to tell DeskClock to re-sync with the database. Important if the HUN stop is
+            // clicked while TimerFragment is open.
+            prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
         } else if (Timers.NOTIF_TIMES_UP_PLUS_ONE.equals(actionType)) {
             // Find the timer (if it doesn't exists, it was probably deleted).
             if (t == null) {
@@ -606,12 +605,6 @@ public class TimerReceiver extends BroadcastReceiver {
     private void updateTimesUpNotification(final Context context) {
         final ArrayList<TimerObj> timesUpTimers =  Timers.timersInTimesUp(mTimers);
 
-        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                Timers.NOTIF_APP_OPEN, false)) {
-            cancelTimesUpNotification(context);
-            return;
-        }
-
         if (timesUpTimers.isEmpty()) {
             LogUtils.i("No more timers are firing.");
             cancelTimesUpNotification(context);
@@ -628,7 +621,8 @@ public class TimerReceiver extends BroadcastReceiver {
      * @param context
      * @param timesUpTimers list of Timers in TIMES_UP state
      */
-    private void updateTimesUpNotification(final Context context, ArrayList<TimerObj> timesUpTimers) {
+    private void updateTimesUpNotification(final Context context,
+            ArrayList<TimerObj> timesUpTimers) {
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         final TimerObj timerObj = timesUpTimers.get(0);
