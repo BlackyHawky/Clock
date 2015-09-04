@@ -34,6 +34,7 @@ import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.widget.ActionableToastBar;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * API for asynchronously mutating a single alarm.
@@ -117,20 +118,34 @@ public final class AlarmUpdateHandler implements View.OnTouchListener {
                         Events.sendAlarmEvent(R.string.action_update, R.string.label_deskclock);
                         ContentResolver cr = mAppContext.getContentResolver();
 
-                        if (minorUpdate) {
-                            // For minor updates, don't affect any currently snoozed instances.
-                            AlarmStateManager.deleteNonSnoozeInstances(mAppContext, alarm.id);
-                        } else {
-                            AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
-                        }
-
                         // Update alarm
                         Alarm.updateAlarm(cr, alarm);
-                        if (alarm.enabled) {
-                            return setupAlarmInstance(alarm);
-                        }
 
-                        return null;
+                        if (minorUpdate) {
+                            // just update the instance in the database and update notifications.
+                            final List<AlarmInstance> instanceList =
+                                    AlarmInstance.getInstancesByAlarmId(cr, alarm.id);
+                            for (AlarmInstance instance : instanceList) {
+                                // Make a copy of the existing instance
+                                final AlarmInstance newInstance = new AlarmInstance(instance);
+                                // Copy over minor change data to the instance; we don't know
+                                // exactly which minor field changed, so just copy them all.
+                                newInstance.mVibrate = alarm.vibrate;
+                                newInstance.mRingtone = alarm.alert;
+                                newInstance.mLabel = alarm.label;
+                                // Since we copied the mId of the old instance and the mId is used
+                                // as the primary key in the AlarmInstance table, this will replace
+                                // the existing instance.
+                                AlarmInstance.updateInstance(cr, newInstance);
+                                // Update the notification for this instance.
+                                AlarmNotifications.updateNotification(mAppContext, newInstance);
+                            }
+                            return null;
+                        }
+                        // Otherwise, this is a major update and we're going to re-create the alarm
+                        AlarmStateManager.deleteAllInstances(mAppContext, alarm.id);
+
+                        return alarm.enabled ? setupAlarmInstance(alarm) : null;
                     }
 
                     @Override

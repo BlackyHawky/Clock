@@ -304,6 +304,20 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mAlarmState = SILENT_STATE;
     }
 
+    public AlarmInstance(AlarmInstance instance) {
+         this.mId = instance.mId;
+         this.mYear = instance.mYear;
+         this.mMonth = instance.mMonth;
+         this.mDay = instance.mDay;
+         this.mHour = instance.mHour;
+         this.mMinute = instance.mMinute;
+         this.mLabel = instance.mLabel;
+         this.mVibrate = instance.mVibrate;
+         this.mRingtone = instance.mRingtone;
+         this.mAlarmId = instance.mAlarmId;
+         this.mAlarmState = instance.mAlarmState;
+    }
+
     public AlarmInstance(Cursor c, boolean joinedTable) {
         if (joinedTable) {
             mId = c.getLong(Alarm.INSTANCE_ID_INDEX);
