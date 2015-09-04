@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
+import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.android.deskclock.R;
@@ -127,14 +128,19 @@ final class CityDAO {
 
     /**
      * @param id unique identifier for city
-     * @param formattedName "[index string]=[name]" or "[index string]=[name]:[phonetic name]"
+     * @param formattedName "[index string]=[name]" or "[index string]=[name]:[phonetic name]",
+     *                      If [index string] is empty, we use the first character of name as index,
+     *                      If phonetic name is empty, we use the name itself as phonetic.
      * @param timeZoneId identifies the timezone in which the city is located
      */
     @VisibleForTesting
     static City createCity(String id, String formattedName, String timeZoneId) {
         final String[] parts = formattedName.split("[=:]");
-        final String indexString = parts[0];
         final String name = parts[1];
+        // Extract index string from input, use the first character of city name as index string
+        // if it's not explicitly provided.
+        final String indexString = TextUtils.isEmpty(parts[0])
+                ? String.valueOf(name.charAt(0)) : parts[0];
         final String phoneticName = parts.length == 3 ? parts[2] : name;
 
         final Matcher matcher = INDEX_REGEX.matcher(indexString);
