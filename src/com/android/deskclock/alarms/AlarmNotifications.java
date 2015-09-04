@@ -240,6 +240,28 @@ public final class AlarmNotifications {
         nm.cancel(instance.hashCode());
     }
 
+    /**
+     * Updates the notification for an existing alarm. Use if the label has changed.
+     */
+    public static void updateNotification(Context context, AlarmInstance instance) {
+        switch (instance.mAlarmState) {
+            case AlarmInstance.LOW_NOTIFICATION_STATE:
+                showLowPriorityNotification(context, instance);
+                break;
+            case AlarmInstance.HIGH_NOTIFICATION_STATE:
+                showHighPriorityNotification(context, instance);
+                break;
+            case AlarmInstance.SNOOZE_STATE:
+                showSnoozeNotification(context, instance);
+                break;
+            case AlarmInstance.MISSED_STATE:
+                showMissedNotification(context, instance);
+                break;
+            default:
+                LogUtils.d("No notification to update");
+        }
+    }
+
     public static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
         long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
