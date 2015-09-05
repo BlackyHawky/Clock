@@ -27,6 +27,7 @@ import com.android.deskclock.data.DataModel.ClockStyle;
 import com.android.deskclock.settings.ScreensaverSettingsActivity;
 import com.android.deskclock.settings.SettingsActivity;
 
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -127,7 +128,9 @@ final class SettingsDAO {
         final String defaultStyle = context.getString(R.string.default_clock_style);
         final SharedPreferences prefs = getSharedPreferences(context);
         final String clockStyle = prefs.getString(prefKey, defaultStyle);
-        return ClockStyle.valueOf(clockStyle.toUpperCase());
+        // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
+        // accent to character, which breaks the enum conversion.
+        return ClockStyle.valueOf(clockStyle.toUpperCase(Locale.US));
     }
 
     private static SharedPreferences getSharedPreferences(Context context) {
