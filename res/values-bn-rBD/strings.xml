@@ -134,7 +134,7 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"নীরব"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"অজানা"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"অ্যালার্ম স্নুজ বা খারিজ করুন।"</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (স্নুজ হয়েছে)"</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (পরে মনে করা)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> এর জন্য অ্যালার্ম সেট হয়েছে। বাতিল করার জন্য ছোঁন।"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ভলিউম বোতাম"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"বোতাম প্রভাব"</string>
