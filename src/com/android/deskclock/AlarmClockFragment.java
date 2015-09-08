@@ -24,13 +24,13 @@ import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.alarms.AlarmUpdateHandler;
@@ -40,6 +40,8 @@ import com.android.deskclock.alarms.dataadapter.AlarmTimeAdapter;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.widget.EmptyViewController;
+import com.android.deskclock.widget.toast.SnackbarManager;
+import com.android.deskclock.widget.toast.ToastManager;
 
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
@@ -89,11 +91,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView = (RecyclerView) v.findViewById(R.id.alarms_recycler_view);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         mMainLayout = (ViewGroup) v.findViewById(R.id.main);
-
-        mAlarmUpdateHandler = new AlarmUpdateHandler(getActivity(), this,
-                (ViewGroup) v.findViewById(R.id.undo_frame));
+        mAlarmUpdateHandler = new AlarmUpdateHandler(getActivity(), this, mMainLayout);
         mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView,
                 v.findViewById(R.id.alarms_empty_view));
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler,
@@ -156,7 +155,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ToastMaster.cancelToast();
+        ToastManager.cancelToast();
     }
 
     @Override
@@ -166,7 +165,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         // dismiss the toast bar. However, since there is no way to determine if
         // home was pressed, just dismiss any existing toast bar when restarting
         // the app.
-        mAlarmUpdateHandler.hideUndoBar(false, null);
+        mAlarmUpdateHandler.hideUndoBar();
     }
 
     public void setLabel(Alarm alarm, String label) {
@@ -210,10 +209,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                    R.string.missed_alarm_has_been_deleted, Toast.LENGTH_LONG);
-            ToastMaster.setToast(toast);
-            toast.show();
+            SnackbarManager.show(Snackbar.make(mMainLayout, R.string
+                    .missed_alarm_has_been_deleted, Snackbar.LENGTH_LONG));
         }
     }
 
@@ -259,7 +256,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void onFabClick(View view) {
-        mAlarmUpdateHandler.hideUndoBar(true, null);
+        mAlarmUpdateHandler.hideUndoBar();
         startCreatingAlarm();
     }
 
