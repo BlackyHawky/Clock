@@ -22,6 +22,7 @@
 
         <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
+        <item name="colorControlActivated">?attr/colorAccent</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
     </style>
