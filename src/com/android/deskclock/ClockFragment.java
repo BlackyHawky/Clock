@@ -401,6 +401,11 @@ public class ClockFragment extends DeskClockFragment {
             return view;
         }
 
+        @Override
+        public boolean isEnabled(int position) {
+            return false;
+        }
+
         private City getHomeCity() {
             return DataModel.getDataModel().getHomeCity();
         }
