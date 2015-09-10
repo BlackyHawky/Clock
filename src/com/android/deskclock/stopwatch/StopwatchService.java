@@ -191,27 +191,27 @@ public class StopwatchService extends Service {
                 setImageViewResource(R.id.notification_icon, R.drawable.stat_notify_stopwatch);
 
         if (clockRunning) {
-            // Left button: lap
+            // Right button: lap
             remoteViewsExpanded.setTextViewText(
-                    R.id.swn_left_button, getResources().getText(R.string.sw_lap_button));
-            Intent leftButtonIntent = new Intent(context, StopwatchService.class);
-            leftButtonIntent.setAction(HandleDeskClockApiCalls.ACTION_LAP_STOPWATCH);
-            remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
-                    PendingIntent.getService(context, 0, leftButtonIntent, 0));
-            remoteViewsExpanded.
-                    setTextViewCompoundDrawablesRelative(R.id.swn_left_button,
-                            R.drawable.ic_lap_24dp, 0, 0, 0);
-
-            // Right button: stop clock
-            remoteViewsExpanded.setTextViewText(
-                    R.id.swn_right_button, getResources().getText(R.string.sw_stop_button));
+                    R.id.swn_right_button, getResources().getText(R.string.sw_lap_button));
             Intent rightButtonIntent = new Intent(context, StopwatchService.class);
-            rightButtonIntent.setAction(HandleDeskClockApiCalls.ACTION_STOP_STOPWATCH);
+            rightButtonIntent.setAction(HandleDeskClockApiCalls.ACTION_LAP_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_right_button,
                     PendingIntent.getService(context, 0, rightButtonIntent, 0));
             remoteViewsExpanded.
                     setTextViewCompoundDrawablesRelative(R.id.swn_right_button,
-                            R.drawable.ic_stop_24dp, 0, 0, 0);
+                            R.drawable.ic_lap_24dp, 0, 0, 0);
+
+            // Left button: stop clock
+            remoteViewsExpanded.setTextViewText(
+                    R.id.swn_left_button, getResources().getText(R.string.sw_stop_button));
+            Intent leftButtonIntent = new Intent(context, StopwatchService.class);
+            leftButtonIntent.setAction(HandleDeskClockApiCalls.ACTION_STOP_STOPWATCH);
+            remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
+                    PendingIntent.getService(context, 0, leftButtonIntent, 0));
+            remoteViewsExpanded.
+                    setTextViewCompoundDrawablesRelative(R.id.swn_left_button,
+                            R.drawable.ic_sw_stop_24dp, 0, 0, 0);
 
             // Show the laps if applicable.
             if (numLaps > 0) {
@@ -226,27 +226,27 @@ public class StopwatchService extends Service {
                 remoteViewsExpanded.setViewVisibility(R.id.swn_expanded_laps, View.GONE);
             }
         } else {
-            // Left button: reset clock
+            // Right button: reset clock
             remoteViewsExpanded.setTextViewText(
-                    R.id.swn_left_button, getResources().getText(R.string.sw_reset_button));
-            Intent leftButtonIntent = new Intent(context, StopwatchService.class);
-            leftButtonIntent.setAction(Stopwatches.RESET_AND_LAUNCH_STOPWATCH);
-            remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
-                    PendingIntent.getService(context, 0, leftButtonIntent, 0));
-            remoteViewsExpanded.
-                    setTextViewCompoundDrawablesRelative(R.id.swn_left_button,
-                            R.drawable.ic_reset_24dp, 0, 0, 0);
-
-            // Right button: start clock
-            remoteViewsExpanded.setTextViewText(
-                    R.id.swn_right_button, getResources().getText(R.string.sw_start_button));
+                    R.id.swn_right_button, getResources().getText(R.string.sw_reset_button));
             Intent rightButtonIntent = new Intent(context, StopwatchService.class);
-            rightButtonIntent.setAction(HandleDeskClockApiCalls.ACTION_START_STOPWATCH);
+            rightButtonIntent.setAction(Stopwatches.RESET_AND_LAUNCH_STOPWATCH);
             remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_right_button,
                     PendingIntent.getService(context, 0, rightButtonIntent, 0));
             remoteViewsExpanded.
                     setTextViewCompoundDrawablesRelative(R.id.swn_right_button,
-                            R.drawable.ic_start_24dp, 0, 0, 0);
+                            R.drawable.ic_sw_reset_24dp, 0, 0, 0);
+
+            // Left button: start clock
+            remoteViewsExpanded.setTextViewText(
+                    R.id.swn_left_button, getResources().getText(R.string.sw_start_button));
+            Intent leftButtonIntent = new Intent(context, StopwatchService.class);
+            leftButtonIntent.setAction(HandleDeskClockApiCalls.ACTION_START_STOPWATCH);
+            remoteViewsExpanded.setOnClickPendingIntent(R.id.swn_left_button,
+                    PendingIntent.getService(context, 0, leftButtonIntent, 0));
+            remoteViewsExpanded.
+                    setTextViewCompoundDrawablesRelative(R.id.swn_left_button,
+                            R.drawable.ic_sw_start_24dp, 0, 0, 0);
 
             // Show stopped string.
             remoteViewsCollapsed.
