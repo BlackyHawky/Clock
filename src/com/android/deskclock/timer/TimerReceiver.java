@@ -567,11 +567,31 @@ public class TimerReceiver extends BroadcastReceiver {
         String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours,
                 (int) hours);
 
+        // The verb "remaining" may have to change tense for singular subjects in some languages.
+        String verb = context.getString((minutes > 1 || hours > 1)
+                ? R.string.timer_remaining_multiple
+                : R.string.timer_remaining_single);
+
         boolean dispHour = hours > 0;
         boolean dispMinute = minutes > 0;
-        int index = (dispHour ? 1 : 0) | (dispMinute ? 2 : 0);
-        String[] formats = context.getResources().getStringArray(R.array.timer_notifications);
-        return String.format(formats[index], hourSeq, minSeq);
+
+        int formatStringId;
+        if (dispHour) {
+            if (dispMinute) {
+                // hours > 0 && minutes > 0
+                formatStringId = R.string.timer_notifications_hours_minutes;
+            } else {
+                // hours > 0 && minutes == 0
+                formatStringId = R.string.timer_notifications_hours;
+            }
+        } else if (dispMinute) {
+            // hours == 0 && minutes > 0;
+            formatStringId = R.string.timer_notifications_minutes;
+        } else {
+            // hours == 0 && minutes == 0
+            formatStringId = R.string.timer_notifications_less_min;
+        }
+        return String.format(context.getString(formatStringId), hourSeq, minSeq, verb);
     }
 
     private TimerObj getNextRunningTimer(
