@@ -33,12 +33,20 @@
     </style>
 
     <!-- Custom notification content styles -->
+    <!-- copied TextAppearance.Material.Button -->
+    <style name="TextAppearance.StatusBar.EventContent.Action">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/black_54p</item>
+    </style>
+
     <style name="TextAppearance.StatusBar.EventContent">
-        <item name="android:textSize">@dimen/notification_text_size</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black_54p</item>
     </style>
     <style name="TextAppearance.StatusBar.EventContent.Title">
-        <item name="android:textSize">@dimen/notification_title_text_size</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/black_87p</item>
     </style>
 
