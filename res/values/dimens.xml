@@ -21,7 +21,7 @@
      for different hardware and product builds. -->
 <resources>
     <dimen name="label_text_size">14sp</dimen>
-    <dimen name="label_edittext_padding">18dp</dimen>
+    <dimen name="label_edittext_padding">21dp</dimen>
     <dimen name="time_text_size">120dip</dimen>
     <dimen name="ampm_text_size">20dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
