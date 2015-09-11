@@ -162,12 +162,21 @@
     --><skip />
 
     <!-- Timer notification: how long from now until timer goes off. -->
-    <string-array name="timer_notifications">
-        <item>Less than a minute remaining</item>
-        <item><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> remaining</item>
-        <item><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</item>
-        <item><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</item>
-    </string-array>
+    <string name="timer_notifications_less_min">Less than a minute remaining</string>
+    <string name="timer_notifications_hours"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</string>
+
+    <!--
+        Verb inflection to use for single time units remaining
+        Ex. "1 minute remaining"
+    -->
+    <string name="timer_remaining_single">remaining</string>
+    <!--
+        Verb inflection to use for multiple time units remaining
+        Ex. "2 minutes remaining"
+    -->
+    <string name="timer_remaining_multiple">remaining</string>
 
     <!-- Alarm confirmation toast: Describes how long from now until
          alarm fires -->
