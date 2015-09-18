@@ -142,6 +142,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void smoothScrollTo(int position) {
+        mLayoutManager.setStackFromEnd(true);
         mLayoutManager.scrollToPositionWithOffset(position, 20);
     }
 
