@@ -107,11 +107,15 @@
       <item quantity="one">1 мүнөт</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Эч качан"</string>
-    <!-- no translation found for auto_silence_entries:1 (5431906692406316549) -->
-    <!-- no translation found for auto_silence_entries:2 (7742728812068919959) -->
-    <!-- no translation found for auto_silence_entries:3 (2855948657259647629) -->
-    <!-- no translation found for auto_silence_entries:4 (6330196381284475079) -->
-    <!-- no translation found for auto_silence_entries:5 (7809240121716151904) -->
+  <string-array name="auto_silence_entries">
+    <item msgid="3024545954917711306">"1 мүнөт"</item>
+    <item msgid="5431906692406316549">"5 мүнөт"</item>
+    <item msgid="7742728812068919959">"10 мүнөт"</item>
+    <item msgid="2855948657259647629">"15 мүнөт"</item>
+    <item msgid="6330196381284475079">"20 мүнөт"</item>
+    <item msgid="7809240121716151904">"25 мүнөт"</item>
+    <item msgid="4278641338024561333">"Эч качан"</item>
+  </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Аптанын башталчу күнү"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Ишемби"</item>

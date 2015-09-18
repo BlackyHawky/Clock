@@ -57,7 +57,7 @@
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozen tot <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Volgend alarm"</string>
-    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Uw gemiste alarm is verwijderd"</string>
+    <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Je gemiste alarm is verwijderd"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Nog minder dan een minuut"</item>
     <item msgid="83197792732433351">"Nog <xliff:g id="HOURS">%1$s</xliff:g>"</item>
@@ -212,15 +212,15 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Maximaal 4 timers"</string>
   <string-array name="sw_share_strings">
-    <item msgid="842841032273927988">"U bent wel erg snel."</item>
-    <item msgid="6332879039890727169">"Profiteer van uw inspanningen."</item>
-    <item msgid="815382761274660130">"Androids staan bekend om hun snelheid, maar u bent nog sneller."</item>
+    <item msgid="842841032273927988">"Je bent wel erg snel."</item>
+    <item msgid="6332879039890727169">"Profiteer van je inspanningen."</item>
+    <item msgid="815382761274660130">"Androids staan bekend om hun snelheid, maar jij bent nog sneller."</item>
     <item msgid="7916250650982813737">"Oef."</item>
     <item msgid="6836603904515182333">"Mooie tijden."</item>
     <item msgid="7508085100680861631">"Wat een wonderbaarlijke snelheid."</item>
     <item msgid="5961245252909589573">"Laten we weer gaan tijdreizen."</item>
     <item msgid="5211891900854545940">"Spring gewoon naar links."</item>
-    <item msgid="9071353477103826053">"Haast zit in uw aard."</item>
+    <item msgid="9071353477103826053">"Haast zit in je aard."</item>
     <item msgid="3785193933691117181">"Lichtsnelheid."</item>
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"Thuis"</string>
@@ -232,7 +232,7 @@
     <item msgid="8483930821046925592">"Digitaal"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatische klok voor thuis"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Voeg een klok voor thuis toe wanneer u in een andere tijdzone reist."</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Voeg een klok voor thuis toe wanneer je in een andere tijdzone reist."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Eigen tijdzone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Eigen tijdzone"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Annuleren"</string>
@@ -336,7 +336,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Veeg naar links om te snoozen of naar rechts om te sluiten"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Timer gestopt"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> timers gestopt"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tik om uw timers te bekijken"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tik om je timers te bekijken"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Volgende timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Instellingen voor dromen"</string>
@@ -383,7 +383,7 @@
     <string name="no_timer_set" msgid="3326365650863016606">"Geen timer ingesteld"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Timer verwijderd"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"Timer loopt al"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"Uw verzoek kan niet worden voltooid. Er zijn meerdere timers beschikbaar."</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Je verzoek kan niet worden voltooid. Er zijn meerdere timers beschikbaar."</string>
     <string name="timer_started" msgid="6715582052946641641">"Timer gestart"</string>
     <string name="timer_created" msgid="4381027137335885547">"Timer gemaakt"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ongeldige timerduur"</string>
@@ -397,7 +397,7 @@
     <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> verwijderd"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm kan nog niet worden gesloten omdat het over meer dan 24 uur afgaat"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Alarm sluiten"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kiezen welk alarm u wilt sluiten"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Kiezen welk alarm je wilt sluiten"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Geen actieve alarmen"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarm tien minuten gesnoozed"</string>
 </resources>
