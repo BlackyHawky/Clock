@@ -47,7 +47,7 @@ final class CityDAO {
     // Key to a preference that stores the number of selected cities.
     private static final String NUMBER_OF_CITIES = "number_of_cities";
 
-    // Prefix for a key to a preference entry indicating the id of a selected city.
+    // Prefix for a key to a preference that stores the id of a selected city.
     private static final String CITY_ID = "city_id_";
 
     // Lazily instantiated and cached for the life of the application.

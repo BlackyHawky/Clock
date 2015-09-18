@@ -18,4 +18,8 @@
 <resources>
     <!-- Floating action button style -->
     <dimen name="fab_margin">16dp</dimen>
+
+  <!-- Size of margin between icon and text / title text. -->
+  <dimen name="notification_content_margin_start">0dp</dimen>
+
 </resources>

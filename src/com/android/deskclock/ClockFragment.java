@@ -52,7 +52,7 @@ import static java.util.Calendar.DAY_OF_WEEK;
 /**
  * Fragment that shows the clock (analog or digital), the next alarm info and the world clock.
  */
-public class ClockFragment extends DeskClockFragment {
+public final class ClockFragment extends DeskClockFragment {
 
     private TextClock mDigitalClock;
     private View mAnalogClock, mClockFrame;
@@ -60,8 +60,6 @@ public class ClockFragment extends DeskClockFragment {
     private ListView mCityList;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-
-    private final Handler mHandler = new Handler();
 
     // Updates the UI in response to system setting changes that alter time values and time display.
     private final BroadcastReceiver mBroadcastReceiver = new SystemBroadcastReceiver();
@@ -72,8 +70,17 @@ public class ClockFragment extends DeskClockFragment {
     // Updates dates in the UI on every quarter-hour.
     private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
 
+    private Handler mHandler;
+
     /** The public no-arg constructor required by all fragments. */
     public ClockFragment() {}
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mHandler = new Handler();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
@@ -401,6 +408,9 @@ public class ClockFragment extends DeskClockFragment {
             return view;
         }
 
+        /**
+         * @return {@code false} to prevent the cities from responding to touch
+         */
         @Override
         public boolean isEnabled(int position) {
             return false;

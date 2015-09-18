@@ -26,9 +26,9 @@ import android.preference.PreferenceManager;
 
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Stopwatch;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.stopwatch.StopwatchService;
-import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFullScreenFragment;
 import com.android.deskclock.timer.TimerObj;
 import com.android.deskclock.timer.Timers;
@@ -60,8 +60,8 @@ public class HandleDeskClockApiCalls extends Activity {
     public static final String ACTION_SHOW_STOPWATCH = ACTION_PREFIX + "SHOW_STOPWATCH";
     // starts the current stopwatch
     public static final String ACTION_START_STOPWATCH = ACTION_PREFIX + "START_STOPWATCH";
-    // stops the current stopwatch
-    public static final String ACTION_STOP_STOPWATCH = ACTION_PREFIX + "STOP_STOPWATCH";
+    // pauses the current stopwatch that's currently running
+    public static final String ACTION_PAUSE_STOPWATCH = ACTION_PREFIX + "PAUSE_STOPWATCH";
     // laps the stopwatch that's currently running
     public static final String ACTION_LAP_STOPWATCH = ACTION_PREFIX + "LAP_STOPWATCH";
     // resets the stopwatch if it's stopped
@@ -78,6 +78,10 @@ public class HandleDeskClockApiCalls extends Activity {
     // resets the timer, works for both running and stopped
     public static final String ACTION_RESET_TIMER = ACTION_PREFIX + "RESET_TIMER";
 
+    // extra for actions originating from the notifications
+    public static final String EXTRA_FROM_NOTIFICATION =
+            "com.android.deskclock.extra.FROM_NOTIFICATION";
+
     @Override
     protected void onCreate(Bundle icicle) {
         try {
@@ -90,13 +94,15 @@ public class HandleDeskClockApiCalls extends Activity {
             }
 
             final String action = intent.getAction();
+            LogUtils.i("HandleDeskClockApiCalls " + action);
+
             switch (action) {
                 case ACTION_START_STOPWATCH:
-                case ACTION_STOP_STOPWATCH:
+                case ACTION_PAUSE_STOPWATCH:
                 case ACTION_LAP_STOPWATCH:
                 case ACTION_SHOW_STOPWATCH:
                 case ACTION_RESET_STOPWATCH:
-                    handleStopwatchIntent(action);
+                    handleStopwatchIntent(intent);
                     break;
                 case ACTION_SHOW_TIMERS:
                 case ACTION_DELETE_TIMER:
@@ -108,7 +114,7 @@ public class HandleDeskClockApiCalls extends Activity {
                 case ACTION_SHOW_CLOCK:
                 case ACTION_ADD_CLOCK:
                 case ACTION_DELETE_CLOCK:
-                    handleClockIntent(action);
+                    handleClockIntent(intent);
                     break;
             }
         } finally {
@@ -116,74 +122,83 @@ public class HandleDeskClockApiCalls extends Activity {
         }
     }
 
-    private void handleStopwatchIntent(String action) {
-        // Opens the UI for stopwatch
+    private void handleStopwatchIntent(Intent intent) {
+        final String action = intent.getAction();
+
+        // Determine where this intent originated.
+        final boolean fromNotif =
+                intent.getBooleanExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, false);
+        final int label = fromNotif ? R.string.label_notification : R.string.label_intent;
+
+        if (ACTION_SHOW_STOPWATCH.equals(action)) {
+            Events.sendStopwatchEvent(R.string.action_show, label);
+        } else {
+            final Stopwatch stopwatch = DataModel.getDataModel().getStopwatch();
+
+            final String reason;
+            boolean fail = false;
+            switch (action) {
+                case ACTION_START_STOPWATCH: {
+                    if (stopwatch.isRunning()) {
+                        fail = true;
+                        reason = getString(R.string.stopwatch_already_running);
+                    } else {
+                        Events.sendStopwatchEvent(R.string.action_start, label);
+                        reason = getString(R.string.stopwatch_started);
+                    }
+                    break;
+                }
+                case ACTION_PAUSE_STOPWATCH: {
+                    if (!stopwatch.isRunning()) {
+                        fail = true;
+                        reason = getString(R.string.stopwatch_isnt_running);
+                    } else {
+                        Events.sendStopwatchEvent(R.string.action_pause, label);
+                        reason = getString(R.string.stopwatch_paused);
+                    }
+                    break;
+                }
+                case ACTION_LAP_STOPWATCH: {
+                    if (!stopwatch.isRunning()) {
+                        fail = true;
+                        reason = getString(R.string.stopwatch_isnt_running);
+                    } else {
+                        Events.sendStopwatchEvent(R.string.action_lap, label);
+                        reason = getString(R.string.stopwatch_lapped);
+                    }
+                    break;
+                }
+                case ACTION_RESET_STOPWATCH: {
+                    if (stopwatch.isRunning()) {
+                        fail = true;
+                        reason = getString(R.string.stopwatch_cant_be_reset_because_is_running);
+                    } else {
+                        Events.sendStopwatchEvent(R.string.action_reset, label);
+                        reason = getString(R.string.stopwatch_reset);
+                    }
+                    break;
+                }
+                default:
+                    throw new IllegalArgumentException("unknown stopwatch action: " + action);
+            }
+
+            if (fail) {
+                Voice.notifyFailure(this, reason);
+            } else {
+                // Perform the action on the stopwatch.
+                final Intent performActionIntent = new Intent(mAppContext, StopwatchService.class)
+                        .setAction(action);
+                startService(performActionIntent);
+                Voice.notifySuccess(this, reason);
+            }
+            LogUtils.i(reason);
+        }
+
+        // Open the UI to the stopwatch.
         final Intent stopwatchIntent = new Intent(mAppContext, DeskClock.class)
                 .setAction(action)
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.STOPWATCH_TAB_INDEX);
         startActivity(stopwatchIntent);
-        LogUtils.i("HandleDeskClockApiCalls " + action);
-
-        if (action.equals(ACTION_SHOW_STOPWATCH)) {
-            Events.sendStopwatchEvent(R.string.action_show, R.string.label_intent);
-            return;
-        }
-
-        // checking if the stopwatch is already running
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mAppContext);
-        final boolean stopwatchAlreadyRunning =
-                prefs.getBoolean(Stopwatches.NOTIF_CLOCK_RUNNING, false);
-
-        if (stopwatchAlreadyRunning) {
-            // don't fire START_STOPWATCH or RESET_STOPWATCH if a stopwatch is already running
-            if (ACTION_START_STOPWATCH.equals(action)) {
-                final String reason = getString(R.string.stopwatch_already_running);
-                Voice.notifyFailure(this, reason);
-                LogUtils.i(reason);
-                return;
-            } else if (ACTION_RESET_STOPWATCH.equals(action)) { // RESET_STOPWATCH
-                final String reason = getString(R.string.stopwatch_cant_be_reset_because_is_running);
-                Voice.notifyFailure(this, reason);
-                LogUtils.i(reason);
-                return;
-            }
-        } else {
-            // if a stopwatch isn't running, don't try to stop or lap it
-            if (ACTION_STOP_STOPWATCH.equals(action) ||
-                    ACTION_LAP_STOPWATCH.equals(action)) {
-                final String reason = getString(R.string.stopwatch_isnt_running);
-                Voice.notifyFailure(this, reason);
-                LogUtils.i(reason);
-                return;
-            }
-        }
-
-        final String reason;
-        // Events and voice interactor setup
-        switch (action) {
-            case ACTION_START_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_start, R.string.label_intent);
-                reason = getString(R.string.stopwatch_started);
-                break;
-            case ACTION_STOP_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_stop, R.string.label_intent);
-                reason = getString(R.string.stopwatch_stopped);
-                break;
-            case ACTION_LAP_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_lap, R.string.label_intent);
-                reason = getString(R.string.stopwatch_lapped);
-                break;
-            case ACTION_RESET_STOPWATCH:
-                Events.sendStopwatchEvent(R.string.action_reset, R.string.label_intent);
-                reason = getString(R.string.stopwatch_reset);
-                break;
-            default:
-                return;
-        }
-        final Intent intent = new Intent(mAppContext, StopwatchService.class).setAction(action);
-        startService(intent);
-        Voice.notifySuccess(this, reason);
-        LogUtils.i(reason);
     }
 
     private void handleTimerIntent(final String action) {
@@ -192,7 +207,6 @@ public class HandleDeskClockApiCalls extends Activity {
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
                 .putExtra(TimerFullScreenFragment.GOTO_SETUP_VIEW, false);
         startActivity(timerIntent);
-        LogUtils.i("HandleDeskClockApiCalls " + action);
 
         if (ACTION_SHOW_TIMERS.equals(action)) {
             Events.sendTimerEvent(R.string.action_show, R.string.label_intent);
@@ -201,15 +215,104 @@ public class HandleDeskClockApiCalls extends Activity {
         new HandleTimersAsync(mAppContext, action, this).execute();
     }
 
-    private void handleClockIntent(final String action) {
+    private void handleClockIntent(Intent intent) {
+        final String action = intent.getAction();
+
+        if (ACTION_SHOW_CLOCK.equals(action)) {
+            final boolean fromWidget = intent.getBooleanExtra(EXTRA_FROM_WIDGET, false);
+            final int label = fromWidget ? R.string.label_widget : R.string.label_intent;
+            Events.sendClockEvent(R.string.action_show, label);
+        } else {
+            final String cityName = intent.getStringExtra(EXTRA_CITY);
+
+            final String reason;
+            boolean fail = false;
+
+            // If no city was given, start the city chooser.
+            if (cityName == null) {
+                reason = getString(R.string.no_city_selected);
+                LogUtils.i(reason);
+                Voice.notifySuccess(this, reason);
+                startActivity(new Intent(this, CitySelectionActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                switch (action) {
+                    case ACTION_ADD_CLOCK:
+                        Events.sendClockEvent(R.string.action_add, R.string.label_intent);
+                        break;
+                    case ACTION_DELETE_CLOCK:
+                        Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
+                        break;
+                }
+                return;
+            }
+
+            // If a city was given, ensure it can be located.
+            final City city = DataModel.getDataModel().getCity(cityName);
+            if (city == null) {
+                reason = getString(R.string.the_city_you_specified_is_not_available);
+                LogUtils.i(reason);
+                Voice.notifyFailure(this, reason);
+                switch (action) {
+                    case ACTION_ADD_CLOCK:
+                        Events.sendClockEvent(R.string.action_add, R.string.label_intent);
+                        break;
+                    case ACTION_DELETE_CLOCK:
+                        Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
+                        break;
+                }
+                return;
+            }
+
+            final Set<City> selectedCities =
+                    Utils.newArraySet(DataModel.getDataModel().getSelectedCities());
+
+            switch (action) {
+                case ACTION_ADD_CLOCK: {
+                    // Fail if the city is already present.
+                    if (!selectedCities.add(city)) {
+                        fail = true;
+                        reason = getString(R.string.the_city_already_added);
+                        break;
+                    }
+
+                    // Otherwise report the success.
+                    DataModel.getDataModel().setSelectedCities(selectedCities);
+                    reason = getString(R.string.city_added, city.getName());
+                    Events.sendClockEvent(R.string.action_add, R.string.label_intent);
+                    break;
+                }
+                case ACTION_DELETE_CLOCK: {
+                    // Fail if the city is not present.
+                    if (!selectedCities.remove(city)) {
+                        fail = true;
+                        reason = getString(R.string.the_city_you_specified_is_not_available);
+                        break;
+                    }
+
+                    // Otherwise report the success.
+                    DataModel.getDataModel().setSelectedCities(selectedCities);
+                    reason = getString(R.string.city_deleted, city.getName());
+                    Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
+                    break;
+                }
+                default:
+                    throw new IllegalArgumentException("unknown clock action: " + action);
+            }
+
+            if (fail) {
+                Voice.notifyFailure(this, reason);
+            } else {
+                Voice.notifySuccess(this, reason);
+            }
+            LogUtils.i(reason);
+        }
+
         // Opens the UI for clocks
-        final Intent handleClock = new Intent(mAppContext, DeskClock.class)
+        final Intent clockIntent = new Intent(mAppContext, DeskClock.class)
                 .setAction(action)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.CLOCK_TAB_INDEX);
-        startActivity(handleClock);
-
-        new HandleClockAsync(mAppContext, getIntent(), this).execute();
+        startActivity(clockIntent);
     }
 
     private static class HandleTimersAsync extends AsyncTask<Void, Void, Void> {
@@ -400,114 +503,6 @@ public class HandleDeskClockApiCalls extends Activity {
                 }
             }
             return soleTimer;
-        }
-    }
-
-    private static class HandleClockAsync extends AsyncTask<Void, Void, Void> {
-        private final Context mContext;
-        private final Intent mIntent;
-        private final Activity mActivity;
-
-        public HandleClockAsync(Context context, Intent intent, Activity activity) {
-            mContext = context;
-            mIntent = intent;
-            mActivity = activity;
-        }
-
-        @Override
-        protected Void doInBackground(Void... parameters) {
-            final String cityName = mIntent.getStringExtra(EXTRA_CITY);
-            switch (mIntent.getAction()) {
-                case ACTION_ADD_CLOCK: {
-                    // if a city isn't specified open CitiesActivity to choose a city
-                    if (cityName == null) {
-                        final String reason = mContext.getString(R.string.no_city_selected);
-                        Voice.notifyFailure(mActivity, reason);
-                        LogUtils.i(reason);
-                        startSelectWorldClocksActivity();
-                        Events.sendClockEvent(R.string.action_create, R.string.label_intent);
-                        break;
-                    }
-
-                    // if a city is passed add that city to the list
-                    final City city = DataModel.getDataModel().getCity(cityName);
-                    // check if this city exists in the list of available cities
-                    if (city == null) {
-                        final String reason = mContext.getString(
-                                R.string.the_city_you_specified_is_not_available);
-                        Voice.notifyFailure(mActivity, reason);
-                        LogUtils.i(reason);
-                        break;
-                    }
-
-                    final Set<City> selectedCities =
-                            Utils.newArraySet(DataModel.getDataModel().getSelectedCities());
-                    // if this city is already added don't add it
-                    if (!selectedCities.add(city)) {
-                        final String reason = mContext.getString(R.string.the_city_already_added);
-                        Voice.notifyFailure(mActivity, reason);
-                        LogUtils.i(reason);
-                        break;
-                    }
-
-                    DataModel.getDataModel().setSelectedCities(selectedCities);
-                    final String reason = mContext.getString(R.string.city_added, city.getName());
-                    Voice.notifySuccess(mActivity, reason);
-                    LogUtils.i(reason);
-                    Events.sendClockEvent(R.string.action_start, R.string.label_intent);
-                    break;
-                }
-                case ACTION_DELETE_CLOCK: {
-                    if (cityName == null) {
-                        // if a city isn't specified open the activity that chooses a city
-                        final String reason = mContext.getString(R.string.no_city_selected);
-                        Voice.notifyFailure(mActivity, reason);
-                        LogUtils.i(reason);
-                        startSelectWorldClocksActivity();
-                        Events.sendClockEvent(R.string.action_create, R.string.label_intent);
-                        break;
-                    }
-
-                    // if a city is specified check if it's selected and if so delete it
-                    final City city = DataModel.getDataModel().getCity(cityName);
-                    if (city == null) {
-                        final String reason = mContext.getString(
-                                R.string.the_city_you_specified_is_not_available);
-                        Voice.notifyFailure(mActivity, reason);
-                        LogUtils.i(reason);
-                        break;
-                    }
-
-                    final Set<City> selectedCities =
-                            Utils.newArraySet(DataModel.getDataModel().getSelectedCities());
-
-                    // check if this city exists in the list of available cities
-                    if (!selectedCities.remove(city)) {
-                        // the specified city hasn't been added to the user's list yet
-                        Voice.notifyFailure(mActivity, mContext.getString(
-                                R.string.the_city_you_specified_is_not_available));
-                        break;
-                    }
-
-                    DataModel.getDataModel().setSelectedCities(selectedCities);
-                    final String reason = mContext.getString(R.string.city_deleted, city.getName());
-                    Voice.notifySuccess(mActivity, reason);
-                    LogUtils.i(reason);
-                    Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
-                    break;
-                }
-                case ACTION_SHOW_CLOCK:
-                    final boolean fromWidget = mIntent.getBooleanExtra(EXTRA_FROM_WIDGET, false);
-                    final int label = fromWidget ? R.string.label_widget : R.string.label_intent;
-                    Events.sendClockEvent(R.string.action_show, label);
-                    break;
-            }
-            return null;
-        }
-
-        private void startSelectWorldClocksActivity() {
-            mContext.startActivity(new Intent(mContext, CitySelectionActivity.class)
-                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }

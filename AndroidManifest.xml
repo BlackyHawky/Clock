@@ -214,7 +214,7 @@
                 <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.STOP_STOPWATCH" />
+                <action android:name="com.android.deskclock.action.PAUSE_STOPWATCH" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.VOICE" />
             </intent-filter>
@@ -361,11 +361,10 @@
                 android:exported="false"
                 android:description="@string/stopwatch_service_desc">
             <intent-filter>
-                <action android:name="start_stopwatch" />
-                <action android:name="lap_stopwatch" />
-                <action android:name="stop_stopwatch" />
-                <action android:name="reset_stopwatch" />
-                <action android:name="share_stopwatch" />
+                <action android:name="com.android.deskclock.action.START_STOPWATCH" />
+                <action android:name="com.android.deskclock.action.PAUSE_STOPWATCH" />
+                <action android:name="com.android.deskclock.action.LAP_STOPWATCH" />
+                <action android:name="com.android.deskclock.action.RESET_STOPWATCH" />
             </intent-filter>
         </service>
     </application>

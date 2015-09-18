@@ -102,6 +102,7 @@ final class CityModel {
             allCities.addAll(getUnselectedCities());
             mAllCities = Collections.unmodifiableList(allCities);
         }
+
         return mAllCities;
     }
 
@@ -168,6 +169,7 @@ final class CityModel {
             Collections.sort(selectedCities, new City.UtcOffsetComparator());
             mSelectedCities = Collections.unmodifiableList(selectedCities);
         }
+
         return mSelectedCities;
     }
 
@@ -220,6 +222,7 @@ final class CityModel {
         if (mCityMap == null) {
             mCityMap = CityDAO.getCities(mContext);
         }
+
         return mCityMap;
     }
 

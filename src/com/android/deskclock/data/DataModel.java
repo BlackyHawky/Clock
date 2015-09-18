@@ -55,6 +55,12 @@ public final class DataModel {
     /** The model from which alarm data are fetched. */
     private AlarmModel mAlarmModel;
 
+    /** The model from which stopwatch data are fetched. */
+    private StopwatchModel mStopwatchModel;
+
+    /** The model from which notification data are fetched. */
+    private NotificationModel mNotificationModel;
+
     public static DataModel getDataModel() {
         return sDataModel;
     }
@@ -69,10 +75,38 @@ public final class DataModel {
             throw new IllegalStateException("context has already been set");
         }
         mContext = context.getApplicationContext();
+
         mSettingsModel = new SettingsModel(mContext);
+        mNotificationModel = new NotificationModel();
         mCityModel = new CityModel(mContext, mSettingsModel);
         mTimerModel = new TimerModel(mContext, mSettingsModel);
         mAlarmModel = new AlarmModel(mContext, mSettingsModel);
+        mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
+    }
+
+    //
+    // Application
+    //
+
+    /**
+     * @param inForeground {@code true} to indicate the application is open in the foreground
+     */
+    public void setApplicationInForeground(boolean inForeground) {
+        enforceMainLooper();
+
+        if (mNotificationModel.isApplicationInForeground() != inForeground) {
+            mNotificationModel.setApplicationInForeground(inForeground);
+
+            // Refresh all notifications in response to a change in app open state.
+            mStopwatchModel.updateNotification();
+        }
+    }
+
+    /**
+     * @return {@code true} when the application is open in the foreground; {@code false} otherwise
+     */
+    public boolean isApplicationInForeground() {
+        return mNotificationModel.isApplicationInForeground();
     }
 
     //
@@ -215,6 +249,91 @@ public final class DataModel {
     public String getAlarmRingtoneTitle(Uri uri) {
         enforceMainLooper();
         return mAlarmModel.getAlarmRingtoneTitle(uri);
+    }
+
+    //
+    // Stopwatch
+    //
+
+    /**
+     * @return the current state of the stopwatch
+     */
+    public Stopwatch getStopwatch() {
+        enforceMainLooper();
+        return mStopwatchModel.getStopwatch();
+    }
+
+    /**
+     * @return the stopwatch after being started
+     */
+    public Stopwatch startStopwatch() {
+        enforceMainLooper();
+        return mStopwatchModel.setStopwatch(getStopwatch().start());
+    }
+
+    /**
+     * @return the stopwatch after being paused
+     */
+    public Stopwatch pauseStopwatch() {
+        enforceMainLooper();
+        return mStopwatchModel.setStopwatch(getStopwatch().pause());
+    }
+
+    /**
+     * @return the stopwatch after being reset
+     */
+    public Stopwatch resetStopwatch() {
+        enforceMainLooper();
+        return mStopwatchModel.setStopwatch(getStopwatch().reset());
+    }
+
+    /**
+     * @return the laps recorded for this stopwatch
+     */
+    public List<Lap> getLaps() {
+        enforceMainLooper();
+        return mStopwatchModel.getLaps();
+    }
+
+    /**
+     * @return a newly recorded lap completed now; {@code null} if no more laps can be added
+     */
+    public Lap addLap() {
+        enforceMainLooper();
+        return mStopwatchModel.addLap();
+    }
+
+    /**
+     * Clears the laps recorded for this stopwatch.
+     */
+    public void clearLaps() {
+        enforceMainLooper();
+        mStopwatchModel.clearLaps();
+    }
+
+    /**
+     * @return {@code true} iff more laps can be recorded
+     */
+    public boolean canAddMoreLaps() {
+        enforceMainLooper();
+        return mStopwatchModel.canAddMoreLaps();
+    }
+
+    /**
+     * @return the longest lap time of all recorded laps and the current lap
+     */
+    public long getLongestLapTime() {
+        enforceMainLooper();
+        return mStopwatchModel.getLongestLapTime();
+    }
+
+    /**
+     * @param time a point in time after the end of the last lap
+     * @return the elapsed time between the given {@code time} and the end of the previous lap
+     */
+    public long getCurrentLapTime(long time) {
+        enforceMainLooper();
+        return mStopwatchModel.getCurrentLapTime(time);
     }
 
     //

@@ -268,7 +268,7 @@ public final class CitySelectionActivity extends BaseActivity {
         }
 
         @Override
-        public Object getItem(int position) {
+        public City getItem(int position) {
             if (hasHeader()) {
                 final int itemViewType = getItemViewType(position);
                 switch (itemViewType) {
@@ -299,7 +299,7 @@ public final class CitySelectionActivity extends BaseActivity {
                     return view;
 
                 case VIEW_TYPE_CITY:
-                    final City city = (City) getItem(position);
+                    final City city = getItem(position);
                     final TimeZone timeZone = city.getTimeZone();
 
                     // Inflate a new view if necessary.
@@ -388,7 +388,7 @@ public final class CitySelectionActivity extends BaseActivity {
                 for (int position = 0; position < getCount(); position++) {
                     // Add a section if this position should show the section index.
                     if (getShowIndex(position)) {
-                        final City city = (City) getItem(position);
+                        final City city = getItem(position);
                         switch (getCitySort()) {
                             case NAME:
                                 sections.add(city.getIndexString());
@@ -532,8 +532,8 @@ public final class CitySelectionActivity extends BaseActivity {
             }
 
             // Otherwise compare the city with its predecessor to test if it is a header.
-            final City priorCity = (City) getItem(position - 1);
-            final City city = (City) getItem(position);
+            final City priorCity = getItem(position - 1);
+            final City city = getItem(position);
             return getCitySortComparator().compare(priorCity, city) != 0;
         }
 

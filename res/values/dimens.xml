@@ -133,6 +133,8 @@
     <dimen name="notification_text_size">14dp</dimen>
     <!-- Size of notification text titles (see TextAppearance.StatusBar.EventContent.Title) -->
     <dimen name="notification_title_text_size">18dp</dimen>
+    <!-- Size of margin between icon and text / title text. -->
+    <dimen name="notification_content_margin_start">8dp</dimen>
 
     <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">304dip</dimen>
@@ -203,4 +205,7 @@
     <!-- Floating action button style -->
     <dimen name="fab_margin">0dp</dimen>
     <dimen name="fab_elevation">8dp</dimen>
+
+    <!-- Height of the bar containing the floating action button -->
+    <dimen name="fab_height">88dp</dimen>
 </resources>
