@@ -148,7 +148,6 @@ public final class TimePickerCompat {
             boolean use24hourFormat) {
         // Make sure the dialog isn't already added.
         final FragmentManager manager = targetFragment.getFragmentManager();
-        manager.executePendingTransactions();
         final FragmentTransaction ft = manager.beginTransaction();
         final Fragment prev = manager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
         if (prev != null) {
