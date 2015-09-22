@@ -52,6 +52,10 @@ public class TimerObj implements Parcelable {
     public String mLabel;
     public boolean mDeleteAfterUse;
 
+    // Used as a placeholder value when the sharedpreference value does not exist (ie for deleted
+    // timers)
+    public static final int ABSENT_TIMER_VALUE = 0;
+
     public static final int STATE_RUNNING = 1;
     public static final int STATE_STOPPED = 2;
     public static final int STATE_TIMESUP = 3;
@@ -106,14 +110,23 @@ public class TimerObj implements Parcelable {
     public void readFromSharedPref(SharedPreferences prefs) {
         final String id = Integer.toString(mTimerId);
 
-        mStartTime = prefs.getLong(PREF_START_TIME + id, 0);
-        mTimeLeft = prefs.getLong(PREF_TIME_LEFT + id, 0);
-        mOriginalLength = prefs.getLong(PREF_ORIGINAL_TIME + id, 0);
-        mSetupLength = prefs.getLong(PREF_SETUP_TIME + id, 0);
-        mState = prefs.getInt(PREF_STATE + id, 0);
-        mPriorState = prefs.getInt(PREF_PRIOR_STATE + id, 0);
+        mStartTime = prefs.getLong(PREF_START_TIME + id, ABSENT_TIMER_VALUE);
+        mTimeLeft = prefs.getLong(PREF_TIME_LEFT + id, ABSENT_TIMER_VALUE);
+        mOriginalLength = prefs.getLong(PREF_ORIGINAL_TIME + id, ABSENT_TIMER_VALUE);
+        mSetupLength = prefs.getLong(PREF_SETUP_TIME + id, ABSENT_TIMER_VALUE);
+        mState = prefs.getInt(PREF_STATE + id, ABSENT_TIMER_VALUE);
+        mPriorState = prefs.getInt(PREF_PRIOR_STATE + id, ABSENT_TIMER_VALUE);
         mLabel = prefs.getString(PREF_LABEL + id, "");
         mDeleteAfterUse = prefs.getBoolean(PREF_DELETE_AFTER_USE + id, false);
+    }
+
+    /**
+     * If the timer is deleted, its fields will have value ABSENT_TIMER_VALUE when they are filled
+     * from sharedprefs. Use mState as an indicator.
+     * @return whether the timer is deleted
+     */
+    public boolean isDeleted() {
+        return mState == ABSENT_TIMER_VALUE;
     }
 
     public boolean deleteFromSharedPref(SharedPreferences prefs) {
