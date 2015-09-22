@@ -206,7 +206,7 @@ public class TimerReceiver extends BroadcastReceiver {
         } else {
             // In this case, we do not want to update the times up notification because any other
             // actions (such as updating timer state) do not change the set of Times Up timers,
-            // so that would result in a distracting and unnnecessary refresh of the notification.
+            // so that would result in a distracting and unnecessary refresh of the notification.
         }
         if (intent.getBooleanExtra(Timers.UPDATE_NEXT_TIMESUP, true)) {
             // Update the next "Times up" alarm unless explicitly told not to.
