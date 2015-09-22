@@ -346,7 +346,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setSilentState(Context context, AlarmInstance instance) {
-        LogUtils.v("Setting silent state to instance " + instance.mId);
+        LogUtils.i("Setting silent state to instance " + instance.mId);
 
         // Update alarm in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -368,7 +368,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setLowNotificationState(Context context, AlarmInstance instance) {
-        LogUtils.v("Setting low notification state to instance " + instance.mId);
+        LogUtils.i("Setting low notification state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -390,7 +390,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setHideNotificationState(Context context, AlarmInstance instance) {
-        LogUtils.v("Setting hide notification state to instance " + instance.mId);
+        LogUtils.i("Setting hide notification state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -412,7 +412,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setHighNotificationState(Context context, AlarmInstance instance) {
-        LogUtils.v("Setting high notification state to instance " + instance.mId);
+        LogUtils.i("Setting high notification state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -434,7 +434,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setFiredState(Context context, AlarmInstance instance) {
-        LogUtils.v("Setting fire state to instance " + instance.mId);
+        LogUtils.i("Setting fire state to instance " + instance.mId);
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -481,7 +481,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         newAlarmTime.add(Calendar.MINUTE, snoozeMinutes);
 
         // Update alarm state and new alarm time in db.
-        LogUtils.v("Setting snoozed state to instance " + instance.mId + " for "
+        LogUtils.i("Setting snoozed state to instance " + instance.mId + " for "
                 + AlarmUtils.getFormattedTime(context, newAlarmTime));
         instance.setAlarmTime(newAlarmTime);
         instance.mAlarmState = AlarmInstance.SNOOZE_STATE;
@@ -526,7 +526,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setMissedState(Context context, AlarmInstance instance) {
-        LogUtils.v("Setting missed state to instance " + instance.mId);
+        LogUtils.i("Setting missed state to instance " + instance.mId);
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
@@ -556,7 +556,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance
      */
     public static void setPreDismissState(Context context, AlarmInstance instance) {
-        LogUtils.v("Setting predismissed state to instance " + instance.mId);
+        LogUtils.i("Setting predismissed state to instance " + instance.mId);
 
         // Update alarm in db
         final ContentResolver contentResolver = context.getContentResolver();
@@ -589,7 +589,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to set state to
      */
     public static void setDismissState(Context context, AlarmInstance instance) {
-        LogUtils.v("Setting dismissed state to instance " + instance.mId);
+        LogUtils.i("Setting dismissed state to instance " + instance.mId);
 
         // Remove all other timers and notifications associated to it
         unregisterInstance(context, instance);
@@ -671,6 +671,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         } else if (instance.mAlarmState == AlarmInstance.MISSED_STATE) {
             if (currentTime.before(alarmTime)) {
                 if (instance.mAlarmId == null) {
+                    LogUtils.i("Cannot restore missed instance for one-time alarm");
                     // This instance parent got deleted (ie. deleteAfterUse), so
                     // we should not re-activate it.-
                     setDismissState(context, instance);

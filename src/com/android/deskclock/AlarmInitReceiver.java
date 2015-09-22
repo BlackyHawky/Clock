@@ -47,7 +47,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(final Context context, Intent intent) {
         final String action = intent.getAction();
-        LogUtils.v("AlarmInitReceiver " + action);
+        LogUtils.i("AlarmInitReceiver " + action);
 
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
