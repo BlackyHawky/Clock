@@ -70,8 +70,11 @@
     <!-- Setting labels on Set alarm screen: Select alarm ringtone  -->
     <string name="alert">Alarm Ringtone</string>
 
-    <!-- Label on expanded alarm edit view indicating the ringtone is custom. -->
-    <string name="custom_ringtone">Custom Ringtone</string>
+    <!-- Title of default ringtone played when a timer expires. -->
+    <string name="default_timer_ringtone_title">Timer Expired</string>
+
+    <!-- Title of silent ringtone played when a timer expires. -->
+    <string name="silent_timer_ringtone_title">Silent</string>
 
     <!-- Label on expanded alarm edit view. -->
     <string name="ringtone">Ringtone</string>
@@ -244,6 +247,18 @@
         <item quantity="other">minutes</item>
     </plurals>
 
+    <!-- Setting title for changing the crescendo duration. -->
+    <string name="crescendo_duration_title">Gradually increase volume</string>
+
+    <!-- Summary value for changing the crescendo duration to 0. -->
+    <string name="no_crescendo_duration">Off</string>
+
+    <!-- Summary value for changing the crescendo duration. -->
+    <string name="crescendo_duration"><xliff:g id="number" example="7">%s</xliff:g> seconds</string>
+
+    <!-- Setting label when changing the crescendo duration. -->
+    <string name="crescendo_picker_label">seconds</string>
+
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
 
@@ -312,8 +327,11 @@
     <!-- Setting title for changing the alarm volume. -->
     <string name="alarm_volume_title">Alarm volume</string>
 
-    <!-- Summary for the alarm preference when silent is chosen. -->
-    <string name="silent_alarm_summary">Silent</string>
+    <!-- Title for the silent ringtone. -->
+    <string name="silent_ringtone_title">Silent</string>
+
+    <!-- Title for ringtones that cannot be located by uri. -->
+    <string name="unknown_ringtone_title">Unknown</string>
 
     <!-- Text to display in the small text of the notification -->
     <string name="alarm_notify_text">Snooze or dismiss alarm.</string>
@@ -380,9 +398,6 @@
     <!-- Label on the main screen control used to set alarm [CHAR LIMIT=30]-->
     <string name="control_set_alarm">Set alarm</string>
 
-    <!-- Label on the main screen control used to set alarm when there is already an existing alarm [CHAR LIMIT=30]-->
-    <string name="control_set_alarm_with_existing"><xliff:g id="time">%s</xliff:g></string>
-
     <!--  ActionBar strings -->
     <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->
     <string name="menu_alarm">Alarm</string>
@@ -414,17 +429,24 @@
     <!-- Label for selected cities in Cities list view -->
     <string name="selected_cities_label">Selected Cities</string>
 
-    <!-- Stop Watch strings -->
-    <!-- Describes the purpose of the button to resume running a stopwatch -->
+    <!-- Stopwatch and Timer shared strings -->
+    <!-- Describes the purpose of the button to resume running a stopwatch or timer. [CHAR LIMIT=15] -->
     <string name="sw_resume_button">Resume</string>
+    <!--
+        Describes the purpose of the button
+            for stopwatch: return stopwatch to zero and remove the lap times.
+            for timer: return timer to originally set duration.
+        [CHAR LIMIT=15]
+    -->
+    <string name="sw_reset_button">Reset</string>
+
+    <!-- Stopwatch strings -->
     <!-- Describes the purpose of the button to begin running a stopwatch -->
     <string name="sw_start_button">Start</string>
     <!-- Describes the purpose of the button to pause a stopwatch. -->
     <string name="sw_stop_button">Stop</string>
     <!-- Describes the purpose of the button to record current the stopwatch value into the4 collection of lap times. -->
     <string name="sw_lap_button">Lap</string>
-    <!-- Describes the purpose of the button to return the stopwatch to zero and remove the lap times. -->
-    <string name="sw_reset_button">Reset</string>
     <!-- Describes the purpose of the button to share the stopwatch value.
          Also used as title for chooser when sharing stopwatch results. -->
     <string name="sw_share_button">Share</string>
@@ -528,6 +550,8 @@
     <string name="timer_plus_1_min">Add 1 min</string>
     <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
+    <!-- Describes the purpose of the button to stop all currently firing timers. [CHAR LIMIT=25] -->
+    <string name="timer_stop_all">Stop all timers</string>
     <!-- Describes the purpose of the button to stop and delete the timer. -->
     <string name="timer_done">Done</string>
     <!-- Describes the purpose of the button to return the timer to it's original starting value. -->
@@ -536,10 +560,19 @@
     <string name="timer_cancel">Cancel</string>
     <!-- Notification content shown when a timer has completed and has no more time remaining -->
     <string name="timer_times_up">Time\'s up</string>
+    <!--
+        Notification content shown when multiple timers have completed and have no more time
+        remaining. Arg is the number of timers. [CHAR LIMIT=25]
+    -->
+    <string name="timer_multi_times_up"><xliff:g id="NUM_TIMERS" example="2">%d</xliff:g> timers expired</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
     <!-- Toast content shown when user attempts to create a new timer when there are already 4 timers -->
     <string name="timers_max_count_reached">4 timers maximum</string>
+    <!-- Describes the purpose of the notification button to pause the timer. [CHAR LIMIT=15] -->
+    <string name="timer_pause">Pause</string>
+    <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=31] -->
+    <string name="timer_reset_all">Reset all timers</string>
 
     <!-- Jocular content that user may append when sharing the lap times -->
     <string-array name="sw_share_strings" translatable="true">
@@ -565,6 +598,9 @@
     <string name="clock_settings">Clock</string>
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
+
+    <!-- Title for preference to change date & time -->
+    <string name="open_date_settings">Change Date \u0026 time</string>
 
     <!-- Entries listed in the ListPreference when invoking the clock style
          preference. -->
@@ -801,11 +837,19 @@
          translation. -->
     <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
 
-    <!-- Notification title when timer is stopped. -->
+    <!-- Header in the preferences settings for the section pertaining to timers. -->
+    <string name="timer_settings">Timers</string>
+    <!-- Description for timer ringtone setting. -->
+    <string name="timer_ringtone_title">Timer ringtone</string>
+
+    <!-- Description when timer is stopped. -->
     <string name="timer_stopped">Timer stopped</string>
-    <!-- Notification title when multiple timers are stopped. -->
-    <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers stopped</string>
-    <!-- Notification text when multiple timers are stopped. -->
+
+    <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
+    <string name="timer_paused">Timer paused</string>
+    <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
+    <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers paused</string>
+    <!-- Notification text when multiple timers are paused. -->
     <string name="all_timers_stopped_notif">Touch to see your timers</string>
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
     <string name="timers_in_use"><xliff:g id="number" example="7">%d</xliff:g> timers</string>
@@ -839,7 +883,7 @@
     <!-- Displays the number of alarms selected from the list of alarms. -->
     <string name="alarms_selected"><xliff:g id="alarms">%d</xliff:g> selected</string>
 
-    <!-- message used by the talkback accessebility app to say that something was deleted -->
+    <!-- message used by the talkback accessibility app to say that something was deleted -->
     <string name="deleted_message">Deleted</string>
 
     <!-- Alarm deletion confirmation message-->
@@ -879,42 +923,6 @@
 
     <!-- String for no enabled alarms in timeline view [CHAR LIMIT=30] -->
     <string name="no_upcoming_alarms">NO UPCOMING ALARMS</string>
-
-    <!--
-        String that represents time format for 12-hour time.
-        h represents hour in range (1-12) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        a represents am/pm
-        Ex: h:mm a = 12:54 am, 8:05 pm
-    -->
-    <string name="time_format_12_mode">h&#58;mm a</string>
-
-    <!--
-        String that represents time format for 24-hour time.
-        k represents hour in range (0-23) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        Ex: k:mm = 13:51, 5:05
-    -->
-    <string name="time_format_24_mode">k&#58;mm</string>
-
-    <!--
-        String that represents weekday, time format for 12-hour time.
-        EEE represents weekday name in short form (ex. Mon, Tue, Wed)
-        h represents hour in range (1-12) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        a represents am/pm
-        Ex: EEE, h:mm a = Mon, 2:55 pm
-    -->
-    <string name="weekday_time_format_12_mode">EEE, h&#58;mm a</string>
-
-    <!--
-        String that represents weekday, time format for 24-hour time.
-        EEE represents weekday name in short form (ex. Mon, Tue, Wed)
-        k represents hour in range (0-23) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        Ex: EEE, k:mm = Mon, 2:55
-    -->
-    <string name="weekday_time_format_24_mode">EEE, k&#58;mm</string>
 
     <!-- String that represents that invalid time for an alarm was specified, e.g. 23:00am
      or 27:68pm.

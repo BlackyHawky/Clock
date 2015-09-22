@@ -21,7 +21,10 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
@@ -48,42 +51,48 @@ public class LabelDialogFragment extends DialogFragment {
     private AppCompatEditText mLabelBox;
 
     public static LabelDialogFragment newInstance(Alarm alarm, String label, String tag) {
-        final LabelDialogFragment frag = new LabelDialogFragment();
-        Bundle args = new Bundle();
+        final Bundle args = new Bundle();
         args.putString(KEY_LABEL, label);
         args.putParcelable(KEY_ALARM, alarm);
         args.putString(KEY_TAG, tag);
+
+        final LabelDialogFragment frag = new LabelDialogFragment();
         frag.setArguments(args);
         return frag;
     }
 
     public static LabelDialogFragment newInstance(TimerObj timer, String label, String tag) {
-        final LabelDialogFragment frag = new LabelDialogFragment();
-        Bundle args = new Bundle();
+        final Bundle args = new Bundle();
         args.putString(KEY_LABEL, label);
         args.putParcelable(KEY_TIMER, timer);
         args.putString(KEY_TAG, tag);
+
+        final LabelDialogFragment frag = new LabelDialogFragment();
         frag.setArguments(args);
         return frag;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_LABEL, mLabelBox.getText().toString());
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Bundle bundle = getArguments();
-        final String label = bundle.getString(KEY_LABEL);
+        final Bundle bundle = getArguments();
         final Alarm alarm = bundle.getParcelable(KEY_ALARM);
         final TimerObj timer = bundle.getParcelable(KEY_TIMER);
         final String tag = bundle.getString(KEY_TAG);
+        final String label = savedInstanceState != null ?
+                savedInstanceState.getString(KEY_LABEL) : bundle.getString(KEY_LABEL);
 
         final Context context = getActivity();
+        final int colorAccent = Utils.obtainStyledColor(context, R.attr.colorAccent, Color.RED);
+        final int colorControlNormal =
+                Utils.obtainStyledColor(context, R.attr.colorControlNormal, Color.WHITE);
 
         mLabelBox = new AppCompatEditText(context);
-        mLabelBox.setText(label);
         mLabelBox.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -101,18 +110,20 @@ public class LabelDialogFragment extends DialogFragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setLabelBoxBackground(s == null || TextUtils.isEmpty(s));
+                final int color = TextUtils.isEmpty(s) ? colorControlNormal : colorAccent;
+                mLabelBox.setSupportBackgroundTintList(ColorStateList.valueOf(color));
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
             }
         });
+        mLabelBox.setText(label);
         mLabelBox.selectAll();
-        setLabelBoxBackground(TextUtils.isEmpty(label));
 
+        final int padding = getResources().getDimensionPixelSize(R.dimen.label_edittext_padding);
         final AlertDialog alertDialog = new AlertDialog.Builder(context)
-                .setView(mLabelBox)
+                .setView(mLabelBox, padding, 0, padding, 0)
                 .setPositiveButton(R.string.time_picker_set, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -121,10 +132,10 @@ public class LabelDialogFragment extends DialogFragment {
                 })
                 .setNegativeButton(R.string.time_picker_cancel,
                         new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dismiss();
-                        }
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dismiss();
+                            }
                 })
                 .setMessage(R.string.label)
                 .create();
@@ -136,7 +147,7 @@ public class LabelDialogFragment extends DialogFragment {
 
     private void set(Alarm alarm, TimerObj timer, String tag) {
         String label = mLabelBox.getText().toString();
-        if (label.trim().length() == 0) {
+        if (label.trim().isEmpty()) {
             // Don't allow user to input label with only whitespace.
             label = "";
         }
@@ -152,21 +163,8 @@ public class LabelDialogFragment extends DialogFragment {
 
     private void set(Alarm alarm, String tag, String label) {
         final Activity activity = getActivity();
-        // TODO just pass in a listener in newInstance()
         if (activity instanceof AlarmLabelDialogHandler) {
-            ((DeskClock) activity).onDialogLabelSet(alarm, label, tag);
-        } else {
-            LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
-                    + "AlarmLabelDialogHandler");
-        }
-        dismiss();
-    }
-
-    private void set(TimerObj timer, String tag, String label) {
-        final Activity activity = getActivity();
-        // TODO just pass in a listener in newInstance()
-        if (activity instanceof TimerLabelDialogHandler){
-            ((DeskClock) activity).onDialogLabelSet(timer, label, tag);
+            ((AlarmLabelDialogHandler) activity).onDialogLabelSet(alarm, label, tag);
         } else {
             LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
                     + "AlarmLabelDialogHandler or TimerLabelDialogHandler");
@@ -174,9 +172,15 @@ public class LabelDialogFragment extends DialogFragment {
         dismiss();
     }
 
-    private void setLabelBoxBackground(boolean emptyText) {
-        mLabelBox.setBackgroundResource(emptyText ?
-                R.drawable.bg_edittext_default : R.drawable.bg_edittext_activated);
+    private void set(TimerObj timer, String tag, String label) {
+        final Activity activity = getActivity();
+        if (activity instanceof TimerLabelDialogHandler){
+            ((TimerLabelDialogHandler) activity).onDialogLabelSet(timer, label, tag);
+        } else {
+            LogUtils.e("Error! Activities that use LabelDialogFragment must implement "
+                    + "AlarmLabelDialogHandler or TimerLabelDialogHandler");
+        }
+        dismiss();
     }
 
     interface AlarmLabelDialogHandler {

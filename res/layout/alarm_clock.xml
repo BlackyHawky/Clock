@@ -20,29 +20,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/alarms_list"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alarms_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/button_footer_height"
-        android:clipToPadding="false"
         android:descendantFocusability="beforeDescendants"
-        android:divider="@null"
-        android:dividerHeight="0dip"
-        />
+        android:fadingEdgeLength="0dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical" />
 
-    <TextView
-        android:id="@+id/alarms_empty_view"
-        style="@style/no_alarms"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:contentDescription="@string/no_alarms"
-        android:drawableTop="@drawable/ic_noalarms"
-        android:gravity="center"
-        android:text="@string/no_alarms"
-        android:textColor="#4cffffff"
-        android:paddingBottom="88dp" />
+    <include layout="@layout/alarm_empty_view" />
 
     <FrameLayout android:id="@+id/undo_frame"
         android:layout_width="match_parent"
@@ -61,19 +48,4 @@
             style="@style/ToastBarStyle" />
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/alarms_footer_view"
-        android:layout_width="@dimen/footer_button_size"
-        android:layout_height="@dimen/footer_button_size"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/footer_button_layout_margin" >
-        <ImageButton
-            android:id="@+id/menu_button"
-            style="?attr/actionOverflowButtonStyle"
-            android:layout_gravity="end|center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:accessibilityTraversalAfter="@+id/fab"
-            android:contentDescription="@string/button_menu" />
-    </FrameLayout>
 </FrameLayout>

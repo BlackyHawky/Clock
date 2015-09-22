@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import android.app.Application;
 
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.events.LogEventTracker;
 
@@ -26,6 +27,8 @@ public class DeskClockApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        DataModel.getDataModel().setContext(getApplicationContext());
 
         Events.addEventTracker(new LogEventTracker(getApplicationContext()));
     }

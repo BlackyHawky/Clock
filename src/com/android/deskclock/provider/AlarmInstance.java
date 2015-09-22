@@ -28,7 +28,7 @@ import android.preference.PreferenceManager;
 
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
+import com.android.deskclock.settings.SettingsActivity;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -136,26 +136,18 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Get alarm instance from instanceId.
      *
-     * @param contentResolver to perform the query on.
+     * @param cr to perform the query on.
      * @param instanceId for the desired instance.
      * @return instance if found, null otherwise
      */
-    public static AlarmInstance getInstance(ContentResolver contentResolver, long instanceId) {
-        Cursor cursor = contentResolver.query(getUri(instanceId), QUERY_COLUMNS, null, null, null);
-        AlarmInstance result = null;
-        if (cursor == null) {
-            return result;
-        }
-
-        try {
-            if (cursor.moveToFirst()) {
-                result = new AlarmInstance(cursor);
+    public static AlarmInstance getInstance(ContentResolver cr, long instanceId) {
+        try (Cursor cursor = cr.query(getUri(instanceId), QUERY_COLUMNS, null, null, null)) {
+            if (cursor != null && cursor.moveToFirst()) {
+                return new AlarmInstance(cursor, false /* joinedTable */);
             }
-        } finally {
-            cursor.close();
         }
 
-        return result;
+        return null;
     }
 
     /**
@@ -211,7 +203,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     /**
      * Get a list of instances given selection.
      *
-     * @param contentResolver to perform the query on.
+     * @param cr to perform the query on.
      * @param selection A filter declaring which rows to return, formatted as an
      *         SQL WHERE clause (excluding the WHERE itself). Passing null will
      *         return all rows for the given URI.
@@ -220,23 +212,15 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      *         appear in the selection. The values will be bound as Strings.
      * @return list of alarms matching where clause or empty list if none found.
      */
-    public static List<AlarmInstance> getInstances(ContentResolver contentResolver,
-            String selection, String ... selectionArgs) {
-        Cursor cursor  = contentResolver.query(CONTENT_URI, QUERY_COLUMNS,
-                selection, selectionArgs, null);
-        List<AlarmInstance> result = new LinkedList<>();
-        if (cursor == null) {
-            return result;
-        }
-
-        try {
+    public static List<AlarmInstance> getInstances(ContentResolver cr, String selection,
+                                                   String... selectionArgs) {
+        final List<AlarmInstance> result = new LinkedList<>();
+        try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
             if (cursor.moveToFirst()) {
                 do {
-                    result.add(new AlarmInstance(cursor));
+                    result.add(new AlarmInstance(cursor, false /* joinedTable */));
                 } while (cursor.moveToNext());
             }
-        } finally {
-            cursor.close();
         }
 
         return result;
@@ -320,15 +304,40 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         mAlarmState = SILENT_STATE;
     }
 
-    public AlarmInstance(Cursor c) {
-        mId = c.getLong(ID_INDEX);
-        mYear = c.getInt(YEAR_INDEX);
-        mMonth = c.getInt(MONTH_INDEX);
-        mDay = c.getInt(DAY_INDEX);
-        mHour = c.getInt(HOUR_INDEX);
-        mMinute = c.getInt(MINUTES_INDEX);
-        mLabel = c.getString(LABEL_INDEX);
-        mVibrate = c.getInt(VIBRATE_INDEX) == 1;
+    public AlarmInstance(AlarmInstance instance) {
+         this.mId = instance.mId;
+         this.mYear = instance.mYear;
+         this.mMonth = instance.mMonth;
+         this.mDay = instance.mDay;
+         this.mHour = instance.mHour;
+         this.mMinute = instance.mMinute;
+         this.mLabel = instance.mLabel;
+         this.mVibrate = instance.mVibrate;
+         this.mRingtone = instance.mRingtone;
+         this.mAlarmId = instance.mAlarmId;
+         this.mAlarmState = instance.mAlarmState;
+    }
+
+    public AlarmInstance(Cursor c, boolean joinedTable) {
+        if (joinedTable) {
+            mId = c.getLong(Alarm.INSTANCE_ID_INDEX);
+            mYear = c.getInt(Alarm.INSTANCE_YEAR_INDEX);
+            mMonth = c.getInt(Alarm.INSTANCE_MONTH_INDEX);
+            mDay = c.getInt(Alarm.INSTANCE_DAY_INDEX);
+            mHour = c.getInt(Alarm.INSTANCE_HOUR_INDEX);
+            mMinute = c.getInt(Alarm.INSTANCE_MINUTE_INDEX);
+            mLabel = c.getString(Alarm.INSTANCE_LABEL_INDEX);
+            mVibrate = c.getInt(Alarm.INSTANCE_VIBRATE_INDEX) == 1;
+        } else {
+            mId = c.getLong(ID_INDEX);
+            mYear = c.getInt(YEAR_INDEX);
+            mMonth = c.getInt(MONTH_INDEX);
+            mDay = c.getInt(DAY_INDEX);
+            mHour = c.getInt(HOUR_INDEX);
+            mMinute = c.getInt(MINUTES_INDEX);
+            mLabel = c.getString(LABEL_INDEX);
+            mVibrate = c.getInt(VIBRATE_INDEX) == 1;
+        }
         if (c.isNull(RINGTONE_INDEX)) {
             // Should we be saving this with the current ringtone or leave it null
             // so it changes when user changes default ringtone?

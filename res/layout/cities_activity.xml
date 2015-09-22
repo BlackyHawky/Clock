@@ -17,8 +17,8 @@
 <ListView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cities_list"
-    android:theme="@style/ControlAccentThemeOverlay"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:divider="@null"
-    android:clipToPadding="false" />
+    android:fitsSystemWindows="true"
+    android:theme="@style/ControlAccentThemeOverlay" />

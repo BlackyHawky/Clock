@@ -40,7 +40,7 @@ import com.android.deskclock.AsyncHandler;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
+import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
@@ -177,7 +177,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void updateNextAlarm(Context context) {
         final AlarmInstance nextAlarm = getNextFiringAlarm(context);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Utils.isPreL()) {
             updateNextAlarmInSystemSettings(context, nextAlarm);
         } else {
             updateNextAlarmInAlarmManager(context, nextAlarm);
@@ -576,6 +576,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 updateParentAlarm(context, instance);
             }
         }
+
+        updateNextAlarm(context);
     }
 
     /**
@@ -753,6 +755,23 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
+     * Delete and unregister all instances unless they are snoozed. This is used whenever an alarm
+     * is modified superficially (label, vibrate, or ringtone change).
+     */
+    public static void deleteNonSnoozeInstances(Context context, long alarmId) {
+        ContentResolver cr = context.getContentResolver();
+        List<AlarmInstance> instances = AlarmInstance.getInstancesByAlarmId(cr, alarmId);
+        for (AlarmInstance instance : instances) {
+            if (instance.mAlarmState == AlarmInstance.SNOOZE_STATE) {
+                continue;
+            }
+            unregisterInstance(context, instance);
+            AlarmInstance.deleteInstance(context.getContentResolver(), instance.mId);
+        }
+        updateNextAlarm(context);
+    }
+
+    /**
      * Fix and update all alarm instance when a time change event occurs.
      *
      * @param context application context
@@ -763,6 +782,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
         final Calendar currentTime = getCurrentTime();
         for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
             final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
+            if (alarm == null) {
+                AlarmInstance.deleteInstance(contentResolver, instance.mId);
+                LogUtils.e("Found instance without matching alarm; deleting instance %s", instance);
+                continue;
+            }
             final Calendar priorAlarmTime = alarm.getPreviousAlarmTime(instance.getAlarmTime());
             final Calendar missedTTLTime = instance.getMissedTimeToLive();
             if (currentTime.before(priorAlarmTime) || currentTime.after(missedTTLTime)) {
@@ -780,7 +804,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 registerInstance(context, instance, false);
             }
         }
-        
+
         updateNextAlarm(context);
     }
 
@@ -960,11 +984,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-            if (Utils.isKitKatOrLater()) {
-                am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-            } else {
-                am.set(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
-            }
+            am.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent);
         }
 
         @Override

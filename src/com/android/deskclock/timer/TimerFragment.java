@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.ViewPager;
@@ -64,10 +63,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     private static final TimeInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
     private static final TimeInterpolator DECELERATE_INTERPOLATOR = new DecelerateInterpolator();
     private static final long ROTATE_ANIM_DURATION_MILIS = 150;
-
-    // Transitions are available only in API 19+
-    private static final boolean USE_TRANSITION_FRAMEWORK =
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
     private boolean mTicking = false;
     private TimerSetupView mSetupView;
@@ -175,11 +170,9 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 }
             }
         });
-        if (USE_TRANSITION_FRAMEWORK) {
-            mDeleteTransition = new AutoTransition();
-            mDeleteTransition.setDuration(ANIMATION_TIME_MILLIS / 2);
-            mDeleteTransition.setInterpolator(new AccelerateDecelerateInterpolator());
-        }
+        mDeleteTransition = new AutoTransition();
+        mDeleteTransition.setDuration(ANIMATION_TIME_MILLIS / 2);
+        mDeleteTransition.setInterpolator(new AccelerateDecelerateInterpolator());
 
         return view;
     }
@@ -378,7 +371,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             case TimerObj.STATE_RUNNING:
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_stop));
-                mFab.setImageResource(R.drawable.ic_fab_pause);
+                mFab.setImageResource(R.drawable.ic_pause_white_24dp);
                 break;
             case TimerObj.STATE_STOPPED:
             case TimerObj.STATE_RESTART:
@@ -387,12 +380,12 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             case TimerObj.STATE_DELETED:
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_start));
-                mFab.setImageResource(R.drawable.ic_fab_play);
+                mFab.setImageResource(R.drawable.ic_start_white_24dp);
                 break;
             case TimerObj.STATE_TIMESUP: // time-up but didn't stopped, continue negative ticking
                 mFab.setVisibility(View.VISIBLE);
                 mFab.setContentDescription(r.getString(R.string.timer_stop));
-                mFab.setImageResource(R.drawable.ic_fab_stop);
+                mFab.setImageResource(R.drawable.ic_stop_white_24dp);
                 break;
             default:
         }
@@ -510,7 +503,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     break;
                 case TimerObj.STATE_TIMESUP:
                     if (t.mDeleteAfterUse) {
-                        cancelTimerNotification(t.mTimerId);
                         // Tell receiver the timer was deleted.
                         // It will stop all activity related to the
                         // timer
@@ -525,7 +517,6 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                         t.mView.setTime(t.mTimeLeft, false);
                         t.mView.set(t.mOriginalLength, t.mTimeLeft, false);
                         updateTimerState(t, Timers.RESET_TIMER);
-                        cancelTimerNotification(t.mTimerId);
                         Events.sendTimerEvent(R.string.action_reset, R.string.label_deskclock);
                     }
                     break;
@@ -534,15 +525,13 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
         }
     }
 
-
     private TimerObj getCurrentTimer() {
         if (mViewPager == null) {
             return null;
         }
         final int currPage = mViewPager.getCurrentItem();
         if (currPage < mAdapter.getCount()) {
-            TimerObj o = mAdapter.getTimerAt(currPage);
-            return o;
+            return mAdapter.getTimerAt(currPage);
         } else {
             return null;
         }
@@ -564,7 +553,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             setTimerViewFabIcon(getCurrentTimer());
         } else if (mSetupView != null) {
             mSetupView.registerStartButton(mFab);
-            mFab.setImageResource(R.drawable.ic_fab_play);
+            mFab.setImageResource(R.drawable.ic_start_white_24dp);
             mFab.setContentDescription(getString(R.string.timer_start));
         }
     }
@@ -621,9 +610,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             };
             createRotateAnimator(adapter, true).start();
         } else {
-            if (USE_TRANSITION_FRAMEWORK) {
-                TransitionManager.beginDelayedTransition(mContentView, mDeleteTransition);
-            }
+            TransitionManager.beginDelayedTransition(mContentView, mDeleteTransition);
             deleteTimer(timer);
         }
     }
@@ -761,14 +748,10 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                 Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
 
                 updateTimerState(t, Timers.START_TIMER);
-                cancelTimerNotification(t.mTimerId);
                 break;
         }
         // This will change status of the timer, so update fab
         setFabAppearance();
-    }
-
-    private void cancelTimerNotification(int timerId) {
-        mNotificationManager.cancel(timerId);
+        Utils.updateTimesUpNotification(getActivity());
     }
 }

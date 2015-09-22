@@ -16,18 +16,15 @@
 
 <resources>
 
-    <style name="FabStyle">
-        <item name="android:elevation">8dip</item>
-    </style>
-
-    <style name="SettingsTheme" parent="BaseActivityTheme">
+    <style name="SettingsTheme" parent="TranslucentDecorActivityTheme">
         <item name="android:alertDialogTheme">@style/SettingsAlertDialogTheme</item>
         <item name="android:detailsElementBackground">@null</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
 
         <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
+        <item name="colorControlActivated">?attr/colorAccent</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <!-- Theme that will be used by PreferenceFragment (i.e. *not* AppCompat). -->
@@ -36,12 +33,20 @@
     </style>
 
     <!-- Custom notification content styles -->
+    <!-- copied TextAppearance.Material.Button -->
+    <style name="TextAppearance.StatusBar.EventContent.Action">
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/black_54p</item>
+    </style>
+
     <style name="TextAppearance.StatusBar.EventContent">
-        <item name="android:textSize">@dimen/notification_text_size</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black_54p</item>
     </style>
     <style name="TextAppearance.StatusBar.EventContent.Title">
-        <item name="android:textSize">@dimen/notification_title_text_size</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/black_87p</item>
     </style>
 
@@ -71,25 +76,12 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="CitiesTheme" parent="BaseActivityTheme">
-        <item name="android:fastScrollPreviewBackgroundLeft">
-            @drawable/fastscroll_preview_left
-        </item>
-        <item name="android:fastScrollPreviewBackgroundRight">
-            @drawable/fastscroll_preview_right
-        </item>
-        <item name="android:fastScrollStyle">@style/FastScrollStyle</item>
+    <style name="CitiesTheme" parent="TranslucentDecorActivityTheme">
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
         <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
-    </style>
-
-    <style name="FastScrollStyle" parent="android:Widget.Material.FastScroll">
-        <item name="android:minWidth">48dip</item>
-        <item name="android:minHeight">48dip</item>
-        <item name="android:padding">16dip</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">32sp</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
 </resources>

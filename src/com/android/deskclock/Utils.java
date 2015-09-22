@@ -20,7 +20,9 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.TimeInterpolator;
+import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +38,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -48,6 +51,7 @@ import android.text.format.Time;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
+import android.util.ArraySet;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -55,22 +59,21 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.TextClock;
 import android.widget.TextView;
 
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
+import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.Timers;
-import com.android.deskclock.worldclock.CityObj;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
-
 
 public class Utils {
     private final static String PARAM_LANGUAGE_CODE = "hl";
@@ -87,7 +90,7 @@ public class Utils {
 
     // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
     private static String[] sShortWeekdays = null;
-    private static final String DATE_FORMAT_SHORT = isJBMR2OrLater() ? "ccccc" : "ccc";
+    private static final String DATE_FORMAT_SHORT = "ccccc";
 
     // Long-version of day name, e.g.: 'Sunday', 'Monday', 'Tuesday', etc
     private static String[] sLongWeekdays = null;
@@ -96,10 +99,6 @@ public class Utils {
     public static final int DEFAULT_WEEK_START = Calendar.getInstance().getFirstDayOfWeek();
 
     private static Locale sLocaleUsedForWeekdays;
-
-    /** Types that may be used for clock displays. **/
-    public static final String CLOCK_TYPE_DIGITAL = "digital";
-    public static final String CLOCK_TYPE_ANALOG = "analog";
 
     /**
      * Temporary array used by {@link #obtainStyledColor(Context, int, int)}.
@@ -136,18 +135,32 @@ public class Utils {
             0xFF20222A /* 11 PM */
     };
 
-    /**
-     * Returns whether the SDK is KitKat or later
-     */
-    public static boolean isKitKatOrLater() {
-        return Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR2;
+    public static void enforceMainLooper() {
+        if (Looper.getMainLooper() != Looper.myLooper()) {
+            throw new IllegalAccessError("May only call from main thread.");
+        }
+    }
+
+    public static void enforceNotMainLooper() {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            throw new IllegalAccessError("May not call from main thread.");
+        }
     }
 
     /**
-     * @return {@code true} if the device is {@link Build.VERSION_CODES#JELLY_BEAN_MR2} or later
+     * @return {@code true} if the device is prior to {@link Build.VERSION_CODES#LOLLIPOP}
      */
-    public static boolean isJBMR2OrLater() {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2;
+    public static boolean isPreL() {
+        return Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
+    }
+
+    /**
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP} or
+     *      {@link Build.VERSION_CODES#LOLLIPOP_MR1}
+     */
+    public static boolean isLOrLMR1() {
+        final int sdkInt = Build.VERSION.SDK_INT;
+        return sdkInt == Build.VERSION_CODES.LOLLIPOP || sdkInt == Build.VERSION_CODES.LOLLIPOP_MR1;
     }
 
     /**
@@ -284,21 +297,12 @@ public class Utils {
     }
 
     /**
-     * Broadcast a message to show the in-use timers in the notifications
+     * Broadcast a message to update the timer times-up HUN
      */
-    public static void showTimesUpNotifications(Context context) {
-        Intent timerIntent = new Intent();
-        timerIntent.setAction(Timers.NOTIF_TIMES_UP_SHOW);
-        context.sendBroadcast(timerIntent);
-    }
-
-    /**
-     * Broadcast a message to cancel the in-use timers in the notifications
-     */
-    public static void cancelTimesUpNotifications(Context context) {
-        Intent timerIntent = new Intent();
-        timerIntent.setAction(Timers.NOTIF_TIMES_UP_CANCEL);
-        context.sendBroadcast(timerIntent);
+    public static void updateTimesUpNotification(Context context) {
+        final Intent timerHUNIntent = new Intent();
+        timerHUNIntent.setAction(Timers.NOTIF_UPDATE);
+        context.sendBroadcast(timerHUNIntent);
     }
 
     /** Runnable for use with screensaver and dream, to move the clock every minute.
@@ -490,23 +494,40 @@ public class Utils {
      * For screensavers to set whether the digital or analog clock should be displayed.
      * Returns the view to be displayed.
      */
-    public static View setClockStyle(Context context, View digitalClock, View analogClock,
-            String clockStyleKey) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
-        String defaultClockStyle = context.getResources().getString(R.string.default_clock_style);
-        String style = sharedPref.getString(clockStyleKey, defaultClockStyle);
-        View returnView;
-        if (style.equals(CLOCK_TYPE_ANALOG)) {
-            digitalClock.setVisibility(View.GONE);
-            analogClock.setVisibility(View.VISIBLE);
-            returnView = analogClock;
-        } else {
-            digitalClock.setVisibility(View.VISIBLE);
-            analogClock.setVisibility(View.GONE);
-            returnView = digitalClock;
+    public static View setClockStyle(View digitalClock, View analogClock) {
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getClockStyle();
+        switch (clockStyle) {
+            case ANALOG:
+                digitalClock.setVisibility(View.GONE);
+                analogClock.setVisibility(View.VISIBLE);
+                return analogClock;
+            case DIGITAL:
+                digitalClock.setVisibility(View.VISIBLE);
+                analogClock.setVisibility(View.GONE);
+                return digitalClock;
         }
 
-        return returnView;
+        throw new IllegalStateException("unexpected clock style: " + clockStyle);
+    }
+
+    /**
+     * For screensavers to set whether the digital or analog clock should be displayed.
+     * Returns the view to be displayed.
+     */
+    public static View setScreensaverClockStyle(View digitalClock, View analogClock) {
+        final DataModel.ClockStyle clockStyle = DataModel.getDataModel().getScreensaverClockStyle();
+        switch (clockStyle) {
+            case ANALOG:
+                digitalClock.setVisibility(View.GONE);
+                analogClock.setVisibility(View.VISIBLE);
+                return analogClock;
+            case DIGITAL:
+                digitalClock.setVisibility(View.VISIBLE);
+                analogClock.setVisibility(View.GONE);
+                return digitalClock;
+        }
+
+        throw new IllegalStateException("unexpected clock style: " + clockStyle);
     }
 
     /**
@@ -525,21 +546,27 @@ public class Utils {
      * @return The next alarm from {@link AlarmManager}
      */
     public static String getNextAlarm(Context context) {
-        String timeString = null;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            timeString = Settings.System.getString(context.getContentResolver(),
-                    Settings.System.NEXT_ALARM_FORMATTED);
-        } else {
-            final AlarmManager.AlarmClockInfo info = ((AlarmManager) context.getSystemService(
-                    Context.ALARM_SERVICE)).getNextAlarmClock();
-            if (info != null) {
-                final long triggerTime = info.getTriggerTime();
-                final Calendar alarmTime = Calendar.getInstance();
-                alarmTime.setTimeInMillis(triggerTime);
-                timeString = AlarmUtils.getFormattedTime(context, alarmTime);
-            }
+        return isPreL() ? getNextAlarmPreL(context) : getNextAlarmLOrLater(context);
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    private static String getNextAlarmPreL(Context context) {
+        final ContentResolver cr = context.getContentResolver();
+        return Settings.System.getString(cr, Settings.System.NEXT_ALARM_FORMATTED);
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static String getNextAlarmLOrLater(Context context) {
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final AlarmManager.AlarmClockInfo info = am.getNextAlarmClock();
+        if (info != null) {
+            final long triggerTime = info.getTriggerTime();
+            final Calendar alarmTime = Calendar.getInstance();
+            alarmTime.setTimeInMillis(triggerTime);
+            return AlarmUtils.getFormattedTime(context, alarmTime);
         }
-        return timeString;
+
+        return null;
     }
 
     public static boolean isAlarmWithin24Hours(AlarmInstance alarmInstance) {
@@ -548,42 +575,39 @@ public class Utils {
         return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
-    /** Clock views can call this to refresh their alarm to the next upcoming value. **/
+    /** Clock views can call this to refresh their alarm to the next upcoming value. */
     public static void refreshAlarm(Context context, View clock) {
-        final String nextAlarm = getNextAlarm(context);
-        TextView nextAlarmView;
-        nextAlarmView = (TextView) clock.findViewById(R.id.nextAlarm);
-        if (!TextUtils.isEmpty(nextAlarm) && nextAlarmView != null) {
-            nextAlarmView.setText(
-                    context.getString(R.string.control_set_alarm_with_existing, nextAlarm));
-            nextAlarmView.setContentDescription(context.getResources().getString(
-                    R.string.next_alarm_description, nextAlarm));
+        final TextView nextAlarmView = (TextView) clock.findViewById(R.id.nextAlarm);
+        if (nextAlarmView == null) {
+            return;
+        }
+
+        final String alarm = getNextAlarm(context);
+        if (!TextUtils.isEmpty(alarm)) {
+            final String description = context.getString(R.string.next_alarm_description, alarm);
+            nextAlarmView.setText(alarm);
+            nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
-        } else  {
+        } else {
             nextAlarmView.setVisibility(View.GONE);
         }
     }
 
     /** Clock views can call this to refresh their date. **/
-    public static void updateDate(
-            String dateFormat, String dateFormatForAccessibility, View clock) {
-
-        Date now = new Date();
-        TextView dateDisplay;
-        dateDisplay = (TextView) clock.findViewById(R.id.date);
-        if (dateDisplay != null) {
-            final Locale l = Locale.getDefault();
-            dateDisplay.setText(isJBMR2OrLater()
-                    ? new SimpleDateFormat(
-                            DateFormat.getBestDateTimePattern(l, dateFormat), l).format(now)
-                    : SimpleDateFormat.getDateInstance().format(now));
-            dateDisplay.setVisibility(View.VISIBLE);
-            dateDisplay.setContentDescription(isJBMR2OrLater()
-                    ? new SimpleDateFormat(
-                    DateFormat.getBestDateTimePattern(l, dateFormatForAccessibility), l)
-                    .format(now)
-                    : SimpleDateFormat.getDateInstance(java.text.DateFormat.FULL).format(now));
+    public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock) {
+        final TextView dateDisplay = (TextView) clock.findViewById(R.id.date);
+        if (dateDisplay == null) {
+            return;
         }
+
+        final Locale l = Locale.getDefault();
+        final String datePattern = DateFormat.getBestDateTimePattern(l, dateSkeleton);
+        final String descriptionPattern = DateFormat.getBestDateTimePattern(l, descriptionSkeleton);
+
+        final Date now = new Date();
+        dateDisplay.setText(new SimpleDateFormat(datePattern, l).format(now));
+        dateDisplay.setVisibility(View.VISIBLE);
+        dateDisplay.setContentDescription(new SimpleDateFormat(descriptionPattern, l).format(now));
     }
 
     /***
@@ -601,19 +625,18 @@ public class Utils {
             clock.setFormat24Hour(get24ModeFormat());
         }
     }
-    /***
+
+    /**
      * @param context - context used to get time format string resource
      * @param amPmFontSize - size of am/pm label (label removed is size is 0).
      * @return format string for 12 hours mode time
      */
     public static CharSequence get12ModeFormat(Context context, int amPmFontSize) {
-        String pattern = isJBMR2OrLater()
-                ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma")
-                : context.getString(R.string.time_format_12_mode);
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
 
         // Remove the am/pm
         if (amPmFontSize <= 0) {
-            pattern.replaceAll("a", "").trim();
+            pattern = pattern.replaceAll("a", "").trim();
         }
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll(" ", "\u200A");
@@ -633,63 +656,7 @@ public class Utils {
     }
 
     public static CharSequence get24ModeFormat() {
-        return isJBMR2OrLater()
-                ? DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm")
-                : (new SimpleDateFormat("k:mm", Locale.getDefault())).toLocalizedPattern();
-    }
-
-    public static CityObj[] loadCitiesFromXml(Context c) {
-        Resources r = c.getResources();
-        // Read strings array of name,timezone, id
-        // make sure the list are the same length
-        String[] cityNames = r.getStringArray(R.array.cities_names);
-        String[] timezones = r.getStringArray(R.array.cities_tz);
-        String[] ids = r.getStringArray(R.array.cities_id);
-        int minLength = cityNames.length;
-        if (cityNames.length != timezones.length || ids.length != cityNames.length) {
-            minLength = Math.min(cityNames.length, Math.min(timezones.length, ids.length));
-            LogUtils.e("City lists sizes are not the same, truncating");
-        }
-        CityObj[] cities = new CityObj[minLength];
-        for (int i = 0; i < cities.length; i++) {
-            // Default to using the first character of the city name as the index unless one is
-            // specified. The indicator for a specified index is the addition of character(s)
-            // before the "=" separator.
-            final String parseString = cityNames[i];
-            final int separatorIndex = parseString.indexOf("=");
-            final String index;
-            final String cityName;
-            if (parseString.length() <= 1 && separatorIndex >= 0) {
-                LogUtils.w("Cannot parse city name %s; skipping", parseString);
-                continue;
-            }
-            if (separatorIndex == 0) {
-                // Default to using second character (the first character after the = separator)
-                // as the index.
-                index = parseString.substring(1, 2);
-                cityName = parseString.substring(1);
-            } else if (separatorIndex == -1) {
-                // Default to using the first character as the index
-                index = parseString.substring(0, 1);
-                cityName = parseString;
-                LogUtils.e("Missing expected separator character =");
-            } else {
-                 index = parseString.substring(0, separatorIndex);
-                 cityName = parseString.substring(separatorIndex + 1);
-            }
-            cities[i] = new CityObj(cityName, timezones[i], ids[i], index);
-        }
-        return cities;
-    }
-    // Returns a map of cities where the key is lowercase
-    public static Map<String, CityObj> loadCityMapFromXml(Context c) {
-        CityObj[] cities = loadCitiesFromXml(c);
-
-        final Map<String, CityObj> map = new HashMap<>(cities.length);
-        for (CityObj city : cities) {
-            map.put(city.mCityName.toLowerCase(), city);
-        }
-        return map;
+        return DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm");
     }
 
     /**
@@ -708,10 +675,6 @@ public class Utils {
         } else {
             return String.format("GMT %+d:%02d", hour, min);
         }
-    }
-
-    public static String getCityName(CityObj city, CityObj dbCity) {
-        return (city.mCityId == null || dbCity == null) ? city.mCityName : dbCity.mCityName;
     }
 
     /**
@@ -814,5 +777,23 @@ public class Utils {
     public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
         final String localizedQuantity = NumberFormat.getInstance().format(quantity);
         return context.getResources().getQuantityString(id, quantity, localizedQuantity);
+    }
+
+    public static void setTimezoneLocale(Context context, Locale locale) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit().putString(SettingsActivity.TIMEZONE_LOCALE, locale.toString()).apply();
+    }
+
+    public static Locale getTimezoneLocale(Context context) {
+       final String localeString = PreferenceManager.getDefaultSharedPreferences(context)
+               .getString(SettingsActivity.TIMEZONE_LOCALE,
+                       context.getResources().getConfiguration().locale.toString());
+       return new Locale(localeString);
+    }
+
+    public static <E> ArraySet<E> newArraySet(Collection<E> collection) {
+        final ArraySet<E> arraySet = new ArraySet<>(collection.size());
+        arraySet.addAll(collection);
+        return arraySet;
     }
 }
