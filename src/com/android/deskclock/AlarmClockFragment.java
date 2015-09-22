@@ -238,6 +238,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
                 // Set the ringtone uri on the alarm.
                 final Alarm alarm = mAlarmTimeClickHandler.getSelectedAlarm();
+                if (alarm == null) {
+                    LogUtils.e("Could not get selected alarm to set ringtone");
+                    return;
+                }
                 alarm.alert = uri;
 
                 // Save the change to alarm.
