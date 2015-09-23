@@ -61,18 +61,12 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Atlikts līdz: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Gaidāms signāls"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Jūsu nokavētais signāls ir dzēsts."</string>
-    <!-- no translation found for timer_notifications_less_min (5481375048976427255) -->
-    <skip />
-    <!-- no translation found for timer_notifications_hours (1613266446037145138) -->
-    <skip />
-    <!-- no translation found for timer_notifications_minutes (8543138714519498893) -->
-    <skip />
-    <!-- no translation found for timer_notifications_hours_minutes (4301167788642025702) -->
-    <skip />
-    <!-- no translation found for timer_remaining_single (6782851171906765864) -->
-    <skip />
-    <!-- no translation found for timer_remaining_multiple (6052775962092160851) -->
-    <skip />
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Atlikušais laiks: mazāk par minūti"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"Atlikušais laiks: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"atlikusi"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"atlikušas"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: mazāk nekā 1 minūte."</item>
     <item msgid="6002066367368421848">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="DAYS">%1$s</xliff:g>."</item>

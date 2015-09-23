@@ -59,18 +59,12 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> чейин тындыруу"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Келээрки ойготкуч"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Көз жаздымда калган ойготкучуңуз жок кылынды"</string>
-    <!-- no translation found for timer_notifications_less_min (5481375048976427255) -->
-    <skip />
-    <!-- no translation found for timer_notifications_hours (1613266446037145138) -->
-    <skip />
-    <!-- no translation found for timer_notifications_minutes (8543138714519498893) -->
-    <skip />
-    <!-- no translation found for timer_notifications_hours_minutes (4301167788642025702) -->
-    <skip />
-    <!-- no translation found for timer_remaining_single (6782851171906765864) -->
-    <skip />
-    <!-- no translation found for timer_remaining_multiple (6052775962092160851) -->
-    <skip />
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Бир мүнөткө жетпеген убакыт калды"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> саат <xliff:g id="MINUTES">%2$s</xliff:g> мүнөт калды"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"калды"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"калды"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Ойготкуч 1 мүнөткө жетпеген убакытка коюлуп жатат."</item>
     <item msgid="6002066367368421848">"Ойготкуч <xliff:g id="DAYS">%1$s</xliff:g> күнгө коюлган."</item>
