@@ -32,6 +32,13 @@ public class Timers {
     public static final String TIMER_DONE = "timer_done";
     public static final String TIMER_UPDATE = "timer_update";
 
+    // Actions from notifications. Will include timer id extra.
+    public static final String NOTIF_PAUSE_TIMER = "notif_pause_timer";
+    public static final String NOTIF_PLUS_ONE_TIMER = "notif_plus_one_timer";
+    public static final String NOTIF_RESET_TIMER = "notif_reset_timer";
+    public static final String NOTIF_RESET_ALL_TIMERS = "notif_reset_all_timers";
+    public static final String NOTIF_RESUME_TIMER = "notif_resume_timer";
+
     public static final String TIMER_INTENT_EXTRA = "timer.intent.extra";
 
     public static final String UPDATE_NEXT_TIMESUP = "timer_update_next_timesup";
@@ -39,10 +46,10 @@ public class Timers {
     public static final String NOTIF_IN_USE_SHOW = "notif_in_use_show";
     public static final String NOTIF_IN_USE_CANCEL = "notif_in_use_cancel";
     public static final String NOTIF_APP_OPEN = "notif_app_open";
+    public static final String NOTIF_UPDATE = "notif_update";
+    public static final String NOTIF_STOP_ALL_TIMERS = "notif_stop_all_timers";
     public static final String NOTIF_TIMES_UP_STOP = "notif_times_up_stop";
     public static final String NOTIF_TIMES_UP_PLUS_ONE = "notif_times_up_plus_one";
-    public static final String NOTIF_TIMES_UP_SHOW = "notif_times_up_show";
-    public static final String NOTIF_TIMES_UP_CANCEL = "notif_times_up_cancel";
     public static final String FIRST_LAUNCH_FROM_API_CALL = "first_launch_from_api_call";
     public static final String SCROLL_TO_TIMER_ID = "scroll_to_timer_id";
 

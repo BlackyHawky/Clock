@@ -24,21 +24,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import com.android.deskclock.data.City;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFullScreenFragment;
 import com.android.deskclock.timer.TimerObj;
 import com.android.deskclock.timer.Timers;
-import com.android.deskclock.worldclock.Cities;
-import com.android.deskclock.worldclock.CitiesActivity;
-import com.android.deskclock.worldclock.CityObj;
+import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class HandleDeskClockApiCalls extends Activity {
@@ -48,6 +46,8 @@ public class HandleDeskClockApiCalls extends Activity {
 
     // shows the tab with world clocks
     public static final String ACTION_SHOW_CLOCK = ACTION_PREFIX + "SHOW_CLOCK";
+    // extra for ACTION_SHOW_CLOCK indicating the clock is being displayed from tapping the widget
+    public static final String EXTRA_FROM_WIDGET = "com.android.deskclock.extra.clock.FROM_WIDGET";
     // add a clock of a selected city, if no city is specified opens the city selection screen
     public static final String ACTION_ADD_CLOCK = ACTION_PREFIX + "ADD_CLOCK";
     // delete a clock of a selected city, if no city is specified shows CitiesActivity for the user
@@ -416,24 +416,21 @@ public class HandleDeskClockApiCalls extends Activity {
 
         @Override
         protected Void doInBackground(Void... parameters) {
-            final String cityExtra = mIntent.getStringExtra(EXTRA_CITY);
-            final SharedPreferences prefs =
-                    PreferenceManager.getDefaultSharedPreferences(mContext);
+            final String cityName = mIntent.getStringExtra(EXTRA_CITY);
             switch (mIntent.getAction()) {
                 case ACTION_ADD_CLOCK: {
                     // if a city isn't specified open CitiesActivity to choose a city
-                    if (cityExtra == null) {
+                    if (cityName == null) {
                         final String reason = mContext.getString(R.string.no_city_selected);
                         Voice.notifyFailure(mActivity, reason);
                         LogUtils.i(reason);
-                        startCitiesActivity();
+                        startSelectWorldClocksActivity();
                         Events.sendClockEvent(R.string.action_create, R.string.label_intent);
                         break;
                     }
 
                     // if a city is passed add that city to the list
-                    final Map<String, CityObj> cities = Utils.loadCityMapFromXml(mContext);
-                    final CityObj city = cities.get(cityExtra.toLowerCase());
+                    final City city = DataModel.getDataModel().getCity(cityName);
                     // check if this city exists in the list of available cities
                     if (city == null) {
                         final String reason = mContext.getString(
@@ -443,38 +440,36 @@ public class HandleDeskClockApiCalls extends Activity {
                         break;
                     }
 
-                    final HashMap<String, CityObj> selectedCities =
-                            Cities.readCitiesFromSharedPrefs(prefs);
+                    final Set<City> selectedCities =
+                            Utils.newArraySet(DataModel.getDataModel().getSelectedCities());
                     // if this city is already added don't add it
-                    if (selectedCities.put(city.mCityId, city) != null) {
+                    if (!selectedCities.add(city)) {
                         final String reason = mContext.getString(R.string.the_city_already_added);
                         Voice.notifyFailure(mActivity, reason);
                         LogUtils.i(reason);
                         break;
                     }
 
-                    Cities.saveCitiesToSharedPrefs(prefs, selectedCities);
-                    final String reason = mContext.getString(R.string.city_added, city.mCityName);
+                    DataModel.getDataModel().setSelectedCities(selectedCities);
+                    final String reason = mContext.getString(R.string.city_added, city.getName());
                     Voice.notifySuccess(mActivity, reason);
                     LogUtils.i(reason);
                     Events.sendClockEvent(R.string.action_start, R.string.label_intent);
                     break;
                 }
                 case ACTION_DELETE_CLOCK: {
-                    if (cityExtra == null) {
-                        // if a city isn't specified open CitiesActivity to choose a city
+                    if (cityName == null) {
+                        // if a city isn't specified open the activity that chooses a city
                         final String reason = mContext.getString(R.string.no_city_selected);
                         Voice.notifyFailure(mActivity, reason);
                         LogUtils.i(reason);
-                        startCitiesActivity();
+                        startSelectWorldClocksActivity();
                         Events.sendClockEvent(R.string.action_create, R.string.label_intent);
                         break;
                     }
 
                     // if a city is specified check if it's selected and if so delete it
-                    final Map<String, CityObj> cities = Utils.loadCityMapFromXml(mContext);
-                    // check if this city exists in the list of available cities
-                    final CityObj city = cities.get(cityExtra.toLowerCase());
+                    final City city = DataModel.getDataModel().getCity(cityName);
                     if (city == null) {
                         final String reason = mContext.getString(
                                 R.string.the_city_you_specified_is_not_available);
@@ -483,32 +478,36 @@ public class HandleDeskClockApiCalls extends Activity {
                         break;
                     }
 
-                    final HashMap<String, CityObj> selectedCities =
-                            Cities.readCitiesFromSharedPrefs(prefs);
-                    if (selectedCities.remove(city.mCityId) != null) {
-                        final String reason = mContext.getString(R.string.city_deleted,
-                                city.mCityName);
-                        Voice.notifySuccess(mActivity, reason);
-                        LogUtils.i(reason);
-                        Cities.saveCitiesToSharedPrefs(prefs, selectedCities);
-                        Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
-                    } else {
+                    final Set<City> selectedCities =
+                            Utils.newArraySet(DataModel.getDataModel().getSelectedCities());
+
+                    // check if this city exists in the list of available cities
+                    if (!selectedCities.remove(city)) {
                         // the specified city hasn't been added to the user's list yet
                         Voice.notifyFailure(mActivity, mContext.getString(
                                 R.string.the_city_you_specified_is_not_available));
+                        break;
                     }
+
+                    DataModel.getDataModel().setSelectedCities(selectedCities);
+                    final String reason = mContext.getString(R.string.city_deleted, city.getName());
+                    Voice.notifySuccess(mActivity, reason);
+                    LogUtils.i(reason);
+                    Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
                     break;
                 }
                 case ACTION_SHOW_CLOCK:
-                    Events.sendClockEvent(R.string.action_show, R.string.label_intent);
+                    final boolean fromWidget = mIntent.getBooleanExtra(EXTRA_FROM_WIDGET, false);
+                    final int label = fromWidget ? R.string.label_widget : R.string.label_intent;
+                    Events.sendClockEvent(R.string.action_show, label);
                     break;
             }
             return null;
         }
 
-        private void startCitiesActivity() {
-            mContext.startActivity(new Intent(mContext, CitiesActivity.class).addFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK));
+        private void startSelectWorldClocksActivity() {
+            mContext.startActivity(new Intent(mContext, CitySelectionActivity.class)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 }

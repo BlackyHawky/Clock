@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.android.deskclock;
 
 import android.annotation.TargetApi;
@@ -6,13 +22,16 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.NumberPicker;
 
 import java.lang.reflect.Field;
 
 /**
- * Subclass of NumberPicker that allows customizing divider color.
+ * Subclass of NumberPicker that allows customizing divider color and saves/restores its value
+ * across device rotations.
  */
 public class NumberPickerCompat extends NumberPicker {
 
@@ -35,14 +54,10 @@ public class NumberPickerCompat extends NumberPicker {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void tintSelectionDivider(Context context) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP
-                || Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-            // Accent color in KK will stay system blue, so leave divider color matching.
-            // The divider is correctly tinted to controlColorNormal in M.
-            return;
-        }
+        // Accent color in KK will stay system blue, so leave divider color matching.
+        // The divider is correctly tinted to controlColorNormal in M.
 
-        if (sTrySelectionDivider) {
+        if (Utils.isLOrLMR1() && sTrySelectionDivider) {
             final TypedArray a = context.obtainStyledAttributes(
                     new int[] { android.R.attr.colorControlNormal });
              // White is default color if colorControlNormal is not defined.
@@ -66,4 +81,52 @@ public class NumberPickerCompat extends NumberPicker {
         }
     }
 
+    /**
+     * @return the state of this NumberPicker including the currently selected value
+     */
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        return new State(super.onSaveInstanceState(), getValue());
+    }
+
+    /**
+     * @param state the state of this NumberPicker including the value to select
+     */
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        final State instanceState = (State) state;
+        super.onRestoreInstanceState(instanceState.getSuperState());
+        setValue(instanceState.mValue);
+    }
+
+    /**
+     * The state of this NumberPicker including the selected value. Used to preserve values across
+     * device rotation.
+     */
+    private static final class State extends BaseSavedState {
+
+        private final int mValue;
+
+        public State(Parcel source) {
+            super(source);
+            mValue = source.readInt();
+        }
+
+        public State(Parcelable superState, int value) {
+            super(superState);
+            mValue = value;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            super.writeToParcel(dest, flags);
+            dest.writeInt(mValue);
+        }
+
+        public static final Parcelable.Creator<State> CREATOR =
+                new Parcelable.Creator<State>() {
+                    public State createFromParcel(Parcel in) { return new State(in); }
+                    public State[] newArray(int size) { return new State[size]; }
+                };
+    }
 }

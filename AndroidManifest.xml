@@ -33,7 +33,6 @@
     <!-- READ_PHONE_STATE is required to determine when a phone call exists prior to M -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- READ_EXTERNAL_STORAGE is required to play custom ringtones from the SD card prior to M -->
-    <!-- It is also required to display user-friendly names for custom ringtones in the UI. -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application android:label="@string/app_label"
@@ -52,7 +51,7 @@
 
         <activity android:name="DeskClock"
                 android:label="@string/app_label"
-                android:theme="@style/DeskClock"
+                android:theme="@style/DeskClockTheme"
                 android:icon="@mipmap/ic_launcher_alarmclock"
                 android:launchMode="singleTask">
 
@@ -66,7 +65,7 @@
         <activity-alias android:name="DockClock"
                 android:targetActivity="DeskClock"
                 android:label="@string/app_label"
-                android:theme="@style/DeskClock"
+                android:theme="@style/DeskClockTheme"
                 android:icon="@mipmap/ic_launcher_alarmclock"
                 android:launchMode="singleTask"
                 android:enabled="@bool/config_dockAppEnabled"
@@ -78,7 +77,7 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name="SettingsActivity"
+        <activity android:name=".settings.SettingsActivity"
                 android:label="@string/settings"
                 android:theme="@style/SettingsTheme"
                 android:taskAffinity=""
@@ -89,12 +88,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".worldclock.CitiesActivity"
+        <activity android:name=".worldclock.CitySelectionActivity"
                 android:label="@string/cities_activity_title"
                 android:theme="@style/CitiesTheme"
                 android:taskAffinity=""
-                android:excludeFromRecents="true"
-                >
+                android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -238,39 +236,48 @@
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name="com.android.alarmclock.AnalogAppWidgetProvider" android:label="@string/analog_gadget"
-           android:icon="@mipmap/ic_launcher_alarmclock">
+        <receiver
+            android:name="com.android.alarmclock.AnalogAppWidgetProvider"
+            android:icon="@mipmap/ic_launcher_alarmclock"
+            android:label="@string/analog_gadget">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
-            <meta-data android:name="android.appwidget.oldName" android:value="com.android.deskclock.AnalogAppWidgetProvider" />
-            <meta-data android:name="android.appwidget.provider" android:resource="@xml/analog_appwidget" />
+
+            <meta-data
+                android:name="android.appwidget.oldName"
+                android:value="com.android.deskclock.AnalogAppWidgetProvider"/>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/analog_appwidget"/>
         </receiver>
 
-        <receiver android:name="com.android.alarmclock.DigitalAppWidgetProvider" android:label="@string/digital_gadget"
-           android:icon="@mipmap/ic_launcher_alarmclock">
+        <receiver
+            android:name="com.android.alarmclock.DigitalAppWidgetProvider"
+            android:icon="@mipmap/ic_launcher_alarmclock"
+            android:label="@string/digital_gadget">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.android.deskclock.ON_QUARTER_HOUR" />
-                <action android:name="android.intent.action.DATE_CHANGED" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="android.intent.action.SCREEN_ON" />
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
-                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
-                <action android:name="com.android.deskclock.worldclock.update" />
-                </intent-filter>
-            <meta-data android:name="android.appwidget.provider" android:resource="@xml/digital_appwidget" />
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.SCREEN_ON"/>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+                <action android:name="com.android.deskclock.CITIES_CHANGED"/>
+                <action android:name="com.android.deskclock.ON_QUARTER_HOUR"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+                <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/digital_appwidget"/>
         </receiver>
 
         <service android:name="com.android.alarmclock.DigitalAppWidgetService"
              android:permission="android.permission.BIND_REMOTEVIEWS"
-             android:exported="false" />
-
-        <receiver android:name="com.android.alarmclock.DigitalWidgetViewsFactory"
              android:exported="false" />
 
         <!-- Dream (screensaver) implementation -->
@@ -289,7 +296,7 @@
         </service>
 
         <!-- Settings activity for screensaver -->
-        <activity android:name=".ScreensaverSettingsActivity"
+        <activity android:name=".settings.ScreensaverSettingsActivity"
                 android:label="@string/screensaver_settings"
                 android:theme="@style/SettingsTheme"
                 android:taskAffinity=""
@@ -341,6 +348,12 @@
                 <action android:name="notif_times_up_plus_one" />
                 <action android:name="notif_times_up_show" />
                 <action android:name="notif_times_up_cancel" />
+                <action android:name="notif_pause_timer" />
+                <action android:name="notif_plus_one_timer" />
+                <action android:name="notif_resume_timer" />
+                <action android:name="notif_reset_timer" />
+                <action android:name="notif_reset_all_timers" />
+                <action android:name="notif_update" />
             </intent-filter>
         </receiver>
 

@@ -26,6 +26,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.widget.TextTime;
 
+import java.util.Calendar;
 import java.util.List;
 
 public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
@@ -57,7 +58,7 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
         // find days when alarm is firing
         final String daysOfWeek;
         if (!alarm.daysOfWeek.isRepeating()) {
-            daysOfWeek = Alarm.isTomorrow(alarm) ?
+            daysOfWeek = Alarm.isTomorrow(alarm, Calendar.getInstance()) ?
                     context.getResources().getString(R.string.alarm_tomorrow) :
                     context.getResources().getString(R.string.alarm_today);
         } else {

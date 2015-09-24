@@ -26,9 +26,9 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
 
 import com.android.deskclock.DeskClock;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.TimerRingService;
 import com.android.deskclock.Utils;
@@ -44,13 +44,17 @@ public class TimerReceiver extends BroadcastReceiver {
     // Must also be different than StopwatchService.NOTIFICATION_ID
     private static final int IN_USE_NOTIFICATION_ID = Integer.MAX_VALUE - 2;
 
+    // There will only be one times up timer notification at a time.
+    private static final int TIMER_TIMESUP_NOTIFICATION_ID = Integer.MAX_VALUE - 3;
+
+    private static final int NO_SINGLE_RUNNING_TIMER = Integer.MAX_VALUE - 4;
+
     ArrayList<TimerObj> mTimers;
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        if (Timers.LOGGING) {
-            Log.v(TAG, "Received intent " + intent.toString());
-        }
+        LogUtils.v(TAG, "Received intent " + intent.toString());
+
         String actionType = intent.getAction();
         // This action does not need the timers data
         if (Timers.NOTIF_IN_USE_CANCEL.equals(actionType)) {
@@ -66,36 +70,60 @@ public class TimerReceiver extends BroadcastReceiver {
         TimerObj.getTimersFromSharedPrefs(prefs, mTimers);
 
         // These actions do not provide a timer ID, but do use the timers data
-        if (Timers.NOTIF_IN_USE_SHOW.equals(actionType)) {
-            showInUseNotification(context);
-            return;
-        } else if (Timers.NOTIF_TIMES_UP_SHOW.equals(actionType)) {
-            showTimesUpNotification(context);
-            return;
-        } else if (Timers.NOTIF_TIMES_UP_CANCEL.equals(actionType)) {
-            cancelTimesUpNotification(context);
-            return;
+        switch (actionType) {
+            case Timers.NOTIF_IN_USE_SHOW:
+                showInUseNotification(context);
+                return;
+            case Timers.NOTIF_UPDATE:
+                updateTimesUpNotification(context);
+                return;
+            case Timers.NOTIF_RESET_ALL_TIMERS:
+                resetAllTimers(context, prefs);
+                return;
         }
 
         // Remaining actions provide a timer Id
         if (!intent.hasExtra(Timers.TIMER_INTENT_EXTRA)) {
             // No data to work with, do nothing
-            Log.e(TAG, "got intent without Timer data");
+            LogUtils.e(TAG, "Got intent without Timer data");
             return;
         }
 
         // Get the timer out of the Intent
         int timerId = intent.getIntExtra(Timers.TIMER_INTENT_EXTRA, -1);
         if (timerId == -1) {
-            Log.d(TAG, "OnReceive:intent without Timer data for " + actionType);
+            LogUtils.d(TAG, "OnReceive:intent without Timer data for " + actionType);
         }
 
         TimerObj t = Timers.findTimer(mTimers, timerId);
 
+        // Actions from in-use notifications that control a single active but not firing timer.
+        // If these are being used, we must not be in the app
+        switch (actionType) {
+            case Timers.NOTIF_PAUSE_TIMER:
+                pauseTimer(context, prefs, t);
+                return;
+            case Timers.NOTIF_PLUS_ONE_TIMER:
+                plusOneTimer(context, prefs, t);
+                return;
+            case Timers.NOTIF_RESUME_TIMER:
+                resumeTimer(context, prefs, t);
+                return;
+            case Timers.NOTIF_RESET_TIMER:
+                resetSingleTimer(context, prefs, t);
+                return;
+        }
+
         if (Timers.TIMES_UP.equals(actionType)) {
-            // Find the timer (if it doesn't exists, it was probably deleted).
+            // Find the timer (if it doesn't exist, it was probably deleted).
             if (t == null) {
-                Log.d(TAG, " timer not found in list - do nothing");
+                LogUtils.d(TAG, "Timer not found in list - do nothing");
+                return;
+            }
+
+            // Perform an extra check just to verify that time is actually up.
+            if (t.getTimesupTime() > Utils.getTimeNow()) {
+                LogUtils.i(TAG, "Times up time is still in the future; not firing.");
                 return;
             }
 
@@ -104,7 +132,7 @@ public class TimerReceiver extends BroadcastReceiver {
             Events.sendEvent(R.string.category_timer, R.string.action_fire, 0);
 
             // Play ringtone by using TimerRingService service with a default alarm.
-            Log.d(TAG, "playing ringtone");
+            LogUtils.d(TAG, "Playing timer ringtone");
             Intent si = new Intent();
             si.setClass(context, TimerRingService.class);
             context.startService(si);
@@ -117,54 +145,37 @@ public class TimerReceiver extends BroadcastReceiver {
                 showInUseNotification(context);
             }
 
-            // Start the TimerAlertFullScreen activity.
-            Intent timersAlert = new Intent(context, TimerAlertFullScreen.class);
-            timersAlert.setFlags(
-                    Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-            context.startActivity(timersAlert);
+            // Flag to tell DeskClock to re-sync with the database. Important if the timer
+            // expires while we are still on the timerfragment page; we need to update the fab.
+            prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
+            updateTimesUpNotification(context);
         } else if (Timers.RESET_TIMER.equals(actionType)
                 || Timers.DELETE_TIMER.equals(actionType)
                 || Timers.TIMER_DONE.equals(actionType)) {
             // Stop Ringtone if all timers are not in times-up status
             stopRingtoneIfNoTimesup(context);
-
-            if (t != null) {
-                cancelTimesUpNotification(context, t);
-            }
+            updateTimesUpNotification(context);
         } else if (Timers.NOTIF_TIMES_UP_STOP.equals(actionType)) {
-            // Find the timer (if it doesn't exists, it was probably deleted).
-            if (t == null) {
-                Log.d(TAG, "timer to stop not found in list - do nothing");
-                return;
-            } else if (t.mState != TimerObj.STATE_TIMESUP) {
-                Log.d(TAG, "action to stop but timer not in times-up state - do nothing");
-                return;
+            if (intent.getBooleanExtra(Timers.NOTIF_STOP_ALL_TIMERS, false)) {
+                LogUtils.d(TAG, "Stopping all timers");
+                for (TimerObj timesUpTimer : Timers.timersInTimesUp(mTimers)) {
+                    stopTimer(prefs, timesUpTimer);
+                }
+            } else {
+                stopTimer(prefs, t);
             }
-
-            // Update timer state
-            t.setState(t.getDeleteAfterUse() ? TimerObj.STATE_DELETED : TimerObj.STATE_RESTART);
-            t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
-            t.writeToSharedPref(prefs);
-
-            // Flag to tell DeskClock to re-sync with the database
-            prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
-
-            cancelTimesUpNotification(context, t);
-
-            // Done with timer - delete from data base
-            if (t.getDeleteAfterUse()) {
-                t.deleteFromSharedPref(prefs);
-            }
-
-            // Stop Ringtone if no timers are in times-up status
             stopRingtoneIfNoTimesup(context);
+            // Flag to tell DeskClock to re-sync with the database. Important if the HUN stop is
+            // clicked while TimerFragment is open.
+            prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
+            updateTimesUpNotification(context);
         } else if (Timers.NOTIF_TIMES_UP_PLUS_ONE.equals(actionType)) {
             // Find the timer (if it doesn't exists, it was probably deleted).
             if (t == null) {
-                Log.d(TAG, "timer to +1m not found in list - do nothing");
+                LogUtils.d(TAG, "Timer to +1m not found in list - do nothing");
                 return;
             } else if (t.mState != TimerObj.STATE_TIMESUP) {
-                Log.d(TAG, "action to +1m but timer not in times up state - do nothing");
+                LogUtils.d(TAG, "Action to +1m but timer not in times up state - do nothing");
                 return;
             }
 
@@ -177,8 +188,6 @@ public class TimerReceiver extends BroadcastReceiver {
             // Flag to tell DeskClock to re-sync with the database
             prefs.edit().putBoolean(Timers.REFRESH_UI_WITH_LATEST_DATA, true).apply();
 
-            cancelTimesUpNotification(context, t);
-
             // If the app is not open, refresh the in-use notification
             if (!prefs.getBoolean(Timers.NOTIF_APP_OPEN, false)) {
                 showInUseNotification(context);
@@ -186,19 +195,18 @@ public class TimerReceiver extends BroadcastReceiver {
 
             // Stop Ringtone if no timers are in times-up status
             stopRingtoneIfNoTimesup(context);
+            updateTimesUpNotification(context);
         } else if (Timers.TIMER_UPDATE.equals(actionType)) {
             // Find the timer (if it doesn't exists, it was probably deleted).
             if (t == null) {
-                Log.d(TAG, " timer to update not found in list - do nothing");
+                LogUtils.d(TAG, "Timer to update not found in list - do nothing");
                 return;
             }
-
-            // Refresh buzzing notification
-            if (t.mState == TimerObj.STATE_TIMESUP) {
-                // Must cancel the previous notification to get all updates displayed correctly
-                cancelTimesUpNotification(context, t);
-                showTimesUpNotification(context, t);
-            }
+            updateTimesUpNotification(context);
+        } else {
+            // In this case, we do not want to update the times up notification because any other
+            // actions (such as updating timer state) do not change the set of Times Up timers,
+            // so that would result in a distracting and unnnecessary refresh of the notification.
         }
         if (intent.getBooleanExtra(Timers.UPDATE_NEXT_TIMESUP, true)) {
             // Update the next "Times up" alarm unless explicitly told not to.
@@ -206,10 +214,102 @@ public class TimerReceiver extends BroadcastReceiver {
         }
     }
 
+    private void pauseTimer(Context context, SharedPreferences prefs, TimerObj t) {
+        t.setState(TimerObj.STATE_STOPPED);
+        t.writeToSharedPref(prefs);
+        t.updateTimeLeft(true);
+
+        updateNextTimesup(context);
+
+        // Update the in use notification.
+        showInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_stop, R.string.label_notification);
+    }
+
+    private void plusOneTimer(Context context, SharedPreferences prefs, TimerObj t) {
+        t.setState(TimerObj.STATE_RUNNING);
+        t.addTime(TimerObj.MINUTE_IN_MILLIS);
+        t.updateTimeLeft(true);
+        t.writeToSharedPref(prefs);
+
+        updateNextTimesup(context);
+
+        // Update the in use notification.
+        showInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_add_minute, R.string.label_notification);
+    }
+
+    private void resumeTimer(Context context, SharedPreferences prefs, TimerObj t) {
+        t.setState(TimerObj.STATE_RUNNING);
+        t.updateTimeLeft(true);
+        t.writeToSharedPref(prefs);
+
+        updateNextTimesup(context);
+
+        // Update the in use notification.
+        showInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_resume, R.string.label_notification);
+    }
+
+    private void resetTimer(SharedPreferences prefs, TimerObj t) {
+        t.setState(TimerObj.STATE_RESTART);
+        t.mTimeLeft = t.mOriginalLength = t.mSetupLength;
+        t.writeToSharedPref(prefs);
+    }
+
+    private void resetSingleTimer(Context context, SharedPreferences prefs, TimerObj t) {
+        resetTimer(prefs, t);
+
+        updateNextTimesup(context);
+
+        // Remove the in use notification.
+        cancelInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
+    }
+
+    private void resetAllTimers(Context context, SharedPreferences prefs) {
+        for (TimerObj t: Timers.timersInUse(mTimers)) {
+            resetTimer(prefs, t);
+        }
+        updateNextTimesup(context);
+
+        // Remove the in use notification.
+        cancelInUseNotification(context);
+
+        Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
+    }
+
+
+    private void stopTimer(SharedPreferences prefs, TimerObj t) {
+        LogUtils.i(TAG, "Stopping timer id: " + t.mTimerId);
+        if (t == null) {
+            LogUtils.i(TAG, "Timer to stop not found in list - do nothing");
+            return;
+        } else if (t.mState != TimerObj.STATE_TIMESUP) {
+            LogUtils.i(TAG, "Action to stop but timer not in times-up state - do nothing");
+            return;
+        }
+
+        if (t.mDeleteAfterUse) {
+            t.deleteFromSharedPref(prefs);
+            Events.sendTimerEvent(R.string.action_delete, R.string.label_notification);
+        } else {
+            t.setState(TimerObj.STATE_RESTART);
+            t.mOriginalLength = t.mSetupLength;
+            t.mTimeLeft = t.mSetupLength;
+            Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
+            t.writeToSharedPref(prefs);
+        }
+    }
+
     private void stopRingtoneIfNoTimesup(final Context context) {
         if (Timers.findExpiredTimer(mTimers) == null) {
             // Stop ringtone
-            Log.d(TAG, "stopping ringtone");
+            LogUtils.d(TAG, "Stopping timer ringtone");
             Intent si = new Intent();
             si.setClass(context, TimerRingService.class);
             context.stopService(si);
@@ -232,26 +332,26 @@ public class TimerReceiver extends BroadcastReceiver {
         if (!mTimers.isEmpty()) {
             intent.putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
         }
-        AlarmManager mngr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent p = PendingIntent.getBroadcast(context,
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final PendingIntent p = PendingIntent.getBroadcast(context,
                 0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         if (t != null) {
-            if (Utils.isKitKatOrLater()) {
-                mngr.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+            if (Utils.isMOrLater()) {
+                // Make sure we fire the timer even when device is in doze mode.
+                // The timer is not guaranteed to fire at the exact time. It can have up to 15
+                // minutes delay.
+                am.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+                LogUtils.d(TAG, "Setting times up to (approximately) " + nextTimesup);
             } else {
-                mngr.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
-            }
-            if (Timers.LOGGING) {
-                Log.d(TAG, "Setting times up to " + nextTimesup);
+                am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, nextTimesup, p);
+                LogUtils.d(TAG, "Setting times up to (exactly) " + nextTimesup);
             }
         } else {
             // if no timer is found Pending Intents should be canceled
             // to keep the internal state consistent with the UI
-            mngr.cancel(p);
+            am.cancel(p);
             p.cancel();
-            if (Timers.LOGGING) {
-                Log.v(TAG, "no next times up");
-            }
+            LogUtils.v(TAG, "No next times up");
         }
     }
 
@@ -268,16 +368,20 @@ public class TimerReceiver extends BroadcastReceiver {
         String title, contentText;
         Long nextBroadcastTime = null;
         long now = Utils.getTimeNow();
+        // This is the TimerObj corresponding to the single in use timer when there is only one.
+        // It is null when there are multiple timers in use.
+        TimerObj inUseTimer = null;
         if (timersInUse.size() == 1) {
-            TimerObj timer = timersInUse.get(0);
+            final TimerObj timer = timersInUse.get(0);
             boolean timerIsTicking = timer.isTicking();
             String label = timer.getLabelOrDefault(context);
-            title = timerIsTicking ? label : context.getString(R.string.timer_stopped);
+            title = timerIsTicking ? label : context.getString(R.string.timer_paused);
             long timeLeft = timerIsTicking ? timer.getTimesupTime() - now : timer.mTimeLeft;
             contentText = buildTimeRemaining(context, timeLeft);
             if (timerIsTicking && timeLeft > TimerObj.MINUTE_IN_MILLIS) {
                 nextBroadcastTime = getBroadcastTime(now, timeLeft);
             }
+            inUseTimer = timer;
         } else {
             TimerObj timer = getNextRunningTimer(timersInUse, false, now);
             if (timer == null) {
@@ -305,7 +409,8 @@ public class TimerReceiver extends BroadcastReceiver {
                 }
             }
         }
-        showCollapsedNotificationWithNext(context, title, contentText, nextBroadcastTime);
+        showCollapsedNotificationWithNext(context, title, contentText, nextBroadcastTime,
+                inUseTimer);
     }
 
     private long getBroadcastTime(long now, long timeUntilBroadcast) {
@@ -314,34 +419,105 @@ public class TimerReceiver extends BroadcastReceiver {
         return now + (seconds * 1000);
     }
 
+    /**
+     * Show collapsed timer notification and set up AlarmManager to update the notification when
+     * the next timer update will occur.
+     * @param inUseTimer is the single running timer TimerObj when there is only one and null when
+     *                   there are multiple paused/running timers
+     */
     private void showCollapsedNotificationWithNext(
-            final Context context, String title, String text, Long nextBroadcastTime) {
-        Intent activityIntent = new Intent(context, DeskClock.class);
-        activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        activityIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
-        PendingIntent pendingActivityIntent = PendingIntent.getActivity(context, 0, activityIntent,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+            Context context, String title, String text, Long nextBroadcastTime,
+            TimerObj inUseTimer) {
+        final Intent activityIntent = new Intent(context, DeskClock.class);
+        activityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
+                .putExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, true);
+
+        // Scroll to an active timer.
+        if (inUseTimer != null) {
+            activityIntent.putExtra(Timers.SCROLL_TO_TIMER_ID, inUseTimer.mTimerId);
+        } else {
+            // Scroll to the first non-paused timer if there is one; otherwise, just pick the first
+            // in use timer in the list.
+            final ArrayList<TimerObj> inUseTimers = Timers.timersInUse(mTimers);
+            int scrollId = inUseTimers.get(0).mTimerId;
+            for (TimerObj t : inUseTimers) {
+                if (t.mState == TimerObj.STATE_RUNNING) {
+                    scrollId = t.mTimerId;
+                    break;
+                }
+            }
+            activityIntent.putExtra(Timers.SCROLL_TO_TIMER_ID, scrollId);
+        }
+
+        final PendingIntent pendingActivityIntent = PendingIntent.getActivity(context, 0,
+                activityIntent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
         showCollapsedNotification(context, title, text, NotificationCompat.PRIORITY_HIGH,
-                pendingActivityIntent, IN_USE_NOTIFICATION_ID, false);
+                pendingActivityIntent, IN_USE_NOTIFICATION_ID, inUseTimer);
 
         if (nextBroadcastTime == null) {
             return;
         }
-        Intent nextBroadcast = new Intent();
-        nextBroadcast.setAction(Timers.NOTIF_IN_USE_SHOW);
-        PendingIntent pendingNextBroadcast =
+
+        final Intent nextBroadcast = new Intent(Timers.NOTIF_IN_USE_SHOW);
+        final PendingIntent pendingNextBroadcast =
                 PendingIntent.getBroadcast(context, 0, nextBroadcast, 0);
-        AlarmManager alarmManager =
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        if (Utils.isKitKatOrLater()) {
-            alarmManager.setExact(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
-        } else {
-            alarmManager.set(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
-        }
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setExact(AlarmManager.ELAPSED_REALTIME, nextBroadcastTime, pendingNextBroadcast);
     }
 
+    /**
+     * Add appropriate actions to builder depending on timer state.
+     */
+    private static NotificationCompat.Builder getSingleTimerNotificationActions(Context context,
+            TimerObj inUseTimer, NotificationCompat.Builder builder, int notificationId) {
+        final boolean isPaused = !inUseTimer.isTicking();
+        final int timerId = inUseTimer.mTimerId;
+
+        if (isPaused) {
+            // Paused single timer - show resume and reset.
+            final Intent resumeIntent = new Intent(Timers.NOTIF_RESUME_TIMER)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+            final PendingIntent pendingResumeIntent = PendingIntent.getBroadcast(context,
+                    notificationId, resumeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            final Intent resetIntent = new Intent(Timers.NOTIF_RESET_TIMER)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+            final PendingIntent pendingResetIntent = PendingIntent.getBroadcast(context,
+                    notificationId, resetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.addAction(R.drawable.ic_start_24dp,
+                    context.getString(R.string.sw_resume_button), pendingResumeIntent);
+            builder.addAction(R.drawable.ic_reset_24dp,
+                    context.getString(R.string.sw_reset_button), pendingResetIntent);
+        } else {
+            // Running single timer - show pause and add minute.
+            final Intent pauseIntent = new Intent(Timers.NOTIF_PAUSE_TIMER)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+            final PendingIntent pendingPauseIntent = PendingIntent.getBroadcast(context,
+                    notificationId, pauseIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            final Intent addMinuteIntent = new Intent(Timers.NOTIF_PLUS_ONE_TIMER)
+                    .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+            final PendingIntent pendingAddIntent = PendingIntent.getBroadcast(context,
+                    notificationId, addMinuteIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            builder.addAction(R.drawable.ic_pause_24dp, context.getString(R.string.timer_pause),
+                    pendingPauseIntent);
+            builder.addAction(R.drawable.ic_add_24dp, context.getString(R.string.timer_plus_1_min),
+                    pendingAddIntent);
+        }
+        return builder;
+    }
+
+    /**
+     * If single running timer, show a notification with pause and +1 actions and clicking
+     * the notification should take you to the specific timer in the list.
+     * If single paused timer, show resume and reset options.
+     * Otherwise (multiple running and/or paused timers) show  a "reset all" option.
+     */
     private static void showCollapsedNotification(final Context context, String title, String text,
-            int priority, PendingIntent pendingIntent, int notificationId, boolean showTicker) {
+            int priority, PendingIntent pendingIntent, int notificationId, TimerObj inUseTimer) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setAutoCancel(false)
                 .setContentTitle(title)
@@ -354,10 +530,16 @@ public class TimerReceiver extends BroadcastReceiver {
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
-        if (showTicker) {
-            builder.setTicker(text);
-        }
 
+        if (inUseTimer != null) {
+            getSingleTimerNotificationActions(context, inUseTimer, builder, notificationId);
+        } else {
+            final Intent resetAllIntent = new Intent(Timers.NOTIF_RESET_ALL_TIMERS);
+            final PendingIntent pendingResetAllIntent = PendingIntent.getBroadcast(context,
+                    notificationId, resetAllIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.addAction(R.drawable.ic_reset_24dp,
+                    context.getString(R.string.timer_reset_all), pendingResetAllIntent);
+        }
         final Notification notification = builder.build();
         notification.contentIntent = pendingIntent;
         NotificationManagerCompat.from(context).notify(notificationId, notification);
@@ -366,7 +548,7 @@ public class TimerReceiver extends BroadcastReceiver {
     private String buildTimeRemaining(Context context, long timeLeft) {
         if (timeLeft < 0) {
             // We should never be here...
-            Log.v(TAG, "Will not show notification for timer already expired.");
+            LogUtils.v(TAG, "Will not show notification for timer already expired.");
             return null;
         }
 
@@ -421,74 +603,123 @@ public class TimerReceiver extends BroadcastReceiver {
         NotificationManagerCompat.from(context).cancel(IN_USE_NOTIFICATION_ID);
     }
 
-    private void showTimesUpNotification(final Context context) {
-        for (TimerObj timerObj : Timers.timersInTimesUp(mTimers) ) {
-            showTimesUpNotification(context, timerObj);
+    private void updateTimesUpNotification(final Context context) {
+        final ArrayList<TimerObj> timesUpTimers =  Timers.timersInTimesUp(mTimers);
+
+        if (timesUpTimers.isEmpty()) {
+            LogUtils.i("No more timers are firing.");
+            cancelTimesUpNotification(context);
+        } else {
+            updateTimesUpNotification(context, timesUpTimers);
         }
     }
 
-    private void showTimesUpNotification(final Context context, TimerObj timerObj) {
-        // Content Intent. When clicked will show the timer full screen
-        PendingIntent contentIntent = PendingIntent.getActivity(context, timerObj.mTimerId,
-                new Intent(context, TimerAlertFullScreen.class).putExtra(
-                        Timers.TIMER_INTENT_EXTRA, timerObj.mTimerId),
-                PendingIntent.FLAG_UPDATE_CURRENT);
+    /**
+     * Update Times up notification; can be for a single timer or multiple. Either way, the
+     * notification id used will be TIMER_TIMESUP_NOTIFICATION_ID because there will only ever be
+     * one times up notification at a time.
+     *
+     * @param context
+     * @param timesUpTimers list of Timers in TIMES_UP state
+     */
+    private void updateTimesUpNotification(final Context context,
+            ArrayList<TimerObj> timesUpTimers) {
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
-        // Add one minute action button
-        PendingIntent addOneMinuteAction = PendingIntent.getBroadcast(context, timerObj.mTimerId,
-                new Intent(Timers.NOTIF_TIMES_UP_PLUS_ONE)
-                        .putExtra(Timers.TIMER_INTENT_EXTRA, timerObj.mTimerId),
+        final TimerObj timerObj = timesUpTimers.get(0);
+        final int timerId = timerObj.mTimerId;
+        final int timesUpTimersCount = timesUpTimers.size();
+        // Whether this should be a combined notification for multiple timers.
+        final boolean showCombined = timesUpTimersCount > 1;
+
+        if (showCombined) {
+            LogUtils.i("Showing combined times up notification for %d timers", timesUpTimersCount);
+        } else {
+            LogUtils.i("Showing times up notification for timer %d", timerId);
+        }
+        context.sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+
+        // Content Intent. When clicked will show the timer full screen
+        final PendingIntent contentIntent = PendingIntent.getActivity(context, timerId,
+                new Intent(context, TimerAlertFullScreen.class).putExtra(
+                        Timers.TIMER_INTENT_EXTRA, timerId),
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Add stop/done action button
-        PendingIntent stopIntent = PendingIntent.getBroadcast(context, timerObj.mTimerId,
-                new Intent(Timers.NOTIF_TIMES_UP_STOP)
-                        .putExtra(Timers.TIMER_INTENT_EXTRA, timerObj.mTimerId),
+        final Intent newStopIntent = new Intent(Timers.NOTIF_TIMES_UP_STOP)
+                        .putExtra(Timers.TIMER_INTENT_EXTRA, timerId);
+
+        if (showCombined) {
+            // Allow the stop button to stop all currently firing timers
+            newStopIntent.putExtra(Timers.NOTIF_STOP_ALL_TIMERS, true);
+        }
+
+        LogUtils.v(TAG, "Setting heads-up notification for " + timesUpTimersCount + " timers");
+
+        PendingIntent stopIntent = PendingIntent.getBroadcast(context, timerId, newStopIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Notification creation
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setContentIntent(contentIntent)
-                .addAction(R.drawable.ic_add_24dp,
-                        context.getResources().getString(R.string.timer_plus_1_min),
-                        addOneMinuteAction)
-                .addAction(
-                        timerObj.getDeleteAfterUse()
-                                ? android.R.drawable.ic_menu_close_clear_cancel
-                                : R.drawable.ic_stop_24dp,
-                        timerObj.getDeleteAfterUse()
-                                ? context.getResources().getString(R.string.timer_done)
-                                : context.getResources().getString(R.string.timer_stop),
-                        stopIntent)
                 .setContentTitle(timerObj.getLabelOrDefault(context))
-                .setContentText(context.getResources().getString(R.string.timer_times_up))
+                .setContentText(context.getString(R.string.timer_times_up))
                 .setSmallIcon(R.drawable.stat_notify_timer)
+                .setLocalOnly(true)
                 .setOngoing(true)
                 .setAutoCancel(false)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
                 .setWhen(0);
 
-        // Send the notification using the timer's id to identify the
-        // correct notification
-        NotificationManagerCompat.from(context).notify(timerObj.mTimerId, builder.build());
-        if (Timers.LOGGING) {
-            Log.v(TAG, "Setting times-up notification for "
-                    + timerObj.getLabelOrDefault(context) + " #" + timerObj.mTimerId);
+        if (showCombined) {
+            builder.addAction(R.drawable.ic_stop_24dp,
+                    context.getString(R.string.timer_stop_all),
+                    stopIntent)
+                    .setContentText(context.getString(R.string.timer_multi_times_up,
+                            timesUpTimersCount))
+                    .setContentTitle(context.getString(R.string.timer_notification_label));
+        } else {
+            // Add one minute action button
+            final PendingIntent addOneMinuteAction = PendingIntent.getBroadcast(context, timerId,
+                    new Intent(Timers.NOTIF_TIMES_UP_PLUS_ONE)
+                            .putExtra(Timers.TIMER_INTENT_EXTRA, timerId),
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            // If only one timer is firing, add the +1 button
+            builder.addAction(timerObj.getDeleteAfterUse()
+                                    ? android.R.drawable.ic_menu_close_clear_cancel
+                                    : R.drawable.ic_stop_24dp,
+                            timerObj.getDeleteAfterUse()
+                                    ? context.getString(R.string.timer_done)
+                                    : context.getString(R.string.timer_stop),
+                            stopIntent)
+                    .addAction(R.drawable.ic_add_24dp,
+                    context.getString(R.string.timer_plus_1_min),
+                    addOneMinuteAction)
+                    .setContentTitle(timerObj.getLabelOrDefault(context))
+                    .setContentText(context.getString(R.string.timer_times_up));
         }
+
+        // set up full screen intent
+        final Intent fullScreenIntent = new Intent(context, TimerAlertFullScreen.class);
+
+        // set action, so we can be different than content pending intent
+        fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
+                Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+        builder.setFullScreenIntent(PendingIntent.getActivity(context,
+                timerObj.hashCode(), fullScreenIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT), true);
+
+        final Notification notification = builder.build();
+
+        // Remove previous times up notifications so there is only ever one timesup notification
+        cancelTimesUpNotification(context);
+
+        nm.notify(TIMER_TIMESUP_NOTIFICATION_ID, notification);
     }
 
     private void cancelTimesUpNotification(final Context context) {
-        for (TimerObj timerObj : Timers.timersInTimesUp(mTimers) ) {
-            cancelTimesUpNotification(context, timerObj);
-        }
-    }
-
-    private void cancelTimesUpNotification(final Context context, TimerObj timerObj) {
-        NotificationManagerCompat.from(context).cancel(timerObj.mTimerId);
-        if (Timers.LOGGING) {
-            Log.v(TAG, "Canceling times-up notification for "
-                    + timerObj.getLabelOrDefault(context) + " #" + timerObj.mTimerId);
-        }
+        NotificationManagerCompat.from(context).cancel(TIMER_TIMESUP_NOTIFICATION_ID);
     }
 }

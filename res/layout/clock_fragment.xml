@@ -14,28 +14,11 @@
      limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ListView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cities"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ListView
-        android:id="@+id/cities"
-        android:clickable="false"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingStart="@dimen/clock_side_padding"
-        android:paddingEnd="@dimen/clock_side_padding_reduced" />
-    <FrameLayout
-        android:layout_width="@dimen/footer_button_size"
-        android:layout_height="@dimen/footer_button_size"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="@dimen/footer_button_layout_margin" >
-        <ImageButton
-            android:id="@+id/menu_button"
-            style="?attr/actionOverflowButtonStyle"
-            android:layout_gravity="end|center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:accessibilityTraversalAfter="@+id/fab"
-            android:contentDescription="@string/button_menu" />
-    </FrameLayout>
-</FrameLayout>
+    android:layout_height="match_parent"
+    android:clickable="false"
+    android:paddingEnd="@dimen/clock_side_padding_reduced"
+    android:paddingStart="@dimen/clock_side_padding" />

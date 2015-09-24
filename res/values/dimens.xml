@@ -21,6 +21,7 @@
      for different hardware and product builds. -->
 <resources>
     <dimen name="label_text_size">14sp</dimen>
+    <dimen name="label_edittext_padding">21dp</dimen>
     <dimen name="time_text_size">120dip</dimen>
     <dimen name="ampm_text_size">20dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
@@ -181,6 +182,9 @@
     <!-- Divider height -->
     <dimen name="hairline_height">1dip</dimen>
 
+    <!-- Divider side padding -->
+    <dimen name="hairline_side_padding">6dp</dimen>
+
     <!-- The minimum height/width of any touch target -->
     <dimen name="touch_target_min_size">48dip</dimen>
 
@@ -190,4 +194,16 @@
     <dimen name="fastscroll_preview_padding">8dp</dimen>
     <dimen name="fastscroll_track_width">8dp</dimen>
 
+    <!-- Dimens for drawable padding on Alarms tab -->
+    <dimen name="alarm_horizontal_padding">16dp</dimen>
+
+    <!-- Dimens for icon padding on Alarms tab -->
+    <dimen name="icon_margin">4dp</dimen>
+
+    <!-- Dimens for taller rows on Alarms tab -->
+    <dimen name="tall_row_height">58dp</dimen>
+
+    <!-- Floating action button style -->
+    <dimen name="fab_margin">0dp</dimen>
+    <dimen name="fab_elevation">8dp</dimen>
 </resources>

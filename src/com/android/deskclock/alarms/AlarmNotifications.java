@@ -40,7 +40,8 @@ public final class AlarmNotifications {
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(
                         R.string.alarm_alert_predismiss_title))
-                .setContentText(AlarmUtils.getAlarmText(context, instance))
+                .setContentText(AlarmUtils.getAlarmText(context, instance,
+                        true /* includeLabel */))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -78,7 +79,8 @@ public final class AlarmNotifications {
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
-                .setContentText(AlarmUtils.getAlarmText(context, instance))
+                .setContentText(AlarmUtils.getAlarmText(context, instance,
+                        true /* includeLabel */))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
@@ -236,6 +238,28 @@ public final class AlarmNotifications {
         LogUtils.v("Clearing notifications for alarm instance: " + instance.mId);
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(instance.hashCode());
+    }
+
+    /**
+     * Updates the notification for an existing alarm. Use if the label has changed.
+     */
+    public static void updateNotification(Context context, AlarmInstance instance) {
+        switch (instance.mAlarmState) {
+            case AlarmInstance.LOW_NOTIFICATION_STATE:
+                showLowPriorityNotification(context, instance);
+                break;
+            case AlarmInstance.HIGH_NOTIFICATION_STATE:
+                showHighPriorityNotification(context, instance);
+                break;
+            case AlarmInstance.SNOOZE_STATE:
+                showSnoozeNotification(context, instance);
+                break;
+            case AlarmInstance.MISSED_STATE:
+                showMissedNotification(context, instance);
+                break;
+            default:
+                LogUtils.d("No notification to update");
+        }
     }
 
     public static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {

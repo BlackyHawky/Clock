@@ -26,24 +26,24 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.DeskClock;
+import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmStateManager;
-import com.android.deskclock.worldclock.Cities;
-import com.android.deskclock.worldclock.CitiesActivity;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.worldclock.CitySelectionActivity;
 
-import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
-    private static final String TAG = "DigitalAppWidgetProvider";
+    private static final String TAG = "DigAppWidgetProvider";
 
     /**
      * Intent to be used for checking if a world clock's date has changed. Must be every fifteen
@@ -72,7 +72,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         String action = intent.getAction();
         if (DigitalAppWidgetService.LOGGING) {
             Log.i(TAG, "onReceive: " + action);
@@ -116,7 +116,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                     appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
                 }
             }
-        } else if (Cities.WORLDCLOCK_UPDATE_INTENT.equals(action)) {
+        } else if (DataModel.ACTION_CITIES_CHANGED.equals(action)) {
             // Refresh the world cities list
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             if (appWidgetManager != null) {
@@ -175,8 +175,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         if (newOptions != null &&
                 newOptions.getInt(AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY, -1)
                 != AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD) {
-            widget.setOnClickPendingIntent(R.id.digital_appwidget,
-                    PendingIntent.getActivity(context, 0, new Intent(context, DeskClock.class), 0));
+            final Intent showClock = new Intent(HandleDeskClockApiCalls.ACTION_SHOW_CLOCK)
+                    .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_WIDGET, true);
+            final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, showClock, 0);
+            widget.setOnClickPendingIntent(R.id.digital_appwidget, pendingIntent);
         }
 
         // Setup alarm text clock's format and font sizes
@@ -185,13 +187,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         WidgetUtils.setClockSize(context, widget, ratio);
 
         // Set today's date format
-        final CharSequence dateFormat = Utils.isJBMR2OrLater()
-                ? DateFormat.getBestDateTimePattern(Locale.getDefault(),
-                        context.getString(R.string.abbrev_wday_month_day_no_year))
-                : ((SimpleDateFormat) SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT))
-                        .toPattern();
-        widget.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
-        widget.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
+        final Locale locale = Locale.getDefault();
+        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
+        final CharSequence timeFormat = DateFormat.getBestDateTimePattern(locale, skeleton);
+        widget.setCharSequence(R.id.date, "setFormat12Hour", timeFormat);
+        widget.setCharSequence(R.id.date, "setFormat24Hour", timeFormat);
 
         // Set up R.id.digital_appwidget_listview to use a remote views adapter
         // That remote views adapter connects to a RemoteViewsService through intent.
@@ -202,9 +202,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Set up the click on any world clock to start the Cities Activity
         //TODO: Should this be in the options guard above?
+        final Intent selectCitiesIntent = new Intent(context, CitySelectionActivity.class);
         widget.setPendingIntentTemplate(R.id.digital_appwidget_listview,
-                PendingIntent.
-                        getActivity(context, 0, new Intent(context, CitiesActivity.class), 0));
+                PendingIntent.getActivity(context, 0, selectCitiesIntent, 0));
 
         // Refresh the widget
         appWidgetManager.notifyAppWidgetViewDataChanged(
@@ -215,8 +215,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     protected void refreshAlarm(Context context, RemoteViews widget) {
         final String nextAlarm = Utils.getNextAlarm(context);
         if (!TextUtils.isEmpty(nextAlarm)) {
-            widget.setTextViewText(R.id.nextAlarm,
-                    context.getString(R.string.control_set_alarm_with_existing, nextAlarm));
+            widget.setTextViewText(R.id.nextAlarm, nextAlarm);
             widget.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
             if (DigitalAppWidgetService.LOGGING) {
                 Log.v(TAG, "DigitalWidget sets next alarm string to " + nextAlarm);
@@ -237,15 +236,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private void startAlarmOnQuarterHour(Context context) {
         if (context != null) {
-            long onQuarterHour = Utils.getAlarmOnQuarterHour();
-            PendingIntent quarterlyIntent = getOnQuarterHourPendingIntent(context);
-            AlarmManager alarmManager = ((AlarmManager) context
-                    .getSystemService(Context.ALARM_SERVICE));
-            if (Utils.isKitKatOrLater()) {
-                alarmManager.setExact(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
-            } else {
-                alarmManager.set(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
-            }
+            final long onQuarterHour = Utils.getAlarmOnQuarterHour();
+            final PendingIntent quarterlyIntent = getOnQuarterHourPendingIntent(context);
+            final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            am.setExact(AlarmManager.RTC, onQuarterHour, quarterlyIntent);
             if (DigitalAppWidgetService.LOGGING) {
                 Log.v(TAG, "startAlarmOnQuarterHour " + context.toString());
             }

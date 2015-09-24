@@ -24,7 +24,7 @@ import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.alarms.AlarmStateManager;
-
+import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
@@ -91,7 +91,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
     private void switchVolumeButtonDefault(SharedPreferences prefs) {
         SharedPreferences.Editor editor = prefs.edit();
 
-        editor.putString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
+        editor.putString(SettingsActivity.KEY_VOLUME_BUTTONS,
             SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
 
         // Make sure we do it only once

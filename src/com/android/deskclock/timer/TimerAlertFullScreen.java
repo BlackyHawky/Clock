@@ -77,14 +77,11 @@ public class TimerAlertFullScreen extends BaseActivity implements OnEmptyListLis
     protected void onResume() {
         super.onResume();
 
-        // Only show notifications for times-up when this activity closed.
-        Utils.cancelTimesUpNotifications(this);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     @Override
     public void onPause() {
-        Utils.showTimesUpNotifications(this);
-
         super.onPause();
     }
 
@@ -144,6 +141,10 @@ public class TimerAlertFullScreen extends BaseActivity implements OnEmptyListLis
         }
         onListChanged();
         finish();
+
+        // Removes the specific transition between the timer firing screen and the DeskClock
+        // TimerFragment (when there is one underneath). The reveal animation is sufficient.
+        overridePendingTransition(0, android.R.anim.fade_out);
     }
 
     @Override
