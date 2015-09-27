@@ -166,7 +166,7 @@
     <string name="menu_clock" msgid="5612760670606829805">"Ceas"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Cronometru"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Adăugaţi o alarmă"</string>
-    <string name="button_cities" msgid="4555761857494501363">"Oraşe"</string>
+    <string name="button_cities" msgid="4555761857494501363">"Orașe"</string>
     <string name="button_menu" msgid="6050484561842120282">"Mai multe opţiuni"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Setări"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ajutor"</string>
@@ -223,9 +223,9 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Temporizator"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Cel mult 4 cronometre"</string>
   <string-array name="sw_share_strings">
-    <item msgid="842841032273927988">"Sunteţi demonul vitezei."</item>
-    <item msgid="6332879039890727169">"Bucuraţi-vă de roadele muncii dvs."</item>
-    <item msgid="815382761274660130">"Androizii sunt vestiţi pentru rapiditate, dar nu sunt la fel de rapizi ca dvs.!"</item>
+    <item msgid="842841032273927988">"Sunteți demonul vitezei."</item>
+    <item msgid="6332879039890727169">"Bucurați-vă de roadele muncii dvs."</item>
+    <item msgid="815382761274660130">"Androizii sunt vestiți pentru rapiditate, dar nu sunt la fel de rapizi ca dvs.!"</item>
     <item msgid="7916250650982813737">"Fiu!"</item>
     <item msgid="6836603904515182333">"De L33t ori."</item>
     <item msgid="7508085100680861631">"O viteză uimitoare."</item>
@@ -235,7 +235,7 @@
     <item msgid="3785193933691117181">"Cu viteza luminii."</item>
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"Acasă"</string>
-    <string name="cities_activity_title" msgid="8552462751129256730">"Oraşe"</string>
+    <string name="cities_activity_title" msgid="8552462751129256730">"Orașe"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Ceas"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stil"</string>
   <string-array name="clock_style_entries">
@@ -352,9 +352,9 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Următorul temporizator: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Setări Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modul Noapte"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Afişaj cu luminozitate redusă (pentru camere întunecate)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Afișaj cu luminozitate redusă (pentru camere întunecate)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Extindeţi alarma"</string>
-    <string name="collapse_alarm" msgid="3561772046433483980">"Restrângeţi alarma"</string>
+    <string name="collapse_alarm" msgid="3561772046433483980">"Restrângeți alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"anulaţi"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma a fost ştearsă"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
