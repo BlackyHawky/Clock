@@ -173,7 +173,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
     @Override
     public void bindAlarm(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         setData(alarm, alarmInstance);
-        bindOnOffSwitch(alarm);
+        bindOnOffSwitch(context, alarm);
         bindClock(context, alarm);
         bindEditLabel(alarm);
         bindDaysOfWeekButtons(alarm);
