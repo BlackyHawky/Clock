@@ -122,8 +122,11 @@
     <dimen name="timer_circle_margin">32dp</dimen>
 
     <dimen name="circle_size">280dp</dimen>
-    <!-- stopwatch_list_bottom_spacing = footer_button_size + footer_button_layout_margin -->
-    <dimen name="stopwatch_list_bottom_spacing">72dip</dimen>
+    <!--
+        list_bottom_spacing = footer_button_size + footer_button_layout_margin.
+        Used by both StopwatchFragment and AlarmFragment.
+    -->
+    <dimen name="list_bottom_spacing">72dip</dimen>
 
     <dimen name="sw_padding_end">32dp</dimen>
 
