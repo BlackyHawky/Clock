@@ -316,6 +316,7 @@ public final class CitySelectionActivity extends BaseActivity {
                     final CityItemHolder holder = (CityItemHolder) view.getTag();
                     holder.selected.setTag(city);
                     holder.selected.setChecked(mUserSelectedCities.contains(city));
+                    holder.selected.setContentDescription(city.getName());
                     holder.selected.setOnCheckedChangeListener(this);
                     holder.name.setText(city.getName(), TextView.BufferType.SPANNABLE);
                     holder.time.setText(getTimeCharSequence(timeZone));
