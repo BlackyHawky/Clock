@@ -28,6 +28,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
 
 import java.util.Calendar;
@@ -304,6 +305,10 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         label = p.readString();
         alert = p.readParcelable(null);
         deleteAfterUse = p.readInt() == 1;
+    }
+
+    public String getLabelOrDefault(Context context) {
+        return label.isEmpty() ? context.getString(R.string.default_label) : label;
     }
 
     /**
