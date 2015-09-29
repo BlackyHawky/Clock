@@ -24,6 +24,7 @@ import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.timer.TimerObj;
 
@@ -56,6 +57,13 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         // We need to increment the global id out of the async task to prevent race conditions
         AlarmStateManager.updateGlobalIntentId(context);
 
+        // Clear stopwatch data because stopwatch times are based on elapsed real-time values which
+        // are meaningless after a device reboot.
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+            DataModel.getDataModel().clearLaps();
+            DataModel.getDataModel().resetStopwatch();
+        }
+
         AsyncHandler.post(new Runnable() {
             @Override public void run() {
                 try {
@@ -65,7 +73,6 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                                 PreferenceManager.getDefaultSharedPreferences(context);
                         LogUtils.v("AlarmInitReceiver - Reset timers and clear stopwatch data");
                         TimerObj.resetTimersInSharedPrefs(prefs);
-                        Utils.clearSwSharedPref(prefs);
 
                         if (!prefs.getBoolean(PREF_VOLUME_DEF_DONE, false)) {
                             // Fix the default

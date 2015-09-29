@@ -22,7 +22,7 @@
     android:layout_gravity="center"
     android:contentDescription="@string/no_alarms"
     android:drawableTop="@drawable/ic_noalarms"
-    android:paddingBottom="88dp"
+    android:paddingBottom="@dimen/fab_height"
     android:text="@string/no_alarms"
     android:gravity="center_horizontal"
     android:textColor="#4cffffff"

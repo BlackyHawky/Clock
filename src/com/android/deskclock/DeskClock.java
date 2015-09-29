@@ -47,12 +47,11 @@ import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
 import com.android.deskclock.actionbarmenu.SettingMenuItemController;
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.stopwatch.StopwatchFragment;
-import com.android.deskclock.stopwatch.StopwatchService;
-import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFragment;
 import com.android.deskclock.timer.TimerObj;
 import com.android.deskclock.timer.Timers;
@@ -93,7 +92,6 @@ public class DeskClock extends BaseActivity
 
     private TabsAdapter mTabsAdapter;
     private int mSelectedTab;
-    private boolean mActivityResumed;
 
     @Override
     public void onNewIntent(Intent newIntent) {
@@ -219,27 +217,18 @@ public class DeskClock extends BaseActivity
     protected void onResume() {
         super.onResume();
 
-        // We only want to show notifications for stopwatch/timer when the app is closed so
-        // that we don't have to worry about keeping the notifications in perfect sync with
-        // the app.
-        Intent stopwatchIntent = new Intent(getApplicationContext(), StopwatchService.class);
-        stopwatchIntent.setAction(Stopwatches.KILL_NOTIF);
-        startService(stopwatchIntent);
+        DataModel.getDataModel().setApplicationInForeground(true);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Timers.NOTIF_APP_OPEN, true);
         editor.apply();
         sendBroadcast(new Intent(Timers.NOTIF_IN_USE_CANCEL));
-        mActivityResumed = true;
     }
 
     @Override
     public void onPause() {
-        mActivityResumed = false;
-        Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
-        intent.setAction(Stopwatches.SHOW_NOTIF);
-        startService(intent);
+        DataModel.getDataModel().setApplicationInForeground(false);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
@@ -406,7 +395,9 @@ public class DeskClock extends BaseActivity
             mSelectedTab = position;
             nightModeMenuItemController.setEnabled(mSelectedTab == CLOCK_TAB_INDEX);
 
-            if (mActivityResumed) {
+            // Avoid sending events for the initial tab selection on launch and the reselecting a
+            // tab after a configuration change.
+            if (DataModel.getDataModel().isApplicationInForeground()) {
                 switch (mSelectedTab) {
                     case ALARM_TAB_INDEX:
                         Events.sendAlarmEvent(R.string.action_show, R.string.label_deskclock);

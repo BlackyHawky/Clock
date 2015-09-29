@@ -439,7 +439,7 @@
     <string name="selected_cities_label">Selected Cities</string>
 
     <!-- Stopwatch and Timer shared strings -->
-    <!-- Describes the purpose of the button to resume running a stopwatch or timer. [CHAR LIMIT=15] -->
+    <!-- Describes the purpose of the button to resume running timer. [CHAR LIMIT=15] -->
     <string name="sw_resume_button">Resume</string>
     <!--
         Describes the purpose of the button
@@ -453,8 +453,8 @@
     <!-- Describes the purpose of the button to begin running a stopwatch -->
     <string name="sw_start_button">Start</string>
     <!-- Describes the purpose of the button to pause a stopwatch. -->
-    <string name="sw_stop_button">Stop</string>
-    <!-- Describes the purpose of the button to record current the stopwatch value into the4 collection of lap times. -->
+    <string name="sw_pause_button">Pause</string>
+    <!-- Describes the purpose of the button to record current the stopwatch value into the collection of lap times. -->
     <string name="sw_lap_button">Lap</string>
     <!-- Describes the purpose of the button to share the stopwatch value.
          Also used as title for chooser when sharing stopwatch results. -->
@@ -480,49 +480,6 @@
     <string name="sw_share_laps">Lap times:</string>
     <!-- Label to enumerate the number of laps in the notification the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
-    <!-- Formatted stopwatch time -->
-    <string-array name="stopwatch_format_set" translatable="false">
-        <item> <!-- <10 minutes - example "1 02.03" -->
-            <xliff:g id="M">%2$d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <1 hour - example "12 03.04" -->
-            <xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <10 hours - example "1 02 03.04" -->
-            <xliff:g id="H">%1$d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <100 hours - example "12 03 04.05" -->
-            <xliff:g id="H">%1$02d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <1000 hours - example "123 04 05.06" -->
-            <xliff:g id="H">%1$03d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-    </string-array>
-
-    <!-- Formatted stopwatch time for laps shared using the share button -->
-    <string-array name="shared_laps_format_set" translatable="false">
-        <item> <!-- <10 minutes - example "1 02.03" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="M">%2$d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <1 hour - example "12 03.04" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <10 hours - example "1 02 03.04" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="H">%1$d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <100 hours - example "12 03 04.05" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="H">%1$02d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <1000 hours - example "123 04 05.06" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="H">%1$03d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-    </string-array>
-
-    <!-- Label to enumerate the number of laps the user has counted -->
-    <string-array name="sw_lap_number_set" translatable="true">
-        <item># <xliff:g id="number">%d</xliff:g></item>
-        <item># <xliff:g id="number">%02d</xliff:g></item>
-    </string-array>
 
     <!-- Stopwatch accessibility strings -->
     <plurals name="Nhours_description">
@@ -829,8 +786,8 @@
      <string name="alarm_settings">Alarms</string>
      <!-- Describes the running service for the stopwatch -->
      <string name="stopwatch_service_desc">Stopwatch service to run the notification.</string>
-     <!-- Desription for the stopped stop watch -->
-     <string name="swn_stopped">Stopped</string>
+     <!-- Description for the paused stop watch -->
+     <string name="swn_paused">Paused</string>
 
     <!-- Text instruction for dismiss alarm on alarm lock screen. The dismiss button will still
          be on the right even on RTL languages so please do not reverse this during
@@ -985,11 +942,11 @@
     -->
     <string name="stopwatch_cant_be_reset_because_is_running">Stopwatch cannot be reset because it is running</string>
 
-    <!-- String that represents that the user has successfully sent a voice command stopping
+    <!-- String that represents that the user has successfully sent a voice command pausing
      the stopwatch.
     [CHAR LIMIT=NONE]
     -->
-    <string name="stopwatch_stopped">Stopwatch stopped</string>
+    <string name="stopwatch_paused">Stopwatch paused</string>
 
     <!-- String that represents that the user has successfully sent a voice command resetting
     the stopwatch.

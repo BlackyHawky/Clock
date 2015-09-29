@@ -25,9 +25,6 @@ import android.app.AlarmManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -35,7 +32,6 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
@@ -52,7 +48,6 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -63,7 +58,6 @@ import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.settings.SettingsActivity;
-import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.Timers;
 
 import java.text.NumberFormat;
@@ -177,7 +171,7 @@ public class Utils {
     }
 
     /**
-     * Calculate the amount by which the radius of a CircleTimerView should be offset by the any
+     * Calculate the amount by which the radius of a CircleTimerView should be offset by any
      * of the extra painted objects.
      */
     public static float calculateRadiusOffset(
@@ -198,23 +192,6 @@ public class Utils {
         } else {
             return 0f;
         }
-    }
-
-    /**
-     * Clears the persistent data of stopwatch (start time, state, laps, etc...).
-     */
-    public static void clearSwSharedPref(SharedPreferences prefs) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.remove (Stopwatches.PREF_START_TIME);
-        editor.remove (Stopwatches.PREF_ACCUM_TIME);
-        editor.remove (Stopwatches.PREF_STATE);
-        int lapNum = prefs.getInt(Stopwatches.PREF_LAP_NUM, Stopwatches.STOPWATCH_RESET);
-        for (int i = 0; i < lapNum; i++) {
-            String key = Stopwatches.PREF_LAP_TIME + Integer.toString(i);
-            editor.remove(key);
-        }
-        editor.remove(Stopwatches.PREF_LAP_NUM);
-        editor.apply();
     }
 
     /**
@@ -699,7 +676,6 @@ public class Utils {
     }
 
     /**
-     * @param context
      * @param id Resource id of the plural
      * @param quantity integer value
      * @return string with properly localized numbers

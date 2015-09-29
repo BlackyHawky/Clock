@@ -1,7 +1,6 @@
 package com.android.deskclock;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,8 +8,6 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
-
-import com.android.deskclock.stopwatch.Stopwatches;
 
 /**
  * Class to draw a circle for timers and stopwatches.
@@ -27,7 +24,6 @@ public class CircleTimerView extends View {
     private long mMarkerTime = -1;
     private long mCurrentIntervalTime = 0;
     private long mAccumulatedTime = 0;
-    private boolean mPaused = false;
     private boolean mAnimate = false;
     private static float mStrokeSize = 4;
     private static float mDotRadius = 6;
@@ -56,11 +52,6 @@ public class CircleTimerView extends View {
         postInvalidate();
     }
 
-    public void setMarkerTime(long t) {
-        mMarkerTime = t;
-        postInvalidate();
-    }
-
     public void reset() {
         mIntervalStartTime = -1;
         mMarkerTime = -1;
@@ -70,8 +61,8 @@ public class CircleTimerView extends View {
         mIntervalStartTime = Utils.getTimeNow();
         mAnimate = true;
         invalidate();
-        mPaused = false;
     }
+
     public void stopIntervalAnimation() {
         mAnimate = false;
         mIntervalStartTime = -1;
@@ -85,7 +76,6 @@ public class CircleTimerView extends View {
     public void pauseIntervalAnimation() {
         mAnimate = false;
         mAccumulatedTime += Utils.getTimeNow() - mIntervalStartTime;
-        mPaused = true;
     }
 
     public void abortIntervalAnimation() {
@@ -107,8 +97,6 @@ public class CircleTimerView extends View {
         }
         postInvalidate();
     }
-
-
 
     private void init(Context c) {
 
@@ -210,52 +198,5 @@ public class CircleTimerView extends View {
         final double dotRadians = Math.toRadians(dotPercent);
         canvas.drawCircle(xCenter + (float) (radius * Math.cos(dotRadians)),
                 yCenter + (float) (radius * Math.sin(dotRadians)), mDotRadius, mFill);
-    }
-
-    public static final String PREF_CTV_PAUSED  = "_ctv_paused";
-    public static final String PREF_CTV_INTERVAL  = "_ctv_interval";
-    public static final String PREF_CTV_INTERVAL_START = "_ctv_interval_start";
-    public static final String PREF_CTV_CURRENT_INTERVAL = "_ctv_current_interval";
-    public static final String PREF_CTV_ACCUM_TIME = "_ctv_accum_time";
-    public static final String PREF_CTV_TIMER_MODE = "_ctv_timer_mode";
-    public static final String PREF_CTV_MARKER_TIME = "_ctv_marker_time";
-
-    // Since this view is used in multiple places, use the key to save different instances
-    public void writeToSharedPref(SharedPreferences prefs, String key) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean (key + PREF_CTV_PAUSED, mPaused);
-        editor.putLong (key + PREF_CTV_INTERVAL, mIntervalTime);
-        editor.putLong (key + PREF_CTV_INTERVAL_START, mIntervalStartTime);
-        editor.putLong (key + PREF_CTV_CURRENT_INTERVAL, mCurrentIntervalTime);
-        editor.putLong (key + PREF_CTV_ACCUM_TIME, mAccumulatedTime);
-        editor.putLong (key + PREF_CTV_MARKER_TIME, mMarkerTime);
-        editor.putBoolean (key + PREF_CTV_TIMER_MODE, mTimerMode);
-        editor.apply();
-    }
-
-    public void readFromSharedPref(SharedPreferences prefs, String key) {
-        mPaused = prefs.getBoolean(key + PREF_CTV_PAUSED, false);
-        mIntervalTime = prefs.getLong(key + PREF_CTV_INTERVAL, 0);
-        mIntervalStartTime = prefs.getLong(key + PREF_CTV_INTERVAL_START, -1);
-        mCurrentIntervalTime = prefs.getLong(key + PREF_CTV_CURRENT_INTERVAL, 0);
-        mAccumulatedTime = prefs.getLong(key + PREF_CTV_ACCUM_TIME, 0);
-        mMarkerTime = prefs.getLong(key + PREF_CTV_MARKER_TIME, -1);
-        mTimerMode = prefs.getBoolean(key + PREF_CTV_TIMER_MODE, false);
-        mAnimate = (mIntervalStartTime != -1 && !mPaused);
-    }
-
-    public void clearSharedPref(SharedPreferences prefs, String key) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.remove (Stopwatches.PREF_START_TIME);
-        editor.remove (Stopwatches.PREF_ACCUM_TIME);
-        editor.remove (Stopwatches.PREF_STATE);
-        editor.remove (key + PREF_CTV_PAUSED);
-        editor.remove (key + PREF_CTV_INTERVAL);
-        editor.remove (key + PREF_CTV_INTERVAL_START);
-        editor.remove (key + PREF_CTV_CURRENT_INTERVAL);
-        editor.remove (key + PREF_CTV_ACCUM_TIME);
-        editor.remove (key + PREF_CTV_MARKER_TIME);
-        editor.remove (key + PREF_CTV_TIMER_MODE);
-        editor.apply();
     }
 }
