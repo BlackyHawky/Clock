@@ -189,7 +189,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Obnovit"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Resetovat"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Spustit"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Zastavit"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Pozastavit"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Úsek"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Sdílet"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
@@ -202,10 +202,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Můj čas je <xliff:g id="TIME">%s</xliff:g>."</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Časy etap:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. úsek"</string>
-  <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"Č. <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"Č. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
-  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> hodiny</item>
       <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> hodiny</item>
@@ -361,7 +357,8 @@
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Budíky"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Služba Stopky ke spouštění upozornění."</string>
-    <string name="swn_stopped" msgid="783124901663086172">"Zastaveno"</string>
+    <!-- no translation found for swn_paused (6364358842808263589) -->
+    <skip />
     <string name="description_direction_right" msgid="5709209043267548985">"Přejetím prstem vpravo budík zrušíte."</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Přejetím prsem vlevo budík odložíte."</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Přejetím vlevo budík odložíte, přejetím vpravo jej zrušíte"</string>
@@ -405,7 +402,8 @@
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Stopky již běží"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Stopky neběží"</string>
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Stopky nelze skrýt, protože jsou momentálně spuštěny"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"Stopky byly zastaveny"</string>
+    <!-- no translation found for stopwatch_paused (2187615623275408601) -->
+    <skip />
     <string name="stopwatch_reset" msgid="7585914953721021042">"Stopky byly resetovány"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Stopky zaznamenaly mezičas"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Stopky byly spuštěny"</string>

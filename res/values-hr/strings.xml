@@ -181,7 +181,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Nastavi"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Poništi"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Kreni"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Zaustavi"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Pauziraj"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Krug"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Dijeli"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
@@ -194,10 +194,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Moje je vrijeme <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Vremena krugova:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. krug"</string>
-  <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"Br. <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"Br. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
-  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> sat</item>
       <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> sata</item>
@@ -350,7 +346,8 @@
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmi"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Usluga kronometra za pokretanje obavijesti."</string>
-    <string name="swn_stopped" msgid="783124901663086172">"Zaustavljeno"</string>
+    <!-- no translation found for swn_paused (6364358842808263589) -->
+    <skip />
     <string name="description_direction_right" msgid="5709209043267548985">"Prijeđite prstom udesno za odbacivanje"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Prijeđite prstom ulijevo za odgodu"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Prijeđite prstom ulijevo za odgodu ili udesno za odbacivanje"</string>
@@ -393,7 +390,8 @@
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Štoperica je već pokrenuta"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Štoperica nije pokrenuta"</string>
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Štoperica se ne može poništiti jer je pokrenuta"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"Štoperica je zaustavljena"</string>
+    <!-- no translation found for stopwatch_paused (2187615623275408601) -->
+    <skip />
     <string name="stopwatch_reset" msgid="7585914953721021042">"Štoperica je poništena"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Novi krug štoperice"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Štoperica je pokrenuta"</string>

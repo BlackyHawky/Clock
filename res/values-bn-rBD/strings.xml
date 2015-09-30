@@ -173,7 +173,8 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"পুনঃসূচনা"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"পুনরায় সেট করুন"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"শুরু করুন"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"থামান"</string>
+    <!-- no translation found for sw_pause_button (2422084453454138042) -->
+    <skip />
     <string name="sw_lap_button" msgid="6992264696039004233">"ল্যাপ"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"ভাগ করুন"</string>
     <string name="hours_label" msgid="3393478155635368097">"ঘ."</string>
@@ -186,10 +187,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"আমার সময় <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ল্যাপ সময়:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g> টি ল্যাপ"</string>
-  <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
-  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ঘন্টা</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ঘন্টা</item>
@@ -339,7 +336,8 @@
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"অ্যালার্মগুলি"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"বিজ্ঞপ্তি চালানোর জন্য স্টপওয়াচ পরিষেবা"</string>
-    <string name="swn_stopped" msgid="783124901663086172">"থেমেছে"</string>
+    <!-- no translation found for swn_paused (6364358842808263589) -->
+    <skip />
     <string name="description_direction_right" msgid="5709209043267548985">"খারিজ করতে সোয়াইপ করুন"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"পরে মনে করিয়ে দিতে বামে সোয়াইপ করুন"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"মনে করিয়ে দিতে বাম দিকে বা খারিজ করতে ডান দিকে সোয়াইপ করুন"</string>
@@ -381,7 +379,8 @@
     <string name="stopwatch_already_running" msgid="6598258908106423672">"স্টপওয়াচ ইতিমধ্যেই চলছে"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"স্টপওয়াচ চলছে না"</string>
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"স্টপওয়াচটি এখন চালু থাকায় এটিকে পুনরায় সেট করা যাবে না"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"স্টপওয়াচ বন্ধ হয়েছে"</string>
+    <!-- no translation found for stopwatch_paused (2187615623275408601) -->
+    <skip />
     <string name="stopwatch_reset" msgid="7585914953721021042">"স্টপওয়াচ পুনরায় সেট হয়েছে"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"স্টপওয়াচ ল্যাপ করা হয়েছে"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"স্টপওয়াচ শুরু হয়েছে"</string>
