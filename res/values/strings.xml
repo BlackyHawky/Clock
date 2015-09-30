@@ -54,6 +54,12 @@
     <!-- Setting label on Set alarm screen: Label -->
     <string name="label">Label</string>
 
+    <!-- Content description for alarm on/off switch in On state -->
+    <string name="on_switch">On</string>
+
+    <!-- Content description for alarm on/off switch in Off state -->
+    <string name="off_switch">Off</string>
+
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
 

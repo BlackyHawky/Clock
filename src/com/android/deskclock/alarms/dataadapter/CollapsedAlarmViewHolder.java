@@ -80,7 +80,7 @@ public final class CollapsedAlarmViewHolder extends AlarmTimeViewHolder {
     @Override
     public void bindAlarm(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         setData(alarm, alarmInstance);
-        bindOnOffSwitch(alarm);
+        bindOnOffSwitch(context, alarm);
         bindClock(context, alarm);
         bindRepeatText(context, alarm);
         bindReadOnlyLabel(context, alarm);
