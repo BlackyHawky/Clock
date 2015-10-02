@@ -33,7 +33,7 @@
             android:layout_height="@dimen/circle_size"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="8dp">
+            android:padding="16dp">
 
             <com.android.deskclock.timer.CountingTimerView
                 android:id="@+id/stopwatch_time_text"
@@ -49,7 +49,7 @@
 
     </FrameLayout>
 
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/laps_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
