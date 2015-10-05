@@ -28,6 +28,8 @@
     <string name="show_clock" msgid="8358759982675616915">"显示时钟"</string>
     <string name="hide_clock" msgid="3217727306480505694">"隐藏时钟"</string>
     <string name="label" msgid="162189613902857319">"标签"</string>
+    <string name="on_switch" msgid="2297966258029227449">"开启"</string>
+    <string name="off_switch" msgid="3381070073851148013">"关闭"</string>
     <string name="default_label" msgid="5590025289805630372">"闹钟"</string>
     <string name="set_alarm" msgid="9148359866152726808">"设置闹钟"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"振动"</string>
@@ -335,8 +337,7 @@
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"闹钟"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"使用秒表服务执行通知功能。"</string>
-    <!-- no translation found for swn_paused (6364358842808263589) -->
-    <skip />
+    <string name="swn_paused" msgid="6364358842808263589">"已暂停"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"向右滑动可关闭闹钟"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"向左滑动可暂停闹钟"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"向左滑动可暂停，向右滑动可关闭"</string>
@@ -378,8 +379,7 @@
     <string name="stopwatch_already_running" msgid="6598258908106423672">"秒表已在计时"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"秒表目前未运行"</string>
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"秒表正在运行，因此无法重置"</string>
-    <!-- no translation found for stopwatch_paused (2187615623275408601) -->
-    <skip />
+    <string name="stopwatch_paused" msgid="2187615623275408601">"秒表已暂停"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"秒表已重置"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"秒表已分圈计时"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"秒表已开始"</string>

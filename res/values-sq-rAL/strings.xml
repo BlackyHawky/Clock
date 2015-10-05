@@ -28,6 +28,8 @@
     <string name="show_clock" msgid="8358759982675616915">"Shfaq orën"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Fshih orën"</string>
     <string name="label" msgid="162189613902857319">"Emërtimi"</string>
+    <string name="on_switch" msgid="2297966258029227449">"Aktivizuar"</string>
+    <string name="off_switch" msgid="3381070073851148013">"Joaktiv"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarmi"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Cakto alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Dridhja"</string>
@@ -336,8 +338,7 @@
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmet"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Njoftimin do ta japë shërbimi i kronometrit."</string>
-    <!-- no translation found for swn_paused (6364358842808263589) -->
-    <skip />
+    <string name="swn_paused" msgid="6364358842808263589">"U ndërpre"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Rrëshqit djathtas për ta larguar"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Rrëshqit majtas për ta dremitur"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Rrëshqit majtas për ta shtyrë, ose djathtas për ta hequr"</string>
@@ -379,8 +380,7 @@
     <string name="stopwatch_already_running" msgid="6598258908106423672">"Kronometri është tashmë në ekzekutim"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Kronometri nuk është në ekzekutim"</string>
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Kronometri nuk mund të rivendoset sepse është në funksionim"</string>
-    <!-- no translation found for stopwatch_paused (2187615623275408601) -->
-    <skip />
+    <string name="stopwatch_paused" msgid="2187615623275408601">"Kronometri u ndërpre"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Kronometri u rivendos"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Kronometri e regjistroi xhiron"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Kronometri u nis"</string>
