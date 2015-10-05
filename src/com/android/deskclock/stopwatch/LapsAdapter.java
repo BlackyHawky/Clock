@@ -18,11 +18,11 @@ package com.android.deskclock.stopwatch;
 
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
+import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
@@ -37,7 +37,7 @@ import java.util.List;
  * Displays a list of lap times in reverse order. That is, the newest lap is at the top, the oldest
  * lap is at the bottom.
  */
-class LapsAdapter extends BaseAdapter {
+class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
 
     private final LayoutInflater mInflater;
     private final Context mContext;
@@ -51,6 +51,7 @@ class LapsAdapter extends BaseAdapter {
     public LapsAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
+        setHasStableIds(true);
     }
 
     /**
@@ -59,57 +60,26 @@ class LapsAdapter extends BaseAdapter {
      * @return 0 if no laps are yet recorded; lap count + 1 if any laps exist
      */
     @Override
-    public int getCount() {
+    public int getItemCount() {
         final int lapCount = getLaps().size();
         final int currentLapCount = lapCount == 0 ? 0 : 1;
         return currentLapCount + lapCount;
     }
 
-    /**
-     * @return {@code null} for the current lap, the Lap object for all other laps
-     */
     @Override
-    public Lap getItem(int position) {
-        return position == 0 ? null : getLaps().get(position - 1);
+    public LapItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View v = mInflater.inflate(R.layout.lap_view, parent, false /* attachToRoot */);
+        return new LapItemHolder(v);
     }
 
     @Override
-    public boolean hasStableIds() {
-        return true;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        // During transitions the adapter may be queried with invalid positions.
-        if (position >= getCount()) {
-            return -1;
-        }
-
-        final Lap lap = getItem(position);
-        return lap == null ? getLaps().size() + 1 : lap.getLapNumber();
-    }
-
-    @Override
-    public View getView(int position, View view, ViewGroup parent) {
-        if (getCount() == 0) {
-            return null;
-        }
-
-        // Inflate a new view if necessary.
-        if (view == null) {
-            view = mInflater.inflate(R.layout.lap_view, parent, false);
-            final TextView lapTime = (TextView) view.findViewById(R.id.lap_time);
-            final TextView lapNumber = (TextView) view.findViewById(R.id.lap_number);
-            final TextView accumulatedTime = (TextView) view.findViewById(R.id.lap_total);
-            view.setTag(new LapItemHolder(lapNumber, lapTime, accumulatedTime));
-        }
-
+    public void onBindViewHolder(LapItemHolder viewHolder, int position) {
         final long lapTime;
         final int lapNumber;
         final long totalTime;
 
         // Lap will be null for the current lap.
-        final Lap lap = getItem(position);
+        final Lap lap = position == 0 ? null : getLaps().get(position - 1);
         if (lap != null) {
             // For a recorded lap, merely extract the values to format.
             lapTime = lap.getLapTime();
@@ -123,31 +93,40 @@ class LapsAdapter extends BaseAdapter {
         }
 
         // Bind data into the child views.
-        final LapItemHolder holder = (LapItemHolder) view.getTag();
-        holder.lapTime.setText(formatLapTime(lapTime));
-        holder.accumulatedTime.setText(formatAccumulatedTime(totalTime));
-        holder.lapNumber.setText(formatLapNumber(getLaps().size() + 1, lapNumber));
-
-        return view;
+        viewHolder.lapTime.setText(formatLapTime(lapTime, true));
+        viewHolder.accumulatedTime.setText(formatAccumulatedTime(totalTime, true));
+        viewHolder.lapNumber.setText(formatLapNumber(getLaps().size() + 1, lapNumber));
     }
 
-    /**
-     * @return {@code false} to prevent the laps from responding to touch
-     */
     @Override
-    public boolean isEnabled(int position) {
-        return false;
+    public long getItemId(int position) {
+        final List<Lap> laps = getLaps();
+        if (position == 0) {
+            return laps.size() + 1;
+        }
+
+        return laps.get(position - 1).getLapNumber();
     }
 
     /**
-     * @param currentLapView the view that displays the current lap information
-     * @param lapTime time accumulated for the current lap
-     * @param accumulatedTime time accumulated for the current lap and all prior laps
+     * @param rv the RecyclerView that contains the {@code childView}
+     * @param totalTime time accumulated for the current lap and all prior laps
      */
-    void updateCurrentLap(View currentLapView, long lapTime, long accumulatedTime) {
-        final LapItemHolder holder = (LapItemHolder) currentLapView.getTag();
-        holder.lapTime.setText(formatLapTime(lapTime));
-        holder.accumulatedTime.setText(formatAccumulatedTime(accumulatedTime));
+    void updateCurrentLap(RecyclerView rv, long totalTime) {
+        // If no laps exist there is nothing to do.
+        if (getItemCount() == 0) {
+            return;
+        }
+
+        final View currentLapView = rv.getChildAt(0);
+        if (currentLapView != null) {
+            // Compute the lap time using the total time.
+            final long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
+
+            final LapItemHolder holder = (LapItemHolder) rv.getChildViewHolder(currentLapView);
+            holder.lapTime.setText(formatLapTime(lapTime, false));
+            holder.accumulatedTime.setText(formatAccumulatedTime(totalTime, false));
+        }
     }
 
     /**
@@ -157,7 +136,18 @@ class LapsAdapter extends BaseAdapter {
      */
     Lap addLap() {
         final Lap lap = DataModel.getDataModel().addLap();
-        notifyDataSetChanged();
+
+        if (getItemCount() == 10) {
+            // 10 total laps indicates all items switch from 1 to 2 digit lap numbers.
+            notifyDataSetChanged();
+        } else {
+            // New current lap now exists.
+            notifyItemInserted(0);
+
+            // Prior current lap must be refreshed once with the true values in place.
+            notifyItemChanged(1);
+        }
+
         return lap;
     }
 
@@ -261,38 +251,44 @@ class LapsAdapter extends BaseAdapter {
 
     /**
      * @param lapTime the lap time to be formatted
+     * @param isBinding if the lap time is requested so it can be bound avoid notifying of data
+     *                  set changes; they are not allowed to occur during bind
      * @return a formatted version of the lap time
      */
-    private String formatLapTime(long lapTime) {
+    private String formatLapTime(long lapTime, boolean isBinding) {
         // The longest lap dictates the way the given lapTime must be formatted.
         final long longestLapTime = Math.max(DataModel.getDataModel().getLongestLapTime(), lapTime);
-        final String formattedLapTime = formatTime(longestLapTime, lapTime, " ");
+        final String formattedTime = formatTime(longestLapTime, lapTime, " ");
 
         // If the newly formatted lap time has altered the format, refresh all laps.
-        if (mLastFormattedLapTimeLength != formattedLapTime.length()) {
-            mLastFormattedLapTimeLength = formattedLapTime.length();
+        final int newLength = formattedTime.length();
+        if (!isBinding && mLastFormattedLapTimeLength != newLength) {
+            mLastFormattedLapTimeLength = newLength;
             notifyDataSetChanged();
         }
 
-        return formattedLapTime;
+        return formattedTime;
     }
 
     /**
      * @param accumulatedTime the accumulated time to be formatted
+     * @param isBinding if the lap time is requested so it can be bound avoid notifying of data
+     *                  set changes; they are not allowed to occur during bind
      * @return a formatted version of the accumulated time
      */
-    private String formatAccumulatedTime(long accumulatedTime) {
+    private String formatAccumulatedTime(long accumulatedTime, boolean isBinding) {
         final long totalTime = getStopwatch().getTotalTime();
         final long longestAccumulatedTime = Math.max(totalTime, accumulatedTime);
-        final String formattedAccumulatedTime = formatTime(longestAccumulatedTime, accumulatedTime, " ");
+        final String formattedTime = formatTime(longestAccumulatedTime, accumulatedTime, " ");
 
         // If the newly formatted accumulated time has altered the format, refresh all laps.
-        if (mLastFormattedAccumulatedTimeLength != formattedAccumulatedTime.length()) {
-            mLastFormattedAccumulatedTimeLength = formattedAccumulatedTime.length();
+        final int newLength = formattedTime.length();
+        if (!isBinding && mLastFormattedAccumulatedTimeLength != newLength) {
+            mLastFormattedAccumulatedTimeLength = newLength;
             notifyDataSetChanged();
         }
 
-        return formattedAccumulatedTime;
+        return formattedTime;
     }
 
     private Stopwatch getStopwatch() {
@@ -306,16 +302,18 @@ class LapsAdapter extends BaseAdapter {
     /**
      * Cache the child views of each lap item view.
      */
-    private static final class LapItemHolder {
+    static final class LapItemHolder extends RecyclerView.ViewHolder {
 
         private final TextView lapNumber;
         private final TextView lapTime;
         private final TextView accumulatedTime;
 
-        public LapItemHolder(TextView lapNumber, TextView lapTime, TextView accumulatedTime) {
-            this.lapNumber = lapNumber;
-            this.lapTime = lapTime;
-            this.accumulatedTime = accumulatedTime;
+        public LapItemHolder(View itemView) {
+            super(itemView);
+
+            lapTime = (TextView) itemView.findViewById(R.id.lap_time);
+            lapNumber = (TextView) itemView.findViewById(R.id.lap_number);
+            accumulatedTime = (TextView) itemView.findViewById(R.id.lap_total);
         }
     }
 }

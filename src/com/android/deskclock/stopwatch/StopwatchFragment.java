@@ -22,6 +22,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.transition.AutoTransition;
 import android.transition.Transition;
 import android.transition.TransitionManager;
@@ -29,13 +31,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
-import android.widget.ListView;
 
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Lap;
 import com.android.deskclock.data.Stopwatch;
@@ -69,11 +69,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     /** The data source for {@link #mLapsList}. */
     private LapsAdapter mLapsAdapter;
 
+    /** The layout manager for the {@link #mLapsAdapter}. */
+    private LinearLayoutManager mLapsLayoutManager;
+
     /** Draws the reference lap while the stopwatch is running. */
     private StopwatchTimer mTime;
 
     /** Displays the recorded lap times. */
-    private ListView mLapsList;
+    private RecyclerView mLapsList;
 
     /** Displays the current stopwatch time. */
     private CountingTimerView mTimeText;
@@ -87,11 +90,13 @@ public final class StopwatchFragment extends DeskClockFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mLapsAdapter = new LapsAdapter(getActivity());
+        mLapsLayoutManager = new LinearLayoutManager(getActivity());
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = (StopwatchTimer) v.findViewById(R.id.stopwatch_time);
-        mLapsList = (ListView) v.findViewById(R.id.laps_list);
-        mLapsList.setDividerHeight(0);
+        mLapsList = (RecyclerView) v.findViewById(R.id.laps_list);
+        mLapsList.getItemAnimator().setSupportsChangeAnimations(false);
+        mLapsList.setLayoutManager(mLapsLayoutManager);
         mLapsList.setAdapter(mLapsAdapter);
 
         // Timer text serves as a virtual start/stop button.
@@ -375,24 +380,10 @@ public final class StopwatchFragment extends DeskClockFragment {
 
             // Recording the first lap transitions the UI to display the laps list.
             showOrHideLaps(false);
-
-        } else {
-            if (mLapsList.getFirstVisiblePosition() > 0) {
-                // Ensure the newly added lap is visible on screen.
-                mLapsList.smoothScrollToPosition(0);
-            } else {
-                // Avoid nasty bugs in the Transition framework prior to L MR1.
-                // Without the transition, the new lap just appears on screen instantaneously.
-                if (Utils.isLMR1OrLater()) {
-                    // Ignore updates to the current lap while adding the new recorded lap.
-                    final Transition transition = new AutoTransition();
-                    transition.excludeChildren(R.id.lap_view, true);
-
-                    final ViewGroup sceneRoot = (ViewGroup) getView();
-                    TransitionManager.beginDelayedTransition(sceneRoot, transition);
-                }
-            }
         }
+
+        // Ensure the newly added lap is visible on screen.
+        mLapsList.scrollToPosition(0);
     }
 
     /**
@@ -431,7 +422,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             mLapsAdapter.clearLaps();
         }
 
-        final boolean lapsVisible = mLapsAdapter.getCount() > 0;
+        final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
         mLapsList.setVisibility(lapsVisible ? VISIBLE : GONE);
     }
 
@@ -495,18 +486,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         // Update the total time display.
         mTimeText.setTime(totalTime, true, true);
 
-        // Update the current lap if one exists and is visible on the screen.
-        final boolean lapsExist = mLapsAdapter.getCount() > 0;
-        final boolean currentLapIsVisible = mLapsList.getFirstVisiblePosition() == 0;
-        if (!mLapsListIsTransitioning && lapsExist && currentLapIsVisible) {
-            final View currentLapView = mLapsList.getChildAt(0);
-            if (currentLapView != null) {
-                // Compute the lap time using the total time.
-                final long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
-
-                // Update the current lap.
-                mLapsAdapter.updateCurrentLap(currentLapView, lapTime, totalTime);
-            }
+        // Update the current lap.
+        final boolean currentLapIsVisible = mLapsLayoutManager.findFirstVisibleItemPosition() == 0;
+        if (!mLapsListIsTransitioning && currentLapIsVisible) {
+            mLapsAdapter.updateCurrentLap(mLapsList, totalTime);
         }
     }
 
