@@ -386,7 +386,7 @@ public class HandleApiCalls extends Activity {
                     .putExtra(Timers.SCROLL_TO_TIMER_ID, timer.mTimerId));
         }
         Voice.notifySuccess(this, getString(R.string.timer_created));
-        LogUtils.i("HandleApiCalls timer created: %s", timer);
+        LogUtils.i("HandleApiCalls timer created: %s id %d", timer, timer.mTimerId);
     }
 
     private void setupInstance(AlarmInstance instance, boolean skipUi) {
