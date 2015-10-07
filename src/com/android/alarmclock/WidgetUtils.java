@@ -140,8 +140,7 @@ public class WidgetUtils {
             int clockId) {
         if (clock != null) {
             // Set the best format for 12 hours mode according to the locale
-            clock.setCharSequence(clockId, "setFormat12Hour",
-                    Utils.get12ModeFormat(context, amPmFontSize));
+            clock.setCharSequence(clockId, "setFormat12Hour", Utils.get12ModeFormat(context));
             // Set the best format for 24 hours mode according to the locale
             clock.setCharSequence(clockId, "setFormat24Hour", Utils.get24ModeFormat());
         }

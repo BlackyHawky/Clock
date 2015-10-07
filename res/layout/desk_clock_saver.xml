@@ -46,7 +46,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@color/clock_white"
-            android:textSize="@dimen/screensaver_font_size" />
+            android:textSize="@dimen/main_clock_font_size" />
 
         <com.android.deskclock.AnalogClock
             android:id="@+id/analog_clock"
