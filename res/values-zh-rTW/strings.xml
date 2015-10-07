@@ -208,7 +208,6 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"增加 1 分鐘"</string>
     <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"停止所有計時器"</string>
-    <string name="timer_done" msgid="2375990511982914051">"完成"</string>
     <string name="timer_reset" msgid="7848424809190171640">"重設"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"取消"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"時間到"</string>
