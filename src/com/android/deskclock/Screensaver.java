@@ -181,8 +181,7 @@ public class Screensaver extends DreamService {
         mDigitalClock = findViewById(R.id.digital_clock);
         mAnalogClock = findViewById(R.id.analog_clock);
         setClockStyle();
-        Utils.setTimeFormat(this, (TextClock) mDigitalClock,
-                getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size));
+        Utils.setTimeFormat(this, (TextClock) mDigitalClock);
 
         mContentView = (View) mSaverView.getParent();
         mSaverView.setAlpha(0);

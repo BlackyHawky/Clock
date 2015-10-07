@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -115,7 +116,6 @@ public final class ClockFragment extends DeskClockFragment {
 
         mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
-
         return fragmentView;
     }
 
@@ -123,8 +123,7 @@ public final class ClockFragment extends DeskClockFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final int size = getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size);
-        Utils.setTimeFormat(getActivity(), mDigitalClock, size);
+        Utils.setTimeFormat(getActivity(), mDigitalClock);
     }
 
     @Override
@@ -384,7 +383,7 @@ public final class ClockFragment extends DeskClockFragment {
                 analogClock.setVisibility(View.GONE);
                 digitalClock.setTimeZone(city.getTimeZoneId());
                 final int size = mContext.getResources().getDimensionPixelSize(R.dimen.label_font_size);
-                Utils.setTimeFormat(mContext, digitalClock, size);
+                Utils.setTimeFormat(mContext, digitalClock);
             }
 
             // Bind the city name.

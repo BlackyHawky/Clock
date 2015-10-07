@@ -44,7 +44,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.text.style.AbsoluteSizeSpan;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
@@ -60,6 +60,7 @@ import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.timer.Timers;
 
+import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -522,29 +523,39 @@ public class Utils {
      * formatting treatment for the am/pm label.
      * @param context - Context used to get user's locale and time preferences
      * @param clock - TextClock to format
-     * @param amPmFontSize - size of the am/pm label since it is usually smaller
      */
-    public static void setTimeFormat(Context context, TextClock clock, int amPmFontSize) {
+    public static void setTimeFormat(Context context, TextClock clock) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(context, amPmFontSize));
+            clock.setFormat12Hour(get12ModeFormat(context));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat());
         }
     }
 
     /**
+     * Returns {@code true} if the am / pm strings for the current locale are long and a reduced
+     * text size should be used for displaying the digital clock.
+     */
+    public static boolean isAmPmStringLong() {
+        final String[] amPmStrings = new DateFormatSymbols().getAmPmStrings();
+        for (String amPmString : amPmStrings) {
+            // Dots are small, so don't count them.
+            final int amPmStringLength = amPmString.replace(".", "").length();
+            if (amPmStringLength > 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param context - context used to get time format string resource
-     * @param amPmFontSize - size of am/pm label (label removed is size is 0).
      * @return format string for 12 hours mode time
      */
-    public static CharSequence get12ModeFormat(Context context, int amPmFontSize) {
+    public static CharSequence get12ModeFormat(Context context) {
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
 
-        // Remove the am/pm
-        if (amPmFontSize <= 0) {
-            pattern = pattern.replaceAll("a", "").trim();
-        }
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll(" ", "\u200A");
         // Build a spannable so that the am/pm will be formatted
@@ -552,13 +563,24 @@ public class Utils {
         if (amPmPos == -1) {
             return pattern;
         }
-        Spannable sp = new SpannableString(pattern);
+
+        final Resources resources = context.getResources();
+        final float amPmProportion = resources.getFraction(R.fraction.ampm_font_size_scale, 1, 1);
+        final Spannable sp = new SpannableString(pattern);
+        sp.setSpan(new RelativeSizeSpan(amPmProportion), amPmPos, amPmPos + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1,
-                Spannable.SPAN_POINT_MARK);
-        sp.setSpan(new AbsoluteSizeSpan(amPmFontSize), amPmPos, amPmPos + 1,
-                Spannable.SPAN_POINT_MARK);
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         sp.setSpan(new TypefaceSpan("sans-serif"), amPmPos, amPmPos + 1,
-                Spannable.SPAN_POINT_MARK);
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Make the font smaller for locales with long am/pm strings.
+        if (Utils.isAmPmStringLong()) {
+            final float proportion = resources.getFraction(
+                    R.fraction.reduced_clock_font_size_scale, 1, 1);
+            sp.setSpan(new RelativeSizeSpan(proportion), 0, pattern.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         return sp;
     }
 

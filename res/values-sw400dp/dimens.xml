@@ -15,5 +15,5 @@
 -->
 
 <resources>
-    <dimen name="screensaver_font_size">88sp</dimen>
+    <dimen name="main_clock_font_size">88sp</dimen>
 </resources>

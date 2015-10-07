@@ -40,7 +40,7 @@
     <dimen name="clock_side_padding">48dip</dimen>
     <dimen name="clock_side_padding_reduced">36dip</dimen>
 
-    <dimen name="screensaver_font_size">160sp</dimen>
+    <dimen name="main_clock_font_size">125sp</dimen>
     <dimen name="big_font_size">115sp</dimen>
     <dimen name="medium_font_size">96sp</dimen>
     <dimen name="label_font_size">18sp</dimen>
