@@ -209,7 +209,6 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"၁ မိနစ် ထည့်ရန်"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ရပ်တန့်ရန်"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"အချိန်တိုင်းကိရိယာများအားလုံး ရပ်ရန်"</string>
-    <string name="timer_done" msgid="2375990511982914051">"လုပ်ပြီး"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ပြန်ညှိရန်"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"ထားတော့"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"တိုင်မား အလုပ်ပြီးသွားပြီ"</string>
