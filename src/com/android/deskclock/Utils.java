@@ -527,7 +527,7 @@ public class Utils {
     public static void setTimeFormat(Context context, TextClock clock) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(context));
+            clock.setFormat12Hour(get12ModeFormat(context, true /* showAmPm */));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat());
         }
@@ -551,10 +551,14 @@ public class Utils {
 
     /**
      * @param context - context used to get time format string resource
+     * @param showAmPm - include the am/pm string if true
      * @return format string for 12 hours mode time
      */
-    public static CharSequence get12ModeFormat(Context context) {
+    public static CharSequence get12ModeFormat(Context context, boolean showAmPm) {
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
+        if (!showAmPm) {
+            pattern = pattern.replaceAll("a", "").trim();
+        }
 
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll(" ", "\u200A");
