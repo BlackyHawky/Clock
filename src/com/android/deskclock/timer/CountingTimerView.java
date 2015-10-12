@@ -32,7 +32,6 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 
-
 /**
  * Class to measure and draw the time in the {@link com.android.deskclock.CircleTimerView}.
  * This class manages and sums the work of the four members mBigHours, mBigMinutes,
@@ -88,7 +87,6 @@ public class CountingTimerView extends View {
             CountingTimerView.this.showTime(mVisible);
             postDelayed(mBlinkThread, 500);
         }
-
     };
 
     /**
@@ -486,20 +484,6 @@ public class CountingTimerView extends View {
         if (forceUpdate) {
             invalidate();
         }
-    }
-
-    public String getTimeString() {
-        // Though only called from Stopwatch Share, so hundredth are never null,
-        // protect the future and check for null mHundredths
-        if (mHundredths == null) {
-            if (mHours == null) {
-                return String.format("%s:%s", mMinutes, mSeconds);
-            }
-            return String.format("%s:%s:%s", mHours, mMinutes, mSeconds);
-        } else if (mHours == null) {
-            return String.format("%s:%s.%s", mMinutes, mSeconds, mHundredths);
-        }
-        return String.format("%s:%s:%s.%s", mHours, mMinutes, mSeconds, mHundredths);
     }
 
     private static String getTimeStringForAccessibility(int hours, int minutes, int seconds,

@@ -83,6 +83,19 @@ final class SettingsDAO {
     }
 
     /**
+     * Sets the user's home timezone to the current system timezone if no home timezone is yet set.
+     *
+     * @param homeTimeZone the timezone to set as the user's home timezone if necessary
+     */
+    static void setDefaultHomeTimeZone(Context context, TimeZone homeTimeZone) {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        final String homeTimeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
+        if (homeTimeZoneId == null) {
+            prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, homeTimeZone.getID()).apply();
+        }
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
     static ClockStyle getClockStyle(Context context) {

@@ -50,7 +50,6 @@ import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
-import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.timer.TimerFragment;
 import com.android.deskclock.timer.TimerObj;
@@ -60,7 +59,6 @@ import com.android.deskclock.widget.RtlViewPager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.TimeZone;
 
 /**
  * DeskClock clock view for desk docks.
@@ -206,7 +204,6 @@ public class DeskClock extends BaseActivity
             }
         }
         initViews();
-        setHomeTimeZone();
 
         // We need to update the system next alarm time on app startup because the
         // user might have clear our data.
@@ -272,22 +269,6 @@ public class DeskClock extends BaseActivity
                 && resultCode == RESULT_OK) {
             recreate();
         }
-    }
-
-    /**
-     * Insert the local time zone as the Home Time Zone if one is not set
-     */
-    private void setHomeTimeZone() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String homeTimeZone = prefs.getString(SettingsActivity.KEY_HOME_TZ, "");
-        if (!homeTimeZone.isEmpty()) {
-            return;
-        }
-        homeTimeZone = TimeZone.getDefault().getID();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(SettingsActivity.KEY_HOME_TZ, homeTimeZone);
-        editor.apply();
-        LogUtils.v(TAG, "Setting home time zone to " + homeTimeZone);
     }
 
     public void registerPageChangedListener(DeskClockFragment frag) {
