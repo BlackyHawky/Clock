@@ -48,8 +48,7 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
         final Alarm alarm = selection.getAlarm();
 
         final TextTime alarmTime = (TextTime) row.findViewById(R.id.digital_clock);
-        alarmTime.setFormat(context,
-                context.getResources().getDimensionPixelSize(R.dimen.alarm_label_size));
+        alarmTime.setFormat(context);
         alarmTime.setTime(alarm.hour, alarm.minutes);
 
         final TextView alarmLabel = (TextView) row.findViewById(R.id.label);

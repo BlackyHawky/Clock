@@ -94,7 +94,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                     RemoteViews widget = new RemoteViews(context.getPackageName(),
                             R.layout.digital_appwidget);
                     float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
-                    WidgetUtils.setTimeFormat(context, widget, 0/*no am/pm*/, R.id.the_clock);
+                    WidgetUtils.setTimeFormat(context, widget, false /* showAmPm */,
+                            R.id.the_clock);
                     WidgetUtils.setClockSize(context, widget, ratio);
                     refreshAlarm(context, widget);
                     appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
@@ -125,6 +126,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                     appWidgetManager.
                             notifyAppWidgetViewDataChanged(appWidgetId,
                                     R.id.digital_appwidget_listview);
+                    final RemoteViews widget = new RemoteViews(context.getPackageName(),
+                            R.layout.digital_appwidget);
+                    final float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
+                    WidgetUtils.setClockSize(context, widget, ratio);
+                    appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
                 }
             }
         }
@@ -183,7 +189,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Setup alarm text clock's format and font sizes
         refreshAlarm(context, widget);
-        WidgetUtils.setTimeFormat(context, widget, 0/*no am/pm*/, R.id.the_clock);
+        WidgetUtils.setTimeFormat(context, widget, false /* showAmPm */, R.id.the_clock);
         WidgetUtils.setClockSize(context, widget, ratio);
 
         // Set today's date format

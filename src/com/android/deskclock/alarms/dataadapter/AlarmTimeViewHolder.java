@@ -95,8 +95,7 @@ public abstract class AlarmTimeViewHolder extends RecyclerView.ViewHolder {
 
     protected void bindClock(Context context, Alarm alarm) {
         clock.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
-        clock.setFormat(context,
-                context.getResources().getDimensionPixelSize(R.dimen.alarm_label_size));
+        clock.setFormat(context);
         clock.setTime(alarm.hour, alarm.minutes);
     }
 
