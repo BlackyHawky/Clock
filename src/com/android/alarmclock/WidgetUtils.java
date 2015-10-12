@@ -26,6 +26,7 @@ import android.widget.RemoteViews;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
 
 public class WidgetUtils {
     static final String TAG = "WidgetUtils";
@@ -61,9 +62,18 @@ public class WidgetUtils {
                     < res.getDimension(R.dimen.min_digital_widget_height)) {
                 ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
             }
-            return (ratio > 1) ? 1 : ratio;
+
+            final SelectedCitiesRunnable selectedCitiesRunnable = new SelectedCitiesRunnable();
+            DataModel.getDataModel().run(selectedCitiesRunnable);
+            if (selectedCitiesRunnable.mAnyCitiesSelected) {
+                return (ratio > 1f) ? 1f : ratio;
+            }
+
+            ratio *= .83f;
+            ratio = Math.min(ratio, 1.7f);
+            return ratio;
         }
-        return 1;
+        return 1f;
     }
 
     // Calculate the scale factor of the fonts in the list of  the widget using the widget height
@@ -133,16 +143,27 @@ public class WidgetUtils {
      * Set the format of the time on the clock according to the locale
      * @param context - Context used to get user's locale and time preferences
      * @param clock - view to format
-     * @param amPmFontSize - size of am/pm label, zero size means no am/om label
+     * @param showAmPm - show am/pm label if true
      * @param clockId - id of TextClock view as defined in the clock's layout.
      */
-    public static void setTimeFormat(Context context, RemoteViews clock, int amPmFontSize,
+    public static void setTimeFormat(Context context, RemoteViews clock, boolean showAmPm,
             int clockId) {
         if (clock != null) {
             // Set the best format for 12 hours mode according to the locale
-            clock.setCharSequence(clockId, "setFormat12Hour", Utils.get12ModeFormat(context));
+            clock.setCharSequence(clockId, "setFormat12Hour",
+                    Utils.get12ModeFormat(context, showAmPm));
             // Set the best format for 24 hours mode according to the locale
             clock.setCharSequence(clockId, "setFormat24Hour", Utils.get24ModeFormat());
+        }
+    }
+
+    private static class SelectedCitiesRunnable implements Runnable {
+
+        private boolean mAnyCitiesSelected;
+
+        @Override
+        public void run() {
+            mAnyCitiesSelected = !DataModel.getDataModel().getSelectedCities().isEmpty();
         }
     }
 }
