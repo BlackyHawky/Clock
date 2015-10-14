@@ -210,7 +210,6 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"បន្ថែម ១​នាទី"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ឈប់"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"បញ្ឈប់កម្មវិធីកំណត់ពេលទាំងអស់"</string>
-    <string name="timer_done" msgid="2375990511982914051">"រួចរាល់"</string>
     <string name="timer_reset" msgid="7848424809190171640">"កំណត់​ឡើងវិញ"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"បោះ​បង់​"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ដល់​ម៉ោង"</string>

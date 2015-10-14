@@ -210,7 +210,6 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Προσθήκη 1 λεπτού"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Διακοπή"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Διακοπή των χρονομέτρων"</string>
-    <string name="timer_done" msgid="2375990511982914051">"Τέλος"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Επαναφορά"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Ακύρωση"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Ο χρόνος έχει τελειώσει"</string>

@@ -221,7 +221,6 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Adăugați 1 min."</string>
     <string name="timer_stop" msgid="3361154678667736722">"Opriți"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Opriți temporizatoarele"</string>
-    <string name="timer_done" msgid="2375990511982914051">"Terminat"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Resetaţi"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Anulați"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Timpul a expirat!"</string>
@@ -239,7 +238,7 @@
     <item msgid="7508085100680861631">"O viteză uimitoare."</item>
     <item msgid="5961245252909589573">"Să începem din nou dansul timpului."</item>
     <item msgid="5211891900854545940">"O săritură la stânga."</item>
-    <item msgid="9071353477103826053">"Aveţi opţiuni diversificate pentru viteză."</item>
+    <item msgid="9071353477103826053">"Aveți opţiuni diversificate pentru viteză."</item>
     <item msgid="3785193933691117181">"Cu viteza luminii."</item>
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"Acasă"</string>
