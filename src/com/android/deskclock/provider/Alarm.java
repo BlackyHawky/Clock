@@ -391,6 +391,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         if (addDays > 0) {
             nextInstanceTime.add(Calendar.DAY_OF_WEEK, addDays);
         }
+
+        // Daylight Savings Time can alter the hours and minutes when adjusting the day above.
+        // Reset the desired hour and minute now that the correct day has been chosen.
+        nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+        nextInstanceTime.set(Calendar.MINUTE, minutes);
+
         return nextInstanceTime;
     }
 
