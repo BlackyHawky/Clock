@@ -361,8 +361,12 @@ public final class CitySelectionActivity extends BaseActivity {
             final City city = (City) b.getTag();
             if (checked) {
                 mUserSelectedCities.add(city);
+                b.announceForAccessibility(mContext.getString(R.string.city_checked,
+                        city.getName()));
             } else {
                 mUserSelectedCities.remove(city);
+                b.announceForAccessibility(mContext.getString(R.string.city_unchecked,
+                        city.getName()));
             }
         }
 
