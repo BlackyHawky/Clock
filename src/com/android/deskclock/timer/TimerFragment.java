@@ -167,6 +167,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
                     };
                     createRotateAnimator(adapter, false).start();
                 }
+                view.announceForAccessibility(getActivity().getString(R.string.timer_canceled));
             }
         });
         mDeleteTransition = new AutoTransition();
@@ -612,6 +613,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
             TransitionManager.beginDelayedTransition(mContentView, mDeleteTransition);
             deleteTimer(timer);
         }
+        view.announceForAccessibility(getActivity().getString(R.string.timer_deleted));
     }
 
     private void deleteTimer(TimerObj timer) {

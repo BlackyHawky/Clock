@@ -528,6 +528,8 @@
     <string name="timer_reset">Reset</string>
     <!-- Describes the purpose of the button to discard the current dialog values. Will also close the dialog if other time's exist -->
     <string name="timer_cancel">Cancel</string>
+    <!-- Accessibility announcement when a timer is canceled. -->
+    <string name="timer_canceled">Timer canceled</string>
     <!-- Notification content shown when a timer has completed and has no more time remaining -->
     <string name="timer_times_up">Time\'s up</string>
     <!--

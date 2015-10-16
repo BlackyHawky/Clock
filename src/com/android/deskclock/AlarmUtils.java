@@ -99,5 +99,6 @@ public class AlarmUtils {
         final String text = formatElapsedTimeUntilAlarm(
                 snackbarAnchor.getContext(), alarmTimeDelta);
         SnackbarManager.show(Snackbar.make(snackbarAnchor, text, Snackbar.LENGTH_SHORT));
+        snackbarAnchor.announceForAccessibility(text);
     }
 }
