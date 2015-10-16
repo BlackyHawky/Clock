@@ -84,7 +84,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dip"
                 android:layout_marginStart="8dip"
-                android:drawableLeft="@drawable/ic_alarm_small"
                 android:drawablePadding="2dip"
                 android:drawableStart="@drawable/ic_alarm_small"
                 android:gravity="center"

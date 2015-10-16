@@ -266,7 +266,7 @@
                 <action android:name="android.intent.action.DATE_CHANGED"/>
                 <action android:name="android.intent.action.LOCALE_CHANGED"/>
                 <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
-                <action android:name="com.android.deskclock.CITIES_CHANGED"/>
+                <action android:name="com.android.deskclock.DIGITAL_WIDGET_CHANGED"/>
                 <action android:name="com.android.deskclock.ON_QUARTER_HOUR"/>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED"/>
