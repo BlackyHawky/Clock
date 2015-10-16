@@ -588,7 +588,7 @@
       <item>digital</item>
     </string-array>
 
-    <!-- Title for an option that will automtically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
+    <!-- Title for an option that will automatically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
     <string name="automatic_home_clock">Automatic home clock</string>
     <!-- Describes the functionality provided by the automatic_home_clock option -->
     <string name="automatic_home_clock_summary">While traveling in an area where the time is different, add a clock for home</string>
@@ -608,6 +608,17 @@
     <string name="time_picker_00_label">:00</string>
     <!-- add 30 as minutes to the time when pressing this button -->
     <string name="time_picker_30_label">:30</string>
+
+    <!--
+        Accessibility string read when a city checkbox is checked.
+        Ex. "Ann Arbor checked"
+    -->
+    <string name="city_checked"><xliff:g id="city_name">%s</xliff:g> checked</string>
+    <!--
+        Accessibility string read when a city checkbox is unchecked.
+        Ex. "Ann Arbor unchecked"
+    -->
+    <string name="city_unchecked"><xliff:g id="city_name">%s</xliff:g> unchecked</string>
 
     <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
     <string-array name="timezone_labels">
