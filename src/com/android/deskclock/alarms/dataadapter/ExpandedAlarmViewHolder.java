@@ -147,6 +147,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
             @Override
             public void onClick(View v) {
                 alarmTimeClickHandler.onDeleteClicked(mAlarm);
+                v.announceForAccessibility(context.getString(R.string.alarm_deleted));
             }
         });
         // Repeat checkbox handler
