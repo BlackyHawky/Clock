@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.android.deskclock.NumberPickerCompat;
 import com.android.deskclock.R;
 
 /**
@@ -21,7 +22,7 @@ public final class CrescendoLengthDialog extends DialogPreference {
     private static final String DEFAULT_CRESCENDO_TIME = "0";
     private static final int CRESCENDO_TIME_STEP = 5;
 
-    private NumberPicker mNumberPickerView;
+    private NumberPickerCompat mNumberPickerView;
     private TextView mNumberPickerSecondsView;
     private int mCrescendoSeconds;
 
@@ -50,16 +51,32 @@ public final class CrescendoLengthDialog extends DialogPreference {
 
         mNumberPickerSecondsView = (TextView) view.findViewById(R.id.title);
         mNumberPickerSecondsView.setText(getContext().getString(R.string.crescendo_picker_label));
-        mNumberPickerView = (NumberPicker) view.findViewById(R.id.seconds_picker);
+        mNumberPickerView = (NumberPickerCompat) view.findViewById(R.id.seconds_picker);
         mNumberPickerView.setDisplayedValues(displayedValues);
         mNumberPickerView.setMinValue(0);
         mNumberPickerView.setMaxValue(displayedValues.length - 1);
         mNumberPickerView.setValue(mCrescendoSeconds / CRESCENDO_TIME_STEP);
         updateUnits();
+
         mNumberPickerView.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
                 updateUnits();
+            }
+        });
+        mNumberPickerView.setOnAnnounceValueChangedListener(
+                new NumberPickerCompat.OnAnnounceValueChangedListener() {
+            @Override
+            public void onAnnounceValueChanged(NumberPicker picker, int value,
+                    String displayedValue) {
+                final String announceString;
+                if (value == 0) {
+                    announceString = getContext().getString(R.string.no_crescendo_duration);
+                } else {
+                    announceString = getContext().getString(
+                            R.string.crescendo_duration, displayedValue);
+                }
+                picker.announceForAccessibility(announceString);
             }
         });
     }

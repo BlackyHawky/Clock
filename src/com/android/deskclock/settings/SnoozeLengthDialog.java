@@ -28,6 +28,7 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
+import com.android.deskclock.NumberPickerCompat;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 
@@ -38,7 +39,7 @@ public final class SnoozeLengthDialog extends DialogPreference {
 
     private static final String DEFAULT_SNOOZE_TIME = "10";
 
-    private NumberPicker mNumberPickerView;
+    private NumberPickerCompat mNumberPickerView;
     private TextView mNumberPickerMinutesView;
     private final Context mContext;
     private int mSnoozeMinutes;
@@ -61,15 +62,20 @@ public final class SnoozeLengthDialog extends DialogPreference {
     protected void onBindDialogView(@NonNull View view) {
         super.onBindDialogView(view);
         mNumberPickerMinutesView = (TextView) view.findViewById(R.id.title);
-        mNumberPickerView = (NumberPicker) view.findViewById(R.id.minutes_picker);
+        mNumberPickerView = (NumberPickerCompat) view.findViewById(R.id.minutes_picker);
         mNumberPickerView.setMinValue(1);
         mNumberPickerView.setMaxValue(30);
         mNumberPickerView.setValue(mSnoozeMinutes);
         updateUnits();
-        mNumberPickerView.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+
+        mNumberPickerView.setOnAnnounceValueChangedListener(
+                new NumberPickerCompat.OnAnnounceValueChangedListener() {
             @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                updateUnits();
+            public void onAnnounceValueChanged(NumberPicker picker, int value,
+                    String displayedValue) {
+                final String announceString = Utils.getNumberFormattedQuantityString(
+                        mContext, R.plurals.snooze_duration, value);
+                picker.announceForAccessibility(announceString);
             }
         });
     }
