@@ -68,7 +68,7 @@
     <item msgid="8458069283817013813">"Au mai rămas <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarmă setată peste mai puţin de 1 minut din acest moment."</item>
+    <item msgid="6450913786084215050">"Alarmă setată peste mai puțin de 1 minut din acest moment."</item>
     <item msgid="6002066367368421848">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> din acest moment."</item>
     <item msgid="8824719306247973774">"Alarmă setată peste <xliff:g id="HOURS">%2$s</xliff:g> din acest moment."</item>
     <item msgid="8182406852935468862">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> și <xliff:g id="HOURS">%2$s</xliff:g> din acest moment."</item>
