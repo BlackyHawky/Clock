@@ -211,6 +211,7 @@
     <string name="timer_stop_all" msgid="9080780442843034376">"បញ្ឈប់កម្មវិធីកំណត់ពេលទាំងអស់"</string>
     <string name="timer_reset" msgid="7848424809190171640">"កំណត់​ឡើងវិញ"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"បោះ​បង់​"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"លុបចោល​​​កម្មវិធី​កំណត់ពេលវេលា"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ដល់​ម៉ោង"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"កម្មវិធីកំណត់ពេល <xliff:g id="NUM_TIMERS">%d</xliff:g> បានផុតកំណត់"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"កម្មវិធី​កំណត់​ពេល"</string>
@@ -248,6 +249,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":០០"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":៣០"</string>
+    <string name="city_checked" msgid="616847871968019">"បានធីក <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"បានដោះការធីក <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"កោះម៉ាសាល"</item>
     <item msgid="4196408495909011020">"កោះ​មីតវ៉េ"</item>
