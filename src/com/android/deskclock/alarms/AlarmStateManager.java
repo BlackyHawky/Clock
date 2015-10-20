@@ -444,7 +444,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
         if (instance.mAlarmId != null) {
             // if the time changed *backward* and pushed an instance from missed back to fired,
             // remove any other scheduled instances that may exist
-            AlarmInstance.deleteOtherInstances(contentResolver, instance.mAlarmId, instance.mId);
+            AlarmInstance.deleteOtherInstances(context, contentResolver, instance.mAlarmId,
+                    instance.mId);
         }
 
         // Start the alarm and schedule timeout timer for it
@@ -607,13 +608,14 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
-     * This will not change the state of instance, but remove it's notifications and
+     * This will not change the state of instance, but remove its notifications and
      * alarm timers.
      *
      * @param context application context
      * @param instance to unregister
      */
     public static void unregisterInstance(Context context, AlarmInstance instance) {
+        LogUtils.i("Unregistering instance " + instance.mId);
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
         AlarmNotifications.clearNotification(context, instance);
@@ -784,6 +786,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
             final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
             if (alarm == null) {
+                unregisterInstance(context, instance);
                 AlarmInstance.deleteInstance(contentResolver, instance.mId);
                 LogUtils.e("Found instance without matching alarm; deleting instance %s", instance);
                 continue;
@@ -881,7 +884,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
             AlarmInstance instance = AlarmInstance.getInstance(context.getContentResolver(),
                     AlarmInstance.getId(uri));
             if (instance == null) {
-                // Not a big deal, but it shouldn't happen
                 LogUtils.e("Can not change state for unknown instance: " + uri);
                 return;
             }
