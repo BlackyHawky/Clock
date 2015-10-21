@@ -17,4 +17,5 @@
 <resources>
     <dimen name="big_font_size">70sp</dimen>
     <dimen name="main_clock_font_size">80sp</dimen>
+    <dimen name="timer_setup_font_size">56sp</dimen>
 </resources>
