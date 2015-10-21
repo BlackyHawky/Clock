@@ -29,7 +29,6 @@
 
     <dimen name="dialpad_font_size">24sp</dimen>
     <dimen name="dialpad_digit_padding">14dip</dimen>
-    <dimen name="timer_setup_font_size">48sp</dimen>
     <dimen name="timer_setup_delete_start_margin">24sp</dimen>
     <dimen name="timer_setup_label_size">16sp</dimen>
 

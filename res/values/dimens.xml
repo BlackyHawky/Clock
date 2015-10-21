@@ -108,7 +108,7 @@
     <dimen name="dialpad_font_size">36sp</dimen>
     <!--padding should be (in dip) ~ 60% dialpad_font_size -->
     <dimen name="dialpad_digit_padding">22dip</dimen>
-    <dimen name="timer_setup_font_size">56sp</dimen>
+    <dimen name="timer_setup_font_size">38sp</dimen>
     <dimen name="timer_setup_button_size">24sp</dimen>
     <!--margin should be ~ half timer_setup_font_size -->
     <dimen name="timer_setup_delete_start_margin">28sp</dimen>
