@@ -221,8 +221,7 @@
     <string name="timer_stop_all" msgid="9080780442843034376">"Zaustavi sve tajmere"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Poništi"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Odustani"</string>
-    <!-- no translation found for timer_canceled (7327923392567128060) -->
-    <skip />
+    <string name="timer_canceled" msgid="7327923392567128060">"Odbrojavanje je otkazano"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Vrijeme je isteklo"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Tajmeri su istekli (<xliff:g id="NUM_TIMERS">%d</xliff:g>)"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Mjerač vremena"</string>
@@ -260,10 +259,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
-    <!-- no translation found for city_checked (616847871968019) -->
-    <skip />
-    <!-- no translation found for city_unchecked (710212932781145918) -->
-    <skip />
+    <string name="city_checked" msgid="616847871968019">"Grad <xliff:g id="CITY_NAME">%s</xliff:g> potvrđen"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"Grad <xliff:g id="CITY_NAME">%s</xliff:g> nije potvrđen"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Maršalovi Otoci"</item>
     <item msgid="4196408495909011020">"Otok Midway"</item>
