@@ -211,8 +211,7 @@
     <string name="timer_stop_all" msgid="9080780442843034376">"Gelditu tenporizadoreak"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Berrezarri"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Utzi"</string>
-    <!-- no translation found for timer_canceled (7327923392567128060) -->
-    <skip />
+    <string name="timer_canceled" msgid="7327923392567128060">"Utzi egin da tenporizadorea"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Denbora agortu da"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> tenporizadore iraungi dira"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Tenporizadorea"</string>
@@ -250,10 +249,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
-    <!-- no translation found for city_checked (616847871968019) -->
-    <skip />
-    <!-- no translation found for city_unchecked (710212932781145918) -->
-    <skip />
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> markatu da"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"Marka kendu zaio <xliff:g id="CITY_NAME">%s</xliff:g> koadroari"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshall uharteak"</item>
     <item msgid="4196408495909011020">"Midway uhartea"</item>
