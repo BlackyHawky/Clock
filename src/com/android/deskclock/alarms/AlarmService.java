@@ -194,7 +194,7 @@ public class AlarmService extends Service {
                     break;
                 case ALARM_DISMISS_ACTION:
                     // Set the alarm state to dismissed.
-                    AlarmStateManager.setDismissState(context, mCurrentAlarm);
+                    AlarmStateManager.deleteInstanceAndUpdateParent(context, mCurrentAlarm);
                     Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
                     break;
             }

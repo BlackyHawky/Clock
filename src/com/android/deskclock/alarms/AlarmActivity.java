@@ -489,7 +489,7 @@ public class AlarmActivity extends AppCompatActivity
                 getString(R.string.alarm_alert_off_text) /* accessibilityText */,
                 Color.WHITE, mCurrentHourColor).start();
 
-        AlarmStateManager.setDismissState(this, mAlarmInstance);
+        AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
 
