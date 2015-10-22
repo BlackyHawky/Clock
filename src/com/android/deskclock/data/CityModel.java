@@ -236,7 +236,7 @@ final class CityModel {
     }
 
     private void sendCitiesChangedBroadcast() {
-        mContext.sendBroadcast(new Intent(DataModel.ACTION_CITIES_CHANGED));
+        mContext.sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CHANGED));
     }
 
     /**
