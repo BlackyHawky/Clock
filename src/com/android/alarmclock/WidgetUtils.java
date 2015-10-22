@@ -56,12 +56,8 @@ public class WidgetUtils {
             Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
             float ratio = (density * minWidth) / res.getDimension(R.dimen.min_digital_widget_width);
-            // Check if the height could introduce a font size constraint
-            int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-            if (minHeight > 0 && (density * minHeight)
-                    < res.getDimension(R.dimen.min_digital_widget_height)) {
-                ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
-            }
+            ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
+            ratio *= .83f;
 
             final SelectedCitiesRunnable selectedCitiesRunnable = new SelectedCitiesRunnable();
             DataModel.getDataModel().run(selectedCitiesRunnable);
@@ -69,8 +65,13 @@ public class WidgetUtils {
                 return (ratio > 1f) ? 1f : ratio;
             }
 
-            ratio *= .83f;
-            ratio = Math.min(ratio, 1.7f);
+            ratio = Math.min(ratio, 1.6f);
+            if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                ratio = Math.max(ratio, .71f);
+            }
+            else {
+                ratio = Math.max(ratio, .45f);
+            }
             return ratio;
         }
         return 1f;
@@ -94,14 +95,11 @@ public class WidgetUtils {
             }
             Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
-            // Estimate height of date text box - 1.35 roughly approximates the text box padding
-            float lblBox = 1.35f * res.getDimension(R.dimen.label_font_size);
-            // Ensure divisor for ratio is positive number
-            if (res.getDimension(R.dimen.min_digital_widget_height) - lblBox > 0) {
-                float ratio = ((density * minHeight) - lblBox)
-                        / (res.getDimension(R.dimen.min_digital_widget_height) - lblBox);
-                return (ratio > 1) ? 1 : ratio;
+            float ratio = density * minHeight / res.getDimension(R.dimen.min_digital_widget_height);
+            if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                return ratio * 1.9f;
             }
+            return ratio;
         }
         return 1;
     }
