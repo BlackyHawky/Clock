@@ -296,6 +296,7 @@ public class TimerReceiver extends BroadcastReceiver {
 
         if (t.mDeleteAfterUse) {
             t.setState(TimerObj.STATE_DELETED);
+            t.writeToSharedPref(prefs);
             t.deleteFromSharedPref(prefs);
             Events.sendTimerEvent(R.string.action_delete, R.string.label_notification);
         } else {
