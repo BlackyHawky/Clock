@@ -270,8 +270,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
-    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> – zaznaczone"</string>
-    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> – niezaznaczone"</string>
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> zaznaczono"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> niezaznaczono"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Wyspy Marshalla"</item>
     <item msgid="4196408495909011020">"Midway"</item>
