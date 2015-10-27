@@ -120,6 +120,14 @@ final class SettingsDAO {
     }
 
     /**
+     * @param uri the uri of the ringtone to play for all timers
+     */
+    static void setTimerRingtoneUri(Context context, Uri uri) {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        prefs.edit().putString(SettingsActivity.KEY_TIMER_RINGTONE, uri.toString()).apply();
+    }
+
+    /**
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      *      has yet been made
      */

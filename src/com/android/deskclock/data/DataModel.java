@@ -146,7 +146,13 @@ public final class DataModel {
      * @return {@code true} when the application is open in the foreground; {@code false} otherwise
      */
     public boolean isApplicationInForeground() {
+        enforceMainLooper();
         return mNotificationModel.isApplicationInForeground();
+    }
+
+    public Uri getSilentRingtoneUri() {
+        enforceMainLooper();
+        return Uri.EMPTY;
     }
 
     //
@@ -252,6 +258,14 @@ public final class DataModel {
     public Uri getTimerRingtoneUri() {
         enforceMainLooper();
         return mTimerModel.getTimerRingtoneUri();
+    }
+
+    /**
+     * @param uri the uri of the ringtone to play for all timers
+     */
+    public void setTimerRingtoneUri(Uri uri) {
+        enforceMainLooper();
+        mTimerModel.setTimerRingtoneUri(uri);
     }
 
     /**

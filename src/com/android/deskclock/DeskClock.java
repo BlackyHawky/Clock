@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
@@ -65,7 +66,8 @@ import java.util.Set;
  */
 public class DeskClock extends BaseActivity
         implements LabelDialogFragment.TimerLabelDialogHandler,
-        LabelDialogFragment.AlarmLabelDialogHandler {
+        LabelDialogFragment.AlarmLabelDialogHandler,
+        RingtonePickerDialogFragment.RingtoneSelectionListener {
 
     private static final String TAG = "DeskClock";
 
@@ -439,24 +441,35 @@ public class DeskClock extends BaseActivity
     }
 
     /**
-     * Called by the LabelDialogFormat class after the dialog is finished. *
+     * Called by the LabelDialogFragment class after the dialog is finished.
      */
     @Override
     public void onDialogLabelSet(TimerObj timer, String label, String tag) {
-        Fragment frag = getFragmentManager().findFragmentByTag(tag);
+        final Fragment frag = getFragmentManager().findFragmentByTag(tag);
         if (frag instanceof TimerFragment) {
             ((TimerFragment) frag).setLabel(timer, label);
         }
     }
 
     /**
-     * Called by the LabelDialogFormat class after the dialog is finished. *
+     * Called by the LabelDialogFragment class after the dialog is finished.
      */
     @Override
     public void onDialogLabelSet(Alarm alarm, String label, String tag) {
-        Fragment frag = getFragmentManager().findFragmentByTag(tag);
+        final Fragment frag = getFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setLabel(alarm, label);
+        }
+    }
+
+    /**
+     * Called by the RingtonePickerDialogFragment class after the dialog is finished.
+     */
+    @Override
+    public void onRingtoneSelected(Uri ringtoneUri, String fragmentTag) {
+        final Fragment frag = getFragmentManager().findFragmentByTag(fragmentTag);
+        if (frag instanceof AlarmClockFragment) {
+            ((AlarmClockFragment) frag).setRingtone(ringtoneUri);
         }
     }
 

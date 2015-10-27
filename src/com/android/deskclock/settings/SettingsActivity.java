@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009 The Android Open Source Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,15 +17,19 @@
 package com.android.deskclock.settings;
 
 import android.app.Activity;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.preference.RingtonePreference;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.text.format.DateUtils;
@@ -35,6 +39,7 @@ import android.view.MenuItem;
 import com.android.deskclock.BaseActivity;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.RingtonePickerDialogFragment;
 import com.android.deskclock.Utils;
 import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
@@ -50,7 +55,8 @@ import java.util.TimeZone;
 /**
  * Settings for the Alarm Clock.
  */
-public final class SettingsActivity extends BaseActivity {
+public final class SettingsActivity extends BaseActivity
+        implements RingtonePickerDialogFragment.RingtoneSelectionListener {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_VOLUME = "volume_setting";
@@ -101,6 +107,18 @@ public final class SettingsActivity extends BaseActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Called by the RingtonePickerDialogFragment class after the dialog is finished.
+     */
+    @Override
+    public void onRingtoneSelected(Uri ringtoneUri, String fragmentTag) {
+        final PrefsFragment fragment =
+                (PrefsFragment) getFragmentManager().findFragmentById(R.id.main);
+        final Preference preference = fragment.findPreference(KEY_TIMER_RINGTONE);
+        DataModel.getDataModel().setTimerRingtoneUri(ringtoneUri);
+        preference.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
     }
 
     public static class PrefsFragment extends PreferenceFragment
@@ -159,11 +177,6 @@ public final class SettingsActivity extends BaseActivity {
                     idx = weekStartPref.findIndexOfValue((String) newValue);
                     weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
                     break;
-                case KEY_TIMER_RINGTONE:
-                    final RingtonePreference timerRingtonePref = (RingtonePreference)
-                            findPreference(KEY_TIMER_RINGTONE);
-                    timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-                    break;
             }
             // Set result so DeskClock knows to refresh itself
             getActivity().setResult(RESULT_OK);
@@ -189,6 +202,23 @@ public final class SettingsActivity extends BaseActivity {
                     audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM,
                             AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
                     return true;
+                case KEY_TIMER_RINGTONE:
+                    final FragmentManager fragmentManager = getFragmentManager();
+                    final FragmentTransaction ft = fragmentManager.beginTransaction();
+                    final Fragment prev = fragmentManager.findFragmentByTag("timer_picker_dialog");
+                    if (prev != null) {
+                        ft.remove(prev);
+                    }
+                    ft.addToBackStack(null);
+
+                    final String dialogTitle = getString(R.string.timer_ringtone_title);
+                    final String defaultTitle = getString(R.string.default_timer_ringtone_title);
+                    final Uri currentUri = DataModel.getDataModel().getTimerRingtoneUri();
+                    final Uri defaultUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
+                    final DialogFragment newFragment = RingtonePickerDialogFragment
+                            .newInstance(dialogTitle, defaultTitle, defaultUri, currentUri, null);
+
+                    newFragment.show(ft, "timer_picker_dialog");
                 default:
                     return false;
             }
@@ -297,10 +327,9 @@ public final class SettingsActivity extends BaseActivity {
             weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
             weekStartPref.setOnPreferenceChangeListener(this);
 
-            final RingtonePreference timerRingtonePref =
-                    (RingtonePreference) findPreference(KEY_TIMER_RINGTONE);
+            final Preference timerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
+            timerRingtonePref.setOnPreferenceClickListener(this);
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
-            timerRingtonePref.setOnPreferenceChangeListener(this);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {

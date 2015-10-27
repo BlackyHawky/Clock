@@ -86,6 +86,10 @@ final class SettingsModel {
         return mDefaultTimerRingtoneUri;
     }
 
+    void setTimerRingtoneUri(Uri uri) {
+        SettingsDAO.setTimerRingtoneUri(mContext, uri);
+    }
+
     Uri getTimerRingtoneUri() {
         return SettingsDAO.getTimerRingtoneUri(mContext, getDefaultTimerRingtoneUri());
     }
