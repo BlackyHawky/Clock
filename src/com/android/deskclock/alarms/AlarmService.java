@@ -160,10 +160,22 @@ public class AlarmService extends Service {
             return;
         }
 
-        LogUtils.v("AlarmService.stop with instance: %s", (Object) mCurrentAlarm.mId);
+        final long instanceId = mCurrentAlarm.mId;
+        LogUtils.v("AlarmService.stop with instance: %s", instanceId);
+
         AlarmKlaxon.stop(this);
         mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_NONE);
         sendBroadcast(new Intent(ALARM_DONE_ACTION));
+
+        // Since we use the same id for all notifications, the system has no way to distinguish the
+        // firing notification we were bound to from other subsequent notifications posted for the
+        // same AlarmInstance (e.g. after snoozing). We workaround the issue by forcing removal of
+        // the notification and re-posting it.
+        stopForeground(true /* removeNotification */);
+        mCurrentAlarm = AlarmInstance.getInstance(getContentResolver(), instanceId);
+        if (mCurrentAlarm != null) {
+            AlarmNotifications.updateNotification(this, mCurrentAlarm);
+        }
 
         mCurrentAlarm = null;
         AlarmAlertWakeLock.releaseCpuLock();
