@@ -28,6 +28,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -118,6 +119,8 @@ public class LabelDialogFragment extends DialogFragment {
             public void afterTextChanged(Editable editable) {
             }
         });
+        mLabelBox.setSingleLine();
+        mLabelBox.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         mLabelBox.setText(label);
         mLabelBox.selectAll();
 
