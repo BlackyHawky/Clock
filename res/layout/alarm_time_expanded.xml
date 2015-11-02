@@ -127,7 +127,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|start">
 
-            <Button
+            <ImageButton
                 android:id="@+id/delete"
                 android:layout_width="@dimen/touch_target_min_size"
                 android:layout_height="@dimen/tall_row_height"
@@ -136,16 +136,15 @@
                 android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
                 android:background="?attr/selectableItemBackground"
                 android:contentDescription="@string/delete_alarm"
-                android:drawableStart="@drawable/ic_delete_small"
-                android:drawablePadding="@dimen/alarm_horizontal_padding"
-                android:gravity="start|center_vertical"
-                android:scaleType="fitStart" />
+                android:scaleType="center"
+                android:src="@drawable/ic_delete_small"/>
 
             <ImageButton
                 android:id="@+id/arrow"
                 android:layout_width="@dimen/touch_target_min_size"
                 android:layout_height="@dimen/touch_target_min_size"
                 android:layout_gravity="center_vertical|end"
+                android:background="?attr/selectableItemBackground"
                 android:contentDescription="@string/collapse_alarm"
                 android:rotation="@integer/chevron_rotate_180"
                 android:scaleType="center"

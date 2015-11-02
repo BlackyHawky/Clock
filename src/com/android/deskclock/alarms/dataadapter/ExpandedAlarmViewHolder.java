@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -51,7 +52,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
     public final CompoundButton[] dayButtons = new CompoundButton[7];
     public final CheckBox vibrate;
     public final TextView ringtone;
-    public final Button delete;
+    public final ImageButton delete;
     public final View preemptiveDismissContainer;
     public final TextView preemptiveDismissButton;
 
@@ -78,7 +79,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
 
         final int firstDay = Utils.getZeroIndexedFirstDayOfWeek(context);
 
-        delete = (Button) itemView.findViewById(R.id.delete);
+        delete = (ImageButton) itemView.findViewById(R.id.delete);
 
         repeat = (CheckBox) itemView.findViewById(R.id.repeat_onoff);
         vibrate = (CheckBox) itemView.findViewById(R.id.vibrate_onoff);
