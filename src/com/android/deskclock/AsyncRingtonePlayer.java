@@ -70,7 +70,7 @@ public final class AsyncRingtonePlayer {
 
     /**
      * @param crescendoPrefKey the key to the user preference that defines the crescendo behavior
-     *                         associated with this ringtone player
+     *                         associated with this ringtone player, or null to ignore crescendo
      */
     public AsyncRingtonePlayer(Context context, String crescendoPrefKey) {
         mContext = context;
@@ -212,10 +212,11 @@ public final class AsyncRingtonePlayer {
     }
 
     /**
-     * @return {@code true} iff the crescendo duration is more than 0 seconds
+     * Returns true if the crescendo preference was given and the duration is more than
+     * 0 seconds.
      */
     private boolean isCrescendoEnabled(Context context) {
-        return getCrescendoDurationMillis(context) > 0;
+        return mCrescendoPrefKey != null && getCrescendoDurationMillis(context) > 0;
     }
 
     /**

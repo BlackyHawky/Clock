@@ -85,10 +85,9 @@
 
     <PreferenceCategory
         android:title="@string/timer_settings">
-        <com.android.deskclock.settings.TimerRingtonePreference
+        <Preference
             android:key="timer_ringtone"
-            android:title="@string/timer_ringtone_title"
-            android:ringtoneType="alarm" />
+            android:title="@string/timer_ringtone_title" />
 
         <com.android.deskclock.settings.CrescendoLengthDialog
             android:key="timer_crescendo_duration"

@@ -16,7 +16,9 @@
 
 package com.android.deskclock.alarms;
 
+import android.app.DialogFragment;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +31,7 @@ import android.text.format.DateFormat;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.RingtonePickerDialogFragment;
 import com.android.deskclock.alarms.utils.DayOrderUtils;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -42,6 +45,7 @@ public final class AlarmTimeClickHandler {
 
     private static final String TAG = "AlarmTimeClickHandler";
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
+    private static final String RINGTONE_PICKER_FRAG_TAG = "ringtone_picker_dialog";
 
     private final Fragment mFragment;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
@@ -163,13 +167,21 @@ public final class AlarmTimeClickHandler {
 
     public void onRingtoneClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        final Uri oldRingtone = Alarm.NO_RINGTONE_URI.equals(alarm.alert) ? null : alarm.alert;
-        final Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, oldRingtone);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, false);
-        LogUtils.d(TAG, "Showing ringtone picker.");
-        mFragment.startActivityForResult(intent, R.id.request_code_ringtone);
+        final FragmentManager fragmentManager = mFragment.getFragmentManager();
+        final FragmentTransaction ft = fragmentManager.beginTransaction();
+        final Fragment prev = fragmentManager.findFragmentByTag(RINGTONE_PICKER_FRAG_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        final String dialogTitle = mFragment.getString(R.string.alert);
+        final String defaultTitle = mFragment.getString(R.string.default_alarm_ringtone_title);
+        final Uri defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        final DialogFragment newFragment = RingtonePickerDialogFragment.newInstance(
+                dialogTitle, defaultTitle, defaultUri, alarm.alert, mFragment.getTag());
+
+        newFragment.show(ft, RINGTONE_PICKER_FRAG_TAG);
     }
 
     public void onEditLabelClicked(Alarm alarm) {

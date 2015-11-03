@@ -74,6 +74,10 @@ final class TimerModel {
         return mTimerRingtoneUri;
     }
 
+    void setTimerRingtoneUri(Uri uri) {
+        mSettingsModel.setTimerRingtoneUri(uri);
+    }
+
     String getTimerRingtoneTitle() {
         if (mTimerRingtoneTitle == null) {
             if (isTimerRingtoneSilent()) {

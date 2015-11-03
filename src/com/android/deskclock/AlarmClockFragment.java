@@ -16,12 +16,10 @@
 
 package com.android.deskclock;
 
-import android.app.Activity;
 import android.app.LoaderManager;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -173,6 +171,20 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
     }
 
+    public void setRingtone(Uri ringtoneUri) {
+        // Update the default ringtone for future new alarms.
+        DataModel.getDataModel().setDefaultAlarmRingtoneUri(ringtoneUri);
+
+        final Alarm alarm = mAlarmTimeClickHandler.getSelectedAlarm();
+        if (alarm == null) {
+            LogUtils.e("Could not get selected alarm to set ringtone");
+            return;
+        }
+        alarm.alert = ringtoneUri;
+        // Save the change to alarm.
+        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false /* popToast */, true /* minorUpdate */);
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return Alarm.getAlarmsCursorLoader(getActivity());
@@ -217,40 +229,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mAlarmTimeAdapter.swapCursor(null);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-
-        switch (requestCode) {
-            case R.id.request_code_ringtone:
-                // Extract the selected ringtone uri.
-                Uri uri = data.getParcelableExtra(RingtoneManager.EXTRA_RINGTONE_PICKED_URI);
-                if (uri == null) {
-                    uri = Alarm.NO_RINGTONE_URI;
-                }
-
-                // Update the default ringtone for future new alarms.
-                DataModel.getDataModel().setDefaultAlarmRingtoneUri(uri);
-
-                // Set the ringtone uri on the alarm.
-                final Alarm alarm = mAlarmTimeClickHandler.getSelectedAlarm();
-                if (alarm == null) {
-                    LogUtils.e("Could not get selected alarm to set ringtone");
-                    return;
-                }
-                alarm.alert = uri;
-
-                // Save the change to alarm.
-                mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false /* popToast */,
-                        true /* minorUpdate */);
-                break;
-            default:
-                LogUtils.w("Unhandled request code in onActivityResult: " + requestCode);
-        }
     }
 
     @Override
