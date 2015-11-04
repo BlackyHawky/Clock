@@ -35,6 +35,8 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вибросигнал"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Повторять"</string>
     <string name="alert" msgid="6506982899651975645">"Звонок будильника"</string>
+    <!-- no translation found for default_alarm_ringtone_title (2916376768509623643) -->
+    <skip />
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Время истекло"</string>
     <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Без звука"</string>
     <string name="ringtone" msgid="9110746249688559579">"Рингтон"</string>
@@ -118,7 +120,7 @@
       <item quantity="many">минут</item>
       <item quantity="other">минуты</item>
     </plurals>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"Увеличить громкость постепенно"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепенно увеличивать громкость"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"ВЫКЛ"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> сек."</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"сек."</string>
