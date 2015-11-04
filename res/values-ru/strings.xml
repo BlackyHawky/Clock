@@ -116,7 +116,7 @@
       <item quantity="many">минут</item>
       <item quantity="other">минуты</item>
     </plurals>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"Увеличить громкость постепенно"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепенно увеличивать громкость"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"ВЫКЛ"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> сек."</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"сек."</string>
