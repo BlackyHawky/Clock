@@ -189,7 +189,7 @@
                 <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
-                <action android:name="com.android.deskclock.action.STOP_TIMER" />
+                <action android:name="com.android.deskclock.action.PAUSE_TIMER" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.VOICE" />
             </intent-filter>
@@ -313,59 +313,25 @@
             android:label="@string/dismiss_alarm"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
 
-        <!-- This activity is basically like the TimerFragment in DeskClock
-         but only during lock screen
-         so that it only has the fired timers -->
-        <activity android:name="com.android.deskclock.timer.TimerAlertFullScreen"
+        <!-- This activity displays only the timers that have expired with only a reset button
+         present. This makes the activity appropriate for display above the lock screen so that
+         users have the limited ability to silence expired timers but nothing else. -->
+        <activity android:name=".timer.ExpiredTimersActivity"
                 android:excludeFromRecents="true"
-                android:theme="@style/TimerAlertFullScreenTheme"
+                android:theme="@style/ExpiredTimersActivityTheme"
                 android:launchMode="singleInstance"
                 android:showOnLockScreen="true"
                 android:taskAffinity=""
                 android:configChanges="screenSize|keyboardHidden|keyboard|navigation"/>
 
-        <service android:name="TimerRingService"
-                android:exported="false"
-                android:description="@string/timer_ring_service_desc">
-            <intent-filter>
-                <action android:name="com.android.deskclock.TIMER_ALERT" />
-            </intent-filter>
+        <service android:name=".timer.TimerService"
+                 android:exported="false"
+                 android:description="@string/timer_service_desc">
         </service>
 
-        <receiver android:name="com.android.deskclock.timer.TimerReceiver"
-                android:exported="false">
-            <intent-filter>
-                <action android:name="start_timer" />
-                <action android:name="stop_timer" />
-                <action android:name="delete_timer" />
-                <action android:name="reset_timer" />
-                <action android:name="times_up" />
-                <action android:name="timer_done" />
-                <action android:name="timer_update" />
-                <action android:name="notif_in_use_show" />
-                <action android:name="notif_in_use_cancel" />
-                <action android:name="notif_times_up_stop" />
-                <action android:name="notif_times_up_plus_one" />
-                <action android:name="notif_times_up_show" />
-                <action android:name="notif_times_up_cancel" />
-                <action android:name="notif_pause_timer" />
-                <action android:name="notif_plus_one_timer" />
-                <action android:name="notif_resume_timer" />
-                <action android:name="notif_reset_timer" />
-                <action android:name="notif_reset_all_timers" />
-                <action android:name="notif_update" />
-            </intent-filter>
-        </receiver>
-
-        <service android:name="com.android.deskclock.stopwatch.StopwatchService"
+        <service android:name=".stopwatch.StopwatchService"
                 android:exported="false"
                 android:description="@string/stopwatch_service_desc">
-            <intent-filter>
-                <action android:name="com.android.deskclock.action.START_STOPWATCH" />
-                <action android:name="com.android.deskclock.action.PAUSE_STOPWATCH" />
-                <action android:name="com.android.deskclock.action.LAP_STOPWATCH" />
-                <action android:name="com.android.deskclock.action.RESET_STOPWATCH" />
-            </intent-filter>
         </service>
     </application>
 </manifest>

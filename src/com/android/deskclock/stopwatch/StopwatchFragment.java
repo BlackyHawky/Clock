@@ -73,7 +73,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     private LinearLayoutManager mLapsLayoutManager;
 
     /** Draws the reference lap while the stopwatch is running. */
-    private StopwatchTimer mTime;
+    private StopwatchCircleView mTime;
 
     /** Displays the recorded lap times. */
     private RecyclerView mLapsList;
@@ -93,7 +93,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         mLapsLayoutManager = new LinearLayoutManager(getActivity());
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
-        mTime = (StopwatchTimer) v.findViewById(R.id.stopwatch_time);
+        mTime = (StopwatchCircleView) v.findViewById(R.id.stopwatch_time);
         mLapsList = (RecyclerView) v.findViewById(R.id.laps_list);
         mLapsList.getItemAnimator().setSupportsChangeAnimations(false);
         mLapsList.setLayoutManager(mLapsLayoutManager);
@@ -133,7 +133,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         switch (getStopwatch().getState()) {
             case RUNNING:
                 acquireWakeLock();
-                mTime.startAnimation();
+                mTime.update();
                 startUpdatingTime();
                 break;
             case PAUSED:
@@ -167,7 +167,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
 
         // Stop all updates while the fragment is not visible.
-        mTime.stopAnimation();
         stopUpdatingTime();
         mTimeText.blinkTimeStr(false);
 
@@ -269,7 +268,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Start UI updates.
         startUpdatingTime();
-        mTime.startAnimation();
+        mTime.update();
         mTimeText.blinkTimeStr(false);
 
         // Update button states.
@@ -294,7 +293,6 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Stop UI updates.
         stopUpdatingTime();
-        mTime.stopAnimation();
         mTimeText.blinkTimeStr(true);
 
         // Update button states.
@@ -376,7 +374,7 @@ public final class StopwatchFragment extends DeskClockFragment {
             mLapsList.removeAllViewsInLayout();
 
             // Start animating the reference lap.
-            mTime.startAnimation();
+            mTime.update();
 
             // Recording the first lap transitions the UI to display the laps list.
             showOrHideLaps(false);
@@ -464,6 +462,8 @@ public final class StopwatchFragment extends DeskClockFragment {
      * Post the first runnable to update times within the UI. It will reschedule itself as needed.
      */
     private void startUpdatingTime() {
+        // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
+        stopUpdatingTime();
         mTime.post(mTimeUpdateRunnable);
     }
 

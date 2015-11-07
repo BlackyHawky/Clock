@@ -184,8 +184,7 @@
     -->
     <string name="timer_remaining_multiple">remaining</string>
 
-    <!-- Alarm confirmation toast: Describes how long from now until
-         alarm fires -->
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires -->
     <string-array name="alarm_set">
         <item>Alarm set for less than 1 minute from now.</item>
         <item>Alarm set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g> from now.</item>
@@ -801,6 +800,8 @@
 
      <!-- Header in the preferences settings for the section pertaining to alarms -->
      <string name="alarm_settings">Alarms</string>
+     <!-- Describes the running service for the timers -->
+     <string name="timer_service_desc">Timer service to run the notification.</string>
      <!-- Describes the running service for the stopwatch -->
      <string name="stopwatch_service_desc">Stopwatch service to run the notification.</string>
      <!-- Description for the paused stop watch -->
@@ -941,23 +942,11 @@
     -->
     <string name="no_alarms_with_label">No alarms contain the label</string>
 
-    <!-- String that represents that the user has sent a voice command 'start a stopwatch' when
-    the stopwatch was already running so the command wasn't executed.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_already_running">Stopwatch is already running</string>
-
     <!-- String that represents that the user has sent a voice command 'stop the stopwatch' or
     'lap the stopwatch' when the stopwatch wasn't running so the command wasn't executed.
     [CHAR LIMIT=NONE]
     -->
     <string name="stopwatch_isnt_running">Stopwatch isn\'t running</string>
-
-    <!-- String that represents that the user has sent a voice command 'reset the stopwatch' or
-     when the stopwatch was running so the command wasn't executed.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_cant_be_reset_because_is_running">Stopwatch cannot be reset because it is running</string>
 
     <!-- String that represents that the user has successfully sent a voice command pausing
      the stopwatch.
@@ -1002,62 +991,50 @@
     -->
     <string name="alarm_is_set">Alarm is set for <xliff:g id="alarm_time" example="14:20">%s</xliff:g></string>
 
-    <!-- String that represents that the user attempted to send a voice action 'delete a timer'
-    when there were no timers available.
+    <!-- String that represents that the user attempted to control a timer with a voice action when
+    no timers are defined.
     [CHAR LIMIT=NONE]
     -->
-    <string name="no_timer_set">No timer set</string>
+    <string name="no_timers_exist">No timers exist</string>
 
-    <!-- String that represents that the user has successfully deleted a timer through a voice action.
+    <!-- String that represents that the user attempted to control a timer with a voice action when
+    more than one timer is defined.
     [CHAR LIMIT=NONE]
     -->
-    <string name="timer_deleted">Timer deleted</string>
+    <string name="too_many_timers_exist">More than one timer exists</string>
 
-    <!-- String that represents that the user has attempted to start a timer when a timer was
-    already running.
+    <!-- String that represents that the user attempted to control a timer with a voice action when
+    more than one timer is defined.
     [CHAR LIMIT=NONE]
     -->
-    <string name="timer_already_running">Timer already running</string>
-
-    <!-- String that represents that the user has attempted to start or reset a timer when
-     there were more than 1 timer of desired state in which case it's ambiguous
-     which timer the user meant.
-    [CHAR LIMIT=NONE]
-     -->
-    <string name="multiple_timers_available">Unable to complete your request, multiple timers available</string>
-
-    <!-- String that represents that the user has successfully started a timer through a voice action.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="timer_started">Timer started</string>
+    <string name="timer_does_not_exist">The timer has been removed.</string>
 
     <!-- String that represents that the user has successfully created a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
     <string name="timer_created">Timer created</string>
 
-    <!-- String that represents that the user attempted to start a timer through a voice action
-    but specified invalid length.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="invalid_timer_length">Invalid timer length</string>
-
     <!-- String that represents that the user has successfully reset a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
     <string name="timer_was_reset">Timer reset</string>
 
-    <!-- String that represents that the user attempted to reset a timer through a voice action but
-    the timer wasn't stopped (resetting is only allowed when a timer is stopped).
+    <!-- String that represents that the user has successfully reset a timer through a voice action
+    that was marked as deleteAfterUse and was thus deleted instead.
     [CHAR LIMIT=NONE]
     -->
-    <string name="timer_cant_be_reset_because_its_running">Timer can\'t be reset because it\'s still running. Stop timer to reset.</string>
+    <string name="timer_deleted">Timer deleted</string>
 
-    <!-- String that represents that the user attempted to stop a timer through a voice action but
-    the timer was already stopped (resetting is only allowed when a timer is stopped).
+    <!-- String that represents that the user has successfully started a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
-    <string name="timer_already_stopped">Timer already stopped</string>
+    <string name="timer_started">Timer started</string>
+
+    <!-- String that represents that the user attempted to start a timer through a voice action
+    but specified invalid length.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="invalid_timer_length">Invalid timer length</string>
 
     <!-- String that represents that the user attempted to add or delete a world clock through
     a voice action

@@ -27,7 +27,7 @@
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
-    <dimen name="timer_padding_left">16dip</dimen>
+    <dimen name="timer_padding">16dp</dimen>
     <dimen name="timer_list_padding_bottom">88dip</dimen>
     <!-- 88dip + 0.5 of footer_button_size -->
     <dimen name="timer_cancel_end_margin">116dip</dimen>
@@ -53,7 +53,6 @@
     <dimen name="actionbar_title_font_size">18sp</dimen>
 
     <dimen name="footer_button_size">56dip</dimen>
-    <dimen name="footer_button_layout_margin">16dip</dimen>
 
     <dimen name="alarm_text_padding">15dp</dimen>
     <dimen name="alarm_text_font_size">16sp</dimen>
@@ -121,7 +120,6 @@
     <dimen name="circle_margin_top">16dp</dimen>
     <dimen name="circle_margin">32dp</dimen>
     <dimen name="analog_clock_margin">60dp</dimen>
-    <dimen name="timer_circle_margin">32dp</dimen>
 
     <dimen name="circle_size">280dp</dimen>
     <!--
@@ -154,8 +152,6 @@
     <dimen name="button_footer_height">88dip</dimen>
     <!-- Negative value of the height of the button footers, for use with lightsout. -->
     <dimen name="button_footer_height_neg">-48dip</dimen>
-    <!-- Height of space between timers. -->
-    <dimen name="timer_divider_height">24dip</dimen>
 
     <!-- Digital Widget settings (keyguard|home_screen) -->
     <!-- Clock and world clock sizes -->

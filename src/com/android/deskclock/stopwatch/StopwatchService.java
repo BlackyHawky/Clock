@@ -29,7 +29,8 @@ import com.android.deskclock.events.Events;
  * This service exists primarily to allow the stopwatch notification to alter the state of the
  * stopwatch without disturbing the notification shade. If an activity were used instead (even one
  * that is not displayed) the notification manager implicitly closes the notification shade which
- * clashes with the use case of starting/stopping/lapping the stopwatch without interruption.
+ * clashes with the use case of starting/pausing/lapping/resetting the stopwatch without
+ * interruption.
  */
 public final class StopwatchService extends Service {
 
