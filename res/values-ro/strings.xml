@@ -18,7 +18,7 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Ceas"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Alarme"</string>
-    <string name="add_alarm" msgid="5976616107390962899">"Adăugaţi o alarmă"</string>
+    <string name="add_alarm" msgid="5976616107390962899">"Adăugați o alarmă"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Ceas de birou"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Modificaţi alarma"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Ștergeţi alarma"</string>
@@ -35,8 +35,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrare"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repetă"</string>
     <string name="alert" msgid="6506982899651975645">"Ton de apel pentru alarmă"</string>
-    <!-- no translation found for default_alarm_ringtone_title (2916376768509623643) -->
-    <skip />
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Sunet de alarmă prestabilit"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporizatorul a expirat"</string>
     <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Silențios"</string>
     <string name="ringtone" msgid="9110746249688559579">"Ton de apel"</string>
@@ -98,7 +97,7 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"În fiecare zi"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="2656876819515011590">"Alegeţi un ceas"</string>
+    <string name="clock_instructions" msgid="2656876819515011590">"Alegeți un ceas"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Ceas analogic"</string>
     <string name="help" msgid="7786263119482654015">"ajutor"</string>
     <string name="settings" msgid="5849739030579520686">"Setări"</string>
@@ -149,7 +148,7 @@
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (amânat)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarmă setată pentru <xliff:g id="TIME">%s</xliff:g>. Atingeţi pentru a anula."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butoane de volum"</string>
-    <string name="volume_button_dialog_title" msgid="8768042543750036853">"Funcţii buton"</string>
+    <string name="volume_button_dialog_title" msgid="8768042543750036853">"Funcții buton"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Amânați"</item>
     <item msgid="3450979320164769576">"Închideți"</item>
@@ -164,7 +163,7 @@
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Afişarea ceasului"</string>
     <string name="label_description" msgid="8736179296142915727">"Etichetă"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ton de apel"</string>
-    <string name="weather_fetch_failure" msgid="3425804832021006835">"Informaţiile meteo nu sunt disponibile în acest moment."</string>
+    <string name="weather_fetch_failure" msgid="3425804832021006835">"Informațiile meteo nu sunt disponibile în acest moment."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Serviciul de redare a sunetului pentru setarea alarmelor în aplicația Ceas."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Se încarcă tonul soneriei..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Serviciul de redare a sunetului pentru setarea temporizatoarelor în aplicația Ceas."</string>
@@ -173,9 +172,9 @@
     <string name="menu_timer" msgid="6459070074762877114">"Temporizator"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ceas"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Cronometru"</string>
-    <string name="button_alarms" msgid="3907838219512538763">"Adăugaţi o alarmă"</string>
+    <string name="button_alarms" msgid="3907838219512538763">"Adăugați o alarmă"</string>
     <string name="button_cities" msgid="4555761857494501363">"Orașe"</string>
-    <string name="button_menu" msgid="6050484561842120282">"Mai multe opţiuni"</string>
+    <string name="button_menu" msgid="6050484561842120282">"Mai multe opțiuni"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Setări"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ajutor"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Modul Noapte"</string>
@@ -185,7 +184,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Reluaţi"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Resetaţi"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Porniţi"</string>
-    <string name="sw_pause_button" msgid="2422084453454138042">"Întrerupeţi"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Întrerupeți"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Circuit"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Distribuiţi"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
@@ -217,7 +216,7 @@
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Ștergeţi"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Ștergeți <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
-    <string name="timer_plus_one" msgid="6631211310420106116">"Adăugaţi 1 minut"</string>
+    <string name="timer_plus_one" msgid="6631211310420106116">"Adăugați 1 minut"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Adăugați 1 min."</string>
     <string name="timer_stop" msgid="3361154678667736722">"Opriți"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Opriți temporizatoarele"</string>
@@ -239,7 +238,7 @@
     <item msgid="7508085100680861631">"O viteză uimitoare."</item>
     <item msgid="5961245252909589573">"Să începem din nou dansul timpului."</item>
     <item msgid="5211891900854545940">"O săritură la stânga."</item>
-    <item msgid="9071353477103826053">"Aveți opţiuni diversificate pentru viteză."</item>
+    <item msgid="9071353477103826053">"Aveți opțiuni diversificate pentru viteză."</item>
     <item msgid="3785193933691117181">"Cu viteza luminii."</item>
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"Acasă"</string>
