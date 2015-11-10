@@ -95,6 +95,9 @@ public class ClockProvider extends ContentProvider {
             ALARMS_TABLE_NAME + " LEFT JOIN " + INSTANCES_TABLE_NAME + " ON (" +
             ALARMS_TABLE_NAME + "." + AlarmsColumns._ID + " = " + InstancesColumns.ALARM_ID + ")";
 
+    private static final String ALARM_JOIN_INSTANCE_WHERE_STATEMENT =
+            InstancesColumns.ALARM_STATE + " != " + InstancesColumns.MISSED_STATE;
+
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
         sURIMatcher.addURI(ClockContract.AUTHORITY, "alarms", ALARMS);
@@ -140,6 +143,7 @@ public class ClockProvider extends ContentProvider {
                 break;
             case ALARMS_WITH_INSTANCES:
                 qb.setTables(ALARM_JOIN_INSTANCE_TABLE_STATEMENT);
+                qb.appendWhere(ALARM_JOIN_INSTANCE_WHERE_STATEMENT);
                 qb.setProjectionMap(sAlarmsWithInstancesProjection);
                 break;
             default:
