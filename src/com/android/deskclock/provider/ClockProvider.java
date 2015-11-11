@@ -96,6 +96,7 @@ public class ClockProvider extends ContentProvider {
             ALARMS_TABLE_NAME + "." + AlarmsColumns._ID + " = " + InstancesColumns.ALARM_ID + ")";
 
     private static final String ALARM_JOIN_INSTANCE_WHERE_STATEMENT =
+            InstancesColumns.ALARM_STATE + " IS NULL OR " +
             InstancesColumns.ALARM_STATE + " != " + InstancesColumns.MISSED_STATE;
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
