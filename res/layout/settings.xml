@@ -15,14 +15,7 @@
 -->
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
-
-    <fragment
-        android:id="@+id/main"
-        android:name="com.android.deskclock.settings.SettingsActivity$PrefsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</FrameLayout>
+    android:fitsSystemWindows="true" />

@@ -16,22 +16,6 @@
 
 <resources>
 
-    <style name="SettingsTheme" parent="TranslucentDecorActivityTheme">
-        <item name="android:alertDialogTheme">@style/SettingsAlertDialogTheme</item>
-        <item name="android:detailsElementBackground">@null</item>
-
-        <!-- Attributes from support.v7.appcompat -->
-        <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
-        <item name="colorControlActivated">?attr/colorAccent</item>
-        <item name="windowActionBar">true</item>
-        <item name="windowNoTitle">false</item>
-    </style>
-
-    <!-- Theme that will be used by PreferenceFragment (i.e. *not* AppCompat). -->
-    <style name="SettingsAlertDialogTheme" parent="android:Theme.Material.Dialog.Alert">
-        <item name="android:colorAccent">?attr/colorAccent</item>
-    </style>
-
     <!-- Custom notification content styles -->
     <!-- copied TextAppearance.Material.Button -->
     <style name="TextAppearance.StatusBar.EventContent.Action">
