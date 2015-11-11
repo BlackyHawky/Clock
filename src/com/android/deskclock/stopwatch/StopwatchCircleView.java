@@ -34,9 +34,9 @@ import com.android.deskclock.data.Stopwatch;
 import java.util.List;
 
 /**
- * Custom view that draws a reference lap when one exists.
+ * Custom view that draws a reference lap as a circle when one exists.
  */
-public final class StopwatchTimer extends View {
+public final class StopwatchCircleView extends View {
 
     /** The size of the dot indicating the user's position within the reference lap. */
     private final float mDotRadius;
@@ -63,14 +63,12 @@ public final class StopwatchTimer extends View {
     private final Paint mFill = new Paint();
     private final RectF mArcRect = new RectF();
 
-    private boolean mAnimate;
-
     @SuppressWarnings("unused")
-    public StopwatchTimer(Context context) {
+    public StopwatchCircleView(Context context) {
         this(context, null);
     }
 
-    public StopwatchTimer(Context context, AttributeSet attrs) {
+    public StopwatchCircleView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         final Resources resources = context.getResources();
@@ -96,18 +94,8 @@ public final class StopwatchTimer extends View {
     /**
      * Start the animation if it is not currently running.
      */
-    void startAnimation() {
-        if (!mAnimate) {
-            mAnimate = true;
-            postInvalidateOnAnimation();
-        }
-    }
-
-    /**
-     * Stop the animation if it is currently running.
-     */
-    void stopAnimation() {
-        mAnimate = false;
+    void update() {
+        postInvalidateOnAnimation();
     }
 
     @Override
@@ -129,17 +117,16 @@ public final class StopwatchTimer extends View {
             canvas.drawCircle(xCenter, yCenter, radius, mPaint);
 
             // No need to continue animating the plain white circle.
-            mAnimate = false;
-
             return;
         }
 
         // The first lap is the reference lap to which all future laps are compared.
+        final Stopwatch stopwatch = getStopwatch();
         final int lapCount = laps.size();
         final Lap firstLap = laps.get(lapCount - 1);
         final Lap priorLap = laps.get(0);
         final long firstLapTime = firstLap.getLapTime();
-        final long currentLapTime = getStopwatch().getTotalTime() - priorLap.getAccumulatedTime();
+        final long currentLapTime = stopwatch.getTotalTime() - priorLap.getAccumulatedTime();
 
         // Draw a combination of red and white arcs to create a circle.
         mArcRect.top = yCenter - radius;
@@ -173,7 +160,8 @@ public final class StopwatchTimer extends View {
         final float dotY = yCenter + (float) (radius * Math.sin(dotAngleRadians));
         canvas.drawCircle(dotX, dotY, mDotRadius, mFill);
 
-        if (mAnimate) {
+        // If the stopwatch is not running it does not require continuous updates.
+        if (stopwatch.isRunning()) {
             postInvalidateOnAnimation();
         }
     }

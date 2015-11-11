@@ -23,19 +23,18 @@
 
     <ImageButton
         android:id="@+id/timer_cancel"
-        android:layout_width="0dip"
-        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:paddingEnd="20dip"
+        android:layout_weight="1"
         android:contentDescription="@string/timer_cancel"
+        android:paddingEnd="20dp"
         android:scaleType="center"
         android:src="@drawable/ic_cancel"
         android:textSize="@dimen/button_font_size" />
 
     <Space
-        android:layout_width="0dip"
-        android:layout_weight="2"
-        android:layout_height="match_parent">
-    </Space>
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2" />
 
 </LinearLayout>

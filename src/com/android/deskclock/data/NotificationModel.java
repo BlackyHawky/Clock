@@ -43,4 +43,18 @@ final class NotificationModel {
     int getStopwatchNotificationId() {
         return Integer.MAX_VALUE - 1;
     }
+
+    /**
+     * @return a value that identifies the notification for running/paused timers
+     */
+    int getUnexpiredTimerNotificationId() {
+        return Integer.MAX_VALUE - 2;
+    }
+
+    /**
+     * @return a value that identifies the notification for expired timers
+     */
+    int getExpiredTimerNotificationId() {
+        return Integer.MAX_VALUE - 3;
+    }
 }

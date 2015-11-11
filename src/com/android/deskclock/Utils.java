@@ -24,7 +24,6 @@ import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -35,7 +34,6 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
@@ -58,7 +56,6 @@ import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.settings.SettingsActivity;
-import com.android.deskclock.timer.Timers;
 
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
@@ -167,10 +164,6 @@ public class Utils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
-    public static long getTimeNow() {
-        return SystemClock.elapsedRealtime();
-    }
-
     /**
      * Calculate the amount by which the radius of a CircleTimerView should be offset by any
      * of the extra painted objects.
@@ -182,7 +175,7 @@ public class Utils {
 
     /**
      * Uses {@link Utils#calculateRadiusOffset(float, float, float)} after fetching the values
-     * from the resources just as {@link CircleTimerView#init(android.content.Context)} does.
+     * from the resources.
      */
     public static float calculateRadiusOffset(Resources resources) {
         if (resources != null) {
@@ -193,24 +186,6 @@ public class Utils {
         } else {
             return 0f;
         }
-    }
-
-    /**
-     * Broadcast a message to show the in-use timers in the notifications
-     */
-    public static void showInUseNotifications(Context context) {
-        Intent timerIntent = new Intent();
-        timerIntent.setAction(Timers.NOTIF_IN_USE_SHOW);
-        context.sendBroadcast(timerIntent);
-    }
-
-    /**
-     * Broadcast a message to update the timer times-up HUN
-     */
-    public static void updateTimesUpNotification(Context context) {
-        final Intent timerHUNIntent = new Intent();
-        timerHUNIntent.setAction(Timers.NOTIF_UPDATE);
-        context.sendBroadcast(timerHUNIntent);
     }
 
     /** Runnable for use with screensaver and dream, to move the clock every minute.
