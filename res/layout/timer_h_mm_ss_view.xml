@@ -19,76 +19,85 @@
        android:layout_height="match_parent">
 
     <TextView
-            android:id="@+id/hours_ones"
-            android:singleLine="true"
-            android:ellipsize="none"
-            style="@style/timer_setup_digit"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/clock_white"/>
+        android:id="@+id/hours_tens"
+        style="@style/timer_setup_digit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:textColor="@color/clock_white"/>
 
     <TextView
-            android:id="@+id/hours_label"
-            android:singleLine="true"
-            android:ellipsize="none"
-            style="@style/label"
-            android:layout_gravity="bottom"
-            android:contentDescription="@string/hours_label_description"
-            android:text="@string/hours_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/clock_white"/>
+        android:id="@+id/hours_ones"
+        style="@style/timer_setup_digit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:textColor="@color/clock_white"/>
 
     <TextView
-            android:id="@+id/minutes_tens"
-            android:singleLine="true"
-            android:ellipsize="none"
-            style="@style/timer_setup_digit"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/clock_white"/>
+        android:id="@+id/hours_label"
+        style="@style/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:contentDescription="@string/hours_label_description"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:text="@string/hours_label"
+        android:textColor="@color/clock_white"/>
 
     <TextView
-            android:id="@+id/minutes_ones"
-            android:singleLine="true"
-            android:ellipsize="none"
-            style="@style/timer_setup_digit"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/clock_white"/>
+        android:id="@+id/minutes_tens"
+        style="@style/timer_setup_digit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:textColor="@color/clock_white"/>
 
     <TextView
-            android:id="@+id/minutes_label"
-            android:singleLine="true"
-            android:ellipsize="none"
-            style="@style/label"
-            android:layout_gravity="bottom"
-            android:contentDescription="@string/minutes_label_description"
-            android:text="@string/minutes_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/clock_white"/>
+        android:id="@+id/minutes_ones"
+        style="@style/timer_setup_digit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:textColor="@color/clock_white"/>
 
     <TextView
-            android:id="@+id/seconds"
-            android:singleLine="true"
-            android:ellipsize="none"
-            style="@style/timer_setup_digit"
-            android:layout_gravity="bottom"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/clock_white"/>
+        android:id="@+id/minutes_label"
+        style="@style/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:contentDescription="@string/minutes_label_description"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:text="@string/minutes_label"
+        android:textColor="@color/clock_white"/>
 
     <TextView
-            android:id="@+id/seconds_label"
-            android:singleLine="true"
-            android:ellipsize="none"
-            style="@style/label"
-            android:layout_gravity="bottom"
-            android:contentDescription="@string/seconds_label_description"
-            android:text="@string/seconds_label"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/clock_white"/>
+        android:id="@+id/seconds"
+        style="@style/timer_setup_digit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:textColor="@color/clock_white"/>
+
+    <TextView
+        android:id="@+id/seconds_label"
+        style="@style/label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:contentDescription="@string/seconds_label_description"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:text="@string/seconds_label"
+        android:textColor="@color/clock_white"/>
 
 </merge>

@@ -107,7 +107,7 @@
 
     <style name="DeskClockTheme" parent="@style/TranslucentDecorActivityTheme" />
 
-    <style name="TimerAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
+    <style name="ExpiredTimersActivityTheme" parent="TranslucentDecorActivityTheme" />
 
     <style name="ScreensaverActivityTheme" parent="Theme.AppCompat.NoActionBar" />
 

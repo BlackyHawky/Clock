@@ -1,0 +1,158 @@
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.android.deskclock.timer;
+
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.IBinder;
+import android.support.annotation.StringRes;
+
+import com.android.deskclock.HandleDeskClockApiCalls;
+import com.android.deskclock.R;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Timer;
+import com.android.deskclock.events.Events;
+
+import static android.content.Intent.FLAG_RECEIVER_FOREGROUND;
+
+/**
+ * This service exists primarily to allow {@link android.app.AlarmManager} and timer notifications
+ * to alter the state of timers without disturbing the notification shade. If an activity were used
+ * instead (even one that is not displayed) the notification manager implicitly closes the
+ * notification shade which clashes with the use case of starting/pausing/resetting timers without
+ * interruption.
+ */
+public final class TimerService extends Service {
+
+    private static final String ACTION_PREFIX = "com.android.deskclock.action.";
+
+    private static final String ACTION_TIMER_EXPIRED = ACTION_PREFIX + "TIMER_EXPIRED";
+    private static final String ACTION_UPDATE_NOTIFICATION = ACTION_PREFIX + "UPDATE_NOTIFICATION";
+    private static final String ACTION_RESET_EXPIRED_TIMERS = ACTION_PREFIX +
+            "RESET_EXPIRED_TIMERS";
+    private static final String ACTION_RESET_UNEXPIRED_TIMERS = ACTION_PREFIX +
+            "RESET_UNEXPIRED_TIMERS";
+
+    public static Intent createTimerExpiredIntent(Context context, Timer timer) {
+        final int timerId = timer == null ? -1 : timer.getId();
+        return new Intent(context, TimerService.class)
+                .setAction(ACTION_TIMER_EXPIRED)
+                .addFlags(FLAG_RECEIVER_FOREGROUND)
+                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timerId);
+    }
+
+    public static Intent createResetExpiredTimersIntent(Context context) {
+        return new Intent(context, TimerService.class)
+                .setAction(ACTION_RESET_EXPIRED_TIMERS)
+                .addFlags(FLAG_RECEIVER_FOREGROUND);
+    }
+
+    public static Intent createResetUnexpiredTimersIntent(Context context) {
+        return new Intent(context, TimerService.class)
+                .setAction(ACTION_RESET_UNEXPIRED_TIMERS)
+                .addFlags(FLAG_RECEIVER_FOREGROUND);
+    }
+
+    public static Intent createAddMinuteTimerIntent(Context context, int timerId) {
+        return new Intent(context, TimerService.class)
+                .setAction(HandleDeskClockApiCalls.ACTION_ADD_MINUTE_TIMER)
+                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timerId)
+                .addFlags(FLAG_RECEIVER_FOREGROUND);
+    }
+
+    public static Intent createUpdateNotificationIntent(Context context) {
+        return new Intent(context, TimerService.class)
+                .setAction(ACTION_UPDATE_NOTIFICATION)
+                .addFlags(FLAG_RECEIVER_FOREGROUND);
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        final boolean fromNotification =
+                intent.getBooleanExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, false);
+
+        switch (intent.getAction()) {
+            case ACTION_UPDATE_NOTIFICATION: {
+                DataModel.getDataModel().updateTimerNotification();
+                return START_NOT_STICKY;
+            }
+            case ACTION_RESET_EXPIRED_TIMERS: {
+                final int eventLabelId = fromNotification ? R.string.label_notification : 0;
+                DataModel.getDataModel().resetExpiredTimers(eventLabelId);
+                if (fromNotification) {
+                    Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
+                }
+                return START_NOT_STICKY;
+            }
+            case ACTION_RESET_UNEXPIRED_TIMERS: {
+                final int eventLabelId = fromNotification ? R.string.label_notification : 0;
+                DataModel.getDataModel().resetUnexpiredTimers(eventLabelId);
+                if (fromNotification) {
+                    Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
+                }
+                return START_NOT_STICKY;
+            }
+        }
+
+        // Look up the timer in question.
+        final int timerId = intent.getIntExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, -1);
+        final Timer timer = DataModel.getDataModel().getTimer(timerId);
+
+        // If the timer cannot be located, ignore the action.
+        if (timer == null) {
+            return START_NOT_STICKY;
+        }
+
+        // Perform the action on the timer.
+        switch (intent.getAction()) {
+            case HandleDeskClockApiCalls.ACTION_START_TIMER:
+                DataModel.getDataModel().startTimer(timer);
+                if (fromNotification) {
+                    Events.sendTimerEvent(R.string.action_start, R.string.label_notification);
+                }
+                break;
+            case HandleDeskClockApiCalls.ACTION_PAUSE_TIMER:
+                DataModel.getDataModel().pauseTimer(timer);
+                if (fromNotification) {
+                    Events.sendTimerEvent(R.string.action_pause, R.string.label_notification);
+                }
+                break;
+            case HandleDeskClockApiCalls.ACTION_ADD_MINUTE_TIMER:
+                DataModel.getDataModel().addTimerMinute(timer);
+                if (fromNotification) {
+                    Events.sendTimerEvent(R.string.action_add_minute, R.string.label_notification);
+                }
+                break;
+            case HandleDeskClockApiCalls.ACTION_RESET_TIMER:
+                @StringRes int eventLabelId = fromNotification ? R.string.label_notification : 0;
+                DataModel.getDataModel().resetOrDeleteTimer(timer, eventLabelId);
+                break;
+            case ACTION_TIMER_EXPIRED:
+                DataModel.getDataModel().expireTimer(timer);
+                Events.sendTimerEvent(R.string.action_fire, R.string.label_intent);
+                break;
+        }
+
+        return START_NOT_STICKY;
+    }
+}

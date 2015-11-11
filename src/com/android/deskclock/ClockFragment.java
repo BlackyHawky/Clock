@@ -27,7 +27,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,6 +47,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 /**
@@ -106,10 +108,10 @@ public final class ClockFragment extends DeskClockFragment {
             mClockFrame = inflater.inflate(R.layout.main_clock_frame, mCityList, false);
             mCityList.addHeaderView(mClockFrame, null, false);
             final View hairline = mClockFrame.findViewById(R.id.hairline);
-            hairline.setVisibility(mCityAdapter.getCount() == 0 ? View.GONE : View.VISIBLE);
+            hairline.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
         } else {
             final View hairline = mClockFrame.findViewById(R.id.hairline);
-            hairline.setVisibility(View.GONE);
+            hairline.setVisibility(GONE);
             // The main clock frame needs its own touch listener for night mode now.
             fragmentView.setOnTouchListener(startScreenSaverListener);
         }
@@ -153,7 +155,7 @@ public final class ClockFragment extends DeskClockFragment {
         final View view = getView();
         if (view != null && view.findViewById(R.id.main_clock_left_pane) != null) {
             // Center the main clock frame by hiding the world clocks when none are selected.
-            mCityList.setVisibility(mCityAdapter.getCount() == 0 ? View.GONE : View.VISIBLE);
+            mCityList.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
         }
 
         refreshDates();
@@ -184,15 +186,13 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void setFabAppearance() {
-        if (getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
+        if (mFab == null || getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
             return;
         }
 
-        if (mFab != null) {
-            mFab.setVisibility(View.VISIBLE);
-            mFab.setImageResource(R.drawable.ic_language_white_24dp);
-            mFab.setContentDescription(getString(R.string.button_cities));
-        }
+        mFab.setVisibility(VISIBLE);
+        mFab.setImageResource(R.drawable.ic_language_white_24dp);
+        mFab.setContentDescription(getString(R.string.button_cities));
     }
 
     @Override
@@ -202,11 +202,11 @@ public final class ClockFragment extends DeskClockFragment {
         }
 
         if (mLeftButton != null) {
-            mLeftButton.setVisibility(View.INVISIBLE);
+            mLeftButton.setVisibility(INVISIBLE);
         }
 
         if (mRightButton != null) {
-            mRightButton.setVisibility(View.INVISIBLE);
+            mRightButton.setVisibility(INVISIBLE);
         }
     }
 
@@ -374,15 +374,14 @@ public final class ClockFragment extends DeskClockFragment {
             final TextClock digitalClock = (TextClock) clock.findViewById(R.id.digital_clock);
             final AnalogClock analogClock = (AnalogClock) clock.findViewById(R.id.analog_clock);
             if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
-                digitalClock.setVisibility(View.GONE);
-                analogClock.setVisibility(View.VISIBLE);
+                digitalClock.setVisibility(GONE);
+                analogClock.setVisibility(VISIBLE);
                 analogClock.setTimeZone(city.getTimeZoneId());
                 analogClock.enableSeconds(false);
             } else {
-                digitalClock.setVisibility(View.VISIBLE);
-                analogClock.setVisibility(View.GONE);
+                digitalClock.setVisibility(VISIBLE);
+                analogClock.setVisibility(GONE);
                 digitalClock.setTimeZone(city.getTimeZoneId());
-                final int size = mContext.getResources().getDimensionPixelSize(R.dimen.label_font_size);
                 Utils.setTimeFormat(mContext, digitalClock);
             }
 
@@ -397,7 +396,7 @@ public final class ClockFragment extends DeskClockFragment {
 
             // Bind the week day display.
             final TextView dayOfWeek = (TextView) clock.findViewById(R.id.city_day);
-            dayOfWeek.setVisibility(displayDayOfWeek ? View.VISIBLE : View.GONE);
+            dayOfWeek.setVisibility(displayDayOfWeek ? VISIBLE : GONE);
             if (displayDayOfWeek) {
                 final Locale locale = Locale.getDefault();
                 final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, locale);

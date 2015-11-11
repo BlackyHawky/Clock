@@ -20,11 +20,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.Tab;
@@ -53,8 +51,6 @@ import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.timer.TimerFragment;
-import com.android.deskclock.timer.TimerObj;
-import com.android.deskclock.timer.Timers;
 import com.android.deskclock.widget.RtlViewPager;
 
 import java.util.ArrayList;
@@ -65,8 +61,7 @@ import java.util.Set;
  * DeskClock clock view for desk docks.
  */
 public class DeskClock extends BaseActivity
-        implements LabelDialogFragment.TimerLabelDialogHandler,
-        LabelDialogFragment.AlarmLabelDialogHandler,
+        implements LabelDialogFragment.AlarmLabelDialogHandler,
         RingtonePickerDialogFragment.RingtoneSelectionListener {
 
     private static final String TAG = "DeskClock";
@@ -215,25 +210,12 @@ public class DeskClock extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-
         DataModel.getDataModel().setApplicationInForeground(true);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(Timers.NOTIF_APP_OPEN, true);
-        editor.apply();
-        sendBroadcast(new Intent(Timers.NOTIF_IN_USE_CANCEL));
     }
 
     @Override
     public void onPause() {
         DataModel.getDataModel().setApplicationInForeground(false);
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(Timers.NOTIF_APP_OPEN, false);
-        editor.apply();
-        Utils.showInUseNotifications(this);
         super.onPause();
     }
 
@@ -441,18 +423,7 @@ public class DeskClock extends BaseActivity
     }
 
     /**
-     * Called by the LabelDialogFragment class after the dialog is finished.
-     */
-    @Override
-    public void onDialogLabelSet(TimerObj timer, String label, String tag) {
-        final Fragment frag = getFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof TimerFragment) {
-            ((TimerFragment) frag).setLabel(timer, label);
-        }
-    }
-
-    /**
-     * Called by the LabelDialogFragment class after the dialog is finished.
+     * Called by the LabelDialogFormat class after the dialog is finished.
      */
     @Override
     public void onDialogLabelSet(Alarm alarm, String label, String tag) {
