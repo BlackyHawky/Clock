@@ -23,11 +23,8 @@ import android.os.Bundle;
 
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
-import com.android.deskclock.data.Stopwatch;
 import com.android.deskclock.data.Timer;
 import com.android.deskclock.events.Events;
-import com.android.deskclock.stopwatch.StopwatchService;
-import com.android.deskclock.timer.TimerService;
 import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.List;
@@ -76,9 +73,8 @@ public class HandleDeskClockApiCalls extends Activity {
     public static final String EXTRA_TIMER_ID =
             "com.android.deskclock.extra.TIMER_ID";
 
-    // extra for actions originating from the notifications
-    public static final String EXTRA_FROM_NOTIFICATION =
-            "com.android.deskclock.extra.FROM_NOTIFICATION";
+    // Describes the entity responsible for the action being performed.
+    public static final String EXTRA_EVENT_LABEL = "com.android.deskclock.extra.EVENT_LABEL";
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -123,39 +119,40 @@ public class HandleDeskClockApiCalls extends Activity {
         final String action = intent.getAction();
 
         // Determine where this intent originated.
-        final boolean fromNotification =
-                intent.getBooleanExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, false);
-        final int label = fromNotification ? R.string.label_notification : R.string.label_intent;
+        final int eventLabel = intent.getIntExtra(EXTRA_EVENT_LABEL, R.string.label_intent);
 
         if (ACTION_SHOW_STOPWATCH.equals(action)) {
-            Events.sendStopwatchEvent(R.string.action_show, label);
+            Events.sendStopwatchEvent(R.string.action_show, eventLabel);
         } else {
-            final Stopwatch stopwatch = DataModel.getDataModel().getStopwatch();
-
             final String reason;
             boolean fail = false;
             switch (action) {
                 case ACTION_START_STOPWATCH: {
-                    Events.sendStopwatchEvent(R.string.action_start, label);
+                    DataModel.getDataModel().startStopwatch();
+                    Events.sendStopwatchEvent(R.string.action_start, eventLabel);
                     reason = getString(R.string.stopwatch_started);
                     break;
                 }
                 case ACTION_PAUSE_STOPWATCH: {
-                    Events.sendStopwatchEvent(R.string.action_pause, label);
+                    DataModel.getDataModel().pauseStopwatch();
+                    Events.sendStopwatchEvent(R.string.action_pause, eventLabel);
                     reason = getString(R.string.stopwatch_paused);
                     break;
                 }
                 case ACTION_RESET_STOPWATCH: {
-                    Events.sendStopwatchEvent(R.string.action_reset, label);
+                    DataModel.getDataModel().clearLaps();
+                    DataModel.getDataModel().resetStopwatch();
+                    Events.sendStopwatchEvent(R.string.action_reset, eventLabel);
                     reason = getString(R.string.stopwatch_reset);
                     break;
                 }
                 case ACTION_LAP_STOPWATCH: {
-                    if (!stopwatch.isRunning()) {
+                    if (!DataModel.getDataModel().getStopwatch().isRunning()) {
                         fail = true;
                         reason = getString(R.string.stopwatch_isnt_running);
                     } else {
-                        Events.sendStopwatchEvent(R.string.action_lap, label);
+                        DataModel.getDataModel().addLap();
+                        Events.sendStopwatchEvent(R.string.action_lap, eventLabel);
                         reason = getString(R.string.stopwatch_lapped);
                     }
                     break;
@@ -167,10 +164,6 @@ public class HandleDeskClockApiCalls extends Activity {
             if (fail) {
                 Voice.notifyFailure(this, reason);
             } else {
-                // Perform the action on the stopwatch.
-                final Intent performActionIntent = new Intent(mAppContext, StopwatchService.class)
-                        .setAction(action);
-                startService(performActionIntent);
                 Voice.notifySuccess(this, reason);
             }
             LogUtils.i(reason);
@@ -178,7 +171,6 @@ public class HandleDeskClockApiCalls extends Activity {
 
         // Open the UI to the stopwatch.
         final Intent stopwatchIntent = new Intent(mAppContext, DeskClock.class)
-                .setAction(action)
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.STOPWATCH_TAB_INDEX);
         startActivity(stopwatchIntent);
     }
@@ -187,14 +179,12 @@ public class HandleDeskClockApiCalls extends Activity {
         final String action = intent.getAction();
 
         // Determine where this intent originated.
-        final boolean fromNotification =
-                intent.getBooleanExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, false);
-        final int label = fromNotification ? R.string.label_notification : R.string.label_intent;
-        int timerId = intent.getIntExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, -1);
+        final int eventLabel = intent.getIntExtra(EXTRA_EVENT_LABEL, R.string.label_intent);
+        int timerId = intent.getIntExtra(EXTRA_TIMER_ID, -1);
         Timer timer = null;
 
         if (ACTION_SHOW_TIMERS.equals(action)) {
-            Events.sendTimerEvent(R.string.action_show, label);
+            Events.sendTimerEvent(R.string.action_show, eventLabel);
         } else {
             String reason = null;
             if (timerId == -1) {
@@ -223,22 +213,23 @@ public class HandleDeskClockApiCalls extends Activity {
                 // Otherwise the control command can be honored.
                 switch (action) {
                     case ACTION_RESET_TIMER: {
-                        if (timer.getDeleteAfterUse()) {
-                            Events.sendTimerEvent(R.string.action_delete, label);
+                        DataModel.getDataModel().resetOrDeleteTimer(timer, eventLabel);
+                        if (timer.isExpired() && timer.getDeleteAfterUse()) {
                             reason = getString(R.string.timer_deleted);
                         } else {
-                            Events.sendTimerEvent(R.string.action_reset, label);
                             reason = getString(R.string.timer_was_reset);
                         }
                         break;
                     }
                     case ACTION_START_TIMER: {
-                        Events.sendTimerEvent(R.string.action_start, label);
+                        DataModel.getDataModel().startTimer(timer);
+                        Events.sendTimerEvent(R.string.action_start, eventLabel);
                         reason = getString(R.string.timer_started);
                         break;
                     }
                     case ACTION_PAUSE_TIMER: {
-                        Events.sendTimerEvent(R.string.action_pause, label);
+                        DataModel.getDataModel().pauseTimer(timer);
+                        Events.sendTimerEvent(R.string.action_pause, eventLabel);
                         reason = getString(R.string.timer_paused);
                         break;
                     }
@@ -247,11 +238,6 @@ public class HandleDeskClockApiCalls extends Activity {
                 }
 
                 timerId = timer.getId();
-                // Perform the action on the timer.
-                final Intent performActionIntent = new Intent(mAppContext, TimerService.class)
-                        .setAction(action)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timerId);
-                startService(performActionIntent);
                 Voice.notifySuccess(this, reason);
             }
 
@@ -260,9 +246,8 @@ public class HandleDeskClockApiCalls extends Activity {
 
         // Open the UI to the timers.
         final Intent timerIntent = new Intent(mAppContext, DeskClock.class)
-                .setAction(action)
                 .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timerId);
+                .putExtra(EXTRA_TIMER_ID, timerId);
         startActivity(timerIntent);
     }
 

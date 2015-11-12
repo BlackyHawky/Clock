@@ -24,11 +24,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.SystemClock;
+import android.support.annotation.IdRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.DeskClock;
 import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.stopwatch.StopwatchService;
@@ -203,12 +204,13 @@ final class StopwatchModel {
             return;
         }
 
+        @StringRes final int eventLabel = R.string.label_notification;
+
         // Intent to load the app when the notification is tapped.
         final Intent showApp = new Intent(mContext, HandleDeskClockApiCalls.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .setAction(HandleDeskClockApiCalls.ACTION_SHOW_STOPWATCH)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true)
-                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.STOPWATCH_TAB_INDEX);
+                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
 
         final PendingIntent pendingShowApp = PendingIntent.getActivity(mContext, 0, showApp,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
@@ -229,15 +231,15 @@ final class StopwatchModel {
         expanded.setOnClickPendingIntent(R.id.swn_expanded_hitspace, pendingShowApp);
         expanded.setImageViewResource(R.id.notification_icon, R.drawable.stat_notify_stopwatch);
 
-        final int leftButtonId = R.id.swn_left_button;
-        final int rightButtonId = R.id.swn_right_button;
+        @IdRes final int leftButtonId = R.id.swn_left_button;
+        @IdRes final int rightButtonId = R.id.swn_right_button;
         if (running) {
             // Left button: Pause
             expanded.setTextViewText(leftButtonId, res.getText(R.string.sw_pause_button));
             setTextViewDrawable(expanded, leftButtonId, R.drawable.ic_pause_24dp);
             final Intent pause = new Intent(mContext, StopwatchService.class)
                     .setAction(HandleDeskClockApiCalls.ACTION_PAUSE_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
             expanded.setOnClickPendingIntent(leftButtonId, pendingServiceIntent(pause));
 
             // Right button: Add Lap
@@ -247,7 +249,7 @@ final class StopwatchModel {
 
                 final Intent lap = new Intent(mContext, StopwatchService.class)
                         .setAction(HandleDeskClockApiCalls.ACTION_LAP_STOPWATCH)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                        .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
                 expanded.setOnClickPendingIntent(rightButtonId, pendingServiceIntent(lap));
                 expanded.setViewVisibility(rightButtonId, VISIBLE);
             } else {
@@ -273,7 +275,7 @@ final class StopwatchModel {
             setTextViewDrawable(expanded, leftButtonId, R.drawable.ic_start_24dp);
             final Intent start = new Intent(mContext, StopwatchService.class)
                     .setAction(HandleDeskClockApiCalls.ACTION_START_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
             expanded.setOnClickPendingIntent(leftButtonId, pendingServiceIntent(start));
 
             // Right button: Reset (HandleDeskClockApiCalls will also bring forward the app)
@@ -282,7 +284,7 @@ final class StopwatchModel {
             setTextViewDrawable(expanded, rightButtonId, R.drawable.ic_reset_24dp);
             final Intent reset = new Intent(mContext, HandleDeskClockApiCalls.class)
                     .setAction(HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
             expanded.setOnClickPendingIntent(rightButtonId, pendingActivityIntent(reset));
 
             // Indicate the stopwatch is paused.
@@ -295,7 +297,7 @@ final class StopwatchModel {
         // Swipe away will reset the stopwatch without bringing forward the app.
         final Intent reset = new Intent(mContext, StopwatchService.class)
                 .setAction(HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
 
         final Notification notification = new NotificationCompat.Builder(mContext)
                 .setLocalOnly(true)

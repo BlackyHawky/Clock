@@ -20,7 +20,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.StringRes;
 
 import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
@@ -31,11 +30,11 @@ import com.android.deskclock.events.Events;
 import static android.content.Intent.FLAG_RECEIVER_FOREGROUND;
 
 /**
- * This service exists primarily to allow {@link android.app.AlarmManager} and timer notifications
+ * This service exists solely to allow {@link android.app.AlarmManager} and timer notifications
  * to alter the state of timers without disturbing the notification shade. If an activity were used
  * instead (even one that is not displayed) the notification manager implicitly closes the
  * notification shade which clashes with the use case of starting/pausing/resetting timers without
- * interruption.
+ * disturbing the notification shade.
  */
 public final class TimerService extends Service {
 
@@ -88,28 +87,17 @@ public final class TimerService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final boolean fromNotification =
-                intent.getBooleanExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, false);
-
         switch (intent.getAction()) {
             case ACTION_UPDATE_NOTIFICATION: {
                 DataModel.getDataModel().updateTimerNotification();
                 return START_NOT_STICKY;
             }
             case ACTION_RESET_EXPIRED_TIMERS: {
-                final int eventLabelId = fromNotification ? R.string.label_notification : 0;
-                DataModel.getDataModel().resetExpiredTimers(eventLabelId);
-                if (fromNotification) {
-                    Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
-                }
+                DataModel.getDataModel().resetExpiredTimers(R.string.label_notification);
                 return START_NOT_STICKY;
             }
             case ACTION_RESET_UNEXPIRED_TIMERS: {
-                final int eventLabelId = fromNotification ? R.string.label_notification : 0;
-                DataModel.getDataModel().resetUnexpiredTimers(eventLabelId);
-                if (fromNotification) {
-                    Events.sendTimerEvent(R.string.action_reset, R.string.label_notification);
-                }
+                DataModel.getDataModel().resetUnexpiredTimers(R.string.label_notification);
                 return START_NOT_STICKY;
             }
         }
@@ -127,25 +115,18 @@ public final class TimerService extends Service {
         switch (intent.getAction()) {
             case HandleDeskClockApiCalls.ACTION_START_TIMER:
                 DataModel.getDataModel().startTimer(timer);
-                if (fromNotification) {
-                    Events.sendTimerEvent(R.string.action_start, R.string.label_notification);
-                }
+                Events.sendTimerEvent(R.string.action_start, R.string.label_notification);
                 break;
             case HandleDeskClockApiCalls.ACTION_PAUSE_TIMER:
                 DataModel.getDataModel().pauseTimer(timer);
-                if (fromNotification) {
-                    Events.sendTimerEvent(R.string.action_pause, R.string.label_notification);
-                }
+                Events.sendTimerEvent(R.string.action_pause, R.string.label_notification);
                 break;
             case HandleDeskClockApiCalls.ACTION_ADD_MINUTE_TIMER:
                 DataModel.getDataModel().addTimerMinute(timer);
-                if (fromNotification) {
-                    Events.sendTimerEvent(R.string.action_add_minute, R.string.label_notification);
-                }
+                Events.sendTimerEvent(R.string.action_add_minute, R.string.label_notification);
                 break;
             case HandleDeskClockApiCalls.ACTION_RESET_TIMER:
-                @StringRes int eventLabelId = fromNotification ? R.string.label_notification : 0;
-                DataModel.getDataModel().resetOrDeleteTimer(timer, eventLabelId);
+                DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_notification);
                 break;
             case ACTION_TIMER_EXPIRED:
                 DataModel.getDataModel().expireTimer(timer);

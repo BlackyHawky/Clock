@@ -26,11 +26,11 @@ import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 
 /**
- * This service exists primarily to allow the stopwatch notification to alter the state of the
+ * This service exists solely to allow the stopwatch notification to alter the state of the
  * stopwatch without disturbing the notification shade. If an activity were used instead (even one
  * that is not displayed) the notification manager implicitly closes the notification shade which
  * clashes with the use case of starting/pausing/lapping/resetting the stopwatch without
- * interruption.
+ * disturbing the notification shade.
  */
 public final class StopwatchService extends Service {
 
@@ -41,37 +41,26 @@ public final class StopwatchService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        final boolean fromNotification =
-                intent.getBooleanExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, false);
-
         switch (intent.getAction()) {
             case HandleDeskClockApiCalls.ACTION_START_STOPWATCH: {
                 DataModel.getDataModel().startStopwatch();
-                if (fromNotification) {
-                    Events.sendStopwatchEvent(R.string.action_start, R.string.label_notification);
-                }
+                Events.sendStopwatchEvent(R.string.action_start, R.string.label_notification);
                 break;
             }
             case HandleDeskClockApiCalls.ACTION_PAUSE_STOPWATCH: {
                 DataModel.getDataModel().pauseStopwatch();
-                if (fromNotification) {
-                    Events.sendStopwatchEvent(R.string.action_pause, R.string.label_notification);
-                }
+                Events.sendStopwatchEvent(R.string.action_pause, R.string.label_notification);
                 break;
             }
             case HandleDeskClockApiCalls.ACTION_LAP_STOPWATCH: {
                 DataModel.getDataModel().addLap();
-                if (fromNotification) {
-                    Events.sendStopwatchEvent(R.string.action_lap, R.string.label_notification);
-                }
+                Events.sendStopwatchEvent(R.string.action_lap, R.string.label_notification);
                 break;
             }
             case HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH: {
                 DataModel.getDataModel().clearLaps();
                 DataModel.getDataModel().resetStopwatch();
-                if (fromNotification) {
-                    Events.sendStopwatchEvent(R.string.action_reset, R.string.label_notification);
-                }
+                Events.sendStopwatchEvent(R.string.action_reset, R.string.label_notification);
                 break;
             }
         }
