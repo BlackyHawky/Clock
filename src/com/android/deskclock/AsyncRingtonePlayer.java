@@ -168,7 +168,7 @@ public final class AsyncRingtonePlayer {
      */
     private static Uri getInCallRingtoneUri(Context context) {
         final String packageName = context.getPackageName();
-        return Uri.parse("android.resource://" + packageName + "/" + R.raw.in_call_alarm);
+        return Uri.parse("android.resource://" + packageName + "/" + R.raw.alarm_expire);
     }
 
     /**
@@ -176,7 +176,7 @@ public final class AsyncRingtonePlayer {
      */
     private static Uri getFallbackRingtoneUri(Context context) {
         final String packageName = context.getPackageName();
-        return Uri.parse("android.resource://" + packageName + "/" + R.raw.fallbackring);
+        return Uri.parse("android.resource://" + packageName + "/" + R.raw.alarm_expire);
     }
 
     /**
@@ -184,7 +184,8 @@ public final class AsyncRingtonePlayer {
      */
     private void checkAsyncRingtonePlayerThread() {
         if (Looper.myLooper() != mHandler.getLooper()) {
-            LogUtils.e(TAG, "Must be on the AsyncRingtonePlayer thread!", new IllegalStateException());
+            LogUtils.e(TAG, "Must be on the AsyncRingtonePlayer thread!",
+                    new IllegalStateException());
         }
     }
 
@@ -492,6 +493,12 @@ public final class AsyncRingtonePlayer {
             // attempt to fetch the specified ringtone
             mRingtone = RingtoneManager.getRingtone(context, ringtoneUri);
 
+            if (mRingtone == null) {
+                // fall back to the default ringtone
+                final Uri defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+                mRingtone = RingtoneManager.getRingtone(context, defaultUri);
+            }
+
             // Attempt to enable looping the ringtone.
             try {
                 mSetLoopingMethod.invoke(mRingtone, true);
@@ -503,16 +510,11 @@ public final class AsyncRingtonePlayer {
                 mRingtone = null;
             }
 
-            if (mRingtone == null) {
-                // fall back to the default ringtone
-                final Uri defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                mRingtone = RingtoneManager.getRingtone(context, defaultUri);
-            }
-
             // if we don't have a ringtone at this point there isn't much recourse
             if (mRingtone == null) {
-                LogUtils.i(TAG, "Unable to locate alarm ringtone.");
-                return false;
+                LogUtils.i(TAG, "Unable to locate alarm ringtone, using internal fallback " +
+                        "ringtone.");
+                mRingtone = RingtoneManager.getRingtone(context, getFallbackRingtoneUri(context));
             }
 
             if (Utils.isLOrLater()) {
