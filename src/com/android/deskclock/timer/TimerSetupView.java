@@ -185,7 +185,6 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             final Resources resources = getResources();
             final String cd = resources.getString(R.string.timer_descriptive_delete, n.toString());
             mDelete.setContentDescription(cd);
-            return;
         }
 
         // other keys
