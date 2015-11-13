@@ -88,6 +88,9 @@ public class DeskClock extends BaseActivity
     private TabsAdapter mTabsAdapter;
     private int mSelectedTab;
 
+    /** {@code true} when a settings change necessitates recreating this activity. */
+    private boolean mRecreateActivity;
+
     @Override
     public void onNewIntent(Intent newIntent) {
         super.onNewIntent(newIntent);
@@ -214,6 +217,24 @@ public class DeskClock extends BaseActivity
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+
+        if (mRecreateActivity) {
+            mRecreateActivity = false;
+
+            // A runnable must be posted here or the new DeskClock activity will be recreated in a
+            // paused state, even though it is the foreground activity.
+            mViewPager.post(new Runnable() {
+                @Override
+                public void run() {
+                    recreate();
+                }
+            });
+        }
+    }
+
+    @Override
     public void onPause() {
         DataModel.getDataModel().setApplicationInForeground(false);
         super.onPause();
@@ -251,7 +272,7 @@ public class DeskClock extends BaseActivity
         // Recreate the activity if any settings have been changed
         if (requestCode == SettingMenuItemController.REQUEST_CHANGE_SETTINGS
                 && resultCode == RESULT_OK) {
-            recreate();
+            mRecreateActivity = true;
         }
     }
 
