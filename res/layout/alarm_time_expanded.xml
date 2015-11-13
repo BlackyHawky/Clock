@@ -87,6 +87,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:includeFontPadding="false"
+                    android:paddingEnd="12dp"
                     android:paddingStart="@dimen/alarm_horizontal_padding"
                     android:text="@string/alarm_vibrate"
                     android:textColor="@color/white"
