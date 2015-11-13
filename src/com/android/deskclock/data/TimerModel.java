@@ -180,13 +180,13 @@ final class TimerModel {
     /**
      * @param length the length of the timer in milliseconds
      * @param label describes the purpose of the timer
-     * @param deleteAfterUser {@code true} indicates the timer should be deleted when it is reset
+     * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    Timer addTimer(long length, String label, boolean deleteAfterUser) {
+    Timer addTimer(long length, String label, boolean deleteAfterUse) {
         // Create the timer instance.
         Timer timer = new Timer(-1, RESET, length, length, Long.MIN_VALUE, length, label,
-                deleteAfterUser);
+                deleteAfterUse);
 
         // Add the timer to permanent storage.
         timer = TimerDAO.addTimer(mContext, timer);
@@ -613,15 +613,13 @@ final class TimerModel {
                 firstActionTitleId = R.string.timer_pause;
                 firstActionIntent = new Intent(mContext, TimerService.class)
                         .setAction(HandleDeskClockApiCalls.ACTION_PAUSE_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
 
                 secondActionIconId = R.drawable.ic_add_24dp;
                 secondActionTitleId = R.string.timer_plus_1_min;
                 secondActionIntent = new Intent(mContext, TimerService.class)
                         .setAction(HandleDeskClockApiCalls.ACTION_ADD_MINUTE_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
             } else {
                 // Single timer is paused.
                 contentTitle = mContext.getString(R.string.timer_paused);
@@ -630,15 +628,13 @@ final class TimerModel {
                 firstActionTitleId = R.string.sw_resume_button;
                 firstActionIntent = new Intent(mContext, TimerService.class)
                         .setAction(HandleDeskClockApiCalls.ACTION_START_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
 
                 secondActionIconId = R.drawable.ic_reset_24dp;
                 secondActionTitleId = R.string.sw_reset_button;
                 secondActionIntent = new Intent(mContext, TimerService.class)
                         .setAction(HandleDeskClockApiCalls.ACTION_RESET_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
             }
         } else {
             if (timer.isRunning()) {
@@ -654,16 +650,15 @@ final class TimerModel {
 
             firstActionIconId = R.drawable.ic_reset_24dp;
             firstActionTitleId = R.string.timer_reset_all;
-            firstActionIntent = TimerService.createResetUnexpiredTimersIntent(mContext)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+            firstActionIntent = TimerService.createResetUnexpiredTimersIntent(mContext);
         }
 
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(mContext, HandleDeskClockApiCalls.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 .setAction(HandleDeskClockApiCalls.ACTION_SHOW_TIMERS)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
+                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
+                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_notification);
 
         final PendingIntent pendingShowApp = PendingIntent.getActivity(mContext, 0, showApp,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
@@ -774,8 +769,7 @@ final class TimerModel {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         // First action intent is either reset single timer or reset all timers.
-        final Intent reset = TimerService.createResetExpiredTimersIntent(mContext)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+        final Intent reset = TimerService.createResetExpiredTimersIntent(mContext);
         final PendingIntent pendingReset = PendingIntent.getService(mContext, 0, reset,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -796,8 +790,7 @@ final class TimerModel {
         // Add a second action if only a single timer is expired.
         if (expired.size() == 1) {
             // Second action intent adds a minute to a single timer.
-            final Intent addMinute = TimerService.createAddMinuteTimerIntent(mContext, timerId)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_NOTIFICATION, true);
+            final Intent addMinute = TimerService.createAddMinuteTimerIntent(mContext, timerId);
             final PendingIntent pendingAddMinute = PendingIntent.getService(mContext, 0, addMinute,
                     PendingIntent.FLAG_UPDATE_CURRENT);
             final String addMinuteTitle = mContext.getString(R.string.timer_plus_1_min);

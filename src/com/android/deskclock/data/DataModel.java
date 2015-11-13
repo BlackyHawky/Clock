@@ -291,12 +291,12 @@ public final class DataModel {
     /**
      * @param length the length of the timer in milliseconds
      * @param label describes the purpose of the timer
-     * @param deleteAfterUser {@code true} indicates the timer should be deleted when it is reset
+     * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
      * @return the newly added timer
      */
-    public Timer addTimer(long length, String label, boolean deleteAfterUser) {
+    public Timer addTimer(long length, String label, boolean deleteAfterUse) {
         enforceMainLooper();
-        return mTimerModel.addTimer(length, label, deleteAfterUser);
+        return mTimerModel.addTimer(length, label, deleteAfterUse);
     }
 
     /**
