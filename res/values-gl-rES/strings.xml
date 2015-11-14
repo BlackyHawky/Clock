@@ -340,6 +340,7 @@
     <item msgid="5176858645450908751">"Iacarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmas"</string>
+    <string name="timer_service_desc" msgid="4041987236573326825">"Servizo do temporizador para executar a notificación."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servizo de cronómetro para executar a notificación."</string>
     <string name="swn_paused" msgid="6364358842808263589">"En pausa"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Pasa o dedo cara a dereita para rexeitar"</string>
@@ -380,9 +381,7 @@
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Non hai ningunha alarma programada"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Non hai etiquetas especificadas"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Ningunha alarma contén a etiqueta"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"Xa se está usando o cronómetro"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Non se está usando o cronómetro"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"O cronómetro non se pode restablecer porque está en funcionamento"</string>
     <string name="stopwatch_paused" msgid="2187615623275408601">"Pausouse o cronómetro"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Restableceuse o cronómetro"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Rexistrouse unha volta no cronómetro"</string>
@@ -390,16 +389,14 @@
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Non hai ningunha alarma programada para esta hora"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Ignorouse a alarma das <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"A alarma está definida para as <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"Non hai ningún temporizador definido"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"Eliminouse o temporizador"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"Xa se está usando o temporizador"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"Non se puido completar a solicitude porque hai varios temporizadores dispoñibles"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Iniciouse o temporizador"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"Non hai temporizadores"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"Hai máis dun temporizador"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"Eliminouse o temporizador."</string>
     <string name="timer_created" msgid="4381027137335885547">"Creouse o temporizador"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"Duración de temporizador non válida"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"Restableceuse o temporizador"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"O temporizador non se pode restablecer porque aínda se está usando. Detén o temporizador para restablecelo."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"Xa se detivo o temporizador"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Eliminouse o temporizador"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Iniciouse o temporizador"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Duración de temporizador non válida"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"Non hai ningunha cidade seleccionada"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"A cidade que especificaches non está dispoñible"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"Xa se engadiu esa cidade"</string>

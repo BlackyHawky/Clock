@@ -340,6 +340,7 @@
     <item msgid="5176858645450908751">"Cakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Siqnallar"</string>
+    <string name="timer_service_desc" msgid="4041987236573326825">"Bildirişi çalışdırmaq üçün taymer xidməti."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Bildirişi çalışdırmaq üçün saniyəölçən xidməti."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Durduruldu"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Kənarlaşdırmaq üçün sağa sürüşdürün"</string>
@@ -380,9 +381,7 @@
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Planlaşdırılmış siqnal yoxdur"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Heç bir etiket təyin edilməyib."</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Etiketə aid heç bir alarm yoxdur"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"Saniyəölçən artıq işə salınıb"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Saniyəölçən işə salınmayıb"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Saniyəölçən sıfırlana bilməz çünki, hazırda çalışır."</string>
     <string name="stopwatch_paused" msgid="2187615623275408601">"Saniyəölçən durduruldu"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Saniyəölçən sıfırlandı"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Saniyəölçən hissələrə ayrıldı"</string>
@@ -390,16 +389,14 @@
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Bu vaxt üçün heç bir siqnal təyin olunmayıb"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> siqnal deaktiv edildi"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm <xliff:g id="ALARM_TIME">%s</xliff:g> üçün qurulub"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"Heç bir vaxtölçən ayarlanmayıb"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"Vaxtölçən silindi"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"Vaxtölçən artıq işə salınıb"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"Sorğunuzu tamamlamaq olmur, bir neçə vaxtölçən aktivdir"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Vaxtölçən başladı"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"Heç bir taymer mövcud deyil"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"Birdən çox taymer mövcuddur"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"Taymer silindi."</string>
     <string name="timer_created" msgid="4381027137335885547">"Vaxtölçən yaradıldı"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"Yanlış vaxtölçən müddəti"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"Vaxtölçən sıfırlandı"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Vaxtölçən sıfırlana bilməz cünki, hələ də çalışmaqdadır. Sıfırlamak üçün vaxtölçəni dayandırın."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"Vaxtölçən artıq dayandırılıb"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Vaxtölçən silindi"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Vaxtölçən başladı"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Yanlış vaxtölçən müddəti"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"Heç bir şəhər seçilməyib"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Təyin etdiyiniz şəhər əlçatan deyil"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"Bu şəhər artıq əlavə edilib"</string>

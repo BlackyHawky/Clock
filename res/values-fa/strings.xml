@@ -339,6 +339,7 @@
     <item msgid="5176858645450908751">"جاکارتا"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"هشدارها"</string>
+    <string name="timer_service_desc" msgid="4041987236573326825">"سرویس تایمر برای اجرای اعلان."</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"سرویس کرنومتر برای اجرای اعلان."</string>
     <string name="swn_paused" msgid="6364358842808263589">"متوقف شد"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"برای ردکردن، انگشتتان را روی صفحه تند به راست بکشید"</string>
@@ -379,9 +380,7 @@
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"هیچ زنگ هشدار زمان‌بندی‌شده‌ای وجود ندارد"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"هیچ برچسبی مشخص نشده است"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"هیچ زنگ هشداری دارای این برچسب نیست"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"کرونومتر در حال حاضر فعال است"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"کرونومتر فعال نیست"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"نمی‌توان کرنومتر را بازنشانی کرد، چون در حال استفاده است"</string>
     <string name="stopwatch_paused" msgid="2187615623275408601">"کرونومتر متوقف شد"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"کرنومتر بازنشانی شد"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"صفحه کرنومتر برای خوانش زمان ثابت شد"</string>
@@ -389,16 +388,14 @@
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"هیچ زنگ هشداری برای این زمان برنامه‌ریزی نشده است"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"زنگ هشدار <xliff:g id="ALARM_TIME">%s</xliff:g> خاموش شد"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"هشدار برای <xliff:g id="ALARM_TIME">%s</xliff:g> تنظیم می‌شود"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"هیچ تایمری تنظیم نشده است"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"تایمر حذف شد"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"تایمر در حال حاضر فعال است"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"تکمیل درخواست شما ممکن نیست، چندین تایمر وجود دارد"</string>
-    <string name="timer_started" msgid="6715582052946641641">"تایمر شروع شد"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"تایمری وجود ندارد"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"بیش از یک تایمر وجود دارد"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"تایمر حذف شد."</string>
     <string name="timer_created" msgid="4381027137335885547">"تایمر ایجاد شد"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"مدت زمان  تایمر نامعتبر است"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"بازنشانی تایمر"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"تایمر بازنشانی نمی‌شود، چون هنوز فعال است. تایمر را برای بازنشانی متوقف کنید."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"تایمر در حال حاضر متوقف است"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"تایمر حذف شد"</string>
+    <string name="timer_started" msgid="6715582052946641641">"تایمر شروع شد"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"مدت زمان  تایمر نامعتبر است"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"هیچ شهری انتخاب نشده است"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"شهری که مشخص کردید در دسترس نیست"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"این شهر قبلاً اضافه شده است"</string>

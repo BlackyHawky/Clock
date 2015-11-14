@@ -340,6 +340,7 @@
     <item msgid="5176858645450908751">"Ջակարտա"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Զարթուցիչներ"</string>
+    <string name="timer_service_desc" msgid="4041987236573326825">"Ժամաչափի ծառայություն՝ ծանուցումը գործարկելու համար:"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Վայկյանաչափի ծառայությունը կգործարկի ծանուցումներ:"</string>
     <string name="swn_paused" msgid="6364358842808263589">"Կանգնեցված է"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Անջատելու համար սահեցրեք աջ"</string>
@@ -380,9 +381,7 @@
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Հերթագրված զարթուցիչներ չկան"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Նշված պիտակ չկա"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Ոչ մի զարթուցիչ պիտակ չունի"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"Վայրկյանաչափը արդեն աշխատում է"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Վայրկյանաչափը չի աշխատում"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Հնարավոր չէ վերակայել վայրկյանաչափը: Այն այս պահին աշխատում է"</string>
     <string name="stopwatch_paused" msgid="2187615623275408601">"Վայրկենաչափը կանգնեցվել է"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Վայրկյանաչափը վերակայվեց"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Վայրկյանաչափը միացված է"</string>
@@ -390,16 +389,14 @@
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Այս ժամանակի համար նշանակված զարթուցիչ չկա"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Ժ. <xliff:g id="ALARM_TIME">%s</xliff:g>-ի զարթուցիչը անտեսված է"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Զարթուցիչը դրված է <xliff:g id="ALARM_TIME">%s</xliff:g>-ին"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"Տեղակայված ժամաչափ չկա"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"Ժամաչափը ջնջված է"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"Ժամաչափն արդեն աշխատում է"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"Հնարավոր չէ կատարել ձեր հարցումը, քանի որ մի քանի ժամաչափեր կան"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Ժամաչափը սկսված է"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"Ժամաչափեր չկան"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"Առկա է մեկից ավելի ժամաչափ"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"Ժամաչափը հեռացվել է:"</string>
     <string name="timer_created" msgid="4381027137335885547">"Ժամաչափը ստեղծված է"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"Ժամաչափի տևողությունը սխալ է"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"Ժամաչափը վերակայված է"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Հնարավոր չէ վերակայել ժամաչափը, քանի որ այն դեռ աշխատում է: Վերակայելու համար նախ դադարեցրեք այն::"</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"Ժամաչափն արդեն դադարեցված է"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Ժամաչափը ջնջված է"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Ժամաչափը սկսված է"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Ժամաչափի տևողությունը սխալ է"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"Ընտրված քաղաք չկա"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Նշված քաղաքը հասանելի չէ"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"Այդ քաղաքն արդեն ավելացվել է"</string>
