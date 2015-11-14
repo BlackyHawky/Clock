@@ -18,8 +18,6 @@ package com.android.deskclock.settings;
 
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
@@ -27,11 +25,11 @@ import android.content.res.Resources;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
-import android.preference.SwitchPreference;
 import android.provider.Settings;
+import android.support.v14.preference.PreferenceFragment;
+import android.support.v14.preference.SwitchPreference;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -77,6 +75,9 @@ public final class SettingsActivity extends BaseActivity
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
 
+    public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
+    public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
+
     private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
 
     @Override
@@ -87,6 +88,14 @@ public final class SettingsActivity extends BaseActivity
         mActionBarMenuManager.addMenuItemController(new NavUpMenuItemController(this))
             .addMenuItemController(MenuItemControllerFactory.getInstance()
                     .buildMenuItemControllers(this));
+
+        // Create the prefs fragment in code to ensure it's created before PreferenceDialogFragment
+        if (savedInstanceState == null) {
+            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+            ft.replace(R.id.main, new PrefsFragment(), PREFS_FRAGMENT_TAG);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
     }
 
     @Override
@@ -128,8 +137,7 @@ public final class SettingsActivity extends BaseActivity
         private long mTime;
 
         @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
+        public void onCreatePreferences(Bundle bundle, String s) {
             addPreferencesFromResource(R.xml.settings);
         }
 
@@ -140,6 +148,22 @@ public final class SettingsActivity extends BaseActivity
             // By default, do not recreate the DeskClock activity
             getActivity().setResult(RESULT_CANCELED);
             refresh();
+        }
+
+        @Override
+        public void onDisplayPreferenceDialog(Preference preference) {
+            final String key = preference.getKey();
+            switch (key) {
+                case KEY_ALARM_SNOOZE:
+                    showDialog(SnoozeLengthDialogFragment.newInstance(preference));
+                    break;
+                case KEY_ALARM_CRESCENDO:
+                case KEY_TIMER_CRESCENDO:
+                    showDialog(CrescendoLengthDialogFragment.newInstance(preference));
+                    break;
+                default:
+                    super.onDisplayPreferenceDialog(preference);
+            }
         }
 
         @Override
@@ -203,22 +227,13 @@ public final class SettingsActivity extends BaseActivity
                             AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
                     return true;
                 case KEY_TIMER_RINGTONE:
-                    final FragmentManager fragmentManager = getFragmentManager();
-                    final FragmentTransaction ft = fragmentManager.beginTransaction();
-                    final Fragment prev = fragmentManager.findFragmentByTag("timer_picker_dialog");
-                    if (prev != null) {
-                        ft.remove(prev);
-                    }
-                    ft.addToBackStack(null);
-
                     final String dialogTitle = getString(R.string.timer_ringtone_title);
                     final String defaultTitle = getString(R.string.default_timer_ringtone_title);
                     final Uri currentUri = DataModel.getDataModel().getTimerRingtoneUri();
                     final Uri defaultUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
                     final DialogFragment newFragment = RingtonePickerDialogFragment
                             .newInstance(dialogTitle, defaultTitle, defaultUri, currentUri, null);
-
-                    newFragment.show(ft, "timer_picker_dialog");
+                    showDialog(newFragment);
                 default:
                     return false;
             }
@@ -303,17 +318,9 @@ public final class SettingsActivity extends BaseActivity
             final Preference volumePref = findPreference(KEY_ALARM_VOLUME);
             volumePref.setOnPreferenceClickListener(this);
 
-            final SnoozeLengthDialog snoozePref =
-                    (SnoozeLengthDialog) findPreference(KEY_ALARM_SNOOZE);
-            snoozePref.setSummary();
-
-            final CrescendoLengthDialog alarmCrescendoPref =
-                    (CrescendoLengthDialog) findPreference(KEY_ALARM_CRESCENDO);
-            alarmCrescendoPref.setSummary();
-
-            final CrescendoLengthDialog timerCrescendoPref =
-                    (CrescendoLengthDialog) findPreference(KEY_TIMER_CRESCENDO);
-            timerCrescendoPref.setSummary();
+            ((SnoozeLengthDialogPreference) findPreference(KEY_ALARM_SNOOZE)).updateSummary();
+            ((CrescendoLengthDialogPreference) findPreference(KEY_ALARM_CRESCENDO)).updateSummary();
+            ((CrescendoLengthDialogPreference) findPreference(KEY_TIMER_CRESCENDO)).updateSummary();
 
             final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
             dateAndTimeSetting.setOnPreferenceClickListener(this);
@@ -340,6 +347,11 @@ public final class SettingsActivity extends BaseActivity
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(getActivity(),
                         R.plurals.auto_silence_summary, i));
             }
+        }
+
+        private void showDialog(DialogFragment fragment) {
+            fragment.setTargetFragment(this, 0);
+            fragment.show(getFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
         }
 
         private class TimeZoneRow implements Comparable<TimeZoneRow> {
