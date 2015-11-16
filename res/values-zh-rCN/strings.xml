@@ -338,8 +338,7 @@
     <item msgid="5176858645450908751">"雅加达"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"闹钟"</string>
-    <!-- no translation found for timer_service_desc (4041987236573326825) -->
-    <skip />
+    <string name="timer_service_desc" msgid="4041987236573326825">"使用计时器服务执行通知功能。"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"使用秒表服务执行通知功能。"</string>
     <string name="swn_paused" msgid="6364358842808263589">"已暂停"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"向右滑动可关闭闹钟"</string>
@@ -388,12 +387,9 @@
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"未设置这个时间的闹钟"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"已关闭 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"已设置 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
-    <!-- no translation found for no_timers_exist (7062019300048831373) -->
-    <skip />
-    <!-- no translation found for too_many_timers_exist (6339194231767431627) -->
-    <skip />
-    <!-- no translation found for timer_does_not_exist (4457482976523984231) -->
-    <skip />
+    <string name="no_timers_exist" msgid="7062019300048831373">"没有任何计时器"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"有多个计时器存在"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"已移除计时器。"</string>
     <string name="timer_created" msgid="4381027137335885547">"已创建计时器"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"已重置计时器"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"已删除计时器"</string>

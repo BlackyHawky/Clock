@@ -389,7 +389,7 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म खारेज गरियो"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>का लागि अलार्म सेट गरियो"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"कुनै टाइमरहरू अवस्थित छैनन्"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"एक भन्दा बढि टाइमर अवस्थित छन्"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"एक भन्दा बढी टाइमर अवस्थित छन्"</string>
     <string name="timer_does_not_exist" msgid="4457482976523984231">"टाइमर हटाइएको छ।"</string>
     <string name="timer_created" msgid="4381027137335885547">"टाइमर सिर्जना गरियो"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"घडी रिसेट गरियो"</string>
