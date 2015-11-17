@@ -134,6 +134,12 @@ public class NumberPickerCompat extends NumberPicker implements NumberPicker.OnV
         postDelayed(mAnnounceValueRunnable, 200L);
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        removeCallbacks(mAnnounceValueRunnable);
+    }
+
     /**
      * Register a callback to be invoked whenever a value change should be announced.
      */
