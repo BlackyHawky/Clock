@@ -24,18 +24,18 @@ import com.android.deskclock.R;
 
 public class CrescendoLengthDialogPreference extends DialogPreference {
 
-    private static final int DEFAULT_CRESCENDO_TIME = 0;
+    private static final String DEFAULT_CRESCENDO_TIME = "0";
 
     public CrescendoLengthDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     public int getPersistedCrescendoLength() {
-        return getPersistedInt(DEFAULT_CRESCENDO_TIME);
+        return Integer.parseInt(getPersistedString(DEFAULT_CRESCENDO_TIME));
     }
 
     public void persistCrescendoLength(int crescendoSeconds) {
-        persistInt(crescendoSeconds);
+        persistString(Integer.toString(crescendoSeconds));
     }
 
     public void updateSummary() {

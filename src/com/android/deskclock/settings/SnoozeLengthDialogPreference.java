@@ -25,18 +25,18 @@ import com.android.deskclock.Utils;
 
 public class SnoozeLengthDialogPreference extends DialogPreference {
 
-    private static final int DEFAULT_SNOOZE_TIME = 10;
+    private static final String DEFAULT_SNOOZE_TIME = "10";
 
     public SnoozeLengthDialogPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
     public int getPersistedSnoozeLength() {
-        return getPersistedInt(DEFAULT_SNOOZE_TIME);
+        return Integer.parseInt(getPersistedString(DEFAULT_SNOOZE_TIME));
     }
 
     public void persistSnoozeLength(int snoozeMinutes) {
-        persistInt(snoozeMinutes);
+        persistString(Integer.toString(snoozeMinutes));
     }
 
     public void updateSummary() {
