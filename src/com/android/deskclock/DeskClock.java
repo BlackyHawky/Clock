@@ -98,7 +98,7 @@ public class DeskClock extends BaseActivity
         // not the most recent launch was via a dock event
         setIntent(newIntent);
 
-        // Timer receiver may ask to go to the timers fragment if a timer expired.
+        // Honor the tab requested by the intent, if any.
         int tab = newIntent.getIntExtra(SELECT_TAB_INTENT_EXTRA, -1);
         if (tab != -1 && mTabLayout != null) {
             mTabLayout.getTabAt(tab).select();
@@ -106,9 +106,62 @@ public class DeskClock extends BaseActivity
         }
     }
 
-    private void initViews() {
+    @VisibleForTesting
+    DeskClockFragment getSelectedFragment() {
+        return (DeskClockFragment) mTabsAdapter.getItem(mSelectedTab);
+    }
+
+    private void createTabs() {
+        final TabLayout.Tab alarmTab = mTabLayout.newTab();
+        alarmTab.setIcon(R.drawable.ic_tab_alarm).setContentDescription(R.string.menu_alarm);
+        mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
+
+        final Tab clockTab = mTabLayout.newTab();
+        clockTab.setIcon(R.drawable.ic_tab_clock).setContentDescription(R.string.menu_clock);
+        mTabsAdapter.addTab(clockTab, ClockFragment.class, CLOCK_TAB_INDEX);
+
+        final Tab timerTab = mTabLayout.newTab();
+        timerTab.setIcon(R.drawable.ic_tab_timer).setContentDescription(R.string.menu_timer);
+        mTabsAdapter.addTab(timerTab, TimerFragment.class, TIMER_TAB_INDEX);
+
+        final Tab stopwatchTab = mTabLayout.newTab();
+        stopwatchTab.setIcon(R.drawable.ic_tab_stopwatch)
+                .setContentDescription(R.string.menu_stopwatch);
+        mTabsAdapter.addTab(stopwatchTab, StopwatchFragment.class, STOPWATCH_TAB_INDEX);
+
+        mTabLayout.getTabAt(mSelectedTab).select();
+        mViewPager.setCurrentItem(mSelectedTab);
+        mTabsAdapter.notifySelectedPage(mSelectedTab);
+    }
+
+    @Override
+    protected void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        setVolumeControlStream(AudioManager.STREAM_ALARM);
+
+        if (icicle != null) {
+            mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
+        } else {
+            mSelectedTab = CLOCK_TAB_INDEX;
+
+            // Set the background color to initially match the theme value so that we can
+            // smoothly transition to the dynamic color.
+            setBackgroundColor(getResources().getColor(R.color.default_background),
+                    false /* animate */);
+        }
+
+        // Honor the tab requested by the intent, if any.
+        final Intent intent = getIntent();
+        if (intent != null) {
+            int tab = intent.getIntExtra(SELECT_TAB_INTENT_EXTRA, -1);
+            if (tab != -1) {
+                mSelectedTab = tab;
+            }
+        }
+
         setContentView(R.layout.desk_clock);
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         mFab = (ImageView) findViewById(R.id.fab);
         mLeftButton = (ImageButton) findViewById(R.id.left_button);
@@ -143,65 +196,16 @@ public class DeskClock extends BaseActivity
                 getSelectedFragment().onRightButtonClick(view);
             }
         });
-    }
 
-    @VisibleForTesting
-    DeskClockFragment getSelectedFragment() {
-        return (DeskClockFragment) mTabsAdapter.getItem(mSelectedTab);
-    }
-
-    private void createTabs() {
-        final TabLayout.Tab alarmTab = mTabLayout.newTab();
-        alarmTab.setIcon(R.drawable.ic_tab_alarm).setContentDescription(R.string.menu_alarm);
-        mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
-
-        final Tab clockTab = mTabLayout.newTab();
-        clockTab.setIcon(R.drawable.ic_tab_clock).setContentDescription(R.string.menu_clock);
-        mTabsAdapter.addTab(clockTab, ClockFragment.class, CLOCK_TAB_INDEX);
-
-        final Tab timerTab = mTabLayout.newTab();
-        timerTab.setIcon(R.drawable.ic_tab_timer).setContentDescription(R.string.menu_timer);
-        mTabsAdapter.addTab(timerTab, TimerFragment.class, TIMER_TAB_INDEX);
-
-        final Tab stopwatchTab = mTabLayout.newTab();
-        stopwatchTab.setIcon(R.drawable.ic_tab_stopwatch)
-                .setContentDescription(R.string.menu_stopwatch);
-        mTabsAdapter.addTab(stopwatchTab, StopwatchFragment.class, STOPWATCH_TAB_INDEX);
-
-        mTabLayout.getTabAt(mSelectedTab).select();
-        mViewPager.setCurrentItem(mSelectedTab);
-        mTabsAdapter.notifySelectedPage(mSelectedTab);
-    }
-
-    @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+        // Configure the menu item controllers.
         mActionBarMenuManager.addMenuItemController(new SettingMenuItemController(this))
                 .addMenuItemController(MenuItemControllerFactory.getInstance()
                         .buildMenuItemControllers(this))
                 .addMenuItemController(nightModeMenuItemController);
-        setVolumeControlStream(AudioManager.STREAM_ALARM);
 
-        if (icicle != null) {
-            mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
-        } else {
-            mSelectedTab = CLOCK_TAB_INDEX;
-
-            // Set the background color to initially match the theme value so that we can
-            // smoothly transition to the dynamic color.
-            setBackgroundColor(getResources().getColor(R.color.default_background),
-                    false /* animate */);
-        }
-
-        // Timer receiver may ask the app to go to the timer fragment if a timer expired
-        Intent i = getIntent();
-        if (i != null) {
-            int tab = i.getIntExtra(SELECT_TAB_INTENT_EXTRA, -1);
-            if (tab != -1) {
-                mSelectedTab = tab;
-            }
-        }
-        initViews();
+        // Inflate the menu during creation to avoid a double layout pass. Otherwise, the menu
+        // inflation occurs *after* the initial draw and a second layout pass adds in the menu.
+        onCreateOptionsMenu(toolbar.getMenu());
 
         // We need to update the system next alarm time on app startup because the
         // user might have clear our data.
