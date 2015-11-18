@@ -23,6 +23,4 @@
     android:previewImage="@drawable/appwidget_digital_clock_preview"
     android:initialLayout="@layout/digital_appwidget"
     android:resizeMode="vertical|horizontal"
-    android:widgetCategory="keyguard|home_screen"
-    >
-</appwidget-provider>
+    android:widgetCategory="keyguard|home_screen" />
