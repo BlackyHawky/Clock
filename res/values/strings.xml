@@ -801,14 +801,14 @@
         <item>"Asia/Jakarta"</item>
     </string-array>
 
-     <!-- Header in the preferences settings for the section pertaining to alarms -->
-     <string name="alarm_settings">Alarms</string>
-     <!-- Describes the running service for the timers -->
-     <string name="timer_service_desc">Timer service to run the notification.</string>
-     <!-- Describes the running service for the stopwatch -->
-     <string name="stopwatch_service_desc">Stopwatch service to run the notification.</string>
-     <!-- Description for the paused stop watch -->
-     <string name="swn_paused">Paused</string>
+    <!-- Header in the preferences settings for the section pertaining to alarms -->
+    <string name="alarm_settings">Alarms</string>
+    <!-- Describes the service that processes actions originating from timer notifications. -->
+    <string name="timer_service_desc">Processes actions from timer notifications.</string>
+    <!-- Describes the service that processes actions originating from stopwatch notifications. -->
+    <string name="stopwatch_service_desc">Processes actions from stopwatch notifications.</string>
+    <!-- Description for the paused stop watch -->
+    <string name="swn_paused">Paused</string>
 
     <!-- Text instruction for dismiss alarm on alarm lock screen. The dismiss button will still
          be on the right even on RTL languages so please do not reverse this during
@@ -1006,8 +1006,8 @@
     -->
     <string name="too_many_timers_exist">More than one timer exists</string>
 
-    <!-- String that represents that the user attempted to control a timer with a voice action when
-    more than one timer is defined.
+    <!-- String that represents that the user attempted to control a timer with a voice action but
+    the timer could not be located.
     [CHAR LIMIT=NONE]
     -->
     <string name="timer_does_not_exist">The timer has been removed.</string>
