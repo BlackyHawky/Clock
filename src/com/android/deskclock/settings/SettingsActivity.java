@@ -57,7 +57,6 @@ public final class SettingsActivity extends BaseActivity
         implements RingtonePickerDialogFragment.RingtoneSelectionListener {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
-    public static final String KEY_ALARM_VOLUME = "volume_setting";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
     public static final String KEY_TIMER_RINGTONE = "timer_ringtone";
@@ -220,12 +219,6 @@ public final class SettingsActivity extends BaseActivity
                     dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(dialogIntent);
                     return true;
-                case KEY_ALARM_VOLUME:
-                    final AudioManager audioManager =
-                            (AudioManager) activity.getSystemService(Context.AUDIO_SERVICE);
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM,
-                            AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
-                    return true;
                 case KEY_TIMER_RINGTONE:
                     final String dialogTitle = getString(R.string.timer_ringtone_title);
                     final String defaultTitle = getString(R.string.default_timer_ringtone_title);
@@ -314,9 +307,6 @@ public final class SettingsActivity extends BaseActivity
                     (ListPreference) findPreference(KEY_VOLUME_BUTTONS);
             volumeButtonsPref.setSummary(volumeButtonsPref.getEntry());
             volumeButtonsPref.setOnPreferenceChangeListener(this);
-
-            final Preference volumePref = findPreference(KEY_ALARM_VOLUME);
-            volumePref.setOnPreferenceClickListener(this);
 
             ((SnoozeLengthDialogPreference) findPreference(KEY_ALARM_SNOOZE)).updateSummary();
             ((CrescendoLengthDialogPreference) findPreference(KEY_ALARM_CRESCENDO)).updateSummary();
