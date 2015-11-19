@@ -57,6 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_behavior="com.android.deskclock.widget.toast.LinearLayoutWithSnackbarBehavior">
 
@@ -68,9 +69,9 @@
 
             <ImageButton
                 android:id="@+id/left_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
+                android:layout_width="@dimen/design_fab_size_normal"
+                android:layout_height="@dimen/design_fab_size_normal"
+                android:layout_gravity="center"
                 android:contentDescription="@null"
                 android:scaleType="center" />
 
@@ -100,14 +101,12 @@
 
             <ImageButton
                 android:id="@+id/right_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
+                android:layout_width="@dimen/design_fab_size_normal"
+                android:layout_height="@dimen/design_fab_size_normal"
+                android:layout_gravity="center"
                 android:contentDescription="@null"
                 android:scaleType="center" />
 
         </FrameLayout>
-
     </LinearLayout>
-
 </android.support.design.widget.CoordinatorLayout>

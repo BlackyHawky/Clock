@@ -119,6 +119,8 @@ public class TimerFragment extends DeskClockFragment {
         mCancelCreateButton = (ImageButton) view.findViewById(R.id.timer_cancel);
         mCancelCreateButton.setOnClickListener(new CancelCreateListener());
 
+        view.findViewById(R.id.timer_create).setOnClickListener(new CreateListener());
+
         final Resources resources = getResources();
         mShortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime);
         mMediumAnimationDuration = resources.getInteger(android.R.integer.config_mediumAnimTime);
@@ -217,7 +219,8 @@ public class TimerFragment extends DeskClockFragment {
 
         // If the timer creation view is visible, store the input for later restoration.
         if (mCurrentView == mCreateTimerView) {
-            outState.putSerializable(KEY_TIMER_SETUP_STATE, mCreateTimerView.getState());
+            mTimerSetupState = mCreateTimerView.getState();
+            outState.putSerializable(KEY_TIMER_SETUP_STATE, mTimerSetupState);
         }
     }
 
@@ -252,51 +255,32 @@ public class TimerFragment extends DeskClockFragment {
             }
 
         } else if (mCurrentView == mCreateTimerView) {
-            mFab.setVisibility(VISIBLE);
-            mCreateTimerView.registerStartButton(mFab);
-            mCreateTimerView.initializeStartButtonVisibility();
-            mFab.setImageResource(R.drawable.ic_start_white_24dp);
-            mFab.setContentDescription(getString(R.string.timer_start));
+            mFab.setVisibility(INVISIBLE);
         }
     }
 
     @Override
     public void onFabClick(View view) {
-        if (mCurrentView == mCreateTimerView) {
-            // Create the new timer.
-            final long length = mCreateTimerView.getTimeInMillis();
-            final Timer timer = DataModel.getDataModel().addTimer(length, "", false);
-            Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
+        final Timer timer = getTimer();
 
-            // Start the new timer.
-            DataModel.getDataModel().startTimer(timer);
-            Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
+        // If no timer is currently showing a fab action is meaningless.
+        if (timer == null) {
+            return;
+        }
 
-            // Display the freshly created timer view.
-            mViewPager.setCurrentItem(0);
-
-            // Return to the list of timers.
-            animateToView(mTimersView, null);
-        } else {
-            final Timer timer = getTimer();
-            if (timer == null) {
-                return;
-            }
-
-            switch (timer.getState()) {
-                case RUNNING:
-                    DataModel.getDataModel().pauseTimer(timer);
-                    Events.sendTimerEvent(R.string.action_stop, R.string.label_deskclock);
-                    break;
-                case PAUSED:
-                case RESET:
-                    DataModel.getDataModel().startTimer(timer);
-                    Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
-                    break;
-                case EXPIRED:
-                    DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_deskclock);
-                    break;
-            }
+        switch (timer.getState()) {
+            case RUNNING:
+                DataModel.getDataModel().pauseTimer(timer);
+                Events.sendTimerEvent(R.string.action_stop, R.string.label_deskclock);
+                break;
+            case PAUSED:
+            case RESET:
+                DataModel.getDataModel().startTimer(timer);
+                Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
+                break;
+            case EXPIRED:
+                DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_deskclock);
+                break;
         }
     }
 
@@ -431,14 +415,6 @@ public class TimerFragment extends DeskClockFragment {
         // Show the creation view; hide the timer view.
         mTimersView.setVisibility(GONE);
         mCreateTimerView.setVisibility(VISIBLE);
-
-        // Prepare the state of the create view.
-        mCreateTimerView.reset();
-        mCreateTimerView.updateDeleteButtonAndDivider();
-        mCreateTimerView.registerStartButton(mFab);
-        if (getSelectedTab() == DeskClock.TIMER_TAB_INDEX) {
-            mCreateTimerView.initializeStartButtonVisibility();
-        }
 
         // Record the fact that the create view is visible.
         mCurrentView = mCreateTimerView;
@@ -679,11 +655,41 @@ public class TimerFragment extends DeskClockFragment {
     }
 
     /**
+     * Clicking the play icon on the timer creation page creates a new timer and returns to the
+     * timers list.
+     */
+    private class CreateListener implements OnClickListener {
+        @Override
+        public void onClick(View v) {
+            // Create the new timer.
+            final long length = mCreateTimerView.getTimeInMillis();
+            final Timer timer = DataModel.getDataModel().addTimer(length, "", false);
+            Events.sendTimerEvent(R.string.action_create, R.string.label_deskclock);
+
+            // Start the new timer.
+            DataModel.getDataModel().startTimer(timer);
+            Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
+
+            // Reset the state of the create view.
+            mCreateTimerView.reset();
+
+            // Display the freshly created timer view.
+            mViewPager.setCurrentItem(0);
+
+            // Return to the list of timers.
+            animateToView(mTimersView, null);
+        }
+    }
+
+    /**
      * Clicking the X icon on the timer creation page returns to the timers list.
      */
     private class CancelCreateListener implements OnClickListener {
         @Override
         public void onClick(View view) {
+            // Reset the state of the create view.
+            mCreateTimerView.reset();
+
             if (hasTimers()) {
                 animateToView(mTimersView, null);
             }
