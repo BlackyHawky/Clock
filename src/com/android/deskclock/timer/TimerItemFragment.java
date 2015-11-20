@@ -56,14 +56,10 @@ public class TimerItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         final TimerItem view = (TimerItem) inflater.inflate(R.layout.timer_item, container, false);
-
-        final View resetAddButton = view.findViewById(R.id.reset_add);
-        resetAddButton.setOnClickListener(new ResetAddListener());
-
-        final View labelView = view.findViewById(R.id.timer_label);
-        labelView.setOnClickListener(new EditLabelListener());
-
+        view.findViewById(R.id.reset_add).setOnClickListener(new ResetAddListener());
+        view.findViewById(R.id.timer_label).setOnClickListener(new EditLabelListener());
         view.update(getTimer());
+
         return view;
     }
 
