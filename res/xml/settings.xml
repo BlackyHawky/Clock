@@ -57,9 +57,10 @@
             android:key="snooze_duration"
             android:title="@string/snooze_duration_title" />
 
-        <Preference
+        <com.android.deskclock.settings.AlarmVolumePreference
             android:key="volume_setting"
-            android:title="@string/alarm_volume_title" />
+            android:title="@string/alarm_volume_title"
+            android:layout="@layout/alarm_volume_preference"/>
 
         <com.android.deskclock.settings.CrescendoLengthDialogPreference
             android:key="alarm_crescendo_duration"
