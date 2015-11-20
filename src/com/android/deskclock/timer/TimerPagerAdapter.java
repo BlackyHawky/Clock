@@ -78,10 +78,25 @@ class TimerPagerAdapter extends PagerAdapter implements TimerListener {
         }
 
         final Timer timer = getTimers().get(position);
-        final TimerItemFragment fragment = TimerItemFragment.newInstance(timer);
+
+        // Search for the existing fragment by tag.
+        final String tag = getClass().getSimpleName() + timer.getId();
+        TimerItemFragment fragment = (TimerItemFragment) mFragmentManager.findFragmentByTag(tag);
+
+        if (fragment != null) {
+            // Reattach the existing fragment.
+            mCurrentTransaction.attach(fragment);
+        } else {
+            // Create and add a new fragment.
+            fragment = TimerItemFragment.newInstance(timer);
+            mCurrentTransaction.add(container.getId(), fragment, tag);
+        }
+
+        if (fragment != mCurrentPrimaryItem) {
+            setItemVisible(fragment, false);
+        }
 
         mFragments.put(timer.getId(), fragment);
-        mCurrentTransaction.add(container.getId(), fragment);
 
         return fragment;
     }
@@ -129,17 +144,16 @@ class TimerPagerAdapter extends PagerAdapter implements TimerListener {
     }
 
     @Override
+    public void timerRemoved(Timer timer) {
+        notifyDataSetChanged();
+    }
+
+    @Override
     public void timerUpdated(Timer before, Timer after) {
         final TimerItemFragment timerItemFragment = mFragments.get(after.getId());
         if (timerItemFragment != null) {
             timerItemFragment.updateTime();
         }
-    }
-
-    @Override
-    public void timerRemoved(Timer timer) {
-        mFragments.remove(timer.getId());
-        notifyDataSetChanged();
     }
 
     /**
