@@ -201,7 +201,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     }
 
     /**
-     * @return an opaque representation of the state of timer setup.
+     * @return an opaque representation of the state of timer setup
      */
     public Serializable getState() {
         return Arrays.copyOf(mInput, mInput.length);
