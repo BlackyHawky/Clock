@@ -338,8 +338,8 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Penggera"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Perkhidmatan pemasa untuk menjalankan pemberitahuan."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Perkhidmatan jam randik untuk menjalankan pemberitahuan."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Memproses tindakan daripada pemberitahuan pemasa."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Memproses tindakan daripada pemberitahuan jam randik."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Dijeda"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Leret ke kanan untuk mengenepikan"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Leret ke kiri untuk menunda"</string>

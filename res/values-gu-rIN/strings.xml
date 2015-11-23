@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"જાકાર્તા"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"એલાર્મ્સ"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"સૂચના ચલાવવા માટે ટાઇમર સેવા."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"સૂચના ચલાવવા માટે સ્ટોપવૉચ સેવા."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"ટાઇમર સૂચનાઓમાંથી ક્રિયાઓ પર પ્રક્રિયા કરે છે."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"સ્ટોપવોચ સૂચનાઓમાંથી ક્રિયાઓ પર પ્રક્રિયા કરે છે."</string>
     <string name="swn_paused" msgid="6364358842808263589">"થોભાવી"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"કાઢી નાખવા માટે જમણે સવાઇપ કરો"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"સ્નૂઝ કરવા માટે ડાબે સ્વાઇપ કરો"</string>

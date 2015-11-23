@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"ဂျာကာတာ"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"နှိုးစက်များ"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"သတိပေးချက်ကို ပို့ရန် တိုင်မား ဝန်ဆောင်မှု။"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"အချိန်ဖမ်းနာရီ အတွက် အကြောင်းကြားချက်များ ပြသည့် ဝန်ဆောင်မှု။"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"အချိန်ကိုက်နာရီ အသိပေးချက်မှ လုပ်ဆောင်ချက်များကို လုပ်ဆောင်ပါ"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"အချိန်ရပ်နာရီ အသိပေးချက်များမှ လုပ်ဆောင်ချက်များကို လုပ်ဆောင်ပါ"</string>
     <string name="swn_paused" msgid="6364358842808263589">"ဆိုင်းငံ့ထား"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"ပယ်ချရန် ညာဘက်သို့ ပွတ်ဆွဲပါ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"တစ်မှေးအိပ်ရန် ဘယ်ဘက်သို့ ပွတ်ဆွဲပါ"</string>

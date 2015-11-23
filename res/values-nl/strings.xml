@@ -338,8 +338,8 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmen"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Timerservice die de melding beheert."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stopwatchservice die de melding beheert"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Verwerkt acties van timermeldingen."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verwerkt acties van stopwatchmeldingen."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Onderbroken"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Veeg naar rechts om te sluiten"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Veeg naar links om de snoozestand in te schakelen"</string>

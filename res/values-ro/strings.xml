@@ -349,8 +349,8 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarme"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Serviciul folosit de temporizator pentru rularea notificărilor."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Serviciul Cronometru pentru notificări."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Procesează acțiunile din notificările de la temporizator."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesează acțiunile din notificările de la cronometru."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Întrerupt"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Glisați spre dreapta pentru a închide"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Glisați spre stânga pentru a amâna"</string>

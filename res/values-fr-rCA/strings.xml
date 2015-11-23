@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Service de minuteur pour exécuter la notification"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Chronomètre pour exécuter la notification"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions des notifications du minuteur."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions des notifications du chronomètre."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Interrompu"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Glissez vers la droite pour supprimer"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Glissez vers la gauche pour répéter"</string>

@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"ਜਕਾਰਤਾ"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"ਅਲਾਰਮ"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"ਸੂਚਨਾ ਚਲਾਉਣ ਲਈ ਟਾਈਮਰ ਸੇਵਾ"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"ਸੂਚਨਾ ਚਲਾਉਣ ਲਈ ਸਟੌਪਵੌਚ ਸੇਵਾ।"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"ਟਾਈਮਰ ਦੀਆਂ ਸੂਚਨਾਵਾਂ ਤੋਂ ਕਾਰਵਾਈਆਂ \'ਤੇ ਪ੍ਰਕਿਰਿਆ ਕਰਦੀ ਹੈ।"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"ਵਿਰਾਮ ਘੜੀ ਦੀਆਂ ਸੂਚਨਾਵਾਂ ਤੋਂ ਕਾਰਵਾਈਆਂ \'ਤੇ ਪ੍ਰਕਿਰਿਆ ਕਰਦੀ ਹੈ।"</string>
     <string name="swn_paused" msgid="6364358842808263589">"ਰੁਕਿਆ"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"ਬਰਖਾਸਤ ਕਰਨ ਲਈ ਸੱਜੇ ਪਾਸੇ ਸਵਾਈਪ ਕਰੋ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"ਸਨੂਜ਼ ਕਰਨ ਲਈ ਖੱਬੇ ਪਾਸੇ ਸਵਾਈਪ ਕਰੋ"</string>

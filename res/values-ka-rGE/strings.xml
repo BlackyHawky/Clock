@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"ჯაკარტა"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"მაღვიძარები"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"ტაიმერის სერვისი შეტყობინებისთვის."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"წამზომის სერვისი შეტყობინებების გასაგზავნად."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"ამუშავებს მოქმედებებს ტაიმერის შეტყობინებებიდან."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"ამუშავებს მოქმედებებს წამზომის შეტყობინებებიდან."</string>
     <string name="swn_paused" msgid="6364358842808263589">"დაპაუზებულია"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"დასახურად გადაფურცლეთ მარჯვნივ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"ჩაჩუმებისათვის გადაფურცლეთ მარცხნივ"</string>
