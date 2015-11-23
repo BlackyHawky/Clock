@@ -361,8 +361,8 @@
     <item msgid="5176858645450908751">"Džakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmi"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Storitev časovnika za prikazovanje obvestil."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Uporaba štoparice pri objavi obvestila."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Obdela dejanja, ki izhajajo iz obvestil časovnika."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Obdela dejanja, ki izhajajo iz obvestil štoparice."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Zaustavljeno"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Povlecite v desno za opustitev"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Povlecite v levo za dremež"</string>

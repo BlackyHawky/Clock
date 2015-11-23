@@ -340,8 +340,8 @@
     <item msgid="5176858645450908751">"Жакарта"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Ойготкучтар"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Эскертмени иштетүүчү таймер кызматы."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Эскертмени иштетүүчү секунда өлчөгүч кызматы."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Таймер эскертмелеринен түзөтүлгөн аракеттер."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Токтоочу секундомер эскертмелеринен түзөтүлгөн аракеттер."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Тындырылды"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Өткөрүп салуу үчүн оңго сүрүңүз"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Тындыруу үчүн солго сүрүңүз."</string>

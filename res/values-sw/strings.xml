@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Kengele"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Huduma ya kipima muda ya kuendesha arifa."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Huduma ya saa ya kusitisha kuendesha arifa."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Huchakata vitendo kutoka arifa za kipima muda."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Huchakata vitendo kutoka arifa za saa ya kupima muda."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Imesitishwa"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Telezesha kidole kulia ili uondoe"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Telezesha kidole kushoto ili uahirishe"</string>

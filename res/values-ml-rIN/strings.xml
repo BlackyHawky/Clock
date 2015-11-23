@@ -340,8 +340,8 @@
     <item msgid="5176858645450908751">"ജക്കാര്‍ത്ത"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"അലാറങ്ങൾ"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"അറിയിപ്പ് പ്രവർത്തിപ്പിക്കുന്നതിനുള്ള ടൈമർ സേവനം."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"അറിയിപ്പ് പ്രവർത്തിപ്പിക്കുന്നതിനുള്ള സ്‌റ്റോപ്പ്‌വാച്ച് സേവനം."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"ടൈമർ അറിയിപ്പുകളിൽ നിന്നുള്ള പ്രവർത്തനങ്ങൾ പ്രോസസ്സുചെയ്യുന്നു."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"സ്റ്റോപ്പ്‌വാച്ച് അറിയിപ്പുകളിൽ നിന്നുള്ള പ്രവർത്തനങ്ങൾ പ്രോസസ്സുചെയ്യുന്നു."</string>
     <string name="swn_paused" msgid="6364358842808263589">"താല്‍ക്കാലം നിര്‍ത്തി"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"നിരസിക്കാൻ വലത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>

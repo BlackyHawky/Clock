@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"자카르타"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"알람"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"알림을 실행하는 타이머 서비스입니다."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"스톱워치 서비스로 알림을 실행"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"타이머 알림에서 작업 처리"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"스톱워치 알림에서 작업 처리"</string>
     <string name="swn_paused" msgid="6364358842808263589">"일시중지됨"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"오른쪽으로 스와이프하여 해제"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"왼쪽으로 스와이프하여 일시 중지"</string>

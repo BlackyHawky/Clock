@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"Τζακάρτα"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Ξυπνητήρια"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Υπηρεσία χρονομέτρου για την εκτέλεση της ειδοποίησης."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Υπηρεσία χρονόμετρου για την εκτέλεση της ειδοποίησης."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Επεξεργάζεται ενέργειες από τις ειδοποιήσεις αντίστροφης μέτρησης."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Επεξεργάζεται ενέργειες από τις ειδοποιήσεις του χρονομέτρου."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Σε παύση"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Σύρετε δεξιά για παράβλεψη"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Σύρετε αριστερά για αναβολή"</string>

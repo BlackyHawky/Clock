@@ -339,8 +339,8 @@
     <item msgid="5176858645450908751">"ジャカルタ"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"アラーム"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"通知を行うためのタイマー サービスです。"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"通知を行うためのストップウォッチサービスです。"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"タイマーの通知からの操作を処理します。"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"ストップウォッチの通知からの操作を処理します。"</string>
     <string name="swn_paused" msgid="6364358842808263589">"一時停止しました"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"右にスワイプすると解除できます"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"左にスワイプするとスヌーズを設定できます"</string>
