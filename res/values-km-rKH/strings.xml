@@ -340,8 +340,8 @@
     <item msgid="5176858645450908751">"ហ្សាការតា"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"សំឡេង​រោទ៍"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"សេវាកម្មវិធីកំណត់ពេលសម្រាប់ដំណើរការការជូនដំណឹង"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"សេវាកម្ម​នាឡិកា​បញ្ឈប់​ដើម្បី​ដំណើរការ​ការ​ជូនដំណឹង។"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"ដំណើរការសកម្មភាពពីការជូនដំណឹងកម្មវិធីកំណត់ពេល"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"ដំណើរការសកម្មភាពពីការជូនដំណឹងម៉ោងបញ្ឈប់"</string>
     <string name="swn_paused" msgid="6364358842808263589">"បានផ្អាក"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"អូស​ទៅ​ស្ដាំ​ដើម្បី​បដិសេធ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"អូស​ទៅ​ឆ្វេង​ដើម្បី​ផ្អាក"</string>

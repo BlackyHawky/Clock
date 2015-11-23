@@ -340,8 +340,8 @@
     <item msgid="5176858645450908751">"জাকার্তা"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"অ্যালার্মগুলি"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"বিজ্ঞপ্তি চালানোর জন্য টাইমার পরিষেবা৷"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"বিজ্ঞপ্তি চালানোর জন্য স্টপওয়াচ পরিষেবা"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"টাইমার বিজ্ঞপ্তিগুলি থেকে কাজগুলি প্রক্রিয়া করে"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"স্টপওয়াচ বিজ্ঞপ্তিগুলি থেকে কাজগুলি প্রক্রিয়া করে"</string>
     <string name="swn_paused" msgid="6364358842808263589">"বিরাম দেওয়া হয়েছে"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"খারিজ করতে সোয়াইপ করুন"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"পরে মনে করিয়ে দিতে বামে সোয়াইপ করুন"</string>

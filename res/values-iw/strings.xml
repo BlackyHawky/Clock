@@ -361,8 +361,8 @@
     <item msgid="5176858645450908751">"ג\'אקארטה"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"התראות"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"שירות טיימר להפעלת ההתראה."</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"שירות שעון עצר להפעלת ההתראה."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"מעבד פעולות מההודעות של הטיימר."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"מעבד פעולות מההודעות של שעון העצר."</string>
     <string name="swn_paused" msgid="6364358842808263589">"מושהה"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"החלק ימינה כדי לבטל"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"החלק שמאלה כדי להפעיל נודניק"</string>

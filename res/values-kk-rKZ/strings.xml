@@ -340,8 +340,8 @@
     <item msgid="5176858645450908751">"Джакарта"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Дабылдар"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"Хабарландыруды іске қосуға арналған таймер қызметі"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Хабарландыруды орындайтын секундомер қызметі."</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Таймер хабарландыруларынан әрекеттерді өңдейді."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Секундөлшегіш хабарландыруларынан әрекеттерді өңдейді."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Кідіртілген"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Қабылдамау үшін оңға жанаңыз"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Кейінге қалдыру үшін солға жанаңыз"</string>

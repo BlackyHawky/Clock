@@ -340,8 +340,8 @@
     <item msgid="5176858645450908751">"जाकार्ता"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"सचेतकहरू"</string>
-    <string name="timer_service_desc" msgid="4041987236573326825">"सूचना सञ्चालन गर्न टाइमर सेवा।"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"सूचना सञ्चालन गर्न स्टपवाच सेवा"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर सूचनाहरूबाट कार्यहरूको प्रक्रिया गर्छ।"</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्टपवाच सूचनाहरूबाट कार्यहरूको प्रक्रिया गर्छ।"</string>
     <string name="swn_paused" msgid="6364358842808263589">"रोकिएको छ"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"खारेज गर्नका लागि दायाँ स्वाइप गर्नुहोस्"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"स्‍नूजको लागि बायाँ स्वाइप गर्नुहोस्"</string>
