@@ -160,16 +160,21 @@ public class TimerFragment extends DeskClockFragment {
             intent.removeExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID);
         }
 
-        // Either show the view for creating timers or the view of existing timers.
-        if (!hasTimers() || createTimer || mTimerSetupState != null) {
+        // Choose the view to display in this fragment.
+        if (showTimerId != -1) {
+            // A specific timer must be shown; show the list of timers.
+            showTimersView();
+        } else if (!hasTimers() || createTimer || mTimerSetupState != null) {
+            // No timers exist, a timer is being created, or the last view was timer setup;
+            // show the timer setup view.
             showCreateTimerView();
 
-            // If initial state of the timer setup view exists, set it now.
             if (mTimerSetupState != null) {
                 mCreateTimerView.setState(mTimerSetupState);
                 mTimerSetupState = null;
             }
         } else {
+            // Otherwise, default to showing the list of timers.
             showTimersView();
         }
 
