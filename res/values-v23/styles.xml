@@ -13,11 +13,15 @@
     <style name="widget_big_thin" parent="big_thin">
         <item name="android:textSize">@dimen/widget_big_font_size</item>
         <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
     </style>
 
     <style name="widget_label" parent="label">
         <item name="android:textSize">@dimen/widget_label_font_size</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:letterSpacing">0.15</item>
+        <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
     </style>
 </resources>
