@@ -210,11 +210,14 @@ public class HandleDeskClockApiCalls extends Activity {
             if (timer == null) {
                 Voice.notifyFailure(this, reason);
             } else {
+                timerId = timer.getId();
+
                 // Otherwise the control command can be honored.
                 switch (action) {
                     case ACTION_RESET_TIMER: {
                         DataModel.getDataModel().resetOrDeleteTimer(timer, eventLabel);
                         if (timer.isExpired() && timer.getDeleteAfterUse()) {
+                            timerId = -1;
                             reason = getString(R.string.timer_deleted);
                         } else {
                             reason = getString(R.string.timer_was_reset);
@@ -237,7 +240,6 @@ public class HandleDeskClockApiCalls extends Activity {
                         throw new IllegalArgumentException("unknown timer action: " + action);
                 }
 
-                timerId = timer.getId();
                 Voice.notifySuccess(this, reason);
             }
 
@@ -245,10 +247,12 @@ public class HandleDeskClockApiCalls extends Activity {
         }
 
         // Open the UI to the timers.
-        final Intent timerIntent = new Intent(mAppContext, DeskClock.class)
-                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
-                .putExtra(EXTRA_TIMER_ID, timerId);
-        startActivity(timerIntent);
+        final Intent showTimers = new Intent(mAppContext, DeskClock.class)
+                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
+        if (timerId != -1) {
+            showTimers.putExtra(EXTRA_TIMER_ID, timerId);
+        }
+        startActivity(showTimers);
     }
 
     private void handleClockIntent(Intent intent) {
