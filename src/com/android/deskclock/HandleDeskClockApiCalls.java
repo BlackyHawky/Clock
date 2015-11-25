@@ -25,13 +25,17 @@ import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
 import com.android.deskclock.events.Events;
+import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.List;
 import java.util.Set;
 
+import static com.android.deskclock.uidata.UiDataModel.Tab.CLOCKS;
+import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
+import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
+
 public class HandleDeskClockApiCalls extends Activity {
-    private Context mAppContext;
 
     private static final String ACTION_PREFIX = "com.android.deskclock.action.";
 
@@ -70,11 +74,12 @@ public class HandleDeskClockApiCalls extends Activity {
     public static final String ACTION_ADD_MINUTE_TIMER = ACTION_PREFIX + "ADD_MINUTE_TIMER";
 
     // extra for many actions specific to a given timer
-    public static final String EXTRA_TIMER_ID =
-            "com.android.deskclock.extra.TIMER_ID";
+    public static final String EXTRA_TIMER_ID = "com.android.deskclock.extra.TIMER_ID";
 
     // Describes the entity responsible for the action being performed.
     public static final String EXTRA_EVENT_LABEL = "com.android.deskclock.extra.EVENT_LABEL";
+
+    private Context mAppContext;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -169,10 +174,11 @@ public class HandleDeskClockApiCalls extends Activity {
             LogUtils.i(reason);
         }
 
-        // Open the UI to the stopwatch.
-        final Intent stopwatchIntent = new Intent(mAppContext, DeskClock.class)
-                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.STOPWATCH_TAB_INDEX);
-        startActivity(stopwatchIntent);
+        // Change to the stopwatch tab.
+        UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
+
+        // Open DeskClock which is now positioned on the stopwatch tab.
+        startActivity(new Intent(mAppContext, DeskClock.class));
     }
 
     private void handleTimerIntent(Intent intent) {
@@ -246,9 +252,11 @@ public class HandleDeskClockApiCalls extends Activity {
             LogUtils.i(reason);
         }
 
-        // Open the UI to the timers.
-        final Intent showTimers = new Intent(mAppContext, DeskClock.class)
-                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX);
+        // Change to the timers tab.
+        UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
+
+        // Open DeskClock which is now positioned on the timers tab and show the timer in question.
+        final Intent showTimers = new Intent(mAppContext, DeskClock.class);
         if (timerId != -1) {
             showTimers.putExtra(EXTRA_TIMER_ID, timerId);
         }
@@ -263,6 +271,15 @@ public class HandleDeskClockApiCalls extends Activity {
             final int label = fromWidget ? R.string.label_widget : R.string.label_intent;
             Events.sendClockEvent(R.string.action_show, label);
         } else {
+            switch (action) {
+                case ACTION_ADD_CLOCK:
+                    Events.sendClockEvent(R.string.action_add, R.string.label_intent);
+                    break;
+                case ACTION_DELETE_CLOCK:
+                    Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
+                    break;
+            }
+
             final String cityName = intent.getStringExtra(EXTRA_CITY);
 
             final String reason;
@@ -275,14 +292,6 @@ public class HandleDeskClockApiCalls extends Activity {
                 Voice.notifySuccess(this, reason);
                 startActivity(new Intent(this, CitySelectionActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                switch (action) {
-                    case ACTION_ADD_CLOCK:
-                        Events.sendClockEvent(R.string.action_add, R.string.label_intent);
-                        break;
-                    case ACTION_DELETE_CLOCK:
-                        Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
-                        break;
-                }
                 return;
             }
 
@@ -292,14 +301,8 @@ public class HandleDeskClockApiCalls extends Activity {
                 reason = getString(R.string.the_city_you_specified_is_not_available);
                 LogUtils.i(reason);
                 Voice.notifyFailure(this, reason);
-                switch (action) {
-                    case ACTION_ADD_CLOCK:
-                        Events.sendClockEvent(R.string.action_add, R.string.label_intent);
-                        break;
-                    case ACTION_DELETE_CLOCK:
-                        Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
-                        break;
-                }
+                startActivity(new Intent(this, CitySelectionActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 return;
             }
 
@@ -318,7 +321,6 @@ public class HandleDeskClockApiCalls extends Activity {
                     // Otherwise report the success.
                     DataModel.getDataModel().setSelectedCities(selectedCities);
                     reason = getString(R.string.city_added, city.getName());
-                    Events.sendClockEvent(R.string.action_add, R.string.label_intent);
                     break;
                 }
                 case ACTION_DELETE_CLOCK: {
@@ -332,7 +334,6 @@ public class HandleDeskClockApiCalls extends Activity {
                     // Otherwise report the success.
                     DataModel.getDataModel().setSelectedCities(selectedCities);
                     reason = getString(R.string.city_deleted, city.getName());
-                    Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
                     break;
                 }
                 default:
@@ -347,11 +348,10 @@ public class HandleDeskClockApiCalls extends Activity {
             LogUtils.i(reason);
         }
 
-        // Opens the UI for clocks
-        final Intent clockIntent = new Intent(mAppContext, DeskClock.class)
-                .setAction(action)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.CLOCK_TAB_INDEX);
-        startActivity(clockIntent);
+        // Change to the clocks tab.
+        UiDataModel.getUiDataModel().setSelectedTab(CLOCKS);
+
+        // Open DeskClock which is now positioned on the clocks tab.
+        startActivity(new Intent(mAppContext, DeskClock.class));
     }
 }

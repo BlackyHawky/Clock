@@ -18,11 +18,9 @@ package com.android.deskclock.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.view.View;
 
-import java.util.Locale;
+import com.android.deskclock.uidata.UiDataModel;
 
 /**
  * A {@link ViewPager} that's aware of RTL changes when used with FragmentPagerAdapter.
@@ -52,7 +50,8 @@ public final class RtlViewPager extends ViewPager {
             @Override
             public void onPageSelected(int position) {
                 if (mListener != null) {
-                    mListener.onPageSelected(getRtlAwareIndex(position));
+                    position = UiDataModel.getUiDataModel().getTabLayoutIndex(position);
+                    mListener.onPageSelected(position);
                 }
             }
 
@@ -65,32 +64,17 @@ public final class RtlViewPager extends ViewPager {
 
     @Override
     public int getCurrentItem() {
-        return getRtlAwareIndex(super.getCurrentItem());
+        return UiDataModel.getUiDataModel().getTabLayoutIndex(super.getCurrentItem());
     }
 
     @Override
     public void setCurrentItem(int item) {
-        super.setCurrentItem(getRtlAwareIndex(item));
+        super.setCurrentItem(UiDataModel.getUiDataModel().getTabLayoutIndex(item));
     }
 
     @Override
     public void setOnPageChangeListener(OnPageChangeListener unused) {
         throw new UnsupportedOperationException("Use setOnRTLPageChangeListener instead");
-    }
-
-    /**
-     * Get a "RTL friendly" index. If the locale is LTR, the index is returned as is.
-     * Otherwise it's transformed so view pager can render views using the new index for RTL. For
-     * example, the second view will be rendered to the left of first view.
-     *
-     * @param index The logical index.
-     */
-    public int getRtlAwareIndex(int index) {
-        if (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) ==
-                View.LAYOUT_DIRECTION_RTL) {
-            return getAdapter().getCount() - index - 1;
-        }
-        return index;
     }
 
     /**

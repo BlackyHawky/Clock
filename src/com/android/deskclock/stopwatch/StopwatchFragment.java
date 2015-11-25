@@ -33,7 +33,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 
-import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
@@ -42,6 +41,9 @@ import com.android.deskclock.data.Lap;
 import com.android.deskclock.data.Stopwatch;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.timer.CountingTimerView;
+import com.android.deskclock.uidata.TabListener;
+import com.android.deskclock.uidata.UiDataModel;
+import com.android.deskclock.uidata.UiDataModel.Tab;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static android.content.Context.POWER_SERVICE;
@@ -50,6 +52,7 @@ import static android.os.PowerManager.SCREEN_BRIGHT_WAKE_LOCK;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 /**
  * Fragment that shows the stopwatch and recorded laps.
@@ -57,6 +60,9 @@ import static android.view.View.VISIBLE;
 public final class StopwatchFragment extends DeskClockFragment {
 
     private static final String TAG = "StopwatchFragment";
+
+    /** Acquire/release the {@link #mWakeLock} when this tab is selected/unselected. */
+    private final TabListener mTabWatcher = new TabWatcher();
 
     /** Scheduled to update the stopwatch time and current lap time while stopwatch is running. */
     private final Runnable mTimeUpdateRunnable = new TimeUpdateRunnable();
@@ -86,7 +92,9 @@ public final class StopwatchFragment extends DeskClockFragment {
     private PowerManager.WakeLock mWakeLock;
 
     /** The public no-arg constructor required by all fragments. */
-    public StopwatchFragment() {}
+    public StopwatchFragment() {
+        super(STOPWATCH);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
@@ -146,7 +154,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         showOrHideLaps(false);
 
         // Start watching for page changes away from this fragment.
-        getDeskClock().registerPageChangedListener(this);
+        UiDataModel.getUiDataModel().addTabListener(mTabWatcher);
 
         // View is hidden in onPause, make sure it is visible now.
         final View view = getView();
@@ -172,19 +180,10 @@ public final class StopwatchFragment extends DeskClockFragment {
         mTimeText.blinkTimeStr(false);
 
         // Stop watching for page changes away from this fragment.
-        getDeskClock().unregisterPageChangedListener(this);
+        UiDataModel.getUiDataModel().removeTabListener(mTabWatcher);
 
         // Release the wake lock if it is currently held.
         releaseWakeLock();
-    }
-
-    @Override
-    public void onPageChanged(int page) {
-        if (page == DeskClock.STOPWATCH_TAB_INDEX && getStopwatch().isRunning()) {
-            acquireWakeLock();
-        } else {
-            releaseWakeLock();
-        }
     }
 
     @Override
@@ -211,7 +210,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void setFabAppearance() {
-        if (mFab == null || getSelectedTab() != DeskClock.STOPWATCH_TAB_INDEX) {
+        if (mFab == null || !isTabSelected()) {
             return;
         }
 
@@ -227,8 +226,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void setLeftRightButtonAppearance() {
-        if (mLeftButton == null || mRightButton == null ||
-                getSelectedTab() != DeskClock.STOPWATCH_TAB_INDEX) {
+        if (mLeftButton == null || mRightButton == null || !isTabSelected()) {
             return;
         }
 
@@ -528,6 +526,21 @@ public final class StopwatchFragment extends DeskClockFragment {
         @Override
         public void run() {
             toggleStopwatchState();
+        }
+    }
+
+    /**
+     * Acquire the wake lock if the stopwatch tab is selected and the stopwatch is running; release
+     * it otherwise.
+     */
+    private final class TabWatcher implements TabListener {
+        @Override
+        public void selectedTabChanged(Tab oldSelectedTab, Tab newSelectedTab) {
+            if (isTabSelected() && getStopwatch().isRunning()) {
+                acquireWakeLock();
+            } else {
+                releaseWakeLock();
+            }
         }
     }
 }
