@@ -41,7 +41,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
-import com.android.deskclock.actionbarmenu.MenuItemController;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
 import com.android.deskclock.actionbarmenu.SettingMenuItemController;
@@ -76,8 +75,6 @@ public class DeskClock extends BaseActivity
     public static final int STOPWATCH_TAB_INDEX = 3;
 
     private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
-    private final MenuItemController nightModeMenuItemController =
-            new NightModeMenuItemController(this);
 
     private TabLayout mTabLayout;
     private RtlViewPager mViewPager;
@@ -200,10 +197,11 @@ public class DeskClock extends BaseActivity
         });
 
         // Configure the menu item controllers.
-        mActionBarMenuManager.addMenuItemController(new SettingMenuItemController(this))
+        mActionBarMenuManager
+                .addMenuItemController(new SettingMenuItemController(this))
+                .addMenuItemController(new NightModeMenuItemController(this))
                 .addMenuItemController(MenuItemControllerFactory.getInstance()
-                        .buildMenuItemControllers(this))
-                .addMenuItemController(nightModeMenuItemController);
+                        .buildMenuItemControllers(this));
 
         // Inflate the menu during creation to avoid a double layout pass. Otherwise, the menu
         // inflation occurs *after* the initial draw and a second layout pass adds in the menu.
@@ -383,7 +381,6 @@ public class DeskClock extends BaseActivity
             notifyPageChanged(position);
 
             mSelectedTab = position;
-            nightModeMenuItemController.setEnabled(mSelectedTab == CLOCK_TAB_INDEX);
 
             // Avoid sending events for the initial tab selection on launch and the reselecting a
             // tab after a configuration change.
