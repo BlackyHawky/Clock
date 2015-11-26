@@ -178,8 +178,9 @@
     <dimen name="digital_widget_list_margin_top">20dp</dimen>
     <dimen name="digital_widget_city_margin_bottom">10dp</dimen>
 
-    <!-- shadowRadius for digital widget text -->
-    <item name="digital_widget_shadow_radius" format="float" type="dimen">2.0</item>
+    <!-- shadow styles for digital widget text -->
+    <item name="digital_widget_shadow_radius" format="float" type="dimen">2.75</item>
+    <item name="digital_widget_shadow_dy" format="float" type="dimen">2.0</item>
 
     <!-- Bottom margin for the expand area -->
     <dimen name="collapse_expand_height">72dip</dimen>

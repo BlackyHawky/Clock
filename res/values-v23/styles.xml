@@ -15,6 +15,7 @@
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
         <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
+        <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
     </style>
 
     <style name="widget_label" parent="label">
@@ -23,5 +24,6 @@
         <item name="android:letterSpacing">0.15</item>
         <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
         <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
+        <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
     </style>
 </resources>
