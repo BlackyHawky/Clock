@@ -57,5 +57,5 @@
     <color name="notification_divider">#272727</color>
 
     <!-- shadowColor for digital widget text -->
-    <color name="digital_widget_shadow_color">#B0000000</color>
+    <color name="digital_widget_shadow_color">#DD000000</color>
 </resources>
