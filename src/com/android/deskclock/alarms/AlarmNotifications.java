@@ -264,11 +264,9 @@ public final class AlarmNotifications {
     }
 
     public static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
-        long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
-        Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
-        viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-        viewAlarmIntent.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId);
-        viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return viewAlarmIntent;
+        final long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
+        return Alarm.createIntent(context, DeskClock.class, alarmId)
+                .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 }
