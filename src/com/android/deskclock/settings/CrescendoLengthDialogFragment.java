@@ -54,11 +54,11 @@ public class CrescendoLengthDialogFragment extends PreferenceDialogFragment {
         final int crescendoSeconds = preference.getPersistedCrescendoLength();
 
         final TextView unitView = (TextView) view.findViewById(R.id.title);
-        unitView.setText(getContext().getString(R.string.crescendo_picker_label));
+        unitView.setText(R.string.crescendo_picker_label);
         updateUnits(unitView, crescendoSeconds);
 
         final String[] displayedValues = new String[13];
-        displayedValues[0] = getContext().getString(R.string.no_crescendo_duration);
+        displayedValues[0] = getString(R.string.no_crescendo_duration);
         for (int i = 1; i < displayedValues.length; i++) {
             displayedValues[i] = String.valueOf(i * CRESCENDO_TIME_STEP);
         }
