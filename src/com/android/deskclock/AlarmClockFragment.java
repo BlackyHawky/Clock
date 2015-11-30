@@ -37,9 +37,12 @@ import com.android.deskclock.alarms.TimePickerCompat;
 import com.android.deskclock.alarms.dataadapter.AlarmTimeAdapter;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.EmptyViewController;
 import com.android.deskclock.widget.toast.SnackbarManager;
 import com.android.deskclock.widget.toast.ToastManager;
+
+import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 /**
  * A fragment that displays a list of alarm time and allows interaction with them.
@@ -69,6 +72,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private EmptyViewController mEmptyViewController;
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
     private LinearLayoutManager mLayoutManager;
+
+    /** The public no-arg constructor required by all fragments. */
+    public AlarmClockFragment() {
+        super(ALARMS);
+    }
 
     @Override
     public void processTimeSet(int hourOfDay, int minute) {
@@ -106,15 +114,13 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void onResume() {
         super.onResume();
 
-        final DeskClock activity = (DeskClock) getActivity();
-        if (activity.getSelectedTab() == DeskClock.ALARM_TAB_INDEX) {
-            setFabAppearance();
-            setLeftRightButtonAppearance();
-        }
+        setFabAppearance();
+        setLeftRightButtonAppearance();
 
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = getActivity().getIntent();
         if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
+            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
             if (intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false)) {
                 // An external app asked us to create a blank alarm.
                 startCreatingAlarm();
@@ -123,6 +129,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             // Remove the CREATE_NEW extra now that we've processed it.
             intent.removeExtra(ALARM_CREATE_NEW_INTENT_EXTRA);
         } else if (intent.hasExtra(SCROLL_TO_ALARM_INTENT_EXTRA)) {
+            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+
             long alarmId = intent.getLongExtra(SCROLL_TO_ALARM_INTENT_EXTRA, Alarm.INVALID_ID);
             if (alarmId != Alarm.INVALID_ID) {
                 setSmoothScrollStableId(alarmId);
@@ -244,7 +252,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void setFabAppearance() {
-        if (mFab == null || getDeskClock().getSelectedTab() != DeskClock.ALARM_TAB_INDEX) {
+        if (mFab == null || !isTabSelected()) {
             return;
         }
         mFab.setVisibility(View.VISIBLE);
@@ -254,8 +262,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void setLeftRightButtonAppearance() {
-        if (mLeftButton == null || mRightButton == null ||
-                getDeskClock().getSelectedTab() != DeskClock.ALARM_TAB_INDEX) {
+        if (mLeftButton == null || mRightButton == null || !isTabSelected()) {
             return;
         }
         mLeftButton.setVisibility(View.INVISIBLE);

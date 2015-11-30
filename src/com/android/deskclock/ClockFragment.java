@@ -50,6 +50,7 @@ import java.util.TimeZone;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.android.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 /**
@@ -76,7 +77,9 @@ public final class ClockFragment extends DeskClockFragment {
     private Handler mHandler;
 
     /** The public no-arg constructor required by all fragments. */
-    public ClockFragment() {}
+    public ClockFragment() {
+        super(CLOCKS);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -186,7 +189,7 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void setFabAppearance() {
-        if (mFab == null || getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
+        if (mFab == null || !isTabSelected()) {
             return;
         }
 
@@ -197,7 +200,7 @@ public final class ClockFragment extends DeskClockFragment {
 
     @Override
     public void setLeftRightButtonAppearance() {
-        if (getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
+        if (!isTabSelected()) {
             return;
         }
 

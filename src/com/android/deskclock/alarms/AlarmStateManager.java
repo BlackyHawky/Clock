@@ -45,9 +45,12 @@ import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.settings.SettingsActivity;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.Calendar;
 import java.util.List;
+
+import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 /**
  * This class handles all the state changes for alarm instances. You need to
@@ -940,12 +943,17 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 return;
             }
 
+            // Change to the alarms tab.
+            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+
             long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
-            Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId);
-            viewAlarmIntent.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-            viewAlarmIntent.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId);
-            viewAlarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            final Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId)
+                    .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // Open DeskClock which is now positioned on the alarms tab.
             context.startActivity(viewAlarmIntent);
+
             deleteInstanceAndUpdateParent(context, instance);
         }
     }

@@ -54,11 +54,12 @@ import static android.view.View.OnClickListener;
 import static android.view.View.SCALE_X;
 import static android.view.View.VISIBLE;
 import static com.android.deskclock.AnimatorUtils.getScaleAnimator;
+import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 /**
  * Displays a vertical list of timers in all states.
  */
-public class TimerFragment extends DeskClockFragment {
+public final class TimerFragment extends DeskClockFragment {
 
     private static final String EXTRA_TIMER_SETUP = "com.android.deskclock.action.TIMER_SETUP";
 
@@ -90,13 +91,13 @@ public class TimerFragment extends DeskClockFragment {
      * @return an Intent that selects the timers tab with the setup screen for a new timer in place.
      */
     public static Intent createTimerSetupIntent(Context context) {
-        return new Intent(context, DeskClock.class)
-                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
-                .putExtra(EXTRA_TIMER_SETUP, true);
+        return new Intent(context, DeskClock.class).putExtra(EXTRA_TIMER_SETUP, true);
     }
 
     /** The public no-arg constructor required by all fragments. */
-    public TimerFragment() {}
+    public TimerFragment() {
+        super(TIMERS);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,9 +140,6 @@ public class TimerFragment extends DeskClockFragment {
     @Override
     public void onResume() {
         super.onResume();
-
-        // Start watching for page changes away from this fragment.
-        getDeskClock().registerPageChangedListener(this);
 
         // Initialize the page indicators.
         updatePageIndicators();
@@ -195,14 +193,6 @@ public class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-
-        // Stop watching for page changes away from this fragment.
-        getDeskClock().unregisterPageChangedListener(this);
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
 
@@ -231,7 +221,7 @@ public class TimerFragment extends DeskClockFragment {
 
     @Override
     public void setFabAppearance() {
-        if (mFab == null || getSelectedTab() != DeskClock.TIMER_TAB_INDEX) {
+        if (mFab == null || !isTabSelected()) {
             return;
         }
 
@@ -291,8 +281,7 @@ public class TimerFragment extends DeskClockFragment {
 
     @Override
     public void setLeftRightButtonAppearance() {
-        if (mLeftButton == null || mRightButton == null ||
-                getSelectedTab() != DeskClock.TIMER_TAB_INDEX) {
+        if (mLeftButton == null || mRightButton == null || !isTabSelected()) {
             return;
         }
 
