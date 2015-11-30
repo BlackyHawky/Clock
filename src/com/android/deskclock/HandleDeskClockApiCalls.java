@@ -221,8 +221,8 @@ public class HandleDeskClockApiCalls extends Activity {
                 // Otherwise the control command can be honored.
                 switch (action) {
                     case ACTION_RESET_TIMER: {
-                        DataModel.getDataModel().resetOrDeleteTimer(timer, eventLabel);
-                        if (timer.isExpired() && timer.getDeleteAfterUse()) {
+                        timer = DataModel.getDataModel().resetOrDeleteTimer(timer, eventLabel);
+                        if (timer == null) {
                             timerId = -1;
                             reason = getString(R.string.timer_deleted);
                         } else {
