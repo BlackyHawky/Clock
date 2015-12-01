@@ -87,6 +87,8 @@
     <dimen name="world_clock_analog_size">200dip</dimen>
     <dimen name="world_clock_margin">96dp</dimen>
 
+    <dimen name="min_analog_widget_size">170dp</dimen>
+
     <!-- Digital Widget settings (keyguard|home_screen) -->
     <!-- Use larger fonts -->
     <!-- Use dp on purpose to ensure consistency across multiple screen sizes -->
