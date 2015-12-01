@@ -16,10 +16,10 @@
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
     android:initialLayout="@layout/analog_appwidget"
-    android:minHeight="110dp"
+    android:minHeight="@dimen/min_analog_widget_size"
     android:minResizeHeight="55dp"
     android:minResizeWidth="55dp"
-    android:minWidth="110dp"
+    android:minWidth="@dimen/min_analog_widget_size"
     android:previewImage="@drawable/appwidget_analog_clock_preview"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="0" />
