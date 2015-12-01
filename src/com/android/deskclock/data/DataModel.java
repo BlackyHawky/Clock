@@ -338,10 +338,11 @@ public final class DataModel {
      *
      * @param timer the timer to be reset
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    public void resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
+    public Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
-        mTimerModel.resetOrDeleteTimer(timer, eventLabelId);
+        return mTimerModel.resetOrDeleteTimer(timer, eventLabelId);
     }
 
     /**

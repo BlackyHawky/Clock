@@ -243,9 +243,10 @@ final class TimerModel {
      *
      * @param timer the timer to be reset
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    void resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
-        doResetOrDeleteTimer(timer, eventLabelId);
+    Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
+        final Timer result = doResetOrDeleteTimer(timer, eventLabelId);
 
         // Update the notification after updating the timer data.
         updateNotification();
@@ -254,6 +255,8 @@ final class TimerModel {
         if (timer.isExpired()) {
             updateHeadsUpNotification();
         }
+
+        return result;
     }
 
     /**
@@ -480,19 +483,25 @@ final class TimerModel {
      *
      * @param timer the timer to be reset
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    private void doResetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
+    private Timer doResetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
         if (timer.isExpired() && timer.getDeleteAfterUse()) {
             doRemoveTimer(timer);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_delete, eventLabelId);
             }
+            return null;
         } else if (!timer.isReset()) {
-            doUpdateTimer(timer.reset());
+            final Timer reset = timer.reset();
+            doUpdateTimer(reset);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_reset, eventLabelId);
             }
+            return reset;
         }
+
+        return timer;
     }
 
     /**
