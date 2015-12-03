@@ -67,8 +67,11 @@ final class AlarmModel {
     }
 
     void setDefaultAlarmRingtoneUri(Uri uri) {
-        mSettingsModel.setDefaultAlarmRingtoneUri(uri);
-        mDefaultAlarmRingtoneUri = uri;
+        // Never set the silent ringtone as default; new alarms should always make sound by default.
+        if (!Alarm.NO_RINGTONE_URI.equals(uri)) {
+            mSettingsModel.setDefaultAlarmRingtoneUri(uri);
+            mDefaultAlarmRingtoneUri = uri;
+        }
     }
 
     String getAlarmRingtoneTitle(Uri uri) {
