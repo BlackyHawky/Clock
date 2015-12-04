@@ -44,7 +44,10 @@ public final class RtlViewPager extends ViewPager {
         addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float offset, int offsetPixels) {
-                // Do nothing
+                if (mListener != null) {
+                    position = UiDataModel.getUiDataModel().getTabLayoutIndex(position);
+                    mListener.onPageScrolled(position, offset, offsetPixels);
+                }
             }
 
             @Override
@@ -57,7 +60,9 @@ public final class RtlViewPager extends ViewPager {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                // Do nothing
+                if (mListener != null) {
+                    mListener.onPageScrollStateChanged(state);
+                }
             }
         });
     }
