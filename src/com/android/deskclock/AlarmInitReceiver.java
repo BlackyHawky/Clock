@@ -21,10 +21,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
-import android.preference.PreferenceManager;
 
 import com.android.deskclock.alarms.AlarmStateManager;
-
 import com.android.deskclock.timer.TimerObj;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
@@ -58,8 +56,18 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
         AsyncHandler.post(new Runnable() {
             @Override public void run() {
+                // When running on N devices, we're interested in the boot
+                // completed event that is sent while the user is still locked,
+                // so that we can schedule alarms.
+                final boolean bootCompleted;
+                if (Utils.isNOrLater()) {
+                    bootCompleted = Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(action);
+                } else {
+                    bootCompleted = Intent.ACTION_BOOT_COMPLETED.equals(action);
+                }
+
                 try {
-                    if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+                    if (bootCompleted) {
                         // Clear stopwatch and timers data
                         final SharedPreferences prefs =
                                 Utils.getDefaultSharedPreferences(context);

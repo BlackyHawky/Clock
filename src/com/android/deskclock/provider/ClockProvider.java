@@ -19,14 +19,17 @@ package com.android.deskclock.provider;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.Utils;
 
 public class ClockProvider extends ContentProvider {
     private ClockDatabaseHelper mOpenHelper;
@@ -53,7 +56,22 @@ public class ClockProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
-        mOpenHelper = new ClockDatabaseHelper(getContext());
+        final Context context = getContext();
+        final Context storageContext;
+        if (Utils.isNOrLater()) {
+            // All N devices have split storage areas, but we may need to
+            // migrate existing database into the new device encrypted
+            // storage area, which is where our data lives from now on.
+            final Context deviceContext = context.createDeviceEncryptedStorageContext();
+            if (!deviceContext.migrateDatabaseFrom(context, ClockDatabaseHelper.DATABASE_NAME)) {
+                LogUtils.wtf("Failed to migrate database");
+            }
+            storageContext = deviceContext;
+        } else {
+            storageContext = context;
+        }
+
+        mOpenHelper = new ClockDatabaseHelper(storageContext);
         return true;
     }
 
