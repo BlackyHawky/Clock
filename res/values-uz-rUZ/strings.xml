@@ -19,14 +19,14 @@
     <string name="app_label" msgid="6674495003718166674">"Soat"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"Signallar"</string>
     <string name="add_alarm" msgid="5976616107390962899">"Uyg‘otkich qo‘shish"</string>
-    <string name="menu_desk_clock" msgid="3241995064554071588">"Ishchi stoli uchun soat"</string>
+    <string name="menu_desk_clock" msgid="3241995064554071588">"Ish stoli soati"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"Uyg‘otkichni tahrirlash"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Uyg‘otkichni o‘chirish"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Uyg‘otkichni yoqish"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Uyg‘otkichni o‘chirib qo‘yish"</string>
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Ushbu uyg‘otkich o‘chirib tashlansinmi?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Soatni ko‘rsatish"</string>
-    <string name="hide_clock" msgid="3217727306480505694">"Soatni yashirish"</string>
+    <string name="hide_clock" msgid="3217727306480505694">"Soatni berkitish"</string>
     <string name="label" msgid="162189613902857319">"Tavsif"</string>
     <string name="on_switch" msgid="2297966258029227449">"Yoniq"</string>
     <string name="off_switch" msgid="3381070073851148013">"O‘chiq"</string>
@@ -146,7 +146,7 @@
     <item msgid="3450979320164769576">"O‘chirish"</item>
     <item msgid="6302517608411378024">"Hech narsa"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Birlamchi ringtonni o‘rnatish"</string>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Standart ringtonni o‘rnatish"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Signallar"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"Galereya"</string>
     <string name="music_button_description" msgid="1626593420810117999">"Musiqa"</string>
@@ -176,8 +176,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Davom ettirish"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Boshidan"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
+    <string name="sw_pause_button" msgid="2422084453454138042">"Pauza"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Davra"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Ulashish"</string>
     <string name="hours_label" msgid="3393478155635368097">"s"</string>
