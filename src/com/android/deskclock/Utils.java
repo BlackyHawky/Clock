@@ -34,6 +34,8 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.VisibleForTesting;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.os.BuildCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -55,6 +57,7 @@ import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.settings.SettingsActivity;
 
+import java.io.File;
 import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -162,6 +165,13 @@ public class Utils {
      */
     public static boolean isMOrLater() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    /**
+    * @return {@code true} if the device is {@link Build.VERSION_CODES#N} or later
+    */
+    public static boolean isNOrLater() {
+       return BuildCompat.isAtLeastN();
     }
 
     /**
@@ -556,6 +566,21 @@ public class Utils {
      * Return the default shared preferences.
      */
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+        final Context storageContext;
+        if (isNOrLater()) {
+            // All N devices have split storage areas, but we may need to
+            // migrate existing preferences into the new device encrypted
+            // storage area, which is where our data lives from now on.
+            final Context deviceContext = context.createDeviceEncryptedStorageContext();
+            if (!deviceContext.migrateSharedPreferencesFrom(context,
+                    PreferenceManager.getDefaultSharedPreferencesName(context))) {
+                LogUtils.wtf("Failed to migrate shared preferences");
+            }
+            storageContext = deviceContext;
+        } else {
+            storageContext = context;
+        }
+
+        return PreferenceManager.getDefaultSharedPreferences(storageContext);
     }
 }

@@ -52,6 +52,7 @@
         <provider
             android:name=".provider.ClockProvider"
             android:authorities="com.android.deskclock"
+            android:encryptionAware="true"
             android:exported="false" />
 
         <activity
@@ -106,6 +107,7 @@
 
         <activity
             android:name=".alarms.AlarmActivity"
+            android:encryptionAware="true"
             android:excludeFromRecents="true"
             android:showOnLockScreen="true"
             android:taskAffinity=""
@@ -120,10 +122,12 @@
 
         <receiver
             android:name=".alarms.AlarmStateManager"
+            android:encryptionAware="true"
             android:exported="false" />
 
         <service
             android:name=".alarms.AlarmService"
+            android:encryptionAware="true"
             android:exported="false" />
 
         <activity
@@ -239,8 +243,11 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".AlarmInitReceiver">
+        <receiver
+            android:name=".AlarmInitReceiver"
+            android:encryptionAware="true">
             <intent-filter>
+                <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.TIME_SET" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
