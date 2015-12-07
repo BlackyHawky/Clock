@@ -95,6 +95,8 @@
 
             </LinearLayout>
 
+            <include layout="@layout/alarm_muted_button" />
+
             <TextView
                 android:id="@+id/edit_label"
                 android:layout_width="match_parent"
@@ -116,9 +118,7 @@
                 android:layout_marginStart="@dimen/hairline_side_padding"
                 android:background="@color/hairline" />
 
-            <include
-                android:id="@+id/preemptive_dismiss_container"
-                layout="@layout/preemptive_dismiss" />
+            <include layout="@layout/preemptive_dismiss" />
 
         </LinearLayout>
 

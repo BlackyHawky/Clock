@@ -350,6 +350,12 @@
     <!-- Title for ringtones that cannot be located by uri. -->
     <string name="unknown_ringtone_title">Unknown</string>
 
+    <!-- Text to display when alarm volume is muted. -->
+    <string name="alarm_volume_muted">Alarm volume muted</string>
+
+    <!-- Text to display when silent ringtone is selected. -->
+    <string name="silent_ringtone">Silent ringtone</string>
+
     <!-- Text to display in the small text of the notification -->
     <string name="alarm_notify_text">Snooze or dismiss alarm.</string>
 

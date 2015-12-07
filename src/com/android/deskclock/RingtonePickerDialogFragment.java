@@ -45,7 +45,6 @@ public class RingtonePickerDialogFragment extends DialogFragment {
     private static final String KEY_FRAGMENT_TAG = "fragment_tag";
     private static final String KEY_SELECTED_INDEX = "selected_index";
 
-    private final List<RingtoneItem> mRingtones = new ArrayList<>(20);
     private int mSelectedIndex;
 
     public static DialogFragment newInstance(String title, String
@@ -73,15 +72,16 @@ public class RingtonePickerDialogFragment extends DialogFragment {
         final Uri oldRingtoneUri = bundle.getParcelable(KEY_OLD_RINGTONE_URI);
         final String fragmentTag = bundle.getString(KEY_FRAGMENT_TAG);
         mSelectedIndex = bundle.getInt(KEY_SELECTED_INDEX);
+        final List<RingtoneItem> ringtones = new ArrayList<>(20);
 
         // Add option for "silent" ringtone.
         final String silentTitle = getString(R.string.silent_ringtone_title);
         final Uri silentUri = DataModel.getDataModel().getSilentRingtoneUri();
-        mRingtones.add(new RingtoneItem(silentTitle, silentUri));
+        ringtones.add(new RingtoneItem(silentTitle, silentUri));
 
         // Add option for default ringtone.
         if (defaultRingtoneLabel != null) {
-            mRingtones.add(new RingtoneItem(defaultRingtoneLabel, defaultRingtoneUri));
+            ringtones.add(new RingtoneItem(defaultRingtoneLabel, defaultRingtoneUri));
         }
 
         // Add system ringtones.
@@ -92,13 +92,13 @@ public class RingtonePickerDialogFragment extends DialogFragment {
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             final String ringtoneTitle = cursor.getString(RingtoneManager.TITLE_COLUMN_INDEX);
             final Uri ringtoneUri = rm.getRingtoneUri(cursor.getPosition());
-            mRingtones.add(new RingtoneItem(ringtoneTitle, ringtoneUri));
+            ringtones.add(new RingtoneItem(ringtoneTitle, ringtoneUri));
         }
 
         // Extract the ringtone titles for the dialog to display.
-        final CharSequence[] titles = new CharSequence[mRingtones.size()];
-        for (int i = 0; i < mRingtones.size(); i++) {
-            final RingtoneItem ringtone = mRingtones.get(i);
+        final CharSequence[] titles = new CharSequence[ringtones.size()];
+        for (int i = 0; i < ringtones.size(); i++) {
+            final RingtoneItem ringtone = ringtones.get(i);
             titles[i] = ringtone.title;
             if (mSelectedIndex < 0 && ringtone.uri.equals(oldRingtoneUri)) {
                 mSelectedIndex = i;
@@ -110,7 +110,7 @@ public class RingtonePickerDialogFragment extends DialogFragment {
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        final Uri uri = mRingtones.get(mSelectedIndex).uri;
+                        final Uri uri = ringtones.get(mSelectedIndex).uri;
                         RingtoneSelectionListener rsl = (RingtoneSelectionListener) getActivity();
                         rsl.onRingtoneSelected(uri, fragmentTag);
                     }
@@ -120,7 +120,7 @@ public class RingtonePickerDialogFragment extends DialogFragment {
                         new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        selectRingtone(which);
+                        selectRingtone(which, ringtones.get(which).uri);
                     }
                 })
                 .create();
@@ -143,14 +143,13 @@ public class RingtonePickerDialogFragment extends DialogFragment {
     /**
      * Callback for ringtone click.
      */
-    private void selectRingtone(int index) {
+    private void selectRingtone(int index, Uri ringtoneUri) {
         mSelectedIndex = index;
-        Context context = getActivity();
+        final Context context = getActivity();
         RingtonePreviewKlaxon.stop(context);
 
-        final Uri uri = mRingtones.get(index).uri;
-        if (!DataModel.getDataModel().getSilentRingtoneUri().equals(uri)) {
-            RingtonePreviewKlaxon.start(context, uri);
+        if (!DataModel.getDataModel().getSilentRingtoneUri().equals(ringtoneUri)) {
+            RingtonePreviewKlaxon.start(context, ringtoneUri);
         }
     }
 
