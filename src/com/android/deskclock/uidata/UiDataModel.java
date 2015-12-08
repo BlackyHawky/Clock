@@ -82,6 +82,18 @@ public final class UiDataModel {
     }
 
     //
+    // Animations
+    //
+
+    /**
+     * @return the animation duration in milliseconds over which the fab grows and shrinks
+     */
+    public long getFabShowAndHideAnimationDuration() {
+        enforceMainLooper();
+        return mContext.getResources().getInteger(android.R.integer.config_shortAnimTime);
+    }
+
+    //
     // Tabs
     //
 

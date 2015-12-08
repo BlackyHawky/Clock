@@ -143,4 +143,8 @@ public class AnimatorUtils {
                 PropertyValuesHolder.ofFloat(View.SCALE_X, values),
                 PropertyValuesHolder.ofFloat(View.SCALE_Y, values));
     }
+
+    public static ValueAnimator getAlphaAnimator(View view, float... values) {
+        return ObjectAnimator.ofFloat(view, View.ALPHA, values);
+    }
 }
