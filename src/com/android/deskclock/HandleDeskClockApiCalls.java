@@ -60,13 +60,13 @@ public class HandleDeskClockApiCalls extends Activity {
 
     // shows the tab with timers; optionally scrolls to a specific timer
     public static final String ACTION_SHOW_TIMERS = ACTION_PREFIX + "SHOW_TIMERS";
-    // pauses the running timer
+    // pauses running timers; resets expired timers
     public static final String ACTION_PAUSE_TIMER = ACTION_PREFIX + "PAUSE_TIMER";
-    // starts the topmost timer
+    // starts the sole timer
     public static final String ACTION_START_TIMER = ACTION_PREFIX + "START_TIMER";
-    // resets the timer, works for both running and paused
+    // resets the timer
     public static final String ACTION_RESET_TIMER = ACTION_PREFIX + "RESET_TIMER";
-    // adds an extra minute to the running timer
+    // adds an extra minute to the timer
     public static final String ACTION_ADD_MINUTE_TIMER = ACTION_PREFIX + "ADD_MINUTE_TIMER";
 
     // extra for many actions specific to a given timer
