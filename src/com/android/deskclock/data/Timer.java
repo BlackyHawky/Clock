@@ -173,6 +173,8 @@ public final class Timer {
     Timer pause() {
         if (mState == PAUSED || mState == RESET) {
             return this;
+        } else if (mState == EXPIRED) {
+            return reset();
         }
 
         final long remainingTime = getRemainingTime();
