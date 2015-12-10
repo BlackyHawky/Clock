@@ -36,7 +36,6 @@ public final class AlarmNotifications {
 
     public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
-        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(
@@ -70,13 +69,12 @@ public final class AlarmNotifications {
         notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
-        nm.cancel(instance.hashCode());
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(instance.hashCode(), notification.build());
     }
 
     public static void showHighPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying high priority notification for alarm instance: " + instance.mId);
-        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
@@ -105,13 +103,12 @@ public final class AlarmNotifications {
         notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
-        nm.cancel(instance.hashCode());
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(instance.hashCode(), notification.build());
     }
 
     public static void showSnoozeNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
-        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setContentTitle(instance.getLabelOrDefault(context))
@@ -137,13 +134,13 @@ public final class AlarmNotifications {
         Intent viewAlarmIntent = createViewAlarmIntent(context, instance);
         notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
-        nm.cancel(instance.hashCode());
+
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(instance.hashCode(), notification.build());
     }
 
     public static void showMissedNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying missed notification for alarm instance: " + instance.mId);
-        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
         String label = instance.mLabel;
         String alarmTime = AlarmUtils.getFormattedTime(context, instance.getAlarmTime());
@@ -173,13 +170,12 @@ public final class AlarmNotifications {
         notification.setContentIntent(PendingIntent.getBroadcast(context, hashCode,
                 showAndDismiss, PendingIntent.FLAG_UPDATE_CURRENT));
 
-        nm.cancel(hashCode);
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(hashCode, notification.build());
     }
 
     public static void showAlarmNotification(Service service, AlarmInstance instance) {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
-        NotificationManagerCompat nm = NotificationManagerCompat.from(service);
 
         Resources resources = service.getResources();
         NotificationCompat.Builder notification = new NotificationCompat.Builder(service)
@@ -231,7 +227,7 @@ public final class AlarmNotifications {
                 instance.hashCode(), fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT), true);
         notification.setPriority(NotificationCompat.PRIORITY_MAX);
 
-        nm.cancel(instance.hashCode());
+        clearNotification(service, instance);
         service.startForeground(instance.hashCode(), notification.build());
     }
 
