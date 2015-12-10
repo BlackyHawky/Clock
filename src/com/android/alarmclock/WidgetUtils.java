@@ -29,12 +29,9 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 
 public class WidgetUtils {
-    static final String TAG = "WidgetUtils";
-
     public static void setClockSize(Context context, RemoteViews clock, float scale) {
-        float fontSize = context.getResources().getDimension(R.dimen.widget_big_font_size);
-        clock.setTextViewTextSize(
-                R.id.the_clock, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
+        final float fontSize = context.getResources().getDimension(R.dimen.widget_big_font_size);
+        clock.setTextViewTextSize(R.id.clock, TypedValue.COMPLEX_UNIT_PX, fontSize * scale);
     }
 
     // Calculate the scale factor of the fonts in the widget
