@@ -53,16 +53,6 @@
         <item name="colorControlActivated">?attr/colorAccent</item>
     </style>
 
-    <style name="TimeLabelTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize" tools:ignore="SpUsage">60dp</item>
-    </style>
-
-    <style name="AmPmTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
     <style name="DeskClockTabBaseStyle" parent="Widget.AppCompat.ActionBar.TabView">
         <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
         <item name="android:paddingRight">@dimen/actionbar_tab_padding</item>
