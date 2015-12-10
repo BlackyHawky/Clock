@@ -231,15 +231,6 @@ public class AlarmActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Bind to AlarmService
-        bindService(new Intent(this, AlarmService.class), mConnection, Context.BIND_AUTO_CREATE);
-        mServiceBound = true;
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
 
@@ -268,6 +259,8 @@ public class AlarmActivity extends AppCompatActivity
             registerReceiver(mReceiver, filter);
             mReceiverRegistered = true;
         }
+
+        bindAlarmService();
 
         resetAnimations();
     }
@@ -495,6 +488,17 @@ public class AlarmActivity extends AppCompatActivity
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
+    }
+
+    /**
+     * Bind AlarmService if not yet bound.
+     */
+    private void bindAlarmService() {
+        if (!mServiceBound) {
+            final Intent intent = new Intent(this, AlarmService.class);
+            bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+            mServiceBound = true;
+        }
     }
 
     /**
