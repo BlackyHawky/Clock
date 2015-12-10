@@ -130,7 +130,7 @@ public class HandleDeskClockApiCalls extends Activity {
         }
 
         // checking if the stopwatch is already running
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mAppContext);
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(mAppContext);
         final boolean stopwatchAlreadyRunning =
                 prefs.getBoolean(Stopwatches.NOTIF_CLOCK_RUNNING, false);
 
@@ -230,7 +230,7 @@ public class HandleDeskClockApiCalls extends Activity {
         @Override
         protected Void doInBackground(Void... parameters) {
             final List<TimerObj> timers = new ArrayList<>();
-            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            final SharedPreferences prefs = Utils.getDefaultSharedPreferences(mContext);
             TimerObj.getTimersFromSharedPrefs(prefs, timers);
             if (timers.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_timer_set);
@@ -418,7 +418,7 @@ public class HandleDeskClockApiCalls extends Activity {
         protected Void doInBackground(Void... parameters) {
             final String cityExtra = mIntent.getStringExtra(EXTRA_CITY);
             final SharedPreferences prefs =
-                    PreferenceManager.getDefaultSharedPreferences(mContext);
+                    Utils.getDefaultSharedPreferences(mContext);
             switch (mIntent.getAction()) {
                 case ACTION_ADD_CLOCK: {
                     // if a city isn't specified open CitiesActivity to choose a city

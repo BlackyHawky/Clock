@@ -465,7 +465,7 @@ public class CitiesActivity extends BaseActivity implements OnCheckedChangeListe
         setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         mFactory = LayoutInflater.from(this);
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mPrefs = Utils.getDefaultSharedPreferences(this);
         mSortType = mPrefs.getInt(PREF_SORT, SORT_BY_NAME);
         mSelectedCitiesHeaderString = getString(R.string.selected_cities_label);
         if (savedInstanceState != null) {
@@ -490,7 +490,7 @@ public class CitiesActivity extends BaseActivity implements OnCheckedChangeListe
         setFastScroll(TextUtils.isEmpty(mQueryTextBuffer.toString().trim()));
         mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
         mUserSelectedCities = Cities.readCitiesFromSharedPrefs(
-                PreferenceManager.getDefaultSharedPreferences(this));
+                Utils.getDefaultSharedPreferences(this));
         mAdapter = new CityAdapter(this, mFactory);
         mCitiesList.setAdapter(mAdapter);
     }
@@ -513,7 +513,7 @@ public class CitiesActivity extends BaseActivity implements OnCheckedChangeListe
     @Override
     public void onPause() {
         super.onPause();
-        Cities.saveCitiesToSharedPrefs(PreferenceManager.getDefaultSharedPreferences(this),
+        Cities.saveCitiesToSharedPrefs(Utils.getDefaultSharedPreferences(this),
                 mUserSelectedCities);
         Intent i = new Intent(Cities.WORLDCLOCK_UPDATE_INTENT);
         sendBroadcast(i);

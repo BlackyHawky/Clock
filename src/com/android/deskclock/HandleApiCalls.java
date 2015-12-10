@@ -327,7 +327,7 @@ public class HandleApiCalls extends Activity {
     }
 
     private void handleSetTimer(Intent intent) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(this);
         // If no length is supplied, show the timer setup view
         if (!intent.hasExtra(AlarmClock.EXTRA_LENGTH)) {
             startActivity(new Intent(this, DeskClock.class)

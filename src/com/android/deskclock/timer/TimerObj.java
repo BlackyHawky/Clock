@@ -197,7 +197,7 @@ public class TimerObj implements Parcelable {
     }
 
     private int getNextTimerId(Context context) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final int nextTimerId;
         synchronized (TimerObj.class) {
             nextTimerId = prefs.getInt(KEY_NEXT_TIMER_ID, 0);

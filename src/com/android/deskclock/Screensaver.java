@@ -173,7 +173,7 @@ public class Screensaver extends DreamService {
         Utils.setClockStyle(this, mDigitalClock, mAnalogClock,
                 ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
         mSaverView = findViewById(R.id.main_clock);
-        boolean dimNightMode = PreferenceManager.getDefaultSharedPreferences(this)
+        boolean dimNightMode = Utils.getDefaultSharedPreferences(this)
                 .getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
         Utils.dimClockView(dimNightMode, mSaverView);
         setScreenBright(!dimNightMode);

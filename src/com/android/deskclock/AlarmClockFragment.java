@@ -483,7 +483,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private Uri getDefaultRingtoneUri() {
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final SharedPreferences sp = Utils.getDefaultSharedPreferences(getActivity());
         final String ringtoneUriString = sp.getString(PREF_KEY_DEFAULT_ALARM_RINGTONE_URI, null);
 
         final Uri ringtoneUri;
@@ -498,7 +498,7 @@ public abstract class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private void setDefaultRingtoneUri(Uri uri) {
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        final SharedPreferences sp = Utils.getDefaultSharedPreferences(getActivity());
         if (uri == null) {
             sp.edit().remove(PREF_KEY_DEFAULT_ALARM_RINGTONE_URI).apply();
         } else {

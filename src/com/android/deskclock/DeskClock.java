@@ -237,7 +237,7 @@ public class DeskClock extends BaseActivity
         stopwatchIntent.setAction(Stopwatches.KILL_NOTIF);
         startService(stopwatchIntent);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Timers.NOTIF_APP_OPEN, true);
         editor.apply();
@@ -254,7 +254,7 @@ public class DeskClock extends BaseActivity
         intent.setAction(Stopwatches.SHOW_NOTIF);
         startService(intent);
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean(Timers.NOTIF_APP_OPEN, false);
         editor.apply();
@@ -355,7 +355,7 @@ public class DeskClock extends BaseActivity
      * Insert the local time zone as the Home Time Zone if one is not set
      */
     private void setHomeTimeZone() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(this);
         String homeTimeZone = prefs.getString(SettingsActivity.KEY_HOME_TZ, "");
         if (!homeTimeZone.isEmpty()) {
             return;

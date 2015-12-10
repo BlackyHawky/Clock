@@ -395,7 +395,7 @@ public class TimerFullScreenFragment extends DeskClockFragment
         mTimersListPage = v.findViewById(R.id.timers_list_page);
         mTimerSetup = (TimerSetupView) v.findViewById(R.id.timer_setup);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mPrefs = Utils.getDefaultSharedPreferences(getActivity());
         mNotificationManager = (NotificationManager)
                 getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
 

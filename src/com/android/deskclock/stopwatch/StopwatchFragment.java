@@ -449,7 +449,7 @@ public class StopwatchFragment extends DeskClockFragment
 
     @Override
     public void onResume() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(getActivity());
         prefs.registerOnSharedPreferenceChangeListener(this);
         readFromSharedPref(prefs);
         mTime.readFromSharedPref(prefs, "sw");
@@ -489,7 +489,7 @@ public class StopwatchFragment extends DeskClockFragment
         }
         // The stopwatch must keep running even if the user closes the app so save stopwatch state
         // in shared prefs
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(getActivity());
         prefs.unregisterOnSharedPreferenceChangeListener(this);
         writeToSharedPref(prefs);
         mTime.writeToSharedPref(prefs, "sw");
@@ -543,7 +543,7 @@ public class StopwatchFragment extends DeskClockFragment
     private void doReset() {
         if (DEBUG) LogUtils.v("StopwatchFragment.doReset");
         SharedPreferences prefs =
-                PreferenceManager.getDefaultSharedPreferences(getActivity());
+                Utils.getDefaultSharedPreferences(getActivity());
         Utils.clearSwSharedPref(prefs);
         mTime.clearSharedPref(prefs, "sw");
         mAccumulatedTime = 0;
@@ -802,7 +802,7 @@ public class StopwatchFragment extends DeskClockFragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
-        if (prefs.equals(PreferenceManager.getDefaultSharedPreferences(getActivity()))) {
+        if (prefs.equals(Utils.getDefaultSharedPreferences(getActivity()))) {
             if (! (key.equals(Stopwatches.PREF_LAP_NUM) ||
                     key.startsWith(Stopwatches.PREF_LAP_TIME))) {
                 readFromSharedPref(prefs);

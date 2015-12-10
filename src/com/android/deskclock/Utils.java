@@ -492,7 +492,7 @@ public class Utils {
      */
     public static View setClockStyle(Context context, View digitalClock, View analogClock,
             String clockStyleKey) {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences sharedPref = Utils.getDefaultSharedPreferences(context);
         String defaultClockStyle = context.getResources().getString(R.string.default_clock_style);
         String style = sharedPref.getString(clockStyleKey, defaultClockStyle);
         View returnView;
@@ -760,7 +760,7 @@ public class Utils {
     // Return the first day of the week value corresponding to Calendar.<WEEKDAY> value, which is
     // 1-indexed starting with Sunday.
     public static int getFirstDayOfWeek(Context context) {
-        return Integer.parseInt(PreferenceManager
+        return Integer.parseInt(Utils
                 .getDefaultSharedPreferences(context)
                 .getString(SettingsActivity.KEY_WEEK_START, String.valueOf(DEFAULT_WEEK_START)));
     }
@@ -814,5 +814,9 @@ public class Utils {
     public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
         final String localizedQuantity = NumberFormat.getInstance().format(quantity);
         return context.getResources().getQuantityString(id, quantity, localizedQuantity);
+    }
+
+    public static SharedPreferences getDefaultSharedPreferences(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 }

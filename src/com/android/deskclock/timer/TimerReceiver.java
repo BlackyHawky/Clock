@@ -62,7 +62,7 @@ public class TimerReceiver extends BroadcastReceiver {
         if (mTimers == null) {
             mTimers = new ArrayList<>();
         }
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         TimerObj.getTimersFromSharedPrefs(prefs, mTimers);
 
         // These actions do not provide a timer ID, but do use the timers data
@@ -256,7 +256,7 @@ public class TimerReceiver extends BroadcastReceiver {
     }
 
     private void showInUseNotification(final Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         boolean appOpen = prefs.getBoolean(Timers.NOTIF_APP_OPEN, false);
         ArrayList<TimerObj> timersInUse = Timers.timersInUse(mTimers);
         int numTimersInUse = timersInUse.size();

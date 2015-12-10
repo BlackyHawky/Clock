@@ -214,7 +214,7 @@ public class ClockFragment extends DeskClockFragment implements OnSharedPreferen
         }
         mList.setAdapter(mAdapter);
 
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mPrefs = Utils.getDefaultSharedPreferences(getActivity());
         mDefaultClockStyle = getActivity().getResources().getString(R.string.default_clock_style);
         return v;
     }

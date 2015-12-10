@@ -188,7 +188,7 @@ public class TimerFragment extends DeskClockFragment implements OnSharedPreferen
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         final Context context = getActivity();
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
+        mPrefs = Utils.getDefaultSharedPreferences(context);
         mNotificationManager = (NotificationManager) context.getSystemService(Context
                 .NOTIFICATION_SERVICE);
     }

@@ -68,7 +68,7 @@ public class StopwatchService extends Service {
                 || intent.getAction().equals(Stopwatches.RESET_AND_LAUNCH_STOPWATCH);
         switch(actionType) {
             case HandleDeskClockApiCalls.ACTION_START_STOPWATCH:
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this) ;
+                SharedPreferences prefs = Utils.getDefaultSharedPreferences(this) ;
                 prefs.edit().putBoolean(Stopwatches.NOTIF_CLOCK_RUNNING, true).apply();
 
                 mStartTime = actionTime;
@@ -90,7 +90,7 @@ public class StopwatchService extends Service {
                 }
                 break;
             case HandleDeskClockApiCalls.ACTION_STOP_STOPWATCH:
-                prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                prefs = Utils.getDefaultSharedPreferences(this);
                 prefs.edit().putBoolean(Stopwatches.NOTIF_CLOCK_RUNNING, false).apply();
 
                 mElapsedTime = mElapsedTime + (actionTime - mStartTime);
@@ -275,7 +275,7 @@ public class StopwatchService extends Service {
 
     /** Save the notification to be shown when the app is closed. **/
     private void saveNotification(long clockTime, boolean clockRunning, int numLaps) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                 getApplicationContext());
         SharedPreferences.Editor editor = prefs.edit();
         if (clockRunning) {
@@ -293,7 +293,7 @@ public class StopwatchService extends Service {
 
     /** Show the most recently saved notification. **/
     private boolean showSavedNotification() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                 getApplicationContext());
         long clockBaseTime = prefs.getLong(Stopwatches.NOTIF_CLOCK_BASE, -1);
         long clockElapsedTime = prefs.getLong(Stopwatches.NOTIF_CLOCK_ELAPSED, -1);
@@ -314,7 +314,7 @@ public class StopwatchService extends Service {
     }
 
     private void clearSavedNotification() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                 getApplicationContext());
         SharedPreferences.Editor editor = prefs.edit();
         editor.remove(Stopwatches.NOTIF_CLOCK_BASE);
@@ -330,7 +330,7 @@ public class StopwatchService extends Service {
     }
 
     private void readFromSharedPrefs() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                 getApplicationContext());
         mStartTime = prefs.getLong(Stopwatches.PREF_START_TIME, 0);
         mElapsedTime = prefs.getLong(Stopwatches.PREF_ACCUM_TIME, 0);
@@ -338,7 +338,7 @@ public class StopwatchService extends Service {
     }
 
     private long[] readLapsFromPrefs() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                 getApplicationContext());
         int numLaps = prefs.getInt(Stopwatches.PREF_LAP_NUM, Stopwatches.STOPWATCH_RESET);
         long[] laps = new long[numLaps];
@@ -357,7 +357,7 @@ public class StopwatchService extends Service {
 
     private void writeToSharedPrefs(Long startTime, Long lapTimeElapsed, Long elapsedTime,
             Integer state, boolean updateCircle) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                 getApplicationContext());
         SharedPreferences.Editor editor = prefs.edit();
         if (startTime != null) {
@@ -396,7 +396,7 @@ public class StopwatchService extends Service {
         writeToSharedPrefs(startTime, null, null, Stopwatches.STOPWATCH_RUNNING, updateCircle);
         if (updateCircle) {
             long time = Utils.getTimeNow();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+            SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                     getApplicationContext());
             long intervalStartTime = prefs.getLong(
                     Stopwatches.KEY + CircleTimerView.PREF_CTV_INTERVAL_START, -1);
@@ -415,7 +415,7 @@ public class StopwatchService extends Service {
         writeToSharedPrefs(null, lapTimeElapsed, null, null, updateCircle);
         if (updateCircle) {
             long time = Utils.getTimeNow();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+            SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                     getApplicationContext());
             SharedPreferences.Editor editor = prefs.edit();
             long laps[] = readLapsFromPrefs();
@@ -441,7 +441,7 @@ public class StopwatchService extends Service {
         writeToSharedPrefs(null, null, elapsedTime, Stopwatches.STOPWATCH_STOPPED, updateCircle);
         if (updateCircle) {
             long time = Utils.getTimeNow();
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+            SharedPreferences prefs = Utils.getDefaultSharedPreferences(
                     getApplicationContext());
             long accumulatedTime = prefs.getLong(
                     Stopwatches.KEY + CircleTimerView.PREF_CTV_ACCUM_TIME, 0);

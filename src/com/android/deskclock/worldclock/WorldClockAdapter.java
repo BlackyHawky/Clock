@@ -64,7 +64,7 @@ public class WorldClockAdapter extends BaseAdapter {
     }
 
     public void loadData(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(mContext);
         mClockStyle = prefs.getString(SettingsActivity.KEY_CLOCK_STYLE,
                 mContext.getResources().getString(R.string.default_clock_style));
         mCitiesList = Cities.readCitiesFromSharedPrefs(prefs).values().toArray();
@@ -92,7 +92,7 @@ public class WorldClockAdapter extends BaseAdapter {
      */
     private Object[] addHomeCity() {
         if (needHomeCity()) {
-            SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences sharedPref = Utils.getDefaultSharedPreferences(mContext);
             String homeTZ = sharedPref.getString(SettingsActivity.KEY_HOME_TZ, "");
             CityObj c = new CityObj(
                     mContext.getResources().getString(R.string.home_label), homeTZ, null, null);
@@ -116,7 +116,7 @@ public class WorldClockAdapter extends BaseAdapter {
     }
 
     public boolean needHomeCity() {
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(mContext);
+        SharedPreferences sharedPref = Utils.getDefaultSharedPreferences(mContext);
         if (sharedPref.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, false)) {
             String homeTZ = sharedPref.getString(
                     SettingsActivity.KEY_HOME_TZ, TimeZone.getDefault().getID());

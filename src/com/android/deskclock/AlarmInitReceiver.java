@@ -62,7 +62,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                     if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
                         // Clear stopwatch and timers data
                         final SharedPreferences prefs =
-                                PreferenceManager.getDefaultSharedPreferences(context);
+                                Utils.getDefaultSharedPreferences(context);
                         LogUtils.v("AlarmInitReceiver - Reset timers and clear stopwatch data");
                         TimerObj.resetTimersInSharedPrefs(prefs);
                         Utils.clearSwSharedPref(prefs);

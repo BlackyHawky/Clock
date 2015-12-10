@@ -24,11 +24,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.SettingsActivity;
+import com.android.deskclock.Utils;
 
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -412,7 +412,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @return the time when alarm should be silence, or null if never
      */
     public Calendar getTimeout(Context context) {
-        String timeoutSetting = PreferenceManager.getDefaultSharedPreferences(context)
+        String timeoutSetting = Utils.getDefaultSharedPreferences(context)
                 .getString(SettingsActivity.KEY_AUTO_SILENCE, DEFAULT_ALARM_TIMEOUT_SETTING);
         int timeoutMinutes = Integer.parseInt(timeoutSetting);
 

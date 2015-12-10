@@ -165,7 +165,7 @@ public class AlarmActivity extends AppCompatActivity
         LogUtils.i(LOGTAG, "Displaying alarm for instance: %s", mAlarmInstance);
 
         // Get the volume/camera button behavior setting
-        mVolumeBehavior = PreferenceManager.getDefaultSharedPreferences(this)
+        mVolumeBehavior = Utils.getDefaultSharedPreferences(this)
                 .getString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
                         SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
 
