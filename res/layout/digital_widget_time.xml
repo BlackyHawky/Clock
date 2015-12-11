@@ -14,35 +14,36 @@
      limitations under the License.
 -->
 
-<!-- digital clock for the digital widget -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_gravity="center"
-    android:baselineAligned="false"
     android:background="?android:attr/selectableItemBackground"
-    >
+    android:baselineAligned="false"
+    android:orientation="vertical">
 
     <TextClock
-        android:id="@+id/the_clock"
-        android:format12Hour="@string/main_widget_12_hours_format"
-        android:format24Hour="@string/clock_24_hours_format"
+        android:id="@+id/clock"
+        style="@style/widget_big_thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
-        style="@style/widget_big_thin"
-        android:textColor="@color/clock_white"
         android:layout_gravity="center_horizontal|top"
-        android:baselineAligned="true"
         android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
-    />
+        android:baselineAligned="true"
+        android:format12Hour="@string/main_widget_12_hours_format"
+        android:format24Hour="@string/clock_24_hours_format"
+        android:singleLine="true"
+        android:textColor="@color/clock_white" />
+
     <LinearLayout
+        android:id="@+id/date_and_alarm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/date_and_alarm"
         android:gravity="center">
-        <TextClock android:id="@+id/date"
+
+        <TextClock
+            android:id="@+id/date"
             style="@style/widget_label"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -50,8 +51,8 @@
             android:format12Hour=""
             android:format24Hour=""
             android:gravity="center"
-            android:textColor="@color/clock_white"
-            />
+            android:textColor="@color/clock_white" />
+
         <TextView
             android:id="@+id/nextAlarm"
             style="@style/widget_label"
@@ -64,7 +65,7 @@
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@color/clock_gray"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
     </LinearLayout>
+
 </LinearLayout>
