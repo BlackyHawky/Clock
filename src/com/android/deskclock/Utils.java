@@ -36,6 +36,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.VisibleForTesting;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -77,6 +78,8 @@ public class Utils {
     private static final String DATE_FORMAT_LONG = "EEEE";
 
     public static final int DEFAULT_WEEK_START = Calendar.getInstance().getFirstDayOfWeek();
+
+    private static final long QUARTER_HOUR_IN_MILLIS = 15 * DateUtils.MINUTE_IN_MILLIS;
 
     private static Locale sLocaleUsedForWeekdays;
 
@@ -303,27 +306,17 @@ public class Utils {
 
     /** Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45) **/
     public static long getAlarmOnQuarterHour() {
-        final Calendar calendarInstance = Calendar.getInstance();
-        final long now = System.currentTimeMillis();
-        return getAlarmOnQuarterHour(calendarInstance, now);
+        return getAlarmOnQuarterHour(System.currentTimeMillis());
     }
 
-    static long getAlarmOnQuarterHour(Calendar calendar, long now) {
-        //  Set 1 second to ensure quarter-hour threshold passed.
-        calendar.set(Calendar.SECOND, 1);
-        calendar.set(Calendar.MILLISECOND, 0);
-        int minute = calendar.get(Calendar.MINUTE);
-        calendar.add(Calendar.MINUTE, 15 - (minute % 15));
-        long alarmOnQuarterHour = calendar.getTimeInMillis();
-
-        // Verify that alarmOnQuarterHour is within the next 15 minutes
-        long delta = alarmOnQuarterHour - now;
-        if (0 >= delta || delta > 901000) {
-            // Something went wrong in the calculation, schedule something that is
-            // about 15 minutes. Next time , it will align with the 15 minutes border.
-            alarmOnQuarterHour = now + 901000;
-        }
-        return alarmOnQuarterHour;
+    @VisibleForTesting
+    static long getAlarmOnQuarterHour(long now) {
+        // Compute the time of the last quarter hour.
+        final long lastQuarterHour = now - (now % QUARTER_HOUR_IN_MILLIS);
+        // Add a quarter hour to move to the future.
+        final long nextQuarterHour = lastQuarterHour + QUARTER_HOUR_IN_MILLIS;
+        // Add an extra second to ensure callbacks are processed *after* the quarter hour passes.
+        return nextQuarterHour + DateUtils.SECOND_IN_MILLIS;
     }
 
     // Setup a thread that starts at midnight plus one second. The extra second is added to ensure
