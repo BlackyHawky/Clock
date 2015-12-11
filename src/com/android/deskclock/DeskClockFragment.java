@@ -17,57 +17,60 @@
 package com.android.deskclock;
 
 import android.app.Fragment;
-import android.os.Bundle;
-import android.view.View;
+import android.support.annotation.NonNull;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
 
-public abstract class DeskClockFragment extends Fragment {
+import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
+
+public abstract class DeskClockFragment extends Fragment implements FabContainer, FabController {
 
     /** The tab associated with this fragment. */
     private final Tab mTab;
-
-    protected ImageView mFab;
-    protected ImageButton mLeftButton;
-    protected ImageButton mRightButton;
 
     public DeskClockFragment(Tab tab) {
         mTab = tab;
     }
 
-    public void onFabClick(View view) {
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Update the fab and buttons in case their state changed while the fragment was paused.
+        if (isTabSelected()) {
+            updateFab(FAB_AND_BUTTONS_IMMEDIATE);
+        }
+    }
+
+    @Override
+    public void onLeftButtonClick(@NonNull ImageButton left) {
         // Do nothing here, only in derived classes
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        final DeskClock deskClock = (DeskClock) getActivity();
-        mFab = deskClock.getFab();
-        mLeftButton = deskClock.getLeftButton();
-        mRightButton = deskClock.getRightButton();
-    }
-
-    public void setFabAppearance() {
+    public void onRightButtonClick(@NonNull ImageButton right) {
         // Do nothing here, only in derived classes
     }
 
-    public void setLeftRightButtonAppearance() {
-        // Do nothing here, only in derived classes
+    /**
+     * Requests that the parent activity update the fab and buttons.
+     *
+     * @param updateType the manner in which the fab container should be updated
+     */
+    @Override
+    public final void updateFab(FabContainer.UpdateType updateType) {
+        final FabContainer parentFabContainer = (FabContainer) getActivity();
+        if (parentFabContainer != null) {
+            parentFabContainer.updateFab(updateType);
+        }
     }
 
-    public void onLeftButtonClick(View view) {
-        // Do nothing here, only in derived classes
-    }
-
-    public void onRightButtonClick(View view) {
-        // Do nothing here, only in derived classes
-    }
-
-    public boolean isTabSelected() {
+    /**
+     * @return {@code true} iff the currently selected tab displays this fragment
+     */
+    public final boolean isTabSelected() {
         return UiDataModel.getUiDataModel().getSelectedTab() == mTab;
     }
 }

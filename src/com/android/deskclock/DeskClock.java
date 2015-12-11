@@ -19,6 +19,7 @@ package com.android.deskclock;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
+import android.animation.ValueAnimator;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -58,13 +59,14 @@ import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
 import static com.android.deskclock.AnimatorUtils.getAlphaAnimator;
 import static com.android.deskclock.AnimatorUtils.getScaleAnimator;
+import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
  * clocks, timers and a stopwatch.
  */
 public class DeskClock extends BaseActivity
-        implements LabelDialogFragment.AlarmLabelDialogHandler,
+        implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler,
         RingtonePickerDialogFragment.RingtoneSelectionListener {
 
     /** Models the interesting state of display the {@link #mFab} button may inhabit. */
@@ -78,6 +80,9 @@ public class DeskClock extends BaseActivity
 
     /** Grows the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to natural sizes. */
     private final AnimatorSet mShowAnimation = new AnimatorSet();
+
+    /** Hides, updates, and shows only the {@link #mFab}; the buttons are untouched. */
+    private final AnimatorSet mUpdateFabOnlyAnimation = new AnimatorSet();
 
     /** Automatically starts the {@link #mShowAnimation} after {@link #mHideAnimation} ends. */
     private final AnimatorListenerAdapter mAutoStartShowListener = new AutoStartShowListener();
@@ -160,24 +165,25 @@ public class DeskClock extends BaseActivity
         mFab.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSelectedDeskClockFragment().onFabClick(view);
+                getSelectedDeskClockFragment().onFabClick(mFab);
             }
         });
         mLeftButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSelectedDeskClockFragment().onLeftButtonClick(view);
+                getSelectedDeskClockFragment().onLeftButtonClick(mLeftButton);
             }
         });
         mRightButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSelectedDeskClockFragment().onRightButtonClick(view);
+                getSelectedDeskClockFragment().onRightButtonClick(mRightButton);
             }
         });
 
         // Build the reusable animations that hide and show the fab and left/right buttons.
-        final long duration = UiDataModel.getUiDataModel().getFabShowAndHideAnimationDuration();
+        // These may be used independently or be chained together.
+        final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
         mHideAnimation
                 .setDuration(duration)
                 .play(getScaleAnimator(mFab, 1f, 0f))
@@ -189,6 +195,20 @@ public class DeskClock extends BaseActivity
                 .play(getScaleAnimator(mFab, 0f, 1f))
                 .with(getAlphaAnimator(mLeftButton, 0f, 1f))
                 .with(getAlphaAnimator(mRightButton, 0f, 1f));
+
+        // Build the reusable animation that hides and shows only the fab.
+        final ValueAnimator hideFabAnimation = getScaleAnimator(mFab, 1f, 0f);
+        hideFabAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                getSelectedDeskClockFragment().onUpdateFab(mFab);
+            }
+        });
+        final ValueAnimator showFabAnimation = getScaleAnimator(mFab, 0f, 1f);
+        mUpdateFabOnlyAnimation
+                .setDuration(duration)
+                .play(showFabAnimation)
+                .after(hideFabAnimation);
 
         // Customize the view pager.
         mFragmentTabPagerAdapter = new TabFragmentAdapter(this);
@@ -285,9 +305,32 @@ public class DeskClock extends BaseActivity
         }
     }
 
-    public ImageView getFab() { return mFab; }
-    public ImageButton getLeftButton() { return mLeftButton; }
-    public ImageButton getRightButton() { return mRightButton; }
+    @Override
+    public void updateFab(UpdateType updateType) {
+        switch (updateType) {
+            case DISABLE_BUTTONS:
+                mLeftButton.setEnabled(false);
+                mRightButton.setEnabled(false);
+                break;
+
+            case FAB_AND_BUTTONS_IMMEDIATE:
+                final DeskClockFragment f = getSelectedDeskClockFragment();
+                f.onUpdateFab(mFab);
+                f.onUpdateFabButtons(mLeftButton, mRightButton);
+                break;
+
+            case FAB_ONLY_ANIMATED:
+                mUpdateFabOnlyAnimation.start();
+                break;
+
+            case FAB_AND_BUTTONS_ANIMATED:
+                // Ensure there is never more than one mAutoStartShowListener registered.
+                mHideAnimation.removeListener(mAutoStartShowListener);
+                mHideAnimation.addListener(mAutoStartShowListener);
+                mHideAnimation.start();
+                break;
+        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -311,18 +354,6 @@ public class DeskClock extends BaseActivity
         }
         if (mFragmentTabPager.getCurrentItem() != index) {
             mFragmentTabPager.setCurrentItem(index);
-        }
-    }
-
-    /**
-     * Display the fab and left/right buttons that match the currently selected fragment.
-     */
-    private void updateButtons() {
-        // Update the shared buttons to reflect the new tab.
-        final DeskClockFragment f = getSelectedDeskClockFragment();
-        if (f != null) {
-            f.setFabAppearance();
-            f.setLeftRightButtonAppearance();
         }
     }
 
@@ -377,7 +408,7 @@ public class DeskClock extends BaseActivity
                     // Finish the hide animation and then start the show animation.
                     mHideAnimation.addListener(mAutoStartShowListener);
                 } else {
-                    updateButtons();
+                    updateFab(FAB_AND_BUTTONS_IMMEDIATE);
                     mShowAnimation.start();
 
                     // The animation to show the fab has begun; update the state to showing.
@@ -409,7 +440,7 @@ public class DeskClock extends BaseActivity
             mHideAnimation.removeListener(mAutoStartShowListener);
 
             // Update the buttons now that they are no longer visible.
-            updateButtons();
+            updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
             // Automatically start the grow animation now that shrinking is complete.
             mShowAnimation.start();
@@ -452,7 +483,7 @@ public class DeskClock extends BaseActivity
             // If the hide animation has already completed, the buttons must be updated now when the
             // new tab is known. Otherwise they are updated at the end of the hide animation.
             if (!mHideAnimation.isStarted()) {
-                updateButtons();
+                updateFab(FAB_AND_BUTTONS_IMMEDIATE);
             }
         }
     }

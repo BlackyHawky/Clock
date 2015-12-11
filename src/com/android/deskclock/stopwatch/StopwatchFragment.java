@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -32,6 +33,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LogUtils;
@@ -52,6 +55,7 @@ import static android.os.PowerManager.SCREEN_BRIGHT_WAKE_LOCK;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
 import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 /**
@@ -131,10 +135,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         // Conservatively assume the data in the adapter has changed while the fragment was paused.
         mLapsAdapter.notifyDataSetChanged();
 
-        // Update the state of the buttons.
-        setFabAppearance();
-        setLeftRightButtonAppearance();
-
         // Draw the current stopwatch and lap times.
         updateTime();
 
@@ -187,12 +187,12 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabClick(View view) {
+    public void onFabClick(@NonNull ImageView fab) {
         toggleStopwatchState();
     }
 
     @Override
-    public void onLeftButtonClick(View view) {
+    public void onLeftButtonClick(@NonNull ImageButton left) {
         switch (getStopwatch().getState()) {
             case RUNNING:
                 doAddLap();
@@ -204,54 +204,46 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onRightButtonClick(View view) {
+    public void onRightButtonClick(@NonNull ImageButton right) {
         doShare();
     }
 
     @Override
-    public void setFabAppearance() {
-        if (mFab == null || !isTabSelected()) {
-            return;
-        }
-
+    public void onUpdateFab(@NonNull ImageView fab) {
         if (getStopwatch().isRunning()) {
-            mFab.setImageResource(R.drawable.ic_pause_white_24dp);
-            mFab.setContentDescription(getString(R.string.sw_pause_button));
+            fab.setImageResource(R.drawable.ic_pause_white_24dp);
+            fab.setContentDescription(fab.getResources().getString(R.string.sw_pause_button));
         } else {
-            mFab.setImageResource(R.drawable.ic_start_white_24dp);
-            mFab.setContentDescription(getString(R.string.sw_start_button));
+            fab.setImageResource(R.drawable.ic_start_white_24dp);
+            fab.setContentDescription(fab.getResources().getString(R.string.sw_start_button));
         }
-        mFab.setVisibility(VISIBLE);
+        fab.setVisibility(VISIBLE);
     }
 
     @Override
-    public void setLeftRightButtonAppearance() {
-        if (mLeftButton == null || mRightButton == null || !isTabSelected()) {
-            return;
-        }
-
-        mRightButton.setImageResource(R.drawable.ic_share);
-        mRightButton.setContentDescription(getString(R.string.sw_share_button));
+    public void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+        right.setImageResource(R.drawable.ic_share);
+        right.setContentDescription(right.getResources().getString(R.string.sw_share_button));
 
         switch (getStopwatch().getState()) {
             case RESET:
-                mLeftButton.setEnabled(false);
-                mLeftButton.setVisibility(INVISIBLE);
-                mRightButton.setVisibility(INVISIBLE);
+                left.setEnabled(false);
+                left.setVisibility(INVISIBLE);
+                right.setVisibility(INVISIBLE);
                 break;
             case RUNNING:
-                mLeftButton.setImageResource(R.drawable.ic_lap);
-                mLeftButton.setContentDescription(getString(R.string.sw_lap_button));
-                mLeftButton.setEnabled(canRecordMoreLaps());
-                mLeftButton.setVisibility(canRecordMoreLaps() ? VISIBLE : INVISIBLE);
-                mRightButton.setVisibility(INVISIBLE);
+                left.setImageResource(R.drawable.ic_lap);
+                left.setContentDescription(left.getResources().getString(R.string.sw_lap_button));
+                left.setEnabled(canRecordMoreLaps());
+                left.setVisibility(canRecordMoreLaps() ? VISIBLE : INVISIBLE);
+                right.setVisibility(INVISIBLE);
                 break;
             case PAUSED:
-                mLeftButton.setEnabled(true);
-                mLeftButton.setImageResource(R.drawable.ic_reset);
-                mLeftButton.setContentDescription(getString(R.string.sw_reset_button));
-                mLeftButton.setVisibility(VISIBLE);
-                mRightButton.setVisibility(VISIBLE);
+                left.setEnabled(true);
+                left.setImageResource(R.drawable.ic_reset);
+                left.setContentDescription(left.getResources().getString(R.string.sw_reset_button));
+                left.setVisibility(VISIBLE);
+                right.setVisibility(VISIBLE);
                 break;
         }
     }
@@ -271,8 +263,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         mTimeText.blinkTimeStr(false);
 
         // Update button states.
-        setFabAppearance();
-        setLeftRightButtonAppearance();
+        updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
         // Acquire the wake lock.
         acquireWakeLock();
@@ -295,8 +286,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         mTimeText.blinkTimeStr(true);
 
         // Update button states.
-        setFabAppearance();
-        setLeftRightButtonAppearance();
+        updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
         // Release the wake lock.
         releaseWakeLock();
@@ -320,8 +310,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         mTimeText.blinkTimeStr(false);
 
         // Update button states.
-        setFabAppearance();
-        setLeftRightButtonAppearance();
+        updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
         // Release the wake lock.
         releaseWakeLock();
@@ -364,7 +353,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
 
         // Update button states.
-        setLeftRightButtonAppearance();
+        updateFab(FAB_AND_BUTTONS_IMMEDIATE);
 
         if (lap.getLapNumber() == 1) {
             // Child views from prior lap sets hang around and blit to the screen when adding the
