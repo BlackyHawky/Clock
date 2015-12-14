@@ -82,7 +82,6 @@ public final class SettingsActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setVolumeControlStream(AudioManager.STREAM_ALARM);
         setContentView(R.layout.settings);
         mActionBarMenuManager.addMenuItemController(new NavUpMenuItemController(this))
             .addMenuItemController(MenuItemControllerFactory.getInstance()
