@@ -117,7 +117,6 @@ public class DeskClock extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         if (savedInstanceState == null) {
             // Set the background color to initially match the theme value so that we can

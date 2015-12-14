@@ -88,7 +88,6 @@ public final class CitySelectionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         setContentView(R.layout.cities_activity);
         mSearchMenuItemController =
