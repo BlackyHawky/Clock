@@ -86,9 +86,9 @@ public final class UiDataModel {
     //
 
     /**
-     * @return the animation duration in milliseconds over which the fab grows and shrinks
+     * @return the duration in milliseconds of short animations
      */
-    public long getFabShowAndHideAnimationDuration() {
+    public long getShortAnimationDuration() {
         enforceMainLooper();
         return mContext.getResources().getInteger(android.R.integer.config_shortAnimTime);
     }
