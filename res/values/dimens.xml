@@ -91,6 +91,7 @@
     <dimen name="dialog_button_font_size">16sp</dimen>
 
     <dimen name="alarm_label_size">14sp</dimen>
+    <dimen name="alarm_icon_padding">6dp</dimen>
 
     <dimen name="medium_font_padding">12dp</dimen>
 
