@@ -22,6 +22,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,6 +30,8 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.alarms.AlarmUpdateHandler;
@@ -113,9 +116,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onResume() {
         super.onResume();
-
-        setFabAppearance();
-        setLeftRightButtonAppearance();
 
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = getActivity().getIntent();
@@ -245,28 +245,22 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onFabClick(View view) {
+    public void onFabClick(@NonNull ImageView fab) {
         mAlarmUpdateHandler.hideUndoBar();
         startCreatingAlarm();
     }
 
     @Override
-    public void setFabAppearance() {
-        if (mFab == null || !isTabSelected()) {
-            return;
-        }
-        mFab.setVisibility(View.VISIBLE);
-        mFab.setImageResource(R.drawable.ic_add_white_24dp);
-        mFab.setContentDescription(getString(R.string.button_alarms));
+    public void onUpdateFab(@NonNull ImageView fab) {
+        fab.setVisibility(View.VISIBLE);
+        fab.setImageResource(R.drawable.ic_add_white_24dp);
+        fab.setContentDescription(fab.getResources().getString(R.string.button_alarms));
     }
 
     @Override
-    public void setLeftRightButtonAppearance() {
-        if (mLeftButton == null || mRightButton == null || !isTabSelected()) {
-            return;
-        }
-        mLeftButton.setVisibility(View.INVISIBLE);
-        mRightButton.setVisibility(View.INVISIBLE);
+    public void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+        left.setVisibility(View.INVISIBLE);
+        right.setVisibility(View.INVISIBLE);
     }
 
     private void startCreatingAlarm() {

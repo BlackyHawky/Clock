@@ -13,10 +13,12 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/fab_height">
 
     <com.android.deskclock.timer.TimerView
         android:id="@+id/timer_time_text"
@@ -65,7 +67,5 @@
     <include
         android:id="@+id/fourth"
         layout="@layout/three_keys_view" />
-
-    <include layout="@layout/timer_setup_buttons" />
 
 </LinearLayout>

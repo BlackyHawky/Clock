@@ -27,6 +27,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,6 +35,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -136,8 +139,6 @@ public final class ClockFragment extends DeskClockFragment {
         super.onResume();
 
         final Activity activity = getActivity();
-        setFabAppearance();
-        setLeftRightButtonAppearance();
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
@@ -183,34 +184,21 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onFabClick(View view) {
+    public void onFabClick(@NonNull ImageView fab) {
         startActivity(new Intent(getActivity(), CitySelectionActivity.class));
     }
 
     @Override
-    public void setFabAppearance() {
-        if (mFab == null || !isTabSelected()) {
-            return;
-        }
-
-        mFab.setVisibility(VISIBLE);
-        mFab.setImageResource(R.drawable.ic_language_white_24dp);
-        mFab.setContentDescription(getString(R.string.button_cities));
+    public void onUpdateFab(@NonNull ImageView fab) {
+        fab.setVisibility(VISIBLE);
+        fab.setImageResource(R.drawable.ic_language_white_24dp);
+        fab.setContentDescription(fab.getResources().getString(R.string.button_cities));
     }
 
     @Override
-    public void setLeftRightButtonAppearance() {
-        if (!isTabSelected()) {
-            return;
-        }
-
-        if (mLeftButton != null) {
-            mLeftButton.setVisibility(INVISIBLE);
-        }
-
-        if (mRightButton != null) {
-            mRightButton.setVisibility(INVISIBLE);
-        }
+    public void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+        left.setVisibility(INVISIBLE);
+        right.setVisibility(INVISIBLE);
     }
 
     /**
