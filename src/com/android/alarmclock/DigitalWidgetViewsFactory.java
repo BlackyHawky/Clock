@@ -181,7 +181,7 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
     }
 
     private void update(RemoteViews clock, City city, int clockId, int labelId, int dayId) {
-        WidgetUtils.setTimeFormat(mContext, clock, true /* showAmPm */, clockId);
+        WidgetUtils.setTimeFormat(mContext, clock, 0.4f /* amPmRatio */, clockId);
 
         final float fontSize = DateFormat.is24HourFormat(mContext) ? mFont24Size : mFontSize;
         clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);

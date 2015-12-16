@@ -370,10 +370,12 @@ public final class ClockFragment extends DeskClockFragment {
                 analogClock.setTimeZone(city.getTimeZoneId());
                 analogClock.enableSeconds(false);
             } else {
-                digitalClock.setVisibility(VISIBLE);
                 analogClock.setVisibility(GONE);
+                digitalClock.setVisibility(VISIBLE);
                 digitalClock.setTimeZone(city.getTimeZoneId());
-                Utils.setTimeFormat(mContext, digitalClock);
+                digitalClock.setFormat12Hour(
+                        Utils.get12ModeFormat(mContext, 0.22f /* amPmRatio */));
+                digitalClock.setFormat24Hour(Utils.get24ModeFormat());
             }
 
             // Bind the city name.
