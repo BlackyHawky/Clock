@@ -94,7 +94,7 @@ public class WidgetUtils {
             float density = res.getDisplayMetrics().density;
             float ratio = density * minHeight / res.getDimension(R.dimen.min_digital_widget_height);
             if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                return ratio * 1.9f;
+                return ratio * 1.75f;
             }
             return ratio;
         }
