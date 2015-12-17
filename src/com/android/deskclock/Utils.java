@@ -495,7 +495,7 @@ public class Utils {
     public static void setTimeFormat(Context context, TextClock clock) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(context, true /* showAmPm */));
+            clock.setFormat12Hour(get12ModeFormat(context, 0.4f /* amPmRatio */));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat());
         }
@@ -505,7 +505,7 @@ public class Utils {
      * Returns {@code true} if the am / pm strings for the current locale are long and a reduced
      * text size should be used for displaying the digital clock.
      */
-    public static boolean isAmPmStringLong() {
+    private static boolean isAmPmStringLong() {
         final String[] amPmStrings = new DateFormatSymbols().getAmPmStrings();
         for (String amPmString : amPmStrings) {
             // Dots are small, so don't count them.
@@ -518,13 +518,14 @@ public class Utils {
     }
 
     /**
-     * @param context - context used to get time format string resource
-     * @param showAmPm - include the am/pm string if true
+     * @param context used to get time format string resource
+     * @param amPmRatio a value between 0 and 1 that is the ratio of the relative size of the
+     *      am/pm string to the time string
      * @return format string for 12 hours mode time
      */
-    public static CharSequence get12ModeFormat(Context context, boolean showAmPm) {
+    public static CharSequence get12ModeFormat(Context context, float amPmRatio) {
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
-        if (!showAmPm) {
+        if (amPmRatio <= 0) {
             pattern = pattern.replaceAll("a", "").trim();
         }
 
@@ -537,9 +538,8 @@ public class Utils {
         }
 
         final Resources resources = context.getResources();
-        final float amPmProportion = resources.getFraction(R.fraction.ampm_font_size_scale, 1, 1);
         final Spannable sp = new SpannableString(pattern);
-        sp.setSpan(new RelativeSizeSpan(amPmProportion), amPmPos, amPmPos + 1,
+        sp.setSpan(new RelativeSizeSpan(amPmRatio), amPmPos, amPmPos + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);

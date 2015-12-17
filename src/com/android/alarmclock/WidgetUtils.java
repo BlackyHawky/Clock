@@ -136,17 +136,18 @@ public class WidgetUtils {
 
     /***
      * Set the format of the time on the clock according to the locale
-     * @param context - Context used to get user's locale and time preferences
-     * @param clock - view to format
-     * @param showAmPm - show am/pm label if true
-     * @param clockId - id of TextClock view as defined in the clock's layout.
+     * @param context Context used to get user's locale and time preferences
+     * @param clock view to format
+     * @param amPmRatio a value between 0 and 1 that is the ratio of the relative size of the
+     *      am/pm string to the time string
+     * @param clockId id of TextClock view as defined in the clock's layout.
      */
-    public static void setTimeFormat(Context context, RemoteViews clock, boolean showAmPm,
+    public static void setTimeFormat(Context context, RemoteViews clock, float amPmRatio,
             int clockId) {
         if (clock != null) {
             // Set the best format for 12 hours mode according to the locale
             clock.setCharSequence(clockId, "setFormat12Hour",
-                    Utils.get12ModeFormat(context, showAmPm));
+                    Utils.get12ModeFormat(context, amPmRatio));
             // Set the best format for 24 hours mode according to the locale
             clock.setCharSequence(clockId, "setFormat24Hour", Utils.get24ModeFormat());
         }

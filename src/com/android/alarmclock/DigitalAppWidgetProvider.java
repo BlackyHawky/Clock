@@ -115,7 +115,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                     final float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
                     refreshAlarm(context, widget, ratio);
                     WidgetUtils.setClockSize(context, widget, ratio);
-                    WidgetUtils.setTimeFormat(context, widget, false /* showAmPm */, R.id.clock);
+                    WidgetUtils.setTimeFormat(context, widget, 0.4f /* amPmRatio */, R.id.clock);
                     widgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
                 }
 
@@ -176,7 +176,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         refreshDate(context, widget, ratio);
         refreshAlarm(context, widget, ratio);
         WidgetUtils.setClockSize(context, widget, ratio);
-        WidgetUtils.setTimeFormat(context, widget, false /* showAmPm */, R.id.clock);
+        WidgetUtils.setTimeFormat(context, widget, 0.4f /* amPmRatio */, R.id.clock);
 
         // Set up R.id.digital_appwidget_listview to use a remote views adapter
         // That remote views adapter connects to a RemoteViewsService through intent.
