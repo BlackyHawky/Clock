@@ -70,9 +70,8 @@
             android:id="@+id/nextAlarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dip"
-            android:layout_marginStart="8dip"
-            android:drawablePadding="2dip"
+            android:layout_marginStart="@dimen/alarm_icon_padding"
+            android:drawablePadding="@dimen/alarm_icon_padding"
             android:drawableStart="@drawable/ic_alarm_small"
             android:textAppearance="@style/SecondaryLabelTextAppearance" />
     </LinearLayout>
