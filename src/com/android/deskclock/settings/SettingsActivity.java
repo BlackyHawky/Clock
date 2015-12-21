@@ -19,10 +19,8 @@ package com.android.deskclock.settings;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -47,7 +45,6 @@ import com.android.deskclock.data.DataModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -77,7 +74,7 @@ public final class SettingsActivity extends BaseActivity
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
 
-    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
+    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

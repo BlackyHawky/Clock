@@ -24,7 +24,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -73,7 +72,7 @@ public class DeskClock extends BaseActivity
     private enum FabState { SHOWING, HIDE_ARMED, HIDING }
 
     /** Coordinates handling of context menu items. */
-    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
+    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager();
 
     /** Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing. */
     private final AnimatorSet mHideAnimation = new AnimatorSet();

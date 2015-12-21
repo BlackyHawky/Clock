@@ -17,7 +17,6 @@
 package com.android.deskclock.worldclock;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
@@ -80,7 +79,7 @@ public final class CitySelectionActivity extends BaseActivity {
     private CityAdapter mCitiesAdapter;
 
     /** Manages all action bar menu display and click handling. */
-    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
+    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager();
 
     /** Menu item controller for search view. */
     private SearchMenuItemController mSearchMenuItemController;

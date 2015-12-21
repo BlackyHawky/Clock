@@ -33,7 +33,7 @@ public final class ActionBarMenuManager {
     // A map of all menu item controllers, keyed by menu item id.
     private final ArrayMap<Integer, MenuItemController> mControllers;
 
-    public ActionBarMenuManager(Activity activity) {
+    public ActionBarMenuManager() {
         mControllers = new ArrayMap<>();
     }
 
