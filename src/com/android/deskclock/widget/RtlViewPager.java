@@ -78,6 +78,7 @@ public final class RtlViewPager extends ViewPager {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void setOnPageChangeListener(OnPageChangeListener unused) {
         throw new UnsupportedOperationException("Use setOnRTLPageChangeListener instead");
     }

@@ -209,6 +209,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * Used in pre-L devices, where "next alarm" is stored in system settings.
      */
+    @SuppressWarnings("deprecation")
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     private static void updateNextAlarmInSystemSettings(Context context, AlarmInstance nextAlarm) {
         // Send broadcast message so pre-L AppWidgets will recognize an update
         String timeString = "";

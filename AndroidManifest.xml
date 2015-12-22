@@ -17,6 +17,7 @@
 
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.android.deskclock"
     android:versionCode="440"
     android:versionName="4.4.0">
@@ -68,7 +69,7 @@
 
         <activity-alias
             android:name=".DockClock"
-            android:enabled="@bool/config_dockAppEnabled"
+            android:enabled="false"
             android:icon="@mipmap/ic_launcher_alarmclock"
             android:label="@string/app_label"
             android:launchMode="singleTask"
@@ -339,12 +340,14 @@
         <service
             android:name=".timer.TimerService"
             android:description="@string/timer_service_desc"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="ManifestResource" />
 
         <service
             android:name=".stopwatch.StopwatchService"
             android:description="@string/stopwatch_service_desc"
-            android:exported="false" />
+            android:exported="false"
+            tools:ignore="ManifestResource" />
 
     </application>
 </manifest>

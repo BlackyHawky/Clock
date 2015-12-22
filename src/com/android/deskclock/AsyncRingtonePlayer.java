@@ -1,5 +1,6 @@
 package com.android.deskclock;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -127,6 +128,7 @@ public final class AsyncRingtonePlayer {
     /**
      * Creates a new ringtone Handler running in its own thread.
      */
+    @SuppressLint("HandlerLeak")
     private Handler getNewHandler() {
         final HandlerThread thread = new HandlerThread("ringtone-player");
         thread.start();

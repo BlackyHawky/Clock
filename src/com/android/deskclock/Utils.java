@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012 The Android Open Source Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,7 @@ package com.android.deskclock;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.animation.TimeInterpolator;
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.content.ContentResolver;
@@ -42,7 +42,6 @@ import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
-import android.text.format.Time;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
@@ -139,7 +138,7 @@ public class Utils {
 
     /**
      * @return {@code true} if the device is {@link Build.VERSION_CODES#LOLLIPOP} or
-     *      {@link Build.VERSION_CODES#LOLLIPOP_MR1}
+     * {@link Build.VERSION_CODES#LOLLIPOP_MR1}
      */
     public static boolean isLOrLMR1() {
         final int sdkInt = Build.VERSION.SDK_INT;
@@ -191,30 +190,20 @@ public class Utils {
         }
     }
 
-    /** Runnable for use with screensaver and dream, to move the clock every minute.
-     *  registerViews() must be called prior to posting.
+    /**
+     * Runnable for use with screensaver and dream, to move the clock every minute.
+     * registerViews() must be called prior to posting.
      */
     public static class ScreensaverMoveSaverRunnable implements Runnable {
-        static final long MOVE_DELAY = 60000; // DeskClock.SCREEN_SAVER_MOVE_DELAY;
-        static final long SLIDE_TIME = 10000;
-        static final long FADE_TIME = 3000;
 
-        static final boolean SLIDE = false;
+        static final long MOVE_DELAY = 60000; // DeskClock.SCREEN_SAVER_MOVE_DELAY;
+        static final long FADE_TIME = 3000;
 
         private View mContentView, mSaverView;
         private final Handler mHandler;
 
-        private static TimeInterpolator mSlowStartWithBrakes;
-
-
         public ScreensaverMoveSaverRunnable(Handler handler) {
             mHandler = handler;
-            mSlowStartWithBrakes = new TimeInterpolator() {
-                @Override
-                public float getInterpolation(float x) {
-                    return (float)(Math.cos((Math.pow(x,3) + 1) * Math.PI) / 2.0f) + 0.5f;
-                }
-            };
         }
 
         public void registerViews(View contentView, View saverView) {
@@ -245,58 +234,48 @@ public class Utils {
                     mSaverView.setX(nextx);
                     mSaverView.setY(nexty);
                     ObjectAnimator.ofFloat(mSaverView, "alpha", 0f, 1f)
-                        .setDuration(FADE_TIME)
-                        .start();
+                            .setDuration(FADE_TIME)
+                            .start();
                 } else {
                     AnimatorSet s = new AnimatorSet();
-                    Animator xMove   = ObjectAnimator.ofFloat(mSaverView,
-                                         "x", mSaverView.getX(), nextx);
-                    Animator yMove   = ObjectAnimator.ofFloat(mSaverView,
-                                         "y", mSaverView.getY(), nexty);
+                    Animator xMove = ObjectAnimator.ofFloat(mSaverView,
+                            "x", mSaverView.getX(), nextx);
+                    Animator yMove = ObjectAnimator.ofFloat(mSaverView,
+                            "y", mSaverView.getY(), nexty);
 
                     Animator xShrink = ObjectAnimator.ofFloat(mSaverView, "scaleX", 1f, 0.85f);
-                    Animator xGrow   = ObjectAnimator.ofFloat(mSaverView, "scaleX", 0.85f, 1f);
+                    Animator xGrow = ObjectAnimator.ofFloat(mSaverView, "scaleX", 0.85f, 1f);
 
                     Animator yShrink = ObjectAnimator.ofFloat(mSaverView, "scaleY", 1f, 0.85f);
-                    Animator yGrow   = ObjectAnimator.ofFloat(mSaverView, "scaleY", 0.85f, 1f);
-                    AnimatorSet shrink = new AnimatorSet(); shrink.play(xShrink).with(yShrink);
-                    AnimatorSet grow = new AnimatorSet(); grow.play(xGrow).with(yGrow);
+                    Animator yGrow = ObjectAnimator.ofFloat(mSaverView, "scaleY", 0.85f, 1f);
+                    AnimatorSet shrink = new AnimatorSet();
+                    shrink.play(xShrink).with(yShrink);
+                    AnimatorSet grow = new AnimatorSet();
+                    grow.play(xGrow).with(yGrow);
 
                     Animator fadeout = ObjectAnimator.ofFloat(mSaverView, "alpha", 1f, 0f);
                     Animator fadein = ObjectAnimator.ofFloat(mSaverView, "alpha", 0f, 1f);
 
 
-                    if (SLIDE) {
-                        s.play(xMove).with(yMove);
-                        s.setDuration(SLIDE_TIME);
+                    AccelerateInterpolator accel = new AccelerateInterpolator();
+                    DecelerateInterpolator decel = new DecelerateInterpolator();
 
-                        s.play(shrink.setDuration(SLIDE_TIME/2));
-                        s.play(grow.setDuration(SLIDE_TIME/2)).after(shrink);
-                        s.setInterpolator(mSlowStartWithBrakes);
-                    } else {
-                        AccelerateInterpolator accel = new AccelerateInterpolator();
-                        DecelerateInterpolator decel = new DecelerateInterpolator();
-
-                        shrink.setDuration(FADE_TIME).setInterpolator(accel);
-                        fadeout.setDuration(FADE_TIME).setInterpolator(accel);
-                        grow.setDuration(FADE_TIME).setInterpolator(decel);
-                        fadein.setDuration(FADE_TIME).setInterpolator(decel);
-                        s.play(shrink);
-                        s.play(fadeout);
-                        s.play(xMove.setDuration(0)).after(FADE_TIME);
-                        s.play(yMove.setDuration(0)).after(FADE_TIME);
-                        s.play(fadein).after(FADE_TIME);
-                        s.play(grow).after(FADE_TIME);
-                    }
+                    shrink.setDuration(FADE_TIME).setInterpolator(accel);
+                    fadeout.setDuration(FADE_TIME).setInterpolator(accel);
+                    grow.setDuration(FADE_TIME).setInterpolator(decel);
+                    fadein.setDuration(FADE_TIME).setInterpolator(decel);
+                    s.play(shrink);
+                    s.play(fadeout);
+                    s.play(xMove.setDuration(0)).after(FADE_TIME);
+                    s.play(yMove.setDuration(0)).after(FADE_TIME);
+                    s.play(fadein).after(FADE_TIME);
+                    s.play(grow).after(FADE_TIME);
                     s.start();
                 }
 
                 long now = System.currentTimeMillis();
                 long adjust = (now % 60000);
-                delay = delay
-                        + (MOVE_DELAY - adjust) // minute aligned
-                        - (SLIDE ? 0 : FADE_TIME) // start moving before the fade
-                        ;
+                delay = delay + (MOVE_DELAY - adjust) - (FADE_TIME); // start moving before the fade
             }
 
             mHandler.removeCallbacks(this);
@@ -304,7 +283,9 @@ public class Utils {
         }
     }
 
-    /** Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45) **/
+    /**
+     * Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45)
+     **/
     public static long getAlarmOnQuarterHour() {
         return getAlarmOnQuarterHour(System.currentTimeMillis());
     }
@@ -322,16 +303,18 @@ public class Utils {
     // Setup a thread that starts at midnight plus one second. The extra second is added to ensure
     // the date has changed.
     public static void setMidnightUpdater(Handler handler, Runnable runnable) {
-        String timezone = TimeZone.getDefault().getID();
-        if (handler == null || runnable == null || timezone == null) {
+        if (handler == null || runnable == null) {
             return;
         }
-        long now = System.currentTimeMillis();
-        Time time = new Time(timezone);
-        time.set(now);
-        long runInMillis = ((24 - time.hour) * 3600 - time.minute * 60 - time.second + 1) * 1000;
+
+        final Calendar c = Calendar.getInstance();
+        c.add(Calendar.DATE, 1);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 1);
+
         handler.removeCallbacks(runnable);
-        handler.postDelayed(runnable, runInMillis);
+        handler.postDelayed(runnable, c.getTimeInMillis() - System.currentTimeMillis());
     }
 
     // Stop the midnight update thread
@@ -413,7 +396,7 @@ public class Utils {
         Paint paint = new Paint();
         paint.setColor(Color.WHITE);
         paint.setColorFilter(new PorterDuffColorFilter(
-                        (dim ? 0x40FFFFFF : 0xC0FFFFFF),
+                (dim ? 0x40FFFFFF : 0xC0FFFFFF),
                 PorterDuff.Mode.MULTIPLY));
         clockView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
     }
@@ -425,6 +408,7 @@ public class Utils {
         return isPreL() ? getNextAlarmPreL(context) : getNextAlarmLOrLater(context);
     }
 
+    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private static String getNextAlarmPreL(Context context) {
         final ContentResolver cr = context.getContentResolver();
@@ -451,7 +435,9 @@ public class Utils {
         return nextAlarmTimeMillis - System.currentTimeMillis() <= DateUtils.DAY_IN_MILLIS;
     }
 
-    /** Clock views can call this to refresh their alarm to the next upcoming value. */
+    /**
+     * Clock views can call this to refresh their alarm to the next upcoming value.
+     */
     public static void refreshAlarm(Context context, View clock) {
         final TextView nextAlarmView = (TextView) clock.findViewById(R.id.nextAlarm);
         if (nextAlarmView == null) {
@@ -469,7 +455,9 @@ public class Utils {
         }
     }
 
-    /** Clock views can call this to refresh their date. **/
+    /**
+     * Clock views can call this to refresh their date.
+     **/
     public static void updateDate(String dateSkeleton, String descriptionSkeleton, View clock) {
         final TextView dateDisplay = (TextView) clock.findViewById(R.id.date);
         if (dateDisplay == null) {
@@ -489,8 +477,9 @@ public class Utils {
     /***
      * Formats the time in the TextClock according to the Locale with a special
      * formatting treatment for the am/pm label.
+     *
      * @param context - Context used to get user's locale and time preferences
-     * @param clock - TextClock to format
+     * @param clock   - TextClock to format
      */
     public static void setTimeFormat(Context context, TextClock clock) {
         if (clock != null) {
@@ -518,9 +507,9 @@ public class Utils {
     }
 
     /**
-     * @param context used to get time format string resource
+     * @param context   used to get time format string resource
      * @param amPmRatio a value between 0 and 1 that is the ratio of the relative size of the
-     *      am/pm string to the time string
+     *                  am/pm string to the time string
      * @return format string for 12 hours mode time
      */
     public static CharSequence get12ModeFormat(Context context, float amPmRatio) {
@@ -562,6 +551,7 @@ public class Utils {
 
     /**
      * Returns string denoting the timezone hour offset (e.g. GMT -8:00)
+     *
      * @param useShortForm Whether to return a short form of the header that rounds to the
      *                     nearest hour and excludes the "GMT" prefix
      */
@@ -646,19 +636,16 @@ public class Utils {
             // nothing to do
             return;
         }
-        if (sShortWeekdays == null) {
-            sShortWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
-        }
-        if (sLongWeekdays == null) {
-            sLongWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
-        }
 
-        final SimpleDateFormat shortFormat = new SimpleDateFormat(DATE_FORMAT_SHORT);
-        final SimpleDateFormat longFormat = new SimpleDateFormat(DATE_FORMAT_LONG);
+        final Locale locale = Locale.getDefault();
+        final SimpleDateFormat shortFormat = new SimpleDateFormat(DATE_FORMAT_SHORT, locale);
+        final SimpleDateFormat longFormat = new SimpleDateFormat(DATE_FORMAT_LONG, locale);
+
+        sShortWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
+        sLongWeekdays = new String[DaysOfWeek.DAYS_IN_A_WEEK];
 
         // Create a date (2014/07/20) that is a Sunday
         final long aSunday = new GregorianCalendar(2014, Calendar.JULY, 20).getTimeInMillis();
-
         for (int i = 0; i < DaysOfWeek.DAYS_IN_A_WEEK; i++) {
             final long dayMillis = aSunday + i * DateUtils.DAY_IN_MILLIS;
             sShortWeekdays[i] = shortFormat.format(new Date(dayMillis));
@@ -669,16 +656,15 @@ public class Utils {
         sLocaleUsedForWeekdays = Locale.getDefault();
     }
 
-    /**
-     * @param id Resource id of the plural
-     * @param quantity integer value
-     * @return string with properly localized numbers
-     */
     public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
         final String localizedQuantity = NumberFormat.getInstance().format(quantity);
         return context.getResources().getQuantityString(id, quantity, localizedQuantity);
     }
 
+    /**
+     * {@link ArraySet} is @hide prior to {@link Build.VERSION_CODES#M}.
+     */
+    @SuppressLint("NewApi")
     public static <E> ArraySet<E> newArraySet(Collection<E> collection) {
         final ArraySet<E> arraySet = new ArraySet<>(collection.size());
         arraySet.addAll(collection);

@@ -62,7 +62,6 @@
             android:id="@+id/city_name_layout"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="@dimen/label_margin_small"
             android:layout_marginStart="@dimen/label_margin_small"
             android:gravity="center" >
 

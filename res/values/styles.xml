@@ -274,12 +274,12 @@
     </style>
 
     <!-- Notification content styles -->
-    <style name="TextAppearance.StatusBar.EventContent">
+    <style name="TextAppearance.StatusBar.EventContent" tools:ignore="PrivateResource">
         <item name="android:textSize">@dimen/notification_text_size</item>
         <item name="android:textColor">@color/notif_text_grey</item>
     </style>
 
-    <style name="TextAppearance.StatusBar.EventContent.Title">
+    <style name="TextAppearance.StatusBar.EventContent.Title" tools:ignore="PrivateResource">
         <item name="android:textSize">@dimen/notification_title_text_size</item>
         <item name="android:textColor">@color/white</item>
     </style>

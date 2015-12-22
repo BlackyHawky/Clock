@@ -31,7 +31,7 @@ import com.android.deskclock.data.Timer;
 /**
  * This view is a visual representation of a {@link Timer}.
  */
-class TimerItem extends LinearLayout {
+public class TimerItem extends LinearLayout {
 
     /** Displays the remaining time or time since expiration. */
     private CountingTimerView mTimerText;

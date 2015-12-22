@@ -17,9 +17,9 @@
 package com.android.deskclock.timer;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -48,9 +48,8 @@ public class TimerView extends LinearLayout {
         mAndroidClockMonoThin =
                 Typeface.createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Thin.ttf");
 
-        final Resources resources = context.getResources();
-        mWhiteColor = resources.getColor(R.color.clock_white);
-        mGrayColor = resources.getColor(R.color.clock_gray);
+        mWhiteColor = ContextCompat.getColor(context, R.color.clock_white);
+        mGrayColor = ContextCompat.getColor(context, R.color.clock_gray);
     }
 
     @Override
