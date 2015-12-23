@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.provider.Settings;
@@ -116,10 +117,9 @@ public class ScreensaverActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         registerReceiver(mIntentReceiver, filter);
         if (Utils.isPreL()) {
-            getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
-                false,
-                mSettingsContentObserver);
+            @SuppressWarnings("deprecation")
+            final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
+            getContentResolver().registerContentObserver(uri, false, mSettingsContentObserver);
         }
     }
 

@@ -52,9 +52,11 @@ final class CityModel {
      * Retain a hard reference to the shared preference observer to prevent it from being garbage
      * collected. See {@link SharedPreferences#registerOnSharedPreferenceChangeListener} for detail.
      */
+    @SuppressWarnings("FieldCanBeLocal")
     private final OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
 
     /** Clears data structures containing data that is locale-sensitive. */
+    @SuppressWarnings("FieldCanBeLocal")
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
     /** Maps city ID to city instance. */

@@ -27,7 +27,6 @@
         android:id="@+id/city_day"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/style_label_space"
         android:layout_marginStart="@dimen/style_label_space"
         android:ellipsize="none"
         android:singleLine="true"

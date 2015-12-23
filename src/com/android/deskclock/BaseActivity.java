@@ -29,7 +29,7 @@ import android.support.v7.app.AppCompatActivity;
  * Base activity class that changes with window's background color dynamically based on the
  * current hour.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Key used to save/restore the current background color from the saved instance state.

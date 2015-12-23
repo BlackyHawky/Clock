@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -125,7 +126,7 @@ public class DeskClock extends BaseActivity
         if (savedInstanceState == null) {
             // Set the background color to initially match the theme value so that we can
             // smoothly transition to the dynamic color.
-            final int backgroundColor = getResources().getColor(R.color.default_background);
+            final int backgroundColor = ContextCompat.getColor(this, R.color.default_background);
             setBackgroundColor(backgroundColor, false /* animate */);
         }
 

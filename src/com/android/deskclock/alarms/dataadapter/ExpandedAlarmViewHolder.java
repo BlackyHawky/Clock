@@ -19,11 +19,12 @@ package com.android.deskclock.alarms.dataadapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -72,7 +73,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
 
         final TypedArray typedArray = theme.obtainStyledAttributes(attrs);
         final LayerDrawable background = new LayerDrawable(new Drawable[] {
-                context.getResources().getDrawable(R.drawable.alarm_background_expanded),
+                ContextCompat.getDrawable(context, R.drawable.alarm_background_expanded),
                 typedArray.getDrawable(0) });
         itemView.setBackground(background);
         typedArray.recycle();
@@ -201,8 +202,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
                 dayButton.setTextColor(Utils.getCurrentHourColor());
             } else {
                 dayButton.setChecked(false);
-                dayButton.setTextColor(itemView.getContext().getResources().getColor(R.color
-                        .white));
+                dayButton.setTextColor(Color.WHITE);
             }
         }
         if (alarm.daysOfWeek.isRepeating()) {

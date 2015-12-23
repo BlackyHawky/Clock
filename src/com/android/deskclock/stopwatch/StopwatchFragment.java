@@ -16,11 +16,11 @@
 
 package com.android.deskclock.stopwatch;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PowerManager;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -32,6 +32,7 @@ import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,6 +40,7 @@ import android.widget.ImageView;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Lap;
 import com.android.deskclock.data.Stopwatch;
@@ -49,9 +51,6 @@ import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
 
 import static android.content.Context.ACCESSIBILITY_SERVICE;
-import static android.content.Context.POWER_SERVICE;
-import static android.os.PowerManager.ON_AFTER_RELEASE;
-import static android.os.PowerManager.SCREEN_BRIGHT_WAKE_LOCK;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -65,37 +64,54 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     private static final String TAG = "StopwatchFragment";
 
-    /** Acquire/release the {@link #mWakeLock} when this tab is selected/unselected. */
+    /**
+     * Keep the screen on when this tab is selected.
+     */
     private final TabListener mTabWatcher = new TabWatcher();
 
-    /** Scheduled to update the stopwatch time and current lap time while stopwatch is running. */
+    /**
+     * Scheduled to update the stopwatch time and current lap time while stopwatch is running.
+     */
     private final Runnable mTimeUpdateRunnable = new TimeUpdateRunnable();
 
-    /** Used to determine when talk back is on in order to lower the time update rate. */
+    /**
+     * Used to determine when talk back is on in order to lower the time update rate.
+     */
     private AccessibilityManager mAccessibilityManager;
 
-    /** {@code true} while the {@link #mLapsList} is transitioning between shown and hidden. */
+    /**
+     * {@code true} while the {@link #mLapsList} is transitioning between shown and hidden.
+     */
     private boolean mLapsListIsTransitioning;
 
-    /** The data source for {@link #mLapsList}. */
+    /**
+     * The data source for {@link #mLapsList}.
+     */
     private LapsAdapter mLapsAdapter;
 
-    /** The layout manager for the {@link #mLapsAdapter}. */
+    /**
+     * The layout manager for the {@link #mLapsAdapter}.
+     */
     private LinearLayoutManager mLapsLayoutManager;
 
-    /** Draws the reference lap while the stopwatch is running. */
+    /**
+     * Draws the reference lap while the stopwatch is running.
+     */
     private StopwatchCircleView mTime;
 
-    /** Displays the recorded lap times. */
+    /**
+     * Displays the recorded lap times.
+     */
     private RecyclerView mLapsList;
 
-    /** Displays the current stopwatch time. */
+    /**
+     * Displays the current stopwatch time.
+     */
     private CountingTimerView mTimeText;
 
-    /** Held while the stopwatch is running and this fragment is forward to keep the screen on. */
-    private PowerManager.WakeLock mWakeLock;
-
-    /** The public no-arg constructor required by all fragments. */
+    /**
+     * The public no-arg constructor required by all fragments.
+     */
     public StopwatchFragment() {
         super(STOPWATCH);
     }
@@ -321,11 +337,14 @@ public final class StopwatchFragment extends DeskClockFragment {
      */
     private void doShare() {
         final String[] subjects = getResources().getStringArray(R.array.sw_share_strings);
-        final String subject = subjects[(int)(Math.random() * subjects.length)];
+        final String subject = subjects[(int) (Math.random() * subjects.length)];
         final String text = mLapsAdapter.getShareText();
 
+        @SuppressLint("InlinedApi")
+        @SuppressWarnings("deprecation")
         final Intent shareIntent = new Intent(Intent.ACTION_SEND)
-                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
+                .addFlags(Utils.isLOrLater() ? Intent.FLAG_ACTIVITY_NEW_DOCUMENT
+                        : Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET)
                 .putExtra(Intent.EXTRA_SUBJECT, subject)
                 .putExtra(Intent.EXTRA_TEXT, text)
                 .setType("text/plain");
@@ -413,18 +432,15 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     private void acquireWakeLock() {
-        if (mWakeLock == null) {
-            final PowerManager pm = (PowerManager) getActivity().getSystemService(POWER_SERVICE);
-            mWakeLock = pm.newWakeLock(SCREEN_BRIGHT_WAKE_LOCK | ON_AFTER_RELEASE, TAG);
-            mWakeLock.setReferenceCounted(false);
+        if (isTabSelected()) {
+            getActivity().getWindow()
+                    .addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         }
-        mWakeLock.acquire();
     }
 
     private void releaseWakeLock() {
-        if (mWakeLock != null && mWakeLock.isHeld()) {
-            mWakeLock.release();
-        }
+        getActivity().getWindow()
+                .clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     /**

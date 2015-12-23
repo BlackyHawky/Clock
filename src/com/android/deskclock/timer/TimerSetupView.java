@@ -19,6 +19,7 @@ package com.android.deskclock.timer;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -60,7 +61,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         super(context, attrs);
 
         mColorAccent = Utils.obtainStyledColor(context, R.attr.colorAccent, Color.RED);
-        mColorHairline = context.getResources().getColor(R.color.hairline);
+        mColorHairline = ContextCompat.getColor(context, R.color.hairline);
 
         LayoutInflater.from(context).inflate(R.layout.time_setup_view, this);
     }

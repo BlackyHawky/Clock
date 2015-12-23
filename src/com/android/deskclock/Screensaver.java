@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
+import android.net.Uri;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -142,10 +143,9 @@ public class Screensaver extends DreamService {
         Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
 
         if (Utils.isPreL()) {
-            getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
-                false,
-                mSettingsContentObserver);
+            @SuppressWarnings("deprecation")
+            final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
+            getContentResolver().registerContentObserver(uri, false, mSettingsContentObserver);
         }
 
         mHandler.post(mMoveSaverRunnable);

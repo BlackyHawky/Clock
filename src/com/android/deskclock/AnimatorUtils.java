@@ -19,6 +19,7 @@ package com.android.deskclock;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -87,7 +88,8 @@ public class AnimatorUtils {
         }
     };
 
-    public static final ArgbEvaluator ARGB_EVALUATOR = new ArgbEvaluator();
+    @SuppressWarnings("unchecked")
+    public static final TypeEvaluator<Integer> ARGB_EVALUATOR = new ArgbEvaluator();
 
     private static Method sAnimateValue;
     private static boolean sTryAnimateValue = true;

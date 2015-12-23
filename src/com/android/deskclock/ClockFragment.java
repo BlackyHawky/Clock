@@ -150,7 +150,9 @@ public final class ClockFragment extends DeskClockFragment {
         final IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
+        if (Utils.isLOrLater()) {
+            filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
+        }
         activity.registerReceiver(mBroadcastReceiver, filter);
 
         // Resume can be invoked after changing the clock style.
@@ -165,7 +167,9 @@ public final class ClockFragment extends DeskClockFragment {
         refreshDates();
         refreshAlarm();
 
+        // Alarm observer is null on L or later.
         if (mAlarmObserver != null) {
+            @SuppressWarnings("deprecation")
             final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
             activity.getContentResolver().registerContentObserver(uri, false, mAlarmObserver);
         }
