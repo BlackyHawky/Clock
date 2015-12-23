@@ -78,6 +78,14 @@ final class AlarmModel {
         return mSettingsModel.getSnoozeLength();
     }
 
+    int getFlipAction() {
+        return mSettingsModel.getFlipAction();
+    }
+
+    int getShakeAction() {
+        return mSettingsModel.getShakeAction();
+    }
+
     /**
      * This receiver is notified when system settings change. Cached information built on
      * those system settings must be cleared.

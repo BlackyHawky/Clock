@@ -18,6 +18,8 @@ package com.android.deskclock.settings;
 
 import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -43,6 +45,8 @@ import com.android.deskclock.data.TimeZones;
 import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.ringtone.RingtonePickerActivity;
 
+import java.util.List;
+
 /**
  * Settings for the Alarm Clock.
  */
@@ -61,6 +65,8 @@ public final class SettingsActivity extends BaseActivity {
     public static final String KEY_DATE_TIME = "date_time";
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String KEY_WEEK_START = "week_start";
+    public static final String KEY_FLIP_ACTION = "flip_action";
+    public static final String KEY_SHAKE_ACTION = "shake_action";
 
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
@@ -171,6 +177,8 @@ public final class SettingsActivity extends BaseActivity {
                 case KEY_CLOCK_STYLE:
                 case KEY_WEEK_START:
                 case KEY_VOLUME_BUTTONS:
+                case KEY_FLIP_ACTION:
+                case KEY_SHAKE_ACTION:
                     final SimpleMenuPreference simpleMenuPreference = (SimpleMenuPreference) pref;
                     final int i = simpleMenuPreference.findIndexOfValue((String) newValue);
                     pref.setSummary(simpleMenuPreference.getEntries()[i]);
@@ -308,6 +316,33 @@ public final class SettingsActivity extends BaseActivity {
             final Preference timerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
             timerRingtonePref.setOnPreferenceClickListener(this);
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+
+            SensorManager sensorManager = (SensorManager)
+                    getActivity().getSystemService(Context.SENSOR_SERVICE);
+
+            final SimpleMenuPreference flipActionPref =
+                    (SimpleMenuPreference) findPreference(KEY_FLIP_ACTION);
+            if (flipActionPref != null) {
+                List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ORIENTATION);
+                if (sensorList.size() < 1) { // This will be true if no orientation sensor
+                    flipActionPref.setValue("0"); // Turn it off
+                } else {
+                    flipActionPref.setSummary(flipActionPref.getEntry());
+                    flipActionPref.setOnPreferenceChangeListener(this);
+                }
+            }
+
+            final SimpleMenuPreference shakeActionPref =
+                    (SimpleMenuPreference) findPreference(KEY_SHAKE_ACTION);
+            if (shakeActionPref != null) {
+                List<Sensor> sensorList = sensorManager.getSensorList(Sensor.TYPE_ACCELEROMETER);
+                if (sensorList.size() < 1) { // This will be true if no accelerometer sensor
+                    shakeActionPref.setValue("0"); // Turn it off
+                } else {
+                    shakeActionPref.setSummary(shakeActionPref.getEntry());
+                    shakeActionPref.setOnPreferenceChangeListener(this);
+                }
+            }
         }
 
         private void refreshListPreference(ListPreference preference) {

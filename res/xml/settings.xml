@@ -87,6 +87,22 @@
             android:title="@string/volume_button_setting_title" />
 
         <com.android.deskclock.settings.SimpleMenuPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/flip_action_title"
+            android:entries="@array/action_setting_entries"
+            android:entryValues="@array/volume_button_setting_values"
+            android:key="flip_action"
+            android:title="@string/flip_action_title" />
+
+        <com.android.deskclock.settings.SimpleMenuPreference
+            android:defaultValue="0"
+            android:dialogTitle="@string/shake_action_title"
+            android:entries="@array/action_setting_entries"
+            android:entryValues="@array/volume_button_setting_values"
+            android:key="shake_action"
+            android:title="@string/shake_action_title" />
+
+        <com.android.deskclock.settings.SimpleMenuPreference
             android:dialogTitle="@string/week_start_title"
             android:entries="@array/week_start_entries"
             android:entryValues="@array/week_start_values"

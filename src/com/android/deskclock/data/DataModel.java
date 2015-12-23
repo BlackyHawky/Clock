@@ -735,6 +735,14 @@ public final class DataModel {
         return mAlarmModel.getSnoozeLength();
     }
 
+    public int getFlipAction() {
+        return mAlarmModel.getFlipAction();
+    }
+
+    public int getShakeAction() {
+        return mAlarmModel.getShakeAction();
+    }
+
     //
     // Stopwatch
     //

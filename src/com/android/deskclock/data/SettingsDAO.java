@@ -349,6 +349,16 @@ final class SettingsDAO {
         return new TimeZones(tzIds, tzNames);
     }
 
+    static int getFlipAction(SharedPreferences prefs) {
+        final String string = prefs.getString(SettingsActivity.KEY_FLIP_ACTION, "0");
+        return Integer.parseInt(string);
+    }
+
+    static int getShakeAction(SharedPreferences prefs) {
+        final String string = prefs.getString(SettingsActivity.KEY_SHAKE_ACTION, "0");
+        return Integer.parseInt(string);
+    }
+
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {
         final String defaultStyle = context.getString(R.string.default_clock_style);
         final String clockStyle = prefs.getString(key, defaultStyle);
