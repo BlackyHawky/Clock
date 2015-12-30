@@ -50,6 +50,12 @@ public final class City {
     /** A cached upper case form of the {@link #mName} used in case-insensitive name comparisons. */
     private String mNameUpperCase;
 
+    /**
+     * A cached upper case form of the {@link #mName} used in case-insensitive name comparisons
+     * which ignore {@link #removeSpecialCharacters(String)} special characters.
+     */
+    private String mNameUpperCaseNoSpecialCharacters;
+
     City(String id, int index, String indexString, String name, String phoneticName,
             String timeZoneId) {
         mId = id;
@@ -69,6 +75,9 @@ public final class City {
     public String getIndexString() { return mIndexString; }
     public String getPhoneticName() { return mPhoneticName; }
 
+    /**
+     * @return the city name converted to upper case
+     */
     public String getNameUpperCase() {
         if (mNameUpperCase == null) {
             mNameUpperCase = mName.toUpperCase();
@@ -76,10 +85,42 @@ public final class City {
         return mNameUpperCase;
     }
 
+    /**
+     * @return the city name converted to upper case with all special characters removed
+     */
+    private String getNameUpperCaseNoSpecialCharacters() {
+        if (mNameUpperCaseNoSpecialCharacters == null) {
+            mNameUpperCaseNoSpecialCharacters = removeSpecialCharacters(getNameUpperCase());
+        }
+        return mNameUpperCaseNoSpecialCharacters;
+    }
+
+    /**
+     * @param upperCaseQueryNoSpecialCharacters search term with all special characters removed
+     *      to match against the upper case city name
+     * @return {@code true} iff the name of this city starts with the given query
+     */
+    public boolean matches(String upperCaseQueryNoSpecialCharacters) {
+        // By removing all special characters, prefix matching becomes more liberal and it is easier
+        // to locate the desired city. e.g. "St. Lucia" is matched by "StL", "St.L", "St L", "St. L"
+        return getNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters);
+    }
+
     @Override
     public String toString() {
         return String.format("City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
                 mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZoneId);
+    }
+
+    /**
+     * Strips out any characters considered optional for matching purposes. These include spaces,
+     * dashes, periods and apostrophes.
+     *
+     * @param token a city name or search term
+     * @return the given {@code token} without any characters considered optional when matching
+     */
+    public static String removeSpecialCharacters(String token) {
+        return token.replaceAll("[ -.']", "");
     }
 
     /**
