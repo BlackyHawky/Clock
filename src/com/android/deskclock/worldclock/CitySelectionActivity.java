@@ -465,7 +465,7 @@ public final class CitySelectionActivity extends BaseActivity {
          */
         private void filter(String queryText) {
             mSearchMenuItemController.setQueryText(queryText);
-            final String query = queryText.trim().toUpperCase();
+            final String query = City.removeSpecialCharacters(queryText.toUpperCase());
 
             // Compute the filtered list of cities.
             final List<City> filteredCities;
@@ -475,7 +475,7 @@ public final class CitySelectionActivity extends BaseActivity {
                 final List<City> unselected = DataModel.getDataModel().getUnselectedCities();
                 filteredCities = new ArrayList<>(unselected.size());
                 for (City city : unselected) {
-                    if (city.getNameUpperCase().startsWith(query)) {
+                    if (city.matches(query)) {
                         filteredCities.add(city);
                     }
                 }
