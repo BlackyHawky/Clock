@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
@@ -329,7 +330,7 @@ public final class AsyncRingtonePlayer {
 
                     // Compute the time at which the crescendo will stop.
                     mCrescendoDuration = getCrescendoDurationMillis(context);
-                    mCrescendoStopTime = System.currentTimeMillis() + mCrescendoDuration;
+                    mCrescendoStopTime = now() + mCrescendoDuration;
                     scheduleVolumeAdjustment = true;
                 }
 
@@ -419,7 +420,7 @@ public final class AsyncRingtonePlayer {
             }
 
             // If the crescendo is complete set the volume to the maximum; we're done.
-            final long currentTime = System.currentTimeMillis();
+            final long currentTime = now();
             if (currentTime > mCrescendoStopTime) {
                 mCrescendoDuration = 0;
                 mCrescendoStopTime = 0;
@@ -536,7 +537,7 @@ public final class AsyncRingtonePlayer {
 
                 // Compute the time at which the crescendo will stop.
                 mCrescendoDuration = getCrescendoDurationMillis(context);
-                mCrescendoStopTime = System.currentTimeMillis() + mCrescendoDuration;
+                mCrescendoStopTime = now() + mCrescendoDuration;
                 scheduleVolumeAdjustment = true;
             }
 
@@ -600,7 +601,7 @@ public final class AsyncRingtonePlayer {
             }
 
             // If the crescendo is complete set the volume to the maximum; we're done.
-            final long currentTime = System.currentTimeMillis();
+            final long currentTime = now();
             if (currentTime > mCrescendoStopTime) {
                 mCrescendoDuration = 0;
                 mCrescendoStopTime = 0;
@@ -614,6 +615,13 @@ public final class AsyncRingtonePlayer {
             // Schedule the next volume bump in the crescendo.
             return true;
         }
+    }
+
+    /**
+     * @return the current elapsed time which is immune to device time changes
+     */
+    private static long now() {
+        return SystemClock.elapsedRealtime();
     }
 }
 
