@@ -848,8 +848,7 @@ final class TimerModel {
 
     private void schedulePendingIntent(long triggerTime, PendingIntent pi) {
         if (Utils.isMOrLater()) {
-            // Make sure the timer fires when the device is in doze mode. The timer is not
-            // guaranteed to fire at the requested time. It may be delayed up to 15 minutes.
+            // Ensure the timer fires even if the device is dozing.
             mAlarmManager.setExactAndAllowWhileIdle(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
         } else {
             mAlarmManager.setExact(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
