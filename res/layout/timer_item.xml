@@ -50,7 +50,7 @@
             android:ellipsize="end"
             android:gravity="center"
             android:hint="@string/label"
-            android:singleLine="true"
+            android:maxLines="1"
             android:src="@drawable/ic_label"
             android:textAppearance="@style/SecondaryLabelTextAppearance"/>
 
