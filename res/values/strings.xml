@@ -574,7 +574,7 @@
     <string name="clock_style">Style</string>
 
     <!-- Title for preference to change date & time -->
-    <string name="open_date_settings">Change Date \u0026 time</string>
+    <string name="open_date_settings">Change date \u0026 time</string>
 
     <!-- Entries listed in the ListPreference when invoking the clock style
          preference. -->
