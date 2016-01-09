@@ -19,6 +19,7 @@ package com.android.deskclock.data;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -40,6 +41,7 @@ import android.util.ArraySet;
 
 import com.android.deskclock.AlarmAlertWakeLock;
 import com.android.deskclock.HandleDeskClockApiCalls;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
@@ -108,6 +110,13 @@ final class TimerModel {
 
     /** A mutable copy of the expired timers. */
     private List<Timer> mExpiredTimers;
+
+    /**
+     * The service that keeps this application in the foreground while a heads-up timer
+     * notification is displayed. Marking the service as foreground prevents the operating system
+     * from killing this application while expired timers are actively firing.
+     */
+    private Service mService;
 
     TimerModel(Context context, SettingsModel settingsModel, NotificationModel notificationModel) {
         mContext = context;
@@ -204,6 +213,24 @@ final class TimerModel {
         }
 
         return timer;
+    }
+
+    /**
+     * @param service used to start foreground notifications related to expired timers
+     * @param timer the timer to be expired
+     */
+    void expireTimer(Service service, Timer timer) {
+        if (mService == null) {
+            // If this is the first expired timer, retain the service that will be used to start
+            // the heads-up notification in the foreground.
+            mService = service;
+        } else if (mService != service) {
+            // If this is not the first expired timer, the service should match the one given when
+            // the first timer expired.
+            LogUtils.wtf("Expected TimerServices to be identical");
+        }
+
+        updateTimer(timer.expire());
     }
 
     /**
@@ -712,17 +739,14 @@ final class TimerModel {
      * displayed whether the application is open or not.
      */
     private void updateHeadsUpNotification() {
-        // Filter the timers to just include expired ones.
-        final List<Timer> expired = new ArrayList<>();
-        for (Timer timer : getMutableTimers()) {
-            if (timer.isExpired()) {
-                expired.add(timer);
-            }
-        }
+        final List<Timer> expired = getExpiredTimers();
 
-        // If no expired timers exist, cancel the notification.
+        // If no expired timers exist, stop the service (which cancels the foreground notification).
         if (expired.isEmpty()) {
-            mNotificationManager.cancel(mNotificationModel.getExpiredTimerNotificationId());
+            if (mService != null) {
+                mService.stopSelf();
+                mService = null;
+            }
             return;
         }
 
@@ -793,7 +817,9 @@ final class TimerModel {
         // Update the notification.
         final Notification notification = builder.build();
         final int notificationId = mNotificationModel.getExpiredTimerNotificationId();
-        mNotificationManager.notify(notificationId, notification);
+        if (mService != null) {
+            mService.startForeground(notificationId, notification);
+        }
     }
 
     /**
