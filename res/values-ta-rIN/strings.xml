@@ -235,7 +235,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"நகரங்கள்"</string>
     <string name="clock_settings" msgid="8317286807280600391">"கடிகாரம்"</string>
     <string name="clock_style" msgid="2265011060429742344">"வகை"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"தேதி &amp; நேரத்தை மாற்று"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"தேதி &amp; நேரத்தை மாற்று"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"அனலாக்"</item>
     <item msgid="8483930821046925592">"டிஜிட்டல்"</item>

@@ -235,7 +235,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"မြို့များ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"နာရီ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ပုံစံ"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"ရက်စွဲ &amp; amp; အချိန် ပြောင်းရန်"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"ရက်စွဲ &amp; amp; အချိန်ကို ပြောင်းပါ"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"လက်တံနာရီ"</item>
     <item msgid="8483930821046925592">"ဒီဂျစ်တယ်"</item>

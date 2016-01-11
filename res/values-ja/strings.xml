@@ -234,7 +234,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"世界時計"</string>
     <string name="clock_settings" msgid="8317286807280600391">"時計"</string>
     <string name="clock_style" msgid="2265011060429742344">"スタイル"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"日付と時刻の変更"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"日付と時刻の変更"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"アナログ"</item>
     <item msgid="8483930821046925592">"デジタル"</item>
@@ -346,7 +346,7 @@
     <string name="description_direction_left" msgid="7448141043674998679">"左にスワイプするとスヌーズを設定できます"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"左にスワイプでスヌーズを設定、右にスワイプで解除できます"</string>
     <string name="timer_settings" msgid="7955522143086154795">"タイマー"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"タイマーの着信音です"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"アラーム音"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"タイマーが停止しました"</string>
     <string name="timer_paused" msgid="5941160896040771462">"タイマーを一時停止しました"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g>個のタイマーを一時停止しました"</string>
