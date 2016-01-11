@@ -234,7 +234,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Cities"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Clock"</string>
     <string name="clock_style" msgid="2265011060429742344">"Style"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"Change Date &amp; time"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Change date &amp; time"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analogue"</item>
     <item msgid="8483930821046925592">"Digital"</item>

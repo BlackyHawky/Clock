@@ -256,7 +256,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Miestai"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Laikrodis"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stilius"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"Pakeisti datą ir laiką"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Pakeisti datą ir laiką"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analoginis"</item>
     <item msgid="8483930821046925592">"Skaitmeninis"</item>

@@ -256,7 +256,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Miasta"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Zegar"</string>
     <string name="clock_style" msgid="2265011060429742344">"Wygląd"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"Zmień datę i godzinę"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Zmień datę i godzinę"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analogowy"</item>
     <item msgid="8483930821046925592">"Cyfrowy"</item>
