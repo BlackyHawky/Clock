@@ -16,6 +16,7 @@
 
 package com.android.deskclock.data;
 
+import android.app.Service;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Handler;
@@ -324,11 +325,12 @@ public final class DataModel {
     }
 
     /**
+     * @param service used to start foreground notifications for expired timers
      * @param timer the timer to be expired
      */
-    public void expireTimer(Timer timer) {
+    public void expireTimer(Service service, Timer timer) {
         enforceMainLooper();
-        mTimerModel.updateTimer(timer.expire());
+        mTimerModel.expireTimer(service, timer);
     }
 
     /**
