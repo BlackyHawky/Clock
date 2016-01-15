@@ -308,7 +308,13 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static Intent createStateChangeIntent(Context context, String tag,
             AlarmInstance instance, Integer state) {
-        Intent intent = AlarmInstance.createIntent(context, AlarmStateManager.class, instance.mId);
+        // This intent is directed to AlarmService, though the actual handling of it occurs here
+        // in AlarmStateManager. The reason is that evidence exists showing the jump between the
+        // broadcast receiver (AlarmStateManager) and service (AlarmService) can be thwarted by the
+        // Out Of Memory killer. If clock is killed during that jump, firing an alarm can fail to
+        // occur. To be safer, the call begins in AlarmService, which has the power to display the
+        // firing alarm if needed, so no jump is needed.
+        Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId);
         intent.setAction(CHANGE_STATE_ACTION);
         intent.addCategory(tag);
         intent.putExtra(ALARM_GLOBAL_ID_EXTRA, getGlobalIntentId(context));
@@ -453,8 +459,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     instance.mId);
         }
 
-        // Start the alarm and schedule timeout timer for it
-        AlarmService.startAlarm(context, instance);
+        Events.sendAlarmEvent(R.string.action_fire, 0);
 
         Calendar timeout = instance.getTimeout(context);
         if (timeout != null) {
@@ -834,7 +839,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param instance to change state on
      * @param state to change to
      */
-    public void setAlarmState(Context context, AlarmInstance instance, int state) {
+    private static void setAlarmState(Context context, AlarmInstance instance, int state) {
         if (instance == null) {
             LogUtils.e("Null alarm instance while setting state to %d", state);
             return;
@@ -891,7 +896,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         });
     }
 
-    private void handleIntent(Context context, Intent intent) {
+    public static void handleIntent(Context context, Intent intent) {
         final String action = intent.getAction();
         LogUtils.v("AlarmStateManager received intent " + intent);
         if (CHANGE_STATE_ACTION.equals(action)) {
@@ -1003,7 +1008,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, newState);
             // Treat alarm state change as high priority, use foreground broadcasts
             stateChangeIntent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
+            PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
                     stateChangeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -1020,7 +1025,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
             LogUtils.v("Canceling instance " + instance.mId + " timers");
 
             // Create a PendingIntent that will match any one set for this instance
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, instance.hashCode(),
+            PendingIntent pendingIntent = PendingIntent.getService(context, instance.hashCode(),
                     createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, null),
                     PendingIntent.FLAG_NO_CREATE);
 
