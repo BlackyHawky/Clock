@@ -83,14 +83,19 @@ final class TimerDAO {
             final int id = Integer.parseInt(timerId);
             final int stateValue = prefs.getInt(STATE + id, RESET.getValue());
             final State state = State.fromValue(stateValue);
-            final long length = prefs.getLong(LENGTH + id, Long.MIN_VALUE);
-            final long totalLength = prefs.getLong(TOTAL_LENGTH + id, Long.MIN_VALUE);
-            final long lastStartTime = prefs.getLong(LAST_START_TIME + id, Long.MIN_VALUE);
-            final long remainingTime = prefs.getLong(REMAINING_TIME + id, totalLength);
-            final String label = prefs.getString(LABEL + id, null);
-            final boolean deleteAfterUse = prefs.getBoolean(DELETE_AFTER_USE + id, false);
-            timers.add(new Timer(id, state, length, totalLength, lastStartTime, remainingTime,
-                    label, deleteAfterUse));
+
+            // Timer state may be null when migrating timers from prior releases which defined a
+            // "deleted" state. Such a state is no longer required.
+            if (state != null) {
+                final long length = prefs.getLong(LENGTH + id, Long.MIN_VALUE);
+                final long totalLength = prefs.getLong(TOTAL_LENGTH + id, Long.MIN_VALUE);
+                final long lastStartTime = prefs.getLong(LAST_START_TIME + id, Long.MIN_VALUE);
+                final long remainingTime = prefs.getLong(REMAINING_TIME + id, totalLength);
+                final String label = prefs.getString(LABEL + id, null);
+                final boolean deleteAfterUse = prefs.getBoolean(DELETE_AFTER_USE + id, false);
+                timers.add(new Timer(id, state, length, totalLength, lastStartTime, remainingTime,
+                        label, deleteAfterUse));
+            }
         }
 
         return timers;
