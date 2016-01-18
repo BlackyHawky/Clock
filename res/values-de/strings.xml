@@ -219,15 +219,15 @@
     <string name="timer_pause" msgid="3748323712728398743">"Pausieren"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Alle Timer zurücksetzen"</string>
   <string-array name="sw_share_strings">
-    <item msgid="842841032273927988">"Sie sind teuflisch schnell."</item>
-    <item msgid="6332879039890727169">"Ernten Sie die Früchte Ihrer Arbeit!"</item>
-    <item msgid="815382761274660130">"Sie sind ja schneller als ein Roboter!"</item>
+    <item msgid="842841032273927988">"Du bist teuflisch schnell."</item>
+    <item msgid="6332879039890727169">"Ernte die Früchte deiner Arbeit!"</item>
+    <item msgid="815382761274660130">"Du bist ja schneller als ein Roboter!"</item>
     <item msgid="7916250650982813737">"Puh!"</item>
     <item msgid="6836603904515182333">"L33t-Zeiten"</item>
     <item msgid="7508085100680861631">"Wahnsinnsgeschwindigkeit"</item>
     <item msgid="5961245252909589573">"Let\'s do the time warp again!"</item>
     <item msgid="5211891900854545940">"Just a jump to the left."</item>
-    <item msgid="9071353477103826053">"Sie haben es ganz schön eilig."</item>
+    <item msgid="9071353477103826053">"Du hast es ganz schön eilig."</item>
     <item msgid="3785193933691117181">"Photonengeschwindigkeit"</item>
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"Zuhause"</string>
