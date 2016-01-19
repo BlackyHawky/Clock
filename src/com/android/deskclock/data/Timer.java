@@ -63,7 +63,7 @@ public final class Timer {
                 }
             }
 
-            throw new IllegalArgumentException("unable to locate state: " + value);
+            return null;
         }
     }
 
