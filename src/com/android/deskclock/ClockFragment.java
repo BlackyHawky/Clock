@@ -57,23 +57,23 @@ import static java.util.Calendar.DAY_OF_WEEK;
  */
 public final class ClockFragment extends DeskClockFragment {
 
+    // Updates the UI in response to system setting changes that alter time values and time display.
+    private final BroadcastReceiver mBroadcastReceiver = new SystemBroadcastReceiver();
+
+    // Updates dates in the UI on every quarter-hour.
+    private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
+
+    // Detects changes to the next scheduled alarm pre-L.
+    private ContentObserver mAlarmObserver;
+
+    private Handler mHandler;
+
     private TextClock mDigitalClock;
     private View mAnalogClock, mClockFrame;
     private SelectedCitiesAdapter mCityAdapter;
     private ListView mCityList;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-
-    // Updates the UI in response to system setting changes that alter time values and time display.
-    private final BroadcastReceiver mBroadcastReceiver = new SystemBroadcastReceiver();
-
-    // Detects changes to the next scheduled alarm pre-L.
-    private final ContentObserver mAlarmObserver = Utils.isPreL() ? new AlarmObserverPreL() : null;
-
-    // Updates dates in the UI on every quarter-hour.
-    private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
-
-    private Handler mHandler;
 
     /** The public no-arg constructor required by all fragments. */
     public ClockFragment() {}
@@ -83,6 +83,7 @@ public final class ClockFragment extends DeskClockFragment {
         super.onCreate(savedInstanceState);
 
         mHandler = new Handler();
+        mAlarmObserver = Utils.isPreL() ? new AlarmObserverPreL(mHandler) : null;
     }
 
     @Override
@@ -292,8 +293,8 @@ public final class ClockFragment extends DeskClockFragment {
      * {@link AlarmManager#ACTION_NEXT_ALARM_CLOCK_CHANGED}.
      */
     private final class AlarmObserverPreL extends ContentObserver {
-        public AlarmObserverPreL() {
-            super(mHandler);
+        public AlarmObserverPreL(Handler handler) {
+            super(handler);
         }
 
         @Override
