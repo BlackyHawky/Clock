@@ -120,6 +120,22 @@ final class SettingsDAO {
     }
 
     /**
+     * @return whether timer vibration is enabled. false by default.
+     */
+    static boolean getTimerVibrate(Context context) {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        return prefs.getBoolean(SettingsActivity.KEY_TIMER_VIBRATE, false);
+    }
+
+    /**
+     * @param enabled whether vibration will be turned on for all timers.
+     */
+    static void setTimerVibrate(Context context, boolean enabled) {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        prefs.edit().putBoolean(SettingsActivity.KEY_TIMER_VIBRATE, enabled).apply();
+    }
+
+    /**
      * @param uri the uri of the ringtone to play for all timers
      */
     static void setTimerRingtoneUri(Context context, Uri uri) {
@@ -136,7 +152,6 @@ final class SettingsDAO {
         final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE_URI, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }
-
     /**
      * @param uri identifies the default ringtone to play for new alarms
      */
