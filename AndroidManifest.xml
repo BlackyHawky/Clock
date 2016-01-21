@@ -324,6 +324,14 @@
                 android:taskAffinity=""
                 android:configChanges="screenSize|keyboardHidden|keyboard|navigation"/>
 
+        <!-- Legacy broadcast receiver that honors old scheduled timers across app upgrade. -->
+        <receiver android:name="com.android.deskclock.timer.TimerReceiver"
+                  android:exported="false">
+            <intent-filter>
+                <action android:name="times_up" />
+            </intent-filter>
+        </receiver>
+
         <service android:name=".timer.TimerService"
                  android:exported="false"
                  android:description="@string/timer_service_desc">
