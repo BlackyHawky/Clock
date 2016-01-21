@@ -442,6 +442,22 @@ public final class DataModel {
         return mTimerModel.getTimerRingtoneTitle();
     }
 
+    /**
+     * @return whether vibrate is enabled for all timers.
+     */
+    public boolean getTimerVibrate() {
+        enforceMainLooper();
+        return mTimerModel.getTimerVibrate();
+    }
+
+    /**
+     * @param enabled whether vibrate is enabled for all timers.
+     */
+    public void setTimerVibrate(boolean enabled) {
+        enforceMainLooper();
+        mTimerModel.setTimerVibrate(enabled);
+    }
+
     //
     // Alarms
     //

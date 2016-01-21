@@ -57,6 +57,7 @@ public final class SettingsActivity extends BaseActivity
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
     public static final String KEY_TIMER_CRESCENDO = "timer_crescendo_duration";
     public static final String KEY_TIMER_RINGTONE = "timer_ringtone";
+    public static final String KEY_TIMER_VIBRATE = "timer_vibrate";
     public static final String KEY_AUTO_SILENCE = "auto_silence";
     public static final String KEY_CLOCK_STYLE = "clock_style";
     public static final String KEY_HOME_TZ = "home_time_zone";
@@ -196,10 +197,15 @@ public final class SettingsActivity extends BaseActivity
                     volumeButtonsPref.setSummary(volumeButtonsPref.getEntries()[index]);
                     break;
                 case KEY_WEEK_START:
-                    final ListPreference weekStartPref = (ListPreference)
-                            findPreference(KEY_WEEK_START);
+                    final ListPreference weekStartPref =
+                            (ListPreference) findPreference(KEY_WEEK_START);
                     idx = weekStartPref.findIndexOfValue((String) newValue);
                     weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
+                    break;
+                case KEY_TIMER_VIBRATE:
+                    final SwitchPreference timerVibratePref =
+                            (SwitchPreference) findPreference(KEY_TIMER_VIBRATE);
+                    DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
                     break;
             }
             // Set result so DeskClock knows to refresh itself
