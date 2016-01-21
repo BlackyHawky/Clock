@@ -152,6 +152,15 @@ public final class DataModel {
         return mNotificationModel.isApplicationInForeground();
     }
 
+    /**
+     * Called when the notifications may be stale or absent from the notification manager and must
+     * be rebuilt. e.g. after upgrading the application
+     */
+    public void updateAllNotifications() {
+        mTimerModel.updateNotification();
+        mStopwatchModel.updateNotification();
+    }
+
     //
     // Cities
     //

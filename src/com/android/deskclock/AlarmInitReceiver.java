@@ -35,6 +35,7 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      *     <li>Reset timers and stopwatch on ACTION_BOOT_COMPLETED</li>
      *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED,
      *     and LOCALE_CHANGED</li>
+     *     <li>Rebuild notifications on MY_PACKAGE_REPLACED</li>
      * </ul>
      */
     @Override
@@ -56,6 +57,12 @@ public class AlarmInitReceiver extends BroadcastReceiver {
             DataModel.getDataModel().resetStopwatch();
             Events.sendStopwatchEvent(R.string.action_reset, R.string.label_reboot);
             DataModel.getDataModel().resetTimers(R.string.label_reboot);
+        }
+
+        // Notifications are canceled by the system on application upgrade. This broadcast signals
+        // that the new app is free to rebuild the notifications using the existing data.
+        if (Intent.ACTION_MY_PACKAGE_REPLACED.equals(action)) {
+            DataModel.getDataModel().updateAllNotifications();
         }
 
         AsyncHandler.post(new Runnable() {
