@@ -288,8 +288,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 Alarm.updateAlarm(cr, alarm);
             }
         } else {
-            // Schedule the next repeating instance after the current time
-            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(getCurrentTime());
+            // Schedule the next repeating instance after the current time or the last instance's
+            // time (whichever is later).
+            final Calendar currentTime = getCurrentTime();
+            final Calendar lastInstanceTime = instance.getAlarmTime();
+            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(
+                currentTime.compareTo(lastInstanceTime) > 0 ? currentTime : lastInstanceTime);
             LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
                     AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
             AlarmInstance.addInstance(cr, nextRepeatedInstance);
@@ -579,13 +583,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
         scheduleInstanceStateChange(context, instance.getAlarmTime(), instance,
                 AlarmInstance.DISMISSED_STATE);
 
-        final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
-        // if it's a one time alarm set the toggle to off
-        if (alarm != null && !alarm.daysOfWeek.isRepeating()) {
-            // Check parent if it needs to reschedule, disable or delete itself
-            if (instance.mAlarmId != null) {
-                updateParentAlarm(context, instance);
-            }
+        // Check parent if it needs to reschedule, disable or delete itself
+        if (instance.mAlarmId != null) {
+            updateParentAlarm(context, instance);
         }
 
         updateNextAlarm(context);
