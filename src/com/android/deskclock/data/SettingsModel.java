@@ -102,4 +102,12 @@ final class SettingsModel {
     void setDefaultAlarmRingtoneUri(Uri uri) {
         SettingsDAO.setDefaultAlarmRingtoneUri(mContext, uri);
     }
+
+    boolean getTimerVibrate() {
+        return SettingsDAO.getTimerVibrate(mContext);
+    }
+
+    void setTimerVibrate(boolean enabled) {
+        SettingsDAO.setTimerVibrate(mContext, enabled);
+    }
 }

@@ -827,6 +827,8 @@
     <string name="timer_settings">Timers</string>
     <!-- Description for timer ringtone setting. -->
     <string name="timer_ringtone_title">Timer ringtone</string>
+    <!-- Description for timer vibration. -->
+    <string name="timer_vibrate_title">Timer vibrate</string>
 
     <!-- Description when timer is stopped. -->
     <string name="timer_stopped">Timer stopped</string>

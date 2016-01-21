@@ -395,6 +395,20 @@ final class TimerModel {
         return mTimerRingtoneTitle;
     }
 
+    /**
+     * @return whether vibration is enabled for timers.
+     */
+    boolean getTimerVibrate() {
+        return mSettingsModel.getTimerVibrate();
+    }
+
+    /**
+     * @param enabled whether the
+     */
+    void setTimerVibrate(boolean enabled) {
+        mSettingsModel.setTimerVibrate(enabled);
+    }
+
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
             mTimers = TimerDAO.getTimers(mContext);

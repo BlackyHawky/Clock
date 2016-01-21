@@ -91,6 +91,11 @@
         <com.android.deskclock.settings.CrescendoLengthDialogPreference
             android:key="timer_crescendo_duration"
             android:title="@string/crescendo_duration_title" />
+
+        <SwitchPreference
+            android:key="timer_vibrate"
+            android:title="@string/timer_vibrate_title"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
 </PreferenceScreen>
