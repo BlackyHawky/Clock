@@ -463,7 +463,7 @@ public class AlarmActivity extends AppCompatActivity
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
 
-        Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
+        Events.sendAlarmEvent(R.string.action_snooze, R.string.label_deskclock);
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
