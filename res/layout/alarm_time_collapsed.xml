@@ -31,15 +31,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom">
 
-        <View
-            android:id="@+id/hairline"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/hairline_height"
-            android:layout_gravity="bottom"
-            android:layout_marginEnd="@dimen/icon_margin"
-            android:layout_marginStart="@dimen/icon_margin"
-            android:background="@color/hairline" />
-
         <com.android.deskclock.widget.EllipsizeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -52,8 +43,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="none"
-                android:paddingStart="@dimen/icon_margin"
                 android:paddingEnd="@dimen/icon_margin"
+                android:paddingStart="@dimen/icon_margin"
                 android:singleLine="true"
                 android:textColor="@color/clock_gray"
                 android:textSize="@dimen/alarm_text_font_size" />
@@ -64,6 +55,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:focusable="true"
+                android:paddingEnd="@dimen/icon_margin"
+                android:paddingStart="@dimen/icon_margin"
                 android:singleLine="true"
                 android:textColor="@color/clock_white"
                 android:textSize="@dimen/alarm_text_font_size"
@@ -75,6 +68,8 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:focusable="true"
+                android:paddingEnd="@dimen/icon_margin"
+                android:paddingStart="@dimen/icon_margin"
                 android:singleLine="true"
                 android:textColor="@color/clock_white"
                 android:textSize="@dimen/alarm_text_font_size"
@@ -94,8 +89,16 @@
 
     </FrameLayout>
 
-    <include
-        android:id="@+id/preemptive_dismiss_container"
-        layout="@layout/preemptive_dismiss" />
+    <include layout="@layout/alarm_muted_button" />
+    <include layout="@layout/preemptive_dismiss" />
+
+    <View
+        android:id="@+id/hairline"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/hairline_height"
+        android:layout_gravity="bottom"
+        android:layout_marginEnd="@dimen/icon_margin"
+        android:layout_marginStart="@dimen/icon_margin"
+        android:background="@color/hairline" />
 
 </LinearLayout>

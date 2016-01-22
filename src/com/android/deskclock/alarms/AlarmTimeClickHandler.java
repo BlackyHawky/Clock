@@ -168,6 +168,7 @@ public final class AlarmTimeClickHandler {
     public void onRingtoneClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
         final FragmentManager fragmentManager = mFragment.getFragmentManager();
+        fragmentManager.executePendingTransactions();
         final FragmentTransaction ft = fragmentManager.beginTransaction();
         final Fragment prev = fragmentManager.findFragmentByTag(RINGTONE_PICKER_FRAG_TAG);
         if (prev != null) {
@@ -180,13 +181,14 @@ public final class AlarmTimeClickHandler {
         final Uri defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         final DialogFragment newFragment = RingtonePickerDialogFragment.newInstance(
                 dialogTitle, defaultTitle, defaultUri, alarm.alert, mFragment.getTag());
-
         newFragment.show(ft, RINGTONE_PICKER_FRAG_TAG);
     }
 
     public void onEditLabelClicked(Alarm alarm) {
-        final FragmentTransaction ft = mFragment.getFragmentManager().beginTransaction();
-        final Fragment prev = mFragment.getFragmentManager().findFragmentByTag("label_dialog");
+        final FragmentManager fragmentManager = mFragment.getFragmentManager();
+        fragmentManager.executePendingTransactions();
+        final FragmentTransaction ft = fragmentManager.beginTransaction();
+        final Fragment prev = fragmentManager.findFragmentByTag("label_dialog");
         if (prev != null) {
             ft.remove(prev);
         }

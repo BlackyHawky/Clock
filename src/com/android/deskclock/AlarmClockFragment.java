@@ -37,13 +37,19 @@ import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.alarms.AlarmUpdateHandler;
 import com.android.deskclock.alarms.ScrollHandler;
 import com.android.deskclock.alarms.TimePickerCompat;
-import com.android.deskclock.alarms.dataadapter.AlarmTimeAdapter;
+import com.android.deskclock.alarms.dataadapter.AlarmItemHolder;
+import com.android.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
+import com.android.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
+import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.EmptyViewController;
 import com.android.deskclock.widget.toast.SnackbarManager;
 import com.android.deskclock.widget.toast.ToastManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
@@ -61,16 +67,19 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     // can not be found, and toast message will pop up that the alarm has be deleted.
     public static final String SCROLL_TO_ALARM_INTENT_EXTRA = "deskclock.scroll.to.alarm";
 
+    private static final String KEY_EXPANDED_ID = "expandedId";
+
     // Views
     private ViewGroup mMainLayout;
     private RecyclerView mRecyclerView;
 
     // Data
     private long mScrollToAlarmId = Alarm.INVALID_ID;
+    private long mExpandedAlarmId = Alarm.INVALID_ID;
     private Loader mCursorLoader = null;
 
     // Controllers
-    private AlarmTimeAdapter mAlarmTimeAdapter;
+    private ItemAdapter<AlarmItemHolder> mItemAdapter;
     private AlarmUpdateHandler mAlarmUpdateHandler;
     private EmptyViewController mEmptyViewController;
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
@@ -90,6 +99,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void onCreate(Bundle savedState) {
         super.onCreate(savedState);
         mCursorLoader = getLoaderManager().initLoader(0, null, this);
+        if (savedState != null) {
+            mExpandedAlarmId = savedState.getLong(KEY_EXPANDED_ID, Alarm.INVALID_ID);
+        }
     }
 
     @Override
@@ -106,9 +118,27 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 v.findViewById(R.id.alarms_empty_view));
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler,
                 this);
-        mAlarmTimeAdapter = new AlarmTimeAdapter(getActivity(), savedState,
-                mAlarmTimeClickHandler, this);
-        mRecyclerView.setAdapter(mAlarmTimeAdapter);
+
+        mItemAdapter = new ItemAdapter<>();
+        mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),
+                null, CollapsedAlarmViewHolder.VIEW_TYPE);
+        mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(getActivity(), inflater),
+                null, ExpandedAlarmViewHolder.VIEW_TYPE);
+        mItemAdapter.setOnItemChangedListener(new ItemAdapter.OnItemChangedListener() {
+            @Override
+            public void onItemChanged(ItemAdapter.ItemHolder<?> holder) {
+                // When an alarm is expanded, collapse the currently expanded alarm.
+                if (((AlarmItemHolder) holder).isExpanded()) {
+                    if (mExpandedAlarmId != Alarm.INVALID_ID &&
+                            holder.itemId != mExpandedAlarmId) {
+                        ((AlarmItemHolder) mItemAdapter.findItemById(mExpandedAlarmId))
+                                .collapse();
+                    }
+                    mExpandedAlarmId = holder.itemId;
+                }
+            }
+        });
+        mRecyclerView.setAdapter(mItemAdapter);
 
         return v;
     }
@@ -154,8 +184,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mAlarmTimeAdapter.saveInstance(outState);
         mAlarmTimeClickHandler.saveInstance(outState);
+        outState.putLong(KEY_EXPANDED_ID, mExpandedAlarmId);
     }
 
     @Override
@@ -199,9 +229,19 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, final Cursor data) {
+    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor data) {
+        final List<AlarmItemHolder> itemHolders = new ArrayList<>(data.getCount());
+        for (data.moveToFirst(); !data.isAfterLast(); data.moveToNext()) {
+            final Alarm alarm = new Alarm(data);
+            final AlarmInstance alarmInstance = alarm.canPreemptivelyDismiss()
+                    ? new AlarmInstance(data, true /* joinedTable */) : null;
+            final AlarmItemHolder itemHolder =
+                    new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
+            itemHolders.add(itemHolder);
+        }
+        mItemAdapter.setItems(itemHolders);
         mEmptyViewController.setEmpty(data.getCount() == 0);
-        mAlarmTimeAdapter.swapCursor(data);
+
         if (mScrollToAlarmId != Alarm.INVALID_ID) {
             scrollToAlarm(mScrollToAlarmId);
             setSmoothScrollStableId(Alarm.INVALID_ID);
@@ -214,10 +254,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
      * @param alarmId The alarm id to scroll to.
      */
     private void scrollToAlarm(long alarmId) {
-        final int alarmCount = mAlarmTimeAdapter.getItemCount();
+        final int alarmCount = mItemAdapter.getItemCount();
         int alarmPosition = -1;
         for (int i = 0; i < alarmCount; i++) {
-            long id = mAlarmTimeAdapter.getItemId(i);
+            long id = mItemAdapter.getItemId(i);
             if (id == alarmId) {
                 alarmPosition = i;
                 break;
@@ -225,7 +265,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         }
 
         if (alarmPosition >= 0) {
-            mAlarmTimeAdapter.expand(alarmPosition);
+            ((AlarmItemHolder) mItemAdapter.getItems().get(alarmPosition)).expand();
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
@@ -236,7 +276,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mAlarmTimeAdapter.swapCursor(null);
     }
 
     @Override

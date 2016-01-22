@@ -14,7 +14,7 @@
      limitations under the License.
 -->
 <LinearLayout
-    android:id="@+id/preemptive_dismiss"
+    android:id="@+id/preemptive_dismiss_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
