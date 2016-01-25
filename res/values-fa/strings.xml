@@ -136,6 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"میزان صدای هشدار"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"بی‌صدا"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"نامشخص"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"زنگ بی‌صدا شد"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"آهنگ زنگ بی‌صدا"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"هشدار را قطع کنید یا به‌تعویق بیندازید."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (معوق)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"هشدار برای <xliff:g id="TIME">%s</xliff:g> تنظیم شد. جهت لغو لمس کنید."</string>
@@ -347,6 +349,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"برای تعویق، انگشتتان را روی صفحه به چپ و برای رد کردن به راست بکشید"</string>
     <string name="timer_settings" msgid="7955522143086154795">"تایمرها"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"آهنگ زنگ تایمر"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"لرزش تایمر"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"تایمر متوقف شد"</string>
     <string name="timer_paused" msgid="5941160896040771462">"تایمر متوقف شد"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> تایمر متوقف شد"</string>

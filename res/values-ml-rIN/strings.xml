@@ -136,6 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"അലാറം വോളിയം"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"നിശബ്‌ദം"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"അജ്ഞാതം"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"അലാറം വോളിയം നിശബ്ദമാക്കി"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"നിശബ്‌ദ റിംഗ്ടോൺ"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"സ്‌നൂസ് ചെയ്യുക അല്ലെങ്കിൽ അലാറം നിരസിക്കുക."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (സ്‌നൂസ് ചെയ്‌തു)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> സമയത്തേക്ക് അലാറം സജ്ജീകരിച്ചു. റദ്ദാക്കുന്നതിന് സ്‌പർശിക്കുക."</string>
@@ -348,6 +350,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ടോ നിരസിക്കാൻ വലത്തോട്ടോ സ്വൈപ്പുചെയ്യുക"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ടൈമറുകൾ"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"ടൈമർ റിംഗ്ടോൺ"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"ടൈമർ വൈബ്രേഷൻ"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ടൈമർ നിർത്തി"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ടൈമർ തൽക്കാലം നിർത്തി"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ തൽക്കാലം നിർത്തി"</string>

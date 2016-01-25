@@ -136,6 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"अलार्म का वॉल्‍यूम"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"मौन"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"अज्ञात"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"अलार्म का वॉल्‍यूम म्‍यूट किया हुआ है"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"मौन रिंगटोन"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"थोडी देर बाद याद दिलाएं/बंद करें."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (याद दिलाया जाएगा)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"अलार्म <xliff:g id="TIME">%s</xliff:g> के लिए सेट. रद्द करने के लिए स्‍पर्श करें."</string>
@@ -347,6 +349,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"याद दिलाने के लिए बाएं या ख़ारिज करने के लिए दाएं स्‍वाइप करें"</string>
     <string name="timer_settings" msgid="7955522143086154795">"टाइमर"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"टाइमर रिंगटोन"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"टाइमर कंपन"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"टाइमर रुक गया"</string>
     <string name="timer_paused" msgid="5941160896040771462">"टाइमर रोका गया"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> टाइमर रोके गए"</string>

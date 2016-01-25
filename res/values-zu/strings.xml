@@ -136,6 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Ivolumu ye-alamu"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Thulile"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Akwaziwa"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Ivolumu ye-alamu ithulisiwe"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"Ithoni yokukhala ethulile"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Misa okwesikhashana  noma cima i-alamu."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (snuziwe)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"I-alamu isethelwe <xliff:g id="TIME">%s</xliff:g>. Thinta ukukhansela."</string>
@@ -347,6 +349,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Swayiphela ngakwesokunxele ukuze usnuze noma ngakwesokudla ukuze ucashise"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Izibali sikhathi"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Ithoni yokukhala yesibali-sikhathi"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Ukudlidlizela kwesibali sesikhathi"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Isikhathi simisiwe"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Isibali sikhathi simiswe isikhashana"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> izibali sikhathi ezimiswe isikhashana"</string>
