@@ -136,6 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"鬧鐘音量"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"靜音"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"不明"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"鬧鐘已設為靜音"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"鈴聲已設為靜音"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"繼續貪睡或關閉鬧鐘。"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (貪睡)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"已將鬧鐘設定在 <xliff:g id="TIME">%s</xliff:g>，輕觸即可取消。"</string>
@@ -347,6 +349,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"向左滑動可延後鈴響，向右滑動可關閉鈴響"</string>
     <string name="timer_settings" msgid="7955522143086154795">"計時器"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"計時器鈴聲"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"計時器震動"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"計時器已停止"</string>
     <string name="timer_paused" msgid="5941160896040771462">"計時器已暫停"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> 個計時器已暫停"</string>

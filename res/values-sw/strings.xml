@@ -136,6 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Sauti ya kengele"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Kimya"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Isiyojulikana"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Sauti ya kengele imezimwa"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"Mlio wa simu wa kimya"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Ahirisha au uondoe kengele."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (imesinzia)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Kengele imewekwa na italia <xliff:g id="TIME">%s</xliff:g>. Gusa ili kughairi."</string>
@@ -347,6 +349,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Telezesha kidole kushoto ili uhairishe au kulia ili uondoe"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Vipima muda"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Mlio wa kipima muda"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Mtetemo wa kipima muda"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Kipima wakati kimesimamishwa"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Kipima wakati kimesitishwa"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g> vimesitishwa"</string>

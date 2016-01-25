@@ -144,6 +144,10 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Јачина звука аларма"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Нечујно"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Непозната"</string>
+    <!-- no translation found for alarm_volume_muted (6658289289695673569) -->
+    <skip />
+    <!-- no translation found for silent_ringtone (4392654938729167866) -->
+    <skip />
     <string name="alarm_notify_text" msgid="4891014685945904766">"Одложите или одбаците аларм."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (одложено)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Аларм ће се укључити за <xliff:g id="TIME">%s</xliff:g>. Додирните за отказивање."</string>
@@ -358,6 +362,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Превуците налево да бисте одложили или надесно да бисте одбацили"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Тајмери"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Мелодија звона тајмера"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибрација тајмера"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Тајмер је заустављен"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Тајмер је паузиран"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"Паузираних тајмера: <xliff:g id="NUMBER">%d</xliff:g>"</string>

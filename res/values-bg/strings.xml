@@ -136,6 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Сила на звука на будилника"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Тих режим"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Неизвестно"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Силата на звука на будилника е заглушена"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"Тих режим"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Отлагане или отхвърлянe на будилника."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (отложено)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Будилникът е настроен за <xliff:g id="TIME">%s</xliff:g>. Докоснете, за да анулирате."</string>
@@ -347,6 +349,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Прекарайте пръст наляво, за да отложите, или надясно за отхвърляне"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Таймери"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Мелодия на таймера"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибриране на таймера"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Таймерът е спрян"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Таймерът е на пауза"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> таймера са на пауза"</string>

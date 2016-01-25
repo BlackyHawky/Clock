@@ -136,6 +136,10 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"ಅಲಾರಂ ವಾಲ್ಯೂಮ್"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ನಿಶ್ಯಬ್ಧ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ಅಪರಿಚಿತ"</string>
+    <!-- no translation found for alarm_volume_muted (6658289289695673569) -->
+    <skip />
+    <!-- no translation found for silent_ringtone (4392654938729167866) -->
+    <skip />
     <string name="alarm_notify_text" msgid="4891014685945904766">"ಅಲಾರಂ ಸ್ನೂಜ್ ಮಾಡು ಅಥವಾ ವಜಾಗೊಳಿಸು."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ಸ್ನೂಜ್ ಆಗಿದೆ)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> ಗೆ ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ. ರದ್ದುಗೊಳಿಸಲು ಸ್ಪರ್ಶಿಸಿ."</string>
@@ -348,6 +352,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"ಸ್ನೂಜ್ ಮಾಡಲು ಎಡಕ್ಕೆ ಅಥವಾ ವಜಾಗೊಳಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ಟೈಮರ್‌ಗಳು"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"ಟೈಮರ್ ರಿಂಗ್‌ಟೋನ್"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"ಟೈಮರ್ ವೈಬ್ರೇಟ್"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ಟೈಮರ್ ನಿಂತಿದೆ"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ಟೈಮರ್ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ಟೈಮರ್ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ"</string>

@@ -136,6 +136,10 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Herätysäänen voimakkuus"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Äänetön"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Tuntematon"</string>
+    <!-- no translation found for alarm_volume_muted (6658289289695673569) -->
+    <skip />
+    <!-- no translation found for silent_ringtone (4392654938729167866) -->
+    <skip />
     <string name="alarm_notify_text" msgid="4891014685945904766">"Aseta torkku tai hylkää herätys."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (torkku)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Herätysajaksi on asetettu <xliff:g id="TIME">%s</xliff:g>. Peruuta koskettamalla."</string>
@@ -347,6 +351,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Torkuta pyyhkäisemällä vasemmalle tai sulje pyyhkäisemällä oikealle."</string>
     <string name="timer_settings" msgid="7955522143086154795">"Ajastimet"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Ajastimen soittoääni"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Ajastimen värinä"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ajastin pysäytetty"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Ajastin keskeytetty"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ajastinta keskeytetty"</string>
