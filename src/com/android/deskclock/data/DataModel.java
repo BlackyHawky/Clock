@@ -603,6 +603,14 @@ public final class DataModel {
     }
 
     /**
+     * @return {@code true} if the screen saver should be dimmed for lower contrast at night
+     */
+    public boolean getScreensaverNightModeOn() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverNightModeOn();
+    }
+
+    /**
      * @return {@code true} if the users wants to automatically show a clock for their home timezone
      *      when they have travelled outside of that timezone
      */

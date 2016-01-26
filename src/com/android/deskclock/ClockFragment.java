@@ -43,6 +43,7 @@ import android.widget.TextView;
 
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
@@ -144,9 +145,6 @@ public final class ClockFragment extends DeskClockFragment {
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
-        // Schedule a runnable to update the date every quarter hour.
-        Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
-
         // Watch for system events that effect clock time or format.
         final IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_TIME_CHANGED);
@@ -174,12 +172,15 @@ public final class ClockFragment extends DeskClockFragment {
             final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
             activity.getContentResolver().registerContentObserver(uri, false, mAlarmObserver);
         }
+
+        // Schedule a runnable to update the date every quarter hour.
+        UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Utils.cancelQuarterHourUpdater(mHandler, mQuarterHourUpdater);
+        UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
 
         final Activity activity = getActivity();
         activity.unregisterReceiver(mBroadcastReceiver);
@@ -276,9 +277,6 @@ public final class ClockFragment extends DeskClockFragment {
         @Override
         public void run() {
             refreshDates();
-
-            // Schedule the next quarter-hour callback.
-            Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         }
     }
 

@@ -110,6 +110,14 @@ final class SettingsDAO {
     }
 
     /**
+     * @return {@code true} if the screen saver should be dimmed for lower contrast at night
+     */
+    static boolean getScreensaverNightModeOn(Context context) {
+        final SharedPreferences prefs = getSharedPreferences(context);
+        return prefs.getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
+    }
+
+    /**
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      *      has yet been made
      */

@@ -69,6 +69,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     private static final String KEY_EXPANDED_ID = "expandedId";
 
+    // Updates "Today/Tomorrow" in the UI when midnight passes.
+    private final Runnable mMidnightUpdater = new MidnightRunnable();
+
     // Views
     private ViewGroup mMainLayout;
     private RecyclerView mRecyclerView;
@@ -131,8 +134,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 if (((AlarmItemHolder) holder).isExpanded()) {
                     if (mExpandedAlarmId != Alarm.INVALID_ID &&
                             holder.itemId != mExpandedAlarmId) {
-                        ((AlarmItemHolder) mItemAdapter.findItemById(mExpandedAlarmId))
-                                .collapse();
+                        mItemAdapter.findItemById(mExpandedAlarmId).collapse();
                     }
                     mExpandedAlarmId = holder.itemId;
                 }
@@ -174,6 +176,22 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             // Remove the SCROLL_TO_ALARM extra now that we've processed it.
             intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
         }
+
+        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
+        // alarms when midnight passes.
+        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
+
+        // When the user places the app in the background by pressing "home",
+        // dismiss the toast bar. However, since there is no way to determine if
+        // home was pressed, just dismiss any existing toast bar when restarting
+        // the app.
+        mAlarmUpdateHandler.hideUndoBar();
     }
 
     @Override
@@ -192,16 +210,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void onDestroy() {
         super.onDestroy();
         ToastManager.cancelToast();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        // When the user places the app in the background by pressing "home",
-        // dismiss the toast bar. However, since there is no way to determine if
-        // home was pressed, just dismiss any existing toast bar when restarting
-        // the app.
-        mAlarmUpdateHandler.hideUndoBar();
     }
 
     public void setLabel(Alarm alarm, String label) {
@@ -265,7 +273,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         }
 
         if (alarmPosition >= 0) {
-            ((AlarmItemHolder) mItemAdapter.getItems().get(alarmPosition)).expand();
+            mItemAdapter.getItems().get(alarmPosition).expand();
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
@@ -306,5 +314,16 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmTimeClickHandler.clearSelectedAlarm();
         TimePickerCompat.showTimeEditDialog(this, null /* alarm */,
                 DateFormat.is24HourFormat(getActivity()));
+    }
+
+    /**
+     * This runnable executes at midnight and refreshes the display of all alarms. Collapsed alarms
+     * that do no repeat will have their "Tomorrow" strings updated to say "Today".
+     */
+    private final class MidnightRunnable implements Runnable {
+        @Override
+        public void run() {
+            mItemAdapter.notifyDataSetChanged();
+        }
     }
 }

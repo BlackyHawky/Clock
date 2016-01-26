@@ -114,7 +114,6 @@
 
         <activity
             android:name=".ScreensaverActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden|keyboard"
             android:excludeFromRecents="true"
             android:taskAffinity=""
             android:theme="@style/ScreensaverActivityTheme" />

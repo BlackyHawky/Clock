@@ -63,6 +63,10 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverClockStyle(mContext);
     }
 
+    boolean getScreensaverNightModeOn() {
+        return SettingsDAO.getScreensaverNightModeOn(mContext);
+    }
+
     boolean getShowHomeClock() {
         if (!SettingsDAO.getAutoShowHomeClock(mContext)) {
             return false;
