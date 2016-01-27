@@ -136,10 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"ಅಲಾರಂ ವಾಲ್ಯೂಮ್"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ನಿಶ್ಯಬ್ಧ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ಅಪರಿಚಿತ"</string>
-    <!-- no translation found for alarm_volume_muted (6658289289695673569) -->
-    <skip />
-    <!-- no translation found for silent_ringtone (4392654938729167866) -->
-    <skip />
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"ಅಲಾರಮ್ ವಾಲ್ಯೂಮ್ ಮ್ಯೂಟ್ ಮಾಡಲಾಗಿದೆ"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"ಸೈಲೆಂಟ್ ರಿಂಗ್‌ಟೋನ್"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"ಅಲಾರಂ ಸ್ನೂಜ್ ಮಾಡು ಅಥವಾ ವಜಾಗೊಳಿಸು."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ಸ್ನೂಜ್ ಆಗಿದೆ)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> ಗೆ ಅಲಾರಮ್ ಹೊಂದಿಸಲಾಗಿದೆ. ರದ್ದುಗೊಳಿಸಲು ಸ್ಪರ್ಶಿಸಿ."</string>
