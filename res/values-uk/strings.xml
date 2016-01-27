@@ -152,10 +152,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Гучність будильника"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Без звуку"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Невідомий сигнал"</string>
-    <!-- no translation found for alarm_volume_muted (6658289289695673569) -->
-    <skip />
-    <!-- no translation found for silent_ringtone (4392654938729167866) -->
-    <skip />
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Гучність будильника вимкнено"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"Сигнал дзвінка без звуку"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Періодичний сигнал або припинити дію сигналу."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (періодично)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Сигнал установлено на <xliff:g id="TIME">%s</xliff:g>. Торкніться, щоб скасувати."</string>

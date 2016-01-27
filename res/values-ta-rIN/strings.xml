@@ -136,10 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"அலாரத்தின் ஒலியளவு"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"நிசப்தம்"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"அறியப்படாதது"</string>
-    <!-- no translation found for alarm_volume_muted (6658289289695673569) -->
-    <skip />
-    <!-- no translation found for silent_ringtone (4392654938729167866) -->
-    <skip />
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"அலார ஒலி முடக்கப்பட்டது"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"நிசப்த ரிங்டோன்"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"அலாரத்தை உறக்கநிலையில் வைக்கவும் அல்லது நிராகரிக்கவும்."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (உறக்கநிலையில் வைக்கப்பட்டது)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> மணிக்கு அலாரம் அமைக்கப்பட்டது. ரத்துசெய்ய தொடவும்."</string>

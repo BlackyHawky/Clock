@@ -136,10 +136,8 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"ລະດັບສຽງໂມງປຸກ"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ປິດສຽງ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"​ບໍ່​ຮູ້​ຈັກ"</string>
-    <!-- no translation found for alarm_volume_muted (6658289289695673569) -->
-    <skip />
-    <!-- no translation found for silent_ringtone (4392654938729167866) -->
-    <skip />
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"ປິດສຽງໂມງປຸກແລ້ວ"</string>
+    <string name="silent_ringtone" msgid="4392654938729167866">"ສຽງໂທເຂົ້າປິດຢູ່"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"ປິດສຽງເຕືອນຊົ່ວຄາວ ຫຼືປິດໂມງປຸກ."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ຖືກປິດສຽງເຕືອນຊົ່ວຄາວ)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ໂມງປຸກຖືກຕັ້ງໄວ້ທີ່ <xliff:g id="TIME">%s</xliff:g>. ແຕະເພື່ອຍົກເລີກ."</string>
