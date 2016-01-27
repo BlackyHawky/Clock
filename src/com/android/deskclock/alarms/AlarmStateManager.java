@@ -950,9 +950,6 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 return;
             }
 
-            // Change to the alarms tab.
-            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
-
             long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
             final Intent viewAlarmIntent = Alarm.createIntent(context, DeskClock.class, alarmId)
                     .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
