@@ -20,6 +20,7 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.uidata.UiDataModel;
 
 /**
@@ -74,7 +75,16 @@ public final class RtlViewPager extends ViewPager {
 
     @Override
     public void setCurrentItem(int item) {
-        super.setCurrentItem(UiDataModel.getUiDataModel().getTabLayoutIndex(item));
+        // Smooth-scroll to the new tab if the app is open; snap to the new tab if it is not.
+        final boolean smoothScrolling = DataModel.getDataModel().isApplicationInForeground();
+        setCurrentItem(item, smoothScrolling);
+    }
+
+    @Override
+    public void setCurrentItem(int item, boolean smoothScroll) {
+        // Convert the item (which assumes LTR) into the correct index relative to layout direction.
+        final int index = UiDataModel.getUiDataModel().getTabLayoutIndex(item);
+        super.setCurrentItem(index, smoothScroll);
     }
 
     @Override
