@@ -98,7 +98,6 @@
     <dimen name="medium_space_top">22dp</dimen>
     <dimen name="medium_space_bottom">12dp</dimen>
     <dimen name="style_label_space">4dip</dimen>
-    <dimen name="sw_item_space">16dip</dimen>
     <dimen name="main_clock_padding">34dp</dimen>
 
     <dimen name="label_margin_big">4dp</dimen>
