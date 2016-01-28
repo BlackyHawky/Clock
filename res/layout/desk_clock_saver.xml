@@ -15,12 +15,12 @@
 -->
 
 <!-- Special "screen saver mode" with just the time/date on black. -->
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/saver_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:orientation="vertical">
+    android:background="@color/black">
 
     <!--  Extra layout to let the clock float in the window -->
     <LinearLayout
@@ -79,8 +79,8 @@
                 style="@style/label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dip"
-                android:drawablePadding="2dip"
+                android:layout_marginStart="@dimen/alarm_icon_padding"
+                android:drawablePadding="@dimen/alarm_icon_padding"
                 android:drawableStart="@drawable/ic_alarm_small"
                 android:gravity="center"
                 android:textColor="@color/clock_gray"
@@ -88,4 +88,4 @@
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

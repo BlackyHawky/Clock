@@ -67,6 +67,9 @@ public final class UiDataModel {
     /** The model from which tab data are fetched. */
     private TabModel mTabModel;
 
+    /** The model from which timed callbacks originate. */
+    private PeriodicCallbackModel mPeriodicCallbackModel;
+
     private UiDataModel() {}
 
     /**
@@ -79,6 +82,7 @@ public final class UiDataModel {
         mContext = context.getApplicationContext();
 
         mTabModel = new TabModel(mContext);
+        mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
     }
 
     //
@@ -160,6 +164,45 @@ public final class UiDataModel {
     public void setSelectedTab(Tab tab) {
         enforceMainLooper();
         mTabModel.setSelectedTab(tab);
+    }
+
+    //
+    // Timed Callbacks
+    //
+
+    /**
+     * @param runnable to be called every minute
+     * @param offset an offset applied to the minute to control when the callback occurs
+     */
+    public void addMinuteCallback(Runnable runnable, long offset) {
+        enforceMainLooper();
+        mPeriodicCallbackModel.addMinuteCallback(runnable, offset);
+    }
+
+    /**
+     * @param runnable to be called every quarter-hour
+     * @param offset an offset applied to the quarter-hour to control when the callback occurs
+     */
+    public void addQuarterHourCallback(Runnable runnable, long offset) {
+        enforceMainLooper();
+        mPeriodicCallbackModel.addQuarterHourCallback(runnable, offset);
+    }
+
+    /**
+     * @param runnable to be called every midnight
+     * @param offset an offset applied to the midnight to control when the callback occurs
+     */
+    public void addMidnightCallback(Runnable runnable, long offset) {
+        enforceMainLooper();
+        mPeriodicCallbackModel.addMidnightCallback(runnable, offset);
+    }
+
+    /**
+     * @param runnable to no longer be called periodically
+     */
+    public void removePeriodicCallback(Runnable runnable) {
+        enforceMainLooper();
+        mPeriodicCallbackModel.removePeriodicCallback(runnable);
     }
 
     /**
