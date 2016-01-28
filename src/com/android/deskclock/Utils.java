@@ -16,9 +16,6 @@
 
 package com.android.deskclock;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
@@ -32,7 +29,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.os.Build;
-import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -47,8 +43,6 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -191,99 +185,6 @@ public class Utils {
     }
 
     /**
-     * Runnable for use with screensaver and dream, to move the clock every minute.
-     * registerViews() must be called prior to posting.
-     */
-    public static class ScreensaverMoveSaverRunnable implements Runnable {
-
-        static final long MOVE_DELAY = 60000; // DeskClock.SCREEN_SAVER_MOVE_DELAY;
-        static final long FADE_TIME = 3000;
-
-        private View mContentView, mSaverView;
-        private final Handler mHandler;
-
-        public ScreensaverMoveSaverRunnable(Handler handler) {
-            mHandler = handler;
-        }
-
-        public void registerViews(View contentView, View saverView) {
-            mContentView = contentView;
-            mSaverView = saverView;
-        }
-
-        @Override
-        public void run() {
-            long delay = MOVE_DELAY;
-            if (mContentView == null || mSaverView == null) {
-                mHandler.removeCallbacks(this);
-                mHandler.postDelayed(this, delay);
-                return;
-            }
-
-            final float xrange = mContentView.getWidth() - mSaverView.getWidth();
-            final float yrange = mContentView.getHeight() - mSaverView.getHeight();
-
-            if (xrange == 0 && yrange == 0) {
-                delay = 500; // back in a split second
-            } else {
-                final int nextx = (int) (Math.random() * xrange);
-                final int nexty = (int) (Math.random() * yrange);
-
-                if (mSaverView.getAlpha() == 0f) {
-                    // jump right there
-                    mSaverView.setX(nextx);
-                    mSaverView.setY(nexty);
-                    ObjectAnimator.ofFloat(mSaverView, "alpha", 0f, 1f)
-                            .setDuration(FADE_TIME)
-                            .start();
-                } else {
-                    AnimatorSet s = new AnimatorSet();
-                    Animator xMove = ObjectAnimator.ofFloat(mSaverView,
-                            "x", mSaverView.getX(), nextx);
-                    Animator yMove = ObjectAnimator.ofFloat(mSaverView,
-                            "y", mSaverView.getY(), nexty);
-
-                    Animator xShrink = ObjectAnimator.ofFloat(mSaverView, "scaleX", 1f, 0.85f);
-                    Animator xGrow = ObjectAnimator.ofFloat(mSaverView, "scaleX", 0.85f, 1f);
-
-                    Animator yShrink = ObjectAnimator.ofFloat(mSaverView, "scaleY", 1f, 0.85f);
-                    Animator yGrow = ObjectAnimator.ofFloat(mSaverView, "scaleY", 0.85f, 1f);
-                    AnimatorSet shrink = new AnimatorSet();
-                    shrink.play(xShrink).with(yShrink);
-                    AnimatorSet grow = new AnimatorSet();
-                    grow.play(xGrow).with(yGrow);
-
-                    Animator fadeout = ObjectAnimator.ofFloat(mSaverView, "alpha", 1f, 0f);
-                    Animator fadein = ObjectAnimator.ofFloat(mSaverView, "alpha", 0f, 1f);
-
-
-                    AccelerateInterpolator accel = new AccelerateInterpolator();
-                    DecelerateInterpolator decel = new DecelerateInterpolator();
-
-                    shrink.setDuration(FADE_TIME).setInterpolator(accel);
-                    fadeout.setDuration(FADE_TIME).setInterpolator(accel);
-                    grow.setDuration(FADE_TIME).setInterpolator(decel);
-                    fadein.setDuration(FADE_TIME).setInterpolator(decel);
-                    s.play(shrink);
-                    s.play(fadeout);
-                    s.play(xMove.setDuration(0)).after(FADE_TIME);
-                    s.play(yMove.setDuration(0)).after(FADE_TIME);
-                    s.play(fadein).after(FADE_TIME);
-                    s.play(grow).after(FADE_TIME);
-                    s.start();
-                }
-
-                long now = System.currentTimeMillis();
-                long adjust = (now % 60000);
-                delay = delay + (MOVE_DELAY - adjust) - (FADE_TIME); // start moving before the fade
-            }
-
-            mHandler.removeCallbacks(this);
-            mHandler.postDelayed(this, delay);
-        }
-    }
-
-    /**
      * Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45)
      **/
     public static long getAlarmOnQuarterHour() {
@@ -298,55 +199,6 @@ public class Utils {
         final long nextQuarterHour = lastQuarterHour + QUARTER_HOUR_IN_MILLIS;
         // Add an extra second to ensure callbacks are processed *after* the quarter hour passes.
         return nextQuarterHour + DateUtils.SECOND_IN_MILLIS;
-    }
-
-    // Setup a thread that starts at midnight plus one second. The extra second is added to ensure
-    // the date has changed.
-    public static void setMidnightUpdater(Handler handler, Runnable runnable) {
-        if (handler == null || runnable == null) {
-            return;
-        }
-
-        final Calendar c = Calendar.getInstance();
-        c.add(Calendar.DATE, 1);
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 1);
-
-        handler.removeCallbacks(runnable);
-        handler.postDelayed(runnable, c.getTimeInMillis() - System.currentTimeMillis());
-    }
-
-    // Stop the midnight update thread
-    public static void cancelMidnightUpdater(Handler handler, Runnable runnable) {
-        if (handler == null || runnable == null) {
-            return;
-        }
-        handler.removeCallbacks(runnable);
-    }
-
-    // Setup a thread that starts at the quarter-hour plus one second. The extra second is added to
-    // ensure dates have changed.
-    public static void setQuarterHourUpdater(Handler handler, Runnable runnable) {
-        String timezone = TimeZone.getDefault().getID();
-        if (handler == null || runnable == null || timezone == null) {
-            return;
-        }
-        long runInMillis = getAlarmOnQuarterHour() - System.currentTimeMillis();
-        // Ensure the delay is at least one second.
-        if (runInMillis < 1000) {
-            runInMillis = 1000;
-        }
-        handler.removeCallbacks(runnable);
-        handler.postDelayed(runnable, runInMillis);
-    }
-
-    // Stop the quarter-hour update thread
-    public static void cancelQuarterHourUpdater(Handler handler, Runnable runnable) {
-        if (handler == null || runnable == null) {
-            return;
-        }
-        handler.removeCallbacks(runnable);
     }
 
     /**
