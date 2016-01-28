@@ -20,5 +20,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="false"
+    android:clipToPadding="false"
     android:paddingEnd="@dimen/clock_side_padding_reduced"
     android:paddingStart="@dimen/clock_side_padding" />
