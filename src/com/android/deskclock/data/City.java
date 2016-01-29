@@ -41,10 +41,7 @@ public final class City {
     /** The phonetic name of the city used to order cities for display. */
     private final String mPhoneticName;
 
-    /** The {@link TimeZone#getID() id} of the timezone in which the city is located. */
-    private final String mTimeZoneId;
-
-    /** The TimeZone corresponding to the {@link #mTimeZoneId}. */
+    /** The TimeZone corresponding to the city. */
     private final TimeZone mTimeZone;
 
     /** A cached upper case form of the {@link #mName} used in case-insensitive name comparisons. */
@@ -56,22 +53,19 @@ public final class City {
      */
     private String mNameUpperCaseNoSpecialCharacters;
 
-    City(String id, int index, String indexString, String name, String phoneticName,
-            String timeZoneId) {
+    City(String id, int index, String indexString, String name, String phoneticName, TimeZone tz) {
         mId = id;
         mIndex = index;
         mIndexString = indexString;
         mName = name;
         mPhoneticName = phoneticName;
-        mTimeZoneId = timeZoneId;
-        mTimeZone = TimeZone.getTimeZone(mTimeZoneId);
+        mTimeZone = tz;
     }
 
     public String getId() { return mId; }
     public int getIndex() { return mIndex; }
     public String getName() { return mName; }
     public TimeZone getTimeZone() { return mTimeZone; }
-    public String getTimeZoneId() { return mTimeZoneId; }
     public String getIndexString() { return mIndexString; }
     public String getPhoneticName() { return mPhoneticName; }
 
@@ -109,7 +103,7 @@ public final class City {
     @Override
     public String toString() {
         return String.format("City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
-                mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZoneId);
+                mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone.getID());
     }
 
     /**

@@ -131,7 +131,7 @@ final class CityModel {
         if (mHomeCity == null) {
             final String name = mContext.getString(R.string.home_label);
             final TimeZone timeZone = mSettingsModel.getHomeTimeZone();
-            mHomeCity = new City(null, -1, null, name, name, timeZone.getID());
+            mHomeCity = new City(null, -1, null, name, name, timeZone);
         }
 
         return mHomeCity;

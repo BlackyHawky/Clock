@@ -185,7 +185,7 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
 
         final float fontSize = DateFormat.is24HourFormat(mContext) ? mFont24Size : mFontSize;
         clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
-        clock.setString(clockId, "setTimeZone", city.getTimeZoneId());
+        clock.setString(clockId, "setTimeZone", city.getTimeZone().getID());
         clock.setTextViewText(labelId, city.getName());
 
         // Compute if the city week day matches the weekday of the current timezone.
