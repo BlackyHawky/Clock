@@ -370,12 +370,12 @@ public final class ClockFragment extends DeskClockFragment {
             if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
                 digitalClock.setVisibility(GONE);
                 analogClock.setVisibility(VISIBLE);
-                analogClock.setTimeZone(city.getTimeZoneId());
+                analogClock.setTimeZone(city.getTimeZone().getID());
                 analogClock.enableSeconds(false);
             } else {
                 analogClock.setVisibility(GONE);
                 digitalClock.setVisibility(VISIBLE);
-                digitalClock.setTimeZone(city.getTimeZoneId());
+                digitalClock.setTimeZone(city.getTimeZone().getID());
                 digitalClock.setFormat12Hour(
                         Utils.get12ModeFormat(mContext, 0.22f /* amPmRatio */));
                 digitalClock.setFormat24Hour(Utils.get24ModeFormat());

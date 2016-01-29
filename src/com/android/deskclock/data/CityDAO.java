@@ -30,8 +30,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,8 +41,8 @@ import java.util.regex.Pattern;
  */
 final class CityDAO {
 
-    // Regex to match natural index values when parsing city names.
-    private static final Pattern INDEX_REGEX = Pattern.compile("\\d+");
+    // Regex to match numeric index values when parsing city names.
+    private static final Pattern NUMERIC_INDEX_REGEX = Pattern.compile("\\d+");
 
     // Key to a preference that stores the number of selected cities.
     private static final String NUMBER_OF_CITIES = "number_of_cities";
@@ -97,31 +97,36 @@ final class CityDAO {
      */
     public static Map<String, City> getCities(Context context) {
         final Resources resources = context.getResources();
-        final String[] ids = resources.getStringArray(R.array.cities_id);
-        final String[] names = resources.getStringArray(R.array.cities_names);
-        final String[] timezones = resources.getStringArray(R.array.cities_tz);
+        final String[] ids = resources.getStringArray(R.array.city_ids);
 
-        if (ids.length != names.length) {
-            final String locale = Locale.getDefault().toString();
-            final String format = "id count (%d) != name count (%d) for locale %s";
-            final String message = String.format(format, ids.length, names.length, locale);
-            throw new IllegalStateException(message);
-        }
-
-        if (ids.length != timezones.length) {
-            final String locale = Locale.getDefault().toString();
-            final String format = "id count (%d) != timezone count (%d) for locale %s";
-            final String message = String.format(format, ids.length, timezones.length, locale);
-            throw new IllegalStateException(message);
-        }
-
+        final String packageName = context.getPackageName();
         final Map<String, City> cities = new ArrayMap<>(ids.length);
-        for (int i = 0; i < ids.length; i++) {
-            final String id = ids[i];
-            if ("C0".equals(id)) {
-                continue;
+        for (String id : ids) {
+            // Attempt to locate the resource id defining the city as a string.
+            final int cityResourceId = resources.getIdentifier(id, "string", packageName);
+            if (cityResourceId == 0) {
+                final String message = String.format("Unable to locate city with id %s", id);
+                throw new IllegalStateException(message);
             }
-            cities.put(id, createCity(id, names[i], timezones[i]));
+
+            // Attempt to parse the time zone from the city entry.
+            final String cityString = context.getString(cityResourceId);
+            final String[] cityParts = cityString.split("[|]");
+            if (cityParts.length != 2) {
+                final String message = String.format("Error parsing malformed city %s", cityString);
+                throw new IllegalStateException(message);
+            }
+
+            // Attempt to resolve the time zone id to a valid time zone.
+            final String tzId = cityParts[1];
+            final TimeZone tz = TimeZone.getTimeZone(tzId);
+            // If the time zone lookup fails, GMT is returned. No cities actually map to GMT.
+            if ("GMT".equals(tz.getID())) {
+                final String message = String.format("Unable to locate timezone with id %s", tzId);
+                throw new IllegalStateException(message);
+            }
+
+            cities.put(id, createCity(id, cityParts[0], tz));
         }
         return Collections.unmodifiableMap(cities);
     }
@@ -129,24 +134,24 @@ final class CityDAO {
     /**
      * @param id unique identifier for city
      * @param formattedName "[index string]=[name]" or "[index string]=[name]:[phonetic name]",
-     *                      If [index string] is empty, we use the first character of name as index,
-     *                      If phonetic name is empty, we use the name itself as phonetic.
-     * @param timeZoneId identifies the timezone in which the city is located
+     *                      If [index string] is empty, use the first character of name as index,
+     *                      If phonetic name is empty, use the name itself as phonetic name.
+     * @param tz the timezone in which the city is located
      */
     @VisibleForTesting
-    static City createCity(String id, String formattedName, String timeZoneId) {
+    static City createCity(String id, String formattedName, TimeZone tz) {
         final String[] parts = formattedName.split("[=:]");
         final String name = parts[1];
-        // Extract index string from input, use the first character of city name as index string
-        // if it's not explicitly provided.
+        // Extract index string from input, use the first character of city name as the index string
+        // if one is not explicitly provided.
         final String indexString = TextUtils.isEmpty(parts[0])
-                ? String.valueOf(name.charAt(0)) : parts[0];
+                ? name.substring(0, 1) : parts[0];
         final String phoneticName = parts.length == 3 ? parts[2] : name;
 
-        final Matcher matcher = INDEX_REGEX.matcher(indexString);
+        final Matcher matcher = NUMERIC_INDEX_REGEX.matcher(indexString);
         final int index = matcher.find() ? Integer.parseInt(matcher.group()) : -1;
 
-        return new City(id, index, indexString, name, phoneticName, timeZoneId);
+        return new City(id, index, indexString, name, phoneticName, tz);
     }
 
     private static SharedPreferences getSharedPreferences(Context context) {
