@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The Android Open Source Project
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,17 +14,13 @@
      limitations under the License.
 -->
 
-<TextView
+<!-- Displayed under the application bar to give the impression it has elevation. -->
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/header"
+    android:id="@+id/drop_shadow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginTop="24dp"
-    android:gravity="start"
-    android:minHeight="32dp"
-    android:paddingStart="20dp"
-    android:text="@string/selected_cities_label"
-    android:textAlignment="viewStart"
-    android:textColor="@color/clock_white"
-    android:textSize="20sp" />
+    android:layout_gravity="top|fill_horizontal"
+    android:alpha="0"
+    android:importantForAccessibility="no"
+    android:src="@drawable/action_bar_shadow" />

@@ -31,8 +31,10 @@ import android.support.v7.preference.Preference;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.android.deskclock.BaseActivity;
+import com.android.deskclock.DropShadowController;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.RingtonePickerDialogFragment;
@@ -66,8 +68,6 @@ public final class SettingsActivity extends BaseActivity
     public static final String KEY_VOLUME_BUTTONS = "volume_button_setting";
     public static final String KEY_WEEK_START = "week_start";
 
-    public static final String TIMEZONE_LOCALE = "tz_locale";
-
     public static final String DEFAULT_VOLUME_BEHAVIOR = "0";
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
@@ -76,6 +76,9 @@ public final class SettingsActivity extends BaseActivity
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
 
     private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager();
+
+    /** The controller that shows the drop shadow when content is not scrolled to the top. */
+    private DropShadowController mDropShadowController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +95,22 @@ public final class SettingsActivity extends BaseActivity
             ft.addToBackStack(null);
             ft.commit();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        final View dropShadow = findViewById(R.id.drop_shadow);
+        final PrefsFragment fragment =
+                (PrefsFragment) getFragmentManager().findFragmentById(R.id.main);
+        mDropShadowController = new DropShadowController(dropShadow, fragment.getListView());
+    }
+
+    @Override
+    protected void onPause() {
+        mDropShadowController.stop();
+        super.onPause();
     }
 
     @Override
@@ -141,7 +160,6 @@ public final class SettingsActivity extends BaseActivity
 
             // By default, do not recreate the DeskClock activity
             getActivity().setResult(RESULT_CANCELED);
-
         }
 
         @Override

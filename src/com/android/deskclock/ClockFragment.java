@@ -34,6 +34,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -51,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -62,11 +64,11 @@ import static java.util.Calendar.DAY_OF_WEEK;
  */
 public final class ClockFragment extends DeskClockFragment {
 
-    // Updates the UI in response to system setting changes that alter time values and time display.
-    private final BroadcastReceiver mBroadcastReceiver = new SystemBroadcastReceiver();
-
     // Updates dates in the UI on every quarter-hour.
     private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
+
+    // Updates the UI in response to changes to the scheduled alarm.
+    private BroadcastReceiver mAlarmChangeReceiver;
 
     // Detects changes to the next scheduled alarm pre-L.
     private ContentObserver mAlarmObserver;
@@ -91,6 +93,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         mHandler = new Handler();
         mAlarmObserver = Utils.isPreL() ? new AlarmObserverPreL(mHandler) : null;
+        mAlarmChangeReceiver = Utils.isLOrLater() ? new AlarmChangedBroadcastReceiver() : null;
     }
 
     @Override
@@ -108,6 +111,7 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList.setAdapter(mCityAdapter);
         mCityList.addFooterView(footerView, null, false);
         mCityList.setOnTouchListener(startScreenSaverListener);
+        mCityList.setOnScrollListener(new VerticalScrollPositionUpdater());
 
         // On tablet landscape, the clock frame will be a distinct view. Otherwise, it'll be added
         // on as a header to the main listview.
@@ -146,13 +150,10 @@ public final class ClockFragment extends DeskClockFragment {
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
         // Watch for system events that effect clock time or format.
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        if (Utils.isLOrLater()) {
-            filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
+        if (mAlarmChangeReceiver != null) {
+            final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CLOCK_CHANGED);
+            activity.registerReceiver(mAlarmChangeReceiver, filter);
         }
-        activity.registerReceiver(mBroadcastReceiver, filter);
 
         // Resume can be invoked after changing the clock style.
         Utils.setClockStyle(mDigitalClock, mAnalogClock);
@@ -183,7 +184,9 @@ public final class ClockFragment extends DeskClockFragment {
         UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
 
         final Activity activity = getActivity();
-        activity.unregisterReceiver(mBroadcastReceiver);
+        if (mAlarmChangeReceiver != null) {
+            activity.unregisterReceiver(mAlarmChangeReceiver);
+        }
         if (mAlarmObserver != null) {
             activity.getContentResolver().unregisterContentObserver(mAlarmObserver);
         }
@@ -269,6 +272,20 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     /**
+     * Updates the vertical scroll state of this tab in the {@link UiDataModel} as it changes.
+     */
+    private final class VerticalScrollPositionUpdater implements AbsListView.OnScrollListener {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                int totalItemCount) {
+            setTabScrolledToTop(Utils.isScrolledToTop(view));
+        }
+    }
+
+    /**
      * This runnable executes at every quarter-hour (e.g. 1:00, 1:15, 1:30, 1:45, etc...) and
      * updates the dates displayed within the UI. Quarter-hour increments were chosen to accommodate
      * the "weirdest" timezones (e.g. Nepal is UTC/GMT +05:45).
@@ -297,22 +314,12 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     /**
-     * Handle system broadcasts that influence the display of this fragment. Since this fragment
-     * displays time-related information, ACTION_TIME_CHANGED and ACTION_TIMEZONE_CHANGED both
-     * alter the actual time values displayed. ACTION_NEXT_ALARM_CLOCK_CHANGED indicates the time at
-     * which the next alarm will fire has changed.
+     * Update the display of the scheduled alarm as it changes.
      */
-    private final class SystemBroadcastReceiver extends BroadcastReceiver {
+    private final class AlarmChangedBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case Intent.ACTION_TIME_CHANGED:
-                case Intent.ACTION_TIMEZONE_CHANGED:
-                    refreshDates();
-
-                case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED:
-                    refreshAlarm();
-            }
+            refreshAlarm();
         }
     }
 

@@ -103,7 +103,7 @@
 
     <style name="AlarmAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
 
-    <style name="DeskClockTheme" parent="@style/TranslucentDecorActivityTheme" />
+    <style name="DeskClockTheme" parent="TranslucentDecorActivityTheme" />
 
     <style name="ExpiredTimersActivityTheme" parent="TranslucentDecorActivityTheme" />
 

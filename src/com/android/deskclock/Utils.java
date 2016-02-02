@@ -33,6 +33,8 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.VisibleForTesting;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -43,6 +45,7 @@ import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
@@ -158,6 +161,32 @@ public class Utils {
      */
     public static boolean isMOrLater() {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
+    }
+
+    /**
+     * @param listView the scrollable list view to test
+     * @return {@code true} iff the {@code listView} content is currently scrolled to the top
+     */
+    public static boolean isScrolledToTop(AbsListView listView) {
+        return listView.getChildCount() == 0 || listView.getChildAt(0).getTop() == 0;
+    }
+
+    /**
+     * Note: the {@code recyclerView} must use a {@link LinearLayoutManager} or this method throws
+     * runtime exceptions.
+     *
+     * @param recyclerView the scrollable recycler view with a linear layout to test
+     * @return {@code true} iff the {@code recyclerView} content is currently scrolled to the top
+     */
+    public static boolean isScrolledToTop(RecyclerView recyclerView) {
+        if (recyclerView.getAdapter().getItemCount() == 0) {
+            return true;
+        } else {
+            final LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
+            final int topVisibleItemPosition = llm.findFirstVisibleItemPosition();
+            return topVisibleItemPosition == 0
+                    && llm.findViewByPosition(topVisibleItemPosition).getTop() == 0;
+        }
     }
 
     /**

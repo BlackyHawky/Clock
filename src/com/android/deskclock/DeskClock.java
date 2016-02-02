@@ -87,6 +87,9 @@ public class DeskClock extends BaseActivity
     /** Automatically starts the {@link #mShowAnimation} after {@link #mHideAnimation} ends. */
     private final AnimatorListenerAdapter mAutoStartShowListener = new AutoStartShowListener();
 
+    /** Updates the user interface to reflect the selected tab from the backing model. */
+    private final TabListener mTabChangeWatcher = new TabChangeWatcher();
+
     /** The current display state of the {@link #mFab}. */
     private FabState mFabState = FabState.SHOWING;
 
@@ -98,6 +101,9 @@ public class DeskClock extends BaseActivity
 
     /** The button right of the {@link #mFab} shared across all tabs in the user interface. */
     private ImageButton mRightButton;
+
+    /** The controller that shows the drop shadow when content is not scrolled to the top. */
+    private DropShadowController mDropShadowController;
 
     /** The ViewPager that pages through the fragments representing the content of the tabs. */
     private RtlViewPager mFragmentTabPager;
@@ -225,7 +231,7 @@ public class DeskClock extends BaseActivity
         mTabLayout.setOnTabSelectedListener(new ViewPagerOnTabSelectedListener(mFragmentTabPager));
 
         // Honor changes to the selected tab from outside entities.
-        UiDataModel.getUiDataModel().addTabListener(new TabChangeWatcher());
+        UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
 
         // Update the next alarm time on app startup because the user might have altered the data.
         AlarmStateManager.updateNextAlarm(this);
@@ -234,10 +240,14 @@ public class DeskClock extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        DataModel.getDataModel().setApplicationInForeground(true);
+
+        final View dropShadow = findViewById(R.id.drop_shadow);
+        mDropShadowController = new DropShadowController(dropShadow, UiDataModel.getUiDataModel());
 
         // Honor the selected tab in case it changed while the app was paused.
         updateCurrentTab(UiDataModel.getUiDataModel().getSelectedTabIndex());
+
+        DataModel.getDataModel().setApplicationInForeground(true);
     }
 
     @Override
@@ -261,7 +271,14 @@ public class DeskClock extends BaseActivity
     @Override
     public void onPause() {
         DataModel.getDataModel().setApplicationInForeground(false);
+        mDropShadowController.stop();
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        UiDataModel.getUiDataModel().removeTabListener(mTabChangeWatcher);
+        super.onDestroy();
     }
 
     @Override
