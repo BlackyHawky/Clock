@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"ንዘር"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"ድገም"</string>
     <string name="alert" msgid="6506982899651975645">"የማንቂያ ደውል ቅላጼ"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"ብጁ የጥሪ ቅላጼ"</string>
     <string name="ringtone" msgid="9110746249688559579">"የደወል ቅላጼ"</string>
     <string name="time" msgid="8067216534232296518">"ጊዜ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ነገ"</string>
@@ -73,12 +74,18 @@
     <item msgid="9115697840826129603">" ማንቂያ ከአሁን ጀምሮ ለ <xliff:g id="HOURS">%2$s</xliff:g> እና <xliff:g id="MINUTES">%3$s</xliff:g> የተዘጋጀ ነው።"</item>
     <item msgid="2332583385137381060">"ይህ ማንቂያ ከአሁን ጀምሮ ለ<xliff:g id="DAYS">%1$s</xliff:g><xliff:g id="HOURS">%2$s</xliff:g><xliff:g id="MINUTES">%3$s</xliff:g>  የተዘጋጀ ነው።"</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> ቀን"</string>
-    <string name="hour" msgid="2546819039651509323">"1 ሰዓት"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> ሰዓቶች"</string>
-    <string name="minute" msgid="2486157997434653710">"1"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> ደቂቃዎች"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ቀኖች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ቀኖች</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ሰዓቶች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ሰዓቶች</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"በየቀኑ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ሰዓት ምረጥ"</string>
@@ -87,15 +94,18 @@
     <string name="settings" msgid="5849739030579520686">"ቅንብሮች"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"የአሸልብ ርዝመት"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ደቂቃዎች</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ደቂቃዎች</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ደቂቃዎች</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
       <item quantity="one">ደቂቃዎች</item>
       <item quantity="other">ደቂቃዎች</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"ጸጥታ ከዚህ በኋላ፦"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> ደቂቃዎች"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ደቂቃዎች</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> ደቂቃዎች</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"በጭራሽ"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 ደቂቃ"</item>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"የእኔ ሰዓት <xliff:g id="TIME">%s</xliff:g> ነው"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"የዙር ሰዓት፦"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ዙር <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ሰዓቶች</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ሰዓቶች</item>
@@ -319,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"ቆሟል"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"ለማሰናበት ወደ ቀኝ ያንሸራትቱ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"ለማሸለብ ወደ ግራ ያንሸራትቱ"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"ለማሸለብ ወደ ቀኝ ወይም ለማሰናበት ወደ ግራ ጠረግ ያድርጉ"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"የሰዓት ቆጣሪ ቆሟል"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> የሰዓት ቆጣሪዎች ቆመዋል"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"የሰዓት ቆጣሪዎችዎን ለማየት ይንኩ"</string>
@@ -330,11 +345,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"ማንቂያ ዘርጋ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ማንቂያ ሰብስብ"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ቀልብስ"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"ማንቂያ ተሰርዟል።"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"ማንቂያ ተሰርዟል"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"ቀጣዩ ማንቂያ፦ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> ተመርጠዋል"</string>
     <string name="deleted_message" msgid="1220848140260509437">"ተሰርዟል"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"ሰ:ደደ"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE፣ ሰ:ደደ a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE፣ k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"ልክ ያልሆነ ሰዓት <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> ላይ ማንቂያ ደወል የለም"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"ምንም መርሐግብር የተያዘላቸው ማንቂያ ደወሎች የሉም"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"ምንም መለያ አልተገለጸም"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"መለያው ያላቸው ምንም ማንቂያዎች የሉም"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"የሩጫ ሰዓት አስቀድሞ እየሰራ ነው"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"የሩጫ ሰዓት እየሰራ አይደለም"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"የሩጫ ሰዓት እየሮጠ ስለሆነ ዳግም ማስጀመር አይቻልም"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"የሩጫ ሰዓት ቆሟል"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"የሩጫ ሰዓት ዳግም ማስጀመር"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"የሩጫ ሰዓት የመዞሪያ ሰዓቱን ይዟል"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"የሩጫ ሰዓት ተጀምሯል"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ለዚህ ጊዜ ምንም ማንቂያ ደወል መርሐግብር አልተያዘለትም"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> ማንቂያ ደወል ተሰናብቷል"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"ማንቂያ ደወል ለ<xliff:g id="ALARM_TIME">%s</xliff:g> ተዘጋጅቷል"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"ምንም ሰዓት ቆጣሪ አልተዘጋጀም"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"ሰዓት ቆጣሪ ተሰርዟል"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"ሰዓት ቆጣሪ አስቀድሞ እየሰራ ነው"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"ጥያቄዎን ማጠናቀቅ አልተቻለም፣ በርካታ ሰዓት ቆጣሪዎች ይገኛሉ"</string>
+    <string name="timer_started" msgid="6715582052946641641">"ሰዓት ቆጣሪ ተጀምሯል"</string>
+    <string name="timer_created" msgid="4381027137335885547">"የሰዓት ቆጣሪ ተፈጥሯል"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"ልክ ያልሆነ የሰዓት ቆጣሪ ርዝመት"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"ሰዓት ቆጣሪ ዳግም ተዘጋጅቷል"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"ሰዓት ቆጣሪ አሁንም እየሰራ ስለሆነ ዳግም ሊዘጋጅ አይችልም። ዳግም ለማዘጋጀት ሰዓት ቆጣሪን ያስቁሙት።"</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"ሰዓት ቆጣሪ አስቀድሞ ቆሟል"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"ምንም ከተማ አልተመረጠም"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"የጠቀሱት ከተማ አይገኝም"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"ይሄ ከተማ አስቀድሞ ታክሏል"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> ታክሏል"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> ተሰርዟል"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"የ<xliff:g id="ALARM_TIME">%s</xliff:g> ማንቂያ ደውል ገና ሊሰናበት አይችልም፣ አሁንም ገና ከ24 ሰዓቶች በላይ ይቀራሉ"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"ማንቂያ ሰርዝ"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"የትኛዎቹ ማንቂያ ደወሎች እንደሚሰናበቱ ይምረጡ"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"ምንም ተኳሽ ማንቂያ ደወሎች የሉም"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"የ<xliff:g id="ALARM_TIME">%s</xliff:g> ማንቂያ ደወል ለ10 ደቂቃዎች አሸልቧል"</string>
 </resources>

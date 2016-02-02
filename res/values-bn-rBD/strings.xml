@@ -33,13 +33,14 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"কম্পন"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"পুনরাবৃত্তি করুন"</string>
     <string name="alert" msgid="6506982899651975645">"অ্যালার্ম রিংটোন"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"কাস্টম রিংটোন"</string>
     <string name="ringtone" msgid="9110746249688559579">"রিংটোন"</string>
     <string name="time" msgid="8067216534232296518">"সময়"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"আগামীকাল"</string>
     <string name="alarm_today" msgid="7873594221106531654">"আজ"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"জেগে উঠুন!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"বন্ধ করুন"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"খারিজ করুন"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"খারিজ"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"এখন খারিজ করুন"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"মিসড অ্যালার্ম"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -65,20 +66,26 @@
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"এখন থেকে ১ মিনিটের কম সময়ের জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="6002066367368421848">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="8824719306247973774">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="8182406852935468862">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="HOURS">%2$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="2532279224777213194">"এখন থেকে <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="5936557894247187717">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="9115697840826129603">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
-    <item msgid="2332583385137381060">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, ও <xliff:g id="MINUTES">%3$s</xliff:g> এর জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="6002066367368421848">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="8824719306247973774">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="8182406852935468862">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="HOURS">%2$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="2532279224777213194">"এখন থেকে <xliff:g id="MINUTES">%3$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="5936557894247187717">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="9115697840826129603">"এখন থেকে <xliff:g id="HOURS">%2$s</xliff:g> ও <xliff:g id="MINUTES">%3$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
+    <item msgid="2332583385137381060">"এখন থেকে <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, ও <xliff:g id="MINUTES">%3$s</xliff:g>-র জন্য অ্যালার্ম সেট করা হয়েছে।"</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 দিন"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> দিন"</string>
-    <string name="hour" msgid="2546819039651509323">"1 ঘন্টা"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> ঘন্টা"</string>
-    <string name="minute" msgid="2486157997434653710">"1 মিনিট"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> মিনিট"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> দিন</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> দিন</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ঘণ্টা</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ঘণ্টা</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> মিনিট</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> মিনিট</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"প্রতিদিন"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"একটি ঘড়ি পছন্দ করুন"</string>
@@ -87,15 +94,18 @@
     <string name="settings" msgid="5849739030579520686">"সেটিংস"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"স্নুজ মেয়াদ"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> মিনিট</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> মিনিট</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> মিনিট</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> মিনিট</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
       <item quantity="one">মিনিট</item>
       <item quantity="other">মিনিট</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"এর পরে নীরব করুন"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> মিনিট"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> মিনিট</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> মিনিট</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"কখনই নয়"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"১ মিনিট"</item>
@@ -118,13 +128,13 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"অ্যালার্মের ভলিউম"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"নীরব"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"অ্যালার্ম স্নুজ বা খারিজ করুন।"</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (স্নুজ হয়েছে)"</string>
+    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (পরে মনে করা)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> এর জন্য অ্যালার্ম সেট হয়েছে। বাতিল করার জন্য ছোঁন।"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ভলিউম বোতাম"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"বোতাম প্রভাব"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"স্নুজ"</item>
-    <item msgid="3450979320164769576">"খারিজ করুন"</item>
+    <item msgid="3450979320164769576">"খারিজ"</item>
     <item msgid="6302517608411378024">"কিছু করবেন না"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"ডিফল্ট রিংটোন সেট করুন"</string>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"আমার সময় <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ল্যাপ সময়:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g> টি ল্যাপ"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ঘন্টা</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ঘন্টা</item>
@@ -217,8 +231,8 @@
     <item msgid="917900462224167608">"অ্যানালগ"</item>
     <item msgid="8483930821046925592">"ডিজিটাল"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"স্বয়ংক্রিয় হোম ঘড়ি"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ভিন্ন সময়ের কোনো স্থানে ভ্রমনের সময় বাড়ির জন্য একটি ঘড়ি জুড়ুন"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"স্বয়ংক্রিয়ভাবে দেশের সময় দেখান"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ভিন্ন সময়ের কোনো স্থানে ভ্রমনের সময় নিজের দেশের সময় দেখার জন্য একটি ঘড়ি জুড়ুন"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"হোম সময় অঞ্চল"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"হোম সময় অঞ্চল"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"বাতিল করুন"</string>
@@ -319,22 +333,22 @@
     <string name="swn_stopped" msgid="783124901663086172">"থেমেছে"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"খারিজ করতে সোয়াইপ করুন"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"পরে মনে করিয়ে দিতে বামে সোয়াইপ করুন"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"মনে করিয়ে দিতে বাম দিকে বা খারিজ করতে ডান দিকে সোয়াইপ করুন"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"টাইমার থেমেছে"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> টি টাইমার বন্ধ হয়েছে"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"আপনার টাইমারগুলি দেখার জন্য ছোঁন"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> টি টাইমার"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"পরবর্তী টাইমার: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"স্বপ্নের সেটিংস"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"স্ক্রিনসেভার সেটিংস"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"রাতের মোড"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"অত্যন্ত অস্পষ্ট প্রদর্শন (অন্ধকার ঘরের জন্য)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"অ্যালার্ম প্রসারিত করুন"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"অ্যালার্ম সঙ্কুচিত করুন"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"পূর্বাবস্থায় ফিরুন"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"অ্যালার্ম মুছে ফেলা হয়েছে।"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"অ্যালার্ম মুছে ফেলা হয়েছে"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"পরবর্তী অ্যালার্ম: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> নির্বাচন করা হয়েছে"</string>
     <string name="deleted_message" msgid="1220848140260509437">"মোছা হয়েছে৷"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"অবৈধ সময় <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> -এ কোনো অ্যালার্ম নেই"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"কোনো সময়সূচী নেই"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"কোনো লেবেল নির্দিষ্ট করা নেই"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"লেবেলটিতে কোনো অ্যালার্ম নির্দিষ্ট করা নেই"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"স্টপওয়াচ ইতিমধ্যেই চলছে"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"স্টপওয়াচ চলছে না"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"স্টপওয়াচটি এখন চালু থাকায় এটিকে পুনরায় সেট করা যাবে না"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"স্টপওয়াচ বন্ধ হয়েছে"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"স্টপওয়াচ পুনরায় সেট হয়েছে"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"স্টপওয়াচ ল্যাপ করা হয়েছে"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"স্টপওয়াচ শুরু হয়েছে"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"এই সময়ের জন্য কোনো অ্যালার্ম পূর্বনির্ধারিত করা নেই"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> অ্যালার্ম খারিজ করা হয়েছে"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> -এ অ্যালার্ম সেট করা আছে"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"কোনো টাইমার সেট করা নেই"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"টাইমার মুছে ফেলা হয়েছে"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"টাইমার ইতিমধ্যেই চলছে"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"আপনার অনুরোধ সম্পূর্ণ করা যায়নি, একাধিক টাইমার উপলব্ধ রয়েছে"</string>
+    <string name="timer_started" msgid="6715582052946641641">"টাইমার শুরু হয়েছে"</string>
+    <string name="timer_created" msgid="4381027137335885547">"টাইমার তৈরি হয়েছে"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"অবৈধ টাইমার দৈর্ঘ্য"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"টাইমার পুনরায় সেট করা হয়েছে"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"টাইমার পুনরায় সেট করা যাবে না কারণ এটি এখনও চলছে৷ পুনরায় সেট করতে টাইমার বন্ধ করুন৷"</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"টাইমার ইতিমধ্যেই থেমে গেছে"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"কোনো শহর নির্বাচিত নেই"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"আপনার নির্দিষ্ট করা শহরটি উপলব্ধ নেই"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"এই শহরটি ইতিমধ্যেই যোগ করা হয়েছে"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> যোগ করা হয়েছে"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> মুছে ফেলা হয়েছে"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> অ্যালার্ম এখনো খারিজ করা যাবে না, এখনো পর্যন্ত প্রায় ২৪ ঘন্টা দূরে রয়েছে"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"অ্যালার্ম খারিজ করুন"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"কোন অ্যালার্ম খারিজ করবেন তা বাছুন"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"কোনো অগ্নিসংযোগের অ্যালার্ম নেই"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> অ্যালার্ম ১০ মিনিটে মনে করিয়ে দেওয়ার জন্য চিহ্নিত করা হয়েছে"</string>
 </resources>

@@ -18,305 +18,305 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="cities_names">
-    <item msgid="2528360178629244616">"阿必尚"</item>
-    <item msgid="6944239639314079002">"阿克拉"</item>
-    <item msgid="1882840263263451068">"阿迪斯阿貝巴"</item>
-    <item msgid="1028929145486670248">"阿爾及爾"</item>
-    <item msgid="3701057587584676092">"布蘭泰爾"</item>
-    <item msgid="2886322632268247117">"布拉薩維爾"</item>
-    <item msgid="6897570881968822043">"開羅"</item>
-    <item msgid="267605539096913498">"卡薩布蘭加"</item>
-    <item msgid="4211664465580587414">"柯那克里"</item>
-    <item msgid="4541602834272820641">"達卡"</item>
-    <item msgid="8465732069409300950">"達萊撒蘭"</item>
-    <item msgid="6622510954516549116">"吉布地"</item>
-    <item msgid="2276489800209768303">"自由城"</item>
-    <item msgid="1240576997711861023">"嘉柏隆里"</item>
-    <item msgid="5349334209171364385">"哈拉雷"</item>
-    <item msgid="6113191477690557327">"約翰尼斯堡"</item>
-    <item msgid="927428576674822400">"坎帕拉"</item>
-    <item msgid="4026832076115235469">"喀土穆"</item>
-    <item msgid="5410782788724286381">"基加利"</item>
-    <item msgid="7732811111504353705">"金夏沙"</item>
-    <item msgid="932809008471125011">"拉哥斯"</item>
-    <item msgid="2795948760365855772">"馬塞魯"</item>
-    <item msgid="6464910812969504493">"摩加迪休"</item>
-    <item msgid="4620365036488328944">"奈洛比"</item>
-    <item msgid="4196652835056468390">"聖多美"</item>
-    <item msgid="2002053268354813523">"通布圖"</item>
-    <item msgid="6789355206260535774">"的黎波里"</item>
-    <item msgid="1662913445892282208">"突尼斯"</item>
-    <item msgid="1958350526592385504">"安克拉治"</item>
-    <item msgid="4530964415403549431">"門多薩"</item>
-    <item msgid="5519841965499989640">"阿魯巴"</item>
-    <item msgid="3619641653330712167">"亞松森"</item>
-    <item msgid="1807527094848372100">"巴貝多"</item>
-    <item msgid="7833099001850188721">"貝里斯"</item>
-    <item msgid="5063415446546412441">"波哥大"</item>
-    <item msgid="2839227656429500365">"布宜諾斯艾利斯"</item>
-    <item msgid="1133762043888408997">"坎昆"</item>
-    <item msgid="5326063045518438386">"卡拉卡斯"</item>
-    <item msgid="889935230113732517">"開曼"</item>
-    <item msgid="3444477982230350362">"芝加哥"</item>
-    <item msgid="610305270095390771">"哥斯大黎加"</item>
-    <item msgid="4297448531030514920">"庫拉索"</item>
-    <item msgid="1819003821428989864">"道森克里克"</item>
-    <item msgid="4753714764113170675">"丹佛"</item>
-    <item msgid="2279315094917045244">"底特律"</item>
-    <item msgid="1330228105893462956">"多明尼加"</item>
-    <item msgid="3303245425281858320">"愛德蒙頓"</item>
-    <item msgid="6102675683216802960">"薩爾瓦多"</item>
-    <item msgid="7404823948632138334">"福塔力沙"</item>
-    <item msgid="5295234178172153733">"大特克"</item>
-    <item msgid="3015155377774814857">"格瑞那達"</item>
-    <item msgid="5124228611616346914">"瓜地馬拉"</item>
-    <item msgid="890870630819396468">"蓋亞那"</item>
-    <item msgid="7195964234494402331">"哈利法克斯"</item>
-    <item msgid="4983877234758737190">"哈瓦那"</item>
-    <item msgid="2738888001225341531">"印地安納波利斯"</item>
-    <item msgid="5335614190119698790">"諾克斯"</item>
-    <item msgid="9056292535030679310">"馬倫哥"</item>
-    <item msgid="1049051761793330471">"聖彼得堡"</item>
-    <item msgid="4086392912705989429">"泰爾市"</item>
-    <item msgid="4953356468739912331">"斐威"</item>
-    <item msgid="879918079035739958">"萬塞訥斯"</item>
-    <item msgid="620064188588916047">"威納馬克"</item>
-    <item msgid="1743310759320576964">"金斯頓"</item>
-    <item msgid="5836540468054579646">"拉巴斯"</item>
-    <item msgid="9111190480556180457">"利瑪"</item>
-    <item msgid="3849323884810644665">"洛杉磯"</item>
-    <item msgid="9186705637161264387">"路易斯維爾"</item>
-    <item msgid="6045939557161114820">"馬拿瓜"</item>
-    <item msgid="3688923880208568496">"馬丁尼克"</item>
-    <item msgid="3124245926616896140">"門多薩"</item>
-    <item msgid="8264013691437690644">"梅特拉卡特拉"</item>
-    <item msgid="3242307788223843671">"墨西哥城"</item>
-    <item msgid="3904210242491724008">"蒙特雷"</item>
-    <item msgid="2049700402307558992">"蒙特維多"</item>
-    <item msgid="6972371385309297826">"蒙特婁"</item>
-    <item msgid="1121150121639680484">"拿索"</item>
-    <item msgid="8783518093470040300">"紐約"</item>
-    <item msgid="8685565479120721681">"比尤萊"</item>
-    <item msgid="6854366494939955818">"中央市"</item>
-    <item msgid="7325195282520040665">"新塞勒姆"</item>
-    <item msgid="3368872340258580668">"巴拿馬"</item>
-    <item msgid="58921303248631494">"鳳凰城"</item>
-    <item msgid="6678389014419621494">"西班牙港"</item>
-    <item msgid="5255184875289196899">"太子港"</item>
-    <item msgid="7039428977566254389">"波多黎各"</item>
-    <item msgid="1577859671465557300">"聖多明哥"</item>
-    <item msgid="3956700126827381905">"聖保羅"</item>
-    <item msgid="3851056559336304908">"聖約翰"</item>
-    <item msgid="7620601490016157459">"聖克里斯多福"</item>
-    <item msgid="256494147725561888">"聖露西亞"</item>
-    <item msgid="9065982618380084594">"聖湯瑪斯"</item>
-    <item msgid="7424657189317481507">"蒂華納"</item>
-    <item msgid="7378768724772963031">"多倫多"</item>
-    <item msgid="2880175928020421322">"溫哥華"</item>
-    <item msgid="8906495585877998744">"溫尼伯"</item>
-    <item msgid="8681645071790623069">"南極"</item>
-    <item msgid="9066834921549182064">"朗伊爾城"</item>
-    <item msgid="4656709932014204632">"阿爾馬提"</item>
-    <item msgid="2173021164159165084">"安曼"</item>
-    <item msgid="5365315490101319010">"阿納德爾"</item>
-    <item msgid="2203136550754775298">"阿克淘"</item>
-    <item msgid="6373057865921966096">"巴格達"</item>
-    <item msgid="7705451629446449789">"巴林"</item>
-    <item msgid="2201480850069597815">"巴庫"</item>
-    <item msgid="424770109352500733">"曼谷"</item>
-    <item msgid="5329081174177673828">"貝魯特"</item>
-    <item msgid="7187135889522860058">"加爾各答"</item>
-    <item msgid="8261312970920594511">"大馬士革"</item>
-    <item msgid="6050005781178769107">"達卡"</item>
-    <item msgid="846831973484498790">"杜拜"</item>
-    <item msgid="6320380511060318660">"加薩"</item>
-    <item msgid="138195076135095830">"希伯倫"</item>
-    <item msgid="2792857260329757927">"胡志明市"</item>
-    <item msgid="2753915200056183217">"香港"</item>
-    <item msgid="6375713877627922624">"伊斯坦堡"</item>
-    <item msgid="164857852656167029">"雅加達"</item>
-    <item msgid="514551483895638508">"耶路撒冷"</item>
-    <item msgid="7852405794661778785">"喀布爾"</item>
-    <item msgid="2733033767438957766">"喀拉嗤"</item>
-    <item msgid="5644311217186397680">"加德滿都"</item>
-    <item msgid="1242216853434928489">"吉隆坡"</item>
-    <item msgid="4933780769758115782">"科威特"</item>
-    <item msgid="6882764635090995312">"澳門"</item>
-    <item msgid="3986352476396048104">"馬尼拉"</item>
-    <item msgid="7941758124259560958">"馬斯喀特"</item>
-    <item msgid="2671480270494284192">"金邊"</item>
-    <item msgid="3585358766120768888">"平壤"</item>
-    <item msgid="282733287703161268">"卡達"</item>
-    <item msgid="8551825553277677949">"仰光"</item>
-    <item msgid="3510541723342902050">"利雅德"</item>
-    <item msgid="7301933049899867383">"西貢"</item>
-    <item msgid="2859585838402694009">"首爾"</item>
-    <item msgid="33498601045535875">"上海"</item>
-    <item msgid="8274790879257759399">"新加坡"</item>
-    <item msgid="4185891512451859606">"台北"</item>
-    <item msgid="8272983787037437358">"德黑蘭"</item>
-    <item msgid="7548402686482506151">"特拉維夫"</item>
-    <item msgid="6921751833980197720">"東京"</item>
-    <item msgid="59728156515393986">"烏蘭巴托"</item>
-    <item msgid="701446121859732513">"百慕達"</item>
-    <item msgid="6874435045145230527">"加那利"</item>
-    <item msgid="1975124795172898686">"維德角"</item>
-    <item msgid="5405194758503124447">"雷克雅維克"</item>
-    <item msgid="4841506971765063373">"史坦萊"</item>
-    <item msgid="3192252088299410199">"阿德萊德"</item>
-    <item msgid="4515440099016150233">"布里斯本"</item>
-    <item msgid="1603342478771190398">"坎培拉"</item>
-    <item msgid="7369443573793537977">"達爾文"</item>
-    <item msgid="6038622967693853356">"墨爾本"</item>
-    <item msgid="5987600941235656656">"新南威爾斯"</item>
-    <item msgid="8993222367897103441">"伯斯"</item>
-    <item msgid="2331172541371685437">"昆士蘭"</item>
-    <item msgid="2150912736505182699">"雪梨"</item>
-    <item msgid="8097029759143077179">"維多利亞"</item>
-    <item msgid="2175264082469352441">"紐芬蘭"</item>
-    <item msgid="5299806709792658953">"薩克斯其萬"</item>
-    <item msgid="2742335625880576228">"復活節島"</item>
-    <item msgid="3401105135843706855">"阿姆斯特丹"</item>
-    <item msgid="7408055867187369479">"安道爾"</item>
-    <item msgid="7714099594043232998">"雅典"</item>
-    <item msgid="7588965073415041593">"貝爾法斯特"</item>
-    <item msgid="8982755519728730268">"貝爾格勒"</item>
-    <item msgid="5820954942905597949">"柏林"</item>
-    <item msgid="7624062157455799880">"布拉提斯拉瓦"</item>
-    <item msgid="6138895798733335888">"布魯塞爾"</item>
-    <item msgid="8836227282219002613">"布加勒斯特"</item>
-    <item msgid="8868098210480147802">"布達佩斯"</item>
-    <item msgid="114329374155996860">"基希訥烏"</item>
-    <item msgid="6487487167873723374">"哥本哈根"</item>
-    <item msgid="5264002034116955880">"都柏林"</item>
-    <item msgid="7950073703814432186">"直布羅陀"</item>
-    <item msgid="4616641627708493425">"赫爾辛基"</item>
-    <item msgid="212359461403262711">"曼恩島"</item>
-    <item msgid="4245799496293578703">"伊斯坦堡"</item>
-    <item msgid="4477669700025211678">"基輔"</item>
-    <item msgid="7233802930588725294">"里斯本"</item>
-    <item msgid="7186725202454661926">"倫敦"</item>
-    <item msgid="5298853578615697920">"盧森堡"</item>
-    <item msgid="3107227222663823852">"馬德里"</item>
-    <item msgid="6409612387432198642">"馬爾他"</item>
-    <item msgid="6955558182074785338">"明斯克"</item>
-    <item msgid="6228242074512253552">"摩納哥"</item>
-    <item msgid="6544575681565409774">"莫斯科"</item>
-    <item msgid="3976815367069730505">"奧斯陸"</item>
-    <item msgid="2469420333993086275">"巴黎"</item>
-    <item msgid="7485656867179996639">"布拉格"</item>
-    <item msgid="988513162091270543">"里加"</item>
-    <item msgid="3998650297514954079">"羅馬"</item>
-    <item msgid="1732427206709814080">"聖馬利諾"</item>
-    <item msgid="2794131568674225119">"塞拉耶佛"</item>
-    <item msgid="2400301040855226066">"辛菲羅波爾"</item>
-    <item msgid="9186733542818983602">"史高比耶"</item>
-    <item msgid="1586570243468059398">"索非亞"</item>
-    <item msgid="564898083230872572">"斯德哥爾摩"</item>
-    <item msgid="8462542989781385012">"塔林"</item>
-    <item msgid="6709788967440613264">"梵帝崗"</item>
-    <item msgid="8251863344440905549">"維也納"</item>
-    <item msgid="3257947331297603891">"維爾紐斯"</item>
-    <item msgid="2305299694079344212">"華沙"</item>
-    <item msgid="4469591142000997702">"薩格勒布"</item>
-    <item msgid="3827805692447432666">"蘇黎世"</item>
-    <item msgid="7710293346890852314">"安塔那那利佛"</item>
-    <item msgid="8675463358261691187">"馬爾地夫"</item>
-    <item msgid="8258461076442136172">"模里西斯"</item>
-    <item msgid="3150318624617990367">"奧克蘭"</item>
-    <item msgid="8427795435830682122">"斐濟"</item>
-    <item msgid="1158779814198631169">"關島"</item>
-    <item msgid="5893704879373137457">"檀香山"</item>
-    <item msgid="1770338947698194275">"刻里提馬提"</item>
-    <item msgid="3115018823853432422">"諾米亞"</item>
-    <item msgid="8930848797035435014">"薩摩亞"</item>
-    <item msgid="5520094948583238358">"大溪地"</item>
-    <item msgid="7301905385854586936">"安提瓜"</item>
-    <item msgid="8984152310253274404">"奧斯汀"</item>
-    <item msgid="6874533703004710145">"波士頓"</item>
-    <item msgid="7432962958322057136">"卡加立"</item>
-    <item msgid="8096684279604140978">"哥倫布"</item>
-    <item msgid="936901718255724986">"達拉斯"</item>
-    <item msgid="4015131634823666245">"諾克斯維爾"</item>
-    <item msgid="3978413466663710403">"曼非斯"</item>
-    <item msgid="5023838008354228529">"邁阿密"</item>
-    <item msgid="7182213480667543511">"明尼阿波利斯"</item>
-    <item msgid="869023139270244552">"渥太華"</item>
-    <item msgid="8138869957811168440">"費城"</item>
-    <item msgid="1752278495028380978">"波特蘭"</item>
-    <item msgid="8972733979389600134">"聖地牙哥"</item>
-    <item msgid="304925930860094332">"舊金山"</item>
-    <item msgid="1092295421727954508">"鹽湖城"</item>
-    <item msgid="2861495155508879945">"聖荷西"</item>
-    <item msgid="6951841899277574144">"聖薩爾瓦多"</item>
-    <item msgid="4063054959106860389">"西雅圖"</item>
-    <item msgid="4985936045757148312">"聖路易"</item>
-    <item msgid="2498001791404810614">"華盛頓特區"</item>
-    <item msgid="6490744399654978915">"休士頓"</item>
-    <item msgid="5461172996986211872">"聖安東尼奧"</item>
-    <item msgid="7955879665647778362">"傑克遜維爾"</item>
-    <item msgid="7274737959786806118">"巴爾的摩"</item>
-    <item msgid="5440109692257991959">"納什維爾"</item>
-    <item msgid="2580598303029580540">"密爾瓦基"</item>
-    <item msgid="5778397064882342884">"奧克拉荷馬市"</item>
-    <item msgid="60834900460576333">"拉斯維加斯"</item>
-    <item msgid="1242224546028941695">"阿布奎基"</item>
-    <item msgid="2108508912885156322">"土桑"</item>
-    <item msgid="2736505692163909286">"沙加緬度"</item>
-    <item msgid="4244292537769840523">"亞特蘭大"</item>
-    <item msgid="1458420523389537755">"克里夫蘭"</item>
-    <item msgid="6576927115185043547">"紐奧良"</item>
-    <item msgid="2723274638984844697">"坦帕"</item>
-    <item msgid="1176352970801801624">"匹茲堡"</item>
-    <item msgid="5624802871949256105">"辛辛那提"</item>
-    <item msgid="527393217276418005">"山景城"</item>
-    <item msgid="1744025839066009857">"雷諾"</item>
-    <item msgid="6276904698731697502">"黑岩市"</item>
-    <item msgid="2844451059935789778">"多哈"</item>
-    <item msgid="4108653157206192019">"北京"</item>
-    <item msgid="6115360044399896579">"孟買"</item>
-    <item msgid="7140676596549732117">"德里"</item>
-    <item msgid="1236127343975476693">"大阪"</item>
-    <item msgid="6470041111418276646">"拉合爾"</item>
-    <item msgid="5672665774945554582">"沙那"</item>
-    <item msgid="4227294244388933650">"巴塞隆納"</item>
-    <item msgid="2404605478532633099">"慕尼黑"</item>
-    <item msgid="2402973841037462176">"米蘭"</item>
-    <item msgid="1658609023659261743">"法蘭克福"</item>
-    <item msgid="4214691757607136548">"河內"</item>
-    <item msgid="484506613000693635">"安卡拉"</item>
-    <item msgid="1958807113380596945">"班加羅爾"</item>
-    <item msgid="2258411542499008700">"巴西利亞"</item>
-    <item msgid="770086263560182220">"開普敦"</item>
-    <item msgid="5936333722350504953">"伊斯蘭瑪巴德"</item>
-    <item msgid="3631805761163219329">"里約熱內盧"</item>
-    <item msgid="6544644866501929714">"安娜堡"</item>
-    <item msgid="8675519768651745334">"博爾德"</item>
-    <item msgid="7006632817384692182">"劍橋"</item>
-    <item msgid="7233704593042272414">"科克蘭"</item>
-    <item msgid="717352875658559544">"麥迪遜"</item>
-    <item msgid="3567009426051313507">"廣州"</item>
-    <item msgid="2738289235744819761">"海得拉巴"</item>
-    <item msgid="35629823970779893">"雷斯頓"</item>
-    <item msgid="2620375619174484543">"美景市"</item>
-    <item msgid="3949247113051549869">"聖地牙哥"</item>
-    <item msgid="3583568170097050810">"蒙羅維亞"</item>
-    <item msgid="4337041465665825381">"可倫坡"</item>
-    <item msgid="2758533074887258174">"奇瓦瓦"</item>
-    <item msgid="3904262821019008829">"薩爾瓦多"</item>
-    <item msgid="7335556305222315705">"古爾岡"</item>
-    <item msgid="8092021218913879570">"曼徹斯特"</item>
-    <item msgid="3262376108426000449">"基輔"</item>
-    <item msgid="1321450515191695851">"聖彼得堡"</item>
-    <item msgid="5152144018647717853">"克拉科夫"</item>
-    <item msgid="3995511368799031783">"弗羅茨瓦夫"</item>
-    <item msgid="7251862005498390469">"漢堡"</item>
-    <item msgid="4403899516544001462">"奧盧"</item>
-    <item msgid="8378499650951313108">"海法"</item>
-    <item msgid="7504732361387330116">"聖胡安"</item>
-    <item msgid="8613864994547669100">"德古西加巴"</item>
-    <item msgid="7087691675228926801">"巴拉馬利波"</item>
-    <item msgid="478384295484578701">"基多"</item>
-    <item msgid="4517870253399384206">"盧比安納"</item>
+    <item msgid="4653806289288974388">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿必尚"</item>
+    <item msgid="4864167603178202155">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿克拉"</item>
+    <item msgid="6478898553803167749">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿迪斯阿貝巴"</item>
+    <item msgid="5618029992528436448">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿爾及爾"</item>
+    <item msgid="2906834750114790793">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布藍泰爾"</item>
+    <item msgid="8153571933836629863">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布拉薩市"</item>
+    <item msgid="3703129580594640833">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>開羅"</item>
+    <item msgid="2300915410194647320">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>卡薩布蘭加"</item>
+    <item msgid="1217039002304887948">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>柯那克里"</item>
+    <item msgid="8775104707806220928">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>達卡"</item>
+    <item msgid="5948764589113643811">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>達萊撒蘭"</item>
+    <item msgid="6306254507715416077">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>吉布地"</item>
+    <item msgid="4286108029159501866">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>自由城"</item>
+    <item msgid="4514786733035528116">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>嘉柏隆里"</item>
+    <item msgid="7367496854968219671">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>哈拉雷"</item>
+    <item msgid="6837746379726020288">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>約翰尼斯堡"</item>
+    <item msgid="6284185156591171506">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>坎帕拉"</item>
+    <item msgid="3299518884693668985">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>喀土穆"</item>
+    <item msgid="4614879508966043969">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>基加利"</item>
+    <item msgid="8878437043772547732">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>金夏沙"</item>
+    <item msgid="6325601635544067909">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>拉哥斯"</item>
+    <item msgid="6094357506290323524">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬塞魯"</item>
+    <item msgid="7270525814400329098">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>摩加迪休"</item>
+    <item msgid="353110101402547540">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>奈洛比"</item>
+    <item msgid="1688121892646984549">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖多美"</item>
+    <item msgid="3642219084651687800">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>廷巴克圖"</item>
+    <item msgid="7287513493631179463">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>的黎波里"</item>
+    <item msgid="5052614613671591560">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>突尼斯"</item>
+    <item msgid="7976303179193839859">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>安克拉治"</item>
+    <item msgid="193703779380497120">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>門多薩"</item>
+    <item msgid="5448884981082519628">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿魯巴"</item>
+    <item msgid="1577938273323914773">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>亞松森"</item>
+    <item msgid="5617155978105010520">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴貝多"</item>
+    <item msgid="3600025702357376322">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>貝里斯"</item>
+    <item msgid="2847679817118467051">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>波哥大"</item>
+    <item msgid="9029003541681282929">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布宜諾斯艾利斯"</item>
+    <item msgid="2338367960332622522">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>坎昆"</item>
+    <item msgid="4339797536047170278">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>卡拉卡斯"</item>
+    <item msgid="9199080438977757863">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>開曼"</item>
+    <item msgid="1993203473281589891">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>芝加哥"</item>
+    <item msgid="7990342776303470263">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>哥斯大黎加"</item>
+    <item msgid="5676109900908808628">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>庫拉索"</item>
+    <item msgid="5519120432577564812">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>道森克里克"</item>
+    <item msgid="2126228972377380680">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>丹佛"</item>
+    <item msgid="3298410632922319193">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>底特律"</item>
+    <item msgid="2819032085688382805">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>多米尼克"</item>
+    <item msgid="6170433208654553821">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>愛德蒙頓"</item>
+    <item msgid="795461860173291499">"20 劃<xliff:g id="SEPARATOR">=</xliff:g>薩爾瓦多"</item>
+    <item msgid="7872196528637597794">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>福塔力沙"</item>
+    <item msgid="5801558418916235541">"3 劃<xliff:g id="SEPARATOR">=</xliff:g>大特克"</item>
+    <item msgid="2103759276235503048">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>格瑞那達"</item>
+    <item msgid="1490069759176391533">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>瓜地馬拉"</item>
+    <item msgid="525959305652046261">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>蓋亞那"</item>
+    <item msgid="7565596629973190931">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>哈利法克斯"</item>
+    <item msgid="3811169155065582644">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>哈瓦那"</item>
+    <item msgid="3733555435078090201">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>印第安納波利斯"</item>
+    <item msgid="226982663848410981">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>諾克斯"</item>
+    <item msgid="3815293080342229459">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬倫戈"</item>
+    <item msgid="6594853515451547389">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖彼得堡"</item>
+    <item msgid="6091571889213283534">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>泰爾市"</item>
+    <item msgid="3089369312058696669">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>斐威"</item>
+    <item msgid="1334860422444068943">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>萬塞訥"</item>
+    <item msgid="7775105082093691756">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>威納麥克"</item>
+    <item msgid="4043335541899184547">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>金斯頓"</item>
+    <item msgid="1063757593477259280">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>拉巴斯"</item>
+    <item msgid="349901732062388869">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>利馬"</item>
+    <item msgid="4977592519316837842">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>洛杉磯"</item>
+    <item msgid="7713051790509638572">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>路易斯維爾"</item>
+    <item msgid="8460620935898405225">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬拿瓜"</item>
+    <item msgid="8328345293081464192">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬丁尼克島"</item>
+    <item msgid="8010357327448619637">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>門多薩"</item>
+    <item msgid="2046777213916219253">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>梅特拉卡特拉"</item>
+    <item msgid="2227885609632709258">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>墨西哥市"</item>
+    <item msgid="9089629663998569289">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>蒙特雷"</item>
+    <item msgid="2782276175306930748">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>蒙特維多"</item>
+    <item msgid="4942386959622269480">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>蒙特婁"</item>
+    <item msgid="3068203952968918165">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>拿索"</item>
+    <item msgid="4234515454127289962">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>紐約"</item>
+    <item msgid="1660551302087304308">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>比尤萊"</item>
+    <item msgid="415823390775449071">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>中央市"</item>
+    <item msgid="6644186958433380884">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>新塞勒姆"</item>
+    <item msgid="6408587617047971798">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴拿馬"</item>
+    <item msgid="5576899364199447991">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>鳳凰城"</item>
+    <item msgid="5541266909095409447">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>西班牙港"</item>
+    <item msgid="6417519313622785932">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>太子港"</item>
+    <item msgid="2078589249210571366">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>波多黎各"</item>
+    <item msgid="8522030474373927681">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖多明哥"</item>
+    <item msgid="4763853453317431594">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖保羅"</item>
+    <item msgid="2713153284784311646">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖約翰"</item>
+    <item msgid="8252666620333105271">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖克里斯多福"</item>
+    <item msgid="4851597775036027515">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖露西亞"</item>
+    <item msgid="2395485473100271503">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖湯瑪斯"</item>
+    <item msgid="4148037555658225145">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>提華納"</item>
+    <item msgid="3491199166042475853">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>多倫多"</item>
+    <item msgid="1506838283840737263">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>溫哥華"</item>
+    <item msgid="8935386104773857399">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>溫尼伯"</item>
+    <item msgid="1132634022412399582">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>南極"</item>
+    <item msgid="4076962667198039206">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>隆意耳拜恩"</item>
+    <item msgid="3784788073896028355">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿爾馬提"</item>
+    <item msgid="7895695236056852523">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>安曼"</item>
+    <item msgid="1795426532295280371">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿納德爾"</item>
+    <item msgid="7194236926158343552">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿克陶"</item>
+    <item msgid="4796350130854360870">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴格達"</item>
+    <item msgid="4020105434451091851">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴林"</item>
+    <item msgid="3895868797052686484">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴庫"</item>
+    <item msgid="228001522630057957">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>曼谷"</item>
+    <item msgid="5555647809114820537">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>貝魯特"</item>
+    <item msgid="2960873998178478784">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>加爾各答"</item>
+    <item msgid="8765555959722950691">"3 劃<xliff:g id="SEPARATOR">=</xliff:g>大馬士革"</item>
+    <item msgid="4979709428925196546">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>達卡"</item>
+    <item msgid="310419600200885308">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>杜拜"</item>
+    <item msgid="1203379132329159260">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>加薩"</item>
+    <item msgid="2359068282340162319">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>希伯倫"</item>
+    <item msgid="6223396610551759129">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>胡志明市"</item>
+    <item msgid="4731022818651322736">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>香港"</item>
+    <item msgid="8104778702069607166">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>伊斯坦堡"</item>
+    <item msgid="758800913783999425">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>雅加達"</item>
+    <item msgid="8956406398692698126">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>耶路撒冷"</item>
+    <item msgid="1664426577433326419">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>喀布爾"</item>
+    <item msgid="7700349511508357396">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>喀拉蚩"</item>
+    <item msgid="5273241794521591984">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>加德滿都"</item>
+    <item msgid="4754850915168634158">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>吉隆坡"</item>
+    <item msgid="5187849635785055693">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>科威特"</item>
+    <item msgid="2923385979252179376">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>澳門"</item>
+    <item msgid="722458682107911739">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬尼拉"</item>
+    <item msgid="6033964325069060422">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬斯喀特"</item>
+    <item msgid="6077458941399984780">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>金邊"</item>
+    <item msgid="935474308903572975">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>平壤"</item>
+    <item msgid="5336632319992664889">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>卡達"</item>
+    <item msgid="1667243110545095146">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>仰光"</item>
+    <item msgid="4460370766685855731">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>利雅得"</item>
+    <item msgid="4229224905931739201">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>西貢"</item>
+    <item msgid="8705359848250215620">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>首爾"</item>
+    <item msgid="583367295371395814">"3 劃<xliff:g id="SEPARATOR">=</xliff:g>上海"</item>
+    <item msgid="1422156732794771136">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>新加坡"</item>
+    <item msgid="1972491729911039207">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>台北"</item>
+    <item msgid="5563193560935461106">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>德黑蘭"</item>
+    <item msgid="8629402941285674273">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>特拉維夫"</item>
+    <item msgid="8499164674454654525">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>東京"</item>
+    <item msgid="1705804745888992744">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>庫倫"</item>
+    <item msgid="2028626988021468640">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>百慕達"</item>
+    <item msgid="4527109966513690429">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>加納利"</item>
+    <item msgid="4886308317040330383">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>維德角"</item>
+    <item msgid="1003307362164178007">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>雷克雅未克"</item>
+    <item msgid="6742010412815268657">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>史坦萊"</item>
+    <item msgid="5659389449738592757">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿得雷德"</item>
+    <item msgid="4567804576346784523">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布里斯本"</item>
+    <item msgid="8730590400362815585">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>坎培拉"</item>
+    <item msgid="6416990927714140153">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>達爾文"</item>
+    <item msgid="3073969292696516135">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>墨爾本"</item>
+    <item msgid="1719286228375722176">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>新南威爾斯"</item>
+    <item msgid="3663940748056976266">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>伯斯"</item>
+    <item msgid="3383881736858438153">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>昆士蘭"</item>
+    <item msgid="971889339240879138">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>雪梨"</item>
+    <item msgid="5542803438162180311">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>維多利亞"</item>
+    <item msgid="11828841481838883">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>紐芬蘭"</item>
+    <item msgid="1734331918410561807">"18 劃<xliff:g id="SEPARATOR">=</xliff:g>薩克其萬"</item>
+    <item msgid="9184412695613864979">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>復活節島"</item>
+    <item msgid="1014282454239014527">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿姆斯特丹"</item>
+    <item msgid="4928363054269791193">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>安道爾"</item>
+    <item msgid="912290900213826368">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>雅典"</item>
+    <item msgid="6097000352459209495">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>貝爾法斯特"</item>
+    <item msgid="3285885824311481790">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>貝爾格勒"</item>
+    <item msgid="911055049821251982">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>柏林"</item>
+    <item msgid="9099244516556291111">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布拉提斯拉瓦"</item>
+    <item msgid="158977749726480076">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布魯塞爾"</item>
+    <item msgid="8875102297676173346">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布加勒斯特"</item>
+    <item msgid="804451569472542912">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布達佩斯"</item>
+    <item msgid="6827506774445509939">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>基希訥烏"</item>
+    <item msgid="487345893088732797">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>哥本哈根"</item>
+    <item msgid="7760953471297773537">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>都柏林"</item>
+    <item msgid="323414429034825249">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>直布羅陀"</item>
+    <item msgid="1785566206078328830">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>赫爾辛基"</item>
+    <item msgid="5938185647271923359">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>曼島"</item>
+    <item msgid="5974864320735263245">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>伊斯坦堡"</item>
+    <item msgid="3567775364750772947">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>基輔"</item>
+    <item msgid="540344101798867007">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>里斯本"</item>
+    <item msgid="5091062403792923657">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>倫敦"</item>
+    <item msgid="7075006205000490364">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>盧森堡"</item>
+    <item msgid="4901781246584739451">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬德里"</item>
+    <item msgid="9047080834315777144">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬爾他"</item>
+    <item msgid="8200456520732452034">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>明斯克"</item>
+    <item msgid="5452744619736513383">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>摩納哥"</item>
+    <item msgid="3513517408062322298">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>莫斯科"</item>
+    <item msgid="7917103295878081674">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>奧斯陸"</item>
+    <item msgid="4245547231693746977">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴黎"</item>
+    <item msgid="3778652900196715557">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布拉格"</item>
+    <item msgid="1827175423974383675">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>里加"</item>
+    <item msgid="2095130417232677930">"19 劃<xliff:g id="SEPARATOR">=</xliff:g>羅馬"</item>
+    <item msgid="7631654618289353520">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖馬利諾"</item>
+    <item msgid="7219835179107610398">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>塞拉耶佛"</item>
+    <item msgid="7199868165463282240">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>辛非洛浦"</item>
+    <item msgid="2786395006682246794">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>史高比耶"</item>
+    <item msgid="4706927178872100023">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>索非亞"</item>
+    <item msgid="1982417589953195308">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>斯德哥爾摩"</item>
+    <item msgid="1596083919400921960">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>塔林"</item>
+    <item msgid="3079313598974879114">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>梵帝崗"</item>
+    <item msgid="6516636001856910888">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>維也納"</item>
+    <item msgid="6377314532157945456">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>維爾紐斯"</item>
+    <item msgid="3427175235616698721">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>華沙"</item>
+    <item msgid="8404354243761332922">"18 劃<xliff:g id="SEPARATOR">=</xliff:g>薩格勒布"</item>
+    <item msgid="1457280242717152391">"20 劃<xliff:g id="SEPARATOR">=</xliff:g>蘇黎世"</item>
+    <item msgid="1065940089741359291">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>安塔那那利佛"</item>
+    <item msgid="5176181880014090003">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬爾地夫"</item>
+    <item msgid="8281854645557426433">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>模里西斯"</item>
+    <item msgid="2686249517389816420">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>奧克蘭"</item>
+    <item msgid="279925671775807392">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>斐濟"</item>
+    <item msgid="7971492669765264840">"19 劃<xliff:g id="SEPARATOR">=</xliff:g>關島"</item>
+    <item msgid="889371273355762733">"17 劃<xliff:g id="SEPARATOR">=</xliff:g>檀香山"</item>
+    <item msgid="5516500578074269817">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>刻里提馬提"</item>
+    <item msgid="2740704911915073056">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>諾米亞"</item>
+    <item msgid="8732832728949672807">"18 劃<xliff:g id="SEPARATOR">=</xliff:g>薩摩亞"</item>
+    <item msgid="6489500698846864993">"3 劃<xliff:g id="SEPARATOR">=</xliff:g>大溪地"</item>
+    <item msgid="3983121625709442324">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>安提瓜"</item>
+    <item msgid="2650510570709806322">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>奧斯汀"</item>
+    <item msgid="5257283506227357911">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>波士頓"</item>
+    <item msgid="6326368958641850267">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>卡加立"</item>
+    <item msgid="8830116365016232583">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>哥倫布"</item>
+    <item msgid="6986556538341883811">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>達拉斯"</item>
+    <item msgid="836479352500251902">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>諾克斯維爾"</item>
+    <item msgid="8495291458467378851">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>曼非斯"</item>
+    <item msgid="2788807207554683122">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>邁阿密"</item>
+    <item msgid="3984640407077208471">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>明尼阿波利斯"</item>
+    <item msgid="6997305266329324161">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>渥太華"</item>
+    <item msgid="5191741145278683016">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>費城"</item>
+    <item msgid="5898032730733441936">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>波特蘭"</item>
+    <item msgid="9070160716002203069">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖地牙哥"</item>
+    <item msgid="1829944133410079040">"18 劃<xliff:g id="SEPARATOR">=</xliff:g>舊金山"</item>
+    <item msgid="8407905318529692654">"24 劃<xliff:g id="SEPARATOR">=</xliff:g>鹽湖城"</item>
+    <item msgid="3091392589347990898">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖荷西"</item>
+    <item msgid="7080627414383807284">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖薩爾瓦多"</item>
+    <item msgid="3430371213266252049">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>西雅圖"</item>
+    <item msgid="9177491393818757071">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖路易斯"</item>
+    <item msgid="6234359686676312837">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>華盛頓特區"</item>
+    <item msgid="4325057056005132331">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>休士頓"</item>
+    <item msgid="38148255938075867">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖安東尼奧"</item>
+    <item msgid="3601481860893666763">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>傑克遜維爾"</item>
+    <item msgid="3987471437354665534">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴爾的摩"</item>
+    <item msgid="3389674262267006887">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>納什維爾"</item>
+    <item msgid="7521690366448637309">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>密爾瓦基"</item>
+    <item msgid="2231069593975740859">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>俄克拉荷馬市"</item>
+    <item msgid="1970008262236914770">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>拉斯維加斯"</item>
+    <item msgid="7113811028304266017">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>阿布奎基"</item>
+    <item msgid="6481469458896644678">"3 劃<xliff:g id="SEPARATOR">=</xliff:g>土桑市"</item>
+    <item msgid="5970857542995467466">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>沙加緬度"</item>
+    <item msgid="1999267306329214429">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>亞特蘭大"</item>
+    <item msgid="8761847787537443648">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>克里夫蘭"</item>
+    <item msgid="2987455647692324208">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>紐奧良"</item>
+    <item msgid="8104109426412705845">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>坦帕"</item>
+    <item msgid="1410067233842240795">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>匹茲堡"</item>
+    <item msgid="3339955740367374442">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>辛辛那提"</item>
+    <item msgid="6091407424772799978">"3 劃<xliff:g id="SEPARATOR">=</xliff:g>山景市"</item>
+    <item msgid="150299708499753555">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>雷諾"</item>
+    <item msgid="9155068631060038769">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>黑岩市"</item>
+    <item msgid="8498761319928979900">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>多哈"</item>
+    <item msgid="8307897251088048641">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>北京"</item>
+    <item msgid="8605970953750147428">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>孟買"</item>
+    <item msgid="6668274273067049125">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>德里"</item>
+    <item msgid="2933410189478233292">"3 劃<xliff:g id="SEPARATOR">=</xliff:g>大阪"</item>
+    <item msgid="9011026093638055579">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>拉合爾"</item>
+    <item msgid="1448378291805481500">"18 劃<xliff:g id="SEPARATOR">=</xliff:g>薩那"</item>
+    <item msgid="5233119846682408301">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴塞隆納"</item>
+    <item msgid="9146746514265554721">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>慕尼黑"</item>
+    <item msgid="157866084892734979">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>米蘭"</item>
+    <item msgid="2787346322341414963">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>法蘭克福"</item>
+    <item msgid="8407511504088696581">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>河內"</item>
+    <item msgid="5184417944073499453">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>安卡拉"</item>
+    <item msgid="4028784954452197920">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>班加羅爾"</item>
+    <item msgid="190152483600862776">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴西利亞"</item>
+    <item msgid="8009516135735104388">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>開普敦"</item>
+    <item msgid="6057191797622953016">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>伊斯蘭瑪巴德"</item>
+    <item msgid="2702029416591153210">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>里約熱內盧"</item>
+    <item msgid="1753927312634708098">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>安娜堡"</item>
+    <item msgid="4225721108475278979">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>博爾德"</item>
+    <item msgid="6393177386755796069">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>劍橋"</item>
+    <item msgid="759409010285366934">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>科克蘭"</item>
+    <item msgid="6308007059287569663">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>麥迪遜"</item>
+    <item msgid="6971636434858330021">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>廣州"</item>
+    <item msgid="1185109514180068650">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>海得拉巴"</item>
+    <item msgid="3032295682584784261">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>雷斯頓"</item>
+    <item msgid="7722837296297332268">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>美景市"</item>
+    <item msgid="3593516299122577780">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖地牙哥"</item>
+    <item msgid="2293331653589266583">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>蒙羅維亞"</item>
+    <item msgid="7899128359620301710">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>可倫坡"</item>
+    <item msgid="5294489752262543829">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>奇瓦瓦"</item>
+    <item msgid="8066356061184206341">"18 劃<xliff:g id="SEPARATOR">=</xliff:g>薩爾瓦多"</item>
+    <item msgid="4806867741334453982">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>古爾岡"</item>
+    <item msgid="2585780177649876827">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>曼徹斯特"</item>
+    <item msgid="234104953526248139">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>基輔"</item>
+    <item msgid="5245429461217350012">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖彼得堡"</item>
+    <item msgid="6738531308006017215">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>克拉科夫"</item>
+    <item msgid="8972702613339139467">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>弗羅茨瓦夫"</item>
+    <item msgid="187278924459096566">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>漢堡"</item>
+    <item msgid="6173267862207394917">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>奧盧"</item>
+    <item msgid="5639324478037405990">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>海法"</item>
+    <item msgid="3157180661352354058">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>聖胡安"</item>
+    <item msgid="6995939579417282715">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>德古斯加巴"</item>
+    <item msgid="1641840677391275004">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>巴拉馬利波"</item>
+    <item msgid="7317049454800260290">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>基多"</item>
+    <item msgid="4524380876433343244">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>盧比安納"</item>
   </string-array>
 </resources>

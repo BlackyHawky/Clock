@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"اهتزاز"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"تكرار"</string>
     <string name="alert" msgid="6506982899651975645">"نغمة رنين المنبه"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"نغمة رنين مخصصة"</string>
     <string name="ringtone" msgid="9110746249688559579">"نغمة الرنين"</string>
     <string name="time" msgid="8067216534232296518">"الوقت"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"غدًا"</string>
@@ -81,12 +82,30 @@
     <item msgid="9115697840826129603">"تم ضبط المنبه على <xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
     <item msgid="2332583385137381060">"تم ضبط المنبه على <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"يوم واحد"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> يوم"</string>
-    <string name="hour" msgid="2546819039651509323">"ساعة واحدة"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> ساعة"</string>
-    <string name="minute" msgid="2486157997434653710">"دقيقة واحدة"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> دقيقة"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الأيام</item>
+      <item quantity="two">يومان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> أيام</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> يومًا</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> من الأيام</item>
+      <item quantity="one">يوم واحد</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الساعات</item>
+      <item quantity="two">ساعتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> ساعات</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> ساعة</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> من الساعات</item>
+      <item quantity="one">ساعة واحدة</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الدقائق</item>
+      <item quantity="two">دقيقتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> دقائق</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> من الدقائق</item>
+      <item quantity="one">دقيقة واحدة</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"كل يوم"</string>
     <string name="day_concat" msgid="971998564991636532">"، "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"اختيار ساعة"</string>
@@ -95,11 +114,11 @@
     <string name="settings" msgid="5849739030579520686">"الإعدادات"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"طول مدة الغفوة"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> minutes</item>
-      <item quantity="two">دقيقتان (<xliff:g id="NUMBER">%d</xliff:g>)</item>
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> دقائق</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> دقيقة</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> من الدقائق</item>
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
+      <item quantity="two">دقيقتان (<xliff:g id="NUMBER">%s</xliff:g>)</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> دقائق</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> دقيقة</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> من الدقائق</item>
       <item quantity="one">دقيقة واحدة</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -111,7 +130,14 @@
       <item quantity="one">دقيقة واحدة</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"صامت بعد"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> دقيقة"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="zero"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> من الدقائق</item>
+      <item quantity="two">دقيقتان (<xliff:g id="FORMATTED_NUMBER">%s</xliff:g>)</item>
+      <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> دقائق</item>
+      <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> دقيقة</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> من الدقائق</item>
+      <item quantity="one">دقيقة واحدة</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"أبدًا"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"دقيقة واحدة"</item>
@@ -188,6 +214,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"وقتي هو <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"مرات الدوران:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"معمل <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"العدد <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"العدد <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> hours</item>
       <item quantity="two">ساعتان (<xliff:g id="NUMBER">%d</xliff:g>)</item>
@@ -266,7 +296,7 @@
     <item msgid="101284182011722637">"تشي هواوا"</item>
     <item msgid="689121094232986897">"التوقيت الجبلي"</item>
     <item msgid="5445331923942302756">"أمريكا الوسطى"</item>
-    <item msgid="2749806434052452351">"توقيت مرکزي"</item>
+    <item msgid="2749806434052452351">"توقيت مركزي"</item>
     <item msgid="3997138870229703753">"مدينة مكسيكو"</item>
     <item msgid="5425567073027744888">"ساسكاتشوان"</item>
     <item msgid="2877342865396629368">"بوغوتا"</item>
@@ -288,7 +318,7 @@
     <item msgid="8275203689687954762">"لندن، دبلن"</item>
     <item msgid="5970179539479320905">"أمستردام، برلين"</item>
     <item msgid="5396319478750517962">"بلغراد"</item>
-    <item msgid="8688787475056663004">"بروکسل"</item>
+    <item msgid="8688787475056663004">"بروكسل"</item>
     <item msgid="3415827874921681622">"سراييفو"</item>
     <item msgid="402008965928320066">"ویندهوك"</item>
     <item msgid="6436942724959275569">"توقيت غرب إفريقيا"</item>
@@ -305,7 +335,7 @@
     <item msgid="9084354867885584646">"الكويت"</item>
     <item msgid="1351570519986178268">"نیروبي"</item>
     <item msgid="7094569580635877460">"طهران"</item>
-    <item msgid="3953138772617909704">"باکو"</item>
+    <item msgid="3953138772617909704">"باكو"</item>
     <item msgid="2868893113598800752">"تبليسي"</item>
     <item msgid="7088581865802476373">"ایروان"</item>
     <item msgid="1941122257623887992">"دبي"</item>
@@ -323,7 +353,7 @@
     <item msgid="4441612937172851228">"بكين"</item>
     <item msgid="4936715789028996930">"هونج كونج"</item>
     <item msgid="4261031143777385525">"إركوتسك"</item>
-    <item msgid="3538060959338191835">"کوالالامبور"</item>
+    <item msgid="3538060959338191835">"كوالالامبور"</item>
     <item msgid="1438847562643099201">"بيرث"</item>
     <item msgid="3063913827688244383">"تایبي"</item>
     <item msgid="3502757135046564209">"سيول"</item>
@@ -337,16 +367,17 @@
     <item msgid="615906039696009425">"فلاديفوستوك"</item>
     <item msgid="7738680449356275374">"غوام"</item>
     <item msgid="2882915026380778227">"ماغادان"</item>
-    <item msgid="8255615641810148152">"آکلاند"</item>
+    <item msgid="8255615641810148152">"آكلاند"</item>
     <item msgid="3027153773466391728">"فيجي"</item>
     <item msgid="5911600083231840181">"تونغا"</item>
-    <item msgid="5176858645450908751">"جاکارتا"</item>
+    <item msgid="5176858645450908751">"جاكارتا"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"التنبيهات"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"خدمة ساعة التوقيف لتشغيل التنبيه"</string>
     <string name="swn_stopped" msgid="783124901663086172">"تم الإيقاف"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"مرر بسرعة إلى اليسار للإلغاء"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"مرر بسرعة إلى اليمين لإجراء غفوة"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"مرر يسارًا للغفوة أو يمينًا للتجاهل"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"تم إيقاف الموقت"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"تم إيقاف <xliff:g id="NUMBER">%d</xliff:g> من الموقتات"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"المس للاطلاع على الموقتات"</string>
@@ -358,11 +389,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"توسيع المنبه"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"تصغير المنبه"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"تراجع"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"تم حذف المنبه."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"تم حذف المنبه."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"التنبيه التالي: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"تم تحديد <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"تم الحذف"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -383,4 +413,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"ك:دد"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"‏EEE، س:دد ص"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"‏EEE، ‏س:دد"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"الوقت غير صالح <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"لم يتم تعيين منبه للوقت <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"لم يتم تعيين أي منبه"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"لم يتم تحديد تصنيف"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"لا توجد منبهات تتضمن التصنيف"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"ساعة الإيقاف قيد التشغيل حاليًا"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"ساعة الإيقاف ليست قيد التشغيل"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"تتعذر إعادة ضبط ساعة التوقيف لأنها قيد العمل"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"تم إيقاف ساعة التوقيف"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"تمت إعادة ضبط ساعة التوقيف"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"تمت إضافة دورة إلى ساعة التوقيف"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"تم بدء ساعة التوقيف"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"لم يتم تعيين منبه لهذا الوقت"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"تم تجاهل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"تم ضبط المنبه على <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"لم يتم تعيين أي موَقِّت"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"تم حذف الموقِّت"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"الموقِّت قيد التشغيل حاليًا"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"تعذر إكمال طلبك، هناك عدة مؤقتات متاحة"</string>
+    <string name="timer_started" msgid="6715582052946641641">"تم بدء الموقّت"</string>
+    <string name="timer_created" msgid="4381027137335885547">"تم إنشاء الموقت"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"مدة الموقت غير صالحة"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"تمت إعادة تعيين الموقِّت"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"لا يمكن إعادة تعيين الموقِّت لأنه لا يزال قيد التشغيل. عليك إيقاف الموقِّت لإعادة تعيينه."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"تم إيقاف الموقِّت من قبل"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"لم يتم تحديد أية مدينة"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"المدينة التي حددتها غير متاحة"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"تمت إضافة هذه المدينة من قبل"</string>
+    <string name="city_added" msgid="1335509457349179514">"تمت إضافة <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"تم حذف <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"لا يمكن تجاهل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> في الوقت الحالي، لأن موعده لا يزال يبعد أكثر من 24 ساعة"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"تجاهل التنبيه"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"اختر المنبه المراد تجاهله"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"ليس هناك أي منبه نشط الآن"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"تم تأجيل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> لمدة 10 دقائق"</string>
 </resources>
