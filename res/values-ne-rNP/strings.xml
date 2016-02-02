@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"भाइब्रेट गराउनुहोस्"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"दोहोर्याउनुहोस्"</string>
     <string name="alert" msgid="6506982899651975645">"अलार्म रिङटोन"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"अनुकूलन रिङटोन"</string>
     <string name="ringtone" msgid="9110746249688559579">"रिङटोन"</string>
     <string name="time" msgid="8067216534232296518">"समय"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"भोली"</string>
@@ -73,12 +74,18 @@
     <item msgid="9115697840826129603">"अहिलेबाट <xliff:g id="HOURS">%2$s</xliff:g> र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</item>
     <item msgid="2332583385137381060">"अहिलेबाट <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, र <xliff:g id="MINUTES">%3$s</xliff:g> का लागि अलार्म सेट गरिएको छ।"</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"१ दिन"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> दिन"</string>
-    <string name="hour" msgid="2546819039651509323">"१ घन्टा"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> घन्टा"</string>
-    <string name="minute" msgid="2486157997434653710">"१ मिनेट"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> मिनेट"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> दिन</item>
+      <item quantity="one">१ दिन</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> घन्टा</item>
+      <item quantity="one"> १ घन्टा</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनेट</item>
+      <item quantity="one"> १ मिनेट</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"प्रत्येक दिन"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"घडी छान्नुहोस्"</string>
@@ -87,7 +94,7 @@
     <string name="settings" msgid="5849739030579520686">"सेटिङहरू"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"स्नुज लम्बाइ"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> मिनेट</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनेट</item>
       <item quantity="one">1 मिनेट</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,7 +102,10 @@
       <item quantity="one">मिनेट</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"यस पछि मौन"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> मिनेट"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> मिनेट</item>
+      <item quantity="one"> १ मिनेट</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"कहिले पनि होइन"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"१ मिनेट"</item>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"मेरो समय <xliff:g id="TIME">%s</xliff:g> हो"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ल्याप समय:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ल्याप <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> घण्टा</item>
       <item quantity="one">1 घण्टा</item>
@@ -319,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"रोकियो"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"खारेज गर्नका लागि दायाँ स्वाइप गर्नुहोस्"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"स्‍नूजको लागि बायाँ स्वाइप गर्नुहोस्"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"स्‍नूजको लागि बायाँ वा खारेज गर्नका लागि दायाँ स्वाइप गर्नुहोस्"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"घडी रोकियो"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> घडीहरू रोकिए"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"तपाईँको घडी हेर्न छुनुहोस्"</string>
@@ -330,11 +345,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तार गर्नुहोस्"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म ढाल्नुहोस्"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"पूर्ववत गर्नुहोस्"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"अलार्म मेटाइयो"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"अलार्म मेटाइयो"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"\"<xliff:g id="LABEL">%s</xliff:g>\""</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"अर्को अलार्म: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> छानियो"</string>
     <string name="deleted_message" msgid="1220848140260509437">"मेटियो"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"अमान्य समय <xliff:g id="INVALID_HOUR">%d</xliff:g> : <xliff:g id="INVALID_MINUTES">%d</xliff:g><xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g> : <xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>मा कुनै अलार्म छैन"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"कुनै तालिकाबद्ध अलार्म छैन"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"कुनै लेबल निर्दष्ट गरिएको छैन"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"कुनै अलार्ममा लेबल छैन"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"स्टपवाच पहिले नै चलिरहेको छ"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"स्टपवाच चलिरहेको छैन"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"स्टपवाच चलिरहेका कारणले रिसेट गर्न सकिँदैन"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"स्टपवाच रोकियो"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"स्टपवाच रिसेट गर्नुहोस्"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"स्टपवाचलाई ल्याप गरियो"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"स्टपवाच सुरु भयो"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"यस समयका लागि कुनै कार्यतालिका मिलाइएको छैन"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म खारेज गरियो"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>का लागि अलार्म सेट गरियो"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"कुनै घडी सेट भएको छैन"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"घडी मेटियो"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"घडी पहिले नै चलिरहेको छ"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"तपाईँको अनुरोध सम्पन्न गर्न असमर्थ, धेरै घडीहरू उपलब्ध छन्"</string>
+    <string name="timer_started" msgid="6715582052946641641">"घडी सुरु भयो"</string>
+    <string name="timer_created" msgid="4381027137335885547">"टाइमर सिर्जना गरियो"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"अमान्य टाइमर लम्बाइ"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"घडी रिसेट गरियो"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"यो अझै चलिरहेका कारणले घडी रिसेट हुन सक्दैन। रिसेट गर्न घडी रोक्नुहोस्।"</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"घडी पहिले नै रोकियो"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"कुनै सहर चयन गरिएको छैन"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"तपाईँले निर्दिष्ट गरेको सहर उपलब्ध छैन"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"त्यो सहर पहिले नै थप गरिएको छ"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> थपियो"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> मेटियो"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म अझै खारेज गर्न सक्दैन, अझै २४ घन्टाभन्दा बढी छ"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"अलार्म खारेज गर्नुहोस्"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"कुन अलार्म खारेज गर्ने हो छान्नुहोस्"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"कुनै बजिरहेका अलार्महरू छैनन्"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म १० मिनेटका लागि  स्नुज गरियो"</string>
 </resources>

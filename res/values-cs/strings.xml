@@ -27,12 +27,13 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Smazat tento budík?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Zobrazit hodiny"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Skrýt hodiny"</string>
-    <string name="label" msgid="162189613902857319">"Popis"</string>
+    <string name="label" msgid="162189613902857319">"Popisek"</string>
     <string name="default_label" msgid="5590025289805630372">"Budík"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Nastavit budík"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrace"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Opakovat"</string>
     <string name="alert" msgid="6506982899651975645">"Vyzváněcí tón budíku"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Vlastní vyzváněcí tón"</string>
     <string name="ringtone" msgid="9110746249688559579">"Vyzváněcí tón"</string>
     <string name="time" msgid="8067216534232296518">"Čas"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Zítra"</string>
@@ -63,9 +64,9 @@
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Zmeškaný budík byl smazán"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Zbývá méně než minuta"</item>
-    <item msgid="83197792732433351">"Ještě <xliff:g id="HOURS">%1$s</xliff:g>"</item>
-    <item msgid="8919698220200894252">"Ještě <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
-    <item msgid="8458069283817013813">"Ještě <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="83197792732433351">"zbývá <xliff:g id="HOURS">%1$s</xliff:g>"</item>
+    <item msgid="8919698220200894252">"zbývá <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
+    <item msgid="8458069283817013813">"zbývá <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Budík se spustí za méně než 1 minutu."</item>
@@ -77,12 +78,24 @@
     <item msgid="9115697840826129603">"Budík se spustí za <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"Budík se spustí za <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> a <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 den"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> d."</string>
-    <string name="hour" msgid="2546819039651509323">"1 hodina"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> h"</string>
-    <string name="minute" msgid="2486157997434653710">"1 minuta"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> min"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> dny</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> dne</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dnů</item>
+      <item quantity="one">1 den</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> hodiny</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> hodiny</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> hodin</item>
+      <item quantity="one">1 hodina</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> minuty</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minuty</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minut</item>
+      <item quantity="one">1 minuta</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Každý den"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Vyberte hodiny"</string>
@@ -91,9 +104,9 @@
     <string name="settings" msgid="5849739030579520686">"Nastavení"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Délka odložení zvonění"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> minuty</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> minuty</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minut</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> minuty</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minuty</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minut</item>
       <item quantity="one">1 minuta</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -103,10 +116,15 @@
       <item quantity="one">1 minuta</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ztišit po"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> min"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuty</item>
+      <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuty</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minut</item>
+      <item quantity="one">1 minuta</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3024545954917711306">"1 minuta"</item>
+    <item msgid="3024545954917711306">"1 minutě"</item>
     <item msgid="5431906692406316549">"5 minutách"</item>
     <item msgid="7742728812068919959">"10 minutách"</item>
     <item msgid="2855948657259647629">"15 minutách"</item>
@@ -162,7 +180,7 @@
     <string name="menu_item_help" msgid="4570953476186849841">"Nápověda"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Noční režim"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Seřadit podle času"</string>
-    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Seřadit podle jména"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Seřadit podle názvu"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Vybraná města"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Obnovit"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Spustit"</string>
@@ -179,7 +197,11 @@
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Můj čas je <xliff:g id="TIME">%s</xliff:g>."</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Časy etap:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Úsek <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. úsek"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"Č. <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"Č. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> hodiny</item>
       <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> hodiny</item>
@@ -231,10 +253,10 @@
     <item msgid="917900462224167608">"Analogové"</item>
     <item msgid="8483930821046925592">"Digitální"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Automatické domácí hodiny"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Při cestování do oblasti s jiným časovým pásmem přidat domovský čas"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Domovské časové pásmo"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Domovské časové pásmo"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Domácí hodiny automaticky"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Při cestování do jiného časového pásma přidat hodiny s domácím časem."</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Domácí časové pásmo"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Domácí časové pásmo"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Zrušit"</string>
     <string name="time_picker_set" msgid="331153175471468051">"OK"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
@@ -333,22 +355,22 @@
     <string name="swn_stopped" msgid="783124901663086172">"Zastaveno"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Přejetím prstem vpravo budík zrušíte."</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Přejetím prsem vlevo budík odložíte."</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Přejetím vlevo budík odložíte, přejetím vpravo jej zrušíte"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Časovač zastaven"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Zastavené časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dotykem zobrazíte časovače"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Další časovač: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Nastavení spořiče obrazovky"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Nastavení spořiče"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noční režim"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Velmi ztlumený jas displeje (pro tmavé místnosti)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Rozbalit budík"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sbalit budík"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"vrátit zpět"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Budík byl smazán"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Budík byl smazán"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Další budík: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"Počet vybraných budíků: <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Smazáno"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -367,4 +389,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Čas <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> je neplatný"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Na čas <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> není nastaven žádný budík."</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Žádné plánované budíky"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Není zadán žádný štítek"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Tento štítek neobsahují žádné budíky"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Stopky již běží"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Stopky neběží"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Stopky nelze skrýt, protože jsou momentálně spuštěny"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Stopky byly zastaveny"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Stopky byly resetovány"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Stopky zaznamenaly mezičas"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Stopky byly spuštěny"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Na tento čas není naplánován žádný budík."</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Budík v čase <xliff:g id="ALARM_TIME">%s</xliff:g> byl zrušen"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Budík je nastaven na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"Není nastaven žádný časovač"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Časovač byl smazán"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Časovač již běží"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Požadavek nelze dokončit: časovačů je k dispozici několik."</string>
+    <string name="timer_started" msgid="6715582052946641641">"Časovač byl spuštěn"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Časovač byl vytvořen"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Neplatná délka časovače"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Časovač byl resetován"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Časovač nelze resetovat, protože stále běží. Chcete-li jej resetovat, nejprve jej zastavte."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Časovač již byl zastaven"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"Není vybráno žádné město"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Zadané město není k dispozici"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Toto město již bylo přidáno"</string>
+    <string name="city_added" msgid="1335509457349179514">"Město <xliff:g id="CITY_NAME">%s</xliff:g> bylo přidáno"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"Město <xliff:g id="CITY_NAME">%s</xliff:g> bylo smazáno"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Budík v čase <xliff:g id="ALARM_TIME">%s</xliff:g> zatím nelze zrušit, protože do jeho aktivování zbývá více než 24 hodin"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Zrušit budík"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Vyberte, který budík chcete zrušit."</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Žádné zvonící budíky"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Budík v čase <xliff:g id="ALARM_TIME">%s</xliff:g> byl odložen o 10 minut"</string>
 </resources>

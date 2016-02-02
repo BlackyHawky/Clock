@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrozvans"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Atkārtošana"</string>
     <string name="alert" msgid="6506982899651975645">"Modinātāja signāls"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Pielāgots zvana signāls"</string>
     <string name="ringtone" msgid="9110746249688559579">"Zvana signāls"</string>
     <string name="time" msgid="8067216534232296518">"Laiks"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Rīt"</string>
@@ -75,12 +76,21 @@
     <item msgid="9115697840826129603">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="HOURS">%2$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"Signāls ir iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 diena"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> diena(-as)"</string>
-    <string name="hour" msgid="2546819039651509323">"1 stunda"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> stunda(-as)"</string>
-    <string name="minute" msgid="2486157997434653710">"1 minūte"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minūte(-es)"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> dienas</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> diena</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dienas</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> stundas</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> stunda</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> stundas</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minūte</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Katru dienu"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Izvēlieties pulksteni"</string>
@@ -89,9 +99,9 @@
     <string name="settings" msgid="5849739030579520686">"Iestatījumi"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Snaudas ilgums"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> minūtes</item>
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> minūte</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minūtes</item>
+      <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minūte</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minūtes</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
       <item quantity="zero">minūtes</item>
@@ -99,7 +109,11 @@
       <item quantity="other">minūtes</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Izslēgt skaņu pēc:"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minūte(-es)"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="zero"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minūtes</item>
+      <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minūte</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minūtes</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nekad"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minūte"</item>
@@ -175,7 +189,11 @@
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mans laiks ir: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Intervāla laiki:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. intervāls"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. aplis"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"Skaits: <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"Skaits: <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="zero"><xliff:g id="NUMBER">%d</xliff:g> stundas</item>
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> stunda</item>
@@ -224,7 +242,7 @@
     <item msgid="917900462224167608">"Analogais"</item>
     <item msgid="8483930821046925592">"Digitālais"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Automātiski rādīt dzīvesvietas laiku"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Rādīt dzīvesvietas laiku"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Ceļojot teritorijā, kurā ir atšķirīgs laiks, pievienot mājas laiku"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Dzīvesvietas laika josla"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Dzīvesvietas laika josla"</string>
@@ -326,6 +344,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Apturēts"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Lai nerādītu, velciet pa labi"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Lai atliktu, velciet pa kreisi"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Velciet pa kreisi, lai atliktu, vai pa labi, lai noraidītu"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Taimeris ir apturēts."</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> taimeri ir apturēti."</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Pieskarieties, lai skatītu savus taimerus."</string>
@@ -337,11 +356,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Izvēršanas signāls"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Sakļaušanas signāls"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"atsaukt"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Signāls ir izdzēsts."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Signāls ir izdzēsts"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Nākamais signāls: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"Atlasīti: <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Dzēsts"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -359,4 +377,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, plkst. h:mm priekšpusdienā"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, plkst. k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Nederīgs laiks: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Uz laiku <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> nav iestatīts neviens signāls."</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nav iestatītu signālu."</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Nav norādīts neviens apzīmējums."</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Apzīmējums nav piešķirts nevienam signālam."</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Hronometrs jau darbojas."</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Hronometrs nedarbojas."</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Hronometru nevar atiestatīt, jo tas darbojas."</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Hronometra darbība pārtraukta"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Hronometrs atiestatīts"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Hronometra laiks pārklāts"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Hronometra darbība sākta"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Uz šo laiku nav iestatīts neviens signāls."</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Signāls plkst. <xliff:g id="ALARM_TIME">%s</xliff:g> atcelts"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Signāls iestatīts uz plkst. <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"Taimeris nav iestatīts."</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Taimeris ir izdzēsts."</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Taimeris jau darbojas."</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Nevar izpildīt jūsu pieprasījumu; ir pieejami vairāki taimeri."</string>
+    <string name="timer_started" msgid="6715582052946641641">"Taimeris ir iestatīts."</string>
+    <string name="timer_created" msgid="4381027137335885547">"Taimeris iestatīts"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Nederīgs taimera darbības ilgums"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Taimeris ir atiestatīts."</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Taimeri nevar atiestatīt, jo tas joprojām darbojas. Apturiet taimeri, lai to atiestatītu."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Taimeris jau ir apturēts."</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"Nav atlasīta neviena pilsēta."</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Norādītā pilsēta nav pieejama."</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Šī pilsēta jau ir pievienota."</string>
+    <string name="city_added" msgid="1335509457349179514">"Pilsēta <xliff:g id="CITY_NAME">%s</xliff:g> pievienota"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"Pilsēta <xliff:g id="CITY_NAME">%s</xliff:g> izdzēsta"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Signālu plkst. <xliff:g id="ALARM_TIME">%s</xliff:g> vēl nevar atcelt. Līdz tam ir vairāk nekā 24 stundas."</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Noraidīt signālu"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Izvēlieties, kuru signālu atcelt."</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Nav aktīvu signālu."</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Signāls plkst. <xliff:g id="ALARM_TIME">%s</xliff:g> atlikts uz 10 minūtēm"</string>
 </resources>

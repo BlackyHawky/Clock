@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Titringur"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Endurtaka"</string>
     <string name="alert" msgid="6506982899651975645">"Hringitónn vekjara"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Sjálfgefinn hringitónn"</string>
     <string name="ringtone" msgid="9110746249688559579">"Hringitónn"</string>
     <string name="time" msgid="8067216534232296518">"Tími"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Á morgun"</string>
@@ -73,12 +74,18 @@
     <item msgid="9115697840826129603">"Vekjari stilltur á <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> héðan í frá."</item>
     <item msgid="2332583385137381060">"Vekjari stilltur á <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> héðan í frá."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 dagur"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> dagar"</string>
-    <string name="hour" msgid="2546819039651509323">"1 klukkustund"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> klukkustundir"</string>
-    <string name="minute" msgid="2486157997434653710">"1 mínúta"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> mínútur"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dagur</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dagar</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> klukkustund</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> klukkustundir</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> mínúta</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> mínútur</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Alla daga"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Veldu klukku"</string>
@@ -87,15 +94,18 @@
     <string name="settings" msgid="5849739030579520686">"Stillingar"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Lengd blunds"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> mínúta</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> mínútur</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> mínúta</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> mínútur</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
       <item quantity="one">mínúta</item>
       <item quantity="other">mínútur</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Slökkva á hljóði eftir"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> mínútur"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> mínúta</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> mínútur</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Aldrei"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 mínúta"</item>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Tíminn minn er <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Millitímar:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Hringur <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"Nr. <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"Nr. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> klukkustund</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> klukkustundir</item>
@@ -319,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Stöðvuð"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Strjúktu til hægri til að hunsa"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Strjúktu til vinstri til að þagga tímabundið"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Strjúktu til vinstri til að blunda eða til hægri til að hunsa"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Teljari stöðvaður"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> teljarar stöðvaðir"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Snertu til að sjá teljarana þína"</string>
@@ -330,11 +345,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Stækka vekjara"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Fella saman vekjara"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"afturkalla"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Vekjara eytt."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Vekjara eytt"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Næsti vekjari: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> valdir"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Eytt"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"HH:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, HH:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Ógildur tími <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Enginn vekjari kl. <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Engir stilltir vekjarar"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Enginn flokkur tilgreindur"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Engir vekjarar eru í flokknum"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Skeiðklukka er nú þegar í gangi"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Skeiðklukka er ekki í gangi"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Ekki er hægt að núllstilla skeiðklukkuna vegna þess að hún er í gangi"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Skeiðklukka stöðvuð"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Skeiðklukka núllstillt"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Skeiðklukka komin hring"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Skeiðklukka ræst"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Enginn vekjari stilltur fyrir þennan tíma"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Vekjari kl. <xliff:g id="ALARM_TIME">%s</xliff:g> hunsaður"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Vekjari er stilltur á <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"Enginn teljari stilltur"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Teljara eytt"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Teljari þegar í gangi"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Ekki hægt að afgreiða beiðnina, margir teljarar í boði"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Teljari ræstur"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Teljari búinn til"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Ógild teljaralengd"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Teljari endurstilltur"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Ekki er hægt að endurstilla teljara þar sem hann er enn í gangi. Stöðvaðu teljarann til að endurstilla hann."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Teljari þegar stöðvaður"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"Engin borg valin"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Borgin sem þú tilgreindir er ekki tiltæk"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Þessari borg hefur þegar verið bætt við"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> bætt við"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> eytt"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Ekki er enn hægt að hunsa vekjara kl. <xliff:g id="ALARM_TIME">%s</xliff:g> þar sem hann hringir eftir meira en sólarhring"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Hunsa viðvörun"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Velja hvaða vekjara á að hunsa"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Engar hringingar"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Vekjari kl. <xliff:g id="ALARM_TIME">%s</xliff:g> stilltur á tíu mínútna blund"</string>
 </resources>

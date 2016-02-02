@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"அதிர்வு"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"மீண்டும்"</string>
     <string name="alert" msgid="6506982899651975645">"அலார ரிங்டோன்"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"தனிப்பயன் ரிங்டோன்"</string>
     <string name="ringtone" msgid="9110746249688559579">"ரிங்டோன்"</string>
     <string name="time" msgid="8067216534232296518">"நேரம்"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"நாளை"</string>
@@ -64,30 +65,36 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> மணிநேரம் <xliff:g id="MINUTES">%2$s</xliff:g> நிமிடங்கள் மீதமுள்ளன"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"இப்போதிலிருந்து 1 நிமிடத்திற்கும் குறைவான நேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
+    <item msgid="6450913786084215050">"இப்போதிலிருந்து 1 நிமிடத்திற்கும் குறைவான நேரத்தில் அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="6002066367368421848">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
+    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> அளவில் அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="8182406852935468862">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="2532279224777213194">"இப்போதிலிருந்து <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="5936557894247187717">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="9115697840826129603">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரம் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
     <item msgid="2332583385137381060">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள், <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரம் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 நாள்"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> நாட்கள்"</string>
-    <string name="hour" msgid="2546819039651509323">"1 மணிநேரம்"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> மணிநேரம்"</string>
-    <string name="minute" msgid="2486157997434653710">"1 நிமிடம்"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> நிமிடங்கள்"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நாட்கள்</item>
+      <item quantity="one">1 நாள்</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> மணிநேரம்</item>
+      <item quantity="one">1 மணிநேரம்</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நிமிடங்கள்</item>
+      <item quantity="one">1 நிமிடம்</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"ஒவ்வொரு நாளும்"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"கடிகாரத்தைத் தேர்வுசெய்யவும்"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"கடிகாரம்"</string>
     <string name="help" msgid="7786263119482654015">"உதவி"</string>
     <string name="settings" msgid="5849739030579520686">"அமைப்பு"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"உறக்கநிலையில் இருக்கும் காலஅளவு"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"உறக்கநிலையின் காலஅளவு"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> நிமிடங்கள்</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நிமிடங்கள்</item>
       <item quantity="one">1 நிமிடம்</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,7 +102,10 @@
       <item quantity="one">நிமிடம்</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"அமைதியாக்க வெண்டியது"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> நிமிடங்கள்"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> நிமிடங்கள்</item>
+      <item quantity="one">1 நிமிடம்</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"எப்போதும் வேண்டாம்"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 நிமிடம்"</item>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"எனது நேரம் <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"தட நேரங்கள்:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g> தடம்"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> மணிநேரம்</item>
       <item quantity="one">1 மணிநேரம்</item>
@@ -212,7 +226,7 @@
     <string name="home_label" msgid="4436139365695453870">"தாய்நாடு"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"நகரங்கள்"</string>
     <string name="clock_settings" msgid="8317286807280600391">"கடிகாரம்"</string>
-    <string name="clock_style" msgid="2265011060429742344">"நடை"</string>
+    <string name="clock_style" msgid="2265011060429742344">"வகை"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"அனலாக்"</item>
     <item msgid="8483930821046925592">"டிஜிட்டல்"</item>
@@ -319,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"நிறுத்தப்பட்டது"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"நிராகரிக்க வலதுபுறம் ஸ்வைப் செய்யவும்"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"உறக்கநிலையில் வைக்க இடதுபுறம் ஸ்வைப் செய்யவும்"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"உறக்கநிலையாக்க இடதுபுறம் அல்லது விலக்க வலதுபுறம் ஸ்வைப் செய்யவும்"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"டைமர் நிறுத்தப்பட்டது"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> டைமர்கள் நிறுத்தப்பட்டன"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"உங்கள் டைமர்களைப் பார்க்க தொடவும்"</string>
@@ -330,11 +345,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"அலாரத்தை விரிவாக்கு"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"அலாரத்தைச் சுருக்கு"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"செயல்தவிர்"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"அலாரம் நீக்கப்பட்டது."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"அலாரம் நீக்கப்பட்டது"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"அடுத்த அலாரம்: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> தேர்ந்தெடுக்கப்பட்டது"</string>
     <string name="deleted_message" msgid="1220848140260509437">"நீக்கப்பட்டது"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"தவறான நேரம் <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>க்கு அலாரம் எதுவுமில்லை"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"அலாரங்கள் எதுவும் அமைக்கப்படவில்லை"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"லேபிள் எதையும் குறிப்பிடவில்லை"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"இந்த லேபிளின் பெயரில் அலாரங்கள் இல்லை"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"ஸ்டாப்வாட்ச் இயங்கிக்கொண்டிருக்கிறது"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"ஸ்டாப்வாட்ச் இயங்கவில்லை"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"ஸ்டாப்வாட்ச் இயங்குவதால் அதை மீட்டமைக்க முடியாது"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"ஸ்டாப்வாட்ச் நிறுத்தப்பட்டது"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"ஸ்டாப்வாட்ச் மீட்டமைக்கப்பட்டது"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"ஸ்டாப்வாட்ச் லேப் செய்யப்பட்டது"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"ஸ்டாப்வாட்ச் தொடங்கியது"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"இந்த நேரத்திற்கு அலாரம் எதுவும் அமைக்கப்படவில்லை"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> அலாரம் விலக்கப்பட்டது"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"அலாரம் <xliff:g id="ALARM_TIME">%s</xliff:g>க்கு அமைக்கப்பட்டது"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"டைமர் எதுவும் அமைக்கப்படவில்லை"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"டைமர் நீக்கப்பட்டது"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"டைமர் இயங்கிக்கொண்டிருக்கிறது"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"பல டைமர்கள் உள்ளதால், கோரிக்கையை நிறைவேற்ற முடியவில்லை"</string>
+    <string name="timer_started" msgid="6715582052946641641">"டைமர் தொடங்கியது"</string>
+    <string name="timer_created" msgid="4381027137335885547">"டைமர் உருவாக்கப்பட்டது"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"தவறான டைமர் நீளம்"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"டைமர் மீட்டமைக்கப்பட்டது"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"டைமர் இயங்குவதால் மீட்டமைக்க முடியாது. மீட்டமைக்க, டைமரை நிறுத்தவும்."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"டைமர் ஏற்கனவே நிறுத்தப்பட்டது"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"நகரம் எதுவும் தேர்ந்தெடுக்கப்படவில்லை"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"குறிப்பிட்ட நகரம் இல்லை"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"நகரம் ஏற்கனவே சேர்க்கப்பட்டுள்ளது"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> சேர்க்கப்பட்டது"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> நீக்கப்பட்டது"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"இன்னும் 24 மணிநேரத்திற்கு அதிகமாக இருப்பதால், <xliff:g id="ALARM_TIME">%s</xliff:g> அலாரத்தை விலக்க முடியாது"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"அலாரத்தை விலக்கு"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"விலக்க வேண்டிய அலாரத்தைத் தேர்வுசெய்க"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"இயக்கத்தில் உள்ள அலாரங்கள் எதுவுமில்லை"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> அலாரம் 10 நிமிடங்களுக்கு உறக்கநிலையில் வைக்கப்பட்டது"</string>
 </resources>
