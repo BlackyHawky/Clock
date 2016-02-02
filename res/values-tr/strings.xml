@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Titreşim"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Tekrarla"</string>
     <string name="alert" msgid="6506982899651975645">"Alarm Zil Sesi"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Özel Zil Sesi"</string>
     <string name="ringtone" msgid="9110746249688559579">"Zil sesi"</string>
     <string name="time" msgid="8067216534232296518">"Saat"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Yarın"</string>
@@ -73,12 +74,18 @@
     <item msgid="9115697840826129603">"Alarmın çalmasına şu andan itibaren <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
     <item msgid="2332583385137381060">"Alarmın çalmasına şu andan itibaren <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> var."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 gün"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> gün"</string>
-    <string name="hour" msgid="2546819039651509323">"1 saat"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> saat"</string>
-    <string name="minute" msgid="2486157997434653710">"1 dakika"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> dakika"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> gün</item>
+      <item quantity="one">1 gün</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> saat</item>
+      <item quantity="one">1 saat</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dakika</item>
+      <item quantity="one">1 dakika</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Her gün"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Bir saat seçin"</string>
@@ -87,15 +94,18 @@
     <string name="settings" msgid="5849739030579520686">"Ayarlar"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Erteleme süresi"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> dakika</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dakika</item>
       <item quantity="one">1 dakika</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
       <item quantity="other">dakika</item>
       <item quantity="one">dakika</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Şu süreden sonra sessiz:"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> dakika"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Şu süreden sonra sessiz"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> dakika</item>
+      <item quantity="one">1 dakika</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Hiçbir zaman"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 dakika"</item>
@@ -106,7 +116,7 @@
     <item msgid="7809240121716151904">"25 dakika"</item>
     <item msgid="4278641338024561333">"Hiçbir zaman"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Haftanın ilk günü:"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Haftanın ilk günü"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Cumartesi"</item>
     <item msgid="3993530639455360921">"Pazar"</item>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Saatim: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Tur süreleri:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. tur"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"<xliff:g id="NUMBER">%d</xliff:g>."</item>
+    <item msgid="316923361931627987">"<xliff:g id="NUMBER">%02d</xliff:g>."</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> saat</item>
       <item quantity="one">1 saat</item>
@@ -184,7 +198,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> saniye</item>
       <item quantity="one">1 saniye</item>
     </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Kronometre Ekle"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Zamanlayıcı Ekle"</string>
     <string name="timer_start" msgid="6158486445614356442">"Başlat"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Sil"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> rakamını sil"</string>
@@ -319,22 +333,22 @@
     <string name="swn_stopped" msgid="783124901663086172">"Durduruldu"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Kapatmak için hızlıca sağa kaydırın"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Ertelemek için hızlıca sola kaydırın"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Ertelemek için sola, kapatmak için sağa hızlıca kaydırın"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Zamanlayıcı durdu"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> zamanlayıcı durdu"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Zamanlayıcılarınızı görmek için dokunun"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> zamanlayıcı"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Sonraki zamanlayıcı: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Rüya ayarları"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Hafif uyku ayarları"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Gece modu"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Çok karanlık ekran (karanlık odalar için)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Alarmı genişlet"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Alarmı daralt"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"geri al"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Alarm silindi."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarm silindi"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Sonraki alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> seçildi"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Silindi"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Geçersiz saat: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Şu saate ayarlanmış alarm yok: <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Programlanmış alarm yok"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Etiket belirtilmedi"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Etiketi içeren alarm yok"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Kronomotre zaten çalışıyor"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Kronometre çalışmıyor"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Kronometre çalışıyor olduğundan sıfırlanamaz."</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Kronometre durduruldu"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Kronometre sıfırlandı"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Kronometrede tur kaydedildi"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Kronometre başlatıldı"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Bu saat için alarm programlanmadı"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarmı kapatıldı"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarm <xliff:g id="ALARM_TIME">%s</xliff:g> için ayarlandı"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"Zamanlayıcı ayarlanmadı"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Zamanlayıcı silindi"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Zamanlayıcı zaten çalışıyor"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"İsteğiniz tamamlanamadı. Birden fazla zamanlayıcı mevcut"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Zamanlayıcı başlatıldı"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Zamanlayıcı oluşturuldu"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Geçersiz zamanlayıcı uzunluğu"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Zamanlayıcı sıfırlandı"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Zamanlayıcı hâlâ çalıştığından sıfırlanamaz. Sıfırlamak için zamanlayıcıyı durdurun."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Zamanlayıcı zaten durdu"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"Şehir seçilmedi"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Belirttiğiniz şehir kullanılamıyor"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Bu şehir zaten eklendi"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> eklendi"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> silindi"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarmı henüz kapatılamaz. Alarma hâlâ 24 saatten fazla zaman var"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Alarmı kapat"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Hangi alarmın kapatılacağını seçin"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Çalan alarm yok"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> alarmı 10 dakika ertelendi"</string>
 </resources>

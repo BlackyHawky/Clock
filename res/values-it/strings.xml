@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrazione"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Ripeti"</string>
     <string name="alert" msgid="6506982899651975645">"Suoneria sveglia"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Suoneria personalizzata"</string>
     <string name="ringtone" msgid="9110746249688559579">"Suoneria"</string>
     <string name="time" msgid="8067216534232296518">"Ora"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Domani"</string>
@@ -40,7 +41,7 @@
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Svegliati!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"No"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Spegni"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Ignora ora"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Spegni ora"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Sveglia ignorata"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Posticip."</string>
@@ -54,7 +55,7 @@
       <item quantity="other">Posticipazione di <xliff:g id="MINUTES">%d</xliff:g> minuti.</item>
       <item quantity="one">Posticipazione di un minuto.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ripetizione allarme fino alle <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ripetizione sveglia fino alle <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Prossima sveglia"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"La sveglia ignorata è stata eliminata"</string>
   <string-array name="timer_notifications">
@@ -73,21 +74,27 @@
     <item msgid="9115697840826129603">"La sveglia sarà attivata tra <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"La sveglia sarà attivata tra <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 giorno"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> giorni"</string>
-    <string name="hour" msgid="2546819039651509323">"1 ora"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> ore"</string>
-    <string name="minute" msgid="2486157997434653710">"1 minuto"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minuti"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> giorni</item>
+      <item quantity="one">1 giorno</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ore</item>
+      <item quantity="one">1 ora</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuti</item>
+      <item quantity="one">1 minuto</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Ogni giorno"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Scegli un orologio"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Orologio analogico"</string>
     <string name="help" msgid="7786263119482654015">"guida"</string>
     <string name="settings" msgid="5849739030579520686">"Impostazioni"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Intervallo ripetizione allarme"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Intervallo ripetizione sveglia"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minuti</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuti</item>
       <item quantity="one">1 minuto</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,7 +102,10 @@
       <item quantity="one">minuto</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Disattiva suoneria dopo"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minuti"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuti</item>
+      <item quantity="one">1 minuto</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Mai"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minuto"</item>
@@ -117,13 +127,13 @@
     <string name="delete" msgid="5732434972457000541">"Elimina"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volume sveglia"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silenzioso"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Ripeti o elimina sveglia."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Posticipa o elimina sveglia."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (sospeso)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"La sveglia sarà attivata alle <xliff:g id="TIME">%s</xliff:g>. Tocca per annullare."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Pulsanti volume"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Effetto pulsante"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Attiva ripetizione allarme"</item>
+    <item msgid="7972756698723318690">"Attiva ripetizione sveglia"</item>
     <item msgid="3450979320164769576">"Ignora"</item>
     <item msgid="6302517608411378024">"Nessuna azione"</item>
   </string-array>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Il mio tempo è <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Tempi sul giro:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Giro <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"n. <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"n. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ore</item>
       <item quantity="one">1 ora</item>
@@ -217,7 +231,7 @@
     <item msgid="917900462224167608">"Analogico"</item>
     <item msgid="8483930821046925592">"Digitale"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Orologio di casa automatico"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Ora di casa automatica"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Quando viaggi in una zona dove l\'ora è diversa, aggiungi il tuo fuso orario"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Fuso orario di casa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Fuso orario di casa"</string>
@@ -319,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Interrotto"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Fai scorrere a destra per eliminare"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Fai scorrere a sinistra per posticipare"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Fai scorrere a sinistra per posticiparla o a destra per chiuderla"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Timer fermato"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> timer fermati"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tocca per visualizzare i timer"</string>
@@ -330,11 +345,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Espandi sveglia"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Comprimi sveglia"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"annulla"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Sveglia eliminata."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Allarme eliminato"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Prossima sveglia: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> selezionati"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Eliminato"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Orario <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> non valido"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Nessuna sveglia alle <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nessuna sveglia pianificata"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Nessuna etichetta specificata"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Nessuna sveglia con l\'etichetta indicata"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Cronometro già in esecuzione"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Cronometro non in esecuzione"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Impossibile reimpostare il cronometro perché è in funzione"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Cronometro interrotto"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Cronometro reimpostato"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Cronometro impostato sul giro"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Cronometro avviato"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nessuna sveglia pianificata per questo orario"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> ignorata"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Sveglia impostata per le ore <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"Nessun timer impostato"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Timer eliminato"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Timer già in esecuzione"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Impossibile completare la richiesta. Diversi timer disponibili"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Timer avviato"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Timer creato"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Durata del timer non valida"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Timer reimpostato"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Impossibile reimpostare il timer perché è ancora in esecuzione. Per reimpostare il timer, interrompilo."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Timer già interrotto"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"Nessuna città selezionata"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"La città specificata non è disponibile"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"La città è già stata aggiunta"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> aggiunta"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> eliminata"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Non è ancora possibile ignorare la sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> perché mancano ancora più di 24 ore all\'orario impostato"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Ignora sveglia"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Scegli la sveglia da ignorare"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Nessuna sveglia da attivare"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Sveglia alle <xliff:g id="ALARM_TIME">%s</xliff:g> posticipata di 10 minuti"</string>
 </resources>

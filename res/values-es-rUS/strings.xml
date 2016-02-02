@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrar"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Repetir"</string>
     <string name="alert" msgid="6506982899651975645">"Tono de alarma"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Tono personalizado"</string>
     <string name="ringtone" msgid="9110746249688559579">"Tono"</string>
     <string name="time" msgid="8067216534232296518">"Hora"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Mañana"</string>
@@ -73,12 +74,18 @@
     <item msgid="9115697840826129603">"La alarma sonará en <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"La alarma sonará en <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> y <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"un día"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> días"</string>
-    <string name="hour" msgid="2546819039651509323">"1 hora"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> horas"</string>
-    <string name="minute" msgid="2486157997434653710">"1 minuto"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minutos"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> días</item>
+      <item quantity="one">1 día</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
+      <item quantity="one">1 hora</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
+      <item quantity="one">1 minuto</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Todos los días"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Seleccionar un reloj"</string>
@@ -87,7 +94,7 @@
     <string name="settings" msgid="5849739030579520686">"Configuración"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Repetición de alarma"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minutos</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
       <item quantity="one">1 minuto</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,7 +102,10 @@
       <item quantity="one">minuto</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar automáticamente"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minutos"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutos</item>
+      <item quantity="one">1 minuto</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nunca"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minuto"</item>
@@ -171,7 +181,11 @@
     <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mi hora es <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Duración:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Duración <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Vuelta <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"N.º <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"N.º <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> horas</item>
       <item quantity="one">1 hora</item>
@@ -319,22 +333,22 @@
     <string name="swn_stopped" msgid="783124901663086172">"Detenido"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Desliza hacia la derecha para descartar."</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Desliza hacia la izquierda para posponer."</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Desliza el dedo hacia la izquierda para posponer la alarma o hacia la derecha para ignorarla."</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Temporizador detenido"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores detenidos"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca para ver tus temporizadores."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo temporizador: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Configuración del protector de pantalla"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Configuración"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo nocturno"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para ambientes poco iluminados)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Contraer alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"deshacer"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Alarma eliminada"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarma eliminada"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Siguiente alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> seleccionada(s)"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Eliminado"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"La hora <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> no es válida"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"No hay ninguna alarma programada a las <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"No hay alarmas programadas"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"No se especificó ninguna etiqueta"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"No hay ninguna alarma con esa etiqueta"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"El cronómetro ya se está ejecutando"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"El cronómetro no se está ejecutando"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"No se puede restablecer el cronómetro porque se está ejecutando"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Se detuvo el cronómetro"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Se restableció el cronómetro"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Se estableció una vuelta en el cronómetro"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Se inició el cronómetro"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"No hay ninguna alarma programada para esta hora"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Se ignoró la alarma <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarma establecida a la(s) <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"No se configuró ningún temporizador"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Se borró el temporizador"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"El temporizador ya se está ejecutando"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"No se puede completar la solicitud porque hay varios temporizadores disponibles"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Se inició el temporizador"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Se creó el temporizador"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"La duración del temporizador no es válida"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Se restableció el temporizador"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"No se puede restablecer el temporizador porque todavía se está ejecutando. Para restablecerlo, detén el temporizador."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"El temporizador ya se detuvo"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"No se seleccionó ninguna ciudad"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"La ciudad que especificaste no está disponible"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Esa ciudad ya se agregó"</string>
+    <string name="city_added" msgid="1335509457349179514">"Se agregó la ciudad <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"Se borró la ciudad <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Todavía no se puede ignorar la alarma <xliff:g id="ALARM_TIME">%s</xliff:g> porque aún faltan más de 24 horas para que se active."</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Ignorar alarma"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Elige la alarma que quieres ignorar"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"No hay alarmas activas"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"La alarma <xliff:g id="ALARM_TIME">%s</xliff:g> se pospuso por diez minutos"</string>
 </resources>

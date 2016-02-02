@@ -16,7 +16,7 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_label" msgid="6674495003718166674">"کلاک"</string>
+    <string name="app_label" msgid="6674495003718166674">"گھڑی"</string>
     <string name="alarm_list_title" msgid="7589940465292950600">"الارمز"</string>
     <string name="add_alarm" msgid="5976616107390962899">"الارم شامل کریں"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ڈیسک کلاک"</string>
@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"وائبریٹ"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"دہرائیں"</string>
     <string name="alert" msgid="6506982899651975645">"الارم رنگ ٹون"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"حسب ضرورت رنگ ٹون"</string>
     <string name="ringtone" msgid="9110746249688559579">"رنگ ٹون"</string>
     <string name="time" msgid="8067216534232296518">"وقت"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"آئندہ کل"</string>
@@ -55,7 +56,7 @@
       <item quantity="one">1 منٹ کیلئے اسنوز کیا جا رہا ہے۔</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> تک اسنوز کر رہا ہے"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"آنے والا الارم"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"آئندہ الارم"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"آپ کا چھوٹا ہوا الارم حذف کر دیا گیا ہے"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"ایک منٹ سے کم باقی ہے"</item>
@@ -73,12 +74,18 @@
     <item msgid="9115697840826129603">"الارم اب سے <xliff:g id="HOURS">%2$s</xliff:g> اور <xliff:g id="MINUTES">%3$s</xliff:g> کیلئے سیٹ کیا گیا ہے۔"</item>
     <item msgid="2332583385137381060">"الارم اب سے <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> اور <xliff:g id="MINUTES">%3$s</xliff:g> کیلئے سیٹ کیا گیا ہے۔"</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 دن"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> دن"</string>
-    <string name="hour" msgid="2546819039651509323">"1 گھنٹہ"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> گھنٹے"</string>
-    <string name="minute" msgid="2486157997434653710">"1 منٹ"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> منٹ"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> دن</item>
+      <item quantity="one">1 دن</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> گھنٹے</item>
+      <item quantity="one">1 گھنٹہ</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> منٹ</item>
+      <item quantity="one">1 منٹ</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"روزانہ"</string>
     <string name="day_concat" msgid="971998564991636532">"، "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ایک کلاک منتخب کریں"</string>
@@ -87,7 +94,7 @@
     <string name="settings" msgid="5849739030579520686">"ترتیبات"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"اسنوز کی طوالت"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> منٹ</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> منٹ</item>
       <item quantity="one">1 منٹ</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,7 +102,10 @@
       <item quantity="one">منٹ</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"خاموش بعد از"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> منٹ"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> منٹ</item>
+      <item quantity="one">1 منٹ</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"کبھی نہیں"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 منٹ"</item>
@@ -145,7 +155,7 @@
     <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"الارم"</string>
     <string name="menu_timer" msgid="6459070074762877114">"ٹائمر"</string>
-    <string name="menu_clock" msgid="5612760670606829805">"کلاک"</string>
+    <string name="menu_clock" msgid="5612760670606829805">"گھڑی"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"اسٹاپ واچ"</string>
     <string name="button_alarms" msgid="3907838219512538763">"الارم شامل کریں"</string>
     <string name="button_cities" msgid="4555761857494501363">"شہر"</string>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"میرا وقت ہے <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"لیپ اوقات:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"لیپ <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> گھنٹے</item>
       <item quantity="one">1 گھنٹہ</item>
@@ -211,14 +225,14 @@
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"ہوم"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"شہر"</string>
-    <string name="clock_settings" msgid="8317286807280600391">"کلاک"</string>
+    <string name="clock_settings" msgid="8317286807280600391">"گھڑی"</string>
     <string name="clock_style" msgid="2265011060429742344">"طرز"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"اینالاگ"</item>
     <item msgid="8483930821046925592">"ڈیجیٹل"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"خود کار ہوم کلاک"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"کسی مختلف وقت والے علاقے میں سفر کرتے وقت، ہوم کیلئے ایک کلاک شامل کریں"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"خود کار ہوم گھڑی"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"کسی مختلف وقت والے علاقے میں سفر کرتے وقت، ہوم کیلئے ایک گھڑی شامل کریں"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"ہوم ٹائم زون"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"ہوم ٹائم زون"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"منسوخ کریں"</string>
@@ -319,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"رک گیا"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"برخاست کرنے کیلئے دائیں سوائپ کریں"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"اسنوز کرنے کیلئے بائیں سوائپ کریں"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"اسنوز کرنے کیلئے بائیں یا برخاست کرنے کیلئے دائیں سوائپ کریں"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ٹائمر رک گیا"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ٹائمرز رک گئے"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"اپنے ٹائمرز دیکھنے کیلئے ٹچ کریں"</string>
@@ -330,11 +345,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"الارم کی توسیع کریں"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"الارم کو سکیڑیں"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"کالعدم کریں"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"الارم حذف کر دیا گیا۔"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"الارم حذف ہوگیا"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"اگلا الارم: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> منتخب کیے گئے"</string>
     <string name="deleted_message" msgid="1220848140260509437">"حذف کردہ"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"‏غلط وقت <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g>‎ <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g> پر کوئی الارم نہیں"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"کوئی الارم مقرر نہیں"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"کوئی لیبل مختص نہیں کیا گیا"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"کسی الارم میں لیبل شامل نہیں ہے"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"اسٹاپ واچ پہلے سے چل رہی ہے"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"اسٹاپ واچ نہیں چل رہی ہے"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"سٹاپ واچ کو دوبارہ ترتیب نہیں دیا جا سکتا کیونکہ یہ چل رہی ہے"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"سٹاپ واچ رک گئی"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"سٹاپ واچ کو دوبارہ ترتیب دے دی گئی"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"سٹاپ واچ لیپ ہو گئی"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"سٹاپ واچ دوبارہ شروع ہو گئی"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"اس وقت کیلئے کوئی الارم مقرر نہیں"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> الارم برخاست ہوگیا"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> کیلئے الارم سیٹ ہے"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"کوئی ٹائمر سیٹ نہیں"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"ٹائمر حذف ہوگیا"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"ٹائمر پہلے سے چل رہا ہے"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"آپ کی درخواست مکمل نہیں ہو سکی، ایک سے زیادہ ٹائمرز موجود ہیں"</string>
+    <string name="timer_started" msgid="6715582052946641641">"ٹائمر شروع ہوگیا"</string>
+    <string name="timer_created" msgid="4381027137335885547">"ٹائمر بن گیا"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"ٹائمر کی غلط لمبائی"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"ٹائمر دوبارہ ترتیب دے دیا گیا"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"ٹائمر کو دوبارہ ترتیب نہیں دیا جا سکتا کیوںکہ یہ ابھی چل رہا ہے۔ دوبارہ ترتیب دینے کیلیے ٹائمر کو روک دیں۔"</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"ٹائمر پہلے ہی روک دیا گیا"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"کوئی شہر منتخب نہیں"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"آپ کا بیان کردہ شہر دستیاب نہیں ہے"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"اس شہر کو پہلے ہی شامل کر دیا گیا ہے"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> شامل ہوگیا"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> حذف ہوگیا"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> الارم ابھی برخاست نہیں کیا جا سکتا، ابھی بھی 24 گھنٹے سے زائد باقی ہیں"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"الارم برخاست کریں"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"برخاست کرنے کیلیے الارم منتخب کریں"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"کوئی فائرنگ الارم نہیں"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> الارم 10 منٹ کیلئے اسنوز ہوگیا"</string>
 </resources>

@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"വൈബ്രേറ്റുചെയ്യുക"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"ആവർത്തിക്കുക"</string>
     <string name="alert" msgid="6506982899651975645">"അലാറം റിംഗ്‌ടോൺ"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"കസ്റ്റം റിംഗ്ടോൺ"</string>
     <string name="ringtone" msgid="9110746249688559579">"റിംഗ്ടോൺ"</string>
     <string name="time" msgid="8067216534232296518">"സമയം"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"നാളെ"</string>
@@ -64,21 +65,27 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ശേഷിക്കുന്നു"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"ഇപ്പോൾ മുതൽ ഒരു മിനിറ്റിൽ കുറഞ്ഞ നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="6450913786084215050">"ഇപ്പോൾ 1 മിനിറ്റിൽ താഴെ സമയത്തിനുള്ളിൽ അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
     <item msgid="6002066367368421848">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g> ദിവസത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
-    <item msgid="8824719306247973774">"ഇപ്പോൾ മുതൽ <xliff:g id="HOURS">%2$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="8824719306247973774">"ഇപ്പോൾ <xliff:g id="HOURS">%2$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
     <item msgid="8182406852935468862">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
     <item msgid="2532279224777213194">"ഇപ്പോൾ മുതൽ <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
     <item msgid="5936557894247187717">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
     <item msgid="9115697840826129603">"ഇപ്പോൾ മുതൽ <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
     <item msgid="2332583385137381060">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"ഒരു ദിവസം"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> ദിവസം"</string>
-    <string name="hour" msgid="2546819039651509323">"ഒരു മണിക്കൂർ"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> മണിക്കൂർ"</string>
-    <string name="minute" msgid="2486157997434653710">"ഒരു മിനിറ്റ്"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> മിനിറ്റ്"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ദിവസം</item>
+      <item quantity="one">1 ദിവസം</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> മണിക്കൂർ</item>
+      <item quantity="one">1 മണിക്കൂർ</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> മിനിറ്റ്</item>
+      <item quantity="one">ഒരു മിനിറ്റ്</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"എല്ലാ ദിവസവും"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"ഒരു ക്ലോക്ക് തിരഞ്ഞെടുക്കുക"</string>
@@ -87,7 +94,7 @@
     <string name="settings" msgid="5849739030579520686">"ക്രമീകരണങ്ങൾ"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"സ്‌നൂസ് ചെയ്യൽ ദൈർഘ്യം"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> മിനിറ്റ്</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> മിനിറ്റ്</item>
       <item quantity="one">ഒരു മിനിറ്റ്</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,8 +102,11 @@
       <item quantity="one">മിനിറ്റ്</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"ഇതിനുശേഷം നിശബ്‌ദമാക്കുക"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> മിനിറ്റ്"</string>
-    <string name="auto_silence_never" msgid="4821982647348750809">"ഒരിക്കലുമില്ല"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> മിനിറ്റ്</item>
+      <item quantity="one">ഒരു മിനിറ്റ്</item>
+    </plurals>
+    <string name="auto_silence_never" msgid="4821982647348750809">"ഒരിക്കലും"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"ഒരു മിനിറ്റ്"</item>
     <item msgid="5431906692406316549">"5 മിനിറ്റ്"</item>
@@ -104,9 +114,9 @@
     <item msgid="2855948657259647629">"15 മിനിറ്റ്"</item>
     <item msgid="6330196381284475079">"20 മിനിറ്റ്"</item>
     <item msgid="7809240121716151904">"25 മിനിറ്റ്"</item>
-    <item msgid="4278641338024561333">"ഒരിക്കലുമില്ല"</item>
+    <item msgid="4278641338024561333">"ഒരിക്കലും"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"ആഴ്‌ചയിലെ ആദ്യദിവസം"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"തുടങ്ങേണ്ട ദിവസം"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"ശനി"</item>
     <item msgid="3993530639455360921">"ഞായർ"</item>
@@ -125,7 +135,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"സ്‌നൂസ് ചെയ്യുക"</item>
     <item msgid="3450979320164769576">"നിരസിക്കുക"</item>
-    <item msgid="6302517608411378024">"ഒന്നും ചെയ്യരുത്"</item>
+    <item msgid="6302517608411378024">"ഒന്നും ചെയ്യേണ്ടതില്ല"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"സ്ഥിര റിംഗ്‌ടോൺ സജ്ജീകരിക്കുക"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"അലാറങ്ങൾ"</string>
@@ -157,10 +167,10 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"പേര് പ്രകാരം അടുക്കുക"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"തിരഞ്ഞെടുത്ത നഗരങ്ങൾ"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"പുനരാരംഭിക്കുക"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"ആരംഭിക്കുക"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"ആരംഭിക്കൂ"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"നിര്‍ത്തുക"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ലാപ്"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"പുനഃസജ്ജമാക്കുക"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"പുനസജ്ജമാക്കൂ"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"പങ്കിടുക"</string>
     <string name="hours_label" msgid="3393478155635368097">"മ."</string>
     <string name="minutes_label" msgid="3568098128251438588">"മി."</string>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"എന്റെ സമയം <xliff:g id="TIME">%s</xliff:g> ആണ്"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ലാപ് തവണകൾ:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ലാപ് <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> മണിക്കൂർ</item>
       <item quantity="one">ഒരു മണിക്കൂർ</item>
@@ -185,14 +199,14 @@
       <item quantity="one">ഒരു സെക്കൻഡ്</item>
     </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"ടൈമർ ചേർക്കുക"</string>
-    <string name="timer_start" msgid="6158486445614356442">"ആരംഭിക്കുക"</string>
+    <string name="timer_start" msgid="6158486445614356442">"ആരംഭിക്കൂ"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ഇല്ലാതാക്കുക"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ഇല്ലാതാക്കുക"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"ഒരു മിനിറ്റ് ചേർക്കുക"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"ഒരു മിനിറ്റ് ചേർക്കുക"</string>
     <string name="timer_stop" msgid="3361154678667736722">"നിര്‍ത്തുക"</string>
     <string name="timer_done" msgid="2375990511982914051">"പൂർത്തിയായി"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"പുനഃസജ്ജമാക്കുക"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"പുനസജ്ജമാക്കൂ"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"റദ്ദാക്കുക"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"സമയം കഴിഞ്ഞു"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ടൈമർ"</string>
@@ -319,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"നിർത്തി"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"നിരസിക്കാൻ വലത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ട് സ്വൈപ്പുചെയ്യുക"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ടോ നിരസിക്കാൻ വലത്തോട്ടോ സ്വൈപ്പുചെയ്യുക"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"ടൈമർ നിർത്തി"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ നിർത്തി"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"നിങ്ങളുടെ ടൈമറുകൾ കാണുന്നതിന് സ്‌പർശിക്കുക"</string>
@@ -330,11 +345,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"അലാറം വിപുലീകരിക്കുക"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"അലാറം ചുരുക്കുക"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"പഴയപടിയാക്കുക"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"അലാറം ഇല്ലാതാക്കി."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"അലാറം ഇല്ലാതാക്കി"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"അടുത്ത അലാറം: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> തിരഞ്ഞെടുത്തു"</string>
     <string name="deleted_message" msgid="1220848140260509437">"ഇല്ലാതാക്കി"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"അസാധുവായ സമയം <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>-ന് അലാറം ഒന്നുമില്ല"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"ഷെഡ്യൂൾ ചെയ്ത അലാറമുകളൊന്നുമില്ല"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"ലേബലൊന്നും വ്യക്തമാക്കിയിട്ടില്ല"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"അലാറമുകളിലൊന്നും ഈ ലേബൽ അടങ്ങിയിട്ടില്ല"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"സ്റ്റോപ്പ്‌വാച്ച് ഇതിനകം തന്നെ പ്രവർത്തിക്കുന്നുണ്ട്"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"സ്റ്റോപ്പ്‌വാച്ച് പ്രവർത്തിക്കുന്നില്ല"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"പ്രവർത്തിച്ചുകൊണ്ടിരിക്കുന്നതിനാൽ സ്റ്റോപ്പ്‌വാച്ച് പുനഃക്രമീകരിക്കാൻ കഴിയില്ല"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"സ്റ്റോപ്പ്‌വാച്ച് നിലച്ചു"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"സ്റ്റോപ്പ്‌വാച്ച് പുനഃക്രമീകരിച്ചു"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"സ്റ്റോപ്പ്‌വാച്ച് ലാപ്പുചെയ്തു"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"സ്റ്റോപ്പ്‌വാച്ച് ആരംഭിച്ചു"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ഈ സമയത്തേക്കായി അലാറമുകളൊന്നും ഷെഡ്യൂൾ ചെയ്തിട്ടില്ല"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> അലാറം ഡിസ്മിസ് ചെയ്തു"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>-ന് അലാറം സജ്ജീകരിച്ചു"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"സജ്ജമാക്കിയ ടൈമറുകളൊന്നുമില്ല"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"ടൈമർ ഇല്ലാതാക്കി"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"ടൈമർ ഇതിനകം തന്നെ പ്രവർത്തിക്കുന്നു"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"അഭ്യർത്ഥന പൂർത്തിയാക്കാനാവുന്നില്ല, ഒന്നിലധികം ടൈമറുകൾ ലഭ്യം"</string>
+    <string name="timer_started" msgid="6715582052946641641">"ടൈമർ ആരംഭിച്ചു"</string>
+    <string name="timer_created" msgid="4381027137335885547">"ടൈമർ സൃഷ്ടിച്ചു"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"ടൈമർ ദൈർഘ്യം അസാധുവാണ്"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"ടൈമർ പുനഃസജ്ജമാക്കി"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"ടൈമർ ഇതിനകം തന്നെ പ്രവർത്തിക്കുന്നതിനാൽ, പുനഃസജ്ജമാക്കാൻ കഴിയില്ല. പുനഃസജ്ജമാക്കാൻ ടൈമർ നിർത്തുക."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"ടൈമർ ഇതിനകം തന്നെ നിർത്തി"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"നഗരം തിരഞ്ഞെടുത്തിട്ടില്ല"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"നിങ്ങൾ വ്യക്തമാക്കിയ നഗരം ലഭ്യമല്ല"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"ആ നഗരം ഇതിനകം തന്നെ ചേർത്തിട്ടുണ്ട്"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> ചേർത്തു"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> ഇല്ലാതാക്കി"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> മണിക്കുള്ള അലാറം ഡിസ്മിസ് ചെയ്യാൻ കഴിയില്ല, അതിന് ഇനിയും 24 മണിക്കൂറിൽ കൂടുതൽ സമയമുണ്ട്"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"അലാറം ഡിസ്മിസ് ചെയ്യുക"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"ഡിസ്മിസ് ചെയ്യേണ്ട അലാറം തിരഞ്ഞെടുക്കുക"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"ശബ്ദമുണ്ടാക്കുന്ന അലാറമുകളൊന്നുമില്ല"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> അലാറം 10 മിനിറ്റ് സ്നൂസ് ചെയ്തു"</string>
 </resources>

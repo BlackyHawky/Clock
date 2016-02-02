@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrer"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Gjenta"</string>
     <string name="alert" msgid="6506982899651975645">"Ringetone for alarm"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Tilpasset ringelyd"</string>
     <string name="ringtone" msgid="9110746249688559579">"Ringetone"</string>
     <string name="time" msgid="8067216534232296518">"Tidspunkt"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"I morgen"</string>
@@ -40,7 +41,7 @@
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Våkn opp!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Av"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Slå av"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Avvis nå"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Slå av nå"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Tapt alarm"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Utsatt"</string>
@@ -73,12 +74,18 @@
     <item msgid="9115697840826129603">"Alarmen ringer om <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"Alarmen ringer om <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 dag"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> dager"</string>
-    <string name="hour" msgid="2546819039651509323">"1 time"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> timer"</string>
-    <string name="minute" msgid="2486157997434653710">"1 minutt"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minutter"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dager</item>
+      <item quantity="one">1 dag</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> timer</item>
+      <item quantity="one">1 time</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutter</item>
+      <item quantity="one">1 minutt</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Hver dag"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Velg en klokke"</string>
@@ -87,7 +94,7 @@
     <string name="settings" msgid="5849739030579520686">"Innstillinger"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Slumretid"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minutter</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutter</item>
       <item quantity="one">1 minutt</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,7 +102,10 @@
       <item quantity="one">minutt</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Slå av etter"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minutter"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutter</item>
+      <item quantity="one">1 minutt</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Aldri"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minutt"</item>
@@ -123,7 +133,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumknapper"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knappefunksjon"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Utsett"</item>
+    <item msgid="7972756698723318690">"Slumre"</item>
     <item msgid="3450979320164769576">"Avvis"</item>
     <item msgid="6302517608411378024">"Ikke gjør noe"</item>
   </string-array>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Tiden min er <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Rundetider:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Runde <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> timer</item>
       <item quantity="one">1 time</item>
@@ -184,7 +198,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> sekunder</item>
       <item quantity="one">1 sekund</item>
     </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"Legg til stoppeklokke"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"Legg til tidtaker"</string>
     <string name="timer_start" msgid="6158486445614356442">"Start"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Slett"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Slett <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -196,7 +210,7 @@
     <string name="timer_cancel" msgid="3572868404230815644">"Avbryt"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tiden er ute"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Tidtaker"</string>
-    <string name="timers_max_count_reached" msgid="9140022846793903813">"Du kan ha maksimalt fire tidtakere"</string>
+    <string name="timers_max_count_reached" msgid="9140022846793903813">"Du kan ha maksimalt fire nedtellinger"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Du er litt av et fartsmonster."</item>
     <item msgid="6332879039890727169">"Høst fruktene av arbeidet ditt."</item>
@@ -319,29 +333,29 @@
     <string name="swn_stopped" msgid="783124901663086172">"Stoppet"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Sveip til høyre for å avvise"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Sveip til venstre for å slumre"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Sveip til venstre for å slumre eller til høyre for å avvise"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Nedtellingen ble stoppet"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> nedtellinger ble stoppet"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Trykk for å se nedtellingene dine"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> nedtellinger"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Neste nedtelling: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Innstillinger for drømmemodus"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Innstillinger for Drøm"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nattmodus"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Dempet lysstyrke (for mørke rom)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Vis alarmen"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Skjul alarmen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"angre"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Alarmen ble slettet."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarmen ble slettet"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Neste alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> valgt"</string>
     <string name="deleted_message" msgid="1220848140260509437">"Slettet"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
       <item quantity="other">Vil du slette de valgte alarmene?</item>
       <item quantity="one">Vil du slette den valgte alarmen?</item>
     </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vil du slette denne tidtakeren?"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Vil du slette denne nedtellingen?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Vil du fjerne denne byen?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digital klokke"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Ingen alarmer"</string>
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"HH:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE – HH:mm"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"Ugyldig tid <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Ingen alarm kl. <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Ingen alarmer er angitt"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Ingen etikett er spesifisert"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Ingen alarmer inneholder etiketten"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Stoppeklokken er allerede aktiv"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Stoppeklokken er ikke aktiv"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Stoppeklokken kan ikke tilbakestilles fordi den er aktiv nå"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Stoppeklokken er stoppet"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Stoppeklokken er tilbakestilt"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Stoppeklokken har lagret rundetiden"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Stoppeklokken er startet"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Ingen alarm er angitt for dette tidspunktet"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmen <xliff:g id="ALARM_TIME">%s</xliff:g> er fjernet"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarmen er angitt for <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"Ingen tidtaker er angitt"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Tidtakeren er slettet"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"En tidtaker er allerede aktiv"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Kunne ikke fullføre forespørselen – flere tidtakere er tilgjengelige"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Tidtakeren er startet"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Tidtakeren er opprettet"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Ugyldig tidtakerlengde"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Tidtakeren er tilbakestilt"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Tidtakeren kan ikke tilbakestilles fordi den er aktiv. Stopp tidtakeren for å tilbakestille."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Tidtakeren er allerede stoppet"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"Ingen by er valgt"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Byen du har angitt, er ikke tilgjengelig"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Den byen er allerede lagt til"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> er lagt til"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> er slettet"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarmen <xliff:g id="ALARM_TIME">%s</xliff:g> kan ikke fjernes ennå – tidspunktet er fortsatt over 24 timer frem i tid"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Slå av alarm"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Velg hvilken alarm du vil fjerne"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Ingen alarmer ringer nå"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmen <xliff:g id="ALARM_TIME">%s</xliff:g> slumrer i ti minutter"</string>
 </resources>

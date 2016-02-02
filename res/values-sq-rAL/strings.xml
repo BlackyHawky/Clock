@@ -28,18 +28,19 @@
     <string name="show_clock" msgid="8358759982675616915">"Shfaq orën"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Fshih orën"</string>
     <string name="label" msgid="162189613902857319">"Emërtimi"</string>
-    <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
+    <string name="default_label" msgid="5590025289805630372">"Alarmi"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Cakto alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Dridhja"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Përsërit"</string>
     <string name="alert" msgid="6506982899651975645">"Zilja e alarmit"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"Zilja e personalizuar"</string>
     <string name="ringtone" msgid="9110746249688559579">"Zilja"</string>
     <string name="time" msgid="8067216534232296518">"Ora"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Nesër"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Sot"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Zgjohu!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Çaktivizuar"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Largoje"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Injoro"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Largoje tani"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm i humbur"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -73,12 +74,18 @@
     <item msgid="9115697840826129603">"Alarmi është vënë për <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g> nga momenti i tanishëm."</item>
     <item msgid="2332583385137381060">"Alarmi është vënë për <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, e <xliff:g id="MINUTES">%3$s</xliff:g> nga momenti i tanishëm."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1 ditë"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g> ditë"</string>
-    <string name="hour" msgid="2546819039651509323">"1 orë"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g> orë"</string>
-    <string name="minute" msgid="2486157997434653710">"1 minutë"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g> minuta"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ditë</item>
+      <item quantity="one">1 ditë</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> orë</item>
+      <item quantity="one">1 orë</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuta</item>
+      <item quantity="one">1 minutë</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Çdo ditë"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Zgjidh një orë"</string>
@@ -87,15 +94,18 @@
     <string name="settings" msgid="5849739030579520686">"Cilësimet"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Kohëzgjatja e dremitjes"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minuta</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuta</item>
       <item quantity="one">1 minutë</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
       <item quantity="other">minuta</item>
       <item quantity="one">minutë</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Hesht pas"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g> minuta"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Kalo në heshtje për"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuta</item>
+      <item quantity="one">1 minutë</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Asnjeherë"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1 minutë"</item>
@@ -123,8 +133,8 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butonat e volumit"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Efekti i butonit"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Dremit"</item>
-    <item msgid="3450979320164769576">"Largoje"</item>
+    <item msgid="7972756698723318690">"Shty alarmin"</item>
+    <item msgid="3450979320164769576">"Ndalo alarmin"</item>
     <item msgid="6302517608411378024">"Mos bëj asgjë"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Cakto zilen e parazgjedhur"</string>
@@ -143,10 +153,10 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Vendos alarm"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
-    <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Kohëmatës"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"Alarmi"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Kohëmatësi"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Ora"</string>
-    <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometër"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometri"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Shto alarm"</string>
     <string name="button_cities" msgid="4555761857494501363">"Qytetet"</string>
     <string name="button_menu" msgid="6050484561842120282">"Opsione të tjera"</string>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Koha ime është <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Kohët e xhiros:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Xhiroja <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
+    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> orë</item>
       <item quantity="one">1 orë</item>
@@ -214,15 +228,15 @@
     <string name="clock_settings" msgid="8317286807280600391">"Ora"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stili"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"Analoge"</item>
-    <item msgid="8483930821046925592">"Dixhitale"</item>
+    <item msgid="917900462224167608">"Analog"</item>
+    <item msgid="8483930821046925592">"Dixhital"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Ora automatike e ekranit bazë"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Kur udhëton në një zonë ku ora ndryshon, shto një orë për ekranin bazë"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Në rast se udhëton në zona ku ora ndryshon, shto në ekran edhe një orë tjetër - atë të vendit tënd ku jeton."</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Brezi orar i zonës ku gjendesh"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Brezi orar i zonës ku gjendesh"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Anulo"</string>
-    <string name="time_picker_set" msgid="331153175471468051">"Në rregull!"</string>
+    <string name="time_picker_set" msgid="331153175471468051">"Në rregull"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -319,6 +333,7 @@
     <string name="swn_stopped" msgid="783124901663086172">"Ndaloi"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Rrëshqit djathtas për ta larguar"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Rrëshqit majtas për ta dremitur"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Rrëshqit majtas për ta shtyrë, ose djathtas për ta hequr"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Kohëmatësi ndaloi"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> kohëmatës ndaluan"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Prek për të parë kohëmatësit"</string>
@@ -330,11 +345,10 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Zgjero alarmin"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Shpalos alarmin"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"zhbëj"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"Alarmi u fshi."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarmi u fshi"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Alarmi tjetër: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"U përzgjodhën <xliff:g id="ALARMS">%d</xliff:g>"</string>
     <string name="deleted_message" msgid="1220848140260509437">"U fshi!"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -347,8 +361,43 @@
     <string name="no_alarms" msgid="6429431324842022917">"Nuk ka alarme"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Nuk është caktuar asnjë alarm"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"NUK KA ALARME TË ARDHSHME"</string>
-    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm pd"</string>
+    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm"</string>
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
-    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm pd"</string>
+    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> është orë e pavlefshme"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Nuk ka asnjë alarm në <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nuk ka asnjë alarm të planifikuar"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"Nuk u specifikua asnjë etiketë"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Asnjë alarm nuk e përfshin etiketën"</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"Kronometri është tashmë në ekzekutim"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Kronometri nuk është në ekzekutim"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Kronometri nuk mund të rivendoset sepse është në funksionim"</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"Kronometri u ndalua"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"Kronometri u rivendos"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Kronometri e regjistroi xhiron"</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"Kronometri u nis"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nuk ka asnjë alarm të planifikuar për këtë orë"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarmi në <xliff:g id="ALARM_TIME">%s</xliff:g> u hoq"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarmi është caktuar në <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"Nuk ka asnjë kohëmatës të caktuar"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Kohëmatësi u fshi"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"Kohëmatësi është tashmë në ekzekutim"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"Kërkesa nuk mund të realizohet, pasi ka shumë kohëmatës të disponueshëm"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Kohëmatësi filloi"</string>
+    <string name="timer_created" msgid="4381027137335885547">"Kohëmatësi u krijua"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Gjatësia e kohëmatësit e pavlefshme"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"Kohëmatësi u rivendos"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Kohëmatësi nuk mund të rivendoset sepse është akoma në ekzekutim. Ndaloje për ta rivendosur."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"Kohëmatësi është ndaluar tashmë"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"Nuk u zgjodh asnjë qytet"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Qyteti që specifikove nuk ekziston të bazën e të dhënave"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"Ai qytet është shtuar tashmë"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> u shtua"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> u fshi"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarmi në <xliff:g id="ALARM_TIME">%s</xliff:g> nuk mund të hiqet ende, pasi është akoma më shumë se 24 orë larg"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Hiqe alarmin"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Zgjidh se cilin alarm do të heqësh"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Nuk ka asnjë alarm të aktivizuar"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmi në <xliff:g id="ALARM_TIME">%s</xliff:g> u shty për 10 minuta"</string>
 </resources>

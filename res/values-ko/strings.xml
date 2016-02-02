@@ -33,6 +33,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"진동"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"반복"</string>
     <string name="alert" msgid="6506982899651975645">"알람 벨소리"</string>
+    <string name="custom_ringtone" msgid="3477418548382111184">"맞춤 벨소리"</string>
     <string name="ringtone" msgid="9110746249688559579">"벨소리"</string>
     <string name="time" msgid="8067216534232296518">"시간"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"내일"</string>
@@ -73,21 +74,27 @@
     <item msgid="9115697840826129603">"지금부터 <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정됩니다."</item>
     <item msgid="2332583385137381060">"지금부터 <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> 후로 알람이 설정되었습니다."</item>
   </string-array>
-    <string name="day" msgid="7984755014526510295">"1일"</string>
-    <string name="days" msgid="2070509222727852210">"<xliff:g id="DAYS">%s</xliff:g>일"</string>
-    <string name="hour" msgid="2546819039651509323">"1시간"</string>
-    <string name="hours" msgid="2071487018566991613">"<xliff:g id="HOURS">%s</xliff:g>시간"</string>
-    <string name="minute" msgid="2486157997434653710">"1분"</string>
-    <string name="minutes" msgid="6115838729146292526">"<xliff:g id="MINUTES">%s</xliff:g>분"</string>
+    <plurals name="days" formatted="false" msgid="3706846447285206235">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>일</item>
+      <item quantity="one">1일</item>
+    </plurals>
+    <plurals name="hours" formatted="false" msgid="3871283109767171655">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>시간</item>
+      <item quantity="one">1시간</item>
+    </plurals>
+    <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>분</item>
+      <item quantity="one">1분</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"매일"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"시계 선택"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"아날로그 시계"</string>
     <string name="help" msgid="7786263119482654015">"도움말"</string>
     <string name="settings" msgid="5849739030579520686">"설정"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"알람 일시중지 간격"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"다시 울림 간격"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>분</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>분</item>
       <item quantity="one">1분</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
@@ -95,7 +102,10 @@
       <item quantity="one">분</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"알람 해제 시간"</string>
-    <string name="auto_silence_summary" msgid="7028508740659733028">"<xliff:g id="MINUTES">%d</xliff:g>분"</string>
+    <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g>분</item>
+      <item quantity="one">1분</item>
+    </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"사용 안함"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"1분"</item>
@@ -123,7 +133,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"버튼 효과"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"알람 일시중지"</item>
+    <item msgid="7972756698723318690">"다시 울림"</item>
     <item msgid="3450979320164769576">"알람 해제"</item>
     <item msgid="6302517608411378024">"기능 없음"</item>
   </string-array>
@@ -160,7 +170,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"시작"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"중지"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"랩 타임"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"재설정"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"초기화"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"공유"</string>
     <string name="hours_label" msgid="3393478155635368097">"시"</string>
     <string name="minutes_label" msgid="3568098128251438588">"분"</string>
@@ -172,6 +182,10 @@
     <string name="sw_share_main" msgid="7703563468204234405">"내 시간: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"랩 타임:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"랩 타임 <xliff:g id="NUMBER">%d</xliff:g>"</string>
+  <string-array name="sw_lap_number_set">
+    <item msgid="2816627565030953899">"<xliff:g id="NUMBER">%d</xliff:g>번"</item>
+    <item msgid="316923361931627987">"<xliff:g id="NUMBER">%02d</xliff:g>번"</item>
+  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g>시간</item>
       <item quantity="one">1시간</item>
@@ -192,7 +206,7 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1분 추가"</string>
     <string name="timer_stop" msgid="3361154678667736722">"중지"</string>
     <string name="timer_done" msgid="2375990511982914051">"완료"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"재설정"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"초기화"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"취소"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"시간이 다 되었습니다."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"타이머"</string>
@@ -319,22 +333,22 @@
     <string name="swn_stopped" msgid="783124901663086172">"중지됨"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"오른쪽으로 스와이프하여 해제"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"왼쪽으로 스와이프하여 일시 중지"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"왼쪽으로 스와이프하여 일시 중지하거나 오른쪽으로 스와이프하여 해제"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"타이머가 정지됨"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g>개의 타이머가 정지됨"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"타이머를 보려면 터치하세요."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"스크린 세이버 설정"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"화면 보호기 설정"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"야간 모드"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"디스플레이 아주 어둡게 하기(어두운 장소용)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"알람 펼치기"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"알람 접기"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"실행취소"</string>
-    <string name="alarm_deleted" msgid="5017075127290219443">"알람이 삭제되었습니다."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"알람이 삭제되었습니다."</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"다음 알람: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="label_unlabeled" msgid="4699506713571930740"></string>
     <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g>개 선택됨"</string>
     <string name="deleted_message" msgid="1220848140260509437">"삭제됨"</string>
     <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
@@ -351,4 +365,39 @@
     <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, a h:mm"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"잘못된 시간입니다. <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>에 지정된 알람 없음"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"예약된 알람 없음"</string>
+    <string name="no_label_specified" msgid="2008482054428460626">"지정된 라벨이 없습니다."</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"라벨이 포함된 알람이 없습니다."</string>
+    <string name="stopwatch_already_running" msgid="6598258908106423672">"스톱워치가 이미 실행 중임"</string>
+    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"스톱워치가 실행되고 있지 않음"</string>
+    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"스톱워치가 실행 중이므로 초기화할 수 없습니다."</string>
+    <string name="stopwatch_stopped" msgid="6927081018816192999">"스톱워치가 중지되었습니다."</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"스톱워치가 초기화되었습니다."</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"랩타임이 측정되었습니다."</string>
+    <string name="stopwatch_started" msgid="7843882246387176304">"스톱워치가 시작되었습니다."</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"이 시간에 예약된 알람 없음"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> 알람 제거됨"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"알람 설정 시간: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_timer_set" msgid="3326365650863016606">"설정된 타이머 없음"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"타이머 삭제됨"</string>
+    <string name="timer_already_running" msgid="1259351124772803097">"타이머가 이미 실행 중임"</string>
+    <string name="multiple_timers_available" msgid="6722110840279707462">"요청을 완료할 수 없습니다. 사용할 수 있는 타이머가 여러 개입니다."</string>
+    <string name="timer_started" msgid="6715582052946641641">"타이머 시작됨"</string>
+    <string name="timer_created" msgid="4381027137335885547">"타이머가 생성됨"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"타이머 기간이 잘못됨"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"타이머 재설정됨"</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"타이머가 실행 중이기 때문에 재설정할 수 없습니다. 재설정하려면 타이머를 중지하세요."</string>
+    <string name="timer_already_stopped" msgid="8865820275829449054">"타이머가 이미 중지됨"</string>
+    <string name="no_city_selected" msgid="1007596865203283741">"선택한 도시 없음"</string>
+    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"사용자가 지정한 도시는 사용할 수 없음"</string>
+    <string name="the_city_already_added" msgid="3799050213771793020">"이미 추가된 도시임"</string>
+    <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> 추가됨"</string>
+    <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> 삭제됨"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"알람 시간이 아직 24시간 이상 남아 있으므로 <xliff:g id="ALARM_TIME">%s</xliff:g> 알람을 아직 취소할 수 없습니다."</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"알람 해제"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"취소할 알람 선택"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"실행 중인 알람 없음"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 알람이 10분 동안 일시 중지됨"</string>
 </resources>
