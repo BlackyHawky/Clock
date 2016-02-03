@@ -46,10 +46,10 @@ import static java.util.Calendar.SECOND;
  */
 final class PeriodicCallbackModel {
 
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("Periodic");
+
     @VisibleForTesting
     enum Period {MINUTE, QUARTER_HOUR, MIDNIGHT}
-
-    private static final String TAG = "Periodic";
 
     private static final long QUARTER_HOUR_IN_MILLIS = 15 * MINUTE_IN_MILLIS;
 
@@ -180,13 +180,13 @@ final class PeriodicCallbackModel {
 
         @Override
         public void run() {
-            LogUtils.i(TAG, "Executing periodic callback for %s because the period ended", mPeriod);
+            LOGGER.i("Executing periodic callback for %s because the period ended", mPeriod);
             mDelegate.run();
             schedule();
         }
 
         private void runAndReschedule() {
-            LogUtils.i(TAG, "Executing periodic callback for %s because the time changed", mPeriod);
+            LOGGER.i("Executing periodic callback for %s because the time changed", mPeriod);
             unSchedule();
             mDelegate.run();
             schedule();

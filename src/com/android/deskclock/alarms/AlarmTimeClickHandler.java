@@ -43,7 +43,8 @@ import java.util.Calendar;
  */
 public final class AlarmTimeClickHandler {
 
-    private static final String TAG = "AlarmTimeClickHandler";
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmTimeClickHandler");
+
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
     private static final String RINGTONE_PICKER_FRAG_TAG = "ringtone_picker_dialog";
 
@@ -85,7 +86,7 @@ public final class AlarmTimeClickHandler {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
-            LogUtils.d(TAG, "Updating alarm enabled state to " + newState);
+            LOGGER.d("Updating alarm enabled state to " + newState);
         }
     }
 
@@ -93,7 +94,7 @@ public final class AlarmTimeClickHandler {
         if (newState != alarm.vibrate) {
             alarm.vibrate = newState;
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-            LogUtils.d(TAG, "Updating vibrate state to " + newState);
+            LOGGER.d("Updating vibrate state to " + newState);
 
             if (newState) {
                 // Buzz the vibrator to preview the alarm firing behavior.
@@ -147,7 +148,7 @@ public final class AlarmTimeClickHandler {
 
     public void onDeleteClicked(Alarm alarm) {
         mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
-        LogUtils.d(TAG, "Deleting alarm.");
+        LOGGER.d("Deleting alarm.");
     }
 
     public void onClockClicked(Alarm alarm) {
