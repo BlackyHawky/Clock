@@ -36,7 +36,7 @@ import com.android.deskclock.uidata.UiDataModel;
 
 public final class Screensaver extends DreamService {
 
-    private static final String TAG = "Screensaver";
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("Screensaver");
 
     private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
     private MoveScreensaverRunnable mPositionUpdater;
@@ -76,7 +76,7 @@ public final class Screensaver extends DreamService {
 
     @Override
     public void onCreate() {
-        LogUtils.v(TAG, "Screensaver created");
+        LOGGER.v("Screensaver created");
         super.onCreate();
 
         setTheme(R.style.ScreensaverActivityTheme);
@@ -87,7 +87,7 @@ public final class Screensaver extends DreamService {
 
     @Override
     public void onAttachedToWindow() {
-        LogUtils.v(TAG, "Screensaver attached to window");
+        LOGGER.v("Screensaver attached to window");
         super.onAttachedToWindow();
 
         setContentView(R.layout.desk_clock_saver);
@@ -126,7 +126,7 @@ public final class Screensaver extends DreamService {
 
     @Override
     public void onDetachedFromWindow() {
-        LogUtils.v(TAG, "Screensaver detached from window");
+        LOGGER.v("Screensaver detached from window");
         super.onDetachedFromWindow();
 
         if (mSettingsContentObserver != null) {
@@ -142,7 +142,7 @@ public final class Screensaver extends DreamService {
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        LogUtils.v(TAG, "Screensaver configuration changed");
+        LOGGER.v("Screensaver configuration changed");
         super.onConfigurationChanged(newConfig);
 
         // Ignore the configuration change if no window exists.

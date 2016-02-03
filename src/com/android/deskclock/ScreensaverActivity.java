@@ -40,7 +40,7 @@ import static android.os.BatteryManager.EXTRA_PLUGGED;
 
 public class ScreensaverActivity extends AppCompatActivity {
 
-    private static final String TAG = "ScreensaverActivity";
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
 
     /** These flags keep the screen on if the device is plugged in. */
     private static final int sWindowFlags = WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -60,7 +60,7 @@ public class ScreensaverActivity extends AppCompatActivity {
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            LogUtils.v(TAG, "ScreensaverActivity onReceive, action: " + intent.getAction());
+            LOGGER.v("ScreensaverActivity onReceive, action: " + intent.getAction());
 
             switch (intent.getAction()) {
                 case Intent.ACTION_POWER_CONNECTED:

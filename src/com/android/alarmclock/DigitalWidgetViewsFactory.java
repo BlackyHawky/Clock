@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
@@ -43,7 +44,7 @@ import static java.util.Calendar.DAY_OF_WEEK;
 
 public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
 
-    private static final String TAG = "DigWidgetViewsFactory";
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigWidgetViewsFactory");
 
     private final Intent mFillInIntent = new Intent();
 
@@ -69,14 +70,14 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
     @Override
     public void onCreate() {
         if (DigitalAppWidgetService.LOGGING) {
-            Log.i(TAG, "DigitalWidget onCreate " + mWidgetId);
+            LOGGER.i("DigitalWidget onCreate " + mWidgetId);
         }
     }
 
     @Override
     public void onDestroy() {
         if (DigitalAppWidgetService.LOGGING) {
-            Log.i(TAG, "DigitalWidget onDestroy " + mWidgetId);
+            LOGGER.i("DigitalWidget onDestroy " + mWidgetId);
         }
     }
 

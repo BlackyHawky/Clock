@@ -35,6 +35,7 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.android.deskclock.HandleDeskClockApiCalls;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
@@ -57,7 +58,7 @@ import static com.android.deskclock.data.DataModel.ACTION_DIGITAL_WIDGET_CHANGED
 
 public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
-    private static final String TAG = "DigAppWidgetProvider";
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigAppWidgetProvider");
 
     /** Intent action used for refreshing a world clock's date. See Nepal timezone: UTC+05:45. */
     private static final String ACTION_ON_QUARTER_HOUR = "com.android.deskclock.ON_QUARTER_HOUR";
@@ -88,7 +89,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
         final String action = intent.getAction();
         if (DigitalAppWidgetService.LOGGING) {
-            Log.i(TAG, "onReceive: " + action);
+            LOGGER.i("onReceive: " + action);
         }
         super.onReceive(context, intent);
 
@@ -221,7 +222,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         if (TextUtils.isEmpty(nextAlarm)) {
             widget.setViewVisibility(R.id.nextAlarm, View.GONE);
             if (DigitalAppWidgetService.LOGGING) {
-                Log.v(TAG, "DigitalWidget hides next alarm string");
+                LOGGER.v("DigitalWidget hides next alarm string");
             }
         } else  {
             final Resources resources = context.getResources();
@@ -240,7 +241,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             widget.setTextViewText(R.id.nextAlarm, nextAlarm);
             widget.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
             if (DigitalAppWidgetService.LOGGING) {
-                Log.v(TAG, "DigitalWidget sets next alarm string to " + nextAlarm);
+                LOGGER.v("DigitalWidget sets next alarm string to " + nextAlarm);
             }
         }
     }

@@ -24,11 +24,13 @@ import android.os.PowerManager;
  */
 public class AlarmAlertWakeLock {
 
+    private static final String TAG = "AlarmAlertWakeLock";
+
     private static PowerManager.WakeLock sCpuWakeLock;
 
     public static PowerManager.WakeLock createPartialWakeLock(Context context) {
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-        return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, LogUtils.LOGTAG);
+        return pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
     }
 
     public static void acquireCpuWakeLock(Context context) {
@@ -46,7 +48,7 @@ public class AlarmAlertWakeLock {
         }
         PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
         sCpuWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK
-                | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, LogUtils.LOGTAG);
+                | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, TAG);
         sCpuWakeLock.acquire();
     }
 
