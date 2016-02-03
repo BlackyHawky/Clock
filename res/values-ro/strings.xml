@@ -137,7 +137,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silenţios"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Amânați sau anulați alarma."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (amânat)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarmă setată pentru <xliff:g id="TIME">%s</xliff:g>. Atingeţi pentru a anula."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarmă setată pentru <xliff:g id="TIME">%s</xliff:g>. Atingeți pentru a anula."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butoane de volum"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Funcții buton"</string>
   <string-array name="volume_button_setting_entries">
@@ -151,7 +151,7 @@
     <string name="music_button_description" msgid="1626593420810117999">"Muzică"</string>
     <string name="nightmode_button_description" msgid="990894208217576381">"Luminozitate redusă"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Lansator"</string>
-    <string name="desk_clock_button_description" msgid="4207371097361657274">"Afişarea ceasului"</string>
+    <string name="desk_clock_button_description" msgid="4207371097361657274">"Afișarea ceasului"</string>
     <string name="label_description" msgid="8736179296142915727">"Etichetă"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ton de apel"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Informațiile meteo nu sunt disponibile în acest moment."</string>
@@ -179,7 +179,7 @@
     <string name="sw_stop_button" msgid="8322958613123274451">"Opriți"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Circuit"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Resetaţi"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"Distribuiţi"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Distribuiți"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
@@ -347,7 +347,7 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Glisați spre stânga pentru a amâna sau spre dreapta pentru a închide"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Contor oprit"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Au fost oprite <xliff:g id="NUMBER">%d</xliff:g> contoare"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Atingeţi pentru a vedea contoarele"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Atingeți pentru a vedea contoarele"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> contoare"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Următorul temporizator: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Setări Dream"</string>
@@ -355,7 +355,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"Afișaj cu luminozitate redusă (pentru camere întunecate)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Extindeţi alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Restrângeți alarma"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"anulaţi"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"anulați"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma a fost ştearsă"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
