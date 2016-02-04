@@ -551,7 +551,7 @@ public class TimerFragment extends DeskClockFragment {
             return null;
         }
 
-        return mAdapter.getTimer(mViewPager.getCurrentItem());
+        return mAdapter.getCount() == 0 ? null : mAdapter.getTimer(mViewPager.getCurrentItem());
     }
 
     private void startUpdatingTime() {
