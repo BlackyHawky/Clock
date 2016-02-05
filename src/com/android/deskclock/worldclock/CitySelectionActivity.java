@@ -36,6 +36,7 @@ import android.widget.SectionIndexer;
 import android.widget.TextView;
 
 import com.android.deskclock.BaseActivity;
+import com.android.deskclock.DropShadowController;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.actionbarmenu.AbstractMenuItemController;
@@ -84,6 +85,9 @@ public final class CitySelectionActivity extends BaseActivity {
     /** Menu item controller for search view. */
     private SearchMenuItemController mSearchMenuItemController;
 
+    /** The controller that shows the drop shadow when content is not scrolled to the top. */
+    private DropShadowController mDropShadowController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -129,11 +133,16 @@ public final class CitySelectionActivity extends BaseActivity {
 
         // Recompute the contents of the adapter before displaying on screen.
         mCitiesAdapter.refresh();
+
+        final View dropShadow = findViewById(R.id.drop_shadow);
+        mDropShadowController = new DropShadowController(dropShadow, mCitiesList);
     }
 
     @Override
     public void onPause() {
         super.onPause();
+
+        mDropShadowController.stop();
 
         // Save the selected cities.
         DataModel.getDataModel().setSelectedCities(mCitiesAdapter.getSelectedCities());

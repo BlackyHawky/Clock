@@ -166,6 +166,41 @@ public final class UiDataModel {
         mTabModel.setSelectedTab(tab);
     }
 
+    /**
+     * @param tabScrollListener to be notified when the scroll position of the selected tab changes
+     */
+    public void addTabScrollListener(TabScrollListener tabScrollListener) {
+        enforceMainLooper();
+        mTabModel.addTabScrollListener(tabScrollListener);
+    }
+
+    /**
+     * @param tabScrollListener to be notified when the scroll position of the selected tab changes
+     */
+    public void removeTabScrollListener(TabScrollListener tabScrollListener) {
+        enforceMainLooper();
+        mTabModel.removeTabScrollListener(tabScrollListener);
+    }
+
+    /**
+     * Updates the scrolling state in the {@link UiDataModel} for this tab.
+     *
+     * @param tab an enumerated value indicating the tab reporting its vertical scroll position
+     * @param scrolledToTop {@code true} iff the vertical scroll position of the tab is at the top
+     */
+    public void setTabScrolledToTop(Tab tab, boolean scrolledToTop) {
+        enforceMainLooper();
+        mTabModel.setTabScrolledToTop(tab, scrolledToTop);
+    }
+
+    /**
+     * @return {@code true} iff the content in the selected tab is currently scrolled to the top
+     */
+    public boolean isSelectedTabScrolledToTop() {
+        enforceMainLooper();
+        return mTabModel.isTabScrolledToTop(getSelectedTab());
+    }
+
     //
     // Timed Callbacks
     //
