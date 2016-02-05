@@ -209,7 +209,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Set today's date format.
         final Locale locale = Locale.getDefault();
-        final String skeleton = context.getString(R.string.abbrev_wday_abbrev_month_day_no_year);
+        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
         final CharSequence timeFormat = DateFormat.getBestDateTimePattern(locale, skeleton);
         widget.setCharSequence(R.id.date, "setFormat12Hour", timeFormat);
         widget.setCharSequence(R.id.date, "setFormat24Hour", timeFormat);
