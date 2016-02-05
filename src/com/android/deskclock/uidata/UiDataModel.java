@@ -224,6 +224,15 @@ public final class UiDataModel {
     }
 
     /**
+     * @param runnable to be called every hour
+     * @param offset an offset applied to the hour to control when the callback occurs
+     */
+    public void addHourCallback(Runnable runnable, long offset) {
+        enforceMainLooper();
+        mPeriodicCallbackModel.addHourCallback(runnable, offset);
+    }
+
+    /**
      * @param runnable to be called every midnight
      * @param offset an offset applied to the midnight to control when the callback occurs
      */
