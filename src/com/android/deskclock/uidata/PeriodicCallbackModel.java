@@ -32,6 +32,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import static android.content.Intent.ACTION_DATE_CHANGED;
 import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
 import static android.content.Intent.ACTION_TIME_CHANGED;
+import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.android.deskclock.Utils.enforceMainLooper;
 import static java.util.Calendar.DATE;
@@ -49,7 +50,7 @@ final class PeriodicCallbackModel {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("Periodic");
 
     @VisibleForTesting
-    enum Period {MINUTE, QUARTER_HOUR, MIDNIGHT}
+    enum Period {MINUTE, QUARTER_HOUR, HOUR, MIDNIGHT}
 
     private static final long QUARTER_HOUR_IN_MILLIS = 15 * MINUTE_IN_MILLIS;
 
@@ -84,6 +85,14 @@ final class PeriodicCallbackModel {
      */
     void addQuarterHourCallback(Runnable runnable, long offset) {
         addPeriodicCallback(runnable, Period.QUARTER_HOUR, offset);
+    }
+
+    /**
+     * @param runnable to be called every hour
+     * @param offset an offset applied to the hour to control when the callback occurs
+     */
+    void addHourCallback(Runnable runnable, long offset) {
+        addPeriodicCallback(runnable, Period.HOUR, offset);
     }
 
     /**
@@ -135,20 +144,25 @@ final class PeriodicCallbackModel {
                 final long nextMinute = lastMinute + MINUTE_IN_MILLIS;
                 return nextMinute - now + offset;
 
-            case MIDNIGHT:
-                final Calendar c = Calendar.getInstance();
-                c.setTimeInMillis(periodStart);
-                c.add(DATE, 1);
-                c.set(HOUR_OF_DAY, 0);
-                c.set(MINUTE, 0);
-                c.set(SECOND, 0);
-                c.set(MILLISECOND, 0);
-                return c.getTimeInMillis() - now + offset;
-
             case QUARTER_HOUR:
                 final long lastQuarterHour = periodStart - (periodStart % QUARTER_HOUR_IN_MILLIS);
                 final long nextQuarterHour = lastQuarterHour + QUARTER_HOUR_IN_MILLIS;
                 return nextQuarterHour - now + offset;
+
+            case HOUR:
+                final long lastHour = periodStart - (periodStart % HOUR_IN_MILLIS);
+                final long nextHour = lastHour + HOUR_IN_MILLIS;
+                return nextHour - now + offset;
+
+            case MIDNIGHT:
+                final Calendar nextMidnight = Calendar.getInstance();
+                nextMidnight.setTimeInMillis(periodStart);
+                nextMidnight.add(DATE, 1);
+                nextMidnight.set(HOUR_OF_DAY, 0);
+                nextMidnight.set(MINUTE, 0);
+                nextMidnight.set(SECOND, 0);
+                nextMidnight.set(MILLISECOND, 0);
+                return nextMidnight.getTimeInMillis() - now + offset;
 
             default:
                 throw new IllegalArgumentException("unexpected period: " + period);
