@@ -58,13 +58,15 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal">
+        android:gravity="center">
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/PrimaryLabelTextAppearance" />
+            android:textAllCaps="true"
+            android:textAppearance="@style/PrimaryLabelTextAppearance"
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/nextAlarm"
@@ -73,14 +75,18 @@
             android:layout_marginStart="@dimen/alarm_icon_padding"
             android:drawablePadding="@dimen/alarm_icon_padding"
             android:drawableStart="@drawable/ic_alarm_small"
-            android:textAppearance="@style/SecondaryLabelTextAppearance" />
+            android:textAllCaps="true"
+            android:textAppearance="@style/SecondaryLabelTextAppearance"
+            android:textSize="12sp" />
+
     </LinearLayout>
 
     <View
         android:id="@+id/hairline"
         android:layout_width="match_parent"
         android:layout_height="@dimen/hairline_height"
-        android:layout_marginTop="24dip"
+        android:layout_marginTop="24dp"
         android:background="@color/hairline" />
+
 </LinearLayout>
 

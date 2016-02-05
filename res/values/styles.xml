@@ -137,7 +137,7 @@
 
     <style name="no_alarms">
         <item name="android:textSize">@dimen/no_alarm_font_size</item>
-        <item name="android:textColor">@color/white_69p</item>
+        <item name="android:textColor">@color/white_63p</item>
     </style>
 
     <style name="small_light">
@@ -257,7 +257,7 @@
     <style name="PrimaryLabelTextAppearance" parent="PrimaryLabelTextParentAppearance" />
 
     <style name="SecondaryLabelTextParentAppearance">
-        <item name="android:textColor">@color/white_69p</item>
+        <item name="android:textColor">@color/white_63p</item>
         <item name="android:textSize">@dimen/label_text_size</item>
     </style>
 
