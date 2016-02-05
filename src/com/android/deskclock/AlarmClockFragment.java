@@ -140,6 +140,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 }
             }
         });
+        final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
+        mRecyclerView.addOnLayoutChangeListener(scrollPositionWatcher);
+        mRecyclerView.addOnScrollListener(scrollPositionWatcher);
         mRecyclerView.setAdapter(mItemAdapter);
 
         return v;
@@ -314,6 +317,24 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmTimeClickHandler.clearSelectedAlarm();
         TimePickerCompat.showTimeEditDialog(this, null /* alarm */,
                 DateFormat.is24HourFormat(getActivity()));
+    }
+
+    /**
+     * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
+     * the recyclerview or when the size/position of elements within the recyclerview changes.
+     */
+    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener
+            implements View.OnLayoutChangeListener {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            setTabScrolledToTop(Utils.isScrolledToTop(mRecyclerView));
+        }
+
+        @Override
+        public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                int oldLeft, int oldTop, int oldRight, int oldBottom) {
+            setTabScrolledToTop(Utils.isScrolledToTop(mRecyclerView));
+        }
     }
 
     /**
