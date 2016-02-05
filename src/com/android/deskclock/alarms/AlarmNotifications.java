@@ -38,6 +38,7 @@ public final class AlarmNotifications {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+                .setShowWhen(false)
                 .setContentTitle(context.getString(
                         R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance,
@@ -77,6 +78,7 @@ public final class AlarmNotifications {
         LogUtils.v("Displaying high priority notification for alarm instance: " + instance.mId);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+                .setShowWhen(false)
                 .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
                 .setContentText(AlarmUtils.getAlarmText(context, instance,
                         true /* includeLabel */))
@@ -111,6 +113,7 @@ public final class AlarmNotifications {
         LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+                .setShowWhen(false)
                 .setContentTitle(instance.getLabelOrDefault(context))
                 .setContentText(context.getString(R.string.alarm_alert_snooze_until,
                         AlarmUtils.getFormattedTime(context, instance.getAlarmTime())))
@@ -145,6 +148,7 @@ public final class AlarmNotifications {
         String label = instance.mLabel;
         String alarmTime = AlarmUtils.getFormattedTime(context, instance.getAlarmTime());
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
+                .setShowWhen(false)
                 .setContentTitle(context.getString(R.string.alarm_missed_title))
                 .setContentText(instance.mLabel.isEmpty() ? alarmTime :
                         context.getString(R.string.alarm_missed_text, alarmTime, label))
