@@ -130,13 +130,19 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mItemAdapter.setOnItemChangedListener(new ItemAdapter.OnItemChangedListener() {
             @Override
             public void onItemChanged(ItemAdapter.ItemHolder<?> holder) {
-                // When an alarm is expanded, collapse the currently expanded alarm.
                 if (((AlarmItemHolder) holder).isExpanded()) {
-                    if (mExpandedAlarmId != Alarm.INVALID_ID &&
-                            holder.itemId != mExpandedAlarmId) {
-                        mItemAdapter.findItemById(mExpandedAlarmId).collapse();
+                    if (mExpandedAlarmId != holder.itemId) {
+                        // Collapse the prior expanded alarm.
+                        final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
+                        if (aih != null) {
+                            aih.collapse();
+                        }
+                        // Record the freshly expanded alarm.
+                        mExpandedAlarmId = holder.itemId;
                     }
-                    mExpandedAlarmId = holder.itemId;
+                } else if (mExpandedAlarmId == holder.itemId) {
+                    // The expanded alarm is now collapsed so update the tracking id.
+                    mExpandedAlarmId = Alarm.INVALID_ID;
                 }
             }
         });
@@ -253,6 +259,15 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mItemAdapter.setItems(itemHolders);
         mEmptyViewController.setEmpty(data.getCount() == 0);
 
+        if (mExpandedAlarmId != Alarm.INVALID_ID) {
+            final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
+            if (aih != null) {
+                aih.expand();
+            } else {
+                mExpandedAlarmId = Alarm.INVALID_ID;
+            }
+        }
+
         if (mScrollToAlarmId != Alarm.INVALID_ID) {
             scrollToAlarm(mScrollToAlarmId);
             setSmoothScrollStableId(Alarm.INVALID_ID);
@@ -260,23 +275,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     /**
-     * Scroll to alarm with given alarm id.
-     *
-     * @param alarmId The alarm id to scroll to.
+     * @param alarmId identifies the alarm to be displayed
      */
     private void scrollToAlarm(long alarmId) {
-        final int alarmCount = mItemAdapter.getItemCount();
-        int alarmPosition = -1;
-        for (int i = 0; i < alarmCount; i++) {
-            long id = mItemAdapter.getItemId(i);
-            if (id == alarmId) {
-                alarmPosition = i;
-                break;
-            }
-        }
-
-        if (alarmPosition >= 0) {
-            mItemAdapter.getItems().get(alarmPosition).expand();
+        final AlarmItemHolder aih = mItemAdapter.findItemById(alarmId);
+        if (aih != null) {
+            aih.expand();
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.
