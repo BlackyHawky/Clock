@@ -309,102 +309,53 @@
     <string name="C298" msgid="4186340979527221275">"<xliff:g id="SEPARATOR">=</xliff:g>Paramaribas<xliff:g id="TIMEZONE">|America/Paramaribo</xliff:g>"</string>
     <string name="C299" msgid="5688169950851674667">"<xliff:g id="SEPARATOR">=</xliff:g>Kitas<xliff:g id="TIMEZONE">|America/Panama</xliff:g>"</string>
     <string name="C300" msgid="7351753589989414696">"<xliff:g id="SEPARATOR">=</xliff:g>Liubliana<xliff:g id="TIMEZONE">|Europe/Ljubljana</xliff:g>"</string>
-    <!-- no translation found for C301 (9089921329206815602) -->
-    <skip />
-    <!-- no translation found for C302 (6471051311513517449) -->
-    <skip />
-    <!-- no translation found for C303 (6208957436062127281) -->
-    <skip />
-    <!-- no translation found for C304 (7757188637892125245) -->
-    <skip />
-    <!-- no translation found for C305 (5538312768539249335) -->
-    <skip />
-    <!-- no translation found for C306 (6400938736119754675) -->
-    <skip />
-    <!-- no translation found for C307 (1169132195117591472) -->
-    <skip />
-    <!-- no translation found for C308 (7704965635342439141) -->
-    <skip />
-    <!-- no translation found for C309 (1522235235310763925) -->
-    <skip />
-    <!-- no translation found for C310 (8666508463588411257) -->
-    <skip />
-    <!-- no translation found for C311 (5940486195605635031) -->
-    <skip />
-    <!-- no translation found for C312 (1714210141256903683) -->
-    <skip />
-    <!-- no translation found for C313 (8390229571948311411) -->
-    <skip />
-    <!-- no translation found for C314 (3840011425345102604) -->
-    <skip />
-    <!-- no translation found for C315 (8962557999110557329) -->
-    <skip />
-    <!-- no translation found for C316 (3674113287320887951) -->
-    <skip />
-    <!-- no translation found for C317 (4818049429422081055) -->
-    <skip />
-    <!-- no translation found for C318 (3814107319819817789) -->
-    <skip />
-    <!-- no translation found for C319 (5757039321992317631) -->
-    <skip />
-    <!-- no translation found for C320 (8334348266391215583) -->
-    <skip />
-    <!-- no translation found for C321 (5401323973667971972) -->
-    <skip />
-    <!-- no translation found for C322 (67637052310417975) -->
-    <skip />
-    <!-- no translation found for C323 (4500721332684955521) -->
-    <skip />
-    <!-- no translation found for C324 (1741927819842539260) -->
-    <skip />
-    <!-- no translation found for C325 (8771905307322194055) -->
-    <skip />
-    <!-- no translation found for C326 (2389198042593603472) -->
-    <skip />
-    <!-- no translation found for C327 (5317479895686981912) -->
-    <skip />
-    <!-- no translation found for C328 (6416405203954996861) -->
-    <skip />
-    <!-- no translation found for C329 (6876960940903095843) -->
-    <skip />
-    <!-- no translation found for C330 (1572294706542426161) -->
-    <skip />
-    <!-- no translation found for C331 (2607492003890117689) -->
-    <skip />
-    <!-- no translation found for C332 (8349533418456323370) -->
-    <skip />
-    <!-- no translation found for C333 (2842640664018042568) -->
-    <skip />
-    <!-- no translation found for C334 (3310146581437635671) -->
-    <skip />
-    <!-- no translation found for C335 (3317158262102352303) -->
-    <skip />
-    <!-- no translation found for C336 (3810072761869903472) -->
-    <skip />
-    <!-- no translation found for C337 (3412269218104112252) -->
-    <skip />
-    <!-- no translation found for C338 (6151841959824325885) -->
-    <skip />
-    <!-- no translation found for C339 (8909994815975646525) -->
-    <skip />
-    <!-- no translation found for C340 (415479723070879485) -->
-    <skip />
-    <!-- no translation found for C341 (2299478430610154042) -->
-    <skip />
-    <!-- no translation found for C342 (7997617194333170685) -->
-    <skip />
-    <!-- no translation found for C343 (622805851462854910) -->
-    <skip />
-    <!-- no translation found for C344 (1145479224257720400) -->
-    <skip />
-    <!-- no translation found for C345 (1613958949888896258) -->
-    <skip />
-    <!-- no translation found for C346 (1111771082167929457) -->
-    <skip />
-    <!-- no translation found for C347 (1521759005466193913) -->
-    <skip />
-    <!-- no translation found for C348 (7840627606139050754) -->
-    <skip />
-    <!-- no translation found for C349 (8467388994123401044) -->
-    <skip />
+    <string name="C301" msgid="9089921329206815602">"<xliff:g id="SEPARATOR">=</xliff:g>Ašchabadas<xliff:g id="TIMEZONE">|Asia/Ashgabat</xliff:g>"</string>
+    <string name="C302" msgid="6471051311513517449">"<xliff:g id="SEPARATOR">=</xliff:g>Asmara<xliff:g id="TIMEZONE">|Africa/Asmara</xliff:g>"</string>
+    <string name="C303" msgid="6208957436062127281">"<xliff:g id="SEPARATOR">=</xliff:g>Bandar Seri Begavanas<xliff:g id="TIMEZONE">|Asia/Brunei</xliff:g>"</string>
+    <string name="C304" msgid="7757188637892125245">"<xliff:g id="SEPARATOR">=</xliff:g>Bangis<xliff:g id="TIMEZONE">|Africa/Bangui</xliff:g>"</string>
+    <string name="C305" msgid="5538312768539249335">"<xliff:g id="SEPARATOR">=</xliff:g>Bandžulis<xliff:g id="TIMEZONE">|Africa/Banjul</xliff:g>"</string>
+    <string name="C306" msgid="6400938736119754675">"<xliff:g id="SEPARATOR">=</xliff:g>Biškekas<xliff:g id="TIMEZONE">|Asia/Bishkek</xliff:g>"</string>
+    <string name="C307" msgid="1169132195117591472">"<xliff:g id="SEPARATOR">=</xliff:g>Bisau<xliff:g id="TIMEZONE">|Africa/Bissau</xliff:g>"</string>
+    <string name="C308" msgid="7704965635342439141">"<xliff:g id="SEPARATOR">=</xliff:g>Bužumbūra<xliff:g id="TIMEZONE">|Africa/Bujumbura</xliff:g>"</string>
+    <string name="C309" msgid="1522235235310763925">"<xliff:g id="SEPARATOR">=</xliff:g>Dilis<xliff:g id="TIMEZONE">|Asia/Dili</xliff:g>"</string>
+    <string name="C310" msgid="8666508463588411257">"<xliff:g id="SEPARATOR">=</xliff:g>Dušanbė<xliff:g id="TIMEZONE">|Asia/Dushanbe</xliff:g>"</string>
+    <string name="C311" msgid="5940486195605635031">"<xliff:g id="SEPARATOR">=</xliff:g>Funafutis<xliff:g id="TIMEZONE">|Pacific/Funafuti</xliff:g>"</string>
+    <string name="C312" msgid="1714210141256903683">"<xliff:g id="SEPARATOR">=</xliff:g>Honiara<xliff:g id="TIMEZONE">|Pacific/Guadalcanal</xliff:g>"</string>
+    <string name="C313" msgid="8390229571948311411">"<xliff:g id="SEPARATOR">=</xliff:g>Džuba<xliff:g id="TIMEZONE">|Africa/Juba</xliff:g>"</string>
+    <string name="C314" msgid="3840011425345102604">"<xliff:g id="SEPARATOR">=</xliff:g>Kingstaunas<xliff:g id="TIMEZONE">|America/St_Vincent</xliff:g>"</string>
+    <string name="C315" msgid="8962557999110557329">"<xliff:g id="SEPARATOR">=</xliff:g>Librevilis<xliff:g id="TIMEZONE">|Africa/Libreville</xliff:g>"</string>
+    <string name="C316" msgid="3674113287320887951">"<xliff:g id="SEPARATOR">=</xliff:g>Lomė<xliff:g id="TIMEZONE">|Africa/Lome</xliff:g>"</string>
+    <string name="C317" msgid="4818049429422081055">"<xliff:g id="SEPARATOR">=</xliff:g>Luanda<xliff:g id="TIMEZONE">|Africa/Luanda</xliff:g>"</string>
+    <string name="C318" msgid="3814107319819817789">"<xliff:g id="SEPARATOR">=</xliff:g>Lusaka<xliff:g id="TIMEZONE">|Africa/Lusaka</xliff:g>"</string>
+    <string name="C319" msgid="5757039321992317631">"<xliff:g id="SEPARATOR">=</xliff:g>Madžūras<xliff:g id="TIMEZONE">|Pacific/Majuro</xliff:g>"</string>
+    <string name="C320" msgid="8334348266391215583">"<xliff:g id="SEPARATOR">=</xliff:g>Malabas<xliff:g id="TIMEZONE">|Africa/Malabo</xliff:g>"</string>
+    <string name="C321" msgid="5401323973667971972">"<xliff:g id="SEPARATOR">=</xliff:g>Maputas<xliff:g id="TIMEZONE">|Africa/Maputo</xliff:g>"</string>
+    <string name="C322" msgid="67637052310417975">"<xliff:g id="SEPARATOR">=</xliff:g>Mbabanė<xliff:g id="TIMEZONE">|Africa/Mbabane</xliff:g>"</string>
+    <string name="C323" msgid="4500721332684955521">"<xliff:g id="SEPARATOR">=</xliff:g>Moronis<xliff:g id="TIMEZONE">|Indian/Comoro</xliff:g>"</string>
+    <string name="C324" msgid="1741927819842539260">"<xliff:g id="SEPARATOR">=</xliff:g>Ndžamena<xliff:g id="TIMEZONE">|Africa/Ndjamena</xliff:g>"</string>
+    <string name="C325" msgid="8771905307322194055">"<xliff:g id="SEPARATOR">=</xliff:g>Ngerulmudas<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
+    <string name="C326" msgid="2389198042593603472">"<xliff:g id="SEPARATOR">=</xliff:g>Niamėjus<xliff:g id="TIMEZONE">|Africa/Niamey</xliff:g>"</string>
+    <string name="C327" msgid="5317479895686981912">"<xliff:g id="SEPARATOR">=</xliff:g>Nikosija<xliff:g id="TIMEZONE">|Europe/Nicosia</xliff:g>"</string>
+    <string name="C328" msgid="6416405203954996861">"<xliff:g id="SEPARATOR">=</xliff:g>Nuakšotas<xliff:g id="TIMEZONE">|Africa/Nouakchott</xliff:g>"</string>
+    <string name="C329" msgid="6876960940903095843">"<xliff:g id="SEPARATOR">=</xliff:g>Nukualofa<xliff:g id="TIMEZONE">|Pacific/Tongatapu</xliff:g>"</string>
+    <string name="C330" msgid="1572294706542426161">"<xliff:g id="SEPARATOR">=</xliff:g>Vagadugu<xliff:g id="TIMEZONE">|Africa/Ouagadougou</xliff:g>"</string>
+    <string name="C331" msgid="2607492003890117689">"<xliff:g id="SEPARATOR">=</xliff:g>Palikyras<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
+    <string name="C332" msgid="8349533418456323370">"<xliff:g id="SEPARATOR">=</xliff:g>Filipsbergas<xliff:g id="TIMEZONE">|America/Lower_Princes</xliff:g>"</string>
+    <string name="C333" msgid="2842640664018042568">"<xliff:g id="SEPARATOR">=</xliff:g>Podgorica<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g>"</string>
+    <string name="C334" msgid="3310146581437635671">"<xliff:g id="SEPARATOR">=</xliff:g>Port Morsbis<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
+    <string name="C335" msgid="3317158262102352303">"<xliff:g id="SEPARATOR">=</xliff:g>Port Vila<xliff:g id="TIMEZONE">|Pacific/Efate</xliff:g>"</string>
+    <string name="C336" msgid="3810072761869903472">"<xliff:g id="SEPARATOR">=</xliff:g>Porto Novas<xliff:g id="TIMEZONE">|Africa/Porto-Novo</xliff:g>"</string>
+    <string name="C337" msgid="3412269218104112252">"<xliff:g id="SEPARATOR">=</xliff:g>Priština<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
+    <string name="C338" msgid="6151841959824325885">"<xliff:g id="SEPARATOR">=</xliff:g>Rozo<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
+    <string name="C339" msgid="8909994815975646525">"<xliff:g id="SEPARATOR">=</xliff:g>Taškentas<xliff:g id="TIMEZONE">|Asia/Tashkent</xliff:g>"</string>
+    <string name="C340" msgid="415479723070879485">"<xliff:g id="SEPARATOR">=</xliff:g>Tbilisis<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
+    <string name="C341" msgid="2299478430610154042">"<xliff:g id="SEPARATOR">=</xliff:g>Timpu<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
+    <string name="C342" msgid="7997617194333170685">"<xliff:g id="SEPARATOR">=</xliff:g>Tirana<xliff:g id="TIMEZONE">|Europe/Tirane</xliff:g>"</string>
+    <string name="C343" msgid="622805851462854910">"<xliff:g id="SEPARATOR">=</xliff:g>Vaducas<xliff:g id="TIMEZONE">|Europe/Vaduz</xliff:g>"</string>
+    <string name="C344" msgid="1145479224257720400">"<xliff:g id="SEPARATOR">=</xliff:g>Viktorija<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
+    <string name="C345" msgid="1613958949888896258">"<xliff:g id="SEPARATOR">=</xliff:g>Vientianas<xliff:g id="TIMEZONE">|Asia/Vientiane</xliff:g>"</string>
+    <string name="C346" msgid="1111771082167929457">"<xliff:g id="SEPARATOR">=</xliff:g>Vindhukas<xliff:g id="TIMEZONE">|Africa/Windhoek</xliff:g>"</string>
+    <string name="C347" msgid="1521759005466193913">"<xliff:g id="SEPARATOR">=</xliff:g>Jaundė<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g>"</string>
+    <string name="C348" msgid="7840627606139050754">"<xliff:g id="SEPARATOR">=</xliff:g>Jareno apygarda<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
+    <string name="C349" msgid="8467388994123401044">"<xliff:g id="SEPARATOR">=</xliff:g>Jerevanas<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
 </resources>
