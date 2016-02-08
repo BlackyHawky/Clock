@@ -171,7 +171,7 @@
     <string name="sw_stop_button" msgid="8322958613123274451">"থামান"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ল্যাপ"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"পুনরায় সেট করুন"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"ভাগ করুন"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"শেয়ার করুন"</string>
     <string name="hours_label" msgid="3393478155635368097">"ঘ."</string>
     <string name="minutes_label" msgid="3568098128251438588">"মি."</string>
     <string name="seconds_label" msgid="124655952824003246">"সে."</string>
