@@ -309,102 +309,53 @@
     <string name="C298" msgid="4186340979527221275">"P<xliff:g id="SEPARATOR">=</xliff:g>Paramaribo<xliff:g id="TIMEZONE">|America/Paramaribo</xliff:g>"</string>
     <string name="C299" msgid="5688169950851674667">"K<xliff:g id="SEPARATOR">=</xliff:g>Kito<xliff:g id="TIMEZONE">|America/Panama</xliff:g>"</string>
     <string name="C300" msgid="7351753589989414696">"L<xliff:g id="SEPARATOR">=</xliff:g>Lyublyana<xliff:g id="TIMEZONE">|Europe/Ljubljana</xliff:g>"</string>
-    <!-- no translation found for C301 (9089921329206815602) -->
-    <skip />
-    <!-- no translation found for C302 (6471051311513517449) -->
-    <skip />
-    <!-- no translation found for C303 (6208957436062127281) -->
-    <skip />
-    <!-- no translation found for C304 (7757188637892125245) -->
-    <skip />
-    <!-- no translation found for C305 (5538312768539249335) -->
-    <skip />
-    <!-- no translation found for C306 (6400938736119754675) -->
-    <skip />
-    <!-- no translation found for C307 (1169132195117591472) -->
-    <skip />
-    <!-- no translation found for C308 (7704965635342439141) -->
-    <skip />
-    <!-- no translation found for C309 (1522235235310763925) -->
-    <skip />
-    <!-- no translation found for C310 (8666508463588411257) -->
-    <skip />
-    <!-- no translation found for C311 (5940486195605635031) -->
-    <skip />
-    <!-- no translation found for C312 (1714210141256903683) -->
-    <skip />
-    <!-- no translation found for C313 (8390229571948311411) -->
-    <skip />
-    <!-- no translation found for C314 (3840011425345102604) -->
-    <skip />
-    <!-- no translation found for C315 (8962557999110557329) -->
-    <skip />
-    <!-- no translation found for C316 (3674113287320887951) -->
-    <skip />
-    <!-- no translation found for C317 (4818049429422081055) -->
-    <skip />
-    <!-- no translation found for C318 (3814107319819817789) -->
-    <skip />
-    <!-- no translation found for C319 (5757039321992317631) -->
-    <skip />
-    <!-- no translation found for C320 (8334348266391215583) -->
-    <skip />
-    <!-- no translation found for C321 (5401323973667971972) -->
-    <skip />
-    <!-- no translation found for C322 (67637052310417975) -->
-    <skip />
-    <!-- no translation found for C323 (4500721332684955521) -->
-    <skip />
-    <!-- no translation found for C324 (1741927819842539260) -->
-    <skip />
-    <!-- no translation found for C325 (8771905307322194055) -->
-    <skip />
-    <!-- no translation found for C326 (2389198042593603472) -->
-    <skip />
-    <!-- no translation found for C327 (5317479895686981912) -->
-    <skip />
-    <!-- no translation found for C328 (6416405203954996861) -->
-    <skip />
-    <!-- no translation found for C329 (6876960940903095843) -->
-    <skip />
-    <!-- no translation found for C330 (1572294706542426161) -->
-    <skip />
-    <!-- no translation found for C331 (2607492003890117689) -->
-    <skip />
-    <!-- no translation found for C332 (8349533418456323370) -->
-    <skip />
-    <!-- no translation found for C333 (2842640664018042568) -->
-    <skip />
-    <!-- no translation found for C334 (3310146581437635671) -->
-    <skip />
-    <!-- no translation found for C335 (3317158262102352303) -->
-    <skip />
-    <!-- no translation found for C336 (3810072761869903472) -->
-    <skip />
-    <!-- no translation found for C337 (3412269218104112252) -->
-    <skip />
-    <!-- no translation found for C338 (6151841959824325885) -->
-    <skip />
-    <!-- no translation found for C339 (8909994815975646525) -->
-    <skip />
-    <!-- no translation found for C340 (415479723070879485) -->
-    <skip />
-    <!-- no translation found for C341 (2299478430610154042) -->
-    <skip />
-    <!-- no translation found for C342 (7997617194333170685) -->
-    <skip />
-    <!-- no translation found for C343 (622805851462854910) -->
-    <skip />
-    <!-- no translation found for C344 (1145479224257720400) -->
-    <skip />
-    <!-- no translation found for C345 (1613958949888896258) -->
-    <skip />
-    <!-- no translation found for C346 (1111771082167929457) -->
-    <skip />
-    <!-- no translation found for C347 (1521759005466193913) -->
-    <skip />
-    <!-- no translation found for C348 (7840627606139050754) -->
-    <skip />
-    <!-- no translation found for C349 (8467388994123401044) -->
-    <skip />
+    <string name="C301" msgid="9089921329206815602">"A<xliff:g id="SEPARATOR">=</xliff:g>Aşqabad<xliff:g id="TIMEZONE">|Asia/Ashgabat</xliff:g>"</string>
+    <string name="C302" msgid="6471051311513517449">"A<xliff:g id="SEPARATOR">=</xliff:g>Əsməra<xliff:g id="TIMEZONE">|Africa/Asmara</xliff:g>"</string>
+    <string name="C303" msgid="6208957436062127281">"B<xliff:g id="SEPARATOR">=</xliff:g>Bandar Səri Bəgavan<xliff:g id="TIMEZONE">|Asia/Brunei</xliff:g>"</string>
+    <string name="C304" msgid="7757188637892125245">"B<xliff:g id="SEPARATOR">=</xliff:g>Bangi<xliff:g id="TIMEZONE">|Africa/Bangui</xliff:g>"</string>
+    <string name="C305" msgid="5538312768539249335">"B<xliff:g id="SEPARATOR">=</xliff:g>Banjul<xliff:g id="TIMEZONE">|Africa/Banjul</xliff:g>"</string>
+    <string name="C306" msgid="6400938736119754675">"B<xliff:g id="SEPARATOR">=</xliff:g>Bişkek<xliff:g id="TIMEZONE">|Asia/Bishkek</xliff:g>"</string>
+    <string name="C307" msgid="1169132195117591472">"B<xliff:g id="SEPARATOR">=</xliff:g>Bisau<xliff:g id="TIMEZONE">|Africa/Bissau</xliff:g>"</string>
+    <string name="C308" msgid="7704965635342439141">"B<xliff:g id="SEPARATOR">=</xliff:g>Bujumbura<xliff:g id="TIMEZONE">|Africa/Bujumbura</xliff:g>"</string>
+    <string name="C309" msgid="1522235235310763925">"D<xliff:g id="SEPARATOR">=</xliff:g>Dili<xliff:g id="TIMEZONE">|Asia/Dili</xliff:g>"</string>
+    <string name="C310" msgid="8666508463588411257">"D<xliff:g id="SEPARATOR">=</xliff:g>Düşənbə<xliff:g id="TIMEZONE">|Asia/Dushanbe</xliff:g>"</string>
+    <string name="C311" msgid="5940486195605635031">"F<xliff:g id="SEPARATOR">=</xliff:g>Funafuti<xliff:g id="TIMEZONE">|Pacific/Funafuti</xliff:g>"</string>
+    <string name="C312" msgid="1714210141256903683">"H<xliff:g id="SEPARATOR">=</xliff:g>Honiara<xliff:g id="TIMEZONE">|Pacific/Guadalcanal</xliff:g>"</string>
+    <string name="C313" msgid="8390229571948311411">"C<xliff:g id="SEPARATOR">=</xliff:g>Cuba<xliff:g id="TIMEZONE">|Africa/Juba</xliff:g>"</string>
+    <string name="C314" msgid="3840011425345102604">"K<xliff:g id="SEPARATOR">=</xliff:g>Kinqstaun<xliff:g id="TIMEZONE">|America/St_Vincent</xliff:g>"</string>
+    <string name="C315" msgid="8962557999110557329">"L<xliff:g id="SEPARATOR">=</xliff:g>Librevil<xliff:g id="TIMEZONE">|Africa/Libreville</xliff:g>"</string>
+    <string name="C316" msgid="3674113287320887951">"L<xliff:g id="SEPARATOR">=</xliff:g>Lome<xliff:g id="TIMEZONE">|Africa/Lome</xliff:g>"</string>
+    <string name="C317" msgid="4818049429422081055">"L<xliff:g id="SEPARATOR">=</xliff:g>Luanda<xliff:g id="TIMEZONE">|Africa/Luanda</xliff:g>"</string>
+    <string name="C318" msgid="3814107319819817789">"L<xliff:g id="SEPARATOR">=</xliff:g>Lusaka<xliff:g id="TIMEZONE">|Africa/Lusaka</xliff:g>"</string>
+    <string name="C319" msgid="5757039321992317631">"M<xliff:g id="SEPARATOR">=</xliff:g>Macuro<xliff:g id="TIMEZONE">|Pacific/Majuro</xliff:g>"</string>
+    <string name="C320" msgid="8334348266391215583">"M<xliff:g id="SEPARATOR">=</xliff:g>Malabo<xliff:g id="TIMEZONE">|Africa/Malabo</xliff:g>"</string>
+    <string name="C321" msgid="5401323973667971972">"M<xliff:g id="SEPARATOR">=</xliff:g>Maputo<xliff:g id="TIMEZONE">|Africa/Maputo</xliff:g>"</string>
+    <string name="C322" msgid="67637052310417975">"M<xliff:g id="SEPARATOR">=</xliff:g>Mbabane<xliff:g id="TIMEZONE">|Africa/Mbabane</xliff:g>"</string>
+    <string name="C323" msgid="4500721332684955521">"M<xliff:g id="SEPARATOR">=</xliff:g>Moroni<xliff:g id="TIMEZONE">|Indian/Comoro</xliff:g>"</string>
+    <string name="C324" msgid="1741927819842539260">"N<xliff:g id="SEPARATOR">=</xliff:g>Ncamena<xliff:g id="TIMEZONE">|Africa/Ndjamena</xliff:g>"</string>
+    <string name="C325" msgid="8771905307322194055">"N<xliff:g id="SEPARATOR">=</xliff:g>Nqerulmud<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
+    <string name="C326" msgid="2389198042593603472">"N<xliff:g id="SEPARATOR">=</xliff:g>Niamey<xliff:g id="TIMEZONE">|Africa/Niamey</xliff:g>"</string>
+    <string name="C327" msgid="5317479895686981912">"N<xliff:g id="SEPARATOR">=</xliff:g>Nikosiya<xliff:g id="TIMEZONE">|Europe/Nicosia</xliff:g>"</string>
+    <string name="C328" msgid="6416405203954996861">"N<xliff:g id="SEPARATOR">=</xliff:g>Nuakşot<xliff:g id="TIMEZONE">|Africa/Nouakchott</xliff:g>"</string>
+    <string name="C329" msgid="6876960940903095843">"N<xliff:g id="SEPARATOR">=</xliff:g>Nukualofa<xliff:g id="TIMEZONE">|Pacific/Tongatapu</xliff:g>"</string>
+    <string name="C330" msgid="1572294706542426161">"U<xliff:g id="SEPARATOR">=</xliff:g>Uaqaduqu<xliff:g id="TIMEZONE">|Africa/Ouagadougou</xliff:g>"</string>
+    <string name="C331" msgid="2607492003890117689">"P<xliff:g id="SEPARATOR">=</xliff:g>Palikir<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
+    <string name="C332" msgid="8349533418456323370">"F<xliff:g id="SEPARATOR">=</xliff:g>Filipsburq<xliff:g id="TIMEZONE">|America/Lower_Princes</xliff:g>"</string>
+    <string name="C333" msgid="2842640664018042568">"P<xliff:g id="SEPARATOR">=</xliff:g>Podqoritsa<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g>"</string>
+    <string name="C334" msgid="3310146581437635671">"P<xliff:g id="SEPARATOR">=</xliff:g>Port Morsbi<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
+    <string name="C335" msgid="3317158262102352303">"P<xliff:g id="SEPARATOR">=</xliff:g>Port Vila<xliff:g id="TIMEZONE">|Pacific/Efate</xliff:g>"</string>
+    <string name="C336" msgid="3810072761869903472">"P<xliff:g id="SEPARATOR">=</xliff:g>Porto-Novo<xliff:g id="TIMEZONE">|Africa/Porto-Novo</xliff:g>"</string>
+    <string name="C337" msgid="3412269218104112252">"P<xliff:g id="SEPARATOR">=</xliff:g>Priştine<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
+    <string name="C338" msgid="6151841959824325885">"R<xliff:g id="SEPARATOR">=</xliff:g>Rozo<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
+    <string name="C339" msgid="8909994815975646525">"D<xliff:g id="SEPARATOR">=</xliff:g>Daşkənd<xliff:g id="TIMEZONE">|Asia/Tashkent</xliff:g>"</string>
+    <string name="C340" msgid="415479723070879485">"T<xliff:g id="SEPARATOR">=</xliff:g>Tbilisi<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
+    <string name="C341" msgid="2299478430610154042">"T<xliff:g id="SEPARATOR">=</xliff:g>Thimphu<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
+    <string name="C342" msgid="7997617194333170685">"T<xliff:g id="SEPARATOR">=</xliff:g>Tirana<xliff:g id="TIMEZONE">|Europe/Tirane</xliff:g>"</string>
+    <string name="C343" msgid="622805851462854910">"V<xliff:g id="SEPARATOR">=</xliff:g>Vaduts<xliff:g id="TIMEZONE">|Europe/Vaduz</xliff:g>"</string>
+    <string name="C344" msgid="1145479224257720400">"V<xliff:g id="SEPARATOR">=</xliff:g>Viktoriya<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
+    <string name="C345" msgid="1613958949888896258">"V<xliff:g id="SEPARATOR">=</xliff:g>Vyentyan<xliff:g id="TIMEZONE">|Asia/Vientiane</xliff:g>"</string>
+    <string name="C346" msgid="1111771082167929457">"V<xliff:g id="SEPARATOR">=</xliff:g>Vindhuk<xliff:g id="TIMEZONE">|Africa/Windhoek</xliff:g>"</string>
+    <string name="C347" msgid="1521759005466193913">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yaunde<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g>"</string>
+    <string name="C348" msgid="7840627606139050754">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yaren<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
+    <string name="C349" msgid="8467388994123401044">"İ<xliff:g id="SEPARATOR">=</xliff:g>İrəvan<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
 </resources>
