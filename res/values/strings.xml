@@ -363,7 +363,7 @@
     <string name="alarm_notify_snooze_label"><xliff:g id="label">%s</xliff:g> (snoozed)</string>
 
     <!-- Text to display in the notification when the alarm has been snoozed -->
-    <string name="alarm_notify_snooze_text">Alarm set for <xliff:g id="time">%s</xliff:g>. Touch to cancel.</string>
+    <string name="alarm_notify_snooze_text">Alarm set for <xliff:g id="time">%s</xliff:g>. Tap to cancel.</string>
 
     <!-- Title of the setting to change hardware button behavior. This string
          should be changed for each piece of hardware. [CHAR LIMIT=20] -->
@@ -844,7 +844,7 @@
     <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
     <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers paused</string>
     <!-- Notification text when multiple timers are paused. -->
-    <string name="all_timers_stopped_notif">Touch to see your timers</string>
+    <string name="all_timers_stopped_notif">Tap to see your timers</string>
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
     <string name="timers_in_use"><xliff:g id="number" example="7">%d</xliff:g> timers</string>
     <!-- Notification text when at least one timer, of those in use, is counting down. -->
