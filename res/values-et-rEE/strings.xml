@@ -140,7 +140,7 @@
     <string name="silent_ringtone" msgid="4392654938729167866">"Hääletu helin"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Lükake äratus edasi või loobuge sellest."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (edasi lükatud)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Äratus on määratud: <xliff:g id="TIME">%s</xliff:g>. Tühistamiseks puudutage."</string>
+    <string name="alarm_notify_snooze_text" msgid="8281274221778792020">"Äratus on määratud kellaajaks <xliff:g id="TIME">%s</xliff:g>. Tühistamiseks puudutage."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Helitugevuse nupud"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Nupu mõju"</string>
   <string-array name="volume_button_setting_entries">
@@ -353,7 +353,7 @@
     <string name="timer_stopped" msgid="2730331837832462008">"Taimer on peatatud"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Taimer peatati"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> taimerit peatati"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Puudutage, et näha oma taimereid"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Puudutage taimerite nägemiseks"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> taimerit"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Järgmine taimer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Uneseaded"</string>

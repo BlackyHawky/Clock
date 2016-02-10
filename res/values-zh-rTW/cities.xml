@@ -317,12 +317,12 @@
     <string name="C306" msgid="6400938736119754675">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>比斯凱克<xliff:g id="TIMEZONE">|Asia/Bishkek</xliff:g>"</string>
     <string name="C307" msgid="1169132195117591472">"4 劃<xliff:g id="SEPARATOR">=</xliff:g>比索<xliff:g id="TIMEZONE">|Africa/Bissau</xliff:g>"</string>
     <string name="C308" msgid="7704965635342439141">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>布松布拉<xliff:g id="TIMEZONE">|Africa/Bujumbura</xliff:g>"</string>
-    <string name="C309" msgid="1522235235310763925">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>帝力<xliff:g id="TIMEZONE">|Asia/Dili</xliff:g>"</string>
+    <string name="C309" msgid="1522235235310763925">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>帝利<xliff:g id="TIMEZONE">|Asia/Dili</xliff:g>"</string>
     <string name="C310" msgid="8666508463588411257">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>杜尚貝<xliff:g id="TIMEZONE">|Asia/Dushanbe</xliff:g>"</string>
     <string name="C311" msgid="5940486195605635031">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>富納富提<xliff:g id="TIMEZONE">|Pacific/Funafuti</xliff:g>"</string>
     <string name="C312" msgid="1714210141256903683">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>荷尼阿拉<xliff:g id="TIMEZONE">|Pacific/Guadalcanal</xliff:g>"</string>
-    <string name="C313" msgid="8390229571948311411">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>茱芭<xliff:g id="TIMEZONE">|Africa/Juba</xliff:g>"</string>
-    <string name="C314" msgid="3840011425345102604">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>金斯敦<xliff:g id="TIMEZONE">|America/St_Vincent</xliff:g>"</string>
+    <string name="C313" msgid="8390229571948311411">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>朱巴<xliff:g id="TIMEZONE">|Africa/Juba</xliff:g>"</string>
+    <string name="C314" msgid="3840011425345102604">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>金石城<xliff:g id="TIMEZONE">|America/St_Vincent</xliff:g>"</string>
     <string name="C315" msgid="8962557999110557329">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>自由市<xliff:g id="TIMEZONE">|Africa/Libreville</xliff:g>"</string>
     <string name="C316" msgid="3674113287320887951">"9 劃<xliff:g id="SEPARATOR">=</xliff:g>洛梅<xliff:g id="TIMEZONE">|Africa/Lome</xliff:g>"</string>
     <string name="C317" msgid="4818049429422081055">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>魯安達<xliff:g id="TIMEZONE">|Africa/Luanda</xliff:g>"</string>
@@ -332,14 +332,14 @@
     <string name="C321" msgid="5401323973667971972">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>馬布多<xliff:g id="TIMEZONE">|Africa/Maputo</xliff:g>"</string>
     <string name="C322" msgid="67637052310417975">"15 劃<xliff:g id="SEPARATOR">=</xliff:g>墨巴本<xliff:g id="TIMEZONE">|Africa/Mbabane</xliff:g>"</string>
     <string name="C323" msgid="4500721332684955521">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>莫洛尼<xliff:g id="TIMEZONE">|Indian/Comoro</xliff:g>"</string>
-    <string name="C324" msgid="1741927819842539260">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>恩將納<xliff:g id="TIMEZONE">|Africa/Ndjamena</xliff:g>"</string>
+    <string name="C324" msgid="1741927819842539260">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>恩加美納<xliff:g id="TIMEZONE">|Africa/Ndjamena</xliff:g>"</string>
     <string name="C325" msgid="8771905307322194055">"10 劃<xliff:g id="SEPARATOR">=</xliff:g>恩吉魯穆德<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
     <string name="C326" msgid="2389198042593603472">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>尼阿美<xliff:g id="TIMEZONE">|Africa/Niamey</xliff:g>"</string>
-    <string name="C327" msgid="5317479895686981912">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>尼古西亞<xliff:g id="TIMEZONE">|Europe/Nicosia</xliff:g>"</string>
+    <string name="C327" msgid="5317479895686981912">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>尼柯西亞<xliff:g id="TIMEZONE">|Europe/Nicosia</xliff:g>"</string>
     <string name="C328" msgid="6416405203954996861">"16 劃<xliff:g id="SEPARATOR">=</xliff:g>諾克少<xliff:g id="TIMEZONE">|Africa/Nouakchott</xliff:g>"</string>
     <string name="C329" msgid="6876960940903095843">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>努瓜婁發<xliff:g id="TIMEZONE">|Pacific/Tongatapu</xliff:g>"</string>
     <string name="C330" msgid="1572294706542426161">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>瓦加杜古<xliff:g id="TIMEZONE">|Africa/Ouagadougou</xliff:g>"</string>
-    <string name="C331" msgid="2607492003890117689">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>帕利基爾<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
+    <string name="C331" msgid="2607492003890117689">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>帕里克爾<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
     <string name="C332" msgid="8349533418456323370">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>菲利普斯堡<xliff:g id="TIMEZONE">|America/Lower_Princes</xliff:g>"</string>
     <string name="C333" msgid="2842640664018042568">"8 劃<xliff:g id="SEPARATOR">=</xliff:g>波德戈里察<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g>"</string>
     <string name="C334" msgid="3310146581437635671">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>莫士比港<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
@@ -348,8 +348,8 @@
     <string name="C337" msgid="3412269218104112252">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>普里斯提納<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
     <string name="C338" msgid="6151841959824325885">"19 劃<xliff:g id="SEPARATOR">=</xliff:g>羅梭<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
     <string name="C339" msgid="8909994815975646525">"13 劃<xliff:g id="SEPARATOR">=</xliff:g>塔什干<xliff:g id="TIMEZONE">|Asia/Tashkent</xliff:g>"</string>
-    <string name="C340" msgid="415479723070879485">"11 劃<xliff:g id="SEPARATOR">=</xliff:g>第比利斯<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
-    <string name="C341" msgid="2299478430610154042">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>廷布<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
+    <string name="C340" msgid="415479723070879485">"12 劃<xliff:g id="SEPARATOR">=</xliff:g>提比里斯<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
+    <string name="C341" msgid="2299478430610154042">"7 劃<xliff:g id="SEPARATOR">=</xliff:g>辛布<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
     <string name="C342" msgid="7997617194333170685">"6 劃<xliff:g id="SEPARATOR">=</xliff:g>地拉那<xliff:g id="TIMEZONE">|Europe/Tirane</xliff:g>"</string>
     <string name="C343" msgid="622805851462854910">"5 劃<xliff:g id="SEPARATOR">=</xliff:g>瓦都茲<xliff:g id="TIMEZONE">|Europe/Vaduz</xliff:g>"</string>
     <string name="C344" msgid="1145479224257720400">"14 劃<xliff:g id="SEPARATOR">=</xliff:g>維多利亞<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>

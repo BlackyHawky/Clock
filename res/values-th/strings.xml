@@ -140,7 +140,8 @@
     <string name="silent_ringtone" msgid="4392654938729167866">"ปิดเสียงเรียกเข้า"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"ปิดเสียงเตือนชั่วคราวหรือปิดการปลุก"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ปิดเสียงเตือนชั่วคราว)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ตั้งปลุกไว้ในเวลา <xliff:g id="TIME">%s</xliff:g> แตะเพื่อยกเลิก"</string>
+    <!-- no translation found for alarm_notify_snooze_text (8281274221778792020) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ปุ่มระดับเสียง"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"การทำงานของปุ่ม"</string>
   <string-array name="volume_button_setting_entries">
@@ -353,7 +354,8 @@
     <string name="timer_stopped" msgid="2730331837832462008">"หยุดนาฬิกาจับเวลาแล้ว"</string>
     <string name="timer_paused" msgid="5941160896040771462">"หยุดตัวจับเวลาชั่วคราวแล้ว"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"หยุด <xliff:g id="NUMBER">%d</xliff:g> ตัวจับเวลาชั่วคราว"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"แตะเพื่อดูนาฬิกาจับเวลาของคุณ"</string>
+    <!-- no translation found for all_timers_stopped_notif (883027111895833440) -->
+    <skip />
     <string name="timers_in_use" msgid="5570729467344408506">"นาฬิกาจับเวลา <xliff:g id="NUMBER">%d</xliff:g> เรือน"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"นาฬิกาจับเวลาถัดไป: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"การตั้งค่าเดย์ดรีม"</string>

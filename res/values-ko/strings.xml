@@ -140,7 +140,8 @@
     <string name="silent_ringtone" msgid="4392654938729167866">"무음"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"알람을 일시 중지하거나 해제합니다."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g>(알람 일시 중지됨)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> 후로 알람이 설정되었습니다. 취소하려면 터치하세요."</string>
+    <!-- no translation found for alarm_notify_snooze_text (8281274221778792020) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"버튼 효과"</string>
   <string-array name="volume_button_setting_entries">
@@ -353,7 +354,8 @@
     <string name="timer_stopped" msgid="2730331837832462008">"타이머가 정지됨"</string>
     <string name="timer_paused" msgid="5941160896040771462">"타이머가 일시중지됨"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개 일시중지됨"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"타이머를 보려면 터치하세요."</string>
+    <!-- no translation found for all_timers_stopped_notif (883027111895833440) -->
+    <skip />
     <string name="timers_in_use" msgid="5570729467344408506">"타이머 <xliff:g id="NUMBER">%d</xliff:g>개"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"다음 타이머: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"화면 보호기 설정"</string>

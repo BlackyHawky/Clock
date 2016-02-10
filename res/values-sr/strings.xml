@@ -148,7 +148,8 @@
     <string name="silent_ringtone" msgid="4392654938729167866">"Без мелодије звона"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Одложите или одбаците аларм."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (одложено)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Аларм ће се укључити за <xliff:g id="TIME">%s</xliff:g>. Додирните за отказивање."</string>
+    <!-- no translation found for alarm_notify_snooze_text (8281274221778792020) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Дугмад за јачину"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Ефекат дугмета"</string>
   <string-array name="volume_button_setting_entries">
@@ -364,7 +365,8 @@
     <string name="timer_stopped" msgid="2730331837832462008">"Тајмер је заустављен"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Тајмер је паузиран"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"Паузираних тајмера: <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Додирните да бисте видели тајмере"</string>
+    <!-- no translation found for all_timers_stopped_notif (883027111895833440) -->
+    <skip />
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> тајмера"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Следећи тајмер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Подешавања за Сан"</string>
