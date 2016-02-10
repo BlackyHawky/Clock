@@ -45,12 +45,11 @@ import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.settings.SettingsActivity;
-import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-
-import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
 
 /**
  * This class handles all the state changes for alarm instances. You need to
@@ -288,12 +287,15 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 Alarm.updateAlarm(cr, alarm);
             }
         } else {
-            // Schedule the next repeating instance after the current time or the last instance's
-            // time (whichever is later).
-            final Calendar currentTime = getCurrentTime();
-            final Calendar lastInstanceTime = instance.getAlarmTime();
-            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(
-                currentTime.compareTo(lastInstanceTime) > 0 ? currentTime : lastInstanceTime);
+            // Schedule the next repeating instance which may be before the current instance if a
+            // time jump has occurred. Otherwise, if the current instance is the next instance
+            // and has already been fired, schedule the subsequent instance.
+            AlarmInstance nextRepeatedInstance = alarm.createInstanceAfter(getCurrentTime());
+            if (instance.mAlarmState > AlarmInstance.FIRED_STATE
+                    && nextRepeatedInstance.getAlarmTime().equals(instance.getAlarmTime())) {
+                nextRepeatedInstance = alarm.createInstanceAfter(instance.getAlarmTime());
+            }
+
             LogUtils.i("Creating new instance for repeating alarm " + alarm.id + " at " +
                     AlarmUtils.getFormattedTime(context, nextRepeatedInstance.getAlarmTime()));
             AlarmInstance.addInstance(cr, nextRepeatedInstance);
@@ -567,8 +569,9 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * This will set the alarm instance to the PREDISMISSED_STATE and schedule an instance state
      * change to DISMISSED_STATE at the regularly scheduled firing time.
-     * @param context
-     * @param instance
+     *
+     * @param context application context
+     * @param instance to set state to
      */
     public static void setPreDismissState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting predismissed state to instance " + instance.mId);
@@ -803,7 +806,20 @@ public final class AlarmStateManager extends BroadcastReceiver {
         // Register all instances after major time changes or when phone restarts
         final ContentResolver contentResolver = context.getContentResolver();
         final Calendar currentTime = getCurrentTime();
-        for (AlarmInstance instance : AlarmInstance.getInstances(contentResolver, null)) {
+
+        // Sort the instances in reverse chronological order so that later instances are fixed or
+        // deleted before re-scheduling prior instances (which may re-create or update the later
+        // instances).
+        final List<AlarmInstance> instances = AlarmInstance.getInstances(
+                contentResolver, null /* selection */);
+        Collections.sort(instances, new Comparator<AlarmInstance>() {
+            @Override
+            public int compare(AlarmInstance lhs, AlarmInstance rhs) {
+                return rhs.getAlarmTime().compareTo(lhs.getAlarmTime());
+            }
+        });
+
+        for (AlarmInstance instance : instances) {
             final Alarm alarm = Alarm.getAlarm(contentResolver, instance.mAlarmId);
             if (alarm == null) {
                 unregisterInstance(context, instance);
@@ -825,7 +841,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 // remove it and schedule the new appropriate instance.
                 AlarmStateManager.deleteInstanceAndUpdateParent(context, instance);
             } else {
-                registerInstance(context, instance, false);
+                registerInstance(context, instance, false /* updateNextAlarm */);
             }
         }
 
