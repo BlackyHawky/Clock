@@ -17,10 +17,10 @@
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="C1" msgid="3622720549928625541">"A<xliff:g id="SEPARATOR">=</xliff:g>Абиджан<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
-    <string name="C2" msgid="9073993995416728918">"A<xliff:g id="SEPARATOR">=</xliff:g>Аккра<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
-    <string name="C3" msgid="5172979423931428620">"A<xliff:g id="SEPARATOR">=</xliff:g>Аддис-Абеба<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
-    <string name="C4" msgid="4450258423854546267">"A<xliff:g id="SEPARATOR">=</xliff:g>Алжир<xliff:g id="TIMEZONE">|Africa/Algiers</xliff:g>"</string>
+    <string name="C1" msgid="3622720549928625541">"<xliff:g id="SEPARATOR">=</xliff:g>Абиджан<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
+    <string name="C2" msgid="9073993995416728918">"<xliff:g id="SEPARATOR">=</xliff:g>Аккра<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
+    <string name="C3" msgid="5172979423931428620">"<xliff:g id="SEPARATOR">=</xliff:g>Аддис-Абеба<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
+    <string name="C4" msgid="4450258423854546267">"<xliff:g id="SEPARATOR">=</xliff:g>Алжир<xliff:g id="TIMEZONE">|Africa/Algiers</xliff:g>"</string>
     <string name="C5" msgid="8063142106679202722">"Б<xliff:g id="SEPARATOR">=</xliff:g>Блантайр<xliff:g id="TIMEZONE">|Africa/Blantyre</xliff:g>"</string>
     <string name="C6" msgid="1620940469531839828">"Б<xliff:g id="SEPARATOR">=</xliff:g>Браззавиль<xliff:g id="TIMEZONE">|Africa/Brazzaville</xliff:g>"</string>
     <string name="C7" msgid="8450502029020824529">"К<xliff:g id="SEPARATOR">=</xliff:g>Каир<xliff:g id="TIMEZONE">|Africa/Cairo</xliff:g>"</string>
@@ -45,8 +45,8 @@
     <string name="C26" msgid="3250092456144685877">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тимбукту<xliff:g id="TIMEZONE">|Africa/Timbuktu</xliff:g>"</string>
     <string name="C27" msgid="851018621577780718">"Т<xliff:g id="SEPARATOR">=</xliff:g>Триполи<xliff:g id="TIMEZONE">|Africa/Tripoli</xliff:g>"</string>
     <string name="C28" msgid="7979767521827885833">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тунис<xliff:g id="TIMEZONE">|Africa/Tunis</xliff:g>"</string>
-    <string name="C29" msgid="7946114495840302218">"A<xliff:g id="SEPARATOR">=</xliff:g>Анкоридж<xliff:g id="TIMEZONE">|America/Anchorage</xliff:g>"</string>
-    <string name="C31" msgid="9017443250572798257">"A<xliff:g id="SEPARATOR">=</xliff:g>Аруба<xliff:g id="TIMEZONE">|America/Aruba</xliff:g>"</string>
+    <string name="C29" msgid="7946114495840302218">"<xliff:g id="SEPARATOR">=</xliff:g>Анкоридж<xliff:g id="TIMEZONE">|America/Anchorage</xliff:g>"</string>
+    <string name="C31" msgid="9017443250572798257">"<xliff:g id="SEPARATOR">=</xliff:g>Аруба<xliff:g id="TIMEZONE">|America/Aruba</xliff:g>"</string>
     <string name="C32" msgid="3825060534011309483">"A<xliff:g id="SEPARATOR">=</xliff:g>Асунсьон<xliff:g id="TIMEZONE">|America/Asuncion</xliff:g>"</string>
     <string name="C33" msgid="700410369162607101">"Б<xliff:g id="SEPARATOR">=</xliff:g>Барбадос<xliff:g id="TIMEZONE">|America/Barbados</xliff:g>"</string>
     <string name="C34" msgid="4247046344370912762">"Б<xliff:g id="SEPARATOR">=</xliff:g>Белиз<xliff:g id="TIMEZONE">|America/Belize</xliff:g>"</string>
@@ -113,10 +113,10 @@
     <string name="C96" msgid="3995904432128369027">"В<xliff:g id="SEPARATOR">=</xliff:g>Виннипег<xliff:g id="TIMEZONE">|America/Winnipeg</xliff:g>"</string>
     <string name="C97" msgid="5667595440938233073">"О<xliff:g id="SEPARATOR">=</xliff:g>Оңтүстік Полюс<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Antarctica/South_Pole</xliff:g>"</string>
     <string name="C98" msgid="2067640513126652156">"Л<xliff:g id="SEPARATOR">=</xliff:g>Лонгйир<xliff:g id="TIMEZONE">|Arctic/Longyearbyen</xliff:g>"</string>
-    <string name="C99" msgid="6750041547603679548">"A<xliff:g id="SEPARATOR">=</xliff:g>Алматы<xliff:g id="TIMEZONE">|Asia/Almaty</xliff:g>"</string>
-    <string name="C100" msgid="5995329947852415813">"A<xliff:g id="SEPARATOR">=</xliff:g>Амман<xliff:g id="TIMEZONE">|Asia/Amman</xliff:g>"</string>
-    <string name="C101" msgid="5760056604239047274">"A<xliff:g id="SEPARATOR">=</xliff:g>Анадырь<xliff:g id="TIMEZONE">|Asia/Anadyr</xliff:g>"</string>
-    <string name="C102" msgid="9000357065825182754">"A<xliff:g id="SEPARATOR">=</xliff:g>Ақтау<xliff:g id="TIMEZONE">|Asia/Aqtau</xliff:g>"</string>
+    <string name="C99" msgid="6750041547603679548">"<xliff:g id="SEPARATOR">=</xliff:g>Алматы<xliff:g id="TIMEZONE">|Asia/Almaty</xliff:g>"</string>
+    <string name="C100" msgid="5995329947852415813">"<xliff:g id="SEPARATOR">=</xliff:g>Амман<xliff:g id="TIMEZONE">|Asia/Amman</xliff:g>"</string>
+    <string name="C101" msgid="5760056604239047274">"<xliff:g id="SEPARATOR">=</xliff:g>Анадырь<xliff:g id="TIMEZONE">|Asia/Anadyr</xliff:g>"</string>
+    <string name="C102" msgid="9000357065825182754">"<xliff:g id="SEPARATOR">=</xliff:g>Ақтау<xliff:g id="TIMEZONE">|Asia/Aqtau</xliff:g>"</string>
     <string name="C103" msgid="8781982253489209791">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бағдат<xliff:g id="TIMEZONE">|Asia/Baghdad</xliff:g>"</string>
     <string name="C104" msgid="4021122575041916540">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бахрейн<xliff:g id="TIMEZONE">|Asia/Bahrain</xliff:g>"</string>
     <string name="C105" msgid="1812915124794679606">"Б<xliff:g id="SEPARATOR">=</xliff:g>Баку<xliff:g id="TIMEZONE">|Asia/Baku</xliff:g>"</string>
@@ -157,7 +157,7 @@
     <string name="C143" msgid="4888764215053863961">"К<xliff:g id="SEPARATOR">=</xliff:g>Кабо-Верде<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g>"</string>
     <string name="C144" msgid="3338105941475340049">"Р<xliff:g id="SEPARATOR">=</xliff:g>Рейкьявик<xliff:g id="TIMEZONE">|Atlantic/Reykjavik</xliff:g>"</string>
     <string name="C145" msgid="8684297689430494031">"С<xliff:g id="SEPARATOR">=</xliff:g>Стенли<xliff:g id="TIMEZONE">|Atlantic/Stanley</xliff:g>"</string>
-    <string name="C146" msgid="843808286721172656">"A<xliff:g id="SEPARATOR">=</xliff:g>Аделаида<xliff:g id="TIMEZONE">|Australia/Adelaide</xliff:g>"</string>
+    <string name="C146" msgid="843808286721172656">"<xliff:g id="SEPARATOR">=</xliff:g>Аделаида<xliff:g id="TIMEZONE">|Australia/Adelaide</xliff:g>"</string>
     <string name="C147" msgid="3712535858465321034">"Б<xliff:g id="SEPARATOR">=</xliff:g>Брисбен<xliff:g id="TIMEZONE">|Australia/Brisbane</xliff:g>"</string>
     <string name="C148" msgid="7019403666599702943">"К<xliff:g id="SEPARATOR">=</xliff:g>Канберра<xliff:g id="TIMEZONE">|Australia/Canberra</xliff:g>"</string>
     <string name="C149" msgid="8185355499458013534">"Д<xliff:g id="SEPARATOR">=</xliff:g>Дарвин<xliff:g id="TIMEZONE">|Australia/Darwin</xliff:g>"</string>
@@ -170,9 +170,9 @@
     <string name="C156" msgid="4003110220147338835">"Н<xliff:g id="SEPARATOR">=</xliff:g>Ньюфаундленд<xliff:g id="TIMEZONE">|Canada/Newfoundland</xliff:g>"</string>
     <string name="C157" msgid="2861486997803753970">"С<xliff:g id="SEPARATOR">=</xliff:g>Саскачеван<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g>"</string>
     <string name="C158" msgid="6882933026191056506">"П<xliff:g id="SEPARATOR">=</xliff:g>Пасха аралы<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g>"</string>
-    <string name="C159" msgid="4128429767051043903">"A<xliff:g id="SEPARATOR">=</xliff:g>Амстердам<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g>"</string>
-    <string name="C160" msgid="3488513735205092653">"A<xliff:g id="SEPARATOR">=</xliff:g>Андорра<xliff:g id="TIMEZONE">|Europe/Andorra</xliff:g>"</string>
-    <string name="C161" msgid="7244325364130392348">"A<xliff:g id="SEPARATOR">=</xliff:g>Афин<xliff:g id="TIMEZONE">|Europe/Athens</xliff:g>"</string>
+    <string name="C159" msgid="4128429767051043903">"<xliff:g id="SEPARATOR">=</xliff:g>Амстердам<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g>"</string>
+    <string name="C160" msgid="3488513735205092653">"<xliff:g id="SEPARATOR">=</xliff:g>Андорра<xliff:g id="TIMEZONE">|Europe/Andorra</xliff:g>"</string>
+    <string name="C161" msgid="7244325364130392348">"<xliff:g id="SEPARATOR">=</xliff:g>Афин<xliff:g id="TIMEZONE">|Europe/Athens</xliff:g>"</string>
     <string name="C162" msgid="7484009548361072313">"Б<xliff:g id="SEPARATOR">=</xliff:g>Белфаст<xliff:g id="TIMEZONE">|Europe/Belfast</xliff:g>"</string>
     <string name="C163" msgid="6106990061397073808">"Б<xliff:g id="SEPARATOR">=</xliff:g>Белград<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
     <string name="C164" msgid="3074767496771260157">"Б<xliff:g id="SEPARATOR">=</xliff:g>Берлин<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
@@ -214,7 +214,7 @@
     <string name="C200" msgid="6181652506383585123">"В<xliff:g id="SEPARATOR">=</xliff:g>Варшава<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g>"</string>
     <string name="C201" msgid="5026927396527258914">"З<xliff:g id="SEPARATOR">=</xliff:g>Загреб<xliff:g id="TIMEZONE">|Europe/Zagreb</xliff:g>"</string>
     <string name="C202" msgid="7479245034393288391">"Ц<xliff:g id="SEPARATOR">=</xliff:g>Цюрих<xliff:g id="TIMEZONE">|Europe/Zurich</xliff:g>"</string>
-    <string name="C203" msgid="1651234331866937237">"A<xliff:g id="SEPARATOR">=</xliff:g>Антананариву<xliff:g id="TIMEZONE">|Indian/Antananarivo</xliff:g>"</string>
+    <string name="C203" msgid="1651234331866937237">"<xliff:g id="SEPARATOR">=</xliff:g>Антананариву<xliff:g id="TIMEZONE">|Indian/Antananarivo</xliff:g>"</string>
     <string name="C204" msgid="3101091022126098393">"М<xliff:g id="SEPARATOR">=</xliff:g>Мальдив аралдары<xliff:g id="TIMEZONE">|Indian/Maldives</xliff:g>"</string>
     <string name="C205" msgid="9173530407684443044">"М<xliff:g id="SEPARATOR">=</xliff:g>Маврикий<xliff:g id="TIMEZONE">|Indian/Mauritius</xliff:g>"</string>
     <string name="C206" msgid="7294622489478378014">"О<xliff:g id="SEPARATOR">=</xliff:g>Окленд<xliff:g id="TIMEZONE">|Pacific/Auckland</xliff:g>"</string>
@@ -223,7 +223,7 @@
     <string name="C209" msgid="8326714755257287010">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гонолулу<xliff:g id="TIMEZONE">|Pacific/Honolulu</xliff:g>"</string>
     <string name="C210" msgid="4118975261202718577">"К<xliff:g id="SEPARATOR">=</xliff:g>Киритимати<xliff:g id="TIMEZONE">|Pacific/Kiritimati</xliff:g>"</string>
     <string name="C211" msgid="6016485615657297427">"Н<xliff:g id="SEPARATOR">=</xliff:g>Нумеа<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
-    <string name="C214" msgid="5230836436291372485">"A<xliff:g id="SEPARATOR">=</xliff:g>Антигуа<xliff:g id="TIMEZONE">|America/Antigua</xliff:g>"</string>
+    <string name="C214" msgid="5230836436291372485">"<xliff:g id="SEPARATOR">=</xliff:g>Антигуа<xliff:g id="TIMEZONE">|America/Antigua</xliff:g>"</string>
     <string name="C215" msgid="9104600827236874744">"О<xliff:g id="SEPARATOR">=</xliff:g>Остин<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C216" msgid="1919768646168928906">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бостон<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C217" msgid="4879725034214879629">"К<xliff:g id="SEPARATOR">=</xliff:g>Калгари<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
@@ -252,10 +252,10 @@
     <string name="C240" msgid="6474976205162582188">"М<xliff:g id="SEPARATOR">=</xliff:g>Милуоки<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C241" msgid="9133192521877174743">"О<xliff:g id="SEPARATOR">=</xliff:g>Оклахома-Сити<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C242" msgid="4837450655035932235">"Л<xliff:g id="SEPARATOR">=</xliff:g>Лас-Вегас<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
-    <string name="C243" msgid="8140503787735683522">"A<xliff:g id="SEPARATOR">=</xliff:g>Альбукерке<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
+    <string name="C243" msgid="8140503787735683522">"<xliff:g id="SEPARATOR">=</xliff:g>Альбукерке<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
     <string name="C244" msgid="5425441385595386539">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тусон<xliff:g id="TIMEZONE">|MST</xliff:g>"</string>
     <string name="C245" msgid="2117808251938937801">"С<xliff:g id="SEPARATOR">=</xliff:g>Сакраменто<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
-    <string name="C246" msgid="3092246848082816772">"A<xliff:g id="SEPARATOR">=</xliff:g>Атланта<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C246" msgid="3092246848082816772">"<xliff:g id="SEPARATOR">=</xliff:g>Атланта<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C247" msgid="8206866466240263364">"К<xliff:g id="SEPARATOR">=</xliff:g>Кливленд<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
     <string name="C248" msgid="2640187332546735575">"Н<xliff:g id="SEPARATOR">=</xliff:g>Нью-Орлеан<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
     <string name="C249" msgid="2891345755858261436">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тампа<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
@@ -276,7 +276,7 @@
     <string name="C264" msgid="2183960913782375290">"М<xliff:g id="SEPARATOR">=</xliff:g>Милан<xliff:g id="TIMEZONE">|Europe/Rome</xliff:g>"</string>
     <string name="C265" msgid="7302072801871420825">"Ф<xliff:g id="SEPARATOR">=</xliff:g>Франкфурт<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
     <string name="C266" msgid="2043638131940526010">"Х<xliff:g id="SEPARATOR">=</xliff:g>Ханой<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
-    <string name="C267" msgid="2210484655793571387">"A<xliff:g id="SEPARATOR">=</xliff:g>Анкара<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g>"</string>
+    <string name="C267" msgid="2210484655793571387">"<xliff:g id="SEPARATOR">=</xliff:g>Анкара<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g>"</string>
     <string name="C268" msgid="263106973500029909">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бангалор<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g>"</string>
     <string name="C269" msgid="6541694468583591229">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бразилия<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
     <string name="C270" msgid="1314079881051130603">"К<xliff:g id="SEPARATOR">=</xliff:g>Кейптаун<xliff:g id="TIMEZONE">|Africa/Johannesburg</xliff:g>"</string>
@@ -309,8 +309,8 @@
     <string name="C298" msgid="4186340979527221275">"П<xliff:g id="SEPARATOR">=</xliff:g>Парамарибо<xliff:g id="TIMEZONE">|America/Paramaribo</xliff:g>"</string>
     <string name="C299" msgid="5688169950851674667">"К<xliff:g id="SEPARATOR">=</xliff:g>Кито<xliff:g id="TIMEZONE">|America/Panama</xliff:g>"</string>
     <string name="C300" msgid="7351753589989414696">"Л<xliff:g id="SEPARATOR">=</xliff:g>Любляна<xliff:g id="TIMEZONE">|Europe/Ljubljana</xliff:g>"</string>
-    <string name="C301" msgid="9089921329206815602">"A<xliff:g id="SEPARATOR">=</xliff:g>Ашхабад<xliff:g id="TIMEZONE">|Asia/Ashgabat</xliff:g>"</string>
-    <string name="C302" msgid="6471051311513517449">"A<xliff:g id="SEPARATOR">=</xliff:g>Асмара<xliff:g id="TIMEZONE">|Africa/Asmara</xliff:g>"</string>
+    <string name="C301" msgid="9089921329206815602">"А<xliff:g id="SEPARATOR">=</xliff:g>Ашхабад<xliff:g id="TIMEZONE">|Asia/Ashgabat</xliff:g>"</string>
+    <string name="C302" msgid="6471051311513517449">"А<xliff:g id="SEPARATOR">=</xliff:g>Асмара<xliff:g id="TIMEZONE">|Africa/Asmara</xliff:g>"</string>
     <string name="C303" msgid="6208957436062127281">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бандар-Сери-Бегаван<xliff:g id="TIMEZONE">|Asia/Brunei</xliff:g>"</string>
     <string name="C304" msgid="7757188637892125245">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бангуй<xliff:g id="TIMEZONE">|Africa/Bangui</xliff:g>"</string>
     <string name="C305" msgid="5538312768539249335">"Б<xliff:g id="SEPARATOR">=</xliff:g>Банжул<xliff:g id="TIMEZONE">|Africa/Banjul</xliff:g>"</string>
@@ -327,11 +327,11 @@
     <string name="C316" msgid="3674113287320887951">"Л<xliff:g id="SEPARATOR">=</xliff:g>Ломе<xliff:g id="TIMEZONE">|Africa/Lome</xliff:g>"</string>
     <string name="C317" msgid="4818049429422081055">"Л<xliff:g id="SEPARATOR">=</xliff:g>Луанда<xliff:g id="TIMEZONE">|Africa/Luanda</xliff:g>"</string>
     <string name="C318" msgid="3814107319819817789">"Л<xliff:g id="SEPARATOR">=</xliff:g>Лусака<xliff:g id="TIMEZONE">|Africa/Lusaka</xliff:g>"</string>
-    <string name="C319" msgid="5757039321992317631">"M<xliff:g id="SEPARATOR">=</xliff:g>Маджуро<xliff:g id="TIMEZONE">|Pacific/Majuro</xliff:g>"</string>
-    <string name="C320" msgid="8334348266391215583">"M<xliff:g id="SEPARATOR">=</xliff:g>Малабо<xliff:g id="TIMEZONE">|Africa/Malabo</xliff:g>"</string>
-    <string name="C321" msgid="5401323973667971972">"M<xliff:g id="SEPARATOR">=</xliff:g>Мапуто<xliff:g id="TIMEZONE">|Africa/Maputo</xliff:g>"</string>
-    <string name="C322" msgid="67637052310417975">"M<xliff:g id="SEPARATOR">=</xliff:g>Мбабане<xliff:g id="TIMEZONE">|Africa/Mbabane</xliff:g>"</string>
-    <string name="C323" msgid="4500721332684955521">"M<xliff:g id="SEPARATOR">=</xliff:g>Морони<xliff:g id="TIMEZONE">|Indian/Comoro</xliff:g>"</string>
+    <string name="C319" msgid="5757039321992317631">"М<xliff:g id="SEPARATOR">=</xliff:g>Маджуро<xliff:g id="TIMEZONE">|Pacific/Majuro</xliff:g>"</string>
+    <string name="C320" msgid="8334348266391215583">"М<xliff:g id="SEPARATOR">=</xliff:g>Малабо<xliff:g id="TIMEZONE">|Africa/Malabo</xliff:g>"</string>
+    <string name="C321" msgid="5401323973667971972">"М<xliff:g id="SEPARATOR">=</xliff:g>Мапуто<xliff:g id="TIMEZONE">|Africa/Maputo</xliff:g>"</string>
+    <string name="C322" msgid="67637052310417975">"М<xliff:g id="SEPARATOR">=</xliff:g>Мбабане<xliff:g id="TIMEZONE">|Africa/Mbabane</xliff:g>"</string>
+    <string name="C323" msgid="4500721332684955521">"М<xliff:g id="SEPARATOR">=</xliff:g>Морони<xliff:g id="TIMEZONE">|Indian/Comoro</xliff:g>"</string>
     <string name="C324" msgid="1741927819842539260">"Н<xliff:g id="SEPARATOR">=</xliff:g>Нджамена<xliff:g id="TIMEZONE">|Africa/Ndjamena</xliff:g>"</string>
     <string name="C325" msgid="8771905307322194055">"Н<xliff:g id="SEPARATOR">=</xliff:g>Нгерулмуд<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
     <string name="C326" msgid="2389198042593603472">"Н<xliff:g id="SEPARATOR">=</xliff:g>Ниамей<xliff:g id="TIMEZONE">|Africa/Niamey</xliff:g>"</string>
@@ -347,10 +347,10 @@
     <string name="C336" msgid="3810072761869903472">"П<xliff:g id="SEPARATOR">=</xliff:g>Порто-Ново<xliff:g id="TIMEZONE">|Africa/Porto-Novo</xliff:g>"</string>
     <string name="C337" msgid="3412269218104112252">"П<xliff:g id="SEPARATOR">=</xliff:g>Приштина<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
     <string name="C338" msgid="6151841959824325885">"Р<xliff:g id="SEPARATOR">=</xliff:g>Розо<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
-    <string name="C339" msgid="8909994815975646525">"T<xliff:g id="SEPARATOR">=</xliff:g>Ташкент<xliff:g id="TIMEZONE">|Asia/Tashkent</xliff:g>"</string>
-    <string name="C340" msgid="415479723070879485">"T<xliff:g id="SEPARATOR">=</xliff:g>Тбилиси<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
-    <string name="C341" msgid="2299478430610154042">"T<xliff:g id="SEPARATOR">=</xliff:g>Тхимпху<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
-    <string name="C342" msgid="7997617194333170685">"T<xliff:g id="SEPARATOR">=</xliff:g>Тирана<xliff:g id="TIMEZONE">|Europe/Tirane</xliff:g>"</string>
+    <string name="C339" msgid="8909994815975646525">"Т<xliff:g id="SEPARATOR">=</xliff:g>Ташкент<xliff:g id="TIMEZONE">|Asia/Tashkent</xliff:g>"</string>
+    <string name="C340" msgid="415479723070879485">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тбилиси<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
+    <string name="C341" msgid="2299478430610154042">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тхимпху<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
+    <string name="C342" msgid="7997617194333170685">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тирана<xliff:g id="TIMEZONE">|Europe/Tirane</xliff:g>"</string>
     <string name="C343" msgid="622805851462854910">"В<xliff:g id="SEPARATOR">=</xliff:g>Вадуц<xliff:g id="TIMEZONE">|Europe/Vaduz</xliff:g>"</string>
     <string name="C344" msgid="1145479224257720400">"В<xliff:g id="SEPARATOR">=</xliff:g>Виктория<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
     <string name="C345" msgid="1613958949888896258">"В<xliff:g id="SEPARATOR">=</xliff:g>Вьентьян<xliff:g id="TIMEZONE">|Asia/Vientiane</xliff:g>"</string>

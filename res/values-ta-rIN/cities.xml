@@ -336,12 +336,12 @@
     <string name="C325" msgid="8771905307322194055">"ஜ<xliff:g id="SEPARATOR">=</xliff:g>ஜெருல்மட்<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
     <string name="C326" msgid="2389198042593603472">"ந<xliff:g id="SEPARATOR">=</xliff:g>நியாமி<xliff:g id="TIMEZONE">|Africa/Niamey</xliff:g>"</string>
     <string name="C327" msgid="5317479895686981912">"ந<xliff:g id="SEPARATOR">=</xliff:g>நிக்கோசியா<xliff:g id="TIMEZONE">|Europe/Nicosia</xliff:g>"</string>
-    <string name="C328" msgid="6416405203954996861">"ந<xliff:g id="SEPARATOR">=</xliff:g>நுவாக்சூத்<xliff:g id="TIMEZONE">|Africa/Nouakchott</xliff:g>"</string>
-    <string name="C329" msgid="6876960940903095843">"ந<xliff:g id="SEPARATOR">=</xliff:g>நுக்கு அலோபா<xliff:g id="TIMEZONE">|Pacific/Tongatapu</xliff:g>"</string>
-    <string name="C330" msgid="1572294706542426161">"உ<xliff:g id="SEPARATOR">=</xliff:g>வாகடூகு<xliff:g id="TIMEZONE">|Africa/Ouagadougou</xliff:g>"</string>
+    <string name="C328" msgid="6416405203954996861">"ந<xliff:g id="SEPARATOR">=</xliff:g>நுவாக்ஷோட்<xliff:g id="TIMEZONE">|Africa/Nouakchott</xliff:g>"</string>
+    <string name="C329" msgid="6876960940903095843">"ந<xliff:g id="SEPARATOR">=</xliff:g>நுக்குஅலோஃபா<xliff:g id="TIMEZONE">|Pacific/Tongatapu</xliff:g>"</string>
+    <string name="C330" msgid="1572294706542426161">"க<xliff:g id="SEPARATOR">=</xliff:g>குவாகடூகு<xliff:g id="TIMEZONE">|Africa/Ouagadougou</xliff:g>"</string>
     <string name="C331" msgid="2607492003890117689">"ப<xliff:g id="SEPARATOR">=</xliff:g>பலிகீர்<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
     <string name="C332" msgid="8349533418456323370">"ப<xliff:g id="SEPARATOR">=</xliff:g>பிலிப்ஸ்பர்க்<xliff:g id="TIMEZONE">|America/Lower_Princes</xliff:g>"</string>
-    <string name="C333" msgid="2842640664018042568">"ப<xliff:g id="SEPARATOR">=</xliff:g>பாட்கோரிக்கா<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g>"</string>
+    <string name="C333" msgid="2842640664018042568">"ப<xliff:g id="SEPARATOR">=</xliff:g>பாகோரிக்கா<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g>"</string>
     <string name="C334" msgid="3310146581437635671">"ப<xliff:g id="SEPARATOR">=</xliff:g>போர்ட் மோர்ஸ்பி<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
     <string name="C335" msgid="3317158262102352303">"ப<xliff:g id="SEPARATOR">=</xliff:g>போர்ட் விலா<xliff:g id="TIMEZONE">|Pacific/Efate</xliff:g>"</string>
     <string name="C336" msgid="3810072761869903472">"ப<xliff:g id="SEPARATOR">=</xliff:g>போர்டோ நோவோ<xliff:g id="TIMEZONE">|Africa/Porto-Novo</xliff:g>"</string>

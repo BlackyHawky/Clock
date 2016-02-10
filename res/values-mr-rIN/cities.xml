@@ -311,7 +311,7 @@
     <string name="C300" msgid="7351753589989414696">"ल<xliff:g id="SEPARATOR">=</xliff:g>लुब्लियाना<xliff:g id="TIMEZONE">|Europe/Ljubljana</xliff:g>"</string>
     <string name="C301" msgid="9089921329206815602">"अ<xliff:g id="SEPARATOR">=</xliff:g>अश्गाबात<xliff:g id="TIMEZONE">|Asia/Ashgabat</xliff:g>"</string>
     <string name="C302" msgid="6471051311513517449">"अ<xliff:g id="SEPARATOR">=</xliff:g>अस्मारा<xliff:g id="TIMEZONE">|Africa/Asmara</xliff:g>"</string>
-    <string name="C303" msgid="6208957436062127281">"ब<xliff:g id="SEPARATOR">=</xliff:g>बंदर स्री बगवान<xliff:g id="TIMEZONE">|Asia/Brunei</xliff:g>"</string>
+    <string name="C303" msgid="6208957436062127281">"ब<xliff:g id="SEPARATOR">=</xliff:g>बंदर सेरी बगावन<xliff:g id="TIMEZONE">|Asia/Brunei</xliff:g>"</string>
     <string name="C304" msgid="7757188637892125245">"ब<xliff:g id="SEPARATOR">=</xliff:g>बांगुई<xliff:g id="TIMEZONE">|Africa/Bangui</xliff:g>"</string>
     <string name="C305" msgid="5538312768539249335">"ब<xliff:g id="SEPARATOR">=</xliff:g>बंजुल<xliff:g id="TIMEZONE">|Africa/Banjul</xliff:g>"</string>
     <string name="C306" msgid="6400938736119754675">"ब<xliff:g id="SEPARATOR">=</xliff:g>बिश्केक<xliff:g id="TIMEZONE">|Asia/Bishkek</xliff:g>"</string>
@@ -330,13 +330,13 @@
     <string name="C319" msgid="5757039321992317631">"म<xliff:g id="SEPARATOR">=</xliff:g>मजुरो<xliff:g id="TIMEZONE">|Pacific/Majuro</xliff:g>"</string>
     <string name="C320" msgid="8334348266391215583">"म<xliff:g id="SEPARATOR">=</xliff:g>मलाबो<xliff:g id="TIMEZONE">|Africa/Malabo</xliff:g>"</string>
     <string name="C321" msgid="5401323973667971972">"म<xliff:g id="SEPARATOR">=</xliff:g>मापुतो<xliff:g id="TIMEZONE">|Africa/Maputo</xliff:g>"</string>
-    <string name="C322" msgid="67637052310417975">"म<xliff:g id="SEPARATOR">=</xliff:g>अंबाबाने<xliff:g id="TIMEZONE">|Africa/Mbabane</xliff:g>"</string>
+    <string name="C322" msgid="67637052310417975">"अ<xliff:g id="SEPARATOR">=</xliff:g>अंबाबाने<xliff:g id="TIMEZONE">|Africa/Mbabane</xliff:g>"</string>
     <string name="C323" msgid="4500721332684955521">"म<xliff:g id="SEPARATOR">=</xliff:g>मोरोनी<xliff:g id="TIMEZONE">|Indian/Comoro</xliff:g>"</string>
     <string name="C324" msgid="1741927819842539260">"इ<xliff:g id="SEPARATOR">=</xliff:g>इंजामिना<xliff:g id="TIMEZONE">|Africa/Ndjamena</xliff:g>"</string>
-    <string name="C325" msgid="8771905307322194055">"न<xliff:g id="SEPARATOR">=</xliff:g>न्गेरुलमुड<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
+    <string name="C325" msgid="8771905307322194055">"ग<xliff:g id="SEPARATOR">=</xliff:g>गरुलमुद<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
     <string name="C326" msgid="2389198042593603472">"न<xliff:g id="SEPARATOR">=</xliff:g>नियामे<xliff:g id="TIMEZONE">|Africa/Niamey</xliff:g>"</string>
     <string name="C327" msgid="5317479895686981912">"न<xliff:g id="SEPARATOR">=</xliff:g>निकोसिया<xliff:g id="TIMEZONE">|Europe/Nicosia</xliff:g>"</string>
-    <string name="C328" msgid="6416405203954996861">"न<xliff:g id="SEPARATOR">=</xliff:g>नवाकसुत<xliff:g id="TIMEZONE">|Africa/Nouakchott</xliff:g>"</string>
+    <string name="C328" msgid="6416405203954996861">"न<xliff:g id="SEPARATOR">=</xliff:g>नोवाकशॉट<xliff:g id="TIMEZONE">|Africa/Nouakchott</xliff:g>"</string>
     <string name="C329" msgid="6876960940903095843">"न<xliff:g id="SEPARATOR">=</xliff:g>नुकु-अलोफा<xliff:g id="TIMEZONE">|Pacific/Tongatapu</xliff:g>"</string>
     <string name="C330" msgid="1572294706542426161">"व<xliff:g id="SEPARATOR">=</xliff:g>वागाडुगू<xliff:g id="TIMEZONE">|Africa/Ouagadougou</xliff:g>"</string>
     <string name="C331" msgid="2607492003890117689">"प<xliff:g id="SEPARATOR">=</xliff:g>पालिकीर<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
@@ -348,8 +348,8 @@
     <string name="C337" msgid="3412269218104112252">"प<xliff:g id="SEPARATOR">=</xliff:g>प्रिस्टिना<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
     <string name="C338" msgid="6151841959824325885">"र<xliff:g id="SEPARATOR">=</xliff:g>रुसाउ<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
     <string name="C339" msgid="8909994815975646525">"त<xliff:g id="SEPARATOR">=</xliff:g>ताश्कंद<xliff:g id="TIMEZONE">|Asia/Tashkent</xliff:g>"</string>
-    <string name="C340" msgid="415479723070879485">"त<xliff:g id="SEPARATOR">=</xliff:g>त्बिलिसी<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
-    <string name="C341" msgid="2299478430610154042">"त<xliff:g id="SEPARATOR">=</xliff:g>थिंफू<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
+    <string name="C340" msgid="415479723070879485">"ट<xliff:g id="SEPARATOR">=</xliff:g>टिबिलिसी<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
+    <string name="C341" msgid="2299478430610154042">"थ<xliff:g id="SEPARATOR">=</xliff:g>थिंफू<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
     <string name="C342" msgid="7997617194333170685">"त<xliff:g id="SEPARATOR">=</xliff:g>तिराना<xliff:g id="TIMEZONE">|Europe/Tirane</xliff:g>"</string>
     <string name="C343" msgid="622805851462854910">"फ<xliff:g id="SEPARATOR">=</xliff:g>फाडुट्स<xliff:g id="TIMEZONE">|Europe/Vaduz</xliff:g>"</string>
     <string name="C344" msgid="1145479224257720400">"व<xliff:g id="SEPARATOR">=</xliff:g>व्हिक्टोरिया<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
