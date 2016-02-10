@@ -18,7 +18,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dc="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/alarm_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/alarm_label_padding"
@@ -55,7 +54,6 @@
     </LinearLayout>
 
     <com.android.deskclock.widget.EllipsizeLayout
-        android:id="@+id/summary"
         android:layout_marginTop="@dimen/label_margin_big"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

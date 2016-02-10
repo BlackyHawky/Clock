@@ -16,6 +16,4 @@
 
 <resources>
     <item name="numbers_key" type="id" />
-    <item name="request_code_ringtone" type="id" />
-    <item name="request_permission_code_external_storage" type="id" />
 </resources>
