@@ -140,7 +140,8 @@
     <string name="silent_ringtone" msgid="4392654938729167866">"ድምጽ-አልባ የጥሪ ቅላጼ"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"ማንቂያ አሸልብ ወይም አሰናብት።"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g>(ቆይቷል)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ማንቂያ ለ<xliff:g id="TIME">%s</xliff:g> ተዘጋጅቷል።ይቅር ለማለት ይምረጡ።"</string>
+    <!-- no translation found for alarm_notify_snooze_text (8281274221778792020) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"የድምፅ አዝራሮች"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"የአዝራር ተጽዕኖ"</string>
   <string-array name="volume_button_setting_entries">
@@ -353,7 +354,8 @@
     <string name="timer_stopped" msgid="2730331837832462008">"የሰዓት ቆጣሪ ቆሟል"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ጊዜ ቆጣሪ ለአፍታ ቆሟል"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ሰዓት ቆጣሪዎች ለአፍታ ቆመዋል"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"የሰዓት ቆጣሪዎችዎን ለማየት ይንኩ"</string>
+    <!-- no translation found for all_timers_stopped_notif (883027111895833440) -->
+    <skip />
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ሰዓት ቆጣሪዎች"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"ቀጣዩ የሰዓት ቆጣሪ፦ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"የህልም ቅንብሮች"</string>

@@ -274,7 +274,7 @@
     <string name="C262" msgid="5548180151889833">"B<xliff:g id="SEPARATOR">=</xliff:g>ബാർസെലോണ<xliff:g id="TIMEZONE">|Europe/Madrid</xliff:g>"</string>
     <string name="C263" msgid="2667061188896159784">"M<xliff:g id="SEPARATOR">=</xliff:g>മ്യൂണിക്ക്<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
     <string name="C264" msgid="2183960913782375290">"M<xliff:g id="SEPARATOR">=</xliff:g>മിലൻ<xliff:g id="TIMEZONE">|Europe/Rome</xliff:g>"</string>
-    <string name="C265" msgid="7302072801871420825">"F<xliff:g id="SEPARATOR">=</xliff:g>ഫ്രാങ്ക്ഫർട്ട്<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
+    <string name="C265" msgid="7302072801871420825">"F<xliff:g id="SEPARATOR">=</xliff:g>ഫ്രാങ്ക്‌ഫർട്ട്<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
     <string name="C266" msgid="2043638131940526010">"H<xliff:g id="SEPARATOR">=</xliff:g>ഹാനോയി<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
     <string name="C267" msgid="2210484655793571387">"A<xliff:g id="SEPARATOR">=</xliff:g>അങ്കാറ<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g>"</string>
     <string name="C268" msgid="263106973500029909">"B<xliff:g id="SEPARATOR">=</xliff:g>ബാംഗ്ലൂർ<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g>"</string>
