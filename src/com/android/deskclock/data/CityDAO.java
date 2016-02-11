@@ -19,6 +19,7 @@ package com.android.deskclock.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
@@ -97,37 +99,51 @@ final class CityDAO {
      */
     public static Map<String, City> getCities(Context context) {
         final Resources resources = context.getResources();
-        final String[] ids = resources.getStringArray(R.array.city_ids);
+        final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
+        final int citiesCount = cityStrings.getIndexCount();
 
-        final String packageName = context.getPackageName();
-        final Map<String, City> cities = new ArrayMap<>(ids.length);
-        for (String id : ids) {
-            // Attempt to locate the resource id defining the city as a string.
-            final int cityResourceId = resources.getIdentifier(id, "string", packageName);
-            if (cityResourceId == 0) {
-                final String message = String.format("Unable to locate city with id %s", id);
-                throw new IllegalStateException(message);
+        final Map<String, City> cities = new ArrayMap<>(citiesCount);
+        try {
+            for (int i = 0; i < citiesCount; ++i) {
+                // Attempt to locate the resource id defining the city as a string.
+                final int cityResourceId = cityStrings.getResourceId(i, 0);
+                if (cityResourceId == 0) {
+                    final String message = String.format(Locale.ENGLISH,
+                            "Unable to locate city resource id for index %d", i);
+                    throw new IllegalStateException(message);
+                }
+
+                final String id = resources.getResourceEntryName(cityResourceId);
+                final String cityString = cityStrings.getString(i);
+                if (cityString == null) {
+                    final String message = String.format("Unable to locate city with id %s", id);
+                    throw new IllegalStateException(message);
+                }
+
+                // Attempt to parse the time zone from the city entry.
+                final String[] cityParts = cityString.split("[|]");
+                if (cityParts.length != 2) {
+                    final String message = String.format(
+                            "Error parsing malformed city %s", cityString);
+                    throw new IllegalStateException(message);
+                }
+
+                // Attempt to resolve the time zone id to a valid time zone.
+                final String tzId = cityParts[1];
+                final TimeZone tz = TimeZone.getTimeZone(tzId);
+                // If the time zone lookup fails, GMT is returned. No cities actually map to GMT.
+                if ("GMT".equals(tz.getID())) {
+                    final String message = String.format(
+                            "Unable to locate timezone with id %s", tzId);
+                    throw new IllegalStateException(message);
+                }
+
+                cities.put(id, createCity(id, cityParts[0], tz));
             }
-
-            // Attempt to parse the time zone from the city entry.
-            final String cityString = context.getString(cityResourceId);
-            final String[] cityParts = cityString.split("[|]");
-            if (cityParts.length != 2) {
-                final String message = String.format("Error parsing malformed city %s", cityString);
-                throw new IllegalStateException(message);
-            }
-
-            // Attempt to resolve the time zone id to a valid time zone.
-            final String tzId = cityParts[1];
-            final TimeZone tz = TimeZone.getTimeZone(tzId);
-            // If the time zone lookup fails, GMT is returned. No cities actually map to GMT.
-            if ("GMT".equals(tz.getID())) {
-                final String message = String.format("Unable to locate timezone with id %s", tzId);
-                throw new IllegalStateException(message);
-            }
-
-            cities.put(id, createCity(id, cityParts[0], tz));
+        } finally {
+            cityStrings.recycle();
         }
+
         return Collections.unmodifiableMap(cities);
     }
 
