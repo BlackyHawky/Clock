@@ -37,7 +37,6 @@
         android:textColor="@color/clock_white"/>
 
     <TextView
-        android:id="@+id/hours_label"
         style="@style/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,7 +66,6 @@
         android:textColor="@color/clock_white"/>
 
     <TextView
-        android:id="@+id/minutes_label"
         style="@style/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -89,7 +87,6 @@
         android:textColor="@color/clock_white"/>
 
     <TextView
-        android:id="@+id/seconds_label"
         style="@style/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

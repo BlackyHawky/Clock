@@ -59,7 +59,6 @@
         </FrameLayout>
 
         <com.android.deskclock.widget.EllipsizeLayout
-            android:id="@+id/city_name_layout"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/label_margin_small"

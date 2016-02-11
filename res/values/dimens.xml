@@ -22,20 +22,13 @@
 <resources>
     <dimen name="label_text_size">14sp</dimen>
     <dimen name="label_edittext_padding">21dp</dimen>
-    <dimen name="time_text_size">120dip</dimen>
-    <dimen name="ampm_text_size">20dip</dimen>
-    <dimen name="date_text_size">15sp</dimen>
-    <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
     <dimen name="timer_padding">16dp</dimen>
     <dimen name="timer_list_padding_bottom">88dip</dimen>
     <!-- 88dip + 0.5 of footer_button_size -->
-    <dimen name="timer_cancel_end_margin">116dip</dimen>
     <dimen name="screensaver_margin">16dip</dimen>
     <dimen name="alarm_label_padding">8dip</dimen>
-    <dimen name="alert_dialog_title_height">64dip</dimen>
     <dimen name="bottom_text_spacing_digital">-8dp</dimen>
-    <dimen name="top_text_spacing_digital">4dp</dimen>
     <dimen name="bottom_text_spacing_analog">14dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">6dp</dimen>
 
@@ -50,13 +43,10 @@
     <dimen name="bottom_text_size">16sp</dimen>
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
-    <dimen name="actionbar_title_font_size">18sp</dimen>
 
     <dimen name="footer_button_size">56dip</dimen>
 
-    <dimen name="alarm_text_padding">15dp</dimen>
     <dimen name="alarm_text_font_size">16sp</dimen>
-    <dimen name="alarm_min_distance">2dp</dimen>
     <dimen name="circletimer_dot_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">16dip</dimen>
@@ -75,7 +65,6 @@
     <dimen name="widget_label_font_size">14dp</dimen>
     <item name="reduced_clock_font_size_scale" type="fraction">65%</item>
     <dimen name="header_font_size">24sp</dimen>
-    <dimen name="body_font_size">18sp</dimen>
     <dimen name="day_button_font_size">18sp</dimen>
     <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="alarm_info_font_size">36sp</dimen>
@@ -86,28 +75,21 @@
     <dimen name="alarm_picker_margin_bottom">10dp</dimen>
 
     <dimen name="body_font_padding">4dp</dimen>
-    <dimen name="button_font_size">24sp</dimen>
-    <dimen name="dialog_button_font_size">16sp</dimen>
 
     <dimen name="alarm_label_size">14sp</dimen>
     <dimen name="alarm_icon_padding">6dp</dimen>
 
     <dimen name="medium_font_padding">12dp</dimen>
 
-    <dimen name="small_space">16dp</dimen>
     <dimen name="medium_space_top">22dp</dimen>
-    <dimen name="medium_space_bottom">12dp</dimen>
     <dimen name="style_label_space">4dip</dimen>
-    <dimen name="main_clock_padding">34dp</dimen>
 
     <dimen name="label_margin_big">4dp</dimen>
     <dimen name="label_margin_small">2dp</dimen>
 
     <dimen name="dialpad_font_size">36sp</dimen>
     <!--padding should be (in dip) ~ 60% dialpad_font_size -->
-    <dimen name="dialpad_digit_padding">22dip</dimen>
     <dimen name="timer_setup_font_size">38sp</dimen>
-    <dimen name="timer_setup_button_size">24sp</dimen>
     <!--margin should be ~ half timer_setup_font_size -->
     <dimen name="timer_setup_delete_start_margin">28sp</dimen>
     <dimen name="timer_setup_delete_padding">12dip</dimen>
@@ -117,7 +99,6 @@
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">16dp</dimen>
-    <dimen name="circle_margin">32dp</dimen>
     <dimen name="analog_clock_margin">60dp</dimen>
 
     <dimen name="circle_size">280dp</dimen>
@@ -126,8 +107,6 @@
         Used by both StopwatchFragment and AlarmFragment.
     -->
     <dimen name="list_bottom_spacing">72dip</dimen>
-
-    <dimen name="sw_padding_end">32dp</dimen>
 
     <!-- The width and height of the notification icon -->
     <dimen name="notification_icon_size">64dip</dimen>
@@ -139,9 +118,7 @@
     <dimen name="notification_content_margin_start">8dp</dimen>
 
     <!-- Width of the clock, for use with alarm buttons. -->
-    <dimen name="alarm_alert_display_width">304dip</dimen>
     <!-- Bottom padding for alarm lock screen hint text -->
-    <dimen name="alarm_alert_hint_padding">32dip</dimen>
 
     <!-- Size of time zone analog clocks in world clock. -->
     <dimen name="world_clock_analog_size">100dip</dimen>
@@ -150,7 +127,6 @@
     <!-- Height of the button footers. 56 height and 16 on top and bottom. -->
     <dimen name="button_footer_height">88dip</dimen>
     <!-- Negative value of the height of the button footers, for use with lightsout. -->
-    <dimen name="button_footer_height_neg">-48dip</dimen>
 
     <!-- Digital Widget settings (keyguard|home_screen) -->
     <!-- Clock and world clock sizes -->
@@ -160,8 +136,6 @@
     <dimen name="widget_24_medium_font_size">40sp</dimen>
 
     <!-- Hour and minute spacing -->
-    <dimen name="widget_big_time_margin_right">10dip</dimen>
-    <dimen name="widget_medium_time_margin_right">5dip</dimen>
 
     <dimen name="min_analog_widget_size">110dp</dimen>
 

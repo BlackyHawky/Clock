@@ -23,7 +23,6 @@
     <!-- This nested ltr layout cannot be combined with the parent because
          in RTL, the Keypad and Timer value should swap. -->
     <LinearLayout
-        android:id="@+id/timer_time_display"
         android:layout_width="0dip"
         android:layout_height="match_parent"
         android:layout_weight="3"
