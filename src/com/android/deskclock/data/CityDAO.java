@@ -100,7 +100,7 @@ final class CityDAO {
     public static Map<String, City> getCities(Context context) {
         final Resources resources = context.getResources();
         final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
-        final int citiesCount = cityStrings.getIndexCount();
+        final int citiesCount = cityStrings.length();
 
         final Map<String, City> cities = new ArrayMap<>(citiesCount);
         try {
