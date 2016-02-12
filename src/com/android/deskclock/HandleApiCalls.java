@@ -295,6 +295,24 @@ public class HandleApiCalls extends Activity {
         final List<String> args = new ArrayList<>();
         setSelectionFromIntent(intent, hour, minutes, selection, args);
 
+        // Update existing alarm matching the selection criteria; see setSelectionFromIntent.
+        final ContentResolver cr = getContentResolver();
+        final List<Alarm> alarms = Alarm.getAlarms(cr,
+                selection.toString(),
+                args.toArray(new String[args.size()]));
+        if (!alarms.isEmpty()) {
+            final Alarm alarm = alarms.get(0);
+            alarm.enabled = true;
+            Alarm.updateAlarm(cr, alarm);
+
+            // Delete all old instances and create a new one with updated values
+            AlarmStateManager.deleteAllInstances(this, alarm.id);
+            setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
+            LogUtils.i("HandleApiCalls deleted old, created new alarm: %s", alarm);
+            return;
+        }
+
+        // Otherwise insert a new alarm.
         final String message = getMessageFromIntent(intent);
         final DaysOfWeek daysOfWeek = getDaysFromIntent(intent);
         final boolean vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, true);
@@ -315,7 +333,6 @@ public class HandleApiCalls extends Activity {
         }
         alarm.deleteAfterUse = !daysOfWeek.isRepeating() && skipUi;
 
-        final ContentResolver cr = getContentResolver();
         alarm = Alarm.addAlarm(cr, alarm);
         final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
         setupInstance(alarmInstance, skipUi);
@@ -432,6 +449,24 @@ public class HandleApiCalls extends Activity {
         return daysOfWeek;
     }
 
+    /**
+     * Assemble a database where clause to search for an alarm matching the given {@code hour} and
+     * {@code minutes} as well as all of the optional information within the {@code intent}
+     * including:
+     *
+     * <ul>
+     *     <li>alarm message</li>
+     *     <li>repeat days</li>
+     *     <li>vibration setting</li>
+     *     <li>ringtone uri</li>
+     * </ul>
+     *
+     * @param intent contains details of the alarm to be located
+     * @param hour the hour of the day of the alarm
+     * @param minutes the minute of the hour of the alarm
+     * @param selection an out parameter containing a SQL where clause
+     * @param args an out parameter containing the values to substitute into the {@code selection}
+     */
     private void setSelectionFromIntent(
             Intent intent,
             int hour,
