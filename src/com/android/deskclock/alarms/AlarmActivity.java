@@ -15,6 +15,7 @@
  */
 package com.android.deskclock.alarms;
 
+import android.accessibilityservice.AccessibilityServiceInfo;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
@@ -58,6 +59,10 @@ import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.widget.CircleView;
+
+import java.util.List;
+
+import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
 
 public class AlarmActivity extends AppCompatActivity
         implements View.OnClickListener, View.OnTouchListener {
@@ -323,7 +328,7 @@ public class AlarmActivity extends AppCompatActivity
         LOGGER.v("onClick: %s", view);
 
         // If in accessibility mode, allow snooze/dismiss by double tapping on respective icons.
-        if (mAccessibilityManager != null && mAccessibilityManager.isTouchExplorationEnabled()) {
+        if (isAccessibilityEnabled()) {
             if (view == mSnoozeButton) {
                 snooze();
             } else if (view == mDismissButton) {
@@ -409,6 +414,25 @@ public class AlarmActivity extends AppCompatActivity
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    /**
+     * Returns {@code true} if accessibility is enabled, to enable alternate behavior for click
+     * handling, etc.
+     */
+    private boolean isAccessibilityEnabled() {
+        if (mAccessibilityManager == null || !mAccessibilityManager.isEnabled()) {
+            // Accessibility is unavailable or disabled.
+            return false;
+        } else if (mAccessibilityManager.isTouchExplorationEnabled()) {
+            // TalkBack's touch exploration mode is enabled.
+            return true;
+        }
+
+        // Check if "Switch Access" is enabled.
+        final List<AccessibilityServiceInfo> enabledAccessibilityServices =
+                mAccessibilityManager.getEnabledAccessibilityServiceList(FEEDBACK_GENERIC);
+        return !enabledAccessibilityServices.isEmpty();
     }
 
     private void hintSnooze() {
