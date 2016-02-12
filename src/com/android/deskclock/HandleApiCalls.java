@@ -297,7 +297,7 @@ public class HandleApiCalls extends Activity {
 
         final String message = getMessageFromIntent(intent);
         final DaysOfWeek daysOfWeek = getDaysFromIntent(intent);
-        final boolean vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, false);
+        final boolean vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, true);
         final String alert = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE);
 
         Alarm alarm = new Alarm(hour, minutes);
