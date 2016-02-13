@@ -61,7 +61,11 @@ public final class Stopwatch {
             return mAccumulatedTime;
         }
 
-        return mAccumulatedTime + (now() - mLastStartTime);
+        // In practice, "now" can be any value due to device reboots. When the real-time clock
+        // is reset, there is no more guarantee that "now" falls after the last start time. To
+        // ensure the stopwatch is monotonically increasing, normalize negative time segments to 0,
+        final long timeSinceStart = now() - mLastStartTime;
+        return mAccumulatedTime + Math.max(0, timeSinceStart);
     }
 
     /**
@@ -79,7 +83,7 @@ public final class Stopwatch {
             return this;
         }
 
-        return new Stopwatch(RUNNING, now(), mAccumulatedTime);
+        return new Stopwatch(RUNNING, now(), getTotalTime());
     }
 
     /**
@@ -90,8 +94,7 @@ public final class Stopwatch {
             return this;
         }
 
-        final long accumulatedTime = mAccumulatedTime + (now() - mLastStartTime);
-        return new Stopwatch(PAUSED, Long.MIN_VALUE, accumulatedTime);
+        return new Stopwatch(PAUSED, Long.MIN_VALUE, getTotalTime());
     }
 
     /**

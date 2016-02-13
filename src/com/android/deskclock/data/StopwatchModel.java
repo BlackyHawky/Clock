@@ -175,21 +175,17 @@ final class StopwatchModel {
     }
 
     /**
-     * @param time a point in time after the end of the last lap
-     * @return the elapsed time between the given {@code time} and the end of the previous lap
+     * In practice, {@code time} can be any value due to device reboots. When the real-time clock is
+     * reset, there is no more guarantee that this time falls after the last recorded lap.
+     *
+     * @param time a point in time expected, but not required, to be after the end of the prior lap
+     * @return the elapsed time between the given {@code time} and the end of the prior lap;
+     *      negative elapsed times are normalized to {@code 0}
      */
     long getCurrentLapTime(long time) {
         final Lap previousLap = getLaps().get(0);
-
-        final long last = previousLap.getAccumulatedTime();
-        final long lapTime = time - last;
-
-        if (lapTime < 0) {
-            final String message = String.format("time (%d) must exceed last lap (%d)", time, last);
-            throw new IllegalArgumentException(message);
-        }
-
-        return lapTime;
+        final long currentLapTime = time - previousLap.getAccumulatedTime();
+        return Math.max(0, currentLapTime);
     }
 
     /**
