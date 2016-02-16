@@ -223,7 +223,7 @@ public final class AsyncRingtonePlayer {
      * @return the duration of the crescendo in milliseconds
      */
     private long getCrescendoDurationMillis(Context context) {
-        final String crescendoSecondsStr = PreferenceManager.getDefaultSharedPreferences(context)
+        final String crescendoSecondsStr = Utils.getDefaultSharedPreferences(context)
                 .getString(mCrescendoPrefKey, DEFAULT_CRESCENDO_LENGTH);
         return Integer.parseInt(crescendoSecondsStr) * DateUtils.SECOND_IN_MILLIS;
     }

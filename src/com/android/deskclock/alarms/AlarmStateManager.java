@@ -158,12 +158,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     public static int getGlobalIntentId(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         return prefs.getInt(ALARM_GLOBAL_ID_EXTRA, -1);
     }
 
     public static void updateGlobalIntentId(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         int globalId = prefs.getInt(ALARM_GLOBAL_ID_EXTRA, -1) + 1;
         prefs.edit().putInt(ALARM_GLOBAL_ID_EXTRA, globalId).commit();
     }
@@ -480,7 +480,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         AlarmService.stopAlarm(context, instance);
 
         // Calculate the new snooze alarm time
-        String snoozeMinutesStr = PreferenceManager.getDefaultSharedPreferences(context)
+        String snoozeMinutesStr = Utils.getDefaultSharedPreferences(context)
                 .getString(SettingsActivity.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE_MINUTES);
         final int snoozeMinutes = Integer.parseInt(snoozeMinutesStr);
         Calendar newAlarmTime = Calendar.getInstance();
@@ -518,7 +518,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     public static int getSnoozedMinutes(Context context) {
-        final String snoozeMinutesStr = PreferenceManager.getDefaultSharedPreferences(context)
+        final String snoozeMinutesStr = Utils.getDefaultSharedPreferences(context)
                 .getString(SettingsActivity.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE_MINUTES);
         return Integer.parseInt(snoozeMinutesStr);
     }
