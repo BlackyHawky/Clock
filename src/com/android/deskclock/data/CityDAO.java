@@ -26,6 +26,7 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -172,7 +173,7 @@ final class CityDAO {
 
     private static SharedPreferences getSharedPreferences(Context context) {
         if (sPrefs == null) {
-            sPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            sPrefs = Utils.getDefaultSharedPreferences(context.getApplicationContext());
         }
 
         return sPrefs;

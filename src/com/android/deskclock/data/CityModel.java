@@ -83,7 +83,7 @@ final class CityModel {
         mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
 
         // Clear caches affected by preferences when preferences change.
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(mContext);
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
 

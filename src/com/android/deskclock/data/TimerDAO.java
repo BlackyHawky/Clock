@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.Timer.State;
 
 import java.util.ArrayList;
@@ -192,7 +193,7 @@ final class TimerDAO {
 
     private static SharedPreferences getSharedPreferences(Context context) {
         if (sPrefs == null) {
-            sPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            sPrefs = Utils.getDefaultSharedPreferences(context.getApplicationContext());
         }
 
         return sPrefs;

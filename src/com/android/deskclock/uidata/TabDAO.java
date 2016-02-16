@@ -20,6 +20,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.android.deskclock.Utils;
+
 import static com.android.deskclock.uidata.UiDataModel.Tab;
 
 /**
@@ -52,7 +54,7 @@ final class TabDAO {
 
     private static SharedPreferences getSharedPreferences(Context context) {
         if (sPrefs == null) {
-            sPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            sPrefs = Utils.getDefaultSharedPreferences(context.getApplicationContext());
         }
 
         return sPrefs;

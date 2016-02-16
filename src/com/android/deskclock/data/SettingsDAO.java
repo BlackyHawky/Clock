@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 import com.android.deskclock.settings.ScreensaverSettingsActivity;
@@ -179,7 +180,7 @@ final class SettingsDAO {
 
     private static SharedPreferences getSharedPreferences(Context context) {
         if (sPrefs == null) {
-            sPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            sPrefs = Utils.getDefaultSharedPreferences(context.getApplicationContext());
         }
 
         return sPrefs;
