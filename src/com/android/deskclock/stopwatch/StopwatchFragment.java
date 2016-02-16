@@ -24,6 +24,7 @@ import android.os.PowerManager;
 import android.os.SystemClock;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.transition.AutoTransition;
 import android.transition.Transition;
 import android.transition.TransitionManager;
@@ -95,7 +96,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = (StopwatchCircleView) v.findViewById(R.id.stopwatch_time);
         mLapsList = (RecyclerView) v.findViewById(R.id.laps_list);
-        mLapsList.getItemAnimator().setSupportsChangeAnimations(false);
+        ((SimpleItemAnimator) mLapsList.getItemAnimator()).setSupportsChangeAnimations(false);
         mLapsList.setLayoutManager(mLapsLayoutManager);
         mLapsList.setAdapter(mLapsAdapter);
 
