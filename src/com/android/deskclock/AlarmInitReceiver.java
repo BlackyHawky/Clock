@@ -27,6 +27,15 @@ import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
+
+    /**
+     * When running on N devices, we're interested in the boot completed event that is sent while
+     * the user is still locked, so that we can schedule alarms.
+     */
+    @SuppressLint("InlinedApi")
+    private static final String ACTION_BOOT_COMPLETED = Utils.isNOrLater()
+            ? Intent.ACTION_LOCKED_BOOT_COMPLETED : Intent.ACTION_BOOT_COMPLETED;
+
     /**
      * This receiver handles a variety of actions:
      *
@@ -51,16 +60,9 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         // We need to increment the global id out of the async task to prevent race conditions
         AlarmStateManager.updateGlobalIntentId(context);
 
-        // When running on N devices, we're interested in the boot
-        // completed event that is sent while the user is still locked,
-        // so that we can schedule alarms.
-        @SuppressLint("InlinedApi")
-        final boolean bootCompleted = Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(action)
-                || Intent.ACTION_BOOT_COMPLETED.equals(action);
-
         // Clear stopwatch data and reset timers because they rely on elapsed real-time values
         // which are meaningless after a device reboot.
-        if (bootCompleted) {
+        if (ACTION_BOOT_COMPLETED.equals(action)) {
             DataModel.getDataModel().clearLaps();
             DataModel.getDataModel().resetStopwatch();
             Events.sendStopwatchEvent(R.string.action_reset, R.string.label_reboot);
