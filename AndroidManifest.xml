@@ -19,8 +19,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.android.deskclock"
-    android:versionCode="440"
-    android:versionName="4.4.0">
+    android:versionCode="451"
+    android:versionName="4.5.1">
 
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
