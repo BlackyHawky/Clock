@@ -40,4 +40,6 @@ LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.recyclerview
 LOCAL_AAPT_FLAGS += --extra-packages com.android.datetimepicker
 LOCAL_AAPT_FLAGS += --extra-packages com.android.messageformat
 
+LOCAL_PROGUARD_FLAG_FILES := ../../../frameworks/support/design/proguard-rules.pro 
+
 include $(BUILD_PACKAGE)
