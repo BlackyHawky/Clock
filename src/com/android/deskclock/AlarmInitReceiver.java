@@ -53,7 +53,6 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         // Clear stopwatch data and reset timers because they rely on elapsed real-time values
         // which are meaningless after a device reboot.
         if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
-            DataModel.getDataModel().clearLaps();
             DataModel.getDataModel().resetStopwatch();
             Events.sendStopwatchEvent(R.string.action_reset, R.string.label_reboot);
             DataModel.getDataModel().resetTimers(R.string.label_reboot);
