@@ -26,6 +26,7 @@ import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.widget.RemoteViews;
@@ -34,6 +35,7 @@ import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.stopwatch.StopwatchService;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -58,6 +60,9 @@ final class StopwatchModel {
     /** Update stopwatch notification when locale changes. */
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
+    /** The listeners to notify when the stopwatch or its laps change. */
+    private final List<StopwatchListener> mStopwatchListeners = new ArrayList<>();
+
     /** The current state of the stopwatch. */
     private Stopwatch mStopwatch;
 
@@ -75,6 +80,20 @@ final class StopwatchModel {
     }
 
     /**
+     * @param stopwatchListener to be notified when stopwatch changes or laps are added
+     */
+    void addStopwatchListener(StopwatchListener stopwatchListener) {
+        mStopwatchListeners.add(stopwatchListener);
+    }
+
+    /**
+     * @param stopwatchListener to no longer be notified when stopwatch changes or laps are added
+     */
+    void removeStopwatchListener(StopwatchListener stopwatchListener) {
+        mStopwatchListeners.remove(stopwatchListener);
+    }
+
+    /**
      * @return the current state of the stopwatch
      */
     Stopwatch getStopwatch() {
@@ -89,13 +108,24 @@ final class StopwatchModel {
      * @param stopwatch the new state of the stopwatch
      */
     Stopwatch setStopwatch(Stopwatch stopwatch) {
-        if (mStopwatch != stopwatch) {
+        final Stopwatch before = getStopwatch();
+        if (before != stopwatch) {
             StopwatchDAO.setStopwatch(mContext, stopwatch);
             mStopwatch = stopwatch;
 
             // Refresh the stopwatch notification to reflect the latest stopwatch state.
             if (!mNotificationModel.isApplicationInForeground()) {
                 updateNotification();
+            }
+
+            // Resetting the stopwatch implicitly clears the recorded laps.
+            if (stopwatch.isReset()) {
+                clearLaps();
+            }
+
+            // Notify listeners of the stopwatch change.
+            for (StopwatchListener stopwatchListener : mStopwatchListeners) {
+                stopwatchListener.stopwatchUpdated(before, stopwatch);
             }
         }
 
@@ -134,12 +164,18 @@ final class StopwatchModel {
             updateNotification();
         }
 
+        // Notify listeners of the new lap.
+        for (StopwatchListener stopwatchListener : mStopwatchListeners) {
+            stopwatchListener.lapAdded(lap);
+        }
+
         return lap;
     }
 
     /**
      * Clears the laps recorded for this stopwatch.
      */
+    @VisibleForTesting
     void clearLaps() {
         StopwatchDAO.clearLaps(mContext);
         getMutableLaps().clear();

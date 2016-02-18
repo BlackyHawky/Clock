@@ -145,7 +145,6 @@ public class HandleDeskClockApiCalls extends Activity {
                     break;
                 }
                 case ACTION_RESET_STOPWATCH: {
-                    DataModel.getDataModel().clearLaps();
                     DataModel.getDataModel().resetStopwatch();
                     Events.sendStopwatchEvent(R.string.action_reset, eventLabel);
                     reason = getString(R.string.stopwatch_reset);

@@ -502,6 +502,22 @@ public final class DataModel {
     //
 
     /**
+     * @param stopwatchListener to be notified when stopwatch changes or laps are added
+     */
+    public void addStopwatchListener(StopwatchListener stopwatchListener) {
+        enforceMainLooper();
+        mStopwatchModel.addStopwatchListener(stopwatchListener);
+    }
+
+    /**
+     * @param stopwatchListener to no longer be notified when stopwatch changes or laps are added
+     */
+    public void removeStopwatchListener(StopwatchListener stopwatchListener) {
+        enforceMainLooper();
+        mStopwatchModel.removeStopwatchListener(stopwatchListener);
+    }
+
+    /**
      * @return the current state of the stopwatch
      */
     public Stopwatch getStopwatch() {
@@ -547,14 +563,6 @@ public final class DataModel {
     public Lap addLap() {
         enforceMainLooper();
         return mStopwatchModel.addLap();
-    }
-
-    /**
-     * Clears the laps recorded for this stopwatch.
-     */
-    public void clearLaps() {
-        enforceMainLooper();
-        mStopwatchModel.clearLaps();
     }
 
     /**

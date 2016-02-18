@@ -32,6 +32,7 @@ import com.android.deskclock.data.Stopwatch;
 
 import java.text.DecimalFormatSymbols;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Displays a list of lap times in reverse order. That is, the newest lap is at the top, the oldest
@@ -155,8 +156,6 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * Remove all recorded laps and update this adapter.
      */
     void clearLaps() {
-        DataModel.getDataModel().clearLaps();
-
         // Clear the computed time lengths related to the old recorded laps.
         mLastFormattedLapTimeLength = 0;
         mLastFormattedAccumulatedTimeLength = 0;
@@ -207,10 +206,10 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     @VisibleForTesting
     String formatLapNumber(int lapCount, int lapNumber) {
         if (lapCount < 10) {
-            return String.format("# %d", lapNumber);
+            return String.format(Locale.getDefault(), "# %d", lapNumber);
         }
 
-        return String.format("# %02d", lapNumber);
+        return String.format(Locale.getDefault(), "# %02d", lapNumber);
     }
 
     /**
@@ -232,20 +231,20 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         final char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
 
         if (maxTime < 10 * DateUtils.MINUTE_IN_MILLIS) {
-            return String.format("%d%s%02d%s%02d",
+            return String.format(Locale.getDefault(), "%d%s%02d%s%02d",
                     minutes, separator, seconds, decimalSeparator, hundredths);
         } else if (maxTime < 60 * DateUtils.MINUTE_IN_MILLIS) {
-            return String.format("%02d%s%02d%s%02d",
+            return String.format(Locale.getDefault(), "%02d%s%02d%s%02d",
                     minutes, separator, seconds, decimalSeparator, hundredths);
         } else if (maxTime < 10 * DateUtils.HOUR_IN_MILLIS) {
-            return String.format("%d%s%02d%s%02d%s%02d",
+            return String.format(Locale.getDefault(), "%d%s%02d%s%02d%s%02d",
                     hours, separator, minutes, separator, seconds, decimalSeparator, hundredths);
         } else if (maxTime < 100 * DateUtils.HOUR_IN_MILLIS) {
-            return String.format("%02d%s%02d%s%02d%s%02d",
+            return String.format(Locale.getDefault(), "%02d%s%02d%s%02d%s%02d",
                     hours, separator, minutes, separator, seconds, decimalSeparator, hundredths);
         }
 
-        return String.format("%03d%s%02d%s%02d%s%02d",
+        return String.format(Locale.getDefault(), "%03d%s%02d%s%02d%s%02d",
                 hours, separator, minutes, separator, seconds, decimalSeparator, hundredths);
     }
 
