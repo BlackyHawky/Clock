@@ -23,10 +23,10 @@
     </style>
 
     <style name="BaseActivityTheme" parent="Theme.AppCompat">
-        <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
         <item name="android:windowBackground">@color/default_background</item>
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimaryDark">@color/status_bar</item>
         <item name="colorControlActivated">@color/white</item>
@@ -111,7 +111,7 @@
 
     <style name="ScreensaverActivityTheme" parent="Theme.AppCompat.NoActionBar" />
 
-    <style name="ImageButtonStyle" parent="android:Widget.DeviceDefault.ImageButton">
+    <style name="ImageButtonStyle" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
