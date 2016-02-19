@@ -1,7 +1,9 @@
 package com.android.deskclock;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -13,25 +15,22 @@ import android.widget.TextView;
  * the label text near the top. The maximum text size for the label text view is also calculated.
  */
 public class CircleButtonsLayout extends FrameLayout {
-    private Context mContext;
+
     private int mCircleTimerViewId;
     private int mResetAddButtonId;
     private int mLabelId;
-    private float mStrokeSize;
     private float mDiamOffset;
-    private CircleTimerView mCtv;
+    private View mCircleView;
     private ImageButton mResetAddButton;
     private TextView mLabel;
 
     @SuppressWarnings("unused")
     public CircleButtonsLayout(Context context) {
         this(context, null);
-        mContext = context;
     }
 
     public CircleButtonsLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        mContext = context;
     }
 
     public void setCircleTimerViewIds(int circleTimerViewId, int stopButtonId,  int labelId) {
@@ -39,11 +38,11 @@ public class CircleButtonsLayout extends FrameLayout {
         mResetAddButtonId = stopButtonId;
         mLabelId = labelId;
 
-        float dotStrokeSize = mContext.getResources().getDimension(R.dimen.circletimer_dot_size);
-        float markerStrokeSize =
-                mContext.getResources().getDimension(R.dimen.circletimer_marker_size);
-        mStrokeSize = mContext.getResources().getDimension(R.dimen.circletimer_circle_size);
-        mDiamOffset = Utils.calculateRadiusOffset(mStrokeSize, dotStrokeSize, markerStrokeSize) * 2;
+        final Resources res = getContext().getResources();
+        final float strokeSize = res.getDimension(R.dimen.circletimer_circle_size);
+        final float dotStrokeSize = res.getDimension(R.dimen.circletimer_dot_size);
+        final float markerStrokeSize = res.getDimension(R.dimen.circletimer_marker_size);
+        mDiamOffset = Utils.calculateRadiusOffset(strokeSize, dotStrokeSize, markerStrokeSize) * 2;
     }
 
     @Override
@@ -57,19 +56,19 @@ public class CircleButtonsLayout extends FrameLayout {
     }
 
     protected void remeasureViews() {
-        if (mCtv == null) {
-            mCtv = (CircleTimerView) findViewById(mCircleTimerViewId);
-            if (mCtv == null) {
+        if (mCircleView == null) {
+            mCircleView = findViewById(mCircleTimerViewId);
+            if (mCircleView == null) {
                 return;
             }
             mResetAddButton = (ImageButton) findViewById(mResetAddButtonId);
             mLabel = (TextView) findViewById(mLabelId);
         }
 
-        int frameWidth = mCtv.getMeasuredWidth();
-        int frameHeight = mCtv.getMeasuredHeight();
-        int minBound = Math.min(frameWidth, frameHeight);
-        int circleDiam = (int) (minBound - mDiamOffset);
+        final int frameWidth = mCircleView.getMeasuredWidth();
+        final int frameHeight = mCircleView.getMeasuredHeight();
+        final int minBound = Math.min(frameWidth, frameHeight);
+        final int circleDiam = (int) (minBound - mDiamOffset);
 
         if (mResetAddButton != null) {
             final MarginLayoutParams resetAddParams = (MarginLayoutParams) mResetAddButton
@@ -81,7 +80,6 @@ public class CircleButtonsLayout extends FrameLayout {
         }
 
         if (mLabel != null) {
-            // label will be null if this is a stopwatch, which does not have a label.
             MarginLayoutParams labelParams = (MarginLayoutParams) mLabel.getLayoutParams();
             labelParams.topMargin = circleDiam/6;
             if (minBound == frameWidth) {

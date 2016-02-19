@@ -22,20 +22,27 @@
 
     <!-- Action names for events describe what type of manipulation was performed. -->
     <string name="action_dismiss">Dismiss</string>
+    <string name="action_hide">Hide</string>
     <string name="action_snooze">Snooze</string>
     <string name="action_create">Create</string>
+    <string name="action_add">Add</string>
     <string name="action_delete">Delete</string>
     <string name="action_update">Update</string>
     <string name="action_start">Start</string>
     <string name="action_stop">Stop</string>
+    <string name="action_pause">Pause</string>
     <string name="action_fire">Fire</string>
     <string name="action_reset">Reset</string>
     <string name="action_show">Show</string>
     <string name="action_add_minute">Add Minute</string>
+    <string name="action_resume">Resume</string>
     <string name="action_lap">Lap</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->
     <string name="label_deskclock">DeskClock</string>
     <string name="label_notification">Notification</string>
     <string name="label_intent">Intent</string>
+    <string name="label_widget">Widget</string>
+    <string name="label_hardware_button">HardwareButton</string>
+    <string name="label_reboot">Reboot</string>
 </resources>

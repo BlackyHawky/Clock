@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 /**
  * Copyright (c) 2012, Google Inc.
  *
@@ -18,9 +17,9 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center_horizontal"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
 
     <com.android.deskclock.NumberPickerCompat
         android:id="@+id/minutes_picker"
@@ -29,12 +28,12 @@
         android:focusable="true"
         android:focusableInTouchMode="true" />
 
-    <TextView android:id="@+id/title"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_vertical"
-        android:layout_marginLeft="16dip"
-        android:layout_marginStart="16dip"
+    <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:gravity="center_vertical"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

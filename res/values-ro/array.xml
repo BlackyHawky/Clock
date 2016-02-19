@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"F<xliff:g id="SEPARATOR">=</xliff:g>Fortaleza"</item>
     <item msgid="5801558418916235541">"G<xliff:g id="SEPARATOR">=</xliff:g>Grand Turk"</item>
     <item msgid="2103759276235503048">"G<xliff:g id="SEPARATOR">=</xliff:g>Grenada"</item>
-    <item msgid="1490069759176391533">"G<xliff:g id="SEPARATOR">=</xliff:g>Guatemala"</item>
+    <item msgid="6216160110733510854">"C<xliff:g id="SEPARATOR">=</xliff:g>Ciudad de Guatemala"</item>
     <item msgid="525959305652046261">"G<xliff:g id="SEPARATOR">=</xliff:g>Guyana"</item>
     <item msgid="7565596629973190931">"H<xliff:g id="SEPARATOR">=</xliff:g>Halifax"</item>
     <item msgid="3811169155065582644">"H<xliff:g id="SEPARATOR">=</xliff:g>Havana"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"T<xliff:g id="SEPARATOR">=</xliff:g>Toronto"</item>
     <item msgid="1506838283840737263">"V<xliff:g id="SEPARATOR">=</xliff:g>Vancouver"</item>
     <item msgid="8935386104773857399">"W<xliff:g id="SEPARATOR">=</xliff:g>Winnipeg"</item>
-    <item msgid="1132634022412399582">"P<xliff:g id="SEPARATOR">=</xliff:g>Polul Sud"</item>
+    <item msgid="498429228419399474">"P<xliff:g id="SEPARATOR">=</xliff:g>Polul Sud<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"L<xliff:g id="SEPARATOR">=</xliff:g>Longyearbyen"</item>
     <item msgid="3784788073896028355">"A<xliff:g id="SEPARATOR">=</xliff:g>Almaty"</item>
     <item msgid="7895695236056852523">"A<xliff:g id="SEPARATOR">=</xliff:g>Amman"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"G<xliff:g id="SEPARATOR">=</xliff:g>Gaza"</item>
     <item msgid="2359068282340162319">"H<xliff:g id="SEPARATOR">=</xliff:g>Hebron"</item>
     <item msgid="6223396610551759129">"H<xliff:g id="SEPARATOR">=</xliff:g>Ho Chi Minh"</item>
-    <item msgid="4731022818651322736">"H<xliff:g id="SEPARATOR">=</xliff:g>Hong Kong"</item>
+    <item msgid="3439764751788710130">"H<xliff:g id="SEPARATOR">=</xliff:g>Hong Kong<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"I<xliff:g id="SEPARATOR">=</xliff:g>Istanbul"</item>
     <item msgid="758800913783999425">"J<xliff:g id="SEPARATOR">=</xliff:g>Jakarta"</item>
     <item msgid="8956406398692698126">"I<xliff:g id="SEPARATOR">=</xliff:g>Ierusalim"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"M<xliff:g id="SEPARATOR">=</xliff:g>Manila"</item>
     <item msgid="6033964325069060422">"M<xliff:g id="SEPARATOR">=</xliff:g>Muscat"</item>
     <item msgid="6077458941399984780">"P<xliff:g id="SEPARATOR">=</xliff:g>Phnom Penh"</item>
-    <item msgid="935474308903572975">"P<xliff:g id="SEPARATOR">=</xliff:g>Phenian"</item>
+    <item msgid="1245515372520913197">"P<xliff:g id="SEPARATOR">=</xliff:g>Phenian<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qatar"</item>
     <item msgid="1667243110545095146">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yangon"</item>
     <item msgid="4460370766685855731">"R<xliff:g id="SEPARATOR">=</xliff:g>Riad"</item>
     <item msgid="4229224905931739201">"S<xliff:g id="SEPARATOR">=</xliff:g>Saigon"</item>
     <item msgid="8705359848250215620">"S<xliff:g id="SEPARATOR">=</xliff:g>Seoul"</item>
-    <item msgid="583367295371395814">"S<xliff:g id="SEPARATOR">=</xliff:g>Shanghai"</item>
+    <item msgid="3814881931186962624">"S<xliff:g id="SEPARATOR">=</xliff:g>Shanghai<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"S<xliff:g id="SEPARATOR">=</xliff:g>Singapore"</item>
-    <item msgid="1972491729911039207">"T<xliff:g id="SEPARATOR">=</xliff:g>Taipei"</item>
+    <item msgid="8982451946156859368">"T<xliff:g id="SEPARATOR">=</xliff:g>Taipei<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"T<xliff:g id="SEPARATOR">=</xliff:g>Teheran"</item>
     <item msgid="8629402941285674273">"T<xliff:g id="SEPARATOR">=</xliff:g>Tel Aviv"</item>
-    <item msgid="8499164674454654525">"T<xliff:g id="SEPARATOR">=</xliff:g>Tokyo"</item>
+    <item msgid="76330681636547168">"T<xliff:g id="SEPARATOR">=</xliff:g>Tokyo<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"U<xliff:g id="SEPARATOR">=</xliff:g>Ulan Bator"</item>
     <item msgid="2028626988021468640">"B<xliff:g id="SEPARATOR">=</xliff:g>Bermuda"</item>
     <item msgid="4527109966513690429">"C<xliff:g id="SEPARATOR">=</xliff:g>Canare"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"R<xliff:g id="SEPARATOR">=</xliff:g>Reno"</item>
     <item msgid="9155068631060038769">"B<xliff:g id="SEPARATOR">=</xliff:g>Black Rock City"</item>
     <item msgid="8498761319928979900">"D<xliff:g id="SEPARATOR">=</xliff:g>Doha"</item>
-    <item msgid="8307897251088048641">"B<xliff:g id="SEPARATOR">=</xliff:g>Beijing"</item>
+    <item msgid="5327010922199714808">"B<xliff:g id="SEPARATOR">=</xliff:g>Beijing<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"M<xliff:g id="SEPARATOR">=</xliff:g>Mumbai"</item>
     <item msgid="6668274273067049125">"D<xliff:g id="SEPARATOR">=</xliff:g>Delhi"</item>
-    <item msgid="2933410189478233292">"O<xliff:g id="SEPARATOR">=</xliff:g>Osaka"</item>
+    <item msgid="7199039603593847813">"O<xliff:g id="SEPARATOR">=</xliff:g>Osaka<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"L<xliff:g id="SEPARATOR">=</xliff:g>Lahore"</item>
     <item msgid="1448378291805481500">"S<xliff:g id="SEPARATOR">=</xliff:g>Sana\'a"</item>
     <item msgid="5233119846682408301">"B<xliff:g id="SEPARATOR">=</xliff:g>Barcelona"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"C<xliff:g id="SEPARATOR">=</xliff:g>Cambridge"</item>
     <item msgid="759409010285366934">"K<xliff:g id="SEPARATOR">=</xliff:g>Kirkland"</item>
     <item msgid="6308007059287569663">"M<xliff:g id="SEPARATOR">=</xliff:g>Madison"</item>
-    <item msgid="6971636434858330021">"G<xliff:g id="SEPARATOR">=</xliff:g>Guangzhou"</item>
+    <item msgid="2077617905582224600">"G<xliff:g id="SEPARATOR">=</xliff:g>Guangzhou<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"H<xliff:g id="SEPARATOR">=</xliff:g>Hyderabad"</item>
     <item msgid="3032295682584784261">"R<xliff:g id="SEPARATOR">=</xliff:g>Reston"</item>
     <item msgid="7722837296297332268">"B<xliff:g id="SEPARATOR">=</xliff:g>Belo Horizonte"</item>

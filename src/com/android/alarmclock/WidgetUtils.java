@@ -26,6 +26,7 @@ import android.widget.RemoteViews;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
 
 public class WidgetUtils {
     static final String TAG = "WidgetUtils";
@@ -55,15 +56,25 @@ public class WidgetUtils {
             Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
             float ratio = (density * minWidth) / res.getDimension(R.dimen.min_digital_widget_width);
-            // Check if the height could introduce a font size constraint
-            int minHeight = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT);
-            if (minHeight > 0 && (density * minHeight)
-                    < res.getDimension(R.dimen.min_digital_widget_height)) {
-                ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
+            ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
+            ratio *= .83f;
+
+            final SelectedCitiesRunnable selectedCitiesRunnable = new SelectedCitiesRunnable();
+            DataModel.getDataModel().run(selectedCitiesRunnable);
+            if (selectedCitiesRunnable.mAnyCitiesSelected) {
+                return (ratio > 1f) ? 1f : ratio;
             }
-            return (ratio > 1) ? 1 : ratio;
+
+            ratio = Math.min(ratio, 1.6f);
+            if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                ratio = Math.max(ratio, .71f);
+            }
+            else {
+                ratio = Math.max(ratio, .45f);
+            }
+            return ratio;
         }
-        return 1;
+        return 1f;
     }
 
     // Calculate the scale factor of the fonts in the list of  the widget using the widget height
@@ -84,14 +95,11 @@ public class WidgetUtils {
             }
             Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
-            // Estimate height of date text box - 1.35 roughly approximates the text box padding
-            float lblBox = 1.35f * res.getDimension(R.dimen.label_font_size);
-            // Ensure divisor for ratio is positive number
-            if (res.getDimension(R.dimen.min_digital_widget_height) - lblBox > 0) {
-                float ratio = ((density * minHeight) - lblBox)
-                        / (res.getDimension(R.dimen.min_digital_widget_height) - lblBox);
-                return (ratio > 1) ? 1 : ratio;
+            float ratio = density * minHeight / res.getDimension(R.dimen.min_digital_widget_height);
+            if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                return ratio * 1.75f;
             }
+            return ratio;
         }
         return 1;
     }
@@ -133,17 +141,27 @@ public class WidgetUtils {
      * Set the format of the time on the clock according to the locale
      * @param context - Context used to get user's locale and time preferences
      * @param clock - view to format
-     * @param amPmFontSize - size of am/pm label, zero size means no am/om label
+     * @param showAmPm - show am/pm label if true
      * @param clockId - id of TextClock view as defined in the clock's layout.
      */
-    public static void setTimeFormat(Context context, RemoteViews clock, int amPmFontSize,
+    public static void setTimeFormat(Context context, RemoteViews clock, boolean showAmPm,
             int clockId) {
         if (clock != null) {
             // Set the best format for 12 hours mode according to the locale
             clock.setCharSequence(clockId, "setFormat12Hour",
-                    Utils.get12ModeFormat(context, amPmFontSize));
+                    Utils.get12ModeFormat(context, showAmPm));
             // Set the best format for 24 hours mode according to the locale
             clock.setCharSequence(clockId, "setFormat24Hour", Utils.get24ModeFormat());
+        }
+    }
+
+    private static class SelectedCitiesRunnable implements Runnable {
+
+        private boolean mAnyCitiesSelected;
+
+        @Override
+        public void run() {
+            mAnyCitiesSelected = !DataModel.getDataModel().getSelectedCities().isEmpty();
         }
     }
 }

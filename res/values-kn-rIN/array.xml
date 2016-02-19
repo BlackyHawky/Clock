@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"F<xliff:g id="SEPARATOR">=</xliff:g>ಫೋರ್ಟಲೀಜಾ"</item>
     <item msgid="5801558418916235541">"G<xliff:g id="SEPARATOR">=</xliff:g>ಗ್ರ್ಯಾಂಡ್ ಟರ್ಕ್"</item>
     <item msgid="2103759276235503048">"G<xliff:g id="SEPARATOR">=</xliff:g>ಗ್ರೆನಡಾ"</item>
-    <item msgid="1490069759176391533">"G<xliff:g id="SEPARATOR">=</xliff:g>ಗ್ವಾಟೆಮಾಲಾ"</item>
+    <item msgid="6216160110733510854">"G<xliff:g id="SEPARATOR">=</xliff:g>ಗ್ವಾಟೆಮಾಲಾ ನಗರ"</item>
     <item msgid="525959305652046261">"G<xliff:g id="SEPARATOR">=</xliff:g>ಗಯಾನ"</item>
     <item msgid="7565596629973190931">"H<xliff:g id="SEPARATOR">=</xliff:g>ಹ್ಯಾಲಿಫ್ಯಾಕ್ಸ್"</item>
     <item msgid="3811169155065582644">"H<xliff:g id="SEPARATOR">=</xliff:g>ಹವಾನಾ"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"T<xliff:g id="SEPARATOR">=</xliff:g>ಟೊರೊಂಟೊ"</item>
     <item msgid="1506838283840737263">"V<xliff:g id="SEPARATOR">=</xliff:g>ವ್ಯಾಂಕೋವರ್"</item>
     <item msgid="8935386104773857399">"W<xliff:g id="SEPARATOR">=</xliff:g>ವಿನ್ನಿಪೆಗ್"</item>
-    <item msgid="1132634022412399582">"S<xliff:g id="SEPARATOR">=</xliff:g>ದಕ್ಷಿಣ ಧ್ರುವ"</item>
+    <item msgid="498429228419399474">"S<xliff:g id="SEPARATOR">=</xliff:g>ದಕ್ಷಿಣ ಧ್ರುವ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"L<xliff:g id="SEPARATOR">=</xliff:g>ಲಾಂಗ್ಇಯರ್‌ಬೈನ್"</item>
     <item msgid="3784788073896028355">"A<xliff:g id="SEPARATOR">=</xliff:g>ಅಲ್ಮಾಟಿ"</item>
     <item msgid="7895695236056852523">"A<xliff:g id="SEPARATOR">=</xliff:g>ಅಮ್ಮಾನ್"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"G<xliff:g id="SEPARATOR">=</xliff:g>ಗಾಜಾ"</item>
     <item msgid="2359068282340162319">"H<xliff:g id="SEPARATOR">=</xliff:g>ಹೆಬ್ರಾನ್"</item>
     <item msgid="6223396610551759129">"H<xliff:g id="SEPARATOR">=</xliff:g>ಹೊ ಚಿ ಮಿನ್ಹ್"</item>
-    <item msgid="4731022818651322736">"H<xliff:g id="SEPARATOR">=</xliff:g>ಹಾಂಗ್ ಕಾಂಗ್"</item>
+    <item msgid="3439764751788710130">"H<xliff:g id="SEPARATOR">=</xliff:g>ಹಾಂಗ್ ಕಾಂಗ್<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"I<xliff:g id="SEPARATOR">=</xliff:g>ಇಸ್ತಾನ್‌ಬುಲ್"</item>
     <item msgid="758800913783999425">"J<xliff:g id="SEPARATOR">=</xliff:g>ಜಕಾರ್ತಾ"</item>
     <item msgid="8956406398692698126">"J<xliff:g id="SEPARATOR">=</xliff:g>ಜೆರುಸಲೆಮ್"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"M<xliff:g id="SEPARATOR">=</xliff:g>ಮನಿಲಾ"</item>
     <item msgid="6033964325069060422">"M<xliff:g id="SEPARATOR">=</xliff:g>ಮಸ್ಕತ್"</item>
     <item msgid="6077458941399984780">"P<xliff:g id="SEPARATOR">=</xliff:g>ನೋಮ್ ಪೆನ್"</item>
-    <item msgid="935474308903572975">"P<xliff:g id="SEPARATOR">=</xliff:g>ಪೋಂಗ್‌ಯಾಂಗ್"</item>
+    <item msgid="1245515372520913197">"P<xliff:g id="SEPARATOR">=</xliff:g>ಪೋಂಗ್‌ಯಾಂಗ್<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"Q<xliff:g id="SEPARATOR">=</xliff:g>ಕತಾರ್"</item>
     <item msgid="1667243110545095146">"R<xliff:g id="SEPARATOR">=</xliff:g>ರಂಗೂನ್"</item>
     <item msgid="4460370766685855731">"R<xliff:g id="SEPARATOR">=</xliff:g>ರಿಯಾದ್"</item>
     <item msgid="4229224905931739201">"S<xliff:g id="SEPARATOR">=</xliff:g>ಸೈಗಾನ್"</item>
     <item msgid="8705359848250215620">"S<xliff:g id="SEPARATOR">=</xliff:g>ಸಿಯೋಲ್"</item>
-    <item msgid="583367295371395814">"S<xliff:g id="SEPARATOR">=</xliff:g>ಶಾಂಘೈ"</item>
+    <item msgid="3814881931186962624">"S<xliff:g id="SEPARATOR">=</xliff:g>ಶಾಂಘೈ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"S<xliff:g id="SEPARATOR">=</xliff:g>ಸಿಂಗಪುರ್"</item>
-    <item msgid="1972491729911039207">"T<xliff:g id="SEPARATOR">=</xliff:g>ಟೈಪೆ"</item>
+    <item msgid="8982451946156859368">"T<xliff:g id="SEPARATOR">=</xliff:g>ಟೈಪೆ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"T<xliff:g id="SEPARATOR">=</xliff:g>ತೆಹ್ರಾನ್"</item>
     <item msgid="8629402941285674273">"T<xliff:g id="SEPARATOR">=</xliff:g>ಟೆಲ್ ಅವಿವ್"</item>
-    <item msgid="8499164674454654525">"T<xliff:g id="SEPARATOR">=</xliff:g>ಟೋಕಿಯೊ"</item>
+    <item msgid="76330681636547168">"T<xliff:g id="SEPARATOR">=</xliff:g>ಟೋಕಿಯೊ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"U<xliff:g id="SEPARATOR">=</xliff:g>ಉಲಾನ್‌ಬಾತರ್"</item>
     <item msgid="2028626988021468640">"B<xliff:g id="SEPARATOR">=</xliff:g>ಬರ್ಮುಡಾ"</item>
     <item msgid="4527109966513690429">"C<xliff:g id="SEPARATOR">=</xliff:g>ಕ್ಯಾನರಿ"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"R<xliff:g id="SEPARATOR">=</xliff:g>ರೆನೋ"</item>
     <item msgid="9155068631060038769">"B<xliff:g id="SEPARATOR">=</xliff:g>ಬ್ಲಾಕ್ ರಾಕ್ ಸಿಟಿ"</item>
     <item msgid="8498761319928979900">"D<xliff:g id="SEPARATOR">=</xliff:g>ದೋಹಾ"</item>
-    <item msgid="8307897251088048641">"B<xliff:g id="SEPARATOR">=</xliff:g>ಬೀಜಿಂಗ್"</item>
+    <item msgid="5327010922199714808">"B<xliff:g id="SEPARATOR">=</xliff:g>ಬೀಜಿಂಗ್<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"M<xliff:g id="SEPARATOR">=</xliff:g>ಮುಂಬೈ"</item>
     <item msgid="6668274273067049125">"D<xliff:g id="SEPARATOR">=</xliff:g>ದೆಹಲಿ"</item>
-    <item msgid="2933410189478233292">"O<xliff:g id="SEPARATOR">=</xliff:g>ಒಸಾಕಾ"</item>
+    <item msgid="7199039603593847813">"O<xliff:g id="SEPARATOR">=</xliff:g>ಒಸಾಕಾ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"L<xliff:g id="SEPARATOR">=</xliff:g>ಲಾಹೋರ್"</item>
     <item msgid="1448378291805481500">"S<xliff:g id="SEPARATOR">=</xliff:g>ಸನಾ"</item>
     <item msgid="5233119846682408301">"B<xliff:g id="SEPARATOR">=</xliff:g>ಬಾರ್ಸಿಲೋನಾ"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"C<xliff:g id="SEPARATOR">=</xliff:g>ಕೇಂಬ್ರಿಡ್ಜ್"</item>
     <item msgid="759409010285366934">"K<xliff:g id="SEPARATOR">=</xliff:g>ಕಿರ್ಕ್‌ಲ್ಯಾಂಡ್"</item>
     <item msgid="6308007059287569663">"M<xliff:g id="SEPARATOR">=</xliff:g>ಮ್ಯಾಡಿಸನ್"</item>
-    <item msgid="6971636434858330021">"G<xliff:g id="SEPARATOR">=</xliff:g>ಗುವಾಂಗ್ಝೌ"</item>
+    <item msgid="2077617905582224600">"G<xliff:g id="SEPARATOR">=</xliff:g>ಗುವಾಂಗ್ಝೌ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"H<xliff:g id="SEPARATOR">=</xliff:g>ಹೈದರಾಬಾದ್"</item>
     <item msgid="3032295682584784261">"R<xliff:g id="SEPARATOR">=</xliff:g>ರೆಸ್ಟಾನ್"</item>
     <item msgid="7722837296297332268">"B<xliff:g id="SEPARATOR">=</xliff:g>ಬೆಲೊ ಹೊರಿಜೊಂಟೆ"</item>

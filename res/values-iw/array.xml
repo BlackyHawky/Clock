@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"פ<xliff:g id="SEPARATOR">=</xliff:g>פורטלזה"</item>
     <item msgid="5801558418916235541">"ג<xliff:g id="SEPARATOR">=</xliff:g>גראנד טורק"</item>
     <item msgid="2103759276235503048">"ג<xliff:g id="SEPARATOR">=</xliff:g>גרנדה"</item>
-    <item msgid="1490069759176391533">"ג<xliff:g id="SEPARATOR">=</xliff:g>גואטמלה"</item>
+    <item msgid="6216160110733510854">"ג<xliff:g id="SEPARATOR">=</xliff:g>גואטמלה סיטי"</item>
     <item msgid="525959305652046261">"ג<xliff:g id="SEPARATOR">=</xliff:g>גיאנה"</item>
     <item msgid="7565596629973190931">"ה<xliff:g id="SEPARATOR">=</xliff:g>האליפקס"</item>
     <item msgid="3811169155065582644">"ה<xliff:g id="SEPARATOR">=</xliff:g>הוואנה"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"ט<xliff:g id="SEPARATOR">=</xliff:g>טורונטו"</item>
     <item msgid="1506838283840737263">"ו<xliff:g id="SEPARATOR">=</xliff:g>ונקובר"</item>
     <item msgid="8935386104773857399">"ו<xliff:g id="SEPARATOR">=</xliff:g>וויניפג"</item>
-    <item msgid="1132634022412399582">"ק<xliff:g id="SEPARATOR">=</xliff:g>הקוטב הדרומי"</item>
+    <item msgid="498429228419399474">"ק<xliff:g id="SEPARATOR">=</xliff:g>הקוטב הדרומי<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"ל<xliff:g id="SEPARATOR">=</xliff:g>לונגיירביאן"</item>
     <item msgid="3784788073896028355">"א<xliff:g id="SEPARATOR">=</xliff:g>אלמטי"</item>
     <item msgid="7895695236056852523">"ע<xliff:g id="SEPARATOR">=</xliff:g>עמאן"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"ע<xliff:g id="SEPARATOR">=</xliff:g>עזה"</item>
     <item msgid="2359068282340162319">"ח<xliff:g id="SEPARATOR">=</xliff:g>חברון"</item>
     <item msgid="6223396610551759129">"ה<xliff:g id="SEPARATOR">=</xliff:g>הו צ\'י מין"</item>
-    <item msgid="4731022818651322736">"ה<xliff:g id="SEPARATOR">=</xliff:g>הונג קונג"</item>
+    <item msgid="3439764751788710130">"ה<xliff:g id="SEPARATOR">=</xliff:g>הונג קונג<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"א<xliff:g id="SEPARATOR">=</xliff:g>איסטנבול"</item>
     <item msgid="758800913783999425">"ג<xliff:g id="SEPARATOR">=</xliff:g>ג\'קרטה"</item>
     <item msgid="8956406398692698126">"י<xliff:g id="SEPARATOR">=</xliff:g>ירושלים"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"מ<xliff:g id="SEPARATOR">=</xliff:g>מנילה"</item>
     <item msgid="6033964325069060422">"מ<xliff:g id="SEPARATOR">=</xliff:g>מוסקט"</item>
     <item msgid="6077458941399984780">"פ<xliff:g id="SEPARATOR">=</xliff:g>פנום פן"</item>
-    <item msgid="935474308903572975">"פ<xliff:g id="SEPARATOR">=</xliff:g>פיונגיאנג"</item>
+    <item msgid="1245515372520913197">"פ<xliff:g id="SEPARATOR">=</xliff:g>פיונגיאנג<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"ק<xliff:g id="SEPARATOR">=</xliff:g>קטאר"</item>
     <item msgid="1667243110545095146">"י<xliff:g id="SEPARATOR">=</xliff:g>ינגון"</item>
     <item msgid="4460370766685855731">"ר<xliff:g id="SEPARATOR">=</xliff:g>ריאד"</item>
     <item msgid="4229224905931739201">"ס<xliff:g id="SEPARATOR">=</xliff:g>סייגון"</item>
     <item msgid="8705359848250215620">"ס<xliff:g id="SEPARATOR">=</xliff:g>סיאול"</item>
-    <item msgid="583367295371395814">"ש<xliff:g id="SEPARATOR">=</xliff:g>שנגחאי"</item>
+    <item msgid="3814881931186962624">"ש<xliff:g id="SEPARATOR">=</xliff:g>שנגחאי<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"ס<xliff:g id="SEPARATOR">=</xliff:g>סינגפור"</item>
-    <item msgid="1972491729911039207">"ט<xliff:g id="SEPARATOR">=</xliff:g>טאיפיי"</item>
+    <item msgid="8982451946156859368">"ט<xliff:g id="SEPARATOR">=</xliff:g>טאיפיי<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"ט<xliff:g id="SEPARATOR">=</xliff:g>טהרן"</item>
     <item msgid="8629402941285674273">"ת<xliff:g id="SEPARATOR">=</xliff:g>תל אביב"</item>
-    <item msgid="8499164674454654525">"ט<xliff:g id="SEPARATOR">=</xliff:g>טוקיו"</item>
+    <item msgid="76330681636547168">"ט<xliff:g id="SEPARATOR">=</xliff:g>טוקיו<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"א<xliff:g id="SEPARATOR">=</xliff:g>אולאנבאטר"</item>
     <item msgid="2028626988021468640">"ב<xliff:g id="SEPARATOR">=</xliff:g>ברמודה"</item>
     <item msgid="4527109966513690429">"ק<xliff:g id="SEPARATOR">=</xliff:g>קנארי"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"ר<xliff:g id="SEPARATOR">=</xliff:g>רינו"</item>
     <item msgid="9155068631060038769">"ב<xliff:g id="SEPARATOR">=</xliff:g>בלאק רוק סיטי"</item>
     <item msgid="8498761319928979900">"ד<xliff:g id="SEPARATOR">=</xliff:g>דוחה"</item>
-    <item msgid="8307897251088048641">"ב<xliff:g id="SEPARATOR">=</xliff:g>בייג\'ינג"</item>
+    <item msgid="5327010922199714808">"ב<xliff:g id="SEPARATOR">=</xliff:g>בייג\'ינג<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"מ<xliff:g id="SEPARATOR">=</xliff:g>מומבאי"</item>
     <item msgid="6668274273067049125">"ד<xliff:g id="SEPARATOR">=</xliff:g>דלהי"</item>
-    <item msgid="2933410189478233292">"א<xliff:g id="SEPARATOR">=</xliff:g>אוסקה"</item>
+    <item msgid="7199039603593847813">"א<xliff:g id="SEPARATOR">=</xliff:g>אוסקה<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"ל<xliff:g id="SEPARATOR">=</xliff:g>לאהור"</item>
     <item msgid="1448378291805481500">"צ<xliff:g id="SEPARATOR">=</xliff:g>צנעא"</item>
     <item msgid="5233119846682408301">"ב<xliff:g id="SEPARATOR">=</xliff:g>ברצלונה"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"ק<xliff:g id="SEPARATOR">=</xliff:g>קיימברידג\'"</item>
     <item msgid="759409010285366934">"ק<xliff:g id="SEPARATOR">=</xliff:g>קירקלנד"</item>
     <item msgid="6308007059287569663">"מ<xliff:g id="SEPARATOR">=</xliff:g>מדיסון"</item>
-    <item msgid="6971636434858330021">"ג<xliff:g id="SEPARATOR">=</xliff:g>גואנגג\'ו"</item>
+    <item msgid="2077617905582224600">"ג<xliff:g id="SEPARATOR">=</xliff:g>גואנגג\'ו<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"ה<xliff:g id="SEPARATOR">=</xliff:g>היידראבאד"</item>
     <item msgid="3032295682584784261">"ר<xliff:g id="SEPARATOR">=</xliff:g>רסטון"</item>
     <item msgid="7722837296297332268">"ב<xliff:g id="SEPARATOR">=</xliff:g>בלו הוריזונטה"</item>

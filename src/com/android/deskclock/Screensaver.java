@@ -23,7 +23,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
-import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -33,6 +32,7 @@ import android.view.View;
 import android.widget.TextClock;
 
 import com.android.deskclock.Utils.ScreensaverMoveSaverRunnable;
+import com.android.deskclock.settings.ScreensaverSettingsActivity;
 
 public class Screensaver extends DreamService {
 
@@ -40,8 +40,6 @@ public class Screensaver extends DreamService {
 
     private static final boolean DEBUG = false;
     private static final String TAG = "DeskClock/Screensaver";
-    private static final boolean PRE_L_DEVICE =
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
 
     private View mContentView, mSaverView;
     private View mAnalogClock, mDigitalClock;
@@ -53,7 +51,7 @@ public class Screensaver extends DreamService {
     private final ScreensaverMoveSaverRunnable mMoveSaverRunnable;
 
     /* Register ContentObserver to see alarm changes for pre-L */
-    private final ContentObserver mSettingsContentObserver = PRE_L_DEVICE
+    private final ContentObserver mSettingsContentObserver = Utils.isPreL()
         ? new ContentObserver(mHandler) {
             @Override
             public void onChange(boolean selfChange) {
@@ -143,7 +141,7 @@ public class Screensaver extends DreamService {
         registerReceiver(mIntentReceiver, filter);
         Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
 
-        if (PRE_L_DEVICE) {
+        if (Utils.isPreL()) {
             getContentResolver().registerContentObserver(
                 Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
                 false,
@@ -160,7 +158,7 @@ public class Screensaver extends DreamService {
 
         mHandler.removeCallbacks(mMoveSaverRunnable);
 
-        if (PRE_L_DEVICE) {
+        if (Utils.isPreL()) {
             getContentResolver().unregisterContentObserver(mSettingsContentObserver);
         }
 
@@ -170,8 +168,7 @@ public class Screensaver extends DreamService {
     }
 
     private void setClockStyle() {
-        Utils.setClockStyle(this, mDigitalClock, mAnalogClock,
-                ScreensaverSettingsActivity.KEY_CLOCK_STYLE);
+        Utils.setScreensaverClockStyle(mDigitalClock, mAnalogClock);
         mSaverView = findViewById(R.id.main_clock);
         boolean dimNightMode = Utils.getDefaultSharedPreferences(this)
                 .getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
@@ -184,8 +181,7 @@ public class Screensaver extends DreamService {
         mDigitalClock = findViewById(R.id.digital_clock);
         mAnalogClock = findViewById(R.id.analog_clock);
         setClockStyle();
-        Utils.setTimeFormat(this, (TextClock) mDigitalClock,
-                getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size));
+        Utils.setTimeFormat(this, (TextClock) mDigitalClock);
 
         mContentView = (View) mSaverView.getParent();
         mSaverView.setAlpha(0);

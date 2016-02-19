@@ -19,7 +19,7 @@
 
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
     <dimen name="label_text_size">18sp</dimen>
     <dimen name="time_text_size">180dip</dimen>
     <dimen name="ampm_text_size">54dip</dimen>
@@ -40,6 +40,7 @@
     <dimen name="clock_side_padding">48dip</dimen>
     <dimen name="clock_side_padding_reduced">36dip</dimen>
 
+    <dimen name="main_clock_font_size">125sp</dimen>
     <dimen name="big_font_size">115sp</dimen>
     <dimen name="medium_font_size">96sp</dimen>
     <dimen name="label_font_size">18sp</dimen>
@@ -74,11 +75,10 @@
     <dimen name="circle_margin_top">48dp</dimen>
     <dimen name="circle_margin">96dp</dimen>
     <dimen name="analog_clock_margin">96dp</dimen>
-    <dimen name="timer_circle_margin">96dp</dimen>
 
     <dimen name="circle_size">400dp</dimen>
     <!-- stopwatch_list_bottom_spacing = footer_button_size + footer_button_layout_margin -->
-    <dimen name="stopwatch_list_bottom_spacing">96dip</dimen>
+    <dimen name="list_bottom_spacing">96dip</dimen>
 
      <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">550dip</dimen>
@@ -86,6 +86,8 @@
     <!-- Size of analog clock in world clock. -->
     <dimen name="world_clock_analog_size">200dip</dimen>
     <dimen name="world_clock_margin">96dp</dimen>
+
+    <dimen name="min_analog_widget_size">170dp</dimen>
 
     <!-- Digital Widget settings (keyguard|home_screen) -->
     <!-- Use larger fonts -->

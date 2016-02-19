@@ -28,12 +28,15 @@
     <string name="show_clock" msgid="8358759982675616915">"గడియారాన్ని చూపు"</string>
     <string name="hide_clock" msgid="3217727306480505694">"గడియారాన్ని దాచు"</string>
     <string name="label" msgid="162189613902857319">"లేబుల్"</string>
+    <string name="on_switch" msgid="2297966258029227449">"ఆన్‌లో ఉంది"</string>
+    <string name="off_switch" msgid="3381070073851148013">"ఆఫ్‌లో ఉంది"</string>
     <string name="default_label" msgid="5590025289805630372">"అలారం"</string>
     <string name="set_alarm" msgid="9148359866152726808">"అలారం సెట్ చేయి"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"వైబ్రేట్"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"పునరావృతం చేయి"</string>
     <string name="alert" msgid="6506982899651975645">"అలారం రింగ్‌టోన్"</string>
-    <string name="custom_ringtone" msgid="3477418548382111184">"అనుకూల రింగ్‌టోన్"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"టైమర్ గడువు ముగిసింది"</string>
+    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"నిశ్శబ్దం"</string>
     <string name="ringtone" msgid="9110746249688559579">"రింగ్‌టోన్"</string>
     <string name="time" msgid="8067216534232296518">"సమయం"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"రేపు"</string>
@@ -58,12 +61,12 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> వరకు తాత్కాలికంగా ఆపివేయబడుతోంది"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"అలారం సమయం ఆసన్నం కాబోతోంది"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"మీరు ప్రతిస్పందించని అలారం తొలగించబడింది"</string>
-  <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"నిమిషం కంటే తక్కువ సమయం ఉంది"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> మిగిలి ఉంది"</item>
-    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> మిగిలి ఉంది"</item>
-    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> మిగిలి ఉంది"</item>
-  </string-array>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"నిమిషం కంటే తక్కువ సమయం మిగిలి ఉంది"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> మిగిలి ఉంది"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"మిగిలి ఉంది"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"మిగిలి ఉంది"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"అలారం ఇప్పటి నుండి 1 నిమిషం కంటే తక్కువ సేపటికి సెట్ చేయబడింది."</item>
     <item msgid="6002066367368421848">"అలారం ఇప్పటి నుండి <xliff:g id="DAYS">%1$s</xliff:g>కు సెట్ చేయబడింది."</item>
@@ -101,6 +104,10 @@
       <item quantity="other">నిమిషాలు</item>
       <item quantity="one">నిమిషం</item>
     </plurals>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"వాల్యూమ్‌ను క్రమంగా పెంచు"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"ఆఫ్‌లో ఉంది"</string>
+    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> సెకన్లు"</string>
+    <string name="crescendo_picker_label" msgid="7758024047003091056">"సెకన్లు"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ఇంత సమయం తర్వాత నిశ్శబ్దంగా ఉండాలి"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> నిమిషాలు</item>
@@ -126,7 +133,8 @@
     <string name="revert" msgid="9100911171235162926">"తిరిగి పొందు"</string>
     <string name="delete" msgid="5732434972457000541">"తొలగించు"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"అలారం వాల్యూమ్"</string>
-    <string name="silent_alarm_summary" msgid="8605302849408279221">"నిశ్శబ్దం"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"నిశ్శబ్దం"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"తెలియనివి"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"అలారంను తాత్కాలికంగా ఆపివేయండి లేదా తీసివేయండి."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (తాత్కాలికంగా ఆపివేయబడింది)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"అలారం <xliff:g id="TIME">%s</xliff:g>కు సెట్ చేయబడింది. రద్దు చేయడానికి తాకండి."</string>
@@ -151,8 +159,6 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"రింగ్‌టోన్‌ను లోడ్ చేస్తోంది…"</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"గడియారంలో సెట్ చేయబడిన టైమర్‌ల కోసం సౌండ్ ప్లేబ్యాక్ సేవ."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"అలారం సెట్ చేయి"</string>
-    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
-    <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"అలారం"</string>
     <string name="menu_timer" msgid="6459070074762877114">"టైమర్"</string>
     <string name="menu_clock" msgid="5612760670606829805">"గడియారం"</string>
@@ -167,10 +173,11 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"పేరు ద్వారా క్రమబద్ధీకరించు"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ఎంచుకున్న నగరాలు"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"పునఃప్రారంభించు"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"ప్రారంభించు"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"ఆపివేయి"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"ల్యాప్"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"రీసెట్ చేయి"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"ప్రారంభించు"</string>
+    <!-- no translation found for sw_pause_button (2422084453454138042) -->
+    <skip />
+    <string name="sw_lap_button" msgid="6992264696039004233">"ల్యాప్"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"భాగస్వామ్యం చేయి"</string>
     <string name="hours_label" msgid="3393478155635368097">"గం"</string>
     <string name="minutes_label" msgid="3568098128251438588">"నిమి"</string>
@@ -182,10 +189,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"నా సమయం <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ల్యాప్ సమయాలు:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ల్యాప్ <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
-  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> గంటలు</item>
       <item quantity="one">1 గంట</item>
@@ -205,12 +208,16 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"1 నిమిషాన్ని జోడించండి"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 నిమి జోడించండి"</string>
     <string name="timer_stop" msgid="3361154678667736722">"ఆపివేయి"</string>
-    <string name="timer_done" msgid="2375990511982914051">"పూర్తయింది"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"అన్ని టైమర్‌లు ఆపుతుంది"</string>
     <string name="timer_reset" msgid="7848424809190171640">"రీసెట్ చేయి"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"రద్దు చేయి"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"టైమర్ రద్దు చేయబడింది"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"సమయం ముగిసింది"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> టైమర్‌ల సమయం గడిచిపోయిం."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"టైమర్"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"గరిష్టంగా 4 టైమర్‌లు"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"పాజ్ చేస్తుంది"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"టైమర్‌లన్నీ రీసెట్ చేస్తుంది"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"మీరు చాలా వేగంగా ఉన్నారు."</item>
     <item msgid="6332879039890727169">"మీ శ్రమ యొక్క ఫలితాలను ఆస్వాదించండి."</item>
@@ -227,6 +234,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"నగరాలు"</string>
     <string name="clock_settings" msgid="8317286807280600391">"గడియారం"</string>
     <string name="clock_style" msgid="2265011060429742344">"శైలి"</string>
+    <string name="open_date_settings" msgid="5915966847691221307">"తేదీ &amp; సమయం మార్చండి"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"అనలాగ్"</item>
     <item msgid="8483930821046925592">"డిజిటల్"</item>
@@ -241,6 +249,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> ఎంచుకోబడింది"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> ఎంపిక తీసివేయబడింది"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"మార్షల్ దీవులు"</item>
     <item msgid="4196408495909011020">"మిడ్‌వే దీవి"</item>
@@ -329,13 +339,17 @@
     <item msgid="5176858645450908751">"జకార్తా"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"అలారాలు"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"నోటిఫికేషన్‌ను అమలు చేయడానికి స్టాప్ వాచ్ సేవ."</string>
-    <string name="swn_stopped" msgid="783124901663086172">"ఆపివేయబడింది"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"టైమర్ నోటిఫికేషన్‌ల నుండి చర్యలను ప్రాసెస్ చేస్తుంది."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"స్టాప్‌వాచ్ నోటిఫికేషన్‌ల నుండి చర్యలను ప్రాసెస్ చేస్తుంది."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"పాజ్ చేయబడింది"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"తీసివేయడానికి కుడి వైపుకి స్వైప్ చేయండి"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"తాత్కాలికంగా ఆపివేయడానికి ఎడమ వైపుకి స్వైప్ చేయండి"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"తాత్కాలికంగా ఆపివేయడానికి ఎడమవైపుకు, తీసివేయడానికి కుడి వైపుకు స్వైప్ చేయండి"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"టైమర్‌లు"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"టైమర్ రింగ్‌టోన్"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"టైమర్ ఆపివేయబడింది"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు ఆపివేయబడ్డాయి"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"టైమర్ పాజ్ చేయబడింది"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు పాజ్ చేయబడ్డాయి"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"మీ టైమర్‌లను చూడటానికి తాకండి"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> టైమర్‌లు"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"తదుపరి టైమర్: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
@@ -361,35 +375,27 @@
     <string name="no_alarms" msgid="6429431324842022917">"అలారాలు లేవు"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"అలారాలను సెట్ చేయలేదు"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"సమయం ఆసన్నమయ్యే అలారాలు ఏవీ లేవు"</string>
-    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
-    <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
-    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
-    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> సమయం చెల్లదు"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>కి అలారం ఏదీ లేదు"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"షెడ్యూల్ చేసిన అలారాలు ఏవీ లేవు"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"లేబుల్ ఏదీ పేర్కొనలేదు"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"లేబుల్‌ను కలిగి ఉన్న అలారాలు ఏవీ లేవు"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"స్టాప్‌వాచ్ ఇప్పటికే అమలవుతోంది"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"స్టాప్‌వాచ్ అమలు కావడం లేదు"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"స్టాప్‌వాచ్ అమలవుతున్నందున రీసెట్ చేయడం సాధ్యపడదు"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"స్టాప్‌వాచ్ ఆపివేయబడింది"</string>
+    <string name="stopwatch_paused" msgid="2187615623275408601">"స్టాప్‌వాచ్ పాజ్ చేయబడింది"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"స్టాప్‌వాచ్ రీసెట్ చేయబడింది"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"స్టాప్‌వాచ్ ల్యాప్ చేయబడింది"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"స్టాప్‌వాచ్ ప్రారంభించబడింది"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ఈ సమయానికి అలారం ఏదీ షెడ్యూల్ చేయబడలేదు"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> అలారాన్ని తీసివేసారు"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>కి అలారాన్ని సెట్ చేసారు"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"టైమర్ ఏదీ సెట్ చేయలేదు"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"టైమర్‌ను తొలగించారు"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"టైమర్ ఇప్పటికే అమలవుతోంది"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"మీ అభ్యర్థనను పూర్తి చేయడం సాధ్యపడలేదు, పలు టైమర్‌లు అందుబాటులో ఉన్నాయి"</string>
-    <string name="timer_started" msgid="6715582052946641641">"టైమర్‌ను ప్రారంభించారు"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"టైమర్‌లేవీ లేవు"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"ఒకటి కంటే ఎక్కువ టైమర్‌లు ఉన్నాయి"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"టైమర్ తీసివేయబడింది."</string>
     <string name="timer_created" msgid="4381027137335885547">"టైమర్‌ను సృష్టించారు"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"టైమర్ నిడివి చెల్లదు"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"టైమర్‌ను రీసెట్ చేసారు"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"టైమర్ ఇప్పటికీ అమలవుతూనే ఉన్నందున దాన్ని రీసెట్ చేయలేరు. రీసెట్ చేయడానికి టైమర్‌ను ఆపివేయండి."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"టైమర్ ఇప్పటికే ఆపివేయబడింది"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"టైమర్‌ను తొలగించారు"</string>
+    <string name="timer_started" msgid="6715582052946641641">"టైమర్‌ను ప్రారంభించారు"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"టైమర్ నిడివి చెల్లదు"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"నగరం ఏదీ ఎంచుకోలేదు"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"మీరు పేర్కొన్న నగరం అందుబాటులో లేదు"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"ఆ నగరాన్ని ఇప్పటికే జోడించారు"</string>

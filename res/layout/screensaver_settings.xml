@@ -14,9 +14,15 @@
      limitations under the License.
 -->
 
-<fragment
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
-    android:name="com.android.deskclock.ScreensaverSettingsActivity$PrefsFragment"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <fragment
+        android:id="@+id/main"
+        android:name="com.android.deskclock.settings.ScreensaverSettingsActivity$PrefsFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</FrameLayout>

@@ -16,7 +16,6 @@
 
 package com.android.alarmclock;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -28,130 +27,118 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService.RemoteViewsFactory;
 
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
-import com.android.deskclock.worldclock.CityObj;
-import com.android.deskclock.worldclock.WorldClockAdapter;
+import com.android.deskclock.data.City;
+import com.android.deskclock.data.DataModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
-    private static final String TAG = "DigitalWidgetViewsFactory";
+import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
+import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
+import static com.android.deskclock.Utils.enforceMainLooper;
+import static java.util.Calendar.DAY_OF_WEEK;
 
-    private Context mContext;
-    private Resources mResources;
-    private int mId = AppWidgetManager.INVALID_APPWIDGET_ID;
-    private RemoteWorldClockAdapter mAdapter;
+public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
+
+    private static final String TAG = "DigWidgetViewsFactory";
+
+    private final Intent mFillInIntent = new Intent();
+
+    private final Context mContext;
+    private final Resources mResources;
+    private final float mFontSize;
+    private final float mFont24Size;
+    private final int mWidgetId;
     private float mFontScale = 1;
 
-    // An adapter to provide the view for the list of cities in the world clock.
-    private class RemoteWorldClockAdapter extends WorldClockAdapter {
-        private final float mFontSize;
-        private final float mFont24Size;
-
-        public RemoteWorldClockAdapter(Context context) {
-            super(context);
-            mClocksPerRow = context.getResources().getInteger(
-                    R.integer.appwidget_world_clocks_per_row);
-            mFontSize = context.getResources().getDimension(R.dimen.widget_medium_font_size);
-            mFont24Size = context.getResources().getDimension(R.dimen.widget_24_medium_font_size);
-        }
-
-        public RemoteViews getViewAt(int position) {
-            // There are 2 cities per item
-            int index = position * 2;
-            if (index < 0 || index >= mCitiesList.length) {
-                return null;
-            }
-
-            RemoteViews views = new RemoteViews(
-                    mContext.getPackageName(), R.layout.world_clock_remote_list_item);
-
-            // Always how the left clock
-            updateView(views, (CityObj) mCitiesList[index], R.id.left_clock,
-                    R.id.city_name_left, R.id.city_day_left);
-            // Show the right clock if any, make it invisible if there is no
-            // clock on the right
-            // to keep the left view on the left.
-            if (index + 1 < mCitiesList.length) {
-                updateView(views, (CityObj) mCitiesList[index + 1], R.id.right_clock,
-                        R.id.city_name_right, R.id.city_day_right);
-            } else {
-                hideView(views, R.id.right_clock, R.id.city_name_right,
-                        R.id.city_day_right);
-            }
-
-            // Hide last spacer if last row
-            int lastRow = ((mCitiesList.length + 1) / 2) - 1;
-            if (position == lastRow) {
-                views.setViewVisibility(R.id.city_spacer, View.GONE);
-            } else {
-                views.setViewVisibility(R.id.city_spacer, View.VISIBLE);
-            }
-
-            return views;
-        }
-
-        private void updateView(RemoteViews clock, CityObj cityObj, int clockId,
-                int labelId, int dayId) {
-            final Calendar now = Calendar.getInstance();
-            now.setTimeInMillis(System.currentTimeMillis());
-            int myDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-            CityObj cityInDb = mCitiesDb.get(cityObj.mCityId);
-            String cityTZ = (cityInDb != null) ? cityInDb.mTimeZone : cityObj.mTimeZone;
-            now.setTimeZone(TimeZone.getTimeZone(cityTZ));
-            int cityDayOfWeek = now.get(Calendar.DAY_OF_WEEK);
-
-            final int labelSize = mResources.getDimensionPixelSize(R.dimen.widget_label_font_size);
-            WidgetUtils.setTimeFormat(mContext, clock, labelSize, clockId);
-            float fontSize = mFontScale * (DateFormat.is24HourFormat(mContext)
-                    ? mFont24Size : mFontSize);
-            clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
-            clock.setString(clockId, "setTimeZone", cityObj.mTimeZone);
-
-            // Home city or city not in DB , use data from the save selected cities list
-            clock.setTextViewText(labelId, Utils.getCityName(cityObj, cityInDb));
-
-            if (myDayOfWeek != cityDayOfWeek) {
-                clock.setTextViewText(dayId, mContext.getString(
-                        R.string.world_day_of_week_label, now.getDisplayName(
-                                Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.getDefault())));
-                clock.setViewVisibility(dayId, View.VISIBLE);
-            } else {
-                clock.setViewVisibility(dayId, View.GONE);
-            }
-
-            clock.setViewVisibility(clockId, View.VISIBLE);
-            clock.setViewVisibility(labelId, View.VISIBLE);
-        }
-
-        private void hideView(
-                RemoteViews clock, int clockId, int labelId, int dayId) {
-            clock.setViewVisibility(clockId, View.INVISIBLE);
-            clock.setViewVisibility(labelId, View.INVISIBLE);
-            clock.setViewVisibility(dayId, View.INVISIBLE);
-        }
-    }
+    private City mHomeCity;
+    private List<City> mCities;
+    private boolean mShowHomeClock;
 
     public DigitalWidgetViewsFactory(Context context, Intent intent) {
         mContext = context;
-        mResources = mContext.getResources();
-        mId = intent.getIntExtra(
-                AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        mAdapter = new RemoteWorldClockAdapter(context);
-    }
-
-    @SuppressWarnings("unused")
-    public DigitalWidgetViewsFactory() {
+        mResources = context.getResources();
+        mFontSize = mResources.getDimension(R.dimen.widget_medium_font_size);
+        mFont24Size = mResources.getDimension(R.dimen.widget_24_medium_font_size);
+        mWidgetId = intent.getIntExtra(EXTRA_APPWIDGET_ID, INVALID_APPWIDGET_ID);
     }
 
     @Override
-    public int getCount() {
-        if (WidgetUtils.showList(mContext, mId, mFontScale)) {
-            return mAdapter.getCount();
+    public void onCreate() {
+        if (DigitalAppWidgetService.LOGGING) {
+            Log.i(TAG, "DigitalWidget onCreate " + mWidgetId);
         }
-        return 0;
+    }
+
+    @Override
+    public void onDestroy() {
+        if (DigitalAppWidgetService.LOGGING) {
+            Log.i(TAG, "DigitalWidget onDestroy " + mWidgetId);
+        }
+    }
+
+    /**
+     * <p>Synchronized to ensure single-threaded reading/writing of mCities, mHomeCity and
+     * mShowHomeClock.</p>
+     *
+     * {@inheritDoc}
+     */
+    @Override
+    public synchronized int getCount() {
+        if (!WidgetUtils.showList(mContext, mWidgetId, mFontScale)) {
+            return 0;
+        }
+
+        final int homeClockCount = mShowHomeClock ? 1 : 0;
+        final int worldClockCount = mCities.size();
+        final double totalClockCount = homeClockCount + worldClockCount;
+
+        // number of clocks / 2 clocks per row
+        return (int) Math.ceil(totalClockCount / 2);
+    }
+
+    /**
+     * <p>Synchronized to ensure single-threaded reading/writing of mCities, mHomeCity and
+     * mShowHomeClock.</p>
+     *
+     * {@inheritDoc}
+     */
+    @Override
+    public synchronized RemoteViews getViewAt(int position) {
+        final int homeClockOffset = mShowHomeClock ? -1 : 0;
+        final int leftIndex = position * 2 + homeClockOffset;
+        final int rightIndex = leftIndex + 1;
+
+        final City left = leftIndex == -1 ? mHomeCity :
+                (leftIndex < mCities.size() ? mCities.get(leftIndex) : null);
+        final City right = rightIndex < mCities.size() ? mCities.get(rightIndex) : null;
+
+        final RemoteViews clock =
+                new RemoteViews(mContext.getPackageName(), R.layout.world_clock_remote_list_item);
+
+        // Show the left clock if one exists.
+        if (left != null) {
+            update(clock, left, R.id.left_clock, R.id.city_name_left, R.id.city_day_left);
+        } else {
+            hide(clock, R.id.left_clock, R.id.city_name_left, R.id.city_day_left);
+        }
+
+        // Show the right clock if one exists.
+        if (right != null) {
+            update(clock, right, R.id.right_clock, R.id.city_name_right, R.id.city_day_right);
+        } else {
+            hide(clock, R.id.right_clock, R.id.city_name_right, R.id.city_day_right);
+        }
+
+        // Hide last spacer in last row; show for all others.
+        final boolean lastRow = position == getCount() - 1;
+        clock.setViewVisibility(R.id.city_spacer, lastRow ? View.GONE : View.VISIBLE);
+
+        clock.setOnClickFillInIntent(R.id.widget_item, mFillInIntent);
+        return clock;
     }
 
     @Override
@@ -165,16 +152,6 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
     }
 
     @Override
-    public RemoteViews getViewAt(int position) {
-        RemoteViews v = mAdapter.getViewAt(position);
-        if (v != null) {
-            Intent fillInIntent = new Intent();
-            v.setOnClickFillInIntent(R.id.widget_item, fillInIntent);
-        }
-        return v;
-    }
-
-    @Override
     public int getViewTypeCount() {
         return 1;
     }
@@ -184,27 +161,74 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
         return true;
     }
 
+    /**
+     * <p>Synchronized to ensure single-threaded reading/writing of mCities, mHomeCity and
+     * mShowHomeClock.</p>
+     *
+     * {@inheritDoc}
+     */
     @Override
-    public void onCreate() {
-        if (DigitalAppWidgetService.LOGGING) {
-            Log.i(TAG, "DigitalWidget onCreate " + mId);
+    public synchronized void onDataSetChanged() {
+        // Fetch the data on the main Looper.
+        final RefreshRunnable refreshRunnable = new RefreshRunnable();
+        DataModel.getDataModel().run(refreshRunnable);
+
+        // Store the data in local variables.
+        mFontScale = WidgetUtils.getScaleRatio(mContext, null, mWidgetId);
+        mHomeCity = refreshRunnable.mHomeCity;
+        mCities = refreshRunnable.mCities;
+        mShowHomeClock = refreshRunnable.mShowHomeClock;
+    }
+
+    private void update(RemoteViews clock, City city, int clockId, int labelId, int dayId) {
+        WidgetUtils.setTimeFormat(mContext, clock, true /* showAmPm */, clockId);
+
+        final float fontSize = DateFormat.is24HourFormat(mContext) ? mFont24Size : mFontSize;
+        clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
+        clock.setString(clockId, "setTimeZone", city.getTimeZoneId());
+        clock.setTextViewText(labelId, city.getName());
+
+        // Compute if the city week day matches the weekday of the current timezone.
+        final Calendar localCal = Calendar.getInstance(TimeZone.getDefault());
+        final Calendar cityCal = Calendar.getInstance(city.getTimeZone());
+        final boolean displayDayOfWeek = localCal.get(DAY_OF_WEEK) != cityCal.get(DAY_OF_WEEK);
+
+        // Bind the week day display.
+        if (displayDayOfWeek) {
+            final Locale locale = Locale.getDefault();
+            final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, locale);
+            final String slashDay = mContext.getString(R.string.world_day_of_week_label, weekday);
+            clock.setTextViewText(dayId, slashDay);
         }
+
+        clock.setViewVisibility(dayId, displayDayOfWeek ? View.VISIBLE : View.GONE);
+        clock.setViewVisibility(clockId, View.VISIBLE);
+        clock.setViewVisibility(labelId, View.VISIBLE);
     }
 
-    @Override
-    public void onDataSetChanged() {
-        mAdapter.loadData(mContext);
-        mAdapter.loadCitiesDb(mContext);
-        mAdapter.updateHomeLabel(mContext);
-
-        mFontScale = WidgetUtils.getScaleRatio(mContext, null, mId);
+    private void hide(RemoteViews clock, int clockId, int labelId, int dayId) {
+        clock.setViewVisibility(dayId, View.INVISIBLE);
+        clock.setViewVisibility(clockId, View.INVISIBLE);
+        clock.setViewVisibility(labelId, View.INVISIBLE);
     }
 
-    @Override
-    public void onDestroy() {
-        if (DigitalAppWidgetService.LOGGING) {
-            Log.i(TAG, "DigitalWidget onDestroy " + mId);
+    /**
+     * This Runnable fetches data for this factory on the main thread to ensure all DataModel reads
+     * occur on the main thread.
+     */
+    private static final class RefreshRunnable implements Runnable {
+
+        private City mHomeCity;
+        private List<City> mCities;
+        private boolean mShowHomeClock;
+
+        @Override
+        public void run() {
+            enforceMainLooper();
+
+            mHomeCity = DataModel.getDataModel().getHomeCity();
+            mCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
+            mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
         }
     }
 }
-

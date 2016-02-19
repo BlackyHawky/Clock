@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포르탈레자"</item>
     <item msgid="5801558418916235541">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>그랜드터크"</item>
     <item msgid="2103759276235503048">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>그라나다"</item>
-    <item msgid="1490069759176391533">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>과테말라"</item>
+    <item msgid="6216160110733510854">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>과테말라시티"</item>
     <item msgid="525959305652046261">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>가이아나"</item>
     <item msgid="7565596629973190931">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>핼리팩스"</item>
     <item msgid="3811169155065582644">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아바나"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>토론토"</item>
     <item msgid="1506838283840737263">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>밴쿠버"</item>
     <item msgid="8935386104773857399">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>위니펙"</item>
-    <item msgid="1132634022412399582">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>남극"</item>
+    <item msgid="498429228419399474">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>남극<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>롱위에아르뷔엔"</item>
     <item msgid="3784788073896028355">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>알마티"</item>
     <item msgid="7895695236056852523">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>암만"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>가자"</item>
     <item msgid="2359068282340162319">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>헤브론"</item>
     <item msgid="6223396610551759129">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>호치민"</item>
-    <item msgid="4731022818651322736">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>홍콩"</item>
+    <item msgid="3439764751788710130">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>홍콩<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>이스탄불"</item>
     <item msgid="758800913783999425">"ㅈ<xliff:g id="SEPARATOR">=</xliff:g>자카르타"</item>
     <item msgid="8956406398692698126">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>예루살렘"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마닐라"</item>
     <item msgid="6033964325069060422">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>무스카트"</item>
     <item msgid="6077458941399984780">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>프놈펜"</item>
-    <item msgid="935474308903572975">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>평양"</item>
+    <item msgid="1245515372520913197">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>평양<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카타르"</item>
     <item msgid="1667243110545095146">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>랑군"</item>
     <item msgid="4460370766685855731">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리야드"</item>
     <item msgid="4229224905931739201">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>사이공"</item>
     <item msgid="8705359848250215620">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>서울"</item>
-    <item msgid="583367295371395814">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>상하이"</item>
+    <item msgid="3814881931186962624">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>상하이<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>싱가포르"</item>
-    <item msgid="1972491729911039207">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>타이페이"</item>
+    <item msgid="8982451946156859368">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>타이페이<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>테헤란"</item>
     <item msgid="8629402941285674273">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>텔아비브"</item>
-    <item msgid="8499164674454654525">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>도쿄"</item>
+    <item msgid="76330681636547168">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>도쿄<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>울란바토르"</item>
     <item msgid="2028626988021468640">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>버뮤다"</item>
     <item msgid="4527109966513690429">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카나리아"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리노"</item>
     <item msgid="9155068631060038769">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>블랙록시티"</item>
     <item msgid="8498761319928979900">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>도하"</item>
-    <item msgid="8307897251088048641">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>베이징"</item>
+    <item msgid="5327010922199714808">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>베이징<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>뭄바이"</item>
     <item msgid="6668274273067049125">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>델리"</item>
-    <item msgid="2933410189478233292">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오사카"</item>
+    <item msgid="7199039603593847813">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오사카<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>라호르"</item>
     <item msgid="1448378291805481500">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>사나"</item>
     <item msgid="5233119846682408301">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바르셀로나"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>케임브리지"</item>
     <item msgid="759409010285366934">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>커클랜드"</item>
     <item msgid="6308007059287569663">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>매디슨"</item>
-    <item msgid="6971636434858330021">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>광저우"</item>
+    <item msgid="2077617905582224600">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>광저우<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>하이데라바드"</item>
     <item msgid="3032295682584784261">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>레스턴"</item>
     <item msgid="7722837296297332268">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>벨루오리존치"</item>
