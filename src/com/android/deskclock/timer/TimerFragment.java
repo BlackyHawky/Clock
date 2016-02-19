@@ -262,7 +262,7 @@ public final class TimerFragment extends DeskClockFragment {
 
         } else if (mCurrentView == mCreateTimerView) {
             left.setEnabled(true);
-            left.setImageResource(R.drawable.ic_cancel);
+            left.setImageResource(R.drawable.ic_close);
             left.setContentDescription(left.getResources().getString(R.string.timer_cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
