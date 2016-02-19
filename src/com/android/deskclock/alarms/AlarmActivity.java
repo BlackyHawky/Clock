@@ -208,8 +208,7 @@ public class AlarmActivity extends AppCompatActivity
         final CircleView pulseView = (CircleView) mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
-        Utils.setTimeFormat(this, digitalClock,
-                getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size));
+        Utils.setTimeFormat(this, digitalClock);
 
         mCurrentHourColor = Utils.getCurrentHourColor();
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
@@ -229,15 +228,6 @@ public class AlarmActivity extends AppCompatActivity
         mPulseAnimator.setInterpolator(PULSE_INTERPOLATOR);
         mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mPulseAnimator.start();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Bind to AlarmService
-        bindService(new Intent(this, AlarmService.class), mConnection, Context.BIND_AUTO_CREATE);
-        mServiceBound = true;
     }
 
     @Override
@@ -269,6 +259,8 @@ public class AlarmActivity extends AppCompatActivity
             registerReceiver(mReceiver, filter);
             mReceiverRegistered = true;
         }
+
+        bindAlarmService();
 
         resetAnimations();
     }
@@ -471,7 +463,7 @@ public class AlarmActivity extends AppCompatActivity
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
 
-        Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
+        Events.sendAlarmEvent(R.string.action_snooze, R.string.label_deskclock);
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
@@ -490,12 +482,23 @@ public class AlarmActivity extends AppCompatActivity
                 getString(R.string.alarm_alert_off_text) /* accessibilityText */,
                 Color.WHITE, mCurrentHourColor).start();
 
-        AlarmStateManager.setDismissState(this, mAlarmInstance);
+        AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
+    }
+
+    /**
+     * Bind AlarmService if not yet bound.
+     */
+    private void bindAlarmService() {
+        if (!mServiceBound) {
+            final Intent intent = new Intent(this, AlarmService.class);
+            bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+            mServiceBound = true;
+        }
     }
 
     /**

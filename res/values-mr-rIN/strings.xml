@@ -28,6 +28,8 @@
     <string name="show_clock" msgid="8358759982675616915">"घड्याळ दर्शवा"</string>
     <string name="hide_clock" msgid="3217727306480505694">"घड्याळ लपवा"</string>
     <string name="label" msgid="162189613902857319">"लेबल"</string>
+    <string name="on_switch" msgid="2297966258029227449">"चालू"</string>
+    <string name="off_switch" msgid="3381070073851148013">"बंद"</string>
     <string name="default_label" msgid="5590025289805630372">"अलार्म"</string>
     <string name="set_alarm" msgid="9148359866152726808">"अलार्म सेट करा"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"कंपन"</string>
@@ -59,12 +61,12 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> पर्यंत स्नूझ करा"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"आगामी अलार्म"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"आपला सुटलेला अलार्म हटविला गेला आहे"</string>
-  <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"एका मिनिटापेक्षा कमी वेळ शिल्लक"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> शिल्लक"</item>
-    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> शिल्लक"</item>
-    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> शिल्लक"</item>
-  </string-array>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"एका मिनिटापेक्षा कमी वेळ शिल्लक"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> शिल्लक"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"शिल्लक"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"शिल्लक"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"आतापासून 1 मिनिटापेक्षा कमीसाठी अलार्म सेट केला."</item>
     <item msgid="6002066367368421848">"आतापासून <xliff:g id="DAYS">%1$s</xliff:g> साठी अलार्म सेट केला."</item>
@@ -173,7 +175,8 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"पुन्हा सुरु करा"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"रीसेट करा"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"प्रारंभ करा"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"थांबा"</string>
+    <!-- no translation found for sw_pause_button (2422084453454138042) -->
+    <skip />
     <string name="sw_lap_button" msgid="6992264696039004233">"लॅप"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"सामायिक करा"</string>
     <string name="hours_label" msgid="3393478155635368097">"ता"</string>
@@ -186,10 +189,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"माझी वेळ <xliff:g id="TIME">%s</xliff:g> आहे"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"लॅप वेळा:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"लॅप <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
-  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> तास</item>
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> तास</item>
@@ -210,9 +209,9 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 मिनिट जोडा"</string>
     <string name="timer_stop" msgid="3361154678667736722">"थांबा"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"सर्व टायमर थांबवा"</string>
-    <string name="timer_done" msgid="2375990511982914051">"पूर्ण केले"</string>
     <string name="timer_reset" msgid="7848424809190171640">"रीसेट करा"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"रद्द करा"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"टायमर रद्द केला"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"वेळ संपली"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> टायमर कालबाह्य झाले"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"टाइमर"</string>
@@ -250,6 +249,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> चेक केला"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> अनचेक केला"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"मार्शल बेटे"</item>
     <item msgid="4196408495909011020">"मिडवे बेट"</item>
@@ -338,8 +339,9 @@
     <item msgid="5176858645450908751">"जकार्ता"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"अलार्म"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"सूचना चालविण्यासाठी स्टॉपवॉच सेवा."</string>
-    <string name="swn_stopped" msgid="783124901663086172">"थांबले"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर सूचनांमधील क्रियांवर प्रक्रिया करते."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्टॉपवॉच सूचनांमधील क्रियांवर प्रक्रिया करते."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"विराम दिला"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"डिसमिस करण्यासाठी उजवीकडे स्वाइप करा"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"स्नूझ करण्यासाठी डावीकडे स्वाइप करा"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"स्नूझ करण्‍यासाठी डावीकडे किंवा डिसमिस करण्‍यासाठी उजवीकडे स्वाइप करा"</string>
@@ -378,26 +380,22 @@
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"अनुसूची केलेले अलार्म नाहीत"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"कोणतेही लेबल निर्दिष्‍ट केले नाही"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"कोणत्याही अलार्ममध्‍ये लेबल नाही"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"स्टॉपवॉच आधीपासून चालू आहे"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"स्टॉपवॉच चालू नाही"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"स्टॉपवॉच चालू असल्याने ते रीसेट केले जाऊ शकत नाही"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"स्टॉपवॉच थांबविले"</string>
+    <string name="stopwatch_paused" msgid="2187615623275408601">"स्टॉपवॉचला विराम दिला"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"स्टॉपवॉच रीसेट केले"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"स्टॉपवॉच लॅप केले"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"स्टॉपवॉच सुरु केले"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"या वेळेसाठी अलार्म अनुसूचित केला नाही"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म डिसमिस केला"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> साठी अलार्म सेट केला"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"टायमर सेट केले नाही"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"टायमर हटविला"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"टायमर आधीपासून चालू आहे"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"आपली विनंती पूर्ण करण्‍यात अक्षम, एकाधिक टायमर उपलब्‍ध आहेत"</string>
-    <string name="timer_started" msgid="6715582052946641641">"टायमर सुरू झाला"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"कोणतेही टायमर अस्तित्वात नाहीत"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"एकाधिक टायमर अस्तित्वात आहे"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"टायमर काढला गेला आहे."</string>
     <string name="timer_created" msgid="4381027137335885547">"टायमर तयार केले"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"अवैध टायमर लांबी"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"टायमर रीसेट केला"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"टायमर अद्याप चालू असल्याने तो रीसेट केला जाऊ शकत नाही. रीसेट करण्‍यासाठी टायमर थांबवा."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"टायमर आधीपासून थांबला आहे"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"टायमर हटविला"</string>
+    <string name="timer_started" msgid="6715582052946641641">"टायमर सुरू झाला"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"अवैध टायमर लांबी"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"कोणतेही शहर निवडले नाही"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"आपण निर्दिष्‍ट केलेले शहर उपलब्‍ध नाही"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"ते शहर आधीपासून जोडले गेले आहे"</string>

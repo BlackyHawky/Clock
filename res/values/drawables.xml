@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="ic_alarm_small" type="drawable">@drawable/ic_alarm_small_18dp</item>
+</resources>

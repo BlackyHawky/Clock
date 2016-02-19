@@ -28,6 +28,8 @@
     <string name="show_clock" msgid="8358759982675616915">"Mostra el rellotge"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Amaga el rellotge"</string>
     <string name="label" msgid="162189613902857319">"Nom de l\'alarma"</string>
+    <string name="on_switch" msgid="2297966258029227449">"Activada"</string>
+    <string name="off_switch" msgid="3381070073851148013">"Desactivada"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Defineix l\'alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibra"</string>
@@ -59,12 +61,12 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Es posposarà fins a les <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Pròxima alarma"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"L\'alarma perduda s\'ha suprimit"</string>
-  <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"Queda menys d\'un minut"</item>
-    <item msgid="83197792732433351">"Queden <xliff:g id="HOURS">%1$s</xliff:g>"</item>
-    <item msgid="8919698220200894252">"Queden <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
-    <item msgid="8458069283817013813">"Queden <xliff:g id="HOURS">%1$s</xliff:g> i <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
-  </string-array>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Queda menys d\'un minut"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"Temps restant: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"restant"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"restants"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"L\'alarma sonarà d\'aquí a menys d\'un minut."</item>
     <item msgid="6002066367368421848">"L\'alarma sonarà d\'aquí a <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -173,7 +175,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Reprèn"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Restableix"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Inicia"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Atura"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Atura"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Volta"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Comparteix"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
@@ -186,10 +188,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"La meva hora: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Durada de les voltes:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Volta <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"Núm. <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"Núm. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
-  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> hores</item>
       <item quantity="one">1 hora</item>
@@ -210,9 +208,9 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Afegeix 1 minut"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Atura"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Atura els temporitzadors"</string>
-    <string name="timer_done" msgid="2375990511982914051">"Fet"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Restableix"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Cancel·la"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"S\'ha cancel·lat el temporitzador"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"S\'ha esgotat el temps"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Temporitzadors caducats: <xliff:g id="NUM_TIMERS">%d</xliff:g>"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Temporitzador"</string>
@@ -250,6 +248,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
+    <string name="city_checked" msgid="616847871968019">"S\'ha marcat <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"S\'ha desmarcat <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Illes Marshall"</item>
     <item msgid="4196408495909011020">"Illa de Midway"</item>
@@ -338,8 +338,9 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servei de cronòmetre per executar les notificacions."</string>
-    <string name="swn_stopped" msgid="783124901663086172">"Aturat"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Processa les accions de les notificacions del temporitzador."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Processa les accions de les notificacions del cronòmetre."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"Aturat"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Llisca cap a la dreta per ignorar"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Llisca cap a l\'esquerra per posposar"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Llisca cap a l\'esquerra per posposar l\'alarma o cap a la dreta per ignorar-la"</string>
@@ -378,26 +379,22 @@
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"No s\'ha programat cap alarma"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"No s\'ha especificat cap etiqueta"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"No hi ha cap alarma que contingui l\'etiqueta"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"El cronòmetre ja està en marxa"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"El cronòmetre no s\'ha posat en marxa"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"El cronòmetre no es pot restablir perquè està en funcionament"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"S\'ha aturat el cronòmetre"</string>
+    <string name="stopwatch_paused" msgid="2187615623275408601">"El cronòmetre s\'ha aturat"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"S\'ha restablert el cronòmetre"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"El cronòmetre ha completat una volta"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"S\'ha iniciat el cronòmetre"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"No hi ha cap alarma programada per a aquesta hora"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"L\'alarma <xliff:g id="ALARM_TIME">%s</xliff:g> s\'ha ignorat"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"L\'alarma està definida per a les <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"No s\'ha definit cap temporitzador"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"El temporitzador s\'ha suprimit"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"El temporitzador ja està en marxa"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"No es pot completar la sol·licitud. Hi ha diversos temporitzadors disponibles"</string>
-    <string name="timer_started" msgid="6715582052946641641">"El temporitzador s\'ha iniciat"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"No hi ha temporitzadors"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"Hi ha més d\'un temporitzador"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"El temporitzador s\'ha suprimit."</string>
     <string name="timer_created" msgid="4381027137335885547">"S\'ha creat el temporitzador"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"La durada del temporitzador no és vàlida"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"El temporitzador s\'ha restablert"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"El temporitzador no es pot restablir perquè encara està en marxa. Atura\'l per restablir-lo."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"El temporitzador ja s\'ha aturat"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"El temporitzador s\'ha suprimit"</string>
+    <string name="timer_started" msgid="6715582052946641641">"El temporitzador s\'ha iniciat"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"La durada del temporitzador no és vàlida"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"No s\'ha seleccionat cap ciutat"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"La ciutat que has especificat no està disponible"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"Aquesta ciutat ja s\'ha afegit"</string>

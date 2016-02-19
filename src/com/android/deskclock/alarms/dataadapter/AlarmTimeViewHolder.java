@@ -18,6 +18,7 @@ package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -86,14 +87,15 @@ public abstract class AlarmTimeViewHolder extends RecyclerView.ViewHolder {
      */
     public abstract void bindAlarm(Context context, Alarm alarm, AlarmInstance alarmInstance);
 
-    protected void bindOnOffSwitch(Alarm alarm) {
+    protected void bindOnOffSwitch(Context context, Alarm alarm) {
         onoff.setChecked(alarm.enabled);
+        ((SwitchCompat) onoff).setTextOn(context.getString(R.string.on_switch));
+        ((SwitchCompat) onoff).setTextOff(context.getString(R.string.off_switch));
     }
 
     protected void bindClock(Context context, Alarm alarm) {
         clock.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
-        clock.setFormat(context,
-                context.getResources().getDimensionPixelSize(R.dimen.alarm_label_size));
+        clock.setFormat(context);
         clock.setTime(alarm.hour, alarm.minutes);
     }
 

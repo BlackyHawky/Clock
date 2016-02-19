@@ -19,8 +19,6 @@ package com.android.alarmclock;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.util.TypedValue;
@@ -32,6 +30,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -40,7 +39,6 @@ import java.util.TimeZone;
 import static android.appwidget.AppWidgetManager.EXTRA_APPWIDGET_ID;
 import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 import static com.android.deskclock.Utils.enforceMainLooper;
-import static com.android.deskclock.Utils.enforceNotMainLooper;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
@@ -48,8 +46,6 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
     private static final String TAG = "DigWidgetViewsFactory";
 
     private final Intent mFillInIntent = new Intent();
-
-    private final Handler mHandler = new Handler(Looper.getMainLooper());
 
     private final Context mContext;
     private final Resources mResources;
@@ -173,22 +169,9 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
      */
     @Override
     public synchronized void onDataSetChanged() {
-        enforceNotMainLooper();
-
         // Fetch the data on the main Looper.
         final RefreshRunnable refreshRunnable = new RefreshRunnable();
-        mHandler.post(refreshRunnable);
-
-        // Wait for the data to arrive, if it has not.
-        synchronized (refreshRunnable) {
-            if (refreshRunnable.mCities == null) {
-                try {
-                    refreshRunnable.wait();
-                } catch (InterruptedException ie) {
-                    // ignore
-                }
-            }
-        }
+        DataModel.getDataModel().run(refreshRunnable);
 
         // Store the data in local variables.
         mFontScale = WidgetUtils.getScaleRatio(mContext, null, mWidgetId);
@@ -198,8 +181,7 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
     }
 
     private void update(RemoteViews clock, City city, int clockId, int labelId, int dayId) {
-        final int labelSize = mResources.getDimensionPixelSize(R.dimen.widget_label_font_size);
-        WidgetUtils.setTimeFormat(mContext, clock, labelSize, clockId);
+        WidgetUtils.setTimeFormat(mContext, clock, true /* showAmPm */, clockId);
 
         final float fontSize = DateFormat.is24HourFormat(mContext) ? mFont24Size : mFontSize;
         clock.setTextViewTextSize(clockId, TypedValue.COMPLEX_UNIT_PX, fontSize * mFontScale);
@@ -244,13 +226,9 @@ public class DigitalWidgetViewsFactory implements RemoteViewsFactory {
         public void run() {
             enforceMainLooper();
 
-            synchronized (this) {
-                mHomeCity = DataModel.getDataModel().getHomeCity();
-                mCities = DataModel.getDataModel().getSelectedCities();
-                mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
-
-                notifyAll();
-            }
+            mHomeCity = DataModel.getDataModel().getHomeCity();
+            mCities = new ArrayList<>(DataModel.getDataModel().getSelectedCities());
+            mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
         }
     }
 }

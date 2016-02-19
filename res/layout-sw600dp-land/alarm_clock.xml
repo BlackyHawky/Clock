@@ -31,33 +31,15 @@
             android:id="@+id/alarms_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clipToPadding="false"
             android:descendantFocusability="beforeDescendants"
             android:fadingEdgeLength="0dp"
+            android:paddingBottom="@dimen/list_bottom_spacing"
             android:scrollbarStyle="outsideOverlay"
             android:scrollbars="vertical" />
 
     </LinearLayout>
 
     <include layout="@layout/alarm_empty_view" />
-
-    <FrameLayout
-        android:id="@+id/undo_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <com.android.deskclock.widget.ActionableToastBar
-            android:id="@+id/undo_bar"
-            style="@style/ToastBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="64dip"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="96dp"
-            android:layout_marginLeft="@dimen/alarm_undo_bar_horizontal_margin"
-            android:layout_marginStart="@dimen/alarm_undo_bar_horizontal_margin"
-            android:layout_marginRight="@dimen/alarm_undo_bar_horizontal_margin"
-            android:layout_marginEnd="@dimen/alarm_undo_bar_horizontal_margin" />
-
-    </FrameLayout>
 
 </FrameLayout>

@@ -16,8 +16,12 @@
 
 package com.android.deskclock.data;
 
+import android.app.Service;
 import android.content.Context;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.annotation.StringRes;
 
 import java.util.Collection;
 import java.util.Comparator;
@@ -36,10 +40,13 @@ public final class DataModel {
     /** Indicates the preferred sort order of cities. */
     public enum CitySort {NAME, UTC_OFFSET}
 
-    public static final String ACTION_CITIES_CHANGED = "com.android.deskclock.CITIES_CHANGED";
+    public static final String ACTION_DIGITAL_WIDGET_CHANGED =
+            "com.android.deskclock.DIGITAL_WIDGET_CHANGED";
 
     /** The single instance of this data model that exists for the life of the application. */
     private static final DataModel sDataModel = new DataModel();
+
+    private Handler mHandler;
 
     private Context mContext;
 
@@ -55,6 +62,12 @@ public final class DataModel {
     /** The model from which alarm data are fetched. */
     private AlarmModel mAlarmModel;
 
+    /** The model from which stopwatch data are fetched. */
+    private StopwatchModel mStopwatchModel;
+
+    /** The model from which notification data are fetched. */
+    private NotificationModel mNotificationModel;
+
     public static DataModel getDataModel() {
         return sDataModel;
     }
@@ -69,10 +82,83 @@ public final class DataModel {
             throw new IllegalStateException("context has already been set");
         }
         mContext = context.getApplicationContext();
+
         mSettingsModel = new SettingsModel(mContext);
+        mNotificationModel = new NotificationModel();
         mCityModel = new CityModel(mContext, mSettingsModel);
-        mTimerModel = new TimerModel(mContext, mSettingsModel);
         mAlarmModel = new AlarmModel(mContext, mSettingsModel);
+        mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
+        mTimerModel = new TimerModel(mContext, mSettingsModel, mNotificationModel);
+    }
+
+    /**
+     * Posts a runnable to the main thread and blocks until the runnable executes. Used to access
+     * the data model from the main thread.
+     */
+    public void run(Runnable runnable) {
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            runnable.run();
+            return;
+        }
+
+        final ExecutedRunnable er = new ExecutedRunnable(runnable);
+        getHandler().post(er);
+
+        // Wait for the data to arrive, if it has not.
+        synchronized (er) {
+            if (!er.isExecuted()) {
+                try {
+                    er.wait();
+                } catch (InterruptedException ignored) {
+                    // ignore
+                }
+            }
+        }
+    }
+
+    /**
+     * @return a handler associated with the main thread
+     */
+    private synchronized Handler getHandler() {
+        if (mHandler == null) {
+            mHandler = new Handler(Looper.getMainLooper());
+        }
+        return mHandler;
+    }
+
+    //
+    // Application
+    //
+
+    /**
+     * @param inForeground {@code true} to indicate the application is open in the foreground
+     */
+    public void setApplicationInForeground(boolean inForeground) {
+        enforceMainLooper();
+
+        if (mNotificationModel.isApplicationInForeground() != inForeground) {
+            mNotificationModel.setApplicationInForeground(inForeground);
+
+            // Refresh all notifications in response to a change in app open state.
+            mTimerModel.updateNotification();
+            mStopwatchModel.updateNotification();
+        }
+    }
+
+    /**
+     * @return {@code true} when the application is open in the foreground; {@code false} otherwise
+     */
+    public boolean isApplicationInForeground() {
+        return mNotificationModel.isApplicationInForeground();
+    }
+
+    /**
+     * Called when the notifications may be stale or absent from the notification manager and must
+     * be rebuilt. e.g. after upgrading the application
+     */
+    public void updateAllNotifications() {
+        mTimerModel.updateNotification();
+        mStopwatchModel.updateNotification();
     }
 
     //
@@ -157,6 +243,168 @@ public final class DataModel {
     //
 
     /**
+     * @param timerListener to be notified when timers are added, updated and removed
+     */
+    public void addTimerListener(TimerListener timerListener) {
+        enforceMainLooper();
+        mTimerModel.addTimerListener(timerListener);
+    }
+
+    /**
+     * @param timerListener to no longer be notified when timers are added, updated and removed
+     */
+    public void removeTimerListener(TimerListener timerListener) {
+        enforceMainLooper();
+        mTimerModel.removeTimerListener(timerListener);
+    }
+
+    /**
+     * @return a list of timers for display
+     */
+    public List<Timer> getTimers() {
+        enforceMainLooper();
+        return mTimerModel.getTimers();
+    }
+
+    /**
+     * @return a list of expired timers for display
+     */
+    public List<Timer> getExpiredTimers() {
+        enforceMainLooper();
+        return mTimerModel.getExpiredTimers();
+    }
+
+    /**
+     * @param timerId identifies the timer to return
+     * @return the timer with the given {@code timerId}
+     */
+    public Timer getTimer(int timerId) {
+        enforceMainLooper();
+        return mTimerModel.getTimer(timerId);
+    }
+
+    /**
+     * @return the timer that last expired and is still expired now; {@code null} if no timers are
+     *      expired
+     */
+    public Timer getMostRecentExpiredTimer() {
+        enforceMainLooper();
+        return mTimerModel.getMostRecentExpiredTimer();
+    }
+
+    /**
+     * @param length the length of the timer in milliseconds
+     * @param label describes the purpose of the timer
+     * @param deleteAfterUse {@code true} indicates the timer should be deleted when it is reset
+     * @return the newly added timer
+     */
+    public Timer addTimer(long length, String label, boolean deleteAfterUse) {
+        enforceMainLooper();
+        return mTimerModel.addTimer(length, label, deleteAfterUse);
+    }
+
+    /**
+     * @param timer the timer to be removed
+     */
+    public void removeTimer(Timer timer) {
+        enforceMainLooper();
+        mTimerModel.removeTimer(timer);
+    }
+
+    /**
+     * @param timer the timer to be started
+     */
+    public void startTimer(Timer timer) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.start());
+    }
+
+    /**
+     * @param timer the timer to be paused
+     */
+    public void pauseTimer(Timer timer) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.pause());
+    }
+
+    /**
+     * @param service used to start foreground notifications for expired timers
+     * @param timer the timer to be expired
+     */
+    public void expireTimer(Service service, Timer timer) {
+        enforceMainLooper();
+        mTimerModel.expireTimer(service, timer);
+    }
+
+    /**
+     * If the given {@code timer} is expired and marked for deletion after use then this method
+     * removes the the timer. The timer is otherwise transitioned to the reset state and continues
+     * to exist.
+     *
+     * @param timer the timer to be reset
+     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     */
+    public void resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
+        enforceMainLooper();
+        mTimerModel.resetOrDeleteTimer(timer, eventLabelId);
+    }
+
+    /**
+     * Resets all timers.
+     *
+     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     */
+    public void resetTimers(@StringRes int eventLabelId) {
+        enforceMainLooper();
+        mTimerModel.resetTimers(eventLabelId);
+    }
+
+    /**
+     * Resets all expired timers.
+     *
+     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     */
+    public void resetExpiredTimers(@StringRes int eventLabelId) {
+        enforceMainLooper();
+        mTimerModel.resetExpiredTimers(eventLabelId);
+    }
+
+    /**
+     * Resets all unexpired timers.
+     *
+     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     */
+    public void resetUnexpiredTimers(@StringRes int eventLabelId) {
+        enforceMainLooper();
+        mTimerModel.resetUnexpiredTimers(eventLabelId);
+    }
+
+    /**
+     * @param timer the timer to which a minute should be added to the remaining time
+     */
+    public void addTimerMinute(Timer timer) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.addMinute());
+    }
+
+    /**
+     * @param timer the timer to which the new {@code label} belongs
+     * @param label the new label to store for the {@code timer}
+     */
+    public void setTimerLabel(Timer timer, String label) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.setLabel(label));
+    }
+
+    /**
+     * Updates the timer notifications to be current.
+     */
+    public void updateTimerNotification() {
+        enforceMainLooper();
+        mTimerModel.updateNotification();
+    }
+
+    /**
      * @return the uri of the default ringtone to play for all timers when no user selection exists
      */
     public Uri getDefaultTimerRingtoneUri() {
@@ -218,6 +466,91 @@ public final class DataModel {
     }
 
     //
+    // Stopwatch
+    //
+
+    /**
+     * @return the current state of the stopwatch
+     */
+    public Stopwatch getStopwatch() {
+        enforceMainLooper();
+        return mStopwatchModel.getStopwatch();
+    }
+
+    /**
+     * @return the stopwatch after being started
+     */
+    public Stopwatch startStopwatch() {
+        enforceMainLooper();
+        return mStopwatchModel.setStopwatch(getStopwatch().start());
+    }
+
+    /**
+     * @return the stopwatch after being paused
+     */
+    public Stopwatch pauseStopwatch() {
+        enforceMainLooper();
+        return mStopwatchModel.setStopwatch(getStopwatch().pause());
+    }
+
+    /**
+     * @return the stopwatch after being reset
+     */
+    public Stopwatch resetStopwatch() {
+        enforceMainLooper();
+        return mStopwatchModel.setStopwatch(getStopwatch().reset());
+    }
+
+    /**
+     * @return the laps recorded for this stopwatch
+     */
+    public List<Lap> getLaps() {
+        enforceMainLooper();
+        return mStopwatchModel.getLaps();
+    }
+
+    /**
+     * @return a newly recorded lap completed now; {@code null} if no more laps can be added
+     */
+    public Lap addLap() {
+        enforceMainLooper();
+        return mStopwatchModel.addLap();
+    }
+
+    /**
+     * Clears the laps recorded for this stopwatch.
+     */
+    public void clearLaps() {
+        enforceMainLooper();
+        mStopwatchModel.clearLaps();
+    }
+
+    /**
+     * @return {@code true} iff more laps can be recorded
+     */
+    public boolean canAddMoreLaps() {
+        enforceMainLooper();
+        return mStopwatchModel.canAddMoreLaps();
+    }
+
+    /**
+     * @return the longest lap time of all recorded laps and the current lap
+     */
+    public long getLongestLapTime() {
+        enforceMainLooper();
+        return mStopwatchModel.getLongestLapTime();
+    }
+
+    /**
+     * @param time a point in time after the end of the last lap
+     * @return the elapsed time between the given {@code time} and the end of the previous lap
+     */
+    public long getCurrentLapTime(long time) {
+        enforceMainLooper();
+        return mStopwatchModel.getCurrentLapTime(time);
+    }
+
+    //
     // Settings
     //
 
@@ -244,5 +577,32 @@ public final class DataModel {
     public boolean getShowHomeClock() {
         enforceMainLooper();
         return mSettingsModel.getShowHomeClock();
+    }
+
+    /**
+     * Used to execute a delegate runnable and track its completion.
+     */
+    private static class ExecutedRunnable implements Runnable {
+
+        private final Runnable mDelegate;
+        private boolean mExecuted;
+
+        private ExecutedRunnable(Runnable delegate) {
+            this.mDelegate = delegate;
+        }
+
+        @Override
+        public void run() {
+            mDelegate.run();
+
+            synchronized (this) {
+                mExecuted = true;
+                notifyAll();
+            }
+        }
+
+        private boolean isExecuted() {
+            return mExecuted;
+        }
     }
 }

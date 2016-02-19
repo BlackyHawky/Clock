@@ -48,7 +48,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dip"
         android:layout_marginBottom="8dip"
-        android:background="@color/dialog_gray" />```
+        android:background="@color/dialog_gray" />
 
     <include
         android:id="@+id/first"
@@ -66,6 +66,6 @@
         android:id="@+id/fourth"
         layout="@layout/three_keys_view" />
 
-    <include layout="@layout/timer_cancel_button" />
+    <include layout="@layout/timer_setup_buttons" />
 
 </LinearLayout>

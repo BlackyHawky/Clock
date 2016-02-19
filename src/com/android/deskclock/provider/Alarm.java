@@ -28,6 +28,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
 
 import java.util.Calendar;
@@ -306,6 +307,10 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         deleteAfterUse = p.readInt() == 1;
     }
 
+    public String getLabelOrDefault(Context context) {
+        return label.isEmpty() ? context.getString(R.string.default_label) : label;
+    }
+
     /**
      * Whether the alarm is in a state to show preemptive dismiss. Valid states are SNOOZE_STATE
      * HIGH_NOTIFICATION, LOW_NOTIFICATION, and HIDE_NOTIFICATION.
@@ -386,6 +391,12 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         if (addDays > 0) {
             nextInstanceTime.add(Calendar.DAY_OF_WEEK, addDays);
         }
+
+        // Daylight Savings Time can alter the hours and minutes when adjusting the day above.
+        // Reset the desired hour and minute now that the correct day has been chosen.
+        nextInstanceTime.set(Calendar.HOUR_OF_DAY, hour);
+        nextInstanceTime.set(Calendar.MINUTE, minutes);
+
         return nextInstanceTime;
     }
 

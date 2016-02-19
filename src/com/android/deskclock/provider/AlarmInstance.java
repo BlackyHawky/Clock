@@ -28,6 +28,7 @@ import android.preference.PreferenceManager;
 
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.settings.SettingsActivity;
 
 import java.util.Calendar;
@@ -263,15 +264,17 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
     }
 
     /**
+     * @param context
      * @param contentResolver to access the content provider
      * @param alarmId identifies the alarm in question
      * @param instanceId identifies the instance to keep; all other instances will be removed
      */
-    public static void deleteOtherInstances(ContentResolver contentResolver, long alarmId,
-            long instanceId) {
+    public static void deleteOtherInstances(Context context, ContentResolver contentResolver,
+            long alarmId, long instanceId) {
         final List<AlarmInstance> instances = getInstancesByAlarmId(contentResolver, alarmId);
         for (AlarmInstance instance : instances) {
             if (instance.mId != instanceId) {
+                AlarmStateManager.unregisterInstance(context, instance);
                 deleteInstance(contentResolver, instance.mId);
             }
         }

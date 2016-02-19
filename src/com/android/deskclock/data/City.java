@@ -50,7 +50,7 @@ public final class City {
     /** A cached upper case form of the {@link #mName} used in case-insensitive name comparisons. */
     private String mNameUpperCase;
 
-    public City(String id, int index, String indexString, String name, String phoneticName,
+    City(String id, int index, String indexString, String name, String phoneticName,
             String timeZoneId) {
         mId = id;
         mIndex = index;

@@ -24,10 +24,6 @@ import android.annotation.TargetApi;
 import android.app.AlarmManager;
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -35,11 +31,9 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.Spannable;
@@ -48,11 +42,10 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.text.format.Time;
-import android.text.style.AbsoluteSizeSpan;
+import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.text.style.TypefaceSpan;
 import android.util.ArraySet;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -63,9 +56,8 @@ import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.settings.SettingsActivity;
-import com.android.deskclock.stopwatch.Stopwatches;
-import com.android.deskclock.timer.Timers;
 
+import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -76,18 +68,6 @@ import java.util.Locale;
 import java.util.TimeZone;
 
 public class Utils {
-    private final static String PARAM_LANGUAGE_CODE = "hl";
-
-    /**
-     * Help URL query parameter key for the app version.
-     */
-    private final static String PARAM_VERSION = "version";
-
-    /**
-     * Cached version code to prevent repeated calls to the package manager.
-     */
-    private static String sCachedVersionCode = null;
-
     // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
     private static String[] sShortWeekdays = null;
     private static final String DATE_FORMAT_SHORT = "ccccc";
@@ -184,70 +164,8 @@ public class Utils {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
     }
 
-    public static void prepareHelpMenuItem(Context context, MenuItem helpMenuItem) {
-        String helpUrlString = context.getResources().getString(R.string.desk_clock_help_url);
-        if (TextUtils.isEmpty(helpUrlString)) {
-            // The help url string is empty or null, so set the help menu item to be invisible.
-            helpMenuItem.setVisible(false);
-            return;
-        }
-        // The help url string exists, so first add in some extra query parameters.  87
-        final Uri fullUri = uriWithAddedParameters(context, Uri.parse(helpUrlString));
-
-        // Then, create an intent that will be fired when the user
-        // selects this help menu item.
-        Intent intent = new Intent(Intent.ACTION_VIEW, fullUri);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-
-        // Set the intent to the help menu item, show the help menu item in the overflow
-        // menu, and make it visible.
-        helpMenuItem.setIntent(intent);
-        helpMenuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
-        helpMenuItem.setVisible(true);
-    }
-
     /**
-     * Adds two query parameters into the Uri, namely the language code and the version code
-     * of the application's package as gotten via the context.
-     * @return the uri with added query parameters
-     */
-    private static Uri uriWithAddedParameters(Context context, Uri baseUri) {
-        Uri.Builder builder = baseUri.buildUpon();
-
-        // Add in the preferred language
-        builder.appendQueryParameter(PARAM_LANGUAGE_CODE, Locale.getDefault().toString());
-
-        // Add in the package version code
-        if (sCachedVersionCode == null) {
-            // There is no cached version code, so try to get it from the package manager.
-            try {
-                // cache the version code
-                PackageInfo info = context.getPackageManager().getPackageInfo(
-                        context.getPackageName(), 0);
-                sCachedVersionCode = Integer.toString(info.versionCode);
-
-                // append the version code to the uri
-                builder.appendQueryParameter(PARAM_VERSION, sCachedVersionCode);
-            } catch (NameNotFoundException e) {
-                // Cannot find the package name, so don't add in the version parameter
-                // This shouldn't happen.
-                LogUtils.wtf("Invalid package name for context " + e);
-            }
-        } else {
-            builder.appendQueryParameter(PARAM_VERSION, sCachedVersionCode);
-        }
-
-        // Build the full uri and return it
-        return builder.build();
-    }
-
-    public static long getTimeNow() {
-        return SystemClock.elapsedRealtime();
-    }
-
-    /**
-     * Calculate the amount by which the radius of a CircleTimerView should be offset by the any
+     * Calculate the amount by which the radius of a CircleTimerView should be offset by any
      * of the extra painted objects.
      */
     public static float calculateRadiusOffset(
@@ -257,7 +175,7 @@ public class Utils {
 
     /**
      * Uses {@link Utils#calculateRadiusOffset(float, float, float)} after fetching the values
-     * from the resources just as {@link CircleTimerView#init(android.content.Context)} does.
+     * from the resources.
      */
     public static float calculateRadiusOffset(Resources resources) {
         if (resources != null) {
@@ -268,41 +186,6 @@ public class Utils {
         } else {
             return 0f;
         }
-    }
-
-    /**
-     * Clears the persistent data of stopwatch (start time, state, laps, etc...).
-     */
-    public static void clearSwSharedPref(SharedPreferences prefs) {
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.remove (Stopwatches.PREF_START_TIME);
-        editor.remove (Stopwatches.PREF_ACCUM_TIME);
-        editor.remove (Stopwatches.PREF_STATE);
-        int lapNum = prefs.getInt(Stopwatches.PREF_LAP_NUM, Stopwatches.STOPWATCH_RESET);
-        for (int i = 0; i < lapNum; i++) {
-            String key = Stopwatches.PREF_LAP_TIME + Integer.toString(i);
-            editor.remove(key);
-        }
-        editor.remove(Stopwatches.PREF_LAP_NUM);
-        editor.apply();
-    }
-
-    /**
-     * Broadcast a message to show the in-use timers in the notifications
-     */
-    public static void showInUseNotifications(Context context) {
-        Intent timerIntent = new Intent();
-        timerIntent.setAction(Timers.NOTIF_IN_USE_SHOW);
-        context.sendBroadcast(timerIntent);
-    }
-
-    /**
-     * Broadcast a message to update the timer times-up HUN
-     */
-    public static void updateTimesUpNotification(Context context) {
-        final Intent timerHUNIntent = new Intent();
-        timerHUNIntent.setAction(Timers.NOTIF_UPDATE);
-        context.sendBroadcast(timerHUNIntent);
     }
 
     /** Runnable for use with screensaver and dream, to move the clock every minute.
@@ -615,29 +498,43 @@ public class Utils {
      * formatting treatment for the am/pm label.
      * @param context - Context used to get user's locale and time preferences
      * @param clock - TextClock to format
-     * @param amPmFontSize - size of the am/pm label since it is usually smaller
      */
-    public static void setTimeFormat(Context context, TextClock clock, int amPmFontSize) {
+    public static void setTimeFormat(Context context, TextClock clock) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(context, amPmFontSize));
+            clock.setFormat12Hour(get12ModeFormat(context, true /* showAmPm */));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat());
         }
     }
 
     /**
+     * Returns {@code true} if the am / pm strings for the current locale are long and a reduced
+     * text size should be used for displaying the digital clock.
+     */
+    public static boolean isAmPmStringLong() {
+        final String[] amPmStrings = new DateFormatSymbols().getAmPmStrings();
+        for (String amPmString : amPmStrings) {
+            // Dots are small, so don't count them.
+            final int amPmStringLength = amPmString.replace(".", "").length();
+            if (amPmStringLength > 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param context - context used to get time format string resource
-     * @param amPmFontSize - size of am/pm label (label removed is size is 0).
+     * @param showAmPm - include the am/pm string if true
      * @return format string for 12 hours mode time
      */
-    public static CharSequence get12ModeFormat(Context context, int amPmFontSize) {
+    public static CharSequence get12ModeFormat(Context context, boolean showAmPm) {
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
-
-        // Remove the am/pm
-        if (amPmFontSize <= 0) {
+        if (!showAmPm) {
             pattern = pattern.replaceAll("a", "").trim();
         }
+
         // Replace spaces with "Hair Space"
         pattern = pattern.replaceAll(" ", "\u200A");
         // Build a spannable so that the am/pm will be formatted
@@ -645,13 +542,24 @@ public class Utils {
         if (amPmPos == -1) {
             return pattern;
         }
-        Spannable sp = new SpannableString(pattern);
+
+        final Resources resources = context.getResources();
+        final float amPmProportion = resources.getFraction(R.fraction.ampm_font_size_scale, 1, 1);
+        final Spannable sp = new SpannableString(pattern);
+        sp.setSpan(new RelativeSizeSpan(amPmProportion), amPmPos, amPmPos + 1,
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         sp.setSpan(new StyleSpan(Typeface.NORMAL), amPmPos, amPmPos + 1,
-                Spannable.SPAN_POINT_MARK);
-        sp.setSpan(new AbsoluteSizeSpan(amPmFontSize), amPmPos, amPmPos + 1,
-                Spannable.SPAN_POINT_MARK);
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         sp.setSpan(new TypefaceSpan("sans-serif"), amPmPos, amPmPos + 1,
-                Spannable.SPAN_POINT_MARK);
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // Make the font smaller for locales with long am/pm strings.
+        if (Utils.isAmPmStringLong()) {
+            final float proportion = resources.getFraction(
+                    R.fraction.reduced_clock_font_size_scale, 1, 1);
+            sp.setSpan(new RelativeSizeSpan(proportion), 0, pattern.length(),
+                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
         return sp;
     }
 
@@ -769,7 +677,6 @@ public class Utils {
     }
 
     /**
-     * @param context
      * @param id Resource id of the plural
      * @param quantity integer value
      * @return string with properly localized numbers
@@ -777,18 +684,6 @@ public class Utils {
     public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
         final String localizedQuantity = NumberFormat.getInstance().format(quantity);
         return context.getResources().getQuantityString(id, quantity, localizedQuantity);
-    }
-
-    public static void setTimezoneLocale(Context context, Locale locale) {
-        PreferenceManager.getDefaultSharedPreferences(context)
-                .edit().putString(SettingsActivity.TIMEZONE_LOCALE, locale.toString()).apply();
-    }
-
-    public static Locale getTimezoneLocale(Context context) {
-       final String localeString = PreferenceManager.getDefaultSharedPreferences(context)
-               .getString(SettingsActivity.TIMEZONE_LOCALE,
-                       context.getResources().getConfiguration().locale.toString());
-       return new Locale(localeString);
     }
 
     public static <E> ArraySet<E> newArraySet(Collection<E> collection) {

@@ -28,6 +28,8 @@
     <string name="show_clock" msgid="8358759982675616915">"Vertoon klok"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Versteek horlosie"</string>
     <string name="label" msgid="162189613902857319">"Etiket"</string>
+    <string name="on_switch" msgid="2297966258029227449">"Aan"</string>
+    <string name="off_switch" msgid="3381070073851148013">"Af"</string>
     <string name="default_label" msgid="5590025289805630372">"Wekker"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Stel wekker"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Vibreer"</string>
@@ -59,12 +61,12 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Sluimer tot <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Komende wekker"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Die wekker wat jy misgeloop het, is uitgevee"</string>
-  <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"Minder as \'n minuut oor"</item>
-    <item msgid="83197792732433351">"<xliff:g id="HOURS">%1$s</xliff:g> oor"</item>
-    <item msgid="8919698220200894252">"<xliff:g id="MINUTES">%2$s</xliff:g> oor"</item>
-    <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> oor"</item>
-  </string-array>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Minder as \'n minuut oor"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> oor"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"oor"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"oor"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarm gestel vir minder as 1 minuut van nou af."</item>
     <item msgid="6002066367368421848">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</item>
@@ -173,7 +175,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Hervat"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Stel terug"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Begin"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Stop"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Laat wag"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Rondte"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Deel"</string>
     <string name="hours_label" msgid="3393478155635368097">"u"</string>
@@ -186,10 +188,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"My tyd is <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Rondtetye:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Rondte <xliff:g id="NUMBER">%d</xliff:g>"</string>
-  <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"# <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"# <xliff:g id="NUMBER">%02d</xliff:g>"</item>
-  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> uur</item>
       <item quantity="one">1 uur</item>
@@ -210,9 +208,9 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Voeg 1 min. by"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Stop"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Stop alle aftellers"</string>
-    <string name="timer_done" msgid="2375990511982914051">"Klaar"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Stel terug"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Kanselleer"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"Afteller is gekanselleer"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Tyd is op"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> aftellers het verstryk"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Tydhouer"</string>
@@ -250,6 +248,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
+    <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> is gemerk"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> is ontmerk"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Marshalleilande"</item>
     <item msgid="4196408495909011020">"Midwayeiland"</item>
@@ -338,8 +338,9 @@
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Wekkers"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stophorlosie-diens om die kennisgewing te laat loop"</string>
-    <string name="swn_stopped" msgid="783124901663086172">"Gestop"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Verwerk handelinge van tydhouerkennisgewings af."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Verwerk handelinge van stophorlosiekennisgewings af."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"Laat wag"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Swiep na regs om toe te maak"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Swiep na links om te laat sluimer"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Swiep links om te sluimer of regs om toe te maak"</string>
@@ -378,26 +379,22 @@
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Geen wekkers is gestel nie"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Geen etiket is gespesifiseer nie"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Geen wekker bevat die etiket nie"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"Stophorlosie loop reeds"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Stophorlosie loop nie"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Stophorlosie kan nie teruggestel word nie, want dit loop tans"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"Stophorlosie is gestop"</string>
+    <string name="stopwatch_paused" msgid="2187615623275408601">"Stophorlosie is laat wag"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Stophorlosie is teruggestel"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Stophorlosie het rondte gemerk"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Stophorlosie is begin"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Geen wekker is vir hierdie tyd gestel nie"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Wekker vir <xliff:g id="ALARM_TIME">%s</xliff:g> is toegemaak"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Wekker is gestel vir <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"Geen afteller is gestel nie"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"Afteller is uitgevee"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"Afteller loop reeds"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"Kan nie jou versoek voltooi nie; veelvuldige aftellers is beskikbaar"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Afteller is begin"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"Daar bestaan geen aftellers nie"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"Daar bestaan meer as een afteller"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"Die afteller is verwyder."</string>
     <string name="timer_created" msgid="4381027137335885547">"Afteller is geskep"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"Ongeldige aftellerlengte"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"Afteller is teruggestel"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Afteller kan nie teruggestel word nie, want dit loop nog. Stop afteller om dit terug te stel."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"Afteller is reeds gestop"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Afteller is uitgevee"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Afteller is begin"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Ongeldige aftellerlengte"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"Geen stad is gekies nie"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Die stad wat jy gespesifiseer het, is nie beskikbaar nie"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"Daardie stad is reeds bygevoeg"</string>

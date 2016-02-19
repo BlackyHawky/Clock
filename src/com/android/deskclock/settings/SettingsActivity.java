@@ -36,6 +36,9 @@ import com.android.deskclock.BaseActivity;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
+import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
+import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.android.deskclock.data.DataModel;
 
 import java.util.ArrayList;
@@ -68,54 +71,61 @@ public final class SettingsActivity extends BaseActivity {
     public static final String VOLUME_BEHAVIOR_SNOOZE = "1";
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
 
+    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setVolumeControlStream(AudioManager.STREAM_ALARM);
         setContentView(R.layout.settings);
+        mActionBarMenuManager.addMenuItemController(new NavUpMenuItemController(this))
+            .addMenuItemController(MenuItemControllerFactory.getInstance()
+                    .buildMenuItemControllers(this));
     }
 
     @Override
-    public boolean onOptionsItemSelected (MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                break;
+    public boolean onCreateOptionsMenu(Menu menu) {
+        mActionBarMenuManager.createOptionsMenu(menu, getMenuInflater());
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        mActionBarMenuManager.prepareShowMenu(menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mActionBarMenuManager.handleMenuItemClick(item)) {
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu (Menu menu) {
-        getMenuInflater().inflate(R.menu.settings_menu, menu);
-        MenuItem help = menu.findItem(R.id.menu_item_help);
-        if (help != null) {
-            Utils.prepareHelpMenuItem(this, help);
-        }
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
     public static class PrefsFragment extends PreferenceFragment
             implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
-
-        private static CharSequence[][] mTimezones;
-        private long mTime;
-
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
+
             addPreferencesFromResource(R.xml.settings);
+            loadTimeZoneList();
+        }
+
+        @Override
+        public void onActivityCreated(Bundle savedInstanceState) {
+            super.onActivityCreated(savedInstanceState);
+
+            // By default, do not recreate the DeskClock activity
+            getActivity().setResult(RESULT_CANCELED);
+
         }
 
         @Override
         public void onResume() {
             super.onResume();
-            loadTimeZoneList();
-            // By default, do not recreate the DeskClock activity
-            getActivity().setResult(RESULT_CANCELED);
+
             refresh();
         }
 
@@ -150,7 +160,7 @@ public final class SettingsActivity extends BaseActivity {
                     break;
                 case KEY_WEEK_START:
                     final ListPreference weekStartPref = (ListPreference)
-                        findPreference(KEY_WEEK_START);
+                            findPreference(KEY_WEEK_START);
                     idx = weekStartPref.findIndexOfValue((String) newValue);
                     weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
                     break;
@@ -174,7 +184,7 @@ public final class SettingsActivity extends BaseActivity {
 
             switch (pref.getKey()) {
                 case KEY_DATE_TIME:
-                    Intent dialogIntent = new Intent(Settings.ACTION_DATE_SETTINGS);
+                    final Intent dialogIntent = new Intent(Settings.ACTION_DATE_SETTINGS);
                     dialogIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(dialogIntent);
                     return true;
@@ -190,20 +200,13 @@ public final class SettingsActivity extends BaseActivity {
         }
 
         /**
-         * Reconstruct the timezone list. We don't want to do this unnecessary, so proceed only if
-         * this is the initial load or the locale has changed since the last load.
+         * Reconstruct the timezone list.
          */
         private void loadTimeZoneList() {
-            final Locale currentLocale = getResources().getConfiguration().locale;
-            final Context context = getActivity();
-            if (mTimezones == null || Utils.getTimezoneLocale(context) != currentLocale) {
-                mTime = System.currentTimeMillis();
-                mTimezones = getAllTimezones();
-                Utils.setTimezoneLocale(context, currentLocale);
-            }
+            final CharSequence[][] timezones = getAllTimezones();
             final ListPreference homeTimezonePref = (ListPreference) findPreference(KEY_HOME_TZ);
-            homeTimezonePref.setEntryValues(mTimezones[0]);
-            homeTimezonePref.setEntries(mTimezones[1]);
+            homeTimezonePref.setEntryValues(timezones[0]);
+            homeTimezonePref.setEntries(timezones[1]);
             homeTimezonePref.setSummary(homeTimezonePref.getEntry());
             homeTimezonePref.setOnPreferenceChangeListener(this);
         }
@@ -217,21 +220,24 @@ public final class SettingsActivity extends BaseActivity {
          * @return double array of tz ids and tz names
          */
         public CharSequence[][] getAllTimezones() {
-            Resources resources = this.getResources();
-            String[] ids = resources.getStringArray(R.array.timezone_values);
-            String[] labels = resources.getStringArray(R.array.timezone_labels);
+            final Resources res = getResources();
+            final String[] ids = res.getStringArray(R.array.timezone_values);
+            final String[] labels = res.getStringArray(R.array.timezone_labels);
+
             int minLength = ids.length;
             if (ids.length != labels.length) {
                 minLength = Math.min(minLength, labels.length);
                 LogUtils.e("Timezone ids and labels have different length!");
             }
-            List<TimeZoneRow> timezones = new ArrayList<>();
+
+            final long currentTimeMillis = System.currentTimeMillis();
+            final List<TimeZoneRow> timezones = new ArrayList<>(minLength);
             for (int i = 0; i < minLength; i++) {
-                timezones.add(new TimeZoneRow(ids[i], labels[i]));
+                timezones.add(new TimeZoneRow(ids[i], labels[i], currentTimeMillis));
             }
             Collections.sort(timezones);
 
-            CharSequence[][] timeZones = new CharSequence[2][timezones.size()];
+            final CharSequence[][] timeZones = new CharSequence[2][timezones.size()];
             int i = 0;
             for (TimeZoneRow row : timezones) {
                 timeZones[0][i] = row.mId;
@@ -308,18 +314,19 @@ public final class SettingsActivity extends BaseActivity {
             }
         }
 
-        private class TimeZoneRow implements Comparable<TimeZoneRow> {
+        private static class TimeZoneRow implements Comparable<TimeZoneRow> {
+
             private static final boolean SHOW_DAYLIGHT_SAVINGS_INDICATOR = false;
 
             public final String mId;
             public final String mDisplayName;
             public final int mOffset;
 
-            public TimeZoneRow(String id, String name) {
+            public TimeZoneRow(String id, String name, long currentTimeMillis) {
+                final TimeZone tz = TimeZone.getTimeZone(id);
+                final boolean useDaylightTime = tz.useDaylightTime();
                 mId = id;
-                TimeZone tz = TimeZone.getTimeZone(id);
-                boolean useDaylightTime = tz.useDaylightTime();
-                mOffset = tz.getOffset(mTime);
+                mOffset = tz.getOffset(currentTimeMillis);
                 mDisplayName = buildGmtDisplayName(name, useDaylightTime);
             }
 
@@ -329,8 +336,8 @@ public final class SettingsActivity extends BaseActivity {
             }
 
             public String buildGmtDisplayName(String displayName, boolean useDaylightTime) {
-                int p = Math.abs(mOffset);
-                StringBuilder name = new StringBuilder("(GMT");
+                final int p = Math.abs(mOffset);
+                final StringBuilder name = new StringBuilder("(GMT");
                 name.append(mOffset < 0 ? '-' : '+');
 
                 name.append(p / DateUtils.HOUR_IN_MILLIS);

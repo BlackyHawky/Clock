@@ -33,10 +33,26 @@ import java.lang.reflect.Field;
  * Subclass of NumberPicker that allows customizing divider color and saves/restores its value
  * across device rotations.
  */
-public class NumberPickerCompat extends NumberPicker {
+public class NumberPickerCompat extends NumberPicker implements NumberPicker.OnValueChangeListener {
 
     private static Field sSelectionDivider;
     private static boolean sTrySelectionDivider = true;
+
+    private final Runnable mAnnounceValueRunnable = new Runnable() {
+        @Override
+        public void run() {
+            if (mOnAnnounceValueChangedListener != null) {
+                final int value = getValue();
+                final String[] displayedValues = getDisplayedValues();
+                final String displayedValue =
+                        displayedValues == null ? null : displayedValues[value];
+                mOnAnnounceValueChangedListener.onAnnounceValueChanged(
+                        NumberPickerCompat.this, value, displayedValue);
+            }
+        }
+    };
+    private OnValueChangeListener mOnValueChangedListener;
+    private OnAnnounceValueChangedListener mOnAnnounceValueChangedListener;
 
     public NumberPickerCompat(Context context) {
         this(context, null /* attrs */);
@@ -45,11 +61,13 @@ public class NumberPickerCompat extends NumberPicker {
     public NumberPickerCompat(Context context, AttributeSet attrs) {
         super(context, attrs);
         tintSelectionDivider(context);
+        super.setOnValueChangedListener(this);
     }
 
     public NumberPickerCompat(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         tintSelectionDivider(context);
+        super.setOnValueChangedListener(this);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -99,6 +117,30 @@ public class NumberPickerCompat extends NumberPicker {
         setValue(instanceState.mValue);
     }
 
+    @Override
+    public void setOnValueChangedListener(OnValueChangeListener onValueChangedListener) {
+        mOnValueChangedListener = onValueChangedListener;
+    }
+
+    @Override
+    public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+        if (mOnValueChangedListener != null) {
+            mOnValueChangedListener.onValueChange(picker, oldVal, newVal);
+        }
+
+        // Wait till we reach a value to prevent TalkBack from announcing every intermediate value
+        // when scrolling fast.
+        removeCallbacks(mAnnounceValueRunnable);
+        postDelayed(mAnnounceValueRunnable, 200L);
+    }
+
+    /**
+     * Register a callback to be invoked whenever a value change should be announced.
+     */
+    public void setOnAnnounceValueChangedListener(OnAnnounceValueChangedListener listener) {
+        mOnAnnounceValueChangedListener = listener;
+    }
+
     /**
      * The state of this NumberPicker including the selected value. Used to preserve values across
      * device rotation.
@@ -128,5 +170,20 @@ public class NumberPickerCompat extends NumberPicker {
                     public State createFromParcel(Parcel in) { return new State(in); }
                     public State[] newArray(int size) { return new State[size]; }
                 };
+    }
+
+    /**
+     * Interface for a callback to be invoked when a value change should be announced for
+     * accessibility.
+     */
+    public interface OnAnnounceValueChangedListener {
+        /**
+         * Called when a value change should be announced.
+         * @param picker The number picker whose value changed.
+         * @param value The new value.
+         * @param displayedValue The text displayed for the value, or null if the value itself
+         *     is displayed.
+         */
+        void onAnnounceValueChanged(NumberPicker picker, int value, String displayedValue);
     }
 }

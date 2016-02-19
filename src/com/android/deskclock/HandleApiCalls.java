@@ -20,36 +20,38 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.provider.AlarmClock;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Timer;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
-import com.android.deskclock.timer.TimerFullScreenFragment;
-import com.android.deskclock.timer.TimerObj;
-import com.android.deskclock.timer.Timers;
+import com.android.deskclock.timer.TimerFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-public class HandleApiCalls extends Activity {
+import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 
-    public static final long TIMER_MIN_LENGTH = 1000;
-    public static final long TIMER_MAX_LENGTH = 24 * 60 * 60 * 1000;
+/**
+ * This activity is never visible. It processes all public intents defined by {@link AlarmClock}
+ * that apply to alarms and timers. Its definition in AndroidManifest.xml requires callers to hold
+ * the com.android.alarm.permission.SET_ALARM permission to complete the requested action.
+ */
+public class HandleApiCalls extends Activity {
 
     private Context mAppContext;
 
@@ -327,66 +329,52 @@ public class HandleApiCalls extends Activity {
     }
 
     private void handleSetTimer(Intent intent) {
-        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        // If no length is supplied, show the timer setup view
+        // If no length is supplied, show the timer setup view.
         if (!intent.hasExtra(AlarmClock.EXTRA_LENGTH)) {
-            startActivity(new Intent(this, DeskClock.class)
-                  .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
-                  .putExtra(TimerFullScreenFragment.GOTO_SETUP_VIEW, true));
+            startActivity(TimerFragment.createTimerSetupIntent(this));
             LogUtils.i("HandleApiCalls showing timer setup");
             return;
         }
 
-        final long length = 1000l * intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0);
-        if (length < TIMER_MIN_LENGTH || length > TIMER_MAX_LENGTH) {
+        // Verify that the timer length is between one second and one day.
+        final long lengthMillis = SECOND_IN_MILLIS * intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0);
+        if (lengthMillis < Timer.MIN_LENGTH || lengthMillis > Timer.MAX_LENGTH) {
             Voice.notifyFailure(this, getString(R.string.invalid_timer_length));
-            LogUtils.i("Invalid timer length requested: " + length);
+            LogUtils.i("Invalid timer length requested: " + lengthMillis);
             return;
         }
-        String label = getMessageFromIntent(intent);
 
-        TimerObj timer = null;
-        // Find an existing matching time
-        final List<TimerObj> timers = new ArrayList<>();
-        TimerObj.getTimersFromSharedPrefs(prefs, timers);
-        for (TimerObj t : timers) {
-            if (t.mSetupLength == length && (TextUtils.equals(label, t.mLabel))
-                    && t.mState == TimerObj.STATE_RESTART) {
-                timer = t;
-                break;
-            }
+        final String label = getMessageFromIntent(intent);
+        final boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
+
+        // Attempt to reuse an existing timer that is Reset with the same length and label.
+        Timer timer = null;
+        for (Timer t : DataModel.getDataModel().getTimers()) {
+            if (!t.isReset()) { continue; }
+            if (t.getLength() != lengthMillis) { continue; }
+            if (!TextUtils.equals(label, t.getLabel())) { continue; }
+
+            timer = t;
+            break;
         }
 
-        boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
+        // Create a new timer if one could not be reused.
         if (timer == null) {
-            // Use a new timer
-            timer = new TimerObj(length, label, this /* context */);
-            // Timers set without presenting UI to the user will be deleted after use
-            timer.mDeleteAfterUse = skipUi;
-
+            timer = DataModel.getDataModel().addTimer(lengthMillis, label, skipUi);
             Events.sendTimerEvent(R.string.action_create, R.string.label_intent);
         }
 
-        timer.setState(TimerObj.STATE_RUNNING);
-        timer.mStartTime = Utils.getTimeNow();
-        timer.writeToSharedPref(prefs);
-
+        // Start the selected timer.
+        DataModel.getDataModel().startTimer(timer);
         Events.sendTimerEvent(R.string.action_start, R.string.label_intent);
+        Voice.notifySuccess(this, getString(R.string.timer_created));
 
-        // Tell TimerReceiver that the timer was started
-        sendBroadcast(new Intent().setAction(Timers.START_TIMER)
-                .putExtra(Timers.TIMER_INTENT_EXTRA, timer.mTimerId));
-
-        if (skipUi) {
-            Utils.showInUseNotifications(this);
-        } else {
+        // If not instructed to skip the UI, display the running timer.
+        if (!skipUi) {
             startActivity(new Intent(this, DeskClock.class)
                     .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
-                    .putExtra(Timers.FIRST_LAUNCH_FROM_API_CALL, true)
-                    .putExtra(Timers.SCROLL_TO_TIMER_ID, timer.mTimerId));
+                    .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId()));
         }
-        Voice.notifySuccess(this, getString(R.string.timer_created));
-        LogUtils.i("HandleApiCalls timer created: %s", timer);
     }
 
     private void setupInstance(AlarmInstance instance, boolean skipUi) {
@@ -402,12 +390,12 @@ public class HandleApiCalls extends Activity {
         }
     }
 
-    private String getMessageFromIntent(Intent intent) {
+    private static String getMessageFromIntent(Intent intent) {
         final String message = intent.getStringExtra(AlarmClock.EXTRA_MESSAGE);
         return message == null ? "" : message;
     }
 
-    private DaysOfWeek getDaysFromIntent(Intent intent) {
+    private static DaysOfWeek getDaysFromIntent(Intent intent) {
         final DaysOfWeek daysOfWeek = new DaysOfWeek(0);
         final ArrayList<Integer> days = intent.getIntegerArrayListExtra(AlarmClock.EXTRA_DAYS);
         if (days != null) {

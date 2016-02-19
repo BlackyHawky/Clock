@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.ArrayMap;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -33,14 +32,12 @@ import com.android.deskclock.widget.selector.AlarmSelectionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AlarmSelectionActivity extends ListActivity {
 
     public static final String EXTRA_ALARMS = "com.android.deskclock.EXTRA_ALARMS";
 
     private final List<AlarmSelection> mSelections = new ArrayList<>();
-    private final Map<Long, Alarm> mAlarmsMap = new ArrayMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +68,6 @@ public class AlarmSelectionActivity extends ListActivity {
         // so no need to check if alarmsFromIntent is empty
         for (Parcelable parcelable : alarmsFromIntent) {
             final Alarm alarm = (Alarm) parcelable;
-            mAlarmsMap.put(alarm.id, alarm);
 
             // filling mSelections that go into the UI picker list
             final String label = String.format("%d %02d", alarm.hour, alarm.minutes);
