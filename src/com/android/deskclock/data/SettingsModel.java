@@ -38,6 +38,9 @@ final class SettingsModel {
 
     SettingsModel(Context context) {
         mContext = context;
+
+        // Set the user's default home timezone if one has not yet been chosen.
+        SettingsDAO.setDefaultHomeTimeZone(mContext, TimeZone.getDefault());
     }
 
     CitySort getCitySort() {

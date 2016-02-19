@@ -147,6 +147,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
             @Override
             public void onClick(View v) {
                 alarmTimeClickHandler.onDeleteClicked(mAlarm);
+                v.announceForAccessibility(context.getString(R.string.alarm_deleted));
             }
         });
         // Repeat checkbox handler
@@ -173,7 +174,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
     @Override
     public void bindAlarm(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         setData(alarm, alarmInstance);
-        bindOnOffSwitch(alarm);
+        bindOnOffSwitch(context, alarm);
         bindClock(context, alarm);
         bindEditLabel(alarm);
         bindDaysOfWeekButtons(alarm);

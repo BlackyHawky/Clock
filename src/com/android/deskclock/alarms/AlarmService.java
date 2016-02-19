@@ -59,9 +59,6 @@ public class AlarmService extends Service {
     /** A public action sent by AlarmService when the alarm has stopped for any reason. */
     public static final String ALARM_DONE_ACTION = "com.android.deskclock.ALARM_DONE";
 
-    /** Private action used to start an alarm with this service. */
-    public static final String START_ALARM_ACTION = "START_ALARM";
-
     /** Private action used to stop an alarm with this service. */
     public static final String STOP_ALARM_ACTION = "STOP_ALARM";
 
@@ -84,22 +81,6 @@ public class AlarmService extends Service {
     public boolean onUnbind(Intent intent) {
         mIsBound = false;
         return super.onUnbind(intent);
-    }
-
-    /**
-     * Utility method to help start alarm properly. If alarm is already firing, it
-     * will mark it as missed and start the new one.
-     *
-     * @param context application context
-     * @param instance to trigger alarm
-     */
-    public static void startAlarm(Context context, AlarmInstance instance) {
-        final Intent intent = AlarmInstance.createIntent(context, AlarmService.class, instance.mId)
-                .setAction(START_ALARM_ACTION);
-
-        // Maintain a cpu wake lock until the service can get it
-        AlarmAlertWakeLock.acquireCpuWakeLock(context);
-        context.startService(intent);
     }
 
     /**
@@ -129,7 +110,7 @@ public class AlarmService extends Service {
             // which kills the alarm. Check against the initial call state so
             // we don't kill the alarm during a call.
             if (state != TelephonyManager.CALL_STATE_IDLE && state != mInitialCallState) {
-                sendBroadcast(AlarmStateManager.createStateChangeIntent(AlarmService.this,
+                startService(AlarmStateManager.createStateChangeIntent(AlarmService.this,
                         "AlarmService", mCurrentAlarm, AlarmInstance.MISSED_STATE));
             }
         }
@@ -143,8 +124,6 @@ public class AlarmService extends Service {
         }
 
         AlarmAlertWakeLock.acquireCpuWakeLock(this);
-
-        Events.sendEvent(R.string.category_alarm, R.string.action_fire, 0);
 
         mCurrentAlarm = instance;
         AlarmNotifications.showAlarmNotification(this, mCurrentAlarm);
@@ -160,10 +139,22 @@ public class AlarmService extends Service {
             return;
         }
 
-        LogUtils.v("AlarmService.stop with instance: %s", (Object) mCurrentAlarm.mId);
+        final long instanceId = mCurrentAlarm.mId;
+        LogUtils.v("AlarmService.stop with instance: %s", instanceId);
+
         AlarmKlaxon.stop(this);
         mTelephonyManager.listen(mPhoneStateListener, PhoneStateListener.LISTEN_NONE);
         sendBroadcast(new Intent(ALARM_DONE_ACTION));
+
+        // Since we use the same id for all notifications, the system has no way to distinguish the
+        // firing notification we were bound to from other subsequent notifications posted for the
+        // same AlarmInstance (e.g. after snoozing). We workaround the issue by forcing removal of
+        // the notification and re-posting it.
+        stopForeground(true /* removeNotification */);
+        mCurrentAlarm = AlarmInstance.getInstance(getContentResolver(), instanceId);
+        if (mCurrentAlarm != null) {
+            AlarmNotifications.updateNotification(this, mCurrentAlarm);
+        }
 
         mCurrentAlarm = null;
         AlarmAlertWakeLock.releaseCpuLock();
@@ -194,7 +185,7 @@ public class AlarmService extends Service {
                     break;
                 case ALARM_DISMISS_ACTION:
                     // Set the alarm state to dismissed.
-                    AlarmStateManager.setDismissState(context, mCurrentAlarm);
+                    AlarmStateManager.deleteInstanceAndUpdateParent(context, mCurrentAlarm);
                     Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
                     break;
             }
@@ -219,23 +210,29 @@ public class AlarmService extends Service {
 
         final long instanceId = AlarmInstance.getId(intent.getData());
         switch (intent.getAction()) {
-            case START_ALARM_ACTION:
-                final ContentResolver cr = this.getContentResolver();
-                final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
-                if (instance == null) {
-                    LogUtils.e("No instance found to start alarm: %d", instanceId);
-                    if (mCurrentAlarm != null) {
-                        // Only release lock if we are not firing alarm
-                        AlarmAlertWakeLock.releaseCpuLock();
-                    }
-                    break;
-                }
+            case AlarmStateManager.CHANGE_STATE_ACTION:
+                AlarmStateManager.handleIntent(this, intent);
 
-                if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
-                    LogUtils.e("Alarm already started for instance: %d", instanceId);
-                    break;
+                // If state is changed to firing, actually fire the alarm!
+                final int alarmState = intent.getIntExtra(AlarmStateManager.ALARM_STATE_EXTRA, -1);
+                if (alarmState == AlarmInstance.FIRED_STATE) {
+                    final ContentResolver cr = this.getContentResolver();
+                    final AlarmInstance instance = AlarmInstance.getInstance(cr, instanceId);
+                    if (instance == null) {
+                        LogUtils.e("No instance found to start alarm: %d", instanceId);
+                        if (mCurrentAlarm != null) {
+                            // Only release lock if we are not firing alarm
+                            AlarmAlertWakeLock.releaseCpuLock();
+                        }
+                        break;
+                    }
+
+                    if (mCurrentAlarm != null && mCurrentAlarm.mId == instanceId) {
+                        LogUtils.e("Alarm already started for instance: %d", instanceId);
+                        break;
+                    }
+                    startAlarm(instance);
                 }
-                startAlarm(instance);
                 break;
             case STOP_ALARM_ACTION:
                 if (mCurrentAlarm != null && mCurrentAlarm.mId != instanceId) {

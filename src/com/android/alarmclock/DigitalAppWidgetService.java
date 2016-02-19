@@ -17,7 +17,10 @@
 package com.android.alarmclock;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.widget.RemoteViewsService;
+
+import com.android.deskclock.data.DataModel;
 
 public class DigitalAppWidgetService extends RemoteViewsService {
 
@@ -26,5 +29,12 @@ public class DigitalAppWidgetService extends RemoteViewsService {
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent i) {
         return new DigitalWidgetViewsFactory(getApplicationContext(), i);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        // Orientation possibly changed, so notify the widgets.
+        sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CHANGED));
     }
 }

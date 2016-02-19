@@ -18,11 +18,15 @@ package com.android.deskclock;
 
 import android.content.Context;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.Snackbar;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.deskclock.provider.AlarmInstance;
+import com.android.deskclock.widget.toast.SnackbarManager;
+import com.android.deskclock.widget.toast.ToastManager;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -86,7 +90,15 @@ public class AlarmUtils {
         final long alarmTimeDelta = alarmTime - System.currentTimeMillis();
         final String text = formatElapsedTimeUntilAlarm(context, alarmTimeDelta);
         Toast toast = Toast.makeText(context, text, Toast.LENGTH_LONG);
-        ToastMaster.setToast(toast);
+        ToastManager.setToast(toast);
         toast.show();
+    }
+
+    public static void popAlarmSetSnackbar(View snackbarAnchor, long alarmTime) {
+        final long alarmTimeDelta = alarmTime - System.currentTimeMillis();
+        final String text = formatElapsedTimeUntilAlarm(
+                snackbarAnchor.getContext(), alarmTimeDelta);
+        SnackbarManager.show(Snackbar.make(snackbarAnchor, text, Snackbar.LENGTH_SHORT));
+        snackbarAnchor.announceForAccessibility(text);
     }
 }

@@ -25,6 +25,7 @@ LOCAL_OVERRIDES_PACKAGES := AlarmClock
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
 LOCAL_STATIC_JAVA_LIBRARIES := android-opt-datetimepicker
+LOCAL_STATIC_JAVA_LIBRARIES += messageformat
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-design
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v13
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-appcompat
@@ -37,5 +38,6 @@ LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.appcompat
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.gridlayout
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.recyclerview
 LOCAL_AAPT_FLAGS += --extra-packages com.android.datetimepicker
+LOCAL_AAPT_FLAGS += --extra-packages com.android.messageformat
 
 include $(BUILD_PACKAGE)

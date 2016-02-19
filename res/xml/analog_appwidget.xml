@@ -15,10 +15,11 @@
 -->
 
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="110dip"
-    android:minHeight="110dip"
-    android:updatePeriodMillis="0"
-    android:previewImage="@drawable/appwidget_analog_clock_preview"
     android:initialLayout="@layout/analog_appwidget"
-    >
-</appwidget-provider>
+    android:minHeight="@dimen/min_analog_widget_size"
+    android:minResizeHeight="55dp"
+    android:minResizeWidth="55dp"
+    android:minWidth="@dimen/min_analog_widget_size"
+    android:previewImage="@drawable/appwidget_analog_clock_preview"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0" />

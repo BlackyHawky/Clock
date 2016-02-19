@@ -140,8 +140,8 @@ public class TextTime extends TextView {
         resolver.unregisterContentObserver(mFormatChangeObserver);
     }
 
-    public void setFormat(Context context, int amPmFontSize) {
-        setFormat12Hour(Utils.get12ModeFormat(context, amPmFontSize));
+    public void setFormat(Context context) {
+        setFormat12Hour(Utils.get12ModeFormat(context, true /* showAmPm */));
         setFormat24Hour(Utils.get24ModeFormat());
     }
 

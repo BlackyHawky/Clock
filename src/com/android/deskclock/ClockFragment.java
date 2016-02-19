@@ -47,12 +47,26 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 /**
  * Fragment that shows the clock (analog or digital), the next alarm info and the world clock.
  */
-public class ClockFragment extends DeskClockFragment {
+public final class ClockFragment extends DeskClockFragment {
+
+    // Updates the UI in response to system setting changes that alter time values and time display.
+    private final BroadcastReceiver mBroadcastReceiver = new SystemBroadcastReceiver();
+
+    // Updates dates in the UI on every quarter-hour.
+    private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
+
+    // Detects changes to the next scheduled alarm pre-L.
+    private ContentObserver mAlarmObserver;
+
+    private Handler mHandler;
 
     private TextClock mDigitalClock;
     private View mAnalogClock, mClockFrame;
@@ -61,19 +75,16 @@ public class ClockFragment extends DeskClockFragment {
     private String mDateFormat;
     private String mDateFormatForAccessibility;
 
-    private final Handler mHandler = new Handler();
-
-    // Updates the UI in response to system setting changes that alter time values and time display.
-    private final BroadcastReceiver mBroadcastReceiver = new SystemBroadcastReceiver();
-
-    // Detects changes to the next scheduled alarm pre-L.
-    private final ContentObserver mAlarmObserver = Utils.isPreL() ? new AlarmObserverPreL() : null;
-
-    // Updates dates in the UI on every quarter-hour.
-    private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
-
     /** The public no-arg constructor required by all fragments. */
     public ClockFragment() {}
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mHandler = new Handler();
+        mAlarmObserver = Utils.isPreL() ? new AlarmObserverPreL(mHandler) : null;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle icicle) {
@@ -98,17 +109,16 @@ public class ClockFragment extends DeskClockFragment {
             mClockFrame = inflater.inflate(R.layout.main_clock_frame, mCityList, false);
             mCityList.addHeaderView(mClockFrame, null, false);
             final View hairline = mClockFrame.findViewById(R.id.hairline);
-            hairline.setVisibility(mCityAdapter.getCount() == 0 ? View.GONE : View.VISIBLE);
+            hairline.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
         } else {
             final View hairline = mClockFrame.findViewById(R.id.hairline);
-            hairline.setVisibility(View.GONE);
+            hairline.setVisibility(GONE);
             // The main clock frame needs its own touch listener for night mode now.
             fragmentView.setOnTouchListener(startScreenSaverListener);
         }
 
         mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
         mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
-
         return fragmentView;
     }
 
@@ -116,8 +126,7 @@ public class ClockFragment extends DeskClockFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        final int size = getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size);
-        Utils.setTimeFormat(getActivity(), mDigitalClock, size);
+        Utils.setTimeFormat(getActivity(), mDigitalClock);
     }
 
     @Override
@@ -147,7 +156,7 @@ public class ClockFragment extends DeskClockFragment {
         final View view = getView();
         if (view != null && view.findViewById(R.id.main_clock_left_pane) != null) {
             // Center the main clock frame by hiding the world clocks when none are selected.
-            mCityList.setVisibility(mCityAdapter.getCount() == 0 ? View.GONE : View.VISIBLE);
+            mCityList.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
         }
 
         refreshDates();
@@ -178,15 +187,13 @@ public class ClockFragment extends DeskClockFragment {
 
     @Override
     public void setFabAppearance() {
-        if (getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
+        if (mFab == null || getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
             return;
         }
 
-        if (mFab != null) {
-            mFab.setVisibility(View.VISIBLE);
-            mFab.setImageResource(R.drawable.ic_language_white_24dp);
-            mFab.setContentDescription(getString(R.string.button_cities));
-        }
+        mFab.setVisibility(VISIBLE);
+        mFab.setImageResource(R.drawable.ic_language_white_24dp);
+        mFab.setContentDescription(getString(R.string.button_cities));
     }
 
     @Override
@@ -196,11 +203,11 @@ public class ClockFragment extends DeskClockFragment {
         }
 
         if (mLeftButton != null) {
-            mLeftButton.setVisibility(View.INVISIBLE);
+            mLeftButton.setVisibility(INVISIBLE);
         }
 
         if (mRightButton != null) {
-            mRightButton.setVisibility(View.INVISIBLE);
+            mRightButton.setVisibility(INVISIBLE);
         }
     }
 
@@ -286,8 +293,8 @@ public class ClockFragment extends DeskClockFragment {
      * {@link AlarmManager#ACTION_NEXT_ALARM_CLOCK_CHANGED}.
      */
     private final class AlarmObserverPreL extends ContentObserver {
-        public AlarmObserverPreL() {
-            super(mHandler);
+        public AlarmObserverPreL(Handler handler) {
+            super(handler);
         }
 
         @Override
@@ -368,16 +375,15 @@ public class ClockFragment extends DeskClockFragment {
             final TextClock digitalClock = (TextClock) clock.findViewById(R.id.digital_clock);
             final AnalogClock analogClock = (AnalogClock) clock.findViewById(R.id.analog_clock);
             if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
-                digitalClock.setVisibility(View.GONE);
-                analogClock.setVisibility(View.VISIBLE);
+                digitalClock.setVisibility(GONE);
+                analogClock.setVisibility(VISIBLE);
                 analogClock.setTimeZone(city.getTimeZoneId());
                 analogClock.enableSeconds(false);
             } else {
-                digitalClock.setVisibility(View.VISIBLE);
-                analogClock.setVisibility(View.GONE);
+                digitalClock.setVisibility(VISIBLE);
+                analogClock.setVisibility(GONE);
                 digitalClock.setTimeZone(city.getTimeZoneId());
-                final int size = mContext.getResources().getDimensionPixelSize(R.dimen.label_font_size);
-                Utils.setTimeFormat(mContext, digitalClock, size);
+                Utils.setTimeFormat(mContext, digitalClock);
             }
 
             // Bind the city name.
@@ -391,7 +397,7 @@ public class ClockFragment extends DeskClockFragment {
 
             // Bind the week day display.
             final TextView dayOfWeek = (TextView) clock.findViewById(R.id.city_day);
-            dayOfWeek.setVisibility(displayDayOfWeek ? View.VISIBLE : View.GONE);
+            dayOfWeek.setVisibility(displayDayOfWeek ? VISIBLE : GONE);
             if (displayDayOfWeek) {
                 final Locale locale = Locale.getDefault();
                 final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, locale);
@@ -401,6 +407,9 @@ public class ClockFragment extends DeskClockFragment {
             return view;
         }
 
+        /**
+         * @return {@code false} to prevent the cities from responding to touch
+         */
         @Override
         public boolean isEnabled(int position) {
             return false;

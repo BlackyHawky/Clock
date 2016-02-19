@@ -80,7 +80,7 @@ public final class CollapsedAlarmViewHolder extends AlarmTimeViewHolder {
     @Override
     public void bindAlarm(Context context, Alarm alarm, AlarmInstance alarmInstance) {
         setData(alarm, alarmInstance);
-        bindOnOffSwitch(alarm);
+        bindOnOffSwitch(context, alarm);
         bindClock(context, alarm);
         bindRepeatText(context, alarm);
         bindReadOnlyLabel(context, alarm);
@@ -88,7 +88,8 @@ public final class CollapsedAlarmViewHolder extends AlarmTimeViewHolder {
         boolean boundPreemptiveDismiss =
                 bindPreemptiveDismissButton(context, alarm, alarmInstance);
         hairLine.setVisibility(boundPreemptiveDismiss ? View.GONE : View.VISIBLE);
-        itemView.setContentDescription(clock.getContentDescription());
+        itemView.setContentDescription(clock.getContentDescription() + " " +
+                alarm.getLabelOrDefault(context));
     }
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {

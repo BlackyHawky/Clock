@@ -30,6 +30,7 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -94,9 +95,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                     RemoteViews widget = new RemoteViews(context.getPackageName(),
                             R.layout.digital_appwidget);
                     float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
-                    WidgetUtils.setTimeFormat(context, widget, 0/*no am/pm*/, R.id.the_clock);
+                    WidgetUtils.setTimeFormat(context, widget, false /* showAmPm */,
+                            R.id.the_clock);
                     WidgetUtils.setClockSize(context, widget, ratio);
-                    refreshAlarm(context, widget);
+                    refreshAlarm(context, widget, ratio);
                     appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
                 }
             }
@@ -104,27 +106,15 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                 cancelAlarmOnQuarterHour(context);
             }
             startAlarmOnQuarterHour(context);
-        } else if (isNextAlarmChangedAction(action) || Intent.ACTION_SCREEN_ON.equals(action)) {
-            // Refresh the next alarm
+        } else if (isNextAlarmChangedAction(action)
+                || Intent.ACTION_SCREEN_ON.equals(action)
+                || DataModel.ACTION_DIGITAL_WIDGET_CHANGED.equals(action)) {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             if (appWidgetManager != null) {
                 int[] appWidgetIds = appWidgetManager.getAppWidgetIds(getComponentName(context));
                 for (int appWidgetId : appWidgetIds) {
-                    RemoteViews widget = new RemoteViews(context.getPackageName(),
-                            R.layout.digital_appwidget);
-                    refreshAlarm(context, widget);
-                    appWidgetManager.partiallyUpdateAppWidget(appWidgetId, widget);
-                }
-            }
-        } else if (DataModel.ACTION_CITIES_CHANGED.equals(action)) {
-            // Refresh the world cities list
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            if (appWidgetManager != null) {
-                int[] appWidgetIds = appWidgetManager.getAppWidgetIds(getComponentName(context));
-                for (int appWidgetId : appWidgetIds) {
-                    appWidgetManager.
-                            notifyAppWidgetViewDataChanged(appWidgetId,
-                                    R.id.digital_appwidget_listview);
+                    final float ratio = WidgetUtils.getScaleRatio(context, null, appWidgetId);
+                    updateClock(context, appWidgetManager, appWidgetId, ratio);
                 }
             }
         }
@@ -181,17 +171,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             widget.setOnClickPendingIntent(R.id.digital_appwidget, pendingIntent);
         }
 
-        // Setup alarm text clock's format and font sizes
-        refreshAlarm(context, widget);
-        WidgetUtils.setTimeFormat(context, widget, 0/*no am/pm*/, R.id.the_clock);
+        // Setup formats and font sizes
+        refreshDate(context, widget, ratio);
+        refreshAlarm(context, widget, ratio);
+        WidgetUtils.setTimeFormat(context, widget, false /* showAmPm */, R.id.the_clock);
         WidgetUtils.setClockSize(context, widget, ratio);
-
-        // Set today's date format
-        final Locale locale = Locale.getDefault();
-        final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
-        final CharSequence timeFormat = DateFormat.getBestDateTimePattern(locale, skeleton);
-        widget.setCharSequence(R.id.date, "setFormat12Hour", timeFormat);
-        widget.setCharSequence(R.id.date, "setFormat24Hour", timeFormat);
 
         // Set up R.id.digital_appwidget_listview to use a remote views adapter
         // That remote views adapter connects to a RemoteViewsService through intent.
@@ -212,9 +196,47 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, widget);
     }
 
-    protected void refreshAlarm(Context context, RemoteViews widget) {
+    private void refreshDate(Context context, RemoteViews widget, float ratio) {
+        if (ratio < 1) {
+            // The time text normally has a negative bottom margin to reduce the space between the
+            // time and the date. When we scale down they overlap, so give the date a positive
+            // top padding.
+            final float padding = (1 - ratio) *
+                    -context.getResources().getDimension(R.dimen.bottom_text_spacing_digital);
+            widget.setViewPadding(R.id.date_and_alarm, 0, (int) padding, 0, 0);
+        }
+
+        // Set today's date format
+        final Locale locale = Locale.getDefault();
+        final String skeleton = context.getString(R.string.abbrev_wday_abbrev_month_day_no_year);
+        final CharSequence timeFormat = DateFormat.getBestDateTimePattern(locale, skeleton);
+        widget.setCharSequence(R.id.date, "setFormat12Hour", timeFormat);
+        widget.setCharSequence(R.id.date, "setFormat24Hour", timeFormat);
+        final float fontSize = context.getResources().getDimension(R.dimen.widget_label_font_size);
+        widget.setTextViewTextSize(R.id.date, TypedValue.COMPLEX_UNIT_PX, fontSize * ratio);
+    }
+
+    protected void refreshAlarm(Context context, RemoteViews widget, float ratio) {
         final String nextAlarm = Utils.getNextAlarm(context);
         if (!TextUtils.isEmpty(nextAlarm)) {
+            final float fontSize =
+                    context.getResources().getDimension(R.dimen.widget_label_font_size);
+            widget.setTextViewTextSize(
+                    R.id.nextAlarm, TypedValue.COMPLEX_UNIT_PX, fontSize * ratio);
+
+            int alarmDrawableResId;
+            if (ratio < .72f) {
+                alarmDrawableResId = R.drawable.ic_alarm_small_12dp;
+            }
+            else if (ratio < .95f) {
+                alarmDrawableResId = R.drawable.ic_alarm_small_18dp;
+            }
+            else {
+                alarmDrawableResId = R.drawable.ic_alarm_small_24dp;
+            }
+            widget.setTextViewCompoundDrawablesRelative(
+                    R.id.nextAlarm, alarmDrawableResId, 0, 0, 0);
+
             widget.setTextViewText(R.id.nextAlarm, nextAlarm);
             widget.setViewVisibility(R.id.nextAlarm, View.VISIBLE);
             if (DigitalAppWidgetService.LOGGING) {

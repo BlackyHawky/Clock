@@ -13,62 +13,47 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:baselineAligned="false"
     android:orientation="horizontal"
-    android:baselineAligned="false">
+    android:paddingBottom="@dimen/fab_height">
 
-    <Space
-            android:id="@+id/start_space"
-            android:visibility="gone"
-            android:layout_weight="0.5"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"/>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <!-- This FrameLayout reserves half the screen for the stopwatch. -->
+    <FrameLayout
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/stopwatch_circle_margin_bottom"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_weight="1">
 
-        <com.android.deskclock.CircleButtonsLayout
-            android:id="@+id/stopwatch_circle"
+        <!-- This FrameLayout draws the stopwatch centered within its half of the screen. -->
+        <FrameLayout
             android:layout_width="@dimen/circle_size"
             android:layout_height="@dimen/circle_size"
-            android:layout_marginStart="32dip"
-            android:layout_marginEnd="32dip"
-            android:gravity="center">
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="16dp">
 
             <com.android.deskclock.timer.CountingTimerView
                 android:id="@+id/stopwatch_time_text"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <com.android.deskclock.CircleTimerView
+            <com.android.deskclock.stopwatch.StopwatchCircleView
                 android:id="@+id/stopwatch_time"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null" />
+        </FrameLayout>
 
-        </com.android.deskclock.CircleButtonsLayout>
+    </FrameLayout>
 
-    </LinearLayout>
-
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/laps_list"
-        android:layout_width="0dip"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:layout_marginBottom="8dip"
-        android:layout_gravity="center" />
-
-    <Space
-            android:id="@+id/end_space"
-            android:visibility="gone"
-            android:layout_weight="0.5"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"/>
+        android:layout_gravity="center"
+        android:layout_weight="1" />
 
 </LinearLayout>
