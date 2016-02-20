@@ -14,22 +14,52 @@
      limitations under the License.
 -->
 
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:contentInsetLeft="0dp"
+            app:contentInsetStart="0dp">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/sliding_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:tabGravity="fill"
+                app:tabIndicatorColor="@android:color/transparent"
+                app:tabMode="fixed" />
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.android.deskclock.widget.RtlViewPager
         android:id="@+id/desk_clock_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:orientation="horizontal">
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        app:layout_behavior="com.android.deskclock.widget.toast.LinearLayoutWithSnackbarBehavior">
 
         <FrameLayout
             android:layout_width="0dp"
@@ -39,11 +69,11 @@
 
             <ImageButton
                 android:id="@+id/left_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="center"
-                android:contentDescription="@null" />
+                android:layout_width="@dimen/design_fab_size_normal"
+                android:layout_height="@dimen/design_fab_size_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:scaleType="center" />
 
         </FrameLayout>
 
@@ -52,16 +82,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
-            <ImageButton
+            <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"
-                style="@style/FabStyle"
-                android:layout_width="@dimen/footer_button_size"
-                android:layout_height="@dimen/footer_button_size"
-                android:layout_margin="@dimen/footer_button_layout_margin"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/floating_action_button"
-                android:scaleType="center"
-                android:contentDescription="@null" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/fab_margin"
+                app:borderWidth="0dp"
+                app:elevation="@dimen/fab_elevation" />
 
         </FrameLayout>
 
@@ -73,14 +101,12 @@
 
             <ImageButton
                 android:id="@+id/right_button"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
-                android:scaleType="center"
-                android:contentDescription="@null" />
+                android:layout_width="@dimen/design_fab_size_normal"
+                android:layout_height="@dimen/design_fab_size_normal"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:scaleType="center" />
 
         </FrameLayout>
-
     </LinearLayout>
-
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"Ф<xliff:g id="SEPARATOR">=</xliff:g>Форталеза"</item>
     <item msgid="5801558418916235541">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гранд Түрк"</item>
     <item msgid="2103759276235503048">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гренада"</item>
-    <item msgid="1490069759176391533">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гватемала"</item>
+    <item msgid="6216160110733510854">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гватемала шаары"</item>
     <item msgid="525959305652046261">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гайана"</item>
     <item msgid="7565596629973190931">"Г<xliff:g id="SEPARATOR">=</xliff:g>Галифакс"</item>
     <item msgid="3811169155065582644">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гавана"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"Т<xliff:g id="SEPARATOR">=</xliff:g>Торонто"</item>
     <item msgid="1506838283840737263">"В<xliff:g id="SEPARATOR">=</xliff:g>Ванкувер"</item>
     <item msgid="8935386104773857399">"В<xliff:g id="SEPARATOR">=</xliff:g>Виннипег"</item>
-    <item msgid="1132634022412399582">"Т<xliff:g id="SEPARATOR">=</xliff:g>Түштүк уюл"</item>
+    <item msgid="498429228419399474">"Т<xliff:g id="SEPARATOR">=</xliff:g>Түштүк уюл<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"Л<xliff:g id="SEPARATOR">=</xliff:g>Лонгйир"</item>
     <item msgid="3784788073896028355">"А<xliff:g id="SEPARATOR">=</xliff:g>Алматы"</item>
     <item msgid="7895695236056852523">"А<xliff:g id="SEPARATOR">=</xliff:g>Амман"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"Г<xliff:g id="SEPARATOR">=</xliff:g>Газа"</item>
     <item msgid="2359068282340162319">"Х<xliff:g id="SEPARATOR">=</xliff:g>Хеброн"</item>
     <item msgid="6223396610551759129">"Х<xliff:g id="SEPARATOR">=</xliff:g>Хошимин"</item>
-    <item msgid="4731022818651322736">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гонконг"</item>
+    <item msgid="3439764751788710130">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гонконг<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"С<xliff:g id="SEPARATOR">=</xliff:g>Стамбул"</item>
     <item msgid="758800913783999425">"Ж<xliff:g id="SEPARATOR">=</xliff:g>Жакарта"</item>
     <item msgid="8956406398692698126">"И<xliff:g id="SEPARATOR">=</xliff:g>Иерусалим"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"М<xliff:g id="SEPARATOR">=</xliff:g>Манила"</item>
     <item msgid="6033964325069060422">"М<xliff:g id="SEPARATOR">=</xliff:g>Мускат"</item>
     <item msgid="6077458941399984780">"П<xliff:g id="SEPARATOR">=</xliff:g>Пномпень"</item>
-    <item msgid="935474308903572975">"П<xliff:g id="SEPARATOR">=</xliff:g>Пхеньян"</item>
+    <item msgid="1245515372520913197">"П<xliff:g id="SEPARATOR">=</xliff:g>Пхеньян<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"К<xliff:g id="SEPARATOR">=</xliff:g>Катар"</item>
     <item msgid="1667243110545095146">"Р<xliff:g id="SEPARATOR">=</xliff:g>Рангун"</item>
     <item msgid="4460370766685855731">"Э<xliff:g id="SEPARATOR">=</xliff:g>Эр-Рияд"</item>
     <item msgid="4229224905931739201">"С<xliff:g id="SEPARATOR">=</xliff:g>Сайгон"</item>
     <item msgid="8705359848250215620">"С<xliff:g id="SEPARATOR">=</xliff:g>Сеул"</item>
-    <item msgid="583367295371395814">"Ш<xliff:g id="SEPARATOR">=</xliff:g>Шанхай"</item>
+    <item msgid="3814881931186962624">"Ш<xliff:g id="SEPARATOR">=</xliff:g>Шанхай<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"С<xliff:g id="SEPARATOR">=</xliff:g>Сингапур"</item>
-    <item msgid="1972491729911039207">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тайпей"</item>
+    <item msgid="8982451946156859368">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тайпей<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тегеран"</item>
     <item msgid="8629402941285674273">"Т<xliff:g id="SEPARATOR">=</xliff:g>Тель-Авив"</item>
-    <item msgid="8499164674454654525">"Т<xliff:g id="SEPARATOR">=</xliff:g>Токио"</item>
+    <item msgid="76330681636547168">"Т<xliff:g id="SEPARATOR">=</xliff:g>Токио<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"У<xliff:g id="SEPARATOR">=</xliff:g>Улан-Батор"</item>
     <item msgid="2028626988021468640">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бермуд аралдары"</item>
     <item msgid="4527109966513690429">"К<xliff:g id="SEPARATOR">=</xliff:g>Канар"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"Р<xliff:g id="SEPARATOR">=</xliff:g>Рено"</item>
     <item msgid="9155068631060038769">"Б<xliff:g id="SEPARATOR">=</xliff:g>Блэк-Рок-Сити"</item>
     <item msgid="8498761319928979900">"Д<xliff:g id="SEPARATOR">=</xliff:g>Доха"</item>
-    <item msgid="8307897251088048641">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бээжин"</item>
+    <item msgid="5327010922199714808">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бээжин<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"М<xliff:g id="SEPARATOR">=</xliff:g>Мумбай"</item>
     <item msgid="6668274273067049125">"Д<xliff:g id="SEPARATOR">=</xliff:g>Дели"</item>
-    <item msgid="2933410189478233292">"О<xliff:g id="SEPARATOR">=</xliff:g>Осака"</item>
+    <item msgid="7199039603593847813">"О<xliff:g id="SEPARATOR">=</xliff:g>Осака<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"Л<xliff:g id="SEPARATOR">=</xliff:g>Лахор"</item>
     <item msgid="1448378291805481500">"С<xliff:g id="SEPARATOR">=</xliff:g>Сана"</item>
     <item msgid="5233119846682408301">"Б<xliff:g id="SEPARATOR">=</xliff:g>Барселона"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"К<xliff:g id="SEPARATOR">=</xliff:g>Кембридж"</item>
     <item msgid="759409010285366934">"К<xliff:g id="SEPARATOR">=</xliff:g>Киркланд"</item>
     <item msgid="6308007059287569663">"М<xliff:g id="SEPARATOR">=</xliff:g>Мэдисон"</item>
-    <item msgid="6971636434858330021">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гуанчжоу"</item>
+    <item msgid="2077617905582224600">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гуанчжоу<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"Х<xliff:g id="SEPARATOR">=</xliff:g>Хайдарабад"</item>
     <item msgid="3032295682584784261">"Р<xliff:g id="SEPARATOR">=</xliff:g>Рестон"</item>
     <item msgid="7722837296297332268">"Б<xliff:g id="SEPARATOR">=</xliff:g>Белу-Оризонти"</item>

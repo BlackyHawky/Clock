@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"ෆ<xliff:g id="SEPARATOR">=</xliff:g>ෆෝරටලෙසා"</item>
     <item msgid="5801558418916235541">"ග<xliff:g id="SEPARATOR">=</xliff:g>ග්රෑන්ඩ් ටර්ක්"</item>
     <item msgid="2103759276235503048">"ග<xliff:g id="SEPARATOR">=</xliff:g>ග්රෙනේඩා"</item>
-    <item msgid="1490069759176391533">"ග<xliff:g id="SEPARATOR">=</xliff:g>ගෝතමාලාව"</item>
+    <item msgid="6216160110733510854">"ග<xliff:g id="SEPARATOR">=</xliff:g>ගෝතමාලාව නගරය"</item>
     <item msgid="525959305652046261">"ග<xliff:g id="SEPARATOR">=</xliff:g>ගයනා"</item>
     <item msgid="7565596629973190931">"හ<xliff:g id="SEPARATOR">=</xliff:g>හැලිෆැක්ස්"</item>
     <item msgid="3811169155065582644">"හ<xliff:g id="SEPARATOR">=</xliff:g>හවානා"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"ට<xliff:g id="SEPARATOR">=</xliff:g>ටොරොන්ටෝ"</item>
     <item msgid="1506838283840737263">"ව<xliff:g id="SEPARATOR">=</xliff:g>වැන්කුවර්"</item>
     <item msgid="8935386104773857399">"ව<xliff:g id="SEPARATOR">=</xliff:g>විනිපෙග්"</item>
-    <item msgid="1132634022412399582">"ද<xliff:g id="SEPARATOR">=</xliff:g>දක්ෂිණ ධ්‍රැවය"</item>
+    <item msgid="498429228419399474">"ද<xliff:g id="SEPARATOR">=</xliff:g>දක්ෂිණ ධ්‍රැවය<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"ල<xliff:g id="SEPARATOR">=</xliff:g>ලෝන්යිඅර්යෙන්"</item>
     <item msgid="3784788073896028355">"අ<xliff:g id="SEPARATOR">=</xliff:g>ඇල්මැටි"</item>
     <item msgid="7895695236056852523">"අ<xliff:g id="SEPARATOR">=</xliff:g>අම්මාන්"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"ග<xliff:g id="SEPARATOR">=</xliff:g>ගාසා"</item>
     <item msgid="2359068282340162319">"හ<xliff:g id="SEPARATOR">=</xliff:g>හෙබ්රොන්"</item>
     <item msgid="6223396610551759129">"හ<xliff:g id="SEPARATOR">=</xliff:g>හෝ චි මිං"</item>
-    <item msgid="4731022818651322736">"හ<xliff:g id="SEPARATOR">=</xliff:g>හොංකොං"</item>
+    <item msgid="3439764751788710130">"හ<xliff:g id="SEPARATOR">=</xliff:g>හොංකොං<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"ඉ<xliff:g id="SEPARATOR">=</xliff:g>ඉස්තාන්බුල්"</item>
     <item msgid="758800913783999425">"ජ<xliff:g id="SEPARATOR">=</xliff:g>ජකර්තා"</item>
     <item msgid="8956406398692698126">"ජ<xliff:g id="SEPARATOR">=</xliff:g>ජෙරුසලම්"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"ම<xliff:g id="SEPARATOR">=</xliff:g>මැනිලා"</item>
     <item msgid="6033964325069060422">"ම<xliff:g id="SEPARATOR">=</xliff:g>මස්කට්"</item>
     <item msgid="6077458941399984780">"න<xliff:g id="SEPARATOR">=</xliff:g>නොම් පෙන්"</item>
-    <item msgid="935474308903572975">"ප<xliff:g id="SEPARATOR">=</xliff:g>පියොන්යෑන්"</item>
+    <item msgid="1245515372520913197">"ප<xliff:g id="SEPARATOR">=</xliff:g>පියොන්යෑන්<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"ක<xliff:g id="SEPARATOR">=</xliff:g>කටාර්"</item>
     <item msgid="1667243110545095146">"ර<xliff:g id="SEPARATOR">=</xliff:g>රැන්ගුන්"</item>
     <item msgid="4460370766685855731">"ර<xliff:g id="SEPARATOR">=</xliff:g>රියාද්"</item>
     <item msgid="4229224905931739201">"ස<xliff:g id="SEPARATOR">=</xliff:g>සයිගොන්"</item>
     <item msgid="8705359848250215620">"ස<xliff:g id="SEPARATOR">=</xliff:g>සියොල්"</item>
-    <item msgid="583367295371395814">"ෂ<xliff:g id="SEPARATOR">=</xliff:g>ෂැංහයි"</item>
+    <item msgid="3814881931186962624">"ෂ<xliff:g id="SEPARATOR">=</xliff:g>ෂැංහයි<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"ස<xliff:g id="SEPARATOR">=</xliff:g>සිංගප්පූරුව"</item>
-    <item msgid="1972491729911039207">"ත<xliff:g id="SEPARATOR">=</xliff:g>තායිපේ"</item>
+    <item msgid="8982451946156859368">"ත<xliff:g id="SEPARATOR">=</xliff:g>තායිපේ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"ට<xliff:g id="SEPARATOR">=</xliff:g>ටෙහෙරාන්"</item>
     <item msgid="8629402941285674273">"ට<xliff:g id="SEPARATOR">=</xliff:g>ටෙල් අවිව්"</item>
-    <item msgid="8499164674454654525">"ට<xliff:g id="SEPARATOR">=</xliff:g>ටෝකියෝ"</item>
+    <item msgid="76330681636547168">"ට<xliff:g id="SEPARATOR">=</xliff:g>ටෝකියෝ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"උ<xliff:g id="SEPARATOR">=</xliff:g>උලාන්බටාර්"</item>
     <item msgid="2028626988021468640">"බ<xliff:g id="SEPARATOR">=</xliff:g>බර්මියුඩා"</item>
     <item msgid="4527109966513690429">"ක<xliff:g id="SEPARATOR">=</xliff:g>කැනරි"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"ර<xliff:g id="SEPARATOR">=</xliff:g>රෙනෝ"</item>
     <item msgid="9155068631060038769">"බ<xliff:g id="SEPARATOR">=</xliff:g>බ්ලැක් රොක් නගරය"</item>
     <item msgid="8498761319928979900">"ඩ<xliff:g id="SEPARATOR">=</xliff:g>ඩෝහා"</item>
-    <item msgid="8307897251088048641">"බ<xliff:g id="SEPARATOR">=</xliff:g>බීජිං"</item>
+    <item msgid="5327010922199714808">"බ<xliff:g id="SEPARATOR">=</xliff:g>බීජිං<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"ම<xliff:g id="SEPARATOR">=</xliff:g>මුම්බායි"</item>
     <item msgid="6668274273067049125">"ද<xliff:g id="SEPARATOR">=</xliff:g>දිල්ලි"</item>
-    <item msgid="2933410189478233292">"ඔ<xliff:g id="SEPARATOR">=</xliff:g>ඔසකා"</item>
+    <item msgid="7199039603593847813">"ඔ<xliff:g id="SEPARATOR">=</xliff:g>ඔසකා<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"ල<xliff:g id="SEPARATOR">=</xliff:g>ලාහෝර්"</item>
     <item msgid="1448378291805481500">"ස<xliff:g id="SEPARATOR">=</xliff:g>සනා"</item>
     <item msgid="5233119846682408301">"බ<xliff:g id="SEPARATOR">=</xliff:g>බාසිලෝනා"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"ක<xliff:g id="SEPARATOR">=</xliff:g>කේම්බ්රිජ්"</item>
     <item msgid="759409010285366934">"ක<xliff:g id="SEPARATOR">=</xliff:g>කර්ක්ලෑන්ඩ්"</item>
     <item msgid="6308007059287569663">"ම<xliff:g id="SEPARATOR">=</xliff:g>මැඩිසන්"</item>
-    <item msgid="6971636434858330021">"ග<xliff:g id="SEPARATOR">=</xliff:g>ගුආන්සු"</item>
+    <item msgid="2077617905582224600">"ග<xliff:g id="SEPARATOR">=</xliff:g>ගුආන්සු<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"හ<xliff:g id="SEPARATOR">=</xliff:g>හයිඩ්‍රරාබාද්"</item>
     <item msgid="3032295682584784261">"ර<xliff:g id="SEPARATOR">=</xliff:g>රෙස්ටන්"</item>
     <item msgid="7722837296297332268">"බ<xliff:g id="SEPARATOR">=</xliff:g>බෙලෝ හොරිසොන්ටේ"</item>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -21,11 +21,16 @@
     The section header is the "index" of all the cities in the section. By default, the section
     header is the first character of the city name.
 
-    However, in some languages, cities are listed under an incorrect index.
+    Format of providing a city name:
+    <item>[index]<xliff:g id="separator">=</xliff:g>[city name]<xliff:g id="phonetic">:</xliff:g>[phonetic name]</item>
+
+    Index and phonetic name are optional.
+
+    In some languages, cities are listed under an incorrect index or sorted incorrectly within an
+    index.
 
     Should a city be listed under an incorrect index, the correct index can be manually specified
-    by adding an index to the translation string before the "=" placeholder:
-        <item>[index]<xliff:g id="separator">=</xliff:g>[city name]</item>
+    by adding an index to the translation string before the "=" placeholder.
 
         Ex. <item>A<xliff:g id="separator">=</xliff:g>Abidjan</item>
         Now Abidjan will be classified under the "A" index.
@@ -33,9 +38,12 @@
     Note that the separator "=" should NOT be localized. The index can be multi-character; it will
     consist of all specified characters before the "=" separator.
 
-    This will NOT change the sort order of the cities list. It will solve issues where a city is
-    mistakenly listed under its own index instead of being included in a section immediately
-    before or after its listing.
+    If a city is sorted incorrectly, provide a phonetic name for the city by adding
+    <xliff:g id="phonetic">:</xliff:g>[PHONETIC_NAME]. The city now will be sorted based on phonetic
+    name. The phonetic should use the alphabet that makes the most sense for the locale. For
+    example, Japanese city can use Katakana to provide phonetic name.
+
+    Providing index and/or phonetic name will change the sort order of the cities list.
     -->
 
     <string-array name="cities_names">
@@ -90,7 +98,7 @@
         <item>F<xliff:g id="separator">=</xliff:g>Fortaleza</item>
         <item>G<xliff:g id="separator">=</xliff:g>Grand Turk</item>
         <item>G<xliff:g id="separator">=</xliff:g>Grenada</item>
-        <item>G<xliff:g id="separator">=</xliff:g>Guatemala</item>
+        <item>G<xliff:g id="separator">=</xliff:g>Guatemala City</item>
         <item>G<xliff:g id="separator">=</xliff:g>Guyana</item>
         <item>H<xliff:g id="separator">=</xliff:g>Halifax</item>
         <item>H<xliff:g id="separator">=</xliff:g>Havana</item>
@@ -135,7 +143,7 @@
         <item>T<xliff:g id="separator">=</xliff:g>Toronto</item>
         <item>V<xliff:g id="separator">=</xliff:g>Vancouver</item>
         <item>W<xliff:g id="separator">=</xliff:g>Winnipeg</item>
-        <item>S<xliff:g id="separator">=</xliff:g>South Pole</item>
+        <item>S<xliff:g id="separator">=</xliff:g>South Pole<xliff:g id="phonetic">:</xliff:g></item>
         <item>L<xliff:g id="separator">=</xliff:g>Longyearbyen</item>
         <item>A<xliff:g id="separator">=</xliff:g>Almaty</item>
         <item>A<xliff:g id="separator">=</xliff:g>Amman</item>
@@ -153,7 +161,7 @@
         <item>G<xliff:g id="separator">=</xliff:g>Gaza</item>
         <item>H<xliff:g id="separator">=</xliff:g>Hebron</item>
         <item>H<xliff:g id="separator">=</xliff:g>Ho Chi Minh</item>
-        <item>H<xliff:g id="separator">=</xliff:g>Hong Kong</item>
+        <item>H<xliff:g id="separator">=</xliff:g>Hong Kong<xliff:g id="phonetic">:</xliff:g></item>
         <item>I<xliff:g id="separator">=</xliff:g>Istanbul</item>
         <item>J<xliff:g id="separator">=</xliff:g>Jakarta</item>
         <item>J<xliff:g id="separator">=</xliff:g>Jerusalem</item>
@@ -166,18 +174,18 @@
         <item>M<xliff:g id="separator">=</xliff:g>Manila</item>
         <item>M<xliff:g id="separator">=</xliff:g>Muscat</item>
         <item>P<xliff:g id="separator">=</xliff:g>Phnom Penh</item>
-        <item>P<xliff:g id="separator">=</xliff:g>Pyongyang</item>
+        <item>P<xliff:g id="separator">=</xliff:g>Pyongyang<xliff:g id="phonetic">:</xliff:g></item>
         <item>Q<xliff:g id="separator">=</xliff:g>Qatar</item>
         <item>R<xliff:g id="separator">=</xliff:g>Rangoon</item>
         <item>R<xliff:g id="separator">=</xliff:g>Riyadh</item>
         <item>S<xliff:g id="separator">=</xliff:g>Saigon</item>
         <item>S<xliff:g id="separator">=</xliff:g>Seoul</item>
-        <item>S<xliff:g id="separator">=</xliff:g>Shanghai</item>
+        <item>S<xliff:g id="separator">=</xliff:g>Shanghai<xliff:g id="phonetic">:</xliff:g></item>
         <item>S<xliff:g id="separator">=</xliff:g>Singapore</item>
-        <item>T<xliff:g id="separator">=</xliff:g>Taipei</item>
+        <item>T<xliff:g id="separator">=</xliff:g>Taipei<xliff:g id="phonetic">:</xliff:g></item>
         <item>T<xliff:g id="separator">=</xliff:g>Tehran</item>
         <item>T<xliff:g id="separator">=</xliff:g>Tel Aviv</item>
-        <item>T<xliff:g id="separator">=</xliff:g>Tokyo</item>
+        <item>T<xliff:g id="separator">=</xliff:g>Tokyo<xliff:g id="phonetic">:</xliff:g></item>
         <item>U<xliff:g id="separator">=</xliff:g>Ulaanbaatar</item>
         <item>B<xliff:g id="separator">=</xliff:g>Bermuda</item>
         <item>C<xliff:g id="separator">=</xliff:g>Canary</item>
@@ -294,10 +302,10 @@
         <item>R<xliff:g id="separator">=</xliff:g>Reno</item>
         <item>B<xliff:g id="separator">=</xliff:g>Black Rock City</item>
         <item>D<xliff:g id="separator">=</xliff:g>Doha</item>
-        <item>B<xliff:g id="separator">=</xliff:g>Beijing</item>
+        <item>B<xliff:g id="separator">=</xliff:g>Beijing<xliff:g id="phonetic">:</xliff:g></item>
         <item>M<xliff:g id="separator">=</xliff:g>Mumbai</item>
         <item>D<xliff:g id="separator">=</xliff:g>Delhi</item>
-        <item>O<xliff:g id="separator">=</xliff:g>Osaka</item>
+        <item>O<xliff:g id="separator">=</xliff:g>Osaka<xliff:g id="phonetic">:</xliff:g></item>
         <item>L<xliff:g id="separator">=</xliff:g>Lahore</item>
         <item>S<xliff:g id="separator">=</xliff:g>Sana\'a</item>
         <item>B<xliff:g id="separator">=</xliff:g>Barcelona</item>
@@ -316,7 +324,7 @@
         <item>C<xliff:g id="separator">=</xliff:g>Cambridge</item>
         <item>K<xliff:g id="separator">=</xliff:g>Kirkland</item>
         <item>M<xliff:g id="separator">=</xliff:g>Madison</item>
-        <item>G<xliff:g id="separator">=</xliff:g>Guangzhou</item>
+        <item>G<xliff:g id="separator">=</xliff:g>Guangzhou<xliff:g id="phonetic">:</xliff:g></item>
         <item>H<xliff:g id="separator">=</xliff:g>Hyderabad</item>
         <item>R<xliff:g id="separator">=</xliff:g>Reston</item>
         <item>B<xliff:g id="separator">=</xliff:g>Belo Horizonte</item>
@@ -696,7 +704,7 @@
         <item>C49</item>
         <item>C50</item>
         <item>C51</item>
-        <item>C0</item>
+        <item>C52</item>
         <item>C53</item>
         <item>C54</item>
         <item>C55</item>

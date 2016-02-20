@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"は<xliff:g id="SEPARATOR">=</xliff:g>フォルタレザ"</item>
     <item msgid="5801558418916235541">"か<xliff:g id="SEPARATOR">=</xliff:g>グランドターク"</item>
     <item msgid="2103759276235503048">"か<xliff:g id="SEPARATOR">=</xliff:g>グレナダ"</item>
-    <item msgid="1490069759176391533">"か<xliff:g id="SEPARATOR">=</xliff:g>グアテマラ"</item>
+    <item msgid="6216160110733510854">"か<xliff:g id="SEPARATOR">=</xliff:g>グアテマラシティ"</item>
     <item msgid="525959305652046261">"か<xliff:g id="SEPARATOR">=</xliff:g>ガイアナ"</item>
     <item msgid="7565596629973190931">"は<xliff:g id="SEPARATOR">=</xliff:g>ハリファックス"</item>
     <item msgid="3811169155065582644">"は<xliff:g id="SEPARATOR">=</xliff:g>ハバナ"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"た<xliff:g id="SEPARATOR">=</xliff:g>トロント"</item>
     <item msgid="1506838283840737263">"は<xliff:g id="SEPARATOR">=</xliff:g>バンクーバー"</item>
     <item msgid="8935386104773857399">"あ<xliff:g id="SEPARATOR">=</xliff:g>ウィニペグ"</item>
-    <item msgid="1132634022412399582">"<xliff:g id="SEPARATOR">=</xliff:g>南極"</item>
+    <item msgid="498429228419399474">"な<xliff:g id="SEPARATOR">=</xliff:g>南極<xliff:g id="PHONETIC">:</xliff:g>ナンキョク"</item>
     <item msgid="4076962667198039206">"ら<xliff:g id="SEPARATOR">=</xliff:g>ロングイェールビーン"</item>
     <item msgid="3784788073896028355">"あ<xliff:g id="SEPARATOR">=</xliff:g>アルマトイ"</item>
     <item msgid="7895695236056852523">"あ<xliff:g id="SEPARATOR">=</xliff:g>アンマン"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"か<xliff:g id="SEPARATOR">=</xliff:g>ガザ"</item>
     <item msgid="2359068282340162319">"は<xliff:g id="SEPARATOR">=</xliff:g>ヘブロン"</item>
     <item msgid="6223396610551759129">"は<xliff:g id="SEPARATOR">=</xliff:g>ホーチミン"</item>
-    <item msgid="4731022818651322736">"<xliff:g id="SEPARATOR">=</xliff:g>香港"</item>
+    <item msgid="3439764751788710130">"は<xliff:g id="SEPARATOR">=</xliff:g>香港<xliff:g id="PHONETIC">:</xliff:g>ホンコン"</item>
     <item msgid="8104778702069607166">"あ<xliff:g id="SEPARATOR">=</xliff:g>イスタンブール"</item>
     <item msgid="758800913783999425">"さ<xliff:g id="SEPARATOR">=</xliff:g>ジャカルタ"</item>
     <item msgid="8956406398692698126">"あ<xliff:g id="SEPARATOR">=</xliff:g>エルサレム"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"ま<xliff:g id="SEPARATOR">=</xliff:g>マニラ"</item>
     <item msgid="6033964325069060422">"ま<xliff:g id="SEPARATOR">=</xliff:g>マスカット"</item>
     <item msgid="6077458941399984780">"は<xliff:g id="SEPARATOR">=</xliff:g>プノンペン"</item>
-    <item msgid="935474308903572975">"<xliff:g id="SEPARATOR">=</xliff:g>平壌"</item>
+    <item msgid="1245515372520913197">"は<xliff:g id="SEPARATOR">=</xliff:g>平壌<xliff:g id="PHONETIC">:</xliff:g>ピョンヤン"</item>
     <item msgid="5336632319992664889">"か<xliff:g id="SEPARATOR">=</xliff:g>カタール"</item>
     <item msgid="1667243110545095146">"ら<xliff:g id="SEPARATOR">=</xliff:g>ラングーン"</item>
     <item msgid="4460370766685855731">"ら<xliff:g id="SEPARATOR">=</xliff:g>リヤド"</item>
     <item msgid="4229224905931739201">"さ<xliff:g id="SEPARATOR">=</xliff:g>サイゴン"</item>
     <item msgid="8705359848250215620">"さ<xliff:g id="SEPARATOR">=</xliff:g>ソウル"</item>
-    <item msgid="583367295371395814">"<xliff:g id="SEPARATOR">=</xliff:g>上海"</item>
+    <item msgid="3814881931186962624">"さ<xliff:g id="SEPARATOR">=</xliff:g>上海<xliff:g id="PHONETIC">:</xliff:g>シャンハイ"</item>
     <item msgid="1422156732794771136">"さ<xliff:g id="SEPARATOR">=</xliff:g>シンガポール"</item>
-    <item msgid="1972491729911039207">"<xliff:g id="SEPARATOR">=</xliff:g>台北"</item>
+    <item msgid="8982451946156859368">"た<xliff:g id="SEPARATOR">=</xliff:g>台北<xliff:g id="PHONETIC">:</xliff:g>タイペイ"</item>
     <item msgid="5563193560935461106">"た<xliff:g id="SEPARATOR">=</xliff:g>テヘラン"</item>
     <item msgid="8629402941285674273">"た<xliff:g id="SEPARATOR">=</xliff:g>テルアビブ"</item>
-    <item msgid="8499164674454654525">"<xliff:g id="SEPARATOR">=</xliff:g>東京"</item>
+    <item msgid="76330681636547168">"た<xliff:g id="SEPARATOR">=</xliff:g>東京<xliff:g id="PHONETIC">:</xliff:g>トウキョウ"</item>
     <item msgid="1705804745888992744">"あ<xliff:g id="SEPARATOR">=</xliff:g>ウランバートル"</item>
     <item msgid="2028626988021468640">"は<xliff:g id="SEPARATOR">=</xliff:g>バミューダ"</item>
     <item msgid="4527109966513690429">"か<xliff:g id="SEPARATOR">=</xliff:g>カナリア"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"ら<xliff:g id="SEPARATOR">=</xliff:g>リノ"</item>
     <item msgid="9155068631060038769">"は<xliff:g id="SEPARATOR">=</xliff:g>ブラックロックシティ"</item>
     <item msgid="8498761319928979900">"た<xliff:g id="SEPARATOR">=</xliff:g>ドーハ"</item>
-    <item msgid="8307897251088048641">"<xliff:g id="SEPARATOR">=</xliff:g>北京"</item>
+    <item msgid="5327010922199714808">"は<xliff:g id="SEPARATOR">=</xliff:g>北京<xliff:g id="PHONETIC">:</xliff:g>ペキン"</item>
     <item msgid="8605970953750147428">"ま<xliff:g id="SEPARATOR">=</xliff:g>ムンバイ"</item>
     <item msgid="6668274273067049125">"た<xliff:g id="SEPARATOR">=</xliff:g>デリー"</item>
-    <item msgid="2933410189478233292">"<xliff:g id="SEPARATOR">=</xliff:g>大阪"</item>
+    <item msgid="7199039603593847813">"あ<xliff:g id="SEPARATOR">=</xliff:g>大阪<xliff:g id="PHONETIC">:</xliff:g>オオサカ"</item>
     <item msgid="9011026093638055579">"ら<xliff:g id="SEPARATOR">=</xliff:g>ラホール"</item>
     <item msgid="1448378291805481500">"さ<xliff:g id="SEPARATOR">=</xliff:g>サヌア"</item>
     <item msgid="5233119846682408301">"は<xliff:g id="SEPARATOR">=</xliff:g>バルセロナ"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"か<xliff:g id="SEPARATOR">=</xliff:g>ケンブリッジ"</item>
     <item msgid="759409010285366934">"か<xliff:g id="SEPARATOR">=</xliff:g>カークランド"</item>
     <item msgid="6308007059287569663">"ま<xliff:g id="SEPARATOR">=</xliff:g>マディソン"</item>
-    <item msgid="6971636434858330021">"<xliff:g id="SEPARATOR">=</xliff:g>広州"</item>
+    <item msgid="2077617905582224600">"か<xliff:g id="SEPARATOR">=</xliff:g>広州<xliff:g id="PHONETIC">:</xliff:g>コウシュウ"</item>
     <item msgid="1185109514180068650">"は<xliff:g id="SEPARATOR">=</xliff:g>ハイデラーバード"</item>
     <item msgid="3032295682584784261">"ら<xliff:g id="SEPARATOR">=</xliff:g>レストン"</item>
     <item msgid="7722837296297332268">"は<xliff:g id="SEPARATOR">=</xliff:g>ベロオリゾンテ"</item>

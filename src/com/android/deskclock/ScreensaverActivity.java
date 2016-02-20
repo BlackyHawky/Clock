@@ -24,10 +24,10 @@ import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.database.ContentObserver;
 import android.os.BatteryManager;
-import android.os.Build;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -39,13 +39,6 @@ public class ScreensaverActivity extends AppCompatActivity {
     static final boolean DEBUG = false;
     static final String TAG = "DeskClock/ScreensaverActivity";
 
-    // This value must match android:defaultValue of
-    // android:key="screensaver_clock_style" in dream_settings.xml
-    static final String DEFAULT_CLOCK_STYLE = "digital";
-
-    private static final boolean PRE_L_DEVICE =
-            Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP;
-
     private View mContentView, mSaverView;
     private View mAnalogClock, mDigitalClock;
 
@@ -53,7 +46,6 @@ public class ScreensaverActivity extends AppCompatActivity {
     private final ScreensaverMoveSaverRunnable mMoveSaverRunnable;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-    private String mClockStyle;
     private boolean mPluggedIn = true;
     private final int mFlags = (WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
             | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -90,7 +82,7 @@ public class ScreensaverActivity extends AppCompatActivity {
     };
 
     /* Register ContentObserver to see alarm changes for pre-L */
-    private final ContentObserver mSettingsContentObserver = PRE_L_DEVICE
+    private final ContentObserver mSettingsContentObserver = Utils.isPreL()
         ? new ContentObserver(mHandler) {
             @Override
             public void onChange(boolean selfChange) {
@@ -123,7 +115,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         filter.addAction(Intent.ACTION_TIME_CHANGED);
         filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
         registerReceiver(mIntentReceiver, filter);
-        if (PRE_L_DEVICE) {
+        if (Utils.isPreL()) {
             getContentResolver().registerContentObserver(
                 Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
                 false,
@@ -160,7 +152,7 @@ public class ScreensaverActivity extends AppCompatActivity {
 
     @Override
     public void onStop() {
-        if (PRE_L_DEVICE) {
+        if (Utils.isPreL()) {
             getContentResolver().unregisterContentObserver(mSettingsContentObserver);
         }
         unregisterReceiver(mIntentReceiver);
@@ -194,11 +186,8 @@ public class ScreensaverActivity extends AppCompatActivity {
     }
 
     private void setClockStyle() {
-        Utils.setClockStyle(this, mDigitalClock, mAnalogClock,
-                SettingsActivity.KEY_CLOCK_STYLE);
+        Utils.setClockStyle(mDigitalClock, mAnalogClock);
         mSaverView = findViewById(R.id.main_clock);
-        mClockStyle = (mSaverView == mDigitalClock ?
-                Utils.CLOCK_TYPE_DIGITAL : Utils.CLOCK_TYPE_ANALOG);
         Utils.dimClockView(true, mSaverView);
     }
 
@@ -207,8 +196,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         mDigitalClock = findViewById(R.id.digital_clock);
         mAnalogClock = findViewById(R.id.analog_clock);
         setClockStyle();
-        Utils.setTimeFormat(this, (TextClock) mDigitalClock,
-                getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size));
+        Utils.setTimeFormat(this, (TextClock) mDigitalClock);
 
         mContentView = (View) mSaverView.getParent();
         mContentView.forceLayout();
@@ -224,5 +212,4 @@ public class ScreensaverActivity extends AppCompatActivity {
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mContentView);
         Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
     }
-
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"फ <xliff:g id="SEPARATOR">=</xliff:g> फोर्टलेजा"</item>
     <item msgid="5801558418916235541">"ग <xliff:g id="SEPARATOR">=</xliff:g> ग्रान्ड टर्क"</item>
     <item msgid="2103759276235503048">"ग <xliff:g id="SEPARATOR">=</xliff:g> ग्रेनेडा"</item>
-    <item msgid="1490069759176391533">"ग <xliff:g id="SEPARATOR">=</xliff:g> ग्वाटेमालामा"</item>
+    <item msgid="6216160110733510854">"G<xliff:g id="SEPARATOR">=</xliff:g>ग्वाटेमाला सहर"</item>
     <item msgid="525959305652046261">"ग <xliff:g id="SEPARATOR">=</xliff:g> गुयाना"</item>
     <item msgid="7565596629973190931">"ह <xliff:g id="SEPARATOR">=</xliff:g> ह्यालिफ्याक्स"</item>
     <item msgid="3811169155065582644">"ह <xliff:g id="SEPARATOR">=</xliff:g> हवाना"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"ट <xliff:g id="SEPARATOR">=</xliff:g> टोरन्टो"</item>
     <item msgid="1506838283840737263">"भ <xliff:g id="SEPARATOR">=</xliff:g> भ्याङ्कुभर"</item>
     <item msgid="8935386104773857399">"व <xliff:g id="SEPARATOR">=</xliff:g> विन्निपेग"</item>
-    <item msgid="1132634022412399582">"द <xliff:g id="SEPARATOR">=</xliff:g> दक्षिण ध्रुव"</item>
+    <item msgid="498429228419399474">"द <xliff:g id="SEPARATOR">=</xliff:g> दक्षिण ध्रुव<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"ल <xliff:g id="SEPARATOR">=</xliff:g> लङ्गिएरबेन"</item>
     <item msgid="3784788073896028355">"अ <xliff:g id="SEPARATOR">=</xliff:g> अल्माटी"</item>
     <item msgid="7895695236056852523">"अ <xliff:g id="SEPARATOR">=</xliff:g> अम्मान"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"ग <xliff:g id="SEPARATOR">=</xliff:g> गाजा"</item>
     <item msgid="2359068282340162319">"ह <xliff:g id="SEPARATOR">=</xliff:g> हेब्रोन"</item>
     <item msgid="6223396610551759129">"ह <xliff:g id="SEPARATOR">=</xliff:g> हो चि मिन्ह"</item>
-    <item msgid="4731022818651322736">"ह <xliff:g id="SEPARATOR">=</xliff:g> हङकङ"</item>
+    <item msgid="3439764751788710130">"ह <xliff:g id="SEPARATOR">=</xliff:g> हङकङ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"इ <xliff:g id="SEPARATOR">=</xliff:g> इस्तान्बुल"</item>
     <item msgid="758800913783999425">"ज <xliff:g id="SEPARATOR">=</xliff:g> जकार्ता"</item>
     <item msgid="8956406398692698126">"ज <xliff:g id="SEPARATOR">=</xliff:g> जेरुसेलम"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"म <xliff:g id="SEPARATOR">=</xliff:g> मनिला"</item>
     <item msgid="6033964325069060422">"म <xliff:g id="SEPARATOR">=</xliff:g> मस्कट"</item>
     <item msgid="6077458941399984780">"न <xliff:g id="SEPARATOR">=</xliff:g> नोम पेन"</item>
-    <item msgid="935474308903572975">"प <xliff:g id="SEPARATOR">=</xliff:g> प्योङ्याङ"</item>
+    <item msgid="1245515372520913197">"प <xliff:g id="SEPARATOR">=</xliff:g> प्योङ्याङ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"क<xliff:g id="SEPARATOR">=</xliff:g> कतार"</item>
     <item msgid="1667243110545095146">"र <xliff:g id="SEPARATOR">=</xliff:g> रङ्गुन"</item>
     <item msgid="4460370766685855731">"र <xliff:g id="SEPARATOR">=</xliff:g> रियाद"</item>
     <item msgid="4229224905931739201">"स <xliff:g id="SEPARATOR">=</xliff:g> सैगोन"</item>
     <item msgid="8705359848250215620">"स <xliff:g id="SEPARATOR">=</xliff:g> सियोल"</item>
-    <item msgid="583367295371395814">"स <xliff:g id="SEPARATOR">=</xliff:g> संघाइ"</item>
+    <item msgid="3814881931186962624">"स <xliff:g id="SEPARATOR">=</xliff:g> संघाइ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"स <xliff:g id="SEPARATOR">=</xliff:g> सिंगापुर"</item>
-    <item msgid="1972491729911039207">"त <xliff:g id="SEPARATOR">=</xliff:g> ताइपे"</item>
+    <item msgid="8982451946156859368">"त <xliff:g id="SEPARATOR">=</xliff:g> ताइपे<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"त <xliff:g id="SEPARATOR">=</xliff:g> तेहरान"</item>
     <item msgid="8629402941285674273">"त <xliff:g id="SEPARATOR">=</xliff:g> तेल अबिब"</item>
-    <item msgid="8499164674454654525">"ट <xliff:g id="SEPARATOR">=</xliff:g> टोकियो"</item>
+    <item msgid="76330681636547168">"ट <xliff:g id="SEPARATOR">=</xliff:g> टोकियो<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"उ <xliff:g id="SEPARATOR">=</xliff:g> उल्लानबाटर"</item>
     <item msgid="2028626988021468640">"ब <xliff:g id="SEPARATOR">=</xliff:g> बर्मुडा"</item>
     <item msgid="4527109966513690429">"क <xliff:g id="SEPARATOR">=</xliff:g> क्यानरी"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"र <xliff:g id="SEPARATOR">=</xliff:g> रेनो"</item>
     <item msgid="9155068631060038769">"ब <xliff:g id="SEPARATOR">=</xliff:g> ब्ल्याक रक सिटी"</item>
     <item msgid="8498761319928979900">"द <xliff:g id="SEPARATOR">=</xliff:g> दोहा"</item>
-    <item msgid="8307897251088048641">"ब <xliff:g id="SEPARATOR">=</xliff:g> बेइजिङ"</item>
+    <item msgid="5327010922199714808">"ब <xliff:g id="SEPARATOR">=</xliff:g> बेइजिङ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"म <xliff:g id="SEPARATOR">=</xliff:g> मुम्बई"</item>
     <item msgid="6668274273067049125">"द <xliff:g id="SEPARATOR">=</xliff:g> दिल्ली"</item>
-    <item msgid="2933410189478233292">"ओ <xliff:g id="SEPARATOR">=</xliff:g> ओसाका"</item>
+    <item msgid="7199039603593847813">"ओ <xliff:g id="SEPARATOR">=</xliff:g> ओसाका<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"ल <xliff:g id="SEPARATOR">=</xliff:g> लाहोर"</item>
     <item msgid="1448378291805481500">"स <xliff:g id="SEPARATOR">=</xliff:g> सना"</item>
     <item msgid="5233119846682408301">"ब <xliff:g id="SEPARATOR">=</xliff:g> बार्सिलोना"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"क <xliff:g id="SEPARATOR">=</xliff:g> क्याम्ब्रिज"</item>
     <item msgid="759409010285366934">"क <xliff:g id="SEPARATOR">=</xliff:g> किर्कल्यान्ड"</item>
     <item msgid="6308007059287569663">"म <xliff:g id="SEPARATOR">=</xliff:g> म्याडिसन"</item>
-    <item msgid="6971636434858330021">"ग <xliff:g id="SEPARATOR">=</xliff:g> गुआङ्जाओ"</item>
+    <item msgid="2077617905582224600">"ग <xliff:g id="SEPARATOR">=</xliff:g> गुआङ्जाओ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"ह <xliff:g id="SEPARATOR">=</xliff:g> हैदराबाद"</item>
     <item msgid="3032295682584784261">"र <xliff:g id="SEPARATOR">=</xliff:g> रेस्टन"</item>
     <item msgid="7722837296297332268">"ब <xliff:g id="SEPARATOR">=</xliff:g> बेलो होरिजोन्ट"</item>

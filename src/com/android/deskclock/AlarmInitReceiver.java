@@ -16,19 +16,25 @@
 
 package com.android.deskclock;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.PowerManager.WakeLock;
 
 import com.android.deskclock.alarms.AlarmStateManager;
-import com.android.deskclock.timer.TimerObj;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.events.Events;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
 
-    // A flag that indicates that switching the volume button default was done
-    private static final String PREF_VOLUME_DEF_DONE = "vol_def_done";
+    /**
+     * When running on N devices, we're interested in the boot completed event that is sent while
+     * the user is still locked, so that we can schedule alarms.
+     */
+    @SuppressLint("InlinedApi")
+    private static final String ACTION_BOOT_COMPLETED = Utils.isNOrLater()
+            ? Intent.ACTION_LOCKED_BOOT_COMPLETED : Intent.ACTION_BOOT_COMPLETED;
 
     /**
      * This receiver handles a variety of actions:
@@ -36,16 +42,16 @@ public class AlarmInitReceiver extends BroadcastReceiver {
      * <ul>
      *     <li>Clean up backup data that was recently restored to this device on
      *     ACTION_COMPLETE_RESTORE.</li>
-     *     <li>Clean up backup data that was recently restored to this device and reset timers and
-     *     clear stopwatch on ACTION_BOOT_COMPLETED</li>
+     *     <li>Reset timers and stopwatch on ACTION_BOOT_COMPLETED</li>
      *     <li>Fix alarm states on ACTION_BOOT_COMPLETED, TIME_SET, TIMEZONE_CHANGED,
      *     and LOCALE_CHANGED</li>
+     *     <li>Rebuild notifications on MY_PACKAGE_REPLACED</li>
      * </ul>
      */
     @Override
     public void onReceive(final Context context, Intent intent) {
         final String action = intent.getAction();
-        LogUtils.v("AlarmInitReceiver " + action);
+        LogUtils.i("AlarmInitReceiver " + action);
 
         final PendingResult result = goAsync();
         final WakeLock wl = AlarmAlertWakeLock.createPartialWakeLock(context);
@@ -54,34 +60,25 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         // We need to increment the global id out of the async task to prevent race conditions
         AlarmStateManager.updateGlobalIntentId(context);
 
+        // Clear stopwatch data and reset timers because they rely on elapsed real-time values
+        // which are meaningless after a device reboot.
+        if (ACTION_BOOT_COMPLETED.equals(action)) {
+            DataModel.getDataModel().clearLaps();
+            DataModel.getDataModel().resetStopwatch();
+            Events.sendStopwatchEvent(R.string.action_reset, R.string.label_reboot);
+            DataModel.getDataModel().resetTimers(R.string.label_reboot);
+        }
+
+        // Notifications are canceled by the system on application upgrade. This broadcast signals
+        // that the new app is free to rebuild the notifications using the existing data.
+        if (Intent.ACTION_MY_PACKAGE_REPLACED.equals(action)) {
+            DataModel.getDataModel().updateAllNotifications();
+        }
+
         AsyncHandler.post(new Runnable() {
-            @Override public void run() {
-                // When running on N devices, we're interested in the boot
-                // completed event that is sent while the user is still locked,
-                // so that we can schedule alarms.
-                final boolean bootCompleted;
-                if (Utils.isNOrLater()) {
-                    bootCompleted = Intent.ACTION_LOCKED_BOOT_COMPLETED.equals(action);
-                } else {
-                    bootCompleted = Intent.ACTION_BOOT_COMPLETED.equals(action);
-                }
-
+            @Override
+            public void run() {
                 try {
-                    if (bootCompleted) {
-                        // Clear stopwatch and timers data
-                        final SharedPreferences prefs =
-                                Utils.getDefaultSharedPreferences(context);
-                        LogUtils.v("AlarmInitReceiver - Reset timers and clear stopwatch data");
-                        TimerObj.resetTimersInSharedPrefs(prefs);
-                        Utils.clearSwSharedPref(prefs);
-
-                        if (!prefs.getBoolean(PREF_VOLUME_DEF_DONE, false)) {
-                            // Fix the default
-                            LogUtils.v("AlarmInitReceiver - resetting volume button default");
-                            switchVolumeButtonDefault(prefs);
-                        }
-                    }
-
                     // Process restored data if any exists
                     if (!DeskClockBackupAgent.processRestoredData(context)) {
                         // Update all the alarm instances on time change event
@@ -94,16 +91,5 @@ public class AlarmInitReceiver extends BroadcastReceiver {
                 }
             }
         });
-    }
-
-    private void switchVolumeButtonDefault(SharedPreferences prefs) {
-        SharedPreferences.Editor editor = prefs.edit();
-
-        editor.putString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
-            SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
-
-        // Make sure we do it only once
-        editor.putBoolean(PREF_VOLUME_DEF_DONE, true);
-        editor.apply();
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2015 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:gravity="center_horizontal|top"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/alarm_side_padding"
+    android:paddingStart="@dimen/alarm_side_padding">
+
+    <include layout="@layout/alarm_time_summary" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+        <View
+            android:id="@+id/hairline"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/hairline_height"
+            android:layout_gravity="bottom"
+            android:layout_marginEnd="@dimen/icon_margin"
+            android:layout_marginStart="@dimen/icon_margin"
+            android:background="@color/hairline" />
+
+        <com.android.deskclock.widget.EllipsizeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="@dimen/touch_target_min_size"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:paddingStart="@dimen/icon_margin"
+                android:paddingEnd="@dimen/icon_margin"
+                android:singleLine="true"
+                android:textColor="@color/clock_gray"
+                android:textSize="@dimen/alarm_text_font_size" />
+
+            <TextView
+                android:id="@+id/days_of_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:singleLine="true"
+                android:textColor="@color/clock_white"
+                android:textSize="@dimen/alarm_text_font_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/upcoming_instance_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:focusable="true"
+                android:singleLine="true"
+                android:textColor="@color/clock_white"
+                android:textSize="@dimen/alarm_text_font_size"
+                android:textStyle="bold" />
+
+        </com.android.deskclock.widget.EllipsizeLayout>
+
+        <ImageButton
+            android:id="@+id/arrow"
+            android:layout_width="@dimen/touch_target_min_size"
+            android:layout_height="@dimen/touch_target_min_size"
+            android:layout_gravity="center_vertical|end"
+            android:contentDescription="@string/expand_alarm"
+            android:scaleType="center"
+            android:src="@drawable/ic_expand_down" />
+
+    </FrameLayout>
+
+    <include
+        android:id="@+id/preemptive_dismiss_container"
+        layout="@layout/preemptive_dismiss" />
+
+</LinearLayout>

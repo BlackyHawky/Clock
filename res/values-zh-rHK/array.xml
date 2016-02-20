@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"14劃<xliff:g id="SEPARATOR">=</xliff:g>福塔萊薩"</item>
     <item msgid="5801558418916235541">"3劃<xliff:g id="SEPARATOR">=</xliff:g>大特克"</item>
     <item msgid="2103759276235503048">"10劃<xliff:g id="SEPARATOR">=</xliff:g>格瑞納達"</item>
-    <item msgid="1490069759176391533">"6劃<xliff:g id="SEPARATOR">=</xliff:g>危地馬拉"</item>
+    <item msgid="6216160110733510854">"6劃<xliff:g id="SEPARATOR">=</xliff:g>危地馬拉城"</item>
     <item msgid="525959305652046261">"6劃<xliff:g id="SEPARATOR">=</xliff:g>圭亞那"</item>
     <item msgid="7565596629973190931">"9劃<xliff:g id="SEPARATOR">=</xliff:g>哈利法克斯"</item>
     <item msgid="3811169155065582644">"9劃<xliff:g id="SEPARATOR">=</xliff:g>哈瓦那"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"6劃<xliff:g id="SEPARATOR">=</xliff:g>多倫多"</item>
     <item msgid="1506838283840737263">"13劃<xliff:g id="SEPARATOR">=</xliff:g>溫哥華"</item>
     <item msgid="8935386104773857399">"13劃<xliff:g id="SEPARATOR">=</xliff:g>溫尼伯"</item>
-    <item msgid="1132634022412399582">"9劃<xliff:g id="SEPARATOR">=</xliff:g>南極"</item>
+    <item msgid="498429228419399474">"9劃<xliff:g id="SEPARATOR">=</xliff:g>南極<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"10劃<xliff:g id="SEPARATOR">=</xliff:g>朗伊爾城"</item>
     <item msgid="3784788073896028355">"8劃<xliff:g id="SEPARATOR">=</xliff:g>阿拉木圖"</item>
     <item msgid="7895695236056852523">"6劃<xliff:g id="SEPARATOR">=</xliff:g>安曼"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"5劃<xliff:g id="SEPARATOR">=</xliff:g>加沙"</item>
     <item msgid="2359068282340162319">"7劃<xliff:g id="SEPARATOR">=</xliff:g>希伯崙"</item>
     <item msgid="6223396610551759129">"9劃<xliff:g id="SEPARATOR">=</xliff:g>胡志明市"</item>
-    <item msgid="4731022818651322736">"9劃<xliff:g id="SEPARATOR">=</xliff:g>香港"</item>
+    <item msgid="3439764751788710130">"9劃<xliff:g id="SEPARATOR">=</xliff:g>香港<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"6劃<xliff:g id="SEPARATOR">=</xliff:g>伊斯坦布爾"</item>
     <item msgid="758800913783999425">"12劃<xliff:g id="SEPARATOR">=</xliff:g>雅加達"</item>
     <item msgid="8956406398692698126">"9劃<xliff:g id="SEPARATOR">=</xliff:g>耶路撒冷"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"10劃<xliff:g id="SEPARATOR">=</xliff:g>馬尼拉"</item>
     <item msgid="6033964325069060422">"10劃<xliff:g id="SEPARATOR">=</xliff:g>馬斯喀特"</item>
     <item msgid="6077458941399984780">"8劃<xliff:g id="SEPARATOR">=</xliff:g>金邊"</item>
-    <item msgid="935474308903572975">"5劃<xliff:g id="SEPARATOR">=</xliff:g>平壤"</item>
+    <item msgid="1245515372520913197">"5劃<xliff:g id="SEPARATOR">=</xliff:g>平壤<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"5劃<xliff:g id="SEPARATOR">=</xliff:g>卡塔爾"</item>
     <item msgid="1667243110545095146">"6劃<xliff:g id="SEPARATOR">=</xliff:g>仰光"</item>
     <item msgid="4460370766685855731">"7劃<xliff:g id="SEPARATOR">=</xliff:g>利雅得"</item>
     <item msgid="4229224905931739201">"9劃<xliff:g id="SEPARATOR">=</xliff:g>胡志明市"</item>
     <item msgid="8705359848250215620">"9劃<xliff:g id="SEPARATOR">=</xliff:g>首爾"</item>
-    <item msgid="583367295371395814">"3劃<xliff:g id="SEPARATOR">=</xliff:g>上海"</item>
+    <item msgid="3814881931186962624">"3劃<xliff:g id="SEPARATOR">=</xliff:g>上海<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"13劃<xliff:g id="SEPARATOR">=</xliff:g>新加坡"</item>
-    <item msgid="1972491729911039207">"5劃<xliff:g id="SEPARATOR">=</xliff:g>台北"</item>
+    <item msgid="8982451946156859368">"5劃<xliff:g id="SEPARATOR">=</xliff:g>台北<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"15劃<xliff:g id="SEPARATOR">=</xliff:g>德黑蘭"</item>
     <item msgid="8629402941285674273">"10劃<xliff:g id="SEPARATOR">=</xliff:g>特拉維夫"</item>
-    <item msgid="8499164674454654525">"8劃<xliff:g id="SEPARATOR">=</xliff:g>東京"</item>
+    <item msgid="76330681636547168">"8劃<xliff:g id="SEPARATOR">=</xliff:g>東京<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"10劃<xliff:g id="SEPARATOR">=</xliff:g>烏蘭巴托"</item>
     <item msgid="2028626988021468640">"6劃<xliff:g id="SEPARATOR">=</xliff:g>百慕達"</item>
     <item msgid="4527109966513690429">"5劃<xliff:g id="SEPARATOR">=</xliff:g>加納利"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"7劃<xliff:g id="SEPARATOR">=</xliff:g>里諾"</item>
     <item msgid="9155068631060038769">"12劃<xliff:g id="SEPARATOR">=</xliff:g>黑岩城"</item>
     <item msgid="8498761319928979900">"6劃<xliff:g id="SEPARATOR">=</xliff:g>多哈"</item>
-    <item msgid="8307897251088048641">"5劃<xliff:g id="SEPARATOR">=</xliff:g>北京"</item>
+    <item msgid="5327010922199714808">"5劃<xliff:g id="SEPARATOR">=</xliff:g>北京<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"8劃<xliff:g id="SEPARATOR">=</xliff:g>孟買"</item>
     <item msgid="6668274273067049125">"15劃<xliff:g id="SEPARATOR">=</xliff:g>德里"</item>
-    <item msgid="2933410189478233292">"3劃<xliff:g id="SEPARATOR">=</xliff:g>大阪"</item>
+    <item msgid="7199039603593847813">"3劃<xliff:g id="SEPARATOR">=</xliff:g>大阪<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"8劃<xliff:g id="SEPARATOR">=</xliff:g>拉合爾"</item>
     <item msgid="1448378291805481500">"7劃<xliff:g id="SEPARATOR">=</xliff:g>沙那"</item>
     <item msgid="5233119846682408301">"4劃<xliff:g id="SEPARATOR">=</xliff:g>巴塞隆拿"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"15劃<xliff:g id="SEPARATOR">=</xliff:g>劍橋"</item>
     <item msgid="759409010285366934">"9劃<xliff:g id="SEPARATOR">=</xliff:g>科克蘭"</item>
     <item msgid="6308007059287569663">"11劃 <xliff:g id="SEPARATOR">=</xliff:g>麥迪遜"</item>
-    <item msgid="6971636434858330021">"15劃<xliff:g id="SEPARATOR">=</xliff:g>廣州"</item>
+    <item msgid="2077617905582224600">"15劃<xliff:g id="SEPARATOR">=</xliff:g>廣州<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"10劃<xliff:g id="SEPARATOR">=</xliff:g>海得拉巴"</item>
     <item msgid="3032295682584784261">"13劃<xliff:g id="SEPARATOR">=</xliff:g>雷斯頓"</item>
     <item msgid="7722837296297332268">"9劃<xliff:g id="SEPARATOR">=</xliff:g>美景市"</item>

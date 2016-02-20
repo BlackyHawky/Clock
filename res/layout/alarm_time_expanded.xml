@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2015 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal|top"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/alarm_side_padding"
+    android:paddingStart="@dimen/alarm_side_padding">
+
+    <include layout="@layout/alarm_time_summary" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/collapse_expand_height"
+            android:orientation="vertical">
+
+            <CheckBox
+                android:id="@+id/repeat_onoff"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/touch_target_min_size"
+                android:layout_gravity="center_vertical|start"
+                android:paddingStart="@dimen/alarm_side_padding"
+                android:text="@string/alarm_repeat"
+                android:textColor="@color/clock_white"
+                android:textSize="@dimen/alarm_text_font_size" />
+
+            <!-- Day buttons are put here programmatically -->
+            <LinearLayout
+                android:id="@+id/repeat_days"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/touch_target_min_size"
+                android:layout_gravity="top"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/choose_ringtone"
+                    android:layout_width="0dip"
+                    android:layout_height="@dimen/touch_target_min_size"
+                    android:layout_weight="1"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:drawablePadding="@dimen/alarm_horizontal_padding"
+                    android:drawableStart="@drawable/ic_ringtone"
+                    android:ellipsize="marquee"
+                    android:gravity="center_vertical"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:paddingStart="@dimen/icon_margin"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/clock_white"
+                    android:textSize="@dimen/alarm_text_font_size" />
+
+                <CheckBox
+                    android:id="@+id/vibrate_onoff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/touch_target_min_size"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:includeFontPadding="false"
+                    android:paddingStart="@dimen/alarm_horizontal_padding"
+                    android:text="@string/alarm_vibrate"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/alarm_text_font_size" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/edit_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:hint="@string/label"
+                android:paddingBottom="12dp"
+                android:paddingEnd="@dimen/alarm_side_padding"
+                android:paddingStart="44dp"
+                android:paddingTop="12dp"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="@dimen/alarm_text_font_size" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/hairline_height"
+                android:layout_marginEnd="@dimen/hairline_side_padding"
+                android:layout_marginStart="@dimen/hairline_side_padding"
+                android:background="@color/hairline" />
+
+            <include
+                android:id="@+id/preemptive_dismiss_container"
+                layout="@layout/preemptive_dismiss" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/collapse_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start">
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="@dimen/touch_target_min_size"
+                android:layout_height="@dimen/tall_row_height"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+                android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/delete_alarm"
+                android:drawableStart="@drawable/ic_delete_small"
+                android:drawablePadding="@dimen/alarm_horizontal_padding"
+                android:gravity="start|center_vertical"
+                android:scaleType="fitStart" />
+
+            <ImageButton
+                android:id="@+id/arrow"
+                android:layout_width="@dimen/touch_target_min_size"
+                android:layout_height="@dimen/touch_target_min_size"
+                android:layout_gravity="center_vertical|end"
+                android:contentDescription="@string/collapse_alarm"
+                android:rotation="@integer/chevron_rotate_180"
+                android:scaleType="center"
+                android:src="@drawable/ic_expand_down" />
+
+        </FrameLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

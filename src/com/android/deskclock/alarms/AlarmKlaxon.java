@@ -16,6 +16,7 @@
 
 package com.android.deskclock.alarms;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.os.Build;
@@ -23,7 +24,9 @@ import android.os.Vibrator;
 
 import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.Utils;
 import com.android.deskclock.provider.AlarmInstance;
+import com.android.deskclock.settings.SettingsActivity;
 
 /**
  * Manages playing ringtone and vibrating the device.
@@ -37,9 +40,8 @@ public final class AlarmKlaxon {
     private AlarmKlaxon() {}
 
     public static void stop(Context context) {
-        LogUtils.v("AlarmKlaxon.stop()");
-
         if (sStarted) {
+            LogUtils.v("AlarmKlaxon.stop()");
             sStarted = false;
             getAsyncRingtonePlayer(context).stop();
             ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).cancel();
@@ -47,9 +49,9 @@ public final class AlarmKlaxon {
     }
 
     public static void start(Context context, AlarmInstance instance) {
-        LogUtils.v("AlarmKlaxon.start()");
         // Make sure we are stopped before starting
         stop(context);
+        LogUtils.v("AlarmKlaxon.start()");
 
         if (!AlarmInstance.NO_RINGTONE_URI.equals(instance.mRingtone)) {
             getAsyncRingtonePlayer(context).play(instance.mRingtone);
@@ -57,11 +59,8 @@ public final class AlarmKlaxon {
 
         if (instance.mVibrate) {
             final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                vibrator.vibrate(sVibratePattern, 0, new AudioAttributes.Builder()
-                        .setUsage(AudioAttributes.USAGE_ALARM)
-                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
-                        .build());
+            if (Utils.isLOrLater()) {
+                vibrateLOrLater(vibrator);
             } else {
                 vibrator.vibrate(sVibratePattern, 0);
             }
@@ -70,9 +69,18 @@ public final class AlarmKlaxon {
         sStarted = true;
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static void vibrateLOrLater(Vibrator vibrator) {
+        vibrator.vibrate(sVibratePattern, 0, new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build());
+    }
+
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {
         if (sAsyncRingtonePlayer == null) {
-            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext());
+            sAsyncRingtonePlayer = new AsyncRingtonePlayer(context.getApplicationContext(),
+                    SettingsActivity.KEY_ALARM_CRESCENDO);
         }
 
         return sAsyncRingtonePlayer;

@@ -19,7 +19,7 @@
 
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources>
     <dimen name="time_text_size">153dip</dimen>
     <dimen name="ampm_text_size">32dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
@@ -29,7 +29,6 @@
 
     <dimen name="dialpad_font_size">24sp</dimen>
     <dimen name="dialpad_digit_padding">14dip</dimen>
-    <dimen name="timer_setup_font_size">48sp</dimen>
     <dimen name="timer_setup_delete_start_margin">24sp</dimen>
     <dimen name="timer_setup_label_size">16sp</dimen>
 
@@ -38,7 +37,6 @@
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin">8dp</dimen>
     <dimen name="analog_clock_margin">70dp</dimen>
-    <dimen name="timer_circle_margin">8dp</dimen>
     <dimen name="main_clock_padding">0dp</dimen>
     <dimen name="circle_margin_top">0dp</dimen>
     <dimen name="top_text_spacing_digital">-25dp</dimen>
@@ -52,7 +50,6 @@
     <dimen name="medium_font_size">48sp</dimen>
 
     <dimen name="circle_size">190dip</dimen>
-    <dimen name="stopwatch_list_bottom_spacing">0dip</dimen>
     <dimen name="stopwatch_circle_margin_bottom">80dip</dimen>
 
     <dimen name="world_clock_margin">8dp</dimen>

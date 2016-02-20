@@ -14,18 +14,33 @@
      limitations under the License.
 -->
 
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:id="@+id/menu_items">
-        <item android:id="@+id/menu_item_night_mode"
-            android:title="@string/menu_item_night_mode"
-            android:icon="@android:drawable/ic_menu_preferences"/>
-        <item android:id="@+id/menu_item_settings"
-            android:title="@string/menu_item_settings"
-            android:icon="@android:drawable/ic_menu_preferences"/>
-        <item android:id="@+id/menu_item_help"
-            android:title="@string/menu_item_help"
-            android:icon="@android:drawable/ic_menu_preferences"/>
+        <item
+            android:id="@+id/menu_item_search"
+            android:icon="@android:drawable/ic_menu_search"
+            android:imeOptions="actionSearch"
+            android:orderInCategory="1"
+            android:title="@android:string/search_go"
+            android:visible="false"
+            app:actionViewClass="android.support.v7.widget.SearchView"
+            app:showAsAction="ifRoom"/>
+        <item
+            android:id="@+id/menu_item_sort"
+            android:title="@string/menu_item_sort_by_gmt_offset"
+            app:showAsAction="never"/>
+        <item
+            android:id="@+id/menu_item_night_mode"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="@string/menu_item_night_mode"/>
+        <item
+            android:id="@+id/menu_item_settings"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="@string/menu_item_settings"/>
+        <item
+            android:id="@+id/menu_item_help"
+            android:icon="@android:drawable/ic_menu_preferences"
+            android:title="@string/menu_item_help"/>
     </group>
 </menu>
-
-
