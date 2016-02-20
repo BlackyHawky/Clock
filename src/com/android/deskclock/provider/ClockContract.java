@@ -18,6 +18,8 @@ package com.android.deskclock.provider;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+import com.android.deskclock.BuildConfig;
+
 /**
  * <p>
  * The contract between the clock provider and desk clock. Contains
@@ -33,7 +35,6 @@ import android.provider.BaseColumns;
  * <li>The {@link InstancesColumns} table holds the current state of each
  * alarm in the AlarmsColumn table.
  * </li>
- * <li>The {@link CitiesColumns} table holds all user selectable cities</li>
  * </ul>
  */
 public final class ClockContract {
@@ -41,7 +42,7 @@ public final class ClockContract {
      * This authority is used for writing to or querying from the clock
      * provider.
      */
-    public static final String AUTHORITY = "com.android.deskclock";
+    public static final String AUTHORITY = BuildConfig.APPLICATION_ID;
 
     /**
      * This utility class cannot be instantiated
@@ -55,25 +56,25 @@ public final class ClockContract {
         /**
          * This string is used to indicate no ringtone.
          */
-        public static final Uri NO_RINGTONE_URI = Uri.EMPTY;
+        Uri NO_RINGTONE_URI = Uri.EMPTY;
 
         /**
          * This string is used to indicate no ringtone.
          */
-        public static final String NO_RINGTONE = NO_RINGTONE_URI.toString();
+        String NO_RINGTONE = NO_RINGTONE_URI.toString();
 
         /**
          * True if alarm should vibrate
          * <p>Type: BOOLEAN</p>
          */
-        public static final String VIBRATE = "vibrate";
+        String VIBRATE = "vibrate";
 
         /**
          * Alarm label.
          *
          * <p>Type: STRING</p>
          */
-        public static final String LABEL = "label";
+        String LABEL = "label";
 
         /**
          * Audio alert to play when alarm triggers. Null entry
@@ -82,7 +83,7 @@ public final class ClockContract {
          *
          * <p>Type: STRING</p>
          */
-        public static final String RINGTONE = "ringtone";
+        String RINGTONE = "ringtone";
     }
 
     /**
@@ -92,19 +93,26 @@ public final class ClockContract {
         /**
          * The content:// style URL for this table.
          */
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/alarms");
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/alarms");
+
+        /**
+         * The content:// style URL for the alarms with instance tables, which is used to get the
+         * next firing instance and the current state of an alarm.
+         */
+        Uri ALARMS_WITH_INSTANCES_URI = Uri.parse("content://" + AUTHORITY
+                + "/alarms_with_instances");
 
         /**
          * Hour in 24-hour localtime 0 - 23.
          * <p>Type: INTEGER</p>
          */
-        public static final String HOUR = "hour";
+        String HOUR = "hour";
 
         /**
          * Minutes in localtime 0 - 59.
          * <p>Type: INTEGER</p>
          */
-        public static final String MINUTES = "minutes";
+        String MINUTES = "minutes";
 
         /**
          * Days of the week encoded as a bit set.
@@ -112,19 +120,19 @@ public final class ClockContract {
          *
          * {@link DaysOfWeek}
          */
-        public static final String DAYS_OF_WEEK = "daysofweek";
+        String DAYS_OF_WEEK = "daysofweek";
 
         /**
          * True if alarm is active.
          * <p>Type: BOOLEAN</p>
          */
-        public static final String ENABLED = "enabled";
+        String ENABLED = "enabled";
 
         /**
          * Determine if alarm is deleted after it has been used.
          * <p>Type: INTEGER</p>
          */
-        public static final String DELETE_AFTER_USE = "delete_after_use";
+        String DELETE_AFTER_USE = "delete_after_use";
     }
 
     /**
@@ -134,7 +142,7 @@ public final class ClockContract {
         /**
          * The content:// style URL for this table.
          */
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/instances");
+        Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/instances");
 
         /**
          * Alarm state when to show no notification.
@@ -142,7 +150,7 @@ public final class ClockContract {
          * Can transitions to:
          * LOW_NOTIFICATION_STATE
          */
-        public static final int SILENT_STATE = 0;
+        int SILENT_STATE = 0;
 
         /**
          * Alarm state to show low priority alarm notification.
@@ -152,7 +160,7 @@ public final class ClockContract {
          * HIGH_NOTIFICATION_STATE
          * DISMISSED_STATE
          */
-        public static final int LOW_NOTIFICATION_STATE = 1;
+        int LOW_NOTIFICATION_STATE = 1;
 
         /**
          * Alarm state to hide low priority alarm notification.
@@ -160,7 +168,7 @@ public final class ClockContract {
          * Can transitions to:
          * HIGH_NOTIFICATION_STATE
          */
-        public static final int HIDE_NOTIFICATION_STATE = 2;
+        int HIDE_NOTIFICATION_STATE = 2;
 
         /**
          * Alarm state to show high priority alarm notification.
@@ -169,7 +177,7 @@ public final class ClockContract {
          * DISMISSED_STATE
          * FIRED_STATE
          */
-        public static final int HIGH_NOTIFICATION_STATE = 3;
+        int HIGH_NOTIFICATION_STATE = 3;
 
         /**
          * Alarm state when alarm is in snooze.
@@ -178,7 +186,7 @@ public final class ClockContract {
          * DISMISSED_STATE
          * FIRED_STATE
          */
-        public static final int SNOOZE_STATE = 4;
+        int SNOOZE_STATE = 4;
 
         /**
          * Alarm state when alarm is being fired.
@@ -188,7 +196,7 @@ public final class ClockContract {
          * SNOOZED_STATE
          * MISSED_STATE
          */
-        public static final int FIRED_STATE = 5;
+        int FIRED_STATE = 5;
 
         /**
          * Alarm state when alarm has been missed.
@@ -196,95 +204,61 @@ public final class ClockContract {
          * Can transitions to:
          * DISMISSED_STATE
          */
-        public static final int MISSED_STATE = 6;
+        int MISSED_STATE = 6;
 
         /**
          * Alarm state when alarm is done.
          */
-        public static final int DISMISSED_STATE = 7;
+        int DISMISSED_STATE = 7;
 
         /**
          * Alarm state when alarm has been dismissed before its intended firing time.
          */
-        public static final int PREDISMISSED_STATE = 8;
+        int PREDISMISSED_STATE = 8;
 
         /**
          * Alarm year.
          *
          * <p>Type: INTEGER</p>
          */
-        public static final String YEAR = "year";
+        String YEAR = "year";
 
         /**
          * Alarm month in year.
          *
          * <p>Type: INTEGER</p>
          */
-        public static final String MONTH = "month";
+        String MONTH = "month";
 
         /**
          * Alarm day in month.
          *
          * <p>Type: INTEGER</p>
          */
-        public static final String DAY = "day";
+        String DAY = "day";
 
         /**
          * Alarm hour in 24-hour localtime 0 - 23.
          * <p>Type: INTEGER</p>
          */
-        public static final String HOUR = "hour";
+        String HOUR = "hour";
 
         /**
          * Alarm minutes in localtime 0 - 59
          * <p>Type: INTEGER</p>
          */
-        public static final String MINUTES = "minutes";
+        String MINUTES = "minutes";
 
         /**
          * Foreign key to Alarms table
          * <p>Type: INTEGER (long)</p>
          */
-        public static final String ALARM_ID = "alarm_id";
+        String ALARM_ID = "alarm_id";
 
         /**
          * Alarm state
          * <p>Type: INTEGER</p>
          */
-        public static final String ALARM_STATE = "alarm_state";
-    }
-
-    /**
-     * Constants for the Cities table, which contains all selectable cities.
-     */
-    protected interface CitiesColumns {
-        /**
-         * The content:// style URL for this table.
-         */
-        public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/cities");
-
-        /**
-         * Primary id for city.
-         * <p>Type: STRING</p>
-         */
-        public static final String CITY_ID = "city_id";
-
-        /**
-         * City name.
-         * <p>Type: STRING</p>
-         */
-        public static final String CITY_NAME = "city_name";
-
-        /**
-         * Timezone name of city.
-         * <p>Type: STRING</p>
-         */
-        public static final String TIMEZONE_NAME = "timezone_name";
-
-        /**
-         * Timezone offset.
-         * <p>Type: INTEGER</p>
-         */
-        public static final String TIMEZONE_OFFSET = "timezone_offset";
+        String ALARM_STATE = "alarm_state";
     }
 }

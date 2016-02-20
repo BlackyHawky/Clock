@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"Ֆ<xliff:g id="SEPARATOR">=</xliff:g>Ֆորտալեզա"</item>
     <item msgid="5801558418916235541">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գրանդ Տերկ"</item>
     <item msgid="2103759276235503048">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գրենադա"</item>
-    <item msgid="1490069759176391533">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գվատեմալա"</item>
+    <item msgid="6216160110733510854">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գվատեմալա"</item>
     <item msgid="525959305652046261">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գայանա"</item>
     <item msgid="7565596629973190931">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հալիֆաքս"</item>
     <item msgid="3811169155065582644">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հավանա"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"Տ<xliff:g id="SEPARATOR">=</xliff:g>Տորոնտո"</item>
     <item msgid="1506838283840737263">"Վ<xliff:g id="SEPARATOR">=</xliff:g>Վանկուվեր"</item>
     <item msgid="8935386104773857399">"Վ<xliff:g id="SEPARATOR">=</xliff:g>Վիննիպեգ"</item>
-    <item msgid="1132634022412399582">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հարավային Բևեռ"</item>
+    <item msgid="498429228419399474">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հարավային Բևեռ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"Լ<xliff:g id="SEPARATOR">=</xliff:g>Լոնգյերբյեն"</item>
     <item msgid="3784788073896028355">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Ալմա Աթա"</item>
     <item msgid="7895695236056852523">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Ամման"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գազա"</item>
     <item msgid="2359068282340162319">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հևրոն"</item>
     <item msgid="6223396610551759129">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հո Չի Մին"</item>
-    <item msgid="4731022818651322736">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հոնկոնգ"</item>
+    <item msgid="3439764751788710130">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հոնկոնգ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Ստամբուլ"</item>
     <item msgid="758800913783999425">"Ջ<xliff:g id="SEPARATOR">=</xliff:g>Ջակարտա"</item>
     <item msgid="8956406398692698126">"Ե<xliff:g id="SEPARATOR">=</xliff:g>Երուսաղեմ"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"Մ<xliff:g id="SEPARATOR">=</xliff:g>Մանիլա"</item>
     <item msgid="6033964325069060422">"Մ<xliff:g id="SEPARATOR">=</xliff:g>Մուսկաթ"</item>
     <item msgid="6077458941399984780">"Պ<xliff:g id="SEPARATOR">=</xliff:g>Պնոմպեն"</item>
-    <item msgid="935474308903572975">"Փ<xliff:g id="SEPARATOR">=</xliff:g>Փխենյան"</item>
+    <item msgid="1245515372520913197">"Փ<xliff:g id="SEPARATOR">=</xliff:g>Փխենյան<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"Ք<xliff:g id="SEPARATOR">=</xliff:g>Քաթար"</item>
     <item msgid="1667243110545095146">"Ռ<xliff:g id="SEPARATOR">=</xliff:g>Ռանգուն"</item>
     <item msgid="4460370766685855731">"Ռ<xliff:g id="SEPARATOR">=</xliff:g>Ռիադ"</item>
     <item msgid="4229224905931739201">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սայգոն"</item>
     <item msgid="8705359848250215620">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սեուլ"</item>
-    <item msgid="583367295371395814">"Շ<xliff:g id="SEPARATOR">=</xliff:g>Շանհայ"</item>
+    <item msgid="3814881931186962624">"Շ<xliff:g id="SEPARATOR">=</xliff:g>Շանհայ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սինգապուր"</item>
-    <item msgid="1972491729911039207">"Տ<xliff:g id="SEPARATOR">=</xliff:g>Տայպեյ"</item>
+    <item msgid="8982451946156859368">"Տ<xliff:g id="SEPARATOR">=</xliff:g>Տայպեյ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"Թ<xliff:g id="SEPARATOR">=</xliff:g>Թեհրան"</item>
     <item msgid="8629402941285674273">"Տ<xliff:g id="SEPARATOR">=</xliff:g>Տել Ավիվ"</item>
-    <item msgid="8499164674454654525">"Տ<xliff:g id="SEPARATOR">=</xliff:g>Տոկիո"</item>
+    <item msgid="76330681636547168">"Տ<xliff:g id="SEPARATOR">=</xliff:g>Տոկիո<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"Ու<xliff:g id="SEPARATOR">=</xliff:g>Ուլան Բատոր"</item>
     <item msgid="2028626988021468640">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բերմուդյան կղզիներ"</item>
     <item msgid="4527109966513690429">"Կ<xliff:g id="SEPARATOR">=</xliff:g>Կանարյան կղզիներ"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"Ռ<xliff:g id="SEPARATOR">=</xliff:g>Ռենո"</item>
     <item msgid="9155068631060038769">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բլեք Ռոք Սիթի"</item>
     <item msgid="8498761319928979900">"Դ<xliff:g id="SEPARATOR">=</xliff:g>Դոհա"</item>
-    <item msgid="8307897251088048641">"Պ<xliff:g id="SEPARATOR">=</xliff:g>Պեկին"</item>
+    <item msgid="5327010922199714808">"Պ<xliff:g id="SEPARATOR">=</xliff:g>Պեկին<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"Մ<xliff:g id="SEPARATOR">=</xliff:g>Մումբայ"</item>
     <item msgid="6668274273067049125">"Դ<xliff:g id="SEPARATOR">=</xliff:g>Դելի"</item>
-    <item msgid="2933410189478233292">"Օ<xliff:g id="SEPARATOR">=</xliff:g>Օսակա"</item>
+    <item msgid="7199039603593847813">"Օ<xliff:g id="SEPARATOR">=</xliff:g>Օսակա<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"Լ<xliff:g id="SEPARATOR">=</xliff:g>Լահոր"</item>
     <item msgid="1448378291805481500">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Սանաա"</item>
     <item msgid="5233119846682408301">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բարսելոնա"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"Ք<xliff:g id="SEPARATOR">=</xliff:g>Քեմբրիջ"</item>
     <item msgid="759409010285366934">"Կ<xliff:g id="SEPARATOR">=</xliff:g>Կիրկլենդ"</item>
     <item msgid="6308007059287569663">"Մ<xliff:g id="SEPARATOR">=</xliff:g>Մեդիսոն"</item>
-    <item msgid="6971636434858330021">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գուանչժոու"</item>
+    <item msgid="2077617905582224600">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գուանչժոու<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"Հ<xliff:g id="SEPARATOR">=</xliff:g>Հայդարաբադ"</item>
     <item msgid="3032295682584784261">"Ռ<xliff:g id="SEPARATOR">=</xliff:g>Ռեստոն"</item>
     <item msgid="7722837296297332268">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բելո Հորիզոնտե"</item>

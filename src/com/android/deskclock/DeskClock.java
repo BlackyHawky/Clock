@@ -18,116 +18,161 @@ package com.android.deskclock;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.media.AudioManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.TabLayout;
+import android.support.design.widget.TabLayout.Tab;
+import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBar.Tab;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.util.ArraySet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
+import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
+import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
+import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
+import com.android.deskclock.actionbarmenu.SettingMenuItemController;
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.stopwatch.StopwatchFragment;
-import com.android.deskclock.stopwatch.StopwatchService;
-import com.android.deskclock.stopwatch.Stopwatches;
 import com.android.deskclock.timer.TimerFragment;
-import com.android.deskclock.timer.TimerObj;
-import com.android.deskclock.timer.Timers;
+import com.android.deskclock.widget.RtlViewPager;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.List;
+import java.util.Set;
 
 /**
  * DeskClock clock view for desk docks.
  */
 public class DeskClock extends BaseActivity
-        implements LabelDialogFragment.TimerLabelDialogHandler,
-        LabelDialogFragment.AlarmLabelDialogHandler {
+        implements LabelDialogFragment.AlarmLabelDialogHandler {
 
-    private static final boolean DEBUG = false;
-    private static final String LOG_TAG = "DeskClock";
+    private static final String TAG = "DeskClock";
 
     // Alarm action for midnight (so we can update the date display).
     private static final String KEY_SELECTED_TAB = "selected_tab";
     public static final String SELECT_TAB_INTENT_EXTRA = "deskclock.select.tab";
-
-    // Request code used when SettingsActivity is launched.
-    private static final int REQUEST_CHANGE_SETTINGS = 1;
 
     public static final int ALARM_TAB_INDEX = 0;
     public static final int CLOCK_TAB_INDEX = 1;
     public static final int TIMER_TAB_INDEX = 2;
     public static final int STOPWATCH_TAB_INDEX = 3;
 
-    // Tabs indices are switched for right-to-left since there is no
-    // native support for RTL in the ViewPager.
-    public static final int RTL_ALARM_TAB_INDEX = 3;
-    public static final int RTL_CLOCK_TAB_INDEX = 2;
-    public static final int RTL_TIMER_TAB_INDEX = 1;
-    public static final int RTL_STOPWATCH_TAB_INDEX = 0;
+    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager(this);
 
-    private ActionBar mActionBar;
-    private Menu mMenu;
-    private ViewPager mViewPager;
-    private ImageButton mFab;
+    private TabLayout mTabLayout;
+    private RtlViewPager mViewPager;
+    private ImageView mFab;
     private ImageButton mLeftButton;
     private ImageButton mRightButton;
 
     private TabsAdapter mTabsAdapter;
     private int mSelectedTab;
-    private boolean mActivityResumed;
+
+    /** {@code true} when a settings change necessitates recreating this activity. */
+    private boolean mRecreateActivity;
 
     @Override
     public void onNewIntent(Intent newIntent) {
         super.onNewIntent(newIntent);
-        if (DEBUG) Log.d(LOG_TAG, "onNewIntent with intent: " + newIntent);
+        LogUtils.d(TAG, "onNewIntent with intent: %s", newIntent);
 
         // update our intent so that we can consult it to determine whether or
         // not the most recent launch was via a dock event
         setIntent(newIntent);
 
-        // Timer receiver may ask to go to the timers fragment if a timer expired.
+        // Honor the tab requested by the intent, if any.
         int tab = newIntent.getIntExtra(SELECT_TAB_INTENT_EXTRA, -1);
-        if (tab != -1) {
-            if (mActionBar != null) {
-                mActionBar.setSelectedNavigationItem(tab);
-            }
+        if (tab != -1 && mTabLayout != null) {
+            mTabLayout.getTabAt(tab).select();
+            mViewPager.setCurrentItem(tab);
         }
     }
 
-    private void initViews() {
+    @VisibleForTesting
+    DeskClockFragment getSelectedFragment() {
+        return (DeskClockFragment) mTabsAdapter.getItem(mSelectedTab);
+    }
+
+    private void createTabs() {
+        final TabLayout.Tab alarmTab = mTabLayout.newTab();
+        alarmTab.setIcon(R.drawable.ic_tab_alarm).setContentDescription(R.string.menu_alarm);
+        mTabsAdapter.addTab(alarmTab, AlarmClockFragment.class, ALARM_TAB_INDEX);
+
+        final Tab clockTab = mTabLayout.newTab();
+        clockTab.setIcon(R.drawable.ic_tab_clock).setContentDescription(R.string.menu_clock);
+        mTabsAdapter.addTab(clockTab, ClockFragment.class, CLOCK_TAB_INDEX);
+
+        final Tab timerTab = mTabLayout.newTab();
+        timerTab.setIcon(R.drawable.ic_tab_timer).setContentDescription(R.string.menu_timer);
+        mTabsAdapter.addTab(timerTab, TimerFragment.class, TIMER_TAB_INDEX);
+
+        final Tab stopwatchTab = mTabLayout.newTab();
+        stopwatchTab.setIcon(R.drawable.ic_tab_stopwatch)
+                .setContentDescription(R.string.menu_stopwatch);
+        mTabsAdapter.addTab(stopwatchTab, StopwatchFragment.class, STOPWATCH_TAB_INDEX);
+
+        mTabLayout.getTabAt(mSelectedTab).select();
+        mViewPager.setCurrentItem(mSelectedTab);
+        mTabsAdapter.notifySelectedPage(mSelectedTab);
+    }
+
+    @Override
+    protected void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+        setVolumeControlStream(AudioManager.STREAM_ALARM);
+
+        if (icicle != null) {
+            mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
+        } else {
+            mSelectedTab = CLOCK_TAB_INDEX;
+
+            // Set the background color to initially match the theme value so that we can
+            // smoothly transition to the dynamic color.
+            setBackgroundColor(getResources().getColor(R.color.default_background),
+                    false /* animate */);
+        }
+
+        // Honor the tab requested by the intent, if any.
+        final Intent intent = getIntent();
+        if (intent != null) {
+            int tab = intent.getIntExtra(SELECT_TAB_INTENT_EXTRA, -1);
+            if (tab != -1) {
+                mSelectedTab = tab;
+            }
+        }
+
         setContentView(R.layout.desk_clock);
-        mFab = (ImageButton) findViewById(R.id.fab);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        mFab = (ImageView) findViewById(R.id.fab);
         mLeftButton = (ImageButton) findViewById(R.id.left_button);
         mRightButton = (ImageButton) findViewById(R.id.right_button);
         if (mTabsAdapter == null) {
-            mViewPager = (ViewPager) findViewById(R.id.desk_clock_pager);
+            mViewPager = (RtlViewPager) findViewById(R.id.desk_clock_pager);
             // Keep all four tabs to minimize jank.
             mViewPager.setOffscreenPageLimit(3);
             // Set Accessibility Delegate to null so ViewPager doesn't intercept movements and
             // prevent the fab from being selected.
             mViewPager.setAccessibilityDelegate(null);
             mTabsAdapter = new TabsAdapter(this, mViewPager);
-            createTabs(mSelectedTab);
+            createTabs();
+            mTabLayout.setOnTabSelectedListener(new ViewPagerOnTabSelectedListener(mViewPager));
         }
 
         mFab.setOnClickListener(new OnClickListener() {
@@ -149,77 +194,16 @@ public class DeskClock extends BaseActivity
             }
         });
 
-        mActionBar.setSelectedNavigationItem(mSelectedTab);
-    }
+        // Configure the menu item controllers.
+        mActionBarMenuManager
+                .addMenuItemController(new SettingMenuItemController(this))
+                .addMenuItemController(new NightModeMenuItemController(this))
+                .addMenuItemController(MenuItemControllerFactory.getInstance()
+                        .buildMenuItemControllers(this));
 
-    @VisibleForTesting
-    DeskClockFragment getSelectedFragment() {
-        return (DeskClockFragment) mTabsAdapter.getItem(getRtlPosition(mSelectedTab));
-    }
-
-    private void createTabs(int selectedIndex) {
-        mActionBar = getSupportActionBar();
-
-        if (mActionBar != null) {
-            mActionBar.setDisplayOptions(0);
-            mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-            final Tab alarmTab = mActionBar.newTab();
-
-            alarmTab.setIcon(R.drawable.ic_tab_alarm);
-            alarmTab.setContentDescription(R.string.menu_alarm);
-            mTabsAdapter.addTab(alarmTab,
-                    Utils.isLOrLater()
-                            ? AlarmClockFragmentPostL.class
-                            : AlarmClockFragmentPreL.class,
-                    ALARM_TAB_INDEX);
-
-            final Tab clockTab = mActionBar.newTab();
-            clockTab.setIcon(R.drawable.ic_tab_clock);
-            clockTab.setContentDescription(R.string.menu_clock);
-            mTabsAdapter.addTab(clockTab, ClockFragment.class, CLOCK_TAB_INDEX);
-
-            final Tab timerTab = mActionBar.newTab();
-            timerTab.setIcon(R.drawable.ic_tab_timer);
-            timerTab.setContentDescription(R.string.menu_timer);
-            mTabsAdapter.addTab(timerTab, TimerFragment.class, TIMER_TAB_INDEX);
-
-            final Tab stopwatchTab = mActionBar.newTab();
-            stopwatchTab.setIcon(R.drawable.ic_tab_stopwatch);
-            stopwatchTab.setContentDescription(R.string.menu_stopwatch);
-            mTabsAdapter.addTab(stopwatchTab, StopwatchFragment.class, STOPWATCH_TAB_INDEX);
-
-            mActionBar.setSelectedNavigationItem(selectedIndex);
-            mTabsAdapter.notifySelectedPage(selectedIndex);
-        }
-    }
-
-    @Override
-    protected void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
-        setVolumeControlStream(AudioManager.STREAM_ALARM);
-
-        if (icicle != null) {
-            mSelectedTab = icicle.getInt(KEY_SELECTED_TAB, CLOCK_TAB_INDEX);
-        } else {
-            mSelectedTab = CLOCK_TAB_INDEX;
-
-            // Set the background color to initially match the theme value so that we can
-            // smoothly transition to the dynamic color.
-            setBackgroundColor(getResources().getColor(R.color.default_background),
-                    false /* animate */);
-        }
-
-        // Timer receiver may ask the app to go to the timer fragment if a timer expired
-        Intent i = getIntent();
-        if (i != null) {
-            int tab = i.getIntExtra(SELECT_TAB_INTENT_EXTRA, -1);
-            if (tab != -1) {
-                mSelectedTab = tab;
-            }
-        }
-        initViews();
-        setHomeTimeZone();
+        // Inflate the menu during creation to avoid a double layout pass. Otherwise, the menu
+        // inflation occurs *after* the initial draw and a second layout pass adds in the menu.
+        onCreateOptionsMenu(toolbar.getMenu());
 
         // We need to update the system next alarm time on app startup because the
         // user might have clear our data.
@@ -229,142 +213,67 @@ public class DeskClock extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
+        DataModel.getDataModel().setApplicationInForeground(true);
+    }
 
-        // We only want to show notifications for stopwatch/timer when the app is closed so
-        // that we don't have to worry about keeping the notifications in perfect sync with
-        // the app.
-        Intent stopwatchIntent = new Intent(getApplicationContext(), StopwatchService.class);
-        stopwatchIntent.setAction(Stopwatches.KILL_NOTIF);
-        startService(stopwatchIntent);
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
 
-        SharedPreferences prefs = Utils.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(Timers.NOTIF_APP_OPEN, true);
-        editor.apply();
-        Intent timerIntent = new Intent();
-        timerIntent.setAction(Timers.NOTIF_IN_USE_CANCEL);
-        sendBroadcast(timerIntent);
-        mActivityResumed = true;
+        if (mRecreateActivity) {
+            mRecreateActivity = false;
+
+            // A runnable must be posted here or the new DeskClock activity will be recreated in a
+            // paused state, even though it is the foreground activity.
+            mViewPager.post(new Runnable() {
+                @Override
+                public void run() {
+                    recreate();
+                }
+            });
+        }
     }
 
     @Override
     public void onPause() {
-        mActivityResumed = false;
-        Intent intent = new Intent(getApplicationContext(), StopwatchService.class);
-        intent.setAction(Stopwatches.SHOW_NOTIF);
-        startService(intent);
-
-        SharedPreferences prefs = Utils.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean(Timers.NOTIF_APP_OPEN, false);
-        editor.apply();
-        Utils.showInUseNotifications(this);
-
+        DataModel.getDataModel().setApplicationInForeground(false);
         super.onPause();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(KEY_SELECTED_TAB, mActionBar.getSelectedNavigationIndex());
+        outState.putInt(KEY_SELECTED_TAB, mTabLayout.getSelectedTabPosition());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // We only want to show it as a menu in landscape, and only for clock/alarm fragment.
-        mMenu = menu;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            if (mActionBar.getSelectedNavigationIndex() == ALARM_TAB_INDEX ||
-                    mActionBar.getSelectedNavigationIndex() == CLOCK_TAB_INDEX) {
-                // Clear the menu so that it doesn't get duplicate items in case onCreateOptionsMenu
-                // was called multiple times.
-                menu.clear();
-                getMenuInflater().inflate(R.menu.desk_clock_menu, menu);
-            }
-            // Always return true for landscape, regardless of whether we've inflated the menu, so
-            // that when we switch tabs this method will get called and we can inflate the menu.
-            return true;
-        }
-        return false;
+        mActionBarMenuManager.createOptionsMenu(menu, getMenuInflater());
+        return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        updateMenu(menu);
+        super.onPrepareOptionsMenu(menu);
+        mActionBarMenuManager.prepareShowMenu(menu);
         return true;
-    }
-
-    private void updateMenu(Menu menu) {
-        // Hide "help" if we don't have a URI for it.
-        MenuItem help = menu.findItem(R.id.menu_item_help);
-        if (help != null) {
-            Utils.prepareHelpMenuItem(this, help);
-        }
-
-        // Hide "lights out" for timer.
-        MenuItem nightMode = menu.findItem(R.id.menu_item_night_mode);
-        if (mActionBar.getSelectedNavigationIndex() == ALARM_TAB_INDEX) {
-            nightMode.setVisible(false);
-        } else if (mActionBar.getSelectedNavigationIndex() == CLOCK_TAB_INDEX) {
-            nightMode.setVisible(true);
-        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (processMenuClick(item)) {
+        if (mActionBarMenuManager.handleMenuItemClick(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Recreate the activity if any settings have been changed
-        if (requestCode == REQUEST_CHANGE_SETTINGS && resultCode == RESULT_OK) {
-            recreate();
+        if (requestCode == SettingMenuItemController.REQUEST_CHANGE_SETTINGS
+                && resultCode == RESULT_OK) {
+            mRecreateActivity = true;
         }
-    }
-
-    private boolean processMenuClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_item_settings:
-                startActivityForResult(new Intent(DeskClock.this, SettingsActivity.class),
-                        REQUEST_CHANGE_SETTINGS);
-                return true;
-            case R.id.menu_item_help:
-                Intent i = item.getIntent();
-                if (i != null) {
-                    try {
-                        startActivity(i);
-                    } catch (ActivityNotFoundException e) {
-                        // No activity found to match the intent - ignore
-                    }
-                }
-                return true;
-            case R.id.menu_item_night_mode:
-                startActivity(new Intent(DeskClock.this, ScreensaverActivity.class));
-            default:
-                break;
-        }
-        return true;
-    }
-
-    /**
-     * Insert the local time zone as the Home Time Zone if one is not set
-     */
-    private void setHomeTimeZone() {
-        SharedPreferences prefs = Utils.getDefaultSharedPreferences(this);
-        String homeTimeZone = prefs.getString(SettingsActivity.KEY_HOME_TZ, "");
-        if (!homeTimeZone.isEmpty()) {
-            return;
-        }
-        homeTimeZone = TimeZone.getDefault().getID();
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(SettingsActivity.KEY_HOME_TZ, homeTimeZone);
-        editor.apply();
-        Log.v(LOG_TAG, "Setting home time zone to " + homeTimeZone);
     }
 
     public void registerPageChangedListener(DeskClockFragment frag) {
@@ -382,8 +291,7 @@ public class DeskClock extends BaseActivity
     /**
      * Adapter for wrapping together the ActionBar's tab with the ViewPager
      */
-    private class TabsAdapter extends FragmentPagerAdapter
-            implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
+    private class TabsAdapter extends FragmentPagerAdapter implements OnPageChangeListener {
 
         private static final String KEY_TAB_POSITION = "tab_position";
 
@@ -402,20 +310,23 @@ public class DeskClock extends BaseActivity
             }
         }
 
-        private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
-        ActionBar mMainActionBar;
-        Context mContext;
-        ViewPager mPager;
+        private final List<TabInfo> mTabs = new ArrayList<>(4 /* number of fragments */);
+        private final Context mContext;
+        private final RtlViewPager mPager;
         // Used for doing callbacks to fragments.
-        HashSet<String> mFragmentTags = new HashSet<String>();
+        private final Set<String> mFragmentTags = new ArraySet<>(4 /* number of fragments */);
 
-        public TabsAdapter(AppCompatActivity activity, ViewPager pager) {
+        public TabsAdapter(AppCompatActivity activity, RtlViewPager pager) {
             super(activity.getFragmentManager());
             mContext = activity;
-            mMainActionBar = activity.getSupportActionBar();
             mPager = pager;
             mPager.setAdapter(this);
-            mPager.setOnPageChangeListener(this);
+            mPager.setOnRTLPageChangeListener(this);
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            return super.instantiateItem(container, mViewPager.getRtlAwareIndex(position));
         }
 
         @Override
@@ -425,7 +336,7 @@ public class DeskClock extends BaseActivity
             final String name = makeFragmentName(R.id.desk_clock_pager, position);
             Fragment fragment = getFragmentManager().findFragmentByTag(name);
             if (fragment == null) {
-                TabInfo info = mTabs.get(getRtlPosition(position));
+                TabInfo info = mTabs.get(position);
                 fragment = Fragment.instantiate(mContext, info.clss.getName(), info.args);
                 if (fragment instanceof TimerFragment) {
                     ((TimerFragment) fragment).setFabAppearance();
@@ -449,12 +360,10 @@ public class DeskClock extends BaseActivity
             return mTabs.size();
         }
 
-        public void addTab(ActionBar.Tab tab, Class<?> clss, int position) {
+        public void addTab(TabLayout.Tab tab, Class<?> clss, int position) {
             TabInfo info = new TabInfo(clss, position);
-            tab.setTag(info);
-            tab.setTabListener(this);
             mTabs.add(info);
-            mMainActionBar.addTab(tab);
+            mTabLayout.addTab(tab);
             notifyDataSetChanged();
         }
 
@@ -466,39 +375,14 @@ public class DeskClock extends BaseActivity
         @Override
         public void onPageSelected(int position) {
             // Set the page before doing the menu so that onCreateOptionsMenu knows what page it is.
-            mMainActionBar.setSelectedNavigationItem(getRtlPosition(position));
+            mTabLayout.getTabAt(position).select();
             notifyPageChanged(position);
 
-            // Only show the overflow menu for alarm and world clock.
-            if (mMenu != null) {
-                // Make sure the menu's been initialized.
-                if (position == ALARM_TAB_INDEX || position == CLOCK_TAB_INDEX) {
-                    mMenu.setGroupVisible(R.id.menu_items, true);
-                    onCreateOptionsMenu(mMenu);
-                } else {
-                    mMenu.setGroupVisible(R.id.menu_items, false);
-                }
-            }
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int state) {
-            // Do nothing
-        }
-
-        @Override
-        public void onTabReselected(Tab tab, FragmentTransaction arg1) {
-            // Do nothing
-        }
-
-        @Override
-        public void onTabSelected(Tab tab, FragmentTransaction ft) {
-            final TabInfo info = (TabInfo) tab.getTag();
-            final int position = info.getPosition();
-            final int rtlSafePosition = getRtlPosition(position);
             mSelectedTab = position;
 
-            if (mActivityResumed) {
+            // Avoid sending events for the initial tab selection on launch and the reselecting a
+            // tab after a configuration change.
+            if (DataModel.getDataModel().isApplicationInForeground()) {
                 switch (mSelectedTab) {
                     case ALARM_TAB_INDEX:
                         Events.sendAlarmEvent(R.string.action_show, R.string.label_deskclock);
@@ -515,16 +399,15 @@ public class DeskClock extends BaseActivity
                 }
             }
 
-            final DeskClockFragment f = (DeskClockFragment) getItem(rtlSafePosition);
+            final DeskClockFragment f = (DeskClockFragment) getItem(position);
             if (f != null) {
                 f.setFabAppearance();
                 f.setLeftRightButtonAppearance();
             }
-            mPager.setCurrentItem(rtlSafePosition);
         }
 
         @Override
-        public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
+        public void onPageScrollStateChanged(int state) {
             // Do nothing
         }
 
@@ -545,34 +428,22 @@ public class DeskClock extends BaseActivity
         public void registerPageChangedListener(DeskClockFragment frag) {
             String tag = frag.getTag();
             if (mFragmentTags.contains(tag)) {
-                Log.wtf(LOG_TAG, "Trying to add an existing fragment " + tag);
+                LogUtils.wtf(TAG, "Trying to add an existing fragment " + tag);
             } else {
                 mFragmentTags.add(frag.getTag());
             }
             // Since registering a listener by the fragment is done sometimes after the page
             // was already changed, make sure the fragment gets the current page
-            frag.onPageChanged(mMainActionBar.getSelectedNavigationIndex());
+            frag.onPageChanged(mTabLayout.getSelectedTabPosition());
         }
 
         public void unregisterPageChangedListener(DeskClockFragment frag) {
             mFragmentTags.remove(frag.getTag());
         }
-
     }
 
     /**
-     * Called by the LabelDialogFormat class after the dialog is finished. *
-     */
-    @Override
-    public void onDialogLabelSet(TimerObj timer, String label, String tag) {
-        Fragment frag = getFragmentManager().findFragmentByTag(tag);
-        if (frag instanceof TimerFragment) {
-            ((TimerFragment) frag).setLabel(timer, label);
-        }
-    }
-
-    /**
-     * Called by the LabelDialogFormat class after the dialog is finished. *
+     * Called by the LabelDialogFormat class after the dialog is finished.
      */
     @Override
     public void onDialogLabelSet(Alarm alarm, String label, String tag) {
@@ -586,30 +457,7 @@ public class DeskClock extends BaseActivity
         return mSelectedTab;
     }
 
-    private boolean isRtl() {
-        return TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) ==
-                View.LAYOUT_DIRECTION_RTL;
-    }
-
-    private int getRtlPosition(int position) {
-        if (isRtl()) {
-            switch (position) {
-                case TIMER_TAB_INDEX:
-                    return RTL_TIMER_TAB_INDEX;
-                case CLOCK_TAB_INDEX:
-                    return RTL_CLOCK_TAB_INDEX;
-                case STOPWATCH_TAB_INDEX:
-                    return RTL_STOPWATCH_TAB_INDEX;
-                case ALARM_TAB_INDEX:
-                    return RTL_ALARM_TAB_INDEX;
-                default:
-                    break;
-            }
-        }
-        return position;
-    }
-
-    public ImageButton getFab() {
+    public ImageView getFab() {
         return mFab;
     }
 

@@ -29,11 +29,13 @@
     <transition android:fromId="@id/off" android:toId="@id/on">
         <animated-vector android:drawable="@drawable/ic_clock">
             <target
-                android:name="second_hand"
-                android:animation="@animator/ic_clock_animation_second_hand" />
+                android:name="hour_hand"
+                android:animation="@animator/ic_clock_hour_hand_animation" />
+            <target
+                android:name="minute_hand"
+                android:animation="@animator/ic_clock_minute_hand_animation" />
         </animated-vector>
     </transition>
-
 
 </animated-selector>
 

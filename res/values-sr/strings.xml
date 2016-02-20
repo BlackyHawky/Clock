@@ -28,12 +28,15 @@
     <string name="show_clock" msgid="8358759982675616915">"Прикажи сат"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Сакриј сат"</string>
     <string name="label" msgid="162189613902857319">"Ознака"</string>
+    <string name="on_switch" msgid="2297966258029227449">"Укључено"</string>
+    <string name="off_switch" msgid="3381070073851148013">"Искључено"</string>
     <string name="default_label" msgid="5590025289805630372">"Аларм"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Подеси аларм"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вибрација"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Понови"</string>
     <string name="alert" msgid="6506982899651975645">"Мелодија аларма"</string>
-    <string name="custom_ringtone" msgid="3477418548382111184">"Прилагођена мелодија звона"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Тајмер је истекао"</string>
+    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Нечујно"</string>
     <string name="ringtone" msgid="9110746249688559579">"Мелодија звона"</string>
     <string name="time" msgid="8067216534232296518">"Време"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Сутра"</string>
@@ -60,12 +63,12 @@
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Одлагање до <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Предстојећи аларм"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Пропуштени аларм је избрисан"</string>
-  <string-array name="timer_notifications">
-    <item msgid="7760558912503484257">"Преостало је мање од минута"</item>
-    <item msgid="83197792732433351">"Преостало је <xliff:g id="HOURS">%1$s</xliff:g>"</item>
-    <item msgid="8919698220200894252">"Преостало је <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
-    <item msgid="8458069283817013813">"Преостало је <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
-  </string-array>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"Преостало је мање од минута"</string>
+    <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"Преостало: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="timer_remaining_single" msgid="6782851171906765864">"преостаје"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"преостаје"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Аларм ће се укључити за мање од 1 минута."</item>
     <item msgid="6002066367368421848">"Аларм ће се укључити за <xliff:g id="DAYS">%1$s</xliff:g>."</item>
@@ -108,6 +111,10 @@
       <item quantity="few">минута</item>
       <item quantity="other">минута</item>
     </plurals>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Постепено повећај јачину звука"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"Искључено"</string>
+    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> сек"</string>
+    <string name="crescendo_picker_label" msgid="7758024047003091056">"секунде"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Утишај након"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> минут</item>
@@ -134,7 +141,8 @@
     <string name="revert" msgid="9100911171235162926">"Врати"</string>
     <string name="delete" msgid="5732434972457000541">"Избриши"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Јачина звука аларма"</string>
-    <string name="silent_alarm_summary" msgid="8605302849408279221">"Нечујно"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"Нечујно"</string>
+    <string name="unknown_ringtone_title" msgid="6637522029614550112">"Непозната"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Одложите или одбаците аларм."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (одложено)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Аларм ће се укључити за <xliff:g id="TIME">%s</xliff:g>. Додирните за отказивање."</string>
@@ -159,8 +167,6 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"Учитава се звук звона..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Услуга пуштања звука за тајмере подешене у Сату."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Подеси аларм"</string>
-    <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
-    <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Аларм"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Тајмер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Сат"</string>
@@ -175,10 +181,10 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Сортирај према имену"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Изабрани градови"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Настави"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"Покрени"</string>
-    <string name="sw_stop_button" msgid="8322958613123274451">"Заустави"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Круг"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Ресетуј"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Покрени"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Паузирај"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Круг"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Дели"</string>
     <string name="hours_label" msgid="3393478155635368097">"ч"</string>
     <string name="minutes_label" msgid="3568098128251438588">"м"</string>
@@ -190,10 +196,6 @@
     <string name="sw_share_main" msgid="7703563468204234405">"Моје време је <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Пролазна времена:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. круг"</string>
-  <string-array name="sw_lap_number_set">
-    <item msgid="2816627565030953899">"Бр. <xliff:g id="NUMBER">%d</xliff:g>"</item>
-    <item msgid="316923361931627987">"Бр. <xliff:g id="NUMBER">%02d</xliff:g>"</item>
-  </string-array>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> сат</item>
       <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> сата</item>
@@ -216,12 +218,16 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"Додај 1 минут"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Додај 1 мин"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Заустави"</string>
-    <string name="timer_done" msgid="2375990511982914051">"Готово"</string>
+    <string name="timer_stop_all" msgid="9080780442843034376">"Заустави све тајмере"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Поново подеси"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Откажи"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"Тајмер је отказан"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Време је истекло"</string>
+    <string name="timer_multi_times_up" msgid="1239104626836080409">"Истеклих тајмера: <xliff:g id="NUM_TIMERS">%d</xliff:g>"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Тајмер"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Дозвољено је највише 4 тајмера"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"Паузирај"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Рес. све тајм."</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Брзи сте као муња."</item>
     <item msgid="6332879039890727169">"Уживајте у плодовима свог рада."</item>
@@ -238,6 +244,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Градови"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Сат"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стил"</string>
+    <string name="open_date_settings" msgid="5915966847691221307">"Промените датум и време"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Аналогни"</item>
     <item msgid="8483930821046925592">"Дигитални"</item>
@@ -252,6 +259,8 @@
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
     <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
+    <string name="city_checked" msgid="616847871968019">"Град <xliff:g id="CITY_NAME">%s</xliff:g> је означен"</string>
+    <string name="city_unchecked" msgid="710212932781145918">"Ознака за град <xliff:g id="CITY_NAME">%s</xliff:g> је уклоњена"</string>
   <string-array name="timezone_labels">
     <item msgid="5495601234086197399">"Маршалска острва"</item>
     <item msgid="4196408495909011020">"Острво Мидвеј"</item>
@@ -340,13 +349,17 @@
     <item msgid="5176858645450908751">"Џакарта"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"Аларми"</string>
-    <string name="stopwatch_service_desc" msgid="8416624630388063996">"Услуга штоперице за управљање обавештењима."</string>
-    <string name="swn_stopped" msgid="783124901663086172">"Заустављено"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"Обрађује радње из обавештења тајмера."</string>
+    <string name="stopwatch_service_desc" msgid="9220132827343760767">"Обрађује радње из обавештења штоперице."</string>
+    <string name="swn_paused" msgid="6364358842808263589">"Паузирано"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Превуците надесно за одбацивање"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Превуците налево за одлагање"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Превуците налево да бисте одложили или надесно да бисте одбацили"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"Тајмери"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"Мелодија звона тајмера"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Тајмер је заустављен"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"Тајмери (<xliff:g id="NUMBER">%d</xliff:g>) су заустављени"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"Тајмер је паузиран"</string>
+    <string name="timers_stopped" msgid="3186191253226005149">"Паузираних тајмера: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Додирните да бисте видели тајмере"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> тајмера"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Следећи тајмер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
@@ -373,35 +386,27 @@
     <string name="no_alarms" msgid="6429431324842022917">"Без аларма"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"Нема аларма"</string>
     <string name="no_upcoming_alarms" msgid="2889840988069436254">"НЕМА ПРЕДСТОЈЕЋИХ АЛАРМА"</string>
-    <string name="time_format_12_mode" msgid="1619464909892545536">"h:mm a"</string>
-    <string name="time_format_24_mode" msgid="7998512313148074539">"k:mm"</string>
-    <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
-    <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Неважеће време <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Нема аларма у <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Нема заказаних аларма"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Није наведена ниједна ознака"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Ниједан аларм не садржи ознаку"</string>
-    <string name="stopwatch_already_running" msgid="6598258908106423672">"Штоперица је већ покренута"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Штоперица није покренута"</string>
-    <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Штоперица не може да се ресетује јер је активна"</string>
-    <string name="stopwatch_stopped" msgid="6927081018816192999">"Штоперица је заустављена"</string>
+    <string name="stopwatch_paused" msgid="2187615623275408601">"Штоперица је паузирана"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Штоперица је ресетована"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Обележено је време за круг на штоперици"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Штоперица је покренута"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Ниједан аларм није заказан за ово време"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Аларм за <xliff:g id="ALARM_TIME">%s</xliff:g> је одбачен"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Аларм је подешен за <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timer_set" msgid="3326365650863016606">"Ниједан тајмер није подешен"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"Тајмер је избрисан"</string>
-    <string name="timer_already_running" msgid="1259351124772803097">"Тајмер је већ покренут"</string>
-    <string name="multiple_timers_available" msgid="6722110840279707462">"Није успело довршавање захтева јер је доступно више тајмера"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Тајмер је покренут"</string>
+    <string name="no_timers_exist" msgid="7062019300048831373">"Не постоје тајмери"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"Постоји више тајмера"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"Тајмер је уклоњен."</string>
     <string name="timer_created" msgid="4381027137335885547">"Тајмер је направљен"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"Неважећа дужина тајмера"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"Тајмер је ресетован"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Тајмер не може да се ресетује јер је још увек покренут. Зауставите тајмер да бисте га ресетовали."</string>
-    <string name="timer_already_stopped" msgid="8865820275829449054">"Тајмер је већ заустављен"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"Тајмер је избрисан"</string>
+    <string name="timer_started" msgid="6715582052946641641">"Тајмер је покренут"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"Неважећа дужина тајмера"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"Ниједан град није изабран"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Град који сте навели није доступан"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"Овај град је већ додат"</string>

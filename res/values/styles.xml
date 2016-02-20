@@ -23,9 +23,10 @@
     </style>
 
     <style name="BaseActivityTheme" parent="Theme.AppCompat">
-        <item name="android:imageButtonStyle">@style/ImageButtonStyle</item>
+        <item name="android:windowBackground">@color/default_background</item>
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
         <item name="colorAccent">@color/color_accent</item>
         <item name="colorPrimaryDark">@color/status_bar</item>
         <item name="colorControlActivated">@color/white</item>
@@ -62,48 +63,18 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="DeskClock" parent="@style/BaseActivityTheme">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="android:windowBackground">@color/default_background</item>
-
-        <!-- Attributes from support.v7.appcompat -->
-        <item name="actionBarStyle">@style/DeskClockActionBarStyle</item>
-        <item name="actionBarTabStyle">@style/DeskClockTabStyle</item>
-        <item name="actionBarTabBarStyle">@style/DeskClockTabBarStyle</item>
-    </style>
-
     <style name="DeskClockTabBaseStyle" parent="Widget.AppCompat.ActionBar.TabView">
         <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
         <item name="android:paddingRight">@dimen/actionbar_tab_padding</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="DeskClockTabStyle" parent="DeskClockTabBaseStyle">
-        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
-    </style>
-
-    <style name="DeskClockTabBarStyle" parent="Widget.AppCompat.ActionBar.TabBar">
-        <item name="android:dividerPadding">12dp</item>
-        <item name="android:gravity">center</item>
-        <!-- Attributes from support.v7.appcompat -->
-        <item name="showDividers">none</item>
-    </style>
-
-    <style name="DeskClockActionBarStyle" parent="Widget.AppCompat.ActionBar">
-        <item name="android:background">@null</item>
-        <item name="android:backgroundStacked">@null</item>
-        <item name="android:backgroundSplit">@null</item>
-        <!--suppress CheckTagEmptyBody Empty displayOptions to hide app title at launch. -->
-        <item name="displayOptions"></item>
-    </style>
-
-    <style name="SettingsTheme" parent="BaseActivityTheme">
+    <style name="SettingsTheme" parent="TranslucentDecorActivityTheme">
         <item name="android:detailsElementBackground">@null</item>
-        <item name="android:windowActionBar">false</item>
-        <item name="android:windowNoTitle">true</item>
-
         <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
     </style>
 
     <style name="SettingsActionBarStyle" parent="@style/Widget.AppCompat.Toolbar">
@@ -113,14 +84,15 @@
         <item name="displayOptions">showTitle|homeAsUp</item>
     </style>
 
-    <style name="CitiesTheme" parent="BaseActivityTheme">
+    <style name="CitiesTheme" parent="TranslucentDecorActivityTheme">
         <item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollTextColor">@color/white</item>
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
         <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
-
         <!-- Attributes from support.v7.appcompat -->
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
     </style>
 
@@ -131,16 +103,15 @@
         <item name="displayOptions">homeAsUp</item>
     </style>
 
-    <!-- variants: v21 -->
-    <style name="FabStyle" />
-
     <style name="AlarmAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
 
-    <style name="TimerAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
+    <style name="DeskClockTheme" parent="@style/TranslucentDecorActivityTheme" />
+
+    <style name="ExpiredTimersActivityTheme" parent="TranslucentDecorActivityTheme" />
 
     <style name="ScreensaverActivityTheme" parent="Theme.AppCompat.NoActionBar" />
 
-    <style name="ImageButtonStyle" parent="android:Widget.DeviceDefault.ImageButton">
+    <style name="ImageButtonStyle" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
@@ -193,6 +164,9 @@
     <style name="widget_medium_thin">
         <item name="android:textSize">@dimen/widget_medium_font_size</item>
         <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
+        <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
     </style>
 
     <style name="label">
@@ -205,6 +179,9 @@
 
     <style name="widget_label" parent="label">
         <item name="android:textSize">@dimen/widget_label_font_size</item>
+        <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
+        <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
     </style>
 
     <style name="header">
@@ -228,6 +205,9 @@
 
     <style name="widget_big_thin" parent="big_thin">
         <item name="android:textSize">@dimen/widget_big_font_size</item>
+        <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
+        <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
     </style>
 
     <style name="alarm_label">
@@ -304,20 +284,6 @@
     <style name="TextAppearance.StatusBar.EventContent.Title">
         <item name="android:textSize">@dimen/notification_title_text_size</item>
         <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="ToastBarStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dip</item>
-        <item name="android:layout_gravity">bottom</item>
-        <item name="android:layout_marginLeft">4dip</item>
-        <item name="android:layout_marginRight">4dip</item>
-        <item name="android:orientation">horizontal</item>
-        <item name="android:gravity">center_vertical</item>
-        <item name="android:background">@drawable/panel_undo_holo</item>
-        <item name="android:visibility">gone</item>
-        <item name="android:alpha">0</item>
-        <item name="android:clickable">true</item>
     </style>
 
 </resources>

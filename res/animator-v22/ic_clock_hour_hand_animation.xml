@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2015 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<set
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <set
+        android:ordering="sequentially" >
+        <objectAnimator
+            android:duration="166"
+            android:propertyName="translateX"
+            android:valueFrom="117.75"
+            android:valueTo="116.68351"
+            android:valueType="floatType"
+            android:interpolator="@interpolator/ic_clock_animation_interpolator_1" />
+        <objectAnimator
+            android:duration="41"
+            android:propertyName="translateX"
+            android:valueFrom="116.68351"
+            android:valueTo="116.2544"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="166"
+            android:propertyName="translateX"
+            android:valueFrom="116.2544"
+            android:valueTo="115.10072"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateX"
+            android:valueFrom="115.10072"
+            android:valueTo="114.59167"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateX"
+            android:valueFrom="114.59167"
+            android:valueTo="114.07271"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateX"
+            android:valueFrom="114.07271"
+            android:valueTo="113.92814"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateX"
+            android:valueFrom="113.92814"
+            android:valueTo="114.75237"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateX"
+            android:valueFrom="114.75237"
+            android:valueTo="114.32657"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateX"
+            android:valueFrom="114.32657"
+            android:valueTo="114.52556"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="83"
+            android:propertyName="translateX"
+            android:valueFrom="114.52556"
+            android:valueTo="114.26022"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="250"
+            android:propertyName="translateX"
+            android:valueFrom="114.26022"
+            android:valueTo="114.25"
+            android:valueType="floatType"
+            android:interpolator="@interpolator/ic_clock_animation_interpolator_0" />
+    </set>
+    <set
+        android:ordering="sequentially" >
+        <objectAnimator
+            android:duration="166"
+            android:propertyName="translateY"
+            android:valueFrom="128.25"
+            android:valueTo="128.05357"
+            android:valueType="floatType"
+            android:interpolator="@interpolator/ic_clock_animation_interpolator_1" />
+        <objectAnimator
+            android:duration="41"
+            android:propertyName="translateY"
+            android:valueFrom="128.05357"
+            android:valueTo="127.39493"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="166"
+            android:propertyName="translateY"
+            android:valueFrom="127.39493"
+            android:valueTo="125.76069"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateY"
+            android:valueFrom="125.76069"
+            android:valueTo="125.76442"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateY"
+            android:valueFrom="125.76442"
+            android:valueTo="125.38347"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateY"
+            android:valueFrom="125.38347"
+            android:valueTo="125.00182"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateY"
+            android:valueFrom="125.00182"
+            android:valueTo="125.27592"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateY"
+            android:valueFrom="125.27592"
+            android:valueTo="125.10044"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="20"
+            android:propertyName="translateY"
+            android:valueFrom="125.10044"
+            android:valueTo="124.92464"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="83"
+            android:propertyName="translateY"
+            android:valueFrom="124.92464"
+            android:valueTo="124.41091"
+            android:valueType="floatType"
+            android:interpolator="@android:interpolator/linear" />
+        <objectAnimator
+            android:duration="250"
+            android:propertyName="translateY"
+            android:valueFrom="124.41091"
+            android:valueTo="124.0"
+            android:valueType="floatType"
+            android:interpolator="@interpolator/ic_clock_animation_interpolator_0" />
+    </set>
+    <objectAnimator
+        android:duration="833"
+        android:propertyName="rotation"
+        android:valueFrom="0.0"
+        android:valueTo="121.0"
+        android:valueType="floatType"
+        android:interpolator="@android:interpolator/fast_out_slow_in" />
+</set>

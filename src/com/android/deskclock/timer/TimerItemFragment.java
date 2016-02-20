@@ -16,34 +16,31 @@
 
 package com.android.deskclock.timer;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.TextView;
 
-import com.android.deskclock.CircleButtonsLayout;
-import com.android.deskclock.DeskClock;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.R;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Timer;
+import com.android.deskclock.events.Events;
 
 public class TimerItemFragment extends Fragment {
-    private static final String TAG = "TimerItemFragment_tag";
-    private TimerObj mTimerObj;
 
-    public TimerItemFragment() {
-    }
+    private static final String KEY_TIMER_ID = "KEY_TIMER_ID";
+    private int mTimerId;
 
-    public static TimerItemFragment newInstance(TimerObj timerObj) {
+    /** The public no-arg constructor required by all fragments. */
+    public TimerItemFragment() {}
+
+    public static TimerItemFragment newInstance(Timer timer) {
         final TimerItemFragment fragment = new TimerItemFragment();
         final Bundle args = new Bundle();
-        args.putParcelable(TAG, timerObj);
+        args.putInt(KEY_TIMER_ID, timer.getId());
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,82 +48,69 @@ public class TimerItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final Bundle bundle = getArguments();
-        if (bundle != null) {
-            mTimerObj = (TimerObj) bundle.getParcelable(TAG);
-        }
+
+        mTimerId = getArguments().getInt(KEY_TIMER_ID);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        final TimerListItem v = (TimerListItem) inflater.inflate(R.layout.timer_list_item,
-                null);
-        mTimerObj.mView = v;
-        final long timeLeft = mTimerObj.updateTimeLeft(false);
-        final boolean drawWithColor = mTimerObj.mState != TimerObj.STATE_RESTART;
-        v.set(mTimerObj.mOriginalLength, timeLeft, drawWithColor);
-        v.setTime(timeLeft, true);
-        v.setResetAddButton(mTimerObj.mState == TimerObj.STATE_RUNNING ||
-                mTimerObj.mState == TimerObj.STATE_TIMESUP, new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final Fragment parent = getParentFragment();
-                if (parent instanceof TimerFragment) {
-                    ((TimerFragment) parent).onPlusOneButtonPressed(mTimerObj);
-                }
+        final TimerItem view = (TimerItem) inflater.inflate(R.layout.timer_item, container, false);
+        view.findViewById(R.id.reset_add).setOnClickListener(new ResetAddListener());
+        view.findViewById(R.id.timer_label).setOnClickListener(new EditLabelListener());
+        view.update(getTimer());
+
+        return view;
+    }
+
+    /**
+     * @return {@code true} iff the timer is in a state that requires continuous updates
+     */
+    boolean updateTime() {
+        final TimerItem view = (TimerItem) getView();
+        if (view != null) {
+            final Timer timer = getTimer();
+            view.update(timer);
+            return !timer.isReset();
+        }
+
+        return false;
+    }
+
+    int getTimerId() {
+        return mTimerId;
+    }
+
+    Timer getTimer() {
+        return DataModel.getDataModel().getTimer(getTimerId());
+    }
+
+    private class ResetAddListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            final Timer timer = getTimer();
+            if (timer.isPaused()) {
+                DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_deskclock);
+            } else if (timer.isRunning() || timer.isExpired()) {
+                DataModel.getDataModel().addTimerMinute(timer);
+                Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
             }
-        });
-        switch (mTimerObj.mState) {
-            case TimerObj.STATE_RUNNING:
-                v.start();
-                break;
-            case TimerObj.STATE_TIMESUP:
-                v.timesUp();
-                break;
-            default:
-                break;
-        }
-
-        final CircleButtonsLayout circleLayout =
-                (CircleButtonsLayout) v.findViewById(R.id.timer_circle);
-        circleLayout.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label);
-
-        return v;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        final View v = mTimerObj.mView;
-        if (v == null) {
-            return;
-        }
-
-        TextView label = (TextView) v.findViewById(R.id.timer_label);
-        label.setText(mTimerObj.mLabel);
-        if (getActivity() instanceof DeskClock) {
-            label.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onLabelPressed(mTimerObj);
-                }
-            });
-        } else if (TextUtils.isEmpty(mTimerObj.mLabel)) {
-            label.setVisibility(View.INVISIBLE);
         }
     }
 
-    private void onLabelPressed(TimerObj t) {
-        final String dialogTag = "label_dialog";
-        final FragmentTransaction ft = getFragmentManager().beginTransaction();
-        final Fragment prev = getFragmentManager().findFragmentByTag(dialogTag);
-        if (prev != null) {
-            ft.remove(prev);
+    private class EditLabelListener implements View.OnClickListener {
+
+        private static final String TAG = "label_dialog";
+
+        @Override
+        public void onClick(View v) {
+            final FragmentTransaction ft = getFragmentManager().beginTransaction();
+            final Fragment existingFragment = getFragmentManager().findFragmentByTag(TAG);
+            if (existingFragment != null) {
+                ft.remove(existingFragment);
+            }
+            ft.addToBackStack(null);
+            LabelDialogFragment.newInstance(getTimer()).show(ft, TAG);
         }
-        ft.addToBackStack(null);
-        final LabelDialogFragment newFragment =
-                LabelDialogFragment.newInstance(t, t.mLabel, getParentFragment().getTag());
-        newFragment.show(ft, dialogTag);
     }
 }

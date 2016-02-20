@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 
-    Copyright (C) 2012 The Android Open Source Project
+    Copyright (C) 2015 The Android Open Source Project
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -69,7 +69,7 @@
     <item msgid="7872196528637597794">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហ្វតាល់លេសា"</item>
     <item msgid="5801558418916235541">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហ្គ្រេនទួក"</item>
     <item msgid="2103759276235503048">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហ្គ្រើណាដ"</item>
-    <item msgid="1490069759176391533">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហ្គាតេម៉ាឡា"</item>
+    <item msgid="6216160110733510854">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហ្គាតេម៉ាឡា"</item>
     <item msgid="525959305652046261">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហ្គុយ៉ាណា"</item>
     <item msgid="7565596629973190931">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហាលីហ្វាក់"</item>
     <item msgid="3811169155065582644">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហាវ៉ាណា"</item>
@@ -114,7 +114,7 @@
     <item msgid="3491199166042475853">"ត<xliff:g id="SEPARATOR">=</xliff:g>តូរ៉ន់តូ"</item>
     <item msgid="1506838283840737263">"វ<xliff:g id="SEPARATOR">=</xliff:g>វ៉ានខូវើ"</item>
     <item msgid="8935386104773857399">"វ<xliff:g id="SEPARATOR">=</xliff:g>វីនីផេក"</item>
-    <item msgid="1132634022412399582">"ប<xliff:g id="SEPARATOR">=</xliff:g>ប៉ូលខាងត្បូង"</item>
+    <item msgid="498429228419399474">"ប<xliff:g id="SEPARATOR">=</xliff:g>ប៉ូលខាងត្បូង<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="4076962667198039206">"ឡ<xliff:g id="SEPARATOR">=</xliff:g>ឡុងយាប្យេន"</item>
     <item msgid="3784788073896028355">"អ<xliff:g id="SEPARATOR">=</xliff:g>អាល់ម៉ាទី"</item>
     <item msgid="7895695236056852523">"អ<xliff:g id="SEPARATOR">=</xliff:g>អាម៉ាន"</item>
@@ -132,7 +132,7 @@
     <item msgid="1203379132329159260">"ក<xliff:g id="SEPARATOR">=</xliff:g>កាហ្សា"</item>
     <item msgid="2359068282340162319">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហេប្រន"</item>
     <item msgid="6223396610551759129">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហូជីមីញ"</item>
-    <item msgid="4731022818651322736">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហុងកុង"</item>
+    <item msgid="3439764751788710130">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហុងកុង<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8104778702069607166">"អ<xliff:g id="SEPARATOR">=</xliff:g>អ៊ីស្តង់ប៊ុល"</item>
     <item msgid="758800913783999425">"ហ<xliff:g id="SEPARATOR">=</xliff:g>ហ្សាការតា"</item>
     <item msgid="8956406398692698126">"យ<xliff:g id="SEPARATOR">=</xliff:g>យេរូសាឡឹម"</item>
@@ -145,18 +145,18 @@
     <item msgid="722458682107911739">"ម<xliff:g id="SEPARATOR">=</xliff:g>ម៉ានីល"</item>
     <item msgid="6033964325069060422">"ម<xliff:g id="SEPARATOR">=</xliff:g>ម៉ាស្កាត"</item>
     <item msgid="6077458941399984780">"ភ<xliff:g id="SEPARATOR">=</xliff:g>ភ្នំពេញ"</item>
-    <item msgid="935474308903572975">"ព<xliff:g id="SEPARATOR">=</xliff:g>ព្យុងយ៉ាង"</item>
+    <item msgid="1245515372520913197">"ព<xliff:g id="SEPARATOR">=</xliff:g>ព្យុងយ៉ាង<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5336632319992664889">"ក<xliff:g id="SEPARATOR">=</xliff:g>កាតា"</item>
     <item msgid="1667243110545095146">"រ<xliff:g id="SEPARATOR">=</xliff:g>រ៉ង់ហ្គូន"</item>
     <item msgid="4460370766685855731">"រ<xliff:g id="SEPARATOR">=</xliff:g>រីយ៉ាដ"</item>
     <item msgid="4229224905931739201">"ស<xliff:g id="SEPARATOR">=</xliff:g>សៃហ្គន"</item>
     <item msgid="8705359848250215620">"ស<xliff:g id="SEPARATOR">=</xliff:g>សេអ៊ូល"</item>
-    <item msgid="583367295371395814">"ស<xliff:g id="SEPARATOR">=</xliff:g>សៀងហៃ"</item>
+    <item msgid="3814881931186962624">"ស<xliff:g id="SEPARATOR">=</xliff:g>សៀងហៃ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1422156732794771136">"ស<xliff:g id="SEPARATOR">=</xliff:g>សិង្ហបុរី"</item>
-    <item msgid="1972491729911039207">"ត<xliff:g id="SEPARATOR">=</xliff:g>តៃប៉ិ"</item>
+    <item msgid="8982451946156859368">"ត<xliff:g id="SEPARATOR">=</xliff:g>តៃប៉ិ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="5563193560935461106">"ត<xliff:g id="SEPARATOR">=</xliff:g>តេហេរ៉ង់"</item>
     <item msgid="8629402941285674273">"ត<xliff:g id="SEPARATOR">=</xliff:g>តែលអាវី"</item>
-    <item msgid="8499164674454654525">"ត<xliff:g id="SEPARATOR">=</xliff:g>តូក្យូ"</item>
+    <item msgid="76330681636547168">"ត<xliff:g id="SEPARATOR">=</xliff:g>តូក្យូ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1705804745888992744">"អ<xliff:g id="SEPARATOR">=</xliff:g>អ៊ូឡង់បាទ័រ"</item>
     <item msgid="2028626988021468640">"ប<xliff:g id="SEPARATOR">=</xliff:g>ប៊ឺមុយដា"</item>
     <item msgid="4527109966513690429">"ក<xliff:g id="SEPARATOR">=</xliff:g>កាណារី"</item>
@@ -273,10 +273,10 @@
     <item msgid="150299708499753555">"រ<xliff:g id="SEPARATOR">=</xliff:g>រីណូ"</item>
     <item msgid="9155068631060038769">"ទ<xliff:g id="SEPARATOR">=</xliff:g>ទីក្រុងប្លេករ៉ុក"</item>
     <item msgid="8498761319928979900">"ដ<xliff:g id="SEPARATOR">=</xliff:g>ដូហា"</item>
-    <item msgid="8307897251088048641">"ប<xliff:g id="SEPARATOR">=</xliff:g>ប៉េកាំង"</item>
+    <item msgid="5327010922199714808">"ប<xliff:g id="SEPARATOR">=</xliff:g>ប៉េកាំង<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="8605970953750147428">"ម<xliff:g id="SEPARATOR">=</xliff:g>ម៉ុមបៃ"</item>
     <item msgid="6668274273067049125">"ដ<xliff:g id="SEPARATOR">=</xliff:g>ដេលី"</item>
-    <item msgid="2933410189478233292">"អ<xliff:g id="SEPARATOR">=</xliff:g>អូសាកា"</item>
+    <item msgid="7199039603593847813">"អ<xliff:g id="SEPARATOR">=</xliff:g>អូសាកា<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="9011026093638055579">"ឡ<xliff:g id="SEPARATOR">=</xliff:g>ឡាហ័រ"</item>
     <item msgid="1448378291805481500">"ស<xliff:g id="SEPARATOR">=</xliff:g>សាណាអា"</item>
     <item msgid="5233119846682408301">"ប<xliff:g id="SEPARATOR">=</xliff:g>បាសេឡូណា"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"ខ<xliff:g id="SEPARATOR">=</xliff:g>ខេមប្រីដ"</item>
     <item msgid="759409010285366934">"ឃ<xliff:g id="SEPARATOR">=</xliff:g>ឃើកឡែន"</item>
     <item msgid="6308007059287569663">"ម<xliff:g id="SEPARATOR">=</xliff:g>ម៉ាឌីសុន"</item>
-    <item msgid="6971636434858330021">"ក<xliff:g id="SEPARATOR">=</xliff:g>ក្វាងចូវ"</item>
+    <item msgid="2077617905582224600">"ក<xliff:g id="SEPARATOR">=</xliff:g>ក្វាងចូវ<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"អ<xliff:g id="SEPARATOR">=</xliff:g>អ៊ីឌើរ៉ាបាដ"</item>
     <item msgid="3032295682584784261">"រ<xliff:g id="SEPARATOR">=</xliff:g>រីស្តូន"</item>
     <item msgid="7722837296297332268">"ប<xliff:g id="SEPARATOR">=</xliff:g>បេឡូរីហ្សូនធ៍"</item>

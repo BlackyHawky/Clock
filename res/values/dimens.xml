@@ -21,12 +21,13 @@
      for different hardware and product builds. -->
 <resources>
     <dimen name="label_text_size">14sp</dimen>
+    <dimen name="label_edittext_padding">21dp</dimen>
     <dimen name="time_text_size">120dip</dimen>
     <dimen name="ampm_text_size">20dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
-    <dimen name="timer_padding_left">16dip</dimen>
+    <dimen name="timer_padding">16dp</dimen>
     <dimen name="timer_list_padding_bottom">88dip</dimen>
     <!-- 88dip + 0.5 of footer_button_size -->
     <dimen name="timer_cancel_end_margin">116dip</dimen>
@@ -52,12 +53,10 @@
     <dimen name="actionbar_title_font_size">18sp</dimen>
 
     <dimen name="footer_button_size">56dip</dimen>
-    <dimen name="footer_button_layout_margin">16dip</dimen>
 
     <dimen name="alarm_text_padding">15dp</dimen>
     <dimen name="alarm_text_font_size">16sp</dimen>
     <dimen name="alarm_min_distance">2dp</dimen>
-    <dimen name="alarm_undo_bar_horizontal_margin">8dp</dimen>
     <dimen name="circletimer_dot_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">16dip</dimen>
@@ -67,13 +66,15 @@
     <dimen name="alarm_lockscreen_pulse_radius">128dp</dimen>
     <dimen name="alarm_lockscreen_bottom_margin">40dp</dimen>
 
+    <dimen name="main_clock_font_size">70sp</dimen>
     <dimen name="big_font_size">60sp</dimen>
     <dimen name="medium_font_size">56sp</dimen>
     <dimen name="small_font_size">32sp</dimen>
     <dimen name="label_font_size">16sp</dimen>
     <!-- Use dp on purpose to ensure consistency across multiple screen sizes. -->
     <dimen name="widget_label_font_size">14dp</dimen>
-    <dimen name="main_ampm_font_size">32sp</dimen>
+    <item name="ampm_font_size_scale" type="fraction">50%</item>
+    <item name="reduced_clock_font_size_scale" type="fraction">65%</item>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="body_font_size">18sp</dimen>
     <dimen name="day_button_font_size">18sp</dimen>
@@ -106,7 +107,7 @@
     <dimen name="dialpad_font_size">36sp</dimen>
     <!--padding should be (in dip) ~ 60% dialpad_font_size -->
     <dimen name="dialpad_digit_padding">22dip</dimen>
-    <dimen name="timer_setup_font_size">56sp</dimen>
+    <dimen name="timer_setup_font_size">38sp</dimen>
     <dimen name="timer_setup_button_size">24sp</dimen>
     <!--margin should be ~ half timer_setup_font_size -->
     <dimen name="timer_setup_delete_start_margin">28sp</dimen>
@@ -119,11 +120,13 @@
     <dimen name="circle_margin_top">16dp</dimen>
     <dimen name="circle_margin">32dp</dimen>
     <dimen name="analog_clock_margin">60dp</dimen>
-    <dimen name="timer_circle_margin">32dp</dimen>
 
     <dimen name="circle_size">280dp</dimen>
-    <!-- stopwatch_list_bottom_spacing = footer_button_size + footer_button_layout_margin -->
-    <dimen name="stopwatch_list_bottom_spacing">72dip</dimen>
+    <!--
+        list_bottom_spacing = footer_button_size + footer_button_layout_margin.
+        Used by both StopwatchFragment and AlarmFragment.
+    -->
+    <dimen name="list_bottom_spacing">72dip</dimen>
 
     <dimen name="sw_padding_end">32dp</dimen>
 
@@ -133,6 +136,8 @@
     <dimen name="notification_text_size">14dp</dimen>
     <!-- Size of notification text titles (see TextAppearance.StatusBar.EventContent.Title) -->
     <dimen name="notification_title_text_size">18dp</dimen>
+    <!-- Size of margin between icon and text / title text. -->
+    <dimen name="notification_content_margin_start">8dp</dimen>
 
     <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">304dip</dimen>
@@ -143,14 +148,10 @@
     <dimen name="world_clock_analog_size">100dip</dimen>
     <dimen name="world_clock_margin">32dp</dimen>
 
-    <dimen name="toast_bar_bottom_margin_in_conversation">24dip</dimen>
-
     <!-- Height of the button footers. 56 height and 16 on top and bottom. -->
     <dimen name="button_footer_height">88dip</dimen>
     <!-- Negative value of the height of the button footers, for use with lightsout. -->
     <dimen name="button_footer_height_neg">-48dip</dimen>
-    <!-- Height of space between timers. -->
-    <dimen name="timer_divider_height">24dip</dimen>
 
     <!-- Digital Widget settings (keyguard|home_screen) -->
     <!-- Clock and world clock sizes -->
@@ -163,9 +164,13 @@
     <dimen name="widget_big_time_margin_right">10dip</dimen>
     <dimen name="widget_medium_time_margin_right">5dip</dimen>
 
+    <dimen name="min_analog_widget_size">110dp</dimen>
+
     <!-- width/height of layout/digital_widget_time -->
     <dimen name="min_digital_widget_width">206dip</dimen>
+    <dimen name="min_digital_widget_resize_width">136dip</dimen>
     <dimen name="min_digital_widget_height">129dip</dimen>
+    <dimen name="min_digital_widget_resize_height">59dip</dimen>
 
     <!-- sum of scaled heights -->
     <dimen name="digital_widget_list_min_scaled_height">162dp</dimen>
@@ -175,11 +180,18 @@
     <dimen name="digital_widget_list_margin_top">20dp</dimen>
     <dimen name="digital_widget_city_margin_bottom">10dp</dimen>
 
+    <!-- shadow styles for digital widget text -->
+    <item name="digital_widget_shadow_radius" format="float" type="dimen">2.75</item>
+    <item name="digital_widget_shadow_dy" format="float" type="dimen">2.0</item>
+
     <!-- Bottom margin for the expand area -->
     <dimen name="collapse_expand_height">72dip</dimen>
 
     <!-- Divider height -->
     <dimen name="hairline_height">1dip</dimen>
+
+    <!-- Divider side padding -->
+    <dimen name="hairline_side_padding">6dp</dimen>
 
     <!-- The minimum height/width of any touch target -->
     <dimen name="touch_target_min_size">48dip</dimen>
@@ -190,4 +202,19 @@
     <dimen name="fastscroll_preview_padding">8dp</dimen>
     <dimen name="fastscroll_track_width">8dp</dimen>
 
+    <!-- Dimens for drawable padding on Alarms tab -->
+    <dimen name="alarm_horizontal_padding">16dp</dimen>
+
+    <!-- Dimens for icon padding on Alarms tab -->
+    <dimen name="icon_margin">4dp</dimen>
+
+    <!-- Dimens for taller rows on Alarms tab -->
+    <dimen name="tall_row_height">58dp</dimen>
+
+    <!-- Floating action button style -->
+    <dimen name="fab_margin">0dp</dimen>
+    <dimen name="fab_elevation">8dp</dimen>
+
+    <!-- Height of the bar containing the floating action button -->
+    <dimen name="fab_height">88dp</dimen>
 </resources>

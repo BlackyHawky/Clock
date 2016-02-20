@@ -54,6 +54,12 @@
     <!-- Setting label on Set alarm screen: Label -->
     <string name="label">Label</string>
 
+    <!-- Content description for alarm on/off switch in On state -->
+    <string name="on_switch">On</string>
+
+    <!-- Content description for alarm on/off switch in Off state -->
+    <string name="off_switch">Off</string>
+
     <!-- Default label to display for an alarm -->
     <string name="default_label">Alarm</string>
 
@@ -70,8 +76,11 @@
     <!-- Setting labels on Set alarm screen: Select alarm ringtone  -->
     <string name="alert">Alarm Ringtone</string>
 
-    <!-- Label on expanded alarm edit view indicating the ringtone is custom. -->
-    <string name="custom_ringtone">Custom Ringtone</string>
+    <!-- Title of default ringtone played when a timer expires. -->
+    <string name="default_timer_ringtone_title">Timer Expired</string>
+
+    <!-- Title of silent ringtone played when a timer expires. -->
+    <string name="silent_timer_ringtone_title">Silent</string>
 
     <!-- Label on expanded alarm edit view. -->
     <string name="ringtone">Ringtone</string>
@@ -159,15 +168,23 @@
     --><skip />
 
     <!-- Timer notification: how long from now until timer goes off. -->
-    <string-array name="timer_notifications">
-        <item>Less than a minute remaining</item>
-        <item><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> remaining</item>
-        <item><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</item>
-        <item><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</item>
-    </string-array>
+    <string name="timer_notifications_less_min">Less than a minute remaining</string>
+    <string name="timer_notifications_hours"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</string>
 
-    <!-- Alarm confirmation toast: Describes how long from now until
-         alarm fires -->
+    <!--
+        Verb inflection to use for single time units remaining
+        Ex. "1 minute remaining"
+    -->
+    <string name="timer_remaining_single">remaining</string>
+    <!--
+        Verb inflection to use for multiple time units remaining
+        Ex. "2 minutes remaining"
+    -->
+    <string name="timer_remaining_multiple">remaining</string>
+
+    <!-- Alarm confirmation toast: Describes how long from now until alarm fires -->
     <string-array name="alarm_set">
         <item>Alarm set for less than 1 minute from now.</item>
         <item>Alarm set for <xliff:g id="DAYS" example="2 days">%1$s</xliff:g> from now.</item>
@@ -244,6 +261,18 @@
         <item quantity="other">minutes</item>
     </plurals>
 
+    <!-- Setting title for changing the crescendo duration. -->
+    <string name="crescendo_duration_title">Gradually increase volume</string>
+
+    <!-- Summary value for changing the crescendo duration to 0. -->
+    <string name="no_crescendo_duration">Off</string>
+
+    <!-- Summary value for changing the crescendo duration. -->
+    <string name="crescendo_duration"><xliff:g id="number" example="7">%s</xliff:g> seconds</string>
+
+    <!-- Setting label when changing the crescendo duration. -->
+    <string name="crescendo_picker_label">seconds</string>
+
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
 
@@ -312,8 +341,11 @@
     <!-- Setting title for changing the alarm volume. -->
     <string name="alarm_volume_title">Alarm volume</string>
 
-    <!-- Summary for the alarm preference when silent is chosen. -->
-    <string name="silent_alarm_summary">Silent</string>
+    <!-- Title for the silent ringtone. -->
+    <string name="silent_ringtone_title">Silent</string>
+
+    <!-- Title for ringtones that cannot be located by uri. -->
+    <string name="unknown_ringtone_title">Unknown</string>
 
     <!-- Text to display in the small text of the notification -->
     <string name="alarm_notify_text">Snooze or dismiss alarm.</string>
@@ -380,9 +412,6 @@
     <!-- Label on the main screen control used to set alarm [CHAR LIMIT=30]-->
     <string name="control_set_alarm">Set alarm</string>
 
-    <!-- Label on the main screen control used to set alarm when there is already an existing alarm [CHAR LIMIT=30]-->
-    <string name="control_set_alarm_with_existing"><xliff:g id="time">%s</xliff:g></string>
-
     <!--  ActionBar strings -->
     <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->
     <string name="menu_alarm">Alarm</string>
@@ -414,17 +443,24 @@
     <!-- Label for selected cities in Cities list view -->
     <string name="selected_cities_label">Selected Cities</string>
 
-    <!-- Stop Watch strings -->
-    <!-- Describes the purpose of the button to resume running a stopwatch -->
+    <!-- Stopwatch and Timer shared strings -->
+    <!-- Describes the purpose of the button to resume running timer. [CHAR LIMIT=15] -->
     <string name="sw_resume_button">Resume</string>
+    <!--
+        Describes the purpose of the button
+            for stopwatch: return stopwatch to zero and remove the lap times.
+            for timer: return timer to originally set duration.
+        [CHAR LIMIT=15]
+    -->
+    <string name="sw_reset_button">Reset</string>
+
+    <!-- Stopwatch strings -->
     <!-- Describes the purpose of the button to begin running a stopwatch -->
     <string name="sw_start_button">Start</string>
     <!-- Describes the purpose of the button to pause a stopwatch. -->
-    <string name="sw_stop_button">Stop</string>
-    <!-- Describes the purpose of the button to record current the stopwatch value into the4 collection of lap times. -->
+    <string name="sw_pause_button">Pause</string>
+    <!-- Describes the purpose of the button to record current the stopwatch value into the collection of lap times. -->
     <string name="sw_lap_button">Lap</string>
-    <!-- Describes the purpose of the button to return the stopwatch to zero and remove the lap times. -->
-    <string name="sw_reset_button">Reset</string>
     <!-- Describes the purpose of the button to share the stopwatch value.
          Also used as title for chooser when sharing stopwatch results. -->
     <string name="sw_share_button">Share</string>
@@ -449,49 +485,6 @@
     <string name="sw_share_laps">Lap times:</string>
     <!-- Label to enumerate the number of laps in the notification the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
-    <!-- Formatted stopwatch time -->
-    <string-array name="stopwatch_format_set" translatable="false">
-        <item> <!-- <10 minutes - example "1 02.03" -->
-            <xliff:g id="M">%2$d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <1 hour - example "12 03.04" -->
-            <xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <10 hours - example "1 02 03.04" -->
-            <xliff:g id="H">%1$d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <100 hours - example "12 03 04.05" -->
-            <xliff:g id="H">%1$02d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <1000 hours - example "123 04 05.06" -->
-            <xliff:g id="H">%1$03d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-    </string-array>
-
-    <!-- Formatted stopwatch time for laps shared using the share button -->
-    <string-array name="shared_laps_format_set" translatable="false">
-        <item> <!-- <10 minutes - example "1 02.03" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="M">%2$d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <1 hour - example "12 03.04" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <10 hours - example "1 02 03.04" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="H">%1$d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <100 hours - example "12 03 04.05" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="H">%1$02d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-        <item> <!-- <1000 hours - example "123 04 05.06" -->
-            <xliff:g id="lap">%6$d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g> &#x200E;<xliff:g id="H">%1$03d</xliff:g> &#x200E;<xliff:g id="M">%2$02d</xliff:g> &#x200E;<xliff:g id="S">%3$02d</xliff:g><xliff:g id="decimal_separator">%5$c</xliff:g><xliff:g id="D">%4$02d</xliff:g>
-        </item>
-    </string-array>
-
-    <!-- Label to enumerate the number of laps the user has counted -->
-    <string-array name="sw_lap_number_set" translatable="true">
-        <item># <xliff:g id="number">%d</xliff:g></item>
-        <item># <xliff:g id="number">%02d</xliff:g></item>
-    </string-array>
 
     <!-- Stopwatch accessibility strings -->
     <plurals name="Nhours_description">
@@ -528,18 +521,29 @@
     <string name="timer_plus_1_min">Add 1 min</string>
     <!-- Describes the purpose of the button to stop the timer. -->
     <string name="timer_stop">Stop</string>
-    <!-- Describes the purpose of the button to stop and delete the timer. -->
-    <string name="timer_done">Done</string>
+    <!-- Describes the purpose of the button to stop all currently firing timers. [CHAR LIMIT=25] -->
+    <string name="timer_stop_all">Stop all timers</string>
     <!-- Describes the purpose of the button to return the timer to it's original starting value. -->
     <string name="timer_reset">Reset</string>
     <!-- Describes the purpose of the button to discard the current dialog values. Will also close the dialog if other time's exist -->
     <string name="timer_cancel">Cancel</string>
+    <!-- Accessibility announcement when a timer is canceled. -->
+    <string name="timer_canceled">Timer canceled</string>
     <!-- Notification content shown when a timer has completed and has no more time remaining -->
     <string name="timer_times_up">Time\'s up</string>
+    <!--
+        Notification content shown when multiple timers have completed and have no more time
+        remaining. Arg is the number of timers. [CHAR LIMIT=25]
+    -->
+    <string name="timer_multi_times_up"><xliff:g id="NUM_TIMERS" example="2">%d</xliff:g> timers expired</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
     <!-- Toast content shown when user attempts to create a new timer when there are already 4 timers -->
     <string name="timers_max_count_reached">4 timers maximum</string>
+    <!-- Describes the purpose of the notification button to pause the timer. [CHAR LIMIT=15] -->
+    <string name="timer_pause">Pause</string>
+    <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=31] -->
+    <string name="timer_reset_all">Reset all timers</string>
 
     <!-- Jocular content that user may append when sharing the lap times -->
     <string-array name="sw_share_strings" translatable="true">
@@ -566,6 +570,9 @@
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
 
+    <!-- Title for preference to change date & time -->
+    <string name="open_date_settings">Change Date \u0026 time</string>
+
     <!-- Entries listed in the ListPreference when invoking the clock style
          preference. -->
     <string-array name="clock_style_entries">
@@ -580,7 +587,7 @@
       <item>digital</item>
     </string-array>
 
-    <!-- Title for an option that will automtically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
+    <!-- Title for an option that will automatically show a clock representing the user's regular timezone on the main fragment whenever the user leaves their regular timezone-->
     <string name="automatic_home_clock">Automatic home clock</string>
     <!-- Describes the functionality provided by the automatic_home_clock option -->
     <string name="automatic_home_clock_summary">While traveling in an area where the time is different, add a clock for home</string>
@@ -600,6 +607,17 @@
     <string name="time_picker_00_label">:00</string>
     <!-- add 30 as minutes to the time when pressing this button -->
     <string name="time_picker_30_label">:30</string>
+
+    <!--
+        Accessibility string read when a city checkbox is checked.
+        Ex. "Ann Arbor checked"
+    -->
+    <string name="city_checked"><xliff:g id="city_name">%s</xliff:g> checked</string>
+    <!--
+        Accessibility string read when a city checkbox is unchecked.
+        Ex. "Ann Arbor unchecked"
+    -->
+    <string name="city_unchecked"><xliff:g id="city_name">%s</xliff:g> unchecked</string>
 
     <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
     <string-array name="timezone_labels">
@@ -780,13 +798,14 @@
         <item>"Asia/Jakarta"</item>
     </string-array>
 
-     <!-- Header in the preferences settings for the section pertaining to alarms -->
-     <string name="alarm_settings">Alarms</string>
-     <string name="desk_clock_help_url" translatable="false"></string>
-     <!-- Describes the running service for the stopwatch -->
-     <string name="stopwatch_service_desc">Stopwatch service to run the notification.</string>
-     <!-- Desription for the stopped stop watch -->
-     <string name="swn_stopped">Stopped</string>
+    <!-- Header in the preferences settings for the section pertaining to alarms -->
+    <string name="alarm_settings">Alarms</string>
+    <!-- Describes the service that processes actions originating from timer notifications. -->
+    <string name="timer_service_desc">Processes actions from timer notifications.</string>
+    <!-- Describes the service that processes actions originating from stopwatch notifications. -->
+    <string name="stopwatch_service_desc">Processes actions from stopwatch notifications.</string>
+    <!-- Description for the paused stop watch -->
+    <string name="swn_paused">Paused</string>
 
     <!-- Text instruction for dismiss alarm on alarm lock screen. The dismiss button will still
          be on the right even on RTL languages so please do not reverse this during
@@ -801,11 +820,19 @@
          translation. -->
     <string name="description_direction_both">Swipe left to snooze or right to dismiss</string>
 
-    <!-- Notification title when timer is stopped. -->
+    <!-- Header in the preferences settings for the section pertaining to timers. -->
+    <string name="timer_settings">Timers</string>
+    <!-- Description for timer ringtone setting. -->
+    <string name="timer_ringtone_title">Timer ringtone</string>
+
+    <!-- Description when timer is stopped. -->
     <string name="timer_stopped">Timer stopped</string>
-    <!-- Notification title when multiple timers are stopped. -->
-    <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers stopped</string>
-    <!-- Notification text when multiple timers are stopped. -->
+
+    <!-- Notification title when timer is paused. [CHAR LIMIT=25] -->
+    <string name="timer_paused">Timer paused</string>
+    <!-- Notification title when multiple timers are paused. [CHAR LIMIT = 30] -->
+    <string name="timers_stopped"><xliff:g id="number" example="7">%d</xliff:g> timers paused</string>
+    <!-- Notification text when multiple timers are paused. -->
     <string name="all_timers_stopped_notif">Touch to see your timers</string>
     <!-- Notification title when at least one timer, of those in use, is counting down. -->
     <string name="timers_in_use"><xliff:g id="number" example="7">%d</xliff:g> timers</string>
@@ -839,7 +866,7 @@
     <!-- Displays the number of alarms selected from the list of alarms. -->
     <string name="alarms_selected"><xliff:g id="alarms">%d</xliff:g> selected</string>
 
-    <!-- message used by the talkback accessebility app to say that something was deleted -->
+    <!-- message used by the talkback accessibility app to say that something was deleted -->
     <string name="deleted_message">Deleted</string>
 
     <!-- Alarm deletion confirmation message-->
@@ -880,42 +907,6 @@
     <!-- String for no enabled alarms in timeline view [CHAR LIMIT=30] -->
     <string name="no_upcoming_alarms">NO UPCOMING ALARMS</string>
 
-    <!--
-        String that represents time format for 12-hour time.
-        h represents hour in range (1-12) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        a represents am/pm
-        Ex: h:mm a = 12:54 am, 8:05 pm
-    -->
-    <string name="time_format_12_mode">h&#58;mm a</string>
-
-    <!--
-        String that represents time format for 24-hour time.
-        k represents hour in range (0-23) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        Ex: k:mm = 13:51, 5:05
-    -->
-    <string name="time_format_24_mode">k&#58;mm</string>
-
-    <!--
-        String that represents weekday, time format for 12-hour time.
-        EEE represents weekday name in short form (ex. Mon, Tue, Wed)
-        h represents hour in range (1-12) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        a represents am/pm
-        Ex: EEE, h:mm a = Mon, 2:55 pm
-    -->
-    <string name="weekday_time_format_12_mode">EEE, h&#58;mm a</string>
-
-    <!--
-        String that represents weekday, time format for 24-hour time.
-        EEE represents weekday name in short form (ex. Mon, Tue, Wed)
-        k represents hour in range (0-23) with the minimum number of digits
-        mm represents minute with leading 0 in case of values < 10
-        Ex: EEE, k:mm = Mon, 2:55
-    -->
-    <string name="weekday_time_format_24_mode">EEE, k&#58;mm</string>
-
     <!-- String that represents that invalid time for an alarm was specified, e.g. 23:00am
      or 27:68pm.
     First %d represents hour, second %d represents minutes, %s represents am/pm,
@@ -951,29 +942,17 @@
     -->
     <string name="no_alarms_with_label">No alarms contain the label</string>
 
-    <!-- String that represents that the user has sent a voice command 'start a stopwatch' when
-    the stopwatch was already running so the command wasn't executed.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_already_running">Stopwatch is already running</string>
-
     <!-- String that represents that the user has sent a voice command 'stop the stopwatch' or
     'lap the stopwatch' when the stopwatch wasn't running so the command wasn't executed.
     [CHAR LIMIT=NONE]
     -->
     <string name="stopwatch_isnt_running">Stopwatch isn\'t running</string>
 
-    <!-- String that represents that the user has sent a voice command 'reset the stopwatch' or
-     when the stopwatch was running so the command wasn't executed.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="stopwatch_cant_be_reset_because_is_running">Stopwatch cannot be reset because it is running</string>
-
-    <!-- String that represents that the user has successfully sent a voice command stopping
+    <!-- String that represents that the user has successfully sent a voice command pausing
      the stopwatch.
     [CHAR LIMIT=NONE]
     -->
-    <string name="stopwatch_stopped">Stopwatch stopped</string>
+    <string name="stopwatch_paused">Stopwatch paused</string>
 
     <!-- String that represents that the user has successfully sent a voice command resetting
     the stopwatch.
@@ -1012,62 +991,50 @@
     -->
     <string name="alarm_is_set">Alarm is set for <xliff:g id="alarm_time" example="14:20">%s</xliff:g></string>
 
-    <!-- String that represents that the user attempted to send a voice action 'delete a timer'
-    when there were no timers available.
+    <!-- String that represents that the user attempted to control a timer with a voice action when
+    no timers are defined.
     [CHAR LIMIT=NONE]
     -->
-    <string name="no_timer_set">No timer set</string>
+    <string name="no_timers_exist">No timers exist</string>
 
-    <!-- String that represents that the user has successfully deleted a timer through a voice action.
+    <!-- String that represents that the user attempted to control a timer with a voice action when
+    more than one timer is defined.
     [CHAR LIMIT=NONE]
     -->
-    <string name="timer_deleted">Timer deleted</string>
+    <string name="too_many_timers_exist">More than one timer exists</string>
 
-    <!-- String that represents that the user has attempted to start a timer when a timer was
-    already running.
+    <!-- String that represents that the user attempted to control a timer with a voice action but
+    the timer could not be located.
     [CHAR LIMIT=NONE]
     -->
-    <string name="timer_already_running">Timer already running</string>
-
-    <!-- String that represents that the user has attempted to start or reset a timer when
-     there were more than 1 timer of desired state in which case it's ambiguous
-     which timer the user meant.
-    [CHAR LIMIT=NONE]
-     -->
-    <string name="multiple_timers_available">Unable to complete your request, multiple timers available</string>
-
-    <!-- String that represents that the user has successfully started a timer through a voice action.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="timer_started">Timer started</string>
+    <string name="timer_does_not_exist">The timer has been removed.</string>
 
     <!-- String that represents that the user has successfully created a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
     <string name="timer_created">Timer created</string>
 
-    <!-- String that represents that the user attempted to start a timer through a voice action
-    but specified invalid length.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="invalid_timer_length">Invalid timer length</string>
-
     <!-- String that represents that the user has successfully reset a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
     <string name="timer_was_reset">Timer reset</string>
 
-    <!-- String that represents that the user attempted to reset a timer through a voice action but
-    the timer wasn't stopped (resetting is only allowed when a timer is stopped).
+    <!-- String that represents that the user has successfully reset a timer through a voice action
+    that was marked as deleteAfterUse and was thus deleted instead.
     [CHAR LIMIT=NONE]
     -->
-    <string name="timer_cant_be_reset_because_its_running">Timer can\'t be reset because it\'s still running. Stop timer to reset.</string>
+    <string name="timer_deleted">Timer deleted</string>
 
-    <!-- String that represents that the user attempted to stop a timer through a voice action but
-    the timer was already stopped (resetting is only allowed when a timer is stopped).
+    <!-- String that represents that the user has successfully started a timer through a voice action.
     [CHAR LIMIT=NONE]
     -->
-    <string name="timer_already_stopped">Timer already stopped</string>
+    <string name="timer_started">Timer started</string>
+
+    <!-- String that represents that the user attempted to start a timer through a voice action
+    but specified invalid length.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="invalid_timer_length">Invalid timer length</string>
 
     <!-- String that represents that the user attempted to add or delete a world clock through
     a voice action

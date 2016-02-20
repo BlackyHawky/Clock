@@ -22,7 +22,6 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TimeInterpolator;
 import android.animation.ValueAnimator;
-import android.annotation.TargetApi;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -33,7 +32,6 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -55,10 +53,10 @@ import android.widget.TextView;
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.SettingsActivity;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
+import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.widget.CircleView;
 
 public class AlarmActivity extends AppCompatActivity
@@ -166,7 +164,7 @@ public class AlarmActivity extends AppCompatActivity
 
         // Get the volume/camera button behavior setting
         mVolumeBehavior = Utils.getDefaultSharedPreferences(this)
-                .getString(SettingsActivity.KEY_VOLUME_BEHAVIOR,
+                .getString(SettingsActivity.KEY_VOLUME_BUTTONS,
                         SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
@@ -210,8 +208,7 @@ public class AlarmActivity extends AppCompatActivity
         final CircleView pulseView = (CircleView) mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
-        Utils.setTimeFormat(this, digitalClock,
-                getResources().getDimensionPixelSize(R.dimen.main_ampm_font_size));
+        Utils.setTimeFormat(this, digitalClock);
 
         mCurrentHourColor = Utils.getCurrentHourColor();
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
@@ -231,15 +228,6 @@ public class AlarmActivity extends AppCompatActivity
         mPulseAnimator.setInterpolator(PULSE_INTERPOLATOR);
         mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
         mPulseAnimator.start();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Bind to AlarmService
-        bindService(new Intent(this, AlarmService.class), mConnection, Context.BIND_AUTO_CREATE);
-        mServiceBound = true;
     }
 
     @Override
@@ -271,6 +259,8 @@ public class AlarmActivity extends AppCompatActivity
             registerReceiver(mReceiver, filter);
             mReceiverRegistered = true;
         }
+
+        bindAlarmService();
 
         resetAnimations();
     }
@@ -415,13 +405,10 @@ public class AlarmActivity extends AppCompatActivity
         return true;
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     private void hideNavigationBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        }
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     private void hintSnooze() {
@@ -476,7 +463,7 @@ public class AlarmActivity extends AppCompatActivity
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
 
-        Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
+        Events.sendAlarmEvent(R.string.action_snooze, R.string.label_deskclock);
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
@@ -495,12 +482,23 @@ public class AlarmActivity extends AppCompatActivity
                 getString(R.string.alarm_alert_off_text) /* accessibilityText */,
                 Color.WHITE, mCurrentHourColor).start();
 
-        AlarmStateManager.setDismissState(this, mAlarmInstance);
+        AlarmStateManager.deleteInstanceAndUpdateParent(this, mAlarmInstance);
 
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_deskclock);
 
         // Unbind here, otherwise alarm will keep ringing until activity finishes.
         unbindAlarmService();
+    }
+
+    /**
+     * Bind AlarmService if not yet bound.
+     */
+    private void bindAlarmService() {
+        if (!mServiceBound) {
+            final Intent intent = new Intent(this, AlarmService.class);
+            bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+            mServiceBound = true;
+        }
     }
 
     /**

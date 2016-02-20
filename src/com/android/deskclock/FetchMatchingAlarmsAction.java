@@ -105,6 +105,20 @@ class FetchMatchingAlarmsAction implements Runnable {
                 }
                 break;
             case AlarmClock.ALARM_SEARCH_MODE_NEXT:
+                // Match currently firing alarms before scheduled alarms.
+                for (Alarm alarm : mAlarms) {
+                    final AlarmInstance alarmInstance =
+                            AlarmInstance.getNextUpcomingInstanceByAlarmId(cr, alarm.id);
+                    if (alarmInstance != null
+                            && alarmInstance.mAlarmState == AlarmInstance.FIRED_STATE) {
+                        mMatchingAlarms.add(alarm);
+                    }
+                }
+                if (!mMatchingAlarms.isEmpty()) {
+                    // return the matched firing alarms
+                    return;
+                }
+
                 final AlarmInstance nextAlarm = AlarmStateManager.getNextFiringAlarm(mContext);
                 if (nextAlarm == null) {
                     final String reason = mContext.getString(R.string.no_scheduled_alarms);
