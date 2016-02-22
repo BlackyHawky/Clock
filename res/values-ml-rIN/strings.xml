@@ -29,7 +29,7 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"നാളെ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ഇന്ന്"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"നിരസിക്കുക"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"ഇപ്പോൾ നിരസിക്കുക"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"ഇപ്പോൾ ഡിസ്മിസ് ചെയ്യുക"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"അലാറം നഷ്‌ടമായി"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"സ്‌നൂസ് ചെയ്‌തു"</string>
