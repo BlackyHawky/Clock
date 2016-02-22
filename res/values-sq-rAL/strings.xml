@@ -29,7 +29,8 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Nesër"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Sot"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Injoro"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Largoje tani"</string>
+    <!-- no translation found for alarm_alert_dismiss_now_text (7327972388636305792) -->
+    <skip />
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarm i humbur"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Dremitur"</string>
