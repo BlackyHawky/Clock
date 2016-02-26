@@ -448,6 +448,9 @@ public final class TimerFragment extends DeskClockFragment {
      * Display the view that lists all existing timers.
      */
     private void showTimersView(UpdateType updateType) {
+        // Clear any defunct timer creation state; the next timer creation starts fresh.
+        mTimerSetupState = null;
+
         // Show the timer view; hide the creation view.
         mTimersView.setVisibility(VISIBLE);
         mCreateTimerView.setVisibility(GONE);
