@@ -87,7 +87,7 @@
                 android:drawablePadding="2dip"
                 android:drawableStart="@drawable/ic_alarm_small"
                 android:gravity="center"
-                android:textColor="@color/clock_gray"
+                android:textColor="@color/clock_white"
                 android:textSize="@dimen/bottom_text_size"
                 android:visibility="gone" />
         </LinearLayout>

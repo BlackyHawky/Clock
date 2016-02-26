@@ -74,7 +74,7 @@
             android:layout_marginStart="8dip"
             android:drawablePadding="2dip"
             android:drawableStart="@drawable/ic_alarm_small"
-            android:textAppearance="@style/SecondaryLabelTextAppearance" />
+            android:textAppearance="@style/PrimaryLabelTextAppearance" />
     </LinearLayout>
 
     <View
