@@ -320,6 +320,7 @@ public class Utils {
      * Clock views can call this to refresh their alarm to the next upcoming value.
      */
     public static void refreshAlarm(Context context, View clock) {
+        final View nextAlarmIconView = clock.findViewById(R.id.nextAlarmIcon);
         final TextView nextAlarmView = (TextView) clock.findViewById(R.id.nextAlarm);
         if (nextAlarmView == null) {
             return;
@@ -331,8 +332,11 @@ public class Utils {
             nextAlarmView.setText(alarm);
             nextAlarmView.setContentDescription(description);
             nextAlarmView.setVisibility(View.VISIBLE);
+            nextAlarmIconView.setVisibility(View.VISIBLE);
+            nextAlarmIconView.setContentDescription(description);
         } else {
             nextAlarmView.setVisibility(View.GONE);
+            nextAlarmIconView.setVisibility(View.GONE);
         }
     }
 
