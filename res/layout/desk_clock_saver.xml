@@ -58,32 +58,7 @@
             android:textColor="@color/clock_white"
             android:textSize="@dimen/main_clock_font_size" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAllCaps="true"
-                android:textAppearance="@style/PrimaryLabelTextAppearance"
-                android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/nextAlarm"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/alarm_icon_padding"
-                android:drawablePadding="@dimen/alarm_icon_padding"
-                android:drawableStart="@drawable/ic_alarm_small"
-                android:textAllCaps="true"
-                android:textAppearance="@style/PrimaryLabelTextAppearance"
-                android:textSize="12sp" />
-
-        </LinearLayout>
+        <include layout="@layout/date_and_next_alarm_time" />
 
     </LinearLayout>
 
