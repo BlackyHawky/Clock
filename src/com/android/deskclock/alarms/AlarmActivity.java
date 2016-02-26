@@ -143,6 +143,8 @@ public class AlarmActivity extends AppCompatActivity
     private ValueAnimator mDismissAnimator;
     private ValueAnimator mPulseAnimator;
 
+    private int mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -340,17 +342,43 @@ public class AlarmActivity extends AppCompatActivity
     }
 
     @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
+    public boolean onTouch(View view, MotionEvent event) {
         if (mAlarmHandled) {
-            LogUtils.v(LOGTAG, "onTouch ignored: %s", motionEvent);
+            LogUtils.v(LOGTAG, "onTouch ignored: %s", event);
             return false;
+        }
+
+        final int action = event.getActionMasked();
+        if (action == MotionEvent.ACTION_DOWN) {
+            LogUtils.v(LOGTAG, "onTouch started: %s", event);
+
+            // Track the pointer that initiated the touch sequence.
+            mInitialPointerIndex = event.getPointerId(event.getActionIndex());
+
+            // Stop the pulse, allowing the last pulse to finish.
+            mPulseAnimator.setRepeatCount(0);
+        } else if (action == MotionEvent.ACTION_CANCEL) {
+            LogUtils.v(LOGTAG, "onTouch canceled: %s", event);
+
+            // Clear the pointer index.
+            mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
+
+            // Reset everything.
+            resetAnimations();
+        }
+
+        final int actionIndex = event.getActionIndex();
+        if (mInitialPointerIndex == MotionEvent.INVALID_POINTER_ID
+                || mInitialPointerIndex != event.getPointerId(actionIndex)) {
+            // Ignore any pointers other than the initial one, bail early.
+            return true;
         }
 
         final int[] contentLocation = {0, 0};
         mContentView.getLocationOnScreen(contentLocation);
 
-        final float x = motionEvent.getRawX() - contentLocation[0];
-        final float y = motionEvent.getRawY() - contentLocation[1];
+        final float x = event.getRawX() - contentLocation[0];
+        final float y = event.getRawY() - contentLocation[1];
 
         final int alarmLeft = mAlarmButton.getLeft() + mAlarmButton.getPaddingLeft();
         final int alarmRight = mAlarmButton.getRight() - mAlarmButton.getPaddingRight();
@@ -365,41 +393,29 @@ public class AlarmActivity extends AppCompatActivity
         }
         setAnimatedFractions(snoozeFraction, dismissFraction);
 
-        switch (motionEvent.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                LogUtils.v(LOGTAG, "onTouch started: %s", motionEvent);
+        if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
+            LogUtils.v(LOGTAG, "onTouch ended: %s", event);
 
-                // Stop the pulse, allowing the last pulse to finish.
-                mPulseAnimator.setRepeatCount(0);
-                break;
-            case MotionEvent.ACTION_UP:
-                LogUtils.v(LOGTAG, "onTouch ended: %s", motionEvent);
-
-                if (snoozeFraction == 1.0f) {
-                    snooze();
-                } else if (dismissFraction == 1.0f) {
-                    dismiss();
-                } else {
-                    if (snoozeFraction > 0.0f || dismissFraction > 0.0f) {
-                        // Animate back to the initial state.
-                        AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
-                    } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
-                        // User touched the alarm button, hint the dismiss action
-                        hintDismiss();
-                    }
-
-                    // Restart the pulse.
-                    mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
-                    if (!mPulseAnimator.isStarted()) {
-                        mPulseAnimator.start();
-                    }
+            mInitialPointerIndex = event.INVALID_POINTER_ID;
+            if (snoozeFraction == 1.0f) {
+                snooze();
+            } else if (dismissFraction == 1.0f) {
+                dismiss();
+            } else {
+                if (snoozeFraction > 0.0f || dismissFraction > 0.0f) {
+                    // Animate back to the initial state.
+                    AnimatorUtils.reverse(mAlarmAnimator, mSnoozeAnimator, mDismissAnimator);
+                } else if (mAlarmButton.getTop() <= y && y <= mAlarmButton.getBottom()) {
+                    // User touched the alarm button, hint the dismiss action.
+                    hintDismiss();
                 }
-                break;
-            case MotionEvent.ACTION_CANCEL:
-                resetAnimations();
-                break;
-            default:
-                break;
+
+                // Restart the pulse.
+                mPulseAnimator.setRepeatCount(ValueAnimator.INFINITE);
+                if (!mPulseAnimator.isStarted()) {
+                    mPulseAnimator.start();
+                }
+            }
         }
 
         return true;
