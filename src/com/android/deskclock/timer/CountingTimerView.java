@@ -32,6 +32,8 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 
+import java.util.Locale;
+
 /**
  * Class to measure and draw the time in the {@link com.android.deskclock.CircleTimerView}.
  * This class manages and sums the work of the four members mBigHours, mBigMinutes,
@@ -270,25 +272,21 @@ public class CountingTimerView extends View {
         mBigFontSize = r.getDimension(R.dimen.big_font_size);
         mSmallFontSize = r.getDimension(R.dimen.small_font_size);
 
-        Typeface androidClockMonoThin = Typeface.
-                createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Thin.ttf");
         mPaintBigThin.setAntiAlias(true);
         mPaintBigThin.setStyle(Paint.Style.STROKE);
         mPaintBigThin.setTextAlign(Paint.Align.CENTER);
-        mPaintBigThin.setTypeface(androidClockMonoThin);
+        mPaintBigThin.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
 
-        Typeface androidClockMonoLight = Typeface.
-                createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Light.ttf");
         mPaintMed.setAntiAlias(true);
         mPaintMed.setStyle(Paint.Style.STROKE);
         mPaintMed.setTextAlign(Paint.Align.CENTER);
-        mPaintMed.setTypeface(androidClockMonoLight);
+        mPaintMed.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
 
         resetTextSize();
         setTextColor(mDefaultColor);
 
         // allDigits will contain ten digits: "0123456789" in the default locale
-        final String allDigits = String.format("%010d", 123456789);
+        final String allDigits = String.format(Locale.getDefault(), "%010d", 123456789);
         mBigSeconds = new UnsignedTime(mPaintBigThin, 0.f, allDigits);
         mBigHours = new SignedTime(mBigSeconds, HOURS_MINUTES_SPACING);
         mBigMinutes = new SignedTime(mBigSeconds, HOURS_MINUTES_SPACING);
@@ -383,11 +381,11 @@ public class CountingTimerView extends View {
         }
 
         // Seconds are always two digits
-        mSeconds = String.format(TWO_DIGITS, seconds);
+        mSeconds = String.format(Locale.getDefault(), TWO_DIGITS, seconds);
 
         // Hundredths are optional and then two digits
         if (showHundredths) {
-            mHundredths = String.format(TWO_DIGITS, hundreds);
+            mHundredths = String.format(Locale.getDefault(), TWO_DIGITS, hundreds);
         } else {
             mHundredths = null;
         }

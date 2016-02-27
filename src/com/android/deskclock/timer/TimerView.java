@@ -18,7 +18,6 @@ package com.android.deskclock.timer;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
@@ -26,15 +25,13 @@ import android.widget.TextView;
 
 import com.android.deskclock.R;
 
+import java.util.Locale;
 
 public class TimerView extends LinearLayout {
 
     private TextView mHoursTens, mHoursOnes;
     private TextView mMinutesTens, mMinutesOnes;
     private TextView mSeconds;
-    private final Typeface mAndroidClockMonoThin;
-    private Typeface mOriginalHoursTypeface;
-    private Typeface mOriginalMinutesTypeface;
     private final int mWhiteColor, mGrayColor;
 
     @SuppressWarnings("unused")
@@ -45,9 +42,6 @@ public class TimerView extends LinearLayout {
     public TimerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        mAndroidClockMonoThin =
-                Typeface.createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Thin.ttf");
-
         mWhiteColor = ContextCompat.getColor(context, R.color.clock_white);
         mGrayColor = ContextCompat.getColor(context, R.color.clock_gray);
     }
@@ -57,15 +51,11 @@ public class TimerView extends LinearLayout {
         super.onFinishInflate();
 
         mHoursTens = (TextView) findViewById(R.id.hours_tens);
-
         mHoursOnes = (TextView) findViewById(R.id.hours_ones);
-        mOriginalHoursTypeface = mHoursOnes.getTypeface();
 
         mMinutesTens = (TextView) findViewById(R.id.minutes_tens);
         addStartPadding(mMinutesTens);
-
         mMinutesOnes = (TextView) findViewById(R.id.minutes_ones);
-        mOriginalMinutesTypeface = mMinutesOnes.getTypeface();
 
         mSeconds = (TextView) findViewById(R.id.seconds);
         addStartPadding(mSeconds);
@@ -78,7 +68,7 @@ public class TimerView extends LinearLayout {
     private void addStartPadding(TextView textView) {
         final float gapPadding = 0.45f;
         // allDigits will contain ten digits: "0123456789" in the default locale
-        String allDigits = String.format("%010d", 123456789);
+        String allDigits = String.format(Locale.getDefault(), "%010d", 123456789);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setTextSize(textView.getTextSize());
         paint.setTypeface(textView.getTypeface());
@@ -99,44 +89,36 @@ public class TimerView extends LinearLayout {
                         int minutesOnesDigit, int seconds) {
         if (hoursTensDigit == -1) {
             mHoursTens.setText("-");
-            mHoursTens.setTypeface(mAndroidClockMonoThin);
             mHoursTens.setTextColor(mGrayColor);
         } else {
             mHoursTens.setText(String.valueOf(hoursTensDigit));
-            mHoursTens.setTypeface(mOriginalHoursTypeface);
             mHoursTens.setTextColor(mWhiteColor);
         }
 
         if (hoursOnesDigit == -1) {
             mHoursOnes.setText("-");
-            mHoursOnes.setTypeface(mAndroidClockMonoThin);
             mHoursOnes.setTextColor(mGrayColor);
         } else {
             mHoursOnes.setText(String.valueOf(hoursOnesDigit));
-            mHoursOnes.setTypeface(mOriginalHoursTypeface);
             mHoursOnes.setTextColor(mWhiteColor);
         }
 
         if (minutesTensDigit == -1) {
             mMinutesTens.setText("-");
-            mMinutesTens.setTypeface(mAndroidClockMonoThin);
             mMinutesTens.setTextColor(mGrayColor);
         } else {
             mMinutesTens.setText(String.valueOf(minutesTensDigit));
-            mMinutesTens.setTypeface(mOriginalMinutesTypeface);
             mMinutesTens.setTextColor(mWhiteColor);
         }
 
         if (minutesOnesDigit == -1) {
             mMinutesOnes.setText("-");
-            mMinutesOnes.setTypeface(mAndroidClockMonoThin);
             mMinutesOnes.setTextColor(mGrayColor);
         } else {
             mMinutesOnes.setText(String.valueOf(minutesOnesDigit));
-            mMinutesOnes.setTypeface(mOriginalMinutesTypeface);
             mMinutesOnes.setTextColor(mWhiteColor);
         }
 
-        mSeconds.setText(String.format("%02d", seconds));
+        mSeconds.setText(String.format(Locale.getDefault(), "%02d", seconds));
     }
 }
