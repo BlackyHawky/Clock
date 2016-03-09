@@ -97,7 +97,7 @@ public final class Screensaver extends DreamService {
         mContentView = (View) mSaverView.getParent();
 
         setClockStyle();
-        Utils.setTimeFormat(this, (TextClock) mDigitalClock);
+        Utils.setTimeFormat((TextClock) mDigitalClock);
         Utils.dimClockView(true, mSaverView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mSaverView);

@@ -19,20 +19,25 @@ package com.android.deskclock;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.annotation.VisibleForTesting;
+import android.support.annotation.DrawableRes;
+import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -54,7 +59,6 @@ import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.settings.SettingsActivity;
 
-import java.text.DateFormatSymbols;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -63,6 +67,11 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
+
+import static android.graphics.Bitmap.Config.ARGB_8888;
+
+import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
+import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
 
 public class Utils {
     // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
@@ -74,8 +83,6 @@ public class Utils {
     private static final String DATE_FORMAT_LONG = "EEEE";
 
     public static final int DEFAULT_WEEK_START = Calendar.getInstance().getFirstDayOfWeek();
-
-    private static final long QUARTER_HOUR_IN_MILLIS = 15 * DateUtils.MINUTE_IN_MILLIS;
 
     private static Locale sLocaleUsedForWeekdays;
 
@@ -214,23 +221,6 @@ public class Utils {
     }
 
     /**
-     * Setup to find out when the quarter-hour changes (e.g. Kathmandu is GMT+5:45)
-     **/
-    public static long getAlarmOnQuarterHour() {
-        return getAlarmOnQuarterHour(System.currentTimeMillis());
-    }
-
-    @VisibleForTesting
-    static long getAlarmOnQuarterHour(long now) {
-        // Compute the time of the last quarter hour.
-        final long lastQuarterHour = now - (now % QUARTER_HOUR_IN_MILLIS);
-        // Add a quarter hour to move to the future.
-        final long nextQuarterHour = lastQuarterHour + QUARTER_HOUR_IN_MILLIS;
-        // Add an extra second to ensure callbacks are processed *after* the quarter hour passes.
-        return nextQuarterHour + DateUtils.SECOND_IN_MILLIS;
-    }
-
-    /**
      * For screensavers to set whether the digital or analog clock should be displayed.
      * Returns the view to be displayed.
      */
@@ -363,41 +353,23 @@ public class Utils {
      * Formats the time in the TextClock according to the Locale with a special
      * formatting treatment for the am/pm label.
      *
-     * @param context - Context used to get user's locale and time preferences
      * @param clock   - TextClock to format
      */
-    public static void setTimeFormat(Context context, TextClock clock) {
+    public static void setTimeFormat(TextClock clock) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(context, 0.4f /* amPmRatio */));
+            clock.setFormat12Hour(get12ModeFormat(0.4f /* amPmRatio */));
             // Get the best format for 24 hours mode according to the locale
             clock.setFormat24Hour(get24ModeFormat());
         }
     }
 
     /**
-     * Returns {@code true} if the am / pm strings for the current locale are long and a reduced
-     * text size should be used for displaying the digital clock.
-     */
-    private static boolean isAmPmStringLong() {
-        final String[] amPmStrings = new DateFormatSymbols().getAmPmStrings();
-        for (String amPmString : amPmStrings) {
-            // Dots are small, so don't count them.
-            final int amPmStringLength = amPmString.replace(".", "").length();
-            if (amPmStringLength > 3) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @param context   used to get time format string resource
      * @param amPmRatio a value between 0 and 1 that is the ratio of the relative size of the
      *                  am/pm string to the time string
      * @return format string for 12 hours mode time
      */
-    public static CharSequence get12ModeFormat(Context context, float amPmRatio) {
+    public static CharSequence get12ModeFormat(float amPmRatio) {
         String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
         if (amPmRatio <= 0) {
             pattern = pattern.replaceAll("a", "").trim();
@@ -411,7 +383,6 @@ public class Utils {
             return pattern;
         }
 
-        final Resources resources = context.getResources();
         final Spannable sp = new SpannableString(pattern);
         sp.setSpan(new RelativeSizeSpan(amPmRatio), amPmPos, amPmPos + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -420,13 +391,6 @@ public class Utils {
         sp.setSpan(new TypefaceSpan("sans-serif"), amPmPos, amPmPos + 1,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // Make the font smaller for locales with long am/pm strings.
-        if (Utils.isAmPmStringLong()) {
-            final float proportion = resources.getFraction(
-                    R.fraction.reduced_clock_font_size_scale, 1, 1);
-            sp.setSpan(new RelativeSizeSpan(proportion), 0, pattern.length(),
-                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        }
         return sp;
     }
 
@@ -447,9 +411,9 @@ public class Utils {
                 DateUtils.MINUTE_IN_MILLIS;
 
         if (useShortForm) {
-            return String.format("%+d", hour);
+            return String.format(Locale.ENGLISH, "%+d", hour);
         } else {
-            return String.format("GMT %+d:%02d", hour, min);
+            return String.format(Locale.ENGLISH, "GMT %+d:%02d", hour, min);
         }
     }
 
@@ -544,6 +508,34 @@ public class Utils {
     public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
         final String localizedQuantity = NumberFormat.getInstance().format(quantity);
         return context.getResources().getQuantityString(id, quantity, localizedQuantity);
+    }
+
+    /**
+     * @return {@code true} iff the widget is being hosted in a container where tapping is allowed
+     */
+    public static boolean isWidgetClickable(AppWidgetManager widgetManager, int widgetId) {
+        final Bundle wo = widgetManager.getAppWidgetOptions(widgetId);
+        return wo != null
+                && wo.getInt(OPTION_APPWIDGET_HOST_CATEGORY, -1) != WIDGET_CATEGORY_KEYGUARD;
+    }
+
+    /**
+     * @return a vector-drawable inflated from the given {@code resId}
+     */
+    public static VectorDrawableCompat getVectorDrawable(Context context, @DrawableRes int resId) {
+        return VectorDrawableCompat.create(context.getResources(), resId, context.getTheme());
+    }
+
+    /**
+     * This method assumes the given {@code view} has already been layed out.
+     *
+     * @return a Bitmap containing an image of the {@code view} at its current size
+     */
+    public static Bitmap createBitmap(View view) {
+        final Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+        return bitmap;
     }
 
     /**

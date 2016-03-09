@@ -69,49 +69,56 @@ public class LogUtils {
             this.logTag = logTag;
         }
 
+        public boolean isVerboseLoggable() { return DEBUG || Log.isLoggable(logTag, Log.VERBOSE); }
+        public boolean isDebugLoggable() { return DEBUG || Log.isLoggable(logTag, Log.DEBUG); }
+        public boolean isInfoLoggable() { return DEBUG || Log.isLoggable(logTag, Log.INFO); }
+        public boolean isWarnLoggable() { return DEBUG || Log.isLoggable(logTag, Log.WARN); }
+        public boolean isErrorLoggable() { return DEBUG || Log.isLoggable(logTag, Log.ERROR); }
+        public boolean isWtfLoggable() { return DEBUG || Log.isLoggable(logTag, Log.ASSERT); }
+
         public void v(String message, Object... args) {
-            if (DEBUG || Log.isLoggable(logTag, Log.VERBOSE)) {
+            if (isVerboseLoggable()) {
                 Log.v(logTag, args == null || args.length == 0
                         ? message : String.format(message, args));
             }
         }
 
         public void d(String message, Object... args) {
-            if (DEBUG || Log.isLoggable(logTag, Log.DEBUG)) {
+            if (isDebugLoggable()) {
                 Log.d(logTag, args == null || args.length == 0 ? message
                         : String.format(message, args));
             }
         }
 
         public void i(String message, Object... args) {
-            if (DEBUG || Log.isLoggable(logTag, Log.INFO)) {
+            if (isInfoLoggable()) {
                 Log.i(logTag, args == null || args.length == 0 ? message
                         : String.format(message, args));
             }
         }
 
         public void w(String message, Object... args) {
-            if (DEBUG || Log.isLoggable(logTag, Log.WARN)) {
+            if (isWarnLoggable()) {
                 Log.w(logTag, args == null || args.length == 0 ? message
                         : String.format(message, args));
             }
         }
 
         public void e(String message, Object... args) {
-            if (DEBUG || Log.isLoggable(logTag, Log.ERROR)) {
+            if (isErrorLoggable()) {
                 Log.e(logTag, args == null || args.length == 0 ? message
                         : String.format(message, args));
             }
         }
 
         public void e(String message, Throwable e) {
-            if (DEBUG || Log.isLoggable(logTag, Log.ERROR)) {
+            if (isErrorLoggable()) {
                 Log.e(logTag, message, e);
             }
         }
 
         public void wtf(String message, Object... args) {
-            if (DEBUG || Log.isLoggable(logTag, Log.ASSERT)) {
+            if (isWtfLoggable()) {
                 Log.wtf(logTag, args == null || args.length == 0 ? message
                         : String.format(message, args));
             }

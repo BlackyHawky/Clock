@@ -41,8 +41,6 @@ public class HandleDeskClockApiCalls extends Activity {
 
     // shows the tab with world clocks
     public static final String ACTION_SHOW_CLOCK = ACTION_PREFIX + "SHOW_CLOCK";
-    // extra for ACTION_SHOW_CLOCK indicating the clock is being displayed from tapping the widget
-    public static final String EXTRA_FROM_WIDGET = "com.android.deskclock.extra.clock.FROM_WIDGET";
     // add a clock of a selected city, if no city is specified opens the city selection screen
     public static final String ACTION_ADD_CLOCK = ACTION_PREFIX + "ADD_CLOCK";
     // delete a clock of a selected city, if no city is specified shows CitiesActivity for the user
@@ -265,17 +263,16 @@ public class HandleDeskClockApiCalls extends Activity {
     private void handleClockIntent(Intent intent) {
         final String action = intent.getAction();
 
+        final int eventLabel = intent.getIntExtra(EXTRA_EVENT_LABEL, R.string.label_intent);
         if (ACTION_SHOW_CLOCK.equals(action)) {
-            final boolean fromWidget = intent.getBooleanExtra(EXTRA_FROM_WIDGET, false);
-            final int label = fromWidget ? R.string.label_widget : R.string.label_intent;
-            Events.sendClockEvent(R.string.action_show, label);
+            Events.sendClockEvent(R.string.action_show, eventLabel);
         } else {
             switch (action) {
                 case ACTION_ADD_CLOCK:
-                    Events.sendClockEvent(R.string.action_add, R.string.label_intent);
+                    Events.sendClockEvent(R.string.action_add, eventLabel);
                     break;
                 case ACTION_DELETE_CLOCK:
-                    Events.sendClockEvent(R.string.action_delete, R.string.label_intent);
+                    Events.sendClockEvent(R.string.action_delete, eventLabel);
                     break;
             }
 

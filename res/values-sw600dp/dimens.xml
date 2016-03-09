@@ -50,8 +50,6 @@
     <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="alarm_info_font_size">48sp</dimen>
     <dimen name="no_alarm_font_size">20sp</dimen>
-    <!-- Use dp on purpose to ensure consistency across multiple screen sizes -->
-    <dimen name="widget_label_font_size">16dp</dimen>
 
     <dimen name="body_font_padding">8dp</dimen>
     <dimen name="medium_font_padding">24dp</dimen>
@@ -89,20 +87,8 @@
 
     <dimen name="min_analog_widget_size">170dp</dimen>
 
-    <!-- Digital Widget settings (keyguard|home_screen) -->
-    <!-- Use larger fonts -->
-    <!-- Use dp on purpose to ensure consistency across multiple screen sizes -->
-    <dimen name="widget_big_font_size">120dp</dimen>
-    <dimen name="widget_medium_font_size">52sp</dimen>
-    <dimen name="widget_24_medium_font_size">65sp</dimen>
-    <dimen name="widget_big_time_margin_right">12dip</dimen>
-    <dimen name="widget_medium_time_margin_right">8dip</dimen>
-    <dimen name="min_digital_widget_width">300dip</dimen>
-    <dimen name="min_digital_widget_height">170dip</dimen>
-    <dimen name="digital_widget_list_min_scaled_height">263dp</dimen>
-    <dimen name="digital_widget_list_min_fixed_height">15dp</dimen>
-    <dimen name="digital_widget_list_margin_top">15dp</dimen>
-    <dimen name="digital_widget_city_margin_bottom">15dp</dimen>
+    <dimen name="min_digital_widget_width">300dp</dimen>
+    <dimen name="min_digital_widget_height">170dp</dimen>
 
     <dimen name="footer_button_size">80dip</dimen>
 </resources>
