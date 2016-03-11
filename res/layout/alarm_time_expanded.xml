@@ -41,7 +41,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/touch_target_min_size"
                 android:layout_gravity="center_vertical|start"
-                android:paddingStart="@dimen/alarm_side_padding"
+                android:paddingEnd="@dimen/checkbox_start_padding"
+                android:paddingStart="@dimen/checkbox_start_padding"
                 android:text="@string/alarm_repeat"
                 android:textColor="@color/clock_white"
                 android:textSize="@dimen/alarm_text_font_size" />
@@ -87,8 +88,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:includeFontPadding="false"
-                    android:paddingEnd="12dp"
-                    android:paddingStart="@dimen/alarm_horizontal_padding"
+                    android:paddingEnd="@dimen/checkbox_start_padding"
+                    android:paddingStart="@dimen/checkbox_start_padding"
                     android:text="@string/alarm_vibrate"
                     android:textColor="@color/white"
                     android:textSize="@dimen/alarm_text_font_size" />
