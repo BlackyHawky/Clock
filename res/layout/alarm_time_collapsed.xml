@@ -89,7 +89,6 @@
 
     </FrameLayout>
 
-    <include layout="@layout/alarm_muted_button" />
     <include layout="@layout/preemptive_dismiss" />
 
     <View

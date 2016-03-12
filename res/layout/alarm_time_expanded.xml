@@ -95,8 +95,6 @@
 
             </LinearLayout>
 
-            <include layout="@layout/alarm_muted_button" />
-
             <TextView
                 android:id="@+id/edit_label"
                 android:layout_width="match_parent"

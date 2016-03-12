@@ -17,24 +17,17 @@
 package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
-import android.database.ContentObserver;
-import android.media.AudioManager;
 import android.os.Handler;
-import android.provider.Settings;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
-import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.widget.TextTime;
-
-import java.util.Objects;
 
 /**
  * Abstract ViewHolder for alarm time items.
@@ -45,24 +38,20 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     private static final float CLOCK_DISABLED_ALPHA = 0.69f;
 
     public final TextTime clock;
-    public final CompoundButton onoff;
+    public final CompoundButton onOff;
     public final View arrow;
     public final View preemptiveDismissContainer;
     public final TextView preemptiveDismissButton;
-
-    private final TextView mAlarmMutedButton;
-    private final ContentObserver mVolumeObserver;
 
     public AlarmItemViewHolder(final View itemView, Handler handler) {
         super(itemView);
 
         clock = (TextTime) itemView.findViewById(R.id.digital_clock);
-        onoff = (CompoundButton) itemView.findViewById(R.id.onoff);
+        onOff = (CompoundButton) itemView.findViewById(R.id.onoff);
         arrow = itemView.findViewById(R.id.arrow);
         preemptiveDismissContainer = itemView.findViewById(R.id.preemptive_dismiss_container);
         preemptiveDismissButton =
                 (TextView) itemView.findViewById(R.id.preemptive_dismiss_button);
-        mAlarmMutedButton = (Button) itemView.findViewById(R.id.alarm_muted_button);
 
         preemptiveDismissButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,37 +60,13 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
                 getItemHolder().getAlarmTimeClickHandler().dismissAlarmInstance(alarmInstance);
             }
         });
-        onoff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        onOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
                 getItemHolder().getAlarmTimeClickHandler().setAlarmEnabled(
                         getItemHolder().item, checked);
             }
         });
-        mAlarmMutedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Context context = itemView.getContext();
-                final Alarm alarm = getItemHolder().item;
-                if (hasSilentRingtone(alarm)) {
-                    getItemHolder().getAlarmTimeClickHandler().onRingtoneClicked(alarm);
-                } else {
-                    // Alarm volume muted.
-                    final AudioManager audioManager =
-                            (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-                    audioManager.adjustStreamVolume(AudioManager.STREAM_ALARM,
-                            AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
-                }
-            }
-        });
-        mVolumeObserver = new ContentObserver(handler) {
-            @Override
-            public void onChange(boolean selfChange) {
-                if (getItemHolder() != null) {
-                    getItemHolder().notifyItemChanged();
-                }
-            }
-        };
     }
 
     @Override
@@ -109,19 +74,11 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         final Context context = itemView.getContext();
         final Alarm alarm = itemHolder.item;
         bindOnOffSwitch(alarm);
-        bindAlarmMutedButton(context, alarm);
         bindClock(context, alarm);
-        context.getContentResolver().registerContentObserver(
-                Settings.System.CONTENT_URI, true, mVolumeObserver);
-    }
-
-    @Override
-    protected void onRecycleItemView() {
-        itemView.getContext().getContentResolver().unregisterContentObserver(mVolumeObserver);
     }
 
     protected void bindOnOffSwitch(Alarm alarm) {
-        onoff.setChecked(alarm.enabled);
+        onOff.setChecked(alarm.enabled);
     }
 
     protected void bindClock(Context context, Alarm alarm) {
@@ -132,13 +89,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
     protected boolean bindPreemptiveDismissButton(Context context, Alarm alarm,
             AlarmInstance alarmInstance) {
-
-        final AudioManager audioManager =
-                (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        final boolean muted = audioManager.getStreamVolume(AudioManager.STREAM_ALARM) == 0
-                || hasSilentRingtone(alarm);
-        final boolean canBind = alarm.canPreemptivelyDismiss() && alarmInstance != null && !muted;
-
+        final boolean canBind = alarm.canPreemptivelyDismiss() && alarmInstance != null;
         if (canBind) {
             preemptiveDismissContainer.setVisibility(View.VISIBLE);
             final String dismissText = alarm.instanceState == AlarmInstance.SNOOZE_STATE
@@ -150,23 +101,5 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             preemptiveDismissContainer.setVisibility(View.GONE);
         }
         return canBind;
-    }
-
-    protected void bindAlarmMutedButton(Context context, Alarm alarm) {
-        final AudioManager audioManager =
-                (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-        if (hasSilentRingtone(alarm)) {
-            mAlarmMutedButton.setVisibility(View.VISIBLE);
-            mAlarmMutedButton.setText(R.string.silent_ringtone);
-        } else if (audioManager.getStreamVolume(AudioManager.STREAM_ALARM) == 0) {
-            mAlarmMutedButton.setVisibility(View.VISIBLE);
-            mAlarmMutedButton.setText(R.string.alarm_volume_muted);
-        } else {
-            mAlarmMutedButton.setVisibility(View.GONE);
-        }
-    }
-
-    private boolean hasSilentRingtone(Alarm alarm) {
-        return Objects.equals(alarm.alert, DataModel.getDataModel().getSilentRingtoneUri());
     }
 }

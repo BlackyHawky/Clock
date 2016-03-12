@@ -183,16 +183,21 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindEditLabel(alarm);
         bindDaysOfWeekButtons(alarm);
         bindVibrator(alarm);
-        bindRingtoneTitle(context, alarm);
+        bindRingtone(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
     }
 
-    private void bindRingtoneTitle(Context context, Alarm alarm) {
+    private void bindRingtone(Context context, Alarm alarm) {
         final String title = DataModel.getDataModel().getAlarmRingtoneTitle(alarm.alert);
-        final String description = context.getString(R.string.ringtone_description);
-
         ringtone.setText(title);
+
+        final String description = context.getString(R.string.ringtone_description);
         ringtone.setContentDescription(description + " " + title);
+
+        final boolean silent = DataModel.getDataModel().getSilentRingtoneUri().equals(alarm.alert);
+        final int startResId = silent ? R.drawable.ic_ringtone_silent : R.drawable.ic_ringtone;
+        final Drawable startDrawable = ContextCompat.getDrawable(context, startResId);
+        ringtone.setCompoundDrawablesWithIntrinsicBounds(startDrawable, null, null, null);
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm) {
