@@ -59,7 +59,8 @@
             android:icon="@mipmap/ic_launcher_alarmclock"
             android:label="@string/app_label"
             android:launchMode="singleTask"
-            android:theme="@style/DeskClockTheme">
+            android:theme="@style/DeskClockTheme"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
