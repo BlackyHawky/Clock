@@ -137,7 +137,7 @@ public final class ClockFragment extends DeskClockFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Utils.setTimeFormat(getActivity(), mDigitalClock);
+        Utils.setTimeFormat(mDigitalClock);
     }
 
     @Override
@@ -383,8 +383,7 @@ public final class ClockFragment extends DeskClockFragment {
                 analogClock.setVisibility(GONE);
                 digitalClock.setVisibility(VISIBLE);
                 digitalClock.setTimeZone(city.getTimeZone().getID());
-                digitalClock.setFormat12Hour(
-                        Utils.get12ModeFormat(mContext, 0.22f /* amPmRatio */));
+                digitalClock.setFormat12Hour(Utils.get12ModeFormat(0.22f /* amPmRatio */));
                 digitalClock.setFormat24Hour(Utils.get24ModeFormat());
             }
 

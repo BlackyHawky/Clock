@@ -40,7 +40,7 @@ public class AnalogAppWidgetProvider extends BroadcastReceiver {
         final RemoteViews views = new RemoteViews(packageName, R.layout.analog_appwidget);
 
         final Intent showClock = new Intent(HandleDeskClockApiCalls.ACTION_SHOW_CLOCK)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_WIDGET, true);
+                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_widget);
         final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, showClock, 0);
         views.setOnClickPendingIntent(R.id.analog_appwidget, pendingIntent);
 

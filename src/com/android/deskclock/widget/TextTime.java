@@ -141,7 +141,7 @@ public class TextTime extends TextView {
     }
 
     public void setFormat(Context context) {
-        setFormat12Hour(Utils.get12ModeFormat(context, 0.22f /* amPmRatio */));
+        setFormat12Hour(Utils.get12ModeFormat(0.22f /* amPmRatio */));
         setFormat24Hour(Utils.get24ModeFormat());
     }
 
