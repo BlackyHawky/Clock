@@ -241,7 +241,7 @@ public class ClockProvider extends ContentProvider {
                 throw new IllegalArgumentException("Cannot insert from URI: " + uri);
         }
 
-        Uri uriResult = ContentUris.withAppendedId(AlarmsColumns.CONTENT_URI, rowId);
+        Uri uriResult = ContentUris.withAppendedId(uri, rowId);
         notifyChange(getContext().getContentResolver(), uriResult);
         return uriResult;
     }

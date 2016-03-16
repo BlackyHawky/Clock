@@ -29,7 +29,8 @@ import java.util.List;
  * Base adapter class for displaying a collection of items. Provides functionality for handling
  * changing items, persistent item state, item click events, and re-usable item views.
  */
-public class ItemAdapter<T extends ItemAdapter.ItemHolder> extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+public class ItemAdapter<T extends ItemAdapter.ItemHolder>
+        extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     /**
      * Finds the position of the changed item holder and invokes {@link #notifyItemChanged(int)}.

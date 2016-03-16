@@ -78,7 +78,9 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     }
 
     protected void bindOnOffSwitch(Alarm alarm) {
-        onOff.setChecked(alarm.enabled);
+        if (onOff.isChecked() != alarm.enabled) {
+            onOff.setChecked(alarm.enabled);
+        }
     }
 
     protected void bindClock(Context context, Alarm alarm) {

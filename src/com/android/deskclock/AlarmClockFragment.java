@@ -123,6 +123,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                 this);
 
         mItemAdapter = new ItemAdapter<>();
+        mItemAdapter.setHasStableIds();
         mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),
                 null, CollapsedAlarmViewHolder.VIEW_TYPE);
         mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(getActivity(), inflater),
@@ -256,8 +257,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
             itemHolders.add(itemHolder);
         }
-        mItemAdapter.setItems(itemHolders);
-        mEmptyViewController.setEmpty(data.getCount() == 0);
+        setAdapterItems(itemHolders);
 
         if (mExpandedAlarmId != Alarm.INVALID_ID) {
             final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
@@ -272,6 +272,25 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             scrollToAlarm(mScrollToAlarmId);
             setSmoothScrollStableId(Alarm.INVALID_ID);
         }
+    }
+
+    /**
+     * Updates the adapters items, deferring the update until the current animation is finished or
+     * if no animation is running then the listener will be automatically be invoked immediately.
+     *
+     * @param items the new list of {@link AlarmItemHolder} to use
+     */
+    private void setAdapterItems(final List<AlarmItemHolder> items) {
+        mRecyclerView.getItemAnimator().isRunning(
+                new RecyclerView.ItemAnimator.ItemAnimatorFinishedListener() {
+                    @Override
+                    public void onAnimationsFinished() {
+                        mItemAdapter.setItems(items);
+
+                        // Show or hide the empty view as appropriate.
+                        mEmptyViewController.setEmpty(items.isEmpty());
+                    }
+                });
     }
 
     /**
