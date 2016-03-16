@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"静音"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"未知"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"闹钟已设为静音"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"铃声已设为静音"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按钮"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"暂停"</item>

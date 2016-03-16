@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Im lặng"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Không xác định"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Đã tắt âm lượng báo thức"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"Nhạc chuông im lặng"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Nút âm lượng"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Báo lại"</item>

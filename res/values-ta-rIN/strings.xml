@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"நிசப்தம்"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"அறியப்படாதது"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"அலார ஒலி முடக்கப்பட்டது"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"நிசப்த ரிங்டோன்"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ஒலியளவு பொத்தான்கள்"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"உறக்கநிலை"</item>

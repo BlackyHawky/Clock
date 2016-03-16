@@ -124,7 +124,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Silențios"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Necunoscut"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Volumul alarmei a fost dezactivat"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"Ton de sonerie silențios"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butoane de volum"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Amânați"</item>

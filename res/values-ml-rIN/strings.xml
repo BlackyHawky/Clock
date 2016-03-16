@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"നിശബ്‌ദം"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"അജ്ഞാതം"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"അലാറം വോളിയം നിശബ്ദമാക്കി"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"നിശബ്‌ദ റിംഗ്ടോൺ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"വോളിയം ബട്ടണുകൾ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"സ്‌നൂസ് ചെയ്യുക"</item>

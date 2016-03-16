@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Stil"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Onbekend"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Alarmvolume gedempt"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"Stille beltoon"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumeknoppen"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Snoozen"</item>

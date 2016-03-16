@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"නිහඬ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"නොදනී"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"එලාම හඬ නිහඬ කරන ලදී"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"නිහඬ රිංග්ටෝනය"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ශබ්ද බොත්තම්"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"යළි සිහි කැඳවන්න"</item>

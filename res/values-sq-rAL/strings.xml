@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Në heshtje"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"E panjohur"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Volumi i alarmit u çaktivizua"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"Toni i ziles në heshtje"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Butonat e volumit"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Shty alarmin"</item>

@@ -132,7 +132,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Tiché"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Neznámé"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Hlasitost budíku ztlumena"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"Tichý vyzváněcí tón"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tlačítka hlasitosti"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Odložit zvonění"</item>
