@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Naka-silent"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Hindi alam"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Naka-mute ang volume ng alarm"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"Tahimik na ringtone"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Button ng volume"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"I-snooze"</item>

@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"တိတ်ဆိတ်နေရန်"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"မသိရ"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"နိုးစက်အသံပိတ်ထားသည်"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"အသံတိတ် ဖုန်းမြည်သံ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"အသံခလုတ်များ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"မှေးရန်"</item>

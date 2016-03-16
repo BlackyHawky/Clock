@@ -132,7 +132,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Begarsis"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Nežinomas"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Signalas nutildytas"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"Tylus skambėjimo tonas"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Garsumo mygtukai"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Snausti"</item>

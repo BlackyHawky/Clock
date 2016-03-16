@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ស្ងាត់"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"មិនស្គាល់"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"បានបិទសំឡេងម៉ោងរោទិ៍"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"សំឡេងរោទិ៍ស្ងាត់"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ប៊ូតុង​កម្រិត​សំឡេង"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ផ្អាក"</item>

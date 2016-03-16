@@ -116,7 +116,6 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Αθόρυβο"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Άγνωστο"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Ήχος ξυπνητηριού σε σίγαση"</string>
-    <string name="silent_ringtone" msgid="4392654938729167866">"Αθόρυβος ήχος κλήσης"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Κουμπιά έντασης"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Αναβολή αφύπνισης"</item>
