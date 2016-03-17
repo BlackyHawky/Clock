@@ -48,7 +48,7 @@
         <provider android:name=".provider.ClockProvider"
                 android:authorities="com.android.deskclock"
                 android:exported="false"
-                android:encryptionAware="true" />
+                android:directBootAware="true" />
 
         <activity android:name="DeskClock"
                 android:label="@string/app_label"
@@ -105,7 +105,7 @@
                 android:theme="@style/AlarmAlertFullScreenTheme"
                 android:windowSoftInputMode="stateAlwaysHidden"
                 android:showOnLockScreen="true"
-                android:encryptionAware="true" />
+                android:directBootAware="true" />
 
         <activity android:name="ScreensaverActivity"
                 android:excludeFromRecents="true"
@@ -115,12 +115,12 @@
 
         <receiver android:name=".alarms.AlarmStateManager"
                   android:exported="false"
-                  android:encryptionAware="true">
+                  android:directBootAware="true">
         </receiver>
 
         <service android:name=".alarms.AlarmService"
                  android:exported="false"
-                 android:encryptionAware="true">
+                 android:directBootAware="true">
         </service>
 
         <activity android:name="HandleApiCalls"
@@ -235,7 +235,7 @@
         </activity>
 
         <receiver android:name="AlarmInitReceiver"
-                android:encryptionAware="true">
+                android:directBootAware="true">
             <intent-filter>
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

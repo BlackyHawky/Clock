@@ -85,7 +85,7 @@ public class DeskClockBackupAgent extends BackupAgent {
     public void onRestoreFinished() {
         if (Utils.isNOrLater()) {
             // TODO: migrate restored database and preferences over into
-            // the device-encrypted storage area
+            // the device-protected storage area
         }
 
         // Write a preference to indicate a data restore has been completed.

@@ -709,10 +709,10 @@ public class Utils {
         final Context storageContext;
         if (isNOrLater()) {
             // All N devices have split storage areas, but we may need to
-            // migrate existing preferences into the new device encrypted
+            // migrate existing preferences into the new device protected
             // storage area, which is where our data lives from now on.
-            final Context deviceContext = context.createDeviceEncryptedStorageContext();
-            if (!deviceContext.migrateSharedPreferencesFrom(context,
+            final Context deviceContext = context.createDeviceProtectedStorageContext();
+            if (!deviceContext.moveSharedPreferencesFrom(context,
                     PreferenceManager.getDefaultSharedPreferencesName(context))) {
                 LogUtils.wtf("Failed to migrate shared preferences");
             }
