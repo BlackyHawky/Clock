@@ -258,20 +258,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             itemHolders.add(itemHolder);
         }
         setAdapterItems(itemHolders);
-
-        if (mExpandedAlarmId != Alarm.INVALID_ID) {
-            final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
-            if (aih != null) {
-                aih.expand();
-            } else {
-                mExpandedAlarmId = Alarm.INVALID_ID;
-            }
-        }
-
-        if (mScrollToAlarmId != Alarm.INVALID_ID) {
-            scrollToAlarm(mScrollToAlarmId);
-            setSmoothScrollStableId(Alarm.INVALID_ID);
-        }
     }
 
     /**
@@ -289,6 +275,22 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
                         // Show or hide the empty view as appropriate.
                         mEmptyViewController.setEmpty(items.isEmpty());
+
+                        // Expand the correct alarm.
+                        if (mExpandedAlarmId != Alarm.INVALID_ID) {
+                            final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
+                            if (aih != null) {
+                                aih.expand();
+                            } else {
+                                mExpandedAlarmId = Alarm.INVALID_ID;
+                            }
+                        }
+
+                        // Scroll to the selected alarm.
+                        if (mScrollToAlarmId != Alarm.INVALID_ID) {
+                            scrollToAlarm(mScrollToAlarmId);
+                            setSmoothScrollStableId(Alarm.INVALID_ID);
+                        }
                     }
                 });
     }
@@ -297,9 +299,19 @@ public final class AlarmClockFragment extends DeskClockFragment implements
      * @param alarmId identifies the alarm to be displayed
      */
     private void scrollToAlarm(long alarmId) {
-        final AlarmItemHolder aih = mItemAdapter.findItemById(alarmId);
-        if (aih != null) {
-            aih.expand();
+        final int alarmCount = mItemAdapter.getItemCount();
+        int alarmPosition = -1;
+        for (int i = 0; i < alarmCount; i++) {
+            long id = mItemAdapter.getItemId(i);
+            if (id == alarmId) {
+                alarmPosition = i;
+                break;
+            }
+        }
+
+        if (alarmPosition >= 0) {
+            mItemAdapter.findItemById(alarmId).expand();
+            smoothScrollTo(alarmPosition);
         } else {
             // Trying to display a deleted alarm should only happen from a missed notification for
             // an alarm that has been marked deleted after use.

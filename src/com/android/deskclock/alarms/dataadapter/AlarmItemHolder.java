@@ -52,13 +52,17 @@ public class AlarmItemHolder extends ItemAdapter.ItemHolder<Alarm> {
     }
 
     public void expand() {
-        mExpanded = true;
-        notifyItemChanged();
+        if (!isExpanded()) {
+            mExpanded = true;
+            notifyItemChanged();
+        }
     }
 
     public void collapse() {
-        mExpanded = false;
-        notifyItemChanged();
+        if (isExpanded()) {
+            mExpanded = false;
+            notifyItemChanged();
+        }
     }
 
     public boolean isExpanded() {
