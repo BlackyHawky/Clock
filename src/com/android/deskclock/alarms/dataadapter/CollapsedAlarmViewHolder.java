@@ -17,8 +17,6 @@
 package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,8 +43,8 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     public final TextView upcomingInstanceLabel;
     public final View hairLine;
 
-    public CollapsedAlarmViewHolder(View itemView, Handler handler) {
-        super(itemView, handler);
+    public CollapsedAlarmViewHolder(View itemView) {
+        super(itemView);
         alarmLabel = (TextView) itemView.findViewById(R.id.label);
         daysOfWeek = (TextView) itemView.findViewById(R.id.days_of_week);
         upcomingInstanceLabel = (TextView) itemView.findViewById(R.id.upcoming_instance_label);
@@ -136,17 +134,15 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
 
         private final LayoutInflater mLayoutInflater;
-        private final Handler mHandler;
 
         public Factory(LayoutInflater layoutInflater) {
             mLayoutInflater = layoutInflater;
-            mHandler = new Handler(Looper.getMainLooper());
         }
 
         @Override
         public ItemAdapter.ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {
             return new CollapsedAlarmViewHolder(mLayoutInflater.inflate(
-                    viewType, parent, false /* attachToRoot */), mHandler);
+                    viewType, parent, false /* attachToRoot */));
         }
     }
 }

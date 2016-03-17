@@ -17,7 +17,6 @@
 package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
-import android.os.Handler;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.TextView;
@@ -43,7 +42,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public final View preemptiveDismissContainer;
     public final TextView preemptiveDismissButton;
 
-    public AlarmItemViewHolder(final View itemView, Handler handler) {
+    public AlarmItemViewHolder(View itemView) {
         super(itemView);
 
         clock = (TextTime) itemView.findViewById(R.id.digital_clock);
