@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The Android Open Source Project
+e * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,9 @@
 
 package com.android.deskclock.provider;
 
+import static com.android.deskclock.provider.ClockDatabaseHelper.ALARMS_TABLE_NAME;
+import static com.android.deskclock.provider.ClockDatabaseHelper.INSTANCES_TABLE_NAME;
+
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -26,19 +29,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.Utils;
+import com.android.deskclock.provider.ClockContract.AlarmsColumns;
+import com.android.deskclock.provider.ClockContract.InstancesColumns;
 
 import java.util.Map;
-
-import static com.android.deskclock.provider.ClockContract.AlarmsColumns;
-import static com.android.deskclock.provider.ClockContract.InstancesColumns;
-import static com.android.deskclock.provider.ClockDatabaseHelper.ALARMS_TABLE_NAME;
-import static com.android.deskclock.provider.ClockDatabaseHelper.INSTANCES_TABLE_NAME;
 
 public class ClockProvider extends ContentProvider {
 
@@ -122,10 +121,10 @@ public class ClockProvider extends ContentProvider {
         final Context storageContext;
         if (Utils.isNOrLater()) {
             // All N devices have split storage areas, but we may need to
-            // migrate existing database into the new device encrypted
+            // migrate existing database into the new device protected
             // storage area, which is where our data lives from now on.
-            final Context deviceContext = context.createDeviceEncryptedStorageContext();
-            if (!deviceContext.migrateDatabaseFrom(context, ClockDatabaseHelper.DATABASE_NAME)) {
+            final Context deviceContext = context.createDeviceProtectedStorageContext();
+            if (!deviceContext.moveDatabaseFrom(context, ClockDatabaseHelper.DATABASE_NAME)) {
                 LogUtils.wtf("Failed to migrate database");
             }
             storageContext = deviceContext;
