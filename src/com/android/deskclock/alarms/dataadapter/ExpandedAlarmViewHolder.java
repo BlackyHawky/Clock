@@ -22,8 +22,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
-import android.os.Handler;
-import android.os.Looper;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -47,6 +45,8 @@ import com.android.deskclock.provider.DaysOfWeek;
 
 import java.util.HashSet;
 
+import static android.content.Context.VIBRATOR_SERVICE;
+
 /**
  * A ViewHolder containing views for an alarm item in expanded stated.
  */
@@ -65,8 +65,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     private final boolean mHasVibrator;
     private final int[] mDayOrder;
 
-    public ExpandedAlarmViewHolder(View itemView, final boolean hasVibrator, Handler handler) {
-        super(itemView, handler);
+    public ExpandedAlarmViewHolder(View itemView, boolean hasVibrator) {
+        super(itemView);
 
         final Context context = itemView.getContext();
         mHasVibrator = hasVibrator;
@@ -245,20 +245,17 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
 
         private final LayoutInflater mLayoutInflator;
-        private final Handler mHandler;
         private final boolean mHasVibrator;
 
         public Factory(Context context, LayoutInflater layoutInflater) {
             mLayoutInflator = layoutInflater;
-            mHandler = new Handler(Looper.getMainLooper());
-            mHasVibrator =
-                    ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).hasVibrator();
+            mHasVibrator = ((Vibrator) context.getSystemService(VIBRATOR_SERVICE)).hasVibrator();
         }
 
         @Override
         public ItemAdapter.ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {
             return new ExpandedAlarmViewHolder(mLayoutInflator.inflate(
-                    viewType, parent, false /* attachToRoot */), mHasVibrator, mHandler);
+                    viewType, parent, false /* attachToRoot */), mHasVibrator);
         }
     }
 }
