@@ -159,6 +159,9 @@
     <!-- Dimens for icon padding on Alarms tab -->
     <dimen name="icon_margin">4dp</dimen>
 
+    <!-- Padding between checkbox and text. -->
+    <dimen name="checkbox_start_padding">20dp</dimen>
+
     <!-- Dimens for taller rows on Alarms tab -->
     <dimen name="tall_row_height">58dp</dimen>
 
