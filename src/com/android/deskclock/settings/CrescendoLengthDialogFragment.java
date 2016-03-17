@@ -42,12 +42,6 @@ public class CrescendoLengthDialogFragment extends PreferenceDialogFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getPreference().setDialogLayoutResource(R.layout.crescendo_length_picker);
-    }
-
-    @Override
     protected void onBindDialogView(View view) {
         final CrescendoLengthDialogPreference preference =
                 (CrescendoLengthDialogPreference) getPreference();
