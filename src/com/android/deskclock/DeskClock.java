@@ -141,6 +141,7 @@ public class DeskClock extends BaseActivity
         // Configure the toolbar.
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Configure the menu item controllers add behavior to the toolbar.
         mActionBarMenuManager
