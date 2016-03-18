@@ -55,16 +55,18 @@
 
         <com.android.deskclock.settings.SnoozeLengthDialogPreference
             android:key="snooze_duration"
-            android:title="@string/snooze_duration_title" />
+            android:title="@string/snooze_duration_title"
+            android:dialogLayout="@layout/snooze_length_picker" />
 
         <com.android.deskclock.settings.AlarmVolumePreference
             android:key="volume_setting"
             android:title="@string/alarm_volume_title"
-            android:layout="@layout/alarm_volume_preference"/>
+            android:layout="@layout/alarm_volume_preference" />
 
         <com.android.deskclock.settings.CrescendoLengthDialogPreference
             android:key="alarm_crescendo_duration"
-            android:title="@string/crescendo_duration_title" />
+            android:title="@string/crescendo_duration_title"
+            android:dialogLayout="@layout/crescendo_length_picker" />
 
         <ListPreference
             android:key="volume_button_setting"
@@ -90,7 +92,8 @@
 
         <com.android.deskclock.settings.CrescendoLengthDialogPreference
             android:key="timer_crescendo_duration"
-            android:title="@string/crescendo_duration_title" />
+            android:title="@string/crescendo_duration_title"
+            android:dialogLayout="@layout/crescendo_length_picker" />
 
         <SwitchPreference
             android:key="timer_vibrate"
