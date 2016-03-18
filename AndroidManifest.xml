@@ -31,12 +31,19 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+
     <!-- WRITE_SETTINGS is required to record the upcoming alarm prior to L -->
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        android:maxSdkVersion="19" />
     <!-- READ_PHONE_STATE is required to determine when a phone call exists prior to M -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE"
+        android:maxSdkVersion="22" />
     <!-- READ_EXTERNAL_STORAGE is required to play custom ringtones from the SD card prior to M -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="22" />
 
     <application
         android:name=".DeskClockApplication"
