@@ -41,12 +41,6 @@ public class SnoozeLengthDialogFragment extends PreferenceDialogFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getPreference().setDialogLayoutResource(R.layout.snooze_length_picker);
-    }
-
-    @Override
     protected void onBindDialogView(View view) {
         final SnoozeLengthDialogPreference preference =
                 (SnoozeLengthDialogPreference) getPreference();
