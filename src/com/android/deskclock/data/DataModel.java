@@ -163,11 +163,6 @@ public final class DataModel {
         mStopwatchModel.updateNotification();
     }
 
-    public Uri getSilentRingtoneUri() {
-        enforceMainLooper();
-        return Uri.EMPTY;
-    }
-
     //
     // Cities
     //
