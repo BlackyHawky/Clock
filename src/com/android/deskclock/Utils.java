@@ -37,9 +37,9 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.v4.os.BuildCompat;
 import android.support.annotation.DrawableRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
+import android.support.v4.os.BuildCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Spannable;
@@ -70,10 +70,9 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import static android.graphics.Bitmap.Config.ARGB_8888;
-
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
 import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
+import static android.graphics.Bitmap.Config.ARGB_8888;
 
 public class Utils {
     // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
@@ -557,20 +556,20 @@ public class Utils {
     }
 
     /**
-     * Return the default shared preferences.
+     * Returns the default {@link SharedPreferences} instance from the underlying storage context.
      */
+    @TargetApi(Build.VERSION_CODES.N)
     public static SharedPreferences getDefaultSharedPreferences(Context context) {
         final Context storageContext;
         if (isNOrLater()) {
             // All N devices have split storage areas, but we may need to
             // migrate existing preferences into the new device encrypted
             // storage area, which is where our data lives from now on.
-            final Context deviceContext = context.createDeviceEncryptedStorageContext();
-            if (!deviceContext.migrateSharedPreferencesFrom(context,
+            storageContext = context.createDeviceProtectedStorageContext();
+            if (!storageContext.moveSharedPreferencesFrom(context,
                     PreferenceManager.getDefaultSharedPreferencesName(context))) {
                 LogUtils.wtf("Failed to migrate shared preferences");
             }
-            storageContext = deviceContext;
         } else {
             storageContext = context;
         }

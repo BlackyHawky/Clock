@@ -59,7 +59,7 @@
         <provider
             android:name=".provider.ClockProvider"
             android:authorities="com.android.deskclock"
-            android:encryptionAware="true"
+            android:directBootAware="true"
             android:exported="false" />
 
         <activity
@@ -115,7 +115,7 @@
 
         <activity
             android:name=".alarms.AlarmActivity"
-            android:encryptionAware="true"
+            android:directBootAware="true"
             android:excludeFromRecents="true"
             android:showOnLockScreen="true"
             android:taskAffinity=""
@@ -130,12 +130,12 @@
 
         <receiver
             android:name=".alarms.AlarmStateManager"
-            android:encryptionAware="true"
+            android:directBootAware="true"
             android:exported="false" />
 
         <service
             android:name=".alarms.AlarmService"
-            android:encryptionAware="true"
+            android:directBootAware="true"
             android:exported="false" />
 
         <activity
@@ -253,7 +253,7 @@
 
         <receiver
             android:name=".AlarmInitReceiver"
-            android:encryptionAware="true">
+            android:directBootAware="true">
             <intent-filter>
                 <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
