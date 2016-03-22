@@ -41,10 +41,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
+import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
-import com.android.deskclock.actionbarmenu.SettingMenuItemController;
+import com.android.deskclock.actionbarmenu.SettingsMenuItemController;
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
@@ -73,7 +73,7 @@ public class DeskClock extends BaseActivity
     private enum FabState { SHOWING, HIDE_ARMED, HIDING }
 
     /** Coordinates handling of context menu items. */
-    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager();
+    private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
     /** Shrinks the {@link #mFab}, {@link #mLeftButton} and {@link #mRightButton} to nothing. */
     private final AnimatorSet mHideAnimation = new AnimatorSet();
@@ -144,9 +144,9 @@ public class DeskClock extends BaseActivity
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         // Configure the menu item controllers add behavior to the toolbar.
-        mActionBarMenuManager
-                .addMenuItemController(new SettingMenuItemController(this))
+        mOptionsMenuManager
                 .addMenuItemController(new NightModeMenuItemController(this))
+                .addMenuItemController(new SettingsMenuItemController(this))
                 .addMenuItemController(MenuItemControllerFactory.getInstance()
                         .buildMenuItemControllers(this));
 
@@ -284,20 +284,20 @@ public class DeskClock extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mActionBarMenuManager.createOptionsMenu(menu, getMenuInflater());
+        mOptionsMenuManager.onCreateOptionsMenu(menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        mActionBarMenuManager.prepareShowMenu(menu);
+        mOptionsMenuManager.onPrepareOptionsMenu(menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return mActionBarMenuManager.handleMenuItemClick(item) || super.onOptionsItemSelected(item);
+        return mOptionsMenuManager.onOptionsItemSelected(item) || super.onOptionsItemSelected(item);
     }
 
     /**
@@ -352,7 +352,7 @@ public class DeskClock extends BaseActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Recreate the activity if any settings have been changed
-        if (requestCode == SettingMenuItemController.REQUEST_CHANGE_SETTINGS
+        if (requestCode == SettingsMenuItemController.REQUEST_CHANGE_SETTINGS
                 && resultCode == RESULT_OK) {
             mRecreateActivity = true;
         }

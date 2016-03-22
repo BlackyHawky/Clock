@@ -39,7 +39,7 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.RingtonePickerDialogFragment;
 import com.android.deskclock.Utils;
-import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
+import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.android.deskclock.data.DataModel;
@@ -75,7 +75,7 @@ public final class SettingsActivity extends BaseActivity
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
     public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
 
-    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager();
+    private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
     /** The controller that shows the drop shadow when content is not scrolled to the top. */
     private DropShadowController mDropShadowController;
@@ -84,7 +84,7 @@ public final class SettingsActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-        mActionBarMenuManager.addMenuItemController(new NavUpMenuItemController(this))
+        mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
             .addMenuItemController(MenuItemControllerFactory.getInstance()
                     .buildMenuItemControllers(this));
 
@@ -115,19 +115,19 @@ public final class SettingsActivity extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mActionBarMenuManager.createOptionsMenu(menu, getMenuInflater());
+        mOptionsMenuManager.onCreateOptionsMenu(menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        mActionBarMenuManager.prepareShowMenu(menu);
+        mOptionsMenuManager.onPrepareOptionsMenu(menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mActionBarMenuManager.handleMenuItemClick(item)) {
+        if (mOptionsMenuManager.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
