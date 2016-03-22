@@ -194,7 +194,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final String description = context.getString(R.string.ringtone_description);
         ringtone.setContentDescription(description + " " + title);
 
-        final boolean silent = DataModel.getDataModel().getSilentRingtoneUri().equals(alarm.alert);
+        final boolean silent = Utils.RINGTONE_SILENT.equals(alarm.alert);
         final int startResId = silent ? R.drawable.ic_ringtone_silent : R.drawable.ic_ringtone;
         final Drawable startDrawable = ContextCompat.getDrawable(context, startResId);
         ringtone.setCompoundDrawablesWithIntrinsicBounds(startDrawable, null, null, null);

@@ -76,8 +76,7 @@ public class RingtonePickerDialogFragment extends DialogFragment {
 
         // Add option for "silent" ringtone.
         final String silentTitle = getString(R.string.silent_ringtone_title);
-        final Uri silentUri = DataModel.getDataModel().getSilentRingtoneUri();
-        ringtones.add(new RingtoneItem(silentTitle, silentUri));
+        ringtones.add(new RingtoneItem(silentTitle, Utils.RINGTONE_SILENT));
 
         // Add option for default ringtone.
         if (defaultRingtoneLabel != null) {
@@ -148,7 +147,7 @@ public class RingtonePickerDialogFragment extends DialogFragment {
         final Context context = getActivity();
         RingtonePreviewKlaxon.stop(context);
 
-        if (!DataModel.getDataModel().getSilentRingtoneUri().equals(ringtoneUri)) {
+        if (!Utils.RINGTONE_SILENT.equals(ringtoneUri)) {
             RingtonePreviewKlaxon.start(context, ringtoneUri);
         }
     }

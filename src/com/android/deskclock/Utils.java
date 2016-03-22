@@ -32,6 +32,7 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -75,6 +76,12 @@ import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
 public class Utils {
+
+    /**
+     * {@link Uri} signifying the "silent" ringtone.
+     */
+    public static final Uri RINGTONE_SILENT = Uri.EMPTY;
+
     // Single-char version of day name, e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
     private static String[] sShortWeekdays = null;
     private static final String DATE_FORMAT_SHORT = "ccccc";
