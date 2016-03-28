@@ -70,10 +70,9 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
     @Override
     protected void onBindItemView(final AlarmItemHolder itemHolder) {
-        final Context context = itemView.getContext();
         final Alarm alarm = itemHolder.item;
         bindOnOffSwitch(alarm);
-        bindClock(context, alarm);
+        bindClock(alarm);
     }
 
     protected void bindOnOffSwitch(Alarm alarm) {
@@ -82,10 +81,9 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         }
     }
 
-    protected void bindClock(Context context, Alarm alarm) {
-        clock.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
-        clock.setFormat(context);
+    protected void bindClock(Alarm alarm) {
         clock.setTime(alarm.hour, alarm.minutes);
+        clock.setAlpha(alarm.enabled ? CLOCK_ENABLED_ALPHA : CLOCK_DISABLED_ALPHA);
     }
 
     protected boolean bindPreemptiveDismissButton(Context context, Alarm alarm,

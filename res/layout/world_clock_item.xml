@@ -34,8 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:baselineAligned="true"
-            android:format12Hour="@string/world_clock_12_hours_format"
-            android:format24Hour="@string/clock_24_hours_format"
             android:singleLine="true"
             android:textColor="@color/clock_white"
             style="@style/medium_light" />
