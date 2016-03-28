@@ -16,7 +16,6 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
@@ -24,8 +23,6 @@
 
     <com.android.deskclock.widget.TextTime
         android:id="@+id/digital_clock"
-        app:format12Hour="@string/alarm_time_12_hours_format"
-        app:format24Hour="@string/clock_24_hours_format"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
@@ -34,7 +31,7 @@
         android:textSize="@dimen/alarm_time_font_size" />
 
     <Space
-        android:layout_width="0dip"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 

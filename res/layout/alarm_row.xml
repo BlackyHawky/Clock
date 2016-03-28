@@ -16,7 +16,6 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:dc="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -36,9 +35,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="@dimen/label_font_size"
-            android:textStyle="bold"
-            dc:format12Hour="@string/alarm_time_12_hours_format"
-            dc:format24Hour="@string/clock_24_hours_format" />
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/daysOfWeek"
@@ -51,6 +48,7 @@
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
             android:layout_marginStart="@dimen/alarm_clock_vertical_margin" />
+
     </LinearLayout>
 
     <com.android.deskclock.widget.EllipsizeLayout
@@ -72,4 +70,5 @@
             android:textSize="@dimen/label_font_size"
             android:textColor="@color/black_54p" />
     </com.android.deskclock.widget.EllipsizeLayout>
+
 </LinearLayout>

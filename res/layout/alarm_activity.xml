@@ -48,8 +48,6 @@
             android:id="@+id/digital_clock"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:format12Hour="@string/main_clock_12_hours_format"
-            android:format24Hour="@string/clock_24_hours_format"
             android:gravity="center"
             android:includeFontPadding="false"
             android:singleLine="true"
