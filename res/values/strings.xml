@@ -748,6 +748,9 @@
     <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
     <string name="next_alarm_description">Next alarm: <xliff:g id="alarm_time" example="Wed 8:00am">%s</xliff:g></string>
 
+    <!-- Label for digital clock gadget displayed on-screen when that gadget is represented to the user. -->
+    <string name="digital_gadget">Digital clock</string>
+
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>
 
