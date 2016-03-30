@@ -150,7 +150,7 @@ public final class SettingsActivity extends BaseActivity
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
-            getPreferenceManager().setStorageDeviceEncrypted();
+            getPreferenceManager().setStorageDeviceProtected();
             addPreferencesFromResource(R.xml.settings);
             loadTimeZoneList();
         }
