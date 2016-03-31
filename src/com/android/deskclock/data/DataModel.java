@@ -40,9 +40,6 @@ public final class DataModel {
     /** Indicates the preferred sort order of cities. */
     public enum CitySort {NAME, UTC_OFFSET}
 
-    public static final String ACTION_DIGITAL_WIDGET_CHANGED =
-            "com.android.deskclock.DIGITAL_WIDGET_CHANGED";
-
     /** The single instance of this data model that exists for the life of the application. */
     private static final DataModel sDataModel = new DataModel();
 

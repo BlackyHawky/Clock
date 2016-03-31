@@ -22,14 +22,14 @@
 
     <TextClock
         android:id="@+id/clock"
+        style="@style/widget_big_thin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
         android:includeFontPadding="false"
         android:ellipsize="none"
         android:singleLine="true"
-        android:textColor="@color/clock_white"
-        style="@style/widget_big_thin" />
+        android:textColor="@color/clock_white" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -38,6 +38,7 @@
 
         <TextClock
             android:id="@+id/date"
+            style="@style/widget_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -45,12 +46,12 @@
             android:ellipsize="none"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@color/clock_white"
-            style="@style/widget_label" />
+            android:textColor="@color/clock_white" />
 
         <!-- This view is drawn to a Bitmap and sent to the widget as an icon. -->
         <TextView
             android:id="@+id/nextAlarmIcon"
+            style="@style/widget_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -58,11 +59,11 @@
             android:ellipsize="none"
             android:singleLine="true"
             android:text="@string/clock_emoji"
-            android:textColor="@color/clock_white"
-            style="@style/widget_label" />
+            android:textColor="@color/clock_white" />
 
         <TextView
             android:id="@+id/nextAlarm"
+            style="@style/widget_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -70,8 +71,7 @@
             android:ellipsize="none"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@color/clock_white"
-            style="@style/widget_label" />
+            android:textColor="@color/clock_white" />
 
     </LinearLayout>
 
