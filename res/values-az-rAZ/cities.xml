@@ -66,7 +66,7 @@
     <string name="C49" msgid="6326857727742458931">"F<xliff:g id="SEPARATOR">=</xliff:g>Fortaleza<xliff:g id="TIMEZONE">|America/Fortaleza</xliff:g>"</string>
     <string name="C50" msgid="3131498820508584398">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qrand Türk<xliff:g id="TIMEZONE">|America/Grand_Turk</xliff:g>"</string>
     <string name="C51" msgid="3122278921760822414">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qrenada<xliff:g id="TIMEZONE">|America/Grenada</xliff:g>"</string>
-    <string name="C52" msgid="7461551991724617520">"G<xliff:g id="SEPARATOR">=</xliff:g>Qvatemala Şəhəri<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
+    <string name="C52" msgid="7461551991724617520">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qvatemala Şəhəri<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
     <string name="C53" msgid="296242785331472791">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qayana<xliff:g id="TIMEZONE">|America/Guyana</xliff:g>"</string>
     <string name="C54" msgid="4045007274020361950">"H<xliff:g id="SEPARATOR">=</xliff:g>Halifaks<xliff:g id="TIMEZONE">|America/Halifax</xliff:g>"</string>
     <string name="C55" msgid="8180186289266487770">"H<xliff:g id="SEPARATOR">=</xliff:g>Havana<xliff:g id="TIMEZONE">|America/Havana</xliff:g>"</string>
