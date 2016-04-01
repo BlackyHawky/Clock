@@ -188,10 +188,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final int maxWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_WIDTH));
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final boolean portrait = resources.getConfiguration().orientation == ORIENTATION_PORTRAIT;
+        final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
+        final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
 
         // Create a size template that describes the widget bounds.
-        final Sizes template =
-                new Sizes(portrait, minWidthPx, minHeightPx, maxWidthPx, maxHeightPx);
+        final Sizes template = new Sizes(targetWidthPx, targetHeightPx);
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
         final Sizes sizes = optimizeSizes(context, template, nextAlarmTime);
@@ -406,11 +407,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      */
     private static final class Sizes {
 
-        private final boolean mPortrait;
-        private final int mMinimumWidthPx;
-        private final int mMinimumHeightPx;
-        private final int mMaximumWidthPx;
-        private final int mMaximumHeightPx;
         private final int mTargetWidthPx;
         private final int mTargetHeightPx;
 
@@ -425,16 +421,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         private int mIconPaddingPx;
         private Bitmap mIconBitmap;
 
-        private Sizes(boolean portrait, int minWidthPx, int minHeightPx, int maxWidthPx,
-                int maxHeightPx) {
-            mPortrait = portrait;
-            mMinimumWidthPx = minWidthPx;
-            mMinimumHeightPx = minHeightPx;
-            mMaximumWidthPx = maxWidthPx;
-            mMaximumHeightPx = maxHeightPx;
-
-            mTargetWidthPx = portrait ? minWidthPx : maxWidthPx;
-            mTargetHeightPx = portrait ? maxHeightPx : minHeightPx;
+        private Sizes(int targetWidthPx, int targetHeightPx) {
+            mTargetWidthPx = targetWidthPx;
+            mTargetHeightPx = targetHeightPx;
         }
 
         private void setClockFontSizePx(int fontSizePx) {
@@ -453,16 +442,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         private Sizes newSize() {
-            return new Sizes(mPortrait, mMinimumWidthPx, mMinimumHeightPx, mMaximumWidthPx,
-                    mMaximumHeightPx);
+            return new Sizes(mTargetWidthPx, mTargetHeightPx);
         }
 
         @Override
         public String toString() {
             final StringBuilder builder = new StringBuilder(1000);
             builder.append("\n");
-            append(builder, "Widget minimums: %dpx x %dpx\n", mMinimumWidthPx, mMinimumHeightPx);
-            append(builder, "Widget maximums: %dpx x %dpx\n", mMaximumWidthPx, mMaximumHeightPx);
             append(builder, "Target dimensions: %dpx x %dpx\n", mTargetWidthPx, mTargetHeightPx);
             append(builder, "Last valid widget container measurement: %dpx x %dpx\n",
                     mMeasuredWidthPx, mMeasuredHeightPx);
@@ -470,11 +456,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
                     mMeasuredTextClockWidthPx, mMeasuredTextClockHeightPx);
             if (mMeasuredWidthPx > mTargetWidthPx) {
                 append(builder, "Measured width %dpx exceeded widget width %dpx\n",
-                        mMeasuredWidthPx, mMinimumWidthPx);
+                        mMeasuredWidthPx, mTargetWidthPx);
             }
             if (mMeasuredHeightPx > mTargetHeightPx) {
                 append(builder, "Measured height %dpx exceeded widget height %dpx\n",
-                        mMeasuredHeightPx, mMinimumHeightPx);
+                        mMeasuredHeightPx, mTargetHeightPx);
             }
             append(builder, "Clock font: %dpx\n", mClockFontSizePx);
             return builder.toString();
