@@ -16,8 +16,12 @@
 
 package com.android.deskclock.data;
 
+import android.content.ContentUris;
+import android.net.Uri;
 import android.os.SystemClock;
 import android.text.TextUtils;
+
+import com.android.deskclock.provider.ClockContract;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -66,6 +70,12 @@ public final class Timer {
             return null;
         }
     }
+
+    /**
+     * The content:// style URI for timers.
+     */
+    public static final Uri CONTENT_URI =
+            Uri.parse("content://" + ClockContract.AUTHORITY + "/timers");
 
     /** The minimum duration of a timer. */
     public static final long MIN_LENGTH = SECOND_IN_MILLIS;
@@ -120,6 +130,20 @@ public final class Timer {
     public boolean isRunning() { return mState == RUNNING; }
     public boolean isPaused() { return mState == PAUSED; }
     public boolean isExpired() { return mState == EXPIRED; }
+
+    /**
+     * @return the {@link Uri} identifying the timer instance.
+     */
+    public Uri getContentUri() {
+        return ContentUris.withAppendedId(CONTENT_URI, mId);
+    }
+
+    /**
+     * @return the amount of remaining time when the timer was last started or paused.
+     */
+    public long getLastRemainingTime() {
+        return mRemainingTime;
+    }
 
     /**
      * @return the total amount of time remaining up to this moment; expired timers will return a
