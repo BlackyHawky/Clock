@@ -89,10 +89,20 @@ public final class DataModel {
     }
 
     /**
+     * Convenience for {@code run(runnable, 0)}, i.e. waits indefinitely.
+     */
+    public void run(Runnable runnable) {
+        try {
+            run(runnable, 0 /* waitMillis */);
+        } catch (InterruptedException ignored) {
+        }
+    }
+
+    /**
      * Posts a runnable to the main thread and blocks until the runnable executes. Used to access
      * the data model from the main thread.
      */
-    public void run(Runnable runnable) {
+    public void run(Runnable runnable, long waitMillis) throws InterruptedException {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run();
             return;
@@ -104,11 +114,7 @@ public final class DataModel {
         // Wait for the data to arrive, if it has not.
         synchronized (er) {
             if (!er.isExecuted()) {
-                try {
-                    er.wait();
-                } catch (InterruptedException ignored) {
-                    // ignore
-                }
+                er.wait(waitMillis);
             }
         }
     }
