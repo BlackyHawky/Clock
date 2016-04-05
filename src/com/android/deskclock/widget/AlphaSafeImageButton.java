@@ -21,6 +21,8 @@ import android.graphics.drawable.RippleDrawable;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.AttributeSet;
 
+import com.android.deskclock.Utils;
+
 /**
  * A lightweight {@code ImageButton} subclass to provide a workaround for bad interactions
  * when animating a View's alpha with a {@link RippleDrawable} background.
@@ -44,6 +46,9 @@ public class AlphaSafeImageButton extends AppCompatImageButton {
      */
     @Override
     public boolean hasOverlappingRendering() {
-        return !(getBackground() instanceof RippleDrawable) && super.hasOverlappingRendering();
+        if (Utils.isLOrLater() && getBackground() instanceof RippleDrawable) {
+            return false;
+        }
+        return super.hasOverlappingRendering();
     }
 }

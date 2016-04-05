@@ -67,6 +67,12 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         }
     }
 
+    @Override
+    public void onMorphFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+        // Pass through to onUpdateFabButtons because there is no spec for morphing button icon.
+        onUpdateFabButtons(left, right);
+    }
+
     /**
      * @return {@code true} iff the currently selected tab displays this fragment
      */
