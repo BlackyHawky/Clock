@@ -90,5 +90,8 @@
     <dimen name="min_digital_widget_width">300dp</dimen>
     <dimen name="min_digital_widget_height">170dp</dimen>
 
+    <!-- The fixed size of the font for the city name / day of week in the city widget. -->
+    <dimen name="city_widget_name_font_size">20dp</dimen>
+
     <dimen name="footer_button_size">80dip</dimen>
 </resources>

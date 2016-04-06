@@ -296,7 +296,7 @@ public final class CitySelectionActivity extends BaseActivity {
         }
 
         @Override
-        public synchronized View getView(int position, View view, ViewGroup parent) {
+        public View getView(int position, View view, ViewGroup parent) {
             final int itemViewType = getItemViewType(position);
             switch (itemViewType) {
                 case VIEW_TYPE_SELECTED_CITIES_HEADER:

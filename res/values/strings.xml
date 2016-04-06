@@ -184,8 +184,14 @@
          this character, i.e. "Mon, Tue, Wed" -->
     <string name="day_concat">", "</string>
 
-    <!-- Label for analog clock gadget displayed on-screen when that gadget is represented to the user. -->
+    <!-- Label for analog clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
     <string name="analog_gadget">Analog clock</string>
+
+    <!-- Label for digital clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
+    <string name="digital_gadget">Digital clock</string>
+
+    <!-- Label for city clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
+    <string name="city_gadget">World clock</string>
 
     <!-- Settings activity name -->
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
@@ -747,9 +753,6 @@
     <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
     <!-- Description of field showing the next alarm time in the clock page, for accessibility. -->
     <string name="next_alarm_description">Next alarm: <xliff:g id="alarm_time" example="Wed 8:00am">%s</xliff:g></string>
-
-    <!-- Label for digital clock gadget displayed on-screen when that gadget is represented to the user. -->
-    <string name="digital_gadget">Digital clock</string>
 
     <!-- String for no alarms -->
     <string name="no_alarms">No Alarms</string>

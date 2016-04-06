@@ -63,7 +63,6 @@
 
         <activity
             android:name=".DeskClock"
-            android:icon="@mipmap/ic_launcher_alarmclock"
             android:label="@string/app_label"
             android:launchMode="singleTask"
             android:theme="@style/DeskClockTheme"
@@ -78,7 +77,6 @@
         <activity-alias
             android:name=".DockClock"
             android:enabled="false"
-            android:icon="@mipmap/ic_launcher_alarmclock"
             android:label="@string/app_label"
             android:launchMode="singleTask"
             android:targetActivity="DeskClock"
@@ -109,6 +107,17 @@
             android:theme="@style/CitiesTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".worldclock.WidgetCitySelectionActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/cities_activity_title"
+            android:taskAffinity=""
+            android:theme="@style/CitiesTheme">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
 
@@ -259,7 +268,6 @@
 
         <receiver
             android:name="com.android.alarmclock.AnalogAppWidgetProvider"
-            android:icon="@mipmap/ic_launcher_alarmclock"
             android:label="@string/analog_gadget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -275,7 +283,6 @@
 
         <receiver
             android:name="com.android.alarmclock.DigitalAppWidgetProvider"
-            android:icon="@mipmap/ic_launcher_alarmclock"
             android:label="@string/digital_gadget">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_ON" />
@@ -288,6 +295,22 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/digital_appwidget" />
+        </receiver>
+
+        <receiver
+            android:name="com.android.alarmclock.CityAppWidgetProvider"
+            android:label="@string/city_gadget">
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.DATE_CHANGED" />
+                <action android:name="android.intent.action.LOCALE_CHANGED" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/city_appwidget" />
         </receiver>
 
         <!-- Dream (screensaver) implementation -->
