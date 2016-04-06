@@ -15,6 +15,8 @@
 -->
 
 <resources>
+    <!-- Format for displaying the day of week with a preceding slash divider. -->
+    <string name="abbrev_wday">&#160;/ EEE</string>
     <!-- String matching the lock screen format for displaying the date. -->
     <string name="abbrev_wday_month_day_no_year">EEEMMMd</string>
     <!-- Format for describing the date, for accessibility. -->

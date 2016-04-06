@@ -217,6 +217,14 @@ final class CityModel {
         mUnselectedCities = null;
     }
 
+    /**
+     * @param cityId identifies a city
+     * @return the corresponding city
+     */
+    City getCityById(String cityId) {
+        return getCityMap().get(cityId);
+    }
+
     private Map<String, City> getCityMap() {
         if (mCityMap == null) {
             mCityMap = CityDAO.getCities(mContext);

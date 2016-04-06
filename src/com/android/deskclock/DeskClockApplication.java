@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 
+import com.android.alarmclock.CityAppWidgetProvider;
 import com.android.alarmclock.DigitalAppWidgetProvider;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
@@ -53,6 +54,7 @@ public class DeskClockApplication extends Application {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
 
+        updateWidgets(CityAppWidgetProvider.class);
         updateWidgets(DigitalAppWidgetProvider.class);
     }
 

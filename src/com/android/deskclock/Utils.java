@@ -433,6 +433,38 @@ public class Utils {
     }
 
     /**
+     * Given a point in time, return the subsequent moment any of the time zones changes days.
+     * e.g. Given 8:00pm on 1/1/2016 and time zones in LA and NY this method would return a Date for
+     * midnight on 1/2/2016 in the NY timezone since it changes days first.
+     *
+     * @param time a point in time from which to compute midnight on the subsequent day
+     * @param zones a collection of time zones
+     * @return the nearest point in the future at which any of the time zones changes days
+     */
+    public static Date getNextDay(Date time, Collection<TimeZone> zones) {
+        Calendar next = null;
+        for (TimeZone tz : zones) {
+            final Calendar c = Calendar.getInstance(tz);
+            c.setTime(time);
+
+            // Advance to the next day.
+            c.add(Calendar.DAY_OF_YEAR, 1);
+
+            // Reset the time to midnight.
+            c.set(Calendar.HOUR_OF_DAY, 0);
+            c.set(Calendar.MINUTE, 0);
+            c.set(Calendar.SECOND, 0);
+            c.set(Calendar.MILLISECOND, 0);
+
+            if (next == null || c.compareTo(next) < 0) {
+                next = c;
+            }
+        }
+
+        return next == null ? null : next.getTime();
+    }
+
+    /**
      * Convenience method for retrieving a themed color value.
      *
      * @param context  the {@link Context} to resolve the theme attribute against
