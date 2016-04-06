@@ -37,8 +37,8 @@ import com.android.alarmclock.CityAppWidgetProvider;
 import com.android.deskclock.BaseActivity;
 import com.android.deskclock.DropShadowController;
 import com.android.deskclock.R;
-import com.android.deskclock.actionbarmenu.ActionBarMenuManager;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
+import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.SearchMenuItemController;
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
@@ -62,7 +62,7 @@ import static android.appwidget.AppWidgetManager.INVALID_APPWIDGET_ID;
 public final class WidgetCitySelectionActivity extends BaseActivity {
 
     /** Manages all action bar menu display and click handling. */
-    private final ActionBarMenuManager mActionBarMenuManager = new ActionBarMenuManager();
+    private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
     /** The list of all cities, indexed and possibly filtered. */
     private ListView mCitiesList;
@@ -94,7 +94,7 @@ public final class WidgetCitySelectionActivity extends BaseActivity {
 
         setContentView(R.layout.cities_activity);
         mSearchMenuItemController =
-                new SearchMenuItemController(new SearchView.OnQueryTextListener() {
+                new SearchMenuItemController(this, new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
                         return false;
@@ -108,7 +108,7 @@ public final class WidgetCitySelectionActivity extends BaseActivity {
                     }
                 }, savedInstanceState);
         mCitiesAdapter = new CityAdapter(this);
-        mActionBarMenuManager.addMenuItemController(new NavUpMenuItemController(this))
+        mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
                 .addMenuItemController(mSearchMenuItemController);
         mCitiesList = (ListView) findViewById(R.id.cities_list);
         mCitiesList.setScrollBarStyle(View.SCROLLBARS_INSIDE_INSET);
@@ -143,19 +143,19 @@ public final class WidgetCitySelectionActivity extends BaseActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        mActionBarMenuManager.createOptionsMenu(menu, getMenuInflater());
+        mOptionsMenuManager.onCreateOptionsMenu(menu);
         return true;
     }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        mActionBarMenuManager.prepareShowMenu(menu);
+        mOptionsMenuManager.onPrepareOptionsMenu(menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mActionBarMenuManager.handleMenuItemClick(item)) {
+        if (mOptionsMenuManager.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
