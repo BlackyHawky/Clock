@@ -9,13 +9,16 @@ public interface FabContainer {
 
     enum UpdateType {
         /** Signals just the fab should be "animated away", updated, and "animated back". */
-        FAB_ONLY_ANIMATED,
+        FAB_ONLY_SHRINK_AND_EXPAND,
 
         /** Signals the fab and buttons should be "animated away", updated, and "animated back". */
-        FAB_AND_BUTTONS_ANIMATED,
+        FAB_AND_BUTTONS_SHRINK_AND_EXPAND,
 
         /** Signals that the fab and buttons should be updated in place with no animation. */
         FAB_AND_BUTTONS_IMMEDIATE,
+
+        /** Signals that the fab and buttons should morph into a new state in place. **/
+        FAB_AND_BUTTONS_MORPH,
 
         /** Disable the buttons of the fab so they do not respond to clicks. */
         DISABLE_BUTTONS
