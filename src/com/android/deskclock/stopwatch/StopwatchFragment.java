@@ -20,14 +20,14 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
-import android.transition.AutoTransition;
-import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,8 +56,8 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
+import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_MORPH;
 import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
-
 /**
  * Fragment that shows the stopwatch and recorded laps.
  */
@@ -89,6 +89,9 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     /** Displays the current stopwatch time. */
     private CountingTimerView mTimeText;
+
+    /** Number of laps the stopwatch is tracking. */
+    private int mLapCount;
 
     /** The public no-arg constructor required by all fragments. */
     public StopwatchFragment() {
@@ -130,10 +133,11 @@ public final class StopwatchFragment extends DeskClockFragment {
         super.onResume();
 
         // Conservatively assume the data in the adapter has changed while the fragment was paused.
+        mLapCount = mLapsAdapter.getItemCount();
         mLapsAdapter.notifyDataSetChanged();
 
         // Synchronize the user interface with the data model.
-        updateUI();
+        updateUI(FAB_AND_BUTTONS_IMMEDIATE);
 
         // Start watching for page changes away from this fragment.
         UiDataModel.getUiDataModel().addTabListener(mTabWatcher);
@@ -207,10 +211,11 @@ public final class StopwatchFragment extends DeskClockFragment {
                 right.setVisibility(INVISIBLE);
                 break;
             case RUNNING:
+                final boolean canRecordLaps = canRecordMoreLaps();
                 left.setImageResource(R.drawable.ic_lap);
                 left.setContentDescription(left.getResources().getString(R.string.sw_lap_button));
-                left.setEnabled(canRecordMoreLaps());
-                left.setVisibility(canRecordMoreLaps() ? VISIBLE : INVISIBLE);
+                left.setEnabled(canRecordLaps);
+                left.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
                 right.setVisibility(INVISIBLE);
                 break;
             case PAUSED:
@@ -220,6 +225,64 @@ public final class StopwatchFragment extends DeskClockFragment {
                 left.setVisibility(VISIBLE);
                 right.setVisibility(VISIBLE);
                 break;
+        }
+    }
+
+    @Override
+    public void onMorphFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+        right.setImageResource(R.drawable.ic_share);
+        right.setContentDescription(right.getResources().getString(R.string.sw_share_button));
+        switch (getStopwatch().getState()) {
+            case RESET:
+                left.setEnabled(false);
+                left.setVisibility(INVISIBLE);
+                right.setVisibility(INVISIBLE);
+                break;
+            case RUNNING: {
+                final boolean canRecordLaps = canRecordMoreLaps();
+                updateLapIcon(left);
+                left.setContentDescription(left.getResources().getString(R.string.sw_lap_button));
+                left.setEnabled(canRecordLaps);
+                left.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
+                final Drawable icon = left.getDrawable();
+                if (icon instanceof Animatable) {
+                    ((Animatable) icon).start();
+                }
+                break;
+            }
+            case PAUSED: {
+                left.setEnabled(true);
+                updateResetIcon(left);
+                left.setContentDescription(left.getResources().getString(R.string.sw_reset_button));
+                left.setVisibility(VISIBLE);
+                right.setVisibility(VISIBLE);
+                final Drawable icon = left.getDrawable();
+                if (icon instanceof Animatable) {
+                    ((Animatable) icon).start();
+                }
+                break;
+            }
+        }
+    }
+
+    private void updateLapIcon(ImageButton button) {
+        if (Utils.isLMR1OrLater()) {
+            final int newLapCount = mLapsAdapter.getItemCount();
+            if (newLapCount == mLapCount) {
+                button.setImageResource(R.drawable.ic_reset_lap_animation);
+            } else {
+                button.setImageResource(R.drawable.ic_lap_animation);
+            }
+        } else {
+            button.setImageResource(R.drawable.ic_lap);
+        }
+    }
+
+    private void updateResetIcon(ImageButton button) {
+        if (Utils.isLMR1OrLater()) {
+            button.setImageResource(R.drawable.ic_lap_reset_animation);
+        } else {
+            button.setImageResource(R.drawable.ic_reset);
         }
     }
 
@@ -287,7 +350,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
 
         // Update button states.
-        updateFab(FAB_AND_BUTTONS_IMMEDIATE);
+        updateFab(FAB_AND_BUTTONS_MORPH);
 
         if (lap.getLapNumber() == 1) {
             // Child views from prior lap sets hang around and blit to the screen when adding the
@@ -304,6 +367,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Ensure the newly added lap is visible on screen.
         mLapsList.scrollToPosition(0);
+        mLapCount = mLapsAdapter.getItemCount();
     }
 
     /**
@@ -392,7 +456,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     /**
      * Synchronize the UI state with the model data.
      */
-    private void updateUI() {
+    private void updateUI(UpdateType updateType) {
         adjustWakeLock();
 
         // Draw the latest stopwatch and current lap times.
@@ -413,7 +477,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         showOrHideLaps(stopwatch.isReset());
 
         // Update button states.
-        updateFab(FAB_AND_BUTTONS_IMMEDIATE);
+        updateFab(updateType);
     }
 
     /**
@@ -470,7 +534,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         @Override
         public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
             if (DataModel.getDataModel().isApplicationInForeground()) {
-                updateUI();
+                updateUI(FAB_AND_BUTTONS_MORPH);
             }
         }
 

@@ -54,7 +54,7 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.SCALE_X;
 import static android.view.View.VISIBLE;
 import static com.android.deskclock.FabContainer.UpdateType.DISABLE_BUTTONS;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_ANIMATED;
+import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_SHRINK_AND_EXPAND;
 import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
 import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
@@ -520,9 +520,9 @@ public final class TimerFragment extends DeskClockFragment {
 
                 mCurrentView.setScaleX(1);
                 if (toTimers) {
-                    showTimersView(FAB_AND_BUTTONS_ANIMATED);
+                    showTimersView(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
                 } else {
-                    showCreateTimerView(FAB_AND_BUTTONS_ANIMATED);
+                    showCreateTimerView(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
                 }
             }
         });

@@ -31,6 +31,15 @@ public interface FabController {
     void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right);
 
     /**
+     * Animates the display of the buttons to the left and right of the fab to match the current
+     * state of this controller.
+     *
+     * @param left button to the left of the fab to configure based on current state
+     * @param right button to the right of the fab to configure based on current state
+     */
+    void onMorphFabButtons(@NonNull ImageButton left, @NonNull ImageButton right);
+
+    /**
      * Handles a click on the fab.
      *
      * @param fab the fab component on which the click occurred

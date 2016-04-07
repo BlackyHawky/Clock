@@ -325,27 +325,34 @@ public class DeskClock extends BaseActivity
     @Override
     public void updateFab(UpdateType updateType) {
         switch (updateType) {
-            case DISABLE_BUTTONS:
+            case DISABLE_BUTTONS: {
                 mLeftButton.setEnabled(false);
                 mRightButton.setEnabled(false);
                 break;
-
-            case FAB_AND_BUTTONS_IMMEDIATE:
+            }
+            case FAB_AND_BUTTONS_IMMEDIATE: {
                 final DeskClockFragment f = getSelectedDeskClockFragment();
                 f.onUpdateFab(mFab);
                 f.onUpdateFabButtons(mLeftButton, mRightButton);
                 break;
-
-            case FAB_ONLY_ANIMATED:
+            }
+            case FAB_AND_BUTTONS_MORPH: {
+                final DeskClockFragment f = getSelectedDeskClockFragment();
+                f.onUpdateFab(mFab);
+                f.onMorphFabButtons(mLeftButton, mRightButton);
+                break;
+            }
+            case FAB_ONLY_SHRINK_AND_EXPAND: {
                 mUpdateFabOnlyAnimation.start();
                 break;
-
-            case FAB_AND_BUTTONS_ANIMATED:
+            }
+            case FAB_AND_BUTTONS_SHRINK_AND_EXPAND: {
                 // Ensure there is never more than one mAutoStartShowListener registered.
                 mHideAnimation.removeListener(mAutoStartShowListener);
                 mHideAnimation.addListener(mAutoStartShowListener);
                 mHideAnimation.start();
                 break;
+            }
         }
     }
 

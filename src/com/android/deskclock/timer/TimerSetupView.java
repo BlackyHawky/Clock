@@ -35,7 +35,7 @@ import com.android.deskclock.Utils;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import static com.android.deskclock.FabContainer.UpdateType.FAB_ONLY_ANIMATED;
+import static com.android.deskclock.FabContainer.UpdateType.FAB_ONLY_SHRINK_AND_EXPAND;
 
 public class TimerSetupView extends LinearLayout implements Button.OnClickListener,
         Button.OnLongClickListener {
@@ -231,6 +231,6 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     }
 
     private void updateFab() {
-        mFabContainer.updateFab(FAB_ONLY_ANIMATED);
+        mFabContainer.updateFab(FAB_ONLY_SHRINK_AND_EXPAND);
     }
 }
