@@ -201,6 +201,19 @@ public final class UiDataModel {
         return mTabModel.isTabScrolledToTop(getSelectedTab());
     }
 
+    /**
+     * This method converts the given {@code ltrTabIndex} which assumes Left-To-Right layout of the
+     * tabs into an index that respects the system layout, which may be Left-To-Right or
+     * Right-To-Left.
+     *
+     * @param ltrTabIndex the tab index assuming left-to-right layout direction
+     * @return the tab index in the current layout direction
+     */
+    public int getTabLayoutIndex(int ltrTabIndex) {
+        enforceMainLooper();
+        return mTabModel.getTabLayoutIndex(ltrTabIndex);
+    }
+
     //
     // Timed Callbacks
     //
@@ -247,18 +260,5 @@ public final class UiDataModel {
     public void removePeriodicCallback(Runnable runnable) {
         enforceMainLooper();
         mPeriodicCallbackModel.removePeriodicCallback(runnable);
-    }
-
-    /**
-     * This method converts the given {@code ltrTabIndex} which assumes Left-To-Right layout of the
-     * tabs into an index that respects the system layout, which may be Left-To-Right or
-     * Right-To-Left.
-     *
-     * @param ltrTabIndex the tab index assuming left-to-right layout direction
-     * @return the tab index in the current layout direction
-     */
-    public int getTabLayoutIndex(int ltrTabIndex) {
-        enforceMainLooper();
-        return mTabModel.getTabLayoutIndex(ltrTabIndex);
     }
 }

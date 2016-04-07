@@ -294,6 +294,9 @@
     <!-- Text to display when alarm volume is muted. -->
     <string name="alarm_volume_muted">Alarm volume muted</string>
 
+    <!-- Text for action that presents a volume control to adjust alarm volume. -->
+    <string name="unmute_alarm_volume">Unmute</string>
+
     <!-- Title of the setting to change hardware button behavior. This string
          should be changed for each piece of hardware. [CHAR LIMIT=20] -->
     <string name="volume_button_setting_title">Volume buttons</string>

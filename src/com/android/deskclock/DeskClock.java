@@ -24,8 +24,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.database.ContentObserver;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v13.app.FragmentPagerAdapter;
@@ -53,10 +57,17 @@ import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
 import com.android.deskclock.widget.RtlViewPager;
+import com.android.deskclock.widget.toast.SnackbarManager;
 
+import static android.media.AudioManager.ADJUST_SAME;
+import static android.media.AudioManager.FLAG_SHOW_UI;
+import static android.media.AudioManager.STREAM_ALARM;
+import static android.provider.Settings.System.CONTENT_URI;
+import static android.support.design.widget.Snackbar.LENGTH_LONG;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
+import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 import static com.android.deskclock.AnimatorUtils.getAlphaAnimator;
 import static com.android.deskclock.AnimatorUtils.getScaleAnimator;
 import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
@@ -89,6 +100,21 @@ public class DeskClock extends BaseActivity
 
     /** Updates the user interface to reflect the selected tab from the backing model. */
     private final TabListener mTabChangeWatcher = new TabChangeWatcher();
+
+    /** Displays a snackbar explaining that the alarm volume is muted, possibly after a delay. */
+    private final Runnable mShowMutedVolumeSnackbarRunnable = new ShowMutedVolumeSnackbarRunnable();
+
+    /** Observes alarm volume changes while the app is in the foreground. */
+    private final ContentObserver mAlarmVolumeChangeObserver = new AlarmVolumeChangeObserver();
+
+    /** Used to query the alarm volume and display the system control to change the alarm volume. */
+    private AudioManager mAudioManager;
+
+    /** {@code true} permits the muted alarm volume snackbar to show when starting this activity. */
+    private boolean mShowMutedVolumeSnackbar;
+
+    /** The view to which snackbar items are anchored. */
+    private View mSnackbarAnchor;
 
     /** The current display state of the {@link #mFab}. */
     private FabState mFabState = FabState.SHOWING;
@@ -137,6 +163,11 @@ public class DeskClock extends BaseActivity
         }
 
         setContentView(R.layout.desk_clock);
+
+        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+        // Don't show the volume muted snackbar on rotations.
+        mShowMutedVolumeSnackbar = savedInstanceState == null;
+        mSnackbarAnchor = findViewById(R.id.coordinator);
 
         // Configure the toolbar.
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -239,11 +270,27 @@ public class DeskClock extends BaseActivity
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (mShowMutedVolumeSnackbar && mAudioManager.getStreamVolume(STREAM_ALARM) <= 0) {
+            // Show the volume muted snackbar after a brief delay so it is more noticeable.
+            mSnackbarAnchor.postDelayed(mShowMutedVolumeSnackbarRunnable, SECOND_IN_MILLIS);
+        }
+
+        // Subsequent starts of this activity should show the snackbar by default.
+        mShowMutedVolumeSnackbar = true;
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
         final View dropShadow = findViewById(R.id.drop_shadow);
         mDropShadowController = new DropShadowController(dropShadow, UiDataModel.getUiDataModel());
+
+        // Watch for alarm volume changes while the app is in the foreground.
+        getContentResolver().registerContentObserver(CONTENT_URI, true, mAlarmVolumeChangeObserver);
 
         // Honor the selected tab in case it changed while the app was paused.
         updateCurrentTab(UiDataModel.getUiDataModel().getSelectedTabIndex());
@@ -271,9 +318,22 @@ public class DeskClock extends BaseActivity
 
     @Override
     public void onPause() {
+        // Stop watching for alarm volume changes while the app is in the background.
+        getContentResolver().unregisterContentObserver(mAlarmVolumeChangeObserver);
+
         DataModel.getDataModel().setApplicationInForeground(false);
+
         mDropShadowController.stop();
+        mDropShadowController = null;
+
         super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        // Remove any scheduled work to show the muted volume snackbar; it is no longer relevant.
+        mSnackbarAnchor.removeCallbacks(mShowMutedVolumeSnackbarRunnable);
+        super.onStop();
     }
 
     @Override
@@ -386,6 +446,20 @@ public class DeskClock extends BaseActivity
         return (DeskClockFragment) mFragmentTabPagerAdapter.getItem(index);
     }
 
+    private void showAlarmVolumeMutedSnackbar() {
+        final OnClickListener unmuteClickListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAudioManager.adjustStreamVolume(STREAM_ALARM, ADJUST_SAME, FLAG_SHOW_UI);
+            }
+        };
+
+        SnackbarManager.show(
+                Snackbar.make(mSnackbarAnchor, R.string.alarm_volume_muted, LENGTH_LONG)
+                        .setAction(R.string.unmute_alarm_volume, unmuteClickListener)
+        );
+    }
+
     /**
      * As the view pager changes the selected page, update the model to record the new selected tab.
      */
@@ -471,6 +545,38 @@ public class DeskClock extends BaseActivity
 
             // The animation to show the fab has begun; update the state to showing.
             mFabState = FabState.SHOWING;
+        }
+    }
+
+    /**
+     * Displays a snackbar that indicates the alarm volume is currently muted and offers an action
+     * that displays the system volume control to adjust it. This runnable may be executed
+     * immediately (if the volume is changed while this app is in the foreground) or after a delay
+     * (if the volume is detected to be zero while bringing the app to the foreground).
+     */
+    private final class ShowMutedVolumeSnackbarRunnable implements Runnable {
+        @Override
+        public void run() {
+            showAlarmVolumeMutedSnackbar();
+        }
+    }
+
+    /**
+     * Observe changes to the alarm stream volume while the application is in the foreground and
+     * show/hide the snackbar that warns when the alarm volume is muted.
+     */
+    private final class AlarmVolumeChangeObserver extends ContentObserver {
+        private AlarmVolumeChangeObserver() {
+            super(new Handler());
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            if (mAudioManager.getStreamVolume(STREAM_ALARM) <= 0) {
+                showAlarmVolumeMutedSnackbar();
+            } else {
+                SnackbarManager.dismiss();
+            }
         }
     }
 
