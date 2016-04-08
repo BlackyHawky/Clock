@@ -61,6 +61,7 @@ import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 import static com.android.deskclock.alarms.AlarmStateManager.SYSTEM_ALARM_CHANGE_ACTION;
 import static java.lang.Math.max;
+import static java.lang.Math.round;
 
 /**
  * <p>This provider produces a widget resembling one of the formats below.</p>
@@ -159,8 +160,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Configure child views of the remote view.
-        widget.setCharSequence(R.id.clock, "setFormat12Hour", get12HourFormat());
-        widget.setCharSequence(R.id.clock, "setFormat24Hour", Utils.get24ModeFormat());
+        widget.setCharSequence(R.id.clock, "setFormat12Hour", get12HourFormat(context));
+        widget.setCharSequence(R.id.clock, "setFormat24Hour", get24ModeFormat(context));
 
         final CharSequence dateFormat = getDateFormat(context);
         widget.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
@@ -190,9 +191,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final boolean portrait = resources.getConfiguration().orientation == ORIENTATION_PORTRAIT;
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
+        final int largestClockFontSizePx =
+                resources.getDimensionPixelSize(R.dimen.widget_max_clock_font_size);
 
         // Create a size template that describes the widget bounds.
-        final Sizes template = new Sizes(targetWidthPx, targetHeightPx);
+        final Sizes template = new Sizes(targetWidthPx, targetHeightPx, largestClockFontSizePx);
 
         // Compute optimal font sizes and icon sizes to fit within the widget bounds.
         final Sizes sizes = optimizeSizes(context, template, nextAlarmTime);
@@ -202,9 +205,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Apply the computed sizes to the remote views.
         widget.setImageViewBitmap(R.id.nextAlarmIcon, sizes.mIconBitmap);
-        widget.setTextViewTextSize(R.id.date, COMPLEX_UNIT_PX, sizes.mSmallFontSizePx);
+        widget.setTextViewTextSize(R.id.date, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        widget.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         widget.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
-        widget.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mSmallFontSizePx);
         wm.updateAppWidget(widgetId, widget);
     }
 
@@ -220,8 +223,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Configure the clock to display the widest time string.
         final TextClock clock = (TextClock) sizer.findViewById(R.id.clock);
-        clock.setFormat12Hour(get12HourFormat());
-        clock.setFormat24Hour(Utils.get24ModeFormat());
+        clock.setFormat12Hour(get12HourFormat(context));
+        clock.setFormat24Hour(get24ModeFormat(context));
 
         // Configure the date to display the current date string.
         final CharSequence dateFormat = getDateFormat(context);
@@ -242,22 +245,22 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarmIcon.setTypeface(getAlarmIconTypeface(context));
         }
 
-        // Measure the widget at the largest size.
-        Sizes high = measure(template, 400, sizer);
+        // Measure the widget at the largest possible size.
+        Sizes high = measure(template, template.getLargestClockFontSizePx(), sizer);
         if (!high.hasViolations()) {
             return high;
         }
 
-        // Measure the widget at the smallest size.
-        Sizes low = measure(template, 10, sizer);
+        // Measure the widget at the smallest possible size.
+        Sizes low = measure(template, template.getSmallestClockFontSizePx(), sizer);
         if (low.hasViolations()) {
             return low;
         }
 
         // Binary search between the smallest and largest sizes until an optimum size is found.
-        while (low.getClockFontSize() != high.getClockFontSize()) {
-            final int midFontSize = (low.getClockFontSize() + high.getClockFontSize()) / 2;
-            if (midFontSize == low.getClockFontSize()) {
+        while (low.getClockFontSizePx() != high.getClockFontSizePx()) {
+            final int midFontSize = (low.getClockFontSizePx() + high.getClockFontSizePx()) / 2;
+            if (midFontSize == low.getClockFontSizePx()) {
                 return low;
             }
 
@@ -275,43 +278,9 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     /**
      * Compute all font and icon sizes based on the given {@code clockFontSize} and apply them to
      * the offscreen {@code sizer} view. Measure the {@code sizer} view and return the resulting
-     * size measurements. Since the localized strings for "AM" and "PM" may be different, layouts
-     * for morning and afternoon times are measured and the largest dimensions are reported as the
-     * required size.
+     * size measurements.
      */
     private static Sizes measure(Sizes template, int clockFontSize, View sizer) {
-        final TextClock clock = (TextClock) sizer.findViewById(R.id.clock);
-        final CharSequence amTime = getLongestAMTimeString(clock);
-        final CharSequence pmTime = getLongestPMTimeString(clock);
-
-        // Measure the size of the widget at 11:59AM and 11:59PM.
-        final Sizes amSizes = measure(template, clockFontSize, amTime, sizer);
-        final Sizes pmSizes = measure(template, clockFontSize, pmTime, sizer);
-
-        // Report the largest dimensions between the two different times.
-        final Sizes merged = amSizes.newSize();
-        merged.setClockFontSizePx(clockFontSize);
-        merged.mMeasuredWidthPx = max(amSizes.mMeasuredWidthPx, pmSizes.mMeasuredWidthPx);
-        merged.mMeasuredHeightPx = max(amSizes.mMeasuredHeightPx, pmSizes.mMeasuredHeightPx);
-        merged.mMeasuredTextClockWidthPx =
-                max(amSizes.mMeasuredTextClockWidthPx, pmSizes.mMeasuredTextClockWidthPx);
-        merged.mMeasuredTextClockHeightPx =
-                max(amSizes.mMeasuredTextClockHeightPx, pmSizes.mMeasuredTextClockHeightPx);
-
-        // If an alarm icon is required, generate one from the TextView with the special font.
-        final TextView nextAlarmIcon = (TextView) sizer.findViewById(R.id.nextAlarmIcon);
-        if (nextAlarmIcon.getVisibility() == VISIBLE) {
-            merged.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
-        }
-        return merged;
-    }
-
-    /**
-     * Compute all font and icon sizes based on the given {@code clockFontSize} at the given
-     * {@code time} and apply them to the offscreen {@code sizer} view. Measure the {@code sizer}
-     * view and return the resulting size measurements.
-     */
-    private static Sizes measure(Sizes template, int clockFontSize, CharSequence time, View sizer) {
         // Create a copy of the given template sizes.
         final Sizes measuredSizes = template.newSize();
 
@@ -323,10 +292,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         // Adjust the font sizes.
         measuredSizes.setClockFontSizePx(clockFontSize);
-        clock.setText(time);
+        clock.setText(getLongestTimeString(clock));
         clock.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mClockFontSizePx);
-        date.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mSmallFontSizePx);
-        nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mSmallFontSizePx);
+        date.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
+        nextAlarm.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
         nextAlarmIcon.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mIconFontSizePx);
         nextAlarmIcon.setPadding(measuredSizes.mIconPaddingPx, 0, measuredSizes.mIconPaddingPx, 0);
 
@@ -344,25 +313,18 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         measuredSizes.mMeasuredTextClockWidthPx = clock.getMeasuredWidth();
         measuredSizes.mMeasuredTextClockHeightPx = clock.getMeasuredHeight();
 
+        // If an alarm icon is required, generate one from the TextView with the special font.
+        if (nextAlarmIcon.getVisibility() == VISIBLE) {
+            measuredSizes.mIconBitmap = Utils.createBitmap(nextAlarmIcon);
+        }
+
         return measuredSizes;
     }
 
     /**
-     * @return "11:59AM" or "11:59" in the current locale
+     * @return "11:59" or "23:59" in the current locale
      */
-    private static CharSequence getLongestAMTimeString(TextClock clock) {
-        final CharSequence format = clock.is24HourModeEnabled()
-                ? clock.getFormat24Hour()
-                : clock.getFormat12Hour();
-        final Calendar longestAMTime = Calendar.getInstance();
-        longestAMTime.set(0, 0, 0, 11, 59);
-        return DateFormat.format(format, longestAMTime);
-    }
-
-    /**
-     * @return "11:59PM" or "23:59" in the current locale
-     */
-    private static CharSequence getLongestPMTimeString(TextClock clock) {
+    private static CharSequence getLongestTimeString(TextClock clock) {
         final CharSequence format = clock.is24HourModeEnabled()
                 ? clock.getFormat24Hour()
                 : clock.getFormat12Hour();
@@ -372,7 +334,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     }
 
     /**
-     * @return The locale-specific date pattern
+     * @return the locale-specific date pattern
      */
     private static String getDateFormat(Context context) {
         final Locale locale = Locale.getDefault();
@@ -381,11 +343,17 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
     }
 
     /**
-     * @return the locale-specific 12-hour time format with the AM/PM string scaled to 40% of the
-     *      normal font height
+     * @return the 12-hour time format that matches the lock screen
      */
-    private static CharSequence get12HourFormat() {
-        return Utils.get12ModeFormat(0.4f /* amPmRatio */);
+    private static CharSequence get12HourFormat(Context context) {
+        return context.getString(R.string.lock_screen_12_hour_format);
+    }
+
+    /**
+     * @return the 24-hour time format that matches the lock screen
+     */
+    private static CharSequence get24ModeFormat(Context context) {
+        return context.getString(R.string.lock_screen_24_hour_format);
     }
 
     /**
@@ -409,32 +377,39 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         private final int mTargetWidthPx;
         private final int mTargetHeightPx;
+        private final int mLargestClockFontSizePx;
+        private final int mSmallestClockFontSizePx;
+        private Bitmap mIconBitmap;
 
         private int mMeasuredWidthPx;
         private int mMeasuredHeightPx;
         private int mMeasuredTextClockWidthPx;
         private int mMeasuredTextClockHeightPx;
 
+        /** The size of the font to use on the date / next alarm time fields. */
+        private int mFontSizePx;
+
+        /** The size of the font to use on the clock field. */
         private int mClockFontSizePx;
-        private int mSmallFontSizePx;
+
         private int mIconFontSizePx;
         private int mIconPaddingPx;
-        private Bitmap mIconBitmap;
 
-        private Sizes(int targetWidthPx, int targetHeightPx) {
+        private Sizes(int targetWidthPx, int targetHeightPx, int largestClockFontSizePx) {
             mTargetWidthPx = targetWidthPx;
             mTargetHeightPx = targetHeightPx;
+            mLargestClockFontSizePx = largestClockFontSizePx;
+            mSmallestClockFontSizePx = 1;
         }
 
-        private void setClockFontSizePx(int fontSizePx) {
-            mClockFontSizePx = fontSizePx;
-            mSmallFontSizePx = fontSizePx / 4;
-            mIconFontSizePx = (int) (mSmallFontSizePx * 1.4f);
-            mIconPaddingPx = mSmallFontSizePx / 3;
-        }
-
-        private int getClockFontSize() {
-            return mClockFontSizePx;
+        private int getLargestClockFontSizePx() { return mLargestClockFontSizePx; }
+        private int getSmallestClockFontSizePx() { return mSmallestClockFontSizePx; }
+        private int getClockFontSizePx() { return mClockFontSizePx; }
+        private void setClockFontSizePx(int clockFontSizePx) {
+            mClockFontSizePx = clockFontSizePx;
+            mFontSizePx = max(1, round(clockFontSizePx / 7.5f));
+            mIconFontSizePx = (int) (mFontSizePx * 1.4f);
+            mIconPaddingPx = mFontSizePx / 3;
         }
 
         private boolean hasViolations() {
@@ -442,7 +417,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         private Sizes newSize() {
-            return new Sizes(mTargetWidthPx, mTargetHeightPx);
+            return new Sizes(mTargetWidthPx, mTargetHeightPx, mLargestClockFontSizePx);
         }
 
         @Override

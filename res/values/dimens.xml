@@ -133,12 +133,12 @@
 
     <!-- The fixed size of the font for the city name / day of week in the city widget. -->
     <dimen name="city_widget_name_font_size">12dp</dimen>
-    <!-- The maximum size of the font for the time in the city widget. -->
-    <dimen name="city_widget_max_clock_font_size">104dp</dimen>
+    <!-- The maximum size of the font for the time in widgets. -->
+    <dimen name="widget_max_clock_font_size">104dp</dimen>
 
-    <!-- shadow styles for digital widget text -->
-    <item name="digital_widget_shadow_radius" format="float" type="dimen">2.75</item>
-    <item name="digital_widget_shadow_dy" format="float" type="dimen">2.0</item>
+    <!-- shadow styles for widget text with drop shadows -->
+    <item name="widget_shadow_radius" format="float" type="dimen">2.75</item>
+    <item name="widget_shadow_dy" format="float" type="dimen">2.0</item>
 
     <!-- Bottom margin for the expand area -->
     <dimen name="collapse_expand_height">72dip</dimen>
