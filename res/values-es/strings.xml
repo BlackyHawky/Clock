@@ -43,7 +43,7 @@
       <item quantity="other">Pospuesta durante <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
       <item quantity="one">Pospuesta durante 1 minuto.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Repetir a las <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Pospuesta hasta: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próxima alarma"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Se han eliminado las alarmas perdidas"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Queda menos de 1 minuto"</string>
@@ -77,6 +77,8 @@
     <string name="every_day" msgid="4100909974923444602">"Todos los días"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Reloj analógico"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Reloj digital"</string>
+    <string name="city_gadget" msgid="4887290995955830876">"Reloj mundial"</string>
     <string name="settings" msgid="5849739030579520686">"Ajustes"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Repetir alarma después de"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -116,6 +118,8 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Silencio"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Desconocido"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Volumen de la alarma silenciado"</string>
+    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botones de volumen"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Posponer"</item>
@@ -319,7 +323,6 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarma eliminada"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Próxima alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Reloj digital"</string>
     <string name="no_alarms" msgid="6429431324842022917">"No hay alarmas"</string>
     <string name="invalid_time" msgid="2782334750243998633">"La hora <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> no es válida"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"No hay ninguna alarma a las <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>

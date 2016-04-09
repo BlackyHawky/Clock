@@ -77,6 +77,8 @@
     <string name="every_day" msgid="4100909974923444602">"എല്ലാ ദിവസവും"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ക്ലോക്ക്"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"ഡിജിറ്റൽ ക്ലോക്ക്"</string>
+    <string name="city_gadget" msgid="4887290995955830876">"ലോക ക്ലോക്ക്"</string>
     <string name="settings" msgid="5849739030579520686">"ക്രമീകരണങ്ങൾ"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"സ്‌നൂസ് ചെയ്യൽ ദൈർഘ്യം"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -116,6 +118,8 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"നിശബ്‌ദം"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"അജ്ഞാതം"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"അലാറം വോളിയം നിശബ്ദമാക്കി"</string>
+    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"വോളിയം ബട്ടണുകൾ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"സ്‌നൂസ് ചെയ്യുക"</item>
@@ -320,7 +324,6 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"അലാറം ഇല്ലാതാക്കി"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"അടുത്ത അലാറം: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"ഡിജിറ്റൽ ക്ലോക്ക്"</string>
     <string name="no_alarms" msgid="6429431324842022917">"അലാറങ്ങളില്ല"</string>
     <string name="invalid_time" msgid="2782334750243998633">"അസാധുവായ സമയം <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>-ന് അലാറം ഒന്നുമില്ല"</string>

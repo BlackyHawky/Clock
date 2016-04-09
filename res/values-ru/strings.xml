@@ -87,6 +87,8 @@
     <string name="every_day" msgid="4100909974923444602">"Каждый день"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Часы"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Часы"</string>
+    <string name="city_gadget" msgid="4887290995955830876">"Мировые часы"</string>
     <string name="settings" msgid="5849739030579520686">"Настройки"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Интервал повтора сигнала"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -132,6 +134,8 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Без звука"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Неизвестно"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Звук будильника отключен"</string>
+    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Кнопки громкости"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Отложить"</item>
@@ -341,7 +345,6 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"Будильник удален"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Следующий будильник: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Часы"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Будильник отключен"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Время (<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>) указано неверно"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"На <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> не установлено ни одного будильника"</string>

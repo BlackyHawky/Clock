@@ -77,6 +77,8 @@
     <string name="every_day" msgid="4100909974923444602">"រាល់ថ្ងៃ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"នាឡិកា​អាណាឡូក"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"នាឡិកា​ឌីជីថល"</string>
+    <string name="city_gadget" msgid="4887290995955830876">"ម៉ោងសកល"</string>
     <string name="settings" msgid="5849739030579520686">"ការ​កំណត់"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"រយៈពេល​ផ្អាក"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -116,6 +118,8 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ស្ងាត់"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"មិនស្គាល់"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"បានបិទសំឡេងម៉ោងរោទិ៍"</string>
+    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ប៊ូតុង​កម្រិត​សំឡេង"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ផ្អាក"</item>
@@ -320,7 +324,6 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"បានលុបម៉ោងរោទិ៍"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"សំឡេង​រោទ៍​បន្ទាប់៖ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"នាឡិកា​ឌីជីថល"</string>
     <string name="no_alarms" msgid="6429431324842022917">"គ្មាន​ការ​ជូនដំណឹង"</string>
     <string name="invalid_time" msgid="2782334750243998633">"ម៉ោងមិនត្រឹមត្រូវ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"គ្មានម៉ោងរោទិ៍នៅ <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>

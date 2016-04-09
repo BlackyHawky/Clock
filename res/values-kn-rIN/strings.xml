@@ -77,6 +77,8 @@
     <string name="every_day" msgid="4100909974923444602">"ಪ್ರತಿ ದಿನ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ಅನಲಾಗ್ ಗಡಿಯಾರ"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"ಡಿಜಿಟಲ್ ಗಡಿಯಾರ"</string>
+    <string name="city_gadget" msgid="4887290995955830876">"ವಿಶ್ವ ಗಡಿಯಾರ"</string>
     <string name="settings" msgid="5849739030579520686">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"ಸ್ನೂಜ್ ಅವಧಿ"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -116,6 +118,8 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ನಿಶ್ಯಬ್ಧ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ಅಪರಿಚಿತ"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"ಅಲಾರಮ್ ವಾಲ್ಯೂಮ್ ಮ್ಯೂಟ್ ಮಾಡಲಾಗಿದೆ"</string>
+    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ವಾಲ್ಯೂಮ್ ಬಟನ್‌ಗಳು"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ಸ್ನೂಜ್"</item>
@@ -320,7 +324,6 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"ಅಲಾರಮ್ ಅಳಿಸಲಾಗಿದೆ"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"ಮುಂದಿನ ಅಲಾರಂ: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"ಡಿಜಿಟಲ್ ಗಡಿಯಾರ"</string>
     <string name="no_alarms" msgid="6429431324842022917">"ಯಾವುದೇ ಅಲಾರಮ್‌ಗಳಿಲ್ಲ"</string>
     <string name="invalid_time" msgid="2782334750243998633">"ಅಮಾನ್ಯ ಸಮಯ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g> ಸಮಯಕ್ಕೆ ಯಾವುದೇ ಅಲಾರಮ್ ಇಲ್ಲ:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>

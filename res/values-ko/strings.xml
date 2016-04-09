@@ -77,6 +77,8 @@
     <string name="every_day" msgid="4100909974923444602">"매일"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"아날로그 시계"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"디지털 시계"</string>
+    <string name="city_gadget" msgid="4887290995955830876">"세계 시계"</string>
     <string name="settings" msgid="5849739030579520686">"설정"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"다시 울림 간격"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -116,6 +118,8 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"무음"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"알 수 없음"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"알람 볼륨이 음소거되었습니다."</string>
+    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"다시 울림"</item>
@@ -319,7 +323,6 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"알람이 삭제되었습니다."</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"다음 알람: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"디지털 시계"</string>
     <string name="no_alarms" msgid="6429431324842022917">"알람 없음"</string>
     <string name="invalid_time" msgid="2782334750243998633">"잘못된 시간입니다. <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>에 지정된 알람 없음"</string>
