@@ -97,6 +97,8 @@
     <string name="every_day" msgid="4100909974923444602">"كل يوم"</string>
     <string name="day_concat" msgid="971998564991636532">"، "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ساعة عادية"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"ساعة رقمية"</string>
+    <string name="city_gadget" msgid="4887290995955830876">"الساعة الدولية"</string>
     <string name="settings" msgid="5849739030579520686">"الإعدادات"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"طول مدة الغفوة"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -131,11 +133,11 @@
     <string name="auto_silence_never" msgid="4821982647348750809">"أبدًا"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"دقيقة واحدة"</item>
-    <item msgid="5431906692406316549">"5 دقائق"</item>
-    <item msgid="7742728812068919959">"10 دقائق"</item>
-    <item msgid="2855948657259647629">"15 دقيقة"</item>
-    <item msgid="6330196381284475079">"20 دقيقة"</item>
-    <item msgid="7809240121716151904">"25 دقيقة"</item>
+    <item msgid="5431906692406316549">"۵ دقائق"</item>
+    <item msgid="7742728812068919959">"۱۰ دقائق"</item>
+    <item msgid="2855948657259647629">"۱۵ دقيقة"</item>
+    <item msgid="6330196381284475079">"۲۰ دقيقة"</item>
+    <item msgid="7809240121716151904">"۲۵ دقيقة"</item>
     <item msgid="4278641338024561333">"أبدًا"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"بداية الأسبوع يوم"</string>
@@ -148,6 +150,8 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"صامت"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"غير معروف"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"تم كتم صوت المنبه."</string>
+    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"أزرار مستوى الصوت"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"غفوة"</item>
@@ -363,7 +367,6 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"تم حذف المنبه."</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"التنبيه التالي: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"ساعة رقمية"</string>
     <string name="no_alarms" msgid="6429431324842022917">"ليست هناك اشعارات"</string>
     <string name="invalid_time" msgid="2782334750243998633">"الوقت غير صالح <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"لم يتم تعيين منبه للوقت <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
@@ -391,9 +394,9 @@
     <string name="the_city_already_added" msgid="3799050213771793020">"تمت إضافة هذه المدينة من قبل"</string>
     <string name="city_added" msgid="1335509457349179514">"تمت إضافة <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_deleted" msgid="3935141305276867838">"تم حذف <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"لا يمكن تجاهل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> في الوقت الحالي، لأن موعده لا يزال يبعد أكثر من 24 ساعة"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"لا يمكن تجاهل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> في الوقت الحالي، لأن موعده لا يزال يبعد أكثر من ٢٤ ساعة"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"تجاهل التنبيه"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"اختر المنبه المراد تجاهله"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"ليس هناك أي منبه نشط الآن"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"تم تأجيل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> لمدة 10 دقائق"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"تم تأجيل المنبه <xliff:g id="ALARM_TIME">%s</xliff:g> لمدة ۱۰ دقائق"</string>
 </resources>
