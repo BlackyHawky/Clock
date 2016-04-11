@@ -202,7 +202,7 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final int fontSizePx = resources.getDimensionPixelSize(R.dimen.city_widget_name_font_size);
         final int largestClockFontSizePx =
-                resources.getDimensionPixelSize(R.dimen.city_widget_max_clock_font_size);
+                resources.getDimensionPixelSize(R.dimen.widget_max_clock_font_size);
         final Sizes template = new Sizes(city, targetWidthPx, targetHeightPx, fontSizePx,
                 largestClockFontSizePx);
 

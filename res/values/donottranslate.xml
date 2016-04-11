@@ -15,6 +15,10 @@
 -->
 
 <resources>
+    <!-- String matching the lock screen format for displaying 12-hour times. -->
+    <string name="lock_screen_12_hour_format">h&#58;mm</string>
+    <!-- String matching the lock screen format for displaying 24-hour times. -->
+    <string name="lock_screen_24_hour_format">kk&#58;mm</string>
     <!-- Format for displaying the day of week with a preceding slash divider. -->
     <string name="abbrev_wday">&#160;/ EEE</string>
     <!-- String matching the lock screen format for displaying the date. -->
