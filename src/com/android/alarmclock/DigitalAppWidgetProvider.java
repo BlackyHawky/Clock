@@ -54,7 +54,6 @@ import static android.content.Intent.ACTION_DATE_CHANGED;
 import static android.content.Intent.ACTION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_SCREEN_ON;
 import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
-import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
@@ -110,7 +109,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             case SYSTEM_ALARM_CHANGE_ACTION:
             case ACTION_NEXT_ALARM_CLOCK_CHANGED:
                 for (int widgetId : widgetIds) {
-                    updateWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+                    relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                 }
         }
 
@@ -126,7 +125,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         super.onUpdate(context, wm, widgetIds);
 
         for (int widgetId : widgetIds) {
-            updateWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+            relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
         }
     }
 
@@ -139,42 +138,53 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         super.onAppWidgetOptionsChanged(context, wm, widgetId, options);
 
         // scale the fonts of the clock to fit inside the new size
-        updateWidget(context, AppWidgetManager.getInstance(context), widgetId, options);
+        relayoutWidget(context, AppWidgetManager.getInstance(context), widgetId, options);
     }
 
     /**
-     * Compute optimal font and icon sizes offscreen using the last known widget size and apply them
-     * to the widget.
+     * Compute optimal font and icon sizes offscreen for both portrait and landscape orientations
+     * using the last known widget size and apply them to the widget.
      */
-    private static void updateWidget(Context context, AppWidgetManager wm, int widgetId,
+    private static void relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
             Bundle options) {
+        final RemoteViews portrait = relayoutWidget(context, wm, widgetId, options, true);
+        final RemoteViews landscape = relayoutWidget(context, wm, widgetId, options, false);
+        final RemoteViews widget = new RemoteViews(landscape, portrait);
+        wm.updateAppWidget(widgetId, widget);
+    }
+
+    /**
+     * Compute optimal font and icon sizes offscreen for the given orientation.
+     */
+    private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
+            Bundle options, boolean portrait) {
         // Create a remote view for the digital clock.
         final String packageName = context.getPackageName();
-        final RemoteViews widget = new RemoteViews(packageName, R.layout.digital_widget);
+        final RemoteViews rv = new RemoteViews(packageName, R.layout.digital_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (Utils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, 0);
-            widget.setOnClickPendingIntent(R.id.digital_widget, pi);
+            rv.setOnClickPendingIntent(R.id.digital_widget, pi);
         }
 
         // Configure child views of the remote view.
-        widget.setCharSequence(R.id.clock, "setFormat12Hour", get12HourFormat(context));
-        widget.setCharSequence(R.id.clock, "setFormat24Hour", get24ModeFormat(context));
+        rv.setCharSequence(R.id.clock, "setFormat12Hour", get12HourFormat(context));
+        rv.setCharSequence(R.id.clock, "setFormat24Hour", get24ModeFormat(context));
 
         final CharSequence dateFormat = getDateFormat(context);
-        widget.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
-        widget.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
+        rv.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
+        rv.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
 
         final String nextAlarmTime = Utils.getNextAlarm(context);
         if (TextUtils.isEmpty(nextAlarmTime)) {
-            widget.setViewVisibility(R.id.nextAlarm, GONE);
-            widget.setViewVisibility(R.id.nextAlarmIcon, GONE);
+            rv.setViewVisibility(R.id.nextAlarm, GONE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, GONE);
         } else  {
-            widget.setTextViewText(R.id.nextAlarm, nextAlarmTime);
-            widget.setViewVisibility(R.id.nextAlarm, VISIBLE);
-            widget.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
+            rv.setTextViewText(R.id.nextAlarm, nextAlarmTime);
+            rv.setViewVisibility(R.id.nextAlarm, VISIBLE);
+            rv.setViewVisibility(R.id.nextAlarmIcon, VISIBLE);
         }
 
         if (options == null) {
@@ -188,7 +198,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final int minHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_HEIGHT));
         final int maxWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_WIDTH));
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
-        final boolean portrait = resources.getConfiguration().orientation == ORIENTATION_PORTRAIT;
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final int largestClockFontSizePx =
@@ -204,11 +213,11 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the computed sizes to the remote views.
-        widget.setImageViewBitmap(R.id.nextAlarmIcon, sizes.mIconBitmap);
-        widget.setTextViewTextSize(R.id.date, COMPLEX_UNIT_PX, sizes.mFontSizePx);
-        widget.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
-        widget.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
-        wm.updateAppWidget(widgetId, widget);
+        rv.setImageViewBitmap(R.id.nextAlarmIcon, sizes.mIconBitmap);
+        rv.setTextViewTextSize(R.id.date, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
+        return rv;
     }
 
     /**

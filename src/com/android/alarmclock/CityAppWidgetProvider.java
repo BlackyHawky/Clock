@@ -63,7 +63,6 @@ import static android.content.Intent.ACTION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_SCREEN_ON;
 import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
 import static android.content.Intent.ACTION_TIME_CHANGED;
-import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static java.lang.Math.max;
@@ -104,7 +103,7 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
             case ACTION_LOCALE_CHANGED:
             case ACTION_TIMEZONE_CHANGED:
                 for (int widgetId : widgetIds) {
-                    updateWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+                    relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                 }
         }
 
@@ -122,7 +121,7 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         super.onUpdate(context, wm, widgetIds);
 
         for (int widgetId : widgetIds) {
-            updateWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
+            relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
         }
     }
 
@@ -134,7 +133,7 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
             Bundle options) {
         super.onAppWidgetOptionsChanged(context, wm, widgetId, options);
 
-        updateWidget(context, AppWidgetManager.getInstance(context), widgetId, options);
+        relayoutWidget(context, AppWidgetManager.getInstance(context), widgetId, options);
     }
 
     /**
@@ -173,10 +172,10 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
     }
 
     /**
-     * Compute optimal font and icon sizes offscreen using the last known widget size and apply them
-     * to the remote views displayed in the widget.
+     * Compute optimal font sizes offscreen for both portrait and landscape orientations using the
+     * last known widget size and apply them to the widget.
      */
-    private static void updateWidget(Context context, AppWidgetManager wm, int widgetId,
+    private static void relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
             Bundle options) {
         // Fetch the city to display in this widget.
         final City city = DataModel.getDataModel().getWidgetCity(widgetId);
@@ -186,6 +185,17 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
             return;
         }
 
+        final RemoteViews portrait = relayoutWidget(context, wm, widgetId, options, city, true);
+        final RemoteViews landscape = relayoutWidget(context, wm, widgetId, options, city, false);
+        final RemoteViews widget = new RemoteViews(landscape, portrait);
+        wm.updateAppWidget(widgetId, widget);
+    }
+
+    /**
+     * Compute optimal font sizes offscreen for the given orientation.
+     */
+    private static RemoteViews relayoutWidget(Context context, AppWidgetManager wm, int widgetId,
+            Bundle options, City city, boolean portrait) {
         if (options == null) {
             options = wm.getAppWidgetOptions(widgetId);
         }
@@ -197,7 +207,6 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         final int minHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MIN_HEIGHT));
         final int maxWidthPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_WIDTH));
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
-        final boolean portrait = resources.getConfiguration().orientation == ORIENTATION_PORTRAIT;
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
         final int fontSizePx = resources.getDimensionPixelSize(R.dimen.city_widget_name_font_size);
@@ -208,26 +217,26 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
 
         // Create a remote view for the city widget.
         final String packageName = context.getPackageName();
-        final RemoteViews widget = new RemoteViews(packageName, R.layout.city_widget);
+        final RemoteViews rv = new RemoteViews(packageName, R.layout.city_widget);
 
         // Tapping on the widget opens the app (if not on the lock screen).
         if (Utils.isWidgetClickable(wm, widgetId)) {
             final Intent openApp = new Intent(context, DeskClock.class);
             final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, 0);
-            widget.setOnClickPendingIntent(R.id.city_widget, pi);
+            rv.setOnClickPendingIntent(R.id.city_widget, pi);
         }
 
         // Configure child views of the remote view.
-        widget.setCharSequence(R.id.clock, "setFormat12Hour", get12HourFormat());
-        widget.setCharSequence(R.id.clock, "setFormat24Hour", Utils.get24ModeFormat());
+        rv.setCharSequence(R.id.clock, "setFormat12Hour", get12HourFormat());
+        rv.setCharSequence(R.id.clock, "setFormat24Hour", Utils.get24ModeFormat());
 
         final CharSequence dateFormat = getDayFormat(context);
-        widget.setCharSequence(R.id.city_day, "setFormat12Hour", dateFormat);
-        widget.setCharSequence(R.id.city_day, "setFormat24Hour", dateFormat);
+        rv.setCharSequence(R.id.city_day, "setFormat12Hour", dateFormat);
+        rv.setCharSequence(R.id.city_day, "setFormat24Hour", dateFormat);
 
-        widget.setTextViewText(R.id.city_name, template.getCityName());
-        widget.setString(R.id.clock, "setTimeZone", template.getTimeZoneId());
-        widget.setString(R.id.city_day, "setTimeZone", template.getTimeZoneId());
+        rv.setTextViewText(R.id.city_name, template.getCityName());
+        rv.setString(R.id.clock, "setTimeZone", template.getTimeZoneId());
+        rv.setString(R.id.city_day, "setTimeZone", template.getTimeZoneId());
 
         // Compute optimal font sizes to fit within the widget bounds.
         final Sizes sizes = optimizeSizes(context, template);
@@ -236,11 +245,11 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Apply the computed sizes to the remote views.
-        widget.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
-        widget.setTextViewTextSize(R.id.city_day, COMPLEX_UNIT_PX, sizes.mFontSizePx);
-        widget.setTextViewTextSize(R.id.city_name, COMPLEX_UNIT_PX, sizes.mFontSizePx);
-        widget.setInt(R.id.city_name, "setMaxWidth", sizes.mCityNameMaxWidthPx);
-        wm.updateAppWidget(widgetId, widget);
+        rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
+        rv.setTextViewTextSize(R.id.city_day, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        rv.setTextViewTextSize(R.id.city_name, COMPLEX_UNIT_PX, sizes.mFontSizePx);
+        rv.setInt(R.id.city_name, "setMaxWidth", sizes.mCityNameMaxWidthPx);
+        return rv;
     }
 
     /**
