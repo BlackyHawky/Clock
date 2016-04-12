@@ -80,6 +80,9 @@ public class DeskClock extends BaseActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler,
         RingtonePickerDialogFragment.RingtoneSelectionListener {
 
+    /** The Uri to the settings entry that stores alarm stream volume. */
+    private static final Uri VOLUME_URI = Uri.withAppendedPath(CONTENT_URI, "volume_alarm_speaker");
+
     /** Models the interesting state of display the {@link #mFab} button may inhabit. */
     private enum FabState { SHOWING, HIDE_ARMED, HIDING }
 
@@ -290,7 +293,7 @@ public class DeskClock extends BaseActivity
         mDropShadowController = new DropShadowController(dropShadow, UiDataModel.getUiDataModel());
 
         // Watch for alarm volume changes while the app is in the foreground.
-        getContentResolver().registerContentObserver(CONTENT_URI, true, mAlarmVolumeChangeObserver);
+        getContentResolver().registerContentObserver(VOLUME_URI, true, mAlarmVolumeChangeObserver);
 
         // Honor the selected tab in case it changed while the app was paused.
         updateCurrentTab(UiDataModel.getUiDataModel().getSelectedTabIndex());
