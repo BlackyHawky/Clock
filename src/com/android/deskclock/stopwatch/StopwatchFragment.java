@@ -58,6 +58,7 @@ import static android.view.View.VISIBLE;
 import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
 import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_MORPH;
 import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
+
 /**
  * Fragment that shows the stopwatch and recorded laps.
  */
@@ -232,6 +233,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     public void onMorphFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
         right.setImageResource(R.drawable.ic_share);
         right.setContentDescription(right.getResources().getString(R.string.sw_share_button));
+
         switch (getStopwatch().getState()) {
             case RESET:
                 left.setEnabled(false);
@@ -244,6 +246,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 left.setContentDescription(left.getResources().getString(R.string.sw_lap_button));
                 left.setEnabled(canRecordLaps);
                 left.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
+                right.setVisibility(INVISIBLE);
                 final Drawable icon = left.getDrawable();
                 if (icon instanceof Animatable) {
                     ((Animatable) icon).start();
@@ -266,7 +269,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     private void updateLapIcon(ImageButton button) {
-        if (Utils.isLMR1OrLater()) {
+        if (Utils.isLMR1OrLater() && button.getVisibility() == VISIBLE) {
             final int newLapCount = mLapsAdapter.getItemCount();
             if (newLapCount == mLapCount) {
                 button.setImageResource(R.drawable.ic_reset_lap_animation);
@@ -533,12 +536,16 @@ public final class StopwatchFragment extends DeskClockFragment {
     private class StopwatchWatcher implements StopwatchListener {
         @Override
         public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
+            if (after.isReset()) {
+                mLapCount = 0;
+            }
             if (DataModel.getDataModel().isApplicationInForeground()) {
                 updateUI(FAB_AND_BUTTONS_MORPH);
             }
         }
 
         @Override
-        public void lapAdded(Lap lap) {}
+        public void lapAdded(Lap lap) {
+        }
     }
 }
