@@ -359,7 +359,6 @@
         <item>@string/C346</item>
         <item>@string/C347</item>
         <item>@string/C348</item>
-        <item>@string/C349</item>
     </array>
 
     <!--
@@ -1062,16 +1061,14 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C343">V<xliff:g id="separator">=</xliff:g>Vaduz<xliff:g id="timezone">|Europe/Vaduz</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C344">V<xliff:g id="separator">=</xliff:g>Victoria<xliff:g id="timezone">|Australia/Victoria</xliff:g></string>
+    <string name="C344">V<xliff:g id="separator">=</xliff:g>Vientiane<xliff:g id="timezone">|Asia/Vientiane</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C345">V<xliff:g id="separator">=</xliff:g>Vientiane<xliff:g id="timezone">|Asia/Vientiane</xliff:g></string>
+    <string name="C345">W<xliff:g id="separator">=</xliff:g>Windhoek<xliff:g id="timezone">|Africa/Windhoek</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C346">W<xliff:g id="separator">=</xliff:g>Windhoek<xliff:g id="timezone">|Africa/Windhoek</xliff:g></string>
+    <string name="C346">Y<xliff:g id="separator">=</xliff:g>Yaoundé<xliff:g id="timezone">|Africa/Douala</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C347">Y<xliff:g id="separator">=</xliff:g>Yaoundé<xliff:g id="timezone">|Africa/Douala</xliff:g></string>
+    <string name="C347">Y<xliff:g id="separator">=</xliff:g>Yaren District<xliff:g id="timezone">|Pacific/Nauru</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C348">Y<xliff:g id="separator">=</xliff:g>Yaren District<xliff:g id="timezone">|Pacific/Nauru</xliff:g></string>
-    <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C349">Y<xliff:g id="separator">=</xliff:g>Yerevan<xliff:g id="timezone">|Asia/Yerevan</xliff:g></string>
+    <string name="C348">Y<xliff:g id="separator">=</xliff:g>Yerevan<xliff:g id="timezone">|Asia/Yerevan</xliff:g></string>
 
 </resources>
