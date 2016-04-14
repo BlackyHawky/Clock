@@ -59,7 +59,6 @@ import com.android.deskclock.uidata.UiDataModel.Tab;
 import com.android.deskclock.widget.RtlViewPager;
 import com.android.deskclock.widget.toast.SnackbarManager;
 
-import static android.media.AudioManager.ADJUST_SAME;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.System.CONTENT_URI;
@@ -453,7 +452,9 @@ public class DeskClock extends BaseActivity
         final OnClickListener unmuteClickListener = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAudioManager.adjustStreamVolume(STREAM_ALARM, ADJUST_SAME, FLAG_SHOW_UI);
+                // Set the alarm volume to ~30% of max and show the slider UI.
+                final int index = mAudioManager.getStreamMaxVolume(STREAM_ALARM) / 3;
+                mAudioManager.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
             }
         };
 
