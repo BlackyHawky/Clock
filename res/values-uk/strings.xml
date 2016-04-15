@@ -57,7 +57,7 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"залишилося"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"залишилося"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Будильник пролунає за менше 1 хв"</item>
+    <item msgid="6450913786084215050">"Будильник пролунає менше ніж за 1 хв."</item>
     <item msgid="6002066367368421848">"Будильник пролунає за <xliff:g id="DAYS">%1$s</xliff:g>"</item>
     <item msgid="8824719306247973774">"Будильник пролунає за <xliff:g id="HOURS">%2$s</xliff:g>"</item>
     <item msgid="8182406852935468862">"Будильник пролунає за <xliff:g id="DAYS">%1$s</xliff:g> і <xliff:g id="HOURS">%2$s</xliff:g>"</item>
@@ -134,8 +134,7 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Без звуку"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Невідомий сигнал"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Гучність будильника вимкнено"</string>
-    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
-    <skip />
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Увімкнути звук"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Кнопки гучності"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Відкласти"</item>

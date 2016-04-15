@@ -78,7 +78,7 @@
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"एनालग घडी"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"डिजिटल घडी"</string>
-    <string name="city_gadget" msgid="4887290995955830876">"विश्व घडी"</string>
+    <string name="city_gadget" msgid="4887290995955830876">"विश्वको घडी"</string>
     <string name="settings" msgid="5849739030579520686">"सेटिङहरू"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"स्नुज लम्बाइ"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -118,8 +118,7 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"मौन"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"अज्ञात"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"अलार्मको भोल्युम म्यूट गरियो"</string>
-    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
-    <skip />
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"अनम्यूट गर्नुहोस्"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"भोल्युम बटनहरू"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"स्नुज"</item>
@@ -143,8 +142,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"फेरि सुरु गर्नुहोस्"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"पुनःसेट गर्नुहोस्"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"सुरु गर्नुहोस्"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
+    <string name="sw_pause_button" msgid="2422084453454138042">"पज गर्नुहोस्"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ल्याप"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"साझेदारी गर्नुहोस्"</string>
     <string name="hours_label" msgid="3393478155635368097">"घण्टा"</string>
