@@ -78,8 +78,7 @@
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="analog_gadget" msgid="1670505720837152766">"指针时钟"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"数字时钟"</string>
-    <!-- no translation found for city_gadget (4887290995955830876) -->
-    <skip />
+    <string name="city_gadget" msgid="4887290995955830876">"世界时钟"</string>
     <string name="settings" msgid="5849739030579520686">"设置"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"暂停时长"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -119,8 +118,7 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"静音"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"未知"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"闹钟已设为静音"</string>
-    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
-    <skip />
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"取消静音"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按钮"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"暂停"</item>

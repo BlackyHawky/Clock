@@ -118,8 +118,7 @@
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Mode silencieux"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Inconnu"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Volume de l\'alarme coupé"</string>
-    <!-- no translation found for unmute_alarm_volume (2655009276035357497) -->
-    <skip />
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Réactiver le son"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Répéter"</item>
@@ -143,8 +142,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Reprendre"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Réinitialiser"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Démarrer"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
+    <string name="sw_pause_button" msgid="2422084453454138042">"Interrompre"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Intervalle"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Partager"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>

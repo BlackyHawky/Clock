@@ -66,7 +66,7 @@
     <string name="C49" msgid="6326857727742458931">"F<xliff:g id="SEPARATOR">=</xliff:g>Fortaleza<xliff:g id="TIMEZONE">|America/Fortaleza</xliff:g>"</string>
     <string name="C50" msgid="3131498820508584398">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qrand Türk<xliff:g id="TIMEZONE">|America/Grand_Turk</xliff:g>"</string>
     <string name="C51" msgid="3122278921760822414">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qrenada<xliff:g id="TIMEZONE">|America/Grenada</xliff:g>"</string>
-    <string name="C52" msgid="7461551991724617520">"G<xliff:g id="SEPARATOR">=</xliff:g>Qvatemala Şəhəri<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
+    <string name="C52" msgid="7461551991724617520">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qvatemala Şəhəri<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
     <string name="C53" msgid="296242785331472791">"Q<xliff:g id="SEPARATOR">=</xliff:g>Qayana<xliff:g id="TIMEZONE">|America/Guyana</xliff:g>"</string>
     <string name="C54" msgid="4045007274020361950">"H<xliff:g id="SEPARATOR">=</xliff:g>Halifaks<xliff:g id="TIMEZONE">|America/Halifax</xliff:g>"</string>
     <string name="C55" msgid="8180186289266487770">"H<xliff:g id="SEPARATOR">=</xliff:g>Havana<xliff:g id="TIMEZONE">|America/Havana</xliff:g>"</string>
@@ -352,10 +352,14 @@
     <string name="C341" msgid="2299478430610154042">"T<xliff:g id="SEPARATOR">=</xliff:g>Thimphu<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
     <string name="C342" msgid="7997617194333170685">"T<xliff:g id="SEPARATOR">=</xliff:g>Tirana<xliff:g id="TIMEZONE">|Europe/Tirane</xliff:g>"</string>
     <string name="C343" msgid="622805851462854910">"V<xliff:g id="SEPARATOR">=</xliff:g>Vaduts<xliff:g id="TIMEZONE">|Europe/Vaduz</xliff:g>"</string>
-    <string name="C344" msgid="1145479224257720400">"V<xliff:g id="SEPARATOR">=</xliff:g>Viktoriya<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
-    <string name="C345" msgid="1613958949888896258">"V<xliff:g id="SEPARATOR">=</xliff:g>Vyentyan<xliff:g id="TIMEZONE">|Asia/Vientiane</xliff:g>"</string>
-    <string name="C346" msgid="1111771082167929457">"V<xliff:g id="SEPARATOR">=</xliff:g>Vindhuk<xliff:g id="TIMEZONE">|Africa/Windhoek</xliff:g>"</string>
-    <string name="C347" msgid="1521759005466193913">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yaunde<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g>"</string>
-    <string name="C348" msgid="7840627606139050754">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yaren<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
-    <string name="C349" msgid="8467388994123401044">"Y<xliff:g id="SEPARATOR">=</xliff:g>Yerevan<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
+    <!-- no translation found for C344 (7629820826386244509) -->
+    <skip />
+    <!-- no translation found for C345 (1881198350378158072) -->
+    <skip />
+    <!-- no translation found for C346 (2947674392768816097) -->
+    <skip />
+    <!-- no translation found for C347 (6291282205599716861) -->
+    <skip />
+    <!-- no translation found for C348 (8462071023392592539) -->
+    <skip />
 </resources>
