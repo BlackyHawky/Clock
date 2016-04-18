@@ -86,8 +86,7 @@ public class AlarmVolumePreference extends Preference {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 if (fromUser) {
-                    audioManager.setStreamVolume(
-                            AudioManager.STREAM_ALARM, seekBar.getProgress(), 0);
+                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, progress, 0);
                 }
                 updateIcon();
             }
@@ -98,11 +97,11 @@ public class AlarmVolumePreference extends Preference {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if (!mPreviewPlaying) {
+                if (!mPreviewPlaying && seekBar.getProgress() != 0) {
+                    // If we are not currently playing and progress is set to non-zero, start.
                     RingtonePreviewKlaxon.start(
                             context, DataModel.getDataModel().getDefaultAlarmRingtoneUri());
                     mPreviewPlaying = true;
-
                     seekBar.postDelayed(new Runnable() {
                         @Override
                         public void run() {
