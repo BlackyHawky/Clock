@@ -43,7 +43,7 @@
       <item quantity="other">Posticipazione di <xliff:g id="MINUTES">%d</xliff:g> minuti.</item>
       <item quantity="one">Posticipazione di un minuto.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ripetizione sveglia fino alle <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posticipa a <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Prossima sveglia"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"La sveglia ignorata è stata eliminata"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Resta meno di un minuto."</string>
