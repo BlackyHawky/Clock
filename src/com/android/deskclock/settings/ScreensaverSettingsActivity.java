@@ -29,7 +29,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 
 /**
- * Settings for Clock Daydream
+ * Settings for Clock screen saver
  */
 public final class ScreensaverSettingsActivity extends AppCompatActivity {
 
@@ -66,7 +66,7 @@ public final class ScreensaverSettingsActivity extends AppCompatActivity {
             if (Utils.isNOrLater()) {
                 getPreferenceManager().setStorageDeviceProtected();
             }
-            addPreferencesFromResource(R.xml.dream_settings);
+            addPreferencesFromResource(R.xml.screensaver_settings);
         }
 
         @Override

@@ -320,7 +320,7 @@
                 android:resource="@xml/city_appwidget" />
         </receiver>
 
-        <!-- Dream (screensaver) implementation -->
+        <!-- Screen saver implementation -->
         <service
             android:name=".Screensaver"
             android:exported="true"
@@ -333,7 +333,7 @@
             </intent-filter>
             <meta-data
                 android:name="android.service.dream"
-                android:resource="@xml/dream_info" />
+                android:resource="@xml/screensaver_info" />
         </service>
 
         <!-- Settings activity for screensaver -->
