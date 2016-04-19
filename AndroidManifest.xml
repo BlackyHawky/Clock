@@ -129,7 +129,8 @@
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AlarmAlertFullScreenTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:resizeableActivity="false" />
 
         <activity
             android:name=".ScreensaverActivity"
