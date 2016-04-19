@@ -9,7 +9,6 @@
     </style>
 
     <style name="widget_label" parent="label">
-        <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:letterSpacing">0.15</item>
         <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>

@@ -47,4 +47,7 @@
 
     <dimen name="world_clock_margin">48dp</dimen>
     <dimen name="sw_padding_end">48dp</dimen>
+
+    <!-- The maximum size of the font for the time in widgets. -->
+    <dimen name="widget_max_clock_font_size">100dp</dimen>
 </resources>
