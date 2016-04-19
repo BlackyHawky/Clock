@@ -736,8 +736,8 @@
     <string name="next_timer_notif">Next timer: <xliff:g id="time_remaining" example="2 minutes remaining">%s</xliff:g></string>
 
     <!-- screensaver settings strings -->
-    <!-- Label for the screen saver activity displayed on-screen when that activity must be represented to the user. -->
-    <string name="screensaver_settings">Dream settings</string>
+    <!-- Title for the screen saver settings activity. -->
+    <string name="screensaver_settings">Screen saver settings</string>
     <!-- Title for check box to pick intensity of display diminuation during dream mode -->
     <string name="night_mode_title">Night mode</string>
     <!-- Describes intensity of display diminuation during dream mode -->
