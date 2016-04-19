@@ -31,7 +31,7 @@
     <item msgid="5948764589113643811">"Д<xliff:g id="SEPARATOR">=</xliff:g>Дар-эс-Салам"</item>
     <item msgid="6306254507715416077">"Д<xliff:g id="SEPARATOR">=</xliff:g>Джыбуці"</item>
     <item msgid="4286108029159501866">"Ф<xliff:g id="SEPARATOR">=</xliff:g>Фрытаўн"</item>
-    <item msgid="4514786733035528116">"Г<xliff:g id="SEPARATOR">=</xliff:g>Габоронэ"</item>
+    <item msgid="4514786733035528116">"Г<xliff:g id="SEPARATOR">=</xliff:g>Габаронэ"</item>
     <item msgid="7367496854968219671">"Х<xliff:g id="SEPARATOR">=</xliff:g>Харарэ"</item>
     <item msgid="6837746379726020288">"Я<xliff:g id="SEPARATOR">=</xliff:g>Яганесбург"</item>
     <item msgid="6284185156591171506">"К<xliff:g id="SEPARATOR">=</xliff:g>Кампала"</item>
@@ -46,7 +46,7 @@
     <item msgid="3642219084651687800">"T<xliff:g id="SEPARATOR">=</xliff:g>Тамбукту"</item>
     <item msgid="7287513493631179463">"T<xliff:g id="SEPARATOR">=</xliff:g>Трыпалі"</item>
     <item msgid="5052614613671591560">"T<xliff:g id="SEPARATOR">=</xliff:g>Туніс"</item>
-    <item msgid="7976303179193839859">"А<xliff:g id="SEPARATOR">=</xliff:g>Анкорыдж"</item>
+    <item msgid="7976303179193839859">"А<xliff:g id="SEPARATOR">=</xliff:g>Анкарыдж"</item>
     <item msgid="193703779380497120">"M<xliff:g id="SEPARATOR">=</xliff:g>Мендоса"</item>
     <item msgid="5448884981082519628">"А<xliff:g id="SEPARATOR">=</xliff:g>Аруба"</item>
     <item msgid="1577938273323914773">"А<xliff:g id="SEPARATOR">=</xliff:g>Асунсьён"</item>
@@ -94,7 +94,7 @@
     <item msgid="9089629663998569289">"M<xliff:g id="SEPARATOR">=</xliff:g>Мантэрэй"</item>
     <item msgid="2782276175306930748">"M<xliff:g id="SEPARATOR">=</xliff:g>Мантэвідэа"</item>
     <item msgid="4942386959622269480">"M<xliff:g id="SEPARATOR">=</xliff:g>Манрэаль"</item>
-    <item msgid="3068203952968918165">"Н<xliff:g id="SEPARATOR">=</xliff:g>Насау"</item>
+    <item msgid="3068203952968918165">"Н<xliff:g id="SEPARATOR">=</xliff:g>Насаў"</item>
     <item msgid="4234515454127289962">"Н<xliff:g id="SEPARATOR">=</xliff:g>Нью-Ёрк"</item>
     <item msgid="1660551302087304308">"Б<xliff:g id="SEPARATOR">=</xliff:g>Б\'юла"</item>
     <item msgid="415823390775449071">"С<xliff:g id="SEPARATOR">=</xliff:g>Сэнтэр"</item>
@@ -232,10 +232,10 @@
     <item msgid="8732832728949672807">"С<xliff:g id="SEPARATOR">=</xliff:g>Самоа"</item>
     <item msgid="6489500698846864993">"Т<xliff:g id="SEPARATOR">=</xliff:g>Таіці"</item>
     <item msgid="3983121625709442324">"А<xliff:g id="SEPARATOR">=</xliff:g>Антыгуа"</item>
-    <item msgid="2650510570709806322">"О<xliff:g id="SEPARATOR">=</xliff:g>Осцін"</item>
+    <item msgid="2650510570709806322">"О<xliff:g id="SEPARATOR">=</xliff:g>Остын"</item>
     <item msgid="5257283506227357911">"Б<xliff:g id="SEPARATOR">=</xliff:g>Бостан"</item>
     <item msgid="6326368958641850267">"К<xliff:g id="SEPARATOR">=</xliff:g>Калгары"</item>
-    <item msgid="8830116365016232583">"К<xliff:g id="SEPARATOR">=</xliff:g>Калумбус"</item>
+    <item msgid="8830116365016232583">"К<xliff:g id="SEPARATOR">=</xliff:g>Каламбус"</item>
     <item msgid="6986556538341883811">"Д<xliff:g id="SEPARATOR">=</xliff:g>Далас"</item>
     <item msgid="836479352500251902">"Н<xliff:g id="SEPARATOR">=</xliff:g>Ноксвіл"</item>
     <item msgid="8495291458467378851">"M<xliff:g id="SEPARATOR">=</xliff:g>Мемфіс"</item>
@@ -256,7 +256,7 @@
     <item msgid="38148255938075867">"С<xliff:g id="SEPARATOR">=</xliff:g>Сан-Антоніа"</item>
     <item msgid="3601481860893666763">"Д<xliff:g id="SEPARATOR">=</xliff:g>Джэксанвіл"</item>
     <item msgid="3987471437354665534">"Б<xliff:g id="SEPARATOR">=</xliff:g>Балтымар"</item>
-    <item msgid="3389674262267006887">"Н<xliff:g id="SEPARATOR">=</xliff:g>Нэшвіл"</item>
+    <item msgid="3389674262267006887">"Н<xliff:g id="SEPARATOR">=</xliff:g>Нашвіл"</item>
     <item msgid="7521690366448637309">"M<xliff:g id="SEPARATOR">=</xliff:g>Мілуокі"</item>
     <item msgid="2231069593975740859">"А<xliff:g id="SEPARATOR">=</xliff:g>Аклахома-Сіці"</item>
     <item msgid="1970008262236914770">"Л<xliff:g id="SEPARATOR">=</xliff:g>Лас-Вегас"</item>
@@ -268,7 +268,7 @@
     <item msgid="2987455647692324208">"Н<xliff:g id="SEPARATOR">=</xliff:g>Новы Арлеан"</item>
     <item msgid="8104109426412705845">"T<xliff:g id="SEPARATOR">=</xliff:g>Тампа"</item>
     <item msgid="1410067233842240795">"П<xliff:g id="SEPARATOR">=</xliff:g>Пітсбург"</item>
-    <item msgid="3339955740367374442">"Ц<xliff:g id="SEPARATOR">=</xliff:g>Цынцынаці"</item>
+    <item msgid="3339955740367374442">"Ц<xliff:g id="SEPARATOR">=</xliff:g>Цынцынаты"</item>
     <item msgid="6091407424772799978">"M<xliff:g id="SEPARATOR">=</xliff:g>Маўнтын-В\'ю"</item>
     <item msgid="150299708499753555">"Р<xliff:g id="SEPARATOR">=</xliff:g>Рына"</item>
     <item msgid="9155068631060038769">"Б<xliff:g id="SEPARATOR">=</xliff:g>Блэк-Рок-Сіці"</item>
@@ -293,7 +293,7 @@
     <item msgid="1753927312634708098">"Э<xliff:g id="SEPARATOR">=</xliff:g>Эн-Арбар"</item>
     <item msgid="4225721108475278979">"Б<xliff:g id="SEPARATOR">=</xliff:g>Боўлдэр"</item>
     <item msgid="6393177386755796069">"К<xliff:g id="SEPARATOR">=</xliff:g>Кембрыдж"</item>
-    <item msgid="759409010285366934">"К<xliff:g id="SEPARATOR">=</xliff:g>Кёркленд"</item>
+    <item msgid="759409010285366934">"К<xliff:g id="SEPARATOR">=</xliff:g>Кэрклэнд"</item>
     <item msgid="6308007059287569663">"M<xliff:g id="SEPARATOR">=</xliff:g>Мадысан"</item>
     <item msgid="2077617905582224600">"Г<xliff:g id="SEPARATOR">=</xliff:g>Гуанчжоу<xliff:g id="PHONETIC">:</xliff:g>"</item>
     <item msgid="1185109514180068650">"Х<xliff:g id="SEPARATOR">=</xliff:g>Хайдарабад"</item>

@@ -175,8 +175,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Жалғастыру"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Қалпына келтіру"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Бастау"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
+    <string name="sw_pause_button" msgid="2422084453454138042">"Кідірту"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Айналым"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Бөлісу"</string>
     <string name="hours_label" msgid="3393478155635368097">"с"</string>
