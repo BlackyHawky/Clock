@@ -126,11 +126,11 @@
             android:name=".alarms.AlarmActivity"
             android:directBootAware="true"
             android:excludeFromRecents="true"
+            android:resizeableActivity="false"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/AlarmAlertFullScreenTheme"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            android:resizeableActivity="false" />
+            android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
             android:name=".ScreensaverActivity"
@@ -363,6 +363,7 @@
             android:configChanges="screenSize|keyboardHidden|keyboard|navigation"
             android:excludeFromRecents="true"
             android:launchMode="singleInstance"
+            android:resizeableActivity="false"
             android:showOnLockScreen="true"
             android:taskAffinity=""
             android:theme="@style/ExpiredTimersActivityTheme" />
