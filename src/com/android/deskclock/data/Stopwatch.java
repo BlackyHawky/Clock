@@ -16,10 +16,7 @@
 
 package com.android.deskclock.data;
 
-import android.net.Uri;
 import android.os.SystemClock;
-
-import com.android.deskclock.provider.ClockContract;
 
 import static com.android.deskclock.data.Stopwatch.State.PAUSED;
 import static com.android.deskclock.data.Stopwatch.State.RESET;
@@ -31,12 +28,6 @@ import static com.android.deskclock.data.Stopwatch.State.RUNNING;
 public final class Stopwatch {
 
     public enum State { RESET, RUNNING, PAUSED }
-
-    /**
-     * The content:// style URI for the stopwatch.
-     */
-    public static final Uri CONTENT_URI =
-            Uri.parse("content://" + ClockContract.AUTHORITY + "/stopwatch");
 
     /** The single, immutable instance of a reset stopwatch. */
     private static final Stopwatch RESET_STOPWATCH = new Stopwatch(RESET, Long.MIN_VALUE, 0);
@@ -54,10 +45,6 @@ public final class Stopwatch {
         mState = state;
         mLastStartTime = lastStartTime;
         mAccumulatedTime = accumulatedTime;
-    }
-
-    public Uri getContentUri() {
-        return CONTENT_URI;
     }
 
     public State getState() { return mState; }
@@ -84,7 +71,7 @@ public final class Stopwatch {
     /**
      * @return the amount of time accumulated up to the last time the stopwatch was started
      */
-    public long getAccumulatedTime() {
+    long getAccumulatedTime() {
         return mAccumulatedTime;
     }
 
