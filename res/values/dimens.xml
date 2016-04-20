@@ -134,7 +134,7 @@
     <!-- The fixed size of the font for the city name / day of week in the city widget. -->
     <dimen name="city_widget_name_font_size">12dp</dimen>
     <!-- The maximum size of the font for the time in widgets. -->
-    <dimen name="widget_max_clock_font_size">104dp</dimen>
+    <dimen name="widget_max_clock_font_size">88dp</dimen>
 
     <!-- shadow styles for widget text with drop shadows -->
     <item name="widget_shadow_radius" format="float" type="dimen">2.75</item>
