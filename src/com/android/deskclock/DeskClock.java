@@ -62,7 +62,6 @@ import com.android.deskclock.widget.toast.SnackbarManager;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.System.CONTENT_URI;
-import static android.support.design.widget.Snackbar.LENGTH_LONG;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
@@ -459,7 +458,7 @@ public class DeskClock extends BaseActivity
         };
 
         SnackbarManager.show(
-                Snackbar.make(mSnackbarAnchor, R.string.alarm_volume_muted, LENGTH_LONG)
+                Snackbar.make(mSnackbarAnchor, R.string.alarm_volume_muted, 5000)
                         .setAction(R.string.unmute_alarm_volume, unmuteClickListener)
         );
     }
