@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
         android:ellipsize="none"
+        android:format12Hour="@string/lock_screen_12_hour_format"
+        android:format24Hour="@string/lock_screen_24_hour_format"
         android:includeFontPadding="false"
         android:singleLine="true"
         android:textColor="@color/clock_white"/>

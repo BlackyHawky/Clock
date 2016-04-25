@@ -170,9 +170,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         // Configure child views of the remote view.
-        rv.setCharSequence(R.id.clock, "setFormat12Hour", get12HourFormat(context));
-        rv.setCharSequence(R.id.clock, "setFormat24Hour", get24ModeFormat(context));
-
         final CharSequence dateFormat = getDateFormat(context);
         rv.setCharSequence(R.id.date, "setFormat12Hour", dateFormat);
         rv.setCharSequence(R.id.date, "setFormat24Hour", dateFormat);
@@ -229,11 +226,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final LayoutInflater inflater = LayoutInflater.from(context);
         @SuppressLint("InflateParams")
         final View sizer = inflater.inflate(R.layout.digital_widget_sizer, null /* root */);
-
-        // Configure the clock to display the widest time string.
-        final TextClock clock = (TextClock) sizer.findViewById(R.id.clock);
-        clock.setFormat12Hour(get12HourFormat(context));
-        clock.setFormat24Hour(get24ModeFormat(context));
 
         // Configure the date to display the current date string.
         final CharSequence dateFormat = getDateFormat(context);
@@ -349,20 +341,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final Locale locale = Locale.getDefault();
         final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
         return DateFormat.getBestDateTimePattern(locale, skeleton);
-    }
-
-    /**
-     * @return the 12-hour time format that matches the lock screen
-     */
-    private static CharSequence get12HourFormat(Context context) {
-        return context.getString(R.string.lock_screen_12_hour_format);
-    }
-
-    /**
-     * @return the 24-hour time format that matches the lock screen
-     */
-    private static CharSequence get24ModeFormat(Context context) {
-        return context.getString(R.string.lock_screen_24_hour_format);
     }
 
     /**
