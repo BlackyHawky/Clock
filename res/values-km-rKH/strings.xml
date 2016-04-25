@@ -313,7 +313,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"ប៉ះដើម្បីមើលកម្មវិធីកំណត់ពេលរបស់អ្នក"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> កម្មវិធី​កំណត់​ពេល"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"កម្មវិធី​កំណត់​ពេល​បន្ទាប់៖ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"ការ​កំណត់​ស្រមើ​​ស្រមៃ"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"ការកំណត់ធាតុរក្សាអេក្រង់"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"របៀប​រាត្រី"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"ការ​បង្ហាញ​យ៉ាង​ស្រអាប់ (សម្រាប់​បន្ទប់​ងងឹត)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ពង្រីក​សំឡេង​រោទ៍"</string>

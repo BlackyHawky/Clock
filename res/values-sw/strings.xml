@@ -313,7 +313,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Gonga ili uone vipima muda vyako"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Kipima wakati Kifuatacho: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Mipangilio ya ndoto"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Mipangilio ya taswira ya skrini"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modi ya usiku"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Onyesho hafifu sana (kwa vyumba vyenye giza)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Panua kengele"</string>

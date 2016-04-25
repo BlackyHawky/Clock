@@ -335,7 +335,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Klepnutím zobrazíte časovače"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Časovače (<xliff:g id="NUMBER">%d</xliff:g>)"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Další časovač: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Nastavení spořiče"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Nastavení spořiče obrazovky"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noční režim"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Velmi ztlumený jas displeje (pro tmavé místnosti)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Rozbalit budík"</string>

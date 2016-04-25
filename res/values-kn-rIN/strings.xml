@@ -313,7 +313,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"ನಿಮ್ಮ ಟೈಮರ್‌ಗಳನ್ನು ನೋಡಲು ಟ್ಯಾಪ್ ಮಾಡಿ"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ಟೈಮರ್‌ಗಳು"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"ಮುಂದಿನ ಟೈಮರ್: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"ಡ್ರೀಮ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"ಸ್ಕ್ರೀನ್ ಸೇವರ್ ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"ರಾತ್ರಿ ಮೋಡ್"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"ತೀರಾ ಮಂದ ಡಿಸ್‌ಪ್ಲೇ (ಕತ್ತಲೆ ಕೊಠಡಿಗಳಿಗಾಗಿ)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ಅಲಾರಮ್ ವಿಸ್ತರಿಸಿ"</string>
