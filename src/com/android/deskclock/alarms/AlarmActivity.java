@@ -186,12 +186,7 @@ public class AlarmActivity extends AppCompatActivity
         // Close dialogs and window shade, so this is fully visible
         sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
 
-        // In order to allow tablets to freely rotate and phones to stick
-        // with "nosensor" (use default device orientation) we have to have
-        // the manifest start with an orientation of unspecified" and only limit
-        // to "nosensor" for phones. Otherwise we get behavior like in b/8728671
-        // where tablets start off in their default orientation and then are
-        // able to freely rotate.
+        // Honor rotation on tablets; fix the orientation on phones.
         if (!getResources().getBoolean(R.bool.config_rotateAlarmAlert)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         }
