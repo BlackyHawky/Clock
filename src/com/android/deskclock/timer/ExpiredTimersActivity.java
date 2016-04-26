@@ -14,6 +14,8 @@
 
 package com.android.deskclock.timer;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -73,6 +75,14 @@ public class ExpiredTimersActivity extends BaseActivity {
                 | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
                 | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON);
+
+        // Close dialogs and window shade, so this is fully visible
+        sendBroadcast(new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS));
+
+        // Honor rotation on tablets; fix the orientation on phones.
+        if (!getResources().getBoolean(R.bool.config_rotateAlarmAlert)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
+        }
 
         // Create views for each of the expired timers.
         for (Timer timer : getExpiredTimers()) {
