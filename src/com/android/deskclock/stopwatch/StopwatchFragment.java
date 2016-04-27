@@ -33,7 +33,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.accessibility.AccessibilityManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -51,7 +50,6 @@ import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
 
-import static android.content.Context.ACCESSIBILITY_SERVICE;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -63,6 +61,8 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
  * Fragment that shows the stopwatch and recorded laps.
  */
 public final class StopwatchFragment extends DeskClockFragment {
+    /** Milliseconds between redraws. */
+    private static final int REDRAW_PERIOD = 25;
 
     /** Keep the screen on when this tab is selected. */
     private final TabListener mTabWatcher = new TabWatcher();
@@ -72,9 +72,6 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     /** Updates the user interface in response to stopwatch changes. */
     private final StopwatchListener mStopwatchWatcher = new StopwatchWatcher();
-
-    /** Used to determine when talk back is on in order to lower the time update rate. */
-    private AccessibilityManager mAccessibilityManager;
 
     /** The data source for {@link #mLapsList}. */
     private LapsAdapter mLapsAdapter;
@@ -119,14 +116,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
 
         return v;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        mAccessibilityManager =
-                (AccessibilityManager) getActivity().getSystemService(ACCESSIBILITY_SERVICE);
     }
 
     @Override
@@ -495,15 +484,9 @@ public final class StopwatchFragment extends DeskClockFragment {
             updateTime();
 
             if (getStopwatch().isRunning()) {
-                // The stopwatch is still running so execute this runnable again after a delay.
-                final boolean talkBackOn = mAccessibilityManager.isTouchExplorationEnabled();
-
-                // Grant longer time between redraws when talk-back is on to let it catch up.
-                final int period = talkBackOn ? 500 : 25;
-
                 // Try to maintain a consistent period of time between redraws.
                 final long endTime = SystemClock.elapsedRealtime();
-                final long delay = Math.max(0, startTime + period - endTime);
+                final long delay = Math.max(0, startTime + REDRAW_PERIOD - endTime);
 
                 mTime.postDelayed(this, delay);
             }
