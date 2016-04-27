@@ -184,6 +184,9 @@
          this character, i.e. "Mon, Tue, Wed" -->
     <string name="day_concat">", "</string>
 
+    <!-- Message indicating the widget is being loaded. -->
+    <string name="loading_widget">Loading\u2026</string>
+
     <!-- Label for analog clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
     <string name="analog_gadget">Analog clock</string>
 

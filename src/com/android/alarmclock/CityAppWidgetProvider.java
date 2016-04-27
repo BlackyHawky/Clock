@@ -230,10 +230,6 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         rv.setCharSequence(R.id.clock, "setFormat12Hour", get12HourFormat());
         rv.setCharSequence(R.id.clock, "setFormat24Hour", Utils.get24ModeFormat());
 
-        final CharSequence dateFormat = getDayFormat(context);
-        rv.setCharSequence(R.id.city_day, "setFormat12Hour", dateFormat);
-        rv.setCharSequence(R.id.city_day, "setFormat24Hour", dateFormat);
-
         rv.setTextViewText(R.id.city_name, template.getCityName());
         rv.setString(R.id.clock, "setTimeZone", template.getTimeZoneId());
         rv.setString(R.id.city_day, "setTimeZone", template.getTimeZoneId());
@@ -266,12 +262,6 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         final TextClock clock = (TextClock) sizer.findViewById(R.id.clock);
         clock.setFormat12Hour(get12HourFormat());
         clock.setFormat24Hour(Utils.get24ModeFormat());
-
-        // Configure the date to display the preferred day format.
-        final CharSequence dateFormat = getDayFormat(context);
-        final TextClock cityDay = (TextClock) sizer.findViewById(R.id.city_day);
-        cityDay.setFormat12Hour(dateFormat);
-        cityDay.setFormat24Hour(dateFormat);
 
         // Measure the widget at the largest possible size.
         Sizes high = measure(template, template.getLargestClockFontSizePx(), sizer);
@@ -400,13 +390,6 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         final Calendar longestPMTime = Calendar.getInstance();
         longestPMTime.set(0, 0, 0, 23, 59);
         return DateFormat.format(format, longestPMTime);
-    }
-
-    /**
-     * @return the locale-specific date pattern
-     */
-    private static String getDayFormat(Context context) {
-        return context.getString(R.string.abbrev_wday);
     }
 
     /**
