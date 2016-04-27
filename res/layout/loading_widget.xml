@@ -14,15 +14,12 @@
      limitations under the License.
 -->
 
-<appwidget-provider
+<TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="com.android.deskclock.worldclock.WidgetCitySelectionActivity"
-    android:initialLayout="@layout/loading_widget"
-    android:minHeight="59dp"
-    android:minWidth="136dp"
-    android:minResizeHeight="59dp"
-    android:minResizeWidth="136dp"
-    android:previewImage="@drawable/appwidget_city_clock_preview"
-    android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="0"
-    android:widgetCategory="keyguard|home_screen" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:includeFontPadding="false"
+    android:singleLine="true"
+    android:text="@string/loading_widget"
+    android:textColor="@color/clock_white" />
