@@ -76,6 +76,7 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"每天"</string>
     <string name="day_concat" msgid="971998564991636532">"、 "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"載入中…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"類比時鐘"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"數位時鐘"</string>
     <string name="city_gadget" msgid="4887290995955830876">"世界時鐘"</string>

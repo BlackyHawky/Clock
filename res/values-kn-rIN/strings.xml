@@ -76,6 +76,7 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"ಪ್ರತಿ ದಿನ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
+    <string name="loading_widget" msgid="5306242862476796500">"ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ..."</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ಅನಲಾಗ್ ಗಡಿಯಾರ"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ಡಿಜಿಟಲ್ ಗಡಿಯಾರ"</string>
     <string name="city_gadget" msgid="4887290995955830876">"ವಿಶ್ವ ಗಡಿಯಾರ"</string>
