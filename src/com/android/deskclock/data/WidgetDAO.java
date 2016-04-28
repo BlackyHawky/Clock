@@ -18,7 +18,8 @@ package com.android.deskclock.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+
+import com.android.deskclock.Utils;
 
 /**
  * This class encapsulates the transfer of data between widget objects and their permanent storage
@@ -27,13 +28,10 @@ import android.preference.PreferenceManager;
 final class WidgetDAO {
 
     /** Prefix for a key to a preference that stores the id of a city displayed in a widget. */
-    private static final String WIDGET_CITY_ID_PREFIX = "widget_city_id_";
+    private static final String WIDGET_CITY_ID = "widget_city_id_";
 
     /** Suffix for a key to a preference that stores the instance count for a given widget type. */
-    private static final String WIDGET_COUNT_SUFFIX = "_widget_count";
-
-    /** Lazily instantiated and cached for the life of the application. */
-    private static SharedPreferences sPrefs;
+    private static final String WIDGET_COUNT = "_widget_count";
 
     private WidgetDAO() {}
 
@@ -41,21 +39,21 @@ final class WidgetDAO {
      * @param widgetId identifies a city widget in the launcher
      * @return the id of the City to display in the widget
      */
-    public static String getWidgetCityId(Context context, int widgetId) {
-        final SharedPreferences prefs = getSharedPreferences(context);
-        return prefs.getString(WIDGET_CITY_ID_PREFIX + widgetId, null);
+    static String getWidgetCityId(Context context, int widgetId) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        return prefs.getString(WIDGET_CITY_ID + widgetId, null);
     }
 
     /**
      * @param widgetId identifies a city widget in the launcher
      * @param cityId identifies the City to display in the widget; {@code null} implies remove City
      */
-    public static void setWidgetCityId(Context context, int widgetId, String cityId) {
-        final SharedPreferences prefs = getSharedPreferences(context);
+    static void setWidgetCityId(Context context, int widgetId, String cityId) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         if (cityId == null) {
-            prefs.edit().remove(WIDGET_CITY_ID_PREFIX + widgetId).apply();
+            prefs.edit().remove(WIDGET_CITY_ID + widgetId).apply();
         } else {
-            prefs.edit().putString(WIDGET_CITY_ID_PREFIX + widgetId, cityId).apply();
+            prefs.edit().putString(WIDGET_CITY_ID + widgetId, cityId).apply();
         }
     }
 
@@ -64,9 +62,9 @@ final class WidgetDAO {
      * @param count the number of widgets of the given type
      * @return the delta between the new count and the old count
      */
-    public static int updateWidgetCount(Context context, Class widgetProviderClass, int count) {
-        final SharedPreferences prefs = getSharedPreferences(context);
-        final String key = widgetProviderClass.getSimpleName() + WIDGET_COUNT_SUFFIX;
+    static int updateWidgetCount(Context context, Class widgetProviderClass, int count) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        final String key = widgetProviderClass.getSimpleName() + WIDGET_COUNT;
         final int oldCount = prefs.getInt(key, 0);
         if (count == 0) {
             prefs.edit().remove(key).apply();
@@ -74,13 +72,5 @@ final class WidgetDAO {
             prefs.edit().putInt(key, count).apply();
         }
         return count - oldCount;
-    }
-
-    private static SharedPreferences getSharedPreferences(Context context) {
-        if (sPrefs == null) {
-            sPrefs = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        }
-
-        return sPrefs;
     }
 }
