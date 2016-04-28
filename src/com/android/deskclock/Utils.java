@@ -38,6 +38,7 @@ import android.os.Bundle;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
+import android.support.annotation.AnyRes;
 import android.support.annotation.DrawableRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.os.BuildCompat;
@@ -183,6 +184,18 @@ public class Utils {
     */
     public static boolean isNOrLater() {
        return BuildCompat.isAtLeastN();
+    }
+
+    /**
+     * @param resourceId identifies an application resource
+     * @return the Uri by which the application resource is accessed
+     */
+    public static Uri getResourceUri(Context context, @AnyRes int resourceId) {
+        return new Uri.Builder()
+                .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+                .authority(context.getPackageName())
+                .path(String.valueOf(resourceId))
+                .build();
     }
 
     /**

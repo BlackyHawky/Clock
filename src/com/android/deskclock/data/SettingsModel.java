@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 
@@ -81,10 +82,7 @@ final class SettingsModel {
 
     Uri getDefaultTimerRingtoneUri() {
         if (mDefaultTimerRingtoneUri == null) {
-            final String packageName = mContext.getPackageName();
-            final int resId = R.raw.timer_expire;
-            final String uriString = String.format("android.resource://%s/%d", packageName, resId);
-            mDefaultTimerRingtoneUri = Uri.parse(uriString);
+            mDefaultTimerRingtoneUri = Utils.getResourceUri(mContext, R.raw.timer_expire);
         }
 
         return mDefaultTimerRingtoneUri;

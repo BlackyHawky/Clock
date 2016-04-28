@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import com.android.deskclock.FabContainer;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -101,9 +102,10 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         v4.findViewById(R.id.key_left).setVisibility(INVISIBLE);
         v4.findViewById(R.id.key_right).setVisibility(INVISIBLE);
 
+        final UiDataModel uiDataModel = UiDataModel.getUiDataModel();
         for (int i = 0; i < mNumbers.length; i++) {
             mNumbers[i].setOnClickListener(this);
-            mNumbers[i].setText(String.valueOf(i));
+            mNumbers[i].setText(uiDataModel.getFormattedNumber(i, 1));
             mNumbers[i].setTextColor(Color.WHITE);
             mNumbers[i].setTag(R.id.numbers_key, i);
         }

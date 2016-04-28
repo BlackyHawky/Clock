@@ -16,15 +16,21 @@
 
 package com.android.deskclock.uidata;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.util.SparseArray;
 
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.ClockFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.timer.TimerFragment;
+
+import java.util.Locale;
 
 import static com.android.deskclock.Utils.enforceMainLooper;
 
@@ -62,6 +68,17 @@ public final class UiDataModel {
         return sUiDataModel;
     }
 
+    /** Clears data structures containing data that is locale-sensitive. */
+    @SuppressWarnings("FieldCanBeLocal")
+    private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
+
+    /**
+     * Caches formatted numbers in the current locale padded with zeroes to requested lengths.
+     * The first level of the cache maps length to the second level of the cache.
+     * The second level of the cache maps an integer to a formatted String in the current locale.
+     */
+    private final SparseArray<SparseArray<String>> mNumberFormatCache = new SparseArray<>(3);
+
     private Context mContext;
 
     /** The model from which tab data are fetched. */
@@ -83,6 +100,67 @@ public final class UiDataModel {
 
         mTabModel = new TabModel(mContext);
         mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
+
+        // Clear caches affected by locale when locale changes.
+        final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
+        mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+    }
+
+    //
+    // Number Formatting
+    //
+
+    /**
+     * This method is intended to be used when formatting numbers occurs in a hotspot such as the
+     * update loop of a timer or stopwatch. It returns cached results when possible in order to
+     * provide speed and limit garbage to be collected by the virtual machine.
+     *
+     * @param value a positive integer to format as a String
+     * @param length the length of the String; zeroes are padded to match this length
+     * @return the {@code value} formatted as a String in the current locale and padded to the
+     *      requested {@code length}
+     * @throws IllegalArgumentException if {@code value} is negative
+     */
+    public String getFormattedNumber(int value, int length) {
+        return getFormattedNumber(false, value, length);
+    }
+
+    /**
+     * This method is intended to be used when formatting numbers occurs in a hotspot such as the
+     * update loop of a timer or stopwatch. It returns cached results when possible in order to
+     * provide speed and limit garbage to be collected by the virtual machine.
+     *
+     * @param negative force a minus sign (-) onto the display, even if {@code value} is {@code 0}
+     * @param value a positive integer to format as a String
+     * @param length the length of the String; zeroes are padded to match this length. If
+     *      {@code negative} is {@code true} the return value will contain a minus sign and a total
+     *      length of {@code length + 1}.
+     * @return the {@code value} formatted as a String in the current locale and padded to the
+     *      requested {@code length}
+     * @throws IllegalArgumentException if {@code value} is negative
+     */
+    public String getFormattedNumber(boolean negative, int value, int length) {
+        if (value < 0) {
+            throw new IllegalArgumentException("value may not be negative: " + value);
+        }
+
+        // Look up the value cache using the length; -ve and +ve values are cached separately.
+        final int lengthCacheKey = negative ? -length : length;
+        SparseArray<String> valueCache = mNumberFormatCache.get(lengthCacheKey);
+        if (valueCache == null) {
+            valueCache = new SparseArray<>((int) Math.pow(10, length));
+            mNumberFormatCache.put(lengthCacheKey, valueCache);
+        }
+
+        // Look up the cached formatted value using the value.
+        String formatted = valueCache.get(value);
+        if (formatted == null) {
+            final String sign = negative ? "−" : "";
+            formatted = String.format(Locale.getDefault(), sign + "%0" + length + "d", value);
+            valueCache.put(value, formatted);
+        }
+
+        return formatted;
     }
 
     //
@@ -260,5 +338,15 @@ public final class UiDataModel {
     public void removePeriodicCallback(Runnable runnable) {
         enforceMainLooper();
         mPeriodicCallbackModel.removePeriodicCallback(runnable);
+    }
+
+    /**
+     * Cached information that is locale-sensitive must be cleared in response to locale changes.
+     */
+    private final class LocaleChangedReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mNumberFormatCache.clear();
+        }
     }
 }

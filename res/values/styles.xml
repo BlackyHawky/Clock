@@ -118,12 +118,18 @@
     </style>
 
     <style name="timer_setup_digit">
-        <item name="android:textSize">@dimen/timer_setup_font_size</item>
+        <item name="android:ellipsize">none</item>
         <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/clock_white</item>
+        <item name="android:textSize">@dimen/timer_setup_font_size</item>
     </style>
 
-    <style name="timer_setup_label">
-        <item name="android:textSize">@dimen/timer_setup_label_size</item>
+    <style name="timer_setup_label" parent="label">
+        <item name="android:ellipsize">none</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/clock_white</item>
     </style>
 
     <style name="medium_light">

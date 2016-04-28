@@ -436,7 +436,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         final long totalTime = stopwatch.getTotalTime();
 
         // Update the total time display.
-        mTimeText.setTime(totalTime, true, true);
+        mTimeText.setTime(totalTime, true);
 
         // Update the current lap.
         final boolean currentLapIsVisible = mLapsLayoutManager.findFirstVisibleItemPosition() == 0;

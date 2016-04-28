@@ -29,6 +29,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Lap;
 import com.android.deskclock.data.Stopwatch;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.text.DecimalFormatSymbols;
 import java.util.List;
@@ -39,6 +40,14 @@ import java.util.Locale;
  * lap is at the bottom.
  */
 class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
+
+    private static final long TEN_MINUTES = 10 * DateUtils.MINUTE_IN_MILLIS;
+    private static final long HOUR = DateUtils.HOUR_IN_MILLIS;
+    private static final long TEN_HOURS = 10 * HOUR;
+    private static final long HUNDRED_HOURS = 100 * HOUR;
+
+    /** Reusable StringBuilder that assembles a formatted time; alleviates memory churn. */
+    private static final StringBuilder sTimeBuilder = new StringBuilder(12);
 
     private final LayoutInflater mInflater;
     private final Context mContext;
@@ -204,7 +213,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * @return e.g. "# 7" if {@code lapCount} less than 10; "# 07" if {@code lapCount} is 10 or more
      */
     @VisibleForTesting
-    String formatLapNumber(int lapCount, int lapNumber) {
+    static String formatLapNumber(int lapCount, int lapNumber) {
         if (lapCount < 10) {
             return String.format(Locale.getDefault(), "# %d", lapNumber);
         }
@@ -219,33 +228,48 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * @return a formatted version of the time
      */
     @VisibleForTesting
-    String formatTime(long maxTime, long time, String separator) {
-        long hundredths, seconds, minutes, hours;
-        seconds = time / 1000;
-        hundredths = (time - seconds * 1000) / 10;
-        minutes = seconds / 60;
-        seconds = seconds - minutes * 60;
-        hours = minutes / 60;
-        minutes = minutes - hours * 60;
+    static String formatTime(long maxTime, long time, String separator) {
+        final int hours = (int) (time / DateUtils.HOUR_IN_MILLIS);
+        int remainder = (int) (time % DateUtils.HOUR_IN_MILLIS);
+
+        final int minutes = (int) (remainder / DateUtils.MINUTE_IN_MILLIS);
+        remainder = (int) (remainder % DateUtils.MINUTE_IN_MILLIS);
+
+        final int seconds = (int) (remainder / DateUtils.SECOND_IN_MILLIS);
+        remainder = (int) (remainder % DateUtils.SECOND_IN_MILLIS);
+
+        final int hundredths = remainder / 10;
 
         final char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
 
-        if (maxTime < 10 * DateUtils.MINUTE_IN_MILLIS) {
-            return String.format(Locale.getDefault(), "%d%s%02d%s%02d",
-                    minutes, separator, seconds, decimalSeparator, hundredths);
-        } else if (maxTime < 60 * DateUtils.MINUTE_IN_MILLIS) {
-            return String.format(Locale.getDefault(), "%02d%s%02d%s%02d",
-                    minutes, separator, seconds, decimalSeparator, hundredths);
-        } else if (maxTime < 10 * DateUtils.HOUR_IN_MILLIS) {
-            return String.format(Locale.getDefault(), "%d%s%02d%s%02d%s%02d",
-                    hours, separator, minutes, separator, seconds, decimalSeparator, hundredths);
-        } else if (maxTime < 100 * DateUtils.HOUR_IN_MILLIS) {
-            return String.format(Locale.getDefault(), "%02d%s%02d%s%02d%s%02d",
-                    hours, separator, minutes, separator, seconds, decimalSeparator, hundredths);
+        sTimeBuilder.setLength(0);
+
+        // The display of hours and minutes varies based on maxTime.
+        if (maxTime < TEN_MINUTES) {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 1));
+        } else if (maxTime < HOUR) {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+        } else if (maxTime < TEN_HOURS) {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 1));
+            sTimeBuilder.append(separator);
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+        } else if (maxTime < HUNDRED_HOURS) {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 2));
+            sTimeBuilder.append(separator);
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
+        } else {
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hours, 3));
+            sTimeBuilder.append(separator);
+            sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(minutes, 2));
         }
 
-        return String.format(Locale.getDefault(), "%03d%s%02d%s%02d%s%02d",
-                hours, separator, minutes, separator, seconds, decimalSeparator, hundredths);
+        // The display of seconds and hundredths-of-a-second is constant.
+        sTimeBuilder.append(separator);
+        sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(seconds, 2));
+        sTimeBuilder.append(decimalSeparator);
+        sTimeBuilder.append(UiDataModel.getUiDataModel().getFormattedNumber(hundredths, 2));
+
+        return sTimeBuilder.toString();
     }
 
     /**

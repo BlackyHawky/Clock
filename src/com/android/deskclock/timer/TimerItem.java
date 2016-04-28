@@ -64,7 +64,7 @@ public class TimerItem extends LinearLayout {
         mCircleView = (TimerCircleView) findViewById(R.id.timer_time);
         mTimerText = (CountingTimerView) findViewById(R.id.timer_time_text);
 
-        // This layout positions dynamically positions the label and reset buttons.
+        // This layout dynamically positions the label and reset buttons.
         final CircleButtonsLayout cbl = (CircleButtonsLayout) findViewById(R.id.timer_circle);
         cbl.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label);
     }
@@ -74,7 +74,7 @@ public class TimerItem extends LinearLayout {
      */
     void update(Timer timer) {
         // Update the time.
-        mTimerText.setTime(timer.getRemainingTime(), false, true);
+        mTimerText.setTime(timer.getRemainingTime(), false);
 
         // Update the progress of the circle.
         mCircleView.update(timer);

@@ -16,4 +16,13 @@
         <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 
+    <style name="timer_setup_digit">
+        <item name="android:ellipsize">none</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/clock_white</item>
+        <item name="android:textSize">@dimen/timer_setup_font_size</item>
+    </style>
+
 </resources>

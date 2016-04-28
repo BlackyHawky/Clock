@@ -14,7 +14,6 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.os.SystemClock;
-import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
 
@@ -170,16 +169,14 @@ public final class AsyncRingtonePlayer {
      * @return Uri of the ringtone to play when the user is in a telephone call
      */
     private static Uri getInCallRingtoneUri(Context context) {
-        final String packageName = context.getPackageName();
-        return Uri.parse("android.resource://" + packageName + "/" + R.raw.alarm_expire);
+        return Utils.getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**
      * @return Uri of the ringtone to play when the chosen ringtone fails to play
      */
     private static Uri getFallbackRingtoneUri(Context context) {
-        final String packageName = context.getPackageName();
-        return Uri.parse("android.resource://" + packageName + "/" + R.raw.alarm_expire);
+        return Utils.getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**

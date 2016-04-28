@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.Locale;
 
@@ -87,11 +88,12 @@ public class TimerView extends LinearLayout {
 
     public void setTime(int hoursTensDigit, int hoursOnesDigit, int minutesTensDigit,
                         int minutesOnesDigit, int seconds) {
+        final UiDataModel uiDataModel = UiDataModel.getUiDataModel();
         if (hoursTensDigit == -1) {
             mHoursTens.setText("-");
             mHoursTens.setTextColor(mGrayColor);
         } else {
-            mHoursTens.setText(String.valueOf(hoursTensDigit));
+            mHoursTens.setText(uiDataModel.getFormattedNumber(hoursTensDigit, 1));
             mHoursTens.setTextColor(mWhiteColor);
         }
 
@@ -99,7 +101,7 @@ public class TimerView extends LinearLayout {
             mHoursOnes.setText("-");
             mHoursOnes.setTextColor(mGrayColor);
         } else {
-            mHoursOnes.setText(String.valueOf(hoursOnesDigit));
+            mHoursOnes.setText(uiDataModel.getFormattedNumber(hoursOnesDigit, 1));
             mHoursOnes.setTextColor(mWhiteColor);
         }
 
@@ -107,7 +109,7 @@ public class TimerView extends LinearLayout {
             mMinutesTens.setText("-");
             mMinutesTens.setTextColor(mGrayColor);
         } else {
-            mMinutesTens.setText(String.valueOf(minutesTensDigit));
+            mMinutesTens.setText(uiDataModel.getFormattedNumber(minutesTensDigit, 1));
             mMinutesTens.setTextColor(mWhiteColor);
         }
 
@@ -115,10 +117,10 @@ public class TimerView extends LinearLayout {
             mMinutesOnes.setText("-");
             mMinutesOnes.setTextColor(mGrayColor);
         } else {
-            mMinutesOnes.setText(String.valueOf(minutesOnesDigit));
+            mMinutesOnes.setText(uiDataModel.getFormattedNumber(minutesOnesDigit, 1));
             mMinutesOnes.setTextColor(mWhiteColor);
         }
 
-        mSeconds.setText(String.format(Locale.getDefault(), "%02d", seconds));
+        mSeconds.setText(uiDataModel.getFormattedNumber(seconds, 2));
     }
 }
