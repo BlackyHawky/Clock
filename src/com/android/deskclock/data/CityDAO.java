@@ -20,7 +20,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
-import android.preference.PreferenceManager;
 import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.util.ArrayMap;
@@ -44,17 +43,14 @@ import java.util.regex.Pattern;
  */
 final class CityDAO {
 
-    // Regex to match numeric index values when parsing city names.
+    /** Regex to match numeric index values when parsing city names. */
     private static final Pattern NUMERIC_INDEX_REGEX = Pattern.compile("\\d+");
 
-    // Key to a preference that stores the number of selected cities.
+    /** Key to a preference that stores the number of selected cities. */
     private static final String NUMBER_OF_CITIES = "number_of_cities";
 
-    // Prefix for a key to a preference that stores the id of a selected city.
+    /** Prefix for a key to a preference that stores the id of a selected city. */
     private static final String CITY_ID = "city_id_";
-
-    // Lazily instantiated and cached for the life of the application.
-    private static SharedPreferences sPrefs;
 
     private CityDAO() {}
 
@@ -62,8 +58,8 @@ final class CityDAO {
      * @param cityMap maps city ids to city instances
      * @return the list of city ids selected for display by the user
      */
-    public static List<City> getSelectedCities(Context context, Map<String, City> cityMap) {
-        final SharedPreferences prefs = getSharedPreferences(context);
+    static List<City> getSelectedCities(Context context, Map<String, City> cityMap) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final int size = prefs.getInt(NUMBER_OF_CITIES, 0);
         final List<City> selectedCities = new ArrayList<>(size);
 
@@ -81,8 +77,8 @@ final class CityDAO {
     /**
      * @param cities the collection of cities selected for display by the user
      */
-    public static void setSelectedCities(Context context, Collection<City> cities) {
-        final SharedPreferences prefs = getSharedPreferences(context);
+    static void setSelectedCities(Context context, Collection<City> cities) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(NUMBER_OF_CITIES, cities.size());
 
@@ -98,7 +94,7 @@ final class CityDAO {
     /**
      * @return the domain of cities from which the user may choose a world clock
      */
-    public static Map<String, City> getCities(Context context) {
+    static Map<String, City> getCities(Context context) {
         final Resources resources = context.getResources();
         final TypedArray cityStrings = resources.obtainTypedArray(R.array.city_ids);
         final int citiesCount = cityStrings.length();
@@ -169,13 +165,5 @@ final class CityDAO {
         final int index = matcher.find() ? Integer.parseInt(matcher.group()) : -1;
 
         return new City(id, index, indexString, name, phoneticName, tz);
-    }
-
-    private static SharedPreferences getSharedPreferences(Context context) {
-        if (sPrefs == null) {
-            sPrefs = Utils.getDefaultSharedPreferences(context.getApplicationContext());
-        }
-
-        return sPrefs;
     }
 }
