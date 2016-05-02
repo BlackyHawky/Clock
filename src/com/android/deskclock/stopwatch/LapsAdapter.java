@@ -46,6 +46,9 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private static final long TEN_HOURS = 10 * HOUR;
     private static final long HUNDRED_HOURS = 100 * HOUR;
 
+    /** A single space preceded by a zero-width LRM; This groups adjacent chars left-to-right. */
+    private static final String LRM_SPACE = "\u200E ";
+
     /** Reusable StringBuilder that assembles a formatted time; alleviates memory churn. */
     private static final StringBuilder sTimeBuilder = new StringBuilder(12);
 
@@ -281,7 +284,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private String formatLapTime(long lapTime, boolean isBinding) {
         // The longest lap dictates the way the given lapTime must be formatted.
         final long longestLapTime = Math.max(DataModel.getDataModel().getLongestLapTime(), lapTime);
-        final String formattedTime = formatTime(longestLapTime, lapTime, " ");
+        final String formattedTime = formatTime(longestLapTime, lapTime, LRM_SPACE);
 
         // If the newly formatted lap time has altered the format, refresh all laps.
         final int newLength = formattedTime.length();
@@ -302,7 +305,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     private String formatAccumulatedTime(long accumulatedTime, boolean isBinding) {
         final long totalTime = getStopwatch().getTotalTime();
         final long longestAccumulatedTime = Math.max(totalTime, accumulatedTime);
-        final String formattedTime = formatTime(longestAccumulatedTime, accumulatedTime, " ");
+        final String formattedTime = formatTime(longestAccumulatedTime, accumulatedTime, LRM_SPACE);
 
         // If the newly formatted accumulated time has altered the format, refresh all laps.
         final int newLength = formattedTime.length();
