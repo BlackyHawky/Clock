@@ -332,7 +332,7 @@
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Kronometroa ez da abian"</string>
     <string name="stopwatch_paused" msgid="2187615623275408601">"Gelditu da kronometroa"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Berrezarri da kronometroa"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Ezarri da kronometroaren denbora tarte partziala"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Ezarri da kronometroaren denbora-tarte partziala"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Hasi da kronometroa"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Ez dago alarmarik programatuta ordu horretarako"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Baztertu da <xliff:g id="ALARM_TIME">%s</xliff:g> alarma"</string>

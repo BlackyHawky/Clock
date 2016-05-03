@@ -86,7 +86,7 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"každý deň"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="loading_widget" msgid="5306242862476796500">"Prebieha načítavanie..."</string>
+    <string name="loading_widget" msgid="5306242862476796500">"Načítava sa…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Analógové hodiny"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitálne hodiny"</string>
     <string name="city_gadget" msgid="4887290995955830876">"Svetový čas"</string>
