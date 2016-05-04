@@ -175,8 +175,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"పునఃప్రారంభించు"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"రీసెట్ చేయి"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"ప్రారంభించు"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
+    <string name="sw_pause_button" msgid="2422084453454138042">"పాజ్ చేస్తుంది"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ల్యాప్"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"భాగస్వామ్యం చేయి"</string>
     <string name="hours_label" msgid="3393478155635368097">"గం"</string>

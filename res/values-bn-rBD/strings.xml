@@ -175,14 +175,13 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"পুনঃসূচনা"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"পুনরায় সেট করুন"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"শুরু করুন"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
+    <string name="sw_pause_button" msgid="2422084453454138042">"বিরাম দিন"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ল্যাপ"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"শেয়ার করুন"</string>
     <string name="hours_label" msgid="3393478155635368097">"ঘ."</string>
     <string name="minutes_label" msgid="3568098128251438588">"মি."</string>
     <string name="seconds_label" msgid="124655952824003246">"সে."</string>
-    <string name="hours_label_description" msgid="8652842524970971830">"ঘন্টা"</string>
+    <string name="hours_label_description" msgid="8652842524970971830">"ঘণ্টা"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"মিনিট"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"সেকেন্ড"</string>
     <string name="zero" msgid="7102083421938355017">"0"</string>
@@ -190,8 +189,8 @@
     <string name="sw_share_laps" msgid="614390674795945007">"ল্যাপ সময়:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g> টি ল্যাপ"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ঘন্টা</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ঘন্টা</item>
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> ঘণ্টা</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ঘণ্টা</item>
     </plurals>
     <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> মিনিট</item>
@@ -401,7 +400,7 @@
     <string name="the_city_already_added" msgid="3799050213771793020">"এই শহরটি ইতিমধ্যেই যোগ করা হয়েছে"</string>
     <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> যোগ করা হয়েছে"</string>
     <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> মুছে ফেলা হয়েছে"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> অ্যালার্ম এখনো খারিজ করা যাবে না, এখনো পর্যন্ত প্রায় ২৪ ঘন্টা দূরে রয়েছে"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> অ্যালার্ম এখনো খারিজ করা যাবে না, এখনো পর্যন্ত প্রায় ২৪ ঘণ্টা দূরে রয়েছে"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"অ্যালার্ম খারিজ করুন"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"কোন অ্যালার্ম খারিজ করবেন তা বাছুন"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"কোনো অগ্নিসংযোগের অ্যালার্ম নেই"</string>

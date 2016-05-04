@@ -64,7 +64,7 @@
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Queda menos de 1 minuto"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"Quedan <xliff:g id="HOURS">%1$s</xliff:g> horas y <xliff:g id="MINUTES">%2$s</xliff:g> minutos"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"Queda(n) <xliff:g id="HOURS">%1$s</xliff:g> y <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"restante"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"restantes"</string>
   <string-array name="alarm_set">
