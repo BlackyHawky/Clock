@@ -61,14 +61,14 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"تتبقى"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"تتبقى"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"تم ضبط المنبه على أقل من دقيقة واحدة من الآن."</item>
-    <item msgid="6002066367368421848">"تم ضبط المنبه على <xliff:g id="DAYS">%1$s</xliff:g> من الآن."</item>
-    <item msgid="8824719306247973774">"تم ضبط المنبه على <xliff:g id="HOURS">%2$s</xliff:g> من الآن."</item>
-    <item msgid="8182406852935468862">"تم ضبط المنبه على <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> من الآن."</item>
-    <item msgid="2532279224777213194">"تم ضبط المنبه على <xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
-    <item msgid="5936557894247187717">"تم ضبط المنبه على <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
+    <item msgid="6450913786084215050">"ضبط المنبه :أقل من دقيقة واحدة من الآن."</item>
+    <item msgid="6002066367368421848">"ضبط المنبه: <xliff:g id="DAYS">%1$s</xliff:g> من الآن."</item>
+    <item msgid="8824719306247973774">"ضبط المنبه: <xliff:g id="HOURS">%2$s</xliff:g> من الآن."</item>
+    <item msgid="8182406852935468862">"ضبط المنبه:<xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> من الآن."</item>
+    <item msgid="2532279224777213194">"ضبط المنبه: <xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
+    <item msgid="5936557894247187717">"ضبط المنبه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
     <item msgid="9115697840826129603">"ضبط المنبه: <xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
-    <item msgid="2332583385137381060">"تم ضبط المنبه على <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
+    <item msgid="2332583385137381060">"ضبط المنبه: <xliff:g id="DAYS">%1$s</xliff:g> و<xliff:g id="HOURS">%2$s</xliff:g> و<xliff:g id="MINUTES">%3$s</xliff:g> من الآن."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> من الأيام</item>
