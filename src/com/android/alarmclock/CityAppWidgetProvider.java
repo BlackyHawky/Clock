@@ -33,7 +33,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.TextClock;
-import android.widget.TextView;
 
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.LogUtils;
@@ -209,10 +208,9 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         final int maxHeightPx = (int) (density * options.getInt(OPTION_APPWIDGET_MAX_HEIGHT));
         final int targetWidthPx = portrait ? minWidthPx : maxWidthPx;
         final int targetHeightPx = portrait ? maxHeightPx : minHeightPx;
-        final int fontSizePx = resources.getDimensionPixelSize(R.dimen.city_widget_name_font_size);
         final int largestClockFontSizePx =
                 resources.getDimensionPixelSize(R.dimen.widget_max_clock_font_size);
-        final Sizes template = new Sizes(city, targetWidthPx, targetHeightPx, fontSizePx,
+        final Sizes template = new Sizes(city, targetWidthPx, targetHeightPx,
                 largestClockFontSizePx);
 
         // Create a remote view for the city widget.
@@ -242,8 +240,6 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
 
         // Apply the computed sizes to the remote views.
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
-        rv.setTextViewTextSize(R.id.city_day, COMPLEX_UNIT_PX, sizes.mFontSizePx);
-        rv.setTextViewTextSize(R.id.city_name, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setInt(R.id.city_name, "setMaxWidth", sizes.mCityNameMaxWidthPx);
         return rv;
     }
@@ -341,14 +337,11 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         // Configure the clock to display the time string.
         final TextClock clock = (TextClock) sizer.findViewById(R.id.clock);
         final TextClock cityDay = (TextClock) sizer.findViewById(R.id.city_day);
-        final TextView cityName = (TextView) sizer.findViewById(R.id.city_name);
 
         // Adjust the font sizes.
         measuredSizes.setClockFontSizePx(clockFontSizePx);
         clock.setText(time);
         clock.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mClockFontSizePx);
-        cityDay.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
-        cityName.setTextSize(COMPLEX_UNIT_PX, measuredSizes.mFontSizePx);
 
         // Measure and layout the sizer.
         final int widthSize = View.MeasureSpec.getSize(measuredSizes.mTargetWidthPx);
@@ -455,21 +448,17 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         private int mMeasuredTextClockWidthPx;
         private int mMeasuredTextClockHeightPx;
 
-        /** The size of the font to use on the city name / day of week fields. */
-        private final int mFontSizePx;
-
         /** The size of the font to use on the clock field. */
         private int mClockFontSizePx;
 
         /** If the city name requires more width that this threshold the text is elided. */
         private int mCityNameMaxWidthPx;
 
-        private Sizes(City city, int targetWidthPx, int targetHeightPx, int fontSizePx,
+        private Sizes(City city, int targetWidthPx, int targetHeightPx,
                 int largestClockFontSizePx) {
             mCity = city;
             mTargetWidthPx = targetWidthPx;
             mTargetHeightPx = targetHeightPx;
-            mFontSizePx = fontSizePx;
             mLargestClockFontSizePx = largestClockFontSizePx;
             mSmallestClockFontSizePx = 0;
         }
@@ -486,8 +475,7 @@ public class CityAppWidgetProvider extends AppWidgetProvider {
         }
 
         private Sizes newSize() {
-            return new Sizes(mCity, mTargetWidthPx, mTargetHeightPx, mFontSizePx,
-                    mLargestClockFontSizePx);
+            return new Sizes(mCity, mTargetWidthPx, mTargetHeightPx, mLargestClockFontSizePx);
         }
 
         @Override

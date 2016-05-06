@@ -47,7 +47,8 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@color/clock_white" />
+            android:textColor="@color/clock_white"
+            android:textSize="@dimen/city_widget_name_font_size" />
 
         <TextClock
             android:id="@+id/city_day"
@@ -60,7 +61,8 @@
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAllCaps="true"
-            android:textColor="@color/clock_white" />
+            android:textColor="@color/clock_white"
+            android:textSize="@dimen/city_widget_name_font_size" />
 
     </LinearLayout>
 
