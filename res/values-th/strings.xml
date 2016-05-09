@@ -79,7 +79,6 @@
     <string name="loading_widget" msgid="5306242862476796500">"กำลังโหลด…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"นาฬิกาแอนะล็อก"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"นาฬิกาดิจิทัล"</string>
-    <string name="city_gadget" msgid="4887290995955830876">"นาฬิกาบอกเวลาโลก"</string>
     <string name="settings" msgid="5849739030579520686">"การตั้งค่า"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"ระยะเวลาปิดเสียงเตือนชั่วคราว"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">

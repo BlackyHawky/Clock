@@ -79,7 +79,6 @@
     <string name="loading_widget" msgid="5306242862476796500">"ಲೋಡ್ ಮಾಡಲಾಗುತ್ತಿದೆ..."</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ಅನಲಾಗ್ ಗಡಿಯಾರ"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ಡಿಜಿಟಲ್ ಗಡಿಯಾರ"</string>
-    <string name="city_gadget" msgid="4887290995955830876">"ವಿಶ್ವ ಗಡಿಯಾರ"</string>
     <string name="settings" msgid="5849739030579520686">"ಸೆಟ್ಟಿಂಗ್‌ಗಳು"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"ಸ್ನೂಜ್ ಅವಧಿ"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">

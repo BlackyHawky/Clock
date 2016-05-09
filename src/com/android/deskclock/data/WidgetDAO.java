@@ -26,9 +26,6 @@ import android.preference.PreferenceManager;
  */
 final class WidgetDAO {
 
-    /** Prefix for a key to a preference that stores the id of a city displayed in a widget. */
-    private static final String WIDGET_CITY_ID_PREFIX = "widget_city_id_";
-
     /** Suffix for a key to a preference that stores the instance count for a given widget type. */
     private static final String WIDGET_COUNT_SUFFIX = "_widget_count";
 
@@ -36,28 +33,6 @@ final class WidgetDAO {
     private static SharedPreferences sPrefs;
 
     private WidgetDAO() {}
-
-    /**
-     * @param widgetId identifies a city widget in the launcher
-     * @return the id of the City to display in the widget
-     */
-    public static String getWidgetCityId(Context context, int widgetId) {
-        final SharedPreferences prefs = getSharedPreferences(context);
-        return prefs.getString(WIDGET_CITY_ID_PREFIX + widgetId, null);
-    }
-
-    /**
-     * @param widgetId identifies a city widget in the launcher
-     * @param cityId identifies the City to display in the widget; {@code null} implies remove City
-     */
-    public static void setWidgetCityId(Context context, int widgetId, String cityId) {
-        final SharedPreferences prefs = getSharedPreferences(context);
-        if (cityId == null) {
-            prefs.edit().remove(WIDGET_CITY_ID_PREFIX + widgetId).apply();
-        } else {
-            prefs.edit().putString(WIDGET_CITY_ID_PREFIX + widgetId, cityId).apply();
-        }
-    }
 
     /**
      * @param widgetProviderClass indicates the type of widget being counted

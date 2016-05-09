@@ -99,7 +99,6 @@
     <string name="loading_widget" msgid="5306242862476796500">"جارٍ التحميل…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ساعة عادية"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ساعة رقمية"</string>
-    <string name="city_gadget" msgid="4887290995955830876">"الساعة الدولية"</string>
     <string name="settings" msgid="5849739030579520686">"الإعدادات"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"طول مدة الغفوة"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">

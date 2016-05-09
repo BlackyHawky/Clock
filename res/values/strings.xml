@@ -193,9 +193,6 @@
     <!-- Label for digital clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
     <string name="digital_gadget">Digital clock</string>
 
-    <!-- Label for city clock gadget displayed in the widget picker. [CHAR LIMIT=18] -->
-    <string name="city_gadget">World clock</string>
-
     <!-- Settings activity name -->
     <!-- Label for the Settings activity displayed on-screen when that activity must be represented to the user. -->
     <string name="settings">Settings</string>
