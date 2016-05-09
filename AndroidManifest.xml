@@ -288,6 +288,7 @@
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.app.action.NEXT_ALARM_CLOCK_CHANGED" />
+                <action android:name="com.android.deskclock.ALARM_CHANGED" />
                 <action android:name="com.android.deskclock.ON_DAY_CHANGE" />
                 <action android:name="com.android.deskclock.WORLD_CITIES_CHANGED" />
             </intent-filter>
