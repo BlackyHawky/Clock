@@ -79,7 +79,6 @@
     <string name="loading_widget" msgid="5306242862476796500">"Зарежда се…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Аналогов часовник"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Цифров часовник"</string>
-    <string name="city_gadget" msgid="4887290995955830876">"Световен часовник"</string>
     <string name="settings" msgid="5849739030579520686">"Настройки"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Продължителност на отлагането"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">

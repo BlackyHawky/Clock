@@ -27,35 +27,10 @@ import com.android.deskclock.Utils;
  */
 final class WidgetDAO {
 
-    /** Prefix for a key to a preference that stores the id of a city displayed in a widget. */
-    private static final String WIDGET_CITY_ID = "widget_city_id_";
-
     /** Suffix for a key to a preference that stores the instance count for a given widget type. */
     private static final String WIDGET_COUNT = "_widget_count";
 
     private WidgetDAO() {}
-
-    /**
-     * @param widgetId identifies a city widget in the launcher
-     * @return the id of the City to display in the widget
-     */
-    static String getWidgetCityId(Context context, int widgetId) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
-        return prefs.getString(WIDGET_CITY_ID + widgetId, null);
-    }
-
-    /**
-     * @param widgetId identifies a city widget in the launcher
-     * @param cityId identifies the City to display in the widget; {@code null} implies remove City
-     */
-    static void setWidgetCityId(Context context, int widgetId, String cityId) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
-        if (cityId == null) {
-            prefs.edit().remove(WIDGET_CITY_ID + widgetId).apply();
-        } else {
-            prefs.edit().putString(WIDGET_CITY_ID + widgetId, cityId).apply();
-        }
-    }
 
     /**
      * @param widgetProviderClass indicates the type of widget being counted

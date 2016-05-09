@@ -89,7 +89,7 @@ public final class DataModel {
         mSettingsModel = new SettingsModel(mContext);
         mNotificationModel = new NotificationModel();
         mCityModel = new CityModel(mContext, mSettingsModel);
-        mWidgetModel = new WidgetModel(mContext, mCityModel);
+        mWidgetModel = new WidgetModel(mContext);
         mAlarmModel = new AlarmModel(mContext, mSettingsModel);
         mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
         mTimerModel = new TimerModel(mContext, mSettingsModel, mNotificationModel);
@@ -598,24 +598,6 @@ public final class DataModel {
     //
     // Widgets
     //
-
-    /**
-     * @param widgetId identifies a city widget in the launcher
-     * @return the City data to display in the widget
-     */
-    public City getWidgetCity(int widgetId) {
-        enforceMainLooper();
-        return mWidgetModel.getWidgetCity(widgetId);
-    }
-
-    /**
-     * @param widgetId identifies a city widget in the launcher
-     * @param city the City to display in the widget; {@code null} implies remove City
-     */
-    public void setWidgetCity(int widgetId, City city) {
-        enforceMainLooper();
-        mWidgetModel.setWidgetCity(widgetId, city);
-    }
 
     /**
      * @param widgetClass indicates the type of widget being counted

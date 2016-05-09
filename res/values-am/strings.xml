@@ -79,7 +79,6 @@
     <string name="loading_widget" msgid="5306242862476796500">"በመጫን ላይ…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"አናሎግ ሰዓት"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ዲጂታል ሰዓት"</string>
-    <string name="city_gadget" msgid="4887290995955830876">"የዓለም ሰዓት"</string>
     <string name="settings" msgid="5849739030579520686">"ቅንብሮች"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"የአሸልብ ርዝመት"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">

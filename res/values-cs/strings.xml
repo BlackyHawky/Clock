@@ -89,7 +89,6 @@
     <string name="loading_widget" msgid="5306242862476796500">"Načítání…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Analogové hodiny"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitální hodiny"</string>
-    <string name="city_gadget" msgid="4887290995955830876">"Světové hodiny"</string>
     <string name="settings" msgid="5849739030579520686">"Nastavení"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Délka odložení zvonění"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">

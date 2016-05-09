@@ -112,17 +112,6 @@
         </activity>
 
         <activity
-            android:name=".worldclock.WidgetCitySelectionActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/cities_activity_title"
-            android:taskAffinity=""
-            android:theme="@style/CitiesTheme">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name=".alarms.AlarmActivity"
             android:directBootAware="true"
             android:excludeFromRecents="true"
@@ -311,22 +300,6 @@
             android:name="com.android.alarmclock.DigitalAppWidgetCityService"
             android:exported="false"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
-
-        <receiver
-            android:name="com.android.alarmclock.CityAppWidgetProvider"
-            android:label="@string/city_gadget">
-            <intent-filter>
-                <action android:name="android.intent.action.TIME_SET" />
-                <action android:name="android.intent.action.SCREEN_ON" />
-                <action android:name="android.intent.action.DATE_CHANGED" />
-                <action android:name="android.intent.action.LOCALE_CHANGED" />
-                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/city_appwidget" />
-        </receiver>
 
         <!-- Screen saver implementation -->
         <service

@@ -19,7 +19,6 @@
     <string name="category_clock">Clock</string>
     <string name="category_timer">Timer</string>
     <string name="category_stopwatch">Stopwatch</string>
-    <string name="category_city_widget">City Widget</string>
     <string name="category_analog_widget">Analog Widget</string>
     <string name="category_digital_widget">Digital Widget</string>
 
