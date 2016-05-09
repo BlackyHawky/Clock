@@ -69,7 +69,7 @@ import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
-import static com.android.deskclock.alarms.AlarmStateManager.SYSTEM_ALARM_CHANGE_ACTION;
+import static com.android.deskclock.alarms.AlarmStateManager.ACTION_ALARM_CHANGED;
 import static com.android.deskclock.data.DataModel.ACTION_WORLD_CITIES_CHANGED;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
@@ -142,10 +142,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         switch (intent.getAction()) {
             case ACTION_SCREEN_ON:
             case ACTION_DATE_CHANGED:
-            case ACTION_LOCALE_CHANGED:
+            case ACTION_ALARM_CHANGED:
             case ACTION_ON_DAY_CHANGE:
+            case ACTION_LOCALE_CHANGED:
             case ACTION_TIMEZONE_CHANGED:
-            case SYSTEM_ALARM_CHANGE_ACTION:
             case ACTION_WORLD_CITIES_CHANGED:
             case ACTION_NEXT_ALARM_CLOCK_CHANGED:
                 for (int widgetId : widgetIds) {
