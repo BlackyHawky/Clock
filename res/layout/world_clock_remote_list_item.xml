@@ -49,24 +49,32 @@
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <TextView
-                    android:id="@+id/city_name_left"
-                    style="@style/widget_label"
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:includeFontPadding="false"
-                    android:singleLine="true"
-                    android:textAllCaps="true"
-                    android:textColor="@color/clock_white"
-                    android:textSize="@dimen/city_widget_name_font_size" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/city_name_left"
+                        style="@style/widget_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:singleLine="true"
+                        android:textAllCaps="true"
+                        android:textColor="@color/clock_white"
+                        android:textSize="@dimen/city_widget_name_font_size" />
+
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/city_day_left"
                     style="@style/widget_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/style_label_space"
                     android:ellipsize="none"
                     android:format12Hour="@string/abbrev_wday"
                     android:format24Hour="@string/abbrev_wday"
@@ -102,24 +110,32 @@
                 android:layout_gravity="center"
                 android:gravity="center">
 
-                <TextView
-                    android:id="@+id/city_name_right"
-                    style="@style/widget_label"
+                <FrameLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:includeFontPadding="false"
-                    android:singleLine="true"
-                    android:textAllCaps="true"
-                    android:textColor="@color/clock_white"
-                    android:textSize="@dimen/city_widget_name_font_size" />
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/city_name_right"
+                        style="@style/widget_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:ellipsize="end"
+                        android:includeFontPadding="false"
+                        android:singleLine="true"
+                        android:textAllCaps="true"
+                        android:textColor="@color/clock_white"
+                        android:textSize="@dimen/city_widget_name_font_size" />
+
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/city_day_right"
                     style="@style/widget_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/style_label_space"
                     android:ellipsize="none"
                     android:format12Hour="@string/abbrev_wday"
                     android:format24Hour="@string/abbrev_wday"
