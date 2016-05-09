@@ -185,6 +185,9 @@ final class CityModel {
         mAllCities = null;
         mSelectedCities = null;
         mUnselectedCities = null;
+
+        // Broadcast the change to the selected cities for the benefit of widgets.
+        sendCitiesChangedBroadcast();
     }
 
     /**
@@ -242,6 +245,10 @@ final class CityModel {
         throw new IllegalStateException("unexpected city sort: " + citySort);
     }
 
+    private void sendCitiesChangedBroadcast() {
+        mContext.sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_CHANGED));
+    }
+
     /**
      * Cached information that is locale-sensitive must be cleared in response to locale changes.
      */
@@ -266,6 +273,9 @@ final class CityModel {
             switch (key) {
                 case SettingsActivity.KEY_HOME_TZ:
                     mHomeCity = null;
+                case SettingsActivity.KEY_AUTO_HOME_CLOCK:
+                    sendCitiesChangedBroadcast();
+                    break;
             }
         }
     }

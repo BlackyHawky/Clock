@@ -17,6 +17,7 @@
 package com.android.alarmclock;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -26,10 +27,12 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.ArraySet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RemoteViews;
@@ -40,12 +43,20 @@ import com.android.deskclock.DeskClock;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.TimeZone;
 
 import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
+import static android.app.PendingIntent.FLAG_NO_CREATE;
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_HEIGHT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MAX_WIDTH;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT;
@@ -59,6 +70,7 @@ import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
 import static android.view.View.VISIBLE;
 import static com.android.deskclock.alarms.AlarmStateManager.SYSTEM_ALARM_CHANGE_ACTION;
+import static com.android.deskclock.data.DataModel.ACTION_WORLD_CITIES_CHANGED;
 import static java.lang.Math.max;
 import static java.lang.Math.round;
 
@@ -85,8 +97,34 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DigitalWidgetProvider");
 
+    /**
+     * Intent action used for refreshing a world city display when any of them changes days or when
+     * the default TimeZone changes days. This affects the widget display because the day-of-week is
+     * only visible when the world city day-of-week differs from the default TimeZone's day-of-week.
+     */
+    private static final String ACTION_ON_DAY_CHANGE = "com.android.deskclock.ON_DAY_CHANGE";
+
+    /** Intent used to deliver the {@link #ACTION_ON_DAY_CHANGE} callback. */
+    private static final Intent DAY_CHANGE_INTENT = new Intent(ACTION_ON_DAY_CHANGE);
+
     /** A custom font containing a special glyph that draws a clock icon with proper drop shadow. */
     private static Typeface sAlarmIconTypeface;
+
+    @Override
+    public void onEnabled(Context context) {
+        super.onEnabled(context);
+
+        // Schedule the day-change callback if necessary.
+        updateDayChangeCallback(context);
+    }
+
+    @Override
+    public void onDisabled(Context context) {
+        super.onDisabled(context);
+
+        // Remove any scheduled day-change callback.
+        removeDayChangeCallback(context);
+    }
 
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
@@ -105,8 +143,10 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             case ACTION_SCREEN_ON:
             case ACTION_DATE_CHANGED:
             case ACTION_LOCALE_CHANGED:
+            case ACTION_ON_DAY_CHANGE:
             case ACTION_TIMEZONE_CHANGED:
             case SYSTEM_ALARM_CHANGE_ACTION:
+            case ACTION_WORLD_CITIES_CHANGED:
             case ACTION_NEXT_ALARM_CLOCK_CHANGED:
                 for (int widgetId : widgetIds) {
                     relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
@@ -115,6 +155,8 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
         final DataModel dm = DataModel.getDataModel();
         dm.updateWidgetCount(getClass(), widgetIds.length, R.string.category_digital_widget);
+
+        updateDayChangeCallback(context);
     }
 
     /**
@@ -151,6 +193,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final RemoteViews landscape = relayoutWidget(context, wm, widgetId, options, false);
         final RemoteViews widget = new RemoteViews(landscape, portrait);
         wm.updateAppWidget(widgetId, widget);
+        wm.notifyAppWidgetViewDataChanged(widgetId, R.id.world_city_list);
     }
 
     /**
@@ -214,6 +257,28 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         rv.setTextViewTextSize(R.id.date, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.nextAlarm, COMPLEX_UNIT_PX, sizes.mFontSizePx);
         rv.setTextViewTextSize(R.id.clock, COMPLEX_UNIT_PX, sizes.mClockFontSizePx);
+
+        final int smallestWorldCityListSizePx =
+                resources.getDimensionPixelSize(R.dimen.widget_min_world_city_list_size);
+        if (sizes.getListHeight() <= smallestWorldCityListSizePx) {
+            // Insufficient space; hide the world city list.
+            rv.setViewVisibility(R.id.world_city_list, GONE);
+        } else {
+            // Set an adapter on the world city list. That adapter connects to a Service via intent.
+            final Intent intent = new Intent(context, DigitalAppWidgetCityService.class);
+            intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+            intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
+            rv.setRemoteAdapter(R.id.world_city_list, intent);
+            rv.setViewVisibility(R.id.world_city_list, VISIBLE);
+
+            // Tapping on the widget opens the city selection activity (if not on the lock screen).
+            if (Utils.isWidgetClickable(wm, widgetId)) {
+                final Intent selectCity = new Intent(context, CitySelectionActivity.class);
+                final PendingIntent pi = PendingIntent.getActivity(context, 0, selectCity, 0);
+                rv.setPendingIntentTemplate(R.id.world_city_list, pi);
+            }
+        }
+
         return rv;
     }
 
@@ -274,6 +339,48 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         }
 
         return low;
+    }
+
+    /**
+     * Remove the existing day-change callback if it is not needed (no selected cities exist).
+     * Add the day-change callback if it is needed (selected cities exist).
+     */
+    private void updateDayChangeCallback(Context context) {
+        final List<City> selectedCities = DataModel.getDataModel().getSelectedCities();
+        if (selectedCities.isEmpty()) {
+            // Remove the existing day-change callback.
+            removeDayChangeCallback(context);
+            return;
+        }
+
+        // Look up the time at which the next day change occurs across all timezones.
+        final Set<TimeZone> zones = new ArraySet<>(selectedCities.size() + 1);
+        zones.add(TimeZone.getDefault());
+        for (City city : selectedCities) {
+            zones.add(city.getTimeZone());
+        }
+        final Date nextDay = Utils.getNextDay(new Date(), zones);
+
+        // Schedule the next day-change callback; at least one city is displayed.
+        final PendingIntent pi =
+                PendingIntent.getBroadcast(context, 0, DAY_CHANGE_INTENT, FLAG_UPDATE_CURRENT);
+        getAlarmManager(context).setExact(AlarmManager.RTC, nextDay.getTime(), pi);
+    }
+
+    /**
+     * Remove the existing day-change callback.
+     */
+    private void removeDayChangeCallback(Context context) {
+        final PendingIntent pi =
+                PendingIntent.getBroadcast(context, 0, DAY_CHANGE_INTENT, FLAG_NO_CREATE);
+        if (pi != null) {
+            getAlarmManager(context).cancel(pi);
+            pi.cancel();
+        }
+    }
+
+    private static AlarmManager getAlarmManager(Context context) {
+        return (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
     /**
@@ -397,6 +504,13 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             mFontSizePx = max(1, round(clockFontSizePx / 7.5f));
             mIconFontSizePx = (int) (mFontSizePx * 1.4f);
             mIconPaddingPx = mFontSizePx / 3;
+        }
+
+        /**
+         * @return the amount of widget height available to the world cities list
+         */
+        private int getListHeight() {
+            return mTargetHeightPx - mMeasuredHeightPx;
         }
 
         private boolean hasViolations() {
