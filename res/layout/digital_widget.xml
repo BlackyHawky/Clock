@@ -19,7 +19,7 @@
     android:id="@+id/digital_widget"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:gravity="top|center_horizontal"
     android:orientation="vertical">
 
     <TextClock
@@ -73,5 +73,13 @@
             android:textColor="@color/clock_white" />
 
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/world_city_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="20dp"
+        android:divider="@null" />
 
 </LinearLayout>
