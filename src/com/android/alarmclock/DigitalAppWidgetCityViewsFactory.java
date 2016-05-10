@@ -113,29 +113,29 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
                 (leftIndex < mCities.size() ? mCities.get(leftIndex) : null);
         final City right = rightIndex < mCities.size() ? mCities.get(rightIndex) : null;
 
-        final RemoteViews clock =
+        final RemoteViews rv =
                 new RemoteViews(mContext.getPackageName(), R.layout.world_clock_remote_list_item);
 
         // Show the left clock if one exists.
         if (left != null) {
-            update(clock, left, R.id.left_clock, R.id.city_name_left, R.id.city_day_left);
+            update(rv, left, R.id.left_clock, R.id.city_name_left, R.id.city_day_left);
         } else {
-            hide(clock, R.id.left_clock, R.id.city_name_left, R.id.city_day_left);
+            hide(rv, R.id.left_clock, R.id.city_name_left, R.id.city_day_left);
         }
 
         // Show the right clock if one exists.
         if (right != null) {
-            update(clock, right, R.id.right_clock, R.id.city_name_right, R.id.city_day_right);
+            update(rv, right, R.id.right_clock, R.id.city_name_right, R.id.city_day_right);
         } else {
-            hide(clock, R.id.right_clock, R.id.city_name_right, R.id.city_day_right);
+            hide(rv, R.id.right_clock, R.id.city_name_right, R.id.city_day_right);
         }
 
         // Hide last spacer in last row; show for all others.
         final boolean lastRow = position == getCount() - 1;
-        clock.setViewVisibility(R.id.city_spacer, lastRow ? View.GONE : View.VISIBLE);
+        rv.setViewVisibility(R.id.city_spacer, lastRow ? View.GONE : View.VISIBLE);
 
-        clock.setOnClickFillInIntent(R.id.widget_item, mFillInIntent);
-        return clock;
+        rv.setOnClickFillInIntent(R.id.widget_item, mFillInIntent);
+        return rv;
     }
 
     @Override
@@ -155,7 +155,7 @@ public class DigitalAppWidgetCityViewsFactory implements RemoteViewsFactory {
 
     @Override
     public boolean hasStableIds() {
-        return true;
+        return false;
     }
 
     /**
