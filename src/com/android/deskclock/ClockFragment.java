@@ -267,7 +267,8 @@ public final class ClockFragment extends DeskClockFragment {
 
         @Override
         public void run() {
-            startActivity(new Intent(getActivity(), ScreensaverActivity.class));
+            startActivity(new Intent(getActivity(), ScreensaverActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
 

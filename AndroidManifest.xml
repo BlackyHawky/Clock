@@ -124,6 +124,7 @@
         <activity
             android:name=".ScreensaverActivity"
             android:excludeFromRecents="true"
+            android:resizeableActivity="false"
             android:taskAffinity=""
             android:theme="@style/ScreensaverActivityTheme" />
 

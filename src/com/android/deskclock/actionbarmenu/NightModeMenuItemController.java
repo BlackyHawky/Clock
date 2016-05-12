@@ -55,7 +55,8 @@ public final class NightModeMenuItemController implements MenuItemController {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        mContext.startActivity(new Intent(mContext, ScreensaverActivity.class));
+        mContext.startActivity(new Intent(mContext, ScreensaverActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         return true;
     }
 }
