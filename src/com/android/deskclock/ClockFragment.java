@@ -22,6 +22,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -367,14 +368,12 @@ public final class ClockFragment extends DeskClockFragment {
 
             // Inflate a new view for the city, if necessary.
             if (view == null) {
-                view = mInflater.inflate(R.layout.world_clock_list_item, parent, false);
+                view = mInflater.inflate(R.layout.world_clock_item, parent, false);
             }
 
-            final View clock = view.findViewById(R.id.city_left);
-
             // Configure the digital clock or analog clock depending on the user preference.
-            final TextClock digitalClock = (TextClock) clock.findViewById(R.id.digital_clock);
-            final AnalogClock analogClock = (AnalogClock) clock.findViewById(R.id.analog_clock);
+            final TextClock digitalClock = (TextClock) view.findViewById(R.id.digital_clock);
+            final AnalogClock analogClock = (AnalogClock) view.findViewById(R.id.analog_clock);
             if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
                 digitalClock.setVisibility(GONE);
                 analogClock.setVisibility(VISIBLE);
@@ -388,8 +387,15 @@ public final class ClockFragment extends DeskClockFragment {
                 digitalClock.setFormat24Hour(Utils.get24ModeFormat());
             }
 
+            // Supply top and bottom padding dynamically.
+            final Resources res = mContext.getResources();
+            final int padding = res.getDimensionPixelSize(R.dimen.medium_space_top);
+            final int top = position == 0 ? 0 : padding;
+            final int bottom = position == getCount() - 1 ? top : 0;
+            view.setPadding(view.getPaddingLeft(), top, view.getPaddingRight(), bottom);
+
             // Bind the city name.
-            final TextView name = (TextView) clock.findViewById(R.id.city_name);
+            final TextView name = (TextView) view.findViewById(R.id.city_name);
             name.setText(city.getName());
 
             // Compute if the city week day matches the weekday of the current timezone.
@@ -398,7 +404,7 @@ public final class ClockFragment extends DeskClockFragment {
             final boolean displayDayOfWeek = localCal.get(DAY_OF_WEEK) != cityCal.get(DAY_OF_WEEK);
 
             // Bind the week day display.
-            final TextView dayOfWeek = (TextView) clock.findViewById(R.id.city_day);
+            final TextView dayOfWeek = (TextView) view.findViewById(R.id.city_day);
             dayOfWeek.setVisibility(displayDayOfWeek ? VISIBLE : GONE);
             if (displayDayOfWeek) {
                 final Locale locale = Locale.getDefault();

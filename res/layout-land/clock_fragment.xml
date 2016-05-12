@@ -14,22 +14,23 @@
      limitations under the License.
 -->
 
-<!-- Use this clock_fragment for landscape, which has main clock frame next to cities,
-     with a spacing ratio dependent on the number of clocks per row (phone has 1, tablet has 2). -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:paddingEnd="@dimen/clock_side_padding"
-    android:paddingStart="@dimen/clock_side_padding">
+    android:layout_height="match_parent">
 
+    <!-- Left gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/gutter_width_percent" />
+
+    <!-- Clock: 60% of total width. -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/main_clock_bottom_margin"
-        android:layout_weight="2"
+        android:paddingBottom="@dimen/fab_height"
+        android:layout_weight="60"
         android:gravity="center">
 
         <include
@@ -40,12 +41,19 @@
 
     </LinearLayout>
 
+    <!-- World Clock List: 32% of total width. -->
     <ListView
         android:id="@+id/cities"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="@integer/world_clocks_per_row"
+        android:layout_weight="32"
         android:clickable="false"/>
+
+    <!-- Left gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/gutter_width_percent" />
 
 </LinearLayout>

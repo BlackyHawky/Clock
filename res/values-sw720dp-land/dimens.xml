@@ -29,6 +29,5 @@
     <dimen name="timer_setup_label_size">24sp</dimen>
 
     <dimen name="alarm_side_padding">192dip</dimen>
-    <dimen name="clock_side_padding">96dip</dimen>
 
 </resources>

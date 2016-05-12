@@ -14,12 +14,30 @@
      limitations under the License.
 -->
 
-<ListView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cities"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="false"
-    android:clipToPadding="false"
-    android:paddingEnd="@dimen/clock_side_padding_reduced"
-    android:paddingStart="@dimen/clock_side_padding" />
+    android:layout_height="match_parent">
+
+    <!-- Left gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/gutter_width_percent" />
+
+    <!-- Guttered content. -->
+    <ListView
+        android:id="@+id/cities"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="@integer/guttered_content_width_percent"
+        android:clickable="false"
+        android:clipToPadding="false" />
+
+    <!-- Right gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/gutter_width_percent" />
+
+</LinearLayout>
