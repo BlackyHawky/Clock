@@ -171,6 +171,9 @@
     <dimen name="fab_margin">0dp</dimen>
     <dimen name="fab_elevation">8dp</dimen>
 
-    <!-- Height of the bar containing the floating action button -->
-    <dimen name="fab_height">88dp</dimen>
+    <!-- Height of the floating action button container. -->
+    <dimen name="fab_height">72dp</dimen>
+
+    <!-- The width and height of the buttons in the fab area. -->
+    <dimen name="fab_button_size">@dimen/design_fab_size_mini</dimen>
 </resources>

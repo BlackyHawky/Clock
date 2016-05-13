@@ -80,8 +80,8 @@
 
             <ImageButton
                 android:id="@+id/left_button"
-                android:layout_width="@dimen/design_fab_size_normal"
-                android:layout_height="@dimen/design_fab_size_normal"
+                android:layout_width="@dimen/fab_button_size"
+                android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
                 android:scaleType="center" />
@@ -112,8 +112,8 @@
 
             <ImageButton
                 android:id="@+id/right_button"
-                android:layout_width="@dimen/design_fab_size_normal"
-                android:layout_height="@dimen/design_fab_size_normal"
+                android:layout_width="@dimen/fab_button_size"
+                android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
                 android:scaleType="center" />
