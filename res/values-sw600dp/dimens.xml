@@ -33,8 +33,6 @@
     <dimen name="bottom_text_spacing_analog">18dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">10dp</dimen>
 
-    <dimen name="alarm_side_padding">48dip</dimen>
-
     <dimen name="main_clock_font_size">125sp</dimen>
     <dimen name="big_font_size">115sp</dimen>
     <dimen name="medium_font_size">96sp</dimen>
@@ -42,7 +40,6 @@
     <dimen name="alarm_label_size">18sp</dimen>
     <dimen name="body_font_size">20sp</dimen>
     <dimen name="day_button_font_size">20sp</dimen>
-    <dimen name="alarm_time_font_size">64sp</dimen>
     <dimen name="alarm_info_font_size">48sp</dimen>
     <dimen name="no_alarm_font_size">20sp</dimen>
 
@@ -70,8 +67,6 @@
     <dimen name="analog_clock_margin">96dp</dimen>
 
     <dimen name="circle_size">400dp</dimen>
-    <!-- stopwatch_list_bottom_spacing = footer_button_size + footer_button_layout_margin -->
-    <dimen name="list_bottom_spacing">96dip</dimen>
 
      <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">550dip</dimen>

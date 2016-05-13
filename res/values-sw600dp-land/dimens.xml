@@ -23,8 +23,6 @@
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
 
-    <dimen name="alarm_side_padding">128dip</dimen>
-
     <dimen name="dialpad_font_size">42sp</dimen>
     <dimen name="dialpad_digit_padding">26dip</dimen>
     <dimen name="timer_setup_font_size">78sp</dimen>

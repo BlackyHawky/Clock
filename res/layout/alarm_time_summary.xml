@@ -26,7 +26,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
-        android:gravity="center"
         android:textColor="@color/clock_white"
         android:textSize="@dimen/alarm_time_font_size" />
 

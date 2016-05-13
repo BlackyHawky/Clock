@@ -39,7 +39,6 @@
     <dimen name="top_text_spacing_digital">-25dp</dimen>
     <dimen name="bottom_text_spacing_analog">5dp</dimen>
 
-    <dimen name="alarm_side_padding">48dip</dimen>
     <dimen name="clock_fragment_end_padding">0dip</dimen>
 
     <dimen name="medium_font_size">48sp</dimen>

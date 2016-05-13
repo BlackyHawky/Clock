@@ -29,7 +29,6 @@
     <dimen name="bottom_text_spacing_analog">14dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">6dp</dimen>
 
-    <dimen name="alarm_side_padding">12dip</dimen>
     <dimen name="clock_fragment_end_padding">12dp</dimen>
     <dimen name="alarm_clock_vertical_margin">12dip</dimen>
 
@@ -40,7 +39,7 @@
 
     <dimen name="footer_button_size">56dip</dimen>
 
-    <dimen name="alarm_text_font_size">16sp</dimen>
+    <dimen name="alarm_text_font_size">14sp</dimen>
     <dimen name="circletimer_dot_size">12dip</dimen>
     <dimen name="circletimer_circle_size">4dip</dimen>
     <dimen name="circletimer_marker_size">16dip</dimen>
@@ -56,8 +55,8 @@
     <dimen name="small_font_size">32sp</dimen>
     <dimen name="label_font_size">16sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
-    <dimen name="day_button_font_size">18sp</dimen>
-    <dimen name="alarm_time_font_size">40sp</dimen>
+    <dimen name="day_button_font_size">16sp</dimen>
+    <dimen name="alarm_time_font_size">48sp</dimen>
     <dimen name="alarm_info_font_size">36sp</dimen>
     <dimen name="no_alarm_font_size">16sp</dimen>
 
@@ -93,11 +92,6 @@
     <dimen name="analog_clock_margin">60dp</dimen>
 
     <dimen name="circle_size">280dp</dimen>
-    <!--
-        list_bottom_spacing = footer_button_size + footer_button_layout_margin.
-        Used by both StopwatchFragment and AlarmFragment.
-    -->
-    <dimen name="list_bottom_spacing">72dip</dimen>
 
     <!-- The width and height of the notification icon -->
     <dimen name="notification_icon_size">64dip</dimen>
@@ -147,7 +141,7 @@
     <dimen name="hairline_side_padding">6dp</dimen>
 
     <!-- The minimum height/width of any touch target -->
-    <dimen name="touch_target_min_size">48dip</dimen>
+    <dimen name="touch_target_min_size">48dp</dimen>
 
     <!-- Dimens for cities fastscroll -->
     <dimen name="fastscroll_thumb_height">48dp</dimen>
@@ -162,7 +156,7 @@
     <dimen name="icon_margin">4dp</dimen>
 
     <!-- Padding between checkbox and text. -->
-    <dimen name="checkbox_start_padding">20dp</dimen>
+    <dimen name="checkbox_start_padding">12dp</dimen>
 
     <!-- Dimens for taller rows on Alarms tab -->
     <dimen name="tall_row_height">58dp</dimen>
