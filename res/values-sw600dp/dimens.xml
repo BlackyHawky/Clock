@@ -24,8 +24,6 @@
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">48dip</dimen>
     <dimen name="timer_list_padding_bottom">112dip</dimen>
-    <!-- 88dip + 0.5 of footer_button_size -->
-    <dimen name="timer_cancel_end_margin">128dip</dimen>
     <dimen name="screensaver_margin">20dip</dimen>
     <dimen name="alarm_label_padding">64dip</dimen>
     <dimen name="bottom_text_size">18sp</dimen>
@@ -58,7 +56,7 @@
     <dimen name="dialpad_digit_padding">34dip</dimen>
     <dimen name="timer_setup_font_size">86sp</dimen>
     <dimen name="timer_setup_button_size">36sp</dimen>
-    <dimen name="timer_setup_delete_start_margin">42sp</dimen>
+    <dimen name="timer_setup_delete_margin">21sp</dimen>
     <dimen name="timer_setup_label_size">28sp</dimen>
 
     <!-- Size of margin for circles. -->

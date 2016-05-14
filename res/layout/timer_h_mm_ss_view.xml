@@ -14,9 +14,10 @@
      limitations under the License.
 -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/hours_tens"
@@ -34,7 +35,6 @@
         style="@style/timer_setup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:contentDescription="@string/hours_label_description"
         android:text="@string/hours_label" />
 
@@ -54,7 +54,6 @@
         style="@style/timer_setup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:contentDescription="@string/minutes_label_description"
         android:text="@string/minutes_label" />
 
@@ -68,7 +67,6 @@
         style="@style/timer_setup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:contentDescription="@string/seconds_label_description"
         android:text="@string/seconds_label" />
 

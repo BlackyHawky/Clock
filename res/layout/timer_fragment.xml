@@ -36,45 +36,44 @@
                 android:id="@+id/page_indicator0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@null"/>
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/page_indicator1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@null"/>
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/page_indicator2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@null"/>
+                android:contentDescription="@null" />
 
             <ImageView
                 android:id="@+id/page_indicator3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@null"/>
+                android:contentDescription="@null" />
 
             <Space
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/footer_button_size"
                 android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"/>
+                android:layout_marginTop="16dp" />
 
         </LinearLayout>
 
         <com.android.deskclock.VerticalViewPager
             android:id="@+id/vertical_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 
     <com.android.deskclock.timer.TimerSetupView
         android:id="@+id/timer_setup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"/>
+        android:layout_height="match_parent" />
 
 </FrameLayout>

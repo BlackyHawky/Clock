@@ -119,6 +119,7 @@
 
     <style name="timer_setup_digit">
         <item name="android:ellipsize">none</item>
+        <item name="android:includeFontPadding">false</item>
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/clock_white</item>

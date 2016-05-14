@@ -129,8 +129,8 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
 
         // Initialize the page indicators.
         updatePageIndicators();

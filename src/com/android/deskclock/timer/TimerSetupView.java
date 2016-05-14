@@ -64,7 +64,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         mColorAccent = Utils.obtainStyledColor(context, R.attr.colorAccent, Color.RED);
         mColorHairline = ContextCompat.getColor(context, R.color.hairline);
 
-        LayoutInflater.from(context).inflate(R.layout.time_setup_view, this);
+        LayoutInflater.from(context).inflate(R.layout.time_setup_container, this);
     }
 
     void setFabContainer(FabContainer fabContainer) {
