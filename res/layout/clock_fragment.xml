@@ -32,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="@integer/guttered_content_width_percent"
         android:clickable="false"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/fab_height" />
 
     <!-- Right gutter. -->
     <Space

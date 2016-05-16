@@ -14,12 +14,12 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:paddingEnd="@dimen/clock_fragment_end_padding">
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="wrap_content"

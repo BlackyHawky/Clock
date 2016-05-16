@@ -29,7 +29,6 @@
     <dimen name="bottom_text_spacing_analog">14dp</dimen>
     <dimen name="bottom_text_spacing_analog_small">6dp</dimen>
 
-    <dimen name="clock_fragment_end_padding">12dp</dimen>
     <dimen name="alarm_clock_vertical_margin">12dip</dimen>
 
     <!-- Analog clock size in the the screen saver -->
@@ -135,7 +134,7 @@
     <dimen name="collapse_expand_height">72dip</dimen>
 
     <!-- Divider height -->
-    <dimen name="hairline_height">1dip</dimen>
+    <dimen name="hairline_height">1dp</dimen>
 
     <!-- Divider side padding -->
     <dimen name="hairline_side_padding">6dp</dimen>

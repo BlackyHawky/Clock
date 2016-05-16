@@ -391,8 +391,10 @@ public final class ClockFragment extends DeskClockFragment {
             final Resources res = mContext.getResources();
             final int padding = res.getDimensionPixelSize(R.dimen.medium_space_top);
             final int top = position == 0 ? 0 : padding;
-            final int bottom = position == getCount() - 1 ? top : 0;
-            view.setPadding(view.getPaddingLeft(), top, view.getPaddingRight(), bottom);
+            final int left = view.getPaddingLeft();
+            final int right = view.getPaddingRight();
+            final int bottom = view.getPaddingBottom();
+            view.setPadding(left, top, right, bottom);
 
             // Bind the city name.
             final TextView name = (TextView) view.findViewById(R.id.city_name);
