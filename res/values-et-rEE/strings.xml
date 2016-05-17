@@ -93,7 +93,7 @@
     <string name="no_crescendo_duration" msgid="383801592865899932">"Väljas"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> sekundit"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"sekundid"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Vaikus pärast"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Vaikus aja möödumisel"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutit</item>
       <item quantity="one">1 minut</item>

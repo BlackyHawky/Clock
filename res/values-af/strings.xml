@@ -128,7 +128,7 @@
     <string name="label_description" msgid="8736179296142915727">"Etiket"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Luitoon"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Tydhouer"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Afteller"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Horlosie"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stophorlosie"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Voeg wekker by"</string>
@@ -177,9 +177,9 @@
     <string name="timer_reset" msgid="7848424809190171640">"Stel terug"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Kanselleer"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Afteller is gekanselleer"</string>
-    <string name="timer_times_up" msgid="9190440395938519009">"Tyd is op"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"Tyd is verby"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> aftellers het verstryk"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"Tydhouer"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Afteller"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Laat wag"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Stel alle aftellers terug"</string>
   <string-array name="sw_share_strings">
@@ -203,7 +203,7 @@
     <item msgid="917900462224167608">"Analoog"</item>
     <item msgid="8483930821046925592">"Digitaal"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Outomatiese huishorlosie"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Outomatiese tuishorlosie"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Terwyl jy reis in \'n streek waar die tyd anders is, voeg \'n tuishorlosie by"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Tuistydsone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Tuistydsone"</string>

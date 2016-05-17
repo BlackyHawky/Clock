@@ -79,7 +79,7 @@
     <string name="loading_widget" msgid="5306242862476796500">"ലോഡുചെയ്യുന്നു..."</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ക്ലോക്ക്"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"ഡിജിറ്റൽ ക്ലോക്ക്"</string>
-    <string name="settings" msgid="5849739030579520686">"ക്രമീകരണങ്ങൾ"</string>
+    <string name="settings" msgid="5849739030579520686">"ക്രമീകരണം"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"സ്‌നൂസ് ചെയ്യൽ ദൈർഘ്യം"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> മിനിറ്റ്</item>
@@ -133,7 +133,7 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"സ്‌റ്റോപ്പ്‌വാച്ച്"</string>
     <string name="button_alarms" msgid="3907838219512538763">"അലാറം ചേർക്കുക"</string>
     <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണങ്ങൾ"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണം"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"സഹായം"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"നൈറ്റ് മോഡ്"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"സമയപ്രകാരം അടുക്കുക"</string>

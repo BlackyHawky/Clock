@@ -208,7 +208,7 @@
     <string name="home_time_zone" msgid="9199730676287974501">"Гэрийн цагийн бүс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Гэрийн цагийн бүс"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Цуцлах"</string>
-    <string name="time_picker_set" msgid="331153175471468051">"Тийм"</string>
+    <string name="time_picker_set" msgid="331153175471468051">"OK"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g>-г чагталсан"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g>-г чагтлаагүй"</string>
   <string-array name="timezone_labels">
