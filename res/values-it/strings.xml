@@ -216,7 +216,7 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Massimo quattro timer"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Pausa"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Reimposta timer"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Reimposta tutti i timer"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Sei davvero un fulmine."</item>
     <item msgid="6332879039890727169">"Goditi i frutti del tuo lavoro."</item>

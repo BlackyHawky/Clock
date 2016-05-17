@@ -66,7 +66,7 @@
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"ຍັງເຫຼືອ <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"ຍັງ​ເຫຼືອ"</string>
-    <string name="timer_remaining_multiple" msgid="6052775962092160851">"ຍັງ​ເຫຼືອ"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"ຕໍ່ຈາກນີ້"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"ໂມງປຸກຖືກຕັ້ງໄວ້ໜ້ອຍກວ່າ 1 ນາທີຫ່າງຈາກຕອນນີ້."</item>
     <item msgid="6002066367368421848">"ໂມງປຸກຕັ້ງໄວ້ <xliff:g id="DAYS">%1$s</xliff:g> ຈາກຕອນນີ້."</item>
@@ -216,7 +216,7 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"ໂມງນັບຖອຍຫລັງ"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"ໂຕ​ຈັບ​ເວ​ລາ​ສູງ​ສຸດ 4 ອັນ"</string>
     <string name="timer_pause" msgid="3748323712728398743">"ຢຸດຊົ່ວຄາວ"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"ຕັ້ງ​ເຄື່ອງ​ຈັບ​ເວ​ລາ​ທັງ​ໝົດ​ໃໝ່"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"ຣີເຊັດໂມງນັບຖອຍຫຼັງ"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"ທ່ານໄວປານຜີພຸ້ນນໍ້."</item>
     <item msgid="6332879039890727169">"ຂໍໃຫ້ມີຄວາມສຸກກັບໝາກຜົນຈາກເຫື່ອແຮງຂອງທ່ານ."</item>

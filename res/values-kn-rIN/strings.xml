@@ -123,7 +123,7 @@
     <item msgid="7809240121716151904">"25 ನಿಮಿಷಗಳು"</item>
     <item msgid="4278641338024561333">"ಎಂದಿಗೂ ಬೇಡ"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"ವಾರವನ್ನು ಇದರೊಂದಿಗೆ ಪ್ರಾರಂಭಿಸಿ"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"ವಾರದ ಪ್ರಾರಂಭ"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"ಶನಿವಾರ"</item>
     <item msgid="3993530639455360921">"ಭಾನುವಾರ"</item>
@@ -174,7 +174,7 @@
     <string name="selected_cities_label" msgid="3607479399424246605">"ಆಯ್ದ ನಗರಗಳು"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"ಮುಂದುವರಿಸು"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"ಮರುಹೊಂದಿಸಿ"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"ಪ್ರಾರಂಭಿಸು"</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"ಪ್ರಾರಂಭಿಸಿ"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"ವಿರಾಮಗೊಳಿಸು"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ಲ್ಯಾಪ್"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"ಹಂಚಿಕೊಳ್ಳಿ"</string>
@@ -201,7 +201,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ಸೆಕೆಂಡುಗಳು</item>
     </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"ಟೈಮರ್ ಸೇರಿಸು"</string>
-    <string name="timer_start" msgid="6158486445614356442">"ಪ್ರಾರಂಭಿಸು"</string>
+    <string name="timer_start" msgid="6158486445614356442">"ಪ್ರಾರಂಭಿಸಿ"</string>
     <string name="timer_delete" msgid="8699122001991909302">"ಅಳಿಸು"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g> ಅಳಿಸಿ"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"1 ನಿಮಿಷ ಸೇರಿಸು"</string>
@@ -229,7 +229,7 @@
     <item msgid="9071353477103826053">"ವೇಗಕ್ಕಾಗಿ ನಿಮಗೊಂದು ವರ್ಣಫಲಕವಿದೆ."</item>
     <item msgid="3785193933691117181">"ಫೋಟೋನಿಕ್ ವೇಗ."</item>
   </string-array>
-    <string name="home_label" msgid="4436139365695453870">"ಹೋಮ್"</string>
+    <string name="home_label" msgid="4436139365695453870">"ಮನೆ"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"ನಗರಗಳು"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ಗಡಿಯಾರ"</string>
     <string name="clock_style" msgid="2265011060429742344">"ಶೈಲಿ"</string>
