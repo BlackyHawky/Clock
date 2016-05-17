@@ -17,7 +17,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Clock"</string>
-    <string name="delete_alarm" msgid="3457780990646206817">"Tanggalin ang alarm"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"I-delete ang alarm"</string>
     <string name="label" msgid="162189613902857319">"Label"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarm"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"I-vibrate"</string>
@@ -168,7 +168,7 @@
     </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Magdagdag ng Timer"</string>
     <string name="timer_start" msgid="6158486445614356442">"Magsimula"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"Tanggalin"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"I-delete"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"I-delete ang <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Magdagdag ng 1 minuto"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Magdagdag ng 1 min"</string>
