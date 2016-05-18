@@ -18,10 +18,10 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Гадзіннік"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Выдаліць сігнал"</string>
-    <string name="label" msgid="162189613902857319">"Надпіс"</string>
+    <string name="label" msgid="162189613902857319">"Метка"</string>
     <string name="default_label" msgid="5590025289805630372">"Будзільнік"</string>
-    <string name="alarm_vibrate" msgid="3476686921490362230">"Вібраваць"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"Паўтарыць"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Вібрацыя"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"Паўтараць"</string>
     <string name="alert" msgid="6506982899651975645">"Рынгтон абвесткi"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Стандартны сігнал будзільніка"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Таймер скончыўся"</string>
@@ -57,14 +57,14 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"застаецца"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"застаецца"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Сiгнал усталяваны менш чым на 1 хвіліну з гэтага моманту."</item>
-    <item msgid="6002066367368421848">"Сігнал усталяваны на <xliff:g id="DAYS">%1$s</xliff:g> д. з гэтага моманту."</item>
-    <item msgid="8824719306247973774">"Сігнал усталяваны на <xliff:g id="HOURS">%2$s</xliff:g> гадз. з гэтага моманту."</item>
-    <item msgid="8182406852935468862">"Сiгнал усталяваны на <xliff:g id="DAYS">%1$s</xliff:g> д. i <xliff:g id="HOURS">%2$s</xliff:g> гадз. з гэтага моманту."</item>
-    <item msgid="2532279224777213194">"Сігнал усталяваны на <xliff:g id="MINUTES">%3$s</xliff:g> хв. з гэтага моманту."</item>
-    <item msgid="5936557894247187717">"Сігнал усталяваны на <xliff:g id="DAYS">%1$s</xliff:g> д. <xliff:g id="MINUTES">%3$s</xliff:g> хв. з гэтага моманту."</item>
-    <item msgid="9115697840826129603">"Сігнал усталяваны на <xliff:g id="HOURS">%2$s</xliff:g> гадз. і <xliff:g id="MINUTES">%3$s</xliff:g> хв. з гэтага моманту."</item>
-    <item msgid="2332583385137381060">"Сігнал усталяваны на <xliff:g id="DAYS">%1$s</xliff:g> д., <xliff:g id="HOURS">%2$s</xliff:g> гадз. і <xliff:g id="MINUTES">%3$s</xliff:g> хв. з гэтага моманту."</item>
+    <item msgid="6450913786084215050">"Будзільнік спрацуе менш чым праз 1 хвіліну."</item>
+    <item msgid="6002066367368421848">"Будзільнік спрацуе праз <xliff:g id="DAYS">%1$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"Будзільнік спрацуе праз <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8182406852935468862">"Будзільнік спрацуе праз <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="2532279224777213194">"Будзільнік спрацуе праз <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="5936557894247187717">"Будзільнік спрацуе праз <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"Будзільнік спрацуе праз <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"Будзільнік спрацуе праз <xliff:g id="DAYS">%1$s</xliff:g> <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> дзень</item>
@@ -90,7 +90,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Аналагавы гадзіннік"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Лічбавы гадзіннік"</string>
     <string name="settings" msgid="5849739030579520686">"Налады"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Iнтэрвал паўтора"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Iнтэрвал паўтору"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> хвіліна</item>
       <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> хвіліны</item>
@@ -107,7 +107,7 @@
     <string name="no_crescendo_duration" msgid="383801592865899932">"Адключана"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"Секунд: <xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"секунды"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Цішыня потым"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Адключаць гук праз"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> хвіліна</item>
       <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> хвіліны</item>
@@ -124,7 +124,7 @@
     <item msgid="7809240121716151904">"25 хвілін"</item>
     <item msgid="4278641338024561333">"Ніколі"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Тыдзень пачынаецца ў"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Першы дзень тыдня"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Субота"</item>
     <item msgid="3993530639455360921">"Нядзеля"</item>
@@ -138,10 +138,10 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Кнопкі гучнасці"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Адкласці"</item>
-    <item msgid="3450979320164769576">"Скасаваць"</item>
+    <item msgid="3450979320164769576">"Адхіліць"</item>
     <item msgid="6302517608411378024">"Нічога не рабіць"</item>
   </string-array>
-    <string name="label_description" msgid="8736179296142915727">"Надпіс"</string>
+    <string name="label_description" msgid="8736179296142915727">"Метка"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Мелодыя выкліку"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Будзільнік"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
@@ -155,15 +155,15 @@
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Сартаваць па часе"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Сартаваць па назве"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Выбраныя гарады"</string>
-    <string name="sw_resume_button" msgid="2569360966002022248">"Працягваць"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"Узнавіць"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Скінуць"</string>
-    <string name="sw_start_button" msgid="8373422516681242270">"Пачаць"</string>
-    <string name="sw_pause_button" msgid="2422084453454138042">"Паўза"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Абарот"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"Адправіць"</string>
-    <string name="hours_label" msgid="3393478155635368097">"h"</string>
-    <string name="minutes_label" msgid="3568098128251438588">"м"</string>
-    <string name="seconds_label" msgid="124655952824003246">"с."</string>
+    <string name="sw_start_button" msgid="8373422516681242270">"Запусціць"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Прыпыніць"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Круг"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Абагуліць"</string>
+    <string name="hours_label" msgid="3393478155635368097">"гадз"</string>
+    <string name="minutes_label" msgid="3568098128251438588">"хв"</string>
+    <string name="seconds_label" msgid="124655952824003246">"с"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"гадзіны"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"хвіліны"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"секунды"</string>
@@ -189,7 +189,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> секунды</item>
     </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Дадаць таймер"</string>
-    <string name="timer_start" msgid="6158486445614356442">"Пачаць"</string>
+    <string name="timer_start" msgid="6158486445614356442">"Запусціць"</string>
     <string name="timer_delete" msgid="8699122001991909302">"Выдаліць"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Выдаліць <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Дадаць 1 хвiліну"</string>
@@ -197,7 +197,7 @@
     <string name="timer_stop" msgid="3361154678667736722">"Спыніць"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Спыніць усе таймеры"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Скінуць"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"Адмена"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"Скасаваць"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Таймер скасаваны"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Час выйшаў"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Таймеры (<xliff:g id="NUM_TIMERS">%d</xliff:g> шт.) скончыліся"</string>
@@ -220,16 +220,16 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Гарады"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Гадзіннік"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стыль"</string>
-    <string name="open_date_settings" msgid="7712226973337806152">"Змяніць Дату і час"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Змяніць дату і час"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"Аналагавы"</item>
+    <item msgid="917900462224167608">"Са стрэлкамі"</item>
     <item msgid="8483930821046925592">"Лічбавы"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Аўтаматычны хатнi гадзiннiк"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Гадзіннік майго часавага пояса"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Падчас падарожжа ў рэгiёне, дзе час адрознiваецца, дадайце хатнi гадзiннiк"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Хатні гадзінны пояс"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Хатні гадзінны пояс"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"Адмена"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Дамашні часавы пояс"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Дамашні часавы пояс"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"Скасаваць"</string>
     <string name="time_picker_set" msgid="331153175471468051">"ОК"</string>
     <string name="city_checked" msgid="616847871968019">"Адзначаны горад <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Знята адзнака з горада <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
@@ -238,20 +238,20 @@
     <item msgid="4196408495909011020">"Востраў Мідуэй"</item>
     <item msgid="1414384194857730006">"Гаваі"</item>
     <item msgid="2687091371581931926">"Аляска"</item>
-    <item msgid="1922100269679049660">"Ціхаакіянскі паясны час"</item>
+    <item msgid="1922100269679049660">"Ціхаакіянскі час"</item>
     <item msgid="7156402158716866161">"Ціхуана"</item>
     <item msgid="1144117502254612241">"Арызона"</item>
     <item msgid="101284182011722637">"Чыўаўа"</item>
     <item msgid="689121094232986897">"Горны час"</item>
     <item msgid="5445331923942302756">"Цэнтральная Амерыка"</item>
-    <item msgid="2749806434052452351">"Цэнтральны паясны час"</item>
+    <item msgid="2749806434052452351">"Цэнтральны час"</item>
     <item msgid="3997138870229703753">"Мехіка"</item>
     <item msgid="5425567073027744888">"Саскачэван"</item>
     <item msgid="2877342865396629368">"Багата"</item>
-    <item msgid="568682398893899670">"Усходні паясны час"</item>
+    <item msgid="568682398893899670">"Усходні час"</item>
     <item msgid="668135984541863866">"Венесуэла"</item>
-    <item msgid="3737474220861486223">"Атлантычны паясны час (Барбадас)"</item>
-    <item msgid="6279116051273436870">"Атлантычны паясны час (Канада)"</item>
+    <item msgid="3737474220861486223">"Атлантычны час (Барбадас)"</item>
+    <item msgid="6279116051273436870">"Атлантычны час (Канада)"</item>
     <item msgid="8513382867172014244">"Манаўс"</item>
     <item msgid="7776299003105932407">"Сант\'яга"</item>
     <item msgid="8636989494746218677">"Ньюфаўндленд"</item>
@@ -337,11 +337,11 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Наступны таймер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Налады застаўкі"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Начны рэжым"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Вельмі цьмяны дысплей (для цёмнага пакоя)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Вельмі няяркі дысплэй (для цёмных памяшканняў)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Разгарнуць абвестку"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Згарнуць абвесткi"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"адрабіць"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Абвестка выдалена"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Будзільнік выдалены"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Наступны сігнал: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Няма будзільнікаў"</string>

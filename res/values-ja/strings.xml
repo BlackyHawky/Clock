@@ -24,7 +24,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"繰り返し"</string>
     <string name="alert" msgid="6506982899651975645">"アラーム音"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"デフォルトの警告音"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"タイマーの完了時"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"タイマー完了"</string>
     <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"マナーモード"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明日"</string>
     <string name="alarm_today" msgid="7873594221106531654">"今日"</string>
