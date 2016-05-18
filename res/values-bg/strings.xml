@@ -108,7 +108,7 @@
     <item msgid="7809240121716151904">"25 минути"</item>
     <item msgid="4278641338024561333">"Никога"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Започване на седмицата от"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Седмицата започва от"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"събота"</item>
     <item msgid="3993530639455360921">"неделя"</item>
@@ -142,7 +142,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Възобновяване"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Нулиране"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Старт"</string>
-    <string name="sw_pause_button" msgid="2422084453454138042">"Поставяне на пауза"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Пауза"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Етап"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Споделяне"</string>
     <string name="hours_label" msgid="3393478155635368097">"ч"</string>
@@ -181,7 +181,7 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> таймера са изтекли"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Таймер"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Пауза"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Таймери: Нулир."</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Нулиране на всички таймери"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Развивате светкавична скорост."</item>
     <item msgid="6332879039890727169">"Радвайте се на плодовете от труда си."</item>
@@ -203,7 +203,7 @@
     <item msgid="917900462224167608">"Аналогов"</item>
     <item msgid="8483930821046925592">"Цифров"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Времето у дома"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Часът у дома"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"При пътуване в район с различно часово време добавете часовник за времето у дома"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Часова зона у дома"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Часова зона у дома"</string>

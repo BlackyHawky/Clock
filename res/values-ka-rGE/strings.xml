@@ -54,13 +54,13 @@
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"დარჩენილია"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"მაღვიძარა დაყენებულია ამ მომენტიდან 1 წუთზე ნაკლებ დროზე."</item>
-    <item msgid="6002066367368421848">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="DAYS">%1$s</xliff:g>-ით."</item>
-    <item msgid="8824719306247973774">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="HOURS">%2$s</xliff:g>-ით."</item>
-    <item msgid="8182406852935468862">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით და <xliff:g id="HOURS">%2$s</xliff:g>-ით ამ მომენტიდან."</item>
-    <item msgid="2532279224777213194">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="MINUTES">%3$s</xliff:g>-ით."</item>
-    <item msgid="5936557894247187717">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
-    <item msgid="9115697840826129603">"ეს მაღვიძარა დაყენებულია <xliff:g id="HOURS">%2$s</xliff:g>-ით და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
-    <item msgid="2332583385137381060">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით, <xliff:g id="HOURS">%2$s</xliff:g>-ითა და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
+    <item msgid="6002066367368421848">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="DAYS">%1$s</xliff:g>თ."</item>
+    <item msgid="8824719306247973774">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="HOURS">%2$s</xliff:g>თ."</item>
+    <item msgid="8182406852935468862">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>თ და <xliff:g id="HOURS">%2$s</xliff:g>თ ამ მომენტიდან."</item>
+    <item msgid="2532279224777213194">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="MINUTES">%3$s</xliff:g>თ."</item>
+    <item msgid="5936557894247187717">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>თა და <xliff:g id="MINUTES">%3$s</xliff:g>თ ამ მომენტიდან."</item>
+    <item msgid="9115697840826129603">"ეს მაღვიძარა დაყენებულია <xliff:g id="HOURS">%2$s</xliff:g>თა და <xliff:g id="MINUTES">%3$s</xliff:g>თ ამ მომენტიდან."</item>
+    <item msgid="2332583385137381060">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>თ, <xliff:g id="HOURS">%2$s</xliff:g>თა და <xliff:g id="MINUTES">%3$s</xliff:g>თ ამ მომენტიდან."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> დღე</item>
@@ -205,8 +205,8 @@
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"რომელი საათია სახლში"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ისეთ არეალში მოგზაურობისას, სადაც დრო განსხვავებულია, დაამატეთ საათი თქვენი დროისთვის"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"ჩემი დროის ზონა"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"ჩემი დროის ზონა"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"ჩემი დროის სარტყელი"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"ჩემი დროის სარტყელი"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"გაუქმება"</string>
     <string name="time_picker_set" msgid="331153175471468051">"კარგი"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> მონიშნულია"</string>

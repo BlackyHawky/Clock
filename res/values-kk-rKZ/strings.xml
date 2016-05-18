@@ -59,7 +59,7 @@
     <item msgid="8182406852935468862">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> және <xliff:g id="HOURS">%2$s</xliff:g> өткен соң беріледі."</item>
     <item msgid="2532279224777213194">"Дабыл қазірден бастап <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
     <item msgid="5936557894247187717">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
-    <item msgid="9115697840826129603">"Дабыл қазірден бастап <xliff:g id="HOURS">%2$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
+    <item msgid="9115697840826129603">"Дабыл қазірден бастап <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
     <item msgid="2332583385137381060">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">

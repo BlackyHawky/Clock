@@ -24,11 +24,11 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Rudia"</string>
     <string name="alert" msgid="6506982899651975645">"Mlio wa Kengele"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Sauti chaguo-msingi ya kengele"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Muda wa Kipima wakati Umemalizika"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Muda wa kulia umepita"</string>
     <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Kimya"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Kesho"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Leo"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Kata"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ondoa"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Ondoa sasa"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Kengele ambayo haikushughulikiwa"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
@@ -93,12 +93,12 @@
     <string name="no_crescendo_duration" msgid="383801592865899932">"Imezimwa"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"Sekunde <xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"sekunde"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Kimya baada ya"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Inyamaze baada ya"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other">Dakika <xliff:g id="FORMATTED_NUMBER">%s</xliff:g> </item>
       <item quantity="one">Dakika 1</item>
     </plurals>
-    <string name="auto_silence_never" msgid="4821982647348750809">"Katu"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"Isirudie"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"Dakika 1"</item>
     <item msgid="5431906692406316549">"Dakika 5"</item>
@@ -106,7 +106,7 @@
     <item msgid="2855948657259647629">"Dakika 15"</item>
     <item msgid="6330196381284475079">"Dakika 20"</item>
     <item msgid="7809240121716151904">"Dakika 25"</item>
-    <item msgid="4278641338024561333">"Katu"</item>
+    <item msgid="4278641338024561333">"Isirudie"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Anza wiki siku ya"</string>
   <string-array name="week_start_entries">
@@ -122,7 +122,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Vitufe vya kudhibiti sauti"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Nikumbushe baadaye"</item>
-    <item msgid="3450979320164769576">"Kata"</item>
+    <item msgid="3450979320164769576">"Ondoa"</item>
     <item msgid="6302517608411378024">"Visifanye kitu"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Lebo"</string>
@@ -140,7 +140,7 @@
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Panga kwa jina"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Miji Iliyochaguliwa"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"Endelea"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Weka upya"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Anza upya"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Anza"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Sitisha"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Mzunguko"</string>
@@ -153,7 +153,7 @@
     <string name="seconds_label_description" msgid="3821620053141299692">"sekunde"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Muda wangu ni <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Muda wa mzunguko:"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Mzunguko <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"Mzunguko wa <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other">Saa <xliff:g id="NUMBER">%d</xliff:g></item>
       <item quantity="one">Saa 1</item>
@@ -172,16 +172,16 @@
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Futa <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Ongeza Dakika 1"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Ongeza dakika 1"</string>
-    <string name="timer_stop" msgid="3361154678667736722">"Simama"</string>
+    <string name="timer_stop" msgid="3361154678667736722">"Simamisha"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Komesha vipima muda vyote"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Weka upya"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Anza upya"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Ghairi"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"Kipima muda kimeghairiwa"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Muda umekwisha"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Muda wa vipima muda <xliff:g id="NUM_TIMERS">%d</xliff:g> umekwisha"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Kipima wakati"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Sitisha"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Weka upya vipima wakati vyote"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Anzisha vipima wakati vyote upya"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Una kasi ya ajabu."</item>
     <item msgid="6332879039890727169">"Furahia matunda ya kazi yako."</item>
@@ -253,7 +253,7 @@
     <item msgid="320025725949024510">"Beirut, Lebanon"</item>
     <item msgid="7242083112551905970">"Kairo"</item>
     <item msgid="7241520146011450419">"Helsinki"</item>
-    <item msgid="2717065017510546526">"Yerusalemu"</item>
+    <item msgid="2717065017510546526">"Jerusalem"</item>
     <item msgid="8698556287741466553">"Minsk"</item>
     <item msgid="1797598357342084506">"Harare"</item>
     <item msgid="5169119919905066998">"Baghdad"</item>
@@ -312,10 +312,10 @@
     <string name="timers_stopped" msgid="3186191253226005149">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g> vimesitishwa"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Gusa ili kuona vipima wakati vyako"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Vipima wakati <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Kipima wakati Kifuatacho: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Mipangilio ya ndoto"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Kipima wakati Kinachofuata: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Mipangilio ya Pazia ya Kuvutia"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modi ya usiku"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Onyesho hafifu sana (kwa vyumba vyenye giza)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Mwangaza hafifu wa skrini katika vyumba vyenye giza"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Panua kengele"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Kunja kengele"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"tendua"</string>

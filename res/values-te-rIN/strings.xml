@@ -44,7 +44,7 @@
       <item quantity="one">1 నిమిషం పాటు తాత్కాలికంగా ఆపివేయబడుతోంది.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"<xliff:g id="TIME">%s</xliff:g> వరకు తాత్కాలికంగా ఆపివేయబడుతోంది"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"అలారం సమయం ఆసన్నం కాబోతోంది"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"తదుపరి అలారం సమయం"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"మీరు ప్రతిస్పందించని అలారం తొలగించబడింది"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"నిమిషం కంటే తక్కువ సమయం మిగిలి ఉంది"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
@@ -180,8 +180,8 @@
     <string name="timer_times_up" msgid="9190440395938519009">"సమయం ముగిసింది"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> టైమర్‌ల సమయం గడిచిపోయిం."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"టైమర్"</string>
-    <string name="timer_pause" msgid="3748323712728398743">"పాజ్ చేస్తుంది"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"టైమర్‌లన్నీ రీసెట్ చేస్తుంది"</string>
+    <string name="timer_pause" msgid="3748323712728398743">"పాజ్ చేయి"</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"టైమర్‌లన్నీ రీసెట్ చేయి"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"మీరు చాలా వేగంగా ఉన్నారు."</item>
     <item msgid="6332879039890727169">"మీ శ్రమ యొక్క ఫలితాలను ఆస్వాదించండి."</item>
