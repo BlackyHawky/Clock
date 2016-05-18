@@ -20,11 +20,11 @@
         <item name="android:windowBackground">@color/default_background</item>
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
         <item name="colorAccent">@color/color_accent</item>
-        <item name="colorPrimaryDark">@color/status_bar</item>
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlNormal">@color/white</item>
+        <item name="colorPrimaryDark">@color/status_bar</item>
+        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
     </style>
 
     <style name="TranslucentDecorActivityTheme" parent="BaseActivityTheme">
@@ -42,6 +42,11 @@
         <item name="colorAccent">@color/color_accent</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
+        <!-- Attributes from support.v7.appcompat -->
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+
     <style name="ControlAccentThemeOverlay">
         <!-- Attributes from support.v7.appcompat -->
         <item name="colorControlActivated">?attr/colorAccent</item>
@@ -55,18 +60,14 @@
 
     <style name="SettingsTheme" parent="TranslucentDecorActivityTheme">
         <item name="android:detailsElementBackground">@null</item>
+
         <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
-        <item name="alertDialogTheme">@style/SettingsAlertDialogTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="colorControlActivated">?attr/colorAccent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
-    </style>
-
-    <!-- Theme that will be used by PreferenceFragment. -->
-    <style name="SettingsAlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="colorAccent">@color/color_accent</item>
     </style>
 
     <style name="SettingsActionBarStyle" parent="@style/Widget.AppCompat.Toolbar">

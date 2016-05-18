@@ -377,7 +377,7 @@ final class TimerModel {
         if (mTimerRingtoneTitle == null) {
             if (isTimerRingtoneSilent()) {
                 // Special case: no ringtone has a title of "Silent".
-                mTimerRingtoneTitle = mContext.getString(R.string.silent_timer_ringtone_title);
+                mTimerRingtoneTitle = mContext.getString(R.string.silent_ringtone_title);
             } else {
                 final Uri defaultUri = getDefaultTimerRingtoneUri();
                 final Uri uri = getTimerRingtoneUri();

@@ -16,14 +16,12 @@
 
 package com.android.deskclock.alarms;
 
-import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
@@ -168,7 +166,7 @@ public final class AlarmTimeClickHandler {
 
     public void onRingtoneClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        final FragmentManager fragmentManager = mFragment.getFragmentManager();
+        final FragmentManager fragmentManager = mFragment.getChildFragmentManager();
         fragmentManager.executePendingTransactions();
         final FragmentTransaction ft = fragmentManager.beginTransaction();
         final Fragment prev = fragmentManager.findFragmentByTag(RINGTONE_PICKER_FRAG_TAG);
@@ -177,16 +175,16 @@ public final class AlarmTimeClickHandler {
         }
         ft.addToBackStack(null);
 
-        final String dialogTitle = mFragment.getString(R.string.alert);
-        final String defaultTitle = mFragment.getString(R.string.default_alarm_ringtone_title);
-        final Uri defaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        final DialogFragment newFragment = RingtonePickerDialogFragment.newInstance(
-                dialogTitle, defaultTitle, defaultUri, alarm.alert, mFragment.getTag());
-        newFragment.show(ft, RINGTONE_PICKER_FRAG_TAG);
+        new RingtonePickerDialogFragment.Builder()
+                .setTitle(R.string.alert)
+                .setDefaultRingtoneTitle(R.string.default_alarm_ringtone_title)
+                .setDefaultRingtoneUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
+                .setExistingRingtoneUri(alarm.alert)
+                .show(ft, RINGTONE_PICKER_FRAG_TAG);
     }
 
     public void onEditLabelClicked(Alarm alarm) {
-        final FragmentManager fragmentManager = mFragment.getFragmentManager();
+        final FragmentManager fragmentManager = mFragment.getChildFragmentManager();
         fragmentManager.executePendingTransactions();
         final FragmentTransaction ft = fragmentManager.beginTransaction();
         final Fragment prev = fragmentManager.findFragmentByTag("label_dialog");

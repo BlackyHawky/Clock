@@ -57,7 +57,10 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
  * A fragment that displays a list of alarm time and allows interaction with them.
  */
 public final class AlarmClockFragment extends DeskClockFragment implements
-        LoaderManager.LoaderCallbacks<Cursor>, ScrollHandler, TimePickerCompat.OnTimeSetListener {
+        LoaderManager.LoaderCallbacks<Cursor>,
+        RingtonePickerDialogFragment.OnRingtoneSelectedListener,
+        ScrollHandler,
+        TimePickerCompat.OnTimeSetListener {
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -227,7 +230,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
     }
 
-    public void setRingtone(Uri ringtoneUri) {
+    @Override
+    public void onRingtoneSelected(String tag, Uri ringtoneUri) {
         // Update the default ringtone for future new alarms.
         DataModel.getDataModel().setDefaultAlarmRingtoneUri(ringtoneUri);
 
