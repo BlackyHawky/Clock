@@ -72,8 +72,8 @@ public final class AlarmTimeClickHandler {
         return mSelectedAlarm;
     }
 
-    public void clearSelectedAlarm() {
-        mSelectedAlarm = null;
+    public void setSelectedAlarm(Alarm selectedAlarm) {
+        mSelectedAlarm = selectedAlarm;
     }
 
     public void saveInstance(Bundle outState) {
