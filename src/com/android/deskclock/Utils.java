@@ -19,9 +19,11 @@ package com.android.deskclock;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -72,6 +74,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
 import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
 import static android.graphics.Bitmap.Config.ARGB_8888;
@@ -298,6 +301,28 @@ public class Utils {
                 (dim ? 0x40FFFFFF : 0xC0FFFFFF),
                 PorterDuff.Mode.MULTIPLY));
         clockView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+    }
+
+    /**
+     * Update and return the PendingIntent corresponding to the given {@code intent}.
+     *
+     * @param context the Context in which the PendingIntent should start the service
+     * @param intent an Intent describing the service to be started
+     * @return a PendingIntent that will start a service
+     */
+    public static PendingIntent pendingServiceIntent(Context context, Intent intent) {
+        return PendingIntent.getService(context, 0, intent, FLAG_UPDATE_CURRENT);
+    }
+
+    /**
+     * Update and return the PendingIntent corresponding to the given {@code intent}.
+     *
+     * @param context the Context in which the PendingIntent should start the activity
+     * @param intent an Intent describing the activity to be started
+     * @return a PendingIntent that will start an activity
+     */
+    public static PendingIntent pendingActivityIntent(Context context, Intent intent) {
+        return PendingIntent.getActivity(context, 0, intent, FLAG_UPDATE_CURRENT);
     }
 
     /**

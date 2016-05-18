@@ -93,7 +93,7 @@
     <dimen name="circle_size">280dp</dimen>
 
     <!-- The width and height of the notification icon -->
-    <dimen name="notification_icon_size">64dip</dimen>
+    <dimen name="notification_icon_size">64dp</dimen>
      <!-- Size of notification text (see TextAppearance.StatusBar.EventContent) -->
     <dimen name="notification_text_size">14dp</dimen>
     <!-- Size of notification text titles (see TextAppearance.StatusBar.EventContent.Title) -->
