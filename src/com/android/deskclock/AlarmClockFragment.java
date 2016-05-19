@@ -284,8 +284,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                         if (mExpandedAlarmId != Alarm.INVALID_ID) {
                             final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
                             if (aih != null) {
+                                mAlarmTimeClickHandler.setSelectedAlarm(aih.item);
                                 aih.expand();
                             } else {
+                                mAlarmTimeClickHandler.setSelectedAlarm(null);
                                 mExpandedAlarmId = Alarm.INVALID_ID;
                             }
                         }
@@ -353,7 +355,8 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     private void startCreatingAlarm() {
-        mAlarmTimeClickHandler.clearSelectedAlarm();
+        // Clear the currently selected alarm.
+        mAlarmTimeClickHandler.setSelectedAlarm(null);
         TimePickerCompat.showTimeEditDialog(this, null /* alarm */,
                 DateFormat.is24HourFormat(getActivity()));
     }
