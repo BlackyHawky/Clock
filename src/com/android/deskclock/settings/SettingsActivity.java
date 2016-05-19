@@ -53,7 +53,7 @@ import java.util.TimeZone;
  * Settings for the Alarm Clock.
  */
 public final class SettingsActivity extends BaseActivity
-        implements RingtonePickerDialogFragment.RingtoneSelectionListener {
+        implements RingtonePickerDialogFragment.OnRingtoneSelectedListener {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
@@ -133,16 +133,9 @@ public final class SettingsActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Called by the RingtonePickerDialogFragment class after the dialog is finished.
-     */
     @Override
-    public void onRingtoneSelected(Uri ringtoneUri, String fragmentTag) {
-        final PrefsFragment fragment =
-                (PrefsFragment) getFragmentManager().findFragmentById(R.id.main);
-        final Preference preference = fragment.findPreference(KEY_TIMER_RINGTONE);
+    public void onRingtoneSelected(String tag, Uri ringtoneUri) {
         DataModel.getDataModel().setTimerRingtoneUri(ringtoneUri);
-        preference.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
     }
 
     public static class PrefsFragment extends PreferenceFragment
@@ -226,6 +219,10 @@ public final class SettingsActivity extends BaseActivity
                             (SwitchPreference) findPreference(KEY_TIMER_VIBRATE);
                     DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
                     break;
+                case KEY_TIMER_RINGTONE:
+                    final Preference timerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
+                    timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+                    break;
             }
             // Set result so DeskClock knows to refresh itself
             getActivity().setResult(RESULT_OK);
@@ -246,13 +243,13 @@ public final class SettingsActivity extends BaseActivity
                     startActivity(dialogIntent);
                     return true;
                 case KEY_TIMER_RINGTONE:
-                    final String dialogTitle = getString(R.string.timer_ringtone_title);
-                    final String defaultTitle = getString(R.string.default_timer_ringtone_title);
-                    final Uri currentUri = DataModel.getDataModel().getTimerRingtoneUri();
-                    final Uri defaultUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
-                    final DialogFragment newFragment = RingtonePickerDialogFragment
-                            .newInstance(dialogTitle, defaultTitle, defaultUri, currentUri, null);
-                    showDialog(newFragment);
+                    new RingtonePickerDialogFragment.Builder()
+                            .setTitle(R.string.timer_ringtone_title)
+                            .setDefaultRingtoneTitle(R.string.default_timer_ringtone_title)
+                            .setDefaultRingtoneUri(
+                                    DataModel.getDataModel().getDefaultTimerRingtoneUri())
+                            .setExistingRingtoneUri(DataModel.getDataModel().getTimerRingtoneUri())
+                            .show(getChildFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
                 default:
                     return false;
             }
@@ -363,7 +360,7 @@ public final class SettingsActivity extends BaseActivity
 
         private void showDialog(DialogFragment fragment) {
             fragment.setTargetFragment(this, 0);
-            fragment.show(getFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
+            fragment.show(getChildFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
         }
 
         private static class TimeZoneRow implements Comparable<TimeZoneRow> {

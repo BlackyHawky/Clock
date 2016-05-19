@@ -75,8 +75,7 @@ import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMME
  * clocks, timers and a stopwatch.
  */
 public class DeskClock extends BaseActivity
-        implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler,
-        RingtonePickerDialogFragment.RingtoneSelectionListener {
+        implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
 
     /** The Uri to the settings entry that stores alarm stream volume. */
     private static final Uri VOLUME_URI = Uri.withAppendedPath(CONTENT_URI, "volume_alarm_speaker");
@@ -369,17 +368,6 @@ public class DeskClock extends BaseActivity
         final Fragment frag = getFragmentManager().findFragmentByTag(tag);
         if (frag instanceof AlarmClockFragment) {
             ((AlarmClockFragment) frag).setLabel(alarm, label);
-        }
-    }
-
-    /**
-     * Called by the RingtonePickerDialogFragment class after the dialog is finished.
-     */
-    @Override
-    public void onRingtoneSelected(Uri ringtoneUri, String fragmentTag) {
-        final Fragment frag = getFragmentManager().findFragmentByTag(fragmentTag);
-        if (frag instanceof AlarmClockFragment) {
-            ((AlarmClockFragment) frag).setRingtone(ringtoneUri);
         }
     }
 
