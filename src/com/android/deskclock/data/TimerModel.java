@@ -16,6 +16,7 @@
 
 package com.android.deskclock.data;
 
+import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -29,18 +30,13 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
-import android.os.SystemClock;
-import android.preference.PreferenceManager;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.TextUtils;
 import android.util.ArraySet;
 
 import com.android.deskclock.AlarmAlertWakeLock;
-import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
@@ -56,8 +52,6 @@ import java.util.List;
 import java.util.Set;
 
 import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
-import static android.text.format.DateUtils.HOUR_IN_MILLIS;
-import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.android.deskclock.data.Timer.State.EXPIRED;
 import static com.android.deskclock.data.Timer.State.RESET;
 
@@ -97,6 +91,7 @@ final class TimerModel {
      * ids in this collection. If a timer was already expired when the app was started its id will
      * be absent from this collection.
      */
+    @SuppressLint("NewApi")
     private final Set<Integer> mRingingIds = new ArraySet<>();
 
     /** The uri of the ringtone to play for timers. */
@@ -110,6 +105,9 @@ final class TimerModel {
 
     /** A mutable copy of the expired timers. */
     private List<Timer> mExpiredTimers;
+
+    /** Delegate that builds platform-specific timer notifications. */
+    private NotificationBuilder mNotificationBuilder;
 
     /**
      * The service that keeps this application in the foreground while a heads-up timer
@@ -578,7 +576,7 @@ final class TimerModel {
             // Update the existing timer expiration callback.
             final PendingIntent pi = PendingIntent.getService(mContext,
                     0, intent, PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-            schedulePendingIntent(nextExpiringTimer.getExpirationTime(), pi);
+            schedulePendingIntent(mAlarmManager, nextExpiringTimer.getExpirationTime(), pi);
         }
     }
 
@@ -638,130 +636,11 @@ final class TimerModel {
 
         // Sort the unexpired timers to locate the next one scheduled to expire.
         Collections.sort(unexpired, Timer.EXPIRY_COMPARATOR);
-        final Timer timer = unexpired.get(0);
-        final long remainingTime = timer.getRemainingTime();
 
-        // Generate some descriptive text, a title, and some actions based on timer states.
-        final String contentText;
-        final String contentTitle;
-        @DrawableRes int firstActionIconId, secondActionIconId = 0;
-        @StringRes int firstActionTitleId, secondActionTitleId = 0;
-        Intent firstActionIntent, secondActionIntent = null;
-
-        if (unexpired.size() == 1) {
-            contentText = formatElapsedTimeUntilExpiry(remainingTime);
-
-            if (timer.isRunning()) {
-                // Single timer is running.
-                if (TextUtils.isEmpty(timer.getLabel())) {
-                    contentTitle = mContext.getString(R.string.timer_notification_label);
-                } else {
-                    contentTitle = timer.getLabel();
-                }
-
-                firstActionIconId = R.drawable.ic_pause_24dp;
-                firstActionTitleId = R.string.timer_pause;
-                firstActionIntent = new Intent(mContext, TimerService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_PAUSE_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
-
-                secondActionIconId = R.drawable.ic_add_24dp;
-                secondActionTitleId = R.string.timer_plus_1_min;
-                secondActionIntent = new Intent(mContext, TimerService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_ADD_MINUTE_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
-            } else {
-                // Single timer is paused.
-                contentTitle = mContext.getString(R.string.timer_paused);
-
-                firstActionIconId = R.drawable.ic_start_24dp;
-                firstActionTitleId = R.string.sw_resume_button;
-                firstActionIntent = new Intent(mContext, TimerService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_START_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
-
-                secondActionIconId = R.drawable.ic_reset_24dp;
-                secondActionTitleId = R.string.sw_reset_button;
-                secondActionIntent = new Intent(mContext, TimerService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_RESET_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
-            }
-        } else {
-            if (timer.isRunning()) {
-                // At least one timer is running.
-                final String timeRemaining = formatElapsedTimeUntilExpiry(remainingTime);
-                contentText = mContext.getString(R.string.next_timer_notif, timeRemaining);
-                contentTitle = mContext.getString(R.string.timers_in_use, unexpired.size());
-            } else {
-                // All timers are paused.
-                contentText = mContext.getString(R.string.all_timers_stopped_notif);
-                contentTitle = mContext.getString(R.string.timers_stopped, unexpired.size());
-            }
-
-            firstActionIconId = R.drawable.ic_reset_24dp;
-            firstActionTitleId = R.string.timer_reset_all;
-            firstActionIntent = TimerService.createResetUnexpiredTimersIntent(mContext);
-        }
-
-        // Intent to load the app and show the timer when the notification is tapped.
-        final Intent showApp = new Intent(mContext, HandleDeskClockApiCalls.class)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setAction(HandleDeskClockApiCalls.ACTION_SHOW_TIMERS)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_notification);
-
-        final PendingIntent pendingShowApp = PendingIntent.getActivity(mContext, 0, showApp,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
-                .setOngoing(true)
-                .setLocalOnly(true)
-                .setShowWhen(false)
-                .setAutoCancel(false)
-                .setContentText(contentText)
-                .setContentTitle(contentTitle)
-                .setContentIntent(pendingShowApp)
-                .setSmallIcon(R.drawable.stat_notify_timer)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
-
-        final PendingIntent firstAction = PendingIntent.getService(mContext, 0,
-                firstActionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        final String firstActionTitle = mContext.getString(firstActionTitleId);
-        builder.addAction(firstActionIconId, firstActionTitle, firstAction);
-
-        if (secondActionIntent != null) {
-            final PendingIntent secondAction = PendingIntent.getService(mContext, 0,
-                    secondActionIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            final String secondActionTitle = mContext.getString(secondActionTitleId);
-            builder.addAction(secondActionIconId, secondActionTitle, secondAction);
-        }
-
-        // Update the notification.
-        final Notification notification = builder.build();
+        // Otherwise build and post a notification reflecting the latest unexpired timers.
+        final Notification notification = getNotificationBuilder().build(mContext, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
         mNotificationManager.notify(notificationId, notification);
-
-        final Intent updateNotification = TimerService.createUpdateNotificationIntent(mContext);
-        if (timer.isRunning() && remainingTime > MINUTE_IN_MILLIS) {
-            // Schedule a callback to update the time-sensitive information of the running timer.
-            final PendingIntent pi = PendingIntent.getService(mContext, 0, updateNotification,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-
-            final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
-            final long triggerTime = SystemClock.elapsedRealtime() + nextMinuteChange;
-
-            schedulePendingIntent(triggerTime, pi);
-        } else {
-            // Cancel the update notification callback.
-            final PendingIntent pi = PendingIntent.getService(mContext, 0, updateNotification,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_NO_CREATE);
-            if (pi != null) {
-                mAlarmManager.cancel(pi);
-                pi.cancel();
-            }
-        }
     }
 
     /**
@@ -809,19 +688,16 @@ final class TimerModel {
 
         // Content intent shows the timer full screen when clicked.
         final Intent content = new Intent(mContext, ExpiredTimersActivity.class);
-        final PendingIntent pendingContent = PendingIntent.getActivity(mContext, 0, content,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent pendingContent = Utils.pendingActivityIntent(mContext, content);
 
         // Full screen intent has flags so it is different than the content intent.
         final Intent fullScreen = new Intent(mContext, ExpiredTimersActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        final PendingIntent pendingFullScreen = PendingIntent.getActivity(mContext, 0, fullScreen,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(mContext, fullScreen);
 
         // First action intent is either reset single timer or reset all timers.
         final Intent reset = TimerService.createResetExpiredTimersIntent(mContext);
-        final PendingIntent pendingReset = PendingIntent.getService(mContext, 0, reset,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        final PendingIntent pendingReset = Utils.pendingServiceIntent(mContext, reset);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
                 .setWhen(0)
@@ -841,8 +717,7 @@ final class TimerModel {
         if (expired.size() == 1) {
             // Second action intent adds a minute to a single timer.
             final Intent addMinute = TimerService.createAddMinuteTimerIntent(mContext, timerId);
-            final PendingIntent pendingAddMinute = PendingIntent.getService(mContext, 0, addMinute,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+            final PendingIntent pendingAddMinute = Utils.pendingServiceIntent(mContext, addMinute);
             final String addMinuteTitle = mContext.getString(R.string.timer_plus_1_min);
             builder.addAction(R.drawable.ic_add_24dp, addMinuteTitle, pendingAddMinute);
         }
@@ -853,47 +728,16 @@ final class TimerModel {
         mService.startForeground(notificationId, notification);
     }
 
-    /**
-     * Format "7 hours 52 minutes remaining"
-     */
-    @VisibleForTesting
-    String formatElapsedTimeUntilExpiry(long remainingTime) {
-        final int hours = (int) remainingTime / (int) HOUR_IN_MILLIS;
-        final int minutes = (int) remainingTime / ((int) MINUTE_IN_MILLIS) % 60;
-
-        String minSeq = Utils.getNumberFormattedQuantityString(mContext, R.plurals.minutes, minutes);
-        String hourSeq = Utils.getNumberFormattedQuantityString(mContext, R.plurals.hours, hours);
-
-        // The verb "remaining" may have to change tense for singular subjects in some languages.
-        final String verb = mContext.getString((minutes > 1 || hours > 1)
-                ? R.string.timer_remaining_multiple
-                : R.string.timer_remaining_single);
-
-        final boolean showHours = hours > 0;
-        final boolean showMinutes = minutes > 0;
-
-        int formatStringId;
-        if (showHours) {
-            if (showMinutes) {
-                formatStringId = R.string.timer_notifications_hours_minutes;
+    private NotificationBuilder getNotificationBuilder() {
+        if (mNotificationBuilder == null) {
+            if (Utils.isNOrLater()) {
+                mNotificationBuilder = new TimerNotificationBuilderN();
             } else {
-                formatStringId = R.string.timer_notifications_hours;
+                mNotificationBuilder = new TimerNotificationBuilderPreN();
             }
-        } else if (showMinutes) {
-            formatStringId = R.string.timer_notifications_minutes;
-        } else {
-            formatStringId = R.string.timer_notifications_less_min;
         }
-        return String.format(mContext.getString(formatStringId), hourSeq, minSeq, verb);
-    }
 
-    private void schedulePendingIntent(long triggerTime, PendingIntent pi) {
-        if (Utils.isMOrLater()) {
-            // Ensure the timer fires even if the device is dozing.
-            mAlarmManager.setExactAndAllowWhileIdle(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
-        } else {
-            mAlarmManager.setExact(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
-        }
+        return mNotificationBuilder;
     }
 
     /**
@@ -921,5 +765,26 @@ final class TimerModel {
                     break;
             }
         }
+    }
+
+    static void schedulePendingIntent(AlarmManager am, long triggerTime, PendingIntent pi) {
+        if (Utils.isMOrLater()) {
+            // Ensure the timer fires even if the device is dozing.
+            am.setExactAndAllowWhileIdle(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
+        } else {
+            am.setExact(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
+        }
+    }
+
+    /**
+     * An API for building platform-specific timer notifications.
+     */
+    public interface NotificationBuilder {
+        /**
+         * @param context a context to use for fetching resources
+         * @param unexpiredTimers all running and paused timers
+         * @return a notification reporting the state of the {@code unexpiredTimers}
+         */
+        Notification build(Context context, List<Timer> unexpiredTimers);
     }
 }
