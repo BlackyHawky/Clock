@@ -77,6 +77,8 @@ import java.util.TimeZone;
 import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static android.appwidget.AppWidgetManager.OPTION_APPWIDGET_HOST_CATEGORY;
 import static android.appwidget.AppWidgetProviderInfo.WIDGET_CATEGORY_KEYGUARD;
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 import static android.graphics.Bitmap.Config.ARGB_8888;
 
 public class Utils {
@@ -652,5 +654,21 @@ public class Utils {
         }
 
         return PreferenceManager.getDefaultSharedPreferences(storageContext);
+    }
+
+    /**
+     * @param context from which to query the current device configuration
+     * @return {@code true} if the device is currently in portrait or reverse portrait orientation
+     */
+    public static boolean isPortrait(Context context) {
+        return context.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT;
+    }
+
+    /**
+     * @param context from which to query the current device configuration
+     * @return {@code true} if the device is currently in landscape or reverse landscape orientation
+     */
+    public static boolean isLandscape(Context context) {
+        return context.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
     }
 }

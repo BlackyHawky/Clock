@@ -6,6 +6,7 @@ LOCAL_RESOURCE_DIR += frameworks/opt/datetimepicker/res
 
 ifeq ($(TARGET_BUILD_APPS),)
 LOCAL_RESOURCE_DIR += frameworks/support/design/res
+LOCAL_RESOURCE_DIR += frameworks/support/v14/percent/res
 LOCAL_RESOURCE_DIR += frameworks/support/v14/preference/res
 LOCAL_RESOURCE_DIR += frameworks/support/v7/appcompat/res
 LOCAL_RESOURCE_DIR += frameworks/support/v7/gridlayout/res
@@ -13,6 +14,7 @@ LOCAL_RESOURCE_DIR += frameworks/support/v7/preference/res
 LOCAL_RESOURCE_DIR += frameworks/support/v7/recyclerview/res
 else
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/design/res
+LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/v14/percent/res
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/v14/preference/res
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/v7/appcompat/res
 LOCAL_RESOURCE_DIR += prebuilts/sdk/current/support/v7/gridlayout/res
@@ -31,6 +33,7 @@ LOCAL_SRC_FILES := $(call all-java-files-under, src gen)
 LOCAL_STATIC_JAVA_LIBRARIES := android-opt-datetimepicker
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-design
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v13
+LOCAL_STATIC_JAVA_LIBRARIES += android-support-v14-percent
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v14-preference
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-appcompat
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-gridlayout
@@ -39,6 +42,7 @@ LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-recyclerview
 
 LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_AAPT_FLAGS += --extra-packages android.support.design
+LOCAL_AAPT_FLAGS += --extra-packages android.support.v14.percent
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v14.preference
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.appcompat
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.gridlayout

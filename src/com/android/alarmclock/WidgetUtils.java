@@ -18,11 +18,11 @@ package com.android.alarmclock;
 
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 
 public final class WidgetUtils {
 
@@ -44,7 +44,7 @@ public final class WidgetUtils {
                 // No data , do no scaling
                 return 1f;
             }
-            Resources res = context.getResources();
+            final Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
             float ratio = (density * minWidth) / res.getDimension(R.dimen.min_digital_widget_width);
             ratio = Math.min(ratio, getHeightScaleRatio(context, options, id));
@@ -55,7 +55,7 @@ public final class WidgetUtils {
             }
 
             ratio = Math.min(ratio, 1.6f);
-            if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (Utils.isPortrait(context)) {
                 ratio = Math.max(ratio, .71f);
             }
             else {
@@ -82,10 +82,10 @@ public final class WidgetUtils {
                 // No data , do no scaling
                 return 1f;
             }
-            Resources res = context.getResources();
+            final Resources res = context.getResources();
             float density = res.getDisplayMetrics().density;
             float ratio = density * minHeight / res.getDimension(R.dimen.min_digital_widget_height);
-            if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            if (Utils.isPortrait(context)) {
                 return ratio * 1.75f;
             }
             return ratio;

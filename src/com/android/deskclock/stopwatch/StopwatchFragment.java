@@ -20,6 +20,7 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -106,10 +107,19 @@ public final class StopwatchFragment extends DeskClockFragment {
         mLapsList = (RecyclerView) v.findViewById(R.id.laps_list);
         ((SimpleItemAnimator) mLapsList.getItemAnimator()).setSupportsChangeAnimations(false);
         mLapsList.setLayoutManager(mLapsLayoutManager);
+
+        // In landscape layouts, the laps list can reach the top of the screen and thus can cause
+        // a drop shadow to appear. The same is not true for portrait landscapes.
+        if (Utils.isLandscape(getActivity())) {
+            final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
+            mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
+            mLapsList.addOnScrollListener(scrollPositionWatcher);
+        }
         mLapsList.setAdapter(mLapsAdapter);
 
         // Timer text serves as a virtual start/stop button.
         mTimeText = (CountingTimerView) v.findViewById(R.id.stopwatch_time_text);
+        mTimeText.setShowBoundingCircle(mTime != null);
         mTimeText.setVirtualButtonEnabled(true);
         mTimeText.registerVirtualButtonAction(new ToggleStopwatchRunnable());
 
@@ -119,8 +129,8 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStart() {
+        super.onStart();
 
         // Conservatively assume the data in the adapter has changed while the fragment was paused.
         mLapCount = mLapsAdapter.getItemCount();
@@ -134,8 +144,8 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
+    public void onStop() {
+        super.onStop();
 
         // Stop all updates while the fragment is not visible.
         stopUpdatingTime();
@@ -350,8 +360,10 @@ public final class StopwatchFragment extends DeskClockFragment {
             // to ensure they aren't seen as the first lap is drawn.
             mLapsList.removeAllViewsInLayout();
 
-            // Start animating the reference lap.
-            mTime.update();
+            if (mTime != null) {
+                // Start animating the reference lap.
+                mTime.update();
+            }
 
             // Recording the first lap transitions the UI to display the laps list.
             showOrHideLaps(false);
@@ -367,6 +379,10 @@ public final class StopwatchFragment extends DeskClockFragment {
      */
     private void showOrHideLaps(boolean clearLaps) {
         final ViewGroup sceneRoot = (ViewGroup) getView();
+        if (sceneRoot == null) {
+            return;
+        }
+
         TransitionManager.beginDelayedTransition(sceneRoot);
 
         if (clearLaps) {
@@ -375,6 +391,17 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         final boolean lapsVisible = mLapsAdapter.getItemCount() > 0;
         mLapsList.setVisibility(lapsVisible ? VISIBLE : GONE);
+
+        if (Utils.isPortrait(getActivity())) {
+            // When the lap list is visible, it includes the bottom padding. When it is absent the
+            // appropriate bottom padding must be applied to the container.
+            final Resources res = getResources();
+            final int bottom = lapsVisible ? 0 : res.getDimensionPixelSize(R.dimen.fab_height);
+            final int top = sceneRoot.getPaddingTop();
+            final int left = sceneRoot.getPaddingLeft();
+            final int right = sceneRoot.getPaddingRight();
+            sceneRoot.setPadding(left, top, right, bottom);
+        }
     }
 
     private void adjustWakeLock() {
@@ -415,14 +442,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void startUpdatingTime() {
         // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
         stopUpdatingTime();
-        mTime.post(mTimeUpdateRunnable);
+        mTimeText.post(mTimeUpdateRunnable);
     }
 
     /**
      * Remove the runnable that updates times within the UI.
      */
     private void stopUpdatingTime() {
-        mTime.removeCallbacks(mTimeUpdateRunnable);
+        mTimeText.removeCallbacks(mTimeUpdateRunnable);
     }
 
     /**
@@ -454,7 +481,9 @@ public final class StopwatchFragment extends DeskClockFragment {
         // Draw the latest stopwatch and current lap times.
         updateTime();
 
-        mTime.update();
+        if (mTime != null) {
+            mTime.update();
+        }
 
         // Start updates if the stopwatch is running.
         final Stopwatch stopwatch = getStopwatch();
@@ -488,7 +517,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 final long endTime = SystemClock.elapsedRealtime();
                 final long delay = Math.max(0, startTime + REDRAW_PERIOD - endTime);
 
-                mTime.postDelayed(this, delay);
+                mTimeText.postDelayed(this, delay);
             }
         }
     }
@@ -529,6 +558,24 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         @Override
         public void lapAdded(Lap lap) {
+        }
+    }
+
+    /**
+     * Updates the vertical scroll state of this tab in the {@link UiDataModel} as the user scrolls
+     * the recyclerview or when the size/position of elements within the recyclerview changes.
+     */
+    private final class ScrollPositionWatcher extends RecyclerView.OnScrollListener
+            implements View.OnLayoutChangeListener {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            setTabScrolledToTop(Utils.isScrolledToTop(mLapsList));
+        }
+
+        @Override
+        public void onLayoutChange(View v, int left, int top, int right, int bottom,
+                int oldLeft, int oldTop, int oldRight, int oldBottom) {
+            setTabScrolledToTop(Utils.isScrolledToTop(mLapsList));
         }
     }
 }
