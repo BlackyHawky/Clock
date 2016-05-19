@@ -14,12 +14,16 @@
      limitations under the License.
 -->
 
-<!-- Fab automatically adjusts its size from mini to normal at this width. Mirror the change so the
+<!-- Fab automatically adjusts its size from mini to normal at this height. Mirror the change so the
 values can be used elsewhere in clock layouts. -->
 <resources>
-    <!-- Height of the floating action button container. -->
+    <!-- Lollipop and later normal floating action button margin. -->
+    <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Lollipop and later normal floating action button container height. -->
     <dimen name="fab_height">88dp</dimen>
 
-    <!-- The width and height of the buttons in the fab area. -->
+    <!-- Lollipop and later normal floating action button size. -->
     <dimen name="fab_button_size">@dimen/design_fab_size_normal</dimen>
+
 </resources>

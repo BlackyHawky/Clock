@@ -160,13 +160,16 @@
     <!-- Dimens for taller rows on Alarms tab -->
     <dimen name="tall_row_height">58dp</dimen>
 
-    <!-- Floating action button style -->
-    <dimen name="fab_margin">0dp</dimen>
+    <!-- Kitkat and later floating action button elevation. -->
     <dimen name="fab_elevation">8dp</dimen>
 
-    <!-- Height of the floating action button container. -->
-    <dimen name="fab_height">72dp</dimen>
+    <!-- KitKat floating action button margin; see -v21 folder for newer platforms. -->
+    <dimen name="fab_margin">0dp</dimen>
 
-    <!-- The width and height of the buttons in the fab area. -->
-    <dimen name="fab_button_size">@dimen/design_fab_size_mini</dimen>
+    <!-- KitKat floating action button container height; see -v21 folder for newer platforms. -->
+    <dimen name="fab_height">96dp</dimen>
+
+    <!-- KitKat floating action button size; see -v21 folder for newer platforms. -->
+    <dimen name="fab_button_size">@dimen/design_fab_size_normal</dimen>
+
 </resources>
