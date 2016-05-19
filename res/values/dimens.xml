@@ -48,7 +48,7 @@
     <dimen name="alarm_lockscreen_pulse_radius">128dp</dimen>
     <dimen name="alarm_lockscreen_bottom_margin">40dp</dimen>
 
-    <dimen name="main_clock_font_size">70sp</dimen>
+    <dimen name="main_clock_font_size">64sp</dimen>
     <dimen name="big_font_size">60sp</dimen>
     <dimen name="medium_font_size">56sp</dimen>
     <dimen name="small_font_size">32sp</dimen>
@@ -106,6 +106,8 @@
 
     <!-- Size of time zone analog clocks in world clock. -->
     <dimen name="world_clock_analog_size">100dp</dimen>
+    <!-- Size of digital world clock font in landscape. -->
+    <dimen name="world_clock_digital_font_size">40sp</dimen>
 
     <!-- Height of the button footers. 56 height and 16 on top and bottom. -->
     <dimen name="button_footer_height">88dip</dimen>
