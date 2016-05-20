@@ -36,9 +36,6 @@
     <dimen name="analog_clock_margin">48dp</dimen>
 
     <dimen name="circle_size">360dip</dimen>
-    <dimen name="stopwatch_circle_margin_bottom">112dip</dimen>
-
-    <dimen name="sw_padding_end">48dp</dimen>
 
     <!-- The maximum size of the font for the time in widgets. -->
     <dimen name="widget_max_clock_font_size">100dp</dimen>

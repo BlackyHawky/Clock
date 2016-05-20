@@ -85,6 +85,10 @@ public class CountingTimerView extends View {
     private boolean mVirtualButtonEnabled = false;
     private boolean mVirtualButtonPressedOn = false;
 
+    // Whether or not a bounding circle exists into which the text must be made to fit.
+    // If no such circle exists, the entire width of this component is available for text display.
+    private boolean mShowBoundingCircle;
+
     Runnable mBlinkThread = new Runnable() {
         private boolean mVisible = true;
         @Override
@@ -310,6 +314,11 @@ public class CountingTimerView extends View {
         mPaintMed.setColor(textColor);
     }
 
+    public void setShowBoundingCircle(boolean showBoundingCircle) {
+        mShowBoundingCircle = showBoundingCircle;
+        requestLayout();
+    }
+
     /**
      * Update the time to display. Separates that time into the hours, minutes, seconds and
      * hundredths. If update is true, the view is invalidated so that it will draw again.
@@ -420,10 +429,18 @@ public class CountingTimerView extends View {
      */
     private void setTotalTextWidth() {
         calcTotalTextWidth();
-        // To determine the maximum width, we find the minimum of the height and width (since the
-        // circle we are trying to fit the text into has its radius sized to the smaller of the
-        // two.
-        int width = Math.min(getWidth(), getHeight());
+
+        int width;
+        if (mShowBoundingCircle) {
+            // A bounding circle exists, so the available width in which to fit the timer text is
+            // the smaller of the width or height, which is also equal to the circle's diameter.
+            width = Math.min(getWidth(), getHeight());
+        } else {
+            // A bounding circle does not exist, so pretend that the entire width of this component
+            // is the diameter of a theoretical bounding circle.
+            width = getWidth();
+        }
+
         if (width != 0) {
             // Shrink 'width' to account for circle stroke and other painted objects.
             // Note on the "4 *": (1) To reduce divisions, using the diameter instead of the radius.
