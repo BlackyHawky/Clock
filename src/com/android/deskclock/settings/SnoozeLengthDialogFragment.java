@@ -16,7 +16,6 @@
 
 package com.android.deskclock.settings;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v14.preference.PreferenceDialogFragment;
 import android.support.v7.preference.Preference;
@@ -32,11 +31,13 @@ public class SnoozeLengthDialogFragment extends PreferenceDialogFragment {
 
     private NumberPickerCompat mNumberPickerView;
 
-    public static DialogFragment newInstance(Preference preference) {
-        SnoozeLengthDialogFragment fragment = new SnoozeLengthDialogFragment();
-        Bundle bundle = new Bundle();
+    public static PreferenceDialogFragment newInstance(Preference preference) {
+        final PreferenceDialogFragment fragment = new SnoozeLengthDialogFragment();
+
+        final Bundle bundle = new Bundle();
         bundle.putString(ARG_KEY, preference.getKey());
         fragment.setArguments(bundle);
+
         return fragment;
     }
 

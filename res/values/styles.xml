@@ -16,8 +16,11 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="BaseActivityTheme" parent="Theme.AppCompat">
+    <style name="BaseActivityTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/default_background</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
 
         <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="colorAccent">@color/color_accent</item>
@@ -25,16 +28,6 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="colorPrimaryDark">@color/status_bar</item>
         <item name="imageButtonStyle">@style/ImageButtonStyle</item>
-    </style>
-
-    <style name="TranslucentDecorActivityTheme" parent="BaseActivityTheme">
-        <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-
-        <!-- Attributes from support.v7.appcompat -->
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
@@ -58,26 +51,40 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="SettingsTheme" parent="TranslucentDecorActivityTheme">
+    <style name="SettingsTheme" parent="BaseActivityTheme">
+        <item name="android:alertDialogTheme">@style/SettingsAlertDialogTheme</item>
         <item name="android:detailsElementBackground">@null</item>
 
         <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
-        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
         <item name="colorControlActivated">?attr/colorAccent</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
+        <item name="preferenceTheme">@style/SettingsPreferenceTheme</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
     </style>
 
-    <style name="SettingsActionBarStyle" parent="@style/Widget.AppCompat.Toolbar">
+    <style name="SettingsActionBarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@null</item>
 
         <!-- Attributes from support.v7.appcompat -->
         <item name="displayOptions">showTitle|homeAsUp</item>
     </style>
 
-    <style name="CitiesTheme" parent="TranslucentDecorActivityTheme">
+    <style name="SettingsAlertDialogTheme" parent="android:Theme.Holo.Dialog.MinWidth">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="SettingsPreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
+        <!-- Attributes from support.v7.preference -->
+        <item name="preferenceFragmentStyle">@style/SettingsPreferenceFragmentStyle</item>
+    </style>
+
+    <style name="SettingsPreferenceFragmentStyle" parent="PreferenceFragment.Material">
+        <item name="android:divider">@color/hairline</item>
+        <item name="android:dividerHeight">@dimen/hairline_height</item>
+    </style>
+
+    <style name="CitiesTheme" parent="BaseActivityTheme">
         <item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollTextColor">@color/white</item>
@@ -96,11 +103,11 @@
         <item name="displayOptions">homeAsUp</item>
     </style>
 
-    <style name="AlarmAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
+    <style name="AlarmAlertFullScreenTheme" parent="BaseActivityTheme" />
 
-    <style name="DeskClockTheme" parent="TranslucentDecorActivityTheme" />
+    <style name="DeskClockTheme" parent="BaseActivityTheme" />
 
-    <style name="ExpiredTimersActivityTheme" parent="TranslucentDecorActivityTheme" />
+    <style name="ExpiredTimersActivityTheme" parent="BaseActivityTheme" />
 
     <style name="ScreensaverActivityTheme" parent="Theme.AppCompat.NoActionBar" />
 

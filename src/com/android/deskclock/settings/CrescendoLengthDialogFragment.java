@@ -16,7 +16,6 @@
 
 package com.android.deskclock.settings;
 
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v14.preference.PreferenceDialogFragment;
 import android.support.v7.preference.Preference;
@@ -33,11 +32,13 @@ public class CrescendoLengthDialogFragment extends PreferenceDialogFragment {
 
     private NumberPickerCompat mNumberPickerView;
 
-    public static DialogFragment newInstance(Preference preference) {
-        final CrescendoLengthDialogFragment fragment = new CrescendoLengthDialogFragment();
+    public static PreferenceDialogFragment newInstance(Preference preference) {
+        final PreferenceDialogFragment fragment = new CrescendoLengthDialogFragment();
+
         final Bundle bundle = new Bundle();
         bundle.putString(ARG_KEY, preference.getKey());
         fragment.setArguments(bundle);
+
         return fragment;
     }
 

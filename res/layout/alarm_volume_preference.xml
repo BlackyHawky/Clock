@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="marquee"
         android:singleLine="true"
-        android:textAppearance="?android:attr/textAppearanceListItem"/>
+        android:textAppearance="@style/Preference_TextAppearanceMaterialSubhead"/>
 
     <LinearLayout
         android:layout_width="match_parent"
