@@ -23,7 +23,6 @@
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
     <dimen name="time_margin_top">48dip</dimen>
-    <dimen name="timer_list_padding_bottom">112dip</dimen>
     <dimen name="screensaver_margin">20dip</dimen>
     <dimen name="alarm_label_padding">64dip</dimen>
     <dimen name="bottom_text_size">18sp</dimen>
@@ -47,7 +46,6 @@
     <dimen name="small_space">32dp</dimen>
     <dimen name="medium_space_top">46dp</dimen>
     <dimen name="medium_space_bottom">18dp</dimen>
-    <dimen name="main_clock_padding">40dp</dimen>
 
     <dimen name="label_margin_big">8dp</dimen>
     <dimen name="label_margin_small">4dp</dimen>
@@ -57,14 +55,10 @@
     <dimen name="timer_setup_font_size">86sp</dimen>
     <dimen name="timer_setup_button_size">36sp</dimen>
     <dimen name="timer_setup_delete_margin">21sp</dimen>
-    <dimen name="timer_setup_label_size">28sp</dimen>
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">48dp</dimen>
-    <dimen name="circle_margin">96dp</dimen>
     <dimen name="analog_clock_margin">96dp</dimen>
-
-    <dimen name="circle_size">400dp</dimen>
 
      <!-- Width of the clock, for use with alarm buttons. -->
     <dimen name="alarm_alert_display_width">550dip</dimen>
@@ -85,6 +79,4 @@
     <dimen name="city_widget_name_font_size">20dp</dimen>
     <!-- The maximum size of the font for the time in widgets. -->
     <dimen name="widget_max_clock_font_size">125dp</dimen>
-
-    <dimen name="footer_button_size">80dip</dimen>
 </resources>

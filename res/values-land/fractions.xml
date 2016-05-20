@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The Android Open Source Project
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,7 +13,11 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<View xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:background="@color/transparent"
-    android:layout_height="@dimen/button_footer_height" />
+
+<resources>
+    <!-- In landscape, -100% width implies only height is used to size the timer container. -->
+    <fraction name="timer_circle_width_percent">-100%</fraction>
+
+    <!-- In landscape, timer circles are 90% of the container height; width matches height. -->
+    <fraction name="timer_circle_height_percent">90%</fraction>
+</resources>

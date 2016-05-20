@@ -28,14 +28,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-        <FrameLayout
-            android:layout_gravity="center"
+        <com.android.deskclock.TimerCircleFrameLayout
             app:layout_aspectRatio="100%"
-            app:layout_widthPercent="60%">
+            app:layout_widthPercent="@fraction/timer_circle_width_percent"
+            app:layout_heightPercent="@fraction/timer_circle_height_percent"
+            android:layout_gravity="center">
 
             <include layout="@layout/stopwatch_view" />
 
-        </FrameLayout>
+        </com.android.deskclock.TimerCircleFrameLayout>
 
     </android.support.percent.PercentFrameLayout>
 

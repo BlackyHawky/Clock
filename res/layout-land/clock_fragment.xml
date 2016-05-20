@@ -50,7 +50,7 @@
         android:layout_weight="32"
         android:clickable="false"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/medium_space_top" />
+        android:paddingBottom="@dimen/fab_height" />
 
     <!-- Left gutter. -->
     <Space

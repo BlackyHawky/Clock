@@ -102,7 +102,6 @@ public final class ClockFragment extends DeskClockFragment {
         super.onCreateView(inflater, container, icicle);
 
         final OnTouchListener startScreenSaverListener = new StartScreenSaverListener();
-        final View footerView = inflater.inflate(R.layout.blank_footer_view, mCityList, false);
         final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
 
         mCityAdapter = new SelectedCitiesAdapter(getActivity());
@@ -110,7 +109,6 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList = (ListView) fragmentView.findViewById(R.id.cities);
         mCityList.setDivider(null);
         mCityList.setAdapter(mCityAdapter);
-        mCityList.addFooterView(footerView, null, false);
         mCityList.setOnTouchListener(startScreenSaverListener);
         mCityList.setOnScrollListener(new VerticalScrollPositionUpdater());
 

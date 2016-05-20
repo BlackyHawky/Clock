@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.deskclock.CircleButtonsLayout;
 import com.android.deskclock.R;
 import com.android.deskclock.data.Timer;
 
@@ -63,10 +62,7 @@ public class TimerItem extends LinearLayout {
         mResetAddButton = (ImageView) findViewById(R.id.reset_add);
         mCircleView = (TimerCircleView) findViewById(R.id.timer_time);
         mTimerText = (CountingTimerView) findViewById(R.id.timer_time_text);
-
-        // This layout dynamically positions the label and reset buttons.
-        final CircleButtonsLayout cbl = (CircleButtonsLayout) findViewById(R.id.timer_circle);
-        cbl.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label);
+        mTimerText.setShowBoundingCircle(mCircleView != null);
     }
 
     /**
@@ -76,9 +72,6 @@ public class TimerItem extends LinearLayout {
         // Update the time.
         mTimerText.setTime(timer.getRemainingTime(), false);
 
-        // Update the progress of the circle.
-        mCircleView.update(timer);
-
         // Update the label if it changed.
         final String label = timer.getLabel();
         if (!TextUtils.equals(label, mLabelView.getText())) {
@@ -87,7 +80,15 @@ public class TimerItem extends LinearLayout {
 
         // Update visibility of things that may blink.
         final boolean blinkOff = SystemClock.elapsedRealtime() % 1000 < 500;
-        mCircleView.setVisibility(timer.isExpired() && blinkOff ? INVISIBLE : VISIBLE);
+        if (mCircleView != null) {
+            final boolean hideCircle = timer.isExpired() && blinkOff;
+            mCircleView.setVisibility(hideCircle ? INVISIBLE : VISIBLE);
+
+            if (!hideCircle) {
+                // Update the progress of the circle.
+                mCircleView.update(timer);
+            }
+        }
         mTimerText.showTime(!timer.isPaused() || !blinkOff);
 
         // Update some potentially expensive areas of the user interface only on state changes.
