@@ -26,21 +26,24 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
 import android.media.AudioManager;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.Settings;
+import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.os.BuildCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -70,7 +73,9 @@ import static android.app.NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED
 import static android.app.NotificationManager.INTERRUPTION_FILTER_NONE;
 import static android.media.AudioManager.FLAG_SHOW_UI;
 import static android.media.AudioManager.STREAM_ALARM;
+import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.Settings.System.CONTENT_URI;
+import static android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
@@ -114,6 +119,12 @@ public class DeskClock extends BaseActivity
 
     /** Updates the user interface to reflect the selected tab from the backing model. */
     private final TabListener mTabChangeWatcher = new TabChangeWatcher();
+
+    /** Displays a snackbar explaining that the system default alarm ringtone is silent. */
+    private final Runnable mShowSilentAlarmSnackbarRunnable = new ShowSilentAlarmSnackbarRunnable();
+
+    /** Observes default alarm ringtone changes while the app is in the foreground. */
+    private final ContentObserver mAlarmRingtoneChangeObserver = new AlarmRingtoneChangeObserver();
 
     /** Displays a snackbar explaining that the alarm volume is muted. */
     private final Runnable mShowMutedVolumeSnackbarRunnable = new ShowMutedVolumeSnackbarRunnable();
@@ -300,24 +311,28 @@ public class DeskClock extends BaseActivity
 
         if (mShowSilencedAlarmsSnackbar) {
             if (isDoNotDisturbBlockingAlarms()) {
-                // Show the alarms blocked snackbar after a brief delay so it is more noticeable.
                 mSnackbarAnchor.postDelayed(mShowDNDBlockingSnackbarRunnable, SECOND_IN_MILLIS);
             } else if (isAlarmStreamMuted()) {
-                // Show the volume muted snackbar after a brief delay so it is more noticeable.
                 mSnackbarAnchor.postDelayed(mShowMutedVolumeSnackbarRunnable, SECOND_IN_MILLIS);
+            } else if (isSystemAlarmRingtoneSilent()) {
+                mSnackbarAnchor.postDelayed(mShowSilentAlarmSnackbarRunnable, SECOND_IN_MILLIS);
             }
         }
 
+        // Subsequent starts of this activity should show the snackbar by default.
+        mShowSilencedAlarmsSnackbar = true;
+
+        final ContentResolver cr = getContentResolver();
+        // Watch for system alarm ringtone changes while the app is in the foreground.
+        cr.registerContentObserver(DEFAULT_ALARM_ALERT_URI, false, mAlarmRingtoneChangeObserver);
+
         // Watch for alarm volume changes while the app is in the foreground.
-        getContentResolver().registerContentObserver(VOLUME_URI, true, mAlarmVolumeChangeObserver);
+        cr.registerContentObserver(VOLUME_URI, false, mAlarmVolumeChangeObserver);
 
         if (Utils.isMOrLater()) {
             // Watch for do-not-disturb changes while the app is in the foreground.
             registerReceiver(mDoNotDisturbChangeReceiver, DND_CHANGE_FILTER);
         }
-
-        // Subsequent starts of this activity should show the snackbar by default.
-        mShowSilencedAlarmsSnackbar = true;
     }
 
     @Override
@@ -363,6 +378,9 @@ public class DeskClock extends BaseActivity
 
     @Override
     protected void onStop() {
+        // Stop watching for system alarm ringtone changes while the app is in the background.
+        getContentResolver().unregisterContentObserver(mAlarmRingtoneChangeObserver);
+
         // Stop watching for alarm volume changes while the app is in the background.
         getContentResolver().unregisterContentObserver(mAlarmVolumeChangeObserver);
 
@@ -372,6 +390,7 @@ public class DeskClock extends BaseActivity
         }
 
         // Remove any scheduled work to show snackbars; it is no longer relevant.
+        mSnackbarAnchor.removeCallbacks(mShowSilentAlarmSnackbarRunnable);
         mSnackbarAnchor.removeCallbacks(mShowDNDBlockingSnackbarRunnable);
         mSnackbarAnchor.removeCallbacks(mShowMutedVolumeSnackbarRunnable);
         super.onStop();
@@ -476,6 +495,24 @@ public class DeskClock extends BaseActivity
         return (DeskClockFragment) mFragmentTabPagerAdapter.getItem(index);
     }
 
+    private boolean isSystemAlarmRingtoneSilent() {
+        return RingtoneManager.getActualDefaultRingtoneUri(this, TYPE_ALARM) == null;
+    }
+
+    private void showSilentRingtoneSnackbar() {
+        final OnClickListener changeClickListener = new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS));
+            }
+        };
+
+        SnackbarManager.show(
+                createSnackbar(R.string.silent_default_alarm_ringtone)
+                        .setAction(R.string.change_default_alarm_ringtone, changeClickListener)
+        );
+    }
+
     private boolean isAlarmStreamMuted() {
         return mAudioManager.getStreamVolume(STREAM_ALARM) <= 0;
     }
@@ -491,7 +528,7 @@ public class DeskClock extends BaseActivity
         };
 
         SnackbarManager.show(
-                Snackbar.make(mSnackbarAnchor, R.string.alarm_volume_muted, 5000)
+                createSnackbar(R.string.alarm_volume_muted)
                         .setAction(R.string.unmute_alarm_volume, unmuteClickListener)
         );
     }
@@ -505,13 +542,20 @@ public class DeskClock extends BaseActivity
     }
 
     private void showDoNotDisturbIsBlockingAlarmsSnackbar() {
-        SnackbarManager.show(Snackbar.make(mSnackbarAnchor, R.string.alarms_blocked_by_dnd, 5000));
+        SnackbarManager.show(createSnackbar(R.string.alarms_blocked_by_dnd));
+    }
+
+    /**
+     * @return a Snackbar that displays the message with the given id for 5 seconds
+     */
+    private Snackbar createSnackbar(@StringRes int messageId) {
+        return Snackbar.make(mSnackbarAnchor, messageId, 5000 /* duration */);
     }
 
     /**
      * As the view pager changes the selected page, update the model to record the new selected tab.
      */
-    private class PageChangeWatcher implements OnPageChangeListener {
+    private final class PageChangeWatcher implements OnPageChangeListener {
 
         /** The last reported page scroll state; used to detect exotic state changes. */
         private int mPriorState = SCROLL_STATE_IDLE;
@@ -579,7 +623,7 @@ public class DeskClock extends BaseActivity
      * If this listener is attached to {@link #mHideAnimation} when it ends, the corresponding
      * {@link #mShowAnimation} is automatically started.
      */
-    private class AutoStartShowListener extends AnimatorListenerAdapter {
+    private final class AutoStartShowListener extends AnimatorListenerAdapter {
         @Override
         public void onAnimationEnd(Animator animation) {
             // Prepare the hide animation for its next use; by default do not auto-show after hide.
@@ -593,6 +637,17 @@ public class DeskClock extends BaseActivity
 
             // The animation to show the fab has begun; update the state to showing.
             mFabState = FabState.SHOWING;
+        }
+    }
+
+    /**
+     * Displays a snackbar that indicates the system default alarm ringtone currently silent and
+     * offers an action that displays the system alarm ringtone setting to adjust it.
+     */
+    private final class ShowSilentAlarmSnackbarRunnable implements Runnable {
+        @Override
+        public void run() {
+            showSilentRingtoneSnackbar();
         }
     }
 
@@ -614,6 +669,25 @@ public class DeskClock extends BaseActivity
         @Override
         public void run() {
             showDoNotDisturbIsBlockingAlarmsSnackbar();
+        }
+    }
+
+    /**
+     * Observe changes to the system default alarm ringtone while the application is in the
+     * foreground and show/hide the snackbar that warns when the ringtone is silent.
+     */
+    private final class AlarmRingtoneChangeObserver extends ContentObserver {
+        private AlarmRingtoneChangeObserver() {
+            super(new Handler());
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            if (isSystemAlarmRingtoneSilent()) {
+                showSilentRingtoneSnackbar();
+            } else {
+                SnackbarManager.dismiss();
+            }
         }
     }
 
@@ -640,7 +714,7 @@ public class DeskClock extends BaseActivity
      * Observe changes to the do-not-disturb setting while the application is in the foreground
      * and show/hide the snackbar that warns when the setting is blocking alarms.
      */
-    private class DoNotDisturbChangeReceiver extends BroadcastReceiver {
+    private final class DoNotDisturbChangeReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             if (isDoNotDisturbBlockingAlarms()) {
@@ -654,7 +728,7 @@ public class DeskClock extends BaseActivity
     /**
      * As the model reports changes to the selected tab, update the user interface.
      */
-    private class TabChangeWatcher implements TabListener {
+    private final class TabChangeWatcher implements TabListener {
         @Override
         public void selectedTabChanged(Tab oldSelectedTab, Tab newSelectedTab) {
             final int index = newSelectedTab.ordinal();
@@ -692,7 +766,7 @@ public class DeskClock extends BaseActivity
     /**
      * This adapter produces the DeskClockFragments that are the contents of the tabs.
      */
-    private static class TabFragmentAdapter extends FragmentPagerAdapter {
+    private static final class TabFragmentAdapter extends FragmentPagerAdapter {
 
         private final FragmentManager mFragmentManager;
         private final Context mContext;
