@@ -132,9 +132,6 @@
     <item name="widget_shadow_radius" format="float" type="dimen">2.75</item>
     <item name="widget_shadow_dy" format="float" type="dimen">2.0</item>
 
-    <!-- Bottom margin for the expand area -->
-    <dimen name="collapse_expand_height">72dip</dimen>
-
     <!-- Divider height -->
     <dimen name="hairline_height">1dp</dimen>
 
