@@ -60,24 +60,24 @@
       <item quantity="other">Se amână pentru <xliff:g id="MINUTES">%d</xliff:g> de minute.</item>
       <item quantity="one">Se amână pentru un minut.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Se amână până la <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Se amână până <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarma următoare"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Alarma ratată a fost ștearsă"</string>
-    <string name="timer_notifications_less_min" msgid="5481375048976427255">"A mai rămas mai puțin de un minut"</string>
+    <string name="timer_notifications_less_min" msgid="5481375048976427255">"A rămas mai puțin de un minut"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"Timp rămas: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"rămas"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"rămase"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarmă setată peste mai puțin de 1 minut din acest moment."</item>
-    <item msgid="6002066367368421848">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> din acest moment."</item>
-    <item msgid="8824719306247973774">"Alarmă setată peste <xliff:g id="HOURS">%2$s</xliff:g> din acest moment."</item>
-    <item msgid="8182406852935468862">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> și <xliff:g id="HOURS">%2$s</xliff:g> din acest moment."</item>
-    <item msgid="2532279224777213194">"Alarmă setată peste <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
-    <item msgid="5936557894247187717">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> și <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
-    <item msgid="9115697840826129603">"Alarmă setată peste <xliff:g id="HOURS">%2$s</xliff:g> și <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
-    <item msgid="2332583385137381060">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> și <xliff:g id="MINUTES">%3$s</xliff:g> din acest moment."</item>
+    <item msgid="6450913786084215050">"Alarmă setată peste mai puțin de 1 minut."</item>
+    <item msgid="6002066367368421848">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"Alarmă setată peste <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8182406852935468862">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> și <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="2532279224777213194">"Alarmă setată peste <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="5936557894247187717">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g> și <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"Alarmă setată peste <xliff:g id="HOURS">%2$s</xliff:g> și <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"Alarmă setată peste <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> și <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> zile</item>
@@ -365,7 +365,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Următorul temporizator: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Setări Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modul Noapte"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Afișaj cu luminozitate redusă (pentru camere întunecate)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Luminozitate foarte redusă (pentru camere întunecate)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Extindeți alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Restrângeți alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"anulați"</string>

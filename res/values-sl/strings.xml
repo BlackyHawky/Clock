@@ -73,13 +73,13 @@
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"še"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarm je nastavljen na manj kot 1 minuto od zdaj."</item>
-    <item msgid="6002066367368421848">"Alarm je nastavljen na <xliff:g id="DAYS">%1$s</xliff:g> od zdaj."</item>
-    <item msgid="8824719306247973774">"Alarm je nastavljen na <xliff:g id="HOURS">%2$s</xliff:g> od zdaj."</item>
-    <item msgid="8182406852935468862">"Alarm je nastavljen na <xliff:g id="DAYS">%1$s</xliff:g> in <xliff:g id="HOURS">%2$s</xliff:g> od zdaj."</item>
-    <item msgid="2532279224777213194">"Alarm je nastavljen na toliko minut od zdaj: <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="5936557894247187717">"Alarm je nastavljen na <xliff:g id="DAYS">%1$s</xliff:g> in <xliff:g id="MINUTES">%3$s</xliff:g> od zdaj."</item>
-    <item msgid="9115697840826129603">"Alarm je nastavljen na <xliff:g id="HOURS">%2$s</xliff:g> in <xliff:g id="MINUTES">%3$s</xliff:g> od zdaj."</item>
-    <item msgid="2332583385137381060">"Alarm je nastavljen na <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> in <xliff:g id="MINUTES">%3$s</xliff:g> od zdaj."</item>
+    <item msgid="6002066367368421848">"Alarm je nastavljen na: <xliff:g id="DAYS">%1$s</xliff:g> od zdaj."</item>
+    <item msgid="8824719306247973774">"Alarm je nastavljen na: <xliff:g id="HOURS">%2$s</xliff:g> od zdaj."</item>
+    <item msgid="8182406852935468862">"Alarm je nastavljen na: <xliff:g id="DAYS">%1$s</xliff:g> in <xliff:g id="HOURS">%2$s</xliff:g> od zdaj."</item>
+    <item msgid="2532279224777213194">"Alarm je nastavljen na: <xliff:g id="MINUTES">%3$s</xliff:g> od zdaj."</item>
+    <item msgid="5936557894247187717">"Alarm je nastavljen na: <xliff:g id="DAYS">%1$s</xliff:g> in <xliff:g id="MINUTES">%3$s</xliff:g> od zdaj."</item>
+    <item msgid="9115697840826129603">"Alarm je nastavljen na: <xliff:g id="HOURS">%2$s</xliff:g> in <xliff:g id="MINUTES">%3$s</xliff:g> od zdaj."</item>
+    <item msgid="2332583385137381060">"Alarm je nastavljen na: <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> in <xliff:g id="MINUTES">%3$s</xliff:g> od zdaj."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dan</item>
@@ -238,7 +238,7 @@
     <string name="timer_notification_label" msgid="4933184831583137249">"Časovnik"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Največ 4 časovniki"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Zaustavitev"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Ponast. časov."</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Ponastavi vse časovnike"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Hitri ste kot blisk."</item>
     <item msgid="6332879039890727169">"Uživajte v sadovih svojega dela."</item>
@@ -261,7 +261,7 @@
     <item msgid="8483930821046925592">"Digitalno"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Samod. ura za domač čas. pas"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Če ste v drugem časovnem območju, dodajte uro z domačim časom"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Med potovanjem v drugem časovnem območju dodaj uro z domačim časom"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domač časovni pas"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domač časovni pas"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Prekliči"</string>
