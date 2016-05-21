@@ -17,17 +17,17 @@
 package com.android.deskclock.settings;
 
 import android.app.Activity;
-import android.app.DialogFragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.v14.preference.PreferenceDialogFragment;
 import android.support.v14.preference.PreferenceFragment;
-import android.support.v14.preference.SwitchPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.TwoStatePreference;
 import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,8 +52,7 @@ import java.util.TimeZone;
 /**
  * Settings for the Alarm Clock.
  */
-public final class SettingsActivity extends BaseActivity
-        implements RingtonePickerDialogFragment.OnRingtoneSelectedListener {
+public final class SettingsActivity extends BaseActivity {
 
     public static final String KEY_ALARM_SNOOZE = "snooze_duration";
     public static final String KEY_ALARM_CRESCENDO = "alarm_crescendo_duration";
@@ -77,23 +76,26 @@ public final class SettingsActivity extends BaseActivity
 
     private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
-    /** The controller that shows the drop shadow when content is not scrolled to the top. */
+    /**
+     * The controller that shows the drop shadow when content is not scrolled to the top.
+     */
     private DropShadowController mDropShadowController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
+
         mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
-            .addMenuItemController(MenuItemControllerFactory.getInstance()
-                    .buildMenuItemControllers(this));
+                .addMenuItemController(MenuItemControllerFactory.getInstance()
+                        .buildMenuItemControllers(this));
 
         // Create the prefs fragment in code to ensure it's created before PreferenceDialogFragment
         if (savedInstanceState == null) {
-            final FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.main, new PrefsFragment(), PREFS_FRAGMENT_TAG);
-            ft.addToBackStack(null);
-            ft.commit();
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.main, new PrefsFragment(), PREFS_FRAGMENT_TAG)
+                    .disallowAddToBackStack()
+                    .commit();
         }
     }
 
@@ -127,19 +129,14 @@ public final class SettingsActivity extends BaseActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mOptionsMenuManager.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return mOptionsMenuManager.onOptionsItemSelected(item)
+                || super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onRingtoneSelected(String tag, Uri ringtoneUri) {
-        DataModel.getDataModel().setTimerRingtoneUri(ringtoneUri);
-    }
-
-    public static class PrefsFragment extends PreferenceFragment
-            implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
+    public static class PrefsFragment extends PreferenceFragment implements
+            RingtonePickerDialogFragment.OnRingtoneSelectedListener,
+            Preference.OnPreferenceChangeListener,
+            Preference.OnPreferenceClickListener {
 
         @Override
         public void onCreatePreferences(Bundle bundle, String rootKey) {
@@ -159,7 +156,6 @@ public final class SettingsActivity extends BaseActivity
         @Override
         public void onResume() {
             super.onResume();
-
             refresh();
         }
 
@@ -184,9 +180,8 @@ public final class SettingsActivity extends BaseActivity
             final int idx;
             switch (pref.getKey()) {
                 case KEY_AUTO_SILENCE:
-                    final ListPreference autoSilencePref = (ListPreference) pref;
                     String delay = (String) newValue;
-                    updateAutoSnoozeSummary(autoSilencePref, delay);
+                    updateAutoSnoozeSummary((ListPreference) pref, delay);
                     break;
                 case KEY_CLOCK_STYLE:
                     final ListPreference clockStylePref = (ListPreference) pref;
@@ -199,7 +194,7 @@ public final class SettingsActivity extends BaseActivity
                     homeTimezonePref.setSummary(homeTimezonePref.getEntries()[idx]);
                     break;
                 case KEY_AUTO_HOME_CLOCK:
-                    final boolean autoHomeClockEnabled = ((SwitchPreference) pref).isChecked();
+                    final boolean autoHomeClockEnabled = ((TwoStatePreference) pref).isChecked();
                     final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
                     homeTimeZonePref.setEnabled(!autoHomeClockEnabled);
                     break;
@@ -209,19 +204,16 @@ public final class SettingsActivity extends BaseActivity
                     volumeButtonsPref.setSummary(volumeButtonsPref.getEntries()[index]);
                     break;
                 case KEY_WEEK_START:
-                    final ListPreference weekStartPref =
-                            (ListPreference) findPreference(KEY_WEEK_START);
+                    final ListPreference weekStartPref = (ListPreference) pref;
                     idx = weekStartPref.findIndexOfValue((String) newValue);
                     weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
                     break;
                 case KEY_TIMER_VIBRATE:
-                    final SwitchPreference timerVibratePref =
-                            (SwitchPreference) findPreference(KEY_TIMER_VIBRATE);
+                    final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
                     DataModel.getDataModel().setTimerVibrate(timerVibratePref.isChecked());
                     break;
                 case KEY_TIMER_RINGTONE:
-                    final Preference timerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
-                    timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+                    pref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
                     break;
             }
             // Set result so DeskClock knows to refresh itself
@@ -253,6 +245,15 @@ public final class SettingsActivity extends BaseActivity
                 default:
                     return false;
             }
+        }
+
+        @Override
+        public void onRingtoneSelected(String tag, Uri ringtoneUri) {
+            DataModel.getDataModel().setTimerRingtoneUri(ringtoneUri);
+
+            // Manually call onPreferenceChange since PreferenceFragment doesn't listen to
+            // external changes via SharedPreferences.
+            onPreferenceChange(findPreference(KEY_TIMER_RINGTONE), ringtoneUri);
         }
 
         /**
@@ -314,7 +315,8 @@ public final class SettingsActivity extends BaseActivity
             clockStylePref.setOnPreferenceChangeListener(this);
 
             final Preference autoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
-            final boolean autoHomeClockEnabled = ((SwitchPreference) autoHomeClockPref).isChecked();
+            final boolean autoHomeClockEnabled =
+                    ((TwoStatePreference) autoHomeClockPref).isChecked();
             autoHomeClockPref.setOnPreferenceChangeListener(this);
 
             final ListPreference homeTimezonePref = (ListPreference) findPreference(KEY_HOME_TZ);
@@ -358,14 +360,16 @@ public final class SettingsActivity extends BaseActivity
             }
         }
 
-        private void showDialog(DialogFragment fragment) {
+        private void showDialog(PreferenceDialogFragment fragment) {
+            // Always set the target fragment, this is required by PreferenceDialogFragment
+            // internally.
             fragment.setTargetFragment(this, 0);
-            fragment.show(getChildFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
+            // Don't use getChildFragmentManager(), it causes issues on older platforms when the
+            // target fragment is being restored after an orientation change.
+            fragment.show(getFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
         }
 
         private static class TimeZoneRow implements Comparable<TimeZoneRow> {
-
-            private static final boolean SHOW_DAYLIGHT_SAVINGS_INDICATOR = false;
 
             public final String mId;
             public final String mDisplayName;
@@ -380,7 +384,7 @@ public final class SettingsActivity extends BaseActivity
             }
 
             @Override
-            public int compareTo(TimeZoneRow another) {
+            public int compareTo(@NonNull TimeZoneRow another) {
                 return mOffset - another.mOffset;
             }
 
@@ -401,9 +405,6 @@ public final class SettingsActivity extends BaseActivity
                 name.append(min);
                 name.append(") ");
                 name.append(displayName);
-                if (useDaylightTime && SHOW_DAYLIGHT_SAVINGS_INDICATOR) {
-                    name.append(" \u2600"); // Sun symbol
-                }
                 return name.toString();
             }
         }

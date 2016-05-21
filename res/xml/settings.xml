@@ -25,7 +25,7 @@
             android:defaultValue="@string/default_clock_style"
             android:dialogTitle="@string/clock_style" />
 
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:key="automatic_home_clock"
             android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
@@ -95,7 +95,7 @@
             android:title="@string/crescendo_duration_title"
             android:dialogLayout="@layout/crescendo_length_picker" />
 
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:key="timer_vibrate"
             android:title="@string/timer_vibrate_title"
             android:defaultValue="false" />

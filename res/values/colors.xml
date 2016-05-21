@@ -49,4 +49,7 @@
 
     <!-- shadowColor for widget text -->
     <color name="widget_shadow_color">#67000000</color>
+
+    <!-- Redefine the fallback color used by preference-v14 to match our accent color. -->
+    <color name="preference_fallback_accent_color">@color/color_accent</color>
 </resources>

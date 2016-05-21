@@ -16,6 +16,10 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <style name="SettingsAlertDialogTheme" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:colorAccent">?attr/colorAccent</item>
+    </style>
+
     <!-- Custom notification content styles -->
     <!-- copied TextAppearance.Material.Button -->
     <style name="TextAppearance.StatusBar.EventContent.Action">
@@ -59,7 +63,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="CitiesTheme" parent="TranslucentDecorActivityTheme">
+    <style name="CitiesTheme" parent="BaseActivityTheme">
         <item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb</item>
         <item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track</item>
         <item name="actionBarStyle">@style/CitiesActionBarStyle</item>
