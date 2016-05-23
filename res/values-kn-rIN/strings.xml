@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"ಅಲಾರಂ ರಿಂಗ್‌ಟೋನ್"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ಡೀಫಾಲ್ಟ್ ಅಲಾರಮ್ ಧ್ವನಿ"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ಟೈಮರ್ ಅವಧಿ ಮೀರಿದೆ"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"ನಿಶ್ಯಬ್ಧ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ನಾಳೆ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ಇಂದು"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ವಜಾಗೊಳಿಸು"</string>
@@ -119,6 +118,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ಅಪರಿಚಿತ"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"ಅಲಾರಮ್ ವಾಲ್ಯೂಮ್ ಮ್ಯೂಟ್ ಮಾಡಲಾಗಿದೆ"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"ಅನ್‌ಮ್ಯೂಟ್ ಮಾಡಿ"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ವಾಲ್ಯೂಮ್ ಬಟನ್‌ಗಳು"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ಸ್ನೂಜ್"</item>

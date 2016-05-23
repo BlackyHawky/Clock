@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"অ্যালার্ম রিংটোন"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ডিফল্ট অ্যালার্মের শব্দ"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"টাইমারের মেয়াদ শেষ হয়ে গেছে"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"নীরব"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"আগামীকাল"</string>
     <string name="alarm_today" msgid="7873594221106531654">"আজ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"খারিজ"</string>
@@ -119,6 +118,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"অজানা"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"অ্যালার্মের ভলিউম নিঃশব্দ করা হয়েছে"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"সশব্দ করুন"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ভলিউম বোতাম"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"স্নুজ"</item>

@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"Beltoon voor alarm"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Standaardalarmgeluid"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer verlopen"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Stil"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Morgen"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Vandaag"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Uitzetten"</string>
@@ -53,13 +52,13 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"resterend"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"resterend"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarm gaat over minder dan 1 minuut af."</item>
-    <item msgid="6002066367368421848">"Alarm gaat over <xliff:g id="DAYS">%1$s</xliff:g> af."</item>
-    <item msgid="8824719306247973774">"Alarm gaat over <xliff:g id="HOURS">%2$s</xliff:g> af."</item>
-    <item msgid="8182406852935468862">"Alarm gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> af."</item>
-    <item msgid="2532279224777213194">"Alarm gaat over <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
-    <item msgid="5936557894247187717">"Alarm gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
-    <item msgid="9115697840826129603">"Alarm gaat over <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> af."</item>
+    <item msgid="6450913786084215050">"Wekker gaat over minder dan 1 minuut."</item>
+    <item msgid="6002066367368421848">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"Wekekr gaat over <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8182406852935468862">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="2532279224777213194">"Wekker gaat over <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="5936557894247187717">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="2332583385137381060">"Alarm gaat af over <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
@@ -119,6 +118,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Onbekend"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Alarmvolume gedempt"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Dempen opheffen"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumeknoppen"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Snoozen"</item>
@@ -313,7 +314,7 @@
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Tik om je timers te bekijken"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timers"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Volgende timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="1780742944194267226">"Instellingen voor schermbeveiliging"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Instellingen voor screensaver"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nachtmodus"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Sterk gedimd scherm (voor donkere kamers)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Alarm uitvouwen"</string>

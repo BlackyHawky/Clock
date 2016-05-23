@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"闹钟铃声"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"默认闹钟提示音"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"计时器已结束"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"静音"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明天"</string>
     <string name="alarm_today" msgid="7873594221106531654">"今天"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"取消"</string>
@@ -119,6 +118,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"未知"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"闹钟已设为静音"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"取消静音"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按钮"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"暂停"</item>

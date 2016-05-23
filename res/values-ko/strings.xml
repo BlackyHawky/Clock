@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"알람 벨소리"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"기본 알람 소리"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"타이머 만료됨"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"무음"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"내일"</string>
     <string name="alarm_today" msgid="7873594221106531654">"오늘"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"알람 해제"</string>
@@ -119,6 +118,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"알 수 없음"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"알람 볼륨이 음소거되었습니다."</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"음소거 해제"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"다시 울림"</item>

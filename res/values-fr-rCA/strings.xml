@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"Sonnerie de l\'alarme"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Son par défaut pour l\'alarme"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Minuterie expirée"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Mode silencieux"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Demain"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Aujourd\'hui"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ignorer"</string>
@@ -93,7 +92,7 @@
     <string name="no_crescendo_duration" msgid="383801592865899932">"Désactivé"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> secondes"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"secondes"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Silencieux automatique après"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter la sonnerie après"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minute</item>
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutes</item>
@@ -119,6 +118,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Inconnu"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Volume de l\'alarme coupé"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Réactiver le son"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Arrêt momentané"</item>
@@ -181,7 +182,7 @@
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> minuteries expirées"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Minuterie"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Interrompre"</string>
-    <string name="timer_reset_all" msgid="7530633132757866087">"Réinit. minut."</string>
+    <string name="timer_reset_all" msgid="7530633132757866087">"Réinit. toutes les minuteries"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"On peut dire que vous êtes rapide."</item>
     <item msgid="6332879039890727169">"Profitez du fruit de votre travail."</item>
@@ -308,7 +309,7 @@
     <string name="timer_settings" msgid="7955522143086154795">"Minuteries"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Sonnerie minuterie"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibration du minuteur"</string>
-    <string name="timer_paused" msgid="5941160896040771462">"Minuterie en pause"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"Minuterie interrompue"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> minuteries en pause"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Touchez ici pour afficher vos minuteries"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteries"</string>

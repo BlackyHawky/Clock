@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"Melodija zvona alarma"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Zadani zvuk alarma"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Tajmer je istekao"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Nečujno"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Sutra"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Danas"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Odbaci"</string>
@@ -127,6 +126,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Nepoznato"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Zvuk alarma je isključen"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Uključi zvuk"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Dugmad za jačinu zvuka"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Odloži"</item>
@@ -205,7 +206,7 @@
     <item msgid="9071353477103826053">"Tebi se baš žuri."</item>
     <item msgid="3785193933691117181">"Brže od svjetlosti."</item>
   </string-array>
-    <string name="home_label" msgid="4436139365695453870">"Matična"</string>
+    <string name="home_label" msgid="4436139365695453870">"Lokalno vrijeme"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"Gradovi"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Sat"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stil"</string>
@@ -329,7 +330,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"Veoma prigušen ekran (za mračne prostorije)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Proširi alarm"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Skupi alarm"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"opozovi radnju"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"Vrati"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm izbrisan"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Naredni alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>

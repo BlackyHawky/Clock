@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"ਅਲਾਰਮ ਰਿੰਗਟੋਨ"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ਪੂਰਵ-ਨਿਰਧਾਰਤ ਅਲਾਰਮ ਧੁਨੀ"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ਟਾਈਮਰ ਦੀ ਮਿਆਦ ਪੁੱਗੀ"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"ਸਾਈਲੈਂਟ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ਕੱਲ੍ਹ ਨੂੰ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ਅੱਜ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ਬਰਖਾਸਤ ਕਰੋ"</string>
@@ -119,6 +118,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ਅਗਿਆਤ"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"ਅਲਾਰਮ ਵੌਲਯੂਮ ਮਿਊਟ ਕੀਤੀ ਗਈ ਹੈ"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"ਅਣਮਿਊਟ ਕਰੋ"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ਵੌਲਯੂਮ ਬਟਨ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ਸਨੂਜ਼"</item>
@@ -144,7 +145,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"ਚਾਲੂ ਕਰੋ"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"ਰੋਕੋ"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"ਲੈਪ"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"ਸ਼ੇਅਰ ਕਰੋ"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"ਸਾਂਝਾ ਕਰੋ"</string>
     <string name="hours_label" msgid="3393478155635368097">"ਘੰਟਾ"</string>
     <string name="minutes_label" msgid="3568098128251438588">"ਮਿੰਟ"</string>
     <string name="seconds_label" msgid="124655952824003246">"ਸਕਿੰਟ"</string>
@@ -315,7 +316,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"ਅਗਲਾ ਟਾਈਮਰ: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"ਸਕ੍ਰੀਨ ਸੇਵਰ ਸੈਟਿੰਗਾਂ"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"ਰਾਤ ਮੋਡ"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"ਬਹੁਤ ਧੁੰਦਲਾ ਡਿਸਪਲੇ (ਹਨੇਰੇ ਕਮਰਿਆਂ ਲਈ)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"ਬਹੁਤ ਮੱਧਮ ਡਿਸਪਲੇ (ਹਨੇਰੇ ਕਮਰਿਆਂ ਲਈ)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ਅਲਾਰਮ ਦਾ ਵਿਸਤਾਰ ਕਰੋ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ਅਲਾਰਮ ਨਸ਼ਟ ਕਰੋ"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"ਅਣਕੀਤਾ ਕਰੋ"</string>
@@ -330,7 +331,7 @@
     <string name="no_alarms_with_label" msgid="6250998794542941665">"ਕਿਸੇ ਅਲਾਰਮ ਵਿੱਚ ਲੇਬਲ ਨਹੀਂ ਹੈ"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"ਸਟੌਪਵੌਚ ਨਹੀਂ ਚੱਲ ਰਹੀ ਹੈ"</string>
     <string name="stopwatch_paused" msgid="2187615623275408601">"ਸਟੌਪਵਾਚ ਰੁਕਿਆ"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"ਸਟੌਪਵੌਚ ਰੀਸੈਟ ਕੀਤੀ"</string>
+    <string name="stopwatch_reset" msgid="7585914953721021042">"ਸਟੌਪਵੌਚ ਰੀਸੈੱਟ ਕੀਤੀ"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"ਸਟੌਪਵੌਚ ਅੱਗੇ ਨਿੱਕਲ ਗਈ"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"ਸਟੌਪਵੌਚ ਚਾਲੂ ਕੀਤੀ"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ਇਸ ਸਮੇਂ ਲਈ ਨਿਯਤ ਕੀਤਾ ਕੋਈ ਅਲਾਰਮ ਨਹੀਂ"</string>
@@ -340,7 +341,7 @@
     <string name="too_many_timers_exist" msgid="6339194231767431627">"ਇੱਕ ਤੋਂ ਵੱਧ ਟਾਈਮਰ ਮੌਜੂਦ ਹਨ"</string>
     <string name="timer_does_not_exist" msgid="4457482976523984231">"ਟਾਈਮਰ ਹਟਾ ਦਿੱਤਾ ਗਿਆ ਹੈ।"</string>
     <string name="timer_created" msgid="4381027137335885547">"ਟਾਈਮਰ ਬਣਾਇਆ"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"ਟਾਈਮਰ ਰੀਸੈਟ ਕੀਤਾ"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"ਟਾਈਮਰ ਰੀਸੈੱਟ ਕੀਤਾ"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"ਟਾਈਮਰ ਮਿਟਾਇਆ ਗਿਆ"</string>
     <string name="timer_started" msgid="6715582052946641641">"ਟਾਈਮਰ ਸ਼ੁਰੂ ਹੋਇਆ"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"ਅਪ੍ਰਮਾਣਿਕ ਟਾਈਮਰ ਲੰਮਾਈ"</string>

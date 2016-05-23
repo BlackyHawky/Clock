@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"Tón zvonenia budíka"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Predvolený zvuk budíka"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Časovač vypršal"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Tichý"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"zajtra"</string>
     <string name="alarm_today" msgid="7873594221106531654">"dnes"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Zavrieť"</string>
@@ -135,6 +134,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Neznáme"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Hlasitosť budíka bola stlmená"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Obnoviť zvuk"</string>
+    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <skip />
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tlačidlá hlasitosti"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Odložiť"</item>
