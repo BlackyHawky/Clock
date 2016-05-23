@@ -66,7 +66,7 @@
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> pa ang natitira"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"natitira"</string>
-    <string name="timer_remaining_multiple" msgid="6052775962092160851">"natitira"</string>
+    <string name="timer_remaining_multiple" msgid="6052775962092160851">"ang natitira"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Nakatakda ang alarm nang mas maikli sa 1 minuto mula ngayon."</item>
     <item msgid="6002066367368421848">"Nakatakda ang alarm sa <xliff:g id="DAYS">%1$s</xliff:g> mula ngayon."</item>
@@ -233,7 +233,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Mga Lungsod"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Orasan"</string>
     <string name="clock_style" msgid="2265011060429742344">"Istilo"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"Baguhin ang Petsa &amp; oras"</string>
+    <string name="open_date_settings" msgid="5915966847691221307">"Baguhin ang Petsa at oras"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analog"</item>
     <item msgid="8483930821046925592">"Digital"</item>

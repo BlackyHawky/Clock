@@ -235,7 +235,7 @@
     <string name="clock_style" msgid="2265011060429742344">"Տեսակը"</string>
     <string name="open_date_settings" msgid="5915966847691221307">"Ամսաթվի և ժամի փոփոխում"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"Անալոգ"</item>
+    <item msgid="917900462224167608">"Սլաքներով"</item>
     <item msgid="8483930821046925592">"Թվային"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Ավտոմատ տեղական ժամանակ"</string>
@@ -354,7 +354,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Հաջորդ ժամաչափը՝ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Էկրանապահի կարգավորումներ"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Գիշերային ռեժիմ"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Շատ թույլ էկրան (մութ սենյակների համար)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Շատ մուգ էկրան (մութ սենյակների համար)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Ընդարձակել զարթուցիչը"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Թաքցնել զարթուցիչը"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"հետարկել"</string>
