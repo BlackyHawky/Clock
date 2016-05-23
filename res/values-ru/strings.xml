@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"Звонок будильника"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Звуковой сигнал по умолчанию"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Время истекло"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Без звука"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Завтра"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Сегодня"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Выключить"</string>

@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"آهنگ زنگ هشدار"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"آهنگ زنگ پیش‌فرض"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"تایمر به پایان رسید"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"بی‌صدا"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"فردا"</string>
     <string name="alarm_today" msgid="7873594221106531654">"امروز"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"رد کردن"</string>
@@ -313,7 +312,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"برای دیدن تایمرهای خود لمس کنید"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> تایمر‌"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"تایمر بعدی: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"تنظیمات رؤیا"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"تنظیمات حالت رؤیا"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"حالت شب"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"نمایشگر بسیار تیره (برای اتاق‌های تاریک)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"هشدار بزرگ‌کردن"</string>

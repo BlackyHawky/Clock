@@ -18,18 +18,17 @@
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Soat"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Uyg‘otkichni o‘chirish"</string>
-    <string name="label" msgid="162189613902857319">"Tavsif"</string>
+    <string name="label" msgid="162189613902857319">"Izoh"</string>
     <string name="default_label" msgid="5590025289805630372">"Uyg‘otkich"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Tebranish"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Takrorlash"</string>
-    <string name="alert" msgid="6506982899651975645">"Uyg‘otkich ringtoni"</string>
+    <string name="alert" msgid="6506982899651975645">"Signal ringtoni"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Birlamchi uyg‘otkich ovozi"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Taymer vaqti tugadi"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Ovozsiz"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Ertaga"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Bugun"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"O‘chirish"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Yopish"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Bekor qilish"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"O‘tkazib yuborilgan uyg‘otkich"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Mudratilgan"</string>
@@ -143,7 +142,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"Boshidan"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Start"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Pauza"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Davra"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Aylanish"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Baham ko‘rish"</string>
     <string name="hours_label" msgid="3393478155635368097">"s"</string>
     <string name="minutes_label" msgid="3568098128251438588">"d"</string>
@@ -153,7 +152,7 @@
     <string name="seconds_label_description" msgid="3821620053141299692">"soniya"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Mening vaqtim: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Aylanish vaqti"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>-davra"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>-aylanish"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> soat</item>
       <item quantity="one">1 soat</item>
@@ -301,7 +300,7 @@
     <string name="alarm_settings" msgid="2947147071388290814">"Signallar"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Taymer bildirishnomalarida harakatlarni amalga oshiradi."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Sekundomer bildirishnomalarida harakatlarni amalga oshiradi."</string>
-    <string name="swn_paused" msgid="6364358842808263589">"To‘xtatildi"</string>
+    <string name="swn_paused" msgid="6364358842808263589">"Pauzada"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"O‘tkazib yuborish uchun o‘ngga suring"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Kechiktirish uchun chapga suring"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Signalni kechiktirish uchun chapga, bekor qilish uchun esa o‘ngga suring"</string>
@@ -322,7 +321,7 @@
     <string name="alarm_deleted" msgid="6131529309389084785">"Signal o‘chirib tashlandi"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Keyingi uyg‘otkich: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_alarms" msgid="6429431324842022917">"Hech qanday uyg‘otkich yo‘q"</string>
+    <string name="no_alarms" msgid="6429431324842022917">"Hech qanday uyg‘otkich o‘rnatilmagan"</string>
     <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> – vaqt noto‘g‘ri"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> uchun hech qanday signal o‘rnatilmagan"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Hech qanday signal o‘rnatilmagan"</string>

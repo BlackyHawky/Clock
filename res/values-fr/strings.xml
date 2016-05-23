@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"Sonnerie de l\'alarme"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Son de l\'alarme par défaut"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Minuteur arrivé à expiration"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Silencieux"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Demain"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Aujourd\'hui"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Quitter"</string>
@@ -319,7 +318,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Développer l\'alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Réduire l\'alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Annuler"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Alarme supprimée."</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarme supprimée"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Prochaine alarme : <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Aucune alarme"</string>

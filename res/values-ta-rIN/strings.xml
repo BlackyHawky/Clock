@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"அலார ரிங்டோன்"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"இயல்பு அலார ஒலி"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"டைமர் காலாவதியானது"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"நிசப்தம்"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"நாளை"</string>
     <string name="alarm_today" msgid="7873594221106531654">"இன்று"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"நிராகரி"</string>
@@ -53,14 +52,14 @@
     <string name="timer_remaining_single" msgid="6782851171906765864">"மீதமுள்ளது"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"மீதமுள்ளன"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"இப்போதிலிருந்து 1 நிமிடத்திற்கும் குறைவான நேரத்தில் அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="6002066367368421848">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> அளவில் அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="8182406852935468862">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="2532279224777213194">"இப்போதிலிருந்து <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="5936557894247187717">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="9115697840826129603">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரம் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="2332583385137381060">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள், <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரம் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
+    <item msgid="6450913786084215050">"1 நிமிடத்திற்கும் குறைவான நேரத்தில் அலாரம் அடிக்கும்."</item>
+    <item msgid="6002066367368421848">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="8182406852935468862">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="2532279224777213194">"இப்போதிலிருந்து <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="5936557894247187717">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="9115697840826129603">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="2332583385137381060">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நாட்கள்</item>

@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"ສຽງໂມງປຸກ"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ສຽງ​ໂມງ​ປຸກ​ຕາມຄ່າເລີ່ມຕົ້ນ"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ເຄື່ອງ​ຈັບ​ເວ​ລາ​ໝົດ​ອາ​ຍຸ​ແລ້ວ"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"ປິດສຽງ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ມື້ອື່ນ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ມື້ນີ້"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"ປິດ"</string>

@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"Nhạc chuông báo thức"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Âm thanh báo thức mặc định"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Bộ hẹn giờ đã hết hạn"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Im lặng"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Ngày mai"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Hôm nay"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Loại bỏ"</string>

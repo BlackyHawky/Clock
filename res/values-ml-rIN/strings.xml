@@ -25,7 +25,6 @@
     <string name="alert" msgid="6506982899651975645">"അലാറം റിംഗ്‌ടോൺ"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ഡിഫോൾട്ട് അലാറം ശബ്ദം"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ടൈമർ കാലഹരണപ്പെട്ടു"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"നിശബ്‌ദം"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"നാളെ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ഇന്ന്"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"നിരസിക്കുക"</string>
@@ -54,7 +53,7 @@
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"ശേഷിക്കുന്നു"</string>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"ഇപ്പോൾ 1 മിനിറ്റിൽ താഴെ സമയത്തിനുള്ളിൽ അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
-    <item msgid="6002066367368421848">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g> ദിവസത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="6002066367368421848">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g> കാലയളവിലേക്ക് അലാറം സജ്ജമാക്കി."</item>
     <item msgid="8824719306247973774">"ഇപ്പോൾ <xliff:g id="HOURS">%2$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
     <item msgid="8182406852935468862">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
     <item msgid="2532279224777213194">"ഇപ്പോൾ മുതൽ <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
