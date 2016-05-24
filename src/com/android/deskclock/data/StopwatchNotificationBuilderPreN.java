@@ -121,14 +121,14 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
             final PendingIntent pendingStart = Utils.pendingServiceIntent(context, start);
             expanded.setOnClickPendingIntent(leftButtonId, pendingStart);
 
-            // Right button: Reset (HandleDeskClockApiCalls will also bring forward the app)
+            // Right button: Reset (dismisses notification and resets stopwatch)
             expanded.setViewVisibility(rightButtonId, VISIBLE);
             expanded.setTextViewText(rightButtonId, res.getText(R.string.sw_reset_button));
             setTextViewDrawable(expanded, rightButtonId, R.drawable.ic_reset_24dp);
-            final Intent reset = new Intent(context, HandleDeskClockApiCalls.class)
+            final Intent reset = new Intent(context, StopwatchService.class)
                     .setAction(HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH)
                     .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
-            final PendingIntent pendingReset = Utils.pendingActivityIntent(context, reset);
+            final PendingIntent pendingReset = Utils.pendingServiceIntent(context, reset);
             expanded.setOnClickPendingIntent(rightButtonId, pendingReset);
 
             // Indicate the stopwatch is paused.

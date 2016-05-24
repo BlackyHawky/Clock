@@ -113,14 +113,14 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
             final PendingIntent intent1 = Utils.pendingServiceIntent(context, start);
             actions.add(new Notification.Action.Builder(icon1, title1, intent1).build());
 
-            // Right button: Reset (HandleDeskClockApiCalls will also bring forward the app)
-            final Intent reset = new Intent(context, HandleDeskClockApiCalls.class)
+            // Right button: Reset (dismisses notification and resets stopwatch)
+            final Intent reset = new Intent(context, StopwatchService.class)
                     .setAction(HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH)
                     .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
 
             final Icon icon2 = Icon.createWithResource(context, R.drawable.ic_reset_24dp);
             final CharSequence title2 = res.getText(R.string.sw_reset_button);
-            final PendingIntent intent2 = Utils.pendingActivityIntent(context, reset);
+            final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
             actions.add(new Notification.Action.Builder(icon2, title2, intent2).build());
 
             // Indicate the stopwatch is paused.
