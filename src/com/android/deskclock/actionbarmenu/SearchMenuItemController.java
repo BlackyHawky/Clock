@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -73,6 +74,7 @@ public final class SearchMenuItemController implements MenuItemController {
     public void onCreateOptionsItem(Menu menu) {
         final SearchView searchView = new SearchView(mContext);
         searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         searchView.setQuery(mQuery, false);
         searchView.setOnCloseListener(mSearchModeChangeListener);
         searchView.setOnSearchClickListener(mSearchModeChangeListener);
