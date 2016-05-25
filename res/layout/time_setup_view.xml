@@ -20,7 +20,8 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/fab_height">
+    android:paddingBottom="@dimen/fab_height"
+    android:paddingTop="@dimen/timer_setup_top_margin">
 
     <com.android.deskclock.timer.TimerView
         android:id="@+id/timer_time_text"
