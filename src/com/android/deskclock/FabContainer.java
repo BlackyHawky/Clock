@@ -21,7 +21,10 @@ public interface FabContainer {
         FAB_AND_BUTTONS_MORPH,
 
         /** Disable the buttons of the fab so they do not respond to clicks. */
-        DISABLE_BUTTONS
+        DISABLE_BUTTONS,
+
+        /** Signals that the fab should request focus. */
+        FAB_REQUESTS_FOCUS
     }
 
     /**

@@ -22,6 +22,7 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +38,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 import static com.android.deskclock.FabContainer.UpdateType.FAB_ONLY_SHRINK_AND_EXPAND;
+import static com.android.deskclock.FabContainer.UpdateType.FAB_REQUESTS_FOCUS;
 
 public class TimerSetupView extends LinearLayout implements Button.OnClickListener,
         Button.OnLongClickListener {
@@ -111,6 +113,42 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         }
 
         updateTime();
+    }
+
+    private boolean clickButton(View button) {
+        button.performClick();
+        mFabContainer.updateFab(FAB_REQUESTS_FOCUS);
+        return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_0:
+                return clickButton(mNumbers[0]);
+            case KeyEvent.KEYCODE_1:
+                return clickButton(mNumbers[1]);
+            case KeyEvent.KEYCODE_2:
+                return clickButton(mNumbers[2]);
+            case KeyEvent.KEYCODE_3:
+                return clickButton(mNumbers[3]);
+            case KeyEvent.KEYCODE_4:
+                return clickButton(mNumbers[4]);
+            case KeyEvent.KEYCODE_5:
+                return clickButton(mNumbers[5]);
+            case KeyEvent.KEYCODE_6:
+                return clickButton(mNumbers[6]);
+            case KeyEvent.KEYCODE_7:
+                return clickButton(mNumbers[7]);
+            case KeyEvent.KEYCODE_8:
+                return clickButton(mNumbers[8]);
+            case KeyEvent.KEYCODE_9:
+                return clickButton(mNumbers[9]);
+            case KeyEvent.KEYCODE_DEL:
+                return clickButton(mDelete);
+            default:
+                return false;
+        }
     }
 
     @Override

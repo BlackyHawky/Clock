@@ -18,6 +18,7 @@ package com.android.deskclock;
 
 import android.app.Fragment;
 import android.support.annotation.NonNull;
+import android.view.KeyEvent;
 import android.widget.ImageButton;
 
 import com.android.deskclock.uidata.UiDataModel;
@@ -42,6 +43,11 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         if (isTabSelected()) {
             updateFab(FAB_AND_BUTTONS_IMMEDIATE);
         }
+    }
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // By default return false so event continues to propagate
+        return false;
     }
 
     @Override
