@@ -47,6 +47,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -431,6 +432,18 @@ public class DeskClock extends BaseActivity
         }
     }
 
+    /**
+     * Listens for keyboard activity for the tab fragments to handle if necessary. A tab may want to
+     * respond to key presses even if they are not currently focused.
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (getSelectedDeskClockFragment().onKeyDown(keyCode,event)) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     @Override
     public void updateFab(UpdateType updateType) {
         switch (updateType) {
@@ -460,6 +473,10 @@ public class DeskClock extends BaseActivity
                 mHideAnimation.removeListener(mAutoStartShowListener);
                 mHideAnimation.addListener(mAutoStartShowListener);
                 mHideAnimation.start();
+                break;
+            }
+            case FAB_REQUESTS_FOCUS: {
+                mFab.requestFocus();
                 break;
             }
         }

@@ -27,6 +27,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.view.ViewPager;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -346,6 +347,14 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public void onRightButtonClick(@NonNull ImageButton right) {
         animateToView(mCreateTimerView, null);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (mCurrentView == mCreateTimerView) {
+            return mCreateTimerView.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     /**
