@@ -291,6 +291,7 @@ public class AlarmActivity extends AppCompatActivity
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_MUTE:
+            case KeyEvent.KEYCODE_HEADSETHOOK:
             case KeyEvent.KEYCODE_CAMERA:
             case KeyEvent.KEYCODE_FOCUS:
                 if (!mAlarmHandled && keyEvent.getAction() == KeyEvent.ACTION_UP) {
