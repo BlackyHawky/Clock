@@ -118,8 +118,11 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Անհայտ"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Զարթուցիչի ձայնն անջատված է"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Միացնել ձայնը"</string>
-    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <!-- no translation found for silent_default_alarm_ringtone (6012855475009670997) -->
     <skip />
+    <!-- no translation found for change_default_alarm_ringtone (7040346397494294392) -->
+    <skip />
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Սարքը ընդհանուր լուռ ռեժիմում է"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Ձայնի կոճակներ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Ննջել"</item>
@@ -145,7 +148,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"Մեկնարկել"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Դադարեցնել"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Շրջան"</string>
-    <string name="sw_share_button" msgid="4478648110382859382">"Տարածել"</string>
+    <string name="sw_share_button" msgid="4478648110382859382">"Կիսվել"</string>
     <string name="hours_label" msgid="3393478155635368097">"ժ"</string>
     <string name="minutes_label" msgid="3568098128251438588">"ր"</string>
     <string name="seconds_label" msgid="124655952824003246">"վ"</string>

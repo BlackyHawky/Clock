@@ -118,8 +118,9 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"မသိရ"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"နိုးစက်အသံပိတ်ထားသည်"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"အသံပြန်ဖွင့်ပါ"</string>
-    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
-    <skip />
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"မူရင်းနိုးစက်မြည်သံကို အသံတိတ်အဖြစ် သတ်မှတ်ထားသည်"</string>
+    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"ပြောင်းပါ"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"စက်ပစ္စည်းကို အသံတိတ် သတ်မှတ်ထားသည်"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"အသံခလုတ်များ"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"မှေးရန်"</item>
