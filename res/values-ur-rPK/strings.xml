@@ -118,8 +118,11 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"نامعلوم"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"الارم کی آواز خاموش ہے"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"آواز چالو کریں"</string>
-    <!-- no translation found for alarms_blocked_by_dnd (6089433757505898969) -->
+    <!-- no translation found for silent_default_alarm_ringtone (6012855475009670997) -->
     <skip />
+    <!-- no translation found for change_default_alarm_ringtone (7040346397494294392) -->
+    <skip />
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"آلہ مکمل خاموشی پر سیٹ ہے"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"والیوم بٹنز"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"اسنوز کریں"</item>
