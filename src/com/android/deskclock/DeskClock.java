@@ -334,6 +334,8 @@ public class DeskClock extends BaseActivity
             // Watch for do-not-disturb changes while the app is in the foreground.
             registerReceiver(mDoNotDisturbChangeReceiver, DND_CHANGE_FILTER);
         }
+
+        DataModel.getDataModel().setApplicationInForeground(true);
     }
 
     @Override
@@ -345,8 +347,6 @@ public class DeskClock extends BaseActivity
 
         // Honor the selected tab in case it changed while the app was paused.
         updateCurrentTab(UiDataModel.getUiDataModel().getSelectedTabIndex());
-
-        DataModel.getDataModel().setApplicationInForeground(true);
     }
 
     @Override
@@ -369,8 +369,6 @@ public class DeskClock extends BaseActivity
 
     @Override
     public void onPause() {
-        DataModel.getDataModel().setApplicationInForeground(false);
-
         mDropShadowController.stop();
         mDropShadowController = null;
 
@@ -379,6 +377,10 @@ public class DeskClock extends BaseActivity
 
     @Override
     protected void onStop() {
+        if (!isChangingConfigurations()) {
+            DataModel.getDataModel().setApplicationInForeground(false);
+        }
+
         // Stop watching for system alarm ringtone changes while the app is in the background.
         getContentResolver().unregisterContentObserver(mAlarmRingtoneChangeObserver);
 
