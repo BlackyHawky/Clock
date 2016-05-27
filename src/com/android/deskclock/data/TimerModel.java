@@ -31,9 +31,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.annotation.StringRes;
-import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.text.TextUtils;
 import android.util.ArraySet;
 
 import com.android.deskclock.AlarmAlertWakeLock;
@@ -42,7 +40,6 @@ import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.settings.SettingsActivity;
-import com.android.deskclock.timer.ExpiredTimersActivity;
 import com.android.deskclock.timer.TimerKlaxon;
 import com.android.deskclock.timer.TimerService;
 
@@ -75,12 +72,14 @@ final class TimerModel {
     private final NotificationManagerCompat mNotificationManager;
 
     /** Update timer notification when locale changes. */
+    @SuppressWarnings("FieldCanBeLocal")
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
     /**
      * Retain a hard reference to the shared preference observer to prevent it from being garbage
      * collected. See {@link SharedPreferences#registerOnSharedPreferenceChangeListener} for detail.
      */
+    @SuppressWarnings("FieldCanBeLocal")
     private final OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
 
     /** The listeners to notify when a timer is added, updated or removed. */
@@ -662,68 +661,8 @@ final class TimerModel {
             return;
         }
 
-        // Generate some descriptive text, a title, and an action name based on the timer count.
-        final int timerId;
-        final String contentText;
-        final String contentTitle;
-        final String resetActionTitle;
-        if (expired.size() > 1) {
-            timerId = -1;
-            contentText = mContext.getString(R.string.timer_multi_times_up, expired.size());
-            contentTitle = mContext.getString(R.string.timer_notification_label);
-            resetActionTitle = mContext.getString(R.string.timer_stop_all);
-        } else {
-            final Timer timer = expired.get(0);
-            timerId = timer.getId();
-            resetActionTitle = mContext.getString(R.string.timer_stop);
-            contentText = mContext.getString(R.string.timer_times_up);
-
-            final String label = timer.getLabel();
-            if (TextUtils.isEmpty(label)) {
-                contentTitle = mContext.getString(R.string.timer_notification_label);
-            } else {
-                contentTitle = label;
-            }
-        }
-
-        // Content intent shows the timer full screen when clicked.
-        final Intent content = new Intent(mContext, ExpiredTimersActivity.class);
-        final PendingIntent pendingContent = Utils.pendingActivityIntent(mContext, content);
-
-        // Full screen intent has flags so it is different than the content intent.
-        final Intent fullScreen = new Intent(mContext, ExpiredTimersActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
-        final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(mContext, fullScreen);
-
-        // First action intent is either reset single timer or reset all timers.
-        final Intent reset = TimerService.createResetExpiredTimersIntent(mContext);
-        final PendingIntent pendingReset = Utils.pendingServiceIntent(mContext, reset);
-
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(mContext)
-                .setWhen(0)
-                .setOngoing(true)
-                .setLocalOnly(true)
-                .setAutoCancel(false)
-                .setContentText(contentText)
-                .setContentTitle(contentTitle)
-                .setContentIntent(pendingContent)
-                .setSmallIcon(R.drawable.stat_notify_timer)
-                .setFullScreenIntent(pendingFullScreen, true)
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
-                .addAction(R.drawable.ic_stop_24dp, resetActionTitle, pendingReset);
-
-        // Add a second action if only a single timer is expired.
-        if (expired.size() == 1) {
-            // Second action intent adds a minute to a single timer.
-            final Intent addMinute = TimerService.createAddMinuteTimerIntent(mContext, timerId);
-            final PendingIntent pendingAddMinute = Utils.pendingServiceIntent(mContext, addMinute);
-            final String addMinuteTitle = mContext.getString(R.string.timer_plus_1_min);
-            builder.addAction(R.drawable.ic_add_24dp, addMinuteTitle, pendingAddMinute);
-        }
-
-        // Update the notification.
-        final Notification notification = builder.build();
+        // Otherwise build and post a foreground notification reflecting the latest expired timers.
+        final Notification notification = getNotificationBuilder().buildHeadsUp(mContext, expired);
         final int notificationId = mNotificationModel.getExpiredTimerNotificationId();
         mService.startForeground(notificationId, notification);
     }
@@ -786,5 +725,12 @@ final class TimerModel {
          * @return a notification reporting the state of the {@code unexpiredTimers}
          */
         Notification build(Context context, List<Timer> unexpiredTimers);
+
+        /**
+         * @param context a context to use for fetching resources
+         * @param expiredTimers all expired timers
+         * @return a heads-up notification reporting the state of the {@code expiredTimers}
+         */
+        Notification buildHeadsUp(Context context, List<Timer> expiredTimers);
     }
 }

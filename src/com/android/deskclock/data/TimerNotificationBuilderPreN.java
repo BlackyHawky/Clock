@@ -31,6 +31,7 @@ import android.text.TextUtils;
 import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.timer.ExpiredTimersActivity;
 import com.android.deskclock.timer.TimerService;
 
 import java.util.List;
@@ -161,6 +162,73 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
                 am.cancel(pi);
                 pi.cancel();
             }
+        }
+
+        return builder.build();
+    }
+
+    @Override
+    public Notification buildHeadsUp(Context context, List<Timer> expired) {
+        // Generate some descriptive text, a title, and an action name based on the timer count.
+        final int timerId;
+        final String contentText;
+        final String contentTitle;
+        final String resetActionTitle;
+        final int count = expired.size();
+
+        if (count == 1) {
+            final Timer timer = expired.get(0);
+            timerId = timer.getId();
+            resetActionTitle = context.getString(R.string.timer_stop);
+            contentText = context.getString(R.string.timer_times_up);
+
+            final String label = timer.getLabel();
+            if (TextUtils.isEmpty(label)) {
+                contentTitle = context.getString(R.string.timer_notification_label);
+            } else {
+                contentTitle = label;
+            }
+        } else {
+            timerId = -1;
+            contentText = context.getString(R.string.timer_multi_times_up, count);
+            contentTitle = context.getString(R.string.timer_notification_label);
+            resetActionTitle = context.getString(R.string.timer_stop_all);
+        }
+
+        // Content intent shows the expired timers full screen when clicked.
+        final Intent content = new Intent(context, ExpiredTimersActivity.class);
+        final PendingIntent pendingContent = Utils.pendingActivityIntent(context, content);
+
+        // Full screen intent has flags so it is different than the content intent.
+        final Intent fullScreen = new Intent(context, ExpiredTimersActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_NO_USER_ACTION);
+        final PendingIntent pendingFullScreen = Utils.pendingActivityIntent(context, fullScreen);
+
+        // Left button: Reset timer / Reset all timers
+        final Intent reset = TimerService.createResetExpiredTimersIntent(context);
+        final PendingIntent pendingReset = Utils.pendingServiceIntent(context, reset);
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setOngoing(true)
+                .setLocalOnly(true)
+                .setShowWhen(false)
+                .setAutoCancel(false)
+                .setContentText(contentText)
+                .setContentTitle(contentTitle)
+                .setContentIntent(pendingContent)
+                .setSmallIcon(R.drawable.stat_notify_timer)
+                .setFullScreenIntent(pendingFullScreen, true)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
+                .addAction(R.drawable.ic_stop_24dp, resetActionTitle, pendingReset);
+
+        // Add a second action if only a single timer is expired.
+        if (count == 1) {
+            // Right button: Add minute
+            final Intent addMinute = TimerService.createAddMinuteTimerIntent(context, timerId);
+            final PendingIntent pendingAddMinute = Utils.pendingServiceIntent(context, addMinute);
+            final String addMinuteTitle = context.getString(R.string.timer_plus_1_min);
+            builder.addAction(R.drawable.ic_add_24dp, addMinuteTitle, pendingAddMinute);
         }
 
         return builder.build();
