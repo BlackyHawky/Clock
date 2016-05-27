@@ -118,10 +118,8 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Непознато"</string>
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Исклучен е звукот на алармот"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Вклучи звук"</string>
-    <!-- no translation found for silent_default_alarm_ringtone (6012855475009670997) -->
-    <skip />
-    <!-- no translation found for change_default_alarm_ringtone (7040346397494294392) -->
-    <skip />
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Стандардната мелодија на алармот е безгласна"</string>
+    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"Променете"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Уредот е поставен на целосна тишина"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Копчиња за гласност"</string>
   <string-array name="volume_button_setting_entries">
