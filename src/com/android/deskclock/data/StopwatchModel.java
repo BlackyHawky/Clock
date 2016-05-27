@@ -44,6 +44,7 @@ final class StopwatchModel {
     private final NotificationManagerCompat mNotificationManager;
 
     /** Update stopwatch notification when locale changes. */
+    @SuppressWarnings("FieldCanBeLocal")
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
     /** The listeners to notify when the stopwatch or its laps change. */
