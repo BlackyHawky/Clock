@@ -66,17 +66,17 @@
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> zile</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> de zile</item>
-      <item quantity="one">O zi</item>
+      <item quantity="one">1 zi</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
       <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> ore</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> de ore</item>
-      <item quantity="one">O oră</item>
+      <item quantity="one">1 oră</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
       <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> minute</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> de minute</item>
-      <item quantity="one">Un minut</item>
+      <item quantity="one">1 minut</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"În fiecare zi"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
