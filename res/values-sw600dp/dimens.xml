@@ -51,10 +51,12 @@
     <dimen name="label_margin_small">4dp</dimen>
 
     <dimen name="dialpad_font_size">56sp</dimen>
-    <dimen name="dialpad_digit_padding">34dip</dimen>
     <dimen name="timer_setup_font_size">86sp</dimen>
     <dimen name="timer_setup_button_size">36sp</dimen>
     <dimen name="timer_setup_delete_margin">21sp</dimen>
+
+    <!-- Specified in sp to match the top margin of the time on the adjacent world clock tab. -->
+    <dimen name="timer_setup_top_margin">24sp</dimen>
 
     <!-- Size of margin for circles. -->
     <dimen name="circle_margin_top">48dp</dimen>
