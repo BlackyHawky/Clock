@@ -103,7 +103,7 @@
       <item quantity="other">хвіліны</item>
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Паступова павялічваць гучнасць"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"Адключана"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"Выключана"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"Секунд: <xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"секунды"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Адключаць гук праз"</string>
