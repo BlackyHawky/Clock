@@ -84,7 +84,8 @@
                 android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:scaleType="center" />
+                android:padding="@dimen/fab_button_padding"
+                android:scaleType="centerInside" />
 
         </FrameLayout>
 
@@ -116,7 +117,8 @@
                 android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:scaleType="center" />
+                android:padding="@dimen/fab_button_padding"
+                android:scaleType="centerInside" />
 
         </FrameLayout>
     </LinearLayout>

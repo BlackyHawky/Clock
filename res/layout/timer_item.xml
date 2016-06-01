@@ -52,7 +52,8 @@
             android:layout_gravity="bottom|center_horizontal"
             android:contentDescription="@string/timer_plus_one"
             android:gravity="center"
-            android:scaleType="center"
+            android:padding="@dimen/fab_button_padding"
+            android:scaleType="centerInside"
             android:src="@drawable/ic_plusone" />
 
     </FrameLayout>
