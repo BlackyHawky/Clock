@@ -42,7 +42,7 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Заўтра"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Сёння"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Пад\'ём!"</string>
-    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Адкл."</string>
+    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Выкл."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Адхіліць"</string>
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Адключыць зараз"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Прапушчаны будзільнік"</string>
@@ -119,7 +119,7 @@
       <item quantity="other">хвіліны</item>
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Паступова павялічваць гучнасць"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"Адключана"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"Выключана"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"Секунд: <xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"секунды"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Адключаць гук праз"</string>
