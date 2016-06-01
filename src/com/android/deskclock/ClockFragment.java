@@ -112,6 +112,8 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList.setOnTouchListener(startScreenSaverListener);
         mCityList.setOnScrollListener(new VerticalScrollPositionUpdater());
 
+        fragmentView.setOnTouchListener(startScreenSaverListener);
+
         // On tablet landscape, the clock frame will be a distinct view. Otherwise, it'll be added
         // on as a header to the main listview.
         mClockFrame = fragmentView.findViewById(R.id.main_clock_left_pane);
@@ -123,8 +125,6 @@ public final class ClockFragment extends DeskClockFragment {
         } else {
             final View hairline = mClockFrame.findViewById(R.id.hairline);
             hairline.setVisibility(GONE);
-            // The main clock frame needs its own touch listener for night mode now.
-            fragmentView.setOnTouchListener(startScreenSaverListener);
         }
 
         mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
