@@ -92,7 +92,7 @@
     <string name="no_crescendo_duration" msgid="383801592865899932">"ഓഫ്"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> സെക്കൻഡ്"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"സെക്കൻഡ്"</string>
-    <string name="auto_silence_title" msgid="2012754009554434544">"ഇതിനുശേഷം നിശബ്‌ദമാക്കുക"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"ഇത്രയും സമയശേഷം നിശബ്‌ദമാക്കൂ"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> മിനിറ്റ്</item>
       <item quantity="one">ഒരു മിനിറ്റ്</item>
