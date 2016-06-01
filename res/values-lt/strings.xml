@@ -24,7 +24,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Kartoti"</string>
     <string name="alert" msgid="6506982899651975645">"Signalo skambėjimo tonas"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Numatytasis signalo garsas"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Baigėsi laikmačio galiojimas"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer Expired"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Rytoj"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Šiandien"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Atsisakyti"</string>
@@ -123,7 +123,7 @@
     <item msgid="7809240121716151904">"25 min."</item>
     <item msgid="4278641338024561333">"Niekada"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Savaitė prasideda nuo"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Savaitės pradžia"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Šeštadienis"</item>
     <item msgid="3993530639455360921">"Sekmadienis"</item>

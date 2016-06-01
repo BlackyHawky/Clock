@@ -54,7 +54,7 @@
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Wekker gaat over minder dan 1 minuut."</item>
     <item msgid="6002066367368421848">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-    <item msgid="8824719306247973774">"Wekekr gaat over <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"Wekker gaat over <xliff:g id="HOURS">%2$s</xliff:g>."</item>
     <item msgid="8182406852935468862">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g>."</item>
     <item msgid="2532279224777213194">"Wekker gaat over <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
     <item msgid="5936557894247187717">"Wekker gaat over <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
