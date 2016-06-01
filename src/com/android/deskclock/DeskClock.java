@@ -38,6 +38,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -190,13 +191,6 @@ public class DeskClock extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState == null) {
-            // Set the background color to initially match the theme value so that we can
-            // smoothly transition to the dynamic color.
-            final int backgroundColor = ContextCompat.getColor(this, R.color.default_background);
-            setBackgroundColor(backgroundColor, false /* animate */);
-        }
-
         setContentView(R.layout.desk_clock);
 
         mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
@@ -304,6 +298,13 @@ public class DeskClock extends BaseActivity
 
         // Update the next alarm time on app startup because the user might have altered the data.
         AlarmStateManager.updateNextAlarm(this);
+
+        if (savedInstanceState == null) {
+            // Set the background color to initially match the theme value so that we can
+            // smoothly transition to the dynamic color.
+            final int backgroundColor = ContextCompat.getColor(this, R.color.default_background);
+            adjustAppColor(backgroundColor, false /* animate */);
+        }
     }
 
     @Override
@@ -446,6 +447,19 @@ public class DeskClock extends BaseActivity
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * @param color the newly installed window background color
+     */
+    @Override
+    protected void onAppColorChanged(@ColorInt int color) {
+        super.onAppColorChanged(color);
+
+        // Notify each fragment of the background color change.
+        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
+            mFragmentTabPagerAdapter.getItem(i).onAppColorChanged(color);
+        }
+    }
+
     @Override
     public void updateFab(UpdateType updateType) {
         switch (updateType) {
@@ -511,7 +525,7 @@ public class DeskClock extends BaseActivity
 
     private DeskClockFragment getSelectedDeskClockFragment() {
         final int index = UiDataModel.getUiDataModel().getSelectedTabIndex();
-        return (DeskClockFragment) mFragmentTabPagerAdapter.getItem(index);
+        return mFragmentTabPagerAdapter.getItem(index);
     }
 
     private boolean isSystemAlarmRingtoneSilent() {
@@ -803,7 +817,7 @@ public class DeskClock extends BaseActivity
         }
 
         @Override
-        public Fragment getItem(int position) {
+        public DeskClockFragment getItem(int position) {
             final String tag = makeFragmentName(R.id.desk_clock_pager, position);
             Fragment fragment = mFragmentManager.findFragmentByTag(tag);
             if (fragment == null) {
@@ -811,7 +825,7 @@ public class DeskClock extends BaseActivity
                 final String fragmentClassName = tab.getFragmentClassName();
                 fragment = Fragment.instantiate(mContext, fragmentClassName);
             }
-            return fragment;
+            return (DeskClockFragment) fragment;
         }
 
         @Override

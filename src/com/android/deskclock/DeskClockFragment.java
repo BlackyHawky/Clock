@@ -17,6 +17,7 @@
 package com.android.deskclock;
 
 import android.app.Fragment;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.widget.ImageButton;
@@ -57,6 +58,13 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
 
     @Override
     public void onRightButtonClick(@NonNull ImageButton right) {
+        // Do nothing here, only in derived classes
+    }
+
+    /**
+     * @param color the newly installed app window color
+     */
+    protected void onAppColorChanged(@ColorInt int color) {
         // Do nothing here, only in derived classes
     }
 

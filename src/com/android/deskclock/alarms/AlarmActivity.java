@@ -36,7 +36,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.animation.PathInterpolatorCompat;
@@ -58,6 +57,7 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.settings.SettingsActivity;
+import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.CircleView;
 
 import java.util.List;
@@ -212,7 +212,7 @@ public class AlarmActivity extends AppCompatActivity
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
         Utils.setTimeFormat(digitalClock);
 
-        mCurrentHourColor = Utils.getCurrentHourColor();
+        mCurrentHourColor = UiDataModel.getUiDataModel().getWindowBackgroundColor();
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
 
         mAlarmButton.setOnTouchListener(this);
@@ -397,7 +397,7 @@ public class AlarmActivity extends AppCompatActivity
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_POINTER_UP) {
             LOGGER.v("onTouch ended: %s", event);
 
-            mInitialPointerIndex = event.INVALID_POINTER_ID;
+            mInitialPointerIndex = MotionEvent.INVALID_POINTER_ID;
             if (snoozeFraction == 1.0f) {
                 snooze();
             } else if (dismissFraction == 1.0f) {
