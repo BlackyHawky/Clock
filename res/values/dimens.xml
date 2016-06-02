@@ -164,7 +164,7 @@
     <!-- KitKat floating action button size; see -v21 folder for newer platforms. -->
     <dimen name="fab_button_size">@dimen/design_fab_size_normal</dimen>
 
-    <!-- When fab buttons decrease in size this padding helps scale the icon appropriately. -->
-    <dimen name="fab_button_padding">8dp</dimen>
+    <!-- When fab buttons decrease in size this padding is used to scale the icon appropriately. -->
+    <dimen name="fab_button_padding">0dp</dimen>
 
 </resources>
