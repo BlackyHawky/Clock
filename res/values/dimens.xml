@@ -34,7 +34,7 @@
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
 
-    <dimen name="alarm_text_font_size">12sp</dimen>
+    <dimen name="alarm_text_font_size">16sp</dimen>
     <dimen name="circletimer_dot_size">12dp</dimen>
     <dimen name="circletimer_circle_size">4dp</dimen>
     <dimen name="circletimer_marker_size">16dp</dimen>
