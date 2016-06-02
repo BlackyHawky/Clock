@@ -21,11 +21,15 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Canvas;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
+import android.support.v4.graphics.ColorUtils;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -51,6 +55,7 @@ import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
 
+import static android.graphics.drawable.GradientDrawable.Orientation.TOP_BOTTOM;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -73,6 +78,9 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     /** Updates the user interface in response to stopwatch changes. */
     private final StopwatchListener mStopwatchWatcher = new StopwatchWatcher();
+
+    /** Draws a gradient over the bottom of the {@link #mLapsList} to reduce clash with the fab. */
+    private GradientItemDecoration mGradientItemDecoration;
 
     /** The data source for {@link #mLapsList}. */
     private LapsAdapter mLapsAdapter;
@@ -101,12 +109,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {
         mLapsAdapter = new LapsAdapter(getActivity());
         mLapsLayoutManager = new LinearLayoutManager(getActivity());
+        mGradientItemDecoration = new GradientItemDecoration(getActivity());
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
         mTime = (StopwatchCircleView) v.findViewById(R.id.stopwatch_time);
         mLapsList = (RecyclerView) v.findViewById(R.id.laps_list);
         ((SimpleItemAnimator) mLapsList.getItemAnimator()).setSupportsChangeAnimations(false);
         mLapsList.setLayoutManager(mLapsLayoutManager);
+        mLapsList.addItemDecoration(mGradientItemDecoration);
 
         // In landscape layouts, the laps list can reach the top of the screen and thus can cause
         // a drop shadow to appear. The same is not true for portrait landscapes.
@@ -264,6 +274,18 @@ public final class StopwatchFragment extends DeskClockFragment {
                 }
                 break;
             }
+        }
+    }
+
+    /**
+     * @param color the newly installed app window color
+     */
+    protected void onAppColorChanged(@ColorInt int color) {
+        if (mGradientItemDecoration != null) {
+            mGradientItemDecoration.updateGradientColors(color);
+        }
+        if (mLapsList != null) {
+            mLapsList.invalidateItemDecorations();
         }
     }
 
@@ -576,6 +598,88 @@ public final class StopwatchFragment extends DeskClockFragment {
         public void onLayoutChange(View v, int left, int top, int right, int bottom,
                 int oldLeft, int oldTop, int oldRight, int oldBottom) {
             setTabScrolledToTop(Utils.isScrolledToTop(mLapsList));
+        }
+    }
+
+    /**
+     * Draws a tinting gradient over the bottom of the stopwatch laps list. This reduces the
+     * contrast between floating buttons and the laps list content.
+     */
+    private static final class GradientItemDecoration extends RecyclerView.ItemDecoration {
+
+        //  0% -  25% of gradient length -> opacity changes from 0% to 50%
+        // 25% -  90% of gradient length -> opacity changes from 50% to 100%
+        // 90% - 100% of gradient length -> opacity remains at 100%
+        private static final int[] ALPHAS = {
+                0x00, // 0%
+                0x1A, // 10%
+                0x33, // 20%
+                0x4D, // 30%
+                0x66, // 40%
+                0x80, // 50%
+                0x89, // 53.8%
+                0x93, // 57.6%
+                0x9D, // 61.5%
+                0xA7, // 65.3%
+                0xB1, // 69.2%
+                0xBA, // 73.0%
+                0xC4, // 76.9%
+                0xCE, // 80.7%
+                0xD8, // 84.6%
+                0xE2, // 88.4%
+                0xEB, // 92.3%
+                0xF5, // 96.1%
+                0xFF, // 100%
+                0xFF, // 100%
+                0xFF, // 100%
+        };
+
+        /**
+         * A reusable array of control point colors that define the gradient. It is based on the
+         * background color of the window and thus recomputed each time that color is changed.
+         */
+        private final int[] mGradientColors = new int[ALPHAS.length];
+
+        /** The drawable that produces the tinting gradient effect of this decoration. */
+        private final GradientDrawable mGradient = new GradientDrawable();
+
+        /** The height of the gradient; sized relative to the fab height. */
+        private final int mGradientHeight;
+
+        public GradientItemDecoration(Context context) {
+            mGradient.setOrientation(TOP_BOTTOM);
+            updateGradientColors(UiDataModel.getUiDataModel().getWindowBackgroundColor());
+
+            final Resources resources = context.getResources();
+            final float fabHeight = resources.getDimensionPixelSize(R.dimen.fab_height);
+            mGradientHeight = Math.round(fabHeight * 1.2f);
+        }
+
+        @Override
+        public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {
+            super.onDrawOver(c, parent, state);
+
+            final int w = parent.getWidth();
+            final int h = parent.getHeight();
+
+            mGradient.setBounds(0, h - mGradientHeight, w, h);
+            mGradient.draw(c);
+        }
+
+        /**
+         * Given a {@code baseColor}, compute a gradient of tinted colors that define the fade
+         * effect to apply to the bottom of the lap list.
+         *
+         * @param baseColor a base color to which the gradient tint should be applied
+         */
+        public void updateGradientColors(@ColorInt int baseColor) {
+            // Compute the tinted colors that form the gradient.
+            for (int i = 0; i < mGradientColors.length; i++) {
+                mGradientColors[i] = ColorUtils.setAlphaComponent(baseColor, ALPHAS[i]);
+            }
+
+            // Set the gradient colors into the drawable.
+            mGradient.setColors(mGradientColors);
         }
     }
 }

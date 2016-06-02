@@ -42,6 +42,7 @@ import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.HashSet;
 
@@ -206,7 +207,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             final CompoundButton dayButton = dayButtons[i];
             if (setDays.contains(mDayOrder[i])) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(Utils.getCurrentHourColor());
+                dayButton.setTextColor(UiDataModel.getUiDataModel().getWindowBackgroundColor());
             } else {
                 dayButton.setChecked(false);
                 dayButton.setTextColor(Color.WHITE);

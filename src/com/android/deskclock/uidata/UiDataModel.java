@@ -20,6 +20,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.util.SparseArray;
@@ -84,6 +85,9 @@ public final class UiDataModel {
     /** The model from which tab data are fetched. */
     private TabModel mTabModel;
 
+    /** The model from which colors are fetched. */
+    private ColorModel mColorModel;
+
     /** The model from which timed callbacks originate. */
     private PeriodicCallbackModel mPeriodicCallbackModel;
 
@@ -98,8 +102,9 @@ public final class UiDataModel {
         }
         mContext = context.getApplicationContext();
 
-        mTabModel = new TabModel(mContext);
         mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
+        mColorModel = new ColorModel(mPeriodicCallbackModel);
+        mTabModel = new TabModel(mContext);
 
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
@@ -161,6 +166,34 @@ public final class UiDataModel {
         }
 
         return formatted;
+    }
+
+    //
+    // Colors
+    //
+
+    /**
+     * @param colorListener to be notified when the app's color changes
+     */
+    public void addOnAppColorChangeListener(OnAppColorChangeListener colorListener) {
+        enforceMainLooper();
+        mColorModel.addOnAppColorChangeListener(colorListener);
+    }
+
+    /**
+     * @param colorListener to be notified when the app's color changes
+     */
+    public void removeOnAppColorChangeListener(OnAppColorChangeListener colorListener) {
+        enforceMainLooper();
+        mColorModel.removeOnAppColorChangeListener(colorListener);
+    }
+
+    /**
+     * @return the color of the application window background
+     */
+    public @ColorInt int getWindowBackgroundColor() {
+        enforceMainLooper();
+        return mColorModel.getAppColor();
     }
 
     //
