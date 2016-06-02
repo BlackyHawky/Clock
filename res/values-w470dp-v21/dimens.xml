@@ -26,4 +26,7 @@ values can be used elsewhere in clock layouts. -->
     <!-- Lollipop and later normal floating action button size. -->
     <dimen name="fab_button_size">@dimen/design_fab_size_normal</dimen>
 
+    <!-- Padding for normal fab buttons.-->
+    <dimen name="fab_button_padding">0dp</dimen>
+
 </resources>
