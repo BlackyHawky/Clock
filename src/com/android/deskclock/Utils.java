@@ -38,6 +38,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.AnyRes;
@@ -633,5 +634,13 @@ public class Utils {
      */
     public static boolean isLandscape(Context context) {
         return context.getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE;
+    }
+
+    public static long now() {
+        return SystemClock.elapsedRealtime();
+    }
+
+    public static long wallClock() {
+        return System.currentTimeMillis();
     }
 }

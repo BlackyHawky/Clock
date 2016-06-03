@@ -231,6 +231,7 @@ public final class TimerFragment extends DeskClockFragment {
                     fab.setImageResource(R.drawable.ic_start_white_24dp);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
                     break;
+                case MISSED:
                 case EXPIRED:
                     fab.setImageResource(R.drawable.ic_stop_white_24dp);
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
@@ -292,6 +293,7 @@ public final class TimerFragment extends DeskClockFragment {
                     DataModel.getDataModel().startTimer(timer);
                     Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
                     break;
+                case MISSED:
                 case EXPIRED:
                     DataModel.getDataModel().resetOrDeleteTimer(timer, R.string.label_deskclock);
                     break;

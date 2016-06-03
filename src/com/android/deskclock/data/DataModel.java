@@ -106,6 +106,24 @@ public final class DataModel {
     }
 
     /**
+     * Updates all timers and the stopwatch after the device has shutdown and restarted.
+     */
+    public void updateAfterReboot() {
+        enforceMainLooper();
+        mTimerModel.updateTimersAfterReboot();
+        mStopwatchModel.setStopwatch(getStopwatch().updateAfterReboot());
+    }
+
+    /**
+     * Updates all timers and the stopwatch after the device's time has changed.
+     */
+    public void updateAfterTimeSet() {
+        enforceMainLooper();
+        mTimerModel.updateTimersAfterTimeSet();
+        mStopwatchModel.setStopwatch(getStopwatch().updateAfterTimeSet());
+    }
+
+    /**
      * Posts a runnable to the main thread and blocks until the runnable executes. Used to access
      * the data model from the main thread.
      */
@@ -151,6 +169,7 @@ public final class DataModel {
 
             // Refresh all notifications in response to a change in app open state.
             mTimerModel.updateNotification();
+            mTimerModel.updateMissedNotification();
             mStopwatchModel.updateNotification();
         }
     }
@@ -170,6 +189,7 @@ public final class DataModel {
     public void updateAllNotifications() {
         enforceMainLooper();
         mTimerModel.updateNotification();
+        mTimerModel.updateMissedNotification();
         mStopwatchModel.updateNotification();
     }
 
@@ -363,16 +383,6 @@ public final class DataModel {
     }
 
     /**
-     * Resets all timers.
-     *
-     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
-     */
-    public void resetTimers(@StringRes int eventLabelId) {
-        enforceMainLooper();
-        mTimerModel.resetTimers(eventLabelId);
-    }
-
-    /**
      * Resets all expired timers.
      *
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
@@ -391,6 +401,17 @@ public final class DataModel {
         enforceMainLooper();
         mTimerModel.resetUnexpiredTimers(eventLabelId);
     }
+
+    /**
+     * Resets all missed timers.
+     *
+     * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     */
+    public void resetMissedTimers(@StringRes int eventLabelId) {
+        enforceMainLooper();
+        mTimerModel.resetMissedTimers(eventLabelId);
+    }
+
 
     /**
      * @param timer the timer to which a minute should be added to the remaining time
@@ -416,6 +437,15 @@ public final class DataModel {
         enforceMainLooper();
         mTimerModel.updateNotification();
     }
+
+    /**
+     * Updates the missed timer notifications to be current.
+     */
+    public void updateMissedTimerNotification() {
+        enforceMainLooper();
+        mTimerModel.updateMissedNotification();
+    }
+
 
     /**
      * @return the uri of the default ringtone to play for all timers when no user selection exists

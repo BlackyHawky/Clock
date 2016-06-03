@@ -44,10 +44,14 @@ public final class TimerService extends Service {
 
     private static final String ACTION_TIMER_EXPIRED = ACTION_PREFIX + "TIMER_EXPIRED";
     private static final String ACTION_UPDATE_NOTIFICATION = ACTION_PREFIX + "UPDATE_NOTIFICATION";
+    private static final String ACTION_UPDATE_MISSED_NOTIFICATION = ACTION_PREFIX +
+            "UPDATE_MISSED_NOTIFICATION";
     private static final String ACTION_RESET_EXPIRED_TIMERS = ACTION_PREFIX +
             "RESET_EXPIRED_TIMERS";
     private static final String ACTION_RESET_UNEXPIRED_TIMERS = ACTION_PREFIX +
             "RESET_UNEXPIRED_TIMERS";
+    private static final String ACTION_RESET_MISSED_TIMERS = ACTION_PREFIX +
+            "RESET_MISSED_TIMERS";
 
     public static Intent createTimerExpiredIntent(Context context, Timer timer) {
         final int timerId = timer == null ? -1 : timer.getId();
@@ -66,6 +70,12 @@ public final class TimerService extends Service {
                 .setAction(ACTION_RESET_UNEXPIRED_TIMERS);
     }
 
+    public static Intent createResetMissedTimersIntent(Context context) {
+        return new Intent(context, TimerService.class)
+                .setAction(ACTION_RESET_MISSED_TIMERS);
+    }
+
+
     public static Intent createAddMinuteTimerIntent(Context context, int timerId) {
         return new Intent(context, TimerService.class)
                 .setAction(HandleDeskClockApiCalls.ACTION_ADD_MINUTE_TIMER)
@@ -75,6 +85,11 @@ public final class TimerService extends Service {
     public static Intent createUpdateNotificationIntent(Context context) {
         return new Intent(context, TimerService.class)
                 .setAction(ACTION_UPDATE_NOTIFICATION);
+    }
+
+    public static Intent createUpdateMissedNotificationIntent(Context context) {
+        return new Intent(context, TimerService.class)
+                .setAction(ACTION_UPDATE_MISSED_NOTIFICATION);
     }
 
     @Override
@@ -90,12 +105,20 @@ public final class TimerService extends Service {
                     DataModel.getDataModel().updateTimerNotification();
                     return START_NOT_STICKY;
                 }
+                case ACTION_UPDATE_MISSED_NOTIFICATION: {
+                    DataModel.getDataModel().updateMissedTimerNotification();
+                    return START_NOT_STICKY;
+                }
                 case ACTION_RESET_EXPIRED_TIMERS: {
                     DataModel.getDataModel().resetExpiredTimers(R.string.label_notification);
                     return START_NOT_STICKY;
                 }
                 case ACTION_RESET_UNEXPIRED_TIMERS: {
                     DataModel.getDataModel().resetUnexpiredTimers(R.string.label_notification);
+                    return START_NOT_STICKY;
+                }
+                case ACTION_RESET_MISSED_TIMERS: {
+                    DataModel.getDataModel().resetMissedTimers(R.string.label_notification);
                     return START_NOT_STICKY;
                 }
             }
