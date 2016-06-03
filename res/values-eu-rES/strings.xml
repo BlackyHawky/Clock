@@ -123,7 +123,7 @@
     <item msgid="7809240121716151904">"25 minutu"</item>
     <item msgid="4278641338024561333">"Inoiz ez"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Hasi astea egun honetan:"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Asteko lehen eguna"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Larunbata"</item>
     <item msgid="3993530639455360921">"Igandea"</item>
@@ -143,7 +143,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Atzeratu"</item>
     <item msgid="3450979320164769576">"Baztertu"</item>
-    <item msgid="6302517608411378024">"Ez egin ezer"</item>
+    <item msgid="6302517608411378024">"Ezer ez"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Ezarri tonu lehenetsia"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Alarmak"</string>
@@ -176,7 +176,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"Berrezarri"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Hasi"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"Pausatu"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Itzulia"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Tartea"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Partekatu"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>

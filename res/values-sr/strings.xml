@@ -36,7 +36,7 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Понови"</string>
     <string name="alert" msgid="6506982899651975645">"Мелодија аларма"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Тајмер је истекао"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Нечујно"</string>
+    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Без звука"</string>
     <string name="ringtone" msgid="9110746249688559579">"Мелодија звона"</string>
     <string name="time" msgid="8067216534232296518">"Време"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Сутра"</string>
@@ -141,7 +141,7 @@
     <string name="revert" msgid="9100911171235162926">"Врати"</string>
     <string name="delete" msgid="5732434972457000541">"Избриши"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Јачина звука аларма"</string>
-    <string name="silent_ringtone_title" msgid="6177287302898634765">"Нечујно"</string>
+    <string name="silent_ringtone_title" msgid="6177287302898634765">"Без звука"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Непозната"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Одложите или одбаците аларм."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (одложено)"</string>

@@ -104,7 +104,7 @@
       <item quantity="other">minutos</item>
       <item quantity="one">minuto</item>
     </plurals>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumentar o volume gradualmente"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumento gradual do volume"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"Desativado"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> segundos"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"segundos"</string>
@@ -143,7 +143,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Suspender"</item>
     <item msgid="3450979320164769576">"Ignorar"</item>
-    <item msgid="6302517608411378024">"Não fazer nada"</item>
+    <item msgid="6302517608411378024">"Desativados"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Definir toque predefinido"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Alarmes"</string>

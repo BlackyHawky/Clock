@@ -35,7 +35,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"振动"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"重复"</string>
     <string name="alert" msgid="6506982899651975645">"闹钟铃声"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"计时器已结束"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"计时结束"</string>
     <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"静音"</string>
     <string name="ringtone" msgid="9110746249688559579">"铃声"</string>
     <string name="time" msgid="8067216534232296518">"时间"</string>
