@@ -175,8 +175,8 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Reprèn"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Restableix"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Inicia"</string>
-    <string name="sw_pause_button" msgid="2422084453454138042">"Atura"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Volta"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"Posa en pausa"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"+ 1 volta"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Comparteix"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -345,7 +345,7 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Llisca cap a l\'esquerra per posposar"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Llisca cap a l\'esquerra per posposar l\'alarma o cap a la dreta per ignorar-la"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Temporitzadors"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"So de trucada del temporitzador"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"So del temporitzador"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"S\'ha aturat el temporitzador"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Temporitzador en pausa"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> temporitzadors en pausa"</string>

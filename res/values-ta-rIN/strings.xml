@@ -64,18 +64,18 @@
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"ஒரு நிமிடத்திற்கும் குறைவான நேரமே மீதமுள்ளது"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> மணிநேரம் <xliff:g id="MINUTES">%2$s</xliff:g> நிமிடங்கள் மீதமுள்ளன"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> மீதமுள்ளன"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"மீதமுள்ளது"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"மீதமுள்ளன"</string>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"இப்போதிலிருந்து 1 நிமிடத்திற்கும் குறைவான நேரத்தில் அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="6002066367368421848">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> அளவில் அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="8182406852935468862">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரத்திற்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="2532279224777213194">"இப்போதிலிருந்து <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="5936557894247187717">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="9115697840826129603">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரம் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
-    <item msgid="2332583385137381060">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> நாட்கள், <xliff:g id="HOURS">%2$s</xliff:g> மணிநேரம் மற்றும் <xliff:g id="MINUTES">%3$s</xliff:g> நிமிடங்களுக்கு அலாரம் அமைக்கப்பட்டது."</item>
+    <item msgid="6450913786084215050">"1 நிமிடத்திற்கும் குறைவான நேரத்தில் அலாரம் அடிக்கும்."</item>
+    <item msgid="6002066367368421848">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="8824719306247973774">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="8182406852935468862">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="2532279224777213194">"இப்போதிலிருந்து <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="5936557894247187717">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="9115697840826129603">"இப்போதிலிருந்து <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
+    <item msgid="2332583385137381060">"இப்போதிலிருந்து <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>, <xliff:g id="MINUTES">%3$s</xliff:g> கழித்து அலாரம் அடிக்கும்."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நாட்கள்</item>
@@ -175,8 +175,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"மீண்டும் தொடங்கு"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"மீட்டமை"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"தொடங்கு"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
+    <string name="sw_pause_button" msgid="2422084453454138042">"இடைநிறுத்து"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"தடம்"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"பகிர்"</string>
     <string name="hours_label" msgid="3393478155635368097">"ம"</string>
