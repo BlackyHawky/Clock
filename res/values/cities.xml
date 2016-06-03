@@ -601,7 +601,7 @@
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C107">B<xliff:g id="separator">=</xliff:g>Beirut<xliff:g id="timezone">|Asia/Beirut</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
-    <string name="C108">C<xliff:g id="separator">=</xliff:g>Calcutta<xliff:g id="timezone">|Asia/Calcutta</xliff:g></string>
+    <string name="C108">K<xliff:g id="separator">=</xliff:g>Kolkata<xliff:g id="timezone">|Asia/Calcutta</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
     <string name="C109">D<xliff:g id="separator">=</xliff:g>Damascus<xliff:g id="timezone">|Asia/Damascus</xliff:g></string>
     <!-- Format: [index]=[city name]|[timezone id] -->
