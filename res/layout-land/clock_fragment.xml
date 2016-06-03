@@ -42,7 +42,7 @@
     </LinearLayout>
 
     <!-- World Clock List: 32% of total width. -->
-    <ListView
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/cities"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
