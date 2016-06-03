@@ -25,6 +25,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
@@ -154,6 +155,7 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
                 .setContentIntent(pendingShowApp)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setCategory(Notification.CATEGORY_ALARM)
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setStyle(new Notification.DecoratedCustomViewStyle())
@@ -227,6 +229,7 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
                 .setCustomContentView(contentView)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setFullScreenIntent(pendingFullScreen, true)
                 .setStyle(new Notification.DecoratedCustomViewStyle())
