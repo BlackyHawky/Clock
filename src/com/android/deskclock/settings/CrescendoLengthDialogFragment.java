@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.android.deskclock.NumberPickerCompat;
 import com.android.deskclock.R;
+import com.android.deskclock.uidata.UiDataModel;
 
 public class CrescendoLengthDialogFragment extends PreferenceDialogFragment {
 
@@ -55,7 +56,8 @@ public class CrescendoLengthDialogFragment extends PreferenceDialogFragment {
         final String[] displayedValues = new String[13];
         displayedValues[0] = getString(R.string.no_crescendo_duration);
         for (int i = 1; i < displayedValues.length; i++) {
-            displayedValues[i] = String.valueOf(i * CRESCENDO_TIME_STEP);
+            final int length = i * CRESCENDO_TIME_STEP;
+            displayedValues[i] = UiDataModel.getUiDataModel().getFormattedNumber(length);
         }
 
         mNumberPickerView = (NumberPickerCompat) view.findViewById(R.id.seconds_picker);
