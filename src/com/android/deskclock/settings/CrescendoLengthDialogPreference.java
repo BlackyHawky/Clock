@@ -21,6 +21,7 @@ import android.support.v7.preference.DialogPreference;
 import android.util.AttributeSet;
 
 import com.android.deskclock.R;
+import com.android.deskclock.uidata.UiDataModel;
 
 public class CrescendoLengthDialogPreference extends DialogPreference {
 
@@ -43,7 +44,8 @@ public class CrescendoLengthDialogPreference extends DialogPreference {
         if (crescendoSeconds == 0) {
             setSummary(getContext().getString(R.string.no_crescendo_duration));
         } else {
-            setSummary(getContext().getString(R.string.crescendo_duration, crescendoSeconds));
+            final String length = UiDataModel.getUiDataModel().getFormattedNumber(crescendoSeconds);
+            setSummary(getContext().getString(R.string.crescendo_duration, length));
         }
     }
 }

@@ -121,6 +121,20 @@ public final class UiDataModel {
      * provide speed and limit garbage to be collected by the virtual machine.
      *
      * @param value a positive integer to format as a String
+     * @return the {@code value} formatted as a String in the current locale
+     * @throws IllegalArgumentException if {@code value} is negative
+     */
+    public String getFormattedNumber(int value) {
+        final int length = (int) Math.log10(value);
+        return getFormattedNumber(false, value, length == 0 ? 1 : length);
+    }
+
+    /**
+     * This method is intended to be used when formatting numbers occurs in a hotspot such as the
+     * update loop of a timer or stopwatch. It returns cached results when possible in order to
+     * provide speed and limit garbage to be collected by the virtual machine.
+     *
+     * @param value a positive integer to format as a String
      * @param length the length of the String; zeroes are padded to match this length
      * @return the {@code value} formatted as a String in the current locale and padded to the
      *      requested {@code length}
