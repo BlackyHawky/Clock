@@ -354,7 +354,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"နောက် အချိန်ကိုက်စနစ် တစ်ခု: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"အိပ်မက် ဆက်တင်များ"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"ညသုံး မုဒ်"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"သိပ် မှိန်စွာ ပြသမှု (မှောင်နေသည့် အခန်းများအတွက်)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"ခပ်မှိန်မှိန် ပြသမှု (မှောင်နေသည့် အခန်းများအတွက်)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"နှိုးစက်ကို တိုးချဲ့ရန်"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"နှိုးစက်ကို ခေါက်သိမ်းပါ"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"မလုပ်တော့ရန်"</string>

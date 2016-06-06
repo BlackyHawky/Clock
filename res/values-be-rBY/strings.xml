@@ -261,7 +261,7 @@
     <item msgid="8483930821046925592">"Лічбавы"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Гадзіннік майго часавага пояса"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Падчас падарожжа ў рэгiёне, дзе час адрознiваецца, дадайце хатнi гадзiннiк"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Паказваць на асобным гадзінніку, колькі часу дома, калі я знаходжуся ў іншым часавым поясе"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Дамашні часавы пояс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Дамашні часавы пояс"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Скасаваць"</string>

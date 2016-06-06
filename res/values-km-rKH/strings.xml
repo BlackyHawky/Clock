@@ -59,7 +59,7 @@
       <item quantity="one">ផ្អាក 1 នាទី</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ផ្អាក​រហូតដល់ <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ការ​ជូនដំណឹង​ដែល​នឹង​កើត​ឡើង"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ម៉ោងរោទ៍បន្ទាប់"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ការ​ខកខាន​ជូនដំណឹង​របស់​​អ្នក​ត្រូវ​បាន​លុប"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"នៅសល់​តិច​ជាង​មួយ​នាទី"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
@@ -176,7 +176,7 @@
     <string name="sw_reset_button" msgid="6616804728322906117">"កំណត់​ឡើងវិញ"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"ចាប់ផ្ដើម​"</string>
     <string name="sw_pause_button" msgid="2422084453454138042">"ផ្អាក"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"ជាន់​គ្នា"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"ជុំ"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"ចែករំលែក​"</string>
     <string name="hours_label" msgid="3393478155635368097">"ម៉ោង"</string>
     <string name="minutes_label" msgid="3568098128251438588">"នាទី"</string>
@@ -186,8 +186,8 @@
     <string name="seconds_label_description" msgid="3821620053141299692">"វិនាទី"</string>
     <string name="zero" msgid="7102083421938355017">"០"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"ពេលវេលា​របស់​ខ្ញុំ​គឺ <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"រយៈពេល​ជាន់​គ្នា៖"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"ជាន់​គ្នា <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"រយៈពេល​ជុំ៖"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"ជុំទី <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ម៉ោង</item>
       <item quantity="one">1 ម៉ោង</item>
@@ -352,9 +352,9 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"ប៉ះ​ដើម្បី​មើល​កម្មវិធី​កំណត់​ពេល​របស់​អ្នក"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> កម្មវិធី​កំណត់​ពេល"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"កម្មវិធី​កំណត់​ម៉ោង​បន្ទាប់៖ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"ការ​កំណត់​ស្រមើ​​ស្រមៃ"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"ការ​កំណត់​ការ​​ស្រមៃ"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"ពេល​រាត្រី"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"ការ​បង្ហាញ​យ៉ាង​ស្រអាប់ (សម្រាប់​បន្ទប់​ងងឹត)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"អេក្រង់ងងឹតខ្លាំង (សម្រាប់​បន្ទប់​ងងឹត)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ពង្រីក​សំឡេង​រោទ៍"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"បង្រួម​សំឡេង​រោទ៍"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"​មិន​​ធ្វើ​វិញ"</string>

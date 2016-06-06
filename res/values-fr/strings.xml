@@ -27,7 +27,7 @@
     <string name="delete_alarm_confirm" msgid="6578572637340860840">"Supprimer cette alarme ?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Afficher l\'horloge"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Masquer l\'horloge"</string>
-    <string name="label" msgid="162189613902857319">"Libellé"</string>
+    <string name="label" msgid="162189613902857319">"Titre"</string>
     <string name="on_switch" msgid="2297966258029227449">"Activée"</string>
     <string name="off_switch" msgid="3381070073851148013">"Désactivée"</string>
     <string name="default_label" msgid="5590025289805630372">"Alarme"</string>
@@ -152,7 +152,7 @@
     <string name="nightmode_button_description" msgid="990894208217576381">"Assombrir"</string>
     <string name="home_button_description" msgid="3383859096809056157">"Lanceur d\'applications"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Affichage de l\'horloge"</string>
-    <string name="label_description" msgid="8736179296142915727">"Libellé"</string>
+    <string name="label_description" msgid="8736179296142915727">"Titre"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Sonnerie"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Les informations météo ne sont pas disponibles actuellement."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Service de retour audio pour les alarmes définies via l\'Horloge de bureau."</string>

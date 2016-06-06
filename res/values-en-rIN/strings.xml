@@ -37,7 +37,7 @@
     <string name="alert" msgid="6506982899651975645">"Alarm Ringtone"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer Expired"</string>
     <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Silent"</string>
-    <string name="ringtone" msgid="9110746249688559579">"Ring tone"</string>
+    <string name="ringtone" msgid="9110746249688559579">"Ringtone"</string>
     <string name="time" msgid="8067216534232296518">"Time"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Tomorrow"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Today"</string>
@@ -153,7 +153,7 @@
     <string name="home_button_description" msgid="3383859096809056157">"Launcher"</string>
     <string name="desk_clock_button_description" msgid="4207371097361657274">"Clock display"</string>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">"Ring tone"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Ringtone"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Weather information isn\'t available at the moment."</string>
     <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Sound playback service for alarms set in Clock."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Loading ringtone…"</string>
@@ -345,7 +345,7 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Swipe left to snooze"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Swipe left to snooze or right to dismiss"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timers"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"Timer ring tone"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"Timer ringtone"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Timer stopped"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer paused"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> timers paused"</string>

@@ -369,7 +369,7 @@
       <item quantity="one">¿Eliminar alarma seleccionada?</item>
     </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"¿Eliminar este temporizador?"</string>
-    <string name="city_delete_confirmation" msgid="1783441538785676299">"¿Eliminar esta ciudad?"</string>
+    <string name="city_delete_confirmation" msgid="1783441538785676299">"¿Quitar esta ciudad?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Reloj digital"</string>
     <string name="no_alarms" msgid="6429431324842022917">"No hay alarmas"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"No hay alarmas"</string>
