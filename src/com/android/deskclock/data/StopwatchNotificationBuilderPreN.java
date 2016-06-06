@@ -25,6 +25,7 @@ import android.os.SystemClock;
 import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 
 import com.android.deskclock.HandleDeskClockApiCalls;
@@ -150,6 +151,7 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
                 .setAutoCancel(stopwatch.isPaused())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setDeleteIntent(Utils.pendingServiceIntent(context, reset))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
                 .build();
         notification.bigContentView = expanded;

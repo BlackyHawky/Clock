@@ -22,6 +22,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.AlarmUtils;
@@ -41,8 +42,8 @@ public final class AlarmNotifications {
                 .setShowWhen(false)
                 .setContentTitle(context.getString(
                         R.string.alarm_alert_predismiss_title))
-                .setContentText(AlarmUtils.getAlarmText(context, instance,
-                        true /* includeLabel */))
+                .setContentText(AlarmUtils.getAlarmText(context, instance, true /* includeLabel */))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -80,8 +81,8 @@ public final class AlarmNotifications {
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
                 .setShowWhen(false)
                 .setContentTitle(context.getString(R.string.alarm_alert_predismiss_title))
-                .setContentText(AlarmUtils.getAlarmText(context, instance,
-                        true /* includeLabel */))
+                .setContentText(AlarmUtils.getAlarmText(context, instance, true /* includeLabel */))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
@@ -117,6 +118,7 @@ public final class AlarmNotifications {
                 .setContentTitle(instance.getLabelOrDefault(context))
                 .setContentText(context.getString(R.string.alarm_alert_snooze_until,
                         AlarmUtils.getFormattedTime(context, instance.getAlarmTime())))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
@@ -152,6 +154,7 @@ public final class AlarmNotifications {
                 .setContentTitle(context.getString(R.string.alarm_missed_title))
                 .setContentText(instance.mLabel.isEmpty() ? alarmTime :
                         context.getString(R.string.alarm_missed_text, alarmTime, label))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -185,6 +188,7 @@ public final class AlarmNotifications {
         NotificationCompat.Builder notification = new NotificationCompat.Builder(service)
                 .setContentTitle(instance.getLabelOrDefault(service))
                 .setContentText(AlarmUtils.getFormattedTime(service, instance.getAlarmTime()))
+                .setColor(ContextCompat.getColor(service, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setOngoing(true)
                 .setAutoCancel(false)

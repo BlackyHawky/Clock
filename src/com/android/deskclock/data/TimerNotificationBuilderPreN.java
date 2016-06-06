@@ -26,6 +26,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import com.android.deskclock.HandleDeskClockApiCalls;
@@ -129,6 +130,7 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
                 .setContentText(contentText)
                 .setContentTitle(contentTitle)
                 .setContentIntent(pendingShowApp)
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -216,6 +218,7 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
                 .setContentText(contentText)
                 .setContentTitle(contentTitle)
                 .setContentIntent(pendingContent)
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setFullScreenIntent(pendingFullScreen, true)
                 .setPriority(NotificationCompat.PRIORITY_MAX)

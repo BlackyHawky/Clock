@@ -26,12 +26,14 @@ import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 
 import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.stopwatch.StopwatchService;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -140,6 +142,7 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
                 .setContentIntent(pendingShowApp)
                 .setAutoCancel(stopwatch.isPaused())
                 .setPriority(Notification.PRIORITY_MAX)
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
                 .setStyle(new Notification.DecoratedCustomViewStyle())
                 .setDeleteIntent(Utils.pendingServiceIntent(context, reset))
