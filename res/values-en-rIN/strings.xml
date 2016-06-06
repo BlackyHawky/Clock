@@ -128,7 +128,7 @@
     <item msgid="6302517608411378024">"Do nothing"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Label"</string>
-    <string name="ringtone_description" msgid="7580922112921069925">"Ring tone"</string>
+    <string name="ringtone_description" msgid="7580922112921069925">"Ringtone"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Clock"</string>
@@ -308,7 +308,7 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Swipe left to snooze"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Swipe left to snooze or right to dismiss"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Timers"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"Timer ring tone"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"Timer ringtone"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Timer vibrate"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timer paused"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> timers paused"</string>

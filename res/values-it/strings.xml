@@ -89,7 +89,7 @@
       <item quantity="one">minuto</item>
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Aumenta gradualmente il volume"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"Non attiva"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"Off"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> secondi"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"secondi"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Disattiva suoneria dopo"</string>
@@ -321,7 +321,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Espandi sveglia"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Comprimi sveglia"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"annulla"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Allarme eliminato"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Sveglia eliminata"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Prossima sveglia: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Nessuna sveglia"</string>

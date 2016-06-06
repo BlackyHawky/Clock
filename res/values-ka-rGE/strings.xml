@@ -125,7 +125,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ჩაჩუმება"</item>
     <item msgid="3450979320164769576">"დახურვა"</item>
-    <item msgid="6302517608411378024">"არ გააკეთო არაფერი"</item>
+    <item msgid="6302517608411378024">"მოქმედების გარეშე"</item>
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"ლეიბლი"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"ზარი"</string>
@@ -202,13 +202,13 @@
     <string name="clock_style" msgid="2265011060429742344">"სტილი"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"თარიღისა და დროის შეცვლა"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"ანალოგი"</item>
+    <item msgid="917900462224167608">"ისრებიანი"</item>
     <item msgid="8483930821046925592">"ციფრული"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"რომელი საათია სახლში"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ისეთ არეალში მოგზაურობისას, სადაც დრო განსხვავებულია, დაამატეთ საათი თქვენი დროისთვის"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"ჩემი დროის სარტყელი"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"ჩემი დროის სარტყელი"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ისეთ არეალში მოგზაურობისას, სადაც დრო განსხვავებულია, დაამატეთ საათი სახლის დროს საჩვენებლად"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"სახლის დროის სარტყელი"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"სახლის დროის სარტყელი"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"გაუქმება"</string>
     <string name="time_picker_set" msgid="331153175471468051">"კარგი"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> მონიშნულია"</string>

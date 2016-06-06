@@ -300,7 +300,7 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="2947147071388290814">"Larm"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Alarm"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Bearbetar åtgärder från timeraviseringar."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Bearbetar åtgärder från stoppursaviseringar."</string>
     <string name="swn_paused" msgid="6364358842808263589">"Pausat"</string>

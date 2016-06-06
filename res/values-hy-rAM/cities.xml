@@ -122,7 +122,8 @@
     <string name="C105" msgid="1812915124794679606">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բաքու<xliff:g id="TIMEZONE">|Asia/Baku</xliff:g>"</string>
     <string name="C106" msgid="1996684628612964988">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բանգկոկ<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
     <string name="C107" msgid="227554925153715426">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բեյրութ<xliff:g id="TIMEZONE">|Asia/Beirut</xliff:g>"</string>
-    <string name="C108" msgid="5082419901681584844">"Կ<xliff:g id="SEPARATOR">=</xliff:g>Կալկաթա<xliff:g id="TIMEZONE">|Asia/Calcutta</xliff:g>"</string>
+    <!-- no translation found for C108 (357033582615345158) -->
+    <skip />
     <string name="C109" msgid="6386566477244958752">"Դ<xliff:g id="SEPARATOR">=</xliff:g>Դամասկոս<xliff:g id="TIMEZONE">|Asia/Damascus</xliff:g>"</string>
     <string name="C110" msgid="1165712058024165012">"Դ<xliff:g id="SEPARATOR">=</xliff:g>Դակկա<xliff:g id="TIMEZONE">|Asia/Dhaka</xliff:g>"</string>
     <string name="C111" msgid="5895260692253797547">"Դ<xliff:g id="SEPARATOR">=</xliff:g>Դուբայ<xliff:g id="TIMEZONE">|Asia/Dubai</xliff:g>"</string>
