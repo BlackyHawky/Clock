@@ -22,6 +22,7 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
@@ -80,9 +81,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private RecyclerView mRecyclerView;
 
     // Data
+    private Loader mCursorLoader;
     private long mScrollToAlarmId = Alarm.INVALID_ID;
     private long mExpandedAlarmId = Alarm.INVALID_ID;
-    private Loader mCursorLoader = null;
+    private long mCurrentUpdateToken;
 
     // Controllers
     private ItemAdapter<AlarmItemHolder> mItemAdapter;
@@ -261,7 +263,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                     new AlarmItemHolder(alarm, alarmInstance, mAlarmTimeClickHandler);
             itemHolders.add(itemHolder);
         }
-        setAdapterItems(itemHolders);
+        setAdapterItems(itemHolders, SystemClock.elapsedRealtime());
     }
 
     /**
@@ -269,36 +271,57 @@ public final class AlarmClockFragment extends DeskClockFragment implements
      * if no animation is running then the listener will be automatically be invoked immediately.
      *
      * @param items the new list of {@link AlarmItemHolder} to use
+     * @param updateToken a monotonically increasing value used to preserve ordering of deferred
+     *                    updates
      */
-    private void setAdapterItems(final List<AlarmItemHolder> items) {
-        mRecyclerView.getItemAnimator().isRunning(
-                new RecyclerView.ItemAnimator.ItemAnimatorFinishedListener() {
-                    @Override
-                    public void onAnimationsFinished() {
-                        mItemAdapter.setItems(items);
+    private void setAdapterItems(final List<AlarmItemHolder> items, final long updateToken) {
+        if (updateToken < mCurrentUpdateToken) {
+            LogUtils.v("Ignoring adapter update: %d < %d", updateToken, mCurrentUpdateToken);
+            return;
+        }
 
-                        // Show or hide the empty view as appropriate.
-                        mEmptyViewController.setEmpty(items.isEmpty());
+        if (mRecyclerView.getItemAnimator().isRunning()) {
+            // RecyclerView is currently animating -> defer update.
+            mRecyclerView.getItemAnimator().isRunning(
+                    new RecyclerView.ItemAnimator.ItemAnimatorFinishedListener() {
+                @Override
+                public void onAnimationsFinished() {
+                    setAdapterItems(items, updateToken);
+                }
+            });
+        } else if (mRecyclerView.isComputingLayout()) {
+            // RecyclerView is currently computing a layout -> defer update.
+            mRecyclerView.post(new Runnable() {
+                @Override
+                public void run() {
+                    setAdapterItems(items, updateToken);
+                }
+            });
+        } else {
+            mCurrentUpdateToken = updateToken;
+            mItemAdapter.setItems(items);
 
-                        // Expand the correct alarm.
-                        if (mExpandedAlarmId != Alarm.INVALID_ID) {
-                            final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
-                            if (aih != null) {
-                                mAlarmTimeClickHandler.setSelectedAlarm(aih.item);
-                                aih.expand();
-                            } else {
-                                mAlarmTimeClickHandler.setSelectedAlarm(null);
-                                mExpandedAlarmId = Alarm.INVALID_ID;
-                            }
-                        }
+            // Show or hide the empty view as appropriate.
+            mEmptyViewController.setEmpty(items.isEmpty());
 
-                        // Scroll to the selected alarm.
-                        if (mScrollToAlarmId != Alarm.INVALID_ID) {
-                            scrollToAlarm(mScrollToAlarmId);
-                            setSmoothScrollStableId(Alarm.INVALID_ID);
-                        }
-                    }
-                });
+            // Expand the correct alarm.
+            if (mExpandedAlarmId != Alarm.INVALID_ID) {
+                final AlarmItemHolder aih = mItemAdapter.findItemById(mExpandedAlarmId);
+                if (aih != null) {
+                    mAlarmTimeClickHandler.setSelectedAlarm(aih.item);
+                    aih.expand();
+                } else {
+                    mAlarmTimeClickHandler.setSelectedAlarm(null);
+                    mExpandedAlarmId = Alarm.INVALID_ID;
+                }
+            }
+
+            // Scroll to the selected alarm.
+            if (mScrollToAlarmId != Alarm.INVALID_ID) {
+                scrollToAlarm(mScrollToAlarmId);
+                setSmoothScrollStableId(Alarm.INVALID_ID);
+            }
+        }
     }
 
     /**
