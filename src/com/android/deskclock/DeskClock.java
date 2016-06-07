@@ -536,7 +536,8 @@ public class DeskClock extends BaseActivity
         final OnClickListener changeClickListener = new OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS));
+                startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         };
 
