@@ -102,7 +102,7 @@
       <item quantity="other"> minút</item>
       <item quantity="one"> minúta</item>
     </plurals>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"Postupne zvýšiť hlasitosť"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"Postupne zvyšovať hlasitosť"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"Vypnuté"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> s"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"s"</string>
