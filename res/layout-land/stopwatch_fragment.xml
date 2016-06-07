@@ -28,32 +28,31 @@
         android:layout_weight="@integer/gutter_width_percent" />
 
     <!-- Guttered content. -->
-    <LinearLayout
+    <com.android.deskclock.stopwatch.StopwatchLandscapeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="@integer/guttered_content_width_percent"
-        android:orientation="horizontal">
+        android:layout_weight="@integer/guttered_content_width_percent">
 
-        <!-- No circle in the stopwatch_view implies it should consume all remaining width. -->
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+        <!-- A circle in the stopwatch_view implies it should be sized in the remaining area. -->
+        <com.android.deskclock.TimerCircleFrameLayout
+            android:id="@+id/stopwatch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:paddingBottom="@dimen/fab_height">
 
             <include layout="@layout/stopwatch_view" />
 
-        </FrameLayout>
+        </com.android.deskclock.TimerCircleFrameLayout>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/laps_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:clipToPadding="false"
             android:paddingBottom="@dimen/fab_height" />
 
-    </LinearLayout>
+    </com.android.deskclock.stopwatch.StopwatchLandscapeLayout>
 
     <!-- Right gutter. -->
     <Space
