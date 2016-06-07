@@ -113,7 +113,7 @@
     <string name="C96" msgid="3995904432128369027">"<xliff:g id="SEPARATOR">=</xliff:g>Winnipeg<xliff:g id="TIMEZONE">|America/Winnipeg</xliff:g>"</string>
     <string name="C97" msgid="5667595440938233073">"<xliff:g id="SEPARATOR">=</xliff:g>Južný pól<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Antarctica/South_Pole</xliff:g>"</string>
     <string name="C98" msgid="2067640513126652156">"<xliff:g id="SEPARATOR">=</xliff:g>Longyearbyen<xliff:g id="TIMEZONE">|Arctic/Longyearbyen</xliff:g>"</string>
-    <string name="C99" msgid="6750041547603679548">"<xliff:g id="SEPARATOR">=</xliff:g>Alma-Ata<xliff:g id="TIMEZONE">|Asia/Almaty</xliff:g>"</string>
+    <string name="C99" msgid="6750041547603679548">"<xliff:g id="SEPARATOR">=</xliff:g>Almaty<xliff:g id="TIMEZONE">|Asia/Almaty</xliff:g>"</string>
     <string name="C100" msgid="5995329947852415813">"<xliff:g id="SEPARATOR">=</xliff:g>Ammán<xliff:g id="TIMEZONE">|Asia/Amman</xliff:g>"</string>
     <string name="C101" msgid="5760056604239047274">"<xliff:g id="SEPARATOR">=</xliff:g>Anadyr<xliff:g id="TIMEZONE">|Asia/Anadyr</xliff:g>"</string>
     <string name="C102" msgid="9000357065825182754">"<xliff:g id="SEPARATOR">=</xliff:g>Aktau<xliff:g id="TIMEZONE">|Asia/Aqtau</xliff:g>"</string>
@@ -122,7 +122,8 @@
     <string name="C105" msgid="1812915124794679606">"<xliff:g id="SEPARATOR">=</xliff:g>Baku<xliff:g id="TIMEZONE">|Asia/Baku</xliff:g>"</string>
     <string name="C106" msgid="1996684628612964988">"<xliff:g id="SEPARATOR">=</xliff:g>Bangkok<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
     <string name="C107" msgid="227554925153715426">"<xliff:g id="SEPARATOR">=</xliff:g>Bejrút<xliff:g id="TIMEZONE">|Asia/Beirut</xliff:g>"</string>
-    <string name="C108" msgid="5082419901681584844">"<xliff:g id="SEPARATOR">=</xliff:g>Kalkata<xliff:g id="TIMEZONE">|Asia/Calcutta</xliff:g>"</string>
+    <!-- no translation found for C108 (357033582615345158) -->
+    <skip />
     <string name="C109" msgid="6386566477244958752">"<xliff:g id="SEPARATOR">=</xliff:g>Damask<xliff:g id="TIMEZONE">|Asia/Damascus</xliff:g>"</string>
     <string name="C110" msgid="1165712058024165012">"<xliff:g id="SEPARATOR">=</xliff:g>Dháka<xliff:g id="TIMEZONE">|Asia/Dhaka</xliff:g>"</string>
     <string name="C111" msgid="5895260692253797547">"<xliff:g id="SEPARATOR">=</xliff:g>Dubaj<xliff:g id="TIMEZONE">|Asia/Dubai</xliff:g>"</string>
