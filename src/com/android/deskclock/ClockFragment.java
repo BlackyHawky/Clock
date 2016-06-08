@@ -78,6 +78,7 @@ public final class ClockFragment extends DeskClockFragment {
 
     private TextClock mDigitalClock;
     private View mAnalogClock, mClockFrame;
+    private View mHairline;
     private SelectedCitiesAdapter mCityAdapter;
     private ListView mCityList;
     private String mDateFormat;
@@ -120,8 +121,7 @@ public final class ClockFragment extends DeskClockFragment {
         if (mClockFrame == null) {
             mClockFrame = inflater.inflate(R.layout.main_clock_frame, mCityList, false);
             mCityList.addHeaderView(mClockFrame, null, false);
-            final View hairline = mClockFrame.findViewById(R.id.hairline);
-            hairline.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
+            mHairline = mClockFrame.findViewById(R.id.hairline);
         } else {
             final View hairline = mClockFrame.findViewById(R.id.hairline);
             hairline.setVisibility(GONE);
@@ -161,6 +161,11 @@ public final class ClockFragment extends DeskClockFragment {
         if (view != null && view.findViewById(R.id.main_clock_left_pane) != null) {
             // Center the main clock frame by hiding the world clocks when none are selected.
             mCityList.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
+        }
+
+        // In portrait, the hairline is shown only when the adapter contains cities.
+        if (mHairline != null) {
+            mHairline.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
         }
 
         refreshDates();
@@ -332,10 +337,12 @@ public final class ClockFragment extends DeskClockFragment {
 
         private final LayoutInflater mInflater;
         private final Context mContext;
+        private final boolean mIsLandscape;
 
         public SelectedCitiesAdapter(Context context) {
             mContext = context;
             mInflater = LayoutInflater.from(context);
+            mIsLandscape = Utils.isLandscape(context);
         }
 
         @Override
@@ -388,7 +395,7 @@ public final class ClockFragment extends DeskClockFragment {
             // Supply top and bottom padding dynamically.
             final Resources res = mContext.getResources();
             final int padding = res.getDimensionPixelSize(R.dimen.medium_space_top);
-            final int top = position == 0 ? 0 : padding;
+            final int top = position == 0 && mIsLandscape ? 0 : padding;
             final int left = view.getPaddingLeft();
             final int right = view.getPaddingRight();
             final int bottom = view.getPaddingBottom();
