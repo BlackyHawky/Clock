@@ -33,7 +33,6 @@ import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.stopwatch.StopwatchService;
-import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +47,7 @@ import static android.view.View.VISIBLE;
 class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilder {
 
     @Override
-    public Notification build(Context context, Stopwatch stopwatch) {
+    public Notification build(Context context, NotificationModel nm, Stopwatch stopwatch) {
         @StringRes final int eventLabel = R.string.label_notification;
 
         // Intent to load the app when the notification is tapped.
@@ -142,11 +141,12 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
                 .setContentIntent(pendingShowApp)
                 .setAutoCancel(stopwatch.isPaused())
                 .setPriority(Notification.PRIORITY_MAX)
-                .setColor(ContextCompat.getColor(context, R.color.default_background))
+                .setGroup(nm.getStopwatchNotificationGroupKey())
                 .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
                 .setStyle(new Notification.DecoratedCustomViewStyle())
                 .setDeleteIntent(Utils.pendingServiceIntent(context, reset))
                 .setActions(actions.toArray(new Notification.Action[actions.size()]))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .build();
     }
 }

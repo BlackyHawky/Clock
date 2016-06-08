@@ -46,7 +46,7 @@ import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
 
     @Override
-    public Notification build(Context context, List<Timer> unexpired) {
+    public Notification build(Context context, NotificationModel nm, List<Timer> unexpired) {
         final Timer timer = unexpired.get(0);
         final long remainingTime = timer.getRemainingTime();
 
@@ -130,11 +130,12 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
                 .setContentText(contentText)
                 .setContentTitle(contentTitle)
                 .setContentIntent(pendingShowApp)
-                .setColor(ContextCompat.getColor(context, R.color.default_background))
+                .setGroup(nm.getTimerNotificationGroupKey())
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
-                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC);
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setColor(ContextCompat.getColor(context, R.color.default_background));
 
         final PendingIntent action1 = Utils.pendingServiceIntent(context, firstActionIntent);
         final String action1Title = context.getString(firstActionTitleId);

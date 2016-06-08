@@ -227,7 +227,8 @@ final class StopwatchModel {
         }
 
         // Otherwise build and post a notification reflecting the latest stopwatch state.
-        final Notification notification = getNotificationBuilder().build(mContext, stopwatch);
+        final Notification notification =
+                getNotificationBuilder().build(mContext, mNotificationModel, stopwatch);
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }
 
@@ -267,9 +268,10 @@ final class StopwatchModel {
     public interface NotificationBuilder {
         /**
          * @param context a context to use for fetching resources
+         * @param nm from which notification data are fetched
          * @param stopwatch the stopwatch guaranteed to be running or paused
          * @return a notification reporting the state of the {@code stopwatch}
          */
-        Notification build(Context context, Stopwatch stopwatch);
+        Notification build(Context context, NotificationModel nm, Stopwatch stopwatch);
     }
 }

@@ -44,7 +44,7 @@ import static android.view.View.VISIBLE;
 class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBuilder {
 
     @Override
-    public Notification build(Context context, Stopwatch stopwatch) {
+    public Notification build(Context context, NotificationModel nm, Stopwatch stopwatch) {
         @StringRes final int eventLabel = R.string.label_notification;
 
         // Intent to load the app when the notification is tapped.
@@ -150,9 +150,10 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
                 .setContent(collapsed)
                 .setAutoCancel(stopwatch.isPaused())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setGroup(nm.getStopwatchNotificationGroupKey())
+                .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
                 .setDeleteIntent(Utils.pendingServiceIntent(context, reset))
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
-                .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
                 .build();
         notification.bigContentView = expanded;
         return notification;

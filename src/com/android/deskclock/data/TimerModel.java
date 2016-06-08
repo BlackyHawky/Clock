@@ -637,7 +637,8 @@ final class TimerModel {
         Collections.sort(unexpired, Timer.EXPIRY_COMPARATOR);
 
         // Otherwise build and post a notification reflecting the latest unexpired timers.
-        final Notification notification = getNotificationBuilder().build(mContext, unexpired);
+        final Notification notification =
+                getNotificationBuilder().build(mContext, mNotificationModel, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
         mNotificationManager.notify(notificationId, notification);
     }
@@ -721,10 +722,11 @@ final class TimerModel {
     public interface NotificationBuilder {
         /**
          * @param context a context to use for fetching resources
+         * @param nm from which notification data are fetched
          * @param unexpiredTimers all running and paused timers
          * @return a notification reporting the state of the {@code unexpiredTimers}
          */
-        Notification build(Context context, List<Timer> unexpiredTimers);
+        Notification build(Context context, NotificationModel nm, List<Timer> unexpiredTimers);
 
         /**
          * @param context a context to use for fetching resources
