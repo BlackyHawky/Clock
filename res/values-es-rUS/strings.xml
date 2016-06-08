@@ -105,7 +105,7 @@
       <item quantity="one">minuto</item>
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Subir el volumen de forma gradual"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"Desactivada"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"Desactivado"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> segundos"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"segundos"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Silenciar automáticamente"</string>
