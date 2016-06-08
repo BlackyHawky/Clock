@@ -96,7 +96,8 @@ public final class CitySelectionActivity extends BaseActivity {
 
         setContentView(R.layout.cities_activity);
         mSearchMenuItemController =
-                new SearchMenuItemController(this, new SearchView.OnQueryTextListener() {
+                new SearchMenuItemController(getSupportActionBar().getThemedContext(),
+                        new SearchView.OnQueryTextListener() {
                     @Override
                     public boolean onQueryTextSubmit(String query) {
                         return false;

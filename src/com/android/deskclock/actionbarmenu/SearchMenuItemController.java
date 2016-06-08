@@ -81,7 +81,6 @@ public final class SearchMenuItemController implements MenuItemController {
         searchView.setOnQueryTextListener(mQueryListener);
 
         menu.add(NONE, SEARCH_MENU_RES_ID, FIRST, android.R.string.search_go)
-                .setIcon(android.R.drawable.ic_menu_search)
                 .setActionView(searchView)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
