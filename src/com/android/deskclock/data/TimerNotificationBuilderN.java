@@ -47,7 +47,7 @@ import static android.text.format.DateUtils.SECOND_IN_MILLIS;
 class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
 
     @Override
-    public Notification build(Context context, List<Timer> unexpired) {
+    public Notification build(Context context, NotificationModel nm, List<Timer> unexpired) {
         final Timer timer = unexpired.get(0);
         final int count = unexpired.size();
 
@@ -155,11 +155,12 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
                 .setContentIntent(pendingShowApp)
                 .setPriority(Notification.PRIORITY_HIGH)
                 .setCategory(Notification.CATEGORY_ALARM)
-                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_timer)
+                .setGroup(nm.getTimerNotificationGroupKey())
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setStyle(new Notification.DecoratedCustomViewStyle())
                 .setActions(actions.toArray(new Notification.Action[actions.size()]))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .build();
     }
 
