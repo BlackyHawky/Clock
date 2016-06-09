@@ -122,8 +122,7 @@
     <string name="C105" msgid="1812915124794679606">"બ<xliff:g id="SEPARATOR">=</xliff:g>બાકુ<xliff:g id="TIMEZONE">|Asia/Baku</xliff:g>"</string>
     <string name="C106" msgid="1996684628612964988">"બ<xliff:g id="SEPARATOR">=</xliff:g>બેંગકોક<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
     <string name="C107" msgid="227554925153715426">"બ<xliff:g id="SEPARATOR">=</xliff:g>બૈરુત<xliff:g id="TIMEZONE">|Asia/Beirut</xliff:g>"</string>
-    <!-- no translation found for C108 (357033582615345158) -->
-    <skip />
+    <string name="C108" msgid="357033582615345158">"ક<xliff:g id="SEPARATOR">=</xliff:g>કલકત્તા<xliff:g id="TIMEZONE">|Asia/Calcutta</xliff:g>"</string>
     <string name="C109" msgid="6386566477244958752">"દ<xliff:g id="SEPARATOR">=</xliff:g>દમાસ્કસ<xliff:g id="TIMEZONE">|Asia/Damascus</xliff:g>"</string>
     <string name="C110" msgid="1165712058024165012">"ઢ<xliff:g id="SEPARATOR">=</xliff:g>ઢાકા<xliff:g id="TIMEZONE">|Asia/Dhaka</xliff:g>"</string>
     <string name="C111" msgid="5895260692253797547">"દ<xliff:g id="SEPARATOR">=</xliff:g>દુબઈ<xliff:g id="TIMEZONE">|Asia/Dubai</xliff:g>"</string>

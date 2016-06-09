@@ -122,8 +122,7 @@
     <string name="C105" msgid="1812915124794679606">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바쿠<xliff:g id="TIMEZONE">|Asia/Baku</xliff:g>"</string>
     <string name="C106" msgid="1996684628612964988">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>방콕<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
     <string name="C107" msgid="227554925153715426">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>베이루트<xliff:g id="TIMEZONE">|Asia/Beirut</xliff:g>"</string>
-    <!-- no translation found for C108 (357033582615345158) -->
-    <skip />
+    <string name="C108" msgid="357033582615345158">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>콜카타<xliff:g id="TIMEZONE">|Asia/Calcutta</xliff:g>"</string>
     <string name="C109" msgid="6386566477244958752">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>다마스쿠스<xliff:g id="TIMEZONE">|Asia/Damascus</xliff:g>"</string>
     <string name="C110" msgid="1165712058024165012">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>다카<xliff:g id="TIMEZONE">|Asia/Dhaka</xliff:g>"</string>
     <string name="C111" msgid="5895260692253797547">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>두바이<xliff:g id="TIMEZONE">|Asia/Dubai</xliff:g>"</string>
