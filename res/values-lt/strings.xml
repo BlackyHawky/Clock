@@ -88,16 +88,16 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> d.</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> valanda</item>
-      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> valandos</item>
-      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> valandos</item>
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> valandų</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> val.</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> val.</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> val.</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> val.</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minutė</item>
-      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> minutės</item>
-      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minutės</item>
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minučių</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Kasdien"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -107,16 +107,16 @@
     <string name="settings" msgid="5849739030579520686">"Nustatymai"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Snaudimo trukmė"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minutė</item>
-      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> minutės</item>
-      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> minutės</item>
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minučių</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> min.</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="one">minutė</item>
-      <item quantity="few">minutės</item>
-      <item quantity="many">minutės</item>
-      <item quantity="other">minučių</item>
+      <item quantity="one">min.</item>
+      <item quantity="few">min.</item>
+      <item quantity="many">min.</item>
+      <item quantity="other">min.</item>
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Tolygiai didinti garsumą"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"Išjungta"</string>
@@ -124,10 +124,10 @@
     <string name="crescendo_picker_label" msgid="7758024047003091056">"sek."</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Nutildyti po"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-      <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutė</item>
-      <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutės</item>
-      <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutės</item>
-      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minučių</item>
+      <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> min.</item>
+      <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> min.</item>
+      <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> min.</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> min.</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Niekada"</string>
   <string-array name="auto_silence_entries">
@@ -205,16 +205,16 @@
     <string name="sw_share_laps" msgid="614390674795945007">"Persidengiantis laikas:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g> ratas"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> valanda</item>
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> valandos</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> valandos</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> valandų</item>
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> val.</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> val.</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> val.</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> val.</item>
     </plurals>
     <plurals name="Nminutes_description" formatted="false" msgid="6373760365221990859">
-      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> minutė</item>
-      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> minutės</item>
-      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> minutės</item>
-      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minučių</item>
+      <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> min.</item>
+      <item quantity="few"><xliff:g id="NUMBER">%d</xliff:g> min.</item>
+      <item quantity="many"><xliff:g id="NUMBER">%d</xliff:g> min.</item>
+      <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> min.</item>
     </plurals>
     <plurals name="Nseconds_description" formatted="false" msgid="6456500168536594889">
       <item quantity="one"><xliff:g id="NUMBER">%d</xliff:g> sekundė</item>
