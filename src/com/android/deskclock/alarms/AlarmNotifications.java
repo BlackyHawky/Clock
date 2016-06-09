@@ -32,8 +32,22 @@ import com.android.deskclock.R;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public final class AlarmNotifications {
     public static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
+
+    /** Formats times such that chronological order and lexicographical order agree. */
+    private static final DateFormat SORT_KEY_FORMAT =
+            new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
+
+    /**
+     * This value is coordinated with group ids from
+     * {@link com.android.deskclock.data.NotificationModel}
+     */
+    private static final String GROUP_KEY = "1";
 
     public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
@@ -46,6 +60,8 @@ public final class AlarmNotifications {
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
+                .setGroup(GROUP_KEY)
+                .setSortKey(createSortKey(instance))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -86,8 +102,8 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setGroup(Integer.toString(instance.hashCode()))
-                .setGroupSummary(true)
+                .setGroup(GROUP_KEY)
+                .setSortKey(createSortKey(instance))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -122,6 +138,8 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
+                .setGroup(GROUP_KEY)
+                .setSortKey(createSortKey(instance))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -155,6 +173,8 @@ public final class AlarmNotifications {
                 .setContentText(instance.mLabel.isEmpty() ? alarmTime :
                         context.getString(R.string.alarm_missed_text, alarmTime, label))
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
+                .setGroup(GROUP_KEY)
+                .setSortKey(createSortKey(instance))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -272,5 +292,19 @@ public final class AlarmNotifications {
         return Alarm.createIntent(context, DeskClock.class, alarmId)
                 .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    /**
+     * Alarm notifications are sorted chronologically. Missed alarms are sorted chronologically
+     * <strong>after</strong> all upcoming/snoozed alarms by including the "MISSED" prefix on the
+     * sort key.
+     *
+     * @param instance the alarm instance for which the notification is generated
+     * @return the sort key that specifies the order of this alarm notification
+     */
+    private static String createSortKey(AlarmInstance instance) {
+        final String timeKey = SORT_KEY_FORMAT.format(instance.getAlarmTime().getTime());
+        final boolean missedAlarm = instance.mAlarmState == AlarmInstance.MISSED_STATE;
+        return missedAlarm ? ("MISSED " + timeKey) : timeKey;
     }
 }
