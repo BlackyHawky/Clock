@@ -124,10 +124,10 @@
     <string name="crescendo_picker_label" msgid="7758024047003091056">"s"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ztišit po"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
-      <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuty</item>
-      <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minuty</item>
-      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minut</item>
-      <item quantity="one">1 minuta</item>
+      <item quantity="few"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutách</item>
+      <item quantity="many"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutách</item>
+      <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutách</item>
+      <item quantity="one">1 minutě</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikdy"</string>
   <string-array name="auto_silence_entries">
