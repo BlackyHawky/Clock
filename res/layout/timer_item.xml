@@ -45,16 +45,36 @@
             android:src="@drawable/ic_label"
             android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
-        <ImageButton
-            android:id="@+id/reset_add"
-            android:layout_width="@dimen/fab_button_size"
-            android:layout_height="@dimen/fab_button_size"
-            android:layout_gravity="bottom|center_horizontal"
-            android:contentDescription="@string/timer_plus_one"
-            android:gravity="center"
-            android:padding="@dimen/fab_button_padding"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_plusone" />
+        <!-- Center the reset/add button on the third of the container above the delete button. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/reset_add"
+                    android:layout_width="@dimen/fab_button_size"
+                    android:layout_height="@dimen/fab_button_size"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/timer_plus_one"
+                    android:gravity="center"
+                    android:padding="@dimen/fab_button_padding"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/ic_plusone" />
+
+            </FrameLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+        </LinearLayout>
 
     </FrameLayout>
 
