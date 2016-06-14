@@ -96,7 +96,9 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private AlarmTimeClickHandler mAlarmTimeClickHandler;
     private LinearLayoutManager mLayoutManager;
 
-    /** The public no-arg constructor required by all fragments. */
+    /**
+     * The public no-arg constructor required by all fragments.
+     */
     public AlarmClockFragment() {
         super(ALARMS);
     }
@@ -151,6 +153,11 @@ public final class AlarmClockFragment extends DeskClockFragment implements
                         }
                         // Record the freshly expanded alarm.
                         mExpandedAlarmId = holder.itemId;
+                        final RecyclerView.ViewHolder viewHolder =
+                                mRecyclerView.findViewHolderForItemId(mExpandedAlarmId);
+                        if (viewHolder != null) {
+                            smoothScrollTo(viewHolder.getAdapterPosition());
+                        }
                     }
                 } else if (mExpandedAlarmId == holder.itemId) {
                     // The expanded alarm is now collapsed so update the tracking id.
@@ -217,7 +224,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
 
     @Override
     public void smoothScrollTo(int position) {
-        mLayoutManager.scrollToPositionWithOffset(position, 20);
+        mLayoutManager.scrollToPositionWithOffset(position, 0);
     }
 
     @Override
@@ -276,7 +283,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
      * Updates the adapters items, deferring the update until the current animation is finished or
      * if no animation is running then the listener will be automatically be invoked immediately.
      *
-     * @param items the new list of {@link AlarmItemHolder} to use
+     * @param items       the new list of {@link AlarmItemHolder} to use
      * @param updateToken a monotonically increasing value used to preserve ordering of deferred
      *                    updates
      */
