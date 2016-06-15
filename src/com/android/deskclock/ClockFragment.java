@@ -77,7 +77,9 @@ public final class ClockFragment extends DeskClockFragment {
     private String mDateFormat;
     private String mDateFormatForAccessibility;
 
-    /** The public no-arg constructor required by all fragments. */
+    /**
+     * The public no-arg constructor required by all fragments.
+     */
     public ClockFragment() {
         super(CLOCKS);
     }
@@ -211,7 +213,7 @@ public final class ClockFragment extends DeskClockFragment {
         if (mClockFrame != null) {
             Utils.refreshAlarm(getActivity(), mClockFrame);
         } else {
-           mCityAdapter.refreshAlarm();
+            mCityAdapter.refreshAlarm();
         }
     }
 
@@ -279,7 +281,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         @Override
         public void onLayoutChange(View v, int left, int top, int right, int bottom,
-                                   int oldLeft, int oldTop, int oldRight, int oldBottom) {
+                int oldLeft, int oldTop, int oldRight, int oldBottom) {
             setTabScrolledToTop(Utils.isScrolledToTop(mCityList));
         }
     }
@@ -302,7 +304,7 @@ public final class ClockFragment extends DeskClockFragment {
         private final String mDateFormatForAccessibility;
 
         public SelectedCitiesAdapter(Context context, String dateFormat,
-                                     String dateFormatForAccessibility) {
+                String dateFormatForAccessibility) {
             mContext = context;
             mDateFormat = dateFormat;
             mDateFormatForAccessibility = dateFormatForAccessibility;
@@ -323,9 +325,9 @@ public final class ClockFragment extends DeskClockFragment {
             final View view = mInflater.inflate(viewType, parent, false);
             switch (viewType) {
                 case WORLD_CLOCK:
-                    return new CityItemViewHolder(view);
+                    return new CityViewHolder(view);
                 case MAIN_CLOCK:
-                    return new MainClockItemViewHolder(view);
+                    return new MainClockViewHolder(view);
                 default:
                     throw new IllegalArgumentException("View type not recognized");
             }
@@ -342,17 +344,14 @@ public final class ClockFragment extends DeskClockFragment {
                     if (position == 1 && getShowHomeClock()) {
                         city = getHomeCity();
                     } else {
-                        final int positionAdjuster = (mIsPortrait ? 1 : 0) +
-                                (getShowHomeClock() ? 1 : 0);
+                        final int positionAdjuster = (mIsPortrait ? 1 : 0)
+                                + (getShowHomeClock() ? 1 : 0);
                         city = getCities().get(position - positionAdjuster);
                     }
-                    final Resources res = mContext.getResources();
-                    final int padding = res.getDimensionPixelSize(R.dimen.medium_space_top);
-                    final int top = position == 0 && !mIsPortrait ? 0 : padding;
-                    ((CityItemViewHolder) holder).bind(mContext, city, top);
+                    ((CityViewHolder) holder).bind(mContext, city, position, mIsPortrait);
                     break;
                 case MAIN_CLOCK:
-                    ((MainClockItemViewHolder) holder).bind(mContext, mDateFormat,
+                    ((MainClockViewHolder) holder).bind(mContext, mDateFormat,
                             mDateFormatForAccessibility, getItemCount() > 1);
                     break;
                 default:
@@ -386,85 +385,87 @@ public final class ClockFragment extends DeskClockFragment {
             }
         }
 
-        private static final class CityItemViewHolder extends RecyclerView.ViewHolder {
+        private static final class CityViewHolder extends RecyclerView.ViewHolder {
 
-            private final TextView name;
-            private final TextView cityDay;
-            private final TextClock digitalClock;
-            private final AnalogClock analogClock;
+            private final TextView mName;
+            private final TextView mCityDay;
+            private final TextClock mDigitalClock;
+            private final AnalogClock mAnalogClock;
 
-            private CityItemViewHolder(View itemView) {
+            private CityViewHolder(View itemView) {
                 super(itemView);
 
-                name = (TextView) itemView.findViewById(R.id.city_name);
-                cityDay = (TextView) itemView.findViewById(R.id.city_day);
-                digitalClock = (TextClock) itemView.findViewById(R.id.digital_clock);
-                analogClock = (AnalogClock) itemView.findViewById(R.id.analog_clock);
+                mName = (TextView) itemView.findViewById(R.id.city_name);
+                mCityDay = (TextView) itemView.findViewById(R.id.city_day);
+                mDigitalClock = (TextClock) itemView.findViewById(R.id.digital_clock);
+                mAnalogClock = (AnalogClock) itemView.findViewById(R.id.analog_clock);
             }
 
-            private void bind(Context context, City city, int top) {
+            private void bind(Context context, City city, int position, boolean isPortrait) {
                 // Configure the digital clock or analog clock depending on the user preference.
                 if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
-                    digitalClock.setVisibility(GONE);
-                    analogClock.setVisibility(VISIBLE);
-                    analogClock.setTimeZone(city.getTimeZone().getID());
-                    analogClock.enableSeconds(false);
+                    mDigitalClock.setVisibility(GONE);
+                    mAnalogClock.setVisibility(VISIBLE);
+                    mAnalogClock.setTimeZone(city.getTimeZone().getID());
+                    mAnalogClock.enableSeconds(false);
                 } else {
-                    analogClock.setVisibility(GONE);
-                    digitalClock.setVisibility(VISIBLE);
-                    digitalClock.setTimeZone(city.getTimeZone().getID());
-                    digitalClock.setFormat12Hour(Utils.get12ModeFormat(0.22f /* amPmRatio */));
-                    digitalClock.setFormat24Hour(Utils.get24ModeFormat());
+                    mAnalogClock.setVisibility(GONE);
+                    mDigitalClock.setVisibility(VISIBLE);
+                    mDigitalClock.setTimeZone(city.getTimeZone().getID());
+                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.22f /* amPmRatio */));
+                    mDigitalClock.setFormat24Hour(Utils.get24ModeFormat());
                 }
 
                 // Supply top and bottom padding dynamically.
                 final Resources res = context.getResources();
-                final View view = itemView;
                 final int padding = res.getDimensionPixelSize(R.dimen.medium_space_top);
-                final int left = view.getPaddingLeft();
-                final int right = view.getPaddingRight();
-                final int bottom = view.getPaddingBottom();
-                view.setPadding(left, top, right, bottom);
+                final int top = position == 0 && !isPortrait ? 0 : padding;
+                final int left = itemView.getPaddingLeft();
+                final int right = itemView.getPaddingRight();
+                final int bottom = itemView.getPaddingBottom();
+                itemView.setPadding(left, top, right, bottom);
 
                 // Bind the city name.
-                name.setText(city.getName());
+                mName.setText(city.getName());
 
                 // Compute if the city week day matches the weekday of the current timezone.
                 final Calendar localCal = Calendar.getInstance(TimeZone.getDefault());
                 final Calendar cityCal = Calendar.getInstance(city.getTimeZone());
-                final boolean displayDayOfWeek = localCal.get(DAY_OF_WEEK) != cityCal.get(DAY_OF_WEEK);
+                final boolean displayDayOfWeek =
+                        localCal.get(DAY_OF_WEEK) != cityCal.get(DAY_OF_WEEK);
 
                 // Bind the week day display.
-                cityDay.setVisibility(displayDayOfWeek ? VISIBLE : GONE);
+                mCityDay.setVisibility(displayDayOfWeek ? VISIBLE : GONE);
                 if (displayDayOfWeek) {
                     final Locale locale = Locale.getDefault();
-                    final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT, locale);
-                    cityDay.setText(context.getString(R.string.world_day_of_week_label, weekday));
+                    final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT,
+                            locale);
+                    mCityDay.setText(context.getString(R.string.world_day_of_week_label, weekday));
                 }
             }
         }
 
-        private static final class MainClockItemViewHolder extends RecyclerView.ViewHolder {
+        private static final class MainClockViewHolder extends RecyclerView.ViewHolder {
 
-            private final View hairline;
-            private final TextClock digitalClock;
-            private final AnalogClock analogClock;
+            private final View mHairline;
+            private final TextClock mDigitalClock;
+            private final AnalogClock mAnalogClock;
 
-            private MainClockItemViewHolder(View itemView) {
+            private MainClockViewHolder(View itemView) {
                 super(itemView);
 
-                hairline = itemView.findViewById(R.id.hairline);
-                digitalClock = (TextClock) itemView.findViewById(R.id.digital_clock);
-                analogClock = (AnalogClock) itemView.findViewById(R.id.analog_clock);
+                mHairline = itemView.findViewById(R.id.hairline);
+                mDigitalClock = (TextClock) itemView.findViewById(R.id.digital_clock);
+                mAnalogClock = (AnalogClock) itemView.findViewById(R.id.analog_clock);
             }
 
             private void bind(Context context, String dateFormat,
-                              String dateFormatForAccessibility, boolean showHairline) {
+                    String dateFormatForAccessibility, boolean showHairline) {
                 Utils.refreshAlarm(context, itemView);
-                Utils.setTimeFormat(digitalClock);
+                Utils.setTimeFormat(mDigitalClock);
                 Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
-                Utils.setClockStyle(digitalClock, analogClock);
-                hairline.setVisibility(showHairline ? VISIBLE : GONE);
+                Utils.setClockStyle(mDigitalClock, mAnalogClock);
+                mHairline.setVisibility(showHairline ? VISIBLE : GONE);
             }
         }
     }
