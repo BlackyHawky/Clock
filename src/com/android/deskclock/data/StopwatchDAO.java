@@ -40,6 +40,9 @@ final class StopwatchDAO {
     /** Key to a preference that stores the last start time of the stopwatch. */
     private static final String LAST_START_TIME = "sw_start_time";
 
+    /** Key to a preference that stores the epoch time when the stopwatch last started. */
+    private static final String LAST_WALL_CLOCK_TIME = "sw_wall_clock_time";
+
     /** Key to a preference that stores the accumulated elapsed time of the stopwatch. */
     private static final String ACCUMULATED_TIME = "sw_accum_time";
 
@@ -58,9 +61,10 @@ final class StopwatchDAO {
         final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final int stateIndex = prefs.getInt(STATE, RESET.ordinal());
         final State state = State.values()[stateIndex];
-        final long lastStartTime = prefs.getLong(LAST_START_TIME, Long.MIN_VALUE);
+        final long lastStartTime = prefs.getLong(LAST_START_TIME, Stopwatch.UNUSED);
+        final long lastWallClockTime = prefs.getLong(LAST_WALL_CLOCK_TIME, Stopwatch.UNUSED);
         final long accumulatedTime = prefs.getLong(ACCUMULATED_TIME, 0);
-        return new Stopwatch(state, lastStartTime, accumulatedTime);
+        return new Stopwatch(state, lastStartTime, lastWallClockTime, accumulatedTime);
     }
 
     /**
@@ -73,10 +77,12 @@ final class StopwatchDAO {
         if (stopwatch.isReset()) {
             editor.remove(STATE)
                     .remove(LAST_START_TIME)
+                    .remove(LAST_WALL_CLOCK_TIME)
                     .remove(ACCUMULATED_TIME);
         } else {
             editor.putInt(STATE, stopwatch.getState().ordinal())
                     .putLong(LAST_START_TIME, stopwatch.getLastStartTime())
+                    .putLong(LAST_WALL_CLOCK_TIME, stopwatch.getLastWallClockTime())
                     .putLong(ACCUMULATED_TIME, stopwatch.getAccumulatedTime());
         }
 

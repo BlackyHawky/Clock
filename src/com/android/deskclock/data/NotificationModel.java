@@ -62,8 +62,15 @@ final class NotificationModel {
         return Integer.MAX_VALUE - 3;
     }
 
+    /**
+     * @return a value that identifies the notification for missed timers
+     */
+    int getMissedTimerNotificationId() {
+        return Integer.MAX_VALUE - 4;
+    }
+
     //
-    // Notification Group IDs
+    // Notification Group keys
     //
 
     /**
@@ -78,5 +85,23 @@ final class NotificationModel {
      */
     String getTimerNotificationGroupKey() {
         return "2";
+    }
+
+    //
+    // Notification Sort keys
+    //
+
+    /**
+     * @return the sort key for the timer notification
+     */
+    String getTimerNotificationSortKey() {
+        return "0";
+    }
+
+    /**
+     * @return the sort key for the missed timer notification
+     */
+    String getTimerNotificationMissedSortKey() {
+        return "1";
     }
 }

@@ -21,6 +21,8 @@ import android.os.SystemClock;
 
 import com.android.deskclock.provider.ClockContract;
 
+import static com.android.deskclock.Utils.now;
+import static com.android.deskclock.Utils.wallClock;
 import static com.android.deskclock.data.Stopwatch.State.PAUSED;
 import static com.android.deskclock.data.Stopwatch.State.RESET;
 import static com.android.deskclock.data.Stopwatch.State.RUNNING;
@@ -38,21 +40,27 @@ public final class Stopwatch {
     public static final Uri CONTENT_URI =
             Uri.parse("content://" + ClockContract.AUTHORITY + "/stopwatch");
 
+    static final long UNUSED = Long.MIN_VALUE;
+
     /** The single, immutable instance of a reset stopwatch. */
-    private static final Stopwatch RESET_STOPWATCH = new Stopwatch(RESET, Long.MIN_VALUE, 0);
+    private static final Stopwatch RESET_STOPWATCH = new Stopwatch(RESET, UNUSED, UNUSED, 0);
 
     /** Current state of this stopwatch. */
     private final State mState;
 
-    /** Elapsed time in ms the stopwatch was last started; {@link Long#MIN_VALUE} if not running. */
+    /** Elapsed time in ms the stopwatch was last started; {@link #UNUSED} if not running. */
     private final long mLastStartTime;
+
+    /** The time since epoch at which the stopwatch was last started. */
+    private final long mLastStartWallClockTime;
 
     /** Elapsed time in ms this stopwatch has accumulated while running. */
     private final long mAccumulatedTime;
 
-    Stopwatch(State state, long lastStartTime, long accumulatedTime) {
+    Stopwatch(State state, long lastStartTime, long lastWallClockTime, long accumulatedTime) {
         mState = state;
         mLastStartTime = lastStartTime;
+        mLastStartWallClockTime = lastWallClockTime;
         mAccumulatedTime = accumulatedTime;
     }
 
@@ -62,6 +70,7 @@ public final class Stopwatch {
 
     public State getState() { return mState; }
     public long getLastStartTime() { return mLastStartTime; }
+    public long getLastWallClockTime() { return mLastStartWallClockTime; }
     public boolean isReset() { return mState == RESET; }
     public boolean isPaused() { return mState == PAUSED; }
     public boolean isRunning() { return mState == RUNNING; }
@@ -96,7 +105,7 @@ public final class Stopwatch {
             return this;
         }
 
-        return new Stopwatch(RUNNING, now(), getTotalTime());
+        return new Stopwatch(RUNNING, now(), wallClock(), getTotalTime());
     }
 
     /**
@@ -107,7 +116,7 @@ public final class Stopwatch {
             return this;
         }
 
-        return new Stopwatch(PAUSED, Long.MIN_VALUE, getTotalTime());
+        return new Stopwatch(PAUSED, UNUSED, UNUSED, getTotalTime());
     }
 
     /**
@@ -117,7 +126,24 @@ public final class Stopwatch {
         return RESET_STOPWATCH;
     }
 
-    private static long now() {
-        return SystemClock.elapsedRealtime();
+    Stopwatch updateAfterReboot() {
+        if (mState != RUNNING) {
+            return this;
+        }
+        final long timeSinceBoot = now();
+        final long wallClockTime = wallClock();
+        final long delta = wallClockTime - mLastStartWallClockTime;
+        return new Stopwatch(mState, timeSinceBoot, wallClockTime, mAccumulatedTime + delta);
     }
+
+    Stopwatch updateAfterTimeSet() {
+        if (mState != RUNNING) {
+            return this;
+        }
+        final long timeSinceBoot = now();
+        final long wallClockTime = wallClock();
+        final long delta = timeSinceBoot - mLastStartTime;
+        return new Stopwatch(mState, timeSinceBoot, wallClockTime, mAccumulatedTime + delta);
+    }
+
 }

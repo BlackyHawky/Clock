@@ -157,6 +157,7 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
                 .setCategory(Notification.CATEGORY_ALARM)
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setGroup(nm.getTimerNotificationGroupKey())
+                .setSortKey(nm.getTimerNotificationSortKey())
                 .setVisibility(Notification.VISIBILITY_PUBLIC)
                 .setStyle(new Notification.DecoratedCustomViewStyle())
                 .setActions(actions.toArray(new Notification.Action[actions.size()]))
@@ -230,11 +231,89 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
                 .setCustomContentView(contentView)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setDefaults(Notification.DEFAULT_LIGHTS)
-                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setFullScreenIntent(pendingFullScreen, true)
                 .setStyle(new Notification.DecoratedCustomViewStyle())
                 .setActions(actions.toArray(new Notification.Action[actions.size()]))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
+                .build();
+    }
+
+    @Override
+    public Notification buildMissed(Context context, NotificationModel nm,
+            List<Timer> missedTimers) {
+        final Timer timer = missedTimers.get(0);
+        final int count = missedTimers.size();
+
+        // Compute some values required below.
+        final long base = getChronometerBase(timer);
+        final String pName = context.getPackageName();
+        final Resources res = context.getResources();
+
+        final RemoteViews content = new RemoteViews(pName, R.layout.chronometer_notif_content);
+        content.setChronometerCountDown(R.id.chronometer, true);
+        content.setChronometer(R.id.chronometer, base, null, true);
+
+        final List<Notification.Action> actions = new ArrayList<>(1);
+
+        final CharSequence stateText;
+        if (count == 1) {
+            // Single timer is missed.
+            if (TextUtils.isEmpty(timer.getLabel())) {
+                stateText = res.getString(R.string.missed_timer_notification_label);
+            } else {
+                stateText = res.getString(R.string.missed_named_timer_notification_label,
+                        timer.getLabel());
+            }
+
+            // Reset button
+            final Intent reset = new Intent(context, TimerService.class)
+                    .setAction(HandleDeskClockApiCalls.ACTION_RESET_TIMER)
+                    .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
+
+            final Icon icon1 = Icon.createWithResource(context, R.drawable.ic_reset_24dp);
+            final CharSequence title1 = res.getText(R.string.timer_reset);
+            final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
+            actions.add(new Notification.Action.Builder(icon1, title1, intent1).build());
+        } else {
+            // Multiple missed timers.
+            stateText = res.getString(R.string.timer_multi_missed, count);
+
+            final Intent reset = TimerService.createResetMissedTimersIntent(context);
+
+            final Icon icon1 = Icon.createWithResource(context, R.drawable.ic_reset_24dp);
+            final CharSequence title1 = res.getText(R.string.timer_reset_all);
+            final PendingIntent intent1 = Utils.pendingServiceIntent(context, reset);
+            actions.add(new Notification.Action.Builder(icon1, title1, intent1).build());
+        }
+
+        content.setTextViewText(R.id.state, stateText);
+
+        // Intent to load the app and show the timer when the notification is tapped.
+        final Intent showApp = new Intent(context, HandleDeskClockApiCalls.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .setAction(HandleDeskClockApiCalls.ACTION_SHOW_TIMERS)
+                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
+                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_notification);
+
+        final PendingIntent pendingShowApp = PendingIntent.getActivity(context, 0, showApp,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+
+        return new Notification.Builder(context)
+                .setLocalOnly(true)
+                .setShowWhen(false)
+                .setAutoCancel(false)
+                .setCustomContentView(content)
+                .setContentIntent(pendingShowApp)
+                .setPriority(Notification.PRIORITY_HIGH)
+                .setCategory(Notification.CATEGORY_ALARM)
+                .setSmallIcon(R.drawable.stat_notify_timer)
+                .setGroup(nm.getTimerNotificationGroupKey())
+                .setVisibility(Notification.VISIBILITY_PUBLIC)
+                .setSortKey(nm.getTimerNotificationMissedSortKey())
+                .setStyle(new Notification.DecoratedCustomViewStyle())
+                .setActions(actions.toArray(new Notification.Action[actions.size()]))
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .build();
     }
 

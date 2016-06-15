@@ -130,8 +130,9 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
                 .setContentText(contentText)
                 .setContentTitle(contentTitle)
                 .setContentIntent(pendingShowApp)
-                .setGroup(nm.getTimerNotificationGroupKey())
                 .setSmallIcon(R.drawable.stat_notify_timer)
+                .setGroup(nm.getTimerNotificationGroupKey())
+                .setSortKey(nm.getTimerNotificationSortKey())
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -219,12 +220,12 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
                 .setContentText(contentText)
                 .setContentTitle(contentTitle)
                 .setContentIntent(pendingContent)
-                .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setFullScreenIntent(pendingFullScreen, true)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setDefaults(NotificationCompat.DEFAULT_LIGHTS)
-                .addAction(R.drawable.ic_stop_24dp, resetActionTitle, pendingReset);
+                .addAction(R.drawable.ic_stop_24dp, resetActionTitle, pendingReset)
+                .setColor(ContextCompat.getColor(context, R.color.default_background));
 
         // Add a second action if only a single timer is expired.
         if (count == 1) {
@@ -234,6 +235,87 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
             final String addMinuteTitle = context.getString(R.string.timer_plus_1_min);
             builder.addAction(R.drawable.ic_add_24dp, addMinuteTitle, pendingAddMinute);
         }
+
+        return builder.build();
+    }
+
+    @Override
+    public Notification buildMissed(Context context, NotificationModel nm,
+                                    List<Timer> missedTimers) {
+        final Timer timer = missedTimers.get(0);
+        final long remainingTime = timer.getRemainingTime();
+
+        // Generate a title, and some actions based on timer states.
+        final String contentTitle;
+        final String contentText;
+        @DrawableRes int firstActionIconId = 0;
+        @StringRes int firstActionTitleId = 0;
+        Intent firstActionIntent = null;
+
+        if (missedTimers.size() == 1) {
+            // Single timer is missed.
+            contentText = formatElapsedTimeMissedBy(context, remainingTime);
+            if (TextUtils.isEmpty(timer.getLabel())) {
+                contentTitle = context.getString(R.string.missed_timer_notification_label);
+            } else {
+                contentTitle = context.getString(R.string.missed_named_timer_notification_label,
+                        timer.getLabel());
+            }
+
+            firstActionIconId = R.drawable.ic_reset_24dp;
+            firstActionTitleId = R.string.timer_reset;
+            firstActionIntent = new Intent(context, TimerService.class)
+                    .setAction(HandleDeskClockApiCalls.ACTION_RESET_TIMER)
+                    .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
+        } else {
+            // Multiple missed timers.
+            contentText = formatElapsedTimeMissedBy(context, remainingTime);
+            contentTitle = context.getString(R.string.timer_multi_missed, missedTimers.size());
+
+            firstActionIconId = R.drawable.ic_reset_24dp;
+            firstActionTitleId = R.string.timer_reset_all;
+            firstActionIntent = TimerService.createResetMissedTimersIntent(context);
+        }
+
+        // Intent to load the app and show the timer when the notification is tapped.
+        final Intent showApp = new Intent(context, HandleDeskClockApiCalls.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .setAction(HandleDeskClockApiCalls.ACTION_SHOW_TIMERS)
+                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
+                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_notification);
+
+        final PendingIntent pendingShowApp = PendingIntent.getActivity(context, 0, showApp,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                .setLocalOnly(true)
+                .setShowWhen(false)
+                .setAutoCancel(false)
+                .setContentText(contentText)
+                .setContentTitle(contentTitle)
+                .setContentIntent(pendingShowApp)
+                .setSmallIcon(R.drawable.stat_notify_timer)
+                .setGroup(nm.getTimerNotificationGroupKey())
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setSortKey(nm.getTimerNotificationMissedSortKey())
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setColor(ContextCompat.getColor(context, R.color.default_background));
+
+        final PendingIntent action1 = Utils.pendingServiceIntent(context, firstActionIntent);
+        final String action1Title = context.getString(firstActionTitleId);
+        builder.addAction(firstActionIconId, action1Title, action1);
+
+        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        final Intent updateNotification =
+                TimerService.createUpdateMissedNotificationIntent(context);
+        // Schedule a callback to update the time-sensitive information of the missed timer.
+        final PendingIntent pi = PendingIntent.getService(context, 0, updateNotification,
+                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+
+        final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
+        final long triggerTime = SystemClock.elapsedRealtime() + nextMinuteChange;
+        TimerModel.schedulePendingIntent(am, triggerTime, pi);
 
         return builder.build();
     }
@@ -270,5 +352,34 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
             formatStringId = R.string.timer_notifications_less_min;
         }
         return String.format(context.getString(formatStringId), hourSeq, minSeq, verb);
+    }
+
+    /**
+     * Format "7 hours 52 minutes ago"
+     */
+    @VisibleForTesting
+    static String formatElapsedTimeMissedBy(Context context, long missedByTime) {
+        final int hours = (int) -missedByTime / (int) HOUR_IN_MILLIS;
+        final int minutes = (int) -missedByTime / ((int) MINUTE_IN_MILLIS) % 60;
+
+        String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, minutes);
+        String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hours);
+
+        final boolean showHours = hours > 0;
+        final boolean showMinutes = minutes > 0;
+
+        int formatStringId;
+        if (showHours) {
+            if (showMinutes) {
+                formatStringId = R.string.timer_notifications_missed_hours_minutes;
+            } else {
+                formatStringId = R.string.timer_notifications_missed_hours;
+            }
+        } else if (showMinutes) {
+            formatStringId = R.string.timer_notifications_missed_minutes;
+        } else {
+            formatStringId = R.string.timer_notifications_missed_less_min;
+        }
+        return String.format(context.getString(formatStringId), hourSeq, minSeq);
     }
 }

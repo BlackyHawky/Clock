@@ -124,6 +124,15 @@
     <string name="timer_notifications_minutes"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> remaining</string>
 
+    <!-- Timer notification: how long ago a timer was missed. [CHAR LIMIT=30] -->
+    <string name="timer_notifications_missed_less_min">Less than a minute ago</string>
+    <!-- Timer notification: how long ago a timer was missed. [CHAR LIMIT=30] -->
+    <string name="timer_notifications_missed_hours"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> ago</string>
+    <!-- Timer notification: how long ago a timer was missed. [CHAR LIMIT=30] -->
+    <string name="timer_notifications_missed_minutes"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> ago</string>
+    <!-- Timer notification: how long ago a timer was missed. [CHAR LIMIT=30] -->
+    <string name="timer_notifications_missed_hours_minutes"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> ago</string>
+
     <!--
         Verb inflection to use for single time units remaining
         Ex. "1 minute remaining"
@@ -448,8 +457,17 @@
         remaining. Arg is the number of timers. [CHAR LIMIT=25]
     -->
     <string name="timer_multi_times_up"><xliff:g id="NUM_TIMERS" example="2">%d</xliff:g> timers expired</string>
+    <!--
+        Notification content shown when multiple timers have been missed. Arg is the number of
+        timers. [CHAR LIMIT=25]
+    -->
+    <string name="timer_multi_missed"><xliff:g id="number" example="2">%d</xliff:g> timers missed</string>
     <!-- Label associated with a notification for a Timer -->
     <string name="timer_notification_label">Timer</string>
+    <!-- Label associated with a notification for a missed Timer. [CHAR LIMIT=30] -->
+    <string name="missed_timer_notification_label">Missed timer</string>
+    <!-- Label associated with a notification for a missed named Timer. [CHAR LIMIT=NONE] -->
+    <string name="missed_named_timer_notification_label">Missed timer: <xliff:g id="name" example="Pick up kids">%s</xliff:g></string>
     <!-- Describes the purpose of the notification button to pause the timer. [CHAR LIMIT=15] -->
     <string name="timer_pause">Pause</string>
     <!-- Describes the purpose of the notification button to reset all running timers. [CHAR LIMIT=31] -->

@@ -81,7 +81,7 @@ public class TimerItem extends LinearLayout {
         // Update visibility of things that may blink.
         final boolean blinkOff = SystemClock.elapsedRealtime() % 1000 < 500;
         if (mCircleView != null) {
-            final boolean hideCircle = timer.isExpired() && blinkOff;
+            final boolean hideCircle = (timer.isExpired() || timer.isMissed()) && blinkOff;
             mCircleView.setVisibility(hideCircle ? INVISIBLE : VISIBLE);
 
             if (!hideCircle) {
@@ -116,6 +116,7 @@ public class TimerItem extends LinearLayout {
                     mTimerText.setTimeStrTextColor(false, true);
                     break;
                 }
+                case MISSED:
                 case EXPIRED: {
                     final String addTimeDesc = getResources().getString(R.string.timer_plus_one);
                     mResetAddButton.setImageResource(R.drawable.ic_plusone);

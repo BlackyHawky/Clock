@@ -54,6 +54,9 @@ final class TimerDAO {
     /** Prefix for a key to a preference that stores the last start time of the timer. */
     private static final String LAST_START_TIME = "timer_start_time_";
 
+    /** Prefix for a key to a preference that stores the epoch time when the timer last started. */
+    private static final String LAST_WALL_CLOCK_TIME = "timer_wall_clock_time_";
+
     /** Prefix for a key to a preference that stores the remaining time before expiry. */
     private static final String REMAINING_TIME = "timer_time_left_";
 
@@ -86,12 +89,14 @@ final class TimerDAO {
             if (state != null) {
                 final long length = prefs.getLong(LENGTH + id, Long.MIN_VALUE);
                 final long totalLength = prefs.getLong(TOTAL_LENGTH + id, Long.MIN_VALUE);
-                final long lastStartTime = prefs.getLong(LAST_START_TIME + id, Long.MIN_VALUE);
+                final long lastStartTime = prefs.getLong(LAST_START_TIME + id, Timer.UNUSED);
+                final long lastWallClockTime = prefs.getLong(LAST_WALL_CLOCK_TIME + id,
+                        Timer.UNUSED);
                 final long remainingTime = prefs.getLong(REMAINING_TIME + id, totalLength);
                 final String label = prefs.getString(LABEL + id, null);
                 final boolean deleteAfterUse = prefs.getBoolean(DELETE_AFTER_USE + id, false);
-                timers.add(new Timer(id, state, length, totalLength, lastStartTime, remainingTime,
-                        label, deleteAfterUse));
+                timers.add(new Timer(id, state, length, totalLength, lastStartTime,
+                        lastWallClockTime, remainingTime, label, deleteAfterUse));
             }
         }
 
@@ -119,6 +124,7 @@ final class TimerDAO {
         editor.putLong(LENGTH + id, timer.getLength());
         editor.putLong(TOTAL_LENGTH + id, timer.getTotalLength());
         editor.putLong(LAST_START_TIME + id, timer.getLastStartTime());
+        editor.putLong(LAST_WALL_CLOCK_TIME + id, timer.getLastWallClockTime());
         editor.putLong(REMAINING_TIME + id, timer.getRemainingTime());
         editor.putString(LABEL + id, timer.getLabel());
         editor.putBoolean(DELETE_AFTER_USE + id, timer.getDeleteAfterUse());
@@ -127,8 +133,8 @@ final class TimerDAO {
 
         // Return a new timer with the generated timer id present.
         return new Timer(id, timer.getState(), timer.getLength(), timer.getTotalLength(),
-                timer.getLastStartTime(), timer.getRemainingTime(), timer.getLabel(),
-                timer.getDeleteAfterUse());
+                timer.getLastStartTime(), timer.getLastWallClockTime(), timer.getRemainingTime(),
+                timer.getLabel(), timer.getDeleteAfterUse());
     }
 
     /**
@@ -144,6 +150,7 @@ final class TimerDAO {
         editor.putLong(LENGTH + id, timer.getLength());
         editor.putLong(TOTAL_LENGTH + id, timer.getTotalLength());
         editor.putLong(LAST_START_TIME + id, timer.getLastStartTime());
+        editor.putLong(LAST_WALL_CLOCK_TIME + id, timer.getLastWallClockTime());
         editor.putLong(REMAINING_TIME + id, timer.getRemainingTime());
         editor.putString(LABEL + id, timer.getLabel());
         editor.putBoolean(DELETE_AFTER_USE + id, timer.getDeleteAfterUse());
@@ -175,6 +182,7 @@ final class TimerDAO {
         editor.remove(LENGTH + id);
         editor.remove(TOTAL_LENGTH + id);
         editor.remove(LAST_START_TIME + id);
+        editor.remove(LAST_WALL_CLOCK_TIME + id);
         editor.remove(REMAINING_TIME + id);
         editor.remove(LABEL + id);
         editor.remove(DELETE_AFTER_USE + id);
