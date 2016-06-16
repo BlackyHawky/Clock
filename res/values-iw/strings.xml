@@ -30,7 +30,7 @@
     <string name="label" msgid="162189613902857319">"תווית"</string>
     <string name="on_switch" msgid="2297966258029227449">"פועל"</string>
     <string name="off_switch" msgid="3381070073851148013">"כבוי"</string>
-    <string name="default_label" msgid="5590025289805630372">"התראה"</string>
+    <string name="default_label" msgid="5590025289805630372">"שעון מעורר"</string>
     <string name="set_alarm" msgid="9148359866152726808">"הגדר צלצול"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"רטט"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"חוזר"</string>
@@ -175,7 +175,7 @@
     <string name="loading_ringtone" msgid="6523322777415268044">"טוען צלצול..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"שירות השמעת צלילים עבור טיימרים שהוגדרו ב\'שעון\'."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"הגדר צלצול"</string>
-    <string name="menu_alarm" msgid="4772010125376647519">"התראה"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"שעון מעורר"</string>
     <string name="menu_timer" msgid="6459070074762877114">"טיימר"</string>
     <string name="menu_clock" msgid="5612760670606829805">"שעון"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"שעון עצר"</string>
@@ -233,7 +233,7 @@
     <string name="timer_reset" msgid="7848424809190171640">"אפס"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"בטל"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"הטיימר בוטל"</string>
-    <string name="timer_times_up" msgid="9190440395938519009">"הזמן נגמר"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"נגמר הזמן"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"הפעולה של <xliff:g id="NUM_TIMERS">%d</xliff:g> טיימרים הושלמה"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"טיימר"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"4 טיימרים לכל היותר"</string>

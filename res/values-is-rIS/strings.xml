@@ -86,7 +86,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> klukkustundir</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> mínúta</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> mínútu</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> mínútur</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Alla daga"</string>
@@ -125,9 +125,9 @@
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Vikan hefst á"</string>
   <string-array name="week_start_entries">
-    <item msgid="9010198173394482639">"laugardegi"</item>
-    <item msgid="3993530639455360921">"sunnudegi"</item>
-    <item msgid="8594709368683324282">"mánudegi"</item>
+    <item msgid="9010198173394482639">"Laugardegi"</item>
+    <item msgid="3993530639455360921">"Sunnudegi"</item>
+    <item msgid="8594709368683324282">"Mánudegi"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Lokið"</string>
     <string name="revert" msgid="9100911171235162926">"Snúa í fyrra horf"</string>
@@ -175,8 +175,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Halda áfram"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Endurstilla"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Byrja"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
+    <string name="sw_pause_button" msgid="2422084453454138042">"Gera hlé"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Millitími"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Deila"</string>
     <string name="hours_label" msgid="3393478155635368097">"k"</string>
