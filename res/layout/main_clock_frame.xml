@@ -18,47 +18,66 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:gravity="center_horizontal">
 
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+    <!-- Left gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/gutter_width_percent" />
 
-        <com.android.deskclock.AnalogClock
-            android:id="@+id/analog_clock"
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="@integer/guttered_content_width_percent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/bottom_text_spacing_analog"
-            android:layout_marginEnd="@dimen/analog_clock_margin"
-            android:layout_marginLeft="@dimen/analog_clock_margin"
-            android:layout_marginRight="@dimen/analog_clock_margin"
-            android:layout_marginStart="@dimen/analog_clock_margin"
-            android:layout_marginTop="@dimen/circle_margin_top"
-            android:dial="@drawable/clock_analog_dial_mipmap"
-            android:hand_hour="@drawable/clock_analog_hour_mipmap"
-            android:hand_minute="@drawable/clock_analog_minute_mipmap" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-        <TextClock
-            android:id="@+id/digital_clock"
-            style="@style/big_thin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:ellipsize="none"
-            android:singleLine="true"
-            android:textColor="@color/clock_white"
-            android:textSize="@dimen/main_clock_font_size" />
+            <com.android.deskclock.AnalogClock
+                android:id="@+id/analog_clock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/bottom_text_spacing_analog"
+                android:layout_marginEnd="@dimen/analog_clock_margin"
+                android:layout_marginLeft="@dimen/analog_clock_margin"
+                android:layout_marginRight="@dimen/analog_clock_margin"
+                android:layout_marginStart="@dimen/analog_clock_margin"
+                android:layout_marginTop="@dimen/circle_margin_top"
+                android:dial="@drawable/clock_analog_dial_mipmap"
+                android:hand_hour="@drawable/clock_analog_hour_mipmap"
+                android:hand_minute="@drawable/clock_analog_minute_mipmap" />
 
-    </FrameLayout>
+            <TextClock
+                android:id="@+id/digital_clock"
+                style="@style/big_thin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="none"
+                android:singleLine="true"
+                android:textColor="@color/clock_white"
+                android:textSize="@dimen/main_clock_font_size" />
 
-    <include layout="@layout/date_and_next_alarm_time" />
+        </FrameLayout>
 
-    <View
-        android:id="@+id/hairline"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/hairline_height"
-        android:layout_marginTop="24dp"
-        android:background="@color/hairline" />
+        <include layout="@layout/date_and_next_alarm_time" />
+
+        <View
+            android:id="@+id/hairline"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/hairline_height"
+            android:layout_marginTop="24dp"
+            android:background="@color/hairline" />
+    </LinearLayout>
+
+    <!-- Right gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/gutter_width_percent" />
 
 </LinearLayout>

@@ -19,26 +19,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Left gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
-
-    <!-- Guttered content. -->
+    <!-- Guttered content. Gutters are applied in world_clock_item and main_clock_frame. -->
     <ListView
         android:id="@+id/cities"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="@integer/guttered_content_width_percent"
+        android:layout_weight="1"
         android:clickable="false"
         android:clipToPadding="false"
-        android:paddingBottom="@dimen/fab_height" />
-
-    <!-- Right gutter. -->
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="@integer/gutter_width_percent" />
+        android:paddingBottom="@dimen/fab_height"
+        android:scrollbarStyle="outsideOverlay" />
 
 </LinearLayout>
