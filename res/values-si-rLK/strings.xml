@@ -49,6 +49,14 @@
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>ක් ඉතිරිව ඇත"</string>
+    <!-- no translation found for timer_notifications_missed_less_min (8519097741068939429) -->
+    <skip />
+    <!-- no translation found for timer_notifications_missed_hours (3040400788095447215) -->
+    <skip />
+    <!-- no translation found for timer_notifications_missed_minutes (96802155255511315) -->
+    <skip />
+    <!-- no translation found for timer_notifications_missed_hours_minutes (1354376754583759556) -->
+    <skip />
     <string name="timer_remaining_single" msgid="6782851171906765864">"ඉතිරිව ඇත"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"ඉතිරිව ඇත"</string>
   <string-array name="alarm_set">
@@ -181,7 +189,13 @@
     <string name="timer_canceled" msgid="7327923392567128060">"කාල ගණකය අවලංගු කරන ලදී"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"වෙලාව ඉවරයි"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"ටයිමර <xliff:g id="NUM_TIMERS">%d</xliff:g> ක් කල් ඉකුත් වුණි"</string>
+    <!-- no translation found for timer_multi_missed (9085073572920385362) -->
+    <skip />
     <string name="timer_notification_label" msgid="4933184831583137249">"කාල ගණනය"</string>
+    <!-- no translation found for missed_timer_notification_label (6661928727623284334) -->
+    <skip />
+    <!-- no translation found for missed_named_timer_notification_label (665604640028289175) -->
+    <skip />
     <string name="timer_pause" msgid="3748323712728398743">"විරාමය"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"සියලු කාල ගණක යළි සකසන්න"</string>
   <string-array name="sw_share_strings">
