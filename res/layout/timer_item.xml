@@ -17,6 +17,7 @@
 <!-- This TimerItem discards the circle because space is limited. -->
 <com.android.deskclock.timer.TimerItem
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -42,7 +43,6 @@
             android:gravity="center"
             android:hint="@string/label"
             android:maxLines="1"
-            android:src="@drawable/ic_label"
             android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
         <!-- Center the reset/add button on the third of the container above the delete button. -->
@@ -65,7 +65,7 @@
                     android:gravity="center"
                     android:padding="@dimen/fab_button_padding"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_plusone" />
+                    app:srcCompat="@drawable/ic_plusone" />
 
             </FrameLayout>
 
