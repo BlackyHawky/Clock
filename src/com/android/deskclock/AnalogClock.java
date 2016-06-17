@@ -22,9 +22,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.os.SystemClock;
 import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
 import android.text.format.DateFormat;
 import android.util.AttributeSet;
 import android.view.View;
@@ -88,10 +86,10 @@ public class AnalogClock extends View {
         mTime = Calendar.getInstance();
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
 
-        mDial = initDrawable(context, R.drawable.clock_analog_dial_mipmap);
-        mHourHand = initDrawable(context, R.drawable.clock_analog_hour_mipmap);
-        mMinuteHand = initDrawable(context, R.drawable.clock_analog_minute_mipmap);
-        mSecondHand = initDrawable(context, R.drawable.clock_analog_second_mipmap);
+        mDial = initDrawable(context, R.drawable.clock_analog_dial);
+        mHourHand = initDrawable(context, R.drawable.clock_analog_hour);
+        mMinuteHand = initDrawable(context, R.drawable.clock_analog_minute);
+        mSecondHand = initDrawable(context, R.drawable.clock_analog_second);
     }
 
     @Override
@@ -179,7 +177,7 @@ public class AnalogClock extends View {
     }
 
     private Drawable initDrawable(Context context, @DrawableRes int id) {
-        final Drawable d = ContextCompat.getDrawable(context, id);
+        final Drawable d = Utils.getVectorDrawable(context, id);
 
         // Center the drawable using its bounds.
         final int midX = d.getIntrinsicWidth() / 2;
