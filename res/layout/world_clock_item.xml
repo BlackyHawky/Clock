@@ -66,10 +66,7 @@
                 android:layout_width="@dimen/world_clock_analog_size"
                 android:layout_height="@dimen/world_clock_analog_size"
                 android:layout_gravity="end"
-                android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small"
-                android:dial="@drawable/clock_analog_dial_mipmap"
-                android:hand_hour="@drawable/clock_analog_hour_mipmap"
-                android:hand_minute="@drawable/clock_analog_minute_mipmap" />
+                android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small" />
 
         </FrameLayout>
 
