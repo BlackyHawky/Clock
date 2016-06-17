@@ -17,21 +17,29 @@
 
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_selected="false" android:state_focused="true"
-        android:drawable="@drawable/ic_tab_alarm_activated" />
+    <item
+        android:state_focused="true"
+        android:drawable="@drawable/ic_tab_alarm_static" />
 
-    <item android:id="@+id/on" android:state_selected="true"
-        android:drawable="@drawable/ic_tab_alarm_activated" />
+    <item
+        android:id="@+id/on"
+        android:state_selected="true"
+        android:drawable="@drawable/ic_tab_alarm_static" />
 
-    <item android:id="@+id/off"
-        android:drawable="@drawable/ic_tab_alarm_normal" />
+    <item
+        android:id="@+id/off"
+        android:drawable="@drawable/ic_tab_alarm_static" />
 
-    <transition android:fromId="@id/off" android:toId="@id/on">
+    <transition
+        android:fromId="@id/off"
+        android:toId="@id/on">
+
         <animated-vector android:drawable="@drawable/ic_alarm">
             <target
                 android:name="button"
                 android:animation="@animator/ic_alarm_animation_button" />
         </animated-vector>
+
     </transition>
 
 </animated-selector>
