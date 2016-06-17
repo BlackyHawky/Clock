@@ -113,6 +113,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         }
 
         updateTime();
+        updateDeleteButtonAndDivider();
     }
 
     private boolean clickButton(View button) {
