@@ -16,6 +16,7 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?android:attr/selectableItemBackground"
@@ -137,7 +138,7 @@
                     android:background="?attr/selectableItemBackground"
                     android:contentDescription="@string/delete_alarm"
                     android:scaleType="center"
-                    android:src="@drawable/ic_delete_small"/>
+                    app:srcCompat="@drawable/ic_delete_small" />
 
                 <ImageButton
                     android:id="@+id/arrow"
@@ -148,7 +149,7 @@
                     android:contentDescription="@string/collapse_alarm"
                     android:rotation="@integer/chevron_rotate_180"
                     android:scaleType="center"
-                    android:src="@drawable/ic_expand_down" />
+                    app:srcCompat="@drawable/ic_expand_more" />
 
             </FrameLayout>
 
