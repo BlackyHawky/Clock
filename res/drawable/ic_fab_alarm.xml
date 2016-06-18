@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="@dimen/fab_alarm_size"
+        android:height="@dimen/fab_alarm_size"
+        android:viewportHeight="224.0"
+        android:viewportWidth="224.0">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M-224.3,48h128v128h-128V48z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M112,80.4c-20.6,0 -37.3,16.7 -37.3,37.3c0,20.6 16.7,37.3 37.3,37.3s37.3,-16.7 37.3,-37.3C149.3,97.1 132.6,80.4 112,80.4zM132,138.2L106.7,123V91h8v28l21.3,12.6L132,138.2z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M112,0C50.1,0 0,50.1 0,112s50.1,112 112,112s112,-50.1 112,-112S173.9,0 112,0zM83.2,58.3l6.8,8.2L65.5,87l-6.9,-8.2L83.2,58.3zM112,165.7c-26.6,0 -48,-21.5 -48,-48s21.5,-48 48,-48s48,21.5 48,48S138.5,165.7 112,165.7zM158.5,87l-24.5,-20.6l6.9,-8.2l24.5,20.6L158.5,87z" />
+</vector>
