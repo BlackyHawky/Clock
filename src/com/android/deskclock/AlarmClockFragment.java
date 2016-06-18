@@ -17,9 +17,11 @@
 package com.android.deskclock;
 
 import android.app.LoaderManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -33,6 +35,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.alarms.AlarmUpdateHandler;
@@ -118,14 +121,17 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedState) {
         // Inflate the layout for this fragment
         final View v = inflater.inflate(R.layout.alarm_clock, container, false);
+        final Context context = getActivity();
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.alarms_recycler_view);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(context);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mMainLayout = (ViewGroup) v.findViewById(R.id.main);
-        mAlarmUpdateHandler = new AlarmUpdateHandler(getActivity(), this, mMainLayout);
-        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView,
-                v.findViewById(R.id.alarms_empty_view));
+        mAlarmUpdateHandler = new AlarmUpdateHandler(context, this, mMainLayout);
+        final TextView emptyView = (TextView) v.findViewById(R.id.alarms_empty_view);
+        final Drawable noAlarms = Utils.getVectorDrawable(context, R.drawable.ic_noalarms);
+        emptyView.setCompoundDrawablesWithIntrinsicBounds(null, noAlarms, null, null);
+        mEmptyViewController = new EmptyViewController(mMainLayout, mRecyclerView, emptyView);
         mAlarmTimeClickHandler = new AlarmTimeClickHandler(this, savedState, mAlarmUpdateHandler,
                 this);
 
@@ -133,7 +139,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mItemAdapter.setHasStableIds();
         mItemAdapter.withViewTypes(new CollapsedAlarmViewHolder.Factory(inflater),
                 null, CollapsedAlarmViewHolder.VIEW_TYPE);
-        mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(getActivity(), inflater),
+        mItemAdapter.withViewTypes(new ExpandedAlarmViewHolder.Factory(context, inflater),
                 null, ExpandedAlarmViewHolder.VIEW_TYPE);
         mItemAdapter.setOnItemChangedListener(new ItemAdapter.OnItemChangedListener() {
             @Override

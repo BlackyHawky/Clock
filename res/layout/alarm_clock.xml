@@ -38,11 +38,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:contentDescription="@string/no_alarms"
-        android:drawableTop="@drawable/ic_noalarms"
         android:gravity="center_horizontal"
         android:paddingBottom="@dimen/fab_height"
         android:text="@string/no_alarms"
-        android:textColor="#4cffffff"
+        android:textColor="@color/no_alarms"
         android:visibility="gone" />
 
 </FrameLayout>
