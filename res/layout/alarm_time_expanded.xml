@@ -78,7 +78,6 @@
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:drawablePadding="@dimen/alarm_horizontal_padding"
-                    android:drawableStart="@drawable/ic_ringtone"
                     android:ellipsize="marquee"
                     android:gravity="center_vertical"
                     android:marqueeRepeatLimit="marquee_forever"
