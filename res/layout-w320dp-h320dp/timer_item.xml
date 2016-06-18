@@ -60,7 +60,6 @@
                     android:gravity="center"
                     android:hint="@string/label"
                     android:maxLines="1"
-                    android:src="@drawable/ic_label"
                     android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
                 <ImageButton
@@ -72,7 +71,7 @@
                     android:gravity="center"
                     android:padding="@dimen/fab_button_padding"
                     android:scaleType="centerInside"
-                    android:src="@drawable/ic_plusone" />
+                    app:srcCompat="@drawable/ic_plusone" />
 
             </com.android.deskclock.CircleButtonsLayout>
 
