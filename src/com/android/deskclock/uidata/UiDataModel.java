@@ -20,6 +20,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
@@ -109,6 +110,15 @@ public final class UiDataModel {
         // Clear caches affected by locale when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
         mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
+    }
+
+    /**
+     * To display the alarm clock in this font, use the character {@link R.string#clock_emoji}.
+     *
+     * @return a special font containing a glyph that draws an alarm clock
+     */
+    public Typeface getAlarmIconTypeface() {
+        return Typeface.createFromAsset(mContext.getAssets(), "fonts/clock.ttf");
     }
 
     //
