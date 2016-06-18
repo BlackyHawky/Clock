@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -45,6 +44,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
@@ -106,9 +106,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
     /** Intent used to deliver the {@link #ACTION_ON_DAY_CHANGE} callback. */
     private static final Intent DAY_CHANGE_INTENT = new Intent(ACTION_ON_DAY_CHANGE);
-
-    /** A custom font containing a special glyph that draws a clock icon with proper drop shadow. */
-    private static Typeface sAlarmIconTypeface;
 
     @Override
     public void onEnabled(Context context) {
@@ -308,7 +305,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
             nextAlarm.setText(nextAlarmTime);
             nextAlarm.setVisibility(VISIBLE);
             nextAlarmIcon.setVisibility(VISIBLE);
-            nextAlarmIcon.setTypeface(getAlarmIconTypeface(context));
+            nextAlarmIcon.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
         }
 
         // Measure the widget at the largest possible size.
@@ -448,19 +445,6 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final Locale locale = Locale.getDefault();
         final String skeleton = context.getString(R.string.abbrev_wday_month_day_no_year);
         return DateFormat.getBestDateTimePattern(locale, skeleton);
-    }
-
-    /**
-     * This special font ensures that the drop shadow under the alarm clock icon matches the drop
-     * shadow under normal text.
-     *
-     * @return a special font containing a glyph that draws an alarm clock
-     */
-    private static Typeface getAlarmIconTypeface(Context context) {
-        if (sAlarmIconTypeface == null) {
-            sAlarmIconTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/clock.ttf");
-        }
-        return sAlarmIconTypeface;
     }
 
     /**
