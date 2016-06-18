@@ -29,14 +29,19 @@
         android:textAppearance="@style/PrimaryLabelTextAppearance"
         android:textSize="12sp" />
 
-    <ImageView
+    <TextView
         android:id="@+id/nextAlarmIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginEnd="@dimen/alarm_icon_padding"
         android:layout_marginStart="@dimen/alarm_icon_padding"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_alarm_small" />
+        android:includeFontPadding="false"
+        android:ellipsize="none"
+        android:singleLine="true"
+        android:text="@string/clock_emoji"
+        android:textColor="@color/clock_white"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/nextAlarm"
