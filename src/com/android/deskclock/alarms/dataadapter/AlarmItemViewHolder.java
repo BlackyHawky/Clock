@@ -73,6 +73,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         final Alarm alarm = itemHolder.item;
         bindOnOffSwitch(alarm);
         bindClock(alarm);
+        final Context context = itemView.getContext();
+        itemView.setContentDescription(clock.getText() + " " + alarm.getLabelOrDefault(context));
     }
 
     protected void bindOnOffSwitch(Alarm alarm) {
