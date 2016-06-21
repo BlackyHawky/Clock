@@ -213,7 +213,7 @@
     <string name="C199" msgid="1622823742072233091">"V<xliff:g id="SEPARATOR">=</xliff:g>Vilnius<xliff:g id="TIMEZONE">|Europe/Vilnius</xliff:g>"</string>
     <string name="C200" msgid="6181652506383585123">"W<xliff:g id="SEPARATOR">=</xliff:g>Warschau<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g>"</string>
     <string name="C201" msgid="5026927396527258914">"Z<xliff:g id="SEPARATOR">=</xliff:g>Zagreb<xliff:g id="TIMEZONE">|Europe/Zagreb</xliff:g>"</string>
-    <string name="C202" msgid="7479245034393288391">"Z<xliff:g id="SEPARATOR">=</xliff:g>Zürich<xliff:g id="TIMEZONE">|Europe/Zurich</xliff:g>"</string>
+    <string name="C202" msgid="7479245034393288391">"Z<xliff:g id="SEPARATOR">=</xliff:g>Zürich<xliff:g id="TIMEZONE">|Europe/Zurich</xliff:g>"</string>
     <string name="C203" msgid="1651234331866937237">"A<xliff:g id="SEPARATOR">=</xliff:g>Antananarivo<xliff:g id="TIMEZONE">|Indian/Antananarivo</xliff:g>"</string>
     <string name="C204" msgid="3101091022126098393">"M<xliff:g id="SEPARATOR">=</xliff:g>Maldiven<xliff:g id="TIMEZONE">|Indian/Maldives</xliff:g>"</string>
     <string name="C205" msgid="9173530407684443044">"M<xliff:g id="SEPARATOR">=</xliff:g>Mauritius<xliff:g id="TIMEZONE">|Indian/Mauritius</xliff:g>"</string>
