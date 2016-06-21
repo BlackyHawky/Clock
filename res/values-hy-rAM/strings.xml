@@ -37,7 +37,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> րոպե</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Անջատված է"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ննջել"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Հետաձգել"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="one">Ննջում է <xliff:g id="MINUTES">%d</xliff:g> րոպեով:</item>
       <item quantity="other">Ննջում է <xliff:g id="MINUTES">%d</xliff:g> րոպեով:</item>
@@ -49,14 +49,10 @@
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"Մնացել է <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
-    <!-- no translation found for timer_notifications_missed_less_min (8519097741068939429) -->
-    <skip />
-    <!-- no translation found for timer_notifications_missed_hours (3040400788095447215) -->
-    <skip />
-    <!-- no translation found for timer_notifications_missed_minutes (96802155255511315) -->
-    <skip />
-    <!-- no translation found for timer_notifications_missed_hours_minutes (1354376754583759556) -->
-    <skip />
+    <string name="timer_notifications_missed_less_min" msgid="8519097741068939429">"Ավելի քիչ, քան մեկ րոպե առաջ"</string>
+    <string name="timer_notifications_missed_hours" msgid="3040400788095447215">"<xliff:g id="HOURS">%1$s</xliff:g> առաջ"</string>
+    <string name="timer_notifications_missed_minutes" msgid="96802155255511315">"<xliff:g id="MINUTES">%2$s</xliff:g> առաջ"</string>
+    <string name="timer_notifications_missed_hours_minutes" msgid="1354376754583759556">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> առաջ"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"է մնացել"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"է մնացել"</string>
   <string-array name="alarm_set">
@@ -87,7 +83,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Անալոգային ժամացույց"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Թվային ժամացույց"</string>
     <string name="settings" msgid="5849739030579520686">"Կարգավորումներ"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Ննջման տևողությունը"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Հետաձգման տևողությունը"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> րոպե</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> րոպե</item>
@@ -131,7 +127,7 @@
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Սարքը ընդհանուր լուռ ռեժիմում է"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Ձայնի կոճակներ"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Ննջել"</item>
+    <item msgid="7972756698723318690">"Հետաձգել"</item>
     <item msgid="3450979320164769576">"Անտեսել"</item>
     <item msgid="6302517608411378024">"Ոչինչ չանել"</item>
   </string-array>
@@ -189,13 +185,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Ժամաչափը չեղարկվել է"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Ժամանակը սպառվել է"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ժամանակաչափ սպառվել է"</string>
-    <!-- no translation found for timer_multi_missed (9085073572920385362) -->
-    <skip />
+    <string name="timer_multi_missed" msgid="9085073572920385362">"Բաց է թողնվել <xliff:g id="NUMBER">%d</xliff:g> ժամաչափ"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Ժամաչափ"</string>
-    <!-- no translation found for missed_timer_notification_label (6661928727623284334) -->
-    <skip />
-    <!-- no translation found for missed_named_timer_notification_label (665604640028289175) -->
-    <skip />
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Բաց թողնված ժամաչափ"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Բաց թողնված ժամաչափ՝ <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Դադարեցնել"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Վերակայել բոլոր ժամաչափերը"</string>
   <string-array name="sw_share_strings">
@@ -320,7 +313,7 @@
     <string name="swn_paused" msgid="6364358842808263589">"Կանգնեցված է"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Անջատելու համար սահեցրեք աջ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Հետաձգելու համար սահեցրեք ձախ"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Ննջեցնելու համար սահահարվածեք ձախ կամ աջ՝ բաց թողնելու համար"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Սահեցրեք ձախ՝ հետաձգելու համար։ Աջ՝ անջատելու համար։"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Ժամանակաչափեր"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Ժամանակաչափի զանգերանգ"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Ժամաչափի թրթռում"</string>

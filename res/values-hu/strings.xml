@@ -49,14 +49,10 @@
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> van hátra"</string>
-    <!-- no translation found for timer_notifications_missed_less_min (8519097741068939429) -->
-    <skip />
-    <!-- no translation found for timer_notifications_missed_hours (3040400788095447215) -->
-    <skip />
-    <!-- no translation found for timer_notifications_missed_minutes (96802155255511315) -->
-    <skip />
-    <!-- no translation found for timer_notifications_missed_hours_minutes (1354376754583759556) -->
-    <skip />
+    <string name="timer_notifications_missed_less_min" msgid="8519097741068939429">"Kevesebb mint egy perce"</string>
+    <string name="timer_notifications_missed_hours" msgid="3040400788095447215">"<xliff:g id="HOURS">%1$s</xliff:g> órája"</string>
+    <string name="timer_notifications_missed_minutes" msgid="96802155255511315">"<xliff:g id="MINUTES">%2$s</xliff:g> perce"</string>
+    <string name="timer_notifications_missed_hours_minutes" msgid="1354376754583759556">"<xliff:g id="HOURS">%1$s</xliff:g> órája és <xliff:g id="MINUTES">%2$s</xliff:g> perce"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"hátralévő idő"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"van hátra"</string>
   <string-array name="alarm_set">
@@ -189,13 +185,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Időzítés visszavonva"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Az idő lejárt!"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> időzítő lejárt"</string>
-    <!-- no translation found for timer_multi_missed (9085073572920385362) -->
-    <skip />
+    <string name="timer_multi_missed" msgid="9085073572920385362">"<xliff:g id="NUMBER">%d</xliff:g> időzítő elmulasztva"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Időzítő"</string>
-    <!-- no translation found for missed_timer_notification_label (6661928727623284334) -->
-    <skip />
-    <!-- no translation found for missed_named_timer_notification_label (665604640028289175) -->
-    <skip />
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Elmulasztott időzítő"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Elmulasztott időzítő: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Szüneteltetés"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Visszaállítás"</string>
   <string-array name="sw_share_strings">
