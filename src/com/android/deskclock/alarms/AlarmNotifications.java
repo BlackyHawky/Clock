@@ -29,6 +29,7 @@ import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -60,12 +61,15 @@ public final class AlarmNotifications {
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
-                .setGroup(GROUP_KEY)
                 .setSortKey(createSortKey(instance))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
+
+        if (Utils.isNOrLater()) {
+            notification.setGroup(GROUP_KEY);
+        }
 
         // Setup up hide notification
         Intent hideIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -102,12 +106,15 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setGroup(GROUP_KEY)
                 .setSortKey(createSortKey(instance))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
+
+        if (Utils.isNOrLater()) {
+            notification.setGroup(GROUP_KEY);
+        }
 
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -138,12 +145,15 @@ public final class AlarmNotifications {
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
                 .setOngoing(true)
-                .setGroup(GROUP_KEY)
                 .setSortKey(createSortKey(instance))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
+
+        if (Utils.isNOrLater()) {
+            notification.setGroup(GROUP_KEY);
+        }
 
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -173,13 +183,16 @@ public final class AlarmNotifications {
                 .setContentText(instance.mLabel.isEmpty() ? alarmTime :
                         context.getString(R.string.alarm_missed_text, alarmTime, label))
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
-                .setGroup(GROUP_KEY)
                 .setSortKey(createSortKey(instance))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
+
+        if (Utils.isNOrLater()) {
+            notification.setGroup(GROUP_KEY);
+        }
 
         final int hashCode = instance.hashCode();
 
