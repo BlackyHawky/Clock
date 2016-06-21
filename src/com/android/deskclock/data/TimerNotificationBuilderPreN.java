@@ -130,7 +130,6 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
                 .setContentText(contentText)
                 .setContentTitle(contentTitle)
                 .setContentIntent(pendingShowApp)
-                .setGroup(nm.getTimerNotificationGroupKey())
                 .setSmallIcon(R.drawable.stat_notify_timer)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
