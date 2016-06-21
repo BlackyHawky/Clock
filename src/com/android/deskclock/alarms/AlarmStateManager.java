@@ -409,6 +409,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
     public static void setHideNotificationState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting hide notification state to instance " + instance.mId);
 
+        final int priorState = instance.mAlarmState;
+
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
         instance.mAlarmState = AlarmInstance.HIDE_NOTIFICATION_STATE;
@@ -416,8 +418,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.clearNotification(context, instance);
-        scheduleInstanceStateChange(context, instance.getHighNotificationTime(),
-                instance, AlarmInstance.HIGH_NOTIFICATION_STATE);
+        if (priorState != AlarmInstance.HIGH_NOTIFICATION_STATE) {
+            scheduleInstanceStateChange(context, instance.getHighNotificationTime(),
+                    instance, AlarmInstance.HIGH_NOTIFICATION_STATE);
+        }
     }
 
     /**
