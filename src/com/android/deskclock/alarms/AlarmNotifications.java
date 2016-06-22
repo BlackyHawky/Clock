@@ -105,7 +105,6 @@ public final class AlarmNotifications {
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
-                .setOngoing(true)
                 .setSortKey(createSortKey(instance))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -115,6 +114,13 @@ public final class AlarmNotifications {
         if (Utils.isNOrLater()) {
             notification.setGroup(GROUP_KEY);
         }
+
+        // Setup up hide notification
+        Intent hideIntent = AlarmStateManager.createStateChangeIntent(context,
+                AlarmStateManager.ALARM_DELETE_TAG, instance,
+                AlarmInstance.HIDE_NOTIFICATION_STATE);
+        notification.setDeleteIntent(PendingIntent.getService(context, instance.hashCode(),
+                hideIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
