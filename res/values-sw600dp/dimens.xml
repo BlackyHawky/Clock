@@ -41,6 +41,7 @@
     <dimen name="no_alarm_font_size">20sp</dimen>
 
     <dimen name="backspace_icon_size">32dp</dimen>
+    <dimen name="no_alarms_size">180dp</dimen>
 
     <dimen name="body_font_padding">8dp</dimen>
     <dimen name="medium_font_padding">24dp</dimen>
