@@ -17,25 +17,32 @@
 
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_selected="false" android:state_focused="true"
-        android:drawable="@drawable/ic_tab_clock_activated" />
+    <item
+        android:state_focused="true"
+        android:drawable="@drawable/ic_tab_stopwatch_static" />
 
-    <item android:id="@+id/on" android:state_selected="true"
-        android:drawable="@drawable/ic_tab_clock_activated" />
+    <item
+        android:id="@+id/on"
+        android:state_selected="true"
+        android:drawable="@drawable/ic_tab_stopwatch_static" />
 
-    <item android:id="@+id/off"
-        android:drawable="@drawable/ic_tab_clock_normal" />
+    <item
+        android:id="@+id/off"
+        android:drawable="@drawable/ic_tab_stopwatch_static" />
 
-    <transition android:fromId="@id/off" android:toId="@id/on">
-        <animated-vector android:drawable="@drawable/ic_clock">
+    <transition
+        android:fromId="@id/off"
+        android:toId="@id/on">
+
+        <animated-vector android:drawable="@drawable/ic_stopwatch">
             <target
-                android:name="hour_hand"
-                android:animation="@animator/ic_clock_hour_hand_animation" />
+                android:name="hand"
+                android:animation="@animator/ic_stopwatch_animation_hand" />
             <target
-                android:name="minute_hand"
-                android:animation="@animator/ic_clock_minute_hand_animation" />
+                android:name="button"
+                android:animation="@animator/ic_stopwatch_animation_button" />
         </animated-vector>
+
     </transition>
 
 </animated-selector>
-

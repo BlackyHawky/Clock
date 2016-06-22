@@ -17,16 +17,23 @@
 
 <animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_selected="false" android:state_focused="true"
-        android:drawable="@drawable/ic_tab_timer_activated" />
+    <item
+        android:state_focused="true"
+        android:drawable="@drawable/ic_tab_timer_static" />
 
-    <item android:id="@+id/on" android:state_selected="true"
-        android:drawable="@drawable/ic_tab_timer_activated" />
+    <item
+        android:id="@+id/on"
+        android:state_selected="true"
+        android:drawable="@drawable/ic_tab_timer_static" />
 
-    <item android:id="@+id/off"
-        android:drawable="@drawable/ic_tab_timer_normal" />
+    <item
+        android:id="@+id/off"
+        android:drawable="@drawable/ic_tab_timer_static" />
 
-    <transition android:fromId="@id/off" android:toId="@id/on">
+    <transition
+        android:fromId="@id/off"
+        android:toId="@id/on">
+
         <animated-vector android:drawable="@drawable/ic_timer">
             <target
                 android:name="hourglass_frame"
@@ -38,6 +45,7 @@
                 android:name="mask_1"
                 android:animation="@animator/ic_timer_animation_mask_1" />
         </animated-vector>
+
     </transition>
 
 </animated-selector>

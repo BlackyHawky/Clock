@@ -150,8 +150,8 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
                 .setContent(collapsed)
                 .setAutoCancel(stopwatch.isPaused())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setSmallIcon(R.drawable.stat_notify_stopwatch)
                 .setGroup(nm.getStopwatchNotificationGroupKey())
-                .setSmallIcon(R.drawable.ic_tab_stopwatch_activated)
                 .setDeleteIntent(Utils.pendingServiceIntent(context, reset))
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .build();
