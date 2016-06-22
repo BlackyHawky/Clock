@@ -116,6 +116,6 @@ public class AlarmVolumePreference extends Preference {
 
     private void updateIcon() {
         mAlarmIcon.setImageResource(mSeekbar.getProgress() == 0 ?
-                R.drawable.ic_alarm_off_24dp : R.drawable.ic_alarm_small_24dp);
+                R.drawable.ic_alarm_off_24dp : R.drawable.ic_alarm_small);
     }
 }
