@@ -196,7 +196,7 @@ public final class ClockFragment extends DeskClockFragment {
     @Override
     public void onUpdateFab(@NonNull ImageView fab) {
         fab.setVisibility(VISIBLE);
-        fab.setImageResource(R.drawable.ic_language);
+        fab.setImageResource(R.drawable.ic_public);
         fab.setContentDescription(fab.getResources().getString(R.string.button_cities));
     }
 
