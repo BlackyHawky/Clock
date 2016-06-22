@@ -13,73 +13,85 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextClock
-            android:id="@+id/digital_clock"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-thin"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:textColor="@color/clock_white"
-            android:textSize="@dimen/world_clock_digital_font_size" />
-
-        <com.android.deskclock.AnalogClock
-            android:id="@+id/analog_clock"
-            android:layout_width="@dimen/world_clock_analog_size"
-            android:layout_height="@dimen/world_clock_analog_size"
-            android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small"
-            android:layout_gravity="center_horizontal"
-            android:dial="@drawable/clock_analog_dial_mipmap"
-            android:gravity="center"
-            android:hand_hour="@drawable/clock_analog_hour_mipmap"
-            android:hand_minute="@drawable/clock_analog_minute_mipmap" />
-
-    </FrameLayout>
+    android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center">
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="8"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/city_name"
-                android:layout_width="wrap_content"
+            <TextClock
+                android:id="@+id/digital_clock"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textAppearance="@style/PrimaryLabelTextAppearance" />
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-thin"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/clock_white"
+                android:textSize="@dimen/world_clock_digital_font_size" />
+
+            <com.android.deskclock.AnalogClock
+                android:id="@+id/analog_clock"
+                android:layout_width="@dimen/world_clock_analog_size"
+                android:layout_height="@dimen/world_clock_analog_size"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small"
+                android:dial="@drawable/clock_analog_dial_mipmap"
+                android:gravity="center"
+                android:hand_hour="@drawable/clock_analog_hour_mipmap"
+                android:hand_minute="@drawable/clock_analog_minute_mipmap" />
 
         </FrameLayout>
 
-        <TextView
-            android:id="@+id/city_day"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/style_label_space"
-            android:ellipsize="none"
-            android:singleLine="true"
-            android:textAppearance="@style/SecondaryLabelTextAppearance" />
+            android:gravity="center">
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/city_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textAppearance="@style/PrimaryLabelTextAppearance" />
+
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/city_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/style_label_space"
+                android:ellipsize="none"
+                android:singleLine="true"
+                android:textAppearance="@style/SecondaryLabelTextAppearance" />
+
+        </LinearLayout>
 
     </LinearLayout>
+
+    <!-- Right gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
 
 </LinearLayout>
