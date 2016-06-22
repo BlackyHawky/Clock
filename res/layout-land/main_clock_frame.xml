@@ -34,10 +34,7 @@
             android:layout_marginLeft="@dimen/analog_clock_margin"
             android:layout_marginRight="@dimen/analog_clock_margin"
             android:layout_marginStart="@dimen/analog_clock_margin"
-            android:layout_marginTop="@dimen/circle_margin_top"
-            android:dial="@drawable/clock_analog_dial_mipmap"
-            android:hand_hour="@drawable/clock_analog_hour_mipmap"
-            android:hand_minute="@drawable/clock_analog_minute_mipmap" />
+            android:layout_marginTop="@dimen/circle_margin_top" />
 
         <TextClock
             android:id="@+id/digital_clock"
