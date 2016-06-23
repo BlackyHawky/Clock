@@ -27,7 +27,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
 import android.text.format.DateFormat;
@@ -148,6 +147,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         return sCurrentTimeFactory == null ?
                 Calendar.getInstance() : sCurrentTimeFactory.getCurrentTime();
     }
+
     static void setCurrentTimeFactory(CurrentTimeFactory currentTimeFactory) {
         sCurrentTimeFactory = currentTimeFactory;
     }
@@ -188,6 +188,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
     /**
      * Returns an alarm instance of an alarm that's going to fire next.
+     *
      * @param context application context
      * @return an alarm instance that will fire earliest relative to current time.
      */
@@ -234,7 +235,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * Used in L and later devices where "next alarm" is stored in the Alarm Manager.
      */
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private static void updateNextAlarmInAlarmManager(Context context, AlarmInstance nextAlarm){
+    private static void updateNextAlarmInAlarmManager(Context context, AlarmInstance nextAlarm) {
         // Sets a surrogate alarm with alarm manager that provides the AlarmClockInfo for the
         // alarm that is going to fire next. The operation is constructed such that it is ignored
         // by AlarmStateManager.
@@ -266,7 +267,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * Used by dismissed and missed states, to update parent alarm. This will either
      * disable, delete or reschedule parent alarm.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to update parent for
      */
     private static void updateParentAlarm(Context context, AlarmInstance instance) {
@@ -306,10 +307,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * Utility method to create a proper change state intent.
      *
-     * @param context application context
-     * @param tag used to make intent differ from other state change intents.
+     * @param context  application context
+     * @param tag      used to make intent differ from other state change intents.
      * @param instance to change state to
-     * @param state to change to.
+     * @param state    to change to.
      * @return intent that can be used to change an alarm instance state
      */
     public static Intent createStateChangeIntent(Context context, String tag,
@@ -333,8 +334,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * Schedule alarm instance state changes with {@link AlarmManager}.
      *
-     * @param ctx application context
-     * @param time to trigger state change
+     * @param ctx      application context
+     * @param time     to trigger state change
      * @param instance to change state to
      * @param newState to change to
      */
@@ -346,7 +347,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * Cancel all {@link AlarmManager} timers for instance.
      *
-     * @param ctx application context
+     * @param ctx      application context
      * @param instance to disable all {@link AlarmManager} timers
      */
     private static void cancelScheduledInstanceStateChange(Context ctx, AlarmInstance instance) {
@@ -359,7 +360,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the application notifications and schedule any state changes that need
      * to occur in the future.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
      */
     public static void setSilentState(Context context, AlarmInstance instance) {
@@ -381,7 +382,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the application notifications and schedule any state changes that need
      * to occur in the future.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
      */
     public static void setLowNotificationState(Context context, AlarmInstance instance) {
@@ -403,13 +404,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the application notifications and schedule any state changes that need
      * to occur in the future.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
      */
     public static void setHideNotificationState(Context context, AlarmInstance instance) {
         LogUtils.i("Setting hide notification state to instance " + instance.mId);
-
-        final int priorState = instance.mAlarmState;
 
         // Update alarm state in db
         ContentResolver contentResolver = context.getContentResolver();
@@ -418,10 +417,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
 
         // Setup instance notification and scheduling timers
         AlarmNotifications.clearNotification(context, instance);
-        if (priorState != AlarmInstance.HIGH_NOTIFICATION_STATE) {
-            scheduleInstanceStateChange(context, instance.getHighNotificationTime(),
-                    instance, AlarmInstance.HIGH_NOTIFICATION_STATE);
-        }
+        scheduleInstanceStateChange(context, instance.getHighNotificationTime(),
+                instance, AlarmInstance.HIGH_NOTIFICATION_STATE);
     }
 
     /**
@@ -429,7 +426,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the application notifications and schedule any state changes that need
      * to occur in the future.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
      */
     public static void setHighNotificationState(Context context, AlarmInstance instance) {
@@ -451,7 +448,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the application notifications and schedule any state changes that need
      * to occur in the future.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
      */
     public static void setFiredState(Context context, AlarmInstance instance) {
@@ -485,12 +482,11 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the application notifications and schedule any state changes that need
      * to occur in the future.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
-     *
      */
     public static void setSnoozeState(final Context context, AlarmInstance instance,
-                                      boolean showToast) {
+            boolean showToast) {
         // Stop alarm if this instance is firing it
         AlarmService.stopAlarm(context, instance);
 
@@ -543,7 +539,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * the application notifications and schedule any state changes that need
      * to occur in the future.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
      */
     public static void setMissedState(Context context, AlarmInstance instance) {
@@ -574,7 +570,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * This will set the alarm instance to the PREDISMISSED_STATE and schedule an instance state
      * change to DISMISSED_STATE at the regularly scheduled firing time.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
      */
     public static void setPreDismissState(Context context, AlarmInstance instance) {
@@ -612,7 +608,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * This will delete the alarm instance, update the application notifications, and schedule
      * any state changes that need to occur in the future.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to set state to
      */
     public static void deleteInstanceAndUpdateParent(Context context, AlarmInstance instance) {
@@ -637,7 +633,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * This will set the instance state to DISMISSED_STATE and remove its notifications and
      * alarm timers.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to unregister
      */
     public static void unregisterInstance(Context context, AlarmInstance instance) {
@@ -670,7 +666,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * If none of these special case are found, then we just check the time and see what is the
      * proper state for the instance.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to register
      */
     public static void registerInstance(Context context, AlarmInstance instance,
@@ -757,8 +753,8 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 setLowNotificationState(context, instance);
             }
         } else {
-          // Alarm is still active, so initialize as a silent alarm
-          setSilentState(context, instance);
+            // Alarm is still active, so initialize as a silent alarm
+            setSilentState(context, instance);
         }
 
         // The caller prefers to handle updateNextAlarm for optimization
@@ -855,16 +851,16 @@ public final class AlarmStateManager extends BroadcastReceiver {
     /**
      * Utility method to set alarm instance state via constants.
      *
-     * @param context application context
+     * @param context  application context
      * @param instance to change state on
-     * @param state to change to
+     * @param state    to change to
      */
     private static void setAlarmState(Context context, AlarmInstance instance, int state) {
         if (instance == null) {
             LogUtils.e("Null alarm instance while setting state to %d", state);
             return;
         }
-        switch(state) {
+        switch (state) {
             case AlarmInstance.SILENT_STATE:
                 setSilentState(context, instance);
                 break;

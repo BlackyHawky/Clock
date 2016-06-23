@@ -15,11 +15,16 @@
  */
 package com.android.deskclock.alarms;
 
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
+import android.service.notification.StatusBarNotification;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
@@ -40,7 +45,9 @@ import java.util.Locale;
 public final class AlarmNotifications {
     public static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
 
-    /** Formats times such that chronological order and lexicographical order agree. */
+    /**
+     * Formats times such that chronological order and lexicographical order agree.
+     */
     private static final DateFormat SORT_KEY_FORMAT =
             new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.US);
 
@@ -48,7 +55,25 @@ public final class AlarmNotifications {
      * This value is coordinated with group ids from
      * {@link com.android.deskclock.data.NotificationModel}
      */
-    private static final String GROUP_KEY = "1";
+    private static final String UPCOMING_GROUP_KEY = "1";
+
+    /**
+     * This value is coordinated with group ids from
+     * {@link com.android.deskclock.data.NotificationModel}
+     */
+    private static final String MISSED_GROUP_KEY = "4";
+
+    /**
+     * This value is coordinated with notification ids from
+     * {@link com.android.deskclock.data.NotificationModel}
+     */
+    private static final int ALARM_GROUP_NOTIFICATION_ID = Integer.MAX_VALUE - 4;
+
+    /**
+     * This value is coordinated with notification ids from
+     * {@link com.android.deskclock.data.NotificationModel}
+     */
+    private static final int ALARM_GROUP_MISSED_NOTIFICATION_ID = Integer.MAX_VALUE - 5;
 
     public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
@@ -68,7 +93,7 @@ public final class AlarmNotifications {
                 .setLocalOnly(true);
 
         if (Utils.isNOrLater()) {
-            notification.setGroup(GROUP_KEY);
+            notification.setGroup(UPCOMING_GROUP_KEY);
         }
 
         // Setup up hide notification
@@ -93,6 +118,7 @@ public final class AlarmNotifications {
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(instance.hashCode(), notification.build());
+        updateAlarmGroupNotification(context);
     }
 
     public static void showHighPriorityNotification(Context context, AlarmInstance instance) {
@@ -112,15 +138,8 @@ public final class AlarmNotifications {
                 .setLocalOnly(true);
 
         if (Utils.isNOrLater()) {
-            notification.setGroup(GROUP_KEY);
+            notification.setGroup(UPCOMING_GROUP_KEY);
         }
-
-        // Setup up hide notification
-        Intent hideIntent = AlarmStateManager.createStateChangeIntent(context,
-                AlarmStateManager.ALARM_DELETE_TAG, instance,
-                AlarmInstance.HIDE_NOTIFICATION_STATE);
-        notification.setDeleteIntent(PendingIntent.getService(context, instance.hashCode(),
-                hideIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
@@ -137,6 +156,76 @@ public final class AlarmNotifications {
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(instance.hashCode(), notification.build());
+        updateAlarmGroupNotification(context);
+    }
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private static int getActiveNotificationsCount(Context context, String group) {
+        NotificationManager nm = (NotificationManager) context.getSystemService(
+                Context.NOTIFICATION_SERVICE);
+        StatusBarNotification[] notifications = nm.getActiveNotifications();
+        int count = 0;
+        for (StatusBarNotification statusBarNotification : notifications) {
+            final Notification n = statusBarNotification.getNotification();
+            if ((n.flags & Notification.FLAG_GROUP_SUMMARY) != Notification.FLAG_GROUP_SUMMARY
+                    && group.equals(n.getGroup())) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static void updateAlarmGroupNotification(Context context) {
+        if (!Utils.isNOrLater()) {
+            return;
+        }
+
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
+
+        if (getActiveNotificationsCount(context, UPCOMING_GROUP_KEY) == 0) {
+            nm.cancel(ALARM_GROUP_NOTIFICATION_ID);
+            return;
+        }
+
+        NotificationCompat.Builder summaryNotification = new NotificationCompat.Builder(context)
+                .setShowWhen(false)
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
+                .setSmallIcon(R.drawable.stat_notify_alarm)
+                .setGroup(UPCOMING_GROUP_KEY)
+                .setGroupSummary(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setLocalOnly(true);
+
+
+        nm.notify(ALARM_GROUP_NOTIFICATION_ID, summaryNotification.build());
+    }
+
+    public static void updateAlarmGroupMissedNotification(Context context) {
+        if (!Utils.isNOrLater()) {
+            return;
+        }
+
+        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
+
+        if (getActiveNotificationsCount(context, MISSED_GROUP_KEY) == 0) {
+            nm.cancel(ALARM_GROUP_MISSED_NOTIFICATION_ID);
+            return;
+        }
+
+        NotificationCompat.Builder summaryNotification = new NotificationCompat.Builder(context)
+                .setShowWhen(false)
+                .setColor(ContextCompat.getColor(context, R.color.default_background))
+                .setSmallIcon(R.drawable.stat_notify_alarm)
+                .setGroup(MISSED_GROUP_KEY)
+                .setGroupSummary(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_ALARM)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                .setLocalOnly(true);
+
+        nm.notify(ALARM_GROUP_MISSED_NOTIFICATION_ID, summaryNotification.build());
     }
 
     public static void showSnoozeNotification(Context context, AlarmInstance instance) {
@@ -150,7 +239,6 @@ public final class AlarmNotifications {
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .setSmallIcon(R.drawable.stat_notify_alarm)
                 .setAutoCancel(false)
-                .setOngoing(true)
                 .setSortKey(createSortKey(instance))
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
@@ -158,7 +246,7 @@ public final class AlarmNotifications {
                 .setLocalOnly(true);
 
         if (Utils.isNOrLater()) {
-            notification.setGroup(GROUP_KEY);
+            notification.setGroup(UPCOMING_GROUP_KEY);
         }
 
         // Setup up dismiss action
@@ -176,6 +264,7 @@ public final class AlarmNotifications {
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(instance.hashCode(), notification.build());
+        updateAlarmGroupNotification(context);
     }
 
     public static void showMissedNotification(Context context, AlarmInstance instance) {
@@ -197,7 +286,7 @@ public final class AlarmNotifications {
                 .setLocalOnly(true);
 
         if (Utils.isNOrLater()) {
-            notification.setGroup(GROUP_KEY);
+            notification.setGroup(MISSED_GROUP_KEY);
         }
 
         final int hashCode = instance.hashCode();
@@ -218,6 +307,7 @@ public final class AlarmNotifications {
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.notify(hashCode, notification.build());
+        updateAlarmGroupMissedNotification(context);
     }
 
     public static void showAlarmNotification(Service service, AlarmInstance instance) {
@@ -282,6 +372,8 @@ public final class AlarmNotifications {
         LogUtils.v("Clearing notifications for alarm instance: " + instance.mId);
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(instance.hashCode());
+        updateAlarmGroupNotification(context);
+        updateAlarmGroupMissedNotification(context);
     }
 
     /**
