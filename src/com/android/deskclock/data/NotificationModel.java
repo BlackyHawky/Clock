@@ -40,6 +40,10 @@ final class NotificationModel {
     //
     // Notification IDs
     //
+    // Used elsewhere:
+    // Integer.MAX_VALUE - 4
+    // Integer.MAX_VALUE - 5
+    //
 
     /**
      * @return a value that identifies the stopwatch notification
@@ -66,12 +70,15 @@ final class NotificationModel {
      * @return a value that identifies the notification for missed timers
      */
     int getMissedTimerNotificationId() {
-        return Integer.MAX_VALUE - 4;
+        return Integer.MAX_VALUE - 6;
     }
 
     //
     // Notification Group keys
     //
+    // Used elsewhere:
+    // "1"
+    // "4"
 
     /**
      * @return the group key for the stopwatch notification
