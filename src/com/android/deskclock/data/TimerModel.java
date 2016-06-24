@@ -839,6 +839,10 @@ final class TimerModel {
      * An API for building platform-specific timer notifications.
      */
     public interface NotificationBuilder {
+
+        int REQUEST_CODE_UPCOMING = 0;
+        int REQUEST_CODE_MISSING = 1;
+
         /**
          * @param context a context to use for fetching resources
          * @param nm from which notification data are fetched

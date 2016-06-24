@@ -143,7 +143,8 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
                 .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
                 .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_notification);
 
-        final PendingIntent pendingShowApp = PendingIntent.getActivity(context, 0, showApp,
+        final PendingIntent pendingShowApp =
+                PendingIntent.getActivity(context, REQUEST_CODE_UPCOMING, showApp,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         return new Notification.Builder(context)
@@ -296,7 +297,8 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
                 .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
                 .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_notification);
 
-        final PendingIntent pendingShowApp = PendingIntent.getActivity(context, 0, showApp,
+        final PendingIntent pendingShowApp =
+                PendingIntent.getActivity(context, REQUEST_CODE_MISSING, showApp,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         return new Notification.Builder(context)
