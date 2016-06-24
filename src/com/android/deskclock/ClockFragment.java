@@ -254,7 +254,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         @Override
         public void onChange(boolean selfChange) {
-            Utils.refreshAlarm(getActivity(), mClockFrame);
+            refreshAlarm();
         }
     }
 
