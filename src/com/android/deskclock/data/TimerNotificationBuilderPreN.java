@@ -151,8 +151,9 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
         final Intent updateNotification = TimerService.createUpdateNotificationIntent(context);
         if (timer.isRunning() && remainingTime > MINUTE_IN_MILLIS) {
             // Schedule a callback to update the time-sensitive information of the running timer.
-            final PendingIntent pi = PendingIntent.getService(context, 0, updateNotification,
-                    PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
+            final PendingIntent pi =
+                    PendingIntent.getService(context, REQUEST_CODE_UPCOMING, updateNotification,
+                            PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
             final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
             final long triggerTime = SystemClock.elapsedRealtime() + nextMinuteChange;
@@ -308,7 +309,8 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
         final Intent updateNotification =
                 TimerService.createUpdateMissedNotificationIntent(context);
         // Schedule a callback to update the time-sensitive information of the missed timer.
-        final PendingIntent pi = PendingIntent.getService(context, 0, updateNotification,
+        final PendingIntent pi =
+                PendingIntent.getService(context, REQUEST_CODE_MISSING, updateNotification,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
