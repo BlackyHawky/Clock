@@ -262,17 +262,63 @@ public class HandleApiCalls extends Activity {
      * @param intent Intent passed to the app
      */
     private void handleSetAlarm(Intent intent) {
-        // If not provided or invalid, show UI
-        final int hour = intent.getIntExtra(AlarmClock.EXTRA_HOUR, -1);
-
-        // If not provided, use zero. If it is provided, make sure it's valid, otherwise, show UI
-        final int minutes;
-        if (intent.hasExtra(AlarmClock.EXTRA_MINUTES)) {
-            minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, -1);
-        } else {
-            minutes = 0;
+        // Validate the hour, if one was given.
+        int hour = -1;
+        if (intent.hasExtra(AlarmClock.EXTRA_HOUR)) {
+            hour = intent.getIntExtra(AlarmClock.EXTRA_HOUR, hour);
+            if (hour < 0 || hour > 23) {
+                final int mins = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
+                Voice.notifyFailure(this, getString(R.string.invalid_time, hour, mins, " "));
+                LogUtils.i("HandleApiCalls given illegal hour: " + hour);
+                return;
+            }
         }
-        if (hour < 0 || hour > 23 || minutes < 0 || minutes > 59) {
+
+        // Validate the minute, if one was given.
+        final int minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
+        if (minutes < 0 || minutes > 59) {
+            Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
+            LogUtils.i("HandleApiCalls given illegal minute: " + minutes);
+            return;
+        }
+
+        final boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
+
+        final ContentResolver cr = getContentResolver();
+        final Uri deeplink = intent.getData();
+        if (deeplink != null) {
+            // Attempt to locate the alarm via the deeplink.
+            final Alarm alarm = Alarm.getAlarm(cr, deeplink);
+            if (alarm == null) {
+                Voice.notifyFailure(this, getString(R.string.cannot_locate_alarm));
+                LogUtils.i(String.format("HandleApiCalls cannot locate alarm using: %s", deeplink));
+                return;
+            }
+
+            // Remove all defunct instances.
+            AlarmStateManager.deleteAllInstances(this, alarm.id);
+
+            // Update the alarm with supplied data from the intent.
+            updateAlarmFromIntent(alarm, intent);
+
+            // Save the updated alarm.
+            Alarm.updateAlarm(cr, alarm);
+
+            // Create the next instance with the updated alarm data.
+            final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
+            setupInstance(alarmInstance, skipUi);
+
+            final String time = DateFormat.getTimeFormat(this).format(
+                    alarmInstance.getAlarmTime().getTime());
+            Voice.notifySuccess(this, getString(R.string.alarm_is_set, time));
+            Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
+            LogUtils.i("HandleApiCalls updated existing alarm: %s", alarm);
+            return;
+        }
+
+        // If time information was not provided an existing alarm cannot be located and a new one
+        // cannot be created so show the UI for creating the alarm from scratch per spec.
+        if (hour == -1) {
             // Change to the alarms tab.
             UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
 
@@ -284,62 +330,48 @@ public class HandleApiCalls extends Activity {
             // Open DeskClock which is now positioned on the alarms tab.
             startActivity(createAlarm);
             Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
-            LogUtils.i("HandleApiCalls no/invalid time; opening UI");
+            LogUtils.i("HandleApiCalls not given time information; opening UI");
             return;
         }
 
-        Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
-        final boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
-
         final StringBuilder selection = new StringBuilder();
-        final List<String> args = new ArrayList<>();
-        setSelectionFromIntent(intent, hour, minutes, selection, args);
+        final List<String> argsList = new ArrayList<>();
+        setSelectionFromIntent(intent, hour, minutes, selection, argsList);
 
-        // Update existing alarm matching the selection criteria; see setSelectionFromIntent.
-        final ContentResolver cr = getContentResolver();
-        final List<Alarm> alarms = Alarm.getAlarms(cr,
-                selection.toString(),
-                args.toArray(new String[args.size()]));
+        // Try to locate an existing alarm using the intent data.
+        final String[] args = argsList.toArray(new String[argsList.size()]);
+        final List<Alarm> alarms = Alarm.getAlarms(cr, selection.toString(), args);
         if (!alarms.isEmpty()) {
+            // Enable the first matching alarm.
             final Alarm alarm = alarms.get(0);
             alarm.enabled = true;
             Alarm.updateAlarm(cr, alarm);
 
-            // Delete all old instances and create a new one with updated values
+            // Delete all old instances and create a new one with updated values.
             AlarmStateManager.deleteAllInstances(this, alarm.id);
             setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
+            Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
             LogUtils.i("HandleApiCalls deleted old, created new alarm: %s", alarm);
             return;
         }
 
-        // Otherwise insert a new alarm.
-        final String message = getMessageFromIntent(intent);
-        final DaysOfWeek daysOfWeek = getDaysFromIntent(intent);
-        final boolean vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, true);
-        final String alert = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE);
+        // No existing alarm could be located; create one using the intent data.
+        Alarm alarm = new Alarm();
+        updateAlarmFromIntent(alarm, intent);
+        alarm.deleteAfterUse = !alarm.daysOfWeek.isRepeating() && skipUi;
 
-        Alarm alarm = new Alarm(hour, minutes);
-        alarm.enabled = true;
-        alarm.label = message;
-        alarm.daysOfWeek = daysOfWeek;
-        alarm.vibrate = vibrate;
-
-        if (alert != null) {
-            if (AlarmClock.VALUE_RINGTONE_SILENT.equals(alert) || alert.isEmpty()) {
-                alarm.alert = Alarm.NO_RINGTONE_URI;
-            } else {
-                alarm.alert = Uri.parse(alert);
-            }
-        }
-        alarm.deleteAfterUse = !daysOfWeek.isRepeating() && skipUi;
-
+        // Save the new alarm.
         alarm = Alarm.addAlarm(cr, alarm);
+
+        // Create the next instance with the alarm data.
         final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
         setupInstance(alarmInstance, skipUi);
-        final String time = DateFormat.getTimeFormat(mAppContext).format(
+
+        Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
+        final String time = DateFormat.getTimeFormat(this).format(
                 alarmInstance.getAlarmTime().getTime());
         Voice.notifySuccess(this, getString(R.string.alarm_is_set, time));
-        LogUtils.i("HandleApiCalls set up alarm: %s", alarm);
+        LogUtils.i("HandleApiCalls created alarm: %s", alarm);
     }
 
     private void handleShowAlarms() {
@@ -373,7 +405,7 @@ public class HandleApiCalls extends Activity {
             return;
         }
 
-        final String label = getMessageFromIntent(intent);
+        final String label = getLabelFromIntent(intent, "");
         final boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
 
         // Attempt to reuse an existing timer that is Reset with the same length and label.
@@ -425,12 +457,30 @@ public class HandleApiCalls extends Activity {
         }
     }
 
-    private static String getMessageFromIntent(Intent intent) {
-        final String message = intent.getStringExtra(AlarmClock.EXTRA_MESSAGE);
+    /**
+     * @param alarm the alarm to be updated
+     * @param intent the intent containing new alarm field values to merge into the {@code alarm}
+     */
+    private static void updateAlarmFromIntent(Alarm alarm, Intent intent) {
+        alarm.enabled = true;
+        alarm.hour = intent.getIntExtra(AlarmClock.EXTRA_HOUR, alarm.hour);
+        alarm.minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, alarm.minutes);
+        alarm.vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, alarm.vibrate);
+        alarm.alert = getAlertFromIntent(intent, alarm.alert);
+        alarm.label = getLabelFromIntent(intent, alarm.label);
+        alarm.daysOfWeek = getDaysFromIntent(intent, alarm.daysOfWeek.getBitSet());
+    }
+
+    private static String getLabelFromIntent(Intent intent, String defaultLabel) {
+        final String message = intent.getExtras().getString(AlarmClock.EXTRA_MESSAGE, defaultLabel);
         return message == null ? "" : message;
     }
 
-    private static DaysOfWeek getDaysFromIntent(Intent intent) {
+    private static DaysOfWeek getDaysFromIntent(Intent intent, int defaultDaysBitset) {
+        if (!intent.hasExtra(AlarmClock.EXTRA_DAYS)) {
+            return new DaysOfWeek(defaultDaysBitset);
+        }
+
         final DaysOfWeek daysOfWeek = new DaysOfWeek(0);
         final ArrayList<Integer> days = intent.getIntegerArrayListExtra(AlarmClock.EXTRA_DAYS);
         if (days != null) {
@@ -447,6 +497,19 @@ public class HandleApiCalls extends Activity {
             }
         }
         return daysOfWeek;
+    }
+
+    private static Uri getAlertFromIntent(Intent intent, Uri defaultUri) {
+        final String alert = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE);
+        if (alert != null) {
+            if (AlarmClock.VALUE_RINGTONE_SILENT.equals(alert) || alert.isEmpty()) {
+                return Alarm.NO_RINGTONE_URI;
+            } else {
+                return Uri.parse(alert);
+            }
+        } else {
+            return defaultUri;
+        }
     }
 
     /**
@@ -480,14 +543,13 @@ public class HandleApiCalls extends Activity {
 
         if (intent.hasExtra(AlarmClock.EXTRA_MESSAGE)) {
             selection.append(" AND ").append(Alarm.LABEL).append("=?");
-            args.add(getMessageFromIntent(intent));
+            args.add(getLabelFromIntent(intent, ""));
         }
 
         // Days is treated differently that other fields because if days is not specified, it
         // explicitly means "not recurring".
         selection.append(" AND ").append(Alarm.DAYS_OF_WEEK).append("=?");
-        args.add(String.valueOf(intent.hasExtra(AlarmClock.EXTRA_DAYS)
-                ? getDaysFromIntent(intent).getBitSet() : DaysOfWeek.NO_DAYS_SET));
+        args.add(String.valueOf(getDaysFromIntent(intent, DaysOfWeek.NO_DAYS_SET).getBitSet()));
 
         if (intent.hasExtra(AlarmClock.EXTRA_VIBRATE)) {
             selection.append(" AND ").append(Alarm.VIBRATE).append("=?");
