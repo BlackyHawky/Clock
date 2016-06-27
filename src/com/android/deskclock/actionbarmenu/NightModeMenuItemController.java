@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.ScreensaverActivity;
 
@@ -56,7 +57,8 @@ public final class NightModeMenuItemController implements MenuItemController {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         mContext.startActivity(new Intent(mContext, ScreensaverActivity.class)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_deskclock));
         return true;
     }
 }

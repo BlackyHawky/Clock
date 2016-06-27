@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.PowerManager.WakeLock;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.controller.Controller;
 import com.android.deskclock.data.DataModel;
 
 public class AlarmInitReceiver extends BroadcastReceiver {
@@ -60,9 +61,10 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         AlarmStateManager.updateGlobalIntentId(context);
 
         // Updates stopwatch and timer data after a device reboot so they are as accurate as
-        // possible.
+        // possible. Update shortcuts so they exist for the user.
         if (ACTION_BOOT_COMPLETED.equals(action)) {
             DataModel.getDataModel().updateAfterReboot();
+            Controller.getController().updateShortcuts();
             // Stopwatch and timer data need to be updated on time change so the reboot
             // functionality works as expected.
         } else if (Intent.ACTION_TIME_CHANGED.equals(action)) {
@@ -71,8 +73,11 @@ public class AlarmInitReceiver extends BroadcastReceiver {
 
         // Notifications are canceled by the system on application upgrade. This broadcast signals
         // that the new app is free to rebuild the notifications using the existing data.
+        // Additionally on new app installs, make sure to enable shortcuts immediately as opposed
+        // to waiting for system reboot.
         if (Intent.ACTION_MY_PACKAGE_REPLACED.equals(action)) {
             DataModel.getDataModel().updateAllNotifications();
+            Controller.getController().updateShortcuts();
         }
 
         AsyncHandler.post(new Runnable() {

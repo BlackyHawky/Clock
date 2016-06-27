@@ -141,6 +141,9 @@ public final class Stopwatch {
         final long timeSinceBoot = now();
         final long wallClockTime = wallClock();
         final long delta = timeSinceBoot - mLastStartTime;
+        if (delta < 0) {
+            return this;
+        }
         return new Stopwatch(mState, timeSinceBoot, wallClockTime, mAccumulatedTime + delta);
     }
 }
