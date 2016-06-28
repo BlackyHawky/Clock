@@ -103,7 +103,7 @@ public final class ClockFragment extends DeskClockFragment {
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
         mCityAdapter = new SelectedCitiesAdapter(getActivity(), mDateFormat,
-                mDateFormatForAccessibility);
+                mDateFormatForAccessibility, startScreenSaverListener);
 
         mCityList = (RecyclerView) fragmentView.findViewById(R.id.cities);
         mCityList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -302,14 +302,16 @@ public final class ClockFragment extends DeskClockFragment {
         private final boolean mIsPortrait;
         private final String mDateFormat;
         private final String mDateFormatForAccessibility;
+        private final View.OnLongClickListener mLongClickListener;
 
         public SelectedCitiesAdapter(Context context, String dateFormat,
-                String dateFormatForAccessibility) {
+                String dateFormatForAccessibility, View.OnLongClickListener longClickListener) {
             mContext = context;
             mDateFormat = dateFormat;
             mDateFormatForAccessibility = dateFormatForAccessibility;
             mInflater = LayoutInflater.from(context);
             mIsPortrait = Utils.isPortrait(context);
+            mLongClickListener = longClickListener;
         }
 
         @Override
@@ -323,6 +325,7 @@ public final class ClockFragment extends DeskClockFragment {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             final View view = mInflater.inflate(viewType, parent, false);
+            view.setOnLongClickListener(mLongClickListener);
             switch (viewType) {
                 case WORLD_CLOCK:
                     return new CityViewHolder(view);
