@@ -21,7 +21,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
@@ -146,14 +145,9 @@ public final class TimePickerCompat {
      */
     public static void showTimeEditDialog(Fragment targetFragment, Alarm alarm,
             boolean use24hourFormat) {
-        // Make sure the dialog isn't already added.
         final FragmentManager manager = targetFragment.getFragmentManager();
-        final FragmentTransaction ft = manager.beginTransaction();
-        final Fragment prev = manager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.commit();
+        // Make sure the dialog isn't already added.
+        removeTimeEditDialog(manager);
 
         if (Utils.isLOrLater()) {
             final TimePickerPostL picker = new TimePickerPostL();
@@ -177,4 +171,15 @@ public final class TimePickerCompat {
             }
         }
     }
+
+    public static void removeTimeEditDialog(FragmentManager manager) {
+        if (manager == null) {
+            return;
+        }
+        final Fragment prev = manager.findFragmentByTag(FRAG_TAG_TIME_PICKER);
+        if (prev != null) {
+            manager.beginTransaction().remove(prev).commit();
+        }
+    }
+
 }
