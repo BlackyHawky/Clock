@@ -35,7 +35,7 @@
     <string name="alarm_vibrate" msgid="3476686921490362230">"Getar"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Ulangi"</string>
     <string name="alert" msgid="6506982899651975645">"Nada Dering Alarm"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Pewaktu Berakhir"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Timer Berakhir"</string>
     <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Senyap"</string>
     <string name="ringtone" msgid="9110746249688559579">"Nada Dering"</string>
     <string name="time" msgid="8067216534232296518">"Waktu"</string>
@@ -160,7 +160,7 @@
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Layanan pemutaran suara untuk pewaktu yang disetel di Clock."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Setel alarm"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Pewaktu"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Jam"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopwatch"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Tambahkan alarm"</string>
@@ -213,7 +213,7 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Pewaktu dibatalkan"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Waktu habis"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> pewaktu telah berakhir"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"Pewaktu"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"maksimum 4 pewaktu"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Jeda"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Setel ulang semua pewaktu"</string>
@@ -344,13 +344,13 @@
     <string name="description_direction_right" msgid="5709209043267548985">"Geser ke kanan untuk menutup"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Geser ke kiri untuk menunda"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Gesek ke kiri untuk menunda atau ke kanan untuk menutup"</string>
-    <string name="timer_settings" msgid="7955522143086154795">"Pewaktu"</string>
+    <string name="timer_settings" msgid="7955522143086154795">"Timer"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Nada dering pewaktu"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Pewaktu dihentikan"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Pewaktu dijeda"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> pewaktu dijeda"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Sentuh untuk melihat pewaktu Anda"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> pewaktu"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Pewaktu Berikutnya: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Setelan Mimpi"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Mode malam"</string>
