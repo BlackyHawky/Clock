@@ -193,7 +193,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             updateTime();
 
             // Update talkback to read the number being deleted or its original description.
-            final String number = mInputPointer < 0 ? "" : Integer.toString(mInput[mInputPointer]);
+            final String number = mInputPointer < 0 ? "" : Integer.toString(mInput[0]);
             final String cd = getResources().getString(R.string.timer_descriptive_delete, number);
             mDelete.setContentDescription(cd);
         }
