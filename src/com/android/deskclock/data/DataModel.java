@@ -270,6 +270,22 @@ public final class DataModel {
         mCityModel.toggleCitySort();
     }
 
+    /**
+     * @param cityListener listener to be notified when the world city list changes
+     */
+    public void addCityListener(CityListener cityListener) {
+        enforceMainLooper();
+        mCityModel.addCityListener(cityListener);
+    }
+
+    /**
+     * @param cityListener listener that no longer needs to be notified of world city list changes
+     */
+    public void removeCityListener(CityListener cityListener) {
+        enforceMainLooper();
+        mCityModel.removeCityListener(cityListener);
+    }
+
     //
     // Timers
     //
