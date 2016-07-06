@@ -155,6 +155,9 @@ public class TextTime extends TextView {
         final Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, mHour);
         calendar.set(Calendar.MINUTE, mMinute);
-        setText(DateFormat.format(mFormat, calendar));
+        final CharSequence text = DateFormat.format(mFormat, calendar);
+        setText(text);
+        // Strip away the spans from text so talkback is not confused
+        setContentDescription(text.toString());
     }
 }
