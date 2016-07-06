@@ -792,6 +792,13 @@
     -->
     <string name="invalid_time">Invalid time <xliff:g id="invalid_hour" example="25">%1$d</xliff:g>:<xliff:g id="invalid_minutes" example="63">%2$d</xliff:g> <xliff:g id="invalid_ampm" example="PM">%3$s</xliff:g></string>
 
+    <!-- String that indicates no alarm can be located with the given deeplink. This happens when a
+    user sends a voice command to mutate an existing alarm but the deeplink no longer refers to a
+    valid alarm.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="cannot_locate_alarm">Unable to locate alarm.</string>
+
     <!-- String that represents that no alarm has been specified for a requested hour:minutes.
     This happens when a user sends a voice command 'dismiss my alarm at 3:00pm' but they have no
     alarms specified for that time. %s represents the time of the alarm.

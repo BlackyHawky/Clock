@@ -18,10 +18,7 @@ package com.android.deskclock.data;
 
 import android.content.ContentUris;
 import android.net.Uri;
-import android.os.SystemClock;
 import android.text.TextUtils;
-
-import com.android.deskclock.provider.ClockContract;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -37,6 +34,7 @@ import static com.android.deskclock.data.Timer.State.MISSED;
 import static com.android.deskclock.data.Timer.State.PAUSED;
 import static com.android.deskclock.data.Timer.State.RESET;
 import static com.android.deskclock.data.Timer.State.RUNNING;
+import static com.android.deskclock.provider.ClockContract.AUTHORITY;
 
 /**
  * A read-only domain object representing a countdown timer.
@@ -74,11 +72,8 @@ public final class Timer {
         }
     }
 
-    /**
-     * The content:// style URI for timers.
-     */
-    public static final Uri CONTENT_URI =
-            Uri.parse("content://" + ClockContract.AUTHORITY + "/timers");
+    /** The content:// style URI for timers. */
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/timers");
 
     /** The minimum duration of a timer. */
     public static final long MIN_LENGTH = SECOND_IN_MILLIS;
@@ -142,7 +137,7 @@ public final class Timer {
     public boolean isMissed() { return mState == MISSED; }
 
     /**
-     * @return the {@link Uri} identifying the timer instance.
+     * @return the {@link Uri} identifying the timer instance
      */
     public Uri getContentUri() {
         return ContentUris.withAppendedId(CONTENT_URI, mId);
