@@ -40,6 +40,7 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.data.City;
+import com.android.deskclock.data.CityListener;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.worldclock.CitySelectionActivity;
@@ -108,6 +109,7 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList = (RecyclerView) fragmentView.findViewById(R.id.cities);
         mCityList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mCityList.setAdapter(mCityAdapter);
+        DataModel.getDataModel().addCityListener(mCityAdapter);
 
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
         mCityList.addOnScrollListener(scrollPositionWatcher);
@@ -121,6 +123,9 @@ public final class ClockFragment extends DeskClockFragment {
             mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
         }
+
+        // Schedule a runnable to update the date every quarter hour.
+        UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
 
         return fragmentView;
     }
@@ -160,7 +165,6 @@ public final class ClockFragment extends DeskClockFragment {
             mCityList.setVisibility(mCityAdapter.getItemCount() == 0 ? GONE : VISIBLE);
         }
 
-        mCityAdapter.notifyDataSetChanged();
         refreshAlarm();
 
         // Alarm observer is null on L or later.
@@ -169,15 +173,11 @@ public final class ClockFragment extends DeskClockFragment {
             final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
             activity.getContentResolver().registerContentObserver(uri, false, mAlarmObserver);
         }
-
-        // Schedule a runnable to update the date every quarter hour.
-        UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
 
         final Activity activity = getActivity();
         if (mAlarmChangeReceiver != null) {
@@ -186,6 +186,13 @@ public final class ClockFragment extends DeskClockFragment {
         if (mAlarmObserver != null) {
             activity.getContentResolver().unregisterContentObserver(mAlarmObserver);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
+        DataModel.getDataModel().removeCityListener(mCityAdapter);
     }
 
     @Override
@@ -292,7 +299,8 @@ public final class ClockFragment extends DeskClockFragment {
      * current time at home does not match the current time in the timezone of the current location.
      * If the phone is in portrait mode it will also include the main clock at the top.
      */
-    private static final class SelectedCitiesAdapter extends RecyclerView.Adapter {
+    private static final class SelectedCitiesAdapter extends RecyclerView.Adapter
+            implements CityListener {
 
         private final static int MAIN_CLOCK = R.layout.main_clock_frame;
         private final static int WORLD_CLOCK = R.layout.world_clock_item;
@@ -386,6 +394,11 @@ public final class ClockFragment extends DeskClockFragment {
             if (mIsPortrait && getItemCount() > 0) {
                 notifyItemChanged(0);
             }
+        }
+
+        @Override
+        public void citiesChanged(List<City> oldCities, List<City> newCities) {
+            notifyDataSetChanged();
         }
 
         private static final class CityViewHolder extends RecyclerView.ViewHolder {
