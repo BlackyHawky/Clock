@@ -18,7 +18,6 @@
      for different hardware and product builds. -->
 <resources>
     <dimen name="label_text_size">18sp</dimen>
-    <dimen name="time_text_size">180dip</dimen>
     <dimen name="ampm_text_size">54dip</dimen>
     <dimen name="date_text_size">15sp</dimen>
     <dimen name="next_alarm_text_size">15sp</dimen>
