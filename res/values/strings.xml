@@ -799,6 +799,13 @@
     -->
     <string name="cannot_locate_alarm">Unable to locate alarm.</string>
 
+    <!-- String that indicates no timer can be located with the given deeplink. This happens when a
+    user sends a voice command to mutate an existing timer but the deeplink no longer refers to a
+    valid timer.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="cannot_locate_timer">Unable to locate timer.</string>
+
     <!-- String that represents that no alarm has been specified for a requested hour:minutes.
     This happens when a user sends a voice command 'dismiss my alarm at 3:00pm' but they have no
     alarms specified for that time. %s represents the time of the alarm.
@@ -812,6 +819,29 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="no_scheduled_alarms">No scheduled alarms</string>
+
+    <!-- String that indicates the alarm is still scheduled and cannot yet be snoozed.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="cannot_snooze_scheduled_alarm">The alarm has not yet fired.</string>
+
+    <!-- String that indicates the alarm is missed and cannot be snoozed or dismissed. This
+    happens when a user sends a voice command 'dismiss alarm' or 'snooze alarm' but the alarm is
+    already in the missed state.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_already_missed">The alarm is already missed.</string>
+
+    <!-- String that indicates the alarm is dismissed or predismissed and cannot be snoozed or
+    dismissed again.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_already_dismissed">The alarm is already dismissed.</string>
+
+    <!-- String that indicates the alarm is snoozed cannot be snoozed again.
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_already_snoozed">The alarm is already snoozed.</string>
 
     <!-- String that represents that the user specified that they want to select an alarm to
     dismiss by specifying a 'label' but they didn't specify any labels.

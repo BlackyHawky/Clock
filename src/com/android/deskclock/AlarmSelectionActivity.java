@@ -17,7 +17,6 @@ package com.android.deskclock;
 
 import android.app.Activity;
 import android.app.ListActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -84,26 +83,24 @@ public class AlarmSelectionActivity extends ListActivity {
         final AlarmSelection selection = mSelections.get((int) id);
         final Alarm alarm = selection.getAlarm();
         if (alarm != null) {
-            new ProcessAlarmActionAsync(this, alarm, this).execute();
+            new ProcessAlarmActionAsync(alarm, this).execute();
         }
         finish();
     }
 
     private static class ProcessAlarmActionAsync extends AsyncTask<Void, Void, Void> {
 
-        private final Context mContext;
         private final Alarm mAlarm;
         private final Activity mActivity;
 
-        public ProcessAlarmActionAsync(Context context, Alarm alarm, Activity activity) {
-            mContext = context;
+        public ProcessAlarmActionAsync(Alarm alarm, Activity activity) {
             mAlarm = alarm;
             mActivity = activity;
         }
 
         @Override
         protected Void doInBackground(Void... parameters) {
-            HandleApiCalls.dismissAlarm(mAlarm, mContext, mActivity);
+            HandleApiCalls.dismissAlarm(mAlarm, mActivity);
             return null;
         }
     }
