@@ -333,8 +333,19 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Báo thức tiếp theo: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Không có báo thức"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Thời gian không hợp lệ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Không thể tìm báo thức."</string>
+    <!-- no translation found for cannot_locate_timer (3771725126049282801) -->
+    <skip />
     <string name="no_alarm_at" msgid="8140632482969193119">"Chưa có báo thức lúc <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Chưa có báo thức nào được lên lịch"</string>
+    <!-- no translation found for cannot_snooze_scheduled_alarm (2396923362566219485) -->
+    <skip />
+    <!-- no translation found for alarm_is_already_missed (1617099466968243562) -->
+    <skip />
+    <!-- no translation found for alarm_is_already_dismissed (7883936300908258078) -->
+    <skip />
+    <!-- no translation found for alarm_is_already_snoozed (1284077908768374487) -->
+    <skip />
     <string name="no_label_specified" msgid="2008482054428460626">"Không chỉ định nhãn nào"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Không có báo thức nào chứa nhãn này"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Đồng hồ bấm giờ hiện không chạy"</string>
