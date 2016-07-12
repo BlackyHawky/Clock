@@ -23,6 +23,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.StringRes;
 
+import com.android.deskclock.timer.TimerService;
+
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -363,8 +365,24 @@ public final class DataModel {
      * @param timer the timer to be started
      */
     public void startTimer(Timer timer) {
+        startTimer(null, timer);
+    }
+
+    /**
+     * @param service used to start foreground notifications for expired timers
+     * @param timer the timer to be started
+     */
+    public void startTimer(Service service, Timer timer) {
         enforceMainLooper();
-        mTimerModel.updateTimer(timer.start());
+        final Timer started = timer.start();
+        mTimerModel.updateTimer(started);
+        if (timer.getRemainingTime() <= 0) {
+            if (service != null) {
+                expireTimer(service, started);
+            } else {
+                mContext.startService(TimerService.createTimerExpiredIntent(mContext, started));
+            }
+        }
     }
 
     /**

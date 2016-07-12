@@ -135,7 +135,7 @@ public final class TimerService extends Service {
             // Perform the action on the timer.
             switch (intent.getAction()) {
                 case HandleDeskClockApiCalls.ACTION_START_TIMER:
-                    DataModel.getDataModel().startTimer(timer);
+                    DataModel.getDataModel().startTimer(this, timer);
                     Events.sendTimerEvent(R.string.action_start, R.string.label_notification);
                     break;
                 case HandleDeskClockApiCalls.ACTION_PAUSE_TIMER:
