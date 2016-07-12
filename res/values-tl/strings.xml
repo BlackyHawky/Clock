@@ -333,8 +333,19 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Susunod na alarma: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Walang Mga Alarm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Di-wastong oras <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Hindi makita ang alarm."</string>
+    <!-- no translation found for cannot_locate_timer (3771725126049282801) -->
+    <skip />
     <string name="no_alarm_at" msgid="8140632482969193119">"Walang alarm sa <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Walang mga naka-iskedyul na alarm"</string>
+    <!-- no translation found for cannot_snooze_scheduled_alarm (2396923362566219485) -->
+    <skip />
+    <!-- no translation found for alarm_is_already_missed (1617099466968243562) -->
+    <skip />
+    <!-- no translation found for alarm_is_already_dismissed (7883936300908258078) -->
+    <skip />
+    <!-- no translation found for alarm_is_already_snoozed (1284077908768374487) -->
+    <skip />
     <string name="no_label_specified" msgid="2008482054428460626">"Walang tinukoy na label"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Walang mga alarm ang may ganitong label"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Hindi gumagana ang stopwatch"</string>
