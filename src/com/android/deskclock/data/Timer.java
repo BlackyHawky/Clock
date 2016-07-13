@@ -163,7 +163,7 @@ public final class Timer {
     }
 
     /**
-     * @return the time at which this timer will or did expire
+     * @return the elapsed realtime at which this timer will or did expire
      */
     public long getExpirationTime() {
         if (mState != RUNNING && mState != EXPIRED && mState != MISSED) {
@@ -171,6 +171,17 @@ public final class Timer {
         }
 
         return mLastStartTime + mRemainingTime;
+    }
+
+    /**
+     * @return the wall clock time at which this timer will or did expire
+     */
+    public long getWallClockExpirationTime() {
+        if (mState != RUNNING && mState != EXPIRED && mState != MISSED) {
+            throw new IllegalStateException("cannot compute expiration time in state " + mState);
+        }
+
+        return mLastStartWallClockTime + mRemainingTime;
     }
 
     /**
