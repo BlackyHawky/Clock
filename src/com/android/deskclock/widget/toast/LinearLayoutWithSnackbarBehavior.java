@@ -39,8 +39,7 @@ public final class LinearLayoutWithSnackbarBehavior
     @Override
     public boolean onDependentViewChanged(CoordinatorLayout parent, LinearLayout child,
             View dependency) {
-        final float translationY = Math.min(0,
-                dependency.getTranslationY() - dependency.getHeight());
+        final float translationY = Math.min(0, dependency.getY() - child.getBottom());
         child.setTranslationY(translationY);
         return true;
     }
