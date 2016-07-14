@@ -307,6 +307,26 @@
     <item msgid="5911600083231840181">"ቶንጋ"</item>
     <item msgid="5176858645450908751">"ጃካርታ"</item>
   </string-array>
+    <!-- no translation found for shortcut_new_alarm_short (6851571384201576023) -->
+    <skip />
+    <!-- no translation found for shortcut_new_alarm_long (5058420042218910223) -->
+    <skip />
+    <!-- no translation found for shortcut_new_timer_short (3100471271424780941) -->
+    <skip />
+    <!-- no translation found for shortcut_new_timer_long (429912683736859745) -->
+    <skip />
+    <!-- no translation found for shortcut_start_stopwatch_short (5469715764277476796) -->
+    <skip />
+    <!-- no translation found for shortcut_start_stopwatch_long (453776661558045736) -->
+    <skip />
+    <!-- no translation found for shortcut_pause_stopwatch_short (4022667323693785830) -->
+    <skip />
+    <!-- no translation found for shortcut_pause_stopwatch_long (8141996544511771891) -->
+    <skip />
+    <!-- no translation found for shortcut_start_screensaver_short (4406274645422067174) -->
+    <skip />
+    <!-- no translation found for shortcut_start_screensaver_long (7081474983908104345) -->
+    <skip />
     <string name="alarm_settings" msgid="2947147071388290814">"ማንቂያዎች"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ከጊዜ ቆጣሪ ማሳወቂያዎች እርምጃዎችን ያስኬዳል።"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ከቆጥሮ የሚቆም ሰዓት ማሳወቂያዎች እርምጃዎችን ያስኬዳል።"</string>
@@ -334,18 +354,13 @@
     <string name="no_alarms" msgid="6429431324842022917">"ማንቂያ የለም"</string>
     <string name="invalid_time" msgid="2782334750243998633">"ልክ ያልሆነ ሰዓት <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="cannot_locate_alarm" msgid="894518214227064316">"ማንቂያውን ማግኘት አልተቻለም።"</string>
-    <!-- no translation found for cannot_locate_timer (3771725126049282801) -->
-    <skip />
+    <string name="cannot_locate_timer" msgid="3771725126049282801">"ሰዓት ቆጣሪውን ማግኘት አልተቻለም።"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> ላይ ማንቂያ ደወል የለም"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"ምንም መርሐግብር የተያዘላቸው ማንቂያ ደወሎች የሉም"</string>
-    <!-- no translation found for cannot_snooze_scheduled_alarm (2396923362566219485) -->
-    <skip />
-    <!-- no translation found for alarm_is_already_missed (1617099466968243562) -->
-    <skip />
-    <!-- no translation found for alarm_is_already_dismissed (7883936300908258078) -->
-    <skip />
-    <!-- no translation found for alarm_is_already_snoozed (1284077908768374487) -->
-    <skip />
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"ማንቂያው ገና አልተቀሰቀሰም።"</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"ማንቂያው አስቀድሞ አምልጧል።"</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"ማንቂያው አስቀድሞ ተሰናብቷል።"</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"ማንቂያው አስቀድሞ አሸልቧል።"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"ምንም መለያ አልተገለጸም"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"መለያው ያላቸው ምንም ማንቂያዎች የሉም"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"የሩጫ ሰዓት እየሰራ አይደለም"</string>
