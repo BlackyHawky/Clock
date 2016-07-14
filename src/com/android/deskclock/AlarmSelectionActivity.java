@@ -34,9 +34,21 @@ import java.util.List;
 
 public class AlarmSelectionActivity extends ListActivity {
 
+    /** Used by default when neither ACTION_DISMISS nor ACTION_DELETE are provided */
+    private static final int ACTION_INVALID = -1;
+
+    /** Action used to signify alarm should be dismissed on selection */
+    public static final int ACTION_DISMISS = 0;
+
+    /** Action used to signify alarm should be deleted on selection */
+    public static final int ACTION_DELETE = 1;
+
+    public static final String EXTRA_ACTION = "com.android.deskclock.EXTRA_ACTION";
     public static final String EXTRA_ALARMS = "com.android.deskclock.EXTRA_ALARMS";
 
     private final List<AlarmSelection> mSelections = new ArrayList<>();
+
+    private int mAction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +73,7 @@ public class AlarmSelectionActivity extends ListActivity {
 
         final Intent intent = getIntent();
         final Parcelable[] alarmsFromIntent = intent.getParcelableArrayExtra(EXTRA_ALARMS);
+        mAction = intent.getIntExtra(EXTRA_ACTION, ACTION_INVALID);
 
         // reading alarms from intent
         // PickSelection is started only if there are more than 1 relevant alarm
@@ -83,7 +96,7 @@ public class AlarmSelectionActivity extends ListActivity {
         final AlarmSelection selection = mSelections.get((int) id);
         final Alarm alarm = selection.getAlarm();
         if (alarm != null) {
-            new ProcessAlarmActionAsync(alarm, this).execute();
+            new ProcessAlarmActionAsync(alarm, this, mAction).execute();
         }
         finish();
     }
@@ -92,15 +105,26 @@ public class AlarmSelectionActivity extends ListActivity {
 
         private final Alarm mAlarm;
         private final Activity mActivity;
+        private final int mAction;
 
-        public ProcessAlarmActionAsync(Alarm alarm, Activity activity) {
+        public ProcessAlarmActionAsync(Alarm alarm, Activity activity, int action) {
             mAlarm = alarm;
             mActivity = activity;
+            mAction = action;
         }
 
         @Override
         protected Void doInBackground(Void... parameters) {
-            HandleApiCalls.dismissAlarm(mAlarm, mActivity);
+            switch (mAction) {
+                case ACTION_DISMISS:
+                    HandleApiCalls.dismissAlarm(mAlarm, mActivity);
+                    break;
+                case ACTION_DELETE:
+                    HandleApiCalls.deleteAlarm(mAlarm, mActivity);
+                    break;
+                case ACTION_INVALID:
+                    LogUtils.i("Invalid action");
+            }
             return null;
         }
     }
