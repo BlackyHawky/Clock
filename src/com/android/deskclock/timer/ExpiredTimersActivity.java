@@ -30,6 +30,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.android.deskclock.BaseActivity;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
@@ -60,6 +61,15 @@ public class ExpiredTimersActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        final List<Timer> expiredTimers = getExpiredTimers();
+
+        // If no expired timers, finish
+        if (expiredTimers.size() == 0) {
+            LogUtils.i("No expired timers, skipping display.");
+            finish();
+            return;
+        }
+
         setContentView(R.layout.expired_timers_activity);
 
         mExpiredTimersView = (ViewGroup) findViewById(R.id.expired_timers_list);
@@ -85,7 +95,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         }
 
         // Create views for each of the expired timers.
-        for (Timer timer : getExpiredTimers()) {
+        for (Timer timer : expiredTimers) {
             addTimer(timer);
         }
 
