@@ -28,7 +28,7 @@ import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.Set;
 
-//@TargetApi(Build.VERSION_CODES.N_MR1)
+@TargetApi(Build.VERSION_CODES.N_MR1)
 public final class ShortcutEventTracker implements EventTracker {
 
     private final Context mContext;
