@@ -376,7 +376,7 @@
     <string name="no_alarms" msgid="6429431324842022917">"Signalų nėra"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Netinkamas laikas <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="cannot_locate_alarm" msgid="894518214227064316">"Nepavyksta nustatyti signalo."</string>
-    <string name="cannot_locate_timer" msgid="3771725126049282801">"Nepavyksta surasti laikmačio,"</string>
+    <string name="cannot_locate_timer" msgid="3771725126049282801">"Nepavyksta surasti laikmačio."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Nėra signalo <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nėra suplanuotų signalų"</string>
     <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Signalas dar nebuvo suaktyvintas."</string>
