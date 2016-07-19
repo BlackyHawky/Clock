@@ -358,7 +358,7 @@
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> चा कोणताही अलार्म नाही"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"अनुसूची केलेले अलार्म नाहीत"</string>
     <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"अलार्म अद्याप स्नूझ केला नाही."</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"अलार्म आधीपासून डिसमिस केला आहे."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"अलार्मची वेळ आधीच निघून गेली आहे."</string>
     <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"अलार्म आधीपासून डिसमिस केला आहे."</string>
     <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"अलार्म आधीपासून स्नूझ केला आहे."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"कोणतेही लेबल निर्दिष्‍ट केले नाही"</string>
