@@ -42,7 +42,7 @@ import com.android.deskclock.uidata.UiDataModel;
 import java.util.Arrays;
 import java.util.Collections;
 
-//@TargetApi(Build.VERSION_CODES.N_MR1)
+@TargetApi(Build.VERSION_CODES.N_MR1)
 class ShortcutController {
 
     private final Context mContext;
