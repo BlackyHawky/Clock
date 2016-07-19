@@ -358,7 +358,7 @@
     <string name="no_alarm_at" msgid="8140632482969193119">"Der er ingen alarm kl. <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Der er ikke nogen planlagte alarmer"</string>
     <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Alarmen er endnu ikke udløst."</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Alarmen er allerede ubesvaret."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Alarmen er allerede blevet udløst."</string>
     <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"Alarmen er allerede slukket."</string>
     <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Alarmen er allerede udsat."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Der er ikke angivet nogen etiket"</string>

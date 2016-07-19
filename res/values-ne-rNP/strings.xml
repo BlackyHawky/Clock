@@ -307,26 +307,16 @@
     <item msgid="5911600083231840181">"टोन्गा"</item>
     <item msgid="5176858645450908751">"जाकार्ता"</item>
   </string-array>
-    <!-- no translation found for shortcut_new_alarm_short (6851571384201576023) -->
-    <skip />
-    <!-- no translation found for shortcut_new_alarm_long (5058420042218910223) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_short (3100471271424780941) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_long (429912683736859745) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_short (5469715764277476796) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_long (453776661558045736) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_short (4022667323693785830) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_long (8141996544511771891) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_short (4406274645422067174) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_long (7081474983908104345) -->
-    <skip />
+    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"नयाँ अलार्म"</string>
+    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"नयाँ अलार्म सिर्जना गर्नु"</string>
+    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"नयाँ टाइमर"</string>
+    <string name="shortcut_new_timer_long" msgid="429912683736859745">"नयाँ टाइमर सिर्जना गर्नु"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"सुरु गर्नुहोस्"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"स्टपवाच सुरु गर्नुहोस्"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"पज गर्नुहोस्"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"स्टपवाच पज गर्नुहोस्"</string>
+    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"स्क्रिनसेभर"</string>
+    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"स्क्रिनसेभर सुरु गर्नुहोस्"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"सचेतकहरू"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"टाइमर सूचनाहरूबाट कार्यहरूको प्रसोधन गर्छ।"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"स्टपवाच सूचनाहरूबाट कार्यहरूको प्रसोधन गर्छ।"</string>

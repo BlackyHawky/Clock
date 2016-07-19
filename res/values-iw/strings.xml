@@ -329,26 +329,16 @@
     <item msgid="5911600083231840181">"טונגה"</item>
     <item msgid="5176858645450908751">"ג\'אקארטה"</item>
   </string-array>
-    <!-- no translation found for shortcut_new_alarm_short (6851571384201576023) -->
-    <skip />
-    <!-- no translation found for shortcut_new_alarm_long (5058420042218910223) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_short (3100471271424780941) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_long (429912683736859745) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_short (5469715764277476796) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_long (453776661558045736) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_short (4022667323693785830) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_long (8141996544511771891) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_short (4406274645422067174) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_long (7081474983908104345) -->
-    <skip />
+    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"התראה חדשה"</string>
+    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"יצירת התראה חדשה"</string>
+    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"טיימר חדש"</string>
+    <string name="shortcut_new_timer_long" msgid="429912683736859745">"יצירת טיימר חדש"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"התחל"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"התחלת שעון עצר"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"השהה"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"השהיית שעון עצר"</string>
+    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"שומר מסך"</string>
+    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"הפעלת שומר מסך"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"התראות"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"מעבד פעולות מההודעות של הטיימר."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"מעבד פעולות מההודעות של שעון העצר."</string>
