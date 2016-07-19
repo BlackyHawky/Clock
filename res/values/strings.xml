@@ -921,6 +921,12 @@
     -->
     <string name="alarm_is_dismissed"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm dismissed</string>
 
+    <!-- String that represents that the user has deleted an alarm through a voice action.
+    %s represents alarm time, e.g. 14:20
+    [CHAR LIMIT=NONE]
+    -->
+    <string name="alarm_is_deleted"><xliff:g id="alarm_time" example="14:20">%s</xliff:g> alarm deleted</string>
+
     <!-- String that represents that the user has dismissed an alarm through a voice action.
     %s represents alarm time, e.g. 14:20
     [CHAR LIMIT=NONE]
@@ -1025,6 +1031,13 @@
    [CHAR LIMIT=NONE]
    -->
     <string name="pick_alarm_to_dismiss">Pick which alarm to dismiss</string>
+
+    <!-- String that represents that further action is needed from the user in case their
+    voice command was ambiguous or there are more than 1 alarms that match their request.
+    The user needs to choose an alarm they want to delete through the UI
+   [CHAR LIMIT=NONE]
+   -->
+    <string name="pick_alarm_to_delete">Pick which alarm to delete</string>
 
     <!-- String that represents that the user doesn't have any alarms firing at the moment.
     [CHAR LIMIT=NONE]
