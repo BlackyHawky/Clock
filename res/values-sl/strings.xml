@@ -113,10 +113,10 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minut</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="one">minute</item>
-      <item quantity="two">minute</item>
+      <item quantity="one">minuta</item>
+      <item quantity="two">minuti</item>
       <item quantity="few">minute</item>
-      <item quantity="other">minute</item>
+      <item quantity="other">minut</item>
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Postopno večanje glasnosti"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"Izklopljeno"</string>

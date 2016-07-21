@@ -53,7 +53,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> րոպե</item>
     </plurals>
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Անջատված է"</string>
-    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Ննջել"</string>
+    <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Հետաձգել"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
       <item quantity="one">Ննջում է <xliff:g id="MINUTES">%d</xliff:g> րոպեով:</item>
       <item quantity="other">Ննջում է <xliff:g id="MINUTES">%d</xliff:g> րոպեով:</item>
@@ -95,7 +95,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Անալոգային ժամացույց"</string>
     <string name="help" msgid="7786263119482654015">"օգնություն"</string>
     <string name="settings" msgid="5849739030579520686">"Կարգավորումներ"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Ննջման տևողությունը"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Հետաձգման տևողությունը"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> րոպե</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> րոպե</item>
@@ -135,13 +135,13 @@
     <string name="alarm_volume_title" msgid="8506245173912428522">"Զարթուցիչի ձայնի բարձրությունը"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Լուռ"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Անհայտ"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Ննջել կամ անտեսել զարթուցիչը:"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Հետաձգել/անջատել զարթուցիչը։"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ննջած է)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Զարթուցիչը դրված է <xliff:g id="TIME">%s</xliff:g>: Հպեք՝ չեղարկելու համար:"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Ձայնի կոճակներ"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Գործարկման կոճակ"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Ննջել"</item>
+    <item msgid="7972756698723318690">"Հետաձգել"</item>
     <item msgid="3450979320164769576">"Անտեսել"</item>
     <item msgid="6302517608411378024">"Ոչինչ չանել"</item>
   </string-array>
@@ -343,7 +343,7 @@
     <string name="swn_paused" msgid="6364358842808263589">"Կանգնեցված է"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Անջատելու համար սահեցրեք աջ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Հետաձգելու համար սահեցրեք ձախ"</string>
-    <string name="description_direction_both" msgid="1841309486023845685">"Ննջեցնելու համար սահահարվածեք ձախ կամ աջ՝ բաց թողնելու համար"</string>
+    <string name="description_direction_both" msgid="1841309486023845685">"Սահեցրեք ձախ՝ հետաձգելու համար։ Աջ՝ անջատելու համար։"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Ժամանակաչափեր"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Ժամանակաչափի զանգերանգ"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Ժամաչափը դադարեցված է"</string>

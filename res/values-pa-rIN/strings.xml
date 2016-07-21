@@ -137,7 +137,7 @@
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"ਅਗਿਆਤ"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"ਅਲਾਰਮ ਸਨੂਜ਼ ਕਰੋ ਜਾਂ ਖਾਰਜ ਕਰੋ।"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (ਸਨੂਜ਼ ਕੀਤਾ)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ਅਲਾਰਮ <xliff:g id="TIME">%s</xliff:g> ਲਈ ਸੈੱਟ ਕੀਤਾ ਗਿਆ। ਰੱਦ ਕਰਨ ਲਈ ਛੋਹਵੋ।"</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"ਅਲਾਰਮ <xliff:g id="TIME">%s</xliff:g> ਲਈ ਸੈੱਟ ਕੀਤਾ ਗਿਆ। ਰੱਦ ਕਰਨ ਲਈ ਸਪੱਰਸ਼ ਕਰੋ।"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ਵੌਲਿਊਮ ਬਟਨ"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"ਬਟਨ ਇਫੈਕਟ"</string>
   <string-array name="volume_button_setting_entries">
@@ -349,7 +349,7 @@
     <string name="timer_stopped" msgid="2730331837832462008">"ਟਾਈਮਰ ਰੋਕਿਆ ਗਿਆ"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ਟਾਈਮਰ ਰੋਕਿਆ"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ਟਾਈਮਰ ਰੋਕੇ ਗਏ"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"ਆਪਣੇ ਟਾਈਮਰ ਦੇਖਣ ਲਈ ਛੋਹਵੋ"</string>
+    <string name="all_timers_stopped_notif" msgid="278532320068394600">"ਆਪਣੇ ਟਾਈਮਰ ਦੇਖਣ ਲਈ ਸਪੱਰਸ਼ ਕਰੋ"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ਟਾਈਮਰ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"ਅਗਲਾ ਟਾਈਮਰ: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"ਸੁਪਨ ਸੈਟਿੰਗਾਂ"</string>
