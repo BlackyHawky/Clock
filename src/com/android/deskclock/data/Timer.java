@@ -287,7 +287,7 @@ public final class Timer {
         final long wallClockTime = wallClock();
         final long delta = timeSinceBoot - mLastStartTime;
         final long remainingTime = mRemainingTime - delta;
-        if (remainingTime < 0) {
+        if (delta < 0) {
             return this;
         }
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
