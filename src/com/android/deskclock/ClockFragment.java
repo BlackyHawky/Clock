@@ -309,6 +309,7 @@ public final class ClockFragment extends DeskClockFragment {
         private final LayoutInflater mInflater;
         private final Context mContext;
         private final boolean mIsPortrait;
+        private final boolean mShowHomeClock;
         private final String mDateFormat;
         private final String mDateFormatForAccessibility;
         private final View.OnLongClickListener mLongClickListener;
@@ -320,6 +321,7 @@ public final class ClockFragment extends DeskClockFragment {
             mDateFormatForAccessibility = dateFormatForAccessibility;
             mInflater = LayoutInflater.from(context);
             mIsPortrait = Utils.isPortrait(context);
+            mShowHomeClock = DataModel.getDataModel().getShowHomeClock();
             mLongClickListener = longClickListener;
         }
 
@@ -353,11 +355,11 @@ public final class ClockFragment extends DeskClockFragment {
                     // Retrieve the city to bind.
                     final City city;
                     // If showing home clock, put it at the top
-                    if (position == 1 && getShowHomeClock()) {
+                    if (mShowHomeClock && position == (mIsPortrait ? 1 : 0)) {
                         city = getHomeCity();
                     } else {
                         final int positionAdjuster = (mIsPortrait ? 1 : 0)
-                                + (getShowHomeClock() ? 1 : 0);
+                                + (mShowHomeClock ? 1 : 0);
                         city = getCities().get(position - positionAdjuster);
                     }
                     ((CityViewHolder) holder).bind(mContext, city, position, mIsPortrait);
@@ -374,9 +376,9 @@ public final class ClockFragment extends DeskClockFragment {
         @Override
         public int getItemCount() {
             final int mainClockCount = mIsPortrait ? 1 : 0;
-            final int homeClockCount = getShowHomeClock() ? 1 : 0;
-            final int wordClockCount = getCities().size();
-            return mainClockCount + homeClockCount + wordClockCount;
+            final int homeClockCount = mShowHomeClock ? 1 : 0;
+            final int worldClockCount = getCities().size();
+            return mainClockCount + homeClockCount + worldClockCount;
         }
 
         private City getHomeCity() {
@@ -385,10 +387,6 @@ public final class ClockFragment extends DeskClockFragment {
 
         private List<City> getCities() {
             return DataModel.getDataModel().getSelectedCities();
-        }
-
-        private boolean getShowHomeClock() {
-            return DataModel.getDataModel().getShowHomeClock();
         }
 
         public void refreshAlarm() {
