@@ -307,26 +307,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <!-- no translation found for shortcut_new_alarm_short (6851571384201576023) -->
-    <skip />
-    <!-- no translation found for shortcut_new_alarm_long (5058420042218910223) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_short (3100471271424780941) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_long (429912683736859745) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_short (5469715764277476796) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_long (453776661558045736) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_short (4022667323693785830) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_long (8141996544511771891) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_short (4406274645422067174) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_long (7081474983908104345) -->
-    <skip />
+    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Új ébresztő"</string>
+    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Új ébresztő létrehozása"</string>
+    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Új időzítő"</string>
+    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Új időzítő létrehozása"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Indítás"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Stopper indítása"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Szünet"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Stopper szüneteltetése"</string>
+    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Képernyővédő"</string>
+    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Képernyővédő indítása"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Ébresztés"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Feldolgozza az időzítő értesítéseiből származó műveleteket."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Feldolgozza a stopperóra értesítéseiből származó műveleteket."</string>
@@ -370,6 +360,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"Stopper elindítva"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nincs ébresztés beállítva erre az időpontra"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> – ébresztés elvetve"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"<xliff:g id="ALARM_TIME">%s</xliff:g> – riasztás törölve"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Az ébresztés időpontja: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"Nincs időzítő"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"Egynél több időzítő van beállítva"</string>
@@ -387,6 +378,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> – az ébresztést még nem lehet elvetni, több mint 24 óra múlva esedékes"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ébresztés elvetése"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Válassza ki az elvetni kívánt ébresztést"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"Válassza ki a törölni kívánt ébresztést"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nincs beállítva ébresztés"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> – ébresztés elhalasztva 10 perccel"</string>
 </resources>

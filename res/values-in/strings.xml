@@ -360,6 +360,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"Stopwatch dimulai"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Tidak ada jadwal alarm untuk waktu ini"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> ditutup"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> dihapus"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Alarm disetel untuk <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"Tidak ada pewaktu"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"Ada lebih dari satu pewaktu"</string>
@@ -377,6 +378,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> belum dapat ditutup, masih 24 jam lagi"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Tutup alarm"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Pilih alarm mana yang harus ditutup"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"Pilih alarm yang akan dihapus"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Tidak ada alarm yang aktif"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarm pukul <xliff:g id="ALARM_TIME">%s</xliff:g> ditunda selama 10 menit"</string>
 </resources>

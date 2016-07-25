@@ -360,6 +360,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"Sinimulan ang stopwatch"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Walang nakaiskedyul na alarm para sa oras na ito"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Na-dismiss ang alarm na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"Na-delete ang alarm na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Nakatakda na ang alarm para sa <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"Walang mga timer sa kasalukuyan"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"May mahigit sa isang timer sa kasalukuyan"</string>
@@ -377,6 +378,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Hindi pa maaaring i-dismiss ang alarm na <xliff:g id="ALARM_TIME">%s</xliff:g>, mahigit 24 na oras pa bago ito dumating"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"I-dismiss ang alarm"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Piliin kung aling alarm ang idi-dismiss"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"Piliin kung aling alarm ang ide-delete"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Walang mga gumaganang alarm"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Na-snooze sa loob ng 10 minuto ang alarm na <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
 </resources>
