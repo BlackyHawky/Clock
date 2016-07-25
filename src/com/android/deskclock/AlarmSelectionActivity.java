@@ -31,6 +31,7 @@ import com.android.deskclock.widget.selector.AlarmSelectionAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AlarmSelectionActivity extends ListActivity {
 
@@ -82,7 +83,7 @@ public class AlarmSelectionActivity extends ListActivity {
             final Alarm alarm = (Alarm) parcelable;
 
             // filling mSelections that go into the UI picker list
-            final String label = String.format("%d %02d", alarm.hour, alarm.minutes);
+            final String label = String.format(Locale.US, "%d %02d", alarm.hour, alarm.minutes);
             mSelections.add(new AlarmSelection(label, alarm));
         }
 
