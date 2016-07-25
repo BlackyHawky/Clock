@@ -307,26 +307,16 @@
     <item msgid="5911600083231840181">"ટોંગા"</item>
     <item msgid="5176858645450908751">"જકાર્તા"</item>
   </string-array>
-    <!-- no translation found for shortcut_new_alarm_short (6851571384201576023) -->
-    <skip />
-    <!-- no translation found for shortcut_new_alarm_long (5058420042218910223) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_short (3100471271424780941) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_long (429912683736859745) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_short (5469715764277476796) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_long (453776661558045736) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_short (4022667323693785830) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_long (8141996544511771891) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_short (4406274645422067174) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_long (7081474983908104345) -->
-    <skip />
+    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"નવો એલાર્મ"</string>
+    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"નવો એલાર્મ બનાવો"</string>
+    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"નવું ટાઇમર"</string>
+    <string name="shortcut_new_timer_long" msgid="429912683736859745">"નવું ટાઇમર બનાવો"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"શરૂ કરો"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"સ્ટોપવૉચ શરૂ કરો"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"થોભાવો"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"સ્ટોપવૉચ થોભાવો"</string>
+    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"સ્ક્રીનસેવર"</string>
+    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"સ્ક્રીનસેવર શરૂ કરો"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"એલાર્મ્સ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ટાઇમર સૂચનાઓમાંથી ક્રિયાઓ પર પ્રક્રિયા કરે છે."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"સ્ટોપવોચ સૂચનાઓમાંથી ક્રિયાઓ પર પ્રક્રિયા કરે છે."</string>
@@ -370,6 +360,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"સ્ટોપવૉચ શરૂ થઈ"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"આ સમય માટે કોઇ એલાર્મ શેડ્યુલ કરેલ નથી"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> એલાર્મ છોડી દીધો"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"<xliff:g id="ALARM_TIME">%s</xliff:g> એલાર્મ કાઢી નાખ્યો"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g> માટે એલાર્મ સેટ કરેલ છે"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"કોઈ ટાઇમર્સ અસ્તિત્વમાં નથી"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"એક કરતાં વધુ ટાઇમર અસ્તિત્વમાં છે"</string>
@@ -387,6 +378,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> એલાર્મ હજી છોડી દઇ શકાતો નથી, હજી 24 કલાક કરતાં વધુ સમયની વાર છે"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"એલાર્મ છોડી દો"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"કયું એલાર્મ છોડી દેવું તે ચૂંટો"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"કયા એલાર્મને કાઢી નાખવો તે ચૂંટો"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"કોઇ ચાલુ એલાર્મ્સ નથી"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> એલાર્મ 10 મિનિટ માટે સ્નુઝ કર્યો"</string>
 </resources>

@@ -334,7 +334,7 @@
     <string name="shortcut_new_timer_short" msgid="3100471271424780941">"טיימר חדש"</string>
     <string name="shortcut_new_timer_long" msgid="429912683736859745">"יצירת טיימר חדש"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"התחל"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"התחלת שעון עצר"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"הפעלת שעון עצר"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"השהה"</string>
     <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"השהיית שעון עצר"</string>
     <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"שומר מסך"</string>
@@ -382,6 +382,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"שעון העצר הופעל"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"לא נקבעה התראה לשעה הזו"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g> נסגרה"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g> נמחקה"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"הוגדרה התראה לשעה <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"לא קיימים טיימרים"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"קיים יותר מטיימר אחד"</string>
@@ -399,6 +400,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"לא ניתן לסגור עדיין את ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g>, נותרו יותר מ-24 שעות"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"דחה את ההתראה"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"בחר איזו התראה לדחות"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"בחר איזו התראה למחוק"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"אין התראות הפועלות כעת"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"ההתראה של <xliff:g id="ALARM_TIME">%s</xliff:g> הועברה למצב נודניק למשך עשר דקות"</string>
 </resources>

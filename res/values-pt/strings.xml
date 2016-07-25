@@ -360,6 +360,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"Cronômetro iniciado"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nenhum alarme programado para este horário"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Alarme <xliff:g id="ALARM_TIME">%s</xliff:g> dispensado"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"Alarme <xliff:g id="ALARM_TIME">%s</xliff:g> excluído"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"O alarme está definido para <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"Não há nenhum timer"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"Existe mais de um timer"</string>
@@ -377,6 +378,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Não é possível dispensar o alarme <xliff:g id="ALARM_TIME">%s</xliff:g> ainda, pois ainda faltam mais de 24 horas para ele"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Dispensar alarme"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Escolher qual alarme dispensar"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"Escolha qual alarme excluir"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Nenhum alarme disparando"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarme <xliff:g id="ALARM_TIME">%s</xliff:g> adiado por 10 minutos"</string>
 </resources>

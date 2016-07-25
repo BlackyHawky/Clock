@@ -360,6 +360,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"स्टपवाच सुरु भयो"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"यस समयका लागि कुनै कार्यतालिका मिलाइएको छैन"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म खारेज गरियो"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म मेटियो"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"<xliff:g id="ALARM_TIME">%s</xliff:g>का लागि अलार्म सेट गरियो"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"कुनै टाइमरहरू अवस्थित छैनन्"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"एक भन्दा बढी टाइमर अवस्थित छन्"</string>
@@ -377,6 +378,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म अझै खारेज गर्न सक्दैन, अझै २४ घन्टाभन्दा बढी छ"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"अलार्म खारेज गर्नुहोस्"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"कुन अलार्म खारेज गर्ने हो छान्नुहोस्"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"मेटाउन चाहनुभएको अलार्म छान्नुहोस्"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"कुनै बजिरहेका अलार्महरू छैनन्"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> अलार्म १० मिनेटका लागि  स्नुज गरियो"</string>
 </resources>

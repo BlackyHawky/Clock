@@ -307,26 +307,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <!-- no translation found for shortcut_new_alarm_short (6851571384201576023) -->
-    <skip />
-    <!-- no translation found for shortcut_new_alarm_long (5058420042218910223) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_short (3100471271424780941) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_long (429912683736859745) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_short (5469715764277476796) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_long (453776661558045736) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_short (4022667323693785830) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_long (8141996544511771891) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_short (4406274645422067174) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_long (7081474983908104345) -->
-    <skip />
+    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Alarma nova"</string>
+    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Crea una alarma"</string>
+    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Tempor. nou"</string>
+    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Crea un temporitzador"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Inicia"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Inicia el cronòmetre"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Posa en pausa"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Posa en pausa el cronòmetre"</string>
+    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Protec. pantalla"</string>
+    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Inicia protector pantalla"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Processa les accions de les notificacions del temporitzador."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Processa les accions de les notificacions del cronòmetre."</string>
@@ -370,6 +360,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"S\'ha iniciat el cronòmetre"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"No hi ha cap alarma programada per a aquesta hora"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"L\'alarma <xliff:g id="ALARM_TIME">%s</xliff:g> s\'ha ignorat"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"L\'alarma <xliff:g id="ALARM_TIME">%s</xliff:g> s\'ha suprimit"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"L\'alarma està definida per a les <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"No hi ha temporitzadors"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"Hi ha més d\'un temporitzador"</string>
@@ -387,6 +378,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"L\'alarma <xliff:g id="ALARM_TIME">%s</xliff:g> encara no es pot ignorar, ja que hi falten més de 24 hores"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Ignora l\'alarma"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Tria quina alarma vols ignorar"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"Tria quina alarma vols suprimir"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"No hi ha cap alarma activa"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"L\'alarma <xliff:g id="ALARM_TIME">%s</xliff:g> s\'ha posposat deu minuts"</string>
 </resources>

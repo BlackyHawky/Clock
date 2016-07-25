@@ -307,26 +307,16 @@
     <item msgid="5911600083231840181">"汤加"</item>
     <item msgid="5176858645450908751">"雅加达"</item>
   </string-array>
-    <!-- no translation found for shortcut_new_alarm_short (6851571384201576023) -->
-    <skip />
-    <!-- no translation found for shortcut_new_alarm_long (5058420042218910223) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_short (3100471271424780941) -->
-    <skip />
-    <!-- no translation found for shortcut_new_timer_long (429912683736859745) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_short (5469715764277476796) -->
-    <skip />
-    <!-- no translation found for shortcut_start_stopwatch_long (453776661558045736) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_short (4022667323693785830) -->
-    <skip />
-    <!-- no translation found for shortcut_pause_stopwatch_long (8141996544511771891) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_short (4406274645422067174) -->
-    <skip />
-    <!-- no translation found for shortcut_start_screensaver_long (7081474983908104345) -->
-    <skip />
+    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"新闹钟"</string>
+    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"设置新闹钟"</string>
+    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"新计时器"</string>
+    <string name="shortcut_new_timer_long" msgid="429912683736859745">"设置新计时器"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"启动"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"启动秒表"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"暂停"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"暂停秒表"</string>
+    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"屏幕保护程序"</string>
+    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"启动屏幕保护程序"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"闹钟"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"处理可通过计时器通知执行的操作。"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"处理可通过秒表通知执行的操作。"</string>
@@ -370,6 +360,7 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"秒表已开始"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"未设置这个时间的闹钟"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"已关闭 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
+    <string name="alarm_is_deleted" msgid="4593667023633842085">"已删除 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"已设置 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"没有任何计时器"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"有多个计时器存在"</string>
@@ -387,6 +378,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"距离 <xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟还有 24 小时以上，因此无法关闭此闹钟"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"关闭闹钟"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"请选择要关闭的闹钟"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"选择要删除的闹钟"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"目前没有正在响铃的闹钟"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> 的闹钟已延后 10 分钟"</string>
 </resources>
