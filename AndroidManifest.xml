@@ -358,12 +358,14 @@
         <service
             android:name=".timer.TimerService"
             android:description="@string/timer_service_desc"
+            android:directBootAware="true"
             android:exported="false"
             tools:ignore="ManifestResource" />
 
         <service
             android:name=".stopwatch.StopwatchService"
             android:description="@string/stopwatch_service_desc"
+            android:directBootAware="true"
             android:exported="false"
             tools:ignore="ManifestResource" />
 
