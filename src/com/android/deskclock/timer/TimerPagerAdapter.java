@@ -16,6 +16,7 @@
 
 package com.android.deskclock.timer;
 
+import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -72,6 +73,7 @@ class TimerPagerAdapter extends PagerAdapter implements TimerListener {
     }
 
     @Override
+    @SuppressLint("CommitTransaction")
     public Fragment instantiateItem(ViewGroup container, int position) {
         if (mCurrentTransaction == null) {
             mCurrentTransaction = mFragmentManager.beginTransaction();
@@ -102,6 +104,7 @@ class TimerPagerAdapter extends PagerAdapter implements TimerListener {
     }
 
     @Override
+    @SuppressLint("CommitTransaction")
     public void destroyItem(ViewGroup container, int position, Object object) {
         final TimerItemFragment fragment = (TimerItemFragment) object;
 
