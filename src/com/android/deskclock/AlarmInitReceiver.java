@@ -61,14 +61,18 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         AlarmStateManager.updateGlobalIntentId(context);
 
         // Updates stopwatch and timer data after a device reboot so they are as accurate as
-        // possible. Update shortcuts so they exist for the user.
+        // possible.
         if (ACTION_BOOT_COMPLETED.equals(action)) {
             DataModel.getDataModel().updateAfterReboot();
-            Controller.getController().updateShortcuts();
             // Stopwatch and timer data need to be updated on time change so the reboot
             // functionality works as expected.
         } else if (Intent.ACTION_TIME_CHANGED.equals(action)) {
             DataModel.getDataModel().updateAfterTimeSet();
+        }
+
+        // Update shortcuts so they exist for the user.
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+            Controller.getController().updateShortcuts();
         }
 
         // Notifications are canceled by the system on application upgrade. This broadcast signals

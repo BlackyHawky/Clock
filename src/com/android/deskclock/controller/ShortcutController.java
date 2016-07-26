@@ -24,6 +24,7 @@ import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
 import android.graphics.drawable.Icon;
 import android.os.Build;
+import android.os.UserManager;
 import android.provider.AlarmClock;
 
 import com.android.deskclock.DeskClock;
@@ -48,12 +49,14 @@ class ShortcutController {
     private final Context mContext;
     private final ComponentName mComponentName;
     private final ShortcutManager mShortcutManager;
+    private final UserManager mUserManager;
     private final UiDataModel uidm = UiDataModel.getUiDataModel();
 
     ShortcutController(Context context) {
         mContext = context;
         mComponentName = new ComponentName(mContext, DeskClock.class);
         mShortcutManager = mContext.getSystemService(ShortcutManager.class);
+        mUserManager = (UserManager) mContext.getSystemService(Context.USER_SERVICE);
         Events.addEventTracker(new ShortcutEventTracker(mContext));
         DataModel.getDataModel().addStopwatchListener(new StopwatchWatcher());
     }
@@ -149,7 +152,10 @@ class ShortcutController {
 
         @Override
         public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
-            mShortcutManager.updateShortcuts(Collections.singletonList(createStopwatchShortcut()));
+            if (mUserManager.isUserUnlocked()) {
+                mShortcutManager.updateShortcuts(
+                        Collections.singletonList(createStopwatchShortcut()));
+            }
         }
 
         @Override
