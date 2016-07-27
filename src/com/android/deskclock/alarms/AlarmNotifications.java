@@ -159,20 +159,26 @@ public final class AlarmNotifications {
         updateAlarmGroupNotification(context);
     }
 
+    private static boolean isGroupSummary(Notification n) {
+        return (n.flags & Notification.FLAG_GROUP_SUMMARY) == Notification.FLAG_GROUP_SUMMARY;
+    }
+
     @TargetApi(Build.VERSION_CODES.N)
-    private static int getActiveNotificationsCount(Context context, String group) {
-        NotificationManager nm = (NotificationManager) context.getSystemService(
-                Context.NOTIFICATION_SERVICE);
-        StatusBarNotification[] notifications = nm.getActiveNotifications();
-        int count = 0;
+    public static Notification getFirstActiveNotification(Context context, String group) {
+        final NotificationManager nm =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        final StatusBarNotification[] notifications = nm.getActiveNotifications();
+        Notification firstActiveNotification = null;
         for (StatusBarNotification statusBarNotification : notifications) {
             final Notification n = statusBarNotification.getNotification();
-            if ((n.flags & Notification.FLAG_GROUP_SUMMARY) != Notification.FLAG_GROUP_SUMMARY
-                    && group.equals(n.getGroup())) {
-                count++;
+            if (!isGroupSummary(n) && group.equals(n.getGroup())) {
+                if (firstActiveNotification == null
+                        || n.getSortKey().compareTo(firstActiveNotification.getSortKey()) < 0) {
+                    firstActiveNotification = n;
+                }
             }
         }
-        return count;
+        return firstActiveNotification;
     }
 
     public static void updateAlarmGroupNotification(Context context) {
@@ -180,9 +186,11 @@ public final class AlarmNotifications {
             return;
         }
 
-        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
+        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
-        if (getActiveNotificationsCount(context, UPCOMING_GROUP_KEY) == 0) {
+        final Notification firstActiveNotification =
+                getFirstActiveNotification(context, UPCOMING_GROUP_KEY);
+        if (firstActiveNotification == null) {
             nm.cancel(ALARM_GROUP_NOTIFICATION_ID);
             return;
         }
@@ -198,6 +206,7 @@ public final class AlarmNotifications {
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
 
+        summaryNotification.setContentIntent(firstActiveNotification.contentIntent);
 
         nm.notify(ALARM_GROUP_NOTIFICATION_ID, summaryNotification.build());
     }
@@ -207,9 +216,11 @@ public final class AlarmNotifications {
             return;
         }
 
-        NotificationManagerCompat nm = NotificationManagerCompat.from(context);
+        final NotificationManagerCompat nm = NotificationManagerCompat.from(context);
 
-        if (getActiveNotificationsCount(context, MISSED_GROUP_KEY) == 0) {
+        final Notification firstActiveNotification =
+                getFirstActiveNotification(context, MISSED_GROUP_KEY);
+        if (firstActiveNotification == null) {
             nm.cancel(ALARM_GROUP_MISSED_NOTIFICATION_ID);
             return;
         }
@@ -224,6 +235,8 @@ public final class AlarmNotifications {
                 .setCategory(NotificationCompat.CATEGORY_ALARM)
                 .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setLocalOnly(true);
+
+        summaryNotification.setContentIntent(firstActiveNotification.contentIntent);
 
         nm.notify(ALARM_GROUP_MISSED_NOTIFICATION_ID, summaryNotification.build());
     }
