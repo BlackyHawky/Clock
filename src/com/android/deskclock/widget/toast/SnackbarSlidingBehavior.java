@@ -23,8 +23,6 @@ import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.List;
-
 /**
  * Custom {@link CoordinatorLayout.Behavior} that slides with the {@link Snackbar}.
  */
@@ -59,9 +57,7 @@ public final class SnackbarSlidingBehavior extends CoordinatorLayout.Behavior<Vi
     private void updateTranslationY(CoordinatorLayout parent, View child) {
         float translationY = 0f;
         for (View dependency : parent.getDependencies(child)) {
-            if (parent.doViewsOverlap(child, dependency)) {
-                translationY = Math.min(translationY, dependency.getY() - child.getBottom());
-            }
+            translationY = Math.min(translationY, dependency.getY() - child.getBottom());
         }
         child.setTranslationY(translationY);
     }
