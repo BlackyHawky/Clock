@@ -125,8 +125,9 @@ public class AnalogClock extends View {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         final int minWidth = Math.max(mDial.getIntrinsicWidth(), getSuggestedMinimumWidth());
         final int minHeight = Math.max(mDial.getIntrinsicHeight(), getSuggestedMinimumHeight());
-        setMeasuredDimension(getDefaultSize(minWidth, widthMeasureSpec),
+        final int measurement = Math.min(getDefaultSize(minWidth, widthMeasureSpec),
                 getDefaultSize(minHeight, heightMeasureSpec));
+        setMeasuredDimension(measurement, measurement);
     }
 
     @Override
