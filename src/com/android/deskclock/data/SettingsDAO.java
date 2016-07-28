@@ -19,6 +19,7 @@ package com.android.deskclock.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.provider.Settings;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
@@ -27,6 +28,7 @@ import com.android.deskclock.data.DataModel.ClockStyle;
 import com.android.deskclock.settings.ScreensaverSettingsActivity;
 import com.android.deskclock.settings.SettingsActivity;
 
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -155,17 +157,28 @@ final class SettingsDAO {
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      *      has yet been made
      */
-    static Uri getDefaultAlarmRingtoneUri(Context context, Uri defaultUri) {
+    static Uri getDefaultAlarmRingtoneUri(Context context) {
         final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE_URI, null);
-        return uriString == null ? defaultUri : Uri.parse(uriString);
+        return uriString == null ? Settings.System.DEFAULT_ALARM_ALERT_URI : Uri.parse(uriString);
     }
+
     /**
      * @param uri identifies the default ringtone to play for new alarms
      */
     static void setDefaultAlarmRingtoneUri(Context context, Uri uri) {
         final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         prefs.edit().putString(KEY_DEFAULT_ALARM_RINGTONE_URI, uri.toString()).apply();
+    }
+
+    /**
+     * @return the first day of the week; one of {@link Calendar#SATURDAY}, {@link Calendar#SUNDAY}
+     *      or {@link Calendar#MONDAY}
+     */
+    static int getFirstDayOfWeek(Context context) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        final String defaultValue = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
+        return Integer.parseInt(prefs.getString(SettingsActivity.KEY_WEEK_START, defaultValue));
     }
 
     private static ClockStyle getClockStyle(Context context, String prefKey) {

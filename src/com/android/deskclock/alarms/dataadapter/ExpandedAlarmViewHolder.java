@@ -82,10 +82,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         itemView.setBackground(background);
         typedArray.recycle();
 
-        final int firstDay = Utils.getZeroIndexedFirstDayOfWeek(context);
-
         delete = (ImageButton) itemView.findViewById(R.id.delete);
-
         repeat = (CheckBox) itemView.findViewById(R.id.repeat_onoff);
         vibrate = (CheckBox) itemView.findViewById(R.id.vibrate_onoff);
         ringtone = (TextView) itemView.findViewById(R.id.choose_ringtone);
@@ -93,12 +90,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         repeatDays = (LinearLayout) itemView.findViewById(R.id.repeat_days);
 
         // Build button for each day.
-        LayoutInflater mInflater = LayoutInflater.from(context);
-        for (int i = 0; i < DaysOfWeek.DAYS_IN_A_WEEK; i++) {
-            final CompoundButton dayButton = (CompoundButton) mInflater.inflate(
+        final LayoutInflater inflater = LayoutInflater.from(context);
+        for (int i = 0; i < 7; i++) {
+            final CompoundButton dayButton = (CompoundButton) inflater.inflate(
                     R.layout.day_button, repeatDays, false /* attachToRoot */);
-            dayButton.setText(Utils.getShortWeekday(i, firstDay));
-            dayButton.setContentDescription(Utils.getLongWeekday(i, firstDay));
+            dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(i));
+            dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(i));
             repeatDays.addView(dayButton);
             dayButtons[i] = dayButton;
         }

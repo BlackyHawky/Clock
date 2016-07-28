@@ -25,6 +25,7 @@ import android.support.annotation.StringRes;
 
 import com.android.deskclock.timer.TimerService;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -708,6 +709,15 @@ public final class DataModel {
     public boolean getShowHomeClock() {
         enforceMainLooper();
         return mSettingsModel.getShowHomeClock();
+    }
+
+    /**
+     * @return the first day of the week; one of {@link Calendar#SATURDAY}, {@link Calendar#SUNDAY}
+     *      or {@link Calendar#MONDAY}
+     */
+    public int getFirstDayOfWeek() {
+        enforceMainLooper();
+        return mSettingsModel.getFirstDayOfWeek();
     }
 
     /**
