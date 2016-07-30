@@ -18,7 +18,6 @@ package com.android.deskclock.data;
 
 import android.content.Context;
 import android.net.Uri;
-import android.provider.Settings;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
@@ -97,12 +96,15 @@ final class SettingsModel {
     }
 
     Uri getDefaultAlarmRingtoneUri() {
-        return SettingsDAO.getDefaultAlarmRingtoneUri(mContext,
-                Settings.System.DEFAULT_ALARM_ALERT_URI);
+        return SettingsDAO.getDefaultAlarmRingtoneUri(mContext);
     }
 
     void setDefaultAlarmRingtoneUri(Uri uri) {
         SettingsDAO.setDefaultAlarmRingtoneUri(mContext, uri);
+    }
+
+    int getFirstDayOfWeek() {
+        return SettingsDAO.getFirstDayOfWeek(mContext);
     }
 
     boolean getTimerVibrate() {

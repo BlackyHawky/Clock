@@ -18,7 +18,7 @@ package com.android.deskclock.alarms.utils;
 
 import android.content.Context;
 
-import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.DaysOfWeek;
 
 import java.util.Calendar;
@@ -42,7 +42,7 @@ public final class DayOrderUtils {
     public static int[] getDayOrder(Context context) {
         // Value from preferences corresponds to Calendar.<WEEKDAY> value
         // -1 in order to correspond to DAY_ORDER indexing
-        final int startDay = Utils.getZeroIndexedFirstDayOfWeek(context);
+        final int startDay = DataModel.getDataModel().getFirstDayOfWeek() - 1;
         final int[] dayOrder = new int[DaysOfWeek.DAYS_IN_A_WEEK];
 
         for (int i = 0; i < DaysOfWeek.DAYS_IN_A_WEEK; ++i) {
@@ -50,5 +50,4 @@ public final class DayOrderUtils {
         }
         return dayOrder;
     }
-
 }
