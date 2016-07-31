@@ -23,6 +23,8 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.widget.TextTime;
 
@@ -60,7 +62,8 @@ public class AlarmSelectionAdapter extends ArrayAdapter<AlarmSelection> {
                     context.getResources().getString(R.string.alarm_tomorrow) :
                     context.getResources().getString(R.string.alarm_today);
         } else {
-            daysOfWeek = alarm.daysOfWeek.toString(context, 0);
+            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+            daysOfWeek = alarm.daysOfWeek.toString(context, weekdayOrder);
         }
 
         final TextView daysOfWeekView = (TextView) row.findViewById(R.id.daysOfWeek);

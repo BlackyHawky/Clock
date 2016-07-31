@@ -37,14 +37,12 @@ import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
-import com.android.deskclock.alarms.utils.DayOrderUtils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.uidata.UiDataModel;
 
-import java.util.HashSet;
+import java.util.List;
 
 import static android.content.Context.VIBRATOR_SERVICE;
 
@@ -64,14 +62,12 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public final ImageButton delete;
 
     private final boolean mHasVibrator;
-    private final int[] mDayOrder;
 
     public ExpandedAlarmViewHolder(View itemView, boolean hasVibrator) {
         super(itemView);
 
         final Context context = itemView.getContext();
         mHasVibrator = hasVibrator;
-        mDayOrder = DayOrderUtils.getDayOrder(context);
         final Resources.Theme theme = context.getTheme();
         int[] attrs = new int[] { android.R.attr.selectableItemBackground };
 
@@ -91,11 +87,13 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);
+        final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
         for (int i = 0; i < 7; i++) {
             final CompoundButton dayButton = (CompoundButton) inflater.inflate(
                     R.layout.day_button, repeatDays, false /* attachToRoot */);
-            dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(i));
-            dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(i));
+            final int weekday = weekdays.get(i);
+            dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
+            dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));
             repeatDays.addView(dayButton);
             dayButtons[i] = dayButton;
         }
@@ -159,7 +157,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             }
         });
         // Day buttons handler
-        for (int i = 0; i < DaysOfWeek.DAYS_IN_A_WEEK; i++) {
+        for (int i = 0; i < dayButtons.length; i++) {
             final int buttonIndex = i;
             dayButtons[i].setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -199,10 +197,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm) {
-        HashSet<Integer> setDays = alarm.daysOfWeek.getSetDays();
-        for (int i = 0; i < DaysOfWeek.DAYS_IN_A_WEEK; i++) {
+        final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
+        for (int i = 0; i < weekdays.size(); i++) {
             final CompoundButton dayButton = dayButtons[i];
-            if (setDays.contains(mDayOrder[i])) {
+            if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
                 dayButton.setTextColor(UiDataModel.getUiDataModel().getWindowBackgroundColor());
             } else {

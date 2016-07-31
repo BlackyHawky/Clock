@@ -34,10 +34,10 @@ import android.text.format.DateFormat;
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
+import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.timer.TimerFragment;
 import com.android.deskclock.uidata.UiDataModel;
 
@@ -716,7 +716,7 @@ public class HandleApiCalls extends Activity {
         alarm.vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, alarm.vibrate);
         alarm.alert = getAlertFromIntent(intent, alarm.alert);
         alarm.label = getLabelFromIntent(intent, alarm.label);
-        alarm.daysOfWeek = getDaysFromIntent(intent, alarm.daysOfWeek.getBitSet());
+        alarm.daysOfWeek = getDaysFromIntent(intent, alarm.daysOfWeek);
     }
 
     private static String getLabelFromIntent(Intent intent, String defaultLabel) {
@@ -724,27 +724,26 @@ public class HandleApiCalls extends Activity {
         return message == null ? "" : message;
     }
 
-    private static DaysOfWeek getDaysFromIntent(Intent intent, int defaultDaysBitset) {
+    private static Weekdays getDaysFromIntent(Intent intent, Weekdays defaultWeekdays) {
         if (!intent.hasExtra(AlarmClock.EXTRA_DAYS)) {
-            return new DaysOfWeek(defaultDaysBitset);
+            return defaultWeekdays;
         }
 
-        final DaysOfWeek daysOfWeek = new DaysOfWeek(0);
-        final ArrayList<Integer> days = intent.getIntegerArrayListExtra(AlarmClock.EXTRA_DAYS);
+        final List<Integer> days = intent.getIntegerArrayListExtra(AlarmClock.EXTRA_DAYS);
         if (days != null) {
             final int[] daysArray = new int[days.size()];
             for (int i = 0; i < days.size(); i++) {
                 daysArray[i] = days.get(i);
             }
-            daysOfWeek.setDaysOfWeek(true, daysArray);
+            return Weekdays.fromCalendarDays(daysArray);
         } else {
             // API says to use an ArrayList<Integer> but we allow the user to use a int[] too.
             final int[] daysArray = intent.getIntArrayExtra(AlarmClock.EXTRA_DAYS);
             if (daysArray != null) {
-                daysOfWeek.setDaysOfWeek(true, daysArray);
+                return Weekdays.fromCalendarDays(daysArray);
             }
         }
-        return daysOfWeek;
+        return defaultWeekdays;
     }
 
     private static Uri getAlertFromIntent(Intent intent, Uri defaultUri) {
@@ -795,7 +794,7 @@ public class HandleApiCalls extends Activity {
         // Days is treated differently than other fields because if days is not specified, it
         // explicitly means "not recurring".
         selection.append(" AND ").append(Alarm.DAYS_OF_WEEK).append("=?");
-        args.add(String.valueOf(getDaysFromIntent(intent, DaysOfWeek.NO_DAYS_SET).getBitSet()));
+        args.add(String.valueOf(getDaysFromIntent(intent, Weekdays.NONE).getBits()));
 
         if (intent.hasExtra(AlarmClock.EXTRA_VIBRATE)) {
             selection.append(" AND ").append(Alarm.VIBRATE).append("=?");

@@ -28,6 +28,8 @@ import com.android.deskclock.R;
 import com.android.deskclock.stopwatch.StopwatchFragment;
 import com.android.deskclock.timer.TimerFragment;
 
+import java.util.Calendar;
+
 import static com.android.deskclock.Utils.enforceMainLooper;
 
 /**
@@ -158,21 +160,39 @@ public final class UiDataModel {
     }
 
     /**
-     * @param index the index of the weekday; between 0 and 6 inclusive
+     * @param calendarDay any of the following values
+     *                     <ul>
+     *                     <li>{@link Calendar#SUNDAY}</li>
+     *                     <li>{@link Calendar#MONDAY}</li>
+     *                     <li>{@link Calendar#TUESDAY}</li>
+     *                     <li>{@link Calendar#WEDNESDAY}</li>
+     *                     <li>{@link Calendar#THURSDAY}</li>
+     *                     <li>{@link Calendar#FRIDAY}</li>
+     *                     <li>{@link Calendar#SATURDAY}</li>
+     *                     </ul>
      * @return single-character version of weekday name; e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
      */
-    public String getShortWeekday(int index) {
+    public String getShortWeekday(int calendarDay) {
         enforceMainLooper();
-        return mFormattedStringModel.getShortWeekday(index);
+        return mFormattedStringModel.getShortWeekday(calendarDay);
     }
 
     /**
-     * @param index the index of the weekday; between 0 and 6 inclusive
+     * @param calendarDay any of the following values
+     *                     <ul>
+     *                     <li>{@link Calendar#SUNDAY}</li>
+     *                     <li>{@link Calendar#MONDAY}</li>
+     *                     <li>{@link Calendar#TUESDAY}</li>
+     *                     <li>{@link Calendar#WEDNESDAY}</li>
+     *                     <li>{@link Calendar#THURSDAY}</li>
+     *                     <li>{@link Calendar#FRIDAY}</li>
+     *                     <li>{@link Calendar#SATURDAY}</li>
+     *                     </ul>
      * @return full weekday name; e.g.: 'Sunday', 'Monday', 'Tuesday', etc.
      */
-    public String getLongWeekday(int index) {
+    public String getLongWeekday(int calendarDay) {
         enforceMainLooper();
-        return mFormattedStringModel.getLongWeekday(index);
+        return mFormattedStringModel.getLongWeekday(calendarDay);
     }
 
     //

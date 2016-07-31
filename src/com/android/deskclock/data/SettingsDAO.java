@@ -32,6 +32,13 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static com.android.deskclock.data.Weekdays.Order.MON_TO_SUN;
+import static com.android.deskclock.data.Weekdays.Order.SAT_TO_FRI;
+import static com.android.deskclock.data.Weekdays.Order.SUN_TO_SAT;
+import static java.util.Calendar.MONDAY;
+import static java.util.Calendar.SATURDAY;
+import static java.util.Calendar.SUNDAY;
+
 /**
  * This class encapsulates the storage of application preferences in {@link SharedPreferences}.
  */
@@ -172,13 +179,21 @@ final class SettingsDAO {
     }
 
     /**
-     * @return the first day of the week; one of {@link Calendar#SATURDAY}, {@link Calendar#SUNDAY}
-     *      or {@link Calendar#MONDAY}
+     * @return the display order of the weekdays, which can start with {@link Calendar#SATURDAY},
+     *      {@link Calendar#SUNDAY} or {@link Calendar#MONDAY}
      */
-    static int getFirstDayOfWeek(Context context) {
+    static Weekdays.Order getWeekdayOrder(Context context) {
         final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final String defaultValue = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
-        return Integer.parseInt(prefs.getString(SettingsActivity.KEY_WEEK_START, defaultValue));
+        final String value = prefs.getString(SettingsActivity.KEY_WEEK_START, defaultValue);
+        final int firstCalendarDay = Integer.parseInt(value);
+        switch (firstCalendarDay) {
+            case SATURDAY: return SAT_TO_FRI;
+            case SUNDAY: return SUN_TO_SAT;
+            case MONDAY: return MON_TO_SUN;
+            default:
+                throw new IllegalArgumentException("Unknown weekday: " + firstCalendarDay);
+        }
     }
 
     private static ClockStyle getClockStyle(Context context, String prefKey) {

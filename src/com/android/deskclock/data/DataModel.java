@@ -712,12 +712,12 @@ public final class DataModel {
     }
 
     /**
-     * @return the first day of the week; one of {@link Calendar#SATURDAY}, {@link Calendar#SUNDAY}
-     *      or {@link Calendar#MONDAY}
+     * @return the display order of the weekdays, which can start with {@link Calendar#SATURDAY},
+     *      {@link Calendar#SUNDAY} or {@link Calendar#MONDAY}
      */
-    public int getFirstDayOfWeek() {
+    public Weekdays.Order getWeekdayOrder() {
         enforceMainLooper();
-        return mSettingsModel.getFirstDayOfWeek();
+        return mSettingsModel.getWeekdayOrder();
     }
 
     /**

@@ -20,16 +20,15 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.util.ArrayMap;
 import android.util.SparseArray;
-
-import com.android.deskclock.data.DataModel;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Map;
 
-import static java.util.Calendar.DAY_OF_YEAR;
 import static java.util.Calendar.JULY;
 
 /**
@@ -49,10 +48,10 @@ final class FormattedStringModel {
     private final SparseArray<SparseArray<String>> mNumberFormatCache = new SparseArray<>(3);
 
     /** Single-character version of weekday names; e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S' */
-    private String[] mShortWeekdayNames;
+    private Map<Integer, String> mShortWeekdayNames;
 
     /** Full weekday names; e.g.: 'Sunday', 'Monday', 'Tuesday', etc. */
-    private String[] mLongWeekdayNames;
+    private Map<Integer, String> mLongWeekdayNames;
 
     FormattedStringModel(Context context) {
         // Clear caches affected by locale when locale changes.
@@ -128,43 +127,60 @@ final class FormattedStringModel {
     }
 
     /**
-     * @param index the index of the weekday; between 0 and 6 inclusive
-     * @return single-character version of weekday name; e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
+     * @param calendarDay any of the following values
+     *                     <ul>
+     *                     <li>{@link Calendar#SUNDAY}</li>
+     *                     <li>{@link Calendar#MONDAY}</li>
+     *                     <li>{@link Calendar#TUESDAY}</li>
+     *                     <li>{@link Calendar#WEDNESDAY}</li>
+     *                     <li>{@link Calendar#THURSDAY}</li>
+     *                     <li>{@link Calendar#FRIDAY}</li>
+     *                     <li>{@link Calendar#SATURDAY}</li>
+     *                     </ul>
+     * @return single-character weekday name; e.g.: 'S', 'M', 'T', 'W', 'T', 'F', 'S'
      */
-    String getShortWeekday(int index) {
+    String getShortWeekday(int calendarDay) {
         if (mShortWeekdayNames == null) {
-            mShortWeekdayNames = new String[7];
+            mShortWeekdayNames = new ArrayMap<>(7);
 
             final SimpleDateFormat format = new SimpleDateFormat("ccccc", Locale.getDefault());
-            final Calendar anyGivenSunday = new GregorianCalendar(2014, JULY, 20);
-            for (int i = 0; i < mShortWeekdayNames.length; i++) {
-                mShortWeekdayNames[i] = format.format(anyGivenSunday.getTime());
-                anyGivenSunday.add(DAY_OF_YEAR, 1);
+            for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
+                final Calendar calendar = new GregorianCalendar(2014, JULY, 20 + i - 1);
+                final String weekday = format.format(calendar.getTime());
+                mShortWeekdayNames.put(i, weekday);
             }
         }
 
-        final int offset = DataModel.getDataModel().getFirstDayOfWeek() - 1;
-        return mShortWeekdayNames[(index + offset) % 7];
+        return mShortWeekdayNames.get(calendarDay);
     }
 
     /**
-     * @param index the index of the weekday; between 0 and 6 inclusive
+     * @param calendarDay any of the following values
+     *                     <ul>
+     *                     <li>{@link Calendar#SUNDAY}</li>
+     *                     <li>{@link Calendar#MONDAY}</li>
+     *                     <li>{@link Calendar#TUESDAY}</li>
+     *                     <li>{@link Calendar#WEDNESDAY}</li>
+     *                     <li>{@link Calendar#THURSDAY}</li>
+     *                     <li>{@link Calendar#FRIDAY}</li>
+     *                     <li>{@link Calendar#SATURDAY}</li>
+     *                     </ul>
      * @return full weekday name; e.g.: 'Sunday', 'Monday', 'Tuesday', etc.
      */
-    String getLongWeekday(int index) {
+    String getLongWeekday(int calendarDay) {
         if (mLongWeekdayNames == null) {
-            mLongWeekdayNames = new String[7];
+            mLongWeekdayNames = new ArrayMap<>(7);
 
+            final Calendar calendar = new GregorianCalendar(2014, JULY, 20);
             final SimpleDateFormat format = new SimpleDateFormat("EEEE", Locale.getDefault());
-            final Calendar anyGivenSunday = new GregorianCalendar(2014, JULY, 20);
-            for (int i = 0; i < mLongWeekdayNames.length; i++) {
-                mLongWeekdayNames[i] = format.format(anyGivenSunday.getTime());
-                anyGivenSunday.add(DAY_OF_YEAR, 1);
+            for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
+                final String weekday = format.format(calendar.getTime());
+                mLongWeekdayNames.put(i, weekday);
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
         }
 
-        final int offset = DataModel.getDataModel().getFirstDayOfWeek() - 1;
-        return mLongWeekdayNames[(index + offset) % 7];
+        return mLongWeekdayNames.get(calendarDay);
     }
 
     /**

@@ -103,8 +103,8 @@ final class SettingsModel {
         SettingsDAO.setDefaultAlarmRingtoneUri(mContext, uri);
     }
 
-    int getFirstDayOfWeek() {
-        return SettingsDAO.getFirstDayOfWeek(mContext);
+    Weekdays.Order getWeekdayOrder() {
+        return SettingsDAO.getWeekdayOrder(mContext);
     }
 
     boolean getTimerVibrate() {

@@ -43,6 +43,7 @@ import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Weekdays;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -338,7 +339,9 @@ public final class SettingsActivity extends BaseActivity {
 
             final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
             // Set the default value programmatically
-            final String value = String.valueOf(DataModel.getDataModel().getFirstDayOfWeek());
+            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+            final Integer firstDay = weekdayOrder.getCalendarDays().get(0);
+            final String value = String.valueOf(firstDay);
             final int idx = weekStartPref.findIndexOfValue(value);
             weekStartPref.setValueIndex(idx);
             weekStartPref.setSummary(weekStartPref.getEntries()[idx]);

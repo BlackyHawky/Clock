@@ -17,7 +17,6 @@
 package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,7 @@ import android.widget.TextView;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -105,13 +105,14 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindRepeatText(Context context, Alarm alarm) {
-        // firstDayOfWeek is one of {Calendar.SATURDAY, Calendar.SUNDAY or Calendar.MONDAY}
-        final int firstDayOfWeek = DataModel.getDataModel().getFirstDayOfWeek();
-        final String daysOfWeekText = alarm.daysOfWeek.toString(context, firstDayOfWeek);
-        if (!TextUtils.isEmpty(daysOfWeekText)) {
+        if (alarm.daysOfWeek.isRepeating()) {
+            final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
+            final String daysOfWeekText = alarm.daysOfWeek.toString(context, weekdayOrder);
             daysOfWeek.setText(daysOfWeekText);
-            final String cd = alarm.daysOfWeek.toAccessibilityString(context, firstDayOfWeek);
-            daysOfWeek.setContentDescription(cd);
+
+            final String string = alarm.daysOfWeek.toAccessibilityString(context, weekdayOrder);
+            daysOfWeek.setContentDescription(string);
+
             daysOfWeek.setVisibility(View.VISIBLE);
         } else {
             daysOfWeek.setVisibility(View.GONE);

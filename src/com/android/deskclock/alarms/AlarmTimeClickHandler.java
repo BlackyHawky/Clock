@@ -30,7 +30,8 @@ import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.RingtonePickerDialogFragment;
-import com.android.deskclock.alarms.utils.DayOrderUtils;
+import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -52,7 +53,6 @@ public final class AlarmTimeClickHandler {
 
     private Alarm mSelectedAlarm;
     private Bundle mPreviousDaysOfWeekMap;
-    private int[] mDayOrder;
 
     public AlarmTimeClickHandler(Fragment fragment, Bundle savedState,
             AlarmUpdateHandler alarmUpdateHandler, ScrollHandler smoothScrollController) {
@@ -65,7 +65,6 @@ public final class AlarmTimeClickHandler {
         if (mPreviousDaysOfWeekMap == null) {
             mPreviousDaysOfWeekMap = new Bundle();
         }
-        mDayOrder = DayOrderUtils.getDayOrder(fragment.getActivity());
     }
 
     public Alarm getSelectedAlarm() {
@@ -114,17 +113,17 @@ public final class AlarmTimeClickHandler {
             // or
             // Set all days if no previous.
             final int bitSet = mPreviousDaysOfWeekMap.getInt(alarmId);
-            alarm.daysOfWeek.setBitSet(bitSet);
+            alarm.daysOfWeek = Weekdays.fromBits(bitSet);
             if (!alarm.daysOfWeek.isRepeating()) {
-                alarm.daysOfWeek.setDaysOfWeek(true, mDayOrder);
+                alarm.daysOfWeek = Weekdays.ALL;
             }
         } else {
             // Remember the set days in case the user wants it back.
-            final int bitSet = alarm.daysOfWeek.getBitSet();
+            final int bitSet = alarm.daysOfWeek.getBits();
             mPreviousDaysOfWeekMap.putInt(alarmId, bitSet);
 
             // Remove all repeat days
-            alarm.daysOfWeek.clearAllDays();
+            alarm.daysOfWeek = Weekdays.NONE;
         }
 
         // if the change altered the next scheduled alarm time, tell the user
@@ -137,7 +136,10 @@ public final class AlarmTimeClickHandler {
     public void setDayOfWeekEnabled(Alarm alarm, boolean checked, int index) {
         final Calendar now = Calendar.getInstance();
         final Calendar oldNextAlarmTime = alarm.getNextAlarmTime(now);
-        alarm.daysOfWeek.setDaysOfWeek(checked, mDayOrder[index]);
+
+        final int weekday = DataModel.getDataModel().getWeekdayOrder().getCalendarDays().get(index);
+        alarm.daysOfWeek = alarm.daysOfWeek.setBit(weekday, checked);
+
         // if the change altered the next scheduled alarm time, tell the user
         final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
         final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
