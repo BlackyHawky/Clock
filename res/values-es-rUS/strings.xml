@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Ciudades"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Configuración"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ayuda"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Modo nocturno"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Protector de pantalla"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ordenar por hora"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ordenar por nombre"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Ciudades seleccionadas"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Yakarta"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Alarma nueva"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Crear alarma nueva"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Temporizador"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Crear temporizador nuevo"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarma nueva"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Crear alarma nueva"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Temporizador"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Crear temporizador nuevo"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Iniciar"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Iniciar el cronómetro"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Iniciar cronómetro"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Detener"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Detener el cronómetro"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Protector"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Iniciar protector pantalla"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Pausar el cronómetro"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Protector"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Iniciar protector"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmas"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesa acciones de las notificaciones del temporizador."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesa acciones de las notificaciones del cronómetro."</string>

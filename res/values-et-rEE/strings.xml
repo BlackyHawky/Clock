@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Linnad"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Seaded"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Abi"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Öörežiim"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Ekraanisäästja"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sordi aja järgi"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sordi nime järgi"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Valitud linnad"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Uus alarm"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Uue alarmi loomine"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Uus taimer"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Uue taimeri loomine"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Uus alarm"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Loo uus alarm"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Uus taimer"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Loo uus taimer"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Alustamine"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Stopperi käivitamine"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Käivita stopper"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Peatamine"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Stopperi peatamine"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Ekraanisäästja"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Ekraanisäästja käivitamine"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Peata stopper"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Ekr-säästja"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Käivita ekraanisäästja"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Äratused"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Töötleb taimeri märguannete toiminguid."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Töötleb stopperi märguannete toiminguid."</string>

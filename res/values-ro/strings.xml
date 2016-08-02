@@ -149,7 +149,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Orașe"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Setări"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Ajutor"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Modul Noapte"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Screensaver"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Sortați după oră"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Sortați după nume"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Orașele selectate"</string>
@@ -318,16 +318,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Alarmă nouă"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Creați o alarmă nouă"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Temporizator nou"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Creați temporizator nou"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Alarmă nouă"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Creați o alarmă nouă"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Temporizator nou"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Creați temporizator nou"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Porniți"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Porniți cronometrul"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Porniți cronometrul"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Întrerupeți"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Întrerupeți cronometrul"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Screensaver"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Porniți screensaverul"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Întrerupeți cronometrul"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Screensaver"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Porniți screensaverul"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarme"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Procesează acțiunile din notificările de la temporizator."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Procesează acțiunile din notificările de la cronometru."</string>

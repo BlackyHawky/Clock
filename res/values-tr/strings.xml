@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Şehirler"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Ayarlar"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Yardım"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Gece modu"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Ekran koruyucu"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Saate göre sırala"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ada göre sırala"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Seçilen Şehirler"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Cakarta"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Yeni Alarm"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Yeni Alarm Oluştur"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Yeni Zamanlayıcı"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Yeni Zamanlayıcı Oluştur"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Yeni alarm"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Yeni alarm oluştur"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Yeni zamanlayıcı"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Yeni zamanlayıcı oluştur"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Başlat"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Kronometreyi Başlat"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Kronometreyi başlat"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Duraklat"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Kronometreyi Duraklat"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Ekr.Koruyucu"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Ekran Koruyucuyu Başlat"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Kronometreyi duraklat"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Ekr. koru."</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Ekran koruyucuyu başlat"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmlar"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Zamanlayıcı bildirimlerinden gelen etkinlikleri işler."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Kronometre bildirimlerinden gelen etkinlikleri işler."</string>
