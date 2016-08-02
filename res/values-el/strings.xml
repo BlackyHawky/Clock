@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Πόλεις"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Ρυθμίσεις"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Βοήθεια"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Λειτουργία νύχτας"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Προφύλαξη οθόνης"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Ταξινόμηση κατά ώρα"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ταξινόμηση κατά όνομα"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Επιλεγμένες πόλεις"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"Τόνγκα"</item>
     <item msgid="5176858645450908751">"Τζακάρτα"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Νέο ξυπνητ."</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Δημιουργία Νέου ξυπνητηριού"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Νέα αντ. μ."</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Δημ. Νέας αντίστρ. μέτρησης"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Νέο ξυπν."</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Δημιουρ. νέου ξυπνητηριού"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Νέα αν.μέτ."</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Δημ. νέας αντίσ. μέτρησης"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Έναρξη"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Έναρξη χρονομέτρου"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Έναρξη χρονομέτρου"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Παύση"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Παύση χρονομέτρου"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Προφ. οθόνης"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Έναρξη Προφύλαξης οθόνης"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Παύση χρονομέτρου"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Προφ.οθόν."</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Έναρξη προφύλαξης οθόνης"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Ξυπνητήρια"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Επεξεργάζεται ενέργειες από τις ειδοποιήσεις αντίστροφης μέτρησης."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Επεξεργάζεται ενέργειες από τις ειδοποιήσεις του χρονομέτρου."</string>

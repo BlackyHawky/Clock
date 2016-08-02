@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"世界時計"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"設定"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"ヘルプ"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"夜間モード"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"スクリーンセーバー"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"時間順"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"名前順"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"選択した都市"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"トンガ"</item>
     <item msgid="5176858645450908751">"ジャカルタ"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"新しいアラーム"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"新しいアラームを作成"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"新しいタイマー"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"新しいタイマーを作成"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"新しいアラーム"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"新しいアラームを作成"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"新しいタイマー"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"新しいタイマーを作成"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"開始"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"ストップウォッチを開始"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"ストップウォッチ"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"一時停止"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"ストップウォッチを一時停止"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"スクリーンセーバー"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"スクリーンセーバーを起動"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"ストップウォッチを一時停止"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"スクリーンセーバー"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"スクリーンセーバーを起動"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"アラーム"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"タイマーの通知からの操作を処理します。"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ストップウォッチの通知からの操作を処理します。"</string>

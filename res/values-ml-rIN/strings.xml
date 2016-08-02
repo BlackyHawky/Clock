@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണം"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"സഹായം"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"നൈറ്റ് മോഡ്"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"സ്ക്രീൻ സേവർ"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"സമയപ്രകാരം അടുക്കുക"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"പേര് പ്രകാരം അടുക്കുക"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"തിരഞ്ഞെടുത്ത നഗരങ്ങൾ"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"ടോംഗ"</item>
     <item msgid="5176858645450908751">"ജക്കാര്‍ത്ത"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"പുതിയ അലാറം"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"പുതിയ അലാറം സൃഷ്ടിക്കുക"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"പുതിയ ടൈമർ"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"പുതിയ ടൈമർ സൃഷ്ടിക്കുക"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"പുതിയ അലാറം"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"പുതിയ അലാറം സൃഷ്ടിക്കുക"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"പുതിയ ടൈമർ"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"പുതിയ ടൈമർ സൃഷ്ടിക്കുക"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"ആരംഭിക്കുക"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"സ്‌റ്റോപ്പ്‌വാച്ച് ആരംഭിക്കുക"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"സ്‌റ്റോപ്പ്‌വാച്ച് ആരംഭിക്കുക"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"തൽക്കാലം നിർത്തുക"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"സ്‌റ്റോപ്പ്‌വാച്ച് തൽക്കാലം നിർത്തുക"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"സ്ക്രീൻസേവർ"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"സ്ക്രീൻസേവർ ആരംഭിക്കുക"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"സ്‌റ്റോപ്പ്‌വാച്ച് തൽക്കാലം നിർത്തുക"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"സ്ക്രീൻ സേവർ"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"സ്ക്രീൻ സേവർ ആരംഭിക്കുക"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"അലാറങ്ങൾ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ടൈമർ അറിയിപ്പുകളിൽ നിന്നുള്ള പ്രവർത്തനങ്ങൾ പ്രോസസ്സുചെയ്യുന്നു."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"സ്റ്റോപ്പ്‌വാച്ച് അറിയിപ്പുകളിൽ നിന്നുള്ള പ്രവർത്തനങ്ങൾ പ്രോസസ്സുചെയ്യുന്നു."</string>
