@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"မြို့များ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ဆက်တင်များ"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"အကူအညီ"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"ညသုံး မုဒ်"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"ဖန်သားပြင်သုံးစွဲခြင်း ချွေတာမှုစနစ်"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"အချိန်အလိုက် စီရန်"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"အမည်အလိုက် စီရန်"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ရွေးထားသည့် မြို့များ"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"တွန်ဂါ"</item>
     <item msgid="5176858645450908751">"ဂျာကာတာ"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"နှိုးစက်အသစ်"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"နှိုးစက်အသစ် ပြုလုပ်ပါ"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"အချိန်အသစ်"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"အချိန်ကိုက်မှုအသစ်သတ်မှတ်ပါ"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"နှိုးစက်"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"အယ်လ်ဘမ်အသစ် ဖန်တီးရန်"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"ချိန်ကိုက်"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"ချိန်ကိုက်စနစ်အသစ်လုပ်ရန်"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"စတင်ပါ"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"အချိန်မှတ်စနစ်ကို စတင်ပါ"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"အချိန်မှတ်စနစ်ကိုစတင်ရန်"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"ခဏရပ်ပါ"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"အချိန်မှတ်စနစ်ကို ခဏရပ်ပါ"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"စကရင်ချွေတာ"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"စကရင်ချွေတာခြင်းစနစ် စတင်ပါ"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"အချိန်မှတ်စနစ်ကိုခဏရပ်ရန်"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"စကရင်ချွေ"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"ဖန်သားပြင်ချွေတာစနစ်စရန်"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"နှိုးစက်များ"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"အချိန်ကိုက်နာရီ အသိပေးချက်မှ လုပ်ဆောင်ချက်များကို လုပ်ဆောင်ပါ"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"အချိန်ရပ်နာရီ အသိပေးချက်များမှ လုပ်ဆောင်ချက်များကို လုပ်ဆောင်ပါ"</string>
