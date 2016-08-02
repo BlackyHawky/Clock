@@ -32,6 +32,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.controller.Controller;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
 import com.android.deskclock.data.Weekdays;
@@ -127,7 +128,7 @@ public class HandleApiCalls extends Activity {
                 context.getContentResolver(), alarm.id);
         if (instance == null) {
             final String reason = context.getString(R.string.no_alarm_scheduled_for_this_time);
-            Voice.notifyFailure(activity, reason);
+            Controller.getController().notifyVoiceFailure(activity, reason);
             LogUtils.i(reason);
             return;
         }
@@ -152,17 +153,16 @@ public class HandleApiCalls extends Activity {
             // Otherwise the alarm cannot be dismissed at this time.
             final String reason = context.getString(
                     R.string.alarm_cant_be_dismissed_still_more_than_24_hours_away, time);
-            Voice.notifyFailure(activity, reason);
+            Controller.getController().notifyVoiceFailure(activity, reason);
             LogUtils.i(reason);
         }
 
         // Log the successful dismissal.
         final String reason = context.getString(R.string.alarm_is_dismissed, time);
         LogUtils.i(reason);
-        Voice.notifySuccess(activity, reason);
+        Controller.getController().notifyVoiceSuccess(activity, reason);
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
     }
-
 
     private static class DismissAlarmAsync extends AsyncTask<Void, Void, Void> {
 
@@ -186,7 +186,7 @@ public class HandleApiCalls extends Activity {
                 if (instance == null) {
                     final String reason = mContext.getString(R.string.cannot_locate_alarm);
                     LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
+                    Controller.getController().notifyVoiceFailure(mActivity, reason);
                     return null;
                 }
 
@@ -194,14 +194,14 @@ public class HandleApiCalls extends Activity {
                 if (state == MISSED_STATE) {
                     final String reason = mContext.getString(R.string.alarm_is_already_missed);
                     LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
+                    Controller.getController().notifyVoiceFailure(mActivity, reason);
                     return null;
                 }
 
                 if (state == PREDISMISSED_STATE || state == DISMISSED_STATE) {
                     final String reason = mContext.getString(R.string.alarm_is_already_dismissed);
                     LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
+                    Controller.getController().notifyVoiceFailure(mActivity, reason);
                     return null;
                 }
 
@@ -213,7 +213,7 @@ public class HandleApiCalls extends Activity {
             if (alarms.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_scheduled_alarms);
                 LogUtils.i(reason);
-                Voice.notifyFailure(mActivity, reason);
+                Controller.getController().notifyVoiceFailure(mActivity, reason);
                 return null;
             }
 
@@ -235,7 +235,8 @@ public class HandleApiCalls extends Activity {
                         .putExtra(EXTRA_ACTION, ACTION_DISMISS)
                         .putExtra(EXTRA_ALARMS, alarms.toArray(new Parcelable[alarms.size()]));
                 mContext.startActivity(pickSelectionIntent);
-                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_dismiss));
+                final String voiceMessage = mContext.getString(R.string.pick_alarm_to_dismiss);
+                Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
                 return null;
             }
 
@@ -254,7 +255,8 @@ public class HandleApiCalls extends Activity {
                         .putExtra(EXTRA_ALARMS,
                                 matchingAlarms.toArray(new Parcelable[matchingAlarms.size()]));
                 mContext.startActivity(pickSelectionIntent);
-                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_dismiss));
+                final String voiceMessage = mContext.getString(R.string.pick_alarm_to_dismiss);
+                Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
                 return null;
             }
 
@@ -299,7 +301,7 @@ public class HandleApiCalls extends Activity {
                 if (instance == null) {
                     final String reason = mContext.getString(R.string.cannot_locate_alarm);
                     LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
+                    Controller.getController().notifyVoiceFailure(mActivity, reason);
                     return null;
                 }
 
@@ -332,7 +334,7 @@ public class HandleApiCalls extends Activity {
 
                 final String reason = mContext.getString(failureMessageId);
                 LogUtils.i(reason);
-                Voice.notifyFailure(mActivity, reason);
+                Controller.getController().notifyVoiceFailure(mActivity, reason);
                 return null;
             }
 
@@ -341,7 +343,7 @@ public class HandleApiCalls extends Activity {
             if (alarmInstances.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_firing_alarms);
                 LogUtils.i(reason);
-                Voice.notifyFailure(mActivity, reason);
+                Controller.getController().notifyVoiceFailure(mActivity, reason);
                 return null;
             }
 
@@ -359,7 +361,7 @@ public class HandleApiCalls extends Activity {
                 alarmInstance.getAlarmTime().getTime());
         final String reason = context.getString(R.string.alarm_is_snoozed, time);
         LogUtils.i(reason);
-        Voice.notifySuccess(activity, reason);
+        Controller.getController().notifyVoiceSuccess(activity, reason);
         AlarmStateManager.setSnoozeState(context, alarmInstance, true);
         LogUtils.i("Snooze %d:%d", alarmInstance.mHour, alarmInstance.mMinute);
         Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
@@ -376,7 +378,7 @@ public class HandleApiCalls extends Activity {
                 context.getContentResolver(), alarm.id);
         if (instance == null) {
             final String reason = context.getString(R.string.no_alarm_scheduled_for_this_time);
-            Voice.notifyFailure(activity, reason);
+            Controller.getController().notifyVoiceFailure(activity, reason);
             LogUtils.i(reason);
             return;
         }
@@ -393,7 +395,7 @@ public class HandleApiCalls extends Activity {
 
         final String reason = context.getString(R.string.alarm_is_deleted, time);
         LogUtils.i(reason);
-        Voice.notifySuccess(activity, reason);
+        Controller.getController().notifyVoiceSuccess(activity, reason);
         AlarmStateManager.deleteInstanceAndUpdateParent(context, instance);
         Events.sendAlarmEvent(R.string.action_delete, R.string.label_intent);
     }
@@ -420,7 +422,7 @@ public class HandleApiCalls extends Activity {
                 if (instance == null) {
                     final String reason = mContext.getString(R.string.cannot_locate_alarm);
                     LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
+                    Controller.getController().notifyVoiceFailure(mActivity, reason);
                     return null;
                 }
 
@@ -432,7 +434,7 @@ public class HandleApiCalls extends Activity {
             if (alarms.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_alarms);
                 LogUtils.i(reason);
-                Voice.notifyFailure(mActivity, reason);
+                Controller.getController().notifyVoiceFailure(mActivity, reason);
                 return null;
             }
 
@@ -445,7 +447,8 @@ public class HandleApiCalls extends Activity {
                         .putExtra(EXTRA_ACTION, ACTION_DELETE)
                         .putExtra(EXTRA_ALARMS, alarms.toArray(new Parcelable[alarms.size()]));
                 mContext.startActivity(pickSelectionIntent);
-                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_delete));
+                final String voiceMessage = mContext.getString(R.string.pick_alarm_to_delete);
+                Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
                 return null;
             }
 
@@ -465,7 +468,8 @@ public class HandleApiCalls extends Activity {
                                 .putExtra(EXTRA_ALARMS,
                                         matchingAlarms.toArray(new Parcelable[matchingAlarms.size()]));
                 mContext.startActivity(pickSelectionIntent);
-                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_delete));
+                final String voiceMessage = mContext.getString(R.string.pick_alarm_to_delete);
+                Controller.getController().notifyVoiceSuccess(mActivity, voiceMessage);
                 return null;
             }
 
@@ -484,7 +488,7 @@ public class HandleApiCalls extends Activity {
 
             if (!matches) {
                 final String reason = mContext.getString(R.string.no_alarm_scheduled_for_this_time);
-                Voice.notifyFailure(mActivity, reason);
+                Controller.getController().notifyVoiceFailure(mActivity, reason);
                 LogUtils.i(reason);
             }
 
@@ -507,7 +511,8 @@ public class HandleApiCalls extends Activity {
             hour = intent.getIntExtra(AlarmClock.EXTRA_HOUR, hour);
             if (hour < 0 || hour > 23) {
                 final int mins = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
-                Voice.notifyFailure(this, getString(R.string.invalid_time, hour, mins, " "));
+                final String voiceMessage = getString(R.string.invalid_time, hour, mins, " ");
+                Controller.getController().notifyVoiceFailure(this, voiceMessage);
                 LogUtils.i("HandleApiCalls given illegal hour: " + hour);
                 return;
             }
@@ -516,7 +521,8 @@ public class HandleApiCalls extends Activity {
         // Validate the minute, if one was given.
         final int minutes = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
         if (minutes < 0 || minutes > 59) {
-            Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
+            final String voiceMessage = getString(R.string.invalid_time, hour, minutes, " ");
+            Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LogUtils.i("HandleApiCalls given illegal minute: " + minutes);
             return;
         }
@@ -529,7 +535,8 @@ public class HandleApiCalls extends Activity {
             // Attempt to locate the alarm via the deeplink.
             final Alarm alarm = Alarm.getAlarm(cr, deeplink);
             if (alarm == null) {
-                Voice.notifyFailure(this, getString(R.string.cannot_locate_alarm));
+                final String voiceMessage = getString(R.string.cannot_locate_alarm);
+                Controller.getController().notifyVoiceFailure(this, voiceMessage);
                 LogUtils.i(String.format("HandleApiCalls cannot locate alarm using: %s", deeplink));
                 return;
             }
@@ -549,7 +556,8 @@ public class HandleApiCalls extends Activity {
 
             final String time = DateFormat.getTimeFormat(this).format(
                     alarmInstance.getAlarmTime().getTime());
-            Voice.notifySuccess(this, getString(R.string.alarm_is_set, time));
+            final String voiceMessage = getString(R.string.alarm_is_set, time);
+            Controller.getController().notifyVoiceSuccess(this, voiceMessage);
             Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
             LogUtils.i("HandleApiCalls updated existing alarm: %s", alarm);
             return;
@@ -568,7 +576,8 @@ public class HandleApiCalls extends Activity {
 
             // Open DeskClock which is now positioned on the alarms tab.
             startActivity(createAlarm);
-            Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
+            final String voiceMessage = getString(R.string.invalid_time, hour, minutes, " ");
+            Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LogUtils.i("HandleApiCalls not given time information; opening UI");
             return;
         }
@@ -609,7 +618,7 @@ public class HandleApiCalls extends Activity {
         Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
         final String time = DateFormat.getTimeFormat(this).format(
                 alarmInstance.getAlarmTime().getTime());
-        Voice.notifySuccess(this, getString(R.string.alarm_is_set, time));
+        Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
         LogUtils.i("HandleApiCalls created alarm: %s", alarm);
     }
 
@@ -648,7 +657,8 @@ public class HandleApiCalls extends Activity {
         // Verify that the timer length is between one second and one day.
         final long lengthMillis = SECOND_IN_MILLIS * intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0);
         if (lengthMillis < Timer.MIN_LENGTH || lengthMillis > Timer.MAX_LENGTH) {
-            Voice.notifyFailure(this, getString(R.string.invalid_timer_length));
+            final String voiceMessage = getString(R.string.invalid_timer_length);
+            Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LogUtils.i("Invalid timer length requested: " + lengthMillis);
             return;
         }
@@ -676,7 +686,7 @@ public class HandleApiCalls extends Activity {
         // Start the selected timer.
         DataModel.getDataModel().startTimer(timer);
         Events.sendTimerEvent(R.string.action_start, R.string.label_intent);
-        Voice.notifySuccess(this, getString(R.string.timer_created));
+        Controller.getController().notifyVoiceSuccess(this, getString(R.string.timer_created));
 
         // If not instructed to skip the UI, display the running timer.
         if (!skipUi) {

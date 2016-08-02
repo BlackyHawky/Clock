@@ -16,16 +16,27 @@
 
 package com.android.deskclock.controller;
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.android.deskclock.Utils;
 
-public final class Controller {
+import static com.android.deskclock.Utils.enforceMainLooper;
+
+/**
+ * Interactions with Android framework components responsible for part of the user experience are
+ * handled via this singleton.
+ */
+public final class Controller implements VoiceController {
 
     private static final Controller sController = new Controller();
 
     private Context mContext;
 
+    /** The controller that interacts with voice interaction sessions on M+. */
+    private VoiceController mVoiceController;
+
+    /** The controller that creates and updates launcher shortcuts on N MR1+ */
     private ShortcutController mShortcutController;
 
     private Controller() {}
@@ -39,13 +50,48 @@ public final class Controller {
             throw new IllegalStateException("context has already been set");
         }
         mContext = context;
+        if (Utils.isMOrLater()) {
+            mVoiceController = new DefaultVoiceController();
+        }
         if (Utils.isNMR1OrLater()) {
             mShortcutController = new ShortcutController(mContext);
         }
     }
 
+    //
+    // Voice Interaction
+    //
+
+    /**
+     * @param voiceController the new delegate to control future voice interaction sessions
+     * @return the old delegate that controlled prior voice interaction sessions
+     */
+    public VoiceController setVoiceController(VoiceController voiceController) {
+        final VoiceController oldVoiceController = mVoiceController;
+        mVoiceController = voiceController;
+        return oldVoiceController;
+    }
+
+    @Override
+    public void notifyVoiceSuccess(Activity activity, String message) {
+        if (mVoiceController != null) {
+            mVoiceController.notifyVoiceSuccess(activity, message);
+        }
+    }
+
+    @Override
+    public void notifyVoiceFailure(Activity activity, String message) {
+        if (mVoiceController != null) {
+            mVoiceController.notifyVoiceFailure(activity, message);
+        }
+    }
+
+    //
+    // Shortcuts
+    //
+
     public void updateShortcuts() {
-        Utils.enforceMainLooper();
+        enforceMainLooper();
         if (mShortcutController != null) {
             mShortcutController.updateShortcuts();
         }

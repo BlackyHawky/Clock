@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.android.deskclock.controller.Controller;
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
@@ -164,9 +165,9 @@ public class HandleDeskClockApiCalls extends Activity {
             }
 
             if (fail) {
-                Voice.notifyFailure(this, reason);
+                Controller.getController().notifyVoiceFailure(this, reason);
             } else {
-                Voice.notifySuccess(this, reason);
+                Controller.getController().notifyVoiceSuccess(this, reason);
             }
             LogUtils.i(reason);
         }
@@ -211,7 +212,7 @@ public class HandleDeskClockApiCalls extends Activity {
             }
 
             if (timer == null) {
-                Voice.notifyFailure(this, reason);
+                Controller.getController().notifyVoiceFailure(this, reason);
             } else {
                 timerId = timer.getId();
 
@@ -243,7 +244,7 @@ public class HandleDeskClockApiCalls extends Activity {
                         throw new IllegalArgumentException("unknown timer action: " + action);
                 }
 
-                Voice.notifySuccess(this, reason);
+                Controller.getController().notifyVoiceSuccess(this, reason);
             }
 
             LogUtils.i(reason);
@@ -285,7 +286,7 @@ public class HandleDeskClockApiCalls extends Activity {
             if (cityName == null) {
                 reason = getString(R.string.no_city_selected);
                 LogUtils.i(reason);
-                Voice.notifySuccess(this, reason);
+                Controller.getController().notifyVoiceSuccess(this, reason);
                 startActivity(new Intent(this, CitySelectionActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 return;
@@ -296,7 +297,7 @@ public class HandleDeskClockApiCalls extends Activity {
             if (city == null) {
                 reason = getString(R.string.the_city_you_specified_is_not_available);
                 LogUtils.i(reason);
-                Voice.notifyFailure(this, reason);
+                Controller.getController().notifyVoiceFailure(this, reason);
                 startActivity(new Intent(this, CitySelectionActivity.class)
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
                 return;
@@ -337,9 +338,9 @@ public class HandleDeskClockApiCalls extends Activity {
             }
 
             if (fail) {
-                Voice.notifyFailure(this, reason);
+                Controller.getController().notifyVoiceFailure(this, reason);
             } else {
-                Voice.notifySuccess(this, reason);
+                Controller.getController().notifyVoiceSuccess(this, reason);
             }
             LogUtils.i(reason);
         }
