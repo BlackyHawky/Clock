@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Villes"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Paramètres"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Aide"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Mode Nuit"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Écran de veille"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Trier par heure"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Trier par nom"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Villes sélectionnées"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Nouvelle alarme"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Créer une alarme"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Nouv. minut."</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Créer une minuterie"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Nouv. alarme"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Créer une alarme"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Nouv. minuterie"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Créer une minuterie"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Démarrer"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Démarrer le chronomètre"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Lancer le chronomètre"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Suspendre"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Suspendre le chronomètre"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Écran de veille"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Démarrer l\'écran de veille"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Suspendre le chronomètre"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Écr. veille"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Démarrer l\'écran de veille"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmes"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Traite les actions des notifications du minuteur."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Traite les actions des notifications du chronomètre."</string>

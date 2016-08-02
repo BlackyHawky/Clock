@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Bandar"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Tetapan"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Bantuan"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Mod malam"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Penyelamat skrin"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Isih mengikut waktu"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Isih mengikut nama"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Bandar Terpilih"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"P\'ggera Baru"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Buat Penggera Baharu"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Pemasa Baru"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Buat Pemasa Baharu"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Pgera baru"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Buat penggera baharu"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Pmasa baru"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Buat pemasa baharu"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Mula"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Mulakan Jam Randik"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Mulakan jam randik"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Jeda"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"Jeda Jam Randik"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"PnyelmtSkrin"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Mulakan Penyelamat Skrin"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Jeda jam randik"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Pylmt skrn"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Mulakan penyelamat skrin"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Penggera"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Memproses tindakan daripada pemberitahuan pemasa."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Memproses tindakan daripada pemberitahuan jam randik."</string>

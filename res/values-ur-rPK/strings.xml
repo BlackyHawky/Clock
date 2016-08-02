@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"شہر"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ترتیبات"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"مدد"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"رات وضع"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"اسکرین سیور"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"وقت کے لحاظ سے ترتیب دیں"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"نام کے لحاظ سے ترتیب دیں"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"منتخب کردہ شہر"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"تونگا"</item>
     <item msgid="5176858645450908751">"جکارتہ"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"نیا الارم"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"نیا الارم بنائیں"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"نیا ٹائمر"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"نیا ٹائمر بنائیں"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"نیا الارم"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"نیا الارم بنائیں"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"نیا ٹائمر"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"نیا ٹائمر بنائیں"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"شروع کریں"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"اسٹاپ واچ شروع کریں"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"اسٹاپ واچ شروع کریں"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"موقوف کریں"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"اسٹاپ واچ موقوف کریں"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"اسکرین سیور"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"اسکرین سیور شروع کریں"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"اسٹاپ واچ موقوف کریں"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"اسکرین سیور"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"اسکرین سیور شروع کریں"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"الارمز"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ٹائمر اطلاعات کے اعمال پر کاروائی کرتا ہے۔"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"اسٹاپ واچ اطلاعات کے اعمال پر کاروائی کرتا ہے۔"</string>

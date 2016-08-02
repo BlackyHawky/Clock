@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"ទីក្រុង"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ការ​កំណត់"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"ជំនួយ"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"ពេល​រាត្រី"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"ធាតុរក្សាអេក្រង់"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"តម្រៀប​តាម​ពេល"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"តម្រៀប​តាម​ឈ្មោះ"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"ទីក្រុង​ដែលបាន​ជ្រើសរើស"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"តុងហ្គា"</item>
     <item msgid="5176858645450908751">"ហ្សាការតា"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"ម៉ោងរ៉ោទិ៍ថ្មី"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"បង្កើតម៉ោងរោទិ៍ថ្មី"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"មុខងារកំណត់ម៉ោងថ្មី"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"បង្កើតមុខងារកំណត់ម៉ោងថ្មី"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"ម៉ោងរ៉ោទិ៍ថ្មី"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"បង្កើតម៉ោងរោទិ៍ថ្មី"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"កំណត់ម៉ោងថ្មី"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"បង្កើតមុខងារកំណត់ម៉ោងថ្មី"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"ចាប់ផ្ដើម"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"ចាប់ផ្តើមនាឡិកាបញ្ឈប់"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"ចាប់ផ្តើមនាឡិកាបញ្ឈប់"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"ផ្អាក"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"ផ្អាកនាឡិកាបញ្ឈប់"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"ធាតុរក្សាអេក្រង់"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"ចាប់ផ្តើមធាតុរក្សាអេក្រង់"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"ផ្អាកនាឡិកាបញ្ឈប់"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"ធាតុរក្សាអេក្រង់"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"ចាប់ផ្តើមធាតុរក្សាអេក្រង់"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"សំឡេង​រោទ៍"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"ធ្វើដំណើរការសកម្មភាពពីការជូនដំណឹងកម្មវិធីកំណត់ម៉ោង"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ដំណើរការសកម្មភាពពីការជូនដំណឹងម៉ោងបញ្ឈប់"</string>

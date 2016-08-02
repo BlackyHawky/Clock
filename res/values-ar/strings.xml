@@ -173,7 +173,7 @@
     <string name="button_cities" msgid="4555761857494501363">"المدن"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"الإعدادات"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"مساعدة"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"وضع ليلي"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"شاشة التوقف"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"تصنيف بحسب الوقت"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"تصنيف بحسب الاسم"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"المدن المحددة"</string>
@@ -351,16 +351,16 @@
     <item msgid="5911600083231840181">"تونغا"</item>
     <item msgid="5176858645450908751">"جاكارتا"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"منبه جديد"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"إنشاء منبه جديد"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"مؤقِّت جديد"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"إنشاء مؤقِّت جديد"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"منبه جديد"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"إنشاء منبه جديد"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"موقِّت جديد"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"إنشاء موقِّت جديد"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"بدء"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"بدء ساعة الإيقاف"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"بدء ساعة الإيقاف"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"إيقاف مؤقت"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"إيقاف مؤقت لساعة الإيقاف"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"شاشة التوقف"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"بدء شاشة التوقف"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"إيقاف مؤقت لساعة الإيقاف"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"شاشة التوقف"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"بدء شاشة التوقف"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"التنبيهات"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"لمعالجة الإجراءات من إشعارات الموقِّت."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"لمعالجة الإجراءات من إشعارات ساعة الإيقاف."</string>

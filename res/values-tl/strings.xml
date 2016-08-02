@@ -141,7 +141,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Mga Lungsod"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Mga Setting"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Tulong"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Night mode"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Screen saver"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Uriin ayon sa oras"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Uriin ayon sa pangalan"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Mga Piniling Lungsod"</string>
@@ -307,16 +307,16 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="shortcut_new_alarm_short" msgid="6851571384201576023">"Bagong Alarm"</string>
-    <string name="shortcut_new_alarm_long" msgid="5058420042218910223">"Gumawa ng Bagong Alarm"</string>
-    <string name="shortcut_new_timer_short" msgid="3100471271424780941">"Bagong Timer"</string>
-    <string name="shortcut_new_timer_long" msgid="429912683736859745">"Gumawa ng Bagong Timer"</string>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Bago"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Gumawa ng bagong alarm"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Bago"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Gumawa ng bagong timer"</string>
     <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Simulan"</string>
-    <string name="shortcut_start_stopwatch_long" msgid="453776661558045736">"Simulan ang Stopwatch"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Simulan ang stopwatch"</string>
     <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"I-pause"</string>
-    <string name="shortcut_pause_stopwatch_long" msgid="8141996544511771891">"I-pause ang Stopwatch"</string>
-    <string name="shortcut_start_screensaver_short" msgid="4406274645422067174">"Screensaver"</string>
-    <string name="shortcut_start_screensaver_long" msgid="7081474983908104345">"Simulan ang Screensaver"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"I-pause ang stopwatch"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Screen saver"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Simulan ang screen saver"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Mga Alarm"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Pinoproseso ang mga pagkilos mula sa mga notification sa timer."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Pinoproseso ang mga pagkilos mula sa mga notification sa stopwatch."</string>
