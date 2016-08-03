@@ -71,7 +71,8 @@ public class AlarmInitReceiver extends BroadcastReceiver {
         }
 
         // Update shortcuts so they exist for the user.
-        if (Intent.ACTION_BOOT_COMPLETED.equals(action)) {
+        if (Intent.ACTION_BOOT_COMPLETED.equals(action)
+                || Intent.ACTION_LOCALE_CHANGED.equals(action)) {
             Controller.getController().updateShortcuts();
         }
 
