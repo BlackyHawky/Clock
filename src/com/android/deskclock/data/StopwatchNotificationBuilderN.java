@@ -129,11 +129,6 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
             content.setViewVisibility(R.id.state, VISIBLE);
         }
 
-        // Swipe away will reset the stopwatch without bringing forward the app.
-        final Intent reset = new Intent(context, StopwatchService.class)
-                .setAction(HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
-
         return new Notification.Builder(context)
                 .setLocalOnly(true)
                 .setOngoing(running)
@@ -144,7 +139,6 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
                 .setSmallIcon(R.drawable.stat_notify_stopwatch)
                 .setGroup(nm.getStopwatchNotificationGroupKey())
                 .setStyle(new Notification.DecoratedCustomViewStyle())
-                .setDeleteIntent(Utils.pendingServiceIntent(context, reset))
                 .setActions(actions.toArray(new Notification.Action[actions.size()]))
                 .setColor(ContextCompat.getColor(context, R.color.default_background))
                 .build();
