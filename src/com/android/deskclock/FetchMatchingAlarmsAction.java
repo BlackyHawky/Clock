@@ -24,6 +24,7 @@ import android.os.Looper;
 import android.provider.AlarmClock;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.controller.Controller;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -175,6 +176,6 @@ class FetchMatchingAlarmsAction implements Runnable {
 
     private void notifyFailureAndLog(String reason, Activity activity) {
         LogUtils.e(reason);
-        Voice.notifyFailure(activity, reason);
+        Controller.getController().notifyVoiceFailure(activity, reason);
     }
 }
