@@ -97,7 +97,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             final String dismissText = alarm.instanceState == AlarmInstance.SNOOZE_STATE
                     ? context.getString(R.string.alarm_alert_snooze_until,
                             AlarmUtils.getAlarmText(context, alarmInstance, false))
-                    : context.getString(R.string.alarm_alert_dismiss_now_text);
+                    : context.getString(R.string.alarm_alert_dismiss_text);
             preemptiveDismissButton.setText(dismissText);
             preemptiveDismissButton.setClickable(true);
         } else {

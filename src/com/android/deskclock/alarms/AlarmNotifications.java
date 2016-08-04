@@ -108,7 +108,7 @@ public final class AlarmNotifications {
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.PREDISMISSED_STATE);
         notification.addAction(R.drawable.ic_alarm_off_24dp,
-                context.getString(R.string.alarm_alert_dismiss_now_text),
+                context.getString(R.string.alarm_alert_dismiss_text),
                 PendingIntent.getService(context, instance.hashCode(),
                         dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
@@ -146,7 +146,7 @@ public final class AlarmNotifications {
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.PREDISMISSED_STATE);
         notification.addAction(R.drawable.ic_alarm_off_24dp,
-                context.getString(R.string.alarm_alert_dismiss_now_text),
+                context.getString(R.string.alarm_alert_dismiss_text),
                 PendingIntent.getService(context, instance.hashCode(),
                         dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
