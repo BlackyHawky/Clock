@@ -53,9 +53,6 @@
     <!-- Button labels on the alarm dialog: Dismiss -->
     <string name="alarm_alert_dismiss_text">Dismiss</string>
 
-    <!-- Button labels on the pre-dismiss alarm notifications: Dismiss now -->
-    <string name="alarm_alert_dismiss_now_text">Dismiss now</string>
-
     <!-- Alarm Alert screen: this message is shown after an alarm rung
          unattended for a number of minutes.  It tells the user that
          the alarm has been silenced.-->
