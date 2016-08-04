@@ -53,7 +53,7 @@
                 android:paddingEnd="@dimen/checkbox_start_padding"
                 android:paddingStart="@dimen/checkbox_start_padding"
                 android:text="@string/alarm_repeat"
-                android:textColor="@color/clock_white"
+                android:textColor="@color/white"
                 android:textSize="@dimen/alarm_text_font_size" />
 
             <!-- Day buttons are put here programmatically -->
@@ -86,7 +86,7 @@
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:textAlignment="viewStart"
-                    android:textColor="@color/clock_white"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/alarm_text_font_size" />
 
                 <CheckBox

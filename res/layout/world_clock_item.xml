@@ -61,7 +61,7 @@
                 android:layout_gravity="end"
                 android:baselineAligned="true"
                 android:singleLine="true"
-                android:textColor="@color/clock_white" />
+                android:textColor="@color/white" />
 
             <com.android.deskclock.AnalogClock
                 android:id="@+id/analog_clock"

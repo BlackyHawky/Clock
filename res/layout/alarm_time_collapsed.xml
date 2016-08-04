@@ -71,7 +71,7 @@
                     android:paddingEnd="@dimen/icon_margin"
                     android:paddingStart="@dimen/icon_margin"
                     android:singleLine="true"
-                    android:textColor="@color/clock_white"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/alarm_text_font_size"
                     android:textStyle="bold" />
 
@@ -84,7 +84,7 @@
                     android:paddingEnd="@dimen/icon_margin"
                     android:paddingStart="@dimen/icon_margin"
                     android:singleLine="true"
-                    android:textColor="@color/clock_white"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/alarm_text_font_size"
                     android:textStyle="bold" />
 

@@ -31,7 +31,7 @@
         android:gravity="start|center_vertical"
         android:paddingStart="@dimen/icon_margin"
         android:textAllCaps="false"
-        android:textColor="@color/clock_white"
+        android:textColor="@color/white"
         android:textSize="@dimen/alarm_text_font_size" />
 
     <View

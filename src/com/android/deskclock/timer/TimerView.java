@@ -43,7 +43,7 @@ public class TimerView extends LinearLayout {
     public TimerView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        mWhiteColor = ContextCompat.getColor(context, R.color.clock_white);
+        mWhiteColor = ContextCompat.getColor(context, R.color.white);
         mGrayColor = ContextCompat.getColor(context, R.color.clock_gray);
     }
 

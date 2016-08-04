@@ -39,8 +39,9 @@
     </style>
 
     <style name="TimePickerTheme" parent="Theme.AppCompat.Dialog">
-        <item name="android:textColorPrimary">?attr/colorAccent</item>
+        <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorPrimaryInverse">?android:attr/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/white_50p</item>
         <item name="android:textColorSecondaryInverse">@color/white</item>
         <item name="android:timePickerStyle">@style/TimePickerStyle</item>
         <item name="android:windowBackground">@color/time_picker_gray</item>
