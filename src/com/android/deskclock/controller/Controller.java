@@ -46,15 +46,14 @@ public final class Controller implements VoiceController {
     }
 
     public void setContext(Context context) {
-        if (mContext != null) {
-            throw new IllegalStateException("context has already been set");
-        }
-        mContext = context;
-        if (Utils.isMOrLater()) {
-            mVoiceController = new DefaultVoiceController();
-        }
-        if (Utils.isNMR1OrLater()) {
-            mShortcutController = new ShortcutController(mContext);
+        if (mContext != context) {
+            mContext = context.getApplicationContext();
+            if (Utils.isMOrLater()) {
+                mVoiceController = new DefaultVoiceController();
+            }
+            if (Utils.isNMR1OrLater()) {
+                mShortcutController = new ShortcutController(mContext);
+            }
         }
     }
 

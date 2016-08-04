@@ -72,9 +72,6 @@ public final class Timer {
         }
     }
 
-    /** The content:// style URI for timers. */
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/timers");
-
     /** The minimum duration of a timer. */
     public static final long MIN_LENGTH = SECOND_IN_MILLIS;
 
@@ -84,7 +81,10 @@ public final class Timer {
 
     static final long UNUSED = Long.MIN_VALUE;
 
-    /** A unique identifier for the city. */
+    /** The content:// style URI for timers. */
+    private static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/timers");
+
+    /** A unique identifier for the timer. */
     private final int mId;
 
     /** The current state of the timer. */
@@ -347,7 +347,6 @@ public final class Timer {
         final Timer timer = (Timer) o;
 
         return mId == timer.mId;
-
     }
 
     @Override
