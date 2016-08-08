@@ -18,6 +18,7 @@ package com.android.deskclock.timer;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
+import com.android.deskclock.data.TimerStringFormatter;
 import com.android.deskclock.events.Events;
 
 public class TimerItemFragment extends Fragment {
@@ -99,6 +101,15 @@ public class TimerItemFragment extends Fragment {
             } else if (timer.isRunning() || timer.isExpired() || timer.isMissed()) {
                 DataModel.getDataModel().addTimerMinute(timer);
                 Events.sendTimerEvent(R.string.action_add_minute, R.string.label_deskclock);
+
+                final Context context = v.getContext();
+                // Must use getTimer() because old timer is no longer accurate.
+                final long currentTime = getTimer().getRemainingTime();
+                if (currentTime > 0) {
+                    v.announceForAccessibility(TimerStringFormatter.formatString(
+                            context, R.string.timer_accessibility_one_minute_added, currentTime,
+                            true));
+                }
             }
         }
     }

@@ -59,7 +59,7 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
         Intent firstActionIntent, secondActionIntent = null;
 
         if (unexpired.size() == 1) {
-            contentText = formatElapsedTimeUntilExpiry(context, remainingTime);
+            contentText = TimerStringFormatter.formatTimeRemaining(context, remainingTime, false);
 
             if (timer.isRunning()) {
                 // Single timer is running.
@@ -99,7 +99,8 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
         } else {
             if (timer.isRunning()) {
                 // At least one timer is running.
-                final String timeRemaining = formatElapsedTimeUntilExpiry(context, remainingTime);
+                final String timeRemaining = TimerStringFormatter.formatTimeRemaining(
+                        context, remainingTime, false);
                 contentText = context.getString(R.string.next_timer_notif, timeRemaining);
                 contentTitle = context.getString(R.string.timers_in_use, unexpired.size());
             } else {
@@ -307,39 +308,5 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
         builder.addAction(firstActionIconId, action1Title, action1);
 
         return builder.build();
-    }
-
-    /**
-     * Format "7 hours 52 minutes remaining"
-     */
-    @VisibleForTesting
-    static String formatElapsedTimeUntilExpiry(Context context, long remainingTime) {
-        final int hours = (int) remainingTime / (int) HOUR_IN_MILLIS;
-        final int minutes = (int) remainingTime / ((int) MINUTE_IN_MILLIS) % 60;
-
-        String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, minutes);
-        String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hours);
-
-        // The verb "remaining" may have to change tense for singular subjects in some languages.
-        final String verb = context.getString((minutes > 1 || hours > 1)
-                ? R.string.timer_remaining_multiple
-                : R.string.timer_remaining_single);
-
-        final boolean showHours = hours > 0;
-        final boolean showMinutes = minutes > 0;
-
-        int formatStringId;
-        if (showHours) {
-            if (showMinutes) {
-                formatStringId = R.string.timer_notifications_hours_minutes;
-            } else {
-                formatStringId = R.string.timer_notifications_hours;
-            }
-        } else if (showMinutes) {
-            formatStringId = R.string.timer_notifications_minutes;
-        } else {
-            formatStringId = R.string.timer_notifications_less_min;
-        }
-        return String.format(context.getString(formatStringId), hourSeq, minSeq, verb);
     }
 }

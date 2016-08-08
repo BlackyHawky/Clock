@@ -115,11 +115,21 @@
     -->
     <skip />
 
-    <!-- Timer notification: how long from now until timer goes off. -->
+    <!-- Timer notification: how long from now until timer goes off.
+         (Also used for timer accessibility announcements.) -->
     <string name="timer_notifications_less_min">Less than a minute remaining</string>
     <string name="timer_notifications_hours"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
     <string name="timer_notifications_minutes"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g><xliff:g id="MINUTES" example="2 minutes"> %2$s</xliff:g> remaining</string>
+    <string name="timer_notifications_seconds"><xliff:g id="SECONDS" example="2 seconds">%4$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_notifications_minutes_seconds"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> <xliff:g id="SECONDS" example="2 seconds"> %4$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_seconds"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="SECONDS" example="2 seconds"> %4$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+    <string name="timer_notifications_hours_minutes_seconds"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g><xliff:g id="MINUTES" example="2 minutes"> %2$s</xliff:g><xliff:g id="SECONDS" example="2 seconds"> %4$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
+
+    <!-- Timer accessibility announcements -->
+    <string name="timer_accessibility_one_minute_added">One minute added to timer, <xliff:g id="TIME" example="5 hours remaining">%1$s</xliff:g></string>
+    <string name="timer_accessibility_stopped">Timer paused, <xliff:g id="TIME" example="5 hours remaining">%1$s</xliff:g></string>
+    <string name="timer_accessibility_started">Timer running, <xliff:g id="TIME" example="5 hours remaining">%1$s</xliff:g></string>
 
     <!--
         Verb inflection to use for single time units remaining
@@ -166,6 +176,14 @@
         <item quantity="one">1 minute</item>
         <!-- Duration for more than one minute -->
         <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> minutes</item>
+    </plurals>
+
+    <!-- Timer accessibility announcement -->
+    <plurals name="seconds">
+        <!-- Duration for one second -->
+        <item quantity="one">1 second</item>
+        <!-- Duration for more than one minute -->
+        <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> seconds</item>
     </plurals>
 
     <!-- Repeat options that appear under an alarm on main Alarm Clock

@@ -43,6 +43,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
 import com.android.deskclock.data.TimerListener;
+import com.android.deskclock.data.TimerStringFormatter;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.uidata.UiDataModel;
 
@@ -283,15 +284,26 @@ public final class TimerFragment extends DeskClockFragment {
                 return;
             }
 
+            final Context context = fab.getContext();
+            final long currentTime = timer.getRemainingTime();
+
             switch (timer.getState()) {
                 case RUNNING:
                     DataModel.getDataModel().pauseTimer(timer);
                     Events.sendTimerEvent(R.string.action_stop, R.string.label_deskclock);
+                    if (currentTime > 0) {
+                        mTimersView.announceForAccessibility(TimerStringFormatter.formatString(
+                                context, R.string.timer_accessibility_stopped, currentTime, true));
+                    }
                     break;
                 case PAUSED:
                 case RESET:
                     DataModel.getDataModel().startTimer(timer);
                     Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
+                    if (currentTime > 0) {
+                        mTimersView.announceForAccessibility(TimerStringFormatter.formatString(
+                                context, R.string.timer_accessibility_started, currentTime, true));
+                    }
                     break;
                 case MISSED:
                 case EXPIRED:
