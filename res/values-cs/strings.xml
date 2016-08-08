@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Zítra"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Dnes"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Zavřít"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Vypnout"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Zmeškaný budík"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Odloženo"</string>
