@@ -84,18 +84,17 @@ public final class DataModel {
      * The context may be set precisely once during the application life.
      */
     public void setContext(Context context) {
-        if (mContext != null) {
-            throw new IllegalStateException("context has already been set");
-        }
-        mContext = context.getApplicationContext();
+        if (mContext != context) {
+            mContext = context.getApplicationContext();
 
-        mSettingsModel = new SettingsModel(mContext);
-        mNotificationModel = new NotificationModel();
-        mCityModel = new CityModel(mContext, mSettingsModel);
-        mWidgetModel = new WidgetModel(mContext);
-        mAlarmModel = new AlarmModel(mContext, mSettingsModel);
-        mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
-        mTimerModel = new TimerModel(mContext, mSettingsModel, mNotificationModel);
+            mWidgetModel = new WidgetModel(mContext);
+            mSettingsModel = new SettingsModel(mContext);
+            mNotificationModel = new NotificationModel();
+            mCityModel = new CityModel(mContext, mSettingsModel);
+            mAlarmModel = new AlarmModel(mContext, mSettingsModel);
+            mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
+            mTimerModel = new TimerModel(mContext, mSettingsModel, mNotificationModel);
+        }
     }
 
     /**

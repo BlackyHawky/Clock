@@ -86,15 +86,14 @@ public final class UiDataModel {
      * The context may be set precisely once during the application life.
      */
     public void setContext(Context context) {
-        if (mContext != null) {
-            throw new IllegalStateException("context has already been set");
-        }
-        mContext = context.getApplicationContext();
+        if (mContext != context) {
+            mContext = context.getApplicationContext();
 
-        mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
-        mFormattedStringModel = new FormattedStringModel(mContext);
-        mColorModel = new ColorModel(mPeriodicCallbackModel);
-        mTabModel = new TabModel(mContext);
+            mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
+            mFormattedStringModel = new FormattedStringModel(mContext);
+            mColorModel = new ColorModel(mPeriodicCallbackModel);
+            mTabModel = new TabModel(mContext);
+        }
     }
 
     /**

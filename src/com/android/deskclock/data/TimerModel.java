@@ -317,7 +317,6 @@ final class TimerModel {
         updateHeadsUpNotification();
     }
 
-
     /**
      * Update timers after time set.
      */

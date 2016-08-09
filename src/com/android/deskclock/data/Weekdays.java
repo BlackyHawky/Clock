@@ -242,15 +242,33 @@ public final class Weekdays {
         return mBits;
     }
 
-    @VisibleForTesting
-    int getCount() {
-        int count = 0;
-        for (int calendarDay = SUNDAY; calendarDay <= SATURDAY; calendarDay++) {
-            if (isBitOn(calendarDay)) {
-                count++;
-            }
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder(19);
+        builder.append("[");
+        if (isBitOn(MONDAY)) {
+            builder.append(builder.length() > 1 ? " M" : "M");
         }
-        return count;
+        if (isBitOn(TUESDAY)) {
+            builder.append(builder.length() > 1 ? " T" : "T");
+        }
+        if (isBitOn(WEDNESDAY)) {
+            builder.append(builder.length() > 1 ? " W" : "W");
+        }
+        if (isBitOn(THURSDAY)) {
+            builder.append(builder.length() > 1 ? " Th" : "Th");
+        }
+        if (isBitOn(FRIDAY)) {
+            builder.append(builder.length() > 1 ? " F" : "F");
+        }
+        if (isBitOn(SATURDAY)) {
+            builder.append(builder.length() > 1 ? " Sa" : "Sa");
+        }
+        if (isBitOn(SUNDAY)) {
+            builder.append(builder.length() > 1 ? " Su" : "Su");
+        }
+        builder.append("]");
+        return builder.toString();
     }
 
     /**
@@ -270,6 +288,17 @@ public final class Weekdays {
      */
     public String toAccessibilityString(Context context, Order order) {
         return toString(context, order, true /* forceLongNames */);
+    }
+
+    @VisibleForTesting
+    int getCount() {
+        int count = 0;
+        for (int calendarDay = SUNDAY; calendarDay <= SATURDAY; calendarDay++) {
+            if (isBitOn(calendarDay)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**

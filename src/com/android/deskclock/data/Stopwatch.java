@@ -124,6 +124,11 @@ public final class Stopwatch {
         return RESET_STOPWATCH;
     }
 
+    /**
+     * @return this Stopwatch if it is not running or an updated version based on wallclock time.
+     *      The internals of the stopwatch are updated using the wallclock time which is durable
+     *      across reboots.
+     */
     Stopwatch updateAfterReboot() {
         if (mState != RUNNING) {
             return this;
@@ -134,6 +139,11 @@ public final class Stopwatch {
         return new Stopwatch(mState, timeSinceBoot, wallClockTime, mAccumulatedTime + delta);
     }
 
+    /**
+     * @return this Stopwatch if it is not running or an updated version based on the realtime.
+     *      The internals of the stopwatch are updated using the realtime clock which is accurate
+     *      across wallclock time adjustments.
+     */
     Stopwatch updateAfterTimeSet() {
         if (mState != RUNNING) {
             return this;
