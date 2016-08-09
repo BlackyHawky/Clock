@@ -15,7 +15,8 @@
      limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/swn_collapsed_hitspace"
     android:layout_width="match_parent"
     android:layout_height="64dp"
@@ -44,11 +45,12 @@
 
             <Chronometer
                 android:id="@+id/swn_collapsed_chronometer"
-                android:layout_width="0dip"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Title" />
+
         </LinearLayout>
 
         <TextView
@@ -61,6 +63,7 @@
             android:visibility="gone"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent" />
+
     </LinearLayout>
 
 </FrameLayout>

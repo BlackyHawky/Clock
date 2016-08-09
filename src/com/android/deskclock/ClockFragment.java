@@ -22,24 +22,30 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
@@ -47,9 +53,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
+import static com.android.deskclock.uidata.UiDataModel.Tab.CLOCKS;
 import static java.util.Calendar.DAY_OF_WEEK;
 
 /**
@@ -57,11 +65,11 @@ import static java.util.Calendar.DAY_OF_WEEK;
  */
 public final class ClockFragment extends DeskClockFragment {
 
-    // Updates the UI in response to system setting changes that alter time values and time display.
-    private final BroadcastReceiver mBroadcastReceiver = new SystemBroadcastReceiver();
-
     // Updates dates in the UI on every quarter-hour.
     private final Runnable mQuarterHourUpdater = new QuarterHourRunnable();
+
+    // Updates the UI in response to changes to the scheduled alarm.
+    private BroadcastReceiver mAlarmChangeReceiver;
 
     // Detects changes to the next scheduled alarm pre-L.
     private ContentObserver mAlarmObserver;
@@ -70,13 +78,16 @@ public final class ClockFragment extends DeskClockFragment {
 
     private TextClock mDigitalClock;
     private View mAnalogClock, mClockFrame;
+    private View mHairline;
     private SelectedCitiesAdapter mCityAdapter;
     private ListView mCityList;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
 
     /** The public no-arg constructor required by all fragments. */
-    public ClockFragment() {}
+    public ClockFragment() {
+        super(CLOCKS);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +95,7 @@ public final class ClockFragment extends DeskClockFragment {
 
         mHandler = new Handler();
         mAlarmObserver = Utils.isPreL() ? new AlarmObserverPreL(mHandler) : null;
+        mAlarmChangeReceiver = Utils.isLOrLater() ? new AlarmChangedBroadcastReceiver() : null;
     }
 
     @Override
@@ -91,7 +103,6 @@ public final class ClockFragment extends DeskClockFragment {
         super.onCreateView(inflater, container, icicle);
 
         final OnTouchListener startScreenSaverListener = new StartScreenSaverListener();
-        final View footerView = inflater.inflate(R.layout.blank_footer_view, mCityList, false);
         final View fragmentView = inflater.inflate(R.layout.clock_fragment, container, false);
 
         mCityAdapter = new SelectedCitiesAdapter(getActivity());
@@ -99,8 +110,10 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList = (ListView) fragmentView.findViewById(R.id.cities);
         mCityList.setDivider(null);
         mCityList.setAdapter(mCityAdapter);
-        mCityList.addFooterView(footerView, null, false);
         mCityList.setOnTouchListener(startScreenSaverListener);
+        mCityList.setOnScrollListener(new VerticalScrollPositionUpdater());
+
+        fragmentView.setOnTouchListener(startScreenSaverListener);
 
         // On tablet landscape, the clock frame will be a distinct view. Otherwise, it'll be added
         // on as a header to the main listview.
@@ -108,13 +121,10 @@ public final class ClockFragment extends DeskClockFragment {
         if (mClockFrame == null) {
             mClockFrame = inflater.inflate(R.layout.main_clock_frame, mCityList, false);
             mCityList.addHeaderView(mClockFrame, null, false);
-            final View hairline = mClockFrame.findViewById(R.id.hairline);
-            hairline.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
+            mHairline = mClockFrame.findViewById(R.id.hairline);
         } else {
             final View hairline = mClockFrame.findViewById(R.id.hairline);
             hairline.setVisibility(GONE);
-            // The main clock frame needs its own touch listener for night mode now.
-            fragmentView.setOnTouchListener(startScreenSaverListener);
         }
 
         mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
@@ -126,7 +136,7 @@ public final class ClockFragment extends DeskClockFragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        Utils.setTimeFormat(getActivity(), mDigitalClock);
+        Utils.setTimeFormat(mDigitalClock);
     }
 
     @Override
@@ -134,21 +144,15 @@ public final class ClockFragment extends DeskClockFragment {
         super.onResume();
 
         final Activity activity = getActivity();
-        setFabAppearance();
-        setLeftRightButtonAppearance();
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
-        // Schedule a runnable to update the date every quarter hour.
-        Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
-
         // Watch for system events that effect clock time or format.
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
-        filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
-        activity.registerReceiver(mBroadcastReceiver, filter);
+        if (mAlarmChangeReceiver != null) {
+            final IntentFilter filter = new IntentFilter(ACTION_NEXT_ALARM_CLOCK_CHANGED);
+            activity.registerReceiver(mAlarmChangeReceiver, filter);
+        }
 
         // Resume can be invoked after changing the clock style.
         Utils.setClockStyle(mDigitalClock, mAnalogClock);
@@ -159,56 +163,55 @@ public final class ClockFragment extends DeskClockFragment {
             mCityList.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
         }
 
+        // In portrait, the hairline is shown only when the adapter contains cities.
+        if (mHairline != null) {
+            mHairline.setVisibility(mCityAdapter.getCount() == 0 ? GONE : VISIBLE);
+        }
+
         refreshDates();
         refreshAlarm();
 
+        // Alarm observer is null on L or later.
         if (mAlarmObserver != null) {
+            @SuppressWarnings("deprecation")
             final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
             activity.getContentResolver().registerContentObserver(uri, false, mAlarmObserver);
         }
+
+        // Schedule a runnable to update the date every quarter hour.
+        UiDataModel.getUiDataModel().addQuarterHourCallback(mQuarterHourUpdater, 100);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Utils.cancelQuarterHourUpdater(mHandler, mQuarterHourUpdater);
+        UiDataModel.getUiDataModel().removePeriodicCallback(mQuarterHourUpdater);
 
         final Activity activity = getActivity();
-        activity.unregisterReceiver(mBroadcastReceiver);
+        if (mAlarmChangeReceiver != null) {
+            activity.unregisterReceiver(mAlarmChangeReceiver);
+        }
         if (mAlarmObserver != null) {
             activity.getContentResolver().unregisterContentObserver(mAlarmObserver);
         }
     }
 
     @Override
-    public void onFabClick(View view) {
+    public void onFabClick(@NonNull ImageView fab) {
         startActivity(new Intent(getActivity(), CitySelectionActivity.class));
     }
 
     @Override
-    public void setFabAppearance() {
-        if (mFab == null || getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
-            return;
-        }
-
-        mFab.setVisibility(VISIBLE);
-        mFab.setImageResource(R.drawable.ic_language_white_24dp);
-        mFab.setContentDescription(getString(R.string.button_cities));
+    public void onUpdateFab(@NonNull ImageView fab) {
+        fab.setVisibility(VISIBLE);
+        fab.setImageResource(R.drawable.ic_language);
+        fab.setContentDescription(fab.getResources().getString(R.string.button_cities));
     }
 
     @Override
-    public void setLeftRightButtonAppearance() {
-        if (getSelectedTab() != DeskClock.CLOCK_TAB_INDEX) {
-            return;
-        }
-
-        if (mLeftButton != null) {
-            mLeftButton.setVisibility(INVISIBLE);
-        }
-
-        if (mRightButton != null) {
-            mRightButton.setVisibility(INVISIBLE);
-        }
+    public void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+        left.setVisibility(INVISIBLE);
+        right.setVisibility(INVISIBLE);
     }
 
     /**
@@ -268,7 +271,22 @@ public final class ClockFragment extends DeskClockFragment {
 
         @Override
         public void run() {
-            startActivity(new Intent(getActivity(), ScreensaverActivity.class));
+            startActivity(new Intent(getActivity(), ScreensaverActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
+    }
+
+    /**
+     * Updates the vertical scroll state of this tab in the {@link UiDataModel} as it changes.
+     */
+    private final class VerticalScrollPositionUpdater implements AbsListView.OnScrollListener {
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
+                int totalItemCount) {
+            setTabScrolledToTop(Utils.isScrolledToTop(view));
         }
     }
 
@@ -281,9 +299,6 @@ public final class ClockFragment extends DeskClockFragment {
         @Override
         public void run() {
             refreshDates();
-
-            // Schedule the next quarter-hour callback.
-            Utils.setQuarterHourUpdater(mHandler, mQuarterHourUpdater);
         }
     }
 
@@ -304,22 +319,12 @@ public final class ClockFragment extends DeskClockFragment {
     }
 
     /**
-     * Handle system broadcasts that influence the display of this fragment. Since this fragment
-     * displays time-related information, ACTION_TIME_CHANGED and ACTION_TIMEZONE_CHANGED both
-     * alter the actual time values displayed. ACTION_NEXT_ALARM_CLOCK_CHANGED indicates the time at
-     * which the next alarm will fire has changed.
+     * Update the display of the scheduled alarm as it changes.
      */
-    private final class SystemBroadcastReceiver extends BroadcastReceiver {
+    private final class AlarmChangedBroadcastReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            switch (intent.getAction()) {
-                case Intent.ACTION_TIME_CHANGED:
-                case Intent.ACTION_TIMEZONE_CHANGED:
-                    refreshDates();
-
-                case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED:
-                    refreshAlarm();
-            }
+            refreshAlarm();
         }
     }
 
@@ -332,10 +337,12 @@ public final class ClockFragment extends DeskClockFragment {
 
         private final LayoutInflater mInflater;
         private final Context mContext;
+        private final boolean mIsLandscape;
 
         public SelectedCitiesAdapter(Context context) {
             mContext = context;
             mInflater = LayoutInflater.from(context);
+            mIsLandscape = Utils.isLandscape(context);
         }
 
         @Override
@@ -366,28 +373,36 @@ public final class ClockFragment extends DeskClockFragment {
 
             // Inflate a new view for the city, if necessary.
             if (view == null) {
-                view = mInflater.inflate(R.layout.world_clock_list_item, parent, false);
+                view = mInflater.inflate(R.layout.world_clock_item, parent, false);
             }
 
-            final View clock = view.findViewById(R.id.city_left);
-
             // Configure the digital clock or analog clock depending on the user preference.
-            final TextClock digitalClock = (TextClock) clock.findViewById(R.id.digital_clock);
-            final AnalogClock analogClock = (AnalogClock) clock.findViewById(R.id.analog_clock);
+            final TextClock digitalClock = (TextClock) view.findViewById(R.id.digital_clock);
+            final AnalogClock analogClock = (AnalogClock) view.findViewById(R.id.analog_clock);
             if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
                 digitalClock.setVisibility(GONE);
                 analogClock.setVisibility(VISIBLE);
-                analogClock.setTimeZone(city.getTimeZoneId());
+                analogClock.setTimeZone(city.getTimeZone().getID());
                 analogClock.enableSeconds(false);
             } else {
-                digitalClock.setVisibility(VISIBLE);
                 analogClock.setVisibility(GONE);
-                digitalClock.setTimeZone(city.getTimeZoneId());
-                Utils.setTimeFormat(mContext, digitalClock);
+                digitalClock.setVisibility(VISIBLE);
+                digitalClock.setTimeZone(city.getTimeZone().getID());
+                digitalClock.setFormat12Hour(Utils.get12ModeFormat(0.22f /* amPmRatio */));
+                digitalClock.setFormat24Hour(Utils.get24ModeFormat());
             }
 
+            // Supply top and bottom padding dynamically.
+            final Resources res = mContext.getResources();
+            final int padding = res.getDimensionPixelSize(R.dimen.medium_space_top);
+            final int top = position == 0 && mIsLandscape ? 0 : padding;
+            final int left = view.getPaddingLeft();
+            final int right = view.getPaddingRight();
+            final int bottom = view.getPaddingBottom();
+            view.setPadding(left, top, right, bottom);
+
             // Bind the city name.
-            final TextView name = (TextView) clock.findViewById(R.id.city_name);
+            final TextView name = (TextView) view.findViewById(R.id.city_name);
             name.setText(city.getName());
 
             // Compute if the city week day matches the weekday of the current timezone.
@@ -396,7 +411,7 @@ public final class ClockFragment extends DeskClockFragment {
             final boolean displayDayOfWeek = localCal.get(DAY_OF_WEEK) != cityCal.get(DAY_OF_WEEK);
 
             // Bind the week day display.
-            final TextView dayOfWeek = (TextView) clock.findViewById(R.id.city_day);
+            final TextView dayOfWeek = (TextView) view.findViewById(R.id.city_day);
             dayOfWeek.setVisibility(displayDayOfWeek ? VISIBLE : GONE);
             if (displayDayOfWeek) {
                 final Locale locale = Locale.getDefault();

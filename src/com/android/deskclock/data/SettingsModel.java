@@ -21,6 +21,7 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 
@@ -63,6 +64,10 @@ final class SettingsModel {
         return SettingsDAO.getScreensaverClockStyle(mContext);
     }
 
+    boolean getScreensaverNightModeOn() {
+        return SettingsDAO.getScreensaverNightModeOn(mContext);
+    }
+
     boolean getShowHomeClock() {
         if (!SettingsDAO.getAutoShowHomeClock(mContext)) {
             return false;
@@ -77,13 +82,14 @@ final class SettingsModel {
 
     Uri getDefaultTimerRingtoneUri() {
         if (mDefaultTimerRingtoneUri == null) {
-            final String packageName = mContext.getPackageName();
-            final int resId = R.raw.timer_expire;
-            final String uriString = String.format("android.resource://%s/%d", packageName, resId);
-            mDefaultTimerRingtoneUri = Uri.parse(uriString);
+            mDefaultTimerRingtoneUri = Utils.getResourceUri(mContext, R.raw.timer_expire);
         }
 
         return mDefaultTimerRingtoneUri;
+    }
+
+    void setTimerRingtoneUri(Uri uri) {
+        SettingsDAO.setTimerRingtoneUri(mContext, uri);
     }
 
     Uri getTimerRingtoneUri() {
@@ -97,5 +103,13 @@ final class SettingsModel {
 
     void setDefaultAlarmRingtoneUri(Uri uri) {
         SettingsDAO.setDefaultAlarmRingtoneUri(mContext, uri);
+    }
+
+    boolean getTimerVibrate() {
+        return SettingsDAO.getTimerVibrate(mContext);
+    }
+
+    void setTimerVibrate(boolean enabled) {
+        SettingsDAO.setTimerVibrate(mContext, enabled);
     }
 }

@@ -13,20 +13,23 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/fab_height"
+    android:paddingTop="@dimen/timer_setup_top_margin">
 
     <com.android.deskclock.timer.TimerView
         android:id="@+id/timer_time_text"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layoutDirection="ltr"
-        android:orientation="horizontal"
-        android:paddingBottom="@dimen/medium_font_padding"
-        android:paddingTop="@dimen/medium_font_padding">
+        android:baselineAligned="true"
+        android:layoutDirection="ltr">
 
         <include layout="@layout/timer_h_mm_ss_view" />
 
@@ -34,20 +37,19 @@
             android:id="@+id/delete"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
+            android:layout_marginStart="@dimen/timer_setup_delete_margin"
             android:padding="@dimen/timer_setup_delete_padding"
             android:contentDescription="@string/timer_delete"
             android:scaleType="center"
-            android:src="@drawable/ic_backspace" />
+            app:srcCompat="@drawable/ic_backspace" />
 
     </com.android.deskclock.timer.TimerView>
 
     <View
         android:id="@+id/divider"
         android:layout_width="match_parent"
-        android:layout_height="1dip"
-        android:layout_marginBottom="8dip"
+        android:layout_height="1dp"
+        android:layout_marginBottom="8dp"
         android:background="@color/dialog_gray" />
 
     <include
@@ -65,7 +67,5 @@
     <include
         android:id="@+id/fourth"
         layout="@layout/three_keys_view" />
-
-    <include layout="@layout/timer_setup_buttons" />
 
 </LinearLayout>

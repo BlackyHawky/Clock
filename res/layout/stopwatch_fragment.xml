@@ -13,38 +13,40 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="false"
     android:gravity="center"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/fab_height">
+    android:baselineAligned="false"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="@dimen/circle_size"
-        android:layout_height="@dimen/circle_size"
-        android:layout_gravity="center"
-        android:padding="16dp">
+    <android.support.percent.PercentFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
 
-        <com.android.deskclock.timer.CountingTimerView
-            android:id="@+id/stopwatch_time_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+        <com.android.deskclock.TimerCircleFrameLayout
+            app:layout_aspectRatio="100%"
+            app:layout_widthPercent="@fraction/timer_circle_width_percent"
+            app:layout_heightPercent="@fraction/timer_circle_height_percent"
+            android:layout_gravity="center">
 
-        <com.android.deskclock.stopwatch.StopwatchCircleView
-            android:id="@+id/stopwatch_time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@null" />
-    </FrameLayout>
+            <include layout="@layout/stopwatch_view" />
+
+        </com.android.deskclock.TimerCircleFrameLayout>
+
+    </android.support.percent.PercentFrameLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/laps_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_gravity="center"
-        android:layout_weight="1" />
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/fab_height" />
 
 </LinearLayout>

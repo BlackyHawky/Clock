@@ -21,69 +21,67 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
 import android.database.ContentObserver;
-import android.os.BatteryManager;
+import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextClock;
 
-import com.android.deskclock.Utils.ScreensaverMoveSaverRunnable;
+import com.android.deskclock.uidata.UiDataModel;
+
+import static android.content.Intent.ACTION_BATTERY_CHANGED;
+import static android.os.BatteryManager.EXTRA_PLUGGED;
 
 public class ScreensaverActivity extends AppCompatActivity {
-    static final boolean DEBUG = false;
-    static final String TAG = "DeskClock/ScreensaverActivity";
+
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("ScreensaverActivity");
+
+    /** These flags keep the screen on if the device is plugged in. */
+    private static final int sWindowFlags = WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
+            | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+            | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
+            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON;
+
+    private final OnPreDrawListener mStartPositionUpdater = new StartPositionUpdater();
+    private MoveScreensaverRunnable mPositionUpdater;
 
     private View mContentView, mSaverView;
     private View mAnalogClock, mDigitalClock;
 
-    private final Handler mHandler = new Handler();
-    private final ScreensaverMoveSaverRunnable mMoveSaverRunnable;
     private String mDateFormat;
     private String mDateFormatForAccessibility;
-    private boolean mPluggedIn = true;
-    private final int mFlags = (WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
-            | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
-            | WindowManager.LayoutParams.FLAG_ALLOW_LOCK_WHILE_SCREEN_ON
-            | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
     private final BroadcastReceiver mIntentReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            LogUtils.v(TAG, "ScreensaverActivity onReceive, action: " + intent.getAction());
+            LOGGER.v("ScreensaverActivity onReceive, action: " + intent.getAction());
 
-            boolean changed = intent.getAction().equals(Intent.ACTION_TIME_CHANGED)
-                    || intent.getAction().equals(Intent.ACTION_TIMEZONE_CHANGED);
-            if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
-                mPluggedIn = true;
-                setWakeLock();
-            } else if (intent.getAction().equals(Intent.ACTION_POWER_DISCONNECTED)) {
-                mPluggedIn = false;
-                setWakeLock();
-            } else if (intent.getAction().equals(Intent.ACTION_USER_PRESENT)) {
-                finish();
-            }
-
-            if (changed) {
-                Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-                Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
-                Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
-            }
-
-            if (intent.getAction().equals(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED)) {
-                Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+            switch (intent.getAction()) {
+                case Intent.ACTION_POWER_CONNECTED:
+                    updateWakeLock(true);
+                    break;
+                case Intent.ACTION_POWER_DISCONNECTED:
+                    updateWakeLock(false);
+                    break;
+                case Intent.ACTION_USER_PRESENT:
+                    finish();
+                    break;
+                case AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED:
+                    Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+                    break;
             }
         }
     };
 
     /* Register ContentObserver to see alarm changes for pre-L */
     private final ContentObserver mSettingsContentObserver = Utils.isPreL()
-        ? new ContentObserver(mHandler) {
+        ? new ContentObserver(new Handler()) {
             @Override
             public void onChange(boolean selfChange) {
                 Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
@@ -91,81 +89,85 @@ public class ScreensaverActivity extends AppCompatActivity {
         }
         : null;
 
-    // Thread that runs every midnight and refreshes the date.
+    // Runs every midnight or when the time changes and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
         @Override
         public void run() {
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
-            Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
         }
     };
 
-    public ScreensaverActivity() {
-        LogUtils.d(TAG, "Screensaver allocated");
-        mMoveSaverRunnable = new ScreensaverMoveSaverRunnable(mHandler);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.desk_clock_saver);
+        mDigitalClock = findViewById(R.id.digital_clock);
+        mAnalogClock = findViewById(R.id.analog_clock);
+        mSaverView = findViewById(R.id.main_clock);
+        mContentView = findViewById(R.id.saver_container);
+        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        Utils.setTimeFormat((TextClock) mDigitalClock);
+        Utils.setClockStyle(mDigitalClock, mAnalogClock);
+        Utils.dimClockView(true, mSaverView);
+
+        mPositionUpdater = new MoveScreensaverRunnable(mContentView, mSaverView);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        IntentFilter filter = new IntentFilter();
+
+        final IntentFilter filter = new IntentFilter();
         filter.addAction(Intent.ACTION_POWER_CONNECTED);
         filter.addAction(Intent.ACTION_POWER_DISCONNECTED);
         filter.addAction(Intent.ACTION_USER_PRESENT);
-        filter.addAction(Intent.ACTION_TIME_CHANGED);
-        filter.addAction(Intent.ACTION_TIMEZONE_CHANGED);
+        filter.addAction(AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED);
         registerReceiver(mIntentReceiver, filter);
-        if (Utils.isPreL()) {
-            getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED),
-                false,
-                mSettingsContentObserver);
+
+        if (mSettingsContentObserver != null) {
+            @SuppressWarnings("deprecation")
+            final Uri uri = Settings.System.getUriFor(Settings.System.NEXT_ALARM_FORMATTED);
+            getContentResolver().registerContentObserver(uri, false, mSettingsContentObserver);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Intent chargingIntent =
-                registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-        int plugged = chargingIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, -1);
-        mPluggedIn = plugged == BatteryManager.BATTERY_PLUGGED_AC
-                || plugged == BatteryManager.BATTERY_PLUGGED_USB
-                || plugged == BatteryManager.BATTERY_PLUGGED_WIRELESS;
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
 
-        setWakeLock();
-        layoutClockSaver();
-        mHandler.post(mMoveSaverRunnable);
+        Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
 
-        Utils.setMidnightUpdater(mHandler, mMidnightUpdater);
+        startPositionUpdater();
+        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+
+        final Intent intent = registerReceiver(null, new IntentFilter(ACTION_BATTERY_CHANGED));
+        final int plugged = intent.getIntExtra(EXTRA_PLUGGED, 0);
+        final boolean pluggedIn = plugged != 0;
+        updateWakeLock(pluggedIn);
     }
 
     @Override
     public void onPause() {
-        mHandler.removeCallbacks(mMoveSaverRunnable);
-        Utils.cancelMidnightUpdater(mHandler, mMidnightUpdater);
         super.onPause();
+        UiDataModel.getUiDataModel().removePeriodicCallback(mMidnightUpdater);
+        stopPositionUpdater();
     }
 
     @Override
     public void onStop() {
-        if (Utils.isPreL()) {
+        if (mSettingsContentObserver != null) {
             getContentResolver().unregisterContentObserver(mSettingsContentObserver);
         }
         unregisterReceiver(mIntentReceiver);
         super.onStop();
-   }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        LogUtils.d(TAG, "Screensaver configuration changed");
-        super.onConfigurationChanged(newConfig);
-        mHandler.removeCallbacks(mMoveSaverRunnable);
-        layoutClockSaver();
-        mHandler.postDelayed(mMoveSaverRunnable, Screensaver.ORIENTATION_CHANGE_DELAY_MS);
     }
 
     @Override
@@ -174,42 +176,56 @@ public class ScreensaverActivity extends AppCompatActivity {
         finish();
     }
 
-    private void setWakeLock() {
-        Window win = getWindow();
-        WindowManager.LayoutParams winParams = win.getAttributes();
+    /**
+     * @param pluggedIn {@code true} iff the device is currently plugged in to a charger
+     */
+    private void updateWakeLock(boolean pluggedIn) {
+        final Window win = getWindow();
+        final WindowManager.LayoutParams winParams = win.getAttributes();
         winParams.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-        if (mPluggedIn)
-            winParams.flags |= mFlags;
-        else
-            winParams.flags &= (~mFlags);
+        if (pluggedIn) {
+            winParams.flags |= sWindowFlags;
+        } else {
+            winParams.flags &= (~sWindowFlags);
+        }
         win.setAttributes(winParams);
     }
 
-    private void setClockStyle() {
-        Utils.setClockStyle(mDigitalClock, mAnalogClock);
-        mSaverView = findViewById(R.id.main_clock);
-        Utils.dimClockView(true, mSaverView);
+    /**
+     * The {@link #mContentView} will be drawn shortly. When that draw occurs, the position updater
+     * callback will also be executed to choose a random position for the time display as well as
+     * schedule future callbacks to move the time display each minute.
+     */
+    private void startPositionUpdater() {
+        mContentView.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
     }
 
-    private void layoutClockSaver() {
-        setContentView(R.layout.desk_clock_saver);
-        mDigitalClock = findViewById(R.id.digital_clock);
-        mAnalogClock = findViewById(R.id.analog_clock);
-        setClockStyle();
-        Utils.setTimeFormat(this, (TextClock) mDigitalClock);
+    /**
+     * This activity is no longer in the foreground; position callbacks should be removed.
+     */
+    private void stopPositionUpdater() {
+        mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+        mPositionUpdater.stop();
+    }
 
-        mContentView = (View) mSaverView.getParent();
-        mContentView.forceLayout();
-        mSaverView.forceLayout();
-        mSaverView.setAlpha(0);
+    private class StartPositionUpdater implements OnPreDrawListener {
+        /**
+         * This callback occurs after initial layout has completed. It is an appropriate place to
+         * select a random position for {@link #mSaverView} and schedule future callbacks to update
+         * its position.
+         *
+         * @return {@code true} to continue with the drawing pass
+         */
+        @Override
+        public boolean onPreDraw() {
+            if (mContentView.getViewTreeObserver().isAlive()) {
+                // Start the periodic position updater.
+                mPositionUpdater.start();
 
-        mMoveSaverRunnable.registerViews(mContentView, mSaverView);
-
-        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
-        Utils.updateDate(mDateFormat, mDateFormatForAccessibility,mContentView);
-        Utils.refreshAlarm(ScreensaverActivity.this, mContentView);
+                // This listener must now be removed to avoid starting the position updater again.
+                mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+            }
+            return true;
+        }
     }
 }

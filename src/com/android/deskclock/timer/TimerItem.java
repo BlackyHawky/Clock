@@ -24,14 +24,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.deskclock.CircleButtonsLayout;
 import com.android.deskclock.R;
 import com.android.deskclock.data.Timer;
 
 /**
  * This view is a visual representation of a {@link Timer}.
  */
-class TimerItem extends LinearLayout {
+public class TimerItem extends LinearLayout {
 
     /** Displays the remaining time or time since expiration. */
     private CountingTimerView mTimerText;
@@ -63,10 +62,7 @@ class TimerItem extends LinearLayout {
         mResetAddButton = (ImageView) findViewById(R.id.reset_add);
         mCircleView = (TimerCircleView) findViewById(R.id.timer_time);
         mTimerText = (CountingTimerView) findViewById(R.id.timer_time_text);
-
-        // This layout positions dynamically positions the label and reset buttons.
-        final CircleButtonsLayout cbl = (CircleButtonsLayout) findViewById(R.id.timer_circle);
-        cbl.setCircleTimerViewIds(R.id.timer_time, R.id.reset_add, R.id.timer_label);
+        mTimerText.setShowBoundingCircle(mCircleView != null);
     }
 
     /**
@@ -74,10 +70,7 @@ class TimerItem extends LinearLayout {
      */
     void update(Timer timer) {
         // Update the time.
-        mTimerText.setTime(timer.getRemainingTime(), false, true);
-
-        // Update the progress of the circle.
-        mCircleView.update(timer);
+        mTimerText.setTime(timer.getRemainingTime(), false);
 
         // Update the label if it changed.
         final String label = timer.getLabel();
@@ -87,7 +80,15 @@ class TimerItem extends LinearLayout {
 
         // Update visibility of things that may blink.
         final boolean blinkOff = SystemClock.elapsedRealtime() % 1000 < 500;
-        mCircleView.setVisibility(timer.isExpired() && blinkOff ? INVISIBLE : VISIBLE);
+        if (mCircleView != null) {
+            final boolean hideCircle = timer.isExpired() && blinkOff;
+            mCircleView.setVisibility(hideCircle ? INVISIBLE : VISIBLE);
+
+            if (!hideCircle) {
+                // Update the progress of the circle.
+                mCircleView.update(timer);
+            }
+        }
         mTimerText.showTime(!timer.isPaused() || !blinkOff);
 
         // Update some potentially expensive areas of the user interface only on state changes.

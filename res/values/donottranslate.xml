@@ -15,14 +15,18 @@
 -->
 
 <resources>
+    <!-- String matching the lock screen format for displaying 12-hour times. -->
+    <string name="lock_screen_12_hour_format">h&#58;mm</string>
+    <!-- String matching the lock screen format for displaying 24-hour times. -->
+    <string name="lock_screen_24_hour_format">kk&#58;mm</string>
+    <!-- Format for displaying the day of week with a preceding slash divider. -->
+    <string name="abbrev_wday">&#160;/ EEE</string>
     <!-- String matching the lock screen format for displaying the date. -->
-    <string name="abbrev_wday_month_day_no_year">EEEMMMMd</string>
-    <!-- Abbreviated format for describing the date. -->
-    <string name="abbrev_wday_abbrev_month_day_no_year">EEEMMMd</string>
+    <string name="abbrev_wday_month_day_no_year">EEEMMMd</string>
     <!-- Format for describing the date, for accessibility. -->
     <string name="full_wday_month_day_no_year">EEEEMMMMd</string>
     <!-- Default clock style. -->
     <string name="default_clock_style">digital</string>
-    <!-- Behavior that coordinates LinearLayout and snackbar inside a CoordinatorLayout-->
-    <string name="linear_layout_with_snackbar_behavior">com.android.deskclock.widget.toast.LinearLayoutWithSnackbarBehavior</string>
+    <!-- ⏰ (A custom font replaces the A glyph with a clock icon) -->
+    <string name="clock_emoji">A</string>
 </resources>

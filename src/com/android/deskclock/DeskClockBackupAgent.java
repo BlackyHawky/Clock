@@ -24,7 +24,6 @@ import android.app.backup.BackupDataOutput;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.ParcelFileDescriptor;
 import android.os.SystemClock;
@@ -42,12 +41,12 @@ import java.util.List;
 
 public class DeskClockBackupAgent extends BackupAgent {
 
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("DeskClockBackupAgent");
+
     private static final String KEY_RESTORE_FINISHED = "restore_finished";
 
     public static final String ACTION_COMPLETE_RESTORE =
             "com.android.deskclock.action.COMPLETE_RESTORE";
-
-    private static final String TAG = "DeskClockBackupAgent";
 
     @Override
     public void onBackup(ParcelFileDescriptor oldState, BackupDataOutput data,
@@ -85,7 +84,7 @@ public class DeskClockBackupAgent extends BackupAgent {
     public void onRestoreFinished() {
         if (Utils.isNOrLater()) {
             // TODO: migrate restored database and preferences over into
-            // the device-protected storage area
+            // the device-encrypted storage area
         }
 
         // Write a preference to indicate a data restore has been completed.
@@ -104,7 +103,7 @@ public class DeskClockBackupAgent extends BackupAgent {
         final AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtMillis, restoreIntent);
 
-        LogUtils.i(TAG, "Waiting for %s to complete the data restore", ACTION_COMPLETE_RESTORE);
+        LOGGER.i("Waiting for %s to complete the data restore", ACTION_COMPLETE_RESTORE);
     }
 
     /**
@@ -118,7 +117,7 @@ public class DeskClockBackupAgent extends BackupAgent {
             return false;
         }
 
-        LogUtils.i(TAG, "processRestoredData() started");
+        LOGGER.i("processRestoredData() started");
 
         // Now that alarms have been restored, schedule new instances in AlarmManager.
         final ContentResolver contentResolver = context.getContentResolver();
@@ -139,14 +138,14 @@ public class DeskClockBackupAgent extends BackupAgent {
 
                 // Schedule the next alarm instance in AlarmManager.
                 AlarmStateManager.registerInstance(context, alarmInstance, true);
-                LogUtils.i(TAG, "DeskClockBackupAgent scheduled alarm instance: %s", alarmInstance);
+                LOGGER.i("DeskClockBackupAgent scheduled alarm instance: %s", alarmInstance);
             }
         }
 
         // Remove the preference to avoid executing this logic multiple times.
         prefs.edit().remove(KEY_RESTORE_FINISHED).apply();
 
-        LogUtils.i(TAG, "processRestoredData() completed");
+        LOGGER.i("processRestoredData() completed");
         return true;
     }
 }

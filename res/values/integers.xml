@@ -16,4 +16,6 @@
 
 <resources>
     <integer name="chevron_rotate_180">180</integer>
+    <integer name="gutter_width_percent">4</integer>
+    <integer name="guttered_content_width_percent">92</integer>
 </resources>

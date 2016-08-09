@@ -15,33 +15,25 @@
 -->
 
 <resources>
-    <color name="ampm_off">#ff404040</color>
-    <color name="ampm_on">#ffffffff</color>
-    <color name="time_text_color">#E6FFFFFF</color>
     <color name="ampm_text_color">#99FFFFFF</color>
-    <color name="screen_saver_color">#FF006688</color>
-    <color name="screen_saver_dim_color">#FF001634</color>
-    <color name="action_bar_button_text_color">#FFFFFF</color>
-    <color name="dialog_gray">#28ffffff</color>
-    <color name="pressed_state_color">#33999999</color>
+    <color name="dialog_gray">#28FFFFFF</color>
 
-    <color name="black">#ff000000</color>
-    <color name="black_87p">#de000000</color>
-    <color name="black_54p">#8a000000</color>
+    <color name="black">#FF000000</color>
+    <color name="black_87p">#DE000000</color>
+    <color name="black_54p">#8A000000</color>
     <color name="black_16p">#28000000</color>
 
-    <color name="white">#ffffffff</color>
-    <color name="white_69p">#B1FFFFFF</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_63p">#A0FFFFFF</color>
+    <color name="no_alarms">#4CFFFFFF</color>
 
-    <color name="blackish_selected">#0cffffff</color>
     <color name="transparent">#00000000</color>
 
     <color name="color_accent">#DA4336</color>
-    <color name="hairline">#28ffffff</color>
-    <color name="bright_foreground_light_disabled">#80000000</color>
+    <color name="hairline">#28FFFFFF</color>
 
-    <color name="clock_white">#ffffff</color>
-    <color name="clock_gray">#B3ffffff</color>
+    <color name="clock_white">#FFFFFF</color>
+    <color name="clock_gray">#B3FFFFFF</color>
 
     <color name="default_background">#1A237E</color>
     <color name="status_bar">#66000000</color>
@@ -49,13 +41,16 @@
     <color name="time_picker_gray">#212121</color>
 
     <!-- Values for custom notification -->
-    <color name="notif_text_grey">#9c9c9c</color>
-    <color name="control_highlight_color">#42ffffff</color>
+    <color name="notif_text_grey">#9C9C9C</color>
+    <color name="control_highlight_color">#42FFFFFF</color>
     <color name="notification_bg">#181818</color>
     <color name="notification_icon_bg">#1C3742</color>
     <color name="notification_pressed">#333333</color>
     <color name="notification_divider">#272727</color>
 
-    <!-- shadowColor for digital widget text -->
-    <color name="digital_widget_shadow_color">#DD000000</color>
+    <!-- shadowColor for widget text -->
+    <color name="widget_shadow_color">#67000000</color>
+
+    <!-- Redefine the fallback color used by preference-v14 to match our accent color. -->
+    <color name="preference_fallback_accent_color">@color/color_accent</color>
 </resources>

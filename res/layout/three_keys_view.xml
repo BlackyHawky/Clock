@@ -13,37 +13,39 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_weight="1"
-              android:gravity="center"
-              android:layoutDirection="ltr"
-              android:layout_height="0dip">
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:gravity="center"
+    android:layoutDirection="ltr">
 
     <Button
         android:id="@+id/key_left"
         style="@style/dialpad"
-        android:layout_width="0dip"
-        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:gravity="center" />
 
     <Button
         android:id="@+id/key_middle"
         style="@style/dialpad"
-        android:layout_width="0dip"
-        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:gravity="center" />
 
     <Button
         android:id="@+id/key_right"
         style="@style/dialpad"
-        android:layout_width="0dip"
-        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:gravity="center" />
 

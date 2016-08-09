@@ -14,14 +14,16 @@
      limitations under the License.
 -->
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <fragment
+    <include layout="@layout/drop_shadow" />
+
+    <FrameLayout
         android:id="@+id/main"
-        android:name="com.android.deskclock.settings.SettingsActivity$PrefsFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

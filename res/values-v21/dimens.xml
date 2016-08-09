@@ -16,10 +16,19 @@
   -->
 
 <resources>
-    <!-- Floating action button style -->
-    <dimen name="fab_margin">16dp</dimen>
+    <!-- Lollipop and later mini floating action button margin. -->
+    <dimen name="fab_margin">8dp</dimen>
 
-  <!-- Size of margin between icon and text / title text. -->
-  <dimen name="notification_content_margin_start">0dp</dimen>
+    <!-- Lollipop and later mini floating action button container height. -->
+    <dimen name="fab_height">56dp</dimen>
+
+    <!-- Lollipop and later mini floating action button size. -->
+    <dimen name="fab_button_size">@dimen/design_fab_size_mini</dimen>
+
+    <!-- Padding for mini fab buttons.-->
+    <dimen name="fab_button_padding">8dp</dimen>
+
+    <!-- Size of margin between icon and text / title text. -->
+    <dimen name="notification_content_margin_start">0dp</dimen>
 
 </resources>

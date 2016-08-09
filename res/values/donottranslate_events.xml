@@ -19,6 +19,8 @@
     <string name="category_clock">Clock</string>
     <string name="category_timer">Timer</string>
     <string name="category_stopwatch">Stopwatch</string>
+    <string name="category_analog_widget">Analog Widget</string>
+    <string name="category_digital_widget">Digital Widget</string>
 
     <!-- Action names for events describe what type of manipulation was performed. -->
     <string name="action_dismiss">Dismiss</string>
@@ -35,7 +37,6 @@
     <string name="action_reset">Reset</string>
     <string name="action_show">Show</string>
     <string name="action_add_minute">Add Minute</string>
-    <string name="action_resume">Resume</string>
     <string name="action_lap">Lap</string>
 
     <!-- Label names for events describe the entity responsible for the event. -->

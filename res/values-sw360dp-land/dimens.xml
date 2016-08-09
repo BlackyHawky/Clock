@@ -20,6 +20,5 @@
   for different hardware and product builds.
 -->
 <resources>
-  <dimen name="circle_size">232dip</dimen>
   <dimen name="timer_setup_font_size">48sp</dimen>
 </resources>

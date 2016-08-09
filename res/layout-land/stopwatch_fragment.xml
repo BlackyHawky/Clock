@@ -13,47 +13,51 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:paddingBottom="@dimen/fab_height">
+    android:orientation="horizontal">
 
-    <!-- This FrameLayout reserves half the screen for the stopwatch. -->
-    <FrameLayout
+    <!-- Left gutter. -->
+    <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="@integer/gutter_width_percent" />
 
-        <!-- This FrameLayout draws the stopwatch centered within its half of the screen. -->
-        <FrameLayout
-            android:layout_width="@dimen/circle_size"
-            android:layout_height="@dimen/circle_size"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="16dp">
-
-            <com.android.deskclock.timer.CountingTimerView
-                android:id="@+id/stopwatch_time_text"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <com.android.deskclock.stopwatch.StopwatchCircleView
-                android:id="@+id/stopwatch_time"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@null" />
-        </FrameLayout>
-
-    </FrameLayout>
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/laps_list"
+    <!-- Guttered content. -->
+    <com.android.deskclock.stopwatch.StopwatchLandscapeLayout
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/guttered_content_width_percent">
+
+        <!-- A circle in the stopwatch_view implies it should be sized in the remaining area. -->
+        <com.android.deskclock.TimerCircleFrameLayout
+            android:id="@+id/stopwatch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingBottom="@dimen/fab_height">
+
+            <include layout="@layout/stopwatch_view" />
+
+        </com.android.deskclock.TimerCircleFrameLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/laps_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="@dimen/fab_height" />
+
+    </com.android.deskclock.stopwatch.StopwatchLandscapeLayout>
+
+    <!-- Right gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/gutter_width_percent" />
 
 </LinearLayout>

@@ -16,15 +16,21 @@
 
 package com.android.deskclock.timer;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.media.AudioAttributes;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Vibrator;
 
 import com.android.deskclock.AsyncRingtonePlayer;
 import com.android.deskclock.LogUtils;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.settings.SettingsActivity;
 
 public abstract class TimerKlaxon {
+    private static final long[] VIBRATE_PATTERN = {500, 500};
 
     private static boolean sStarted = false;
     private static AsyncRingtonePlayer sAsyncRingtonePlayer;
@@ -37,6 +43,7 @@ public abstract class TimerKlaxon {
             LogUtils.i("TimerKlaxon.stop()");
             sStarted = false;
             getAsyncRingtonePlayer(context).stop();
+            ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE)).cancel();
         }
     }
 
@@ -53,7 +60,28 @@ public abstract class TimerKlaxon {
             final Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
             getAsyncRingtonePlayer(context).play(uri);
         }
+
+        if (DataModel.getDataModel().getTimerVibrate()) {
+            final Vibrator vibrator = getVibrator(context);
+            if (Utils.isLOrLater()) {
+                vibrateLOrLater(vibrator);
+            } else {
+                vibrator.vibrate(VIBRATE_PATTERN, 0);
+            }
+        }
         sStarted = true;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static void vibrateLOrLater(Vibrator vibrator) {
+        vibrator.vibrate(VIBRATE_PATTERN, 0, new AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build());
+    }
+
+    private static Vibrator getVibrator(Context context) {
+        return ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
     }
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {

@@ -17,34 +17,18 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"ക്ലോക്ക്"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"അലാറങ്ങൾ"</string>
-    <string name="add_alarm" msgid="5976616107390962899">"അലാറം ചേർക്കുക"</string>
-    <string name="menu_desk_clock" msgid="3241995064554071588">"ഡെസ്‌ക്ക് ക്ലോക്ക്"</string>
-    <string name="menu_edit_alarm" msgid="7204602994918829751">"അലാറം എഡിറ്റുചെയ്യുക"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"അലാറം ഇല്ലാതാക്കുക"</string>
-    <string name="enable_alarm" msgid="1834599140632142536">"അലാറം ഓണാക്കുക"</string>
-    <string name="disable_alarm" msgid="5889378670229554109">"അലാറം ഓഫാക്കുക"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"ഈ അലാറം ഇല്ലാതാക്കണോ?"</string>
-    <string name="show_clock" msgid="8358759982675616915">"ക്ലോക്ക് കാണിക്കുക"</string>
-    <string name="hide_clock" msgid="3217727306480505694">"ക്ലോക്ക് മറയ്‌ക്കുക"</string>
     <string name="label" msgid="162189613902857319">"ലേബൽ"</string>
-    <string name="on_switch" msgid="2297966258029227449">"ഓൺ"</string>
-    <string name="off_switch" msgid="3381070073851148013">"ഓഫ്"</string>
     <string name="default_label" msgid="5590025289805630372">"അലാറം"</string>
-    <string name="set_alarm" msgid="9148359866152726808">"അലാറം സജ്ജീകരിക്കുക"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"വൈബ്രേറ്റുചെയ്യുക"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"ആവർത്തിക്കുക"</string>
     <string name="alert" msgid="6506982899651975645">"അലാറം റിംഗ്‌ടോൺ"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ഡിഫോൾട്ട് അലാറം ശബ്ദം"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ടൈമർ കാലഹരണപ്പെട്ടു"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"നിശബ്‌ദം"</string>
-    <string name="ringtone" msgid="9110746249688559579">"റിംഗ്ടോൺ"</string>
-    <string name="time" msgid="8067216534232296518">"സമയം"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"നാളെ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ഇന്ന്"</string>
-    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"ഉണരൂ!"</string>
-    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"ഓഫാക്കുക"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"നിരസിക്കുക"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"ഇപ്പോൾ നിരസിക്കുക"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"ഇപ്പോൾ ഡിസ്മിസ് ചെയ്യുക"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"അലാറം നഷ്‌ടമായി"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"സ്‌നൂസ് ചെയ്‌തു"</string>
@@ -91,9 +75,9 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"എല്ലാ ദിവസവും"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="2656876819515011590">"ഒരു ക്ലോക്ക് തിരഞ്ഞെടുക്കുക"</string>
+    <string name="loading_widget" msgid="5306242862476796500">"ലോഡുചെയ്യുന്നു..."</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ക്ലോക്ക്"</string>
-    <string name="help" msgid="7786263119482654015">"സഹായം"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"ഡിജിറ്റൽ ക്ലോക്ക്"</string>
     <string name="settings" msgid="5849739030579520686">"ക്രമീകരണം"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"സ്‌നൂസ് ചെയ്യൽ ദൈർഘ്യം"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -129,43 +113,28 @@
     <item msgid="3993530639455360921">"ഞായർ"</item>
     <item msgid="8594709368683324282">"തിങ്കള്‍"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"പൂർത്തിയായി"</string>
-    <string name="revert" msgid="9100911171235162926">"പഴയപടിയാക്കുക"</string>
-    <string name="delete" msgid="5732434972457000541">"ഇല്ലാതാക്കുക"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"അലാറം വോളിയം"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"നിശബ്‌ദം"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"അജ്ഞാതം"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"സ്‌നൂസ് ചെയ്യുക അല്ലെങ്കിൽ അലാറം നിരസിക്കുക."</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (സ്‌നൂസ് ചെയ്‌തു)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g> സമയത്തേക്ക് അലാറം സജ്ജീകരിച്ചു. റദ്ദാക്കുന്നതിന് സ്‌പർശിക്കുക."</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"അലാറം വോളിയം നിശബ്ദമാക്കി"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"ശബ്‌ദമുള്ളതാക്കുക"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ഡിഫോൾട്ട് അലാറം റിംഗ്‌ടോൺ നിശബ്ദമാണ്"</string>
+    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"മാറ്റുക"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ഉപകരണം സമ്പൂർണ്ണ നിശബ്ദമാക്കി സജ്ജീകരിച്ചിരിക്കുന്നു"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"വോളിയം ബട്ടണുകൾ"</string>
-    <string name="volume_button_dialog_title" msgid="8768042543750036853">"ബട്ടൺ ഇഫക്‌റ്റ്"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"സ്‌നൂസ് ചെയ്യുക"</item>
     <item msgid="3450979320164769576">"നിരസിക്കുക"</item>
     <item msgid="6302517608411378024">"ഒന്നും ചെയ്യേണ്ടതില്ല"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"സ്ഥിര റിംഗ്‌ടോൺ സജ്ജീകരിക്കുക"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"അലാറങ്ങൾ"</string>
-    <string name="gallery_button_description" msgid="1151743663255257668">"ഗാലറി"</string>
-    <string name="music_button_description" msgid="1626593420810117999">"സംഗീതം"</string>
-    <string name="nightmode_button_description" msgid="990894208217576381">"മങ്ങിയത്"</string>
-    <string name="home_button_description" msgid="3383859096809056157">"ലോഞ്ചർ"</string>
-    <string name="desk_clock_button_description" msgid="4207371097361657274">"ക്ലോക്ക് ഡിസ്പ്ലേ"</string>
     <string name="label_description" msgid="8736179296142915727">"ലേബൽ"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"റിംഗ്ടോൺ"</string>
-    <string name="weather_fetch_failure" msgid="3425804832021006835">"കാലാവസ്ഥ വിവരം ഇപ്പോൾ ലഭ്യമല്ല."</string>
-    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"അലാറങ്ങൾക്കായുള്ള ശബ്‌ദ പ്ലേബാക്ക് സേവനം ക്ലോക്കിൽ സജ്ജീകരിച്ചിരിക്കുന്നു."</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"റിംഗ്‌ടോൺ ലോഡുചെയ്യുന്നു…"</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"ടൈമറുകൾക്കായുള്ള ശബ്‌ദ പ്ലേബാക്ക് സേവനം ക്ലോക്കിൽ സജ്ജമാക്കിയിരിക്കുന്നു."</string>
-    <string name="control_set_alarm" msgid="2194676418924016327">"അലാറം സജ്ജീകരിക്കുക"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"അലാറം"</string>
     <string name="menu_timer" msgid="6459070074762877114">"ടൈമർ"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ക്ലോക്ക്"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"സ്‌റ്റോപ്പ്‌വാച്ച്"</string>
     <string name="button_alarms" msgid="3907838219512538763">"അലാറം ചേർക്കുക"</string>
     <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
-    <string name="button_menu" msgid="6050484561842120282">"കൂടുതൽ ഓപ്‌ഷനുകൾ"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണം"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"സഹായം"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"നൈറ്റ് മോഡ്"</string>
@@ -184,7 +153,6 @@
     <string name="hours_label_description" msgid="8652842524970971830">"മണിക്കൂര്‍"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"മിനിറ്റ്"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"സെക്കന്‍ഡുകള്‍"</string>
-    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"എന്റെ സമയം <xliff:g id="TIME">%s</xliff:g> ആണ്"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ലാപ് തവണകൾ:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ലാപ് <xliff:g id="NUMBER">%d</xliff:g>"</string>
@@ -214,7 +182,6 @@
     <string name="timer_times_up" msgid="9190440395938519009">"സമയം കഴിഞ്ഞു"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ടൈമറുകൾ കാലഹരണപ്പെട്ടു"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"ടൈമർ"</string>
-    <string name="timers_max_count_reached" msgid="9140022846793903813">"പരമാവധി 4 ടൈമറുകൾ"</string>
     <string name="timer_pause" msgid="3748323712728398743">"തൽക്കാലം നിർത്തൂ"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"എല്ലാ ടൈമറുകളും പുനഃസജ്ജമാക്കുക"</string>
   <string-array name="sw_share_strings">
@@ -233,7 +200,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"നഗരങ്ങൾ"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ക്ലോക്ക്"</string>
     <string name="clock_style" msgid="2265011060429742344">"സ്റ്റൈൽ"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"തീയതിയും സമയവും മാറ്റുക"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"തീയതിയും സമയവും മാറ്റുക"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"അനലോഗ്"</item>
     <item msgid="8483930821046925592">"ഡിജിറ്റൽ"</item>
@@ -244,10 +211,6 @@
     <string name="home_time_zone_title" msgid="807894493443834624">"സ്വരാജ്യത്തെ സമയമേഖല"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"റദ്ദാക്കുക"</string>
     <string name="time_picker_set" msgid="331153175471468051">"ശരി"</string>
-    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
-    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
-    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> ചെക്കുചെയ്തു"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> അൺചെക്കുചെയ്തു"</string>
   <string-array name="timezone_labels">
@@ -346,36 +309,24 @@
     <string name="description_direction_both" msgid="1841309486023845685">"സ്‌നൂസ് ചെയ്യാൻ ഇടത്തോട്ടോ നിരസിക്കാൻ വലത്തോട്ടോ സ്വൈപ്പുചെയ്യുക"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ടൈമറുകൾ"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"ടൈമർ റിംഗ്ടോൺ"</string>
-    <string name="timer_stopped" msgid="2730331837832462008">"ടൈമർ നിർത്തി"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"ടൈമർ വൈബ്രേഷൻ"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ടൈമർ തൽക്കാലം നിർത്തി"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ തൽക്കാലം നിർത്തി"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"നിങ്ങളുടെ ടൈമറുകൾ കാണുന്നതിന് സ്‌പർശിക്കുക"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"നിങ്ങളുടെ ടൈമറുകൾ കാണാൻ ടാപ്പുചെയ്യുക"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> ടൈമറുകൾ"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"അടുത്ത ടൈമർ: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"ഡ്രീം ക്രമീകരണങ്ങൾ"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"സ്ക്രീൻ സേവർ ക്രമീകരണം"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"നൈറ്റ് മോഡ്"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"വളരെ മങ്ങിയ ഡിസ്‌പ്ലേ (ഇരുണ്ട മുറികൾക്കായി)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"അലാറം വിപുലീകരിക്കുക"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"അലാറം ചുരുക്കുക"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"പഴയപടിയാക്കുക"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"അലാറം ഇല്ലാതാക്കി"</string>
-    <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"അടുത്ത അലാറം: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> തിരഞ്ഞെടുത്തു"</string>
-    <string name="deleted_message" msgid="1220848140260509437">"ഇല്ലാതാക്കി"</string>
-    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
-      <item quantity="other">തിരഞ്ഞെടുത്ത അലാറങ്ങൾ ഇല്ലാതാക്കണോ?</item>
-      <item quantity="one">തിരഞ്ഞെടുത്ത അലാറം ഇല്ലാതാക്കണോ?</item>
-    </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"ഈ ടൈമർ ഇല്ലാതാക്കണോ?"</string>
-    <string name="city_delete_confirmation" msgid="1783441538785676299">"ഈ നഗരം നീക്കം ചെയ്യണോ?"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"ഡിജിറ്റൽ ക്ലോക്ക്"</string>
     <string name="no_alarms" msgid="6429431324842022917">"അലാറങ്ങളില്ല"</string>
-    <string name="no_alarms_set" msgid="4887558279496044764">"അലാറങ്ങളൊന്നും സജ്ജീകരിച്ചിട്ടില്ല"</string>
-    <string name="no_upcoming_alarms" msgid="2889840988069436254">"വരാനിരിക്കുന്ന അലാറങ്ങളൊന്നുമില്ല"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"അസാധുവായ സമയം <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>-ന് അലാറം ഒന്നുമില്ല"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"അസാധുവായ സമയം <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>-ന് അലാറം ഒന്നുമില്ല"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"ഷെഡ്യൂൾ ചെയ്ത അലാറമുകളൊന്നുമില്ല"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"ലേബലൊന്നും വ്യക്തമാക്കിയിട്ടില്ല"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"അലാറമുകളിലൊന്നും ഈ ലേബൽ അടങ്ങിയിട്ടില്ല"</string>

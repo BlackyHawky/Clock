@@ -13,81 +13,76 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal">
 
+    <!-- This nested LTR layout cannot be combined with the parent because
+         in RTL, the Keypad and Timer value should swap. -->
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:layout_weight="3"
+        android:layoutDirection="ltr"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/fab_height">
 
-        <!-- This nested ltr layout cannot be combined with the parent because
-             in RTL, the Keypad and Timer value should swap. -->
-        <LinearLayout
-            android:id="@+id/timer_time_display"
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:layout_marginBottom="@dimen/footer_button_size"
-            android:layoutDirection="ltr"
-            android:gravity="center"
-            android:orientation="vertical">
+        <com.android.deskclock.timer.TimerView
+            android:id="@+id/timer_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:baselineAligned="true">
 
-            <com.android.deskclock.timer.TimerView
-                android:id="@+id/timer_time_text"
+            <include layout="@layout/timer_h_mm_ss_view" />
+
+            <ImageButton
+                android:id="@+id/delete"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/timer_setup_delete_margin"
+                android:layout_marginEnd="@dimen/timer_setup_delete_margin"
+                android:padding="@dimen/timer_setup_delete_padding"
+                android:contentDescription="@string/timer_delete"
+                android:scaleType="center"
+                app:srcCompat="@drawable/ic_backspace" />
 
-                <include layout="@layout/timer_h_mm_ss_view" />
+        </com.android.deskclock.timer.TimerView>
 
-                <ImageButton
-                    android:id="@+id/delete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/timer_setup_delete_start_margin"
-                    android:padding="@dimen/timer_setup_delete_padding"
-                    android:contentDescription="@string/timer_delete"
-                    android:scaleType="center"
-                    android:src="@drawable/ic_backspace" />
-
-            </com.android.deskclock.timer.TimerView>
-
-            <View
-                android:id="@+id/divider"
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:layout_marginBottom="8dip"
-                android:background="@color/dialog_gray" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical" >
-
-            <include
-                android:id="@+id/first"
-                layout="@layout/three_keys_view" />
-            <include
-                android:id="@+id/second"
-                layout="@layout/three_keys_view" />
-            <include
-                android:id="@+id/third"
-                layout="@layout/three_keys_view" />
-            <include
-                android:id="@+id/fourth"
-                layout="@layout/three_keys_view" />
-
-        </LinearLayout>
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/dialog_gray" />
 
     </LinearLayout>
 
-    <include layout="@layout/timer_setup_buttons" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <include
+            android:id="@+id/first"
+            layout="@layout/three_keys_view" />
+        <include
+            android:id="@+id/second"
+            layout="@layout/three_keys_view" />
+        <include
+            android:id="@+id/third"
+            layout="@layout/three_keys_view" />
+        <include
+            android:id="@+id/fourth"
+            layout="@layout/three_keys_view" />
+
+    </LinearLayout>
+
+</LinearLayout>

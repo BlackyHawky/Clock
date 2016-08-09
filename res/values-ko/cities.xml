@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+    Copyright (C) 2016 The Android Open Source Project
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License
+   -->
+
+<resources xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="C1" msgid="3622720549928625541">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아비장<xliff:g id="TIMEZONE">|Africa/Abidjan</xliff:g>"</string>
+    <string name="C2" msgid="9073993995416728918">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아크라<xliff:g id="TIMEZONE">|Africa/Accra</xliff:g>"</string>
+    <string name="C3" msgid="5172979423931428620">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아디스아바바<xliff:g id="TIMEZONE">|Africa/Addis_Ababa</xliff:g>"</string>
+    <string name="C4" msgid="4450258423854546267">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>알제<xliff:g id="TIMEZONE">|Africa/Algiers</xliff:g>"</string>
+    <string name="C5" msgid="8063142106679202722">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>블랜타이어<xliff:g id="TIMEZONE">|Africa/Blantyre</xliff:g>"</string>
+    <string name="C6" msgid="1620940469531839828">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>브라자빌<xliff:g id="TIMEZONE">|Africa/Brazzaville</xliff:g>"</string>
+    <string name="C7" msgid="8450502029020824529">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카이로<xliff:g id="TIMEZONE">|Africa/Cairo</xliff:g>"</string>
+    <string name="C8" msgid="5843391672611053116">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카사블랑카<xliff:g id="TIMEZONE">|Africa/Casablanca</xliff:g>"</string>
+    <string name="C9" msgid="2164088076645942134">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>코나크리<xliff:g id="TIMEZONE">|Africa/Conakry</xliff:g>"</string>
+    <string name="C10" msgid="6275085554326816487">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>다카르<xliff:g id="TIMEZONE">|Africa/Dakar</xliff:g>"</string>
+    <string name="C11" msgid="8124988526568339100">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>다르에스살람<xliff:g id="TIMEZONE">|Africa/Dar_es_Salaam</xliff:g>"</string>
+    <string name="C12" msgid="9058858575164534385">"ㅈ<xliff:g id="SEPARATOR">=</xliff:g>지부티<xliff:g id="TIMEZONE">|Africa/Djibouti</xliff:g>"</string>
+    <string name="C13" msgid="1020128319695123468">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>프리타운<xliff:g id="TIMEZONE">|Africa/Freetown</xliff:g>"</string>
+    <string name="C14" msgid="5466600602512133072">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>가보로네<xliff:g id="TIMEZONE">|Africa/Gaborone</xliff:g>"</string>
+    <string name="C15" msgid="4045696872348427594">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>하라레<xliff:g id="TIMEZONE">|Africa/Harare</xliff:g>"</string>
+    <string name="C16" msgid="109844560982762747">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>요하네스버그<xliff:g id="TIMEZONE">|Africa/Johannesburg</xliff:g>"</string>
+    <string name="C17" msgid="4868414442726546214">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>캄팔라<xliff:g id="TIMEZONE">|Africa/Kampala</xliff:g>"</string>
+    <string name="C18" msgid="7460319039497808668">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>하르툼<xliff:g id="TIMEZONE">|Africa/Khartoum</xliff:g>"</string>
+    <string name="C19" msgid="3967163989179394825">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>키갈리<xliff:g id="TIMEZONE">|Africa/Kigali</xliff:g>"</string>
+    <string name="C20" msgid="832336979058592106">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>킨샤사<xliff:g id="TIMEZONE">|Africa/Kinshasa</xliff:g>"</string>
+    <string name="C21" msgid="8691772487297796331">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>라고스<xliff:g id="TIMEZONE">|Africa/Lagos</xliff:g>"</string>
+    <string name="C22" msgid="6061916756914828881">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마세루<xliff:g id="TIMEZONE">|Africa/Maseru</xliff:g>"</string>
+    <string name="C23" msgid="6790461017899209498">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>모가디슈<xliff:g id="TIMEZONE">|Africa/Mogadishu</xliff:g>"</string>
+    <string name="C24" msgid="836730985302941979">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>나이로비<xliff:g id="TIMEZONE">|Africa/Nairobi</xliff:g>"</string>
+    <string name="C25" msgid="6439936809920816845">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>상투메<xliff:g id="TIMEZONE">|Africa/Sao_Tome</xliff:g>"</string>
+    <string name="C26" msgid="3250092456144685877">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>팀북투<xliff:g id="TIMEZONE">|Africa/Timbuktu</xliff:g>"</string>
+    <string name="C27" msgid="851018621577780718">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>트리폴리<xliff:g id="TIMEZONE">|Africa/Tripoli</xliff:g>"</string>
+    <string name="C28" msgid="7979767521827885833">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>튀니스<xliff:g id="TIMEZONE">|Africa/Tunis</xliff:g>"</string>
+    <string name="C29" msgid="7946114495840302218">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>앵커리지<xliff:g id="TIMEZONE">|America/Anchorage</xliff:g>"</string>
+    <string name="C31" msgid="9017443250572798257">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아루바<xliff:g id="TIMEZONE">|America/Aruba</xliff:g>"</string>
+    <string name="C32" msgid="3825060534011309483">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아순시온<xliff:g id="TIMEZONE">|America/Asuncion</xliff:g>"</string>
+    <string name="C33" msgid="700410369162607101">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바베이도스<xliff:g id="TIMEZONE">|America/Barbados</xliff:g>"</string>
+    <string name="C34" msgid="4247046344370912762">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>벨리즈<xliff:g id="TIMEZONE">|America/Belize</xliff:g>"</string>
+    <string name="C35" msgid="2794708943743875418">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>보고타<xliff:g id="TIMEZONE">|America/Bogota</xliff:g>"</string>
+    <string name="C36" msgid="5404342554664613950">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>부에노스아이레스<xliff:g id="TIMEZONE">|America/Buenos_Aires</xliff:g>"</string>
+    <string name="C37" msgid="210142862572070093">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>칸쿤<xliff:g id="TIMEZONE">|America/Cancun</xliff:g>"</string>
+    <string name="C38" msgid="3882347315148425276">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카라카스<xliff:g id="TIMEZONE">|America/Caracas</xliff:g>"</string>
+    <string name="C39" msgid="1273212484626323439">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>케이맨<xliff:g id="TIMEZONE">|America/Cayman</xliff:g>"</string>
+    <string name="C40" msgid="3106173663723475314">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>시카고<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C42" msgid="5638414063615009004">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>퀴라소<xliff:g id="TIMEZONE">|America/Curacao</xliff:g>"</string>
+    <string name="C43" msgid="6826097241516998181">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>도슨크릭<xliff:g id="TIMEZONE">|America/Dawson_Creek</xliff:g>"</string>
+    <string name="C44" msgid="2779334691893631030">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>덴버<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
+    <string name="C45" msgid="8943178793317201894">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>디트로이트<xliff:g id="TIMEZONE">|America/Detroit</xliff:g>"</string>
+    <string name="C46" msgid="5190250990574320177">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>도미니카<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
+    <string name="C47" msgid="369754396219379227">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>에드먼턴<xliff:g id="TIMEZONE">|America/Edmonton</xliff:g>"</string>
+    <string name="C48" msgid="7918902616648922410">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>엘살바도르<xliff:g id="TIMEZONE">|America/El_Salvador</xliff:g>"</string>
+    <string name="C49" msgid="6326857727742458931">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포르탈레자<xliff:g id="TIMEZONE">|America/Fortaleza</xliff:g>"</string>
+    <string name="C50" msgid="3131498820508584398">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>그랜드터크<xliff:g id="TIMEZONE">|America/Grand_Turk</xliff:g>"</string>
+    <string name="C51" msgid="3122278921760822414">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>그라나다<xliff:g id="TIMEZONE">|America/Grenada</xliff:g>"</string>
+    <string name="C52" msgid="7461551991724617520">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>과테말라시티<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
+    <string name="C53" msgid="296242785331472791">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>가이아나<xliff:g id="TIMEZONE">|America/Guyana</xliff:g>"</string>
+    <string name="C54" msgid="4045007274020361950">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>핼리팩스<xliff:g id="TIMEZONE">|America/Halifax</xliff:g>"</string>
+    <string name="C55" msgid="8180186289266487770">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아바나<xliff:g id="TIMEZONE">|America/Havana</xliff:g>"</string>
+    <string name="C56" msgid="6062281725956353553">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>인디애나폴리스<xliff:g id="TIMEZONE">|America/Indiana/Indianapolis</xliff:g>"</string>
+    <string name="C57" msgid="5971109906791493563">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>녹스<xliff:g id="TIMEZONE">|America/Indiana/Knox</xliff:g>"</string>
+    <string name="C58" msgid="7657721717096348613">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마렝고<xliff:g id="TIMEZONE">|America/Indiana/Marengo</xliff:g>"</string>
+    <string name="C59" msgid="2053523400941417307">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>피터스버그<xliff:g id="TIMEZONE">|America/Indiana/Petersburg</xliff:g>"</string>
+    <string name="C60" msgid="8112283891039465817">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>텔시티<xliff:g id="TIMEZONE">|America/Indiana/Tell_City</xliff:g>"</string>
+    <string name="C61" msgid="7778713489993559227">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>비비<xliff:g id="TIMEZONE">|America/Indiana/Vevay</xliff:g>"</string>
+    <string name="C62" msgid="2667958702401099683">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>뱅센<xliff:g id="TIMEZONE">|America/Indiana/Vincennes</xliff:g>"</string>
+    <string name="C63" msgid="2251274863869460838">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>위너맥<xliff:g id="TIMEZONE">|America/Indiana/Winamac</xliff:g>"</string>
+    <string name="C64" msgid="1051183687128385699">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>킹스턴<xliff:g id="TIMEZONE">|America/Jamaica</xliff:g>"</string>
+    <string name="C65" msgid="4484953311341882894">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>누에스트라 세뇨라 데 라 파스<xliff:g id="TIMEZONE">|America/La_Paz</xliff:g>"</string>
+    <string name="C66" msgid="4486852398001333122">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리마<xliff:g id="TIMEZONE">|America/Lima</xliff:g>"</string>
+    <string name="C67" msgid="4874799181719358019">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>로스앤젤레스<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C68" msgid="5526012011469271690">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>루이빌<xliff:g id="TIMEZONE">|America/Louisville</xliff:g>"</string>
+    <string name="C69" msgid="6147580167560875608">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마나과<xliff:g id="TIMEZONE">|America/Managua</xliff:g>"</string>
+    <string name="C70" msgid="3277881296053225577">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마르티니크<xliff:g id="TIMEZONE">|America/Martinique</xliff:g>"</string>
+    <string name="C71" msgid="4017941126335556194">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>멘도사<xliff:g id="TIMEZONE">|America/Mendoza</xliff:g>"</string>
+    <string name="C72" msgid="3992109594245379480">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>메틀라카틀라<xliff:g id="TIMEZONE">|America/Metlakatla</xliff:g>"</string>
+    <string name="C73" msgid="2715229408279026929">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>멕시코시티<xliff:g id="TIMEZONE">|America/Mexico_City</xliff:g>"</string>
+    <string name="C74" msgid="4308784353529592128">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>몬테레이<xliff:g id="TIMEZONE">|America/Monterrey</xliff:g>"</string>
+    <string name="C75" msgid="1026967177018172509">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>몬테비데오<xliff:g id="TIMEZONE">|America/Montevideo</xliff:g>"</string>
+    <string name="C76" msgid="5677155513568462679">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>몬트리올<xliff:g id="TIMEZONE">|America/Montreal</xliff:g>"</string>
+    <string name="C77" msgid="7071675194537613715">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>나소<xliff:g id="TIMEZONE">|America/Nassau</xliff:g>"</string>
+    <string name="C78" msgid="705452895809394827">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>뉴욕<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C79" msgid="615046244335186458">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>뷸라<xliff:g id="TIMEZONE">|America/North_Dakota/Beulah</xliff:g>"</string>
+    <string name="C80" msgid="7462541787750301851">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>센터<xliff:g id="TIMEZONE">|America/North_Dakota/Center</xliff:g>"</string>
+    <string name="C81" msgid="5467118811364466464">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>뉴세일럼<xliff:g id="TIMEZONE">|America/North_Dakota/New_Salem</xliff:g>"</string>
+    <string name="C82" msgid="1040250446144596478">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>파나마<xliff:g id="TIMEZONE">|America/Panama</xliff:g>"</string>
+    <string name="C83" msgid="3734366600481445363">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>피닉스<xliff:g id="TIMEZONE">|America/Phoenix</xliff:g>"</string>
+    <string name="C84" msgid="2410152141185166321">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포트오브스페인<xliff:g id="TIMEZONE">|America/Port_of_Spain</xliff:g>"</string>
+    <string name="C85" msgid="2883572094139689939">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포르토프랭스<xliff:g id="TIMEZONE">|America/Port-au-Prince</xliff:g>"</string>
+    <string name="C86" msgid="274590042868724214">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>푸에르토리코<xliff:g id="TIMEZONE">|America/Puerto_Rico</xliff:g>"</string>
+    <string name="C87" msgid="2866918562243248306">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>산토도밍고<xliff:g id="TIMEZONE">|America/Santo_Domingo</xliff:g>"</string>
+    <string name="C88" msgid="2261702707416420550">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>상파울루<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
+    <string name="C89" msgid="8517952667962700432">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>세인트존스<xliff:g id="TIMEZONE">|America/St_Johns</xliff:g>"</string>
+    <string name="C90" msgid="1703939848190669830">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>세인트키츠<xliff:g id="TIMEZONE">|America/St_Kitts</xliff:g>"</string>
+    <string name="C91" msgid="4438261556294969442">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>세인트루시아<xliff:g id="TIMEZONE">|America/St_Lucia</xliff:g>"</string>
+    <string name="C92" msgid="3717300223413621820">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>세인트토마스<xliff:g id="TIMEZONE">|America/St_Thomas</xliff:g>"</string>
+    <string name="C93" msgid="964552099122372664">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>티후아나<xliff:g id="TIMEZONE">|America/Tijuana</xliff:g>"</string>
+    <string name="C94" msgid="6254783598629305021">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>토론토<xliff:g id="TIMEZONE">|America/Toronto</xliff:g>"</string>
+    <string name="C95" msgid="2144206125989179089">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>밴쿠버<xliff:g id="TIMEZONE">|America/Vancouver</xliff:g>"</string>
+    <string name="C96" msgid="3995904432128369027">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>위니펙<xliff:g id="TIMEZONE">|America/Winnipeg</xliff:g>"</string>
+    <string name="C97" msgid="5667595440938233073">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>남극<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Antarctica/South_Pole</xliff:g>"</string>
+    <string name="C98" msgid="2067640513126652156">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>롱위에아르뷔엔<xliff:g id="TIMEZONE">|Arctic/Longyearbyen</xliff:g>"</string>
+    <string name="C99" msgid="6750041547603679548">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>알마티<xliff:g id="TIMEZONE">|Asia/Almaty</xliff:g>"</string>
+    <string name="C100" msgid="5995329947852415813">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>암만<xliff:g id="TIMEZONE">|Asia/Amman</xliff:g>"</string>
+    <string name="C101" msgid="5760056604239047274">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아나디리<xliff:g id="TIMEZONE">|Asia/Anadyr</xliff:g>"</string>
+    <string name="C102" msgid="9000357065825182754">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>악타우<xliff:g id="TIMEZONE">|Asia/Aqtau</xliff:g>"</string>
+    <string name="C103" msgid="8781982253489209791">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바그다드<xliff:g id="TIMEZONE">|Asia/Baghdad</xliff:g>"</string>
+    <string name="C104" msgid="4021122575041916540">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바레인<xliff:g id="TIMEZONE">|Asia/Bahrain</xliff:g>"</string>
+    <string name="C105" msgid="1812915124794679606">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바쿠<xliff:g id="TIMEZONE">|Asia/Baku</xliff:g>"</string>
+    <string name="C106" msgid="1996684628612964988">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>방콕<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
+    <string name="C107" msgid="227554925153715426">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>베이루트<xliff:g id="TIMEZONE">|Asia/Beirut</xliff:g>"</string>
+    <string name="C108" msgid="357033582615345158">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>콜카타<xliff:g id="TIMEZONE">|Asia/Calcutta</xliff:g>"</string>
+    <string name="C109" msgid="6386566477244958752">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>다마스쿠스<xliff:g id="TIMEZONE">|Asia/Damascus</xliff:g>"</string>
+    <string name="C110" msgid="1165712058024165012">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>다카<xliff:g id="TIMEZONE">|Asia/Dhaka</xliff:g>"</string>
+    <string name="C111" msgid="5895260692253797547">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>두바이<xliff:g id="TIMEZONE">|Asia/Dubai</xliff:g>"</string>
+    <string name="C112" msgid="1708170128253320625">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>가자<xliff:g id="TIMEZONE">|Asia/Gaza</xliff:g>"</string>
+    <string name="C113" msgid="8790538811134290878">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>헤브론<xliff:g id="TIMEZONE">|Asia/Hebron</xliff:g>"</string>
+    <string name="C114" msgid="8019764566754082688">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>호치민<xliff:g id="TIMEZONE">|Asia/Ho_Chi_Minh</xliff:g>"</string>
+    <string name="C115" msgid="2707316842482208016">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>홍콩<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Hong_Kong</xliff:g>"</string>
+    <string name="C117" msgid="486537564257069933">"ㅈ<xliff:g id="SEPARATOR">=</xliff:g>자카르타<xliff:g id="TIMEZONE">|Asia/Jakarta</xliff:g>"</string>
+    <string name="C118" msgid="2220594023727285784">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>예루살렘<xliff:g id="TIMEZONE">|Asia/Jerusalem</xliff:g>"</string>
+    <string name="C119" msgid="7095503078924268384">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카불<xliff:g id="TIMEZONE">|Asia/Kabul</xliff:g>"</string>
+    <string name="C120" msgid="4759297844750994699">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카라치<xliff:g id="TIMEZONE">|Asia/Karachi</xliff:g>"</string>
+    <string name="C121" msgid="6397452077111782277">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카트만두<xliff:g id="TIMEZONE">|Asia/Kathmandu</xliff:g>"</string>
+    <string name="C122" msgid="3384658968869783693">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>쿠알라룸푸르<xliff:g id="TIMEZONE">|Asia/Kuala_Lumpur</xliff:g>"</string>
+    <string name="C123" msgid="2596231413860119715">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>쿠웨이트<xliff:g id="TIMEZONE">|Asia/Kuwait</xliff:g>"</string>
+    <string name="C124" msgid="7128790644999660843">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마카오<xliff:g id="TIMEZONE">|Asia/Macau</xliff:g>"</string>
+    <string name="C125" msgid="7482612453109643531">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마닐라<xliff:g id="TIMEZONE">|Asia/Manila</xliff:g>"</string>
+    <string name="C126" msgid="89594601694005714">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>무스카트<xliff:g id="TIMEZONE">|Asia/Muscat</xliff:g>"</string>
+    <string name="C127" msgid="6694878912574814081">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>프놈펜<xliff:g id="TIMEZONE">|Asia/Phnom_Penh</xliff:g>"</string>
+    <string name="C128" msgid="6055116591529458940">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>평양<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Pyongyang</xliff:g>"</string>
+    <string name="C130" msgid="665609990740507143">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>랑군<xliff:g id="TIMEZONE">|Asia/Rangoon</xliff:g>"</string>
+    <string name="C131" msgid="3395769966117356927">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리야드<xliff:g id="TIMEZONE">|Asia/Riyadh</xliff:g>"</string>
+    <string name="C133" msgid="5204810106521056060">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>서울<xliff:g id="TIMEZONE">|Asia/Seoul</xliff:g>"</string>
+    <string name="C134" msgid="7263747916569669120">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>상하이<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Shanghai</xliff:g>"</string>
+    <string name="C135" msgid="4100015019260371393">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>싱가포르<xliff:g id="TIMEZONE">|Asia/Singapore</xliff:g>"</string>
+    <string name="C136" msgid="6386033226757339839">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>타이페이<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Taipei</xliff:g>"</string>
+    <string name="C137" msgid="5387760734363179588">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>테헤란<xliff:g id="TIMEZONE">|Asia/Tehran</xliff:g>"</string>
+    <string name="C138" msgid="7193922868117846792">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>텔아비브<xliff:g id="TIMEZONE">|Asia/Tel_Aviv</xliff:g>"</string>
+    <string name="C139" msgid="7060339477340222608">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>도쿄<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Tokyo</xliff:g>"</string>
+    <string name="C140" msgid="6273911458061121975">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>울란바토르<xliff:g id="TIMEZONE">|Asia/Ulaanbaatar</xliff:g>"</string>
+    <string name="C141" msgid="2799340184229547409">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>버뮤다<xliff:g id="TIMEZONE">|Atlantic/Bermuda</xliff:g>"</string>
+    <string name="C142" msgid="6015789133959684677">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카나리아<xliff:g id="TIMEZONE">|Atlantic/Canary</xliff:g>"</string>
+    <string name="C143" msgid="4888764215053863961">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>카보베르데<xliff:g id="TIMEZONE">|Atlantic/Cape_Verde</xliff:g>"</string>
+    <string name="C144" msgid="3338105941475340049">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>레이캬비크<xliff:g id="TIMEZONE">|Atlantic/Reykjavik</xliff:g>"</string>
+    <string name="C145" msgid="8684297689430494031">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>스탠리<xliff:g id="TIMEZONE">|Atlantic/Stanley</xliff:g>"</string>
+    <string name="C146" msgid="843808286721172656">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>애들레이드<xliff:g id="TIMEZONE">|Australia/Adelaide</xliff:g>"</string>
+    <string name="C147" msgid="3712535858465321034">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>브리즈번<xliff:g id="TIMEZONE">|Australia/Brisbane</xliff:g>"</string>
+    <string name="C148" msgid="7019403666599702943">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>캔버라<xliff:g id="TIMEZONE">|Australia/Canberra</xliff:g>"</string>
+    <string name="C149" msgid="8185355499458013534">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>다윈<xliff:g id="TIMEZONE">|Australia/Darwin</xliff:g>"</string>
+    <string name="C150" msgid="3516845880105752618">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>멜버른<xliff:g id="TIMEZONE">|Australia/Melbourne</xliff:g>"</string>
+    <string name="C151" msgid="5576825403360541823">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>뉴사우스웨일스<xliff:g id="TIMEZONE">|Australia/NSW</xliff:g>"</string>
+    <string name="C152" msgid="7889900618915436602">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>퍼스<xliff:g id="TIMEZONE">|Australia/Perth</xliff:g>"</string>
+    <string name="C153" msgid="7506204460601953711">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>퀸즐랜드<xliff:g id="TIMEZONE">|Australia/Queensland</xliff:g>"</string>
+    <string name="C154" msgid="1193262944948312063">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>시드니<xliff:g id="TIMEZONE">|Australia/Sydney</xliff:g>"</string>
+    <string name="C155" msgid="7079072802229033042">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>빅토리아<xliff:g id="TIMEZONE">|Australia/Victoria</xliff:g>"</string>
+    <string name="C156" msgid="4003110220147338835">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>뉴펀들랜드<xliff:g id="TIMEZONE">|Canada/Newfoundland</xliff:g>"</string>
+    <string name="C157" msgid="2861486997803753970">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>서스캐처원<xliff:g id="TIMEZONE">|Canada/Saskatchewan</xliff:g>"</string>
+    <string name="C158" msgid="6882933026191056506">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>이스터 섬<xliff:g id="TIMEZONE">|Chile/EasterIsland</xliff:g>"</string>
+    <string name="C159" msgid="4128429767051043903">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>암스테르담<xliff:g id="TIMEZONE">|Europe/Amsterdam</xliff:g>"</string>
+    <string name="C160" msgid="3488513735205092653">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>안도라<xliff:g id="TIMEZONE">|Europe/Andorra</xliff:g>"</string>
+    <string name="C161" msgid="7244325364130392348">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아테네<xliff:g id="TIMEZONE">|Europe/Athens</xliff:g>"</string>
+    <string name="C162" msgid="7484009548361072313">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>벨파스트<xliff:g id="TIMEZONE">|Europe/Belfast</xliff:g>"</string>
+    <string name="C163" msgid="6106990061397073808">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>베오그라드<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
+    <string name="C164" msgid="3074767496771260157">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>베를린<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
+    <string name="C165" msgid="4442005045172394762">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>브라티슬라바<xliff:g id="TIMEZONE">|Europe/Bratislava</xliff:g>"</string>
+    <string name="C166" msgid="8977286721038142474">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>브뤼셀<xliff:g id="TIMEZONE">|Europe/Brussels</xliff:g>"</string>
+    <string name="C167" msgid="5502175796232774744">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>부쿠레슈티<xliff:g id="TIMEZONE">|Europe/Bucharest</xliff:g>"</string>
+    <string name="C168" msgid="6750159439632567316">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>부다페스트<xliff:g id="TIMEZONE">|Europe/Budapest</xliff:g>"</string>
+    <string name="C169" msgid="591483187800562071">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>키시너우<xliff:g id="TIMEZONE">|Europe/Chisinau</xliff:g>"</string>
+    <string name="C170" msgid="157539770076958216">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>코펜하겐<xliff:g id="TIMEZONE">|Europe/Copenhagen</xliff:g>"</string>
+    <string name="C171" msgid="4774534094571993566">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>더블린<xliff:g id="TIMEZONE">|Europe/Dublin</xliff:g>"</string>
+    <string name="C172" msgid="6781166861618808351">"ㅈ<xliff:g id="SEPARATOR">=</xliff:g>지브롤터<xliff:g id="TIMEZONE">|Europe/Gibraltar</xliff:g>"</string>
+    <string name="C173" msgid="6620286361619640304">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>헬싱키<xliff:g id="TIMEZONE">|Europe/Helsinki</xliff:g>"</string>
+    <string name="C174" msgid="2279016324825973473">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>맨 섬<xliff:g id="TIMEZONE">|Europe/Isle_of_Man</xliff:g>"</string>
+    <string name="C175" msgid="3290185117135612679">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>이스탄불<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g>"</string>
+    <string name="C176" msgid="8375703098860926099">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>키예프<xliff:g id="TIMEZONE">|Europe/Kiev</xliff:g>"</string>
+    <string name="C177" msgid="6500868250597874838">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리스본<xliff:g id="TIMEZONE">|Europe/Lisbon</xliff:g>"</string>
+    <string name="C178" msgid="8805696770032311110">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>런던<xliff:g id="TIMEZONE">|Europe/London</xliff:g>"</string>
+    <string name="C179" msgid="3767343883668628062">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>룩셈부르크<xliff:g id="TIMEZONE">|Europe/Luxembourg</xliff:g>"</string>
+    <string name="C180" msgid="7678392789982322642">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마드리드<xliff:g id="TIMEZONE">|Europe/Madrid</xliff:g>"</string>
+    <string name="C181" msgid="7514462880775616081">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>몰타<xliff:g id="TIMEZONE">|Europe/Malta</xliff:g>"</string>
+    <string name="C182" msgid="1916950203622380579">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>민스크<xliff:g id="TIMEZONE">|Europe/Minsk</xliff:g>"</string>
+    <string name="C183" msgid="4964892686115215073">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>모나코<xliff:g id="TIMEZONE">|Europe/Monaco</xliff:g>"</string>
+    <string name="C184" msgid="4848586310907586448">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>모스크바<xliff:g id="TIMEZONE">|Europe/Moscow</xliff:g>"</string>
+    <string name="C185" msgid="2598535413053285569">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오슬로<xliff:g id="TIMEZONE">|Europe/Oslo</xliff:g>"</string>
+    <string name="C186" msgid="678795048839315969">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>파리<xliff:g id="TIMEZONE">|Europe/Paris</xliff:g>"</string>
+    <string name="C187" msgid="9120486940322565800">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>프라하<xliff:g id="TIMEZONE">|Europe/Prague</xliff:g>"</string>
+    <string name="C188" msgid="6820884829000643173">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리가<xliff:g id="TIMEZONE">|Europe/Riga</xliff:g>"</string>
+    <string name="C189" msgid="8545786001221397208">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>로마<xliff:g id="TIMEZONE">|Europe/Rome</xliff:g>"</string>
+    <string name="C190" msgid="2822097113459737895">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>산마리노<xliff:g id="TIMEZONE">|Europe/San_Marino</xliff:g>"</string>
+    <string name="C191" msgid="5419026915911469878">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>사라예보<xliff:g id="TIMEZONE">|Europe/Sarajevo</xliff:g>"</string>
+    <string name="C192" msgid="1416880359034236663">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>심페로폴<xliff:g id="TIMEZONE">|Europe/Simferopol</xliff:g>"</string>
+    <string name="C193" msgid="4639373771601474967">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>스코페<xliff:g id="TIMEZONE">|Europe/Skopje</xliff:g>"</string>
+    <string name="C194" msgid="4008819631066984591">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>소피아<xliff:g id="TIMEZONE">|Europe/Sofia</xliff:g>"</string>
+    <string name="C195" msgid="6936101855361464954">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>스톡홀름<xliff:g id="TIMEZONE">|Europe/Stockholm</xliff:g>"</string>
+    <string name="C196" msgid="6845595341045260631">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>탈린<xliff:g id="TIMEZONE">|Europe/Tallinn</xliff:g>"</string>
+    <string name="C197" msgid="2200341923401640765">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바티칸<xliff:g id="TIMEZONE">|Europe/Vatican</xliff:g>"</string>
+    <string name="C198" msgid="3104432830681695782">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>비엔나<xliff:g id="TIMEZONE">|Europe/Vienna</xliff:g>"</string>
+    <string name="C199" msgid="1622823742072233091">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>빌뉴스<xliff:g id="TIMEZONE">|Europe/Vilnius</xliff:g>"</string>
+    <string name="C200" msgid="6181652506383585123">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바르샤바<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g>"</string>
+    <string name="C201" msgid="5026927396527258914">"ㅈ<xliff:g id="SEPARATOR">=</xliff:g>자그레브<xliff:g id="TIMEZONE">|Europe/Zagreb</xliff:g>"</string>
+    <string name="C202" msgid="7479245034393288391">"ㅊ<xliff:g id="SEPARATOR">=</xliff:g>취리히<xliff:g id="TIMEZONE">|Europe/Zurich</xliff:g>"</string>
+    <string name="C203" msgid="1651234331866937237">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>안타나나리보<xliff:g id="TIMEZONE">|Indian/Antananarivo</xliff:g>"</string>
+    <string name="C204" msgid="3101091022126098393">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>몰디브<xliff:g id="TIMEZONE">|Indian/Maldives</xliff:g>"</string>
+    <string name="C205" msgid="9173530407684443044">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>모리셔스<xliff:g id="TIMEZONE">|Indian/Mauritius</xliff:g>"</string>
+    <string name="C206" msgid="7294622489478378014">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오클랜드<xliff:g id="TIMEZONE">|Pacific/Auckland</xliff:g>"</string>
+    <string name="C207" msgid="6369257832191627783">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>피지<xliff:g id="TIMEZONE">|Pacific/Fiji</xliff:g>"</string>
+    <string name="C208" msgid="1022999101729302391">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>괌<xliff:g id="TIMEZONE">|Pacific/Guam</xliff:g>"</string>
+    <string name="C209" msgid="8326714755257287010">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>호놀룰루<xliff:g id="TIMEZONE">|Pacific/Honolulu</xliff:g>"</string>
+    <string name="C210" msgid="4118975261202718577">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>키리티마티 섬<xliff:g id="TIMEZONE">|Pacific/Kiritimati</xliff:g>"</string>
+    <string name="C211" msgid="6016485615657297427">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>누메아<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
+    <string name="C214" msgid="5230836436291372485">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>앤티가 섬<xliff:g id="TIMEZONE">|America/Antigua</xliff:g>"</string>
+    <string name="C215" msgid="9104600827236874744">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오스틴<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C216" msgid="1919768646168928906">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>보스턴<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C217" msgid="4879725034214879629">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>캘거리<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
+    <string name="C218" msgid="5884212032925236157">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>콜롬버스<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C219" msgid="2081823206177849440">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>댈러스<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C220" msgid="6453910991331509621">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>녹스빌<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C221" msgid="8383807404322146544">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>멤피스<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C222" msgid="3700668026644596138">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마이애미<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C223" msgid="221323185158028534">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>미니애폴리스<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C224" msgid="5283127526588257314">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오타와<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C225" msgid="2397752406722350262">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>필라델피아<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C226" msgid="9121074377966278110">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포틀랜드<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C227" msgid="5652209241017010001">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>샌디에이고<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C228" msgid="4215672329797580482">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>샌프란시스코<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C229" msgid="4196312467437357156">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>솔트레이크시티<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
+    <string name="C230" msgid="5521643115321121383">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>산호세<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C231" msgid="19294357270942004">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>산살바도르<xliff:g id="TIMEZONE">|America/Guatemala</xliff:g>"</string>
+    <string name="C232" msgid="4714655032274833316">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>시애틀<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C233" msgid="7162834873553109876">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>세인트루이스<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C234" msgid="8431913494781960891">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>워싱턴 D.C.<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C235" msgid="8650421942456856419">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>휴스턴<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C236" msgid="3687627401939103862">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>샌안토니오<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C237" msgid="4443158977093108877">"ㅈ<xliff:g id="SEPARATOR">=</xliff:g>잭슨빌<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C238" msgid="7416660474443881822">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>볼티모어<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C239" msgid="4602819453157356596">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>내슈빌<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C240" msgid="6474976205162582188">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>밀워키<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C241" msgid="9133192521877174743">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오클라호마시티<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C242" msgid="4837450655035932235">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>라스베이거스<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C243" msgid="8140503787735683522">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>앨버커키<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
+    <string name="C244" msgid="5425441385595386539">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>투손<xliff:g id="TIMEZONE">|MST</xliff:g>"</string>
+    <string name="C245" msgid="2117808251938937801">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>새크라멘토<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C246" msgid="3092246848082816772">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>애틀랜타<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C247" msgid="8206866466240263364">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>클리블랜드<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C248" msgid="2640187332546735575">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>뉴올리언스<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C249" msgid="2891345755858261436">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>탬파<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C250" msgid="820338627695297018">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>피츠버그<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C251" msgid="5944336862095193572">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>신시내티<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C252" msgid="4879366628092590554">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마운틴뷰<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C253" msgid="131023875763265059">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리노<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C254" msgid="6114708580340716772">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>블랙록시티<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C255" msgid="7954132426931661492">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>도하<xliff:g id="TIMEZONE">|Asia/Riyadh</xliff:g>"</string>
+    <string name="C256" msgid="4677098546257306673">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>베이징<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Shanghai</xliff:g>"</string>
+    <string name="C257" msgid="6859408162854724420">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>뭄바이<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g>"</string>
+    <string name="C258" msgid="4883343467599097650">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>델리<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g>"</string>
+    <string name="C259" msgid="5562442240689501324">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오사카<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Tokyo</xliff:g>"</string>
+    <string name="C260" msgid="8364102554400427814">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>라호르<xliff:g id="TIMEZONE">|Asia/Karachi</xliff:g>"</string>
+    <string name="C261" msgid="4120312655526126931">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>사나<xliff:g id="TIMEZONE">|Asia/Riyadh</xliff:g>"</string>
+    <string name="C262" msgid="5548180151889833">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>바르셀로나<xliff:g id="TIMEZONE">|Europe/Madrid</xliff:g>"</string>
+    <string name="C263" msgid="2667061188896159784">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>뮌헨<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
+    <string name="C264" msgid="2183960913782375290">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>밀라노<xliff:g id="TIMEZONE">|Europe/Rome</xliff:g>"</string>
+    <string name="C265" msgid="7302072801871420825">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>프랑크푸르트<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
+    <string name="C266" msgid="2043638131940526010">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>하노이<xliff:g id="TIMEZONE">|Asia/Bangkok</xliff:g>"</string>
+    <string name="C267" msgid="2210484655793571387">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>앙카라<xliff:g id="TIMEZONE">|Europe/Istanbul</xliff:g>"</string>
+    <string name="C268" msgid="263106973500029909">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>벵갈루루<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g>"</string>
+    <string name="C269" msgid="6541694468583591229">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>브라질리아<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
+    <string name="C270" msgid="1314079881051130603">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>케이프타운<xliff:g id="TIMEZONE">|Africa/Johannesburg</xliff:g>"</string>
+    <string name="C271" msgid="8640235215580011665">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>이슬라마바드<xliff:g id="TIMEZONE">|Asia/Karachi</xliff:g>"</string>
+    <string name="C272" msgid="1609536549681428971">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리우데자네이루<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
+    <string name="C273" msgid="7079941149646181981">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>앤아버<xliff:g id="TIMEZONE">|America/Detroit</xliff:g>"</string>
+    <string name="C274" msgid="8459573593923702400">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>볼더<xliff:g id="TIMEZONE">|America/Denver</xliff:g>"</string>
+    <string name="C275" msgid="6089570009772695384">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>케임브리지<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C276" msgid="8770778158932656740">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>커클랜드<xliff:g id="TIMEZONE">|America/Los_Angeles</xliff:g>"</string>
+    <string name="C277" msgid="3027642546928363284">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>매디슨<xliff:g id="TIMEZONE">|America/Chicago</xliff:g>"</string>
+    <string name="C278" msgid="2380762577096499707">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>광저우<xliff:g id="PHONETIC">:</xliff:g><xliff:g id="TIMEZONE">|Asia/Shanghai</xliff:g>"</string>
+    <string name="C279" msgid="8894272318704876379">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>하이데라바드<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g>"</string>
+    <string name="C280" msgid="7678401703785036372">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>레스턴<xliff:g id="TIMEZONE">|America/New_York</xliff:g>"</string>
+    <string name="C281" msgid="8023528134904066052">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>벨루오리존치<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
+    <string name="C282" msgid="6695477038758559199">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>산티아고<xliff:g id="TIMEZONE">|America/Santiago</xliff:g>"</string>
+    <string name="C283" msgid="7769787200879321206">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>몬로비아<xliff:g id="TIMEZONE">|Africa/Monrovia</xliff:g>"</string>
+    <string name="C284" msgid="6968458422900478829">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>콜롬보<xliff:g id="TIMEZONE">|Asia/Colombo</xliff:g>"</string>
+    <string name="C285" msgid="1141404871109476705">"ㅊ<xliff:g id="SEPARATOR">=</xliff:g>치와와<xliff:g id="TIMEZONE">|America/Chihuahua</xliff:g>"</string>
+    <string name="C286" msgid="4996225818359904740">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>살바도르<xliff:g id="TIMEZONE">|America/Sao_Paulo</xliff:g>"</string>
+    <string name="C287" msgid="1988559263618010310">"ㄱ<xliff:g id="SEPARATOR">=</xliff:g>구르가온<xliff:g id="TIMEZONE">|Asia/Kolkata</xliff:g>"</string>
+    <string name="C288" msgid="852288766460325989">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>맨체스터<xliff:g id="TIMEZONE">|Europe/London</xliff:g>"</string>
+    <string name="C290" msgid="9191944922972784727">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>상트페테르부르크<xliff:g id="TIMEZONE">|Europe/Moscow</xliff:g>"</string>
+    <string name="C291" msgid="4662360206594986867">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>크라쿠프<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g>"</string>
+    <string name="C292" msgid="3704362015612990315">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>브로츠와프<xliff:g id="TIMEZONE">|Europe/Warsaw</xliff:g>"</string>
+    <string name="C293" msgid="3807981967850386200">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>함부르크<xliff:g id="TIMEZONE">|Europe/Berlin</xliff:g>"</string>
+    <string name="C294" msgid="2800056634746552933">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>오울루<xliff:g id="TIMEZONE">|Europe/Bucharest</xliff:g>"</string>
+    <string name="C295" msgid="7855357204471157922">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>하이파<xliff:g id="TIMEZONE">|Asia/Jerusalem</xliff:g>"</string>
+    <string name="C296" msgid="2834361512883853579">"ㅅ<xliff:g id="SEPARATOR">=</xliff:g>산후안<xliff:g id="TIMEZONE">|America/Puerto_Rico</xliff:g>"</string>
+    <string name="C297" msgid="5314407834713913608">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>테구시갈파<xliff:g id="TIMEZONE">|America/Tegucigalpa</xliff:g>"</string>
+    <string name="C298" msgid="4186340979527221275">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>파라마리보<xliff:g id="TIMEZONE">|America/Paramaribo</xliff:g>"</string>
+    <string name="C299" msgid="5688169950851674667">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>키토<xliff:g id="TIMEZONE">|America/Panama</xliff:g>"</string>
+    <string name="C300" msgid="7351753589989414696">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>류블랴나<xliff:g id="TIMEZONE">|Europe/Ljubljana</xliff:g>"</string>
+    <string name="C301" msgid="9089921329206815602">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아시가바트<xliff:g id="TIMEZONE">|Asia/Ashgabat</xliff:g>"</string>
+    <string name="C302" msgid="6471051311513517449">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>아스마라<xliff:g id="TIMEZONE">|Africa/Asmara</xliff:g>"</string>
+    <string name="C303" msgid="6208957436062127281">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>반다르스리브가완<xliff:g id="TIMEZONE">|Asia/Brunei</xliff:g>"</string>
+    <string name="C304" msgid="7757188637892125245">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>방기<xliff:g id="TIMEZONE">|Africa/Bangui</xliff:g>"</string>
+    <string name="C305" msgid="5538312768539249335">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>반줄<xliff:g id="TIMEZONE">|Africa/Banjul</xliff:g>"</string>
+    <string name="C306" msgid="6400938736119754675">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>비슈케크<xliff:g id="TIMEZONE">|Asia/Bishkek</xliff:g>"</string>
+    <string name="C307" msgid="1169132195117591472">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>비사우<xliff:g id="TIMEZONE">|Africa/Bissau</xliff:g>"</string>
+    <string name="C308" msgid="7704965635342439141">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>부줌부라<xliff:g id="TIMEZONE">|Africa/Bujumbura</xliff:g>"</string>
+    <string name="C309" msgid="1522235235310763925">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>딜리<xliff:g id="TIMEZONE">|Asia/Dili</xliff:g>"</string>
+    <string name="C310" msgid="8666508463588411257">"ㄷ<xliff:g id="SEPARATOR">=</xliff:g>두샨베<xliff:g id="TIMEZONE">|Asia/Dushanbe</xliff:g>"</string>
+    <string name="C311" msgid="5940486195605635031">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>푸나푸티<xliff:g id="TIMEZONE">|Pacific/Funafuti</xliff:g>"</string>
+    <string name="C312" msgid="1714210141256903683">"ㅎ<xliff:g id="SEPARATOR">=</xliff:g>호니아라<xliff:g id="TIMEZONE">|Pacific/Guadalcanal</xliff:g>"</string>
+    <string name="C313" msgid="8390229571948311411">"ㅈ<xliff:g id="SEPARATOR">=</xliff:g>주바<xliff:g id="TIMEZONE">|Africa/Juba</xliff:g>"</string>
+    <string name="C314" msgid="3840011425345102604">"ㅋ<xliff:g id="SEPARATOR">=</xliff:g>킹스타운<xliff:g id="TIMEZONE">|America/St_Vincent</xliff:g>"</string>
+    <string name="C315" msgid="8962557999110557329">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>리브르빌<xliff:g id="TIMEZONE">|Africa/Libreville</xliff:g>"</string>
+    <string name="C316" msgid="3674113287320887951">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>로메<xliff:g id="TIMEZONE">|Africa/Lome</xliff:g>"</string>
+    <string name="C317" msgid="4818049429422081055">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>루안다<xliff:g id="TIMEZONE">|Africa/Luanda</xliff:g>"</string>
+    <string name="C318" msgid="3814107319819817789">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>루사카<xliff:g id="TIMEZONE">|Africa/Lusaka</xliff:g>"</string>
+    <string name="C319" msgid="5757039321992317631">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마주로<xliff:g id="TIMEZONE">|Pacific/Majuro</xliff:g>"</string>
+    <string name="C320" msgid="8334348266391215583">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>말라보<xliff:g id="TIMEZONE">|Africa/Malabo</xliff:g>"</string>
+    <string name="C321" msgid="5401323973667971972">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>마푸토<xliff:g id="TIMEZONE">|Africa/Maputo</xliff:g>"</string>
+    <string name="C322" msgid="67637052310417975">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>음바바네<xliff:g id="TIMEZONE">|Africa/Mbabane</xliff:g>"</string>
+    <string name="C323" msgid="4500721332684955521">"ㅁ<xliff:g id="SEPARATOR">=</xliff:g>모로니<xliff:g id="TIMEZONE">|Indian/Comoro</xliff:g>"</string>
+    <string name="C324" msgid="1741927819842539260">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>은자메나<xliff:g id="TIMEZONE">|Africa/Ndjamena</xliff:g>"</string>
+    <string name="C325" msgid="8771905307322194055">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>은게룰무드<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
+    <string name="C326" msgid="2389198042593603472">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>니아메<xliff:g id="TIMEZONE">|Africa/Niamey</xliff:g>"</string>
+    <string name="C327" msgid="5317479895686981912">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>니코시아<xliff:g id="TIMEZONE">|Europe/Nicosia</xliff:g>"</string>
+    <string name="C328" msgid="6416405203954996861">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>누악쇼트<xliff:g id="TIMEZONE">|Africa/Nouakchott</xliff:g>"</string>
+    <string name="C329" msgid="6876960940903095843">"ㄴ<xliff:g id="SEPARATOR">=</xliff:g>누쿠알로파<xliff:g id="TIMEZONE">|Pacific/Tongatapu</xliff:g>"</string>
+    <string name="C330" msgid="1572294706542426161">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>와가두구<xliff:g id="TIMEZONE">|Africa/Ouagadougou</xliff:g>"</string>
+    <string name="C331" msgid="2607492003890117689">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>팔리키르<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
+    <string name="C332" msgid="8349533418456323370">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>필립스부르크<xliff:g id="TIMEZONE">|America/Lower_Princes</xliff:g>"</string>
+    <string name="C333" msgid="2842640664018042568">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포드고리차<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g>"</string>
+    <string name="C334" msgid="3310146581437635671">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포트모르즈비<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
+    <string name="C335" msgid="3317158262102352303">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포트빌라<xliff:g id="TIMEZONE">|Pacific/Efate</xliff:g>"</string>
+    <string name="C336" msgid="3810072761869903472">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>포르토노보<xliff:g id="TIMEZONE">|Africa/Porto-Novo</xliff:g>"</string>
+    <string name="C337" msgid="3412269218104112252">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>프리슈티나<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
+    <string name="C338" msgid="6151841959824325885">"ㄹ<xliff:g id="SEPARATOR">=</xliff:g>로조<xliff:g id="TIMEZONE">|America/Dominica</xliff:g>"</string>
+    <string name="C339" msgid="8909994815975646525">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>타슈켄트<xliff:g id="TIMEZONE">|Asia/Tashkent</xliff:g>"</string>
+    <string name="C340" msgid="415479723070879485">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>트빌리시<xliff:g id="TIMEZONE">|Asia/Tbilisi</xliff:g>"</string>
+    <string name="C341" msgid="2299478430610154042">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>팀부<xliff:g id="TIMEZONE">|Asia/Thimphu</xliff:g>"</string>
+    <string name="C342" msgid="7997617194333170685">"ㅌ<xliff:g id="SEPARATOR">=</xliff:g>티라나<xliff:g id="TIMEZONE">|Europe/Tirane</xliff:g>"</string>
+    <string name="C343" msgid="622805851462854910">"ㅍ<xliff:g id="SEPARATOR">=</xliff:g>파두츠<xliff:g id="TIMEZONE">|Europe/Vaduz</xliff:g>"</string>
+    <string name="C344" msgid="7629820826386244509">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>비엔티안<xliff:g id="TIMEZONE">|Asia/Vientiane</xliff:g>"</string>
+    <string name="C345" msgid="1881198350378158072">"ㅂ<xliff:g id="SEPARATOR">=</xliff:g>빈트후쿠<xliff:g id="TIMEZONE">|Africa/Windhoek</xliff:g>"</string>
+    <string name="C346" msgid="2947674392768816097">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>야운데<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g>"</string>
+    <string name="C347" msgid="6291282205599716861">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>야렌 구<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
+    <string name="C348" msgid="8462071023392592539">"ㅇ<xliff:g id="SEPARATOR">=</xliff:g>예레반<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
+</resources>

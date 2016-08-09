@@ -14,38 +14,43 @@
      limitations under the License.
 -->
 
-<!-- Use this clock_fragment for landscape, which has main clock frame next to cities,
-     with a spacing ratio dependent on the number of clocks per row (phone has 1, tablet has 2). -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:orientation="horizontal"
-    android:paddingEnd="@dimen/clock_side_padding"
-    android:paddingStart="@dimen/clock_side_padding">
+    android:layout_height="match_parent">
 
+    <!-- Left gutter. -->
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="@integer/gutter_width_percent" />
+
+    <!-- Clock: 60% of total width. -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/main_clock_bottom_margin"
-        android:layout_weight="2"
-        android:gravity="center">
+        android:layout_weight="60"
+        android:gravity="center"
+        android:paddingBottom="@dimen/fab_height">
 
         <include
             android:id="@+id/main_clock_left_pane"
             layout="@layout/main_clock_frame"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
+    <!-- World Clock List: 36% of total width. Right gutter is applied in world_clock_item. -->
     <ListView
         android:id="@+id/cities"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="@integer/world_clocks_per_row"
-        android:clickable="false"/>
+        android:layout_weight="36"
+        android:clickable="false"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/fab_height"
+        android:scrollbarStyle="outsideOverlay" />
 
 </LinearLayout>

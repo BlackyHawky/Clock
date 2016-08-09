@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The Android Open Source Project
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -16,6 +16,9 @@
 
 <resources>
     <item name="numbers_key" type="id" />
-    <item name="request_code_ringtone" type="id" />
-    <item name="request_permission_code_external_storage" type="id" />
+
+    <item name="menu_item_search" type="id" />
+    <item name="menu_item_sort" type="id" />
+    <item name="menu_item_night_mode" type="id" />
+    <item name="menu_item_settings" type="id" />
 </resources>

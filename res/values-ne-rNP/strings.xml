@@ -17,34 +17,18 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"घडी"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"अलार्महरू"</string>
-    <string name="add_alarm" msgid="5976616107390962899">"अलार्म थप्नुहोस्"</string>
-    <string name="menu_desk_clock" msgid="3241995064554071588">"डेस्क घडी"</string>
-    <string name="menu_edit_alarm" msgid="7204602994918829751">"अलार्म सम्पादन गर्नुहोस्"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"अलार्म मेट्नुहोस्"</string>
-    <string name="enable_alarm" msgid="1834599140632142536">"अलार्म सक्रिय पार्नुहोस्"</string>
-    <string name="disable_alarm" msgid="5889378670229554109">"अलार्म बन्द गर्नुहोस्"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"यो अलार्म मेट्ने हो?"</string>
-    <string name="show_clock" msgid="8358759982675616915">"घडी देखाउनुहोस्"</string>
-    <string name="hide_clock" msgid="3217727306480505694">"घडी लुकाउनुहोस्"</string>
     <string name="label" msgid="162189613902857319">"लेबल"</string>
-    <string name="on_switch" msgid="2297966258029227449">"सक्रिय"</string>
-    <string name="off_switch" msgid="3381070073851148013">"निष्क्रिय"</string>
     <string name="default_label" msgid="5590025289805630372">"अलार्म"</string>
-    <string name="set_alarm" msgid="9148359866152726808">"अलार्म सेट गर्नुहोस्"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"भाइब्रेट गराउनुहोस्"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"दोहोर्याउनुहोस्"</string>
     <string name="alert" msgid="6506982899651975645">"अलार्म रिङटोन"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"पूर्वनिर्धारित अलार्म ध्वनि"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"टाइमरको म्याद सकियो"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"मौन"</string>
-    <string name="ringtone" msgid="9110746249688559579">"रिङटोन"</string>
-    <string name="time" msgid="8067216534232296518">"समय"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"भोलि"</string>
     <string name="alarm_today" msgid="7873594221106531654">"आज"</string>
-    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"उठ्नुहोस्!"</string>
-    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"बन्द"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"खारेज गर्नुहोस्"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"अब खारेज गर्नुहोस्"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"अब खारेज गर्नुहोस्"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"छुटेको आलार्म"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"स्नुज भयो"</string>
@@ -91,9 +75,9 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"प्रत्येक दिन"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="2656876819515011590">"घडी छान्नुहोस्"</string>
+    <string name="loading_widget" msgid="5306242862476796500">"लोड गर्दैछ…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"एनालग घडी"</string>
-    <string name="help" msgid="7786263119482654015">"मद्दत"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"डिजिटल घडी"</string>
     <string name="settings" msgid="5849739030579520686">"सेटिङहरू"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"स्नुज लम्बाइ"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -129,43 +113,28 @@
     <item msgid="3993530639455360921">"आइतबार"</item>
     <item msgid="8594709368683324282">"सोमबार"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"भयो"</string>
-    <string name="revert" msgid="9100911171235162926">"उल्टाउनुहोस्"</string>
-    <string name="delete" msgid="5732434972457000541">"मेटाउनुहोस्"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"अलार्म भोल्युम"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"मौन"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"अज्ञात"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"अलार्म स्नुज गर्नुहोस् वा खारेज गर्नुहोस्"</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (स्नुज भयो)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"<xliff:g id="TIME">%s</xliff:g>का लागि अलार्म सेट गरियो। रद्द गर्न छुनुहोस्।"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"अलार्मको भोल्युम म्यूट गरियो"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"अनम्यूट गर्नुहोस्"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"पूर्वनिर्धारित अलार्मको रिङटोन मौन छ"</string>
+    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"परिवर्तन गर्नुहोस्"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"यन्त्रलाई पूर्ण शान्तमा सेट गरिएको छ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"भोल्युम बटनहरू"</string>
-    <string name="volume_button_dialog_title" msgid="8768042543750036853">"बटन प्रभाव"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"स्नुज"</item>
     <item msgid="3450979320164769576">"खारेज गर्नुहोस्"</item>
     <item msgid="6302517608411378024">"केही पनि नगर्नुहोस्"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"पूर्वनिर्धारित रिङटोन सेट गर्नुहोस्"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"अलार्म"</string>
-    <string name="gallery_button_description" msgid="1151743663255257668">"ग्यालरी"</string>
-    <string name="music_button_description" msgid="1626593420810117999">"सङ्गीत"</string>
-    <string name="nightmode_button_description" msgid="990894208217576381">"मधुरो"</string>
-    <string name="home_button_description" msgid="3383859096809056157">"लन्चर"</string>
-    <string name="desk_clock_button_description" msgid="4207371097361657274">"घडी प्रदर्शन"</string>
     <string name="label_description" msgid="8736179296142915727">"लेबल"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"रिङटोन"</string>
-    <string name="weather_fetch_failure" msgid="3425804832021006835">"मौसमी जानकारी हाल उपलव्ध छैन।"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"अलार्मका लागि आवाज प्लेब्याक सेवाहरू घडीमा सेट गर्नुहोस्।"</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"रिङटोन लोड गर्दै…"</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"घडीहरूका लागि आवाज प्लेब्याक सेवा घडीमा सेट गरियो।"</string>
-    <string name="control_set_alarm" msgid="2194676418924016327">"अलार्म सेट गर्नुहोस्"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"आलार्म"</string>
     <string name="menu_timer" msgid="6459070074762877114">"घडी"</string>
     <string name="menu_clock" msgid="5612760670606829805">"घडी"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"स्टपवाच"</string>
     <string name="button_alarms" msgid="3907838219512538763">"अलार्म थप्नुहोस्"</string>
     <string name="button_cities" msgid="4555761857494501363">"शहरहरू"</string>
-    <string name="button_menu" msgid="6050484561842120282">"थप विकल्पहरू"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"सेटिङहरू"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"मद्दत"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"रात्री मोड"</string>
@@ -184,7 +153,6 @@
     <string name="hours_label_description" msgid="8652842524970971830">"घन्टा"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"मिनेट"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"सेकेन्ड"</string>
-    <string name="zero" msgid="7102083421938355017">"०"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"मेरो समय <xliff:g id="TIME">%s</xliff:g> हो"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ल्याप समय:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ल्याप <xliff:g id="NUMBER">%d</xliff:g>"</string>
@@ -214,7 +182,6 @@
     <string name="timer_times_up" msgid="9190440395938519009">"समय सकियो"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> टाइमरहरूको म्याद समाप्त भयो"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"घडी"</string>
-    <string name="timers_max_count_reached" msgid="9140022846793903813">"४ टाइमर अधिकतम"</string>
     <string name="timer_pause" msgid="3748323712728398743">"रोक्नुहोस्"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"सबै टाइमरहरू रिसेट गर्नुहोस्"</string>
   <string-array name="sw_share_strings">
@@ -233,7 +200,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"शहरहरू"</string>
     <string name="clock_settings" msgid="8317286807280600391">"घडी"</string>
     <string name="clock_style" msgid="2265011060429742344">"शैली"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"मिति र समय परिवर्तन गर्नुहोस्"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"मिति &amp; समय परिवर्तन गर्नुहोस्"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"एनालग"</item>
     <item msgid="8483930821046925592">"डिजिटल"</item>
@@ -244,10 +211,6 @@
     <string name="home_time_zone_title" msgid="807894493443834624">"गृह समय क्षेत्र"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"रद्द गर्नुहोस्"</string>
     <string name="time_picker_set" msgid="331153175471468051">"ठीक छ"</string>
-    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
-    <string name="time_picker_00_label" msgid="6001006474735281911">":००"</string>
-    <string name="time_picker_30_label" msgid="1027250857384838129">":३०"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> जाँच गरियो"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> जाँच हटाइयो"</string>
   <string-array name="timezone_labels">
@@ -346,36 +309,24 @@
     <string name="description_direction_both" msgid="1841309486023845685">"स्‍नूजको लागि बायाँ वा खारेज गर्नका लागि दायाँ स्वाइप गर्नुहोस्"</string>
     <string name="timer_settings" msgid="7955522143086154795">"टाइमरहरू"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"टाइमरको रिङटोन"</string>
-    <string name="timer_stopped" msgid="2730331837832462008">"घडी रोकियो"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"टाइमर भाइब्रेट"</string>
     <string name="timer_paused" msgid="5941160896040771462">"टाइमर रोकियो"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> टाइमरहरू रोकिए"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"तपाईँको घडी हेर्न छुनुहोस्"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"आफ्नो टाइमरहरू हेर्न ट्याप गर्नुहोस्"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> घडीहरू"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"अर्को घडी: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"ड्रिम सेटिङहरू"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"स्क्रिन सेभर सम्बन्धी सेटिङहरू"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"रात्री मोड"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"ज्यादै मधुरो प्रदर्शन (अध्याँरा कोठाहरूका लागि)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"अलार्म विस्तार गर्नुहोस्"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"अलार्म ढाल्नुहोस्"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"अनडू गर्नुहोस्"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"अलार्म मेटाइयो"</string>
-    <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"\"<xliff:g id="LABEL">%s</xliff:g>\""</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"अर्को अलार्म: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="alarms_selected" msgid="1075308195332888260">"<xliff:g id="ALARMS">%d</xliff:g> छानियो"</string>
-    <string name="deleted_message" msgid="1220848140260509437">"मेटियो"</string>
-    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
-      <item quantity="other">चयन गरिएका अलार्महरू मेटाउने हो?</item>
-      <item quantity="one">चयन गरिएको अलार्म मेटाउने हो?</item>
-    </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"यो घडी मेट्ने हो?"</string>
-    <string name="city_delete_confirmation" msgid="1783441538785676299">"यो शहर हटाउने हो?"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"डिजिटल घडी"</string>
     <string name="no_alarms" msgid="6429431324842022917">"आलार्महरू छैनन्"</string>
-    <string name="no_alarms_set" msgid="4887558279496044764">"अलार्म सेट छैन"</string>
-    <string name="no_upcoming_alarms" msgid="2889840988069436254">"कुनै अगामी आलार्महरू छैनन्"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"अमान्य समय <xliff:g id="INVALID_HOUR">%d</xliff:g> : <xliff:g id="INVALID_MINUTES">%d</xliff:g><xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%d</xliff:g> : <xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>मा कुनै अलार्म छैन"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"अमान्य समय <xliff:g id="INVALID_HOUR">%1$d</xliff:g> : <xliff:g id="INVALID_MINUTES">%2$d</xliff:g><xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g> : <xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>मा कुनै अलार्म छैन"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"कुनै तालिकाबद्ध अलार्म छैन"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"कुनै लेबल निर्दष्ट गरिएको छैन"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"कुनै अलार्ममा लेबल छैन"</string>

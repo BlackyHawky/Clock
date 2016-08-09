@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -16,10 +16,11 @@
 
 package com.android.deskclock.actionbarmenu;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,22 +28,32 @@ import android.view.inputmethod.EditorInfo;
 
 import com.android.deskclock.R;
 
+import static android.view.Menu.FIRST;
+import static android.view.Menu.NONE;
+
 /**
  * {@link MenuItemController} for search menu.
  */
-public final class SearchMenuItemController extends AbstractMenuItemController {
+public final class SearchMenuItemController implements MenuItemController {
 
     private static final String KEY_SEARCH_QUERY = "search_query";
     private static final String KEY_SEARCH_MODE = "search_mode";
+
     private static final int SEARCH_MENU_RES_ID = R.id.menu_item_search;
+
+    private final Context mContext;
     private final SearchView.OnQueryTextListener mQueryListener;
     private final SearchModeChangeListener mSearchModeChangeListener;
+
     private String mQuery = "";
     private boolean mSearchMode;
 
-    public SearchMenuItemController(OnQueryTextListener queryListener, Bundle savedState) {
+    public SearchMenuItemController(Context context, OnQueryTextListener queryListener,
+            Bundle savedState) {
+        mContext = context;
         mSearchModeChangeListener = new SearchModeChangeListener();
         mQueryListener = queryListener;
+
         if (savedState != null) {
             mSearchMode = savedState.getBoolean(KEY_SEARCH_MODE, false);
             mQuery = savedState.getString(KEY_SEARCH_QUERY, "");
@@ -60,15 +71,19 @@ public final class SearchMenuItemController extends AbstractMenuItemController {
     }
 
     @Override
-    public void setInitialState(Menu menu) {
-        super.setInitialState(menu);
-        final MenuItem search = menu.findItem(SEARCH_MENU_RES_ID);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(search);
+    public void onCreateOptionsItem(Menu menu) {
+        final SearchView searchView = new SearchView(mContext);
         searchView.setImeOptions(EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        searchView.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_WORDS);
         searchView.setQuery(mQuery, false);
         searchView.setOnCloseListener(mSearchModeChangeListener);
         searchView.setOnSearchClickListener(mSearchModeChangeListener);
         searchView.setOnQueryTextListener(mQueryListener);
+
+        menu.add(NONE, SEARCH_MENU_RES_ID, FIRST, android.R.string.search_go)
+                .setActionView(searchView)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
         if (mSearchMode) {
             searchView.requestFocus();
             searchView.setIconified(false);
@@ -76,12 +91,11 @@ public final class SearchMenuItemController extends AbstractMenuItemController {
     }
 
     @Override
-    public void showMenuItem(Menu menu) {
-        menu.findItem(SEARCH_MENU_RES_ID).setVisible(true);
+    public void onPrepareOptionsItem(MenuItem item) {
     }
 
     @Override
-    public boolean handleMenuItemClick(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         // The search view is handled by {@link #mSearchListener}. Skip handling here.
         return false;
     }

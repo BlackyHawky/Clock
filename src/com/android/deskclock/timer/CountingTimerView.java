@@ -22,7 +22,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.support.annotation.PluralsRes;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,18 +33,18 @@ import android.view.accessibility.AccessibilityManager;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.uidata.UiDataModel;
+
+import java.util.Locale;
 
 /**
  * Class to measure and draw the time in the {@link com.android.deskclock.CircleTimerView}.
  * This class manages and sums the work of the four members mBigHours, mBigMinutes,
  * mBigSeconds and mMedHundredths. Those members are each tasked with measuring, sizing and
- * drawing digits (and optional label) of the time set in {@link #setTime(long, boolean, boolean)}
+ * drawing digits (and optional label) of the time set in {@link #setTime(long, boolean)}
  */
 public class CountingTimerView extends View {
-    private static final String TWO_DIGITS = "%02d";
-    private static final String ONE_DIGIT = "%01d";
-    private static final String NEG_TWO_DIGITS = "-%02d";
-    private static final String NEG_ONE_DIGIT = "-%01d";
+
     private static final float TEXT_SIZE_TO_WIDTH_RATIO = 0.85f;
     // This is the ratio of the font height needed to vertically offset the font for alignment
     // from the center.
@@ -51,6 +53,10 @@ public class CountingTimerView extends View {
     private static final float HOURS_MINUTES_SPACING = 0.4f;
     // Ratio of the space leading the Hundredths
     private static final float HUNDREDTHS_SPACING = 0.5f;
+
+    /** Reusable StringBuilder to assemble talk back announcements when the time is updated. */
+    private static final StringBuilder sTalkBackBuilder = new StringBuilder(50);
+
     // Radial offset of the enclosing circle
     private final float mRadiusOffset;
 
@@ -78,6 +84,10 @@ public class CountingTimerView extends View {
     // Fields for the text serving as a virtual button.
     private boolean mVirtualButtonEnabled = false;
     private boolean mVirtualButtonPressedOn = false;
+
+    // Whether or not a bounding circle exists into which the text must be made to fit.
+    // If no such circle exists, the entire width of this component is available for text display.
+    private boolean mShowBoundingCircle;
 
     Runnable mBlinkThread = new Runnable() {
         private boolean mVisible = true;
@@ -264,31 +274,27 @@ public class CountingTimerView extends View {
         mAccessibilityManager =
                 (AccessibilityManager) context.getSystemService(Context.ACCESSIBILITY_SERVICE);
         Resources r = context.getResources();
-        mDefaultColor = mWhiteColor = r.getColor(R.color.clock_white);
+        mDefaultColor = mWhiteColor = Color.WHITE;
         mPressedColor = mAccentColor = Utils.obtainStyledColor(
                 context, R.attr.colorAccent, Color.RED);
         mBigFontSize = r.getDimension(R.dimen.big_font_size);
         mSmallFontSize = r.getDimension(R.dimen.small_font_size);
 
-        Typeface androidClockMonoThin = Typeface.
-                createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Thin.ttf");
         mPaintBigThin.setAntiAlias(true);
         mPaintBigThin.setStyle(Paint.Style.STROKE);
         mPaintBigThin.setTextAlign(Paint.Align.CENTER);
-        mPaintBigThin.setTypeface(androidClockMonoThin);
+        mPaintBigThin.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
 
-        Typeface androidClockMonoLight = Typeface.
-                createFromAsset(context.getAssets(), "fonts/AndroidClockMono-Light.ttf");
         mPaintMed.setAntiAlias(true);
         mPaintMed.setStyle(Paint.Style.STROKE);
         mPaintMed.setTextAlign(Paint.Align.CENTER);
-        mPaintMed.setTypeface(androidClockMonoLight);
+        mPaintMed.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
 
         resetTextSize();
         setTextColor(mDefaultColor);
 
         // allDigits will contain ten digits: "0123456789" in the default locale
-        final String allDigits = String.format("%010d", 123456789);
+        final String allDigits = String.format(Locale.getDefault(), "%010d", 123456789);
         mBigSeconds = new UnsignedTime(mPaintBigThin, 0.f, allDigits);
         mBigHours = new SignedTime(mBigSeconds, HOURS_MINUTES_SPACING);
         mBigMinutes = new SignedTime(mBigSeconds, HOURS_MINUTES_SPACING);
@@ -308,35 +314,43 @@ public class CountingTimerView extends View {
         mPaintMed.setColor(textColor);
     }
 
+    public void setShowBoundingCircle(boolean showBoundingCircle) {
+        mShowBoundingCircle = showBoundingCircle;
+        requestLayout();
+    }
+
     /**
      * Update the time to display. Separates that time into the hours, minutes, seconds and
      * hundredths. If update is true, the view is invalidated so that it will draw again.
      *
      * @param time new time to display - in milliseconds
      * @param showHundredths flag to show hundredths resolution
-     * @param update to invalidate the view - otherwise the time is examined to see if it is within
-     *               100 milliseconds of zero seconds and when so, invalidate the view.
      */
     // TODO:showHundredths S/B attribute or setter - i.e. unchanging over object life
-    public void setTime(long time, boolean showHundredths, boolean update) {
-        int oldLength = getDigitsLength();
+    public void setTime(long time, boolean showHundredths) {
+        final int oldLength = getDigitsLength();
         boolean neg = false, showNeg = false;
-        String format;
         if (time < 0) {
             time = -time;
             neg = showNeg = true;
         }
-        long hundreds, seconds, minutes, hours;
-        seconds = time / 1000;
-        hundreds = (time - seconds * 1000) / 10;
-        minutes = seconds / 60;
-        seconds = seconds - minutes * 60;
-        hours = minutes / 60;
-        minutes = minutes - hours * 60;
+
+        int hours = (int) (time / DateUtils.HOUR_IN_MILLIS);
+        int remainder = (int) (time % DateUtils.HOUR_IN_MILLIS);
+
+        int minutes = (int) (remainder / DateUtils.MINUTE_IN_MILLIS);
+        remainder = (int) (remainder % DateUtils.MINUTE_IN_MILLIS);
+
+        int seconds = (int) (remainder / DateUtils.SECOND_IN_MILLIS);
+        remainder = (int) (remainder % DateUtils.SECOND_IN_MILLIS);
+
+        int hundredths = remainder / 10;
+
         if (hours > 999) {
             hours = 0;
         }
-        // The time  can be between 0 and -1 seconds, but the "truncated" equivalent time of hours
+
+        // The time can be between 0 and -1 seconds, but the "truncated" equivalent time of hours
         // and minutes and seconds could be zero, so since we do not show fractions of seconds
         // when counting down, do not show the minus sign.
         // TODO:does it matter that we do not look at showHundredths?
@@ -344,9 +358,9 @@ public class CountingTimerView extends View {
             showNeg = false;
         }
 
-        // Normalize and check if it is 'time' to invalidate
+        // If not showing hundredths, round up to the next second.
         if (!showHundredths) {
-            if (!neg && hundreds != 0) {
+            if (!neg && hundredths != 0) {
                 seconds++;
                 if (seconds == 60) {
                     seconds = 0;
@@ -357,37 +371,28 @@ public class CountingTimerView extends View {
                     }
                 }
             }
-            if (hundreds < 10 || hundreds > 90) {
-                update = true;
-            }
         }
 
-        // Hours may be empty
-        if (hours >= 10) {
-            format = showNeg ? NEG_TWO_DIGITS : TWO_DIGITS;
-            mHours = String.format(format, hours);
-        } else if (hours > 0) {
-            format = showNeg ? NEG_ONE_DIGIT : ONE_DIGIT;
-            mHours = String.format(format, hours);
+        // Hours may be empty.
+        final UiDataModel uiDataModel = UiDataModel.getUiDataModel();
+        if (hours > 0) {
+            final int hoursLength = hours >= 10 ? 2 : 1;
+            mHours = uiDataModel.getFormattedNumber(showNeg, hours, hoursLength);
         } else {
             mHours = null;
         }
 
-        // Minutes are never empty and when hours are non-empty, must be two digits
-        if (minutes >= 10 || hours > 0) {
-            format = (showNeg && hours == 0) ? NEG_TWO_DIGITS : TWO_DIGITS;
-            mMinutes = String.format(format, minutes);
-        } else {
-            format = (showNeg && hours == 0) ? NEG_ONE_DIGIT : ONE_DIGIT;
-            mMinutes = String.format(format, minutes);
-        }
+        // Minutes are never empty and forced to two digits when hours exist.
+        final boolean showNegMinutes = showNeg && hours == 0;
+        final int minutesLength = minutes >= 10 || hours > 0 ? 2 : 1;
+        mMinutes = uiDataModel.getFormattedNumber(showNegMinutes, minutes, minutesLength);
 
         // Seconds are always two digits
-        mSeconds = String.format(TWO_DIGITS, seconds);
+        mSeconds = uiDataModel.getFormattedNumber(seconds, 2);
 
-        // Hundredths are optional and then two digits
+        // Hundredths are optional but forced to two digits when displayed.
         if (showHundredths) {
-            mHundredths = String.format(TWO_DIGITS, hundreds);
+            mHundredths = uiDataModel.getFormattedNumber(hundredths, 2);
         } else {
             mHundredths = null;
         }
@@ -400,11 +405,9 @@ public class CountingTimerView extends View {
             mRemeasureText = true;
         }
 
-        if (update) {
-            setContentDescription(getTimeStringForAccessibility((int) hours, (int) minutes,
-                    (int) seconds, showNeg, getResources()));
-            postInvalidateOnAnimation();
-        }
+        setContentDescription(getTimeStringForAccessibility(hours, minutes, seconds, showNeg,
+                getResources()));
+        postInvalidateOnAnimation();
     }
 
     private int getDigitsLength() {
@@ -426,10 +429,18 @@ public class CountingTimerView extends View {
      */
     private void setTotalTextWidth() {
         calcTotalTextWidth();
-        // To determine the maximum width, we find the minimum of the height and width (since the
-        // circle we are trying to fit the text into has its radius sized to the smaller of the
-        // two.
-        int width = Math.min(getWidth(), getHeight());
+
+        int width;
+        if (mShowBoundingCircle) {
+            // A bounding circle exists, so the available width in which to fit the timer text is
+            // the smaller of the width or height, which is also equal to the circle's diameter.
+            width = Math.min(getWidth(), getHeight());
+        } else {
+            // A bounding circle does not exist, so pretend that the entire width of this component
+            // is the diameter of a theoretical bounding circle.
+            width = getWidth();
+        }
+
         if (width != 0) {
             // Shrink 'width' to account for circle stroke and other painted objects.
             // Note on the "4 *": (1) To reduce divisions, using the diameter instead of the radius.
@@ -488,40 +499,32 @@ public class CountingTimerView extends View {
 
     private static String getTimeStringForAccessibility(int hours, int minutes, int seconds,
             boolean showNeg, Resources r) {
-        StringBuilder s = new StringBuilder();
+        sTalkBackBuilder.setLength(0);
         if (showNeg) {
             // This must be followed by a non-zero number or it will be audible as "hyphen"
             // instead of "minus".
-            s.append("-");
+            sTalkBackBuilder.append('-');
         }
         if (showNeg && hours == 0 && minutes == 0) {
             // Non-negative time will always have minutes, eg. "0 minutes 7 seconds", but negative
             // time must start with non-zero digit, eg. -0m7s will be audible as just "-7 seconds"
-            s.append(String.format(
-                    r.getQuantityText(R.plurals.Nseconds_description, seconds).toString(),
-                    seconds));
+            sTalkBackBuilder.append(getQuantityString(r, R.plurals.Nseconds_description, seconds));
         } else if (hours == 0) {
-            s.append(String.format(
-                    r.getQuantityText(R.plurals.Nminutes_description, minutes).toString(),
-                    minutes));
-            s.append(" ");
-            s.append(String.format(
-                    r.getQuantityText(R.plurals.Nseconds_description, seconds).toString(),
-                    seconds));
+            sTalkBackBuilder.append(getQuantityString(r, R.plurals.Nminutes_description, minutes));
+            sTalkBackBuilder.append(' ');
+            sTalkBackBuilder.append(getQuantityString(r, R.plurals.Nseconds_description, seconds));
         } else {
-            s.append(String.format(
-                    r.getQuantityText(R.plurals.Nhours_description, hours).toString(),
-                    hours));
-            s.append(" ");
-            s.append(String.format(
-                    r.getQuantityText(R.plurals.Nminutes_description, minutes).toString(),
-                    minutes));
-            s.append(" ");
-            s.append(String.format(
-                    r.getQuantityText(R.plurals.Nseconds_description, seconds).toString(),
-                    seconds));
+            sTalkBackBuilder.append(getQuantityString(r, R.plurals.Nhours_description, hours));
+            sTalkBackBuilder.append(' ');
+            sTalkBackBuilder.append(getQuantityString(r, R.plurals.Nminutes_description, minutes));
+            sTalkBackBuilder.append(' ');
+            sTalkBackBuilder.append(getQuantityString(r, R.plurals.Nseconds_description, seconds));
         }
-        return s.toString();
+        return sTalkBackBuilder.toString();
+    }
+
+    private static String getQuantityString(Resources r, @PluralsRes int resId, int quantity) {
+        return r.getQuantityString(resId, quantity, quantity);
     }
 
     public void setVirtualButtonEnabled(boolean enabled) {

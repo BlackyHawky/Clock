@@ -14,16 +14,16 @@
      limitations under the License.
 -->
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/header"
-    android:layout_height="wrap_content"
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:minHeight="32dip"
-    android:layout_marginTop="24dip"
-    android:layout_marginBottom="8dip"
-    android:paddingStart="20dip"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="24dp"
     android:gravity="start"
+    android:minHeight="32dp"
+    android:paddingStart="20dp"
+    android:text="@string/selected_cities_label"
     android:textAlignment="viewStart"
     android:textColor="@color/clock_white"
-    android:textSize="20sp"
-    android:text="@string/selected_cities_label" />
+    android:textSize="20sp" />
