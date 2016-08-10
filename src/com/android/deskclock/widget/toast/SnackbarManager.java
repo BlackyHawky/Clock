@@ -21,7 +21,7 @@ import android.support.design.widget.Snackbar;
 import java.lang.ref.WeakReference;
 
 /**
- * Manages visibility of Snackbar and allow preemptively dismiss current Snackbar on screen.
+ * Manages visibility of Snackbar and allow preemptive dismiss of current displayed Snackbar.
  */
 public final class SnackbarManager {
 
@@ -35,8 +35,9 @@ public final class SnackbarManager {
     }
 
     public static void dismiss() {
-        if (sSnackbar != null && sSnackbar.get() != null) {
-            sSnackbar.get().dismiss();
+        final Snackbar snackbar = sSnackbar == null ? null : sSnackbar.get();
+        if (snackbar != null) {
+            snackbar.dismiss();
             sSnackbar = null;
         }
     }

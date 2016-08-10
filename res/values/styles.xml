@@ -16,34 +16,26 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="clock">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-    </style>
-
-    <style name="BaseActivityTheme" parent="Theme.AppCompat">
+    <style name="BaseActivityTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@color/default_background</item>
-
-        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
-        <item name="colorAccent">@color/color_accent</item>
-        <item name="colorPrimaryDark">@color/status_bar</item>
-        <item name="colorControlActivated">@color/white</item>
-        <item name="colorControlNormal">@color/white</item>
-    </style>
-
-    <style name="TranslucentDecorActivityTheme" parent="BaseActivityTheme">
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
 
-        <!-- Attributes from support.v7.appcompat -->
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorPrimaryDark">@color/status_bar</item>
+        <item name="imageButtonStyle">@style/ImageButtonStyle</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <!-- Attributes from support.v7.appcompat -->
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog">
         <!-- Attributes from support.v7.appcompat -->
         <item name="colorAccent">@color/color_accent</item>
     </style>
@@ -53,38 +45,46 @@
         <item name="colorControlActivated">?attr/colorAccent</item>
     </style>
 
-    <style name="TimeLabelTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize" tools:ignore="SpUsage">60dp</item>
-    </style>
-
-    <style name="AmPmTextAppearance" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
     <style name="DeskClockTabBaseStyle" parent="Widget.AppCompat.ActionBar.TabView">
         <item name="android:paddingLeft">@dimen/actionbar_tab_padding</item>
         <item name="android:paddingRight">@dimen/actionbar_tab_padding</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="SettingsTheme" parent="TranslucentDecorActivityTheme">
+    <style name="SettingsTheme" parent="BaseActivityTheme">
+        <item name="android:alertDialogTheme">@style/SettingsAlertDialogTheme</item>
         <item name="android:detailsElementBackground">@null</item>
+
         <!-- Attributes from support.v7.appcompat -->
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
+        <item name="colorControlActivated">?attr/colorAccent</item>
+        <item name="preferenceTheme">@style/SettingsPreferenceTheme</item>
         <item name="windowActionBar">true</item>
         <item name="windowNoTitle">false</item>
     </style>
 
-    <style name="SettingsActionBarStyle" parent="@style/Widget.AppCompat.Toolbar">
+    <style name="SettingsActionBarStyle" parent="Widget.AppCompat.Toolbar">
         <item name="android:background">@null</item>
 
         <!-- Attributes from support.v7.appcompat -->
         <item name="displayOptions">showTitle|homeAsUp</item>
     </style>
 
-    <style name="CitiesTheme" parent="TranslucentDecorActivityTheme">
+    <style name="SettingsAlertDialogTheme" parent="android:Theme.Holo.Dialog.MinWidth">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <style name="SettingsPreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
+        <!-- Attributes from support.v7.preference -->
+        <item name="preferenceFragmentStyle">@style/SettingsPreferenceFragmentStyle</item>
+    </style>
+
+    <style name="SettingsPreferenceFragmentStyle" parent="PreferenceFragment.Material">
+        <item name="android:divider">@color/hairline</item>
+        <item name="android:dividerHeight">@dimen/hairline_height</item>
+    </style>
+
+    <style name="CitiesTheme" parent="BaseActivityTheme">
         <item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_preview</item>
         <item name="android:fastScrollTextColor">@color/white</item>
@@ -103,11 +103,11 @@
         <item name="displayOptions">homeAsUp</item>
     </style>
 
-    <style name="AlarmAlertFullScreenTheme" parent="TranslucentDecorActivityTheme" />
+    <style name="AlarmAlertFullScreenTheme" parent="BaseActivityTheme" />
 
-    <style name="DeskClockTheme" parent="@style/TranslucentDecorActivityTheme" />
+    <style name="DeskClockTheme" parent="BaseActivityTheme" />
 
-    <style name="ExpiredTimersActivityTheme" parent="TranslucentDecorActivityTheme" />
+    <style name="ExpiredTimersActivityTheme" parent="BaseActivityTheme" />
 
     <style name="ScreensaverActivityTheme" parent="Theme.AppCompat.NoActionBar" />
 
@@ -115,45 +115,30 @@
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
     </style>
 
-    <style name="RoundTouchButton">
-        <item name="android:gravity">center</item>
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@null</item>
-    </style>
-
     <style name="alarm_list_left_column">
         <item name="android:layout_width">68dip</item>
         <item name="android:layout_height">68dip</item>
     </style>
 
-    <style name="small_bold">
-        <item name="android:textSize">@dimen/small_font_size</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="small_thin">
-        <item name="android:textSize">@dimen/small_font_size</item>
-        <item name="android:fontFamily">sans-serif-thin</item>
-    </style>
-
     <style name="no_alarms">
         <item name="android:textSize">@dimen/no_alarm_font_size</item>
-        <item name="android:textColor">@color/white_69p</item>
-    </style>
-
-    <style name="small_light">
-        <item name="android:textSize">@dimen/small_font_size</item>
-        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textColor">@color/white_63p</item>
     </style>
 
     <style name="timer_setup_digit">
-        <item name="android:textSize">@dimen/timer_setup_font_size</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:includeFontPadding">false</item>
         <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/clock_white</item>
+        <item name="android:textSize">@dimen/timer_setup_font_size</item>
     </style>
 
-    <style name="timer_setup_label">
-        <item name="android:textSize">@dimen/timer_setup_label_size</item>
+    <style name="timer_setup_label" parent="label">
+        <item name="android:ellipsize">none</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/clock_white</item>
     </style>
 
     <style name="medium_light">
@@ -162,11 +147,10 @@
     </style>
 
     <style name="widget_medium_thin">
-        <item name="android:textSize">@dimen/widget_medium_font_size</item>
         <item name="android:fontFamily">sans-serif-thin</item>
-        <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
-        <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
-        <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
+        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/widget_shadow_color</item>
+        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 
     <style name="label">
@@ -178,10 +162,9 @@
     </style>
 
     <style name="widget_label" parent="label">
-        <item name="android:textSize">@dimen/widget_label_font_size</item>
-        <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
-        <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
-        <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
+        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/widget_shadow_color</item>
+        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 
     <style name="header">
@@ -204,10 +187,9 @@
     </style>
 
     <style name="widget_big_thin" parent="big_thin">
-        <item name="android:textSize">@dimen/widget_big_font_size</item>
-        <item name="android:shadowRadius">@dimen/digital_widget_shadow_radius</item>
-        <item name="android:shadowColor">@color/digital_widget_shadow_color</item>
-        <item name="android:shadowDy">@dimen/digital_widget_shadow_dy</item>
+        <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
+        <item name="android:shadowColor">@color/widget_shadow_color</item>
+        <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 
     <style name="alarm_label">
@@ -222,31 +204,7 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="body">
-        <item name="android:textSize">@dimen/body_font_size</item>
-    </style>
-
-    <style name="undo_toast" parent="body">
-        <item name="android:textAllCaps">true</item>
-        <item name="android:textColor">@color/color_accent</item>
-    </style>
-
-    <style name="body_not_caps" parent="body">
-        <item name="android:textAllCaps">false</item>
-    </style>
-
-    <style name="body_bold">
-        <item name="android:textSize">@dimen/body_font_size</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="labelEditTextStyle">
-        <item name="android:textCursorDrawable">@null</item>
-        <item name="android:inputType">textCapSentences</item>
-        <item name="android:selectAllOnFocus">true</item>
-    </style>
-
-    <style name="dialpad">
+    <style name="dialpad" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:textSize">@dimen/dialpad_font_size</item>
         <item name="android:fontFamily">sans-serif-thin</item>
     </style>
@@ -259,7 +217,7 @@
     <style name="PrimaryLabelTextAppearance" parent="PrimaryLabelTextParentAppearance" />
 
     <style name="SecondaryLabelTextParentAppearance">
-        <item name="android:textColor">@color/white_69p</item>
+        <item name="android:textColor">@color/white_63p</item>
         <item name="android:textSize">@dimen/label_text_size</item>
     </style>
 
@@ -276,12 +234,12 @@
     </style>
 
     <!-- Notification content styles -->
-    <style name="TextAppearance.StatusBar.EventContent">
+    <style name="TextAppearance.StatusBar.EventContent" tools:ignore="PrivateResource">
         <item name="android:textSize">@dimen/notification_text_size</item>
         <item name="android:textColor">@color/notif_text_grey</item>
     </style>
 
-    <style name="TextAppearance.StatusBar.EventContent.Title">
+    <style name="TextAppearance.StatusBar.EventContent.Title" tools:ignore="PrivateResource">
         <item name="android:textSize">@dimen/notification_title_text_size</item>
         <item name="android:textColor">@color/white</item>
     </style>

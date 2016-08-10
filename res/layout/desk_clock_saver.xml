@@ -15,12 +15,12 @@
 -->
 
 <!-- Special "screen saver mode" with just the time/date on black. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:dc="http://schemas.android.com/apk/res-auto"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/saver_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:orientation="vertical">
+    android:background="@color/black">
 
     <!--  Extra layout to let the clock float in the window -->
     <LinearLayout
@@ -33,6 +33,13 @@
         android:layout_marginTop="@dimen/time_margin_top"
         android:orientation="vertical">
 
+        <com.android.deskclock.AnalogClock
+            android:id="@+id/analog_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/bottom_text_spacing_analog" />
+
         <TextClock
             android:id="@+id/digital_clock"
             style="@style/big_thin"
@@ -41,55 +48,13 @@
             android:layout_gravity="center"
             android:layout_marginBottom="@dimen/bottom_text_spacing_digital"
             android:ellipsize="none"
-            android:format12Hour="@string/main_clock_12_hours_format"
-            android:format24Hour="@string/clock_24_hours_format"
             android:gravity="center"
             android:singleLine="true"
             android:textColor="@color/clock_white"
             android:textSize="@dimen/main_clock_font_size" />
 
-        <com.android.deskclock.AnalogClock
-            android:id="@+id/analog_clock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/bottom_text_spacing_analog"
-            android:dial="@drawable/clock_analog_dial_mipmap"
-            android:hand_hour="@drawable/clock_analog_hour_mipmap"
-            android:hand_minute="@drawable/clock_analog_minute_mipmap"
-            dc:jewelColor="@color/clock_white"
-            dc:jewelOffset="23dp"
-            dc:jewelRadius="5dp" />
+        <include layout="@layout/date_and_next_alarm_time" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/date"
-                style="@style/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textColor="@color/clock_white"
-                android:textSize="@dimen/bottom_text_size"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/nextAlarm"
-                style="@style/label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dip"
-                android:layout_marginStart="8dip"
-                android:drawablePadding="2dip"
-                android:drawableStart="@drawable/ic_alarm_small"
-                android:gravity="center"
-                android:textColor="@color/clock_gray"
-                android:textSize="@dimen/bottom_text_size"
-                android:visibility="gone" />
-        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+</FrameLayout>

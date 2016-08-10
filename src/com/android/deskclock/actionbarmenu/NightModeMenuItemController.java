@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +23,12 @@ import android.view.MenuItem;
 import com.android.deskclock.R;
 import com.android.deskclock.ScreensaverActivity;
 
+import static android.view.Menu.NONE;
+
 /**
  * {@link MenuItemController} for controlling night mode display.
  */
-public final class NightModeMenuItemController extends AbstractMenuItemController {
+public final class NightModeMenuItemController implements MenuItemController {
 
     private static final int NIGHT_MODE_MENU_RES_ID = R.id.menu_item_night_mode;
 
@@ -42,13 +44,19 @@ public final class NightModeMenuItemController extends AbstractMenuItemControlle
     }
 
     @Override
-    public void showMenuItem(Menu menu) {
-        menu.findItem(NIGHT_MODE_MENU_RES_ID).setVisible(true);
+    public void onCreateOptionsItem(Menu menu) {
+        menu.add(NONE, NIGHT_MODE_MENU_RES_ID, NONE, R.string.menu_item_night_mode)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
     }
 
     @Override
-    public boolean handleMenuItemClick(MenuItem item) {
-        mContext.startActivity(new Intent(mContext, ScreensaverActivity.class));
+    public void onPrepareOptionsItem(MenuItem item) {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        mContext.startActivity(new Intent(mContext, ScreensaverActivity.class)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         return true;
     }
 }

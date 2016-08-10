@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
@@ -24,7 +24,7 @@ import android.view.MenuItem;
  * {@link MenuItemController} for handling navigation up button in actionbar. It is a special
  * menu item because it's not inflated through menu.xml, and has its own predefined id.
  */
-public final class NavUpMenuItemController extends AbstractMenuItemController {
+public final class NavUpMenuItemController implements MenuItemController {
 
     private final Activity mActivity;
 
@@ -38,13 +38,16 @@ public final class NavUpMenuItemController extends AbstractMenuItemController {
     }
 
     @Override
-    public void showMenuItem(Menu menu) {
-        // Intentionally left empty, because back button in actionbar is not shown by inflating
-        // menu layouts. It's directly controlled by actionbar.
+    public void onCreateOptionsItem(Menu menu) {
+        // "Home" option is automatically created by the Toolbar.
     }
 
     @Override
-    public boolean handleMenuItemClick(MenuItem item) {
+    public void onPrepareOptionsItem(MenuItem item) {
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
         mActivity.finish();
         return true;
     }

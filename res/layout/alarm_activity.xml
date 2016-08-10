@@ -17,7 +17,7 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ex="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -27,8 +27,8 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        ex:rowCount="3"
-        ex:columnCount="3">
+        app:rowCount="3"
+        app:columnCount="3">
 
         <TextView
             android:id="@+id/title"
@@ -39,26 +39,24 @@
             android:singleLine="true"
             android:textAppearance="@style/header_not_caps"
             android:textColor="@android:color/white"
-            ex:layout_row="0"
-            ex:layout_column="0"
-            ex:layout_columnSpan="3"
-            ex:layout_gravity="fill_horizontal" />
+            app:layout_row="0"
+            app:layout_column="0"
+            app:layout_columnSpan="3"
+            app:layout_gravity="fill_horizontal" />
 
         <TextClock
             android:id="@+id/digital_clock"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:format12Hour="@string/main_clock_12_hours_format"
-            android:format24Hour="@string/clock_24_hours_format"
             android:gravity="center"
             android:includeFontPadding="false"
             android:singleLine="true"
             android:textAppearance="@style/big_thin"
             android:textColor="@android:color/white"
-            ex:layout_row="1"
-            ex:layout_column="0"
-            ex:layout_columnSpan="3"
-            ex:layout_gravity="fill_horizontal" />
+            app:layout_row="1"
+            app:layout_column="0"
+            app:layout_columnSpan="3"
+            app:layout_gravity="fill_horizontal" />
 
         <com.android.deskclock.widget.CircleView
             android:id="@+id/pulse"
@@ -66,12 +64,12 @@
             android:layout_height="0dip"
             android:gravity="center"
             android:layerType="hardware"
-            ex:layout_row="2"
-            ex:layout_column="0"
-            ex:layout_columnSpan="3"
-            ex:layout_gravity="fill"
-            ex:fillColor="@android:color/white"
-            ex:radius="@dimen/alarm_lockscreen_pulse_radius" />
+            app:layout_row="2"
+            app:layout_column="0"
+            app:layout_columnSpan="3"
+            app:layout_gravity="fill"
+            app:fillColor="@android:color/white"
+            app:radius="@dimen/alarm_lockscreen_pulse_radius" />
 
         <ImageView
             android:id="@+id/snooze"
@@ -80,10 +78,10 @@
             android:background="@drawable/bg_circle_accent"
             android:contentDescription="@string/alarm_alert_snooze_text"
             android:src="@drawable/ic_snooze_white_80dp"
-            ex:layout_row="2"
-            ex:layout_column="0"
-            ex:layout_columnWeight="1"
-            ex:layout_gravity="center" />
+            app:layout_row="2"
+            app:layout_column="0"
+            app:layout_columnWeight="1"
+            app:layout_gravity="center" />
 
         <ImageView
             android:id="@+id/dismiss"
@@ -92,10 +90,10 @@
             android:background="@drawable/bg_circle_white"
             android:contentDescription="@string/alarm_alert_dismiss_text"
             android:src="@drawable/ic_alarm_off_white_80dp"
-            ex:layout_row="2"
-            ex:layout_column="2"
-            ex:layout_columnWeight="1"
-            ex:layout_gravity="center" />
+            app:layout_row="2"
+            app:layout_column="2"
+            app:layout_columnWeight="1"
+            app:layout_gravity="center" />
 
         <ImageView
             android:id="@+id/alarm"
@@ -107,11 +105,11 @@
             android:paddingLeft="@dimen/alarm_lockscreen_alarm_horizontal_padding"
             android:paddingRight="@dimen/alarm_lockscreen_alarm_horizontal_padding"
             android:paddingTop="@dimen/alarm_lockscreen_alarm_vertical_padding"
-            android:src="@drawable/ic_fab_alarm"
-            ex:layout_row="2"
-            ex:layout_column="1"
-            ex:layout_columnWeight="1"
-            ex:layout_gravity="center" />
+            app:srcCompat="@drawable/ic_fab_alarm"
+            app:layout_row="2"
+            app:layout_column="1"
+            app:layout_columnWeight="1"
+            app:layout_gravity="center" />
 
         <TextView
             android:id="@+id/hint"
@@ -121,10 +119,10 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/bottom_text_size"
             android:visibility="gone"
-            ex:layout_row="2"
-            ex:layout_column="0"
-            ex:layout_columnSpan="3"
-            ex:layout_gravity="bottom|center_horizontal" />
+            app:layout_row="2"
+            app:layout_column="0"
+            app:layout_columnSpan="3"
+            app:layout_gravity="bottom|center_horizontal" />
 
     </android.support.v7.widget.GridLayout>
 

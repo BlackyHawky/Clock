@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,5 +17,6 @@
 package com.android.deskclock;
 
 public final class BuildConfig {
-  public static final String APPLICATION_ID = "com.android.deskclock";
+    public static final boolean DEBUG = false;
+    public static final String APPLICATION_ID = "com.android.deskclock";
 }

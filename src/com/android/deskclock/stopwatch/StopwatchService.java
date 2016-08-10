@@ -52,19 +52,18 @@ public final class StopwatchService extends Service {
                 Events.sendStopwatchEvent(R.string.action_pause, R.string.label_notification);
                 break;
             }
+            case HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH: {
+                DataModel.getDataModel().resetStopwatch();
+                Events.sendStopwatchEvent(R.string.action_reset, R.string.label_notification);
+                break;
+            }
             case HandleDeskClockApiCalls.ACTION_LAP_STOPWATCH: {
                 DataModel.getDataModel().addLap();
                 Events.sendStopwatchEvent(R.string.action_lap, R.string.label_notification);
                 break;
             }
-            case HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH: {
-                DataModel.getDataModel().clearLaps();
-                DataModel.getDataModel().resetStopwatch();
-                Events.sendStopwatchEvent(R.string.action_reset, R.string.label_notification);
-                break;
-            }
         }
 
-        return Service.START_NOT_STICKY;
+        return START_NOT_STICKY;
     }
 }

@@ -16,25 +16,6 @@
   -->
 <resources>
 
-    <declare-styleable name="AnalogClock">
-        <attr name="jewelRadius" format="dimension"/>
-        <attr name="jewelOffset" format="dimension"/>
-        <attr name="jewelColor" format="color"/>
-    </declare-styleable>
-
-    <declare-styleable name="TextTime">
-        <!-- Specifies the formatting pattern used to show the time and/or date
-             in 12-hour mode. Please refer to {@link android.text.format.DateFormat}
-             for a complete description of accepted formatting patterns.
-             The default pattern is "h:mm a". -->
-        <attr name="format12Hour" format="string"/>
-        <!-- Specifies the formatting pattern used to show the time and/or date
-             in 24-hour mode. Please refer to {@link android.text.format.DateFormat}
-             for a complete description of accepted formatting patterns.
-             The default pattern is "H:mm". -->
-        <attr name="format24Hour" format="string"/>
-   </declare-styleable>
-
     <declare-styleable name="CircleView">
         <!-- Sets the center/radius of the circle relative to the view's bounds. -->
         <attr name="android:gravity" />

@@ -25,7 +25,7 @@
             android:defaultValue="@string/default_clock_style"
             android:dialogTitle="@string/clock_style" />
 
-        <SwitchPreference
+        <SwitchPreferenceCompat
             android:key="automatic_home_clock"
             android:title="@string/automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"
@@ -53,19 +53,20 @@
             android:defaultValue="10"
             android:dialogTitle="@string/auto_silence_title" />
 
-       <com.android.deskclock.settings.SnoozeLengthDialog
+        <com.android.deskclock.settings.SnoozeLengthDialogPreference
             android:key="snooze_duration"
             android:title="@string/snooze_duration_title"
-            android:defaultValue="10"/>
+            android:dialogLayout="@layout/snooze_length_picker" />
 
-        <Preference
+        <com.android.deskclock.settings.AlarmVolumePreference
             android:key="volume_setting"
-            android:title="@string/alarm_volume_title" />
+            android:title="@string/alarm_volume_title"
+            android:layout="@layout/alarm_volume_preference" />
 
-        <com.android.deskclock.settings.CrescendoLengthDialog
+        <com.android.deskclock.settings.CrescendoLengthDialogPreference
             android:key="alarm_crescendo_duration"
             android:title="@string/crescendo_duration_title"
-            android:defaultValue="0"/>
+            android:dialogLayout="@layout/crescendo_length_picker" />
 
         <ListPreference
             android:key="volume_button_setting"
@@ -85,15 +86,19 @@
 
     <PreferenceCategory
         android:title="@string/timer_settings">
-        <com.android.deskclock.settings.TimerRingtonePreference
+        <Preference
             android:key="timer_ringtone"
-            android:title="@string/timer_ringtone_title"
-            android:ringtoneType="alarm" />
+            android:title="@string/timer_ringtone_title" />
 
-        <com.android.deskclock.settings.CrescendoLengthDialog
+        <com.android.deskclock.settings.CrescendoLengthDialogPreference
             android:key="timer_crescendo_duration"
             android:title="@string/crescendo_duration_title"
-            android:defaultValue="0"/>
+            android:dialogLayout="@layout/crescendo_length_picker" />
+
+        <SwitchPreferenceCompat
+            android:key="timer_vibrate"
+            android:title="@string/timer_vibrate_title"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
 </PreferenceScreen>

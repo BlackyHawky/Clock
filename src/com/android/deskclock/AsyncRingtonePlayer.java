@@ -1,5 +1,6 @@
 package com.android.deskclock;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
@@ -12,7 +13,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
-import android.preference.PreferenceManager;
+import android.os.SystemClock;
 import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
 
@@ -43,7 +44,7 @@ import java.lang.reflect.Method;
  */
 public final class AsyncRingtonePlayer {
 
-    private static final String TAG = "AsyncRingtonePlayer";
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AsyncRingtonePlayer");
 
     private static final String DEFAULT_CRESCENDO_LENGTH = "0";
 
@@ -70,7 +71,7 @@ public final class AsyncRingtonePlayer {
 
     /**
      * @param crescendoPrefKey the key to the user preference that defines the crescendo behavior
-     *                         associated with this ringtone player
+     *                         associated with this ringtone player, or null to ignore crescendo
      */
     public AsyncRingtonePlayer(Context context, String crescendoPrefKey) {
         mContext = context;
@@ -79,19 +80,19 @@ public final class AsyncRingtonePlayer {
 
     /** Plays the ringtone. */
     public void play(Uri ringtoneUri) {
-        LogUtils.d(TAG, "Posting play.");
+        LOGGER.d("Posting play.");
         postMessage(EVENT_PLAY, ringtoneUri, 0);
     }
 
     /** Stops playing the ringtone. */
     public void stop() {
-        LogUtils.d(TAG, "Posting stop.");
+        LOGGER.d("Posting stop.");
         postMessage(EVENT_STOP, null, 0);
     }
 
     /** Schedules an adjustment of the playback volume 50ms in the future. */
     private void scheduleVolumeAdjustment() {
-        LogUtils.v(TAG, "Adjusting volume.");
+        LOGGER.v("Adjusting volume.");
 
         // Ensure we never have more than one volume adjustment queued.
         mHandler.removeMessages(EVENT_VOLUME);
@@ -127,6 +128,7 @@ public final class AsyncRingtonePlayer {
     /**
      * Creates a new ringtone Handler running in its own thread.
      */
+    @SuppressLint("HandlerLeak")
     private Handler getNewHandler() {
         final HandlerThread thread = new HandlerThread("ringtone-player");
         thread.start();
@@ -167,16 +169,14 @@ public final class AsyncRingtonePlayer {
      * @return Uri of the ringtone to play when the user is in a telephone call
      */
     private static Uri getInCallRingtoneUri(Context context) {
-        final String packageName = context.getPackageName();
-        return Uri.parse("android.resource://" + packageName + "/" + R.raw.alarm_expire);
+        return Utils.getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**
      * @return Uri of the ringtone to play when the chosen ringtone fails to play
      */
     private static Uri getFallbackRingtoneUri(Context context) {
-        final String packageName = context.getPackageName();
-        return Uri.parse("android.resource://" + packageName + "/" + R.raw.alarm_expire);
+        return Utils.getResourceUri(context, R.raw.alarm_expire);
     }
 
     /**
@@ -184,7 +184,7 @@ public final class AsyncRingtonePlayer {
      */
     private void checkAsyncRingtonePlayerThread() {
         if (Looper.myLooper() != mHandler.getLooper()) {
-            LogUtils.e(TAG, "Must be on the AsyncRingtonePlayer thread!",
+            LOGGER.e("Must be on the AsyncRingtonePlayer thread!",
                     new IllegalStateException());
         }
     }
@@ -206,17 +206,18 @@ public final class AsyncRingtonePlayer {
         // Convert the target gain (in decibels) into the corresponding volume scalar.
         final float volume = (float) Math.pow(10f, gain/20f);
 
-        LogUtils.v(TAG, "Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)",
+        LOGGER.v("Ringtone crescendo %,.2f%% complete (scalar: %f, volume: %f dB)",
                 fractionComplete * 100, volume, gain);
 
         return volume;
     }
 
     /**
-     * @return {@code true} iff the crescendo duration is more than 0 seconds
+     * Returns true if the crescendo preference was given and the duration is more than
+     * 0 seconds.
      */
     private boolean isCrescendoEnabled(Context context) {
-        return getCrescendoDurationMillis(context) > 0;
+        return mCrescendoPrefKey != null && getCrescendoDurationMillis(context) > 0;
     }
 
     /**
@@ -290,7 +291,7 @@ public final class AsyncRingtonePlayer {
         public boolean play(final Context context, Uri ringtoneUri) {
             checkAsyncRingtonePlayerThread();
 
-            LogUtils.i(TAG, "Play ringtone via android.media.MediaPlayer.");
+            LOGGER.i("Play ringtone via android.media.MediaPlayer.");
 
             if (mAudioManager == null) {
                 mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -300,14 +301,14 @@ public final class AsyncRingtonePlayer {
             // Fall back to the default alarm if the database does not have an alarm stored.
             if (alarmNoise == null) {
                 alarmNoise = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                LogUtils.v("Using default alarm: " + alarmNoise.toString());
+                LOGGER.v("Using default alarm: " + alarmNoise.toString());
             }
 
             mMediaPlayer = new MediaPlayer();
             mMediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                 @Override
                 public boolean onError(MediaPlayer mp, int what, int extra) {
-                    LogUtils.e("Error occurred while playing audio. Stopping AlarmKlaxon.");
+                    LOGGER.e("Error occurred while playing audio. Stopping AlarmKlaxon.");
                     stop(context);
                     return true;
                 }
@@ -318,7 +319,7 @@ public final class AsyncRingtonePlayer {
                 // Check if we are in a call. If we are, use the in-call alarm resource at a
                 // low volume to not disrupt the call.
                 if (isInTelephoneCall(context)) {
-                    LogUtils.v("Using the in-call alarm");
+                    LOGGER.v("Using the in-call alarm");
                     mMediaPlayer.setVolume(IN_CALL_VOLUME, IN_CALL_VOLUME);
                     alarmNoise = getInCallRingtoneUri(context);
                 } else if (isCrescendoEnabled(context)) {
@@ -326,7 +327,7 @@ public final class AsyncRingtonePlayer {
 
                     // Compute the time at which the crescendo will stop.
                     mCrescendoDuration = getCrescendoDurationMillis(context);
-                    mCrescendoStopTime = System.currentTimeMillis() + mCrescendoDuration;
+                    mCrescendoStopTime = now() + mCrescendoDuration;
                     scheduleVolumeAdjustment = true;
                 }
 
@@ -338,7 +339,7 @@ public final class AsyncRingtonePlayer {
                 startAlarm(mMediaPlayer);
                 scheduleVolumeAdjustment = true;
             } catch (Throwable t) {
-                LogUtils.e("Use the fallback ringtone, original was " + alarmNoise, t);
+                LOGGER.e("Use the fallback ringtone, original was " + alarmNoise, t);
                 // The alarmNoise may be on the sd card which could be busy right now.
                 // Use the fallback ringtone.
                 try {
@@ -348,7 +349,7 @@ public final class AsyncRingtonePlayer {
                     startAlarm(mMediaPlayer);
                 } catch (Throwable t2) {
                     // At this point we just don't play anything.
-                    LogUtils.e("Failed to play fallback ringtone", t2);
+                    LOGGER.e("Failed to play fallback ringtone", t2);
                 }
             }
 
@@ -384,7 +385,7 @@ public final class AsyncRingtonePlayer {
         public void stop(Context context) {
             checkAsyncRingtonePlayerThread();
 
-            LogUtils.i(TAG, "Stop ringtone via android.media.MediaPlayer.");
+            LOGGER.i("Stop ringtone via android.media.MediaPlayer.");
 
             mCrescendoDuration = 0;
             mCrescendoStopTime = 0;
@@ -416,7 +417,7 @@ public final class AsyncRingtonePlayer {
             }
 
             // If the crescendo is complete set the volume to the maximum; we're done.
-            final long currentTime = System.currentTimeMillis();
+            final long currentTime = now();
             if (currentTime > mCrescendoStopTime) {
                 mCrescendoDuration = 0;
                 mCrescendoStopTime = 0;
@@ -427,7 +428,7 @@ public final class AsyncRingtonePlayer {
             // The current volume of the crescendo is the percentage of the crescendo completed.
             final float volume = computeVolume(currentTime, mCrescendoStopTime, mCrescendoDuration);
             mMediaPlayer.setVolume(volume, volume);
-            LogUtils.i(TAG, "MediaPlayer volume set to " + volume);
+            LOGGER.i("MediaPlayer volume set to " + volume);
 
             // Schedule the next volume bump in the crescendo.
             return true;
@@ -461,13 +462,13 @@ public final class AsyncRingtonePlayer {
             try {
                 mSetVolumeMethod = Ringtone.class.getDeclaredMethod("setVolume", float.class);
             } catch (NoSuchMethodException nsme) {
-                LogUtils.e(TAG, "Unable to locate method: Ringtone.setVolume(float).", nsme);
+                LOGGER.e("Unable to locate method: Ringtone.setVolume(float).", nsme);
             }
 
             try {
                 mSetLoopingMethod = Ringtone.class.getDeclaredMethod("setLooping", boolean.class);
             } catch (NoSuchMethodException nsme) {
-                LogUtils.e(TAG, "Unable to locate method: Ringtone.setLooping(boolean).", nsme);
+                LOGGER.e("Unable to locate method: Ringtone.setLooping(boolean).", nsme);
             }
         }
 
@@ -478,7 +479,7 @@ public final class AsyncRingtonePlayer {
         public boolean play(Context context, Uri ringtoneUri) {
             checkAsyncRingtonePlayerThread();
 
-            LogUtils.i(TAG, "Play ringtone via android.media.Ringtone.");
+            LOGGER.i("Play ringtone via android.media.Ringtone.");
 
             if (mAudioManager == null) {
                 mAudioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
@@ -502,7 +503,7 @@ public final class AsyncRingtonePlayer {
             try {
                 mSetLoopingMethod.invoke(mRingtone, true);
             } catch (Exception e) {
-                LogUtils.e(TAG, "Unable to turn looping on for android.media.Ringtone", e);
+                LOGGER.e("Unable to turn looping on for android.media.Ringtone", e);
 
                 // Fall back to the default ringtone if looping could not be enabled.
                 // (Default alarm ringtone most likely has looping tags set within the .ogg file)
@@ -511,7 +512,7 @@ public final class AsyncRingtonePlayer {
 
             // if we don't have a ringtone at this point there isn't much recourse
             if (mRingtone == null) {
-                LogUtils.i(TAG, "Unable to locate alarm ringtone, using internal fallback " +
+                LOGGER.i("Unable to locate alarm ringtone, using internal fallback " +
                         "ringtone.");
                 mRingtone = RingtoneManager.getRingtone(context, getFallbackRingtoneUri(context));
             }
@@ -526,14 +527,14 @@ public final class AsyncRingtonePlayer {
             // Attempt to adjust the ringtone volume if the user is in a telephone call.
             boolean scheduleVolumeAdjustment = false;
             if (inTelephoneCall) {
-                LogUtils.v("Using the in-call alarm");
+                LOGGER.v("Using the in-call alarm");
                 setRingtoneVolume(IN_CALL_VOLUME);
             } else if (isCrescendoEnabled(context)) {
                 setRingtoneVolume(0);
 
                 // Compute the time at which the crescendo will stop.
                 mCrescendoDuration = getCrescendoDurationMillis(context);
-                mCrescendoStopTime = System.currentTimeMillis() + mCrescendoDuration;
+                mCrescendoStopTime = now() + mCrescendoDuration;
                 scheduleVolumeAdjustment = true;
             }
 
@@ -554,7 +555,7 @@ public final class AsyncRingtonePlayer {
             try {
                 mSetVolumeMethod.invoke(mRingtone, volume);
             } catch (Exception e) {
-                LogUtils.e(TAG, "Unable to set volume for android.media.Ringtone", e);
+                LOGGER.e("Unable to set volume for android.media.Ringtone", e);
             }
         }
 
@@ -565,13 +566,13 @@ public final class AsyncRingtonePlayer {
         public void stop(Context context) {
             checkAsyncRingtonePlayerThread();
 
-            LogUtils.i(TAG, "Stop ringtone via android.media.Ringtone.");
+            LOGGER.i("Stop ringtone via android.media.Ringtone.");
 
             mCrescendoDuration = 0;
             mCrescendoStopTime = 0;
 
             if (mRingtone != null && mRingtone.isPlaying()) {
-                LogUtils.d(TAG, "Ringtone.stop() invoked.");
+                LOGGER.d("Ringtone.stop() invoked.");
                 mRingtone.stop();
             }
 
@@ -597,7 +598,7 @@ public final class AsyncRingtonePlayer {
             }
 
             // If the crescendo is complete set the volume to the maximum; we're done.
-            final long currentTime = System.currentTimeMillis();
+            final long currentTime = now();
             if (currentTime > mCrescendoStopTime) {
                 mCrescendoDuration = 0;
                 mCrescendoStopTime = 0;
@@ -611,6 +612,13 @@ public final class AsyncRingtonePlayer {
             // Schedule the next volume bump in the crescendo.
             return true;
         }
+    }
+
+    /**
+     * @return the current elapsed time which is immune to device time changes
+     */
+    private static long now() {
+        return SystemClock.elapsedRealtime();
     }
 }
 

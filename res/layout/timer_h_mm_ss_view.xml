@@ -14,90 +14,60 @@
      limitations under the License.
 -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/hours_tens"
         style="@style/timer_setup_digit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:singleLine="true"
-        android:textColor="@color/clock_white"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/hours_ones"
         style="@style/timer_setup_digit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:singleLine="true"
-        android:textColor="@color/clock_white"/>
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/hours_label"
-        style="@style/label"
+        style="@style/timer_setup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:contentDescription="@string/hours_label_description"
-        android:ellipsize="none"
-        android:singleLine="true"
-        android:text="@string/hours_label"
-        android:textColor="@color/clock_white"/>
+        android:text="@string/hours_label" />
 
     <TextView
         android:id="@+id/minutes_tens"
         style="@style/timer_setup_digit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:singleLine="true"
-        android:textColor="@color/clock_white"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/minutes_ones"
         style="@style/timer_setup_digit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ellipsize="none"
-        android:singleLine="true"
-        android:textColor="@color/clock_white"/>
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/minutes_label"
-        style="@style/label"
+        style="@style/timer_setup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:contentDescription="@string/minutes_label_description"
-        android:ellipsize="none"
-        android:singleLine="true"
-        android:text="@string/minutes_label"
-        android:textColor="@color/clock_white"/>
+        android:text="@string/minutes_label" />
 
     <TextView
         android:id="@+id/seconds"
         style="@style/timer_setup_digit"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:ellipsize="none"
-        android:singleLine="true"
-        android:textColor="@color/clock_white"/>
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/seconds_label"
-        style="@style/label"
+        style="@style/timer_setup_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
         android:contentDescription="@string/seconds_label_description"
-        android:ellipsize="none"
-        android:singleLine="true"
-        android:text="@string/seconds_label"
-        android:textColor="@color/clock_white"/>
+        android:text="@string/seconds_label" />
 
 </merge>

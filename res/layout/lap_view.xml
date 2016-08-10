@@ -16,9 +16,8 @@
 
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/lap_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layoutDirection="ltr"
     android:paddingTop="@dimen/body_font_padding"
     android:paddingBottom="@dimen/body_font_padding"
@@ -29,7 +28,8 @@
         android:id="@+id/lap_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/sw_item_space"
+        android:layout_marginEnd="16dp"
+        android:fontFeatureSettings="tnum"
         android:gravity="start"
         android:textAllCaps="false"
         android:textAppearance="@style/SecondaryLabelTextAppearance" />
@@ -38,7 +38,8 @@
         android:id="@+id/lap_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/sw_item_space"
+        android:layout_marginEnd="16dp"
+        android:fontFeatureSettings="tnum"
         android:gravity="end"
         android:textAllCaps="false"
         android:textAppearance="@style/PrimaryLabelTextAppearance" />
@@ -47,6 +48,7 @@
         android:id="@+id/lap_total"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
+        android:fontFeatureSettings="tnum"
         android:gravity="end"
         android:textAllCaps="false"
         android:textAppearance="@style/PrimaryLabelTextAppearance" />

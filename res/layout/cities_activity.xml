@@ -14,11 +14,20 @@
      limitations under the License.
 -->
 
-<ListView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/cities_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:divider="@null"
-    android:fitsSystemWindows="true"
-    android:theme="@style/ControlAccentThemeOverlay" />
+    android:fitsSystemWindows="true">
+
+    <include layout="@layout/drop_shadow" />
+
+    <ListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/cities_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:theme="@style/ControlAccentThemeOverlay" />
+
+</FrameLayout>
