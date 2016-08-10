@@ -17,12 +17,5 @@
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
 <resources>
-    <bool name="config_requiresScreenSaver">true</bool>
-    <bool name="config_dockAppEnabled">true</bool>
     <bool name="config_rotateAlarmAlert">false</bool>
-    <item type="integer" name="timer_column_count">1</item>
-    <!-- Number of world clocks in a row, for the clock tab. -->
-    <item type="integer" name="world_clocks_per_row">1</item>
-    <!-- Number of world clocks in a row, for the digital appwidget. -->
-    <item type="integer" name="appwidget_world_clocks_per_row">2</item>
 </resources>

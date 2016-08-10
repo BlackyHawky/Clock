@@ -17,10 +17,12 @@
 package com.android.deskclock;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.events.LogEventTracker;
+import com.android.deskclock.uidata.UiDataModel;
 
 public class DeskClockApplication extends Application {
 
@@ -28,8 +30,9 @@ public class DeskClockApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        DataModel.getDataModel().setContext(getApplicationContext());
-
-        Events.addEventTracker(new LogEventTracker(getApplicationContext()));
+        final Context applicationContext = getApplicationContext();
+        DataModel.getDataModel().setContext(applicationContext);
+        UiDataModel.getUiDataModel().setContext(applicationContext);
+        Events.addEventTracker(new LogEventTracker(applicationContext));
     }
 }

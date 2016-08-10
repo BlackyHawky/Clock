@@ -27,10 +27,21 @@
         android:clipToPadding="false"
         android:descendantFocusability="beforeDescendants"
         android:fadingEdgeLength="0dp"
-        android:paddingBottom="@dimen/list_bottom_spacing"
+        android:paddingBottom="@dimen/fab_height"
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" />
 
-    <include layout="@layout/alarm_empty_view" />
+    <TextView
+        android:id="@+id/alarms_empty_view"
+        style="@style/no_alarms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@string/no_alarms"
+        android:gravity="center_horizontal"
+        android:paddingBottom="@dimen/fab_height"
+        android:text="@string/no_alarms"
+        android:textColor="@color/no_alarms"
+        android:visibility="gone" />
 
 </FrameLayout>

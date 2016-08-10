@@ -55,10 +55,15 @@ public class TimerItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        final Timer timer = getTimer();
+        if (timer == null) {
+            return null;
+        }
+
         final TimerItem view = (TimerItem) inflater.inflate(R.layout.timer_item, container, false);
         view.findViewById(R.id.reset_add).setOnClickListener(new ResetAddListener());
         view.findViewById(R.id.timer_label).setOnClickListener(new EditLabelListener());
-        view.update(getTimer());
+        view.update(timer);
 
         return view;
     }

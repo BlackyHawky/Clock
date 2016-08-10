@@ -17,10 +17,10 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="vertical">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -32,26 +32,37 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:padding="0dp"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp">
 
             <android.support.design.widget.TabLayout
                 android:id="@+id/sliding_tabs"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                app:tabGravity="fill"
+                app:tabGravity="center"
                 app:tabIndicatorColor="@android:color/transparent"
-                app:tabMode="fixed" />
+                app:tabMode="fixed"
+                app:tabPaddingEnd="20dp"
+                app:tabPaddingStart="20dp" />
 
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.android.deskclock.widget.RtlViewPager
-        android:id="@+id/desk_clock_pager"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <include layout="@layout/drop_shadow" />
+
+        <com.android.deskclock.widget.RtlViewPager
+            android:id="@+id/desk_clock_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,11 +80,12 @@
 
             <ImageButton
                 android:id="@+id/left_button"
-                android:layout_width="@dimen/design_fab_size_normal"
-                android:layout_height="@dimen/design_fab_size_normal"
+                android:layout_width="@dimen/fab_button_size"
+                android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:scaleType="center" />
+                android:padding="@dimen/fab_button_padding"
+                android:scaleType="centerInside" />
 
         </FrameLayout>
 
@@ -101,11 +113,12 @@
 
             <ImageButton
                 android:id="@+id/right_button"
-                android:layout_width="@dimen/design_fab_size_normal"
-                android:layout_height="@dimen/design_fab_size_normal"
+                android:layout_width="@dimen/fab_button_size"
+                android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
                 android:contentDescription="@null"
-                android:scaleType="center" />
+                android:padding="@dimen/fab_button_padding"
+                android:scaleType="centerInside" />
 
         </FrameLayout>
     </LinearLayout>

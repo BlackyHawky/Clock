@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="ic_lap"
+    android:width="36dp"
+    android:viewportWidth="48"
+    android:height="36dp"
+    android:viewportHeight="48" >
+    <group
+        android:name="ic_refresh_white_48dp_outlines"
+        android:translateX="26"
+        android:translateY="24"
+        android:rotation="-270" >
+        <group
+            android:name="ic_refresh_white_48dp_outlines_pivot"
+            android:translateX="-26"
+            android:translateY="-24" >
+            <group
+                android:name="group_1"
+                android:translateX="23"
+                android:translateY="24" >
+                <path
+                    android:name="path_1"
+                    android:pathData="M 3.0,-17.9921875 c -9.89999389648,0.0 -18.0,8.10000610352 -18.0,18.0 c 0.0,0.0 -0.001953125,0.0 -0.001953125,0.0 c 0.0,0.0 2.00430297852,-0.00273132324219 2.00430297852,-0.00273132324219 c 0.0,0.0 0.00115966796875,0.00117492675781 0.0011596679688,0.00117492675781 c 0.0,0.0 1.99844360352,0.00155639648438 1.99844360352,0.00155639648438 c 0.0,0.0 -0.001953125,0.0 -0.001953125,0.0 c 0.0,-7.69999694824 6.30000305176,-14.0 14.0,-14.0 c 7.69999694824,0.0 14.0,6.30000305176 14.0,14.0 c 0.0,7.69999694824 -6.30000305176,14.0 -14.0,14.0 c -3.16735839844,0.0 -6.05722045898,-1.06898498535 -8.37550354004,-2.80465698242 c 0.00050354003906,-0.00198364257812 4.48883056641,-4.48062133789 4.4888458252,-4.48063659668 c 0.0,0.0 -2.83171081543,-2.82643127441 -2.83169555664,-2.82641601562 c 0.0,0.00002 -11.2804718018,11.2843780518 -11.2804718018,11.284362793 c 0.0,0.0 2.82472229004,2.82685852051 2.82473754883,2.82684326172 c 0.0,0.0 3.94947814941,-3.95066833496 3.94371032715,-3.94970703125 c 3.0442199707,2.48754882813 6.95446777344,3.95021057129 11.2303771973,3.95021057129 c 10.0,0.0 18.0,-8.09999084473 18.0,-18.0 c 0.0,-9.89999389648 -8.10000610352,-18.0 -18.0,-18.0 Z"
+                    android:fillColor="#FFFFFFFF" />
+            </group>
+        </group>
+    </group>
+</vector>

@@ -38,6 +38,7 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.timer.TimerFragment;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,6 +46,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
+import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
+import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 /**
  * This activity is never visible. It processes all public intents defined by {@link AlarmClock}
@@ -76,7 +79,7 @@ public class HandleApiCalls extends Activity {
                     handleSetTimer(intent);
                     break;
                 case AlarmClock.ACTION_DISMISS_ALARM:
-                    handleDismissAlarm(intent.getAction());
+                    handleDismissAlarm(intent);
                     break;
                 case AlarmClock.ACTION_SNOOZE_ALARM:
                     handleSnoozeAlarm();
@@ -86,15 +89,12 @@ public class HandleApiCalls extends Activity {
         }
     }
 
-    private void handleDismissAlarm(final String action) {
-        // Opens the UI for Alarms
-        final Intent alarmIntent =
-                Alarm.createIntent(mAppContext, DeskClock.class, Alarm.INVALID_ID)
-                        .setAction(action)
-                        .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-        startActivity(alarmIntent);
+    private void handleDismissAlarm(Intent intent) {
+        // Change to the alarms tab.
+        UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
 
-        final Intent intent = getIntent();
+        // Open DeskClock which is now positioned on the alarms tab.
+        startActivity(new Intent(mAppContext, DeskClock.class));
 
         new DismissAlarmAsync(mAppContext, intent, this).execute();
     }
@@ -273,11 +273,15 @@ public class HandleApiCalls extends Activity {
             minutes = 0;
         }
         if (hour < 0 || hour > 23 || minutes < 0 || minutes > 59) {
-            // Intent has no time or an invalid time, open the alarm creation UI
-            Intent createAlarm = Alarm.createIntent(this, DeskClock.class, Alarm.INVALID_ID);
-            createAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            createAlarm.putExtra(AlarmClockFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
-            createAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
+            // Change to the alarms tab.
+            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+
+            // Intent has no time or an invalid time, open the alarm creation UI.
+            final Intent createAlarm = Alarm.createIntent(this, DeskClock.class, Alarm.INVALID_ID)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    .putExtra(AlarmClockFragment.ALARM_CREATE_NEW_INTENT_EXTRA, true);
+
+            // Open DeskClock which is now positioned on the alarms tab.
             startActivity(createAlarm);
             Voice.notifyFailure(this, getString(R.string.invalid_time, hour, minutes, " "));
             LogUtils.i("HandleApiCalls no/invalid time; opening UI");
@@ -291,9 +295,27 @@ public class HandleApiCalls extends Activity {
         final List<String> args = new ArrayList<>();
         setSelectionFromIntent(intent, hour, minutes, selection, args);
 
+        // Update existing alarm matching the selection criteria; see setSelectionFromIntent.
+        final ContentResolver cr = getContentResolver();
+        final List<Alarm> alarms = Alarm.getAlarms(cr,
+                selection.toString(),
+                args.toArray(new String[args.size()]));
+        if (!alarms.isEmpty()) {
+            final Alarm alarm = alarms.get(0);
+            alarm.enabled = true;
+            Alarm.updateAlarm(cr, alarm);
+
+            // Delete all old instances and create a new one with updated values
+            AlarmStateManager.deleteAllInstances(this, alarm.id);
+            setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
+            LogUtils.i("HandleApiCalls deleted old, created new alarm: %s", alarm);
+            return;
+        }
+
+        // Otherwise insert a new alarm.
         final String message = getMessageFromIntent(intent);
         final DaysOfWeek daysOfWeek = getDaysFromIntent(intent);
-        final boolean vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, false);
+        final boolean vibrate = intent.getBooleanExtra(AlarmClock.EXTRA_VIBRATE, true);
         final String alert = intent.getStringExtra(AlarmClock.EXTRA_RINGTONE);
 
         Alarm alarm = new Alarm(hour, minutes);
@@ -311,7 +333,6 @@ public class HandleApiCalls extends Activity {
         }
         alarm.deleteAfterUse = !daysOfWeek.isRepeating() && skipUi;
 
-        final ContentResolver cr = getContentResolver();
         alarm = Alarm.addAlarm(cr, alarm);
         final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
         setupInstance(alarmInstance, skipUi);
@@ -322,8 +343,12 @@ public class HandleApiCalls extends Activity {
     }
 
     private void handleShowAlarms() {
-        startActivity(new Intent(this, DeskClock.class)
-                .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX));
+        // Change to the alarms tab.
+        UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+
+        // Open DeskClock which is now positioned on the alarms tab.
+        startActivity(new Intent(this, DeskClock.class));
+
         Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
         LogUtils.i("HandleApiCalls show alarms");
     }
@@ -331,6 +356,10 @@ public class HandleApiCalls extends Activity {
     private void handleSetTimer(Intent intent) {
         // If no length is supplied, show the timer setup view.
         if (!intent.hasExtra(AlarmClock.EXTRA_LENGTH)) {
+            // Change to the timers tab.
+            UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
+
+            // Open DeskClock which is now positioned on the timers tab and show the timer setup.
             startActivity(TimerFragment.createTimerSetupIntent(this));
             LogUtils.i("HandleApiCalls showing timer setup");
             return;
@@ -371,8 +400,11 @@ public class HandleApiCalls extends Activity {
 
         // If not instructed to skip the UI, display the running timer.
         if (!skipUi) {
+            // Change to the timers tab.
+            UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
+
+            // Open DeskClock which is now positioned on the timers tab.
             startActivity(new Intent(this, DeskClock.class)
-                    .putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.TIMER_TAB_INDEX)
                     .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId()));
         }
     }
@@ -382,10 +414,13 @@ public class HandleApiCalls extends Activity {
         AlarmStateManager.registerInstance(this, instance, true);
         AlarmUtils.popAlarmSetToast(this, instance.getAlarmTime().getTimeInMillis());
         if (!skipUi) {
-            Intent showAlarm = Alarm.createIntent(this, DeskClock.class, instance.mAlarmId);
-            showAlarm.putExtra(DeskClock.SELECT_TAB_INTENT_EXTRA, DeskClock.ALARM_TAB_INDEX);
-            showAlarm.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, instance.mAlarmId);
-            showAlarm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // Change to the alarms tab.
+            UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+
+            // Open DeskClock which is now positioned on the alarms tab.
+            final Intent showAlarm = Alarm.createIntent(this, DeskClock.class, instance.mAlarmId)
+                    .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, instance.mAlarmId)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(showAlarm);
         }
     }
@@ -414,6 +449,24 @@ public class HandleApiCalls extends Activity {
         return daysOfWeek;
     }
 
+    /**
+     * Assemble a database where clause to search for an alarm matching the given {@code hour} and
+     * {@code minutes} as well as all of the optional information within the {@code intent}
+     * including:
+     *
+     * <ul>
+     *     <li>alarm message</li>
+     *     <li>repeat days</li>
+     *     <li>vibration setting</li>
+     *     <li>ringtone uri</li>
+     * </ul>
+     *
+     * @param intent contains details of the alarm to be located
+     * @param hour the hour of the day of the alarm
+     * @param minutes the minute of the hour of the alarm
+     * @param selection an out parameter containing a SQL where clause
+     * @param args an out parameter containing the values to substitute into the {@code selection}
+     */
     private void setSelectionFromIntent(
             Intent intent,
             int hour,

@@ -17,34 +17,18 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"Часовник"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"Будилници"</string>
-    <string name="add_alarm" msgid="5976616107390962899">"Добавяне на будилник"</string>
-    <string name="menu_desk_clock" msgid="3241995064554071588">"Настолен часовник"</string>
-    <string name="menu_edit_alarm" msgid="7204602994918829751">"Редактиране на будилника"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"Изтриване на будилника"</string>
-    <string name="enable_alarm" msgid="1834599140632142536">"Включване на будилника"</string>
-    <string name="disable_alarm" msgid="5889378670229554109">"Изключване на будилника"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Да се изтрие ли този будилник?"</string>
-    <string name="show_clock" msgid="8358759982675616915">"Показване на часовника"</string>
-    <string name="hide_clock" msgid="3217727306480505694">"Скриване на часовника"</string>
     <string name="label" msgid="162189613902857319">"Етикет"</string>
-    <string name="on_switch" msgid="2297966258029227449">"Включено"</string>
-    <string name="off_switch" msgid="3381070073851148013">"Изключено"</string>
     <string name="default_label" msgid="5590025289805630372">"Будилник"</string>
-    <string name="set_alarm" msgid="9148359866152726808">"Навиване на будилника"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Вибриране"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Да се повтаря"</string>
     <string name="alert" msgid="6506982899651975645">"Мелодия на будилника"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Стандартен звук за будилника"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Изтичане на времето на таймера"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"Тих режим"</string>
-    <string name="ringtone" msgid="9110746249688559579">"Мелодия"</string>
-    <string name="time" msgid="8067216534232296518">"Час"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Утре"</string>
     <string name="alarm_today" msgid="7873594221106531654">"днес"</string>
-    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Събуди се!"</string>
-    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Изкл."</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Отхвърляне"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Отхвърляне сега"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Отхвърляне сега"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Пропуснат будилник"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Отложено"</string>
@@ -91,9 +75,9 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"всеки ден"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="2656876819515011590">"Избор на часовник"</string>
+    <string name="loading_widget" msgid="5306242862476796500">"Зарежда се…"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Аналогов часовник"</string>
-    <string name="help" msgid="7786263119482654015">"помощ"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"Цифров часовник"</string>
     <string name="settings" msgid="5849739030579520686">"Настройки"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Продължителност на отлагането"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -129,43 +113,28 @@
     <item msgid="3993530639455360921">"неделя"</item>
     <item msgid="8594709368683324282">"понеделник"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"Готово"</string>
-    <string name="revert" msgid="9100911171235162926">"Възстановяване"</string>
-    <string name="delete" msgid="5732434972457000541">"Изтриване"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Сила на звука на будилника"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"Тих режим"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"Неизвестно"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Отлагане или отхвърлянe на будилника."</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (отложено)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Будилникът е настроен за <xliff:g id="TIME">%s</xliff:g>. Докоснете, за да анулирате."</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"Силата на звука на будилника е заглушена"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"Включване на звука"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Стандартната мелодия на будилника е без звук"</string>
+    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"Промяна"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"За устройството е зададена пълна тишина"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Бутони за силата на звука"</string>
-    <string name="volume_button_dialog_title" msgid="8768042543750036853">"Ефект на бутона"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Отлагане"</item>
     <item msgid="3450979320164769576">"Отхвърляне"</item>
     <item msgid="6302517608411378024">"Да не се прави нищо"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Задаване на стандартна мелодия"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"Будилници"</string>
-    <string name="gallery_button_description" msgid="1151743663255257668">"Галерия"</string>
-    <string name="music_button_description" msgid="1626593420810117999">"Музика"</string>
-    <string name="nightmode_button_description" msgid="990894208217576381">"Затъмняване"</string>
-    <string name="home_button_description" msgid="3383859096809056157">"Стартов панел"</string>
-    <string name="desk_clock_button_description" msgid="4207371097361657274">"Показване на часовника"</string>
     <string name="label_description" msgid="8736179296142915727">"Етикет"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Мелодия"</string>
-    <string name="weather_fetch_failure" msgid="3425804832021006835">"В момента няма информация за времето."</string>
-    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Услуга за възпроизвеждане на звук за будилниците, зададени в часовника."</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"Мелодията се зарежда..."</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"Услуга за възпроизвеждане на звук за таймерите, зададени в часовника."</string>
-    <string name="control_set_alarm" msgid="2194676418924016327">"Навиване на будилника"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Будилник"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Часовник"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Хронометър"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Добавяне на будилник"</string>
     <string name="button_cities" msgid="4555761857494501363">"Градове"</string>
-    <string name="button_menu" msgid="6050484561842120282">"Още опции"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Настройки"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Помощ"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Нощен режим"</string>
@@ -184,7 +153,6 @@
     <string name="hours_label_description" msgid="8652842524970971830">"часове"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"минути"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"секунди"</string>
-    <string name="zero" msgid="7102083421938355017">"0"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Времето ми е <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Междинни резултати:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Етап <xliff:g id="NUMBER">%d</xliff:g>"</string>
@@ -214,7 +182,6 @@
     <string name="timer_times_up" msgid="9190440395938519009">"Времето изтече"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> таймера са изтекли"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Таймер"</string>
-    <string name="timers_max_count_reached" msgid="9140022846793903813">"Максимално 4 таймера"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Пауза"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Нулиране на всички таймери"</string>
   <string-array name="sw_share_strings">
@@ -233,7 +200,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Градове"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Часовник"</string>
     <string name="clock_style" msgid="2265011060429742344">"Стил"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"Промяна на датата и часа"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"Промяна на датата и часа"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Аналогов"</item>
     <item msgid="8483930821046925592">"Цифров"</item>
@@ -244,10 +211,6 @@
     <string name="home_time_zone_title" msgid="807894493443834624">"Часова зона у дома"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Отказ"</string>
     <string name="time_picker_set" msgid="331153175471468051">"OK"</string>
-    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <string name="time_picker_ampm_label" msgid="6754113715199751083">"–"</string>
-    <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
-    <string name="time_picker_30_label" msgid="1027250857384838129">":30"</string>
     <string name="city_checked" msgid="616847871968019">"Поставихте отметка за <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Премахнахте отметката от <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
   <string-array name="timezone_labels">
@@ -346,36 +309,24 @@
     <string name="description_direction_both" msgid="1841309486023845685">"Прекарайте пръст наляво, за да отложите, или надясно за отхвърляне"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Таймери"</string>
     <string name="timer_ringtone_title" msgid="7630214935791599619">"Мелодия на таймера"</string>
-    <string name="timer_stopped" msgid="2730331837832462008">"Таймерът е спрян"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"Вибриране на таймера"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Таймерът е на пауза"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> таймера са на пауза"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"Докоснете, за да видите таймерите си"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Докоснете, за да видите таймерите си"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> таймера"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Следващ таймер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Настройки за „Сънища“"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"Настройки за скрийнсейвър"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Нощен режим"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Много затъмнен дисплей (за тъмни стаи)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Разгъване на будилника"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Свиване на будилника"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"отмяна"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Изтрит будилник"</string>
-    <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Следващ будилник: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="alarms_selected" msgid="1075308195332888260">"Избрахте <xliff:g id="ALARMS">%d</xliff:g>"</string>
-    <string name="deleted_message" msgid="1220848140260509437">"Изтрито"</string>
-    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
-      <item quantity="other">Да се изтрият ли избраните будилници?</item>
-      <item quantity="one">Да се изтрие ли избраният будилник?</item>
-    </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Да се изтрие ли този таймер?"</string>
-    <string name="city_delete_confirmation" msgid="1783441538785676299">"Да се премахне ли този град?"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"Цифров часовник"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Няма будилници"</string>
-    <string name="no_alarms_set" msgid="4887558279496044764">"Няма будилници"</string>
-    <string name="no_upcoming_alarms" msgid="2889840988069436254">"НЯМА ПРЕДСТОЯЩИ БУДИЛНИЦИ"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g> е невалиден час"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Няма будилник за <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> е невалиден час"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Няма будилник за <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Няма насрочени будилници"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Няма посочен етикет"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Етикетът не се съдържа в нито един будилник"</string>

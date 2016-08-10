@@ -16,56 +16,45 @@
 
 package com.android.deskclock.timer;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.android.deskclock.AnimatorUtils;
+import com.android.deskclock.FabContainer;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.io.Serializable;
 import java.util.Arrays;
+
+import static com.android.deskclock.FabContainer.UpdateType.FAB_ONLY_SHRINK_AND_EXPAND;
+import static com.android.deskclock.FabContainer.UpdateType.FAB_REQUESTS_FOCUS;
 
 public class TimerSetupView extends LinearLayout implements Button.OnClickListener,
         Button.OnLongClickListener {
 
     private final Button[] mNumbers = new Button[10];
-    private final int[] mInput = new int[6];
+    private final int[] mInput = {0, 0, 0, 0, 0, 0};
     private int mInputPointer = -1;
-    private ImageView mCreate;
     private ImageButton mDelete;
     private TimerView mEnteredTime;
     private View mDivider;
 
+    /** Updates to the fab are requested via this container. */
+    private FabContainer mFabContainer;
+
     private final int mColorAccent;
     private final int mColorHairline;
-
-    private final AnimatorListenerAdapter mHideCreateListener = new AnimatorListenerAdapter() {
-        @Override
-        public void onAnimationEnd(Animator animation) {
-            mCreate.setScaleX(1);
-            mCreate.setScaleY(1);
-            mCreate.setVisibility(INVISIBLE);
-        }
-    };
-
-    private final AnimatorListenerAdapter mShowCreateListener = new AnimatorListenerAdapter() {
-        @Override
-        public void onAnimationStart(Animator animation) {
-            mCreate.setVisibility(VISIBLE);
-        }
-    };
 
     public TimerSetupView(Context context) {
         this(context, null /* attrs */);
@@ -75,9 +64,13 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         super(context, attrs);
 
         mColorAccent = Utils.obtainStyledColor(context, R.attr.colorAccent, Color.RED);
-        mColorHairline = context.getResources().getColor(R.color.hairline);
+        mColorHairline = ContextCompat.getColor(context, R.color.hairline);
 
-        LayoutInflater.from(context).inflate(R.layout.time_setup_view, this);
+        LayoutInflater.from(context).inflate(R.layout.time_setup_container, this);
+    }
+
+    void setFabContainer(FabContainer fabContainer) {
+        mFabContainer = fabContainer;
     }
 
     @Override
@@ -90,7 +83,6 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         final View v4 = findViewById(R.id.fourth);
 
         mDivider = findViewById(R.id.divider);
-        mCreate = (ImageView) findViewById(R.id.timer_create);
         mDelete = (ImageButton) findViewById(R.id.delete);
         mDelete.setOnClickListener(this);
         mDelete.setOnLongClickListener(this);
@@ -112,18 +104,57 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         v4.findViewById(R.id.key_left).setVisibility(INVISIBLE);
         v4.findViewById(R.id.key_right).setVisibility(INVISIBLE);
 
+        final UiDataModel uiDataModel = UiDataModel.getUiDataModel();
         for (int i = 0; i < mNumbers.length; i++) {
             mNumbers[i].setOnClickListener(this);
-            mNumbers[i].setText(String.valueOf(i));
+            mNumbers[i].setText(uiDataModel.getFormattedNumber(i, 1));
             mNumbers[i].setTextColor(Color.WHITE);
             mNumbers[i].setTag(R.id.numbers_key, i);
         }
 
-        reset();
+        updateTime();
+        updateDeleteButtonAndDivider();
+    }
+
+    private boolean clickButton(View button) {
+        button.performClick();
+        mFabContainer.updateFab(FAB_REQUESTS_FOCUS);
+        return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_0:
+                return clickButton(mNumbers[0]);
+            case KeyEvent.KEYCODE_1:
+                return clickButton(mNumbers[1]);
+            case KeyEvent.KEYCODE_2:
+                return clickButton(mNumbers[2]);
+            case KeyEvent.KEYCODE_3:
+                return clickButton(mNumbers[3]);
+            case KeyEvent.KEYCODE_4:
+                return clickButton(mNumbers[4]);
+            case KeyEvent.KEYCODE_5:
+                return clickButton(mNumbers[5]);
+            case KeyEvent.KEYCODE_6:
+                return clickButton(mNumbers[6]);
+            case KeyEvent.KEYCODE_7:
+                return clickButton(mNumbers[7]);
+            case KeyEvent.KEYCODE_8:
+                return clickButton(mNumbers[8]);
+            case KeyEvent.KEYCODE_9:
+                return clickButton(mNumbers[9]);
+            case KeyEvent.KEYCODE_DEL:
+                return clickButton(mDelete);
+            default:
+                return false;
+        }
     }
 
     @Override
     public void onClick(View v) {
+        final boolean validInputBeforeClick = hasValidInput();
         final Integer n = (Integer) v.getTag(R.id.numbers_key);
         // A number was pressed
         if (n != null) {
@@ -167,28 +198,29 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             mDelete.setContentDescription(cd);
         }
 
-        updateStartButton();
-        updateDeleteButtonAndDivider();
+        if (validInputBeforeClick != hasValidInput()) {
+            updateFab();
+            updateDeleteButtonAndDivider();
+        }
     }
 
     @Override
     public boolean onLongClick(View v) {
         if (v == mDelete) {
             reset();
-            updateStartButton();
             return true;
         }
         return false;
     }
 
     public void reset() {
-        for (int i = 0; i < mInput.length; i ++) {
-            mInput[i] = 0;
+        if (mInputPointer != -1) {
+            Arrays.fill(mInput, 0);
+            mInputPointer = -1;
+            updateFab();
+            updateTime();
+            updateDeleteButtonAndDivider();
         }
-        mInputPointer = -1;
-        updateTime();
-        updateDeleteButtonAndDivider();
-        mCreate.setVisibility(INVISIBLE);
     }
 
     public long getTimeInMillis() {
@@ -221,8 +253,11 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
             }
             updateTime();
             updateDeleteButtonAndDivider();
-            mCreate.setVisibility(getInputExists() ? VISIBLE : INVISIBLE);
         }
+    }
+
+    protected boolean hasValidInput() {
+        return mInputPointer != -1;
     }
 
     private void updateTime() {
@@ -230,29 +265,13 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         mEnteredTime.setTime(mInput[5], mInput[4], mInput[3], mInput[2], seconds);
     }
 
-    private void updateStartButton() {
-        final boolean show = getInputExists();
-        final int finalVisibility = show ? VISIBLE : INVISIBLE;
-        if (mCreate.getVisibility() == finalVisibility) {
-            // Fab is not initialized yet or already shown/hidden
-            return;
-        }
-
-        final int from = show ? 0 : 1;
-        final int to = show ? 1 : 0;
-        final Animator scaleAnimator = AnimatorUtils.getScaleAnimator(mCreate, from, to);
-        scaleAnimator.setDuration(AnimatorUtils.ANIM_DURATION_SHORT);
-        scaleAnimator.addListener(show ? mShowCreateListener : mHideCreateListener);
-        scaleAnimator.start();
-    }
-
     private void updateDeleteButtonAndDivider() {
-        final boolean enabled = getInputExists();
+        final boolean enabled = hasValidInput();
         mDelete.setEnabled(enabled);
         mDivider.setBackgroundColor(enabled ? mColorAccent : mColorHairline);
     }
 
-    private boolean getInputExists() {
-        return mInputPointer != -1;
+    private void updateFab() {
+        mFabContainer.updateFab(FAB_ONLY_SHRINK_AND_EXPAND);
     }
 }

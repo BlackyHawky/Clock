@@ -40,8 +40,8 @@ public final class DataModel {
     /** Indicates the preferred sort order of cities. */
     public enum CitySort {NAME, UTC_OFFSET}
 
-    public static final String ACTION_DIGITAL_WIDGET_CHANGED =
-            "com.android.deskclock.DIGITAL_WIDGET_CHANGED";
+    public static final String ACTION_WORLD_CITIES_CHANGED =
+            "com.android.deskclock.WORLD_CITIES_CHANGED";
 
     /** The single instance of this data model that exists for the life of the application. */
     private static final DataModel sDataModel = new DataModel();
@@ -61,6 +61,9 @@ public final class DataModel {
 
     /** The model from which alarm data are fetched. */
     private AlarmModel mAlarmModel;
+
+    /** The model from which widget data are fetched. */
+    private WidgetModel mWidgetModel;
 
     /** The model from which stopwatch data are fetched. */
     private StopwatchModel mStopwatchModel;
@@ -86,16 +89,27 @@ public final class DataModel {
         mSettingsModel = new SettingsModel(mContext);
         mNotificationModel = new NotificationModel();
         mCityModel = new CityModel(mContext, mSettingsModel);
+        mWidgetModel = new WidgetModel(mContext);
         mAlarmModel = new AlarmModel(mContext, mSettingsModel);
         mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
         mTimerModel = new TimerModel(mContext, mSettingsModel, mNotificationModel);
     }
 
     /**
+     * Convenience for {@code run(runnable, 0)}, i.e. waits indefinitely.
+     */
+    public void run(Runnable runnable) {
+        try {
+            run(runnable, 0 /* waitMillis */);
+        } catch (InterruptedException ignored) {
+        }
+    }
+
+    /**
      * Posts a runnable to the main thread and blocks until the runnable executes. Used to access
      * the data model from the main thread.
      */
-    public void run(Runnable runnable) {
+    public void run(Runnable runnable, long waitMillis) throws InterruptedException {
         if (Looper.myLooper() == Looper.getMainLooper()) {
             runnable.run();
             return;
@@ -107,11 +121,7 @@ public final class DataModel {
         // Wait for the data to arrive, if it has not.
         synchronized (er) {
             if (!er.isExecuted()) {
-                try {
-                    er.wait();
-                } catch (InterruptedException ignored) {
-                    // ignore
-                }
+                er.wait(waitMillis);
             }
         }
     }
@@ -149,6 +159,7 @@ public final class DataModel {
      * @return {@code true} when the application is open in the foreground; {@code false} otherwise
      */
     public boolean isApplicationInForeground() {
+        enforceMainLooper();
         return mNotificationModel.isApplicationInForeground();
     }
 
@@ -157,6 +168,7 @@ public final class DataModel {
      * be rebuilt. e.g. after upgrading the application
      */
     public void updateAllNotifications() {
+        enforceMainLooper();
         mTimerModel.updateNotification();
         mStopwatchModel.updateNotification();
     }
@@ -343,10 +355,11 @@ public final class DataModel {
      *
      * @param timer the timer to be reset
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
+     * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    public void resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
+    public Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
-        mTimerModel.resetOrDeleteTimer(timer, eventLabelId);
+        return mTimerModel.resetOrDeleteTimer(timer, eventLabelId);
     }
 
     /**
@@ -429,11 +442,35 @@ public final class DataModel {
     }
 
     /**
+     * @param uri the uri of the ringtone to play for all timers
+     */
+    public void setTimerRingtoneUri(Uri uri) {
+        enforceMainLooper();
+        mTimerModel.setTimerRingtoneUri(uri);
+    }
+
+    /**
      * @return the title of the ringtone that is played for all timers
      */
     public String getTimerRingtoneTitle() {
         enforceMainLooper();
         return mTimerModel.getTimerRingtoneTitle();
+    }
+
+    /**
+     * @return whether vibrate is enabled for all timers.
+     */
+    public boolean getTimerVibrate() {
+        enforceMainLooper();
+        return mTimerModel.getTimerVibrate();
+    }
+
+    /**
+     * @param enabled whether vibrate is enabled for all timers.
+     */
+    public void setTimerVibrate(boolean enabled) {
+        enforceMainLooper();
+        mTimerModel.setTimerVibrate(enabled);
     }
 
     //
@@ -468,6 +505,22 @@ public final class DataModel {
     //
     // Stopwatch
     //
+
+    /**
+     * @param stopwatchListener to be notified when stopwatch changes or laps are added
+     */
+    public void addStopwatchListener(StopwatchListener stopwatchListener) {
+        enforceMainLooper();
+        mStopwatchModel.addStopwatchListener(stopwatchListener);
+    }
+
+    /**
+     * @param stopwatchListener to no longer be notified when stopwatch changes or laps are added
+     */
+    public void removeStopwatchListener(StopwatchListener stopwatchListener) {
+        enforceMainLooper();
+        mStopwatchModel.removeStopwatchListener(stopwatchListener);
+    }
 
     /**
      * @return the current state of the stopwatch
@@ -518,14 +571,6 @@ public final class DataModel {
     }
 
     /**
-     * Clears the laps recorded for this stopwatch.
-     */
-    public void clearLaps() {
-        enforceMainLooper();
-        mStopwatchModel.clearLaps();
-    }
-
-    /**
      * @return {@code true} iff more laps can be recorded
      */
     public boolean canAddMoreLaps() {
@@ -551,6 +596,20 @@ public final class DataModel {
     }
 
     //
+    // Widgets
+    //
+
+    /**
+     * @param widgetClass indicates the type of widget being counted
+     * @param count the number of widgets of the given type
+     * @param eventCategoryId identifies the category of event to send
+     */
+    public void updateWidgetCount(Class widgetClass, int count, @StringRes int eventCategoryId) {
+        enforceMainLooper();
+        mWidgetModel.updateWidgetCount(widgetClass, count, eventCategoryId);
+    }
+
+    //
     // Settings
     //
 
@@ -568,6 +627,14 @@ public final class DataModel {
     public ClockStyle getScreensaverClockStyle() {
         enforceMainLooper();
         return mSettingsModel.getScreensaverClockStyle();
+    }
+
+    /**
+     * @return {@code true} if the screen saver should be dimmed for lower contrast at night
+     */
+    public boolean getScreensaverNightModeOn() {
+        enforceMainLooper();
+        return mSettingsModel.getScreensaverNightModeOn();
     }
 
     /**

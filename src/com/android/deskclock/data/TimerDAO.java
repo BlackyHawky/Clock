@@ -18,7 +18,6 @@ package com.android.deskclock.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.Timer.State;
@@ -37,43 +36,40 @@ import static com.android.deskclock.data.Timer.State.RESET;
  */
 final class TimerDAO {
 
-    // Key to a preference that stores the set of timer ids.
+    /** Key to a preference that stores the set of timer ids. */
     private static final String TIMER_IDS = "timers_list";
 
-    // Key to a preference that stores the id to assign to the next timer.
+    /** Key to a preference that stores the id to assign to the next timer. */
     private static final String NEXT_TIMER_ID = "next_timer_id";
 
-    // Prefix for a key to a preference that stores the state of the timer.
+    /** Prefix for a key to a preference that stores the state of the timer. */
     private static final String STATE = "timer_state_";
 
-    // Prefix for a key to a preference that stores the length of the timer when it was created.
+    /** Prefix for a key to a preference that stores the original timer length at creation. */
     private static final String LENGTH = "timer_setup_timet_";
 
-    // Prefix for a key to a preference that stores the total length of the timer with additions.
+    /** Prefix for a key to a preference that stores the total timer length with additions. */
     private static final String TOTAL_LENGTH = "timer_original_timet_";
 
-    // Prefix for a key to a preference that stores the last start time of the timer.
+    /** Prefix for a key to a preference that stores the last start time of the timer. */
     private static final String LAST_START_TIME = "timer_start_time_";
 
-    // Prefix for a key to a preference that stores the remaining time before expiry.
+    /** Prefix for a key to a preference that stores the remaining time before expiry. */
     private static final String REMAINING_TIME = "timer_time_left_";
 
-    // Prefix for a key to a preference that stores the label of the timer.
+    /** Prefix for a key to a preference that stores the label of the timer. */
     private static final String LABEL = "timer_label_";
 
-    // Prefix for a key to a preference that signals the timer should be deleted on first reset.
+    /** Prefix for a key to a preference that signals the timer should be deleted on first reset. */
     private static final String DELETE_AFTER_USE = "delete_after_use_";
-
-    // Lazily instantiated and cached for the life of the application.
-    private static SharedPreferences sPrefs;
 
     private TimerDAO() {}
 
     /**
      * @return the timers from permanent storage
      */
-    public static List<Timer> getTimers(Context context) {
-        final SharedPreferences prefs = getSharedPreferences(context);
+    static List<Timer> getTimers(Context context) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
 
         // Read the set of timer ids.
         final Set<String> timerIds = prefs.getStringSet(TIMER_IDS, Collections.<String>emptySet());
@@ -105,8 +101,8 @@ final class TimerDAO {
     /**
      * @param timer the timer to be added
      */
-    public static Timer addTimer(Context context, Timer timer) {
-        final SharedPreferences prefs = getSharedPreferences(context);
+    static Timer addTimer(Context context, Timer timer) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
 
         // Fetch the next timer id.
@@ -138,8 +134,8 @@ final class TimerDAO {
     /**
      * @param timer the timer to be updated
      */
-    public static void updateTimer(Context context, Timer timer) {
-        final SharedPreferences prefs = getSharedPreferences(context);
+    static void updateTimer(Context context, Timer timer) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
 
         // Record the fields of the timer.
@@ -158,8 +154,8 @@ final class TimerDAO {
     /**
      * @param timer the timer to be removed
      */
-    public static void removeTimer(Context context, Timer timer) {
-        final SharedPreferences prefs = getSharedPreferences(context);
+    static void removeTimer(Context context, Timer timer) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
 
         final int id = timer.getId();
@@ -187,15 +183,7 @@ final class TimerDAO {
     }
 
     private static Set<String> getTimerIds(Context context) {
-        final SharedPreferences prefs = getSharedPreferences(context);
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
         return prefs.getStringSet(TIMER_IDS, Collections.<String>emptySet());
-    }
-
-    private static SharedPreferences getSharedPreferences(Context context) {
-        if (sPrefs == null) {
-            sPrefs = Utils.getDefaultSharedPreferences(context.getApplicationContext());
-        }
-
-        return sPrefs;
     }
 }

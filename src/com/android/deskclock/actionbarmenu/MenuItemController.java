@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2015 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.android.deskclock.actionbarmenu;
 
 import android.view.Menu;
@@ -24,37 +25,27 @@ import android.view.MenuItem;
 public interface MenuItemController {
 
     /**
-     * Sets whether or not the controller is enabled.
-     */
-    void setEnabled(boolean enabled);
-
-    /**
-     * Returns true if the controller is currently enabled.
-     */
-    boolean isEnabled();
-
-    /**
-     * Returns the menu item id that the controller is responsible for.
+     * Returns the menu item resource id that the controller manages.
      */
     int getId();
 
     /**
-     * Sets the initial state for the menu item.
+     * Create the menu item.
      */
-    void setInitialState(Menu menu);
+    void onCreateOptionsItem(Menu menu);
 
     /**
-     * Find the menu item this controller cares about, and make it visible.
+     * Called immediately before the {@link MenuItem} is shown.
      *
-     * @param menu The menu object containing an item that controller can handle.
+     * @param item the {@link MenuItem} created by the controller
      */
-    void showMenuItem(Menu menu);
+    void onPrepareOptionsItem(MenuItem item);
 
     /**
      * Attempts to handle the click action.
      *
-     * @param item The menu item being clicked.
-     * @return True if the action is handled by this controller, false otherwise.
+     * @param item the {@link MenuItem} that was selected
+     * @return {@code true} if the action is handled by this controller
      */
-    boolean handleMenuItemClick(MenuItem item);
+    boolean onOptionsItemSelected(MenuItem item);
 }

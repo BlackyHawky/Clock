@@ -17,11 +17,11 @@
 package com.android.deskclock.alarms;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
@@ -29,6 +29,7 @@ import android.text.format.DateFormat;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.RingtonePickerDialogFragment;
 import com.android.deskclock.alarms.utils.DayOrderUtils;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -40,8 +41,10 @@ import java.util.Calendar;
  */
 public final class AlarmTimeClickHandler {
 
-    private static final String TAG = "AlarmTimeClickHandler";
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmTimeClickHandler");
+
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
+    private static final String RINGTONE_PICKER_FRAG_TAG = "ringtone_picker_dialog";
 
     private final Fragment mFragment;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
@@ -69,8 +72,8 @@ public final class AlarmTimeClickHandler {
         return mSelectedAlarm;
     }
 
-    public void clearSelectedAlarm() {
-        mSelectedAlarm = null;
+    public void setSelectedAlarm(Alarm selectedAlarm) {
+        mSelectedAlarm = selectedAlarm;
     }
 
     public void saveInstance(Bundle outState) {
@@ -81,7 +84,7 @@ public final class AlarmTimeClickHandler {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
-            LogUtils.d(TAG, "Updating alarm enabled state to " + newState);
+            LOGGER.d("Updating alarm enabled state to " + newState);
         }
     }
 
@@ -89,7 +92,7 @@ public final class AlarmTimeClickHandler {
         if (newState != alarm.vibrate) {
             alarm.vibrate = newState;
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-            LogUtils.d(TAG, "Updating vibrate state to " + newState);
+            LOGGER.d("Updating vibrate state to " + newState);
 
             if (newState) {
                 // Buzz the vibrator to preview the alarm firing behavior.
@@ -143,7 +146,7 @@ public final class AlarmTimeClickHandler {
 
     public void onDeleteClicked(Alarm alarm) {
         mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
-        LogUtils.d(TAG, "Deleting alarm.");
+        LOGGER.d("Deleting alarm.");
     }
 
     public void onClockClicked(Alarm alarm) {
@@ -163,18 +166,28 @@ public final class AlarmTimeClickHandler {
 
     public void onRingtoneClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        final Uri oldRingtone = Alarm.NO_RINGTONE_URI.equals(alarm.alert) ? null : alarm.alert;
-        final Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, oldRingtone);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_ALARM);
-        intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, false);
-        LogUtils.d(TAG, "Showing ringtone picker.");
-        mFragment.startActivityForResult(intent, R.id.request_code_ringtone);
+        final FragmentManager fragmentManager = mFragment.getChildFragmentManager();
+        fragmentManager.executePendingTransactions();
+        final FragmentTransaction ft = fragmentManager.beginTransaction();
+        final Fragment prev = fragmentManager.findFragmentByTag(RINGTONE_PICKER_FRAG_TAG);
+        if (prev != null) {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        new RingtonePickerDialogFragment.Builder()
+                .setTitle(R.string.alert)
+                .setDefaultRingtoneTitle(R.string.default_alarm_ringtone_title)
+                .setDefaultRingtoneUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
+                .setExistingRingtoneUri(alarm.alert)
+                .show(ft, RINGTONE_PICKER_FRAG_TAG);
     }
 
     public void onEditLabelClicked(Alarm alarm) {
-        final FragmentTransaction ft = mFragment.getFragmentManager().beginTransaction();
-        final Fragment prev = mFragment.getFragmentManager().findFragmentByTag("label_dialog");
+        final FragmentManager fragmentManager = mFragment.getChildFragmentManager();
+        fragmentManager.executePendingTransactions();
+        final FragmentTransaction ft = fragmentManager.beginTransaction();
+        final Fragment prev = fragmentManager.findFragmentByTag("label_dialog");
         if (prev != null) {
             ft.remove(prev);
         }

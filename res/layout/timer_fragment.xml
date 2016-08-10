@@ -16,7 +16,6 @@
 
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/timers_list_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -26,57 +25,62 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/page_indicators"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="24dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/fab_height"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/page_indicator0"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="96"
+                android:gravity="center_vertical|end"
+                android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/page_indicator1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"/>
+                <ImageView
+                    android:id="@+id/page_indicator0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null" />
 
-            <ImageView
-                android:id="@+id/page_indicator2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"/>
+                <ImageView
+                    android:id="@+id/page_indicator1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null" />
 
-            <ImageView
-                android:id="@+id/page_indicator3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@null"/>
+                <ImageView
+                    android:id="@+id/page_indicator2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null" />
 
+                <ImageView
+                    android:id="@+id/page_indicator3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@null" />
+
+            </LinearLayout>
+
+            <!-- Right gutter. -->
             <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/footer_button_size"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"/>
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="@integer/gutter_width_percent" />
 
         </LinearLayout>
 
         <com.android.deskclock.VerticalViewPager
             android:id="@+id/vertical_view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </FrameLayout>
 
     <com.android.deskclock.timer.TimerSetupView
         android:id="@+id/timer_setup"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"/>
+        android:layout_height="match_parent" />
 
 </FrameLayout>
