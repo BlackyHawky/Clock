@@ -15,7 +15,8 @@
      limitations under the License.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:divider="@drawable/horizontal_divider"
@@ -51,7 +52,7 @@
 
                 <Chronometer
                     android:id="@+id/swn_expanded_chronometer"
-                    android:layout_width="0dip"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:singleLine="true"
@@ -67,7 +68,9 @@
                 android:singleLine="true"
                 android:textAppearance="@style/TextAppearance.StatusBar.EventContent"
                 android:visibility="gone" />
+
         </LinearLayout>
+
     </FrameLayout>
 
     <LinearLayout
@@ -100,6 +103,7 @@
             android:gravity="start|center_vertical"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Action" />
+
     </LinearLayout>
 
 </LinearLayout>

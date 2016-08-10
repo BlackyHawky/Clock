@@ -14,56 +14,72 @@
      limitations under the License.
 -->
 
+<!-- This TimerItem discards the circle because space is limited. -->
 <com.android.deskclock.timer.TimerItem
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:gravity="center_vertical"
-    android:orientation="vertical"
-    android:paddingBottom="@dimen/timer_list_padding_bottom">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.android.deskclock.CircleButtonsLayout
-        android:id="@+id/timer_circle"
-        android:layout_width="@dimen/circle_size"
-        android:layout_height="@dimen/circle_size"
-        android:layout_gravity="center"
-        android:padding="@dimen/timer_padding">
-
-        <com.android.deskclock.timer.TimerCircleView
-            android:id="@+id/timer_time"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <com.android.deskclock.timer.CountingTimerView
             android:id="@+id/timer_time_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
         <Button
             android:id="@+id/timer_label"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="56dp"
+            android:layout_height="40dp"
             android:layout_gravity="top|center_horizontal"
             android:clickable="false"
             android:ellipsize="end"
             android:gravity="center"
             android:hint="@string/label"
-            android:singleLine="true"
-            android:src="@drawable/ic_label"
-            android:textAppearance="@style/SecondaryLabelTextAppearance"/>
+            android:maxLines="1"
+            android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
-        <ImageButton
-            android:id="@+id/reset_add"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:contentDescription="@string/timer_plus_one"
-            android:gravity="center"
-            android:scaleType="center"
-            android:src="@drawable/ic_plusone"/>
+        <!-- Center the reset/add button on the third of the container above the delete button. -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    </com.android.deskclock.CircleButtonsLayout>
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <ImageButton
+                    android:id="@+id/reset_add"
+                    android:layout_width="@dimen/fab_button_size"
+                    android:layout_height="@dimen/fab_button_size"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/timer_plus_one"
+                    android:gravity="center"
+                    android:padding="@dimen/fab_button_padding"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/ic_plusone" />
+
+            </FrameLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fab_height" />
 
 </com.android.deskclock.timer.TimerItem>

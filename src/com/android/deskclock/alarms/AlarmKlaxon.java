@@ -58,7 +58,7 @@ public final class AlarmKlaxon {
         }
 
         if (instance.mVibrate) {
-            final Vibrator vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+            final Vibrator vibrator = getVibrator(context);
             if (Utils.isLOrLater()) {
                 vibrateLOrLater(vibrator);
             } else {
@@ -75,6 +75,10 @@ public final class AlarmKlaxon {
                 .setUsage(AudioAttributes.USAGE_ALARM)
                 .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                 .build());
+    }
+
+    private static Vibrator getVibrator(Context context) {
+        return ((Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE));
     }
 
     private static synchronized AsyncRingtonePlayer getAsyncRingtonePlayer(Context context) {

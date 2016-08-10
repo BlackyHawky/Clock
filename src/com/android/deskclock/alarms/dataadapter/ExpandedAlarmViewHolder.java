@@ -19,16 +19,21 @@ package com.android.deskclock.alarms.dataadapter;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.Vibrator;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
@@ -37,13 +42,18 @@ import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
+import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.HashSet;
+
+import static android.content.Context.VIBRATOR_SERVICE;
 
 /**
  * A ViewHolder containing views for an alarm item in expanded stated.
  */
-public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
+public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
+
+    public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
     public final CheckBox repeat;
     public final TextView editLabel;
@@ -51,18 +61,14 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
     public final CompoundButton[] dayButtons = new CompoundButton[7];
     public final CheckBox vibrate;
     public final TextView ringtone;
-    public final Button delete;
-    public final View preemptiveDismissContainer;
-    public final TextView preemptiveDismissButton;
+    public final ImageButton delete;
 
     private final boolean mHasVibrator;
     private final int[] mDayOrder;
 
-    public ExpandedAlarmViewHolder(View itemView,
-            final boolean hasVibrator,
-            final AlarmTimeClickHandler alarmTimeClickHandler,
-            final AlarmTimeAdapter alarmTimeAdapter) {
-        super(itemView, alarmTimeClickHandler);
+    public ExpandedAlarmViewHolder(View itemView, boolean hasVibrator) {
+        super(itemView);
+
         final Context context = itemView.getContext();
         mHasVibrator = hasVibrator;
         mDayOrder = DayOrderUtils.getDayOrder(context);
@@ -71,14 +77,14 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
 
         final TypedArray typedArray = theme.obtainStyledAttributes(attrs);
         final LayerDrawable background = new LayerDrawable(new Drawable[] {
-                context.getResources().getDrawable(R.drawable.alarm_background_expanded),
+                ContextCompat.getDrawable(context, R.drawable.alarm_background_expanded),
                 typedArray.getDrawable(0) });
         itemView.setBackground(background);
         typedArray.recycle();
 
         final int firstDay = Utils.getZeroIndexedFirstDayOfWeek(context);
 
-        delete = (Button) itemView.findViewById(R.id.delete);
+        delete = (ImageButton) itemView.findViewById(R.id.delete);
 
         repeat = (CheckBox) itemView.findViewById(R.id.repeat_onoff);
         vibrate = (CheckBox) itemView.findViewById(R.id.vibrate_onoff);
@@ -97,56 +103,53 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
             dayButtons[i] = dayButton;
         }
 
-        preemptiveDismissContainer = itemView.findViewById(R.id.preemptive_dismiss_container);
-        preemptiveDismissButton =
-                (TextView) itemView.findViewById(R.id.preemptive_dismiss_button);
-
         // Collapse handler
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alarmTimeAdapter.collapse(getAdapterPosition());
+                getItemHolder().collapse();
             }
         });
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alarmTimeAdapter.collapse(getAdapterPosition());
+                getItemHolder().collapse();
             }
         });
         // Edit time handler
         clock.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alarmTimeClickHandler.onClockClicked(mAlarm);
+                getAlarmTimeClickHandler().onClockClicked(getItemHolder().item);
             }
         });
         // Edit label handler
         editLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alarmTimeClickHandler.onEditLabelClicked(mAlarm);
+                getAlarmTimeClickHandler().onEditLabelClicked(getItemHolder().item);
             }
         });
         // Vibrator checkbox handler
         vibrate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alarmTimeClickHandler.setAlarmVibrationEnabled(mAlarm, ((CheckBox) v).isChecked());
+                getAlarmTimeClickHandler().setAlarmVibrationEnabled(getItemHolder().item,
+                        ((CheckBox) v).isChecked());
             }
         });
         // Ringtone editor handler
         ringtone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                alarmTimeClickHandler.onRingtoneClicked(mAlarm);
+                getAlarmTimeClickHandler().onRingtoneClicked(getItemHolder().item);
             }
         });
         // Delete alarm handler
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alarmTimeClickHandler.onDeleteClicked(mAlarm);
+                getAlarmTimeClickHandler().onDeleteClicked(getItemHolder().item);
                 v.announceForAccessibility(context.getString(R.string.alarm_deleted));
             }
         });
@@ -155,7 +158,7 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
             @Override
             public void onClick(View view) {
                 final boolean checked = ((CheckBox) view).isChecked();
-                alarmTimeClickHandler.setAlarmRepeatEnabled(mAlarm, checked);
+                getAlarmTimeClickHandler().setAlarmRepeatEnabled(getItemHolder().item, checked);
             }
         });
         // Day buttons handler
@@ -165,30 +168,37 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
                 @Override
                 public void onClick(View view) {
                     final boolean isChecked = ((CompoundButton) view).isChecked();
-                    alarmTimeClickHandler.setDayOfWeekEnabled(mAlarm, isChecked, buttonIndex);
+                    getAlarmTimeClickHandler().setDayOfWeekEnabled(getItemHolder().item,
+                            isChecked, buttonIndex);
                 }
             });
         }
     }
 
     @Override
-    public void bindAlarm(Context context, Alarm alarm, AlarmInstance alarmInstance) {
-        setData(alarm, alarmInstance);
-        bindOnOffSwitch(context, alarm);
-        bindClock(context, alarm);
+    protected void onBindItemView(final AlarmItemHolder itemHolder) {
+        super.onBindItemView(itemHolder);
+        final Alarm alarm = itemHolder.item;
+        final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
+        final Context context = itemView.getContext();
         bindEditLabel(alarm);
         bindDaysOfWeekButtons(alarm);
         bindVibrator(alarm);
-        bindRingtoneTitle(context, alarm);
+        bindRingtone(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
     }
 
-    private void bindRingtoneTitle(Context context, Alarm alarm) {
+    private void bindRingtone(Context context, Alarm alarm) {
         final String title = DataModel.getDataModel().getAlarmRingtoneTitle(alarm.alert);
-        final String description = context.getString(R.string.ringtone_description);
-
         ringtone.setText(title);
+
+        final String description = context.getString(R.string.ringtone_description);
         ringtone.setContentDescription(description + " " + title);
+
+        final boolean silent = Utils.RINGTONE_SILENT.equals(alarm.alert);
+        final int startResId = silent ? R.drawable.ic_ringtone_silent : R.drawable.ic_ringtone;
+        final Drawable startDrawable = Utils.getVectorDrawable(context, startResId);
+        ringtone.setCompoundDrawablesWithIntrinsicBounds(startDrawable, null, null, null);
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm) {
@@ -197,11 +207,10 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
             final CompoundButton dayButton = dayButtons[i];
             if (setDays.contains(mDayOrder[i])) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(Utils.getCurrentHourColor());
+                dayButton.setTextColor(UiDataModel.getUiDataModel().getWindowBackgroundColor());
             } else {
                 dayButton.setChecked(false);
-                dayButton.setTextColor(itemView.getContext().getResources().getColor(R.color
-                        .white));
+                dayButton.setTextColor(Color.WHITE);
             }
         }
         if (alarm.daysOfWeek.isRepeating()) {
@@ -227,6 +236,27 @@ public final class ExpandedAlarmViewHolder extends AlarmTimeViewHolder {
         } else {
             vibrate.setVisibility(View.VISIBLE);
             vibrate.setChecked(alarm.vibrate);
+        }
+    }
+
+    private AlarmTimeClickHandler getAlarmTimeClickHandler() {
+        return getItemHolder().getAlarmTimeClickHandler();
+    }
+
+    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
+
+        private final LayoutInflater mLayoutInflator;
+        private final boolean mHasVibrator;
+
+        public Factory(Context context, LayoutInflater layoutInflater) {
+            mLayoutInflator = layoutInflater;
+            mHasVibrator = ((Vibrator) context.getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+        }
+
+        @Override
+        public ItemAdapter.ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {
+            return new ExpandedAlarmViewHolder(mLayoutInflator.inflate(
+                    viewType, parent, false /* attachToRoot */), mHasVibrator);
         }
     }
 }

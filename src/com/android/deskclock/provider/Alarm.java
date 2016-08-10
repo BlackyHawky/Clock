@@ -353,7 +353,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      * @return Previous firing time, or null if this is a one-time alarm.
      */
     public Calendar getPreviousAlarmTime(Calendar currentTime) {
-        Calendar previousInstanceTime = Calendar.getInstance();
+        final Calendar previousInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
         previousInstanceTime.set(Calendar.YEAR, currentTime.get(Calendar.YEAR));
         previousInstanceTime.set(Calendar.MONTH, currentTime.get(Calendar.MONTH));
         previousInstanceTime.set(Calendar.DAY_OF_MONTH, currentTime.get(Calendar.DAY_OF_MONTH));
@@ -372,7 +372,7 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
     }
 
     public Calendar getNextAlarmTime(Calendar currentTime) {
-        final Calendar nextInstanceTime = Calendar.getInstance();
+        final Calendar nextInstanceTime = Calendar.getInstance(currentTime.getTimeZone());
         nextInstanceTime.set(Calendar.YEAR, currentTime.get(Calendar.YEAR));
         nextInstanceTime.set(Calendar.MONTH, currentTime.get(Calendar.MONTH));
         nextInstanceTime.set(Calendar.DAY_OF_MONTH, currentTime.get(Calendar.DAY_OF_MONTH));

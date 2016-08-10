@@ -16,6 +16,8 @@
 
 package com.android.deskclock.settings;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -24,9 +26,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 
 /**
- * Settings for Clock Daydream
+ * Settings for Clock screen saver
  */
 public final class ScreensaverSettingsActivity extends AppCompatActivity {
 
@@ -56,9 +59,14 @@ public final class ScreensaverSettingsActivity extends AppCompatActivity {
             implements Preference.OnPreferenceChangeListener {
 
         @Override
+        @TargetApi(Build.VERSION_CODES.N)
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.dream_settings);
+
+            if (Utils.isNOrLater()) {
+                getPreferenceManager().setStorageDeviceProtected();
+            }
+            addPreferencesFromResource(R.xml.screensaver_settings);
         }
 
         @Override

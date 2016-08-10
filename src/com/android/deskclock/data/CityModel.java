@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.preference.PreferenceManager;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
@@ -52,9 +51,11 @@ final class CityModel {
      * Retain a hard reference to the shared preference observer to prevent it from being garbage
      * collected. See {@link SharedPreferences#registerOnSharedPreferenceChangeListener} for detail.
      */
+    @SuppressWarnings("FieldCanBeLocal")
     private final OnSharedPreferenceChangeListener mPreferenceListener = new PreferenceListener();
 
     /** Clears data structures containing data that is locale-sensitive. */
+    @SuppressWarnings("FieldCanBeLocal")
     private final BroadcastReceiver mLocaleChangedReceiver = new LocaleChangedReceiver();
 
     /** Maps city ID to city instance. */
@@ -129,7 +130,7 @@ final class CityModel {
         if (mHomeCity == null) {
             final String name = mContext.getString(R.string.home_label);
             final TimeZone timeZone = mSettingsModel.getHomeTimeZone();
-            mHomeCity = new City(null, -1, null, name, name, timeZone.getID());
+            mHomeCity = new City(null, -1, null, name, name, timeZone);
         }
 
         return mHomeCity;
@@ -218,6 +219,14 @@ final class CityModel {
         mUnselectedCities = null;
     }
 
+    /**
+     * @param cityId identifies a city
+     * @return the corresponding city
+     */
+    City getCityById(String cityId) {
+        return getCityMap().get(cityId);
+    }
+
     private Map<String, City> getCityMap() {
         if (mCityMap == null) {
             mCityMap = CityDAO.getCities(mContext);
@@ -236,7 +245,7 @@ final class CityModel {
     }
 
     private void sendCitiesChangedBroadcast() {
-        mContext.sendBroadcast(new Intent(DataModel.ACTION_DIGITAL_WIDGET_CHANGED));
+        mContext.sendBroadcast(new Intent(DataModel.ACTION_WORLD_CITIES_CHANGED));
     }
 
     /**

@@ -16,35 +16,60 @@
 
 package com.android.alarmclock;
 
-import com.android.deskclock.HandleDeskClockApiCalls;
-import com.android.deskclock.R;
-
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.content.BroadcastReceiver;
+import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
 
+import com.android.deskclock.DeskClock;
+import com.android.deskclock.R;
+import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
+
 /**
  * Simple widget to show an analog clock.
  */
-public class AnalogAppWidgetProvider extends BroadcastReceiver {
+public class AnalogAppWidgetProvider extends AppWidgetProvider {
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (!AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(intent.getAction())) {
+        super.onReceive(context, intent);
+
+        final AppWidgetManager wm = AppWidgetManager.getInstance(context);
+        if (wm == null) {
             return;
         }
 
-        final String packageName = context.getPackageName();
-        final RemoteViews views = new RemoteViews(packageName, R.layout.analog_appwidget);
+        // Send events for newly created/deleted widgets.
+        final ComponentName provider = new ComponentName(context, getClass());
+        final int widgetCount = wm.getAppWidgetIds(provider).length;
 
-        final Intent showClock = new Intent(HandleDeskClockApiCalls.ACTION_SHOW_CLOCK)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_FROM_WIDGET, true);
-        final PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, showClock, 0);
-        views.setOnClickPendingIntent(R.id.analog_appwidget, pendingIntent);
+        final DataModel dm = DataModel.getDataModel();
+        dm.updateWidgetCount(getClass(), widgetCount, R.string.category_analog_widget);
+    }
 
-        final int[] appWidgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
-        AppWidgetManager.getInstance(context).updateAppWidget(appWidgetIds, views);
+    /**
+     * Called when widgets must provide remote views.
+     */
+    @Override
+    public void onUpdate(Context context, AppWidgetManager wm, int[] widgetIds) {
+        super.onUpdate(context, wm, widgetIds);
+
+        for (int widgetId : widgetIds) {
+            final String packageName = context.getPackageName();
+            final RemoteViews widget = new RemoteViews(packageName, R.layout.analog_appwidget);
+
+            // Tapping on the widget opens the app (if not on the lock screen).
+            if (Utils.isWidgetClickable(wm, widgetId)) {
+                final Intent openApp = new Intent(context, DeskClock.class);
+                final PendingIntent pi = PendingIntent.getActivity(context, 0, openApp, 0);
+                widget.setOnClickPendingIntent(R.id.analog_appwidget, pi);
+            }
+
+            wm.updateAppWidget(widgetId, widget);
+        }
     }
 }

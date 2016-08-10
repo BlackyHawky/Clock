@@ -17,34 +17,18 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"នាឡិកា"</string>
-    <string name="alarm_list_title" msgid="7589940465292950600">"សំឡេង​រោទ៍"</string>
-    <string name="add_alarm" msgid="5976616107390962899">"បន្ថែម​សំឡេង​រោទ៍"</string>
-    <string name="menu_desk_clock" msgid="3241995064554071588">"នាឡិកា​រោទ៍"</string>
-    <string name="menu_edit_alarm" msgid="7204602994918829751">"កែ​សំឡេង​រោទ៍"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"លុប​សំឡេង​រោទ៍"</string>
-    <string name="enable_alarm" msgid="1834599140632142536">"បើក​សំឡេង​រោទ៍"</string>
-    <string name="disable_alarm" msgid="5889378670229554109">"បិទ​សំឡេង​រោទ៍"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"លុប​សំឡេង​រោទ៍​នេះ?"</string>
-    <string name="show_clock" msgid="8358759982675616915">"បង្ហាញ​នាឡិកា"</string>
-    <string name="hide_clock" msgid="3217727306480505694">"លាក់​នាឡិកា"</string>
     <string name="label" msgid="162189613902857319">"ស្លាក"</string>
-    <string name="on_switch" msgid="2297966258029227449">"បើក"</string>
-    <string name="off_switch" msgid="3381070073851148013">"បិទ"</string>
     <string name="default_label" msgid="5590025289805630372">"សំឡេង​រោទ៍"</string>
-    <string name="set_alarm" msgid="9148359866152726808">"កំណត់​សំឡេង​រោទ៍"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"ញ័រ"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"ធ្វើ​ម្ដងទៀត"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"រោទ៍ឡើងវិញ"</string>
     <string name="alert" msgid="6506982899651975645">"សំឡេង​រោទ៍"</string>
-    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"កម្មវិធីកំណត់ពេលបានផុតកំណត់"</string>
-    <string name="silent_timer_ringtone_title" msgid="7588723137323327647">"ស្ងាត់"</string>
-    <string name="ringtone" msgid="9110746249688559579">"សំឡេង​រោទ៍"</string>
-    <string name="time" msgid="8067216534232296518">"ពេលវេលា"</string>
+    <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"សំឡេងម៉ោងរោទិ៍លំនាំដើម"</string>
+    <string name="default_timer_ringtone_title" msgid="1370799536406862317">"កម្មវិធីកំណត់ម៉ោងបានផុតកំណត់"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ថ្ងៃស្អែក"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ថ្ងៃនេះ"</string>
-    <string name="alarm_alert_wake_up" msgid="6790780716498252583">"ភ្ញាក់!"</string>
-    <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"បិទ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"បោះបង់"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"បដិសេធ​ឥឡូវ"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"បោះបង់ឥឡូវនេះ"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"​ខកខាន​ការ​ជូនដំណឹង"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"បាន​ផ្អាក"</string>
@@ -59,7 +43,7 @@
       <item quantity="one">ផ្អាក 1 នាទី</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"ផ្អាក​រហូតដល់ <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ការ​ជូនដំណឹង​ដែល​នឹង​កើត​ឡើង"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"ម៉ោងរោទ៍បន្ទាប់"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"ការ​ខកខាន​ជូនដំណឹង​របស់​​អ្នក​ត្រូវ​បាន​លុប"</string>
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"នៅសល់​តិច​ជាង​មួយ​នាទី"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
@@ -91,9 +75,9 @@
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"រាល់ថ្ងៃ"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
-    <string name="clock_instructions" msgid="2656876819515011590">"ជ្រើស​នាឡិកា"</string>
+    <string name="loading_widget" msgid="5306242862476796500">"កំពុងដំណើរការ..."</string>
     <string name="analog_gadget" msgid="1670505720837152766">"នាឡិកា​អាណាឡូក"</string>
-    <string name="help" msgid="7786263119482654015">"ជំនួយ"</string>
+    <string name="digital_gadget" msgid="2326954556720571358">"នាឡិកា​ឌីជីថល"</string>
     <string name="settings" msgid="5849739030579520686">"ការ​កំណត់"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"រយៈពេល​ផ្អាក"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
@@ -104,7 +88,7 @@
       <item quantity="other">នាទី</item>
       <item quantity="one">នាទី</item>
     </plurals>
-    <string name="crescendo_duration_title" msgid="8606408542726189528">"បង្កើនសំឡេងសន្សឹមៗ"</string>
+    <string name="crescendo_duration_title" msgid="8606408542726189528">"ដំឡើងសំឡេងសន្សឹមៗ"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"បិទ"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> វិនាទី"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"វិនាទី"</string>
@@ -113,7 +97,7 @@
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> នាទី</item>
       <item quantity="one">1 នាទី</item>
     </plurals>
-    <string name="auto_silence_never" msgid="4821982647348750809">"កុំ"</string>
+    <string name="auto_silence_never" msgid="4821982647348750809">"កុំឲ្យសោះ"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"១​នាទី"</item>
     <item msgid="5431906692406316549">"៥ នាទី"</item>
@@ -121,7 +105,7 @@
     <item msgid="2855948657259647629">"១៥ នាទី"</item>
     <item msgid="6330196381284475079">"២០ នាទី"</item>
     <item msgid="7809240121716151904">"២៥ នាទី"</item>
-    <item msgid="4278641338024561333">"កុំ"</item>
+    <item msgid="4278641338024561333">"កុំឲ្យសោះ"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"ចាប់ផ្តើមសប្តាហ៍នៅថ្ងៃ"</string>
   <string-array name="week_start_entries">
@@ -129,55 +113,39 @@
     <item msgid="3993530639455360921">"អាទិត្យ"</item>
     <item msgid="8594709368683324282">"ច័ន្ទ"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"ធ្វើ​រួច"</string>
-    <string name="revert" msgid="9100911171235162926">"ត្រឡប់​ទៅ​ដើម"</string>
-    <string name="delete" msgid="5732434972457000541">"លុប"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"កម្រិត​សំឡេង​រោទ៍"</string>
     <string name="silent_ringtone_title" msgid="6177287302898634765">"ស្ងាត់"</string>
     <string name="unknown_ringtone_title" msgid="6637522029614550112">"មិនស្គាល់"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"ផ្អាក ឬ​បោះបង់​សំឡេង​រោទ៍។"</string>
-    <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (បាន​ផ្អាក)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"បាន​កំណត់​សំឡេង​រោទ៍​ក្នុង​រយៈពេល <xliff:g id="TIME">%s</xliff:g> ទៀត។  ប៉ះ​ដើម្បី​បោះបង់។"</string>
+    <string name="alarm_volume_muted" msgid="6658289289695673569">"បានបិទសំឡេងម៉ោងរោទិ៍"</string>
+    <string name="unmute_alarm_volume" msgid="2655009276035357497">"បើក​សំឡេង"</string>
+    <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"សំឡេងម៉ោងរោទិ៍លំនាំដើមគឺស្ងាត់"</string>
+    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"ផ្លាស់ប្ដូរ"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ឧបករណ៍ត្រូវបានកំណត់ឲ្យស្ងាត់ទាំងស្រុង"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ប៊ូតុង​កម្រិត​សំឡេង"</string>
-    <string name="volume_button_dialog_title" msgid="8768042543750036853">"បែបផែន​ប៊ូតុង"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ផ្អាក"</item>
     <item msgid="3450979320164769576">"បោះបង់"</item>
-    <item msgid="6302517608411378024">"មិន​ធ្វើ"</item>
+    <item msgid="6302517608411378024">"មិន​ធ្វើអ្វីសោះ"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"កំណត់​សំឡេង​រោទ៍​លំនាំដើម"</string>
-    <string name="alarm_button_description" msgid="740283647046258651">"សំឡេង​រោទ៍"</string>
-    <string name="gallery_button_description" msgid="1151743663255257668">"វិចិត្រ​សាល"</string>
-    <string name="music_button_description" msgid="1626593420810117999">"តន្ត្រី"</string>
-    <string name="nightmode_button_description" msgid="990894208217576381">"ស្រអាប់"</string>
-    <string name="home_button_description" msgid="3383859096809056157">"កម្មវិធី​ចាប់ផ្ដើម"</string>
-    <string name="desk_clock_button_description" msgid="4207371097361657274">"ការ​បង្ហា្ញញ​នាឡិកា"</string>
     <string name="label_description" msgid="8736179296142915727">"ស្លាក"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"សំឡេង​រោទ៍"</string>
-    <string name="weather_fetch_failure" msgid="3425804832021006835">"ថា​តើ​បច្ចុប្បន្ន​មិន​មាន​ព័ត៌មាន។"</string>
-    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"បាន​កំណត់​សេវាកម្ម​បន្លឺ​សំឡេង​រោទ៍​នៅ​ក្នុង​នាឡិកា។"</string>
-    <string name="loading_ringtone" msgid="6523322777415268044">"កំពុង​ផ្ទុក​សំឡេង​រោទ៍…"</string>
-    <string name="timer_ring_service_desc" msgid="2620214305660322415">"បាន​កំណត់​សេវាកម្ម​បន្លឺ​សំឡេង​រោទ៍​នៅ​ក្នុង​នាឡិកា។"</string>
-    <string name="control_set_alarm" msgid="2194676418924016327">"កំណត់​សំឡេង​រោទ៍"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"ការ​ជូនដំណឹង"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"កម្មវិធី​កំណត់​ពេល"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"កម្មវិធី​កំណត់​ម៉ោង"</string>
     <string name="menu_clock" msgid="5612760670606829805">"នាឡិកា"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"នាឡិកា​បញ្ឈប់"</string>
     <string name="button_alarms" msgid="3907838219512538763">"បន្ថែម​សំឡេង​រោទ៍"</string>
     <string name="button_cities" msgid="4555761857494501363">"ទីក្រុង"</string>
-    <string name="button_menu" msgid="6050484561842120282">"ជម្រើសបន្ថែម"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"ការ​កំណត់"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"ជំនួយ"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"របៀប​រាត្រី"</string>
+    <string name="menu_item_night_mode" msgid="3486930302245398975">"ពេល​រាត្រី"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"តម្រៀប​តាម​ពេល"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"តម្រៀប​តាម​ឈ្មោះ"</string>
-    <string name="selected_cities_label" msgid="3607479399424246605">"ទីក្រុង​បាន​ជ្រើស"</string>
+    <string name="selected_cities_label" msgid="3607479399424246605">"ទីក្រុង​ដែលបាន​ជ្រើសរើស"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"បន្ត"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"កំណត់​ឡើងវិញ"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"ចាប់ផ្ដើម​"</string>
-    <!-- no translation found for sw_pause_button (2422084453454138042) -->
-    <skip />
-    <string name="sw_lap_button" msgid="6992264696039004233">"ជាន់​គ្នា"</string>
+    <string name="sw_pause_button" msgid="2422084453454138042">"ផ្អាក"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"ជុំ"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"ចែករំលែក​"</string>
     <string name="hours_label" msgid="3393478155635368097">"ម៉ោង"</string>
     <string name="minutes_label" msgid="3568098128251438588">"នាទី"</string>
@@ -185,10 +153,9 @@
     <string name="hours_label_description" msgid="8652842524970971830">"ម៉ោង"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"នាទី"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"វិនាទី"</string>
-    <string name="zero" msgid="7102083421938355017">"០"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"ពេលវេលា​របស់​ខ្ញុំ​គឺ <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="sw_share_laps" msgid="614390674795945007">"រយៈពេល​ជាន់​គ្នា៖"</string>
-    <string name="sw_notification_lap_number" msgid="3535420316052647126">"ជាន់​គ្នា <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="sw_share_laps" msgid="614390674795945007">"រយៈពេល​ជុំ៖"</string>
+    <string name="sw_notification_lap_number" msgid="3535420316052647126">"ជុំទី <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <plurals name="Nhours_description" formatted="false" msgid="4539186407746763655">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> ម៉ោង</item>
       <item quantity="one">1 ម៉ោង</item>
@@ -201,7 +168,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> វិនាទី</item>
       <item quantity="one">1 វិនាទី</item>
     </plurals>
-    <string name="timer_add_timer" msgid="862733633862574752">"បន្ថែម​កម្មវិធី​កំណត់​ពេល"</string>
+    <string name="timer_add_timer" msgid="862733633862574752">"បញ្ចូល​កម្មវិធី​កំណត់​ម៉ោង"</string>
     <string name="timer_start" msgid="6158486445614356442">"ចាប់ផ្ដើម"</string>
     <string name="timer_delete" msgid="8699122001991909302">"លុប"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"លុប <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
@@ -211,11 +178,10 @@
     <string name="timer_stop_all" msgid="9080780442843034376">"បញ្ឈប់កម្មវិធីកំណត់ពេលទាំងអស់"</string>
     <string name="timer_reset" msgid="7848424809190171640">"កំណត់​ឡើងវិញ"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"បោះ​បង់​"</string>
-    <string name="timer_canceled" msgid="7327923392567128060">"លុបចោល​​​កម្មវិធី​កំណត់ពេលវេលា"</string>
+    <string name="timer_canceled" msgid="7327923392567128060">"បានលុបចោល​​​កម្មវិធី​កំណត់ម៉ោង"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ដល់​ម៉ោង"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"កម្មវិធីកំណត់ពេល <xliff:g id="NUM_TIMERS">%d</xliff:g> បានផុតកំណត់"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"កម្មវិធី​កំណត់​ពេល"</string>
-    <string name="timers_max_count_reached" msgid="9140022846793903813">"ច្រើន​បំផុត​កម្មវិធី​កំណត់​ម៉ោង ៤"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"កម្មវិធី​កំណត់​ម៉ោង"</string>
     <string name="timer_pause" msgid="3748323712728398743">"ផ្អាក"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"កំណត់ការកំណត់ពេលទាំងអស់ឡើងវិញ"</string>
   <string-array name="sw_share_strings">
@@ -230,25 +196,21 @@
     <item msgid="9071353477103826053">"អ្នក​មាន​ក្ដារ​សម្រាប់​ល្បឿន។"</item>
     <item msgid="3785193933691117181">"ល្បឿន​ពន្លឺ។"</item>
   </string-array>
-    <string name="home_label" msgid="4436139365695453870">"ដើម"</string>
+    <string name="home_label" msgid="4436139365695453870">"ក្នុងស្រុក"</string>
     <string name="cities_activity_title" msgid="8552462751129256730">"ទីក្រុង"</string>
     <string name="clock_settings" msgid="8317286807280600391">"នាឡិកា"</string>
     <string name="clock_style" msgid="2265011060429742344">"រចនាប័ទ្ម"</string>
-    <string name="open_date_settings" msgid="5915966847691221307">"ប្តូរកាលបរិច្ឆេទ និងម៉ោង"</string>
+    <string name="open_date_settings" msgid="7712226973337806152">"ប្តូរកាលបរិច្ឆេទ និងម៉ោង"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"អាណាឡូក"</item>
     <item msgid="8483930821046925592">"ឌីជីថល"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"នាឡិកា​ផ្ទះ​ស្វ័យប្រវត្តិ"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ពេល​ធ្វើ​ដំណើរ​ទៅ​តំបន់​ដែល​មាន​ម៉ោង​ខុសគ្នា, បន្ថែម​នាឡិកា​សម្រាប់​ផ្ទះ"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"តំបន់​ពេលវេលា​ដើម"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"តំបន់​ពេលវេលា​ដើម"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"នាឡិកា​ក្នុងស្រុក​​ស្វ័យប្រវត្តិ"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ពេល​ធ្វើ​ដំណើរ​ទៅ​តំបន់​ដែល​មាន​ម៉ោង​ខុសគ្នា បន្ថែម​នាឡិកា​​ក្នុងស្រុកមួយ"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"តំបន់​ពេលវេលា​ក្នុងស្រុក"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"តំបន់​ពេលវេលា​ក្នុងស្រុក"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"បោះ​បង់​"</string>
     <string name="time_picker_set" msgid="331153175471468051">"យល់​ព្រម​"</string>
-    <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
-    <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
-    <string name="time_picker_00_label" msgid="6001006474735281911">":០០"</string>
-    <string name="time_picker_30_label" msgid="1027250857384838129">":៣០"</string>
     <string name="city_checked" msgid="616847871968019">"បានធីក <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_unchecked" msgid="710212932781145918">"បានដោះការធីក <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
   <string-array name="timezone_labels">
@@ -339,44 +301,32 @@
     <item msgid="5176858645450908751">"ហ្សាការតា"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"សំឡេង​រោទ៍"</string>
-    <string name="timer_service_desc" msgid="2256002649882602433">"ដំណើរការសកម្មភាពពីការជូនដំណឹងកម្មវិធីកំណត់ពេល"</string>
+    <string name="timer_service_desc" msgid="2256002649882602433">"ធ្វើដំណើរការសកម្មភាពពីការជូនដំណឹងកម្មវិធីកំណត់ម៉ោង"</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"ដំណើរការសកម្មភាពពីការជូនដំណឹងម៉ោងបញ្ឈប់"</string>
     <string name="swn_paused" msgid="6364358842808263589">"បានផ្អាក"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"អូស​ទៅ​ស្ដាំ​ដើម្បី​បដិសេធ"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"អូស​ទៅ​ឆ្វេង​ដើម្បី​ផ្អាក"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"អូសទៅឆ្វេងដើម្បីផ្អាក ឬទៅស្តាំដើម្បីបញ្ឈប់"</string>
     <string name="timer_settings" msgid="7955522143086154795">"កម្មវិធីកំណត់ពេល"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"សំឡេងរោទិ៍កម្មវិធីកំណត់ពេល"</string>
-    <string name="timer_stopped" msgid="2730331837832462008">"កម្មវិធី​កំណត់​ពេល​បាន​ឈប់"</string>
-    <string name="timer_paused" msgid="5941160896040771462">"បានផ្អាកកម្មវិធីកំណត់ពេល"</string>
+    <string name="timer_ringtone_title" msgid="7630214935791599619">"សំឡេងរោទិ៍កម្មវិធីកំណត់ម៉ោង"</string>
+    <string name="timer_vibrate_title" msgid="7788920024785587518">"ការញ័រនៃកម្មវិធីកំណត់ម៉ោង"</string>
+    <string name="timer_paused" msgid="5941160896040771462">"បានផ្អាកកម្មវិធីកំណត់ម៉ោង"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"បានផ្អាកកម្មវិធីកំណត់ពេល <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="all_timers_stopped_notif" msgid="278532320068394600">"ប៉ះ​ដើម្បី​មើល​កម្មវិធី​កំណត់​ពេល​របស់​អ្នក"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"ប៉ះដើម្បីមើលកម្មវិធីកំណត់ពេលរបស់អ្នក"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> កម្មវិធី​កំណត់​ពេល"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"កម្មវិធី​កំណត់​ពេល​បន្ទាប់៖ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"ការ​កំណត់​ស្រមើ​​ស្រមៃ"</string>
-    <string name="night_mode_title" msgid="5983813889469616299">"របៀប​រាត្រី"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"ការ​បង្ហាញ​យ៉ាង​ស្រអាប់ (សម្រាប់​បន្ទប់​ងងឹត)"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"កម្មវិធី​កំណត់​ម៉ោង​បន្ទាប់៖ <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="screensaver_settings" msgid="1780742944194267226">"ការកំណត់ធាតុរក្សាអេក្រង់"</string>
+    <string name="night_mode_title" msgid="5983813889469616299">"ពេល​រាត្រី"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"អេក្រង់ងងឹតខ្លាំង (សម្រាប់​បន្ទប់​ងងឹត)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ពង្រីក​សំឡេង​រោទ៍"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"បង្រួម​សំឡេង​រោទ៍"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"​មិន​​ធ្វើ​វិញ"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"បានលុបម៉ោងរោទិ៍"</string>
-    <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"សំឡេង​រោទ៍​បន្ទាប់៖ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="alarms_selected" msgid="1075308195332888260">"បាន​ជ្រើស <xliff:g id="ALARMS">%d</xliff:g>"</string>
-    <string name="deleted_message" msgid="1220848140260509437">"បាន​លុប"</string>
-    <plurals name="alarm_delete_confirmation" formatted="false" msgid="3591262014329613293">
-      <item quantity="other">លុបសម្លេងរោទិ៍ដែលបានជ្រើស?</item>
-      <item quantity="one">លុបសម្លេងរោទិ៍ដែលបានជ្រើស?</item>
-    </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"លុប​កម្មវិធី​កំណត់​ពេល?"</string>
-    <string name="city_delete_confirmation" msgid="1783441538785676299">"លុប​ទីក្រុង​នេះ?"</string>
-    <string name="digital_gadget" msgid="2326954556720571358">"នាឡិកា​ឌីជីថល"</string>
     <string name="no_alarms" msgid="6429431324842022917">"គ្មាន​ការ​ជូនដំណឹង"</string>
-    <string name="no_alarms_set" msgid="4887558279496044764">"មិនមានសំឡេងរោទ៍"</string>
-    <string name="no_upcoming_alarms" msgid="2889840988069436254">"គ្មាន​ការ​ជូនដំណឹង​ដែល​នឹង​កើត​ឡើង"</string>
-    <string name="invalid_time" msgid="2782334750243998633">"ម៉ោងមិនត្រឹមត្រូវ <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"គ្មានម៉ោងរោទិ៍នៅ <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="invalid_time" msgid="2782334750243998633">"ម៉ោងមិនត្រឹមត្រូវ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"គ្មានម៉ោងរោទិ៍នៅ <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"គ្មានម៉ោងរោទិ៍បានកំណត់ទេ"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"គ្មានការបញ្ជាក់ស្លាកទេ"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"គ្មានម៉ោងរោទិ៍ដែលមានស្លាកទេ"</string>
@@ -389,13 +339,13 @@
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"បានបដិសេធម៉ោងរោទិ៍ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"ម៉ោងរោទ៍ត្រូវបានកំណត់នៅ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"គ្មានកម្មវិធីកំណត់ពេលទេ"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"មានកម្មវិធីកំណត់ពេលច្រើនជាងមួយ"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"កម្មវិធីកំណត់ពេលត្រូវបានយកចេញ"</string>
-    <string name="timer_created" msgid="4381027137335885547">"បានបង្កើតឧបករណ៍កំណត់ពេល"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"កំណត់កម្មវិធីកំណត់ពេលឡើងវិញ"</string>
-    <string name="timer_deleted" msgid="9110322362460029392">"បានលុបកម្មវិធីកំណត់ពេល"</string>
-    <string name="timer_started" msgid="6715582052946641641">"​​ចាប់ផ្ដើមកម្មវិធីកំណត់ពេល"</string>
-    <string name="invalid_timer_length" msgid="3104567893212932487">"រយៈពេលសម្រាប់ឧបករណ៍កំណត់ពេលមិនត្រឹមត្រូវ"</string>
+    <string name="too_many_timers_exist" msgid="6339194231767431627">"មានកម្មវិធីកំណត់ម៉ោងច្រើនជាងមួយ"</string>
+    <string name="timer_does_not_exist" msgid="4457482976523984231">"បានលុបកម្មវិធីកំណត់ម៉ោងចេញ"</string>
+    <string name="timer_created" msgid="4381027137335885547">"បានបង្កើតកម្មវិធីកំណត់ម៉ោង"</string>
+    <string name="timer_was_reset" msgid="6495796785185062631">"កំណត់កម្មវិធីកំណត់ម៉ោងឡើងវិញ"</string>
+    <string name="timer_deleted" msgid="9110322362460029392">"បានលុបកម្មវិធីកំណត់ម៉ោង"</string>
+    <string name="timer_started" msgid="6715582052946641641">"​​បានចាប់ផ្ដើមកម្មវិធីកំណត់ម៉ោង"</string>
+    <string name="invalid_timer_length" msgid="3104567893212932487">"រយៈពេលនៃកម្មវិធីកំណត់ម៉ោងមិនត្រឹមត្រូវ"</string>
     <string name="no_city_selected" msgid="1007596865203283741">"មិនបានជ្រើសទីក្រុងទេ"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"ទីក្រុងដែលអ្នកបានបញ្ជាក់មិនមានទេ"</string>
     <string name="the_city_already_added" msgid="3799050213771793020">"បានបន្ថែមទីក្រុងនោះរួចហើយ"</string>

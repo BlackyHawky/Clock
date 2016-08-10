@@ -41,34 +41,37 @@ public final class City {
     /** The phonetic name of the city used to order cities for display. */
     private final String mPhoneticName;
 
-    /** The {@link TimeZone#getID() id} of the timezone in which the city is located. */
-    private final String mTimeZoneId;
-
-    /** The TimeZone corresponding to the {@link #mTimeZoneId}. */
+    /** The TimeZone corresponding to the city. */
     private final TimeZone mTimeZone;
 
     /** A cached upper case form of the {@link #mName} used in case-insensitive name comparisons. */
     private String mNameUpperCase;
 
-    City(String id, int index, String indexString, String name, String phoneticName,
-            String timeZoneId) {
+    /**
+     * A cached upper case form of the {@link #mName} used in case-insensitive name comparisons
+     * which ignore {@link #removeSpecialCharacters(String)} special characters.
+     */
+    private String mNameUpperCaseNoSpecialCharacters;
+
+    City(String id, int index, String indexString, String name, String phoneticName, TimeZone tz) {
         mId = id;
         mIndex = index;
         mIndexString = indexString;
         mName = name;
         mPhoneticName = phoneticName;
-        mTimeZoneId = timeZoneId;
-        mTimeZone = TimeZone.getTimeZone(mTimeZoneId);
+        mTimeZone = tz;
     }
 
     public String getId() { return mId; }
     public int getIndex() { return mIndex; }
     public String getName() { return mName; }
     public TimeZone getTimeZone() { return mTimeZone; }
-    public String getTimeZoneId() { return mTimeZoneId; }
     public String getIndexString() { return mIndexString; }
     public String getPhoneticName() { return mPhoneticName; }
 
+    /**
+     * @return the city name converted to upper case
+     */
     public String getNameUpperCase() {
         if (mNameUpperCase == null) {
             mNameUpperCase = mName.toUpperCase();
@@ -76,10 +79,42 @@ public final class City {
         return mNameUpperCase;
     }
 
+    /**
+     * @return the city name converted to upper case with all special characters removed
+     */
+    private String getNameUpperCaseNoSpecialCharacters() {
+        if (mNameUpperCaseNoSpecialCharacters == null) {
+            mNameUpperCaseNoSpecialCharacters = removeSpecialCharacters(getNameUpperCase());
+        }
+        return mNameUpperCaseNoSpecialCharacters;
+    }
+
+    /**
+     * @param upperCaseQueryNoSpecialCharacters search term with all special characters removed
+     *      to match against the upper case city name
+     * @return {@code true} iff the name of this city starts with the given query
+     */
+    public boolean matches(String upperCaseQueryNoSpecialCharacters) {
+        // By removing all special characters, prefix matching becomes more liberal and it is easier
+        // to locate the desired city. e.g. "St. Lucia" is matched by "StL", "St.L", "St L", "St. L"
+        return getNameUpperCaseNoSpecialCharacters().startsWith(upperCaseQueryNoSpecialCharacters);
+    }
+
     @Override
     public String toString() {
         return String.format("City {id=%s, index=%d, indexString=%s, name=%s, phonetic=%s, tz=%s}",
-                mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZoneId);
+                mId, mIndex, mIndexString, mName, mPhoneticName, mTimeZone.getID());
+    }
+
+    /**
+     * Strips out any characters considered optional for matching purposes. These include spaces,
+     * dashes, periods and apostrophes.
+     *
+     * @param token a city name or search term
+     * @return the given {@code token} without any characters considered optional when matching
+     */
+    public static String removeSpecialCharacters(String token) {
+        return token.replaceAll("[ -.']", "");
     }
 
     /**

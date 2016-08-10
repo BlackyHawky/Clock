@@ -68,6 +68,22 @@ public class VerticalViewPager extends ViewPager {
         init();
     }
 
+    /**
+     * @return {@code false} since a vertical view pager can never be scrolled horizontally
+     */
+    @Override
+    public boolean canScrollHorizontally(int direction) {
+        return false;
+    }
+
+    /**
+     * @return {@code true} iff a normal view pager would support horizontal scrolling at this time
+     */
+    @Override
+    public boolean canScrollVertically(int direction) {
+        return super.canScrollHorizontally(direction);
+    }
+
     private void init() {
         // Make page transit vertical
         setPageTransformer(true, mPageTransformer);
@@ -85,8 +101,9 @@ public class VerticalViewPager extends ViewPager {
                 case MotionEvent.ACTION_DOWN: {
                     mLastMotionX = x;
                     mLastMotionY = y;
-                    if (!mParentViewPager.onTouchEvent(ev))
+                    if (!mParentViewPager.onTouchEvent(ev)) {
                         return false;
+                    }
                     return verticalDrag(ev);
                 }
                 case MotionEvent.ACTION_MOVE: {

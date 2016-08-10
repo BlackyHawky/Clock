@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <objectAnimator
+        android:duration="366"
+        android:propertyName="rotation"
+        android:valueFrom="0.0"
+        android:valueTo="-270.0"
+        android:valueType="floatType"
+        android:interpolator="@interpolator/ic_reset_lap_animation_interpolator_1" />
+</set>
