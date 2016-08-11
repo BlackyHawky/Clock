@@ -30,6 +30,7 @@ import android.provider.AlarmClock;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.HandleApiCalls;
 import com.android.deskclock.HandleDeskClockApiCalls;
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.ScreensaverActivity;
 import com.android.deskclock.data.DataModel;
@@ -62,11 +63,20 @@ class ShortcutController {
     }
 
     void updateShortcuts() {
-        final ShortcutInfo alarm = createNewAlarmShortcut();
-        final ShortcutInfo timer = createNewTimerShortcut();
-        final ShortcutInfo stopwatch = createStopwatchShortcut();
-        final ShortcutInfo screensaver = createScreensaverShortcut();
-        mShortcutManager.setDynamicShortcuts(Arrays.asList(alarm, timer, stopwatch, screensaver));
+        if (!mUserManager.isUserUnlocked()) {
+            LogUtils.i("Skipping shortcut update because user is locked.");
+            return;
+        }
+        try {
+            final ShortcutInfo alarm = createNewAlarmShortcut();
+            final ShortcutInfo timer = createNewTimerShortcut();
+            final ShortcutInfo stopwatch = createStopwatchShortcut();
+            final ShortcutInfo screensaver = createScreensaverShortcut();
+            mShortcutManager.setDynamicShortcuts(
+                    Arrays.asList(alarm, timer, stopwatch, screensaver));
+        } catch (IllegalStateException e) {
+            LogUtils.wtf(e);
+        }
     }
 
     private ShortcutInfo createNewAlarmShortcut() {
@@ -152,13 +162,20 @@ class ShortcutController {
 
         @Override
         public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
-            if (mUserManager.isUserUnlocked()) {
+            if (!mUserManager.isUserUnlocked()) {
+                LogUtils.i("Skipping stopwatch shortcut update because user is locked.");
+                return;
+            }
+            try {
                 mShortcutManager.updateShortcuts(
                         Collections.singletonList(createStopwatchShortcut()));
+            } catch (IllegalStateException e) {
+                LogUtils.wtf(e);
             }
         }
 
         @Override
-        public void lapAdded(Lap lap) {}
+        public void lapAdded(Lap lap) {
+        }
     }
 }
