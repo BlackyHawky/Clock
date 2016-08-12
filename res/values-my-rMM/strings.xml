@@ -47,7 +47,7 @@
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"ကျန်ရှိနေသည်မှာ တစ်မိနစ်ထက် နည်း"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ကျန်ရှိနေ"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g> ကျန်ရှိသည်"</string>
     <string name="timer_notifications_missed_less_min" msgid="8519097741068939429">"ပြီးခဲ့သည့် စက္ကန့်အနည်းငယ်က"</string>
     <string name="timer_notifications_missed_hours" msgid="3040400788095447215">"ပြီးခဲ့သည့် <xliff:g id="HOURS">%1$s</xliff:g> က"</string>
     <string name="timer_notifications_missed_minutes" msgid="96802155255511315">"ပြီးခဲ့သည့် <xliff:g id="MINUTES">%2$s</xliff:g> က"</string>
