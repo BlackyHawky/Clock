@@ -160,7 +160,7 @@
     <string name="seconds_label" msgid="124655952824003246">"s"</string>
     <string name="hours_label_description" msgid="8652842524970971830">"sati"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"minuta"</string>
-    <string name="seconds_label_description" msgid="3821620053141299692">"sekundi"</string>
+    <string name="seconds_label_description" msgid="3821620053141299692">"sekunde"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Moje vrijeme je <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Vremena krugova:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"Krug <xliff:g id="NUMBER">%d</xliff:g>"</string>
@@ -325,7 +325,7 @@
     <string name="timers_stopped" msgid="3186191253226005149">"Pauziranih tajmera: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="883027111895833440">"Dodirnite da biste vidjeli tajmere"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"Tajmeri: <xliff:g id="NUMBER">%d</xliff:g>"</string>
-    <string name="next_timer_notif" msgid="6136454740115613653">"Naredni tajmer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
+    <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći tajmer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Podešavanje čuvara ekrana"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noćni način rada"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Veoma prigušen ekran (za mračne prostorije)"</string>
@@ -334,7 +334,7 @@
     <string name="alarm_undo" msgid="5710042601177655254">"Vrati"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm izbrisan"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
-    <string name="next_alarm_description" msgid="2650244835760747046">"Naredni alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="next_alarm_description" msgid="2650244835760747046">"Sljedeći alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Nema alarma"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Nevažeće vrijeme <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Nema alarma u <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
