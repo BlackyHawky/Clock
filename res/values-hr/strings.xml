@@ -104,9 +104,9 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minuta</item>
     </plurals>
     <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="one">minuta</item>
-      <item quantity="few">minute</item>
-      <item quantity="other">minuta</item>
+      <item quantity="one">min</item>
+      <item quantity="few">min</item>
+      <item quantity="other">min</item>
     </plurals>
     <string name="auto_silence_title" msgid="2012754009554434544">"Utišaj nakon"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
@@ -116,7 +116,7 @@
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Nikada"</string>
   <string-array name="auto_silence_entries">
-    <item msgid="3024545954917711306">"1 minuta"</item>
+    <item msgid="3024545954917711306">"1 min"</item>
     <item msgid="5431906692406316549">"5 minuta"</item>
     <item msgid="7742728812068919959">"10 minuta"</item>
     <item msgid="2855948657259647629">"15 minuta"</item>
@@ -162,7 +162,7 @@
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Mjerač vremena"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Tajmer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Sat"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Kronometar"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Dodaj alarm"</string>
@@ -220,7 +220,7 @@
     <string name="timer_reset" msgid="7848424809190171640">"Poništi"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Odustani"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Vrijeme je isteklo"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"Mjerač vremena"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Tajmer"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Maksimalno 4 tajmera"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Brzi ste kao munja."</item>
@@ -243,7 +243,7 @@
     <item msgid="8483930821046925592">"Digitalni"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatski kućni sat"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Dok ste u nekoj drugoj vremenskoj zoni, dodajte sat za vremensku zonu kod kuće"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Dodajte sat za vremensku zonu kod kuće kad ste u nekoj drugoj vremenskoj zoni"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Domaća vremenska zona"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Domaća vremenska zona"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Odustani"</string>
@@ -345,10 +345,10 @@
     <string name="description_direction_right" msgid="5709209043267548985">"Prijeđite prstom udesno za odbacivanje"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Prijeđite prstom ulijevo za odgodu"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Prijeđite prstom ulijevo za odgodu ili udesno za odbacivanje"</string>
-    <string name="timer_stopped" msgid="2730331837832462008">"Mjerač vremena zaustavljen je"</string>
-    <string name="timers_stopped" msgid="2393640808691864520">"Broj zaustavljenih mjerača vremena: <xliff:g id="NUMBER">%d</xliff:g>"</string>
+    <string name="timer_stopped" msgid="2730331837832462008">"Tajmer je zaustavljen"</string>
+    <string name="timers_stopped" msgid="2393640808691864520">"Broj zaustavljenih tajmera: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Dodirnite da biste vidjeli svoje mjerače vremena"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> mjerača vremena"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> tajmera"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Sljedeći: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Postavke sna"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Noćni način"</string>
@@ -367,7 +367,7 @@
       <item quantity="few">Želite li izbrisati odabrane alarme?</item>
       <item quantity="other">Želite li izbrisati odabrane alarme?</item>
     </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Izbrisati ovaj mjerač vremena?"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Izbrisati ovaj tajmer?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Ukloniti ovaj grad?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitalni sat"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Bez alarma"</string>

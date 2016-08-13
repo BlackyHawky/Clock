@@ -67,7 +67,7 @@
     <item msgid="6170433208654553821">"E<xliff:g id="SEPARATOR">=</xliff:g>Edmonton"</item>
     <item msgid="795461860173291499">"E<xliff:g id="SEPARATOR">=</xliff:g>El-Salvador"</item>
     <item msgid="7872196528637597794">"F<xliff:g id="SEPARATOR">=</xliff:g>Fortaleza"</item>
-    <item msgid="5801558418916235541">"G<xliff:g id="SEPARATOR">=</xliff:g>Grand-Turk oroli"</item>
+    <item msgid="5801558418916235541">"G<xliff:g id="SEPARATOR">=</xliff:g>Grand-Turk"</item>
     <item msgid="2103759276235503048">"G<xliff:g id="SEPARATOR">=</xliff:g>Grenada"</item>
     <item msgid="1490069759176391533">"G<xliff:g id="SEPARATOR">=</xliff:g>Gvatemala"</item>
     <item msgid="525959305652046261">"G<xliff:g id="SEPARATOR">=</xliff:g>Gayana"</item>
@@ -82,7 +82,7 @@
     <item msgid="1334860422444068943">"V<xliff:g id="SEPARATOR">=</xliff:g>Vinsens"</item>
     <item msgid="7775105082093691756">"V<xliff:g id="SEPARATOR">=</xliff:g>Vinamak"</item>
     <item msgid="4043335541899184547">"K<xliff:g id="SEPARATOR">=</xliff:g>Kingston"</item>
-    <item msgid="1063757593477259280">"N<xliff:g id="SEPARATOR">=</xliff:g>Nuestra Senyora de La-Pas"</item>
+    <item msgid="1063757593477259280">"L<xliff:g id="SEPARATOR">=</xliff:g>La-Pas"</item>
     <item msgid="349901732062388869">"L<xliff:g id="SEPARATOR">=</xliff:g>Lima"</item>
     <item msgid="4977592519316837842">"L<xliff:g id="SEPARATOR">=</xliff:g>Los-Anjeles"</item>
     <item msgid="7713051790509638572">"L<xliff:g id="SEPARATOR">=</xliff:g>Luisvill"</item>
@@ -97,7 +97,7 @@
     <item msgid="3068203952968918165">"N<xliff:g id="SEPARATOR">=</xliff:g>Nassau"</item>
     <item msgid="4234515454127289962">"N<xliff:g id="SEPARATOR">=</xliff:g>Nyu-York"</item>
     <item msgid="1660551302087304308">"B<xliff:g id="SEPARATOR">=</xliff:g>Beula"</item>
-    <item msgid="415823390775449071">"S<xliff:g id="SEPARATOR">=</xliff:g>Sentr"</item>
+    <item msgid="415823390775449071">"S<xliff:g id="SEPARATOR">=</xliff:g>Senter"</item>
     <item msgid="6644186958433380884">"N<xliff:g id="SEPARATOR">=</xliff:g>Nyu-Salem"</item>
     <item msgid="6408587617047971798">"P<xliff:g id="SEPARATOR">=</xliff:g>Panama"</item>
     <item msgid="5576899364199447991">"F<xliff:g id="SEPARATOR">=</xliff:g>Feniks"</item>
@@ -251,7 +251,7 @@
     <item msgid="7080627414383807284">"S<xliff:g id="SEPARATOR">=</xliff:g>San-Salvador"</item>
     <item msgid="3430371213266252049">"S<xliff:g id="SEPARATOR">=</xliff:g>Sietl"</item>
     <item msgid="9177491393818757071">"S<xliff:g id="SEPARATOR">=</xliff:g>Sent-Luis"</item>
-    <item msgid="6234359686676312837">"V<xliff:g id="SEPARATOR">=</xliff:g>Vashington (Kolumbiya okrugi)"</item>
+    <item msgid="6234359686676312837">"V<xliff:g id="SEPARATOR">=</xliff:g>Vashington"</item>
     <item msgid="4325057056005132331">"X<xliff:g id="SEPARATOR">=</xliff:g>Xyuston"</item>
     <item msgid="38148255938075867">"S<xliff:g id="SEPARATOR">=</xliff:g>San-Antonio"</item>
     <item msgid="3601481860893666763">"J<xliff:g id="SEPARATOR">=</xliff:g>Jeksonvill"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"K<xliff:g id="SEPARATOR">=</xliff:g>Kembrij"</item>
     <item msgid="759409010285366934">"K<xliff:g id="SEPARATOR">=</xliff:g>Kirklend"</item>
     <item msgid="6308007059287569663">"M<xliff:g id="SEPARATOR">=</xliff:g>Medison"</item>
-    <item msgid="6971636434858330021">"G<xliff:g id="SEPARATOR">=</xliff:g>Guanjou"</item>
+    <item msgid="6971636434858330021">"G<xliff:g id="SEPARATOR">=</xliff:g>Guanchjou"</item>
     <item msgid="1185109514180068650">"H<xliff:g id="SEPARATOR">=</xliff:g>Haydarobod"</item>
     <item msgid="3032295682584784261">"R<xliff:g id="SEPARATOR">=</xliff:g>Reston"</item>
     <item msgid="7722837296297332268">"B<xliff:g id="SEPARATOR">=</xliff:g>Belu-Orizonti"</item>

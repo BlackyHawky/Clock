@@ -66,7 +66,7 @@
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"ഇപ്പോൾ 1 മിനിറ്റിൽ താഴെ സമയത്തിനുള്ളിൽ അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
-    <item msgid="6002066367368421848">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g> ദിവസത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
+    <item msgid="6002066367368421848">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g> കാലയളവിലേക്ക് അലാറം സജ്ജമാക്കി."</item>
     <item msgid="8824719306247973774">"ഇപ്പോൾ <xliff:g id="HOURS">%2$s</xliff:g> കഴിഞ്ഞ് അടിക്കാൻ അലാറം സജ്ജമാക്കി."</item>
     <item msgid="8182406852935468862">"ഇപ്പോൾ മുതൽ <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
     <item msgid="2532279224777213194">"ഇപ്പോൾ മുതൽ <xliff:g id="MINUTES">%3$s</xliff:g> നേരത്തേക്ക് അലാറം സജ്ജീകരിച്ചു."</item>
@@ -91,7 +91,7 @@
     <string name="clock_instructions" msgid="2656876819515011590">"ഒരു ക്ലോക്ക് തിരഞ്ഞെടുക്കുക"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"ക്ലോക്ക്"</string>
     <string name="help" msgid="7786263119482654015">"സഹായം"</string>
-    <string name="settings" msgid="5849739030579520686">"ക്രമീകരണങ്ങൾ"</string>
+    <string name="settings" msgid="5849739030579520686">"ക്രമീകരണം"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"സ്‌നൂസ് ചെയ്യൽ ദൈർഘ്യം"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> മിനിറ്റ്</item>
@@ -101,7 +101,7 @@
       <item quantity="other">മിനിറ്റ്</item>
       <item quantity="one">മിനിറ്റ്</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"ഇതിനുശേഷം നിശബ്‌ദമാക്കുക"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"ഇത്രയും സമയശേഷം നിശബ്‌ദമാക്കൂ"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> മിനിറ്റ്</item>
       <item quantity="one">ഒരു മിനിറ്റ്</item>
@@ -160,7 +160,7 @@
     <string name="button_alarms" msgid="3907838219512538763">"അലാറം ചേർക്കുക"</string>
     <string name="button_cities" msgid="4555761857494501363">"നഗരങ്ങൾ"</string>
     <string name="button_menu" msgid="6050484561842120282">"കൂടുതൽ ഓപ്‌ഷനുകൾ"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണങ്ങൾ"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"ക്രമീകരണം"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"സഹായം"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"നൈറ്റ് മോഡ്"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"സമയപ്രകാരം അടുക്കുക"</string>

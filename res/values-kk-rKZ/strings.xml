@@ -71,7 +71,7 @@
     <item msgid="8182406852935468862">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> және <xliff:g id="HOURS">%2$s</xliff:g> өткен соң беріледі."</item>
     <item msgid="2532279224777213194">"Дабыл қазірден бастап <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
     <item msgid="5936557894247187717">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
-    <item msgid="9115697840826129603">"Дабыл қазірден бастап <xliff:g id="HOURS">%2$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
+    <item msgid="9115697840826129603">"Дабыл қазірден бастап <xliff:g id="HOURS">%2$s</xliff:g> <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
     <item msgid="2332583385137381060">"Дабыл қазірден бастап <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> және <xliff:g id="MINUTES">%3$s</xliff:g> өткен соң беріледі."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
@@ -134,7 +134,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Түйме әсері"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Кейінге қалдыру"</item>
-    <item msgid="3450979320164769576">"Бас тарту"</item>
+    <item msgid="3450979320164769576">"Өшіру"</item>
     <item msgid="6302517608411378024">"Ештеңе істемеу"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Әдепкі қоңырау әуенін орнату"</string>
@@ -341,7 +341,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Келесі таймер: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Қалғу параметрлері"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Түнгі режим"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Өте күңгірт дисплей (күңгірт бөлмелер үшін)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Өте күңгірт дисплей (қараңғы бөлмелер үшін)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Дабылды жаю"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Дабылды тасалау"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"кері қайтару"</string>

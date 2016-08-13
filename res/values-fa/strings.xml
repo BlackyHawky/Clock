@@ -122,7 +122,7 @@
     <item msgid="3993530639455360921">"یک‌شنبه"</item>
     <item msgid="8594709368683324282">"دوشنبه"</item>
   </string-array>
-    <string name="done" msgid="6509722361933858451">"انجام شد"</string>
+    <string name="done" msgid="6509722361933858451">"تمام"</string>
     <string name="revert" msgid="9100911171235162926">"برگشت"</string>
     <string name="delete" msgid="5732434972457000541">"حذف"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"میزان صدای هشدار"</string>
@@ -163,8 +163,8 @@
     <string name="menu_item_settings" msgid="1413723516369078665">"تنظیمات"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"راهنما"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"حالت شب"</string>
-    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"مرتب‌سازی بر اساس زمان"</string>
-    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"مرتب‌سازی بر اساس نام"</string>
+    <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"مرتب‌سازی براساس زمان"</string>
+    <string name="menu_item_sort_by_name" msgid="1762931290495104106">"مرتب‌سازی براساس نام"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"شهرهای منتخب"</string>
     <string name="sw_resume_button" msgid="2569360966002022248">"ازسرگیری"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"شروع"</string>
@@ -205,7 +205,7 @@
     <string name="timer_plus_one" msgid="6631211310420106116">"افزودن ۱ دقیقه"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"افزودن ۱ دقیقه"</string>
     <string name="timer_stop" msgid="3361154678667736722">"توقف"</string>
-    <string name="timer_done" msgid="2375990511982914051">"انجام شد"</string>
+    <string name="timer_done" msgid="2375990511982914051">"تمام"</string>
     <string name="timer_reset" msgid="7848424809190171640">"بازنشانی"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"لغو"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"وقت تمام است"</string>
@@ -266,7 +266,7 @@
     <item msgid="4402541016410147505">"برازیلیا"</item>
     <item msgid="2251184440733164084">"بوینوس آیرس"</item>
     <item msgid="6202926618569004969">"گرینلند"</item>
-    <item msgid="2355275037115290628">"مونته ویدئو"</item>
+    <item msgid="2355275037115290628">"مونته ویدیو"</item>
     <item msgid="1377549694711708945">"آتلانتیک میانی"</item>
     <item msgid="3457671272126347981">"آزورس"</item>
     <item msgid="3659315141063710840">"جزایر کیپ ورد"</item>
@@ -339,9 +339,9 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"برای دیدن تایمرهای خود لمس کنید"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> تایمر‌"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"تایمر بعدی: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"تنظیمات رؤیا"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"تنظیمات حالت رؤیا"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"حالت شب"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"نمایشگر بسیار تیره (برای اتاق‌های تاریک)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"نمایشگر بسیار تیره (برای اتاق تاریک)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"هشدار بزرگ‌کردن"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"هشدار کوچک‌کردن"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"واگرد"</string>

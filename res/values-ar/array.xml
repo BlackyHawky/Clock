@@ -21,11 +21,11 @@
     <item msgid="4653806289288974388">"ا<xliff:g id="SEPARATOR">=</xliff:g>أبيدجان"</item>
     <item msgid="4864167603178202155">"ا<xliff:g id="SEPARATOR">=</xliff:g>أكرا"</item>
     <item msgid="6478898553803167749">"ا<xliff:g id="SEPARATOR">=</xliff:g>أديس أبابا"</item>
-    <item msgid="5618029992528436448">"ج<xliff:g id="SEPARATOR">=</xliff:g>الجزائر"</item>
+    <item msgid="5618029992528436448">"ا<xliff:g id="SEPARATOR">=</xliff:g>الجزائر"</item>
     <item msgid="2906834750114790793">"<xliff:g id="SEPARATOR">=</xliff:g>بلانتيري"</item>
     <item msgid="8153571933836629863">"<xliff:g id="SEPARATOR">=</xliff:g>برازافيل"</item>
-    <item msgid="3703129580594640833">"ق<xliff:g id="SEPARATOR">=</xliff:g>القاهرة"</item>
-    <item msgid="2300915410194647320">"د<xliff:g id="SEPARATOR">=</xliff:g>الدار البيضاء"</item>
+    <item msgid="3703129580594640833">"ا<xliff:g id="SEPARATOR">=</xliff:g>القاهرة"</item>
+    <item msgid="2300915410194647320">"ا<xliff:g id="SEPARATOR">=</xliff:g>الدار البيضاء"</item>
     <item msgid="1217039002304887948">"<xliff:g id="SEPARATOR">=</xliff:g>كوناكري"</item>
     <item msgid="8775104707806220928">"<xliff:g id="SEPARATOR">=</xliff:g>داكار"</item>
     <item msgid="5948764589113643811">"<xliff:g id="SEPARATOR">=</xliff:g>دار السلام"</item>
@@ -35,7 +35,7 @@
     <item msgid="7367496854968219671">"<xliff:g id="SEPARATOR">=</xliff:g>هراري"</item>
     <item msgid="6837746379726020288">"<xliff:g id="SEPARATOR">=</xliff:g>جوهانسبرغ"</item>
     <item msgid="6284185156591171506">"<xliff:g id="SEPARATOR">=</xliff:g>كامبالا"</item>
-    <item msgid="3299518884693668985">"خ<xliff:g id="SEPARATOR">=</xliff:g>الخرطوم"</item>
+    <item msgid="3299518884693668985">"ا<xliff:g id="SEPARATOR">=</xliff:g>الخرطوم"</item>
     <item msgid="4614879508966043969">"<xliff:g id="SEPARATOR">=</xliff:g>كيغالي"</item>
     <item msgid="8878437043772547732">"<xliff:g id="SEPARATOR">=</xliff:g>كينشاسا"</item>
     <item msgid="6325601635544067909">"<xliff:g id="SEPARATOR">=</xliff:g>لاغوس"</item>
@@ -63,9 +63,9 @@
     <item msgid="5519120432577564812">"<xliff:g id="SEPARATOR">=</xliff:g>داوسون كريك"</item>
     <item msgid="2126228972377380680">"<xliff:g id="SEPARATOR">=</xliff:g>دنفر"</item>
     <item msgid="3298410632922319193">"<xliff:g id="SEPARATOR">=</xliff:g>ديترويت"</item>
-    <item msgid="2819032085688382805">"د<xliff:g id="SEPARATOR">=</xliff:g>الدومينيكا"</item>
+    <item msgid="2819032085688382805">"ا<xliff:g id="SEPARATOR">=</xliff:g>الدومينيكا"</item>
     <item msgid="6170433208654553821">"ا<xliff:g id="SEPARATOR">=</xliff:g>ادمنتون"</item>
-    <item msgid="795461860173291499">"س<xliff:g id="SEPARATOR">=</xliff:g>السلفادور"</item>
+    <item msgid="795461860173291499">"ا<xliff:g id="SEPARATOR">=</xliff:g>السلفادور"</item>
     <item msgid="7872196528637597794">"<xliff:g id="SEPARATOR">=</xliff:g>فورتاليزا"</item>
     <item msgid="5801558418916235541">"<xliff:g id="SEPARATOR">=</xliff:g>غراند ترك"</item>
     <item msgid="2103759276235503048">"<xliff:g id="SEPARATOR">=</xliff:g>غرينادا"</item>
@@ -114,14 +114,14 @@
     <item msgid="3491199166042475853">"<xliff:g id="SEPARATOR">=</xliff:g>تورونتو"</item>
     <item msgid="1506838283840737263">"<xliff:g id="SEPARATOR">=</xliff:g>فانكوفر"</item>
     <item msgid="8935386104773857399">"<xliff:g id="SEPARATOR">=</xliff:g>وينيبيغ"</item>
-    <item msgid="1132634022412399582">"ق<xliff:g id="SEPARATOR">=</xliff:g>القطب الجنوبي"</item>
+    <item msgid="1132634022412399582">"ا<xliff:g id="SEPARATOR">=</xliff:g>القطب الجنوبي"</item>
     <item msgid="4076962667198039206">"<xliff:g id="SEPARATOR">=</xliff:g>لونغياربين"</item>
     <item msgid="3784788073896028355">"ا<xliff:g id="SEPARATOR">=</xliff:g>ألماتي"</item>
     <item msgid="7895695236056852523">"<xliff:g id="SEPARATOR">=</xliff:g>عمّان"</item>
     <item msgid="1795426532295280371">"ا<xliff:g id="SEPARATOR">=</xliff:g>أنادير"</item>
     <item msgid="7194236926158343552">"ا<xliff:g id="SEPARATOR">=</xliff:g>أكاتو"</item>
     <item msgid="4796350130854360870">"<xliff:g id="SEPARATOR">=</xliff:g>بغداد"</item>
-    <item msgid="4020105434451091851">"ب<xliff:g id="SEPARATOR">=</xliff:g>البحرين"</item>
+    <item msgid="4020105434451091851">"ا<xliff:g id="SEPARATOR">=</xliff:g>البحرين"</item>
     <item msgid="3895868797052686484">"<xliff:g id="SEPARATOR">=</xliff:g>باكو"</item>
     <item msgid="228001522630057957">"<xliff:g id="SEPARATOR">=</xliff:g>بانكوك"</item>
     <item msgid="5555647809114820537">"<xliff:g id="SEPARATOR">=</xliff:g>بيروت"</item>
@@ -130,17 +130,17 @@
     <item msgid="4979709428925196546">"<xliff:g id="SEPARATOR">=</xliff:g>دكا"</item>
     <item msgid="310419600200885308">"<xliff:g id="SEPARATOR">=</xliff:g>دبي"</item>
     <item msgid="1203379132329159260">"<xliff:g id="SEPARATOR">=</xliff:g>غزة"</item>
-    <item msgid="2359068282340162319">"خ<xliff:g id="SEPARATOR">=</xliff:g>الخليل"</item>
+    <item msgid="2359068282340162319">"ا<xliff:g id="SEPARATOR">=</xliff:g>الخليل"</item>
     <item msgid="6223396610551759129">"<xliff:g id="SEPARATOR">=</xliff:g>هو تشي منه"</item>
     <item msgid="4731022818651322736">"<xliff:g id="SEPARATOR">=</xliff:g>هونغ كونغ"</item>
     <item msgid="8104778702069607166">"ا<xliff:g id="SEPARATOR">=</xliff:g>إسطنبول"</item>
     <item msgid="758800913783999425">"<xliff:g id="SEPARATOR">=</xliff:g>جاكرتا"</item>
-    <item msgid="8956406398692698126">"ق<xliff:g id="SEPARATOR">=</xliff:g>القدس"</item>
+    <item msgid="8956406398692698126">"ا<xliff:g id="SEPARATOR">=</xliff:g>القدس"</item>
     <item msgid="1664426577433326419">"<xliff:g id="SEPARATOR">=</xliff:g>كابول"</item>
     <item msgid="7700349511508357396">"<xliff:g id="SEPARATOR">=</xliff:g>كراتشي"</item>
     <item msgid="5273241794521591984">"<xliff:g id="SEPARATOR">=</xliff:g>كاتماندو"</item>
     <item msgid="4754850915168634158">"<xliff:g id="SEPARATOR">=</xliff:g>كوالا لمبور"</item>
-    <item msgid="5187849635785055693">"ك<xliff:g id="SEPARATOR">=</xliff:g>الكويت"</item>
+    <item msgid="5187849635785055693">"ا<xliff:g id="SEPARATOR">=</xliff:g>الكويت"</item>
     <item msgid="2923385979252179376">"<xliff:g id="SEPARATOR">=</xliff:g>ماكاو"</item>
     <item msgid="722458682107911739">"<xliff:g id="SEPARATOR">=</xliff:g>مانيلا"</item>
     <item msgid="6033964325069060422">"<xliff:g id="SEPARATOR">=</xliff:g>مسقط"</item>
@@ -148,7 +148,7 @@
     <item msgid="935474308903572975">"<xliff:g id="SEPARATOR">=</xliff:g>بيونغ يانغ"</item>
     <item msgid="5336632319992664889">"<xliff:g id="SEPARATOR">=</xliff:g>قطر"</item>
     <item msgid="1667243110545095146">"<xliff:g id="SEPARATOR">=</xliff:g>رانغون"</item>
-    <item msgid="4460370766685855731">"ر<xliff:g id="SEPARATOR">=</xliff:g>الرياض"</item>
+    <item msgid="4460370766685855731">"ا<xliff:g id="SEPARATOR">=</xliff:g>الرياض"</item>
     <item msgid="4229224905931739201">"<xliff:g id="SEPARATOR">=</xliff:g>سايغون"</item>
     <item msgid="8705359848250215620">"<xliff:g id="SEPARATOR">=</xliff:g>سيول"</item>
     <item msgid="583367295371395814">"<xliff:g id="SEPARATOR">=</xliff:g>شنغهاي"</item>
@@ -159,8 +159,8 @@
     <item msgid="8499164674454654525">"<xliff:g id="SEPARATOR">=</xliff:g>طوكيو"</item>
     <item msgid="1705804745888992744">"ا<xliff:g id="SEPARATOR">=</xliff:g>أولان باتور"</item>
     <item msgid="2028626988021468640">"<xliff:g id="SEPARATOR">=</xliff:g>برمودا"</item>
-    <item msgid="4527109966513690429">"ك<xliff:g id="SEPARATOR">=</xliff:g>الكناري"</item>
-    <item msgid="4886308317040330383">"ر<xliff:g id="SEPARATOR">=</xliff:g>الرأس الأخضر"</item>
+    <item msgid="4527109966513690429">"ا<xliff:g id="SEPARATOR">=</xliff:g>الكناري"</item>
+    <item msgid="4886308317040330383">"ا<xliff:g id="SEPARATOR">=</xliff:g>الرأس الأخضر"</item>
     <item msgid="1003307362164178007">"<xliff:g id="SEPARATOR">=</xliff:g>ريكيافيك"</item>
     <item msgid="6742010412815268657">"<xliff:g id="SEPARATOR">=</xliff:g>ستانلي"</item>
     <item msgid="5659389449738592757">"ا<xliff:g id="SEPARATOR">=</xliff:g>أديليد"</item>
@@ -214,7 +214,7 @@
     <item msgid="4706927178872100023">"<xliff:g id="SEPARATOR">=</xliff:g>صوفيا"</item>
     <item msgid="1982417589953195308">"<xliff:g id="SEPARATOR">=</xliff:g>ستوكهولم"</item>
     <item msgid="1596083919400921960">"<xliff:g id="SEPARATOR">=</xliff:g>تالين"</item>
-    <item msgid="3079313598974879114">"ف<xliff:g id="SEPARATOR">=</xliff:g>الفاتيكان"</item>
+    <item msgid="3079313598974879114">"ا<xliff:g id="SEPARATOR">=</xliff:g>الفاتيكان"</item>
     <item msgid="6516636001856910888">"<xliff:g id="SEPARATOR">=</xliff:g>فيينا"</item>
     <item msgid="6377314532157945456">"<xliff:g id="SEPARATOR">=</xliff:g>فيلنيوس"</item>
     <item msgid="3427175235616698721">"<xliff:g id="SEPARATOR">=</xliff:g>وارسو"</item>
@@ -272,7 +272,7 @@
     <item msgid="6091407424772799978">"<xliff:g id="SEPARATOR">=</xliff:g>ماونتن فيو"</item>
     <item msgid="150299708499753555">"<xliff:g id="SEPARATOR">=</xliff:g>رينو"</item>
     <item msgid="9155068631060038769">"<xliff:g id="SEPARATOR">=</xliff:g>بلاك روك سيتي"</item>
-    <item msgid="8498761319928979900">"د<xliff:g id="SEPARATOR">=</xliff:g>الدوحة"</item>
+    <item msgid="8498761319928979900">"ا<xliff:g id="SEPARATOR">=</xliff:g>الدوحة"</item>
     <item msgid="8307897251088048641">"<xliff:g id="SEPARATOR">=</xliff:g>بكين"</item>
     <item msgid="8605970953750147428">"<xliff:g id="SEPARATOR">=</xliff:g>مومباي"</item>
     <item msgid="6668274273067049125">"<xliff:g id="SEPARATOR">=</xliff:g>دلهي"</item>
@@ -295,7 +295,7 @@
     <item msgid="6393177386755796069">"<xliff:g id="SEPARATOR">=</xliff:g>كامبريدج"</item>
     <item msgid="759409010285366934">"<xliff:g id="SEPARATOR">=</xliff:g>كيركلاند"</item>
     <item msgid="6308007059287569663">"<xliff:g id="SEPARATOR">=</xliff:g>ماديسون"</item>
-    <item msgid="6971636434858330021">"<xliff:g id="SEPARATOR">=</xliff:g>ﻛﻮﺍﻧﻐﺘﺸﻮ"</item>
+    <item msgid="6971636434858330021">"<xliff:g id="SEPARATOR">=</xliff:g>كوانغتشو"</item>
     <item msgid="1185109514180068650">"<xliff:g id="SEPARATOR">=</xliff:g>حيدر آباد"</item>
     <item msgid="3032295682584784261">"<xliff:g id="SEPARATOR">=</xliff:g>ريستون"</item>
     <item msgid="7722837296297332268">"<xliff:g id="SEPARATOR">=</xliff:g>بيلو هوريزونتي"</item>
@@ -303,7 +303,7 @@
     <item msgid="2293331653589266583">"<xliff:g id="SEPARATOR">=</xliff:g>مونروفيا"</item>
     <item msgid="7899128359620301710">"<xliff:g id="SEPARATOR">=</xliff:g>كولمبو"</item>
     <item msgid="5294489752262543829">"<xliff:g id="SEPARATOR">=</xliff:g>شيواوا"</item>
-    <item msgid="8066356061184206341">"س<xliff:g id="SEPARATOR">=</xliff:g>السلفادور"</item>
+    <item msgid="8066356061184206341">"<xliff:g id="SEPARATOR">=</xliff:g>سلفادور"</item>
     <item msgid="4806867741334453982">"<xliff:g id="SEPARATOR">=</xliff:g>جورجاون"</item>
     <item msgid="2585780177649876827">"<xliff:g id="SEPARATOR">=</xliff:g>مانشستر"</item>
     <item msgid="234104953526248139">"<xliff:g id="SEPARATOR">=</xliff:g>كييف"</item>

@@ -75,15 +75,15 @@
     <item msgid="2332583385137381060">"Alarm indstillet til <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> og <xliff:g id="MINUTES">%3$s</xliff:g> fra nu."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dage</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dag</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dage</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> timer</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> time</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> timer</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minutter</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minut</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutter</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Hver dag"</string>
@@ -339,7 +339,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tryk for at se dine timere"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timere"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Næste timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Indstillinger for dagdrøm"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Indstillinger for Dagdrøm"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nattilstand"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Meget mørk skærm (til mørke rum)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Udvid alarm"</string>

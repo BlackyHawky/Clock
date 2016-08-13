@@ -65,14 +65,14 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> oor"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Alarm gestel vir minder as 1 minuut van nou af."</item>
-    <item msgid="6002066367368421848">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</item>
-    <item msgid="8824719306247973774">"Alarm gestel vir <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
-    <item msgid="8182406852935468862">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
+    <item msgid="6450913786084215050">"Wekker gestel vir minder as 1 minuut van nou af."</item>
+    <item msgid="6002066367368421848">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> van nou af."</item>
+    <item msgid="8824719306247973774">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
+    <item msgid="8182406852935468862">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en <xliff:g id="HOURS">%2$s</xliff:g> van nou af."</item>
     <item msgid="2532279224777213194">"Wekker gestel vir <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-    <item msgid="5936557894247187717">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en  <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-    <item msgid="9115697840826129603">"Alarm gestel vir <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
-    <item msgid="2332583385137381060">"Alarm gestel vir <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
+    <item msgid="5936557894247187717">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g> en  <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
+    <item msgid="9115697840826129603">"Wekker gestel vir <xliff:g id="HOURS">%2$s</xliff:g> en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
+    <item msgid="2332583385137381060">"Wekker gestel vir <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g>en <xliff:g id="MINUTES">%3$s</xliff:g> van nou af."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dae</item>
@@ -129,7 +129,7 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Stil"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Sluimer of sit alarm uit."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (sluimerend)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarm is vir <xliff:g id="TIME">%s</xliff:g> gestel. Raak om te kanselleer."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Wekker is vir <xliff:g id="TIME">%s</xliff:g> gestel. Raak om te kanselleer."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Volumeknoppies"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Knoppie-effek"</string>
   <string-array name="volume_button_setting_entries">
@@ -137,7 +137,7 @@
     <item msgid="3450979320164769576">"Maak toe"</item>
     <item msgid="6302517608411378024">"Doen niks nie"</item>
   </string-array>
-    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Stel verstek luitoon"</string>
+    <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Stel verstekluitoon"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Wekkers"</string>
     <string name="gallery_button_description" msgid="1151743663255257668">"Galery"</string>
     <string name="music_button_description" msgid="1626593420810117999">"Musiek"</string>
@@ -154,7 +154,7 @@
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Wekker"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Tydhouer"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Afteller"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Horlosie"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stophorlosie"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Voeg wekker by"</string>
@@ -208,8 +208,8 @@
     <string name="timer_done" msgid="2375990511982914051">"Klaar"</string>
     <string name="timer_reset" msgid="7848424809190171640">"Stel terug"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Kanselleer"</string>
-    <string name="timer_times_up" msgid="9190440395938519009">"Tyd is op"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"Tydhouer"</string>
+    <string name="timer_times_up" msgid="9190440395938519009">"Tyd is verby"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Afteller"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Maksimum van 4 aftellers"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Jy\'s \'n regte spoedduiwel."</item>
@@ -231,7 +231,7 @@
     <item msgid="917900462224167608">"Analoog"</item>
     <item msgid="8483930821046925592">"Digitaal"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Outomatiese huishorlosie"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Outomatiese tuishorlosie"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Terwyl jy reis in \'n streek waar die tyd anders is, voeg \'n tuishorlosie by"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Tuistydsone"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Tuistydsone"</string>
@@ -355,7 +355,7 @@
       <item quantity="other">Vee geselekteerde wekkers uit?</item>
       <item quantity="one">Vee geselekteerde wekker uit?</item>
     </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Moet hierdie tydhouer uitgevee word?"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Moet hierdie afteller uitgevee word?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Moet hierdie stad verwyder word?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digitale horlosie"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Geen wekkers nie"</string>

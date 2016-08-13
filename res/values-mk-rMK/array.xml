@@ -20,7 +20,7 @@
   <string-array name="cities_names">
     <item msgid="4653806289288974388">"<xliff:g id="SEPARATOR">=</xliff:g>Абиџан"</item>
     <item msgid="4864167603178202155">"<xliff:g id="SEPARATOR">=</xliff:g>Акра"</item>
-    <item msgid="6478898553803167749">"<xliff:g id="SEPARATOR">=</xliff:g>Адис Абаба"</item>
+    <item msgid="6478898553803167749">"<xliff:g id="SEPARATOR">=</xliff:g>Адис Абеба"</item>
     <item msgid="5618029992528436448">"<xliff:g id="SEPARATOR">=</xliff:g>Алжир"</item>
     <item msgid="2906834750114790793">"<xliff:g id="SEPARATOR">=</xliff:g>Блантир"</item>
     <item msgid="8153571933836629863">"<xliff:g id="SEPARATOR">=</xliff:g>Бразавил"</item>
@@ -43,7 +43,7 @@
     <item msgid="7270525814400329098">"<xliff:g id="SEPARATOR">=</xliff:g>Могадишу"</item>
     <item msgid="353110101402547540">"<xliff:g id="SEPARATOR">=</xliff:g>Најроби"</item>
     <item msgid="1688121892646984549">"<xliff:g id="SEPARATOR">=</xliff:g>Сао Томе"</item>
-    <item msgid="3642219084651687800">"<xliff:g id="SEPARATOR">=</xliff:g>Тимбакту"</item>
+    <item msgid="3642219084651687800">"<xliff:g id="SEPARATOR">=</xliff:g>Тимбукту"</item>
     <item msgid="7287513493631179463">"<xliff:g id="SEPARATOR">=</xliff:g>Триполи"</item>
     <item msgid="5052614613671591560">"<xliff:g id="SEPARATOR">=</xliff:g>Тунис"</item>
     <item msgid="7976303179193839859">"<xliff:g id="SEPARATOR">=</xliff:g>Анкориџ"</item>
@@ -70,13 +70,13 @@
     <item msgid="5801558418916235541">"<xliff:g id="SEPARATOR">=</xliff:g>Гранд Турк"</item>
     <item msgid="2103759276235503048">"<xliff:g id="SEPARATOR">=</xliff:g>Гренада"</item>
     <item msgid="1490069759176391533">"<xliff:g id="SEPARATOR">=</xliff:g>Гватемала"</item>
-    <item msgid="525959305652046261">"<xliff:g id="SEPARATOR">=</xliff:g>Гујана"</item>
+    <item msgid="525959305652046261">"<xliff:g id="SEPARATOR">=</xliff:g>Гвајана"</item>
     <item msgid="7565596629973190931">"<xliff:g id="SEPARATOR">=</xliff:g>Халифакс"</item>
     <item msgid="3811169155065582644">"<xliff:g id="SEPARATOR">=</xliff:g>Хавана"</item>
     <item msgid="3733555435078090201">"<xliff:g id="SEPARATOR">=</xliff:g>Индијанаполис"</item>
     <item msgid="226982663848410981">"<xliff:g id="SEPARATOR">=</xliff:g>Нокс"</item>
     <item msgid="3815293080342229459">"<xliff:g id="SEPARATOR">=</xliff:g>Маренго"</item>
-    <item msgid="6594853515451547389">"<xliff:g id="SEPARATOR">=</xliff:g>Петербург"</item>
+    <item msgid="6594853515451547389">"<xliff:g id="SEPARATOR">=</xliff:g>Петерсбург"</item>
     <item msgid="6091571889213283534">"<xliff:g id="SEPARATOR">=</xliff:g>Тел Сити"</item>
     <item msgid="3089369312058696669">"<xliff:g id="SEPARATOR">=</xliff:g>Виви"</item>
     <item msgid="1334860422444068943">"<xliff:g id="SEPARATOR">=</xliff:g>Винсен"</item>
@@ -86,8 +86,8 @@
     <item msgid="349901732062388869">"<xliff:g id="SEPARATOR">=</xliff:g>Лима"</item>
     <item msgid="4977592519316837842">"<xliff:g id="SEPARATOR">=</xliff:g>Лос Анџелес"</item>
     <item msgid="7713051790509638572">"<xliff:g id="SEPARATOR">=</xliff:g>Луисвил"</item>
-    <item msgid="8460620935898405225">"<xliff:g id="SEPARATOR">=</xliff:g>Mанагва"</item>
-    <item msgid="8328345293081464192">"<xliff:g id="SEPARATOR">=</xliff:g>Матиник"</item>
+    <item msgid="8460620935898405225">"<xliff:g id="SEPARATOR">=</xliff:g>Манагва"</item>
+    <item msgid="8328345293081464192">"<xliff:g id="SEPARATOR">=</xliff:g>Мартиник"</item>
     <item msgid="8010357327448619637">"<xliff:g id="SEPARATOR">=</xliff:g>Мендоза"</item>
     <item msgid="2046777213916219253">"<xliff:g id="SEPARATOR">=</xliff:g>Метлакатла"</item>
     <item msgid="2227885609632709258">"<xliff:g id="SEPARATOR">=</xliff:g>Мексико Сити"</item>
@@ -131,7 +131,7 @@
     <item msgid="310419600200885308">"<xliff:g id="SEPARATOR">=</xliff:g>Дубаи"</item>
     <item msgid="1203379132329159260">"<xliff:g id="SEPARATOR">=</xliff:g>Газа"</item>
     <item msgid="2359068282340162319">"<xliff:g id="SEPARATOR">=</xliff:g>Хеброн"</item>
-    <item msgid="6223396610551759129">"<xliff:g id="SEPARATOR">=</xliff:g>Хо Чи Мин"</item>
+    <item msgid="6223396610551759129">"<xliff:g id="SEPARATOR">=</xliff:g>Хо Ши Мин"</item>
     <item msgid="4731022818651322736">"<xliff:g id="SEPARATOR">=</xliff:g>Хонг Конг"</item>
     <item msgid="8104778702069607166">"<xliff:g id="SEPARATOR">=</xliff:g>Истанбул"</item>
     <item msgid="758800913783999425">"<xliff:g id="SEPARATOR">=</xliff:g>Џакарта"</item>
@@ -141,7 +141,7 @@
     <item msgid="5273241794521591984">"<xliff:g id="SEPARATOR">=</xliff:g>Катманду"</item>
     <item msgid="4754850915168634158">"<xliff:g id="SEPARATOR">=</xliff:g>Куала Лумпур"</item>
     <item msgid="5187849635785055693">"<xliff:g id="SEPARATOR">=</xliff:g>Кувајт"</item>
-    <item msgid="2923385979252179376">"<xliff:g id="SEPARATOR">=</xliff:g>Макау"</item>
+    <item msgid="2923385979252179376">"<xliff:g id="SEPARATOR">=</xliff:g>Макао"</item>
     <item msgid="722458682107911739">"<xliff:g id="SEPARATOR">=</xliff:g>Манила"</item>
     <item msgid="6033964325069060422">"<xliff:g id="SEPARATOR">=</xliff:g>Мускат"</item>
     <item msgid="6077458941399984780">"<xliff:g id="SEPARATOR">=</xliff:g>Пном Пен"</item>
@@ -175,7 +175,7 @@
     <item msgid="5542803438162180311">"<xliff:g id="SEPARATOR">=</xliff:g>Викторија"</item>
     <item msgid="11828841481838883">"<xliff:g id="SEPARATOR">=</xliff:g>Њуфаундленд"</item>
     <item msgid="1734331918410561807">"<xliff:g id="SEPARATOR">=</xliff:g>Саскачеван"</item>
-    <item msgid="9184412695613864979">"<xliff:g id="SEPARATOR">=</xliff:g>Божиќен Остров"</item>
+    <item msgid="9184412695613864979">"<xliff:g id="SEPARATOR">=</xliff:g>Велигденски Остров"</item>
     <item msgid="1014282454239014527">"<xliff:g id="SEPARATOR">=</xliff:g>Амстердам"</item>
     <item msgid="4928363054269791193">"<xliff:g id="SEPARATOR">=</xliff:g>Андора"</item>
     <item msgid="912290900213826368">"<xliff:g id="SEPARATOR">=</xliff:g>Атина"</item>
@@ -196,7 +196,7 @@
     <item msgid="3567775364750772947">"<xliff:g id="SEPARATOR">=</xliff:g>Киев"</item>
     <item msgid="540344101798867007">"<xliff:g id="SEPARATOR">=</xliff:g>Лисабон"</item>
     <item msgid="5091062403792923657">"<xliff:g id="SEPARATOR">=</xliff:g>Лондон"</item>
-    <item msgid="7075006205000490364">"<xliff:g id="SEPARATOR">=</xliff:g>Луксенбург"</item>
+    <item msgid="7075006205000490364">"<xliff:g id="SEPARATOR">=</xliff:g>Луксембург"</item>
     <item msgid="4901781246584739451">"<xliff:g id="SEPARATOR">=</xliff:g>Мадрид"</item>
     <item msgid="9047080834315777144">"<xliff:g id="SEPARATOR">=</xliff:g>Малта"</item>
     <item msgid="8200456520732452034">"<xliff:g id="SEPARATOR">=</xliff:g>Минск"</item>
@@ -255,7 +255,7 @@
     <item msgid="4325057056005132331">"<xliff:g id="SEPARATOR">=</xliff:g>Хјустон"</item>
     <item msgid="38148255938075867">"<xliff:g id="SEPARATOR">=</xliff:g>Сан Антонио"</item>
     <item msgid="3601481860893666763">"<xliff:g id="SEPARATOR">=</xliff:g>Џексонвил"</item>
-    <item msgid="3987471437354665534">"<xliff:g id="SEPARATOR">=</xliff:g>Балтиморе"</item>
+    <item msgid="3987471437354665534">"<xliff:g id="SEPARATOR">=</xliff:g>Балтимор"</item>
     <item msgid="3389674262267006887">"<xliff:g id="SEPARATOR">=</xliff:g>Нешвил"</item>
     <item msgid="7521690366448637309">"<xliff:g id="SEPARATOR">=</xliff:g>Милвоки"</item>
     <item msgid="2231069593975740859">"<xliff:g id="SEPARATOR">=</xliff:g>Оклахома Сити"</item>
@@ -274,7 +274,7 @@
     <item msgid="9155068631060038769">"<xliff:g id="SEPARATOR">=</xliff:g>Блек Рок Сити"</item>
     <item msgid="8498761319928979900">"<xliff:g id="SEPARATOR">=</xliff:g>Доха"</item>
     <item msgid="8307897251088048641">"<xliff:g id="SEPARATOR">=</xliff:g>Пекинг"</item>
-    <item msgid="8605970953750147428">"<xliff:g id="SEPARATOR">=</xliff:g>Мумбаи"</item>
+    <item msgid="8605970953750147428">"<xliff:g id="SEPARATOR">=</xliff:g>Мумбај"</item>
     <item msgid="6668274273067049125">"<xliff:g id="SEPARATOR">=</xliff:g>Делхи"</item>
     <item msgid="2933410189478233292">"<xliff:g id="SEPARATOR">=</xliff:g>Осака"</item>
     <item msgid="9011026093638055579">"<xliff:g id="SEPARATOR">=</xliff:g>Лахор"</item>
@@ -291,7 +291,7 @@
     <item msgid="6057191797622953016">"<xliff:g id="SEPARATOR">=</xliff:g>Исламабад"</item>
     <item msgid="2702029416591153210">"<xliff:g id="SEPARATOR">=</xliff:g>Рио де Жанеиро"</item>
     <item msgid="1753927312634708098">"<xliff:g id="SEPARATOR">=</xliff:g>Ен Арбор"</item>
-    <item msgid="4225721108475278979">"<xliff:g id="SEPARATOR">=</xliff:g>Булдер"</item>
+    <item msgid="4225721108475278979">"<xliff:g id="SEPARATOR">=</xliff:g>Болдер"</item>
     <item msgid="6393177386755796069">"<xliff:g id="SEPARATOR">=</xliff:g>Кембриџ"</item>
     <item msgid="759409010285366934">"<xliff:g id="SEPARATOR">=</xliff:g>Киркланд"</item>
     <item msgid="6308007059287569663">"<xliff:g id="SEPARATOR">=</xliff:g>Мадисон"</item>

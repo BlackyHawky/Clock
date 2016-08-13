@@ -18,8 +18,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
   <string-array name="cities_names">
-    <item msgid="4653806289288974388">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Աբդիջան"</item>
-    <item msgid="4864167603178202155">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Ակկրա"</item>
+    <item msgid="4653806289288974388">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Աբիջան"</item>
+    <item msgid="4864167603178202155">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Աքրա"</item>
     <item msgid="6478898553803167749">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Ադդիս-Աբեդա"</item>
     <item msgid="5618029992528436448">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Ալժիր"</item>
     <item msgid="2906834750114790793">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բլանթայր"</item>
@@ -163,7 +163,7 @@
     <item msgid="4886308317040330383">"Կ<xliff:g id="SEPARATOR">=</xliff:g>Կապե Վերդե"</item>
     <item msgid="1003307362164178007">"Ռ<xliff:g id="SEPARATOR">=</xliff:g>Ռեյկյավիկ"</item>
     <item msgid="6742010412815268657">"Ս<xliff:g id="SEPARATOR">=</xliff:g>Ստենլի"</item>
-    <item msgid="5659389449738592757">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Ադելեյդ"</item>
+    <item msgid="5659389449738592757">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Ադելաիդա"</item>
     <item msgid="4567804576346784523">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բրիսբեն"</item>
     <item msgid="8730590400362815585">"Կ<xliff:g id="SEPARATOR">=</xliff:g>Կանբերրա"</item>
     <item msgid="6416990927714140153">"Դ<xliff:g id="SEPARATOR">=</xliff:g>Դարվին"</item>
@@ -292,7 +292,7 @@
     <item msgid="2702029416591153210">"Ռ<xliff:g id="SEPARATOR">=</xliff:g>Ռիո դե Ժանեյրո"</item>
     <item msgid="1753927312634708098">"Ա<xliff:g id="SEPARATOR">=</xliff:g>Անն Արբոր"</item>
     <item msgid="4225721108475278979">"Բ<xliff:g id="SEPARATOR">=</xliff:g>Բոուլդեր"</item>
-    <item msgid="6393177386755796069">"Ք<xliff:g id="SEPARATOR">=</xliff:g>Քեմփրիջ"</item>
+    <item msgid="6393177386755796069">"Ք<xliff:g id="SEPARATOR">=</xliff:g>Քեմբրիջ"</item>
     <item msgid="759409010285366934">"Կ<xliff:g id="SEPARATOR">=</xliff:g>Կիրկլենդ"</item>
     <item msgid="6308007059287569663">"Մ<xliff:g id="SEPARATOR">=</xliff:g>Մեդիսոն"</item>
     <item msgid="6971636434858330021">"Գ<xliff:g id="SEPARATOR">=</xliff:g>Գուանչժոու"</item>

@@ -83,7 +83,7 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> klukkustundir</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> mínúta</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> mínútu</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> mínútur</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Alla daga"</string>
@@ -118,9 +118,9 @@
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Vikan hefst á"</string>
   <string-array name="week_start_entries">
-    <item msgid="9010198173394482639">"laugardegi"</item>
-    <item msgid="3993530639455360921">"sunnudegi"</item>
-    <item msgid="8594709368683324282">"mánudegi"</item>
+    <item msgid="9010198173394482639">"Laugardegi"</item>
+    <item msgid="3993530639455360921">"Sunnudegi"</item>
+    <item msgid="8594709368683324282">"Mánudegi"</item>
   </string-array>
     <string name="done" msgid="6509722361933858451">"Lokið"</string>
     <string name="revert" msgid="9100911171235162926">"Snúa í fyrra horf"</string>
