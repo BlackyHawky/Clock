@@ -41,7 +41,7 @@
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"გაღვიძება!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"გამორ"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"დახურვა"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"ახლა გაშვება"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"დახურვა ახლა"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"გაცდენილი მაღვიძარა"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"ჩათვლემა"</string>
@@ -66,13 +66,13 @@
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"მაღვიძარა დაყენებულია ამ მომენტიდან 1 წუთზე ნაკლებ დროზე."</item>
-    <item msgid="6002066367368421848">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="DAYS">%1$s</xliff:g>-ით."</item>
-    <item msgid="8824719306247973774">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="HOURS">%2$s</xliff:g>-ით."</item>
-    <item msgid="8182406852935468862">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით და <xliff:g id="HOURS">%2$s</xliff:g>-ით ამ მომენტიდან."</item>
-    <item msgid="2532279224777213194">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="MINUTES">%3$s</xliff:g>-ით."</item>
-    <item msgid="5936557894247187717">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
-    <item msgid="9115697840826129603">"ეს მაღვიძარა დაყენებულია <xliff:g id="HOURS">%2$s</xliff:g>-ით და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
-    <item msgid="2332583385137381060">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>-ით, <xliff:g id="HOURS">%2$s</xliff:g>-ითა და <xliff:g id="MINUTES">%3$s</xliff:g>-ით ამ მომენტიდან."</item>
+    <item msgid="6002066367368421848">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="DAYS">%1$s</xliff:g>თ."</item>
+    <item msgid="8824719306247973774">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="HOURS">%2$s</xliff:g>თ."</item>
+    <item msgid="8182406852935468862">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>თ და <xliff:g id="HOURS">%2$s</xliff:g>თ ამ მომენტიდან."</item>
+    <item msgid="2532279224777213194">"მაღვიძარა დაყენებულია ამ მომენტიდან <xliff:g id="MINUTES">%3$s</xliff:g>თ."</item>
+    <item msgid="5936557894247187717">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>თა და <xliff:g id="MINUTES">%3$s</xliff:g>თ ამ მომენტიდან."</item>
+    <item msgid="9115697840826129603">"ეს მაღვიძარა დაყენებულია <xliff:g id="HOURS">%2$s</xliff:g>თა და <xliff:g id="MINUTES">%3$s</xliff:g>თ ამ მომენტიდან."</item>
+    <item msgid="2332583385137381060">"ეს მაღვიძარა დაყენებულია <xliff:g id="DAYS">%1$s</xliff:g>თ, <xliff:g id="HOURS">%2$s</xliff:g>თა და <xliff:g id="MINUTES">%3$s</xliff:g>თ ამ მომენტიდან."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> დღე</item>
@@ -135,7 +135,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"ჩაჩუმება"</item>
     <item msgid="3450979320164769576">"დახურვა"</item>
-    <item msgid="6302517608411378024">"არ გააკეთო არაფერი"</item>
+    <item msgid="6302517608411378024">"მოქმედების გარეშე"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"ნაგულისხმევი ზარების დაგენება"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"მაღვიძარები"</string>
@@ -228,13 +228,13 @@
     <string name="clock_settings" msgid="8317286807280600391">"საათი"</string>
     <string name="clock_style" msgid="2265011060429742344">"სტილი"</string>
   <string-array name="clock_style_entries">
-    <item msgid="917900462224167608">"ანალოგი"</item>
+    <item msgid="917900462224167608">"ისრებიანი"</item>
     <item msgid="8483930821046925592">"ციფრული"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"რომელი საათია სახლში"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ისეთ არეალში მოგზაურობისას, სადაც დრო განსხვავებულია, დაამატეთ საათი თქვენი დროისთვის"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"ჩემი დროის ზონა"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"ჩემი დროის ზონა"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ისეთ არეალში მოგზაურობისას, სადაც დრო განსხვავებულია, დაამატეთ საათი სახლის დროს საჩვენებლად"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"სახლის დროის სარტყელი"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"სახლის დროის სარტყელი"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"გაუქმება"</string>
     <string name="time_picker_set" msgid="331153175471468051">"კარგი"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>

@@ -75,15 +75,15 @@
     <item msgid="2332583385137381060">"Alarme definido para <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> e <xliff:g id="MINUTES">%3$s</xliff:g> a partir de agora."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> dia</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dias</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> hora</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minuto</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Todos os dias"</string>

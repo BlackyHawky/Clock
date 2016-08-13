@@ -36,12 +36,12 @@
     <string name="custom_ringtone" msgid="3477418548382111184">"Vlastný tón zvonenia"</string>
     <string name="ringtone" msgid="9110746249688559579">"Tón zvonenia"</string>
     <string name="time" msgid="8067216534232296518">"Čas"</string>
-    <string name="alarm_tomorrow" msgid="131356848787643420">"Zajtra"</string>
+    <string name="alarm_tomorrow" msgid="131356848787643420">"zajtra"</string>
     <string name="alarm_today" msgid="7873594221106531654">"dnes"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Vstávať!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Vypnuté"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Zrušiť"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Zrušiť"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Zavrieť"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Vypnúť budík"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Zmeškaný budík"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Odložené"</string>
@@ -150,7 +150,7 @@
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Funkcie tlačidiel"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Odložiť"</item>
-    <item msgid="3450979320164769576">"Zrušiť"</item>
+    <item msgid="3450979320164769576">"Zavrieť"</item>
     <item msgid="6302517608411378024">"Nerobiť nič"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Nastavenie predvoleného zvonenia"</string>
@@ -182,11 +182,11 @@
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Zoradiť podľa času"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Zoradiť podľa názvu"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Vybrané mestá"</string>
-    <string name="sw_resume_button" msgid="2569360966002022248">"Obnoviť"</string>
+    <string name="sw_resume_button" msgid="2569360966002022248">"Pokračovať"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Spustiť"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Zastaviť"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Etapa"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Obnoviť"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Resetovať"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Zdieľať"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -225,10 +225,10 @@
     <string name="timer_delete" msgid="8699122001991909302">"Odstrániť"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Vymazať číslo <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Pridať 1 minútu"</string>
-    <string name="timer_plus_1_min" msgid="8645224089494875062">"Pridať 1 min."</string>
+    <string name="timer_plus_1_min" msgid="8645224089494875062">"Pridať 1 min"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Zastaviť"</string>
     <string name="timer_done" msgid="2375990511982914051">"Hotovo"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Obnoviť"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Resetovať"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Zrušiť"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Čas vypršal"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Časovač"</string>

@@ -67,14 +67,14 @@
     <item msgid="8458069283817013813">"Atlikušais laiks: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: mazāk nekā 1 minūte."</item>
-    <item msgid="6002066367368421848">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="DAYS">%1$s</xliff:g>."</item>
-    <item msgid="8824719306247973774">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="8182406852935468862">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="DAYS">%1$s</xliff:g> un <xliff:g id="HOURS">%2$s</xliff:g>."</item>
-    <item msgid="2532279224777213194">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="5936557894247187717">"Signāls ir iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="DAYS">%1$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="9115697840826129603">"Signāls iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="HOURS">%2$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
-    <item msgid="2332583385137381060">"Signāls ir iestatīts uz tālāk norādīto laiku kopš šī brīža: <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="6450913786084215050">"Modinātājs zvanīs pēc mazāk nekā 1 minūtes."</item>
+    <item msgid="6002066367368421848">"Modinātājs zvanīs pēc <xliff:g id="DAYS">%1$s</xliff:g>."</item>
+    <item msgid="8824719306247973774">"Modinātājs zvanīs pēc <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="8182406852935468862">"Modinātājs zvanīs pēc <xliff:g id="DAYS">%1$s</xliff:g> un <xliff:g id="HOURS">%2$s</xliff:g>."</item>
+    <item msgid="2532279224777213194">"Modinātājs zvanīs pēc <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="5936557894247187717">"Modinātājs zvanīs pēc <xliff:g id="DAYS">%1$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="9115697840826129603">"Modinātājs zvanīs pēc <xliff:g id="HOURS">%2$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
+    <item msgid="2332583385137381060">"Modinātājs zvanīs pēc <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> un <xliff:g id="MINUTES">%3$s</xliff:g>."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="zero"><xliff:g id="NUMBER">%s</xliff:g> dienas</item>

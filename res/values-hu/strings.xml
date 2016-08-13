@@ -24,7 +24,7 @@
     <string name="delete_alarm" msgid="3457780990646206817">"Ébresztés törlése"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"Az ébresztés bekapcsolása"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"Az ébresztés kikapcsolása"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Törli ezt a riasztást?"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Törli ezt az ébresztést?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Óra megjelenítése"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Óra elrejtése"</string>
     <string name="label" msgid="162189613902857319">"Címke"</string>
@@ -65,14 +65,14 @@
     <item msgid="8458069283817013813">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> van hátra"</item>
   </string-array>
   <string-array name="alarm_set">
-    <item msgid="6450913786084215050">"Riasztás beállítva: a jelenlegi időponttól számított kevesebb mint 1 perc múlva."</item>
-    <item msgid="6002066367368421848">"Riasztás beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> múlva."</item>
-    <item msgid="8824719306247973774">"Riasztás beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> múlva."</item>
-    <item msgid="8182406852935468862">"Riasztás beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="HOURS">%2$s</xliff:g> múlva."</item>
-    <item msgid="2532279224777213194">"Riasztás beállítva: a jelenlegi időponttól számított <xliff:g id="MINUTES">%3$s</xliff:g> perc múlva."</item>
-    <item msgid="5936557894247187717">"Riasztás beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
-    <item msgid="9115697840826129603">"Riasztás beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
-    <item msgid="2332583385137381060">"Riasztás beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
+    <item msgid="6450913786084215050">"Ébresztés beállítva: a jelenlegi időponttól számított kevesebb mint 1 perc múlva."</item>
+    <item msgid="6002066367368421848">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> múlva."</item>
+    <item msgid="8824719306247973774">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> múlva."</item>
+    <item msgid="8182406852935468862">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="HOURS">%2$s</xliff:g> múlva."</item>
+    <item msgid="2532279224777213194">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="MINUTES">%3$s</xliff:g> perc múlva."</item>
+    <item msgid="5936557894247187717">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
+    <item msgid="9115697840826129603">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
+    <item msgid="2332583385137381060">"Ébresztés beállítva: a jelenlegi időponttól számított <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> és <xliff:g id="MINUTES">%3$s</xliff:g> múlva."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> nap</item>
@@ -127,9 +127,9 @@
     <string name="delete" msgid="5732434972457000541">"Törlés"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Ébresztés hangereje"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Néma"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Szundi, vagy riasztás bezárása."</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Szundi, vagy ébresztés bezárása."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (szundiban)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Riasztás ideje: <xliff:g id="TIME">%s</xliff:g>. Érintse meg a visszavonáshoz."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Ébresztés ideje: <xliff:g id="TIME">%s</xliff:g>. Érintse meg a visszavonáshoz."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Hangerőgombok"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"A gomb hatása"</string>
   <string-array name="volume_button_setting_entries">
@@ -147,7 +147,7 @@
     <string name="label_description" msgid="8736179296142915727">"Címke"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Csengőhang"</string>
     <string name="weather_fetch_failure" msgid="3425804832021006835">"Most nem érhetők el időjárási adatok."</string>
-    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Hanglejátszó szolgáltatás az Órában beállított riasztásokhoz."</string>
+    <string name="alarm_klaxon_service_desc" msgid="2147506334302260256">"Hanglejátszó szolgáltatás az Órában beállított ébresztésekhez."</string>
     <string name="loading_ringtone" msgid="6523322777415268044">"Csengőhang betöltése..."</string>
     <string name="timer_ring_service_desc" msgid="2620214305660322415">"Hanglejátszó szolgáltatás az Órában beállított időzítőkhöz."</string>
     <string name="control_set_alarm" msgid="2194676418924016327">"Ébresztés beállítása"</string>
@@ -232,7 +232,7 @@
     <item msgid="8483930821046925592">"Digitális"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Automatikus otthoni óra"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Amikor olyan területre utazik, ahol más az időzóna, megadhat egy órát az otthoni idővel"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Amikor másik időzónába utazik, hozzáadhat egy órát az otthoni idővel"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Otthoni időzóna"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Otthoni időzóna"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Mégse"</string>
@@ -366,10 +366,10 @@
     <string name="weekday_time_format_12_mode" msgid="8648842975829470646">"EEE, h:mm a"</string>
     <string name="weekday_time_format_24_mode" msgid="152964494051478631">"EEE, k:mm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Érvénytelen időpont: <xliff:g id="INVALID_HOUR">%d</xliff:g>:<xliff:g id="INVALID_MINUTES">%d</xliff:g> <xliff:g id="INVALID_AMPM">%s</xliff:g>"</string>
-    <string name="no_alarm_at" msgid="8140632482969193119">"Nincs riasztás ekkor: <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
-    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nincs ütemezett riasztás"</string>
+    <string name="no_alarm_at" msgid="8140632482969193119">"Nincs ébresztés ekkor: <xliff:g id="ALARM_TIME_HOUR">%d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%d</xliff:g>"</string>
+    <string name="no_scheduled_alarms" msgid="2115420148192753534">"Nincs ütemezett ébresztés"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Nincs megadva címke"</string>
-    <string name="no_alarms_with_label" msgid="6250998794542941665">"Egy riasztás sem tartalmazza a címkét"</string>
+    <string name="no_alarms_with_label" msgid="6250998794542941665">"Egy ébresztés sem tartalmazza a címkét"</string>
     <string name="stopwatch_already_running" msgid="6598258908106423672">"A stopper már elindult"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"A stopper nem indult el"</string>
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"A stoppert nem lehet visszaállítani, mert már elindult"</string>
@@ -377,9 +377,9 @@
     <string name="stopwatch_reset" msgid="7585914953721021042">"Stopper visszaállítva"</string>
     <string name="stopwatch_lapped" msgid="5844686448815550482">"Stopper részidő mérve"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Stopper elindítva"</string>
-    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nincs riasztás beállítva erre az időpontra"</string>
-    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> – riasztás elvetve"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"A riasztás időpontja: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Nincs ébresztés beállítva erre az időpontra"</string>
+    <string name="alarm_is_dismissed" msgid="5509897230565826642">"<xliff:g id="ALARM_TIME">%s</xliff:g> – ébresztés elvetve"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Az ébresztés időpontja: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timer_set" msgid="3326365650863016606">"Nincs időzítő beállítva"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Időzítő törölve"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"Az időzítő már elindult"</string>
@@ -395,9 +395,9 @@
     <string name="the_city_already_added" msgid="3799050213771793020">"Ez a város már hozzá van adva"</string>
     <string name="city_added" msgid="1335509457349179514">"<xliff:g id="CITY_NAME">%s</xliff:g> hozzáadva"</string>
     <string name="city_deleted" msgid="3935141305276867838">"<xliff:g id="CITY_NAME">%s</xliff:g> törölve"</string>
-    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> – a riasztást még nem lehet elvetni, több mint 24 óra múlva esedékes"</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Riasztás elvetése"</string>
-    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Válassza ki az elvetni kívánt riasztást"</string>
-    <string name="no_firing_alarms" msgid="4986161963178722289">"Nincs éles riasztás"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> – riasztás elhalasztva 10 perccel"</string>
+    <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"<xliff:g id="ALARM_TIME">%s</xliff:g> – az ébresztést még nem lehet elvetni, több mint 24 óra múlva esedékes"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Ébresztés elvetése"</string>
+    <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Válassza ki az elvetni kívánt ébresztést"</string>
+    <string name="no_firing_alarms" msgid="4986161963178722289">"Nincs beállítva ébresztés"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"<xliff:g id="ALARM_TIME">%s</xliff:g> – ébresztés elhalasztva 10 perccel"</string>
 </resources>

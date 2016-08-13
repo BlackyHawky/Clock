@@ -40,8 +40,8 @@
     <string name="alarm_today" msgid="7873594221106531654">"Hoy"</string>
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"¡Despierta!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"No"</string>
-    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Aceptar"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Aceptar ahora"</string>
+    <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Descartar"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Descartar ahora"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarma perdida"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> - <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Pospuesta"</string>
@@ -55,7 +55,7 @@
       <item quantity="other">Pospuesta durante <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
       <item quantity="one">Pospuesta durante 1 minuto.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Repetir a las <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Pospuesta hasta: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próxima alarma"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Se han eliminado las alarmas perdidas"</string>
   <string-array name="timer_notifications">
@@ -127,14 +127,14 @@
     <string name="delete" msgid="5732434972457000541">"Eliminar"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Volumen de la alarma"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Silencio"</string>
-    <string name="alarm_notify_text" msgid="4891014685945904766">"Posponer o aceptar alarma"</string>
+    <string name="alarm_notify_text" msgid="4891014685945904766">"Posponer o descartar alarma"</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (pospuesta)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"La alarma sonará a las <xliff:g id="TIME">%s</xliff:g>. Toca para cancelar."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Botones de volumen"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Acción de los botones"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Posponer"</item>
-    <item msgid="3450979320164769576">"Aceptar"</item>
+    <item msgid="3450979320164769576">"Descartar"</item>
     <item msgid="6302517608411378024">"No hacer nada"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Establecer tono predeterminado"</string>
@@ -331,7 +331,7 @@
     <string name="alarm_settings" msgid="2947147071388290814">"Alarmas"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Servicio de cronómetro para ejecutar la notificación"</string>
     <string name="swn_stopped" msgid="783124901663086172">"Detenido"</string>
-    <string name="description_direction_right" msgid="5709209043267548985">"Deslizar hacia la derecha para aceptar"</string>
+    <string name="description_direction_right" msgid="5709209043267548985">"Deslizar hacia la derecha para descartar"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Deslizar hacia la izquierda para posponer"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Desliza el dedo hacia la izquierda para posponer la alarma o hacia la derecha para ignorarla"</string>
     <string name="timer_stopped" msgid="2730331837832462008">"Temporizador detenido"</string>
@@ -341,7 +341,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Ajustes del salvapantallas"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo nocturno"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para espacios oscuros)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para habitaciones oscuras)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Contraer alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"Deshacer"</string>
@@ -356,7 +356,7 @@
       <item quantity="one">¿Eliminar alarma seleccionada?</item>
     </plurals>
     <string name="timer_delete_confirmation" msgid="2815524107015816453">"¿Eliminar este temporizador?"</string>
-    <string name="city_delete_confirmation" msgid="1783441538785676299">"¿Eliminar esta ciudad?"</string>
+    <string name="city_delete_confirmation" msgid="1783441538785676299">"¿Quitar esta ciudad?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Reloj digital"</string>
     <string name="no_alarms" msgid="6429431324842022917">"No hay alarmas"</string>
     <string name="no_alarms_set" msgid="4887558279496044764">"No hay alarmas"</string>
@@ -396,7 +396,7 @@
     <string name="city_added" msgid="1335509457349179514">"Se ha añadido <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_deleted" msgid="3935141305276867838">"Se ha eliminado <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Aún no se puede ignorar la alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> porque quedan más de 24 horas"</string>
-    <string name="dismiss_alarm" msgid="7204593078688533541">"Ignorar alarma"</string>
+    <string name="dismiss_alarm" msgid="7204593078688533541">"Descartar alarma"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Indica la alarma que quieras ignorar"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"No hay ninguna alarma activada"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarma de las <xliff:g id="ALARM_TIME">%s</xliff:g> pospuesta 10 minutos"</string>

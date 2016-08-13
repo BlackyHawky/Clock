@@ -30,7 +30,7 @@
     <string name="label" msgid="162189613902857319">"Etiket"</string>
     <string name="default_label" msgid="5590025289805630372">"Siqnal"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Siqnal qur"</string>
-    <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrasiya etdir"</string>
+    <string name="alarm_vibrate" msgid="3476686921490362230">"Vibrasiya"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Təkrarla"</string>
     <string name="alert" msgid="6506982899651975645">"Siqnalın Zəng səsi"</string>
     <string name="custom_ringtone" msgid="3477418548382111184">"Fərdi Zəng"</string>
@@ -90,9 +90,9 @@
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="clock_instructions" msgid="2656876819515011590">"Bir saat seçin"</string>
     <string name="analog_gadget" msgid="1670505720837152766">"Analoq saat"</string>
-    <string name="help" msgid="7786263119482654015">"kömək"</string>
-    <string name="settings" msgid="5849739030579520686">"Parametrlər"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Ertələmə uzunluğu"</string>
+    <string name="help" msgid="7786263119482654015">"yardım"</string>
+    <string name="settings" msgid="5849739030579520686">"Ayarlar"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Ertələmə intervalı"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dəqiqə</item>
       <item quantity="one">1 dəqiqə</item>
@@ -101,7 +101,7 @@
       <item quantity="other">dəqiqə</item>
       <item quantity="one">dəqiqə</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Sonra susdur"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Avtomatik susma"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> dəqiqə</item>
       <item quantity="one">1 dəqiqə</item>
@@ -159,9 +159,9 @@
     <string name="menu_stopwatch" msgid="3396117705293574701">"Saniyəölçən"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Siqnal əlavə edin"</string>
     <string name="button_cities" msgid="4555761857494501363">"Şəhərlər"</string>
-    <string name="button_menu" msgid="6050484561842120282">"Daha çox seçim"</string>
-    <string name="menu_item_settings" msgid="1413723516369078665">"Parametrlər"</string>
-    <string name="menu_item_help" msgid="4570953476186849841">"Kömək"</string>
+    <string name="button_menu" msgid="6050484561842120282">"Digər variantlar"</string>
+    <string name="menu_item_settings" msgid="1413723516369078665">"Ayarlar"</string>
+    <string name="menu_item_help" msgid="4570953476186849841">"Yardım"</string>
     <string name="menu_item_night_mode" msgid="3486930302245398975">"Gecə rejimi"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Vaxta görə sırala"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Ad üzrə sırala"</string>
@@ -170,7 +170,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"Başlat"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Dayandır"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Dövrə"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Sıfırla"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Sıfırlayın"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Paylaş"</string>
     <string name="hours_label" msgid="3393478155635368097">"st"</string>
     <string name="minutes_label" msgid="3568098128251438588">"dq"</string>
@@ -206,7 +206,7 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 dəqiqə əlavə et"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Dayandır"</string>
     <string name="timer_done" msgid="2375990511982914051">"Hazırdır"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Sıfırla"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Sıfırlayın"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Ləğv et"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Vaxt bitdi"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Vaxtölçən"</string>
@@ -231,8 +231,8 @@
     <item msgid="917900462224167608">"Analoq"</item>
     <item msgid="8483930821046925592">"Rəqəmsal"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"Avtomatik ev saatı"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Saat qurşağı fərqli olan sahədə səyahət edərkən, yerli saatı əlavə et"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"Avtomatik yerli vaxt"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Saat qurşağı fərqli olan sahədə səyahət edərkən, yerli vaxt əlavə edin"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Əsas saat qurşağı"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Əsas saat qurşağı"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Ləğv et"</string>

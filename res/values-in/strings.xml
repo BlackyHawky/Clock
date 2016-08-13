@@ -154,7 +154,7 @@
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Pewaktu"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Timer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Jam"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopwatch"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Tambahkan alarm"</string>
@@ -209,7 +209,7 @@
     <string name="timer_reset" msgid="7848424809190171640">"Setel ulang"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Batal"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Waktu habis"</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"Pewaktu"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"maksimum 4 pewaktu"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Anda benar-benar cepat."</item>
@@ -337,7 +337,7 @@
     <string name="timer_stopped" msgid="2730331837832462008">"Pewaktu dihentikan"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"<xliff:g id="NUMBER">%d</xliff:g> pewaktu dihentikan"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Sentuh untuk melihat pewaktu Anda"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> pewaktu"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Pewaktu Berikutnya: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Setelan Mimpi"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Mode malam"</string>

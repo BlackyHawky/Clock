@@ -56,7 +56,7 @@
       <item quantity="one">Edasilükkamine 1 minuti võrra.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Äratuse edasilükkamine kuni <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Tulevane alarm"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Tulevane äratus"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Märkamata jäänud alarm on kustutatud"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Jäänud vähem kui minut"</item>
@@ -101,7 +101,7 @@
       <item quantity="other">minutit</item>
       <item quantity="one">minut</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Vaikus pärast"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Vaikus aja möödumisel"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutit</item>
       <item quantity="one">1 minut</item>
@@ -153,7 +153,7 @@
     <string name="control_set_alarm" msgid="2194676418924016327">"Äratuse määramine"</string>
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
-    <string name="menu_alarm" msgid="4772010125376647519">"Alarm"</string>
+    <string name="menu_alarm" msgid="4772010125376647519">"Äratus"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Taimer"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Kell"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Stopper"</string>
@@ -328,7 +328,7 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="2947147071388290814">"Alarmid"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Äratused"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Märguandeid käitav stopperiteenus."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Peatatud"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Loobumiseks pühkige paremale"</string>

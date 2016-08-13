@@ -233,8 +233,8 @@
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Ora automatike e ekranit bazë"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Në rast se udhëton në zona ku ora ndryshon, shto në ekran edhe një orë tjetër - atë të vendit tënd ku jeton."</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Brezi orar i zonës ku gjendesh"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Brezi orar i zonës ku gjendesh"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Brezi orar i zonës ku ndodhesh"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Brezi orar i zonës ku ndodhesh"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Anulo"</string>
     <string name="time_picker_set" msgid="331153175471468051">"Në rregull"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>

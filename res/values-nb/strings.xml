@@ -341,7 +341,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Neste nedtelling: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Innstillinger for Drøm"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Nattmodus"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Dempet lysstyrke (for mørke rom)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Svakere lys (for mørke rom)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Vis alarmen"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Skjul alarmen"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"angre"</string>
