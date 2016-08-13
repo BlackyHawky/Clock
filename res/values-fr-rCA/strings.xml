@@ -92,7 +92,7 @@
     <string name="analog_gadget" msgid="1670505720837152766">"Horloge analogique"</string>
     <string name="help" msgid="7786263119482654015">"Aide"</string>
     <string name="settings" msgid="5849739030579520686">"Paramètres"</string>
-    <string name="snooze_duration_title" msgid="1097309861110780483">"Durée de la répétition"</string>
+    <string name="snooze_duration_title" msgid="1097309861110780483">"Durée de l\'arrêt momentané"</string>
     <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> minute</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutes</item>
@@ -101,7 +101,7 @@
       <item quantity="one">minute</item>
       <item quantity="other">minutes</item>
     </plurals>
-    <string name="auto_silence_title" msgid="2012754009554434544">"Silencieux automatique après"</string>
+    <string name="auto_silence_title" msgid="2012754009554434544">"Arrêter la sonnerie après"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minute</item>
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutes</item>
@@ -133,7 +133,7 @@
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Boutons du volume"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Effet des boutons"</string>
   <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Répéter"</item>
+    <item msgid="7972756698723318690">"Arrêt momentané"</item>
     <item msgid="3450979320164769576">"Ignorer"</item>
     <item msgid="6302517608411378024">"Ne rien faire"</item>
   </string-array>
@@ -154,7 +154,7 @@
     <!-- no translation found for control_set_alarm_with_existing (3359285346655630660) -->
     <skip />
     <string name="menu_alarm" msgid="4772010125376647519">"Alarme"</string>
-    <string name="menu_timer" msgid="6459070074762877114">"Minuteur"</string>
+    <string name="menu_timer" msgid="6459070074762877114">"Minuterie"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Horloge"</string>
     <string name="menu_stopwatch" msgid="3396117705293574701">"Chronomètre"</string>
     <string name="button_alarms" msgid="3907838219512538763">"Ajouter une alarme"</string>
@@ -209,7 +209,7 @@
     <string name="timer_reset" msgid="7848424809190171640">"Réinitialiser"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Annuler"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Le temps est écoulé."</string>
-    <string name="timer_notification_label" msgid="4933184831583137249">"Minuteur"</string>
+    <string name="timer_notification_label" msgid="4933184831583137249">"Minuterie"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Un maximum de quatre minuteries est autorisé"</string>
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"On peut dire que vous êtes rapide."</item>
@@ -334,10 +334,10 @@
     <string name="description_direction_right" msgid="5709209043267548985">"Glissez vers la droite pour supprimer"</string>
     <string name="description_direction_left" msgid="7448141043674998679">"Glissez vers la gauche pour répéter"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Glisser le doigt vers la gauche pour répéter, ou vers la droite pour ignorer"</string>
-    <string name="timer_stopped" msgid="2730331837832462008">"Arrêt du minuteur"</string>
+    <string name="timer_stopped" msgid="2730331837832462008">"Arrêt de la minuterie"</string>
     <string name="timers_stopped" msgid="2393640808691864520">"Arrêt de <xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Appuyer ici pour afficher les minuteurs"</string>
-    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteurs"</string>
+    <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> minuteries"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Minuteur suivant : <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Paramètres de l\'écran de veille"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Mode Nuit"</string>

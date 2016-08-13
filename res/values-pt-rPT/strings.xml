@@ -55,7 +55,7 @@
       <item quantity="other">Suspendido durante <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
       <item quantity="one">Suspendido durante 1 minuto.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Com alarme até <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Suspendido até à(s) <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próximo alarme"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"O alarme perdido foi eliminado"</string>
   <string-array name="timer_notifications">
@@ -135,7 +135,7 @@
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Suspender"</item>
     <item msgid="3450979320164769576">"Ignorar"</item>
-    <item msgid="6302517608411378024">"Não fazer nada"</item>
+    <item msgid="6302517608411378024">"Desativados"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Definir toque predefinido"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Alarmes"</string>
@@ -345,7 +345,7 @@
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarme"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Reduzir alarme"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"anular"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Despertador eliminado"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Alarme eliminado"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Próximo alarme: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>

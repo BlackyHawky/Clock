@@ -41,7 +41,7 @@
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Aufwachen!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Aus"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ausschalten"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Jetzt schließen"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Jetzt ausschalten"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Entgangener Weckruf"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g>–<xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Schlummern"</string>
@@ -170,7 +170,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"Starten"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Anhalten"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Runde"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Reset"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Zurücksetzen"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Teilen"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -206,7 +206,7 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 Min. hinzufügen"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Anhalten"</string>
     <string name="timer_done" msgid="2375990511982914051">"Fertig"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Reset"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Zurücksetzen"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Abbrechen"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Zeit ist abgelaufen."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>

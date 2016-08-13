@@ -169,7 +169,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Reprèn"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Inicia"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Atura"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Volta"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"+ 1 volta"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Restableix"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Comparteix"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>

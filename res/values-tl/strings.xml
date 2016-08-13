@@ -21,10 +21,10 @@
     <string name="add_alarm" msgid="5976616107390962899">"Magdagdag ng alarm"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"Desk na orasan"</string>
     <string name="menu_edit_alarm" msgid="7204602994918829751">"I-edit ang alarm"</string>
-    <string name="delete_alarm" msgid="3457780990646206817">"Tanggalin ang alarm"</string>
+    <string name="delete_alarm" msgid="3457780990646206817">"I-delete ang alarm"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"I-on ang alarm"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"I-off ang alarm"</string>
-    <string name="delete_alarm_confirm" msgid="6578572637340860840">"Tanggalin ang alarm na ito?"</string>
+    <string name="delete_alarm_confirm" msgid="6578572637340860840">"I-delete ang alarm na ito?"</string>
     <string name="show_clock" msgid="8358759982675616915">"Ipakita ang orasan"</string>
     <string name="hide_clock" msgid="3217727306480505694">"Itago ang orasan"</string>
     <string name="label" msgid="162189613902857319">"Label"</string>
@@ -124,7 +124,7 @@
   </string-array>
     <string name="done" msgid="6509722361933858451">"Tapos na"</string>
     <string name="revert" msgid="9100911171235162926">"Ibalik"</string>
-    <string name="delete" msgid="5732434972457000541">"Tanggalin"</string>
+    <string name="delete" msgid="5732434972457000541">"I-delete"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Lakas ng tunog ng alarm"</string>
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Tahimik"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"I-snooze o huwag pansinin ang alarm."</string>
@@ -200,7 +200,7 @@
     </plurals>
     <string name="timer_add_timer" msgid="862733633862574752">"Magdagdag ng Timer"</string>
     <string name="timer_start" msgid="6158486445614356442">"Magsimula"</string>
-    <string name="timer_delete" msgid="8699122001991909302">"Tanggalin"</string>
+    <string name="timer_delete" msgid="8699122001991909302">"I-delete"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"I-delete ang <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Magdagdag ng 1 minuto"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Magdagdag ng 1 min"</string>
@@ -355,7 +355,7 @@
       <item quantity="one">I-delete ang mga napiling alarm?</item>
       <item quantity="other">I-delete ang mga napiling alarm?</item>
     </plurals>
-    <string name="timer_delete_confirmation" msgid="2815524107015816453">"Tanggalin ang timer na ito?"</string>
+    <string name="timer_delete_confirmation" msgid="2815524107015816453">"I-delete ang timer na ito?"</string>
     <string name="city_delete_confirmation" msgid="1783441538785676299">"Alisin ang lungsod na ito?"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Digital na orasan"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Walang Mga Alarm"</string>

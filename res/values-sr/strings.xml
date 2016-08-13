@@ -134,7 +134,7 @@
     <string name="revert" msgid="9100911171235162926">"Врати"</string>
     <string name="delete" msgid="5732434972457000541">"Избриши"</string>
     <string name="alarm_volume_title" msgid="8506245173912428522">"Јачина звука аларма"</string>
-    <string name="silent_alarm_summary" msgid="8605302849408279221">"Нечујно"</string>
+    <string name="silent_alarm_summary" msgid="8605302849408279221">"Без звука"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Одложите или одбаците аларм."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (одложено)"</string>
     <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Аларм ће се укључити за <xliff:g id="TIME">%s</xliff:g>. Додирните за отказивање."</string>

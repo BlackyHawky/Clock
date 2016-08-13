@@ -231,7 +231,7 @@
     <item msgid="917900462224167608">"แอนะล็อก"</item>
     <item msgid="8483930821046925592">"ดิจิทัล"</item>
   </string-array>
-    <string name="automatic_home_clock" msgid="6274174710735449252">"นาฬิกาอัตโนมัติสำหรับที่บ้าน"</string>
+    <string name="automatic_home_clock" msgid="6274174710735449252">"นาฬิกาแสดงเวลาที่บ้านอัตโนมัติ"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"เมื่อเดินทางไปในที่ที่เวลาต่างออกไป ให้เพิ่มนาฬิกาแสดงเวลาที่บ้าน"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"เขตเวลาท้องถิ่น"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"เขตเวลาท้องถิ่น"</string>

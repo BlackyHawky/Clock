@@ -55,7 +55,7 @@
       <item quantity="other">Posticipazione di <xliff:g id="MINUTES">%d</xliff:g> minuti.</item>
       <item quantity="one">Posticipazione di un minuto.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Ripetizione sveglia fino alle <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posticipa a <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Prossima sveglia"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"La sveglia ignorata è stata eliminata"</string>
   <string-array name="timer_notifications">
@@ -339,13 +339,13 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Tocca per visualizzare i timer"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Prossimo timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Impostazioni Dream"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Impostazioni Daydream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modalità Notte"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Display molto scuro (per stanze buie)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Espandi sveglia"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Comprimi sveglia"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"annulla"</string>
-    <string name="alarm_deleted" msgid="6131529309389084785">"Allarme eliminato"</string>
+    <string name="alarm_deleted" msgid="6131529309389084785">"Sveglia eliminata"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/<xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Prossima sveglia: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>

@@ -44,7 +44,7 @@
     <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Ta bort nu"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Alarmet lämnades utan åtgärd"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
-    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Pausat"</string>
+    <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Snoozar"</string>
     <plurals name="alarm_alert_snooze_duration" formatted="false" msgid="7844300009062867865">
       <item quantity="other"><xliff:g id="NUMBER">%d</xliff:g> minuter</item>
       <item quantity="one">1 minut</item>
@@ -52,10 +52,10 @@
     <string name="alarm_alert_off_text" msgid="4472073417593915002">"Alarm av"</string>
     <string name="alarm_alert_snooze_text" msgid="1774416052207651584">"Snooza"</string>
     <plurals name="alarm_alert_snooze_set" formatted="false" msgid="3212729193036041768">
-      <item quantity="other">Alarmet återupptas om <xliff:g id="MINUTES">%d</xliff:g> minuter.</item>
-      <item quantity="one">Alarmet återupptas om 1 minut.</item>
+      <item quantity="other">Snoozar i <xliff:g id="MINUTES">%d</xliff:g> minuter.</item>
+      <item quantity="one">Snoozar i 1 minut.</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Viloläge till <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Snoozar till <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Kommande alarm"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Det missade alarmet har tagits bort"</string>
   <string-array name="timer_notifications">
@@ -328,7 +328,7 @@
     <item msgid="5911600083231840181">"Tonga"</item>
     <item msgid="5176858645450908751">"Jakarta"</item>
   </string-array>
-    <string name="alarm_settings" msgid="2947147071388290814">"Larm"</string>
+    <string name="alarm_settings" msgid="2947147071388290814">"Alarm"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"Stoppurstjänst som kör meddelandet."</string>
     <string name="swn_stopped" msgid="783124901663086172">"Stoppad"</string>
     <string name="description_direction_right" msgid="5709209043267548985">"Stäng av alarmet genom att dra åt höger"</string>
@@ -399,5 +399,5 @@
     <string name="dismiss_alarm" msgid="7204593078688533541">"Stäng av alarm"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Välj de alarm som ska ignoreras"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Inga alarm aktiveras"</string>
-    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmet som är inställt på <xliff:g id="ALARM_TIME">%s</xliff:g> har skjutits upp i tio minuter"</string>
+    <string name="alarm_is_snoozed" msgid="7044644119744928846">"Alarmet som är inställt på <xliff:g id="ALARM_TIME">%s</xliff:g> snoozar i tio minuter"</string>
 </resources>
