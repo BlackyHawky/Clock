@@ -55,7 +55,7 @@
       <item quantity="other">Pospuesta por <xliff:g id="MINUTES">%d</xliff:g> minutos</item>
       <item quantity="one">Pospuesta por 1 minuto</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posponer hasta la hora <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Posponer hasta: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próxima alarma"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Se eliminó la alarma perdida."</string>
   <string-array name="timer_notifications">
@@ -339,7 +339,7 @@
     <string name="all_timers_stopped_notif" msgid="278532320068394600">"Toca para ver tus temporizadores."</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> temporizadores"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Próximo temporizador: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
-    <string name="screensaver_settings" msgid="7013450738357352801">"Configuración"</string>
+    <string name="screensaver_settings" msgid="7013450738357352801">"Configuración de Dream"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Modo nocturno"</string>
     <string name="night_mode_summary" msgid="1017350187324162631">"Pantalla muy atenuada (para ambientes poco iluminados)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Expandir alarma"</string>

@@ -236,7 +236,7 @@
     <string name="home_time_zone" msgid="9199730676287974501">"હોમ સમય ઝોન"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"હોમ સમય ઝોન"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"રદ કરો"</string>
-    <string name="time_picker_set" msgid="331153175471468051">"ઑકે"</string>
+    <string name="time_picker_set" msgid="331153175471468051">"ઓકે"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
     <string name="time_picker_00_label" msgid="6001006474735281911">":00"</string>
@@ -326,7 +326,7 @@
     <item msgid="8255615641810148152">"ઑકલેન્ડ"</item>
     <item msgid="3027153773466391728">"ફીજી"</item>
     <item msgid="5911600083231840181">"ટોંગા"</item>
-    <item msgid="5176858645450908751">"જાકાર્તા"</item>
+    <item msgid="5176858645450908751">"જકાર્તા"</item>
   </string-array>
     <string name="alarm_settings" msgid="2947147071388290814">"એલાર્મ્સ"</string>
     <string name="stopwatch_service_desc" msgid="8416624630388063996">"સૂચના ચલાવવા માટે સ્ટોપવૉચ સેવા."</string>
@@ -344,7 +344,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"ખૂબ આછું પ્રદર્શન (અંધારા રૂમ્સ માટે)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"એલાર્મ વિસ્તૃત કરો"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"એલાર્મ સંકુચિત કરો"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"કરેલું પાછું લાવો"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"પૂર્વવત્ કરો"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"એલાર્મ કાઢી નાખ્યો"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>

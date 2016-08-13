@@ -55,7 +55,7 @@
       <item quantity="other">Adiada <xliff:g id="MINUTES">%d</xliff:g> minutos.</item>
       <item quantity="one">Adiada un minuto</item>
     </plurals>
-    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Repetir ás <xliff:g id="TIME">%s</xliff:g>"</string>
+    <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Adiar ata: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Próxima alarma"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Eliminouse a alarma perdida"</string>
   <string-array name="timer_notifications">
@@ -76,15 +76,15 @@
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> días</item>
-      <item quantity="one">Un día</item>
+      <item quantity="one">1 día</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> horas</item>
-      <item quantity="one">Unha hora</item>
+      <item quantity="one">1 hora</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutos</item>
-      <item quantity="one">Un minuto</item>
+      <item quantity="one">1 minuto</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Todos os días"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -250,9 +250,9 @@
     <item msgid="7156402158716866161">"Tijuana"</item>
     <item msgid="1144117502254612241">"Arizona"</item>
     <item msgid="101284182011722637">"Chihuahua"</item>
-    <item msgid="689121094232986897">"Hora das montañas"</item>
+    <item msgid="689121094232986897">"Hora das Rochosas"</item>
     <item msgid="5445331923942302756">"Centroamérica"</item>
-    <item msgid="2749806434052452351">"Hora do centro"</item>
+    <item msgid="2749806434052452351">"Hora central"</item>
     <item msgid="3997138870229703753">"Cidade de México"</item>
     <item msgid="5425567073027744888">"Saskatchewan"</item>
     <item msgid="2877342865396629368">"Bogotá"</item>

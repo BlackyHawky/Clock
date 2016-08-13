@@ -31,7 +31,7 @@
     <string name="default_label" msgid="5590025289805630372">"Alarma"</string>
     <string name="set_alarm" msgid="9148359866152726808">"Ezarri alarma"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Egin dar-dar"</string>
-    <string name="alarm_repeat" msgid="7242985466344233206">"Errepikapena"</string>
+    <string name="alarm_repeat" msgid="7242985466344233206">"Errepikatu"</string>
     <string name="alert" msgid="6506982899651975645">"Alarmaren tonua"</string>
     <string name="custom_ringtone" msgid="3477418548382111184">"Tonu pertsonalizatua"</string>
     <string name="ringtone" msgid="9110746249688559579">"Tonua"</string>
@@ -56,7 +56,7 @@
       <item quantity="one">1 minutu atzeratuta.</item>
     </plurals>
     <string name="alarm_alert_snooze_until" msgid="6958013659168344550">"Atzeratu ordu honetara arte: <xliff:g id="TIME">%s</xliff:g>"</string>
-    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Alarma jotzear"</string>
+    <string name="alarm_alert_predismiss_title" msgid="5723945586913705445">"Hurrengo alarma"</string>
     <string name="missed_alarm_has_been_deleted" msgid="5295473204045979335">"Ezikusi egindako alarma ezabatu da"</string>
   <string-array name="timer_notifications">
     <item msgid="7760558912503484257">"Minutu bat baino gutxiago geratzen da"</item>
@@ -66,25 +66,25 @@
   </string-array>
   <string-array name="alarm_set">
     <item msgid="6450913786084215050">"Alarma 1 minutu baino gutxiago barru jotzeko ezarri da."</item>
-    <item msgid="6002066367368421848">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> ordu barru jotzeko ezarri da."</item>
-    <item msgid="8824719306247973774">"Alarma <xliff:g id="HOURS">%2$s</xliff:g> ordu barru jotzeko ezarri da."</item>
-    <item msgid="8182406852935468862">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> egun eta <xliff:g id="HOURS">%2$s</xliff:g> ordu barru jotzeko ezarri da."</item>
-    <item msgid="2532279224777213194">"Alarma <xliff:g id="MINUTES">%3$s</xliff:g> ordu barru jotzeko ezarri da."</item>
-    <item msgid="5936557894247187717">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> egun eta <xliff:g id="MINUTES">%3$s</xliff:g> ordu barru jotzeko ezarri da."</item>
-    <item msgid="9115697840826129603">"Alarma <xliff:g id="HOURS">%2$s</xliff:g> egun eta <xliff:g id="MINUTES">%3$s</xliff:g> ordu barru jotzeko ezarri da."</item>
-    <item msgid="2332583385137381060">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> egun, <xliff:g id="HOURS">%2$s</xliff:g> ordu eta <xliff:g id="MINUTES">%3$s</xliff:g> minutu barru jotzeko ezarri da."</item>
+    <item msgid="6002066367368421848">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="8824719306247973774">"Alarma <xliff:g id="HOURS">%2$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="8182406852935468862">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> eta <xliff:g id="HOURS">%2$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="2532279224777213194">"Alarma <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="5936557894247187717">"Alarma <xliff:g id="DAYS">%1$s</xliff:g> eta <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="9115697840826129603">"Alarma <xliff:g id="HOURS">%2$s</xliff:g> eta <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</item>
+    <item msgid="2332583385137381060">"Alarma <xliff:g id="DAYS">%1$s</xliff:g>, <xliff:g id="HOURS">%2$s</xliff:g> eta <xliff:g id="MINUTES">%3$s</xliff:g> barru jotzeko ezarri da."</item>
   </string-array>
     <plurals name="days" formatted="false" msgid="3706846447285206235">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> egun</item>
-      <item quantity="one">Egun bat</item>
+      <item quantity="one">1 egun</item>
     </plurals>
     <plurals name="hours" formatted="false" msgid="3871283109767171655">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ordu</item>
-      <item quantity="one">Ordubete</item>
+      <item quantity="one">1 ordu</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> minutu</item>
-      <item quantity="one">Minutu bat</item>
+      <item quantity="one">1 minutu</item>
     </plurals>
     <string name="every_day" msgid="4100909974923444602">"Egunero"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
@@ -104,7 +104,7 @@
     <string name="auto_silence_title" msgid="2012754009554434544">"Gelditu tarte hau igaro ondoren"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> minutu</item>
-      <item quantity="one">Minutu bat</item>
+      <item quantity="one">1 minutu</item>
     </plurals>
     <string name="auto_silence_never" msgid="4821982647348750809">"Inoiz ez"</string>
   <string-array name="auto_silence_entries">
@@ -116,7 +116,7 @@
     <item msgid="7809240121716151904">"25 minutu"</item>
     <item msgid="4278641338024561333">"Inoiz ez"</item>
   </string-array>
-    <string name="week_start_title" msgid="4268917518596832096">"Hasi astea egun honetan:"</string>
+    <string name="week_start_title" msgid="4268917518596832096">"Asteko lehen eguna"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Larunbata"</item>
     <item msgid="3993530639455360921">"Igandea"</item>
@@ -129,13 +129,13 @@
     <string name="silent_alarm_summary" msgid="8605302849408279221">"Isilik modua"</string>
     <string name="alarm_notify_text" msgid="4891014685945904766">"Atzeratu edo baztertu alarma."</string>
     <string name="alarm_notify_snooze_label" msgid="5404083762646377829">"<xliff:g id="LABEL">%s</xliff:g> (atzeratuta)"</string>
-    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarma ezarri da ordu honetarako: <xliff:g id="TIME">%s</xliff:g>. Uzteko, ukitu hau."</string>
+    <string name="alarm_notify_snooze_text" msgid="4819324081410990368">"Alarma ordu honetarako ezarri da: <xliff:g id="TIME">%s</xliff:g>. Uzteko, ukitu hau."</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Bolumen-botoiak"</string>
     <string name="volume_button_dialog_title" msgid="8768042543750036853">"Botoiaren efektua"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Atzeratu"</item>
     <item msgid="3450979320164769576">"Baztertu"</item>
-    <item msgid="6302517608411378024">"Ez egin ezer"</item>
+    <item msgid="6302517608411378024">"Ezer ez"</item>
   </string-array>
     <string name="default_ringtone_setting_title" msgid="4549726190682964245">"Ezarri tonu lehenetsia"</string>
     <string name="alarm_button_description" msgid="740283647046258651">"Alarmak"</string>
@@ -169,7 +169,7 @@
     <string name="sw_resume_button" msgid="2569360966002022248">"Berrekin"</string>
     <string name="sw_start_button" msgid="8373422516681242270">"Hasi"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Gelditu"</string>
-    <string name="sw_lap_button" msgid="6992264696039004233">"Itzulia"</string>
+    <string name="sw_lap_button" msgid="6992264696039004233">"Tartea"</string>
     <string name="sw_reset_button" msgid="6616804728322906117">"Berrezarri"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Partekatu"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
@@ -233,8 +233,8 @@
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Etxeko erloju automatikoa"</string>
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Beste ordu-zona batean dagoen lurralde batera bidaiatzen duzunean, gehitu etxeko ordua duen erloju bat"</string>
-    <string name="home_time_zone" msgid="9199730676287974501">"Etxeko ordua"</string>
-    <string name="home_time_zone_title" msgid="807894493443834624">"Etxeko ordua"</string>
+    <string name="home_time_zone" msgid="9199730676287974501">"Etxeko ordu-zona"</string>
+    <string name="home_time_zone_title" msgid="807894493443834624">"Etxeko ordu-zona"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Utzi"</string>
     <string name="time_picker_set" msgid="331153175471468051">"Ados"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
@@ -341,7 +341,7 @@
     <string name="next_timer_notif" msgid="6136454740115613653">"Hurrengo tenporizadorea: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="7013450738357352801">"Pantaila-babeslearen ezarpenak"</string>
     <string name="night_mode_title" msgid="5983813889469616299">"Gau modua"</string>
-    <string name="night_mode_summary" msgid="1017350187324162631">"Oso bistaratze-argi ahula (gela ilunetarako)"</string>
+    <string name="night_mode_summary" msgid="1017350187324162631">"Oso argi ahula (toki ilunetarako)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"Zabaldu alarma"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"Tolestu alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"desegin"</string>
@@ -375,11 +375,11 @@
     <string name="stopwatch_cant_be_reset_because_is_running" msgid="5713134605500796186">"Ezin da berrezarri kronometroa, exekutatzen ari delako"</string>
     <string name="stopwatch_stopped" msgid="6927081018816192999">"Gelditu da kronometroa"</string>
     <string name="stopwatch_reset" msgid="7585914953721021042">"Berrezarri da kronometroa"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Ezarri da kronometroaren denbora tarte partziala"</string>
+    <string name="stopwatch_lapped" msgid="5844686448815550482">"Ezarri da kronometroaren denbora-tarte partziala"</string>
     <string name="stopwatch_started" msgid="7843882246387176304">"Hasi da kronometroa"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Ez dago alarmarik programatuta ordu horretarako"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Baztertu da <xliff:g id="ALARM_TIME">%s</xliff:g> alarma"</string>
-    <string name="alarm_is_set" msgid="5503226382620011088">"Alarmaren ordua: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
+    <string name="alarm_is_set" msgid="5503226382620011088">"Alarma ordu honetarako ezarri da: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timer_set" msgid="3326365650863016606">"Ez dago tenporizadorerik ezarrita"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Ezabatu da tenporizadorea"</string>
     <string name="timer_already_running" msgid="1259351124772803097">"Tenporizadorea abian da dagoeneko"</string>

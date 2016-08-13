@@ -41,7 +41,7 @@
     <string name="alarm_alert_wake_up" msgid="6790780716498252583">"Aufwachen!"</string>
     <string name="alarm_alert_off_action_text" msgid="2459925305288819812">"Aus"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Ausschalten"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Jetzt schließen"</string>
+    <string name="alarm_alert_dismiss_now_text" msgid="3272183025444682500">"Jetzt ausschalten"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Entgangener Weckruf"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g>–<xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Schlummern"</string>
@@ -170,7 +170,7 @@
     <string name="sw_start_button" msgid="8373422516681242270">"Starten"</string>
     <string name="sw_stop_button" msgid="8322958613123274451">"Anhalten"</string>
     <string name="sw_lap_button" msgid="6992264696039004233">"Runde"</string>
-    <string name="sw_reset_button" msgid="6616804728322906117">"Reset"</string>
+    <string name="sw_reset_button" msgid="6616804728322906117">"Zurücksetzen"</string>
     <string name="sw_share_button" msgid="4478648110382859382">"Teilen"</string>
     <string name="hours_label" msgid="3393478155635368097">"h"</string>
     <string name="minutes_label" msgid="3568098128251438588">"m"</string>
@@ -206,21 +206,21 @@
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1 Min. hinzufügen"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Anhalten"</string>
     <string name="timer_done" msgid="2375990511982914051">"Fertig"</string>
-    <string name="timer_reset" msgid="7848424809190171640">"Reset"</string>
+    <string name="timer_reset" msgid="7848424809190171640">"Zurücksetzen"</string>
     <string name="timer_cancel" msgid="3572868404230815644">"Abbrechen"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Zeit ist abgelaufen."</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Timer"</string>
     <string name="timers_max_count_reached" msgid="9140022846793903813">"Es können maximal 4 Timer gestellt werden."</string>
   <string-array name="sw_share_strings">
-    <item msgid="842841032273927988">"Sie sind teuflisch schnell."</item>
-    <item msgid="6332879039890727169">"Ernten Sie die Früchte Ihrer Arbeit!"</item>
-    <item msgid="815382761274660130">"Sie sind ja schneller als ein Roboter!"</item>
+    <item msgid="842841032273927988">"Du bist teuflisch schnell."</item>
+    <item msgid="6332879039890727169">"Ernte die Früchte deiner Arbeit!"</item>
+    <item msgid="815382761274660130">"Du bist ja schneller als ein Roboter!"</item>
     <item msgid="7916250650982813737">"Puh!"</item>
     <item msgid="6836603904515182333">"L33t-Zeiten"</item>
     <item msgid="7508085100680861631">"Wahnsinnsgeschwindigkeit"</item>
     <item msgid="5961245252909589573">"Let\'s do the time warp again!"</item>
     <item msgid="5211891900854545940">"Just a jump to the left."</item>
-    <item msgid="9071353477103826053">"Sie haben es ganz schön eilig."</item>
+    <item msgid="9071353477103826053">"Du hast es ganz schön eilig."</item>
     <item msgid="3785193933691117181">"Photonengeschwindigkeit"</item>
   </string-array>
     <string name="home_label" msgid="4436139365695453870">"Zuhause"</string>
@@ -388,7 +388,7 @@
     <string name="timer_created" msgid="4381027137335885547">"Timer erstellt"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Ungültige Dauer für Timer"</string>
     <string name="timer_was_reset" msgid="6495796785185062631">"Timer zurückgesetzt"</string>
-    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Der Timer kann nicht zurückgesetzt werden, da er noch ausgeführt wird. Halten Sie den Timer an, um ihn zurückzusetzen."</string>
+    <string name="timer_cant_be_reset_because_its_running" msgid="7880015473706806640">"Der Timer kann nicht zurückgesetzt werden, da er noch ausgeführt wird. Halte den Timer an, um ihn zurückzusetzen."</string>
     <string name="timer_already_stopped" msgid="8865820275829449054">"Der Timer wurde bereits beendet."</string>
     <string name="no_city_selected" msgid="1007596865203283741">"Keine Stadt ausgewählt"</string>
     <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Die angegebene Stadt ist nicht verfügbar."</string>
