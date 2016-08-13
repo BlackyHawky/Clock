@@ -91,7 +91,7 @@
       <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> godziny</item>
       <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> godzin</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> godziny</item>
-      <item quantity="one">1 godzina</item>
+      <item quantity="one">1 godzinę</item>
     </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
       <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> minuty</item>
