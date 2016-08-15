@@ -36,7 +36,7 @@
                 android:fontFamily="sans-serif-thin"
                 android:gravity="center"
                 android:includeFontPadding="false"
-                android:textColor="@color/clock_white"
+                android:textColor="@color/white"
                 android:textSize="@dimen/world_clock_digital_font_size" />
 
             <com.android.deskclock.AnalogClock

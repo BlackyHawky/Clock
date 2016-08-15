@@ -16,7 +16,7 @@
   -->
 
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/clock_white">
+    android:color="@color/white">
     <item>
         <bitmap
             android:src="@drawable/bg_day_selected"

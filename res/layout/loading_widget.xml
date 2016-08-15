@@ -22,4 +22,4 @@
     android:includeFontPadding="false"
     android:singleLine="true"
     android:text="@string/loading_widget"
-    android:textColor="@color/clock_white" />
+    android:textColor="@color/white" />

@@ -24,6 +24,7 @@
     <color name="black_16p">#28000000</color>
 
     <color name="white">#FFFFFFFF</color>
+    <color name="white_50p">#80FFFFFF</color>
     <color name="white_63p">#A0FFFFFF</color>
     <color name="no_alarms">#4CFFFFFF</color>
 
@@ -32,7 +33,6 @@
     <color name="color_accent">#DA4336</color>
     <color name="hairline">#28FFFFFF</color>
 
-    <color name="clock_white">#FFFFFF</color>
     <color name="clock_gray">#B3FFFFFF</color>
 
     <color name="default_background">#1A237E</color>

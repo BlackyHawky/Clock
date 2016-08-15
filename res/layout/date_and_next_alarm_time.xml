@@ -40,7 +40,7 @@
         android:ellipsize="none"
         android:singleLine="true"
         android:text="@string/clock_emoji"
-        android:textColor="@color/clock_white"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
     <TextView
