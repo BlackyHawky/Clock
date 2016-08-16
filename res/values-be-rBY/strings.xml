@@ -28,7 +28,6 @@
     <string name="alarm_tomorrow" msgid="131356848787643420">"Заўтра"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Сёння"</string>
     <string name="alarm_alert_dismiss_text" msgid="4942914605480888820">"Адхіліць"</string>
-    <string name="alarm_alert_dismiss_now_text" msgid="7327972388636305792">"Адхіліць зараз"</string>
     <string name="alarm_missed_title" msgid="3828345099754063392">"Прапушчаны будзільнік"</string>
     <string name="alarm_missed_text" msgid="6585658367289194023">"<xliff:g id="ALARM_TIME">%s</xliff:g> – <xliff:g id="ALARM_LABEL">%s</xliff:g>"</string>
     <string name="alarm_alert_snoozed_text" msgid="7064642998528766113">"Адкладзена"</string>
@@ -52,7 +51,11 @@
     <string name="timer_notifications_less_min" msgid="5481375048976427255">"Застаецца менш за хвiлiну"</string>
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
-    <string name="timer_notifications_hours_minutes" msgid="4301167788642025702">"Застаецца <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"Застаецца <xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
+    <string name="timer_notifications_missed_less_min" msgid="8519097741068939429">"Менш за хвіліну таму"</string>
+    <string name="timer_notifications_missed_hours" msgid="3040400788095447215">"<xliff:g id="HOURS">%1$s</xliff:g> таму"</string>
+    <string name="timer_notifications_missed_minutes" msgid="96802155255511315">"<xliff:g id="MINUTES">%2$s</xliff:g> таму"</string>
+    <string name="timer_notifications_missed_hours_minutes" msgid="1354376754583759556">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> таму"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"застаецца"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"застаецца"</string>
   <string-array name="alarm_set">
@@ -103,7 +106,7 @@
       <item quantity="other">хвіліны</item>
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Паступова павялічваць гучнасць"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"Адключана"</string>
+    <string name="no_crescendo_duration" msgid="383801592865899932">"Выключана"</string>
     <string name="crescendo_duration" msgid="6641284876778266541">"Секунд: <xliff:g id="NUMBER">%s</xliff:g>"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"секунды"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Адключаць гук праз"</string>
@@ -136,7 +139,7 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Уключыць гук"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Стандартная мелодыя будзільніка – цішыня"</string>
     <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"Змяніць"</string>
-    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"На прыладзе заданы рэжым поўнай цішыні"</string>
+    <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"На прыладзе зададзены рэжым поўнай цішыні"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Кнопкі гучнасці"</string>
   <string-array name="volume_button_setting_entries">
     <item msgid="7972756698723318690">"Адкласці"</item>
@@ -153,7 +156,7 @@
     <string name="button_cities" msgid="4555761857494501363">"Гарады"</string>
     <string name="menu_item_settings" msgid="1413723516369078665">"Налады"</string>
     <string name="menu_item_help" msgid="4570953476186849841">"Даведка"</string>
-    <string name="menu_item_night_mode" msgid="3486930302245398975">"Начны рэжым"</string>
+    <string name="menu_item_night_mode" msgid="2930695838866189483">"Экранная застаўка"</string>
     <string name="menu_item_sort_by_gmt_offset" msgid="3120860422682721706">"Сартаваць па часе"</string>
     <string name="menu_item_sort_by_name" msgid="1762931290495104106">"Сартаваць па назве"</string>
     <string name="selected_cities_label" msgid="3607479399424246605">"Выбраныя гарады"</string>
@@ -203,7 +206,10 @@
     <string name="timer_canceled" msgid="7327923392567128060">"Таймер скасаваны"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"Час выйшаў"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"Таймеры (<xliff:g id="NUM_TIMERS">%d</xliff:g> шт.) скончыліся"</string>
+    <string name="timer_multi_missed" msgid="9085073572920385362">"Прапушчана таймераў: <xliff:g id="NUMBER">%d</xliff:g>"</string>
     <string name="timer_notification_label" msgid="4933184831583137249">"Таймер"</string>
+    <string name="missed_timer_notification_label" msgid="6661928727623284334">"Прапушчаны таймер"</string>
+    <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Прапушчаны таймер: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Прыпыніць"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Скінуць усе таймеры"</string>
   <string-array name="sw_share_strings">
@@ -228,7 +234,7 @@
     <item msgid="8483930821046925592">"Лічбавы"</item>
   </string-array>
     <string name="automatic_home_clock" msgid="6274174710735449252">"Гадзіннік майго часавага пояса"</string>
-    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Падчас падарожжа ў рэгiёне, дзе час адрознiваецца, дадайце хатнi гадзiннiк"</string>
+    <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Паказваць на асобным гадзінніку, колькі часу дома, калі я знаходжуся ў іншым часавым поясе"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Дамашні часавы пояс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Дамашні часавы пояс"</string>
     <string name="time_picker_cancel" msgid="7437106489606013077">"Скасаваць"</string>
@@ -322,6 +328,16 @@
     <item msgid="5911600083231840181">"Тангійская"</item>
     <item msgid="5176858645450908751">"Джакарта"</item>
   </string-array>
+    <string name="shortcut_new_alarm_short" msgid="3490418929139725538">"Новы будзільнік"</string>
+    <string name="shortcut_new_alarm_long" msgid="4778064830147981089">"Стварыць новы будзільнік"</string>
+    <string name="shortcut_new_timer_short" msgid="3793414543219297884">"Новы таймер"</string>
+    <string name="shortcut_new_timer_long" msgid="5194092459678096067">"Стварыць новы таймер"</string>
+    <string name="shortcut_start_stopwatch_short" msgid="5469715764277476796">"Запусціць"</string>
+    <string name="shortcut_start_stopwatch_long" msgid="9183061797046030376">"Запусціць секундамер"</string>
+    <string name="shortcut_pause_stopwatch_short" msgid="4022667323693785830">"Прыпыніць"</string>
+    <string name="shortcut_pause_stopwatch_long" msgid="435026905074898334">"Прыпыніць секундамер"</string>
+    <string name="shortcut_start_screensaver_short" msgid="3414762073311954753">"Экранная застаўка"</string>
+    <string name="shortcut_start_screensaver_long" msgid="6134275671119484907">"Запуск экраннай застаўкі"</string>
     <string name="alarm_settings" msgid="2947147071388290814">"Будзільнікі"</string>
     <string name="timer_service_desc" msgid="2256002649882602433">"Апрацоўвае дзеянні з апавяшчэнняў таймера."</string>
     <string name="stopwatch_service_desc" msgid="9220132827343760767">"Апрацоўвае дзеянні з апавяшчэнняў секундамера."</string>
@@ -348,8 +364,14 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Наступны сігнал: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Няма будзільнікаў"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Недапушчальны час <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g><xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Немагчыма знайсці будзільнік."</string>
+    <string name="cannot_locate_timer" msgid="3771725126049282801">"Немагчыма знайсці таймер."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Няма будзільніка на <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Няма запланаваных будзільнікаў"</string>
+    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Будзільнік яшчэ не спрацаваў."</string>
+    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Будзільнік ужо прапушчаны."</string>
+    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"Будзільнік ужо выдалены."</string>
+    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Будзільнік ужо адкладзены."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Няма паметкі"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Няма будзільнікаў з такой паметкай"</string>
     <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Секундамер не запушчаны"</string>
@@ -359,6 +381,8 @@
     <string name="stopwatch_started" msgid="7843882246387176304">"Секундамер запушчаны"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Няма будзільніка, запланаванага на гэты час"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Будзільнік на <xliff:g id="ALARM_TIME">%s</xliff:g> адключаны"</string>
+    <!-- no translation found for alarm_is_deleted (4593667023633842085) -->
+    <skip />
     <string name="alarm_is_set" msgid="5503226382620011088">"Будзільнік пастаўлены на <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_timers_exist" msgid="7062019300048831373">"Няма таймераў"</string>
     <string name="too_many_timers_exist" msgid="6339194231767431627">"Існуе больш за адзін таймер"</string>
@@ -376,6 +400,7 @@
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Будзільнік на <xliff:g id="ALARM_TIME">%s</xliff:g> не можа быць адключаны зараз, да яго засталося больш за 24 гадзіны"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Адключыць будзільнік"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Выберыце будзільнік, якія трэба адключыць"</string>
+    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"Выберыце будзільнік, які трэба выдаліць"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Няма актыўных будзільнікаў"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Будзільнік на <xliff:g id="ALARM_TIME">%s</xliff:g> адкладзены на 10 хвілін"</string>
 </resources>
