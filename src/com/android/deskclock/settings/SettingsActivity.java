@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v14.preference.PreferenceDialogFragment;
@@ -39,9 +40,9 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.RingtonePickerDialogFragment;
 import com.android.deskclock.Utils;
-import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
+import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
 
@@ -143,6 +144,10 @@ public final class SettingsActivity extends BaseActivity {
         public void onCreatePreferences(Bundle bundle, String rootKey) {
             getPreferenceManager().setStorageDeviceProtected();
             addPreferencesFromResource(R.xml.settings);
+            final Preference timerVibrate = findPreference(KEY_TIMER_VIBRATE);
+            final boolean hasVibrator = ((Vibrator) timerVibrate.getContext()
+                    .getSystemService(VIBRATOR_SERVICE)).hasVibrator();
+            timerVibrate.setVisible(hasVibrator);
             loadTimeZoneList();
         }
 
