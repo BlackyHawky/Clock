@@ -342,7 +342,7 @@
     <string name="C331" msgid="2607492003890117689">"<xliff:g id="SEPARATOR">=</xliff:g>باليكير<xliff:g id="TIMEZONE">|Pacific/Noumea</xliff:g>"</string>
     <string name="C332" msgid="8349533418456323370">"<xliff:g id="SEPARATOR">=</xliff:g>فيليبسبورغ<xliff:g id="TIMEZONE">|America/Lower_Princes</xliff:g>"</string>
     <string name="C333" msgid="2842640664018042568">"<xliff:g id="SEPARATOR">=</xliff:g>بودغوريتسا<xliff:g id="TIMEZONE">|Europe/Podgorica</xliff:g>"</string>
-    <string name="C334" msgid="3310146581437635671">"‏P<xliff:g id="SEPARATOR">=</xliff:g>بورت مورسبي<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
+    <string name="C334" msgid="3310146581437635671">"<xliff:g id="SEPARATOR">=</xliff:g>بورت مورسبي<xliff:g id="TIMEZONE">|Pacific/Palau</xliff:g>"</string>
     <string name="C335" msgid="3317158262102352303">"<xliff:g id="SEPARATOR">=</xliff:g>بورت فيلا<xliff:g id="TIMEZONE">|Pacific/Efate</xliff:g>"</string>
     <string name="C336" msgid="3810072761869903472">"<xliff:g id="SEPARATOR">=</xliff:g>بورتو نوفو<xliff:g id="TIMEZONE">|Africa/Porto-Novo</xliff:g>"</string>
     <string name="C337" msgid="3412269218104112252">"<xliff:g id="SEPARATOR">=</xliff:g>بريشتينا<xliff:g id="TIMEZONE">|Europe/Belgrade</xliff:g>"</string>
@@ -355,6 +355,6 @@
     <string name="C344" msgid="7629820826386244509">"<xliff:g id="SEPARATOR">=</xliff:g>فيينتيان<xliff:g id="TIMEZONE">|Asia/Vientiane</xliff:g>"</string>
     <string name="C345" msgid="1881198350378158072">"<xliff:g id="SEPARATOR">=</xliff:g>ويندهوك<xliff:g id="TIMEZONE">|Africa/Windhoek</xliff:g>"</string>
     <string name="C346" msgid="2947674392768816097">"<xliff:g id="SEPARATOR">=</xliff:g>ياوندي<xliff:g id="TIMEZONE">|Africa/Douala</xliff:g>"</string>
-    <string name="C347" msgid="6291282205599716861">"‏Y<xliff:g id="SEPARATOR">=</xliff:g>مقاطعة يارين<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
+    <string name="C347" msgid="6291282205599716861">"<xliff:g id="SEPARATOR">=</xliff:g>مقاطعة يارين<xliff:g id="TIMEZONE">|Pacific/Nauru</xliff:g>"</string>
     <string name="C348" msgid="8462071023392592539">"<xliff:g id="SEPARATOR">=</xliff:g>يريفان<xliff:g id="TIMEZONE">|Asia/Yerevan</xliff:g>"</string>
 </resources>
