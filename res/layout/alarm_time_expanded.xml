@@ -31,6 +31,7 @@
 
     <!-- Guttered content. -->
     <LinearLayout
+        android:id="@+id/alarm_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="@integer/guttered_content_width_percent"
@@ -43,7 +44,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:clipChildren="false"
+            android:clipToPadding="false">
 
             <CheckBox
                 android:id="@+id/repeat_onoff"
@@ -111,6 +114,7 @@
                 android:singleLine="true" />
 
             <View
+                android:id="@+id/hairline"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/hairline_height"
                 android:layout_marginEnd="@dimen/hairline_side_padding"
@@ -122,7 +126,9 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom|start">
+                android:layout_gravity="bottom|start"
+                android:clipChildren="false"
+                android:clipToPadding="false">
 
                 <ImageButton
                     android:id="@+id/delete"
@@ -141,11 +147,10 @@
                     android:layout_width="@dimen/touch_target_min_size"
                     android:layout_height="@dimen/touch_target_min_size"
                     android:layout_gravity="center_vertical|end"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?attr/selectableItemBackgroundBorderless"
                     android:contentDescription="@string/collapse_alarm"
-                    android:rotation="@integer/chevron_rotate_180"
                     android:scaleType="center"
-                    app:srcCompat="@drawable/ic_expand_more" />
+                    app:srcCompat="@drawable/caret_toopen" />
 
             </FrameLayout>
 

@@ -31,6 +31,7 @@
 
     <!-- Guttered content. -->
     <LinearLayout
+        android:id="@+id/alarm_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="@integer/guttered_content_width_percent"
@@ -91,10 +92,10 @@
                 android:layout_width="@dimen/touch_target_min_size"
                 android:layout_height="@dimen/touch_target_min_size"
                 android:layout_gravity="center_vertical|end"
-                android:background="?attr/selectableItemBackground"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/expand_alarm"
                 android:scaleType="center"
-                app:srcCompat="@drawable/ic_expand_more" />
+                app:srcCompat="@drawable/caret_toclose" />
 
         </FrameLayout>
 

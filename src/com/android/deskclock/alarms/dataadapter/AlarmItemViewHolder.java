@@ -21,12 +21,14 @@ import android.support.annotation.StringRes;
 import android.view.View;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.ItemAnimator;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.widget.TextTime;
@@ -34,14 +36,23 @@ import com.android.deskclock.widget.TextTime;
 /**
  * Abstract ViewHolder for alarm time items.
  */
-public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<AlarmItemHolder> {
+public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<AlarmItemHolder>
+        implements ItemAnimator.OnAnimateChangeListener {
 
     private static final float CLOCK_ENABLED_ALPHA = 1f;
     private static final float CLOCK_DISABLED_ALPHA = 0.69f;
 
+    public static final float ANIM_STANDARD_DELAY_MULTIPLIER = 1f / 6f;
+    public static final float ANIM_LONG_DURATION_MULTIPLIER = 2f / 3f;
+    public static final float ANIM_SHORT_DURATION_MULTIPLIER = 1f / 4f;
+    public static final float ANIM_SHORT_DELAY_INCREMENT_MULTIPLIER =
+            1f - ANIM_LONG_DURATION_MULTIPLIER - ANIM_SHORT_DURATION_MULTIPLIER;
+    public static final float ANIM_LONG_DELAY_INCREMENT_MULTIPLIER =
+            1f - ANIM_STANDARD_DELAY_MULTIPLIER - ANIM_SHORT_DURATION_MULTIPLIER;
+
     public final TextTime clock;
     public final CompoundButton onOff;
-    public final View arrow;
+    public final ImageView arrow;
     public final View preemptiveDismissContainer;
     public final TextView preemptiveDismissButton;
 
@@ -50,7 +61,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
 
         clock = (TextTime) itemView.findViewById(R.id.digital_clock);
         onOff = (CompoundButton) itemView.findViewById(R.id.onoff);
-        arrow = itemView.findViewById(R.id.arrow);
+        arrow = (ImageView) itemView.findViewById(R.id.arrow);
         preemptiveDismissContainer = itemView.findViewById(R.id.preemptive_dismiss_container);
         preemptiveDismissButton =
                 (TextView) itemView.findViewById(R.id.preemptive_dismiss_button);

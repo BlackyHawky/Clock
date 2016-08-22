@@ -31,6 +31,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -169,7 +170,17 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         mRecyclerView.addOnLayoutChangeListener(scrollPositionWatcher);
         mRecyclerView.addOnScrollListener(scrollPositionWatcher);
         mRecyclerView.setAdapter(mItemAdapter);
-
+        mRecyclerView.addOnItemTouchListener(new RecyclerView.SimpleOnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+                // Disable scrolling/user action to prevent choppy animations.
+                return rv.getItemAnimator().isRunning();
+            }
+        });
+        final ItemAnimator itemAnimator = new ItemAnimator();
+        itemAnimator.setChangeDuration(300L);
+        itemAnimator.setMoveDuration(300L);
+        mRecyclerView.setItemAnimator(itemAnimator);
         return v;
     }
 
