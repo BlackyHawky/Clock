@@ -65,6 +65,7 @@ import static android.content.Intent.ACTION_DATE_CHANGED;
 import static android.content.Intent.ACTION_LOCALE_CHANGED;
 import static android.content.Intent.ACTION_SCREEN_ON;
 import static android.content.Intent.ACTION_TIMEZONE_CHANGED;
+import static android.content.Intent.ACTION_TIME_CHANGED;
 import static android.util.TypedValue.COMPLEX_UNIT_PX;
 import static android.view.View.GONE;
 import static android.view.View.MeasureSpec.UNSPECIFIED;
@@ -125,7 +126,7 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onReceive(@NonNull Context context, @NonNull Intent intent) {
-        LOGGER.i("Digital Widget processing action %s", intent.getAction());
+        LOGGER.i("onReceive: " + intent);
         super.onReceive(context, intent);
 
         final AppWidgetManager wm = AppWidgetManager.getInstance(context);
@@ -136,15 +137,17 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
         final ComponentName provider = new ComponentName(context, getClass());
         final int[] widgetIds = wm.getAppWidgetIds(provider);
 
-        switch (intent.getAction()) {
-            case ACTION_SCREEN_ON:
+        final String action = intent.getAction();
+        switch (action) {
+            case ACTION_NEXT_ALARM_CLOCK_CHANGED:
             case ACTION_DATE_CHANGED:
+            case ACTION_LOCALE_CHANGED:
+            case ACTION_SCREEN_ON:
+            case ACTION_TIME_CHANGED:
+            case ACTION_TIMEZONE_CHANGED:
             case ACTION_ALARM_CHANGED:
             case ACTION_ON_DAY_CHANGE:
-            case ACTION_LOCALE_CHANGED:
-            case ACTION_TIMEZONE_CHANGED:
             case ACTION_WORLD_CITIES_CHANGED:
-            case ACTION_NEXT_ALARM_CLOCK_CHANGED:
                 for (int widgetId : widgetIds) {
                     relayoutWidget(context, wm, widgetId, wm.getAppWidgetOptions(widgetId));
                 }
@@ -343,16 +346,21 @@ public class DigitalAppWidgetProvider extends AppWidgetProvider {
      * Add the day-change callback if it is needed (selected cities exist).
      */
     private void updateDayChangeCallback(Context context) {
-        final List<City> selectedCities = DataModel.getDataModel().getSelectedCities();
-        if (selectedCities.isEmpty()) {
+        final DataModel dm = DataModel.getDataModel();
+        final List<City> selectedCities = dm.getSelectedCities();
+        final boolean showHomeClock = dm.getShowHomeClock();
+        if (selectedCities.isEmpty() && !showHomeClock) {
             // Remove the existing day-change callback.
             removeDayChangeCallback(context);
             return;
         }
 
         // Look up the time at which the next day change occurs across all timezones.
-        final Set<TimeZone> zones = new ArraySet<>(selectedCities.size() + 1);
+        final Set<TimeZone> zones = new ArraySet<>(selectedCities.size() + 2);
         zones.add(TimeZone.getDefault());
+        if (showHomeClock) {
+            zones.add(dm.getHomeCity().getTimeZone());
+        }
         for (City city : selectedCities) {
             zones.add(city.getTimeZone());
         }
