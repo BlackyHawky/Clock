@@ -29,6 +29,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
+import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
@@ -243,7 +244,7 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
     public Notification buildMissed(Context context, NotificationModel nm,
                                     List<Timer> missedTimers) {
         final Timer timer = missedTimers.get(0);
-        final long remainingTime = timer.getRemainingTime();
+        final long expirationTime = timer.getWallClockExpirationTime();
 
         // Generate a title, and some actions based on timer states.
         final String contentTitle;
@@ -254,7 +255,7 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
 
         if (missedTimers.size() == 1) {
             // Single timer is missed.
-            contentText = formatElapsedTimeMissedBy(context, remainingTime);
+            contentText = AlarmUtils.getFormattedTime(context, expirationTime);
             if (TextUtils.isEmpty(timer.getLabel())) {
                 contentTitle = context.getString(R.string.missed_timer_notification_label);
             } else {
@@ -269,7 +270,7 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
                     .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
         } else {
             // Multiple missed timers.
-            contentText = formatElapsedTimeMissedBy(context, remainingTime);
+            contentText = AlarmUtils.getFormattedTime(context, expirationTime);
             contentTitle = context.getString(R.string.timer_multi_missed, missedTimers.size());
 
             firstActionIconId = R.drawable.ic_reset_24dp;
@@ -304,18 +305,6 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
         final PendingIntent action1 = Utils.pendingServiceIntent(context, firstActionIntent);
         final String action1Title = context.getString(firstActionTitleId);
         builder.addAction(firstActionIconId, action1Title, action1);
-
-        final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        final Intent updateNotification =
-                TimerService.createUpdateMissedNotificationIntent(context);
-        // Schedule a callback to update the time-sensitive information of the missed timer.
-        final PendingIntent pi =
-                PendingIntent.getService(context, REQUEST_CODE_MISSING, updateNotification,
-                PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
-
-        final long nextMinuteChange = remainingTime % MINUTE_IN_MILLIS;
-        final long triggerTime = SystemClock.elapsedRealtime() + nextMinuteChange;
-        TimerModel.schedulePendingIntent(am, triggerTime, pi);
 
         return builder.build();
     }
@@ -352,34 +341,5 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
             formatStringId = R.string.timer_notifications_less_min;
         }
         return String.format(context.getString(formatStringId), hourSeq, minSeq, verb);
-    }
-
-    /**
-     * Format "7 hours 52 minutes ago"
-     */
-    @VisibleForTesting
-    static String formatElapsedTimeMissedBy(Context context, long missedByTime) {
-        final int hours = (int) -missedByTime / (int) HOUR_IN_MILLIS;
-        final int minutes = (int) -missedByTime / ((int) MINUTE_IN_MILLIS) % 60;
-
-        String minSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.minutes, minutes);
-        String hourSeq = Utils.getNumberFormattedQuantityString(context, R.plurals.hours, hours);
-
-        final boolean showHours = hours > 0;
-        final boolean showMinutes = minutes > 0;
-
-        int formatStringId;
-        if (showHours) {
-            if (showMinutes) {
-                formatStringId = R.string.timer_notifications_missed_hours_minutes;
-            } else {
-                formatStringId = R.string.timer_notifications_missed_hours;
-            }
-        } else if (showMinutes) {
-            formatStringId = R.string.timer_notifications_missed_minutes;
-        } else {
-            formatStringId = R.string.timer_notifications_missed_less_min;
-        }
-        return String.format(context.getString(formatStringId), hourSeq, minSeq);
     }
 }
