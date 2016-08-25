@@ -121,15 +121,6 @@
     <string name="timer_notifications_minutes"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g><xliff:g id="REMAINING" example="remaining"> %3$s</xliff:g></string>
     <string name="timer_notifications_hours_minutes"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g><xliff:g id="MINUTES" example="2 minutes"> %2$s</xliff:g> remaining</string>
 
-    <!-- Timer notification: how long ago a timer was missed. [CHAR LIMIT=30] -->
-    <string name="timer_notifications_missed_less_min">Less than a minute ago</string>
-    <!-- Timer notification: how long ago a timer was missed. [CHAR LIMIT=30] -->
-    <string name="timer_notifications_missed_hours"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> ago</string>
-    <!-- Timer notification: how long ago a timer was missed. [CHAR LIMIT=30] -->
-    <string name="timer_notifications_missed_minutes"><xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> ago</string>
-    <!-- Timer notification: how long ago a timer was missed. [CHAR LIMIT=30] -->
-    <string name="timer_notifications_missed_hours_minutes"><xliff:g id="HOURS" example="2 hours">%1$s</xliff:g> <xliff:g id="MINUTES" example="2 minutes">%2$s</xliff:g> ago</string>
-
     <!--
         Verb inflection to use for single time units remaining
         Ex. "1 minute remaining"
