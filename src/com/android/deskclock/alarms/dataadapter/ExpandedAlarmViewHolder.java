@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -91,12 +92,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final LayoutInflater inflater = LayoutInflater.from(context);
         final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
         for (int i = 0; i < 7; i++) {
-            final CompoundButton dayButton = (CompoundButton) inflater.inflate(
-                    R.layout.day_button, repeatDays, false /* attachToRoot */);
+            final View dayButtonFrame = inflater.inflate(R.layout.day_button, repeatDays,
+                    false /* attachToRoot */);
+            final CompoundButton dayButton =
+                    (CompoundButton) dayButtonFrame.findViewById(R.id.day_button_box);
             final int weekday = weekdays.get(i);
             dayButton.setText(UiDataModel.getUiDataModel().getShortWeekday(weekday));
             dayButton.setContentDescription(UiDataModel.getUiDataModel().getLongWeekday(weekday));
-            repeatDays.addView(dayButton);
+            repeatDays.addView(dayButtonFrame);
             dayButtons[i] = dayButton;
         }
 
