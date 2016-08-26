@@ -22,6 +22,8 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -39,6 +41,7 @@ import android.widget.ImageView;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Timer;
 import com.android.deskclock.data.TimerListener;
@@ -54,9 +57,6 @@ import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.SCALE_X;
 import static android.view.View.VISIBLE;
-import static com.android.deskclock.FabContainer.UpdateType.DISABLE_BUTTONS;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_SHRINK_AND_EXPAND;
 import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 /**
@@ -233,8 +233,7 @@ public final class TimerFragment extends DeskClockFragment {
         }
     }
 
-    @Override
-    public void onUpdateFab(@NonNull ImageView fab) {
+    private void updateFab(@NonNull ImageView fab, boolean animate) {
         if (mCurrentView == mTimersView) {
             final Timer timer = getTimer();
             if (timer == null) {
@@ -245,12 +244,27 @@ public final class TimerFragment extends DeskClockFragment {
             fab.setVisibility(VISIBLE);
             switch (timer.getState()) {
                 case RUNNING:
-                    fab.setImageResource(R.drawable.ic_pause_white_24dp);
+                    if (animate) {
+                        fab.setImageResource(R.drawable.ic_play_pause_animation);
+                    } else {
+                        fab.setImageResource(R.drawable.ic_play_pause);
+                    }
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
                     break;
                 case RESET:
+                    if (animate) {
+                        fab.setImageResource(R.drawable.ic_stop_play_animation);
+                    } else {
+                        fab.setImageResource(R.drawable.ic_pause_play);
+                    }
+                    fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
+                    break;
                 case PAUSED:
-                    fab.setImageResource(R.drawable.ic_start_white_24dp);
+                    if (animate) {
+                        fab.setImageResource(R.drawable.ic_pause_play_animation);
+                    } else {
+                        fab.setImageResource(R.drawable.ic_pause_play);
+                    }
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
                     break;
                 case MISSED:
@@ -259,7 +273,6 @@ public final class TimerFragment extends DeskClockFragment {
                     fab.setContentDescription(fab.getResources().getString(R.string.timer_stop));
                     break;
             }
-
         } else if (mCurrentView == mCreateTimerView) {
             if (mCreateTimerView.hasValidInput()) {
                 fab.setImageResource(R.drawable.ic_start_white_24dp);
@@ -268,6 +281,22 @@ public final class TimerFragment extends DeskClockFragment {
             } else {
                 fab.setVisibility(INVISIBLE);
             }
+        }
+    }
+
+    @Override
+    public void onUpdateFab(@NonNull ImageView fab) {
+        updateFab(fab, false);
+    }
+
+    @Override
+    public void onMorphFab(@NonNull ImageView fab) {
+        // Update the fab's drawable to match the current timer state.
+        updateFab(fab, Utils.isLMR1OrLater());
+        // Animate the drawable.
+        final Drawable icon = fab.getDrawable();
+        if (icon instanceof Animatable) {
+            ((Animatable) icon).start();
         }
     }
 
@@ -475,7 +504,7 @@ public final class TimerFragment extends DeskClockFragment {
     /**
      * Display the view that creates a new timer.
      */
-    private void showCreateTimerView(UpdateType updateType) {
+    private void showCreateTimerView(int updateTypes) {
         // Stop animating the timers.
         stopUpdatingTime();
 
@@ -487,13 +516,13 @@ public final class TimerFragment extends DeskClockFragment {
         mCurrentView = mCreateTimerView;
 
         // Update the fab and buttons.
-        updateFab(updateType);
+        updateFab(updateTypes);
     }
 
     /**
      * Display the view that lists all existing timers.
      */
-    private void showTimersView(UpdateType updateType) {
+    private void showTimersView(int updateTypes) {
         // Clear any defunct timer creation state; the next timer creation starts fresh.
         mTimerSetupState = null;
 
@@ -505,7 +534,7 @@ public final class TimerFragment extends DeskClockFragment {
         mCurrentView = mTimersView;
 
         // Update the fab and buttons.
-        updateFab(updateType);
+        updateFab(updateTypes);
 
         // Start animating the timers.
         startUpdatingTime();
@@ -550,7 +579,7 @@ public final class TimerFragment extends DeskClockFragment {
         final boolean toTimers = toView == mTimersView;
 
         // Avoid double-taps by enabling/disabling the set of buttons active on the new view.
-        updateFab(DISABLE_BUTTONS);
+        updateFab(BUTTONS_DISABLE);
 
         final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
         final Animator rotateFrom = ObjectAnimator.ofFloat(mCurrentView, SCALE_X, 1, 0);
@@ -671,7 +700,14 @@ public final class TimerFragment extends DeskClockFragment {
 
             } else if (mCurrentView == mTimersView && index == mViewPager.getCurrentItem()) {
                 // If the visible timer changed, update the fab to match its new state.
-                updateFab(FAB_AND_BUTTONS_IMMEDIATE);
+
+                // No animation necessary
+                if ((before.isPaused() && after.isReset())
+                        || before.getState() == after.getState()) {
+                    updateFab(FAB_IMMEDIATE);
+                } else {
+                    updateFab(FAB_MORPH);
+                }
             }
         }
 

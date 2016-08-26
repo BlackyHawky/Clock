@@ -22,6 +22,13 @@ public interface FabController {
     void onUpdateFab(@NonNull ImageView fab);
 
     /**
+     * Called before onUpdateFab when the fab should be animated.
+     *
+     * @param fab the fab component to be configured based on current state
+     */
+    void onMorphFab(@NonNull ImageView fab);
+
+    /**
      * Configures the display of the buttons to the left and right of the fab to match the current
      * state of this controller.
      *
