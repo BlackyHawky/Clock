@@ -25,6 +25,9 @@ import java.util.Collection;
 
 public final class Events {
 
+    /** Extra describing the entity responsible for the action being performed. */
+    public static final String EXTRA_EVENT_LABEL = "com.android.deskclock.extra.EVENT_LABEL";
+
     private static final Collection<EventTracker> sEventTrackers = new ArrayList<>();
 
     public static void addEventTracker(EventTracker eventTracker) {

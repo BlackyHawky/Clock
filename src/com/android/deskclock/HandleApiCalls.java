@@ -18,7 +18,6 @@ package com.android.deskclock;
 
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,8 +25,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.AlarmClock;
-import android.support.annotation.StringRes;
-import android.support.annotation.VisibleForTesting;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 
@@ -39,6 +36,7 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.provider.DaysOfWeek;
 import com.android.deskclock.timer.TimerFragment;
+import com.android.deskclock.timer.TimerService;
 import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.ArrayList;
@@ -48,18 +46,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.android.deskclock.AlarmSelectionActivity.ACTION_DELETE;
 import static com.android.deskclock.AlarmSelectionActivity.ACTION_DISMISS;
 import static com.android.deskclock.AlarmSelectionActivity.EXTRA_ACTION;
 import static com.android.deskclock.AlarmSelectionActivity.EXTRA_ALARMS;
-import static com.android.deskclock.provider.AlarmInstance.DISMISSED_STATE;
 import static com.android.deskclock.provider.AlarmInstance.FIRED_STATE;
-import static com.android.deskclock.provider.AlarmInstance.HIDE_NOTIFICATION_STATE;
-import static com.android.deskclock.provider.AlarmInstance.HIGH_NOTIFICATION_STATE;
-import static com.android.deskclock.provider.AlarmInstance.LOW_NOTIFICATION_STATE;
-import static com.android.deskclock.provider.AlarmInstance.MISSED_STATE;
-import static com.android.deskclock.provider.AlarmInstance.PREDISMISSED_STATE;
-import static com.android.deskclock.provider.AlarmInstance.SILENT_STATE;
 import static com.android.deskclock.provider.AlarmInstance.SNOOZE_STATE;
 import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
 import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
@@ -70,9 +60,6 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
  * the com.android.alarm.permission.SET_ALARM permission to complete the requested action.
  */
 public class HandleApiCalls extends Activity {
-
-    @VisibleForTesting
-    static final String ACTION_DELETE_ALARM = "android.intent.action.DELETE_ALARM";
 
     private Context mAppContext;
 
@@ -102,8 +89,6 @@ public class HandleApiCalls extends Activity {
                 case AlarmClock.ACTION_SNOOZE_ALARM:
                     handleSnoozeAlarm(intent);
                     break;
-                case ACTION_DELETE_ALARM:
-                    handleDeleteAlarm(intent);
             }
         } finally {
             finish();
@@ -179,35 +164,6 @@ public class HandleApiCalls extends Activity {
         @Override
         protected Void doInBackground(Void... parameters) {
             final ContentResolver cr = mContext.getContentResolver();
-
-            final Uri deeplink = mIntent.getData();
-            if (deeplink != null) {
-                final AlarmInstance instance = AlarmInstance.getInstance(cr, deeplink);
-                if (instance == null) {
-                    final String reason = mContext.getString(R.string.cannot_locate_alarm);
-                    LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
-                    return null;
-                }
-
-                final int state = instance.mAlarmState;
-                if (state == MISSED_STATE) {
-                    final String reason = mContext.getString(R.string.alarm_is_already_missed);
-                    LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
-                    return null;
-                }
-
-                if (state == PREDISMISSED_STATE || state == DISMISSED_STATE) {
-                    final String reason = mContext.getString(R.string.alarm_is_already_dismissed);
-                    LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
-                    return null;
-                }
-
-                dismissAlarmInstance(instance, mActivity);
-                return null;
-            }
 
             final List<Alarm> alarms = getEnabledAlarms(mContext);
             if (alarms.isEmpty()) {
@@ -293,49 +249,6 @@ public class HandleApiCalls extends Activity {
         protected Void doInBackground(Void... parameters) {
             final ContentResolver cr = mContext.getContentResolver();
 
-            final Uri deeplink = mIntent.getData();
-            if (deeplink != null) {
-                final AlarmInstance instance = AlarmInstance.getInstance(cr, deeplink);
-                if (instance == null) {
-                    final String reason = mContext.getString(R.string.cannot_locate_alarm);
-                    LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
-                    return null;
-                }
-
-                // Snooze the instance if it is firing.
-                if (instance.mAlarmState == FIRED_STATE) {
-                    snoozeAlarm(instance, mContext, mActivity);
-                    return null;
-                }
-
-                // Fail the snooze request since the instance is not firing.
-                @StringRes int failureMessageId = -1;
-                switch (instance.mAlarmState) {
-                    case SILENT_STATE:
-                    case LOW_NOTIFICATION_STATE:
-                    case HIGH_NOTIFICATION_STATE:
-                    case HIDE_NOTIFICATION_STATE:
-                        failureMessageId = R.string.cannot_snooze_scheduled_alarm;
-                        break;
-                    case DISMISSED_STATE:
-                    case PREDISMISSED_STATE:
-                        failureMessageId = R.string.alarm_is_already_dismissed;
-                        break;
-                    case SNOOZE_STATE:
-                        failureMessageId = R.string.alarm_is_already_snoozed;
-                        break;
-                    case MISSED_STATE:
-                        failureMessageId = R.string.alarm_is_already_missed;
-                        break;
-                }
-
-                final String reason = mContext.getString(failureMessageId);
-                LogUtils.i(reason);
-                Voice.notifyFailure(mActivity, reason);
-                return null;
-            }
-
             final List<AlarmInstance> alarmInstances = AlarmInstance.getInstancesByState(
                     cr, FIRED_STATE);
             if (alarmInstances.isEmpty()) {
@@ -365,137 +278,6 @@ public class HandleApiCalls extends Activity {
         Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
     }
 
-    private void handleDeleteAlarm(Intent intent) {
-        new DeleteAlarmAsync(mAppContext, intent, this).execute();
-    }
-
-    public static void deleteAlarm(Alarm alarm, Activity activity) {
-        Utils.enforceNotMainLooper();
-        final Context context = activity.getApplicationContext();
-        final AlarmInstance instance = AlarmInstance.getNextUpcomingInstanceByAlarmId(
-                context.getContentResolver(), alarm.id);
-        if (instance == null) {
-            final String reason = context.getString(R.string.no_alarm_scheduled_for_this_time);
-            Voice.notifyFailure(activity, reason);
-            LogUtils.i(reason);
-            return;
-        }
-
-        deleteAlarmInstance(instance, activity);
-    }
-
-    public static void deleteAlarmInstance(AlarmInstance instance, Activity activity) {
-        Utils.enforceNotMainLooper();
-
-        final Context context = activity.getApplicationContext();
-        final Date alarmTime = instance.getAlarmTime().getTime();
-        final String time = DateFormat.getTimeFormat(context).format(alarmTime);
-
-        final String reason = context.getString(R.string.alarm_is_deleted, time);
-        LogUtils.i(reason);
-        Voice.notifySuccess(activity, reason);
-        AlarmStateManager.deleteInstanceAndUpdateParent(context, instance);
-        Events.sendAlarmEvent(R.string.action_delete, R.string.label_intent);
-    }
-
-    private static class DeleteAlarmAsync extends AsyncTask<Void, Void, Void> {
-
-        private final Context mContext;
-        private final Intent mIntent;
-        private final Activity mActivity;
-
-        public DeleteAlarmAsync(Context context, Intent intent, Activity activity) {
-            mContext = context;
-            mIntent = intent;
-            mActivity = activity;
-        }
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            final ContentResolver cr = mContext.getContentResolver();
-
-            final Uri deepLink = mIntent.getData();
-            if (deepLink != null) {
-                final AlarmInstance instance = AlarmInstance.getInstance(cr, deepLink);
-                if (instance == null) {
-                    final String reason = mContext.getString(R.string.cannot_locate_alarm);
-                    LogUtils.i(reason);
-                    Voice.notifyFailure(mActivity, reason);
-                    return null;
-                }
-
-                deleteAlarmInstance(instance, mActivity);
-                return null;
-            }
-
-            final List<Alarm> alarms = getAllAlarms(mContext);
-            if (alarms.isEmpty()) {
-                final String reason = mContext.getString(R.string.no_alarms);
-                LogUtils.i(reason);
-                Voice.notifyFailure(mActivity, reason);
-                return null;
-            }
-
-            final String searchMode = mIntent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
-            if (searchMode == null && alarms.size() > 1) {
-                // shows the UI where user picks which alarm they want to ACTION_DELETE
-                final Intent pickSelectionIntent = new Intent(mContext,
-                        AlarmSelectionActivity.class)
-                        .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        .putExtra(EXTRA_ACTION, ACTION_DELETE)
-                        .putExtra(EXTRA_ALARMS, alarms.toArray(new Parcelable[alarms.size()]));
-                mContext.startActivity(pickSelectionIntent);
-                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_delete));
-                return null;
-            }
-
-            // fetch the alarms that are specified by the intent
-            final FetchMatchingAlarmsAction fmaa =
-                    new FetchMatchingAlarmsAction(mContext, alarms, mIntent, mActivity);
-            fmaa.run();
-            final List<Alarm> matchingAlarms = fmaa.getMatchingAlarms();
-
-            // If there are multiple matching alarms and it wasn't expected
-            // disambiguate what the user meant
-            if (!AlarmClock.ALARM_SEARCH_MODE_ALL.equals(searchMode) && matchingAlarms.size() > 1) {
-                final Intent pickSelectionIntent =
-                        new Intent(mContext, AlarmSelectionActivity.class)
-                                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                                .putExtra(EXTRA_ACTION, ACTION_DELETE)
-                                .putExtra(EXTRA_ALARMS,
-                                        matchingAlarms.toArray(new Parcelable[matchingAlarms.size()]));
-                mContext.startActivity(pickSelectionIntent);
-                Voice.notifySuccess(mActivity, mContext.getString(R.string.pick_alarm_to_delete));
-                return null;
-            }
-
-            // Apply the action to the matching alarms
-            boolean matches = false;
-            for (Alarm alarm : matchingAlarms) {
-                final AlarmInstance instance =
-                        AlarmInstance.getNextUpcomingInstanceByAlarmId(cr, alarm.id);
-                if (AlarmClock.ALARM_SEARCH_MODE_ALL.equals(searchMode) && instance == null) {
-                    continue;
-                }
-                matches = true;
-                deleteAlarmInstance(instance, mActivity);
-                LogUtils.i("Alarm %s is deleted", alarm);
-            }
-
-            if (!matches) {
-                final String reason = mContext.getString(R.string.no_alarm_scheduled_for_this_time);
-                Voice.notifyFailure(mActivity, reason);
-                LogUtils.i(reason);
-            }
-
-            return null;
-        }
-
-        private static List<Alarm> getAllAlarms(Context context) {
-            return Alarm.getAlarms(context.getContentResolver(), null, null);
-        }
-    }
-
     /***
      * Processes the SET_ALARM intent
      * @param intent Intent passed to the app
@@ -522,38 +304,7 @@ public class HandleApiCalls extends Activity {
         }
 
         final boolean skipUi = intent.getBooleanExtra(AlarmClock.EXTRA_SKIP_UI, false);
-
         final ContentResolver cr = getContentResolver();
-        final Uri deeplink = intent.getData();
-        if (deeplink != null) {
-            // Attempt to locate the alarm via the deeplink.
-            final Alarm alarm = Alarm.getAlarm(cr, deeplink);
-            if (alarm == null) {
-                Voice.notifyFailure(this, getString(R.string.cannot_locate_alarm));
-                LogUtils.i(String.format("HandleApiCalls cannot locate alarm using: %s", deeplink));
-                return;
-            }
-
-            // Remove all defunct instances.
-            AlarmStateManager.deleteAllInstances(this, alarm.id);
-
-            // Update the alarm with supplied data from the intent.
-            updateAlarmFromIntent(alarm, intent);
-
-            // Save the updated alarm.
-            Alarm.updateAlarm(cr, alarm);
-
-            // Create the next instance with the updated alarm data.
-            final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
-            setupInstance(alarmInstance, skipUi);
-
-            final String time = DateFormat.getTimeFormat(this).format(
-                    alarmInstance.getAlarmTime().getTime());
-            Voice.notifySuccess(this, getString(R.string.alarm_is_set, time));
-            Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
-            LogUtils.i("HandleApiCalls updated existing alarm: %s", alarm);
-            return;
-        }
 
         // If time information was not provided an existing alarm cannot be located and a new one
         // cannot be created so show the UI for creating the alarm from scratch per spec.
@@ -618,16 +369,7 @@ public class HandleApiCalls extends Activity {
         UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
 
         // Open DeskClock which is now positioned on the alarms tab.
-        final Intent showIntent = new Intent(this, DeskClock.class);
-
-        // If a deeplink is given, populate the corresponding alarm id in the intent.
-        final Uri deeplink = intent.getData();
-        if (deeplink != null) {
-            final long alarmId = ContentUris.parseId(deeplink);
-            showIntent.putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId);
-        }
-
-        startActivity(showIntent);
+        startActivity(new Intent(this, DeskClock.class));
 
         Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
         LogUtils.i("HandleApiCalls show alarms");
@@ -685,7 +427,7 @@ public class HandleApiCalls extends Activity {
 
             // Open DeskClock which is now positioned on the timers tab.
             startActivity(new Intent(this, DeskClock.class)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId()));
+                    .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId()));
         }
     }
 

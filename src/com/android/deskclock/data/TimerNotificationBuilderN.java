@@ -29,9 +29,9 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.timer.ExpiredTimersActivity;
 import com.android.deskclock.timer.TimerService;
 
@@ -75,8 +75,8 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
 
                 // Left button: Pause
                 final Intent pause = new Intent(context, TimerService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_PAUSE_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
+                        .setAction(TimerService.ACTION_PAUSE_TIMER)
+                        .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
                 final Icon icon1 = Icon.createWithResource(context, R.drawable.ic_pause_24dp);
                 final CharSequence title1 = res.getText(R.string.timer_pause);
@@ -85,8 +85,8 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
 
                 // Right Button: +1 Minute
                 final Intent addMinute = new Intent(context, TimerService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_ADD_MINUTE_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
+                        .setAction(TimerService.ACTION_ADD_MINUTE_TIMER)
+                        .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
                 final Icon icon2 = Icon.createWithResource(context, R.drawable.ic_add_24dp);
                 final CharSequence title2 = res.getText(R.string.timer_plus_1_min);
@@ -99,8 +99,8 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
 
                 // Left button: Start
                 final Intent start = new Intent(context, TimerService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_START_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
+                        .setAction(TimerService.ACTION_START_TIMER)
+                        .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
                 final Icon icon1 = Icon.createWithResource(context, R.drawable.ic_start_24dp);
                 final CharSequence title1 = res.getText(R.string.sw_resume_button);
@@ -109,8 +109,8 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
 
                 // Right Button: Reset
                 final Intent reset = new Intent(context, TimerService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_RESET_TIMER)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
+                        .setAction(TimerService.ACTION_RESET_TIMER)
+                        .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
                 final Icon icon2 = Icon.createWithResource(context, R.drawable.ic_reset_24dp);
                 final CharSequence title2 = res.getText(R.string.sw_reset_button);
@@ -137,14 +137,13 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
         content.setTextViewText(R.id.state, stateText);
 
         // Intent to load the app and show the timer when the notification is tapped.
-        final Intent showApp = new Intent(context, HandleDeskClockApiCalls.class)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setAction(HandleDeskClockApiCalls.ACTION_SHOW_TIMERS)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_notification);
+        final Intent showApp = new Intent(context, TimerService.class)
+                .setAction(TimerService.ACTION_SHOW_TIMERS)
+                .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId())
+                .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
         final PendingIntent pendingShowApp =
-                PendingIntent.getActivity(context, REQUEST_CODE_UPCOMING, showApp,
+                PendingIntent.getService(context, REQUEST_CODE_UPCOMING, showApp,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         return new Notification.Builder(context)
@@ -269,8 +268,8 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
 
             // Reset button
             final Intent reset = new Intent(context, TimerService.class)
-                    .setAction(HandleDeskClockApiCalls.ACTION_RESET_TIMER)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId());
+                    .setAction(TimerService.ACTION_RESET_TIMER)
+                    .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId());
 
             final Icon icon1 = Icon.createWithResource(context, R.drawable.ic_reset_24dp);
             final CharSequence title1 = res.getText(R.string.timer_reset);
@@ -291,14 +290,13 @@ class TimerNotificationBuilderN implements TimerModel.NotificationBuilder {
         content.setTextViewText(R.id.state, stateText);
 
         // Intent to load the app and show the timer when the notification is tapped.
-        final Intent showApp = new Intent(context, HandleDeskClockApiCalls.class)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setAction(HandleDeskClockApiCalls.ACTION_SHOW_TIMERS)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_TIMER_ID, timer.getId())
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_notification);
+        final Intent showApp = new Intent(context, TimerService.class)
+                .setAction(TimerService.ACTION_SHOW_TIMERS)
+                .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId())
+                .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
         final PendingIntent pendingShowApp =
-                PendingIntent.getActivity(context, REQUEST_CODE_MISSING, showApp,
+                PendingIntent.getService(context, REQUEST_CODE_MISSING, showApp,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         return new Notification.Builder(context)

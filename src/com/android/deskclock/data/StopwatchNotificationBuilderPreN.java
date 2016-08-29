@@ -28,9 +28,9 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.stopwatch.StopwatchService;
 
 import static android.view.View.GONE;
@@ -48,12 +48,11 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
         @StringRes final int eventLabel = R.string.label_notification;
 
         // Intent to load the app when the notification is tapped.
-        final Intent showApp = new Intent(context, HandleDeskClockApiCalls.class)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setAction(HandleDeskClockApiCalls.ACTION_SHOW_STOPWATCH)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+        final Intent showApp = new Intent(context, StopwatchService.class)
+                .setAction(StopwatchService.ACTION_SHOW_STOPWATCH)
+                .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-        final PendingIntent pendingShowApp = PendingIntent.getActivity(context, 0, showApp,
+        final PendingIntent pendingShowApp = PendingIntent.getService(context, 0, showApp,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Compute some values required below.
@@ -79,8 +78,8 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
             expanded.setTextViewText(leftButtonId, res.getText(R.string.sw_pause_button));
             setTextViewDrawable(expanded, leftButtonId, R.drawable.ic_pause_24dp);
             final Intent pause = new Intent(context, StopwatchService.class)
-                    .setAction(HandleDeskClockApiCalls.ACTION_PAUSE_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+                    .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
             final PendingIntent pendingPause = Utils.pendingServiceIntent(context, pause);
             expanded.setOnClickPendingIntent(leftButtonId, pendingPause);
 
@@ -90,8 +89,8 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
                 setTextViewDrawable(expanded, rightButtonId, R.drawable.ic_sw_lap_24dp);
 
                 final Intent lap = new Intent(context, StopwatchService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_LAP_STOPWATCH)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+                        .setAction(StopwatchService.ACTION_LAP_STOPWATCH)
+                        .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
                 final PendingIntent pendingLap = Utils.pendingServiceIntent(context, lap);
                 expanded.setOnClickPendingIntent(rightButtonId, pendingLap);
                 expanded.setViewVisibility(rightButtonId, VISIBLE);
@@ -117,8 +116,8 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
             expanded.setTextViewText(leftButtonId, res.getText(R.string.sw_start_button));
             setTextViewDrawable(expanded, leftButtonId, R.drawable.ic_start_24dp);
             final Intent start = new Intent(context, StopwatchService.class)
-                    .setAction(HandleDeskClockApiCalls.ACTION_START_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+                    .setAction(StopwatchService.ACTION_START_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
             final PendingIntent pendingStart = Utils.pendingServiceIntent(context, start);
             expanded.setOnClickPendingIntent(leftButtonId, pendingStart);
 
@@ -127,8 +126,8 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
             expanded.setTextViewText(rightButtonId, res.getText(R.string.sw_reset_button));
             setTextViewDrawable(expanded, rightButtonId, R.drawable.ic_reset_24dp);
             final Intent reset = new Intent(context, StopwatchService.class)
-                    .setAction(HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+                    .setAction(StopwatchService.ACTION_RESET_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
             final PendingIntent pendingReset = Utils.pendingServiceIntent(context, reset);
             expanded.setOnClickPendingIntent(rightButtonId, pendingReset);
 

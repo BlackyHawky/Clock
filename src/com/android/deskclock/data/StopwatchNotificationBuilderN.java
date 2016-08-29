@@ -29,9 +29,9 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.widget.RemoteViews;
 
-import com.android.deskclock.HandleDeskClockApiCalls;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.stopwatch.StopwatchService;
 
 import java.util.ArrayList;
@@ -51,12 +51,11 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
         @StringRes final int eventLabel = R.string.label_notification;
 
         // Intent to load the app when the notification is tapped.
-        final Intent showApp = new Intent(context, HandleDeskClockApiCalls.class)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setAction(HandleDeskClockApiCalls.ACTION_SHOW_STOPWATCH)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+        final Intent showApp = new Intent(context, StopwatchService.class)
+                .setAction(StopwatchService.ACTION_SHOW_STOPWATCH)
+                .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
-        final PendingIntent pendingShowApp = PendingIntent.getActivity(context, 0, showApp,
+        final PendingIntent pendingShowApp = PendingIntent.getService(context, 0, showApp,
                 PendingIntent.FLAG_ONE_SHOT | PendingIntent.FLAG_UPDATE_CURRENT);
 
         // Compute some values required below.
@@ -73,8 +72,8 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
         if (running) {
             // Left button: Pause
             final Intent pause = new Intent(context, StopwatchService.class)
-                    .setAction(HandleDeskClockApiCalls.ACTION_PAUSE_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+                    .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             final Icon icon1 = Icon.createWithResource(context, R.drawable.ic_pause_24dp);
             final CharSequence title1 = res.getText(R.string.sw_pause_button);
@@ -84,8 +83,8 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
             // Right button: Add Lap
             if (DataModel.getDataModel().canAddMoreLaps()) {
                 final Intent lap = new Intent(context, StopwatchService.class)
-                        .setAction(HandleDeskClockApiCalls.ACTION_LAP_STOPWATCH)
-                        .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+                        .setAction(StopwatchService.ACTION_LAP_STOPWATCH)
+                        .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
                 final Icon icon2 = Icon.createWithResource(context, R.drawable.ic_sw_lap_24dp);
                 final CharSequence title2 = res.getText(R.string.sw_lap_button);
@@ -106,8 +105,8 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
         } else {
             // Left button: Start
             final Intent start = new Intent(context, StopwatchService.class)
-                    .setAction(HandleDeskClockApiCalls.ACTION_START_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+                    .setAction(StopwatchService.ACTION_START_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             final Icon icon1 = Icon.createWithResource(context, R.drawable.ic_start_24dp);
             final CharSequence title1 = res.getText(R.string.sw_start_button);
@@ -116,8 +115,8 @@ class StopwatchNotificationBuilderN implements StopwatchModel.NotificationBuilde
 
             // Right button: Reset (dismisses notification and resets stopwatch)
             final Intent reset = new Intent(context, StopwatchService.class)
-                    .setAction(HandleDeskClockApiCalls.ACTION_RESET_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, eventLabel);
+                    .setAction(StopwatchService.ACTION_RESET_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
 
             final Icon icon2 = Icon.createWithResource(context, R.drawable.ic_reset_24dp);
             final CharSequence title2 = res.getText(R.string.sw_reset_button);

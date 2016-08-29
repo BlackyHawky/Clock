@@ -35,14 +35,11 @@ import java.util.Locale;
 
 public class AlarmSelectionActivity extends ListActivity {
 
-    /** Used by default when neither ACTION_DISMISS nor ACTION_DELETE are provided */
+    /** Used by default when an invalid action provided. */
     private static final int ACTION_INVALID = -1;
 
-    /** Action used to signify alarm should be dismissed on selection */
+    /** Action used to signify alarm should be dismissed on selection. */
     public static final int ACTION_DISMISS = 0;
-
-    /** Action used to signify alarm should be deleted on selection */
-    public static final int ACTION_DELETE = 1;
 
     public static final String EXTRA_ACTION = "com.android.deskclock.EXTRA_ACTION";
     public static final String EXTRA_ALARMS = "com.android.deskclock.EXTRA_ALARMS";
@@ -119,9 +116,6 @@ public class AlarmSelectionActivity extends ListActivity {
             switch (mAction) {
                 case ACTION_DISMISS:
                     HandleApiCalls.dismissAlarm(mAlarm, mActivity);
-                    break;
-                case ACTION_DELETE:
-                    HandleApiCalls.deleteAlarm(mAlarm, mActivity);
                     break;
                 case ACTION_INVALID:
                     LogUtils.i("Invalid action");

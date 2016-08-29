@@ -20,7 +20,6 @@
     <dimen name="label_text_size">14sp</dimen>
     <dimen name="label_edittext_padding">21dp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
-    <dimen name="timer_padding">16dp</dimen>
     <dimen name="screensaver_margin">16dip</dimen>
     <dimen name="alarm_label_padding">8dip</dimen>
     <dimen name="bottom_text_spacing_digital">-8dp</dimen>
@@ -69,13 +68,10 @@
     <dimen name="no_alarms_size">90dp</dimen>
     <dimen name="fab_alarm_size">56dp</dimen>
 
-    <dimen name="medium_font_padding">12dp</dimen>
-
     <dimen name="medium_space_top">22dp</dimen>
     <dimen name="style_label_space">4dip</dimen>
 
     <dimen name="label_margin_big">4dp</dimen>
-    <dimen name="label_margin_small">2dp</dimen>
 
     <dimen name="dialpad_font_size">36sp</dimen>
     <!--padding should be (in dip) ~ 60% dialpad_font_size -->

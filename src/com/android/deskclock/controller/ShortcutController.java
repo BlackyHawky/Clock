@@ -26,10 +26,11 @@ import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.UserManager;
 import android.provider.AlarmClock;
+import android.support.annotation.StringRes;
 
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.HandleApiCalls;
-import com.android.deskclock.HandleDeskClockApiCalls;
+import com.android.deskclock.HandleShortcuts;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.ScreensaverActivity;
@@ -39,6 +40,7 @@ import com.android.deskclock.data.Stopwatch;
 import com.android.deskclock.data.StopwatchListener;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.events.ShortcutEventTracker;
+import com.android.deskclock.stopwatch.StopwatchService;
 import com.android.deskclock.uidata.UiDataModel;
 
 import java.util.Arrays;
@@ -51,7 +53,6 @@ class ShortcutController {
     private final ComponentName mComponentName;
     private final ShortcutManager mShortcutManager;
     private final UserManager mUserManager;
-    private final UiDataModel uidm = UiDataModel.getUiDataModel();
 
     ShortcutController(Context context) {
         mContext = context;
@@ -81,11 +82,11 @@ class ShortcutController {
 
     private ShortcutInfo createNewAlarmShortcut() {
         final Intent intent = new Intent(AlarmClock.ACTION_SET_ALARM)
+                .setClass(mContext, HandleApiCalls.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_shortcut)
-                .setClass(mContext, HandleApiCalls.class);
-        final String setAlarmShortcut =
-                uidm.getShortcutId(R.string.category_alarm, R.string.action_create);
+                .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
+        final String setAlarmShortcut = UiDataModel.getUiDataModel()
+                .getShortcutId(R.string.category_alarm, R.string.action_create);
         return new ShortcutInfo.Builder(mContext, setAlarmShortcut)
                 .setIcon(Icon.createWithResource(mContext, R.drawable.shortcut_new_alarm))
                 .setActivity(mComponentName)
@@ -98,11 +99,11 @@ class ShortcutController {
 
     private ShortcutInfo createNewTimerShortcut() {
         final Intent intent = new Intent(AlarmClock.ACTION_SET_TIMER)
+                .setClass(mContext, HandleApiCalls.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_shortcut)
-                .setClass(mContext, HandleApiCalls.class);
-        final String setTimerShortcut =
-                uidm.getShortcutId(R.string.category_timer, R.string.action_create);
+                .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
+        final String setTimerShortcut = UiDataModel.getUiDataModel()
+                .getShortcutId(R.string.category_timer, R.string.action_create);
         return new ShortcutInfo.Builder(mContext, setTimerShortcut)
                 .setIcon(Icon.createWithResource(mContext, R.drawable.shortcut_new_timer))
                 .setActivity(mComponentName)
@@ -114,40 +115,40 @@ class ShortcutController {
     }
 
     private ShortcutInfo createStopwatchShortcut() {
-        final String shortcutId =
-                uidm.getShortcutId(R.string.category_stopwatch, (DataModel.getDataModel()
-                        .getStopwatch().isRunning()) ? R.string
-                        .action_pause : R.string.action_start);
+        final @StringRes int action = DataModel.getDataModel().getStopwatch().isRunning()
+                ? R.string.action_pause : R.string.action_start;
+        final String shortcutId = UiDataModel.getUiDataModel()
+                .getShortcutId(R.string.category_stopwatch, action);
         final ShortcutInfo.Builder shortcut = new ShortcutInfo.Builder(mContext, shortcutId)
                 .setIcon(Icon.createWithResource(mContext, R.drawable.shortcut_stopwatch))
                 .setActivity(mComponentName)
                 .setRank(2);
         final Intent intent;
         if (DataModel.getDataModel().getStopwatch().isRunning()) {
-            intent = new Intent(HandleDeskClockApiCalls.ACTION_PAUSE_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_shortcut);
+            intent = new Intent(StopwatchService.ACTION_PAUSE_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
             shortcut.setShortLabel(mContext.getString(R.string.shortcut_pause_stopwatch_short))
                     .setLongLabel(mContext.getString(R.string.shortcut_pause_stopwatch_long));
         } else {
-            intent = new Intent(HandleDeskClockApiCalls.ACTION_START_STOPWATCH)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_shortcut);
+            intent = new Intent(StopwatchService.ACTION_START_STOPWATCH)
+                    .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
             shortcut.setShortLabel(mContext.getString(R.string.shortcut_start_stopwatch_short))
                     .setLongLabel(mContext.getString(R.string.shortcut_start_stopwatch_long));
         }
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .setClass(mContext, HandleDeskClockApiCalls.class);
+        intent.setClass(mContext, HandleShortcuts.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return shortcut
                 .setIntent(intent)
                 .build();
     }
 
     private ShortcutInfo createScreensaverShortcut() {
-        final Intent intent = new Intent(Intent.ACTION_DEFAULT)
+        final Intent intent = new Intent(Intent.ACTION_MAIN)
                 .setClass(mContext, ScreensaverActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_shortcut);
-        final String screensaverShortcut =
-                uidm.getShortcutId(R.string.category_screensaver, R.string.action_show);
+                .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_shortcut);
+        final String screensaverShortcut = UiDataModel.getUiDataModel()
+                .getShortcutId(R.string.category_screensaver, R.string.action_show);
         return new ShortcutInfo.Builder(mContext, screensaverShortcut)
                 .setIcon(Icon.createWithResource(mContext, R.drawable.shortcut_screensaver))
                 .setActivity(mComponentName)

@@ -19,7 +19,6 @@
 <resources>
 
     <dimen name="timer_setup_font_size">78sp</dimen>
-    <dimen name="timer_setup_button_size">36sp</dimen>
     <dimen name="timer_setup_delete_margin">19sp</dimen>
 
 </resources>
