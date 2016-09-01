@@ -22,6 +22,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.support.v4.view.ViewCompat;
+import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.provider.Alarm;
@@ -145,14 +147,16 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     @Override
     public Animator onAnimateChange(final ViewHolder oldHolder, ViewHolder newHolder,
             long duration) {
-        final boolean isCollapsing = this == newHolder;
+        if (!(oldHolder instanceof AlarmItemViewHolder)
+                || !(newHolder instanceof AlarmItemViewHolder)) {
+            return null;
+        }
 
-        clock.setVisibility(View.INVISIBLE);
-        onOff.setVisibility(View.INVISIBLE);
-        arrow.setVisibility(View.INVISIBLE);
+        final boolean isCollapsing = this == newHolder;
         setChangingViewsAlpha(isCollapsing ? 0f : 1f);
+
         final Animator changeAnimatorSet = isCollapsing
-                ? createCollapsingAnimator(oldHolder, duration)
+                ? createCollapsingAnimator((AlarmItemViewHolder) oldHolder, duration)
                 : createExpandingAnimator(duration);
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -160,13 +164,19 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
                 clock.setVisibility(View.VISIBLE);
                 onOff.setVisibility(View.VISIBLE);
                 arrow.setVisibility(View.VISIBLE);
+                arrow.setTranslationY(0f);
                 setChangingViewsAlpha(1f);
+                arrow.jumpDrawablesToCurrentState();
             }
         });
         return changeAnimatorSet;
     }
 
     private Animator createExpandingAnimator(long duration) {
+        clock.setVisibility(View.INVISIBLE);
+        onOff.setVisibility(View.INVISIBLE);
+        arrow.setVisibility(View.INVISIBLE);
+
         final AnimatorSet alphaAnimatorSet = new AnimatorSet();
         alphaAnimatorSet.playTogether(
                 ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, 0f),
@@ -178,7 +188,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         return alphaAnimatorSet;
     }
 
-    private Animator createCollapsingAnimator(ViewHolder oldHolder, long duration) {
+    private Animator createCollapsingAnimator(AlarmItemViewHolder oldHolder, long duration) {
         final AnimatorSet alphaAnimatorSet = new AnimatorSet();
         alphaAnimatorSet.playTogether(
                 ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, 1f),
@@ -197,8 +207,29 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         boundsAnimator.setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
+        final View oldArrow = oldHolder.arrow;
+        final Rect oldArrowRect = new Rect(0, 0, oldArrow.getWidth(), oldArrow.getHeight());
+        final Rect newArrowRect = new Rect(0, 0, arrow.getWidth(), arrow.getHeight());
+        ((ViewGroup) itemView).offsetDescendantRectToMyCoords(arrow, newArrowRect);
+        ((ViewGroup) oldView).offsetDescendantRectToMyCoords(oldArrow, oldArrowRect);
+        final float arrowTranslationY = oldArrowRect.bottom - newArrowRect.bottom;
+        arrow.setTranslationY(arrowTranslationY);
+        arrow.setVisibility(View.VISIBLE);
+        clock.setVisibility(View.VISIBLE);
+        onOff.setVisibility(View.VISIBLE);
+
+        final Animator arrowAnimation = ObjectAnimator.ofFloat(arrow, View.TRANSLATION_Y, 0f)
+                .setDuration(duration);
+        arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
         final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(alphaAnimatorSet, boundsAnimator);
+        animatorSet.playTogether(alphaAnimatorSet, boundsAnimator, arrowAnimation);
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                AnimatorUtils.startDrawableAnimation(arrow);
+            }
+        });
         return animatorSet;
     }
 

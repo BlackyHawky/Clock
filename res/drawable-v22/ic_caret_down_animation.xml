@@ -14,10 +14,16 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<objectAnimator
+<animated-vector
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="250"
-    android:interpolator="@android:interpolator/fast_out_slow_in"
-    android:pathData="M 12.0,9.0 c 0.0,0.66667 0.0,5.0 0.0,6.0"
-    android:propertyXName="translateX"
-    android:propertyYName="translateY" />
+    android:drawable="@drawable/ic_caret_down_static">
+    <target
+        android:name="caret01"
+        android:animation="@animator/caret_expand_base_animation" />
+    <target
+        android:name="caret_l"
+        android:animation="@animator/caret_expand_l_animation" />
+    <target
+        android:name="caret_r"
+        android:animation="@animator/caret_expand_r_animation" />
+</animated-vector>

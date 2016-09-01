@@ -35,6 +35,9 @@
     <!-- Setting labels on Set alarm screen: Repeat -->
     <string name="alarm_repeat">Repeat</string>
 
+    <!-- Setting labels on Set alarm screen: Delete [CHAR LIMIT=15] -->
+    <string name="delete">Delete</string>
+
     <!-- Setting labels on Set alarm screen: Select alarm ringtone  -->
     <string name="alert">Alarm Ringtone</string>
 
