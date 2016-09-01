@@ -44,6 +44,7 @@ import android.widget.TextView;
 import com.android.deskclock.data.City;
 import com.android.deskclock.data.CityListener;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.worldclock.CitySelectionActivity;
 
@@ -240,7 +241,7 @@ public final class ClockFragment extends DeskClockFragment {
         public boolean onLongClick(View view) {
             startActivity(new Intent(getActivity(), ScreensaverActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    .putExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, R.string.label_deskclock));
+                    .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_deskclock));
             return true;
         }
     }

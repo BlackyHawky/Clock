@@ -119,7 +119,7 @@ public class ScreensaverActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
         if (intent != null) {
-            final int eventLabel = intent.getIntExtra(HandleDeskClockApiCalls.EXTRA_EVENT_LABEL, 0);
+            final int eventLabel = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, 0);
             Events.sendScreensaverEvent(R.string.action_show, eventLabel);
         }
     }

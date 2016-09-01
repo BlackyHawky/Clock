@@ -16,8 +16,6 @@
 
 package com.android.deskclock.data;
 
-import android.content.ContentUris;
-import android.net.Uri;
 import android.text.TextUtils;
 
 import java.util.Arrays;
@@ -34,7 +32,6 @@ import static com.android.deskclock.data.Timer.State.MISSED;
 import static com.android.deskclock.data.Timer.State.PAUSED;
 import static com.android.deskclock.data.Timer.State.RESET;
 import static com.android.deskclock.data.Timer.State.RUNNING;
-import static com.android.deskclock.provider.ClockContract.AUTHORITY;
 
 /**
  * A read-only domain object representing a countdown timer.
@@ -80,9 +77,6 @@ public final class Timer {
             99 * HOUR_IN_MILLIS + 99 * MINUTE_IN_MILLIS + 99 * SECOND_IN_MILLIS;
 
     static final long UNUSED = Long.MIN_VALUE;
-
-    /** The content:// style URI for timers. */
-    private static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/timers");
 
     /** A unique identifier for the timer. */
     private final int mId;
@@ -135,13 +129,6 @@ public final class Timer {
     public boolean isPaused() { return mState == PAUSED; }
     public boolean isExpired() { return mState == EXPIRED; }
     public boolean isMissed() { return mState == MISSED; }
-
-    /**
-     * @return the {@link Uri} identifying the timer instance
-     */
-    public Uri getContentUri() {
-        return ContentUris.withAppendedId(CONTENT_URI, mId);
-    }
 
     /**
      * @return the amount of remaining time when the timer was last started or paused.

@@ -473,15 +473,6 @@ public final class DataModel {
     }
 
     /**
-     * Updates the missed timer notifications to be current.
-     */
-    public void updateMissedTimerNotification() {
-        enforceMainLooper();
-        mTimerModel.updateMissedNotification();
-    }
-
-
-    /**
      * @return the uri of the default ringtone to play for all timers when no user selection exists
      */
     public Uri getDefaultTimerRingtoneUri() {
