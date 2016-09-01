@@ -115,7 +115,7 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
 
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, TimerService.class)
-                .setAction(TimerService.ACTION_SHOW_TIMERS)
+                .setAction(TimerService.ACTION_SHOW_TIMER)
                 .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId())
                 .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 
@@ -279,7 +279,7 @@ class TimerNotificationBuilderPreN implements TimerModel.NotificationBuilder {
 
         // Intent to load the app and show the timer when the notification is tapped.
         final Intent showApp = new Intent(context, TimerService.class)
-                .setAction(TimerService.ACTION_SHOW_TIMERS)
+                .setAction(TimerService.ACTION_SHOW_TIMER)
                 .putExtra(TimerService.EXTRA_TIMER_ID, timer.getId())
                 .putExtra(Events.EXTRA_EVENT_LABEL, R.string.label_notification);
 

@@ -61,7 +61,7 @@ public final class StopwatchService extends Service {
         final int label = intent.getIntExtra(Events.EXTRA_EVENT_LABEL, R.string.label_intent);
         switch (action) {
             case ACTION_SHOW_STOPWATCH: {
-                Events.sendStopwatchEvent(R.string.action_start, label);
+                Events.sendStopwatchEvent(R.string.action_show, label);
 
                 // Open DeskClock positioned on the stopwatch tab.
                 UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);

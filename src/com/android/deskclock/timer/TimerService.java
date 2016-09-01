@@ -45,8 +45,8 @@ public final class TimerService extends Service {
 
     private static final String ACTION_PREFIX = "com.android.deskclock.action.";
 
-    /** Shows the tab with timers; optionally scrolls to a specific timer. */
-    public static final String ACTION_SHOW_TIMERS = ACTION_PREFIX + "SHOW_TIMERS";
+    /** Shows the tab with timers; scrolls to a specific timer. */
+    public static final String ACTION_SHOW_TIMER = ACTION_PREFIX + "SHOW_TIMER";
     /** Pauses running timers; resets expired timers. */
     public static final String ACTION_PAUSE_TIMER = ACTION_PREFIX + "PAUSE_TIMER";
     /** Starts the sole timer. */
@@ -144,7 +144,7 @@ public final class TimerService extends Service {
 
             // Perform the action on the timer.
             switch (action) {
-                case ACTION_SHOW_TIMERS: {
+                case ACTION_SHOW_TIMER: {
                     Events.sendTimerEvent(R.string.action_show, label);
 
                     // Change to the timers tab.
@@ -152,10 +152,8 @@ public final class TimerService extends Service {
 
                     // Open DeskClock which is now positioned on the timers tab and show the timer
                     // in question.
-                    final Intent showTimers = new Intent(this, DeskClock.class);
-                    if (timerId != -1) {
-                        showTimers.putExtra(EXTRA_TIMER_ID, timerId);
-                    }
+                    final Intent showTimers = new Intent(this, DeskClock.class)
+                            .putExtra(EXTRA_TIMER_ID, timerId);
                     startActivity(showTimers);
                     break;
                 } case ACTION_START_TIMER: {

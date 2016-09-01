@@ -78,7 +78,7 @@ public final class Timer {
 
     static final long UNUSED = Long.MIN_VALUE;
 
-    /** A unique identifier for the city. */
+    /** A unique identifier for the timer. */
     private final int mId;
 
     /** The current state of the timer. */

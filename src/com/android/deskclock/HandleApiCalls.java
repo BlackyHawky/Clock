@@ -164,7 +164,6 @@ public class HandleApiCalls extends Activity {
         @Override
         protected Void doInBackground(Void... parameters) {
             final ContentResolver cr = mContext.getContentResolver();
-
             final List<Alarm> alarms = getEnabledAlarms(mContext);
             if (alarms.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_scheduled_alarms);
@@ -248,7 +247,6 @@ public class HandleApiCalls extends Activity {
         @Override
         protected Void doInBackground(Void... parameters) {
             final ContentResolver cr = mContext.getContentResolver();
-
             final List<AlarmInstance> alarmInstances = AlarmInstance.getInstancesByState(
                     cr, FIRED_STATE);
             if (alarmInstances.isEmpty()) {
