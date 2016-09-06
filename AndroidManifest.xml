@@ -110,6 +110,12 @@
                 <category android:name="android.intent.category.VOICE" />
             </intent-filter>
             <intent-filter>
+                <action android:name="android.intent.action.SHOW_TIMERS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.DISMISS_ALARM" />
 
                 <category android:name="android.intent.category.DEFAULT" />

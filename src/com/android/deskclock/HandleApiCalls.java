@@ -64,6 +64,8 @@ public class HandleApiCalls extends Activity {
 
     private Context mAppContext;
 
+    public static final String ACTION_SHOW_TIMERS = "android.intent.action.SHOW_TIMERS";
+
     @Override
     protected void onCreate(Bundle icicle) {
         try {
@@ -83,6 +85,9 @@ public class HandleApiCalls extends Activity {
                     break;
                 case AlarmClock.ACTION_SET_TIMER:
                     handleSetTimer(intent);
+                    break;
+                case ACTION_SHOW_TIMERS:
+                    handleShowTimers(intent);
                     break;
                 case AlarmClock.ACTION_DISMISS_ALARM:
                     handleDismissAlarm(intent);
@@ -376,6 +381,17 @@ public class HandleApiCalls extends Activity {
 
         Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
         LogUtils.i("HandleApiCalls show alarms");
+    }
+
+    private void handleShowTimers(Intent intent) {
+        // Change to the timers tab.
+        UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
+
+        // Open DeskClock which is now positioned on the timers tab.
+        startActivity(new Intent(this, DeskClock.class));
+
+        Events.sendTimerEvent(R.string.action_show, R.string.label_intent);
+        LogUtils.i("HandleApiCalls show timers");
     }
 
     private void handleSetTimer(Intent intent) {
