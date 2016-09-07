@@ -52,20 +52,13 @@
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="HOURS">%1$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="REMAINING"> %3$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"Осталось: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
-    <!-- no translation found for timer_notifications_seconds (122102514929728907) -->
-    <skip />
-    <!-- no translation found for timer_notifications_minutes_seconds (7059651926379491350) -->
-    <skip />
-    <!-- no translation found for timer_notifications_hours_seconds (8168090805113197804) -->
-    <skip />
-    <!-- no translation found for timer_notifications_hours_minutes_seconds (4666176878038730417) -->
-    <skip />
-    <!-- no translation found for timer_accessibility_one_minute_added (6096646178998456004) -->
-    <skip />
-    <!-- no translation found for timer_accessibility_stopped (2753501043114605474) -->
-    <skip />
-    <!-- no translation found for timer_accessibility_started (8503877052873671219) -->
-    <skip />
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="REMAINING"> %3$s</xliff:g>: <xliff:g id="SECONDS">%4$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="REMAINING"> %3$s</xliff:g>: <xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="REMAINING"> %3$s</xliff:g>: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="REMAINING"> %3$s</xliff:g>: <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES"> %2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"К таймеру добавлена одна минута, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Таймер приостановлен, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"Таймер включен, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"Осталось:"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"Осталось:"</string>
   <string-array name="alarm_set">
@@ -96,7 +89,12 @@
       <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> минут</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> минуты</item>
     </plurals>
-    <!-- no translation found for seconds (670343577734266047) -->
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> секунда</item>
+      <item quantity="few"><xliff:g id="NUMBER">%s</xliff:g> секунды</item>
+      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> секунд</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> секунды</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Каждый день"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Загрузка…"</string>
@@ -376,7 +374,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"Будильник отключен"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Время (<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>) указано неверно"</string>
     <string name="cannot_locate_alarm" msgid="894518214227064316">"Будильник не обнаружен"</string>
-    <string name="cannot_locate_timer" msgid="3771725126049282801">"Таймер не обнаружен"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"На <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> не установлено ни одного будильника"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Будильники не установлены"</string>
     <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Будильник еще не сработал"</string>
@@ -385,32 +382,15 @@
     <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Сигнал будильника уже отложен"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Ярлык не выбран"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Нет будильников с ярлыками"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Секундомер не запущен"</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"Секундомер приостановлен"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"Секундомер сброшен"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Круг добавлен"</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"Секундомер включен"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"На это время не установлено ни одного будильника"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Будильник на <xliff:g id="ALARM_TIME">%s</xliff:g> отключен"</string>
-    <string name="alarm_is_deleted" msgid="4593667023633842085">"Будильник на <xliff:g id="ALARM_TIME">%s</xliff:g> удален"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Будильник зазвонит в <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"Таймеров нет"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"Доступно несколько таймеров"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"Таймер удален."</string>
     <string name="timer_created" msgid="4381027137335885547">"Таймер создан"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"Таймер сброшен"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Таймер удален"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Таймер запущен"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Недопустимая длительность таймера"</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"Город не выбран"</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Не удалось найти такой город"</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"Такой город уже добавлен"</string>
-    <string name="city_added" msgid="1335509457349179514">"Город добавлен (<xliff:g id="CITY_NAME">%s</xliff:g>)"</string>
-    <string name="city_deleted" msgid="3935141305276867838">"Город удален (<xliff:g id="CITY_NAME">%s</xliff:g>)"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Будильник на <xliff:g id="ALARM_TIME">%s</xliff:g> нельзя отключить. Он зазвонит более чем через 24 часа."</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Выключить будильник"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Выберите будильник, который нужно отключить"</string>
-    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"Выберите будильник, который нужно удалить"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Нет активных будильников"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Будильник на <xliff:g id="ALARM_TIME">%s</xliff:g> отложен на 10 минут"</string>
 </resources>

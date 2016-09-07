@@ -48,20 +48,13 @@
     <string name="timer_notifications_hours" msgid="1613266446037145138">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_minutes" msgid="8543138714519498893">"<xliff:g id="MINUTES">%2$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
     <string name="timer_notifications_hours_minutes" msgid="4788475350933275505">"Còn <xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g>"</string>
-    <!-- no translation found for timer_notifications_seconds (122102514929728907) -->
-    <skip />
-    <!-- no translation found for timer_notifications_minutes_seconds (7059651926379491350) -->
-    <skip />
-    <!-- no translation found for timer_notifications_hours_seconds (8168090805113197804) -->
-    <skip />
-    <!-- no translation found for timer_notifications_hours_minutes_seconds (4666176878038730417) -->
-    <skip />
-    <!-- no translation found for timer_accessibility_one_minute_added (6096646178998456004) -->
-    <skip />
-    <!-- no translation found for timer_accessibility_stopped (2753501043114605474) -->
-    <skip />
-    <!-- no translation found for timer_accessibility_started (8503877052873671219) -->
-    <skip />
+    <string name="timer_notifications_seconds" msgid="122102514929728907">"<xliff:g id="SECONDS">%4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_minutes_seconds" msgid="7059651926379491350">"<xliff:g id="MINUTES">%2$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_seconds" msgid="8168090805113197804">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_notifications_hours_minutes_seconds" msgid="4666176878038730417">"<xliff:g id="HOURS">%1$s</xliff:g><xliff:g id="MINUTES"> %2$s</xliff:g><xliff:g id="SECONDS"> %4$s</xliff:g><xliff:g id="REMAINING"> %3$s</xliff:g>"</string>
+    <string name="timer_accessibility_one_minute_added" msgid="6096646178998456004">"Đã thêm 1 phút vào hẹn giờ, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_stopped" msgid="2753501043114605474">"Đã tạm dừng hẹn giờ, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="timer_accessibility_started" msgid="8503877052873671219">"Hẹn giờ đang chạy, <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="timer_remaining_single" msgid="6782851171906765864">"còn lại"</string>
     <string name="timer_remaining_multiple" msgid="6052775962092160851">"còn lại"</string>
   <string-array name="alarm_set">
@@ -86,7 +79,10 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> phút</item>
       <item quantity="one">1 phút</item>
     </plurals>
-    <!-- no translation found for seconds (670343577734266047) -->
+    <plurals name="seconds" formatted="false" msgid="670343577734266047">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> giây</item>
+      <item quantity="one">1 giây</item>
+    </plurals>
     <string name="every_day" msgid="4100909974923444602">"Hàng ngày"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Đang tải…"</string>
@@ -354,7 +350,6 @@
     <string name="no_alarms" msgid="6429431324842022917">"Không có báo thức"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Thời gian không hợp lệ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
     <string name="cannot_locate_alarm" msgid="894518214227064316">"Không thể tìm báo thức."</string>
-    <string name="cannot_locate_timer" msgid="3771725126049282801">"Không thể định vị bộ hẹn giờ."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Chưa có báo thức lúc <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Chưa có báo thức nào được lên lịch"</string>
     <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Báo thức chưa được kích hoạt."</string>
@@ -363,32 +358,15 @@
     <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Báo thức đã được báo lại."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Không chỉ định nhãn nào"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Không có báo thức nào chứa nhãn này"</string>
-    <string name="stopwatch_isnt_running" msgid="7147219965448204727">"Đồng hồ bấm giờ hiện không chạy"</string>
-    <string name="stopwatch_paused" msgid="2187615623275408601">"Đã tạm dừng đồng hồ bấm giờ"</string>
-    <string name="stopwatch_reset" msgid="7585914953721021042">"Đã đặt lại đồng hồ bấm giờ"</string>
-    <string name="stopwatch_lapped" msgid="5844686448815550482">"Đã chồng lên đồng hồ bấm giờ"</string>
-    <string name="stopwatch_started" msgid="7843882246387176304">"Đã bắt đầu đồng hồ bấm giờ"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Chưa có báo thức nào được lên lịch cho thời gian này"</string>
     <string name="alarm_is_dismissed" msgid="5509897230565826642">"Đã loại bỏ báo thức <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="alarm_is_deleted" msgid="4593667023633842085">"Đã xóa báo thức <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="alarm_is_set" msgid="5503226382620011088">"Đã đặt báo thức đổ chuông lúc <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
-    <string name="no_timers_exist" msgid="7062019300048831373">"Không có bộ hẹn giờ"</string>
-    <string name="too_many_timers_exist" msgid="6339194231767431627">"Có nhiều bộ hẹn giờ"</string>
-    <string name="timer_does_not_exist" msgid="4457482976523984231">"Bộ hẹn giờ đã bị xóa."</string>
     <string name="timer_created" msgid="4381027137335885547">"Đã tạo bộ hẹn giờ"</string>
-    <string name="timer_was_reset" msgid="6495796785185062631">"Đã đặt lại bộ hẹn giờ"</string>
     <string name="timer_deleted" msgid="9110322362460029392">"Đã xóa bộ hẹn giờ"</string>
-    <string name="timer_started" msgid="6715582052946641641">"Đã khởi động bộ hẹn giờ"</string>
     <string name="invalid_timer_length" msgid="3104567893212932487">"Thời lượng không hợp lệ trên bộ hẹn giờ"</string>
-    <string name="no_city_selected" msgid="1007596865203283741">"Chưa có thành phố nào được chọn"</string>
-    <string name="the_city_you_specified_is_not_available" msgid="1753597460426454543">"Thành phố bạn chỉ định không có sẵn"</string>
-    <string name="the_city_already_added" msgid="3799050213771793020">"Thành phố này đã được thêm"</string>
-    <string name="city_added" msgid="1335509457349179514">"Đã thêm <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
-    <string name="city_deleted" msgid="3935141305276867838">"Đã xóa <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="alarm_cant_be_dismissed_still_more_than_24_hours_away" msgid="8810520940995307437">"Chưa thể loại bỏ báo thức <xliff:g id="ALARM_TIME">%s</xliff:g> vì vẫn còn cách hơn 24 giờ nữa"</string>
     <string name="dismiss_alarm" msgid="7204593078688533541">"Hủy báo thức"</string>
     <string name="pick_alarm_to_dismiss" msgid="5408769235866082896">"Chọn báo thức để loại bỏ"</string>
-    <string name="pick_alarm_to_delete" msgid="1271585839246974408">"Chọn báo thức cần xóa"</string>
     <string name="no_firing_alarms" msgid="4986161963178722289">"Chưa có báo thức kích hoạt nào"</string>
     <string name="alarm_is_snoozed" msgid="7044644119744928846">"Báo lại báo thức <xliff:g id="ALARM_TIME">%s</xliff:g> sau 10 phút"</string>
 </resources>
