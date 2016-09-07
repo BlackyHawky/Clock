@@ -403,6 +403,15 @@ public final class DataModel {
     }
 
     /**
+     * @param timer the timer to be reset
+     * @return the reset {@code timer}
+     */
+    public Timer resetTimer(Timer timer) {
+        enforceMainLooper();
+        return mTimerModel.resetTimer(timer, false /* allowDelete */, 0 /* eventLabelId */);
+    }
+
+    /**
      * If the given {@code timer} is expired and marked for deletion after use then this method
      * removes the the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
@@ -413,7 +422,7 @@ public final class DataModel {
      */
     public Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
         enforceMainLooper();
-        return mTimerModel.resetOrDeleteTimer(timer, eventLabelId);
+        return mTimerModel.resetTimer(timer, true /* allowDelete */, eventLabelId);
     }
 
     /**

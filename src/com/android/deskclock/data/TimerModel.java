@@ -283,12 +283,14 @@ final class TimerModel {
      * removes the the timer. The timer is otherwise transitioned to the reset state and continues
      * to exist.
      *
-     * @param timer the timer to be reset
+     * @param timer        the timer to be reset
+     * @param allowDelete  {@code true} if the timer is allowed to be deleted instead of reset
+     *                     (e.g. one use timers)
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    Timer resetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
-        final Timer result = doResetOrDeleteTimer(timer, eventLabelId);
+    Timer resetTimer(Timer timer, boolean allowDelete, @StringRes int eventLabelId) {
+        final Timer result = doResetOrDeleteTimer(timer, allowDelete, eventLabelId);
 
         // Update the notification after updating the timer data.
         if (timer.isMissed()) {
@@ -341,7 +343,7 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isExpired()) {
-                doResetOrDeleteTimer(timer, eventLabelId);
+                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
             }
         }
 
@@ -358,7 +360,7 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isMissed()) {
-                doResetOrDeleteTimer(timer, eventLabelId);
+                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
             }
         }
 
@@ -375,7 +377,7 @@ final class TimerModel {
         final List<Timer> timers = new ArrayList<>(getTimers());
         for (Timer timer : timers) {
             if (timer.isRunning() || timer.isPaused()) {
-                doResetOrDeleteTimer(timer, eventLabelId);
+                doResetOrDeleteTimer(timer, true /* allowDelete */, eventLabelId);
             }
         }
 
@@ -593,11 +595,16 @@ final class TimerModel {
      * to exist.
      *
      * @param timer the timer to be reset
+     * @param allowDelete  {@code true} if the timer is allowed to be deleted instead of reset
+     *                     (e.g. one use timers)
      * @param eventLabelId the label of the timer event to send; 0 if no event should be sent
      * @return the reset {@code timer} or {@code null} if the timer was deleted
      */
-    private Timer doResetOrDeleteTimer(Timer timer, @StringRes int eventLabelId) {
-        if ((timer.isExpired() || timer.isMissed()) && timer.getDeleteAfterUse()) {
+    private Timer doResetOrDeleteTimer(Timer timer, boolean allowDelete,
+            @StringRes int eventLabelId) {
+        if (allowDelete
+                && (timer.isExpired() || timer.isMissed())
+                && timer.getDeleteAfterUse()) {
             doRemoveTimer(timer);
             if (eventLabelId != 0) {
                 Events.sendTimerEvent(R.string.action_delete, eventLabelId);
