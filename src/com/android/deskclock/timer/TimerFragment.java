@@ -381,7 +381,9 @@ public final class TimerFragment extends DeskClockFragment {
 
     @Override
     public void onRightButtonClick(@NonNull ImageButton right) {
-        animateToView(mCreateTimerView, null);
+        if (mCurrentView != mCreateTimerView) {
+            animateToView(mCreateTimerView, null);
+        }
     }
 
     @Override
