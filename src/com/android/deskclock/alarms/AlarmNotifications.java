@@ -76,7 +76,8 @@ public final class AlarmNotifications {
      */
     private static final int ALARM_GROUP_MISSED_NOTIFICATION_ID = Integer.MAX_VALUE - 5;
 
-    public static void showLowPriorityNotification(Context context, AlarmInstance instance) {
+    public static synchronized void showLowPriorityNotification(Context context,
+            AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
@@ -122,7 +123,8 @@ public final class AlarmNotifications {
         updateUpcomingAlarmGroupNotification(context);
     }
 
-    public static void showHighPriorityNotification(Context context, AlarmInstance instance) {
+    public static synchronized void showHighPriorityNotification(Context context,
+            AlarmInstance instance) {
         LogUtils.v("Displaying high priority notification for alarm instance: " + instance.mId);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
@@ -166,7 +168,7 @@ public final class AlarmNotifications {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public static Notification getFirstActiveNotification(Context context, String group) {
+    private static Notification getFirstActiveNotification(Context context, String group) {
         final NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         final StatusBarNotification[] notifications = nm.getActiveNotifications();
@@ -184,7 +186,7 @@ public final class AlarmNotifications {
     }
 
     @TargetApi(Build.VERSION_CODES.N)
-    public static Notification getActiveGroupSummaryNotification(Context context, String group) {
+    private static Notification getActiveGroupSummaryNotification(Context context, String group) {
         final NotificationManager nm =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         final StatusBarNotification[] notifications = nm.getActiveNotifications();
@@ -197,7 +199,7 @@ public final class AlarmNotifications {
         return null;
     }
 
-    public static void updateUpcomingAlarmGroupNotification(Context context) {
+    private static void updateUpcomingAlarmGroupNotification(Context context) {
         if (!Utils.isNOrLater()) {
             return;
         }
@@ -229,7 +231,7 @@ public final class AlarmNotifications {
         }
     }
 
-    public static void updateMissedAlarmGroupNotification(Context context) {
+    private static void updateMissedAlarmGroupNotification(Context context) {
         if (!Utils.isNOrLater()) {
             return;
         }
@@ -261,7 +263,8 @@ public final class AlarmNotifications {
         }
     }
 
-    public static void showSnoozeNotification(Context context, AlarmInstance instance) {
+    public static synchronized void showSnoozeNotification(Context context,
+            AlarmInstance instance) {
         LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
 
         NotificationCompat.Builder notification = new NotificationCompat.Builder(context)
@@ -300,7 +303,8 @@ public final class AlarmNotifications {
         updateUpcomingAlarmGroupNotification(context);
     }
 
-    public static void showMissedNotification(Context context, AlarmInstance instance) {
+    public static synchronized void showMissedNotification(Context context,
+            AlarmInstance instance) {
         LogUtils.v("Displaying missed notification for alarm instance: " + instance.mId);
 
         String label = instance.mLabel;
@@ -343,7 +347,7 @@ public final class AlarmNotifications {
         updateMissedAlarmGroupNotification(context);
     }
 
-    public static void showAlarmNotification(Service service, AlarmInstance instance) {
+    public static synchronized void showAlarmNotification(Service service, AlarmInstance instance) {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
 
         Resources resources = service.getResources();
@@ -401,7 +405,7 @@ public final class AlarmNotifications {
         service.startForeground(instance.hashCode(), notification.build());
     }
 
-    public static void clearNotification(Context context, AlarmInstance instance) {
+    public static synchronized void clearNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Clearing notifications for alarm instance: " + instance.mId);
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(instance.hashCode());
