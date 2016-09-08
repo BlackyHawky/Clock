@@ -62,20 +62,26 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
  */
 public class HandleApiCalls extends Activity {
 
-    private Context mAppContext;
+    private static final LogUtils.Logger LOGGER = new LogUtils.Logger("HandleApiCalls");
 
-    public static final String ACTION_SHOW_TIMERS = "android.intent.action.SHOW_TIMERS";
+    static final String ACTION_SHOW_TIMERS = "android.intent.action.SHOW_TIMERS";
+
+    private Context mAppContext;
 
     @Override
     protected void onCreate(Bundle icicle) {
+        super.onCreate(icicle);
+
+        mAppContext = getApplicationContext();
+
         try {
-            super.onCreate(icicle);
-            mAppContext = getApplicationContext();
             final Intent intent = getIntent();
             final String action = intent == null ? null : intent.getAction();
             if (action == null) {
                 return;
             }
+            LOGGER.i("onCreate: " + intent);
+
             switch (action) {
                 case AlarmClock.ACTION_SET_ALARM:
                     handleSetAlarm(intent);
@@ -96,6 +102,8 @@ public class HandleApiCalls extends Activity {
                     handleSnoozeAlarm(intent);
                     break;
             }
+        } catch (Exception e) {
+            LOGGER.wtf(e);
         } finally {
             finish();
         }
@@ -119,7 +127,7 @@ public class HandleApiCalls extends Activity {
         if (instance == null) {
             final String reason = context.getString(R.string.no_alarm_scheduled_for_this_time);
             Controller.getController().notifyVoiceFailure(activity, reason);
-            LogUtils.i(reason);
+            LOGGER.i("No alarm instance to dismiss");
             return;
         }
 
@@ -144,13 +152,13 @@ public class HandleApiCalls extends Activity {
             final String reason = context.getString(
                     R.string.alarm_cant_be_dismissed_still_more_than_24_hours_away, time);
             Controller.getController().notifyVoiceFailure(activity, reason);
-            LogUtils.i(reason);
+            LOGGER.i("Can't dismiss alarm more than 24 hours in advance");
         }
 
         // Log the successful dismissal.
         final String reason = context.getString(R.string.alarm_is_dismissed, time);
-        LogUtils.i(reason);
         Controller.getController().notifyVoiceSuccess(activity, reason);
+        LOGGER.i("Alarm dismissed: " + instance);
         Events.sendAlarmEvent(R.string.action_dismiss, R.string.label_intent);
     }
 
@@ -172,8 +180,8 @@ public class HandleApiCalls extends Activity {
             final List<Alarm> alarms = getEnabledAlarms(mContext);
             if (alarms.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_scheduled_alarms);
-                LogUtils.i(reason);
                 Controller.getController().notifyVoiceFailure(mActivity, reason);
+                LOGGER.i("No scheduled alarms");
                 return null;
             }
 
@@ -223,7 +231,7 @@ public class HandleApiCalls extends Activity {
             // Apply the action to the matching alarms
             for (Alarm alarm : matchingAlarms) {
                 dismissAlarm(alarm, mActivity);
-                LogUtils.i("Alarm %s is dismissed", alarm);
+                LOGGER.i("Alarm dismissed: " + alarm);
             }
             return null;
         }
@@ -258,8 +266,8 @@ public class HandleApiCalls extends Activity {
                     cr, FIRED_STATE);
             if (alarmInstances.isEmpty()) {
                 final String reason = mContext.getString(R.string.no_firing_alarms);
-                LogUtils.i(reason);
                 Controller.getController().notifyVoiceFailure(mActivity, reason);
+                LOGGER.i("No firing alarms");
                 return null;
             }
 
@@ -276,10 +284,10 @@ public class HandleApiCalls extends Activity {
         final String time = DateFormat.getTimeFormat(context).format(
                 alarmInstance.getAlarmTime().getTime());
         final String reason = context.getString(R.string.alarm_is_snoozed, time);
-        LogUtils.i(reason);
-        Controller.getController().notifyVoiceSuccess(activity, reason);
         AlarmStateManager.setSnoozeState(context, alarmInstance, true);
-        LogUtils.i("Snooze %d:%d", alarmInstance.mHour, alarmInstance.mMinute);
+
+        Controller.getController().notifyVoiceSuccess(activity, reason);
+        LOGGER.i("Alarm snoozed: " + alarmInstance);
         Events.sendAlarmEvent(R.string.action_snooze, R.string.label_intent);
     }
 
@@ -296,7 +304,7 @@ public class HandleApiCalls extends Activity {
                 final int mins = intent.getIntExtra(AlarmClock.EXTRA_MINUTES, 0);
                 final String voiceMessage = getString(R.string.invalid_time, hour, mins, " ");
                 Controller.getController().notifyVoiceFailure(this, voiceMessage);
-                LogUtils.i("HandleApiCalls given illegal hour: " + hour);
+                LOGGER.i("Illegal hour: " + hour);
                 return;
             }
         }
@@ -306,7 +314,7 @@ public class HandleApiCalls extends Activity {
         if (minutes < 0 || minutes > 59) {
             final String voiceMessage = getString(R.string.invalid_time, hour, minutes, " ");
             Controller.getController().notifyVoiceFailure(this, voiceMessage);
-            LogUtils.i("HandleApiCalls given illegal minute: " + minutes);
+            LOGGER.i("Illegal minute: " + minutes);
             return;
         }
 
@@ -328,7 +336,7 @@ public class HandleApiCalls extends Activity {
             startActivity(createAlarm);
             final String voiceMessage = getString(R.string.invalid_time, hour, minutes, " ");
             Controller.getController().notifyVoiceFailure(this, voiceMessage);
-            LogUtils.i("HandleApiCalls not given time information; opening UI");
+            LOGGER.i("Missing alarm time; opening UI");
             return;
         }
 
@@ -349,7 +357,7 @@ public class HandleApiCalls extends Activity {
             AlarmStateManager.deleteAllInstances(this, alarm.id);
             setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
             Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
-            LogUtils.i("HandleApiCalls deleted old, created new alarm: %s", alarm);
+            LOGGER.i("Deleted old instances, created new alarm: " + alarm);
             return;
         }
 
@@ -369,29 +377,31 @@ public class HandleApiCalls extends Activity {
         final String time = DateFormat.getTimeFormat(this).format(
                 alarmInstance.getAlarmTime().getTime());
         Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
-        LogUtils.i("HandleApiCalls created alarm: %s", alarm);
+        LOGGER.i("Created new alarm: " + alarm);
     }
 
     private void handleShowAlarms(Intent intent) {
-        // Change to the alarms tab.
-        UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
-
-        // Open DeskClock which is now positioned on the alarms tab.
-        startActivity(new Intent(this, DeskClock.class));
-
         Events.sendAlarmEvent(R.string.action_show, R.string.label_intent);
-        LogUtils.i("HandleApiCalls show alarms");
+
+        // Open DeskClock positioned on the alarms tab.
+        UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
+        startActivity(new Intent(this, DeskClock.class));
     }
 
     private void handleShowTimers(Intent intent) {
-        // Change to the timers tab.
-        UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
-
-        // Open DeskClock which is now positioned on the timers tab.
-        startActivity(new Intent(this, DeskClock.class));
-
         Events.sendTimerEvent(R.string.action_show, R.string.label_intent);
-        LogUtils.i("HandleApiCalls show timers");
+
+        final Intent showTimersIntent = new Intent(this, DeskClock.class);
+
+        final List<Timer> timers = DataModel.getDataModel().getTimers();
+        if (!timers.isEmpty()) {
+            final Timer newestTimer = timers.get(timers.size() - 1);
+            showTimersIntent.putExtra(TimerService.EXTRA_TIMER_ID, newestTimer.getId());
+        }
+
+        // Open DeskClock positioned on the timers tab.
+        UiDataModel.getUiDataModel().setSelectedTab(TIMERS);
+        startActivity(showTimersIntent);
     }
 
     private void handleSetTimer(Intent intent) {
@@ -402,7 +412,7 @@ public class HandleApiCalls extends Activity {
 
             // Open DeskClock which is now positioned on the timers tab and show the timer setup.
             startActivity(TimerFragment.createTimerSetupIntent(this));
-            LogUtils.i("HandleApiCalls showing timer setup");
+            LOGGER.i("Showing timer setup");
             return;
         }
 
@@ -411,7 +421,7 @@ public class HandleApiCalls extends Activity {
         if (lengthMillis < Timer.MIN_LENGTH || lengthMillis > Timer.MAX_LENGTH) {
             final String voiceMessage = getString(R.string.invalid_timer_length);
             Controller.getController().notifyVoiceFailure(this, voiceMessage);
-            LogUtils.i("Invalid timer length requested: " + lengthMillis);
+            LOGGER.i("Invalid timer length requested: " + lengthMillis);
             return;
         }
 
