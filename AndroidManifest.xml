@@ -104,24 +104,9 @@
             android:taskAffinity=""
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
-                <action android:name="android.intent.action.SHOW_ALARMS" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.SHOW_TIMERS" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="android.intent.action.DISMISS_ALARM" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
+                <action android:name="android.intent.action.SHOW_ALARMS" />
+                <action android:name="android.intent.action.SHOW_TIMERS" />
                 <action android:name="android.intent.action.SNOOZE_ALARM" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -135,11 +120,6 @@
             android:targetActivity=".HandleApiCalls">
             <intent-filter>
                 <action android:name="android.intent.action.SET_ALARM" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.VOICE" />
-            </intent-filter>
-            <intent-filter>
                 <action android:name="android.intent.action.SET_TIMER" />
 
                 <category android:name="android.intent.category.DEFAULT" />
