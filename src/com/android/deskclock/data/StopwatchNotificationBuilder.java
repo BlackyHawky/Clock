@@ -22,10 +22,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.SystemClock;
-import android.support.annotation.IdRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
-import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat.Action;
+import android.support.v4.app.NotificationCompat.Builder;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.NotificationCompat;
 import android.widget.RemoteViews;
 
 import com.android.deskclock.R;
@@ -33,17 +35,17 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.stopwatch.StopwatchService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.view.View.GONE;
-import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 /**
- * Builds KK, L, or M-style notifications to reflect the latest state of the stopwatch and
- * recorded laps.
+ * Builds notification to reflect the latest state of the stopwatch and recorded laps.
  */
-class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBuilder {
+class StopwatchNotificationBuilder {
 
-    @Override
     public Notification build(Context context, NotificationModel nm, Stopwatch stopwatch) {
         @StringRes final int eventLabel = R.string.label_notification;
 
@@ -61,39 +63,32 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
         final Resources res = context.getResources();
         final long base = SystemClock.elapsedRealtime() - stopwatch.getTotalTime();
 
-        final RemoteViews collapsed = new RemoteViews(pname, R.layout.stopwatch_notif_collapsed);
-        collapsed.setChronometer(R.id.swn_collapsed_chronometer, base, null, running);
-        collapsed.setImageViewResource(R.id.notification_icon, R.drawable.stat_notify_stopwatch);
+        final RemoteViews content = new RemoteViews(pname, R.layout.chronometer_notif_content);
+        content.setChronometer(R.id.chronometer, base, null, running);
 
-        final RemoteViews expanded = new RemoteViews(pname, R.layout.stopwatch_notif_expanded);
-        expanded.setChronometer(R.id.swn_expanded_chronometer, base, null, running);
-        expanded.setImageViewResource(R.id.notification_icon, R.drawable.stat_notify_stopwatch);
+        final List<Action> actions = new ArrayList<>(2);
 
-        @IdRes final int leftButtonId = R.id.swn_left_button;
-        @IdRes final int rightButtonId = R.id.swn_right_button;
         if (running) {
             // Left button: Pause
-            expanded.setTextViewText(leftButtonId, res.getText(R.string.sw_pause_button));
-            setTextViewDrawable(expanded, leftButtonId, R.drawable.ic_pause_24dp);
             final Intent pause = new Intent(context, StopwatchService.class)
                     .setAction(StopwatchService.ACTION_PAUSE_STOPWATCH)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
-            final PendingIntent pendingPause = Utils.pendingServiceIntent(context, pause);
-            expanded.setOnClickPendingIntent(leftButtonId, pendingPause);
+
+            @DrawableRes final int icon1 = R.drawable.ic_pause_24dp;
+            final CharSequence title1 = res.getText(R.string.sw_pause_button);
+            final PendingIntent intent1 = Utils.pendingServiceIntent(context, pause);
+            actions.add(new Action.Builder(icon1, title1, intent1).build());
 
             // Right button: Add Lap
             if (DataModel.getDataModel().canAddMoreLaps()) {
-                expanded.setTextViewText(rightButtonId, res.getText(R.string.sw_lap_button));
-                setTextViewDrawable(expanded, rightButtonId, R.drawable.ic_sw_lap_24dp);
-
                 final Intent lap = new Intent(context, StopwatchService.class)
                         .setAction(StopwatchService.ACTION_LAP_STOPWATCH)
                         .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
-                final PendingIntent pendingLap = Utils.pendingServiceIntent(context, lap);
-                expanded.setOnClickPendingIntent(rightButtonId, pendingLap);
-                expanded.setViewVisibility(rightButtonId, VISIBLE);
-            } else {
-                expanded.setViewVisibility(rightButtonId, INVISIBLE);
+
+                @DrawableRes final int icon2 = R.drawable.ic_sw_lap_24dp;
+                final CharSequence title2 = res.getText(R.string.sw_lap_button);
+                final PendingIntent intent2 = Utils.pendingServiceIntent(context, lap);
+                actions.add(new Action.Builder(icon2, title2, intent2).build());
             }
 
             // Show the current lap number if any laps have been recorded.
@@ -101,56 +96,56 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
             if (lapCount > 0) {
                 final int lapNumber = lapCount + 1;
                 final String lap = res.getString(R.string.sw_notification_lap_number, lapNumber);
-                collapsed.setTextViewText(R.id.swn_collapsed_laps, lap);
-                collapsed.setViewVisibility(R.id.swn_collapsed_laps, VISIBLE);
-                expanded.setTextViewText(R.id.swn_expanded_laps, lap);
-                expanded.setViewVisibility(R.id.swn_expanded_laps, VISIBLE);
+                content.setTextViewText(R.id.state, lap);
+                content.setViewVisibility(R.id.state, VISIBLE);
             } else {
-                collapsed.setViewVisibility(R.id.swn_collapsed_laps, GONE);
-                expanded.setViewVisibility(R.id.swn_expanded_laps, GONE);
+                content.setViewVisibility(R.id.state, GONE);
             }
         } else {
             // Left button: Start
-            expanded.setTextViewText(leftButtonId, res.getText(R.string.sw_start_button));
-            setTextViewDrawable(expanded, leftButtonId, R.drawable.ic_start_24dp);
             final Intent start = new Intent(context, StopwatchService.class)
                     .setAction(StopwatchService.ACTION_START_STOPWATCH)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
-            final PendingIntent pendingStart = Utils.pendingServiceIntent(context, start);
-            expanded.setOnClickPendingIntent(leftButtonId, pendingStart);
+
+            @DrawableRes final int icon1 = R.drawable.ic_start_24dp;
+            final CharSequence title1 = res.getText(R.string.sw_start_button);
+            final PendingIntent intent1 = Utils.pendingServiceIntent(context, start);
+            actions.add(new Action.Builder(icon1, title1, intent1).build());
 
             // Right button: Reset (dismisses notification and resets stopwatch)
-            expanded.setViewVisibility(rightButtonId, VISIBLE);
-            expanded.setTextViewText(rightButtonId, res.getText(R.string.sw_reset_button));
-            setTextViewDrawable(expanded, rightButtonId, R.drawable.ic_reset_24dp);
             final Intent reset = new Intent(context, StopwatchService.class)
                     .setAction(StopwatchService.ACTION_RESET_STOPWATCH)
                     .putExtra(Events.EXTRA_EVENT_LABEL, eventLabel);
-            final PendingIntent pendingReset = Utils.pendingServiceIntent(context, reset);
-            expanded.setOnClickPendingIntent(rightButtonId, pendingReset);
+
+            @DrawableRes final int icon2 = R.drawable.ic_reset_24dp;
+            final CharSequence title2 = res.getText(R.string.sw_reset_button);
+            final PendingIntent intent2 = Utils.pendingServiceIntent(context, reset);
+            actions.add(new Action.Builder(icon2, title2, intent2).build());
 
             // Indicate the stopwatch is paused.
-            collapsed.setTextViewText(R.id.swn_collapsed_laps, res.getString(R.string.swn_paused));
-            collapsed.setViewVisibility(R.id.swn_collapsed_laps, VISIBLE);
-            expanded.setTextViewText(R.id.swn_expanded_laps, res.getString(R.string.swn_paused));
-            expanded.setViewVisibility(R.id.swn_expanded_laps, VISIBLE);
+            content.setTextViewText(R.id.state, res.getString(R.string.swn_paused));
+            content.setViewVisibility(R.id.state, VISIBLE);
         }
 
-        final Notification notification = new NotificationCompat.Builder(context)
+        final Builder notification = new NotificationCompat.Builder(context)
                 .setLocalOnly(true)
                 .setOngoing(running)
-                .setContent(collapsed)
+                .setCustomContentView(content)
                 .setContentIntent(pendingShowApp)
                 .setAutoCancel(stopwatch.isPaused())
-                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setPriority(Notification.PRIORITY_MAX)
                 .setSmallIcon(R.drawable.stat_notify_stopwatch)
-                .setColor(ContextCompat.getColor(context, R.color.default_background))
-                .build();
-        notification.bigContentView = expanded;
-        return notification;
-    }
+                .setStyle(new NotificationCompat.DecoratedCustomViewStyle())
+                .setColor(ContextCompat.getColor(context, R.color.default_background));
 
-    private static void setTextViewDrawable(RemoteViews rv, int viewId, int drawableId) {
-        rv.setTextViewCompoundDrawablesRelative(viewId, drawableId, 0, 0, 0);
+        if (Utils.isNOrLater()) {
+            notification.setGroup(nm.getStopwatchNotificationGroupKey());
+        }
+
+        for (Action action : actions) {
+            notification.addAction(action);
+        }
+
+        return notification.build();
     }
 }

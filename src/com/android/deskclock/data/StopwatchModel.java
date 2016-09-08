@@ -24,8 +24,6 @@ import android.content.IntentFilter;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.NotificationManagerCompat;
 
-import com.android.deskclock.Utils;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,7 +49,8 @@ final class StopwatchModel {
     private final List<StopwatchListener> mStopwatchListeners = new ArrayList<>();
 
     /** Delegate that builds platform-specific stopwatch notifications. */
-    private NotificationBuilder mNotificationBuilder;
+    private final StopwatchNotificationBuilder mNotificationBuilder =
+            new StopwatchNotificationBuilder();
 
     /** The current state of the stopwatch. */
     private Stopwatch mStopwatch;
@@ -228,7 +227,7 @@ final class StopwatchModel {
 
         // Otherwise build and post a notification reflecting the latest stopwatch state.
         final Notification notification =
-                getNotificationBuilder().build(mContext, mNotificationModel, stopwatch);
+                mNotificationBuilder.build(mContext, mNotificationModel, stopwatch);
         mNotificationManager.notify(mNotificationModel.getStopwatchNotificationId(), notification);
     }
 
@@ -240,18 +239,6 @@ final class StopwatchModel {
         return mLaps;
     }
 
-    private NotificationBuilder getNotificationBuilder() {
-        if (mNotificationBuilder == null) {
-            if (Utils.isNOrLater()) {
-                mNotificationBuilder = new StopwatchNotificationBuilderN();
-            } else {
-                mNotificationBuilder = new StopwatchNotificationBuilderPreN();
-            }
-        }
-
-        return mNotificationBuilder;
-    }
-
     /**
      * Update the stopwatch notification in response to a locale change.
      */
@@ -260,18 +247,5 @@ final class StopwatchModel {
         public void onReceive(Context context, Intent intent) {
             updateNotification();
         }
-    }
-
-    /**
-     * An API for building platform-specific stopwatch notifications.
-     */
-    public interface NotificationBuilder {
-        /**
-         * @param context a context to use for fetching resources
-         * @param nm from which notification data are fetched
-         * @param stopwatch the stopwatch guaranteed to be running or paused
-         * @return a notification reporting the state of the {@code stopwatch}
-         */
-        Notification build(Context context, NotificationModel nm, Stopwatch stopwatch);
     }
 }
