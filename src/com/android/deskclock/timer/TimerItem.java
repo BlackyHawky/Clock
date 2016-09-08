@@ -16,28 +16,22 @@
 
 package com.android.deskclock.timer;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
-import android.icu.text.MeasureFormat;
-import android.icu.util.Measure;
-import android.icu.util.MeasureUnit;
-import android.os.Build;
 import android.os.SystemClock;
 import android.support.annotation.ColorRes;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
 import com.android.deskclock.TimerTextView;
-import com.android.deskclock.Utils;
 import com.android.deskclock.data.Timer;
 
-import java.util.Locale;
+import static com.android.deskclock.data.Timer.State.RUNNING;
 
 /**
  * This view is a visual representation of a {@link Timer}.
@@ -51,7 +45,7 @@ public class TimerItem extends LinearLayout {
     private TimerCircleView mCircleView;
 
     /** A button that either resets the timer or adds time to it, depending on its state. */
-    private ImageView mResetAddButton;
+    private Button mResetAddButton;
 
     /** Displays the label associated with the timer. Tapping it presents an edit dialog. */
     private TextView mLabelView;
@@ -60,7 +54,6 @@ public class TimerItem extends LinearLayout {
     private Timer.State mLastState;
 
     private long mLastTime = Long.MIN_VALUE;
-    private MeasureFormat mMeasureFormat;
 
     @ColorRes private final int mWhite = R.color.white;
     @ColorRes private int mPrimaryColor = R.color.color_accent;
@@ -77,7 +70,7 @@ public class TimerItem extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         mLabelView = (TextView) findViewById(R.id.timer_label);
-        mResetAddButton = (ImageView) findViewById(R.id.reset_add);
+        mResetAddButton = (Button) findViewById(R.id.reset_add);
         mCircleView = (TimerCircleView) findViewById(R.id.timer_time);
         mTimerText = (TimerTextView) findViewById(R.id.timer_time_text);
     }
@@ -171,33 +164,20 @@ public class TimerItem extends LinearLayout {
         if (timer.getState() != mLastState) {
             mLastState = timer.getState();
             switch (mLastState) {
-                case RESET: {
-                    final String resetDesc = getResources().getString(R.string.timer_reset);
-                    mResetAddButton.setImageResource(R.drawable.ic_reset);
-                    mResetAddButton.setContentDescription(resetDesc);
-                    mTimerText.setTextColor(getResources().getColor(mWhite));
-                    break;
-                }
-                case RUNNING: {
-                    final String addTimeDesc = getResources().getString(R.string.timer_plus_one);
-                    mResetAddButton.setImageResource(R.drawable.ic_plusone);
-                    mResetAddButton.setContentDescription(addTimeDesc);
-                    mTimerText.setTextColor(getResources().getColor(mWhite));
-                    break;
-                }
+                case RESET:
                 case PAUSED: {
-                    final String resetDesc = getResources().getString(R.string.timer_reset);
-                    mResetAddButton.setImageResource(R.drawable.ic_reset);
-                    mResetAddButton.setContentDescription(resetDesc);
+                    mResetAddButton.setText(R.string.timer_reset);
                     mTimerText.setTextColor(getResources().getColor(mWhite));
                     break;
                 }
-                case MISSED:
-                case EXPIRED: {
+                case RUNNING:
+                case EXPIRED:
+                case MISSED: {
                     final String addTimeDesc = getResources().getString(R.string.timer_plus_one);
-                    mResetAddButton.setImageResource(R.drawable.ic_plusone);
+                    mResetAddButton.setText(R.string.timer_add_minute);
                     mResetAddButton.setContentDescription(addTimeDesc);
-                    mTimerText.setTextColor(getResources().getColor(mPrimaryColor));
+                    final int color = mLastState == RUNNING ? mWhite : mPrimaryColor;
+                    mTimerText.setTextColor(getResources().getColor(color));
                     break;
                 }
             }

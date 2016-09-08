@@ -33,7 +33,7 @@ import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -394,7 +394,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     }
 
     @Override
-    public void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+    public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
         left.setVisibility(View.INVISIBLE);
         right.setVisibility(View.INVISIBLE);
     }

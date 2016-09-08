@@ -54,7 +54,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
@@ -159,10 +159,10 @@ public class DeskClock extends BaseActivity
     private ImageView mFab;
 
     /** The button left of the {@link #mFab} shared across all tabs in the user interface. */
-    private ImageButton mLeftButton;
+    private Button mLeftButton;
 
     /** The button right of the {@link #mFab} shared across all tabs in the user interface. */
-    private ImageButton mRightButton;
+    private Button mRightButton;
 
     /** The controller that shows the drop shadow when content is not scrolled to the top. */
     private DropShadowController mDropShadowController;
@@ -227,8 +227,8 @@ public class DeskClock extends BaseActivity
 
         // Configure the buttons shared by the tabs.
         mFab = (ImageView) findViewById(R.id.fab);
-        mLeftButton = (ImageButton) findViewById(R.id.left_button);
-        mRightButton = (ImageButton) findViewById(R.id.right_button);
+        mLeftButton = (Button) findViewById(R.id.left_button);
+        mRightButton = (Button) findViewById(R.id.right_button);
 
         mFab.setOnClickListener(new OnClickListener() {
             @Override
@@ -468,16 +468,11 @@ public class DeskClock extends BaseActivity
                 mRightButton.setEnabled(false);
                 break;
             }
+            case FAB_AND_BUTTONS_MORPH:
             case FAB_AND_BUTTONS_IMMEDIATE: {
                 final DeskClockFragment f = getSelectedDeskClockFragment();
                 f.onUpdateFab(mFab);
                 f.onUpdateFabButtons(mLeftButton, mRightButton);
-                break;
-            }
-            case FAB_AND_BUTTONS_MORPH: {
-                final DeskClockFragment f = getSelectedDeskClockFragment();
-                f.onUpdateFab(mFab);
-                f.onMorphFabButtons(mLeftButton, mRightButton);
                 break;
             }
             case FAB_ONLY_SHRINK_AND_EXPAND: {

@@ -20,7 +20,7 @@ import android.app.Fragment;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
@@ -52,12 +52,12 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     }
 
     @Override
-    public void onLeftButtonClick(@NonNull ImageButton left) {
+    public void onLeftButtonClick(@NonNull Button left) {
         // Do nothing here, only in derived classes
     }
 
     @Override
-    public void onRightButtonClick(@NonNull ImageButton right) {
+    public void onRightButtonClick(@NonNull Button right) {
         // Do nothing here, only in derived classes
     }
 
@@ -79,12 +79,6 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         if (parentFabContainer != null) {
             parentFabContainer.updateFab(updateType);
         }
-    }
-
-    @Override
-    public void onMorphFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
-        // Pass through to onUpdateFabButtons because there is no spec for morphing button icon.
-        onUpdateFabButtons(left, right);
     }
 
     /**

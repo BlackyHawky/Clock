@@ -555,6 +555,8 @@
     <string name="timer_descriptive_delete">Delete <xliff:g id="number_string">%s</xliff:g></string>
     <!-- Describes the purpose of the button increase the remaining time on a timer by one minute. -->
     <string name="timer_plus_one">Add 1 Minute</string>
+    <!-- Label for adding one minute to a timer. [CHAR LIMIT=10] -->
+    <string name="timer_add_minute">+ 1:00</string>
     <!-- Like "timer_plus_one", but with 'minute' abbreviated for the notification. -->
     <string name="timer_plus_1_min">Add 1 min</string>
     <!-- Describes the purpose of the button to stop the timer. -->

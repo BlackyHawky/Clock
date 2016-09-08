@@ -69,14 +69,17 @@
                     android:maxLines="1"
                     android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
-                <ImageButton
+                <Button
                     android:id="@+id/reset_add"
-                    android:layout_width="@dimen/fab_button_size"
-                    android:layout_height="@dimen/fab_button_size"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
+                    android:background="@android:color/transparent"
                     android:contentDescription="@string/timer_plus_one"
                     android:gravity="center"
-                    android:padding="@dimen/fab_button_padding"
+                    android:minHeight="@dimen/fab_button_size"
+                    android:minWidth="@dimen/fab_button_size"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_plusone" />
 

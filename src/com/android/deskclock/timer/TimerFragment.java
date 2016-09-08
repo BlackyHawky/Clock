@@ -33,7 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.deskclock.DeskClock;
@@ -55,8 +55,8 @@ import static android.view.View.INVISIBLE;
 import static android.view.View.SCALE_X;
 import static android.view.View.VISIBLE;
 import static com.android.deskclock.FabContainer.UpdateType.DISABLE_BUTTONS;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_SHRINK_AND_EXPAND;
 import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
+import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_SHRINK_AND_EXPAND;
 import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
 /**
@@ -272,21 +272,21 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
+    public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
         if (mCurrentView == mTimersView) {
             left.setEnabled(true);
-            left.setImageResource(R.drawable.ic_delete);
+            left.setText(R.string.timer_delete);
             left.setContentDescription(left.getResources().getString(R.string.timer_delete));
             left.setVisibility(mCurrentView != mTimersView ? GONE : VISIBLE);
 
             right.setEnabled(true);
-            right.setImageResource(R.drawable.ic_add_timer);
+            right.setText(R.string.timer_add_timer);
             right.setContentDescription(right.getResources().getString(R.string.timer_add_timer));
             right.setVisibility(mCurrentView != mTimersView ? GONE : VISIBLE);
 
         } else if (mCurrentView == mCreateTimerView) {
             left.setEnabled(true);
-            left.setImageResource(R.drawable.ic_close);
+            left.setText(R.string.timer_cancel);
             left.setContentDescription(left.getResources().getString(R.string.timer_cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
@@ -354,7 +354,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onLeftButtonClick(@NonNull ImageButton left) {
+    public void onLeftButtonClick(@NonNull Button left) {
         if (mCurrentView == mTimersView) {
             final Timer timer = getTimer();
             if (timer == null) {
@@ -380,7 +380,7 @@ public final class TimerFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onRightButtonClick(@NonNull ImageButton right) {
+    public void onRightButtonClick(@NonNull Button right) {
         if (mCurrentView != mCreateTimerView) {
             animateToView(mCreateTimerView, null);
         }

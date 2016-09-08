@@ -22,8 +22,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -38,7 +36,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.android.deskclock.DeskClockFragment;
@@ -181,7 +179,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onLeftButtonClick(@NonNull ImageButton left) {
+    public void onLeftButtonClick(@NonNull Button left) {
         switch (getStopwatch().getState()) {
             case RUNNING:
                 doAddLap();
@@ -193,7 +191,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onRightButtonClick(@NonNull ImageButton right) {
+    public void onRightButtonClick(@NonNull Button right) {
         doShare();
     }
 
@@ -210,8 +208,8 @@ public final class StopwatchFragment extends DeskClockFragment {
     }
 
     @Override
-    public void onUpdateFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
-        right.setImageResource(R.drawable.ic_share);
+    public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
+        right.setText(R.string.sw_share_button);
         right.setContentDescription(right.getResources().getString(R.string.sw_share_button));
 
         switch (getStopwatch().getState()) {
@@ -222,7 +220,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 break;
             case RUNNING:
                 final boolean canRecordLaps = canRecordMoreLaps();
-                left.setImageResource(R.drawable.ic_lap);
+                left.setText(R.string.sw_lap_button);
                 left.setContentDescription(left.getResources().getString(R.string.sw_lap_button));
                 left.setEnabled(canRecordLaps);
                 left.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
@@ -230,50 +228,11 @@ public final class StopwatchFragment extends DeskClockFragment {
                 break;
             case PAUSED:
                 left.setEnabled(true);
-                left.setImageResource(R.drawable.ic_reset);
+                left.setText(R.string.sw_reset_button);
                 left.setContentDescription(left.getResources().getString(R.string.sw_reset_button));
                 left.setVisibility(VISIBLE);
                 right.setVisibility(VISIBLE);
                 break;
-        }
-    }
-
-    @Override
-    public void onMorphFabButtons(@NonNull ImageButton left, @NonNull ImageButton right) {
-        right.setImageResource(R.drawable.ic_share);
-        right.setContentDescription(right.getResources().getString(R.string.sw_share_button));
-
-        switch (getStopwatch().getState()) {
-            case RESET:
-                left.setEnabled(false);
-                left.setVisibility(INVISIBLE);
-                right.setVisibility(INVISIBLE);
-                break;
-            case RUNNING: {
-                final boolean canRecordLaps = canRecordMoreLaps();
-                updateLapIcon(left);
-                left.setContentDescription(left.getResources().getString(R.string.sw_lap_button));
-                left.setEnabled(canRecordLaps);
-                left.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
-                right.setVisibility(INVISIBLE);
-                final Drawable icon = left.getDrawable();
-                if (icon instanceof Animatable) {
-                    ((Animatable) icon).start();
-                }
-                break;
-            }
-            case PAUSED: {
-                left.setEnabled(true);
-                updateResetIcon(left);
-                left.setContentDescription(left.getResources().getString(R.string.sw_reset_button));
-                left.setVisibility(VISIBLE);
-                right.setVisibility(VISIBLE);
-                final Drawable icon = left.getDrawable();
-                if (icon instanceof Animatable) {
-                    ((Animatable) icon).start();
-                }
-                break;
-            }
         }
     }
 
@@ -286,27 +245,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
         if (mLapsList != null) {
             mLapsList.invalidateItemDecorations();
-        }
-    }
-
-    private void updateLapIcon(ImageButton button) {
-        if (Utils.isLMR1OrLater() && button.getVisibility() == VISIBLE) {
-            final int newLapCount = mLapsAdapter.getItemCount();
-            if (newLapCount == mLapCount) {
-                button.setImageResource(R.drawable.ic_reset_lap_animation);
-            } else {
-                button.setImageResource(R.drawable.ic_lap_animation);
-            }
-        } else {
-            button.setImageResource(R.drawable.ic_lap);
-        }
-    }
-
-    private void updateResetIcon(ImageButton button) {
-        if (Utils.isLMR1OrLater()) {
-            button.setImageResource(R.drawable.ic_lap_reset_animation);
-        } else {
-            button.setImageResource(R.drawable.ic_reset);
         }
     }
 
