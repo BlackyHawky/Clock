@@ -75,7 +75,8 @@ public final class ClockFragment extends DeskClockFragment {
     private ContentObserver mAlarmObserver;
 
     private TextClock mDigitalClock;
-    private View mAnalogClock, mClockFrame;
+    private AnalogClock mAnalogClock;
+    private View mClockFrame;
     private SelectedCitiesAdapter mCityAdapter;
     private RecyclerView mCityList;
     private String mDateFormat;
@@ -125,9 +126,11 @@ public final class ClockFragment extends DeskClockFragment {
         mClockFrame = fragmentView.findViewById(R.id.main_clock_left_pane);
         if (mClockFrame != null) {
             mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
-            mAnalogClock = mClockFrame.findViewById(R.id.analog_clock);
+            mAnalogClock = (AnalogClock) mClockFrame.findViewById(R.id.analog_clock);
             Utils.refreshAlarm(context, mClockFrame);
-            Utils.setTimeFormat(mDigitalClock);
+            boolean enableSeconds = DataModel.getDataModel().getDisplayClockSeconds();
+            Utils.setTimeFormat(mDigitalClock, enableSeconds);
+            mAnalogClock.enableSeconds(enableSeconds);
             Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mClockFrame);
             Utils.setClockStyle(mDigitalClock, mAnalogClock);
         }
@@ -143,7 +146,7 @@ public final class ClockFragment extends DeskClockFragment {
         super.onActivityCreated(savedInstanceState);
 
         if (mDigitalClock != null) {
-            Utils.setTimeFormat(mDigitalClock);
+            Utils.setTimeFormat(mDigitalClock, DataModel.getDataModel().getDisplayClockSeconds());
         }
     }
 
@@ -460,8 +463,9 @@ public final class ClockFragment extends DeskClockFragment {
                     mAnalogClock.setVisibility(GONE);
                     mDigitalClock.setVisibility(VISIBLE);
                     mDigitalClock.setTimeZone(city.getTimeZone().getID());
-                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f /* amPmRatio */));
-                    mDigitalClock.setFormat24Hour(Utils.get24ModeFormat());
+                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f /* amPmRatio */,
+                            false));
+                    mDigitalClock.setFormat24Hour(Utils.get24ModeFormat(false));
                 }
 
                 // Supply top and bottom padding dynamically.
@@ -510,9 +514,12 @@ public final class ClockFragment extends DeskClockFragment {
             private void bind(Context context, String dateFormat,
                     String dateFormatForAccessibility, boolean showHairline) {
                 Utils.refreshAlarm(context, itemView);
-                Utils.setTimeFormat(mDigitalClock);
+
+                final boolean displaySeconds = DataModel.getDataModel().getDisplayClockSeconds();
+                Utils.setTimeFormat(mDigitalClock, displaySeconds);
+                mAnalogClock.enableSeconds(displaySeconds);
+
                 Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
-                mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f /* amPmRatio */));
                 Utils.setClockStyle(mDigitalClock, mAnalogClock);
                 mHairline.setVisibility(showHairline ? VISIBLE : GONE);
             }

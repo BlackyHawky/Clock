@@ -709,6 +709,22 @@ public final class DataModel {
     }
 
     /**
+     * @return the style of clock to display in the clock application
+     */
+    public boolean getDisplayClockSeconds() {
+        enforceMainLooper();
+        return mSettingsModel.getDisplayClockSeconds();
+    }
+
+    /**
+     * @param displaySeconds whether or not to display seconds for main clock
+     */
+    public void setDisplayClockSeconds(boolean displaySeconds) {
+        enforceMainLooper();
+        mSettingsModel.setDisplayClockSeconds(displaySeconds);
+    }
+
+    /**
      * @return the style of clock to display in the clock screensaver
      */
     public ClockStyle getScreensaverClockStyle() {

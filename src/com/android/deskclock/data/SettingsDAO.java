@@ -112,6 +112,35 @@ final class SettingsDAO {
     }
 
     /**
+     * @return a value indicating whether analog or digital clocks are displayed in the app
+     */
+    static boolean getDisplayClockSeconds(Context context) {
+       return Utils.getDefaultSharedPreferences(context).getBoolean(
+               SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, false);
+    }
+
+    /**
+     * @param displaySeconds whether or not to display seconds on main clock
+     */
+    static void setDisplayClockSeconds(Context context, boolean displaySeconds) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        prefs.edit().putBoolean(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, displaySeconds).apply();
+    }
+
+    /**
+     * Sets the user's display seconds preference based on the currently selected clock if one has
+     * not yet been manually chosen.
+     */
+    static void setDefaultDisplayClockSeconds(Context context) {
+        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        if (!prefs.contains(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS)) {
+            // If on analog clock style on upgrade, default to true. Otherwise, default to false.
+            final boolean isAnalog = getClockStyle(context) == ClockStyle.ANALOG;
+            setDisplayClockSeconds(context, isAnalog);
+        }
+    }
+
+    /**
      * @return a value indicating whether analog or digital clocks are displayed on the screensaver
      */
     static ClockStyle getScreensaverClockStyle(Context context) {

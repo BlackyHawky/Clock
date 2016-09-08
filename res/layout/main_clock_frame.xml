@@ -56,7 +56,9 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="none"
                 android:maxLines="1"
-                android:textSize="92sp" />
+                android:paddingTop="@dimen/main_clock_digital_padding"
+                android:paddingBottom="@dimen/main_clock_digital_padding"
+                android:textSize="@dimen/main_clock_digital_font_size" />
 
         </FrameLayout>
 

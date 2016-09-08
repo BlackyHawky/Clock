@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="none"
             android:maxLines="1"
-            android:textSize="92sp" />
+            android:textSize="@dimen/main_clock_digital_font_size" />
 
     </FrameLayout>
 

@@ -597,6 +597,8 @@
     <string name="clock_settings">Clock</string>
     <!-- Header for a Clock Dream Setting referring to choosing analog or digital style -->
     <string name="clock_style">Style</string>
+    <!-- Header for a setting referring to showing seconds on the main clock -->
+    <string name="display_clock_seconds_pref">Display time with seconds</string>
 
     <!-- Title for preference to change date & time -->
     <string name="open_date_settings">Change date \u0026 time</string>

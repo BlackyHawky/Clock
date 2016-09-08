@@ -210,7 +210,7 @@ public class AlarmActivity extends AppCompatActivity
         final CircleView pulseView = (CircleView) mContentView.findViewById(R.id.pulse);
 
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
-        Utils.setTimeFormat(digitalClock);
+        Utils.setTimeFormat(digitalClock, false);
 
         mCurrentHourColor = UiDataModel.getUiDataModel().getWindowBackgroundColor();
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));

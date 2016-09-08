@@ -41,6 +41,8 @@ final class SettingsModel {
 
         // Set the user's default home timezone if one has not yet been chosen.
         SettingsDAO.setDefaultHomeTimeZone(mContext, TimeZone.getDefault());
+        // Set the user's default display seconds preference if one has not yet been chosen.
+        SettingsDAO.setDefaultDisplayClockSeconds(mContext);
     }
 
     CitySort getCitySort() {
@@ -57,6 +59,14 @@ final class SettingsModel {
 
     ClockStyle getClockStyle() {
         return SettingsDAO.getClockStyle(mContext);
+    }
+
+    boolean getDisplayClockSeconds() {
+        return SettingsDAO.getDisplayClockSeconds(mContext);
+    }
+
+    void setDisplayClockSeconds(boolean shouldDisplaySeconds) {
+        SettingsDAO.setDisplayClockSeconds(mContext, shouldDisplaySeconds);
     }
 
     ClockStyle getScreensaverClockStyle() {

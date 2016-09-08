@@ -26,6 +26,10 @@
             android:title="@string/clock_style" />
 
         <SwitchPreferenceCompat
+            android:key="display_clock_seconds"
+            android:title="@string/display_clock_seconds_pref" />
+
+        <SwitchPreferenceCompat
             android:defaultValue="true"
             android:key="automatic_home_clock"
             android:summary="@string/automatic_home_clock_summary"

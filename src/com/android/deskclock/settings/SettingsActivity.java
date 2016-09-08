@@ -63,6 +63,7 @@ public final class SettingsActivity extends BaseActivity {
     public static final String KEY_TIMER_VIBRATE = "timer_vibrate";
     public static final String KEY_AUTO_SILENCE = "auto_silence";
     public static final String KEY_CLOCK_STYLE = "clock_style";
+    public static final String KEY_CLOCK_DISPLAY_SECONDS = "display_clock_seconds";
     public static final String KEY_HOME_TZ = "home_time_zone";
     public static final String KEY_AUTO_HOME_CLOCK = "automatic_home_clock";
     public static final String KEY_DATE_TIME = "date_time";
@@ -182,6 +183,9 @@ public final class SettingsActivity extends BaseActivity {
                     final SimpleMenuPreference simpleMenuPreference = (SimpleMenuPreference) pref;
                     final int i = simpleMenuPreference.findIndexOfValue((String) newValue);
                     pref.setSummary(simpleMenuPreference.getEntries()[i]);
+                    break;
+                case KEY_CLOCK_DISPLAY_SECONDS:
+                    DataModel.getDataModel().setDisplayClockSeconds((boolean) newValue);
                     break;
                 case KEY_AUTO_SILENCE:
                     final String delay = (String) newValue;
@@ -303,6 +307,9 @@ public final class SettingsActivity extends BaseActivity {
                     findPreference(KEY_VOLUME_BUTTONS);
             volumeButtonsPref.setSummary(volumeButtonsPref.getEntry());
             volumeButtonsPref.setOnPreferenceChangeListener(this);
+
+            final Preference clockSecondsPref = findPreference(KEY_CLOCK_DISPLAY_SECONDS);
+            clockSecondsPref.setOnPreferenceChangeListener(this);
 
             final Preference autoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
             final boolean autoHomeClockEnabled =

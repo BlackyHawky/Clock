@@ -111,7 +111,7 @@ public class ScreensaverActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        Utils.setTimeFormat((TextClock) mDigitalClock);
+        Utils.setTimeFormat((TextClock) mDigitalClock, false);
         Utils.setClockStyle(mDigitalClock, mAnalogClock);
         Utils.dimClockView(true, mSaverView);
 

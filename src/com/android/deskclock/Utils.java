@@ -148,10 +148,10 @@ public class Utils {
     }
 
     /**
-    * @return {@code true} if the device is {@link Build.VERSION_CODES#N} or later
-    */
+     * @return {@code true} if the device is {@link Build.VERSION_CODES#N} or later
+     */
     public static boolean isNOrLater() {
-       return BuildCompat.isAtLeastN();
+        return BuildCompat.isAtLeastN();
     }
 
     /**
@@ -261,7 +261,7 @@ public class Utils {
      * Update and return the PendingIntent corresponding to the given {@code intent}.
      *
      * @param context the Context in which the PendingIntent should start the service
-     * @param intent an Intent describing the service to be started
+     * @param intent  an Intent describing the service to be started
      * @return a PendingIntent that will start a service
      */
     public static PendingIntent pendingServiceIntent(Context context, Intent intent) {
@@ -272,7 +272,7 @@ public class Utils {
      * Update and return the PendingIntent corresponding to the given {@code intent}.
      *
      * @param context the Context in which the PendingIntent should start the activity
-     * @param intent an Intent describing the activity to be started
+     * @param intent  an Intent describing the activity to be started
      * @return a PendingIntent that will start an activity
      */
     public static PendingIntent pendingActivityIntent(Context context, Intent intent) {
@@ -361,24 +361,27 @@ public class Utils {
      * Formats the time in the TextClock according to the Locale with a special
      * formatting treatment for the am/pm label.
      *
-     * @param clock   - TextClock to format
+     * @param clock          TextClock to format
+     * @param includeSeconds whether or not to include seconds in the clock's time
      */
-    public static void setTimeFormat(TextClock clock) {
+    public static void setTimeFormat(TextClock clock, boolean includeSeconds) {
         if (clock != null) {
             // Get the best format for 12 hours mode according to the locale
-            clock.setFormat12Hour(get12ModeFormat(0.4f /* amPmRatio */));
+            clock.setFormat12Hour(get12ModeFormat(0.4f /* amPmRatio */, includeSeconds));
             // Get the best format for 24 hours mode according to the locale
-            clock.setFormat24Hour(get24ModeFormat());
+            clock.setFormat24Hour(get24ModeFormat(includeSeconds));
         }
     }
 
     /**
-     * @param amPmRatio a value between 0 and 1 that is the ratio of the relative size of the
-     *                  am/pm string to the time string
-     * @return format string for 12 hours mode time
+     * @param amPmRatio      a value between 0 and 1 that is the ratio of the relative size of the
+     *                       am/pm string to the time string
+     * @param includeSeconds whether or not to include seconds in the time string
+     * @return format string for 12 hours mode time, not including seconds
      */
-    public static CharSequence get12ModeFormat(float amPmRatio) {
-        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(), "hma");
+    public static CharSequence get12ModeFormat(float amPmRatio, boolean includeSeconds) {
+        String pattern = DateFormat.getBestDateTimePattern(Locale.getDefault(),
+                includeSeconds ? "hmsa" : "hma");
         if (amPmRatio <= 0) {
             pattern = pattern.replaceAll("a", "").trim();
         }
@@ -402,8 +405,9 @@ public class Utils {
         return sp;
     }
 
-    public static CharSequence get24ModeFormat() {
-        return DateFormat.getBestDateTimePattern(Locale.getDefault(), "Hm");
+    public static CharSequence get24ModeFormat(boolean includeSeconds) {
+        return DateFormat.getBestDateTimePattern(Locale.getDefault(),
+                includeSeconds ? "Hms" : "Hm");
     }
 
     /**
@@ -430,7 +434,7 @@ public class Utils {
      * e.g. Given 8:00pm on 1/1/2016 and time zones in LA and NY this method would return a Date for
      * midnight on 1/2/2016 in the NY timezone since it changes days first.
      *
-     * @param time a point in time from which to compute midnight on the subsequent day
+     * @param time  a point in time from which to compute midnight on the subsequent day
      * @param zones a collection of time zones
      * @return the nearest point in the future at which any of the time zones changes days
      */
