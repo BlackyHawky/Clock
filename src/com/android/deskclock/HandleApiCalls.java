@@ -368,7 +368,7 @@ public class HandleApiCalls extends Activity {
             LOGGER.i("Created new alarm: " + alarm);
         }
 
-        // Sechedule the next instance.
+        // Schedule the next instance.
         final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
         setupInstance(alarmInstance, skipUi);
 
