@@ -21,7 +21,9 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
+import android.support.annotation.NonNull;
 import android.support.v4.util.ArrayMap;
+import android.support.v7.widget.RecyclerView.State;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.view.View;
@@ -29,6 +31,9 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static android.view.View.TRANSLATION_Y;
+import static android.view.View.TRANSLATION_X;
 
 public class ItemAnimator extends SimpleItemAnimator {
 
@@ -95,36 +100,34 @@ public class ItemAnimator extends SimpleItemAnimator {
     }
 
     @Override
-    public boolean animateMove(final ViewHolder holder, int fromX, int fromY,
-            int toX, int toY) {
+    public boolean animateMove(final ViewHolder holder, int fromX, int fromY, int toX, int toY) {
         endAnimation(holder);
 
-        final View view = holder.itemView;
         final int deltaX = toX - fromX;
         final int deltaY = toY - fromY;
+        final long moveDuration = getMoveDuration();
 
         if (deltaX == 0 && deltaY == 0) {
             dispatchMoveFinished(holder);
             return false;
         }
 
+        final View view = holder.itemView;
         final float prevTranslationX = view.getTranslationX();
         final float prevTranslationY = view.getTranslationY();
         view.setTranslationX(-deltaX);
         view.setTranslationY(-deltaY);
 
-        final long moveDuration = getMoveDuration();
-
         final ObjectAnimator moveAnimator;
         if (deltaX != 0 && deltaY != 0) {
-            final PropertyValuesHolder moveX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 0f);
-            final PropertyValuesHolder moveY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 0f);
+            final PropertyValuesHolder moveX = PropertyValuesHolder.ofFloat(TRANSLATION_X, 0f);
+            final PropertyValuesHolder moveY = PropertyValuesHolder.ofFloat(TRANSLATION_Y, 0f);
             moveAnimator = ObjectAnimator.ofPropertyValuesHolder(holder.itemView, moveX, moveY);
         } else if (deltaX != 0) {
-            final PropertyValuesHolder moveX = PropertyValuesHolder.ofFloat(View.TRANSLATION_X, 0f);
+            final PropertyValuesHolder moveX = PropertyValuesHolder.ofFloat(TRANSLATION_X, 0f);
             moveAnimator = ObjectAnimator.ofPropertyValuesHolder(holder.itemView, moveX);
         } else {
-            final PropertyValuesHolder moveY = PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, 0f);
+            final PropertyValuesHolder moveY = PropertyValuesHolder.ofFloat(TRANSLATION_Y, 0f);
             moveAnimator = ObjectAnimator.ofPropertyValuesHolder(holder.itemView, moveY);
         }
 
@@ -152,28 +155,47 @@ public class ItemAnimator extends SimpleItemAnimator {
     }
 
     @Override
-    public boolean animateChange(final ViewHolder oldHolder, final ViewHolder newHolder, int fromX,
-            int fromY, int toX, int toY) {
+    public boolean animateChange(@NonNull final ViewHolder oldHolder,
+            @NonNull final ViewHolder newHolder, @NonNull ItemHolderInfo preInfo,
+            @NonNull ItemHolderInfo postInfo) {
         endAnimation(oldHolder);
         endAnimation(newHolder);
 
+        final long changeDuration = getChangeDuration();
+        List<Object> payloads = preInfo instanceof PayloadItemHolderInfo
+                ? ((PayloadItemHolderInfo) preInfo).getPayloads() : null;
+
         if (oldHolder == newHolder) {
-            // The same view holder is being changed, i.e. it is changing position but not type.
-            return animateMove(oldHolder, fromX, fromY, toX, toY);
-        } else if (oldHolder == null || newHolder == null) {
-            // Two holders are required for change animations.
-            dispatchChangeFinished(oldHolder, true);
-            dispatchChangeFinished(newHolder, true);
+            final Animator animator = ((OnAnimateChangeListener) newHolder)
+                    .onAnimateChange(payloads, preInfo.left, preInfo.top, preInfo.right,
+                            preInfo.bottom, changeDuration);
+            if (animator == null) {
+                dispatchChangeFinished(newHolder, false);
+                return false;
+            }
+            animator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+                    dispatchChangeStarting(newHolder, false);
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    animator.removeAllListeners();
+                    mAnimators.remove(newHolder);
+                    dispatchChangeFinished(newHolder, false);
+                }
+            });
+            mChangeAnimatorsList.add(animator);
+            mAnimators.put(newHolder, animator);
             return true;
         } else if (!(oldHolder instanceof OnAnimateChangeListener) ||
                 !(newHolder instanceof OnAnimateChangeListener)) {
             // Both holders must implement OnAnimateChangeListener in order to animate.
             dispatchChangeFinished(oldHolder, true);
             dispatchChangeFinished(newHolder, true);
-            return true;
+            return false;
         }
-
-        final long changeDuration = getChangeDuration();
 
         final Animator oldChangeAnimator = ((OnAnimateChangeListener) oldHolder)
                 .onAnimateChange(oldHolder, newHolder, changeDuration);
@@ -220,6 +242,13 @@ public class ItemAnimator extends SimpleItemAnimator {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean animateChange(ViewHolder oldHolder,
+            ViewHolder newHolder, int fromLeft, int fromTop, int toLeft, int toTop) {
+        /* Unused */
+        throw new IllegalStateException("This method should not be used");
     }
 
     @Override
@@ -296,7 +325,47 @@ public class ItemAnimator extends SimpleItemAnimator {
         }
     }
 
+    @Override
+    public @NonNull ItemHolderInfo recordPreLayoutInformation(@NonNull State state,
+            @NonNull ViewHolder viewHolder, @AdapterChanges int changeFlags,
+            @NonNull List<Object> payloads) {
+        final ItemHolderInfo itemHolderInfo = super.recordPreLayoutInformation(state, viewHolder,
+                changeFlags, payloads);
+        if (itemHolderInfo instanceof PayloadItemHolderInfo) {
+            ((PayloadItemHolderInfo) itemHolderInfo).setPayloads(payloads);
+        }
+        return itemHolderInfo;
+    }
+
+    @Override
+    public ItemHolderInfo obtainHolderInfo() {
+        return new PayloadItemHolderInfo();
+    }
+
+    @Override
+    public boolean canReuseUpdatedViewHolder(@NonNull ViewHolder viewHolder,
+            @NonNull List<Object> payloads) {
+        final boolean defaultReusePolicy = super.canReuseUpdatedViewHolder(viewHolder, payloads);
+        // Whenever we have a payload, this is an in-place animation.
+        return !payloads.isEmpty() || defaultReusePolicy;
+    }
+
+    private static final class PayloadItemHolderInfo extends ItemHolderInfo {
+        private final List<Object> mPayloads = new ArrayList<>();
+
+        void setPayloads(List<Object> payloads) {
+            mPayloads.clear();
+            mPayloads.addAll(payloads);
+        }
+
+        List<Object> getPayloads() {
+            return mPayloads;
+        }
+    }
+
     public interface OnAnimateChangeListener {
         Animator onAnimateChange(ViewHolder oldHolder, ViewHolder newHolder, long duration);
+        Animator onAnimateChange(List<Object> payloads, int fromLeft, int fromTop, int fromRight,
+                int fromBottom, long duration);
     }
 }

@@ -40,6 +40,7 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * A ViewHolder containing views for an alarm item in collapsed stated.
@@ -145,6 +146,13 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
                     context.getString(R.string.alarm_today);
             upcomingInstanceLabel.setText(labelText);
         }
+    }
+
+    @Override
+    public Animator onAnimateChange(List<Object> payloads, int fromLeft, int fromTop, int fromRight,
+            int fromBottom, long duration) {
+        /* There are no possible partial animations for collapsed view holders. */
+        return null;
     }
 
     @Override

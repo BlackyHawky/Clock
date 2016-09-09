@@ -237,18 +237,25 @@ public class AnimatorUtils {
         final int endRight = to.getRight() - toInsets.right + targetInsets.right;
         final int endBottom = to.getBottom() - toInsets.bottom + targetInsets.bottom;
 
-        // Set the starting bounds into target.
-        target.setLeft(startLeft);
-        target.setTop(startTop);
-        target.setRight(startRight);
-        target.setBottom(startBottom);
+        return getBoundsAnimator(target, startLeft, startTop, startRight, startBottom, endLeft,
+                endTop, endRight, endBottom);
+    }
 
-        // Animate the bounds of target to the computed ending values.
-        return ObjectAnimator.ofPropertyValuesHolder(target,
-                PropertyValuesHolder.ofInt(VIEW_LEFT, endLeft),
-                PropertyValuesHolder.ofInt(VIEW_TOP, endTop),
-                PropertyValuesHolder.ofInt(VIEW_RIGHT, endRight),
-                PropertyValuesHolder.ofInt(VIEW_BOTTOM, endBottom));
+    /**
+     * Returns an animator that animates the bounds of a single view.
+     */
+    public static Animator getBoundsAnimator(View view, int fromLeft, int fromTop, int fromRight,
+            int fromBottom, int toLeft, int toTop, int toRight, int toBottom) {
+        view.setLeft(fromLeft);
+        view.setTop(fromTop);
+        view.setRight(fromRight);
+        view.setBottom(fromBottom);
+
+        return ObjectAnimator.ofPropertyValuesHolder(view,
+                PropertyValuesHolder.ofInt(VIEW_LEFT, toLeft),
+                PropertyValuesHolder.ofInt(VIEW_TOP, toTop),
+                PropertyValuesHolder.ofInt(VIEW_RIGHT, toRight),
+                PropertyValuesHolder.ofInt(VIEW_BOTTOM, toBottom));
     }
 
     public static void startDrawableAnimation(ImageView view) {

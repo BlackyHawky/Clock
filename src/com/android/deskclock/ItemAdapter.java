@@ -36,7 +36,9 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
         extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
 
     /**
-     * Finds the position of the changed item holder and invokes {@link #notifyItemChanged(int)}.
+     * Finds the position of the changed item holder and invokes {@link #notifyItemChanged(int)} or
+     * {@link #notifyItemChanged(int, Object)} if payloads are present (in order to do in-place
+     * change animations).
      */
     private final OnItemChangedListener mItemChangedNotifier = new OnItemChangedListener() {
         @Override
@@ -47,6 +49,17 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
             final int position = mItemHolders.indexOf(itemHolder);
             if (position != RecyclerView.NO_POSITION) {
                 notifyItemChanged(position);
+            }
+        }
+
+        @Override
+        public void onItemChanged(ItemHolder<?> itemHolder, Object payload) {
+            if (mOnItemChangedListener != null) {
+                mOnItemChangedListener.onItemChanged(itemHolder, payload);
+            }
+            final int position = mItemHolders.indexOf(itemHolder);
+            if (position != RecyclerView.NO_POSITION) {
+                notifyItemChanged(position, payload);
             }
         }
     };
@@ -349,6 +362,16 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
         }
 
         /**
+         * Invokes {@link OnItemChangedListener#onItemChanged(ItemHolder, Object)} for all
+         * listeners added via {@link #addOnItemChangedListener(OnItemChangedListener)}.
+         */
+        public final void notifyItemChanged(Object payload) {
+            for (OnItemChangedListener listener : mOnItemChangedListeners) {
+                listener.onItemChanged(this, payload);
+            }
+        }
+
+        /**
          * Called to retrieve per-instance state when the item may disappear or change so that
          * state can be restored in {@link #onRestoreInstanceState(Bundle)}.
          * <p/>
@@ -495,6 +518,15 @@ public class ItemAdapter<T extends ItemAdapter.ItemHolder>
          * @param itemHolder the item holder that has changed
          */
         void onItemChanged(ItemHolder<?> itemHolder);
+
+
+        /**
+         * Invoked by {@link ItemHolder#notifyItemChanged(Object payload)}.
+         *
+         * @param itemHolder the item holder that has changed
+         * @param payload the payload object
+         */
+        void onItemChanged(ItemAdapter.ItemHolder<?> itemHolder, Object payload);
     }
 
     /**

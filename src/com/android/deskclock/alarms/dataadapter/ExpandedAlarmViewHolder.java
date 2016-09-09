@@ -53,9 +53,10 @@ import com.android.deskclock.uidata.UiDataModel;
 import java.util.List;
 
 import static android.content.Context.VIBRATOR_SERVICE;
+import static android.view.View.TRANSLATION_Y;
 
 /**
- * A ViewHolder containing views for an alarm item in expanded stated.
+ * A ViewHolder containing views for an alarm item in expanded state.
  */
 public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
@@ -175,6 +176,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
             public void onClick(View view) {
                 final boolean checked = ((CheckBox) view).isChecked();
                 getAlarmTimeClickHandler().setAlarmRepeatEnabled(getItemHolder().item, checked);
+                getItemHolder().notifyItemChanged(ANIMATE_REPEAT_DAYS);
             }
         });
         // Day buttons handler
@@ -257,6 +259,58 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private AlarmTimeClickHandler getAlarmTimeClickHandler() {
         return getItemHolder().getAlarmTimeClickHandler();
+    }
+
+    @Override
+    public Animator onAnimateChange(List<Object> payloads, int fromLeft, int fromTop, int fromRight,
+            int fromBottom, long duration) {
+        if (payloads == null || payloads.isEmpty() || !payloads.contains(ANIMATE_REPEAT_DAYS)) {
+            return null;
+        }
+
+        final boolean isExpansion = repeatDays.getVisibility() == View.VISIBLE;
+        final int height = repeatDays.getHeight();
+        setTranslationY(isExpansion ? -height : 0f, isExpansion ? -height : height);
+        repeatDays.setVisibility(View.VISIBLE);
+        repeatDays.setAlpha(isExpansion ? 0f : 1f);
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(AnimatorUtils.getBoundsAnimator(itemView,
+                fromLeft, fromTop, fromRight, fromBottom,
+                itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom()),
+                ObjectAnimator.ofFloat(repeatDays, View.ALPHA, isExpansion ? 1f : 0f),
+                ObjectAnimator.ofFloat(repeatDays, TRANSLATION_Y, isExpansion ? 0f : -height),
+                ObjectAnimator.ofFloat(ringtone, TRANSLATION_Y, 0f),
+                ObjectAnimator.ofFloat(vibrate, TRANSLATION_Y, 0f),
+                ObjectAnimator.ofFloat(editLabel, TRANSLATION_Y, 0f),
+                ObjectAnimator.ofFloat(preemptiveDismissButton, TRANSLATION_Y, 0f),
+                ObjectAnimator.ofFloat(hairLine, TRANSLATION_Y, 0f),
+                ObjectAnimator.ofFloat(delete, TRANSLATION_Y, 0f),
+                ObjectAnimator.ofFloat(arrow, TRANSLATION_Y, 0f));
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                setTranslationY(0f, 0f);
+                repeatDays.setAlpha(1f);
+                repeatDays.setVisibility(isExpansion ? View.VISIBLE : View.GONE);
+                itemView.requestLayout();
+            }
+        });
+        animatorSet.setDuration(duration);
+        animatorSet.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
+        return animatorSet;
+    }
+
+    private void setTranslationY(float repeatDaysTranslationY, float translationY) {
+        repeatDays.setTranslationY(repeatDaysTranslationY);
+        ringtone.setTranslationY(translationY);
+        vibrate.setTranslationY(translationY);
+        editLabel.setTranslationY(translationY);
+        preemptiveDismissButton.setTranslationY(translationY);
+        hairLine.setTranslationY(translationY);
+        delete.setTranslationY(translationY);
+        arrow.setTranslationY(translationY);
     }
 
     @Override

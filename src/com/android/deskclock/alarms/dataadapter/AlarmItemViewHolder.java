@@ -47,6 +47,8 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public static final float ANIM_LONG_DELAY_INCREMENT_MULTIPLIER =
             1f - ANIM_STANDARD_DELAY_MULTIPLIER - ANIM_SHORT_DURATION_MULTIPLIER;
 
+    public static final String ANIMATE_REPEAT_DAYS = "ANIMATE_REPEAT_DAYS";
+
     public final TextTime clock;
     public final CompoundButton onOff;
     public final ImageView arrow;
