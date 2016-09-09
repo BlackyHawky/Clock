@@ -544,7 +544,7 @@ public final class TimerFragment extends DeskClockFragment {
      */
     private void animateToView(View toView, final Timer timerToRemove) {
         if (mCurrentView == toView) {
-            throw new IllegalStateException("toView is already the current view");
+            return;
         }
 
         final boolean toTimers = toView == mTimersView;
