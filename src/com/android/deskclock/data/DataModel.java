@@ -474,6 +474,29 @@ public final class DataModel {
     }
 
     /**
+     * @param timer  the timer whose {@code length} to change
+     * @param length the new length of the timer in milliseconds
+     */
+    public void setTimerLength(Timer timer, long length) {
+        enforceMainLooper();
+        mTimerModel.updateTimer(timer.setLength(length));
+    }
+
+    /**
+     * @param timer         the timer whose {@code remainingTime} to change
+     * @param remainingTime the new remaining time of the timer in milliseconds
+     */
+    public void setRemainingTime(Timer timer, long remainingTime) {
+        enforceMainLooper();
+
+        final Timer updated = timer.setRemainingTime(remainingTime);
+        mTimerModel.updateTimer(updated);
+        if (timer.isRunning() && timer.getRemainingTime() <= 0) {
+            mContext.startService(TimerService.createTimerExpiredIntent(mContext, updated));
+        }
+    }
+
+    /**
      * Updates the timer notifications to be current.
      */
     public void updateTimerNotification() {

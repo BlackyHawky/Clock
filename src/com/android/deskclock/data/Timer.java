@@ -218,8 +218,9 @@ public final class Timer {
             return this;
         }
 
-        return new Timer(mId, EXPIRED, mLength, mTotalLength, mLastStartTime,
-                mLastStartWallClockTime, mRemainingTime, mLabel, mDeleteAfterUse);
+        final long remainingTime = Math.min(0L, getRemainingTime());
+        return new Timer(mId, EXPIRED, mLength, 0L, now(), wallClock(), remainingTime, mLabel,
+                mDeleteAfterUse);
     }
 
     /**
@@ -230,8 +231,9 @@ public final class Timer {
             return this;
         }
 
-        return new Timer(mId, MISSED, mLength, mTotalLength, mLastStartTime,
-                mLastStartWallClockTime, mRemainingTime, mLabel, mDeleteAfterUse);
+        final long remainingTime = Math.min(0L, getRemainingTime());
+        return new Timer(mId, MISSED, mLength, 0L, now(), wallClock(), remainingTime, mLabel,
+                mDeleteAfterUse);
     }
 
     /**
@@ -294,36 +296,65 @@ public final class Timer {
     }
 
     /**
-     * @return a copy of this timer with an additional minute added to the remaining time and total
-     *      length, or this Timer if adding a minute would exceed the maximum timer duration
+     * @return a copy of this timer with the given {@code length}
      */
-    Timer addMinute() {
+    Timer setLength(long length) {
+        if (mLength == length
+                || length <= 0L
+                || length > MAX_LENGTH) {
+            return this;
+        }
+
+        final long totalLength;
+        final long remainingTime;
+        if (mState == RESET) {
+            totalLength = length;
+            remainingTime = length;
+        } else {
+            totalLength = mTotalLength;
+            remainingTime = mRemainingTime;
+        }
+
+        return new Timer(mId, mState, length, totalLength, mLastStartTime,
+                mLastStartWallClockTime, remainingTime, mLabel, mDeleteAfterUse);
+    }
+
+    /**
+     * @return a copy of this timer with the given {@code remainingTime}
+     */
+    Timer setRemainingTime(long remainingTime) {
+        // Do not allow the remaining time to exceed the maximum.
+        if (mRemainingTime == remainingTime || remainingTime > MAX_LENGTH) {
+            return this;
+        }
+
+        final long delta = remainingTime - mRemainingTime;
+        final long totalLength = mTotalLength + delta;
+
         final long lastStartTime;
         final long lastWallClockTime;
-        final long remainingTime;
-        final long totalLength;
         final State state;
-        if (mState == EXPIRED || mState == MISSED) {
+        if (remainingTime > 0 && (mState == EXPIRED || mState == MISSED)) {
             state = RUNNING;
             lastStartTime = now();
             lastWallClockTime = wallClock();
-            totalLength = MINUTE_IN_MILLIS;
-            remainingTime = MINUTE_IN_MILLIS;
         } else {
             state = mState;
             lastStartTime = mLastStartTime;
             lastWallClockTime = mLastStartWallClockTime;
-            totalLength = mRemainingTime + MINUTE_IN_MILLIS;
-            remainingTime = mRemainingTime + MINUTE_IN_MILLIS;
-        }
-
-        // Do not allow the remaining time to exceed the maximum.
-        if (remainingTime > MAX_LENGTH) {
-            return this;
         }
 
         return new Timer(mId, state, mLength, totalLength, lastStartTime,
                 lastWallClockTime, remainingTime, mLabel, mDeleteAfterUse);
+    }
+
+    /**
+     * @return a copy of this timer with an additional minute added to the remaining time and total
+     *      length, or this Timer if adding a minute would exceed the maximum timer duration
+     */
+    Timer addMinute() {
+        final long remainingTime = (mState == EXPIRED || mState == MISSED) ? 0L : mRemainingTime;
+        return setRemainingTime(remainingTime + MINUTE_IN_MILLIS);
     }
 
     @Override
