@@ -347,37 +347,39 @@ public class HandleApiCalls extends Activity {
         // Try to locate an existing alarm using the intent data.
         final String[] args = argsList.toArray(new String[argsList.size()]);
         final List<Alarm> alarms = Alarm.getAlarms(cr, selection.toString(), args);
+
+        final Alarm alarm;
         if (!alarms.isEmpty()) {
             // Enable the first matching alarm.
-            final Alarm alarm = alarms.get(0);
+            alarm = alarms.get(0);
             alarm.enabled = true;
             Alarm.updateAlarm(cr, alarm);
 
-            // Delete all old instances and create a new one with updated values.
+            // Delete all old instances.
             AlarmStateManager.deleteAllInstances(this, alarm.id);
-            setupInstance(alarm.createInstanceAfter(Calendar.getInstance()), skipUi);
+
             Events.sendAlarmEvent(R.string.action_update, R.string.label_intent);
-            LOGGER.i("Deleted old instances, created new alarm: " + alarm);
-            return;
+            LOGGER.i("Updated alarm: " + alarm);
+        } else {
+            // No existing alarm could be located; create one using the intent data.
+            alarm = new Alarm();
+            updateAlarmFromIntent(alarm, intent);
+            alarm.deleteAfterUse = !alarm.daysOfWeek.isRepeating() && skipUi;
+
+            // Save the new alarm.
+            Alarm.addAlarm(cr, alarm);
+
+            Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
+            LOGGER.i("Created new alarm: " + alarm);
         }
 
-        // No existing alarm could be located; create one using the intent data.
-        Alarm alarm = new Alarm();
-        updateAlarmFromIntent(alarm, intent);
-        alarm.deleteAfterUse = !alarm.daysOfWeek.isRepeating() && skipUi;
-
-        // Save the new alarm.
-        alarm = Alarm.addAlarm(cr, alarm);
-
-        // Create the next instance with the alarm data.
+        // Sechedule the next instance.
         final AlarmInstance alarmInstance = alarm.createInstanceAfter(Calendar.getInstance());
         setupInstance(alarmInstance, skipUi);
 
-        Events.sendAlarmEvent(R.string.action_create, R.string.label_intent);
-        final String time = DateFormat.getTimeFormat(this).format(
-                alarmInstance.getAlarmTime().getTime());
+        final String time = DateFormat.getTimeFormat(this)
+                .format(alarmInstance.getAlarmTime().getTime());
         Controller.getController().notifyVoiceSuccess(this, getString(R.string.alarm_is_set, time));
-        LOGGER.i("Created new alarm: " + alarm);
     }
 
     private void handleShowAlarms(Intent intent) {
