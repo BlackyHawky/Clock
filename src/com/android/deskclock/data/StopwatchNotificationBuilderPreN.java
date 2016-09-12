@@ -63,12 +63,10 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
 
         final RemoteViews collapsed = new RemoteViews(pname, R.layout.stopwatch_notif_collapsed);
         collapsed.setChronometer(R.id.swn_collapsed_chronometer, base, null, running);
-        collapsed.setOnClickPendingIntent(R.id.swn_collapsed_hitspace, pendingShowApp);
         collapsed.setImageViewResource(R.id.notification_icon, R.drawable.stat_notify_stopwatch);
 
         final RemoteViews expanded = new RemoteViews(pname, R.layout.stopwatch_notif_expanded);
         expanded.setChronometer(R.id.swn_expanded_chronometer, base, null, running);
-        expanded.setOnClickPendingIntent(R.id.swn_expanded_hitspace, pendingShowApp);
         expanded.setImageViewResource(R.id.notification_icon, R.drawable.stat_notify_stopwatch);
 
         @IdRes final int leftButtonId = R.id.swn_left_button;
@@ -142,6 +140,7 @@ class StopwatchNotificationBuilderPreN implements StopwatchModel.NotificationBui
                 .setLocalOnly(true)
                 .setOngoing(running)
                 .setContent(collapsed)
+                .setContentIntent(pendingShowApp)
                 .setAutoCancel(stopwatch.isPaused())
                 .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setSmallIcon(R.drawable.stat_notify_stopwatch)

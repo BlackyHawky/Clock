@@ -153,7 +153,8 @@ public final class TimerService extends Service {
                     // Open DeskClock which is now positioned on the timers tab and show the timer
                     // in question.
                     final Intent showTimers = new Intent(this, DeskClock.class)
-                            .putExtra(EXTRA_TIMER_ID, timerId);
+                            .putExtra(EXTRA_TIMER_ID, timerId)
+                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(showTimers);
                     break;
                 } case ACTION_START_TIMER: {

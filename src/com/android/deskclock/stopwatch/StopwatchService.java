@@ -65,7 +65,9 @@ public final class StopwatchService extends Service {
 
                 // Open DeskClock positioned on the stopwatch tab.
                 UiDataModel.getUiDataModel().setSelectedTab(STOPWATCH);
-                startActivity(new Intent(this, DeskClock.class));
+                final Intent showStopwatch = new Intent(this, DeskClock.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(showStopwatch);
                 break;
             }
             case ACTION_START_STOPWATCH: {
