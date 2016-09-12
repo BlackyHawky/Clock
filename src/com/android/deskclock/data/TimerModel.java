@@ -92,6 +92,9 @@ final class TimerModel {
     /** The listeners to notify when a timer is added, updated or removed. */
     private final List<TimerListener> mTimerListeners = new ArrayList<>();
 
+    /** Delegate that builds platform-specific timer notifications. */
+    private final TimerNotificationBuilder mNotificationBuilder = new TimerNotificationBuilder();
+
     /**
      * The ids of expired timers for which the ringer is ringing. Not all expired timers have their
      * ids in this collection. If a timer was already expired when the app was started its id will
@@ -114,9 +117,6 @@ final class TimerModel {
 
     /** A mutable copy of the missed timers. */
     private List<Timer> mMissedTimers;
-
-    /** Delegate that builds platform-specific timer notifications. */
-    private NotificationBuilder mNotificationBuilder;
 
     /**
      * The service that keeps this application in the foreground while a heads-up timer
@@ -737,7 +737,7 @@ final class TimerModel {
 
         // Otherwise build and post a notification reflecting the latest unexpired timers.
         final Notification notification =
-                getNotificationBuilder().build(mContext, mNotificationModel, unexpired);
+                mNotificationBuilder.build(mContext, mNotificationModel, unexpired);
         final int notificationId = mNotificationModel.getUnexpiredTimerNotificationId();
         mNotificationManager.notify(notificationId, notification);
 
@@ -761,7 +761,7 @@ final class TimerModel {
             return;
         }
 
-        final Notification notification = getNotificationBuilder().buildMissed(mContext,
+        final Notification notification = mNotificationBuilder.buildMissed(mContext,
                 mNotificationModel, missed);
         final int notificationId = mNotificationModel.getMissedTimerNotificationId();
         mNotificationManager.notify(notificationId, notification);
@@ -787,21 +787,9 @@ final class TimerModel {
         }
 
         // Otherwise build and post a foreground notification reflecting the latest expired timers.
-        final Notification notification = getNotificationBuilder().buildHeadsUp(mContext, expired);
+        final Notification notification = mNotificationBuilder.buildHeadsUp(mContext, expired);
         final int notificationId = mNotificationModel.getExpiredTimerNotificationId();
         mService.startForeground(notificationId, notification);
-    }
-
-    private NotificationBuilder getNotificationBuilder() {
-        if (mNotificationBuilder == null) {
-            if (Utils.isNOrLater()) {
-                mNotificationBuilder = new TimerNotificationBuilderN();
-            } else {
-                mNotificationBuilder = new TimerNotificationBuilderPreN();
-            }
-        }
-
-        return mNotificationBuilder;
     }
 
     /**
@@ -839,36 +827,5 @@ final class TimerModel {
         } else {
             am.setExact(ELAPSED_REALTIME_WAKEUP, triggerTime, pi);
         }
-    }
-
-    /**
-     * An API for building platform-specific timer notifications.
-     */
-    public interface NotificationBuilder {
-
-        int REQUEST_CODE_UPCOMING = 0;
-        int REQUEST_CODE_MISSING = 1;
-
-        /**
-         * @param context a context to use for fetching resources
-         * @param nm from which notification data are fetched
-         * @param unexpiredTimers all running and paused timers
-         * @return a notification reporting the state of the {@code unexpiredTimers}
-         */
-        Notification build(Context context, NotificationModel nm, List<Timer> unexpiredTimers);
-
-        /**
-         * @param context a context to use for fetching resources
-         * @param expiredTimers all expired timers
-         * @return a heads-up notification reporting the state of the {@code expiredTimers}
-         */
-        Notification buildHeadsUp(Context context, List<Timer> expiredTimers);
-
-        /**
-         * @param context a context to use for fetching resources
-         * @param missedTimers all missed timers
-         * @return a heads-up notification reporting the state of the {@code missedTimers}
-         */
-        Notification buildMissed(Context context, NotificationModel nm, List<Timer> missedTimers);
     }
 }
