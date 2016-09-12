@@ -19,6 +19,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.transition.AutoTransition;
 import android.transition.TransitionManager;
 import android.view.Gravity;
@@ -169,6 +170,7 @@ public class ExpiredTimersActivity extends BaseActivity {
         // Hide the label hint for expired timers.
         final TextView labelView = (TextView) timerItem.findViewById(R.id.timer_label);
         labelView.setHint(null);
+        labelView.setVisibility(TextUtils.isEmpty(timer.getLabel()) ? View.GONE : View.VISIBLE);
 
         // Add logic to the "Add 1 Minute" button.
         final View addMinuteButton = timerItem.findViewById(R.id.reset_add);
