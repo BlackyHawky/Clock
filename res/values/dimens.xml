@@ -33,6 +33,10 @@
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
 
+    <dimen name="tab_label_text_size">12sp</dimen>
+    <dimen name="tab_icon_size">24dp</dimen>
+    <dimen name="tab_inner_padding">10dp</dimen>
+
     <dimen name="alarm_text_font_size">16sp</dimen>
     <dimen name="circletimer_dot_size">12dp</dimen>
     <dimen name="circletimer_circle_size">4dp</dimen>

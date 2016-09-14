@@ -31,6 +31,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -49,6 +50,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -56,6 +58,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
@@ -70,6 +73,8 @@ import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
 import com.android.deskclock.widget.RtlViewPager;
 import com.android.deskclock.widget.toast.SnackbarManager;
+
+import java.util.Locale;
 
 import static android.app.NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED;
 import static android.app.NotificationManager.INTERRUPTION_FILTER_NONE;
@@ -218,11 +223,31 @@ public class DeskClock extends BaseActivity
 
         // Create the tabs that make up the user interface.
         mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        final LayoutInflater inflater = LayoutInflater.from(toolbar.getContext());
         for (int i = 0; i < UiDataModel.getUiDataModel().getTabCount(); i++) {
             final Tab tab = UiDataModel.getUiDataModel().getTab(i);
-            mTabLayout.addTab(mTabLayout.newTab()
-                    .setIcon(tab.getIconId())
-                    .setContentDescription(tab.getContentDescriptionId()));
+
+            if (Utils.isLOrLater()) {
+                final View tabView = inflater.inflate(R.layout.tab_element, toolbar, false);
+                final String label = getResources().getString(tab.getContentDescriptionId())
+                        .toUpperCase(Locale.getDefault());
+                final Drawable icon = ContextCompat.getDrawable(toolbar.getContext(),
+                        tab.getIconId());
+                ((ImageView) tabView.findViewById(R.id.tab_icon)).setImageDrawable(icon);
+                final View labelView = tabView.findViewById(R.id.tab_label);
+                if (labelView != null) {
+                    ((TextView) labelView).setText(label);
+                } else {
+                    mTabLayout.setPadding(0, 0, 0, 0);
+                }
+                mTabLayout.addTab(mTabLayout.newTab()
+                        .setCustomView(tabView)
+                        .setContentDescription(tab.getContentDescriptionId()));
+            } else {
+                mTabLayout.addTab(mTabLayout.newTab()
+                        .setIcon(tab.getIconId())
+                        .setContentDescription(tab.getContentDescriptionId()));
+            }
         }
 
         // Configure the buttons shared by the tabs.
@@ -344,7 +369,8 @@ public class DeskClock extends BaseActivity
         super.onResume();
 
         final View dropShadow = findViewById(R.id.drop_shadow);
-        mDropShadowController = new DropShadowController(dropShadow, UiDataModel.getUiDataModel());
+        mDropShadowController = new DropShadowController(dropShadow, UiDataModel.getUiDataModel(),
+                mSnackbarAnchor.findViewById(R.id.tab_hairline));
 
         // Honor the selected tab in case it changed while the app was paused.
         updateCurrentTab(UiDataModel.getUiDataModel().getSelectedTabIndex());
@@ -610,7 +636,6 @@ public class DeskClock extends BaseActivity
                 mHideAnimation.addListener(mAutoStartShowListener);
                 mHideAnimation.start();
                 mFabState = FabState.HIDING;
-
             } else if (mPriorState == SCROLL_STATE_SETTLING && state == SCROLL_STATE_DRAGGING) {
                 // The user has interrupted settling on a tab and the fab button must be re-hidden.
                 if (mShowAnimation.isStarted()) {
@@ -641,6 +666,12 @@ public class DeskClock extends BaseActivity
             } else if (state == SCROLL_STATE_DRAGGING) {
                 // The user has started a drag so arm the hide animation.
                 mFabState = FabState.HIDE_ARMED;
+            }
+
+            if (state == SCROLL_STATE_DRAGGING && mPriorState != SCROLL_STATE_DRAGGING) {
+                mDropShadowController.setHorizontallyScrolling(false);
+            } else if (state != SCROLL_STATE_DRAGGING && mPriorState == SCROLL_STATE_DRAGGING) {
+                mDropShadowController.setHorizontallyScrolling(true);
             }
 
             // Update the last known state.
