@@ -176,6 +176,12 @@
         <item name="android:fontFeatureSettings" tools:targetApi="lollipop">tnum</item>
     </style>
 
+    <style name="world_clock_time">
+        <item name="android:textSize">48sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
     <style name="sub_heading">
         <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">sans-serif</item>

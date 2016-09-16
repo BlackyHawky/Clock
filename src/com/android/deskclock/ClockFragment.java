@@ -31,6 +31,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateUtils;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -50,7 +51,6 @@ import com.android.deskclock.worldclock.CitySelectionActivity;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 import java.util.TimeZone;
 
 import static android.app.AlarmManager.ACTION_NEXT_ALARM_CLOCK_CHANGED;
@@ -439,30 +439,32 @@ public final class ClockFragment extends DeskClockFragment {
         private static final class CityViewHolder extends RecyclerView.ViewHolder {
 
             private final TextView mName;
-            private final TextView mCityDay;
             private final TextClock mDigitalClock;
             private final AnalogClock mAnalogClock;
+            private final TextView mHoursAhead;
 
             private CityViewHolder(View itemView) {
                 super(itemView);
 
                 mName = (TextView) itemView.findViewById(R.id.city_name);
-                mCityDay = (TextView) itemView.findViewById(R.id.city_day);
                 mDigitalClock = (TextClock) itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = (AnalogClock) itemView.findViewById(R.id.analog_clock);
+                mHoursAhead = (TextView) itemView.findViewById(R.id.hours_ahead);
             }
 
             private void bind(Context context, City city, int position, boolean isPortrait) {
+                final String cityTimeZoneId = city.getTimeZone().getID();
+
                 // Configure the digital clock or analog clock depending on the user preference.
                 if (DataModel.getDataModel().getClockStyle() == DataModel.ClockStyle.ANALOG) {
                     mDigitalClock.setVisibility(GONE);
                     mAnalogClock.setVisibility(VISIBLE);
-                    mAnalogClock.setTimeZone(city.getTimeZone().getID());
+                    mAnalogClock.setTimeZone(cityTimeZoneId);
                     mAnalogClock.enableSeconds(false);
                 } else {
                     mAnalogClock.setVisibility(GONE);
                     mDigitalClock.setVisibility(VISIBLE);
-                    mDigitalClock.setTimeZone(city.getTimeZone().getID());
+                    mDigitalClock.setTimeZone(cityTimeZoneId);
                     mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f /* amPmRatio */,
                             false));
                     mDigitalClock.setFormat24Hour(Utils.get24ModeFormat(false));
@@ -486,13 +488,37 @@ public final class ClockFragment extends DeskClockFragment {
                 final boolean displayDayOfWeek =
                         localCal.get(DAY_OF_WEEK) != cityCal.get(DAY_OF_WEEK);
 
-                // Bind the week day display.
-                mCityDay.setVisibility(displayDayOfWeek ? VISIBLE : GONE);
-                if (displayDayOfWeek) {
-                    final Locale locale = Locale.getDefault();
-                    final String weekday = cityCal.getDisplayName(DAY_OF_WEEK, Calendar.SHORT,
-                            locale);
-                    mCityDay.setText(context.getString(R.string.world_day_of_week_label, weekday));
+                // Compare offset from UTC time on today's date (daylight savings time, etc.)
+                final TimeZone currentTimeZone = TimeZone.getDefault();
+                final TimeZone cityTimeZone = TimeZone.getTimeZone(cityTimeZoneId);
+                final long currentTimeMillis = System.currentTimeMillis();
+                final long currentUtcOffset = currentTimeZone.getOffset(currentTimeMillis);
+                final long cityUtcOffset = cityTimeZone.getOffset(currentTimeMillis);
+                final long offsetDelta = cityUtcOffset - currentUtcOffset;
+
+                final int hoursDifferent = (int) (offsetDelta / DateUtils.HOUR_IN_MILLIS);
+                final int minutesDifferent = (int) (offsetDelta / DateUtils.MINUTE_IN_MILLIS) % 60;
+                final boolean displayMinutes = offsetDelta % DateUtils.HOUR_IN_MILLIS != 0;
+                final boolean isAhead = hoursDifferent > 0 || (hoursDifferent == 0
+                        && minutesDifferent > 0);
+                if (!Utils.isLandscape(context)) {
+                    // Bind the number of hours ahead or behind, or hide if the time is the same.
+                    final boolean displayDifference = hoursDifferent != 0 || displayMinutes;
+                    mHoursAhead.setVisibility(displayDifference ? VISIBLE : GONE);
+                    final String timeString = Utils.createHoursDifferentString(
+                            context, displayMinutes, isAhead, hoursDifferent, minutesDifferent);
+                    mHoursAhead.setText(displayDayOfWeek ?
+                            (context.getString(isAhead ? R.string.world_hours_tomorrow
+                                    : R.string.world_hours_yesterday, timeString))
+                            : timeString);
+                } else {
+                    // Only tomorrow/yesterday should be shown in landscape view.
+                    mHoursAhead.setVisibility(displayDayOfWeek ? View.VISIBLE : View.GONE);
+                    if (displayDayOfWeek) {
+                        mHoursAhead.setText(context.getString(isAhead ? R.string.world_tomorrow
+                                : R.string.world_yesterday));
+                    }
+
                 }
             }
         }

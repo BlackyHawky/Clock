@@ -25,60 +25,25 @@
         android:layout_weight="29"
         android:orientation="vertical">
 
-        <FrameLayout
+        <TextClock
+            android:id="@+id/digital_clock"
+            style="@style/world_clock_time"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextClock
-                android:id="@+id/digital_clock"
-                style="@style/display_time"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:includeFontPadding="false" />
-
-            <com.android.deskclock.AnalogClock
-                android:id="@+id/analog_clock"
-                android:layout_width="@dimen/world_clock_analog_size"
-                android:layout_height="@dimen/world_clock_analog_size"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small"
-                android:gravity="center" />
-
-        </FrameLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center">
+            android:gravity="start"
+            android:includeFontPadding="false" />
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
+        <com.android.deskclock.AnalogClock
+            android:id="@+id/analog_clock"
+            android:layout_width="@dimen/world_clock_analog_size"
+            android:layout_height="@dimen/world_clock_analog_size"
+            android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small" />
 
-                <TextView
-                    android:id="@+id/city_name"
-                    style="@style/body"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true" />
-
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/city_day"
-                style="@style/sub_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/style_label_space"
-                android:ellipsize="none"
-                android:maxLines="1" />
-
-        </LinearLayout>
+        <include
+            layout="@layout/world_clock_city_container"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 

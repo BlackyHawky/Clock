@@ -42,6 +42,7 @@ import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.AnyRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.os.BuildCompat;
 import android.text.Spannable;
@@ -565,5 +566,43 @@ public class Utils {
 
     public static long wallClock() {
         return DataModel.getDataModel().currentTimeMillis();
+    }
+
+    /**
+     * @param context to obtain strings.
+     * @param displayMinutes whether or not minutes should be included
+     * @param isAhead {@code true} if the time should be marked 'ahead', else 'behind'
+     * @param hoursDifferent the number of hours the time is ahead/behind
+     * @param minutesDifferent the number of minutes the time is ahead/behind
+     * @return String describing the hours/minutes ahead or behind
+     */
+    public static String createHoursDifferentString(Context context, boolean displayMinutes,
+            boolean isAhead, int hoursDifferent, int minutesDifferent) {
+        String timeString;
+        if (displayMinutes && hoursDifferent != 0) {
+            // Both minutes and hours
+            final String hoursShortQuantityString =
+                    Utils.getNumberFormattedQuantityString(context,
+                            R.plurals.hours_short, Math.abs(hoursDifferent));
+            final String minsShortQuantityString =
+                    Utils.getNumberFormattedQuantityString(context,
+                            R.plurals.minutes_short, Math.abs(minutesDifferent));
+            final @StringRes int stringType = isAhead
+                    ? R.string.world_hours_minutes_ahead
+                    : R.string.world_hours_minutes_behind;
+            timeString = context.getString(stringType, hoursShortQuantityString,
+                    minsShortQuantityString);
+        } else {
+            // Minutes alone or hours alone
+            final String hoursQuantityString = Utils.getNumberFormattedQuantityString(
+                    context, R.plurals.hours, Math.abs(hoursDifferent));
+            final String minutesQuantityString = Utils.getNumberFormattedQuantityString(
+                    context, R.plurals.minutes, Math.abs(minutesDifferent));
+            final @StringRes int stringType = isAhead ? R.string.world_time_ahead
+                    : R.string.world_time_behind;
+            timeString = context.getString(stringType, displayMinutes
+                    ? minutesQuantityString : hoursQuantityString);
+        }
+        return timeString;
     }
 }
