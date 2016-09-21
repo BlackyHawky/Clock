@@ -338,7 +338,7 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Næste alarm: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Ingen alarmer"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Ugyldigt klokkeslæt <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"Alarmen kunne ikke findes."</string>
+    <string name="cannot_locate_alarm" msgid="894518214227064316">"Alarmen blev ikke fundet."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Der er ingen alarm kl. <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Der er ikke nogen planlagte alarmer"</string>
     <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Alarmen er endnu ikke udløst."</string>
