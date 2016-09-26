@@ -56,37 +56,33 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="none"
+                    android:maxLines="1"
                     android:paddingEnd="@dimen/icon_margin"
                     android:paddingStart="@dimen/icon_margin"
-                    android:singleLine="true"
                     android:textColor="@color/clock_gray"
                     android:textSize="@dimen/alarm_text_font_size" />
 
                 <TextView
                     android:id="@+id/days_of_week"
+                    style="@style/body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:focusable="true"
+                    android:maxLines="1"
                     android:paddingEnd="@dimen/icon_margin"
-                    android:paddingStart="@dimen/icon_margin"
-                    android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/alarm_text_font_size"
-                    android:textStyle="bold" />
+                    android:paddingStart="@dimen/icon_margin" />
 
                 <TextView
                     android:id="@+id/upcoming_instance_label"
+                    style="@style/body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:focusable="true"
                     android:paddingEnd="@dimen/icon_margin"
                     android:paddingStart="@dimen/icon_margin"
-                    android:singleLine="true"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/alarm_text_font_size"
-                    android:textStyle="bold" />
+                    android:singleLine="true" />
 
             </com.android.deskclock.widget.EllipsizeLayout>
 

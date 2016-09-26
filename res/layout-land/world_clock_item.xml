@@ -13,6 +13,7 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -30,14 +31,12 @@
 
             <TextClock
                 android:id="@+id/digital_clock"
+                style="@style/display_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="sans-serif-thin"
                 android:gravity="center"
-                android:includeFontPadding="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/world_clock_digital_font_size" />
+                android:includeFontPadding="false" />
 
             <com.android.deskclock.AnalogClock
                 android:id="@+id/analog_clock"
@@ -62,22 +61,22 @@
 
                 <TextView
                     android:id="@+id/city_name"
+                    style="@style/body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textAppearance="@style/PrimaryLabelTextAppearance" />
+                    android:singleLine="true" />
 
             </FrameLayout>
 
             <TextView
                 android:id="@+id/city_day"
+                style="@style/sub_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/style_label_space"
                 android:ellipsize="none"
-                android:singleLine="true"
-                android:textAppearance="@style/SecondaryLabelTextAppearance" />
+                android:maxLines="1" />
 
         </LinearLayout>
 

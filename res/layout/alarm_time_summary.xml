@@ -23,11 +23,9 @@
 
     <com.android.deskclock.widget.TextTime
         android:id="@+id/digital_clock"
+        style="@style/display_time"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-thin"
-        android:textColor="@color/white"
-        android:textSize="@dimen/alarm_time_font_size" />
+        android:layout_height="wrap_content" />
 
     <Space
         android:layout_width="0dp"

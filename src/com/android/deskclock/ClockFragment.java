@@ -460,7 +460,7 @@ public final class ClockFragment extends DeskClockFragment {
                     mAnalogClock.setVisibility(GONE);
                     mDigitalClock.setVisibility(VISIBLE);
                     mDigitalClock.setTimeZone(city.getTimeZone().getID());
-                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.22f /* amPmRatio */));
+                    mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f /* amPmRatio */));
                     mDigitalClock.setFormat24Hour(Utils.get24ModeFormat());
                 }
 
@@ -512,6 +512,7 @@ public final class ClockFragment extends DeskClockFragment {
                 Utils.refreshAlarm(context, itemView);
                 Utils.setTimeFormat(mDigitalClock);
                 Utils.updateDate(dateFormat, dateFormatForAccessibility, itemView);
+                mDigitalClock.setFormat12Hour(Utils.get12ModeFormat(0.3f /* amPmRatio */));
                 Utils.setClockStyle(mDigitalClock, mAnalogClock);
                 mHairline.setVisibility(showHairline ? VISIBLE : GONE);
             }
