@@ -342,6 +342,12 @@
     <!-- Accessibility labels for alarm buttons -->
     <string name="label_description">Label</string>
     <string name="ringtone_description">Ringtone</string>
+    <!-- Talkback announcement for what will happen when user double taps a collapsed alarm.
+     [CHAR LIMIT=NONE] -->
+    <string name="expand_description">Expand</string>
+    <!-- Talkback announcement for what will happen when user double taps an expanded alarm.
+     [CHAR LIMIT=NONE] -->
+    <string name="collapse_description">Collapse</string>
 
     <!--  ActionBar strings -->
     <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->

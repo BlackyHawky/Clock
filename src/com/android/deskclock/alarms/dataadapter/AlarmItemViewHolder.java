@@ -17,13 +17,16 @@
 package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
+import android.support.annotation.StringRes;
 import android.view.View;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.widget.TextTime;
@@ -67,6 +70,27 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
                         getItemHolder().item, checked);
             }
         });
+    }
+
+    static final class AlarmItemAccessibilityDelegate extends View.AccessibilityDelegate {
+
+        private final @StringRes int mLabel;
+
+        AlarmItemAccessibilityDelegate(@StringRes int label) {
+            mLabel = label;
+        }
+
+        @Override
+        public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
+            super.onInitializeAccessibilityNodeInfo(host, info);
+
+            // Replace the default announcement on the clickable background.
+            if (Utils.isLOrLater()) {
+                info.addAction(new AccessibilityNodeInfo.AccessibilityAction
+                        (AccessibilityNodeInfo.AccessibilityAction.ACTION_CLICK.getId(),
+                                host.getResources().getString(mLabel)));
+            }
+        }
     }
 
     @Override
