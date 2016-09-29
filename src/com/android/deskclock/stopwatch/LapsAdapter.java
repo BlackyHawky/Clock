@@ -197,14 +197,22 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
             builder.append("\n");
 
             // Loop through the laps in the order they were recorded; reverse of display order.
+            final String separator = DecimalFormatSymbols.getInstance().getDecimalSeparator() + " ";
             for (int i = laps.size() - 1; i >= 0; i--) {
                 final Lap lap = laps.get(i);
                 builder.append(lap.getLapNumber());
-                builder.append(DecimalFormatSymbols.getInstance().getDecimalSeparator());
-                builder.append(' ');
-                builder.append(formatTime(lap.getLapTime(), lap.getLapTime(), " "));
+                builder.append(separator);
+                final long lapTime = lap.getLapTime();
+                builder.append(formatTime(lapTime, lapTime, " "));
                 builder.append("\n");
             }
+
+            // Append the final lap
+            builder.append(laps.size() + 1);
+            builder.append(separator);
+            final long lapTime = DataModel.getDataModel().getCurrentLapTime(totalTime);
+            builder.append(formatTime(lapTime, lapTime, " "));
+            builder.append("\n");
         }
 
         return builder.toString();
