@@ -66,6 +66,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public ExpandedAlarmViewHolder(View itemView, boolean hasVibrator) {
         super(itemView);
 
+        itemView.setAccessibilityDelegate(
+                new AlarmItemAccessibilityDelegate(R.string.collapse_description));
         final Context context = itemView.getContext();
         mHasVibrator = hasVibrator;
         final Resources.Theme theme = context.getTheme();

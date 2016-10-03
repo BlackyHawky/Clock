@@ -45,6 +45,9 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
     public CollapsedAlarmViewHolder(View itemView) {
         super(itemView);
+
+        itemView.setAccessibilityDelegate(
+                new AlarmItemAccessibilityDelegate(R.string.expand_description));
         alarmLabel = (TextView) itemView.findViewById(R.id.label);
         daysOfWeek = (TextView) itemView.findViewById(R.id.days_of_week);
         upcomingInstanceLabel = (TextView) itemView.findViewById(R.id.upcoming_instance_label);
