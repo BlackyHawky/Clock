@@ -38,13 +38,12 @@
 
         <TextClock
             android:id="@+id/digital_clock"
-            style="@style/big_thin"
+            style="@style/display_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="none"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:textSize="@dimen/main_clock_font_size" />
+            android:maxLines="1"
+            android:textSize="92sp" />
 
     </FrameLayout>
 

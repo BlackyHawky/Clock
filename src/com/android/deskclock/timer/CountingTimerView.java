@@ -26,6 +26,8 @@ import android.support.annotation.PluralsRes;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
@@ -277,18 +279,19 @@ public class CountingTimerView extends View {
         mDefaultColor = mWhiteColor = Color.WHITE;
         mPressedColor = mAccentColor = Utils.obtainStyledColor(
                 context, R.attr.colorAccent, Color.RED);
-        mBigFontSize = r.getDimension(R.dimen.big_font_size);
-        mSmallFontSize = r.getDimension(R.dimen.small_font_size);
+        final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        mBigFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 56, displayMetrics);
+        mSmallFontSize = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 24, displayMetrics);
 
         mPaintBigThin.setAntiAlias(true);
         mPaintBigThin.setStyle(Paint.Style.STROKE);
         mPaintBigThin.setTextAlign(Paint.Align.CENTER);
-        mPaintBigThin.setTypeface(Typeface.create("sans-serif-thin", Typeface.NORMAL));
+        mPaintBigThin.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
 
         mPaintMed.setAntiAlias(true);
         mPaintMed.setStyle(Paint.Style.STROKE);
         mPaintMed.setTextAlign(Paint.Align.CENTER);
-        mPaintMed.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
+        mPaintMed.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
 
         resetTextSize();
         setTextColor(mDefaultColor);

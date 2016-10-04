@@ -34,11 +34,13 @@
 
         <TextView
             android:id="@+id/city_name"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
-            android:textAppearance="@style/PrimaryLabelTextAppearance" />
+            android:textAppearance="@style/PrimaryLabelTextAppearance"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/city_day"
@@ -46,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/style_label_space"
             android:ellipsize="none"
-            android:singleLine="true"
+            android:maxLines="1"
             android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
         <FrameLayout
@@ -55,13 +57,12 @@
 
             <TextClock
                 android:id="@+id/digital_clock"
-                style="@style/medium_light"
+                style="@style/display_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:baselineAligned="true"
-                android:singleLine="true"
-                android:textColor="@color/white" />
+                android:maxLines="1" />
 
             <com.android.deskclock.AnalogClock
                 android:id="@+id/analog_clock"
