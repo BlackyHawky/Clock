@@ -166,53 +166,27 @@ public final class SettingsActivity extends BaseActivity {
         }
 
         @Override
-        public void onDisplayPreferenceDialog(Preference preference) {
-            final String key = preference.getKey();
-            switch (key) {
-                case KEY_ALARM_SNOOZE:
-                    showDialog(SnoozeLengthDialogFragment.newInstance(preference));
-                    break;
-                case KEY_ALARM_CRESCENDO:
-                case KEY_TIMER_CRESCENDO:
-                    showDialog(CrescendoLengthDialogFragment.newInstance(preference));
-                    break;
-                default:
-                    super.onDisplayPreferenceDialog(preference);
-            }
-        }
-
-        @Override
         public boolean onPreferenceChange(Preference pref, Object newValue) {
-            final int idx;
             switch (pref.getKey()) {
-                case KEY_AUTO_SILENCE:
-                    String delay = (String) newValue;
-                    updateAutoSnoozeSummary((ListPreference) pref, delay);
-                    break;
+                case KEY_ALARM_CRESCENDO:
+                case KEY_VOLUME_BUTTONS:
                 case KEY_CLOCK_STYLE:
-                    final ListPreference clockStylePref = (ListPreference) pref;
-                    idx = clockStylePref.findIndexOfValue((String) newValue);
-                    clockStylePref.setSummary(clockStylePref.getEntries()[idx]);
-                    break;
                 case KEY_HOME_TZ:
-                    final ListPreference homeTimezonePref = (ListPreference) pref;
-                    idx = homeTimezonePref.findIndexOfValue((String) newValue);
-                    homeTimezonePref.setSummary(homeTimezonePref.getEntries()[idx]);
+                case KEY_WEEK_START:
+                case KEY_ALARM_SNOOZE:
+                case KEY_TIMER_CRESCENDO:
+                    final ListPreference preference = (ListPreference) pref;
+                    final int index = preference.findIndexOfValue((String) newValue);
+                    preference.setSummary(preference.getEntries()[index]);
+                    break;
+                case KEY_AUTO_SILENCE:
+                    final String delay = (String) newValue;
+                    updateAutoSnoozeSummary((ListPreference) pref, delay);
                     break;
                 case KEY_AUTO_HOME_CLOCK:
                     final boolean autoHomeClockEnabled = ((TwoStatePreference) pref).isChecked();
                     final Preference homeTimeZonePref = findPreference(KEY_HOME_TZ);
                     homeTimeZonePref.setEnabled(!autoHomeClockEnabled);
-                    break;
-                case KEY_VOLUME_BUTTONS:
-                    final ListPreference volumeButtonsPref = (ListPreference) pref;
-                    final int index = volumeButtonsPref.findIndexOfValue((String) newValue);
-                    volumeButtonsPref.setSummary(volumeButtonsPref.getEntries()[index]);
-                    break;
-                case KEY_WEEK_START:
-                    final ListPreference weekStartPref = (ListPreference) pref;
-                    idx = weekStartPref.findIndexOfValue((String) newValue);
-                    weekStartPref.setSummary(weekStartPref.getEntries()[idx]);
                     break;
                 case KEY_TIMER_VIBRATE:
                     final TwoStatePreference timerVibratePref = (TwoStatePreference) pref;
@@ -327,17 +301,12 @@ public final class SettingsActivity extends BaseActivity {
 
             final ListPreference homeTimezonePref = (ListPreference) findPreference(KEY_HOME_TZ);
             homeTimezonePref.setEnabled(autoHomeClockEnabled);
-            homeTimezonePref.setSummary(homeTimezonePref.getEntry());
-            homeTimezonePref.setOnPreferenceChangeListener(this);
+            refreshListPreference(homeTimezonePref);
 
-            final ListPreference volumeButtonsPref =
-                    (ListPreference) findPreference(KEY_VOLUME_BUTTONS);
-            volumeButtonsPref.setSummary(volumeButtonsPref.getEntry());
-            volumeButtonsPref.setOnPreferenceChangeListener(this);
-
-            ((SnoozeLengthDialogPreference) findPreference(KEY_ALARM_SNOOZE)).updateSummary();
-            ((CrescendoLengthDialogPreference) findPreference(KEY_ALARM_CRESCENDO)).updateSummary();
-            ((CrescendoLengthDialogPreference) findPreference(KEY_TIMER_CRESCENDO)).updateSummary();
+            refreshListPreference((ListPreference) findPreference(KEY_ALARM_CRESCENDO));
+            refreshListPreference((ListPreference) findPreference(KEY_TIMER_CRESCENDO));
+            refreshListPreference((ListPreference) findPreference(KEY_ALARM_SNOOZE));
+            refreshListPreference((ListPreference) findPreference(KEY_VOLUME_BUTTONS));
 
             final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
             dateAndTimeSetting.setOnPreferenceClickListener(this);
@@ -355,6 +324,11 @@ public final class SettingsActivity extends BaseActivity {
             final Preference timerRingtonePref = findPreference(KEY_TIMER_RINGTONE);
             timerRingtonePref.setOnPreferenceClickListener(this);
             timerRingtonePref.setSummary(DataModel.getDataModel().getTimerRingtoneTitle());
+        }
+
+        private void refreshListPreference(ListPreference preference) {
+            preference.setSummary(preference.getEntry());
+            preference.setOnPreferenceChangeListener(this);
         }
 
         private void updateAutoSnoozeSummary(ListPreference listPref, String delay) {
