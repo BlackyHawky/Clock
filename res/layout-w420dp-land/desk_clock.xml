@@ -86,7 +86,7 @@
             android:layout_gravity="start|center_vertical"
             android:layout_weight="1">
 
-            <ImageButton
+            <Button
                 android:id="@+id/left_button"
                 android:layout_width="@dimen/fab_button_size"
                 android:layout_height="@dimen/fab_button_size"
@@ -119,7 +119,7 @@
             android:layout_gravity="end|center_vertical"
             android:layout_weight="1">
 
-            <ImageButton
+            <Button
                 android:id="@+id/right_button"
                 android:layout_width="@dimen/fab_button_size"
                 android:layout_height="@dimen/fab_button_size"
