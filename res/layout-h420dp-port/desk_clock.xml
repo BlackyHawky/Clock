@@ -40,12 +40,12 @@
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:tabMaxWidth="0dp"
                 app:tabGravity="fill"
-                app:tabPaddingStart="0dp"
-                app:tabPaddingEnd="0dp"
                 app:tabIndicatorColor="@android:color/transparent"
-                app:tabMode="fixed"/>
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -91,6 +91,7 @@
                 android:layout_width="@dimen/fab_button_size"
                 android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 android:contentDescription="@null"
                 android:padding="@dimen/fab_button_padding"
                 android:scaleType="centerInside" />
@@ -124,6 +125,7 @@
                 android:layout_width="@dimen/fab_button_size"
                 android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
+                android:background="@android:color/transparent"
                 android:contentDescription="@null"
                 android:padding="@dimen/fab_button_padding"
                 android:scaleType="centerInside" />

@@ -180,19 +180,19 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void onLeftButtonClick(@NonNull Button left) {
+        doReset();
+    }
+
+    @Override
+    public void onRightButtonClick(@NonNull Button right) {
         switch (getStopwatch().getState()) {
             case RUNNING:
                 doAddLap();
                 break;
             case PAUSED:
-                doReset();
+                doShare();
                 break;
         }
-    }
-
-    @Override
-    public void onRightButtonClick(@NonNull Button right) {
-        doShare();
     }
 
     @Override
@@ -209,29 +209,26 @@ public final class StopwatchFragment extends DeskClockFragment {
 
     @Override
     public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
-        right.setText(R.string.sw_share_button);
-        right.setContentDescription(right.getResources().getString(R.string.sw_share_button));
+        final Resources resources = getResources();
+        left.setText(R.string.sw_reset_button);
+        left.setContentDescription(resources.getString(R.string.sw_reset_button));
 
         switch (getStopwatch().getState()) {
             case RESET:
-                left.setEnabled(false);
                 left.setVisibility(INVISIBLE);
                 right.setVisibility(INVISIBLE);
                 break;
             case RUNNING:
                 final boolean canRecordLaps = canRecordMoreLaps();
-                left.setText(R.string.sw_lap_button);
-                left.setContentDescription(left.getResources().getString(R.string.sw_lap_button));
-                left.setEnabled(canRecordLaps);
-                left.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
-                right.setVisibility(INVISIBLE);
-                break;
-            case PAUSED:
-                left.setEnabled(true);
-                left.setText(R.string.sw_reset_button);
-                left.setContentDescription(left.getResources().getString(R.string.sw_reset_button));
+                right.setText(R.string.sw_lap_button);
+                right.setContentDescription(resources.getString(R.string.sw_lap_button));
+                right.setEnabled(canRecordLaps);
                 left.setVisibility(VISIBLE);
                 right.setVisibility(VISIBLE);
+                break;
+            case PAUSED:
+                right.setText(R.string.sw_share_button);
+                right.setContentDescription(resources.getString(R.string.sw_share_button));
                 break;
         }
     }
