@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2009 The Android Open Source Project
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -86,15 +86,13 @@
             android:layout_gravity="start|center_vertical"
             android:layout_weight="1">
 
-            <Button
+            <ImageButton
                 android:id="@+id/left_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/fab_button_size"
+                android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:minHeight="@dimen/fab_button_size"
-                android:minWidth="@dimen/fab_button_size"
+                android:padding="@dimen/fab_button_padding"
                 android:scaleType="centerInside" />
 
         </FrameLayout>
@@ -121,15 +119,13 @@
             android:layout_gravity="end|center_vertical"
             android:layout_weight="1">
 
-            <Button
+            <ImageButton
                 android:id="@+id/right_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/fab_button_size"
+                android:layout_height="@dimen/fab_button_size"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent"
                 android:contentDescription="@null"
-                android:minHeight="@dimen/fab_button_size"
-                android:minWidth="@dimen/fab_button_size"
+                android:padding="@dimen/fab_button_padding"
                 android:scaleType="centerInside" />
 
         </FrameLayout>
