@@ -29,10 +29,10 @@
         android:layout_gravity="center">
 
         <com.android.deskclock.TimerCircleFrameLayout
+            android:layout_gravity="center"
             app:layout_aspectRatio="100%"
-            app:layout_widthPercent="@fraction/timer_circle_width_percent"
             app:layout_heightPercent="@fraction/timer_circle_height_percent"
-            android:layout_gravity="center">
+            app:layout_widthPercent="@fraction/timer_circle_width_percent">
 
             <com.android.deskclock.CircleButtonsLayout
                 android:id="@+id/timer_circle"
@@ -44,10 +44,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <com.android.deskclock.timer.CountingTimerView
+                <com.android.deskclock.TimerTextView
                     android:id="@+id/timer_time_text"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-thin"
+                    android:gravity="center"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="72sp" />
 
                 <Button
                     android:id="@+id/timer_label"

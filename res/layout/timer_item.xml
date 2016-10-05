@@ -27,10 +27,17 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.android.deskclock.timer.CountingTimerView
+        <com.android.deskclock.TimerTextView
             android:id="@+id/timer_time_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="center"
+            android:paddingEnd="20dp"
+            android:paddingStart="20dp"
+            android:textColor="@color/white"
+            android:textSize="32sp" />
 
         <Button
             android:id="@+id/timer_label"

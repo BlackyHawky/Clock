@@ -16,16 +16,28 @@
 
 package com.android.deskclock.timer;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.res.Resources;
+import android.icu.text.MeasureFormat;
+import android.icu.util.Measure;
+import android.icu.util.MeasureUnit;
+import android.os.Build;
 import android.os.SystemClock;
+import android.support.annotation.ColorRes;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
+import com.android.deskclock.TimerTextView;
+import com.android.deskclock.Utils;
 import com.android.deskclock.data.Timer;
+
+import java.util.Locale;
 
 /**
  * This view is a visual representation of a {@link Timer}.
@@ -33,7 +45,7 @@ import com.android.deskclock.data.Timer;
 public class TimerItem extends LinearLayout {
 
     /** Displays the remaining time or time since expiration. */
-    private CountingTimerView mTimerText;
+    private TimerTextView mTimerText;
 
     /** Displays timer progress as a color circle that changes from white to red. */
     private TimerCircleView mCircleView;
@@ -46,6 +58,12 @@ public class TimerItem extends LinearLayout {
 
     /** The last state of the timer that was rendered; used to avoid expensive operations. */
     private Timer.State mLastState;
+
+    private long mLastTime = Long.MIN_VALUE;
+    private MeasureFormat mMeasureFormat;
+
+    @ColorRes private final int mWhite = R.color.white;
+    @ColorRes private int mPrimaryColor = R.color.color_accent;
 
     public TimerItem(Context context) {
         this(context, null);
@@ -61,8 +79,62 @@ public class TimerItem extends LinearLayout {
         mLabelView = (TextView) findViewById(R.id.timer_label);
         mResetAddButton = (ImageView) findViewById(R.id.reset_add);
         mCircleView = (TimerCircleView) findViewById(R.id.timer_time);
-        mTimerText = (CountingTimerView) findViewById(R.id.timer_time_text);
-        mTimerText.setShowBoundingCircle(mCircleView != null);
+        mTimerText = (TimerTextView) findViewById(R.id.timer_time_text);
+    }
+
+    void setTimeString(long remainingTime) {
+        // No updates necessary
+        if (Math.abs(mLastTime - remainingTime) < 1000) {
+            return;
+        }
+        mLastTime = remainingTime;
+
+        boolean neg = false;
+        if (remainingTime < 0) {
+            remainingTime = -remainingTime;
+            neg = true;
+        }
+
+        int hours = (int) (remainingTime / DateUtils.HOUR_IN_MILLIS);
+        int remainder = (int) (remainingTime % DateUtils.HOUR_IN_MILLIS);
+
+        int minutes = (int) (remainder / DateUtils.MINUTE_IN_MILLIS);
+        remainder = (int) (remainder % DateUtils.MINUTE_IN_MILLIS);
+
+        int seconds = (int) (remainder / DateUtils.SECOND_IN_MILLIS);
+        remainder = (int) (remainder % DateUtils.SECOND_IN_MILLIS);
+
+        final StringBuilder time = new StringBuilder();
+
+        if (!neg && remainder != 0) {
+            seconds++;
+            if (seconds == 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes == 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+        }
+        if (neg && !(hours == 0 && minutes == 0 && seconds == 0)) {
+            time.append('-');
+        }
+
+        time.append(getTimeString(hours, minutes, seconds));
+
+        mTimerText.setText(time.toString());
+    }
+
+    private String getTimeString(int hours, int minutes, int seconds) {
+        final Resources r = getResources();
+        if (hours != 0) {
+            return r.getString(R.string.hours_minutes_seconds, hours, minutes, seconds);
+        }
+        if (minutes != 0) {
+            return r.getString(R.string.minutes_seconds, minutes, seconds);
+        }
+        return r.getString(R.string.seconds, seconds);
     }
 
     /**
@@ -70,7 +142,7 @@ public class TimerItem extends LinearLayout {
      */
     void update(Timer timer) {
         // Update the time.
-        mTimerText.setTime(timer.getRemainingTime(), false);
+        setTimeString(timer.getRemainingTime());
 
         // Update the label if it changed.
         final String label = timer.getLabel();
@@ -89,7 +161,11 @@ public class TimerItem extends LinearLayout {
                 mCircleView.update(timer);
             }
         }
-        mTimerText.showTime(!timer.isPaused() || !blinkOff);
+        if (!timer.isPaused() || !blinkOff) {
+            mTimerText.setVisibility(VISIBLE);
+        } else {
+            mTimerText.setVisibility(GONE);
+        }
 
         // Update some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {
@@ -99,21 +175,21 @@ public class TimerItem extends LinearLayout {
                     final String resetDesc = getResources().getString(R.string.timer_reset);
                     mResetAddButton.setImageResource(R.drawable.ic_reset);
                     mResetAddButton.setContentDescription(resetDesc);
-                    mTimerText.setTimeStrTextColor(false, true);
+                    mTimerText.setTextColor(getResources().getColor(mWhite));
                     break;
                 }
                 case RUNNING: {
                     final String addTimeDesc = getResources().getString(R.string.timer_plus_one);
                     mResetAddButton.setImageResource(R.drawable.ic_plusone);
                     mResetAddButton.setContentDescription(addTimeDesc);
-                    mTimerText.setTimeStrTextColor(false, true);
+                    mTimerText.setTextColor(getResources().getColor(mWhite));
                     break;
                 }
                 case PAUSED: {
                     final String resetDesc = getResources().getString(R.string.timer_reset);
                     mResetAddButton.setImageResource(R.drawable.ic_reset);
                     mResetAddButton.setContentDescription(resetDesc);
-                    mTimerText.setTimeStrTextColor(false, true);
+                    mTimerText.setTextColor(getResources().getColor(mWhite));
                     break;
                 }
                 case MISSED:
@@ -121,7 +197,7 @@ public class TimerItem extends LinearLayout {
                     final String addTimeDesc = getResources().getString(R.string.timer_plus_one);
                     mResetAddButton.setImageResource(R.drawable.ic_plusone);
                     mResetAddButton.setContentDescription(addTimeDesc);
-                    mTimerText.setTimeStrTextColor(true, true);
+                    mTimerText.setTextColor(getResources().getColor(mPrimaryColor));
                     break;
                 }
             }
