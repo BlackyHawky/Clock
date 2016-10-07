@@ -75,11 +75,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center_horizontal"
-                    android:background="@android:color/transparent"
                     android:contentDescription="@string/timer_plus_one"
                     android:gravity="center"
-                    android:minHeight="@dimen/fab_button_size"
-                    android:minWidth="@dimen/fab_button_size"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_plusone" />
 

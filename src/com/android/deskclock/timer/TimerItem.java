@@ -167,6 +167,7 @@ public class TimerItem extends LinearLayout {
                 case RESET:
                 case PAUSED: {
                     mResetAddButton.setText(R.string.timer_reset);
+                    mResetAddButton.setContentDescription(null);
                     mTimerText.setTextColor(getResources().getColor(mWhite));
                     break;
                 }

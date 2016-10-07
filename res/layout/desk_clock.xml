@@ -40,12 +40,12 @@
                 android:id="@+id/sliding_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:tabMaxWidth="0dp"
                 app:tabGravity="fill"
-                app:tabPaddingStart="0dp"
-                app:tabPaddingEnd="0dp"
                 app:tabIndicatorColor="@android:color/transparent"
-                app:tabMode="fixed"/>
+                app:tabMaxWidth="0dp"
+                app:tabMode="fixed"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp" />
 
         </android.support.v7.widget.Toolbar>
 
@@ -88,13 +88,10 @@
 
             <Button
                 android:id="@+id/left_button"
+                style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:contentDescription="@null"
-                android:minHeight="@dimen/fab_button_size"
-                android:minWidth="@dimen/fab_button_size"
                 android:scaleType="centerInside" />
 
         </FrameLayout>
@@ -123,13 +120,10 @@
 
             <Button
                 android:id="@+id/right_button"
+                style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent"
-                android:contentDescription="@null"
-                android:minHeight="@dimen/fab_button_size"
-                android:minWidth="@dimen/fab_button_size"
                 android:scaleType="centerInside" />
 
         </FrameLayout>

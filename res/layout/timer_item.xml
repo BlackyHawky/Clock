@@ -41,9 +41,9 @@
 
         <Button
             android:id="@+id/timer_label"
-            style="?android:attr/borderlessButtonStyle"
+            style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|center_horizontal"
             android:clickable="false"
             android:ellipsize="end"
@@ -69,11 +69,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@android:color/transparent"
                     android:contentDescription="@string/timer_plus_one"
                     android:gravity="center"
-                    android:minHeight="@dimen/fab_button_size"
-                    android:minWidth="@dimen/fab_button_size"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/ic_plusone" />
 
