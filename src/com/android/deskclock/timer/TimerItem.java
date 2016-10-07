@@ -17,18 +17,16 @@
 package com.android.deskclock.timer;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.annotation.ColorRes;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.AttributeSet;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
-import com.android.deskclock.TimerTextView;
+import com.android.deskclock.TimerTextController;
 import com.android.deskclock.data.Timer;
 
 import static com.android.deskclock.data.Timer.State.RUNNING;
@@ -39,7 +37,9 @@ import static com.android.deskclock.data.Timer.State.RUNNING;
 public class TimerItem extends LinearLayout {
 
     /** Displays the remaining time or time since expiration. */
-    private TimerTextView mTimerText;
+    private TextView mTimerText;
+
+    private TimerTextController mTimerTextController;
 
     /** Displays timer progress as a color circle that changes from white to red. */
     private TimerCircleView mCircleView;
@@ -52,8 +52,6 @@ public class TimerItem extends LinearLayout {
 
     /** The last state of the timer that was rendered; used to avoid expensive operations. */
     private Timer.State mLastState;
-
-    private long mLastTime = Long.MIN_VALUE;
 
     @ColorRes private final int mWhite = R.color.white;
     @ColorRes private int mPrimaryColor = R.color.color_accent;
@@ -72,62 +70,8 @@ public class TimerItem extends LinearLayout {
         mLabelView = (TextView) findViewById(R.id.timer_label);
         mResetAddButton = (Button) findViewById(R.id.reset_add);
         mCircleView = (TimerCircleView) findViewById(R.id.timer_time);
-        mTimerText = (TimerTextView) findViewById(R.id.timer_time_text);
-    }
-
-    void setTimeString(long remainingTime) {
-        // No updates necessary
-        if (Math.abs(mLastTime - remainingTime) < 1000) {
-            return;
-        }
-        mLastTime = remainingTime;
-
-        boolean neg = false;
-        if (remainingTime < 0) {
-            remainingTime = -remainingTime;
-            neg = true;
-        }
-
-        int hours = (int) (remainingTime / DateUtils.HOUR_IN_MILLIS);
-        int remainder = (int) (remainingTime % DateUtils.HOUR_IN_MILLIS);
-
-        int minutes = (int) (remainder / DateUtils.MINUTE_IN_MILLIS);
-        remainder = (int) (remainder % DateUtils.MINUTE_IN_MILLIS);
-
-        int seconds = (int) (remainder / DateUtils.SECOND_IN_MILLIS);
-        remainder = (int) (remainder % DateUtils.SECOND_IN_MILLIS);
-
-        final StringBuilder time = new StringBuilder();
-
-        if (!neg && remainder != 0) {
-            seconds++;
-            if (seconds == 60) {
-                seconds = 0;
-                minutes++;
-                if (minutes == 60) {
-                    minutes = 0;
-                    hours++;
-                }
-            }
-        }
-        if (neg && !(hours == 0 && minutes == 0 && seconds == 0)) {
-            time.append('-');
-        }
-
-        time.append(getTimeString(hours, minutes, seconds));
-
-        mTimerText.setText(time.toString());
-    }
-
-    private String getTimeString(int hours, int minutes, int seconds) {
-        final Resources r = getResources();
-        if (hours != 0) {
-            return r.getString(R.string.hours_minutes_seconds, hours, minutes, seconds);
-        }
-        if (minutes != 0) {
-            return r.getString(R.string.minutes_seconds, minutes, seconds);
-        }
-        return r.getString(R.string.seconds, seconds);
+        mTimerText = (TextView) findViewById(R.id.timer_time_text);
+        mTimerTextController = new TimerTextController(mTimerText);
     }
 
     /**
@@ -135,7 +79,7 @@ public class TimerItem extends LinearLayout {
      */
     void update(Timer timer) {
         // Update the time.
-        setTimeString(timer.getRemainingTime());
+        mTimerTextController.setTimeString(timer.getRemainingTime());
 
         // Update the label if it changed.
         final String label = timer.getLabel();

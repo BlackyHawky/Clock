@@ -43,17 +43,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
 
-                <com.android.deskclock.TimerTextView
+                <com.android.deskclock.widget.AutoSizingTextView
                     android:id="@+id/timer_time_text"
+                    style="@style/display_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:fontFamily="sans-serif-thin"
                     android:gravity="center"
                     android:paddingEnd="20dp"
                     android:paddingStart="20dp"
-                    android:textColor="@color/white"
-                    android:textSize="72sp" />
+                    android:textSize="70sp" />
 
                 <Button
                     android:id="@+id/timer_label"
