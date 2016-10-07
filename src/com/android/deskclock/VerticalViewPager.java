@@ -92,6 +92,25 @@ public class VerticalViewPager extends ViewPager {
     }
 
     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        final float x = ev.getX();
+        final float y = ev.getY();
+        switch (ev.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                mLastMotionY = y;
+                mLastMotionX = x;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                final float xDiff = Math.abs(x - mLastMotionX);
+                final float yDiff = Math.abs(y - mLastMotionY);
+                if (yDiff > mTouchSlop && yDiff > xDiff) { // Swiping up and down
+                    return true;
+                }
+        }
+        return super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent ev) {
         try {
             initializeParent();
@@ -99,8 +118,6 @@ public class VerticalViewPager extends ViewPager {
             final float y = ev.getY();
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
-                    mLastMotionX = x;
-                    mLastMotionY = y;
                     if (!mParentViewPager.onTouchEvent(ev)) {
                         return false;
                     }

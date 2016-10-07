@@ -64,6 +64,7 @@ public class TimerItemFragment extends Fragment {
         final TimerItem view = (TimerItem) inflater.inflate(R.layout.timer_item, container, false);
         view.findViewById(R.id.reset_add).setOnClickListener(new ResetAddListener());
         view.findViewById(R.id.timer_label).setOnClickListener(new EditLabelListener());
+        view.findViewById(R.id.timer_time_text).setOnClickListener(new TimeTextListener());
         view.update(timer);
 
         return view;
@@ -91,7 +92,7 @@ public class TimerItemFragment extends Fragment {
         return DataModel.getDataModel().getTimer(getTimerId());
     }
 
-    private class ResetAddListener implements View.OnClickListener {
+    private final class ResetAddListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             final Timer timer = getTimer();
@@ -113,11 +114,24 @@ public class TimerItemFragment extends Fragment {
         }
     }
 
-    private class EditLabelListener implements View.OnClickListener {
+    private final class EditLabelListener implements View.OnClickListener {
+
         @Override
         public void onClick(View v) {
             final LabelDialogFragment fragment = LabelDialogFragment.newInstance(getTimer());
             LabelDialogFragment.show(getFragmentManager(), fragment);
+        }
+    }
+
+    private final class TimeTextListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            final Timer clickedTimer = getTimer();
+            if (clickedTimer.isPaused() || clickedTimer.isReset()) {
+                DataModel.getDataModel().startTimer(clickedTimer);
+            } else if (clickedTimer.isRunning()) {
+                DataModel.getDataModel().pauseTimer(clickedTimer);
+            }
         }
     }
 }

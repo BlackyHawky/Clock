@@ -44,6 +44,7 @@ import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.Utils.ClickAccessibilityDelegate;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
@@ -198,7 +199,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindVibrator(alarm);
         bindRingtone(context, alarm);
         ViewCompat.setAccessibilityDelegate(itemView,
-                new AlarmItemAccessibilityDelegate(
+                new ClickAccessibilityDelegate(
                         itemView.getResources().getString(R.string.collapse_description)));
         boolean boundDismiss = bindPreemptiveDismissButton(context, alarm, alarmInstance);
         if (boundDismiss) {

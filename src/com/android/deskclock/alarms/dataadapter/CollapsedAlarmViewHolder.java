@@ -32,7 +32,7 @@ import android.widget.TextView;
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
+import com.android.deskclock.Utils.ClickAccessibilityDelegate;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.provider.Alarm;
@@ -102,7 +102,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
                 bindPreemptiveDismissButton(context, alarm, alarmInstance);
         hairLine.setVisibility(boundPreemptiveDismiss ? View.GONE : View.VISIBLE);
         ViewCompat.setAccessibilityDelegate(itemView,
-                new AlarmItemAccessibilityDelegate(
+                new ClickAccessibilityDelegate(
                         itemView.getResources().getString(R.string.expand_description)));
     }
 

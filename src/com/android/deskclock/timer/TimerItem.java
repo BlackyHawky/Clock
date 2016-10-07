@@ -17,8 +17,11 @@
 package com.android.deskclock.timer;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.SystemClock;
-import android.support.annotation.ColorRes;
+import android.support.v4.view.ViewCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.widget.Button;
@@ -27,9 +30,8 @@ import android.widget.TextView;
 
 import com.android.deskclock.R;
 import com.android.deskclock.TimerTextController;
+import com.android.deskclock.Utils.ClickAccessibilityDelegate;
 import com.android.deskclock.data.Timer;
-
-import static com.android.deskclock.data.Timer.State.RUNNING;
 
 /**
  * This view is a visual representation of a {@link Timer}.
@@ -53,9 +55,6 @@ public class TimerItem extends LinearLayout {
     /** The last state of the timer that was rendered; used to avoid expensive operations. */
     private Timer.State mLastState;
 
-    @ColorRes private final int mWhite = R.color.white;
-    @ColorRes private int mPrimaryColor = R.color.color_accent;
-
     public TimerItem(Context context) {
         this(context, null);
     }
@@ -72,6 +71,17 @@ public class TimerItem extends LinearLayout {
         mCircleView = (TimerCircleView) findViewById(R.id.timer_time);
         mTimerText = (TextView) findViewById(R.id.timer_time_text);
         mTimerTextController = new TimerTextController(mTimerText);
+
+        final TypedArray a = getContext().obtainStyledAttributes(
+                new int[] { R.attr.colorAccent, android.R.attr.textColorPrimary});
+        final int colorControlActivated = a.getColor(0, Color.RED);
+        final int colorControlNormal = a.getColor(1, Color.WHITE);
+        mTimerText.setTextColor(new ColorStateList(new int[][] {
+                { android.R.attr.state_activated }, { android.R.attr.state_pressed }, {}
+        }, new int[] {
+                colorControlActivated, colorControlActivated, colorControlNormal
+        }));
+        a.recycle();
     }
 
     /**
@@ -98,31 +108,49 @@ public class TimerItem extends LinearLayout {
                 mCircleView.update(timer);
             }
         }
-        if (!timer.isPaused() || !blinkOff) {
-            mTimerText.setVisibility(VISIBLE);
+        if (!timer.isPaused() || !blinkOff || mTimerText.isPressed()) {
+            mTimerText.setAlpha(1f);
         } else {
-            mTimerText.setVisibility(GONE);
+            mTimerText.setAlpha(0f);
         }
 
         // Update some potentially expensive areas of the user interface only on state changes.
         if (timer.getState() != mLastState) {
             mLastState = timer.getState();
+            final Context context = getContext();
             switch (mLastState) {
                 case RESET:
                 case PAUSED: {
                     mResetAddButton.setText(R.string.timer_reset);
                     mResetAddButton.setContentDescription(null);
-                    mTimerText.setTextColor(getResources().getColor(mWhite));
+                    mTimerText.setClickable(true);
+                    mTimerText.setActivated(false);
+                    mTimerText.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
+                    ViewCompat.setAccessibilityDelegate(mTimerText, new ClickAccessibilityDelegate(
+                            context.getString(R.string.timer_start), true));
                     break;
                 }
-                case RUNNING:
-                case EXPIRED:
-                case MISSED: {
-                    final String addTimeDesc = getResources().getString(R.string.timer_plus_one);
+                case RUNNING: {
+                    final String addTimeDesc = context.getString(R.string.timer_plus_one);
                     mResetAddButton.setText(R.string.timer_add_minute);
                     mResetAddButton.setContentDescription(addTimeDesc);
-                    final int color = mLastState == RUNNING ? mWhite : mPrimaryColor;
-                    mTimerText.setTextColor(getResources().getColor(color));
+                    mTimerText.setClickable(true);
+                    mTimerText.setActivated(false);
+                    mTimerText.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_YES);
+                    ViewCompat.setAccessibilityDelegate(mTimerText, new ClickAccessibilityDelegate(
+                            context.getString(R.string.timer_pause)));
+                    break;
+                }
+                case EXPIRED:
+                case MISSED: {
+                    final String addTimeDesc = context.getString(R.string.timer_plus_one);
+                    mResetAddButton.setText(R.string.timer_add_minute);
+                    mResetAddButton.setContentDescription(addTimeDesc);
+                    mTimerText.setClickable(false);
+                    mTimerText.setActivated(true);
+                    mTimerText.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
+                    ViewCompat.setAccessibilityDelegate(mTimerText,
+                            new ClickAccessibilityDelegate(null));
                     break;
                 }
             }

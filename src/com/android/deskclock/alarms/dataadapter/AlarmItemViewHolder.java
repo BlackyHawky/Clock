@@ -17,9 +17,6 @@
 package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
-import android.support.v4.view.AccessibilityDelegateCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
-import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -32,8 +29,6 @@ import com.android.deskclock.R;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.widget.TextTime;
-
-import static android.support.v4.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK;
 
 /**
  * Abstract ViewHolder for alarm time items.
@@ -119,22 +114,5 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             preemptiveDismissButton.setClickable(false);
         }
         return canBind;
-    }
-
-    static final class AlarmItemAccessibilityDelegate extends AccessibilityDelegateCompat {
-
-        String mLabel;
-
-        AlarmItemAccessibilityDelegate(String label) {
-            mLabel = label;
-        }
-
-        @Override
-        public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
-            super.onInitializeAccessibilityNodeInfo(host, info);
-
-            // Replace the default announcement on the clickable background.
-            info.addAction(new AccessibilityActionCompat(ACTION_CLICK.getId(), mLabel));
-        }
     }
 }

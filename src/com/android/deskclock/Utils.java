@@ -45,6 +45,9 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.graphics.drawable.VectorDrawableCompat;
 import android.support.v4.os.BuildCompat;
+import android.support.v4.view.AccessibilityDelegateCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
@@ -604,5 +607,33 @@ public class Utils {
                     ? minutesQuantityString : hoursQuantityString);
         }
         return timeString;
+    }
+
+    public static final class ClickAccessibilityDelegate extends AccessibilityDelegateCompat {
+
+        /** The label for talkback to apply to the view */
+        private final String mLabel;
+
+        /** Whether or not to always make the view visible to talkback */
+        private final boolean mIsAlwaysAccessibilityVisible;
+
+        public ClickAccessibilityDelegate(String label) {
+            this(label, false);
+        }
+
+        public ClickAccessibilityDelegate(String label, boolean isAlwaysAccessibilityVisible) {
+            mLabel = label;
+            mIsAlwaysAccessibilityVisible = isAlwaysAccessibilityVisible;
+        }
+
+        @Override
+        public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
+            super.onInitializeAccessibilityNodeInfo(host, info);
+            if (mIsAlwaysAccessibilityVisible) {
+                info.setVisibleToUser(true);
+            }
+            info.addAction(new AccessibilityActionCompat(
+                    AccessibilityActionCompat.ACTION_CLICK.getId(), mLabel));
+        }
     }
 }
