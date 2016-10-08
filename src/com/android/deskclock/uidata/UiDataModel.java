@@ -45,18 +45,18 @@ public final class UiDataModel {
         STOPWATCH(StopwatchFragment.class, R.drawable.ic_tab_stopwatch, R.string.menu_stopwatch);
 
         private final String mFragmentClassName;
-        private final @DrawableRes int mIconId;
-        private final @StringRes int mContentDescriptionId;
+        private final @DrawableRes int mIconResId;
+        private final @StringRes int mLabelResId;
 
-        Tab(Class fragmentClass, @DrawableRes int iconId, @StringRes int contentDescriptionId) {
+        Tab(Class fragmentClass, @DrawableRes int iconResId, @StringRes int labelResId) {
             mFragmentClassName = fragmentClass.getName();
-            mIconId = iconId;
-            mContentDescriptionId = contentDescriptionId;
+            mIconResId = iconResId;
+            mLabelResId = labelResId;
         }
 
         public String getFragmentClassName() { return mFragmentClassName; }
-        public int getIconId() { return mIconId; }
-        public int getContentDescriptionId() { return mContentDescriptionId; }
+        public @DrawableRes int getIconResId() { return mIconResId; }
+        public @StringRes int getLabelResId() { return mLabelResId; }
     }
 
     /** The single instance of this data model that exists for the life of the application. */

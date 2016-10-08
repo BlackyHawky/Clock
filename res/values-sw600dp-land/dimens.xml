@@ -19,8 +19,6 @@
 <resources>
     <dimen name="time_margin_top">32dip</dimen>
 
-    <dimen name="dialpad_font_size">42sp</dimen>
-    <dimen name="timer_setup_font_size">78sp</dimen>
     <dimen name="timer_setup_delete_margin">19sp</dimen>
 
     <!-- Size of margin for circles. -->

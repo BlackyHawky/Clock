@@ -212,31 +212,8 @@
     <!-- Setting title for changing the snooze duration. -->
     <string name="snooze_duration_title">Snooze length</string>
 
-    <plurals name="snooze_duration">
-        <!-- Duration for one minute -->
-        <item quantity="one">1 minute</item>
-        <!-- Duration for more than one minute -->
-        <item quantity="other"><xliff:g id="number" example="7">%s</xliff:g> minutes</item>
-    </plurals>
-
-    <plurals name="snooze_picker_label">
-        <!-- Duration for one minute -->
-        <item quantity="one">minute</item>
-        <!-- Duration for more than one minute -->
-        <item quantity="other">minutes</item>
-    </plurals>
-
     <!-- Setting title for changing the crescendo duration. -->
     <string name="crescendo_duration_title">Gradually increase volume</string>
-
-    <!-- Summary value for changing the crescendo duration to 0. -->
-    <string name="no_crescendo_duration">Off</string>
-
-    <!-- Summary value for changing the crescendo duration. -->
-    <string name="crescendo_duration"><xliff:g id="number" example="7">%s</xliff:g> seconds</string>
-
-    <!-- Setting label when changing the crescendo duration. -->
-    <string name="crescendo_picker_label">seconds</string>
 
     <!-- Auto silence preference title -->
     <string name="auto_silence_title">Silence after</string>
@@ -946,13 +923,6 @@
     -->
     <string name="invalid_time">Invalid time <xliff:g id="invalid_hour" example="25">%1$d</xliff:g>:<xliff:g id="invalid_minutes" example="63">%2$d</xliff:g> <xliff:g id="invalid_ampm" example="PM">%3$s</xliff:g></string>
 
-    <!-- String that indicates no alarm can be located with the given deeplink. This happens when a
-    user sends a voice command to mutate an existing alarm but the deeplink no longer refers to a
-    valid alarm.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="cannot_locate_alarm">Unable to locate alarm.</string>
-
     <!-- String that represents that no alarm has been specified for a requested hour:minutes.
     This happens when a user sends a voice command 'dismiss my alarm at 3:00pm' but they have no
     alarms specified for that time. %s represents the time of the alarm.
@@ -966,29 +936,6 @@
     [CHAR LIMIT=NONE]
     -->
     <string name="no_scheduled_alarms">No scheduled alarms</string>
-
-    <!-- String that indicates the alarm is still scheduled and cannot yet be snoozed.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="cannot_snooze_scheduled_alarm">The alarm has not yet fired.</string>
-
-    <!-- String that indicates the alarm is missed and cannot be snoozed or dismissed. This
-    happens when a user sends a voice command 'dismiss alarm' or 'snooze alarm' but the alarm is
-    already in the missed state.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="alarm_is_already_missed">The alarm is already missed.</string>
-
-    <!-- String that indicates the alarm is dismissed or predismissed and cannot be snoozed or
-    dismissed again.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="alarm_is_already_dismissed">The alarm is already dismissed.</string>
-
-    <!-- String that indicates the alarm is snoozed cannot be snoozed again.
-    [CHAR LIMIT=NONE]
-    -->
-    <string name="alarm_is_already_snoozed">The alarm is already snoozed.</string>
 
     <!-- String that represents that the user specified that they want to select an alarm to
     dismiss by specifying a 'label' but they didn't specify any labels.

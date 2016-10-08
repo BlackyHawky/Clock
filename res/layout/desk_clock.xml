@@ -17,27 +17,27 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/coordinator"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:background="@null"
         app:elevation="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:padding="0dp"
-            app:contentInsetLeft="0dp"
-            app:contentInsetStart="0dp">
+            android:layout_height="wrap_content"
+            app:contentInsetStart="0dp"
+            tools:ignore="RtlSymmetry">
 
             <android.support.design.widget.TabLayout
-                android:id="@+id/sliding_tabs"
+                android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:tabGravity="fill"
@@ -54,7 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/hairline_height"
             android:layout_gravity="bottom"
-            android:background="@color/hairline" />
+            android:background="@color/hairline"
+            android:importantForAccessibility="no" />
 
     </android.support.design.widget.AppBarLayout>
 

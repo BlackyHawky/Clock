@@ -21,7 +21,6 @@
     <color name="black">#FF000000</color>
     <color name="black_87p">#DE000000</color>
     <color name="black_54p">#8A000000</color>
-    <color name="black_16p">#28000000</color>
 
     <color name="white">#FFFFFFFF</color>
     <color name="white_50p">#80FFFFFF</color>
@@ -42,11 +41,6 @@
 
     <!-- Values for custom notification -->
     <color name="notif_text_grey">#9C9C9C</color>
-    <color name="control_highlight_color">#42FFFFFF</color>
-    <color name="notification_bg">#181818</color>
-    <color name="notification_icon_bg">#1C3742</color>
-    <color name="notification_pressed">#333333</color>
-    <color name="notification_divider">#272727</color>
 
     <!-- shadowColor for widget text -->
     <color name="widget_shadow_color">#67000000</color>

@@ -47,10 +47,10 @@ import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,11 +70,8 @@ import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.uidata.UiDataModel.Tab;
 import com.android.deskclock.widget.RtlViewPager;
 import com.android.deskclock.widget.toast.SnackbarManager;
-
-import java.util.Locale;
 
 import static android.app.NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED;
 import static android.app.NotificationManager.INTERRUPTION_FILTER_NONE;
@@ -203,51 +200,63 @@ public class DeskClock extends BaseActivity
 
         // Don't show the volume muted snackbar on rotations.
         mShowSilencedAlarmsSnackbar = savedInstanceState == null;
-        mSnackbarAnchor = findViewById(R.id.coordinator);
+        mSnackbarAnchor = findViewById(R.id.content);
 
         // Configure the toolbar.
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        final ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
 
         // Configure the menu item controllers add behavior to the toolbar.
-        mOptionsMenuManager
-                .addMenuItemController(new NightModeMenuItemController(this))
-                .addMenuItemController(new SettingsMenuItemController(this))
-                .addMenuItemController(MenuItemControllerFactory.getInstance()
-                        .buildMenuItemControllers(this));
+        mOptionsMenuManager.addMenuItemController(
+                new NightModeMenuItemController(this), new SettingsMenuItemController(this));
+        mOptionsMenuManager.addMenuItemController(
+                MenuItemControllerFactory.getInstance().buildMenuItemControllers(this));
 
         // Inflate the menu during creation to avoid a double layout pass. Otherwise, the menu
         // inflation occurs *after* the initial draw and a second layout pass adds in the menu.
         onCreateOptionsMenu(toolbar.getMenu());
 
         // Create the tabs that make up the user interface.
-        mTabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        final LayoutInflater inflater = LayoutInflater.from(toolbar.getContext());
-        for (int i = 0; i < UiDataModel.getUiDataModel().getTabCount(); i++) {
-            final Tab tab = UiDataModel.getUiDataModel().getTab(i);
+        mTabLayout = (TabLayout) findViewById(R.id.tabs);
+        final int tabCount = UiDataModel.getUiDataModel().getTabCount();
+        final boolean showTabLabel = getResources().getBoolean(R.bool.showTabLabel);
+        final boolean showTabHorizontally = getResources().getBoolean(R.bool.showTabHorizontally);
+        for (int i = 0; i < tabCount; i++) {
+            final UiDataModel.Tab tabModel = UiDataModel.getUiDataModel().getTab(i);
+            final @StringRes int labelResId = tabModel.getLabelResId();
 
-            if (Utils.isLOrLater()) {
-                final View tabView = inflater.inflate(R.layout.tab_element, toolbar, false);
-                final String label = getResources().getString(tab.getContentDescriptionId())
-                        .toUpperCase(Locale.getDefault());
-                final Drawable icon = ContextCompat.getDrawable(toolbar.getContext(),
-                        tab.getIconId());
-                ((ImageView) tabView.findViewById(R.id.tab_icon)).setImageDrawable(icon);
-                final View labelView = tabView.findViewById(R.id.tab_label);
-                if (labelView != null) {
-                    ((TextView) labelView).setText(label);
+            final TabLayout.Tab tab = mTabLayout.newTab()
+                    .setContentDescription(labelResId)
+                    .setIcon(tabModel.getIconResId());
+
+            if (showTabLabel) {
+                tab.setText(labelResId);
+                tab.setCustomView(R.layout.tab_item);
+
+                @SuppressWarnings("ConstantConditions")
+                final TextView text = (TextView) tab.getCustomView()
+                        .findViewById(android.R.id.text1);
+                text.setTextColor(mTabLayout.getTabTextColors());
+
+                // Bind the icon to the TextView.
+                final Drawable icon = tab.getIcon();
+                if (showTabHorizontally) {
+                    // Remove the icon so it doesn't affect the minimum TabLayout height.
+                    tab.setIcon(null);
+                    text.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            icon, null, null, null);
                 } else {
-                    mTabLayout.setPadding(0, 0, 0, 0);
+                    text.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            null, icon, null, null);
                 }
-                mTabLayout.addTab(mTabLayout.newTab()
-                        .setCustomView(tabView)
-                        .setContentDescription(tab.getContentDescriptionId()));
-            } else {
-                mTabLayout.addTab(mTabLayout.newTab()
-                        .setIcon(tab.getIconId())
-                        .setContentDescription(tab.getContentDescriptionId()));
             }
+
+            mTabLayout.addTab(tab);
         }
 
         // Configure the buttons shared by the tabs.
@@ -790,7 +799,8 @@ public class DeskClock extends BaseActivity
      */
     private final class TabChangeWatcher implements TabListener {
         @Override
-        public void selectedTabChanged(Tab oldSelectedTab, Tab newSelectedTab) {
+        public void selectedTabChanged(UiDataModel.Tab oldSelectedTab,
+                UiDataModel.Tab newSelectedTab) {
             final int index = newSelectedTab.ordinal();
 
             // Update the view pager and tab layout to agree with the model.
@@ -848,7 +858,7 @@ public class DeskClock extends BaseActivity
             final String tag = makeFragmentName(R.id.desk_clock_pager, position);
             Fragment fragment = mFragmentManager.findFragmentByTag(tag);
             if (fragment == null) {
-                final Tab tab = UiDataModel.getUiDataModel().getTab(position);
+                final UiDataModel.Tab tab = UiDataModel.getUiDataModel().getTab(position);
                 final String fragmentClassName = tab.getFragmentClassName();
                 fragment = Fragment.instantiate(mContext, fragmentClassName);
             }

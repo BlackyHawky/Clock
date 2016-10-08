@@ -35,7 +35,6 @@
             app:layout_widthPercent="@fraction/timer_circle_width_percent">
 
             <com.android.deskclock.CircleButtonsLayout
-                android:id="@+id/timer_circle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

@@ -33,10 +33,6 @@
 
     <dimen name="actionbar_tab_padding">0dip</dimen>
 
-    <dimen name="tab_label_text_size">12sp</dimen>
-    <dimen name="tab_icon_size">24dp</dimen>
-    <dimen name="tab_inner_padding">10dp</dimen>
-
     <dimen name="alarm_text_font_size">16sp</dimen>
     <dimen name="circletimer_dot_size">12dp</dimen>
     <dimen name="circletimer_circle_size">4dp</dimen>
@@ -50,12 +46,9 @@
 
     <dimen name="main_clock_font_size">64sp</dimen>
     <dimen name="big_font_size">32sp</dimen>
-    <dimen name="medium_font_size">56sp</dimen>
-    <dimen name="small_font_size">32sp</dimen>
     <dimen name="label_font_size">16sp</dimen>
     <dimen name="header_font_size">24sp</dimen>
     <dimen name="day_button_font_size">16sp</dimen>
-    <dimen name="alarm_time_font_size">48sp</dimen>
     <dimen name="alarm_info_font_size">36sp</dimen>
     <dimen name="no_alarm_font_size">16sp</dimen>
 
@@ -77,9 +70,6 @@
 
     <dimen name="label_margin_big">4dp</dimen>
 
-    <dimen name="dialpad_font_size">36sp</dimen>
-    <!--padding should be (in dip) ~ 60% dialpad_font_size -->
-    <dimen name="timer_setup_font_size">38sp</dimen>
     <!--margin should be ~ half timer_setup_font_size -->
     <dimen name="timer_setup_delete_margin">14sp</dimen>
     <dimen name="timer_setup_delete_padding">12dp</dimen>
@@ -94,8 +84,6 @@
     <dimen name="analog_clock_margin">60dp</dimen>
     <dimen name="analog_clock_size">294dp</dimen>
 
-    <!-- The width and height of the notification icon -->
-    <dimen name="notification_icon_size">64dp</dimen>
      <!-- Size of notification text (see TextAppearance.StatusBar.EventContent) -->
     <dimen name="notification_text_size">14dp</dimen>
     <!-- Size of notification text titles (see TextAppearance.StatusBar.EventContent.Title) -->
@@ -108,8 +96,6 @@
 
     <!-- Size of time zone analog clocks in world clock. -->
     <dimen name="world_clock_analog_size">100dp</dimen>
-    <!-- Size of digital world clock font in landscape. -->
-    <dimen name="world_clock_digital_font_size">40sp</dimen>
 
     <dimen name="min_analog_widget_size">110dp</dimen>
 
@@ -165,11 +151,4 @@
 
     <!-- KitKat floating action button container height; see -v21 folder for newer platforms. -->
     <dimen name="fab_height">96dp</dimen>
-
-    <!-- KitKat floating action button size; see -v21 folder for newer platforms. -->
-    <dimen name="fab_button_size">@dimen/design_fab_size_normal</dimen>
-
-    <!-- When fab buttons decrease in size this padding is used to scale the icon appropriately. -->
-    <dimen name="fab_button_padding">0dp</dimen>
-
 </resources>

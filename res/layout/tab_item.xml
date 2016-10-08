@@ -14,6 +14,13 @@
      limitations under the License.
 -->
 
-<pathInterpolator
+<TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:pathData="M 0.0,0.0 c 0.33333333,0.0 0.2,1.0 1.0,1.0" />
+    android:id="@android:id/text1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:drawablePadding="10dp"
+    android:gravity="center"
+    android:includeFontPadding="false"
+    android:singleLine="true"
+    android:textAppearance="@style/TextAppearance.Tab" />

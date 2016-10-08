@@ -138,11 +138,6 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
-    <style name="medium_light">
-        <item name="android:textSize">@dimen/medium_font_size</item>
-        <item name="android:fontFamily">sans-serif-thin</item>
-    </style>
-
     <style name="widget_medium_thin">
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>
@@ -179,11 +174,6 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
-    <style name="number_pad">
-        <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">sans-serif-light</item>
-    </style>
-
     <style name="sub_heading">
         <item name="android:textSize">24sp</item>
         <item name="android:fontFamily">sans-serif</item>
@@ -195,21 +185,9 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="button">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
-
     <style name="sub_text">
         <item name="android:textSize">14sp</item>
         <item name="alpha">.76</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
-
-    <style name="tab">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textAllCaps">true</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
@@ -263,6 +241,11 @@
     <style name="TextAppearance">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="TextAppearance.Tab" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <!-- Status Bar Styles -->

@@ -19,7 +19,6 @@
 <resources>
     <dimen name="time_margin_top">24dip</dimen>
 
-    <dimen name="dialpad_font_size">24sp</dimen>
     <dimen name="timer_setup_delete_margin">12sp</dimen>
 
     <dimen name="actionbar_tab_padding">32dip</dimen>
@@ -30,7 +29,4 @@
 
     <dimen name="circle_margin_top">0dp</dimen>
     <dimen name="bottom_text_spacing_analog">5dp</dimen>
-
-    <dimen name="medium_font_size">48sp</dimen>
-
 </resources>

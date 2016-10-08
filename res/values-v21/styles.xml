@@ -35,18 +35,6 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="button">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
-
-    <style name="tab">
-        <item name="android:textSize">12sp</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="android:fontFamily">sans-serif-medium</item>
-    </style>
-
     <style name="TextAppearance.StatusBar.EventContent" tools:ignore="PrivateResource">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/black_54p</item>
