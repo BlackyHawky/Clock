@@ -117,6 +117,53 @@
     <item msgid="7809240121716151904">"25 minutos"</item>
     <item msgid="4278641338024561333">"Nunca"</item>
   </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"Desactivar"</item>
+    <item msgid="7195451681426992018">"5 segundos"</item>
+    <item msgid="592917601923801901">"10 segundos"</item>
+    <item msgid="5050318776687582653">"15 segundos"</item>
+    <item msgid="6997726466563948756">"20 segundos"</item>
+    <item msgid="1237360231425097772">"25 segundos"</item>
+    <item msgid="248014374051498284">"30 segundos"</item>
+    <item msgid="6110450211551791852">"35 segundos"</item>
+    <item msgid="8010211657612404516">"40 segundos"</item>
+    <item msgid="3730631498119797451">"45 segundos"</item>
+    <item msgid="623829984393124488">"50 segundos"</item>
+    <item msgid="6390209981529164605">"55 segundos"</item>
+    <item msgid="5261571706794132923">"60 segundos"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1 minuto"</item>
+    <item msgid="4482596794620161030">"2 minutos"</item>
+    <item msgid="8478276201849960314">"3 minutos"</item>
+    <item msgid="4038456474851212478">"4 minutos"</item>
+    <item msgid="6298175579152122770">"5 minutos"</item>
+    <item msgid="9021860177999278496">"6 minutos"</item>
+    <item msgid="7224689200902680256">"7 minutos"</item>
+    <item msgid="4610012663985162123">"8 minutos"</item>
+    <item msgid="1717028898015659426">"9 minutos"</item>
+    <item msgid="8058492636464337699">"10 minutos"</item>
+    <item msgid="577767219993868603">"11 minutos"</item>
+    <item msgid="3710047869487864775">"12 minutos"</item>
+    <item msgid="3794200935630619331">"13 minutos"</item>
+    <item msgid="5462266433522229437">"14 minutos"</item>
+    <item msgid="2192100038569306041">"15 minutos"</item>
+    <item msgid="6636326047858437620">"16 minutos"</item>
+    <item msgid="2481054808772108352">"17 minutos"</item>
+    <item msgid="4080984064428458050">"18 minutos"</item>
+    <item msgid="5844319398703041730">"19 minutos"</item>
+    <item msgid="2334964289857921073">"20 minutos"</item>
+    <item msgid="4755209855817904977">"21 minutos"</item>
+    <item msgid="8414394445389367355">"22 minutos"</item>
+    <item msgid="2604612428763230265">"23 minutos"</item>
+    <item msgid="6871696471373403806">"24 minutos"</item>
+    <item msgid="1573685398431466364">"25 minutos"</item>
+    <item msgid="6999090368236684971">"26 minutos"</item>
+    <item msgid="7125056720603734703">"27 minutos"</item>
+    <item msgid="1695830988496463030">"28 minutos"</item>
+    <item msgid="6706610539793025916">"29 minutos"</item>
+    <item msgid="2898212818965905529">"30 minutos"</item>
+  </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"A semana comeza o"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Sábado"</item>
@@ -139,6 +186,8 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Etiqueta"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Ton de chamada"</string>
+    <string name="expand_description" msgid="4628777175148490497">"Despregar"</string>
+    <string name="collapse_description" msgid="6990773347180422954">"Contraer"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarma"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Temporizador"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Reloxo"</string>
@@ -183,6 +232,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"Eliminar"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Eliminar <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Engadir 1 minuto"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Engadir 1 minuto"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Deter"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Deter temporizadores"</string>
@@ -197,6 +247,10 @@
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Temporizador perdido: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Pausa"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Restablecer todo"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g>:<xliff:g id="MINUTES">%02d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Es o rei da velocidade."</item>
     <item msgid="6332879039890727169">"Goza dos froitos do teu traballo."</item>

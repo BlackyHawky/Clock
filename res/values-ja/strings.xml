@@ -117,6 +117,53 @@
     <item msgid="7809240121716151904">"25分"</item>
     <item msgid="4278641338024561333">"なし"</item>
   </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"OFF"</item>
+    <item msgid="7195451681426992018">"5秒"</item>
+    <item msgid="592917601923801901">"10秒"</item>
+    <item msgid="5050318776687582653">"15秒"</item>
+    <item msgid="6997726466563948756">"20秒"</item>
+    <item msgid="1237360231425097772">"25秒"</item>
+    <item msgid="248014374051498284">"30秒"</item>
+    <item msgid="6110450211551791852">"35秒"</item>
+    <item msgid="8010211657612404516">"40秒"</item>
+    <item msgid="3730631498119797451">"45秒"</item>
+    <item msgid="623829984393124488">"50秒"</item>
+    <item msgid="6390209981529164605">"55秒"</item>
+    <item msgid="5261571706794132923">"60秒"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1分"</item>
+    <item msgid="4482596794620161030">"2分"</item>
+    <item msgid="8478276201849960314">"3分"</item>
+    <item msgid="4038456474851212478">"4分"</item>
+    <item msgid="6298175579152122770">"5分"</item>
+    <item msgid="9021860177999278496">"6分"</item>
+    <item msgid="7224689200902680256">"7分"</item>
+    <item msgid="4610012663985162123">"8分"</item>
+    <item msgid="1717028898015659426">"9分"</item>
+    <item msgid="8058492636464337699">"10分"</item>
+    <item msgid="577767219993868603">"11分"</item>
+    <item msgid="3710047869487864775">"12分"</item>
+    <item msgid="3794200935630619331">"13分"</item>
+    <item msgid="5462266433522229437">"14分"</item>
+    <item msgid="2192100038569306041">"15分"</item>
+    <item msgid="6636326047858437620">"16分"</item>
+    <item msgid="2481054808772108352">"17分"</item>
+    <item msgid="4080984064428458050">"18分"</item>
+    <item msgid="5844319398703041730">"19分"</item>
+    <item msgid="2334964289857921073">"20分"</item>
+    <item msgid="4755209855817904977">"21分"</item>
+    <item msgid="8414394445389367355">"22分"</item>
+    <item msgid="2604612428763230265">"23分"</item>
+    <item msgid="6871696471373403806">"24分"</item>
+    <item msgid="1573685398431466364">"25分"</item>
+    <item msgid="6999090368236684971">"26分"</item>
+    <item msgid="7125056720603734703">"27分"</item>
+    <item msgid="1695830988496463030">"28分"</item>
+    <item msgid="6706610539793025916">"29分"</item>
+    <item msgid="2898212818965905529">"30分"</item>
+  </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"週の始まり"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"土曜日"</item>
@@ -139,6 +186,8 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"ラベル"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"着信音"</string>
+    <string name="expand_description" msgid="4628777175148490497">"展開"</string>
+    <string name="collapse_description" msgid="6990773347180422954">"折りたたむ"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"アラーム"</string>
     <string name="menu_timer" msgid="6459070074762877114">"タイマー"</string>
     <string name="menu_clock" msgid="5612760670606829805">"時計"</string>
@@ -183,6 +232,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"削除"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"<xliff:g id="NUMBER_STRING">%s</xliff:g>を削除"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"1分延長"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"1分追加"</string>
     <string name="timer_stop" msgid="3361154678667736722">"停止"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"タイマーをすべて停止"</string>
@@ -197,6 +247,10 @@
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"未応答のタイマー: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"一時停止"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"全タイマーをリセット"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g>:<xliff:g id="MINUTES">%02d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"なかなかのスピード狂です。"</item>
     <item msgid="6332879039890727169">"まさに努力の賜物です。"</item>

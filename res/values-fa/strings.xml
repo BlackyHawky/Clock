@@ -117,6 +117,53 @@
     <item msgid="7809240121716151904">"۲۵ دقیقه"</item>
     <item msgid="4278641338024561333">"هیچ‌وقت"</item>
   </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"خاموش"</item>
+    <item msgid="7195451681426992018">"۵ ثانیه"</item>
+    <item msgid="592917601923801901">"۱۰ ثانیه"</item>
+    <item msgid="5050318776687582653">"۱۵ ثانیه"</item>
+    <item msgid="6997726466563948756">"۲۰ ثانیه"</item>
+    <item msgid="1237360231425097772">"۲۵ ثانیه"</item>
+    <item msgid="248014374051498284">"۳۰ ثانیه"</item>
+    <item msgid="6110450211551791852">"۳۵ ثانیه"</item>
+    <item msgid="8010211657612404516">"۴۰ ثانیه"</item>
+    <item msgid="3730631498119797451">"۴۵ ثانیه"</item>
+    <item msgid="623829984393124488">"۵۰ ثانیه"</item>
+    <item msgid="6390209981529164605">"۵۵ ثانیه"</item>
+    <item msgid="5261571706794132923">"۶۰ ثانیه"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"۱ دقیقه"</item>
+    <item msgid="4482596794620161030">"۲ دقیقه"</item>
+    <item msgid="8478276201849960314">"۳ دقیقه"</item>
+    <item msgid="4038456474851212478">"۴ دقیقه"</item>
+    <item msgid="6298175579152122770">"۵ دقیقه"</item>
+    <item msgid="9021860177999278496">"۶ دقیقه"</item>
+    <item msgid="7224689200902680256">"۷ دقیقه"</item>
+    <item msgid="4610012663985162123">"۸ دقیقه"</item>
+    <item msgid="1717028898015659426">"۹ دقیقه"</item>
+    <item msgid="8058492636464337699">"۱۰ دقیقه"</item>
+    <item msgid="577767219993868603">"۱۱ دقیقه"</item>
+    <item msgid="3710047869487864775">"۱۲ دقیقه"</item>
+    <item msgid="3794200935630619331">"۱۳ دقیقه"</item>
+    <item msgid="5462266433522229437">"۱۴ دقیقه"</item>
+    <item msgid="2192100038569306041">"۱۵ دقیقه"</item>
+    <item msgid="6636326047858437620">"۱۶ دقیقه"</item>
+    <item msgid="2481054808772108352">"۱۷ دقیقه"</item>
+    <item msgid="4080984064428458050">"۱۸ دقیقه"</item>
+    <item msgid="5844319398703041730">"۱۹ دقیقه"</item>
+    <item msgid="2334964289857921073">"۲۰ دقیقه"</item>
+    <item msgid="4755209855817904977">"۲۱ دقیقه"</item>
+    <item msgid="8414394445389367355">"۲۲ دقیقه"</item>
+    <item msgid="2604612428763230265">"۲۳ دقیقه"</item>
+    <item msgid="6871696471373403806">"۲۴ دقیقه"</item>
+    <item msgid="1573685398431466364">"۲۵ دقیقه"</item>
+    <item msgid="6999090368236684971">"۲۶ دقیقه"</item>
+    <item msgid="7125056720603734703">"۲۷ دقیقه"</item>
+    <item msgid="1695830988496463030">"۲۸ دقیقه"</item>
+    <item msgid="6706610539793025916">"۲۹ دقیقه"</item>
+    <item msgid="2898212818965905529">"۳۰ دقیقه"</item>
+  </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"روز اول هفته"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"شنبه"</item>
@@ -139,6 +186,8 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"برچسب"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"آهنگ زنگ"</string>
+    <string name="expand_description" msgid="4628777175148490497">"بزرگ کردن"</string>
+    <string name="collapse_description" msgid="6990773347180422954">"کوچک کردن"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"هشدار"</string>
     <string name="menu_timer" msgid="6459070074762877114">"تایمر"</string>
     <string name="menu_clock" msgid="5612760670606829805">"ساعت"</string>
@@ -183,6 +232,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"حذف"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"حذف <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"افزودن ۱ دقیقه"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"‎+ ۱:۰۰"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"افزودن ۱ دقیقه"</string>
     <string name="timer_stop" msgid="3361154678667736722">"توقف"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"توقف همه تایمرها"</string>
@@ -197,6 +247,10 @@
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"تایمر ازدست‌رفته: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"مکث"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"بازنشانی همه تایمرها"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g>:<xliff:g id="MINUTES">%02d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"شما واقعاً خدای سرعت هستید."</item>
     <item msgid="6332879039890727169">"از ثمره زحمات خود لذت ببرید."</item>

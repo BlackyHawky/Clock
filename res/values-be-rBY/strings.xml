@@ -135,6 +135,53 @@
     <item msgid="7809240121716151904">"25 хвілін"</item>
     <item msgid="4278641338024561333">"Ніколі"</item>
   </string-array>
+  <string-array name="crescendo_entries">
+    <item msgid="7435149932182641128">"Адключана"</item>
+    <item msgid="7195451681426992018">"5 секунд"</item>
+    <item msgid="592917601923801901">"10 секунд"</item>
+    <item msgid="5050318776687582653">"15 секунд"</item>
+    <item msgid="6997726466563948756">"20 секунд"</item>
+    <item msgid="1237360231425097772">"25 секунд"</item>
+    <item msgid="248014374051498284">"30 секунд"</item>
+    <item msgid="6110450211551791852">"35 секунд"</item>
+    <item msgid="8010211657612404516">"40 секунд"</item>
+    <item msgid="3730631498119797451">"45 секунд"</item>
+    <item msgid="623829984393124488">"50 секунд"</item>
+    <item msgid="6390209981529164605">"55 секунд"</item>
+    <item msgid="5261571706794132923">"60 секунд"</item>
+  </string-array>
+  <string-array name="snooze_duration_entries">
+    <item msgid="7668553664977446797">"1 хвіліна"</item>
+    <item msgid="4482596794620161030">"2 хвіліны"</item>
+    <item msgid="8478276201849960314">"3 хвіліны"</item>
+    <item msgid="4038456474851212478">"4 хвіліны"</item>
+    <item msgid="6298175579152122770">"5 хвілін"</item>
+    <item msgid="9021860177999278496">"6 хвілін"</item>
+    <item msgid="7224689200902680256">"7 хвілін"</item>
+    <item msgid="4610012663985162123">"8 хвілін"</item>
+    <item msgid="1717028898015659426">"9 хвілін"</item>
+    <item msgid="8058492636464337699">"10 хвілін"</item>
+    <item msgid="577767219993868603">"11 хвілін"</item>
+    <item msgid="3710047869487864775">"12 хвілін"</item>
+    <item msgid="3794200935630619331">"13 хвілін"</item>
+    <item msgid="5462266433522229437">"14 хвілін"</item>
+    <item msgid="2192100038569306041">"15 хвілін"</item>
+    <item msgid="6636326047858437620">"16 хвілін"</item>
+    <item msgid="2481054808772108352">"17 хвілін"</item>
+    <item msgid="4080984064428458050">"18 хвілін"</item>
+    <item msgid="5844319398703041730">"19 хвілін"</item>
+    <item msgid="2334964289857921073">"20 хвілін"</item>
+    <item msgid="4755209855817904977">"21 хвіліна"</item>
+    <item msgid="8414394445389367355">"22 хвіліны"</item>
+    <item msgid="2604612428763230265">"23 хвіліны"</item>
+    <item msgid="6871696471373403806">"24 хвіліны"</item>
+    <item msgid="1573685398431466364">"25 хвілін"</item>
+    <item msgid="6999090368236684971">"26 хвілін"</item>
+    <item msgid="7125056720603734703">"27 хвілін"</item>
+    <item msgid="1695830988496463030">"28 хвілін"</item>
+    <item msgid="6706610539793025916">"29 хвілін"</item>
+    <item msgid="2898212818965905529">"30 хвілін"</item>
+  </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"Першы дзень тыдня"</string>
   <string-array name="week_start_entries">
     <item msgid="9010198173394482639">"Субота"</item>
@@ -157,6 +204,8 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Метка"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Мелодыя выкліку"</string>
+    <string name="expand_description" msgid="4628777175148490497">"Разгарнуць"</string>
+    <string name="collapse_description" msgid="6990773347180422954">"Згарнуць"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Будзільнік"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Гадзіннік"</string>
@@ -207,6 +256,7 @@
     <string name="timer_delete" msgid="8699122001991909302">"Выдаліць"</string>
     <string name="timer_descriptive_delete" msgid="8794915342760383536">"Выдаліць <xliff:g id="NUMBER_STRING">%s</xliff:g>"</string>
     <string name="timer_plus_one" msgid="6631211310420106116">"Дадаць 1 хвiліну"</string>
+    <string name="timer_add_minute" msgid="207816824783281446">"+ 1:00"</string>
     <string name="timer_plus_1_min" msgid="8645224089494875062">"Дадаць 1 хв"</string>
     <string name="timer_stop" msgid="3361154678667736722">"Спыніць"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"Спыніць усе таймеры"</string>
@@ -221,6 +271,10 @@
     <string name="missed_named_timer_notification_label" msgid="665604640028289175">"Прапушчаны таймер: <xliff:g id="NAME">%s</xliff:g>"</string>
     <string name="timer_pause" msgid="3748323712728398743">"Прыпыніць"</string>
     <string name="timer_reset_all" msgid="7530633132757866087">"Скінуць усе таймеры"</string>
+    <string name="hours_minutes_seconds" msgid="5680088738059791288">"<xliff:g id="HOURS">%d</xliff:g>:<xliff:g id="MINUTES">%02d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <string name="minutes_seconds" msgid="6189446107009577914">"<xliff:g id="MINUTES">%d</xliff:g>:<xliff:g id="SECONDS">%02d</xliff:g>"</string>
+    <!-- no translation found for seconds (6550091082396571898) -->
+    <skip />
   <string-array name="sw_share_strings">
     <item msgid="842841032273927988">"Ты хутчэй маланкi."</item>
     <item msgid="6332879039890727169">"Атрымлівайце асалоду ад вынiкаў сваёй працы."</item>
