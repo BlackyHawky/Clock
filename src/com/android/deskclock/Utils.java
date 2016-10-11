@@ -38,7 +38,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.AnyRes;
@@ -548,10 +547,10 @@ public class Utils {
     }
 
     public static long now() {
-        return SystemClock.elapsedRealtime();
+        return DataModel.getDataModel().elapsedRealtime();
     }
 
     public static long wallClock() {
-        return System.currentTimeMillis();
+        return DataModel.getDataModel().currentTimeMillis();
     }
 }
