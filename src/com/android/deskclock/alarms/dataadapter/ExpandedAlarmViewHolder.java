@@ -16,6 +16,11 @@
 
 package com.android.deskclock.alarms.dataadapter;
 
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -24,16 +29,17 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
@@ -61,6 +67,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public final CheckBox vibrate;
     public final TextView ringtone;
     public final ImageButton delete;
+    public final View hairLine;
 
     private final boolean mHasVibrator;
 
@@ -75,7 +82,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         int[] attrs = new int[] { android.R.attr.selectableItemBackground };
 
         final TypedArray typedArray = theme.obtainStyledAttributes(attrs);
-        final LayerDrawable background = new LayerDrawable(new Drawable[] {
+        LayerDrawable background = new LayerDrawable(new Drawable[] {
                 ContextCompat.getDrawable(context, R.drawable.alarm_background_expanded),
                 typedArray.getDrawable(0) });
         itemView.setBackground(background);
@@ -87,6 +94,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone = (TextView) itemView.findViewById(R.id.choose_ringtone);
         editLabel = (TextView) itemView.findViewById(R.id.edit_label);
         repeatDays = (LinearLayout) itemView.findViewById(R.id.repeat_days);
+        hairLine = itemView.findViewById(R.id.hairline);
 
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);
@@ -243,8 +251,220 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         return getItemHolder().getAlarmTimeClickHandler();
     }
 
-    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
+    @Override
+    public Animator onAnimateChange(final ViewHolder oldHolder, ViewHolder newHolder,
+            long duration) {
+        final boolean isExpanding = this == newHolder;
 
+        if (Utils.isLMR1OrLater()) {
+            arrow.setImageResource(isExpanding ? R.drawable.caret_toclose_animation
+                    : R.drawable.caret_toopen_animation);
+        }
+        arrow.setVisibility(View.VISIBLE);
+        clock.setVisibility(View.VISIBLE);
+        onOff.setVisibility(View.VISIBLE);
+        itemView.getBackground().setAlpha(isExpanding ? 0 : 255);
+        setChangingViewsAlpha(isExpanding ? 0f : 1f);
+
+        final Animator changeAnimatorSet = isExpanding
+                ? createExpandingAnimator(oldHolder, duration)
+                : createCollapsingAnimator(newHolder, duration);
+        changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                AnimatorUtils.startDrawableAnimation(arrow);
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                itemView.getBackground().setAlpha(255);
+                clock.setVisibility(View.VISIBLE);
+                onOff.setVisibility(View.VISIBLE);
+                arrow.setVisibility(View.VISIBLE);
+                arrow.setTranslationY(0f);
+                setChangingViewsAlpha(1f);
+                arrow.jumpDrawablesToCurrentState();
+            }
+        });
+        return changeAnimatorSet;
+    }
+
+    private Animator createCollapsingAnimator(ViewHolder newHolder, long duration) {
+        final boolean daysVisible = repeatDays.getVisibility() == View.VISIBLE;
+        final View newView = newHolder.itemView;
+        final int numberOfItems = countNumberOfItems();
+
+        // Since the delete button's margin adds height to the overall container, we need to account
+        // for that in calculating the arrow's movement.
+        final ViewGroup.MarginLayoutParams deleteLayoutParams =
+                (ViewGroup.MarginLayoutParams) delete.getLayoutParams();
+        final View containerView = itemView.findViewById(R.id.alarm_container);
+        float movement = (containerView.getBottom() - containerView.getTop()) + hairLine.getHeight()
+                - (newView.getBottom() - newView.getTop()) - deleteLayoutParams.bottomMargin;
+
+        // Create the animators.
+        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(itemView,
+                PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 255, 0));
+        backgroundAnimator.setDuration(duration);
+
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(itemView,
+                itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom(),
+                newView.getLeft(), newView.getTop(), newView.getRight(), newView.getBottom());
+        boundsAnimator.setDuration(duration);
+        boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
+        final long shortDuration = (long) (duration * ANIM_SHORT_DURATION_MULTIPLIER);
+        final Animator repeatAnimation = ObjectAnimator.ofFloat(repeat, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator editLabelAnimation = ObjectAnimator.ofFloat(editLabel, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator vibrateAnimation = ObjectAnimator.ofFloat(vibrate, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton,
+                View.ALPHA, 0f).setDuration(shortDuration);
+        final Animator deleteAnimation = ObjectAnimator.ofFloat(delete, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+        final Animator hairLineAnimation = ObjectAnimator.ofFloat(hairLine, View.ALPHA, 0f)
+                .setDuration(shortDuration);
+
+        final Animator arrowAnimation = ObjectAnimator.ofFloat(arrow, View.TRANSLATION_Y, -movement)
+                .setDuration(duration);
+        arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
+        // Set the staggered delays; use the first portion (duration * (1 - 1/4 - 1/6)) of the time,
+        // so that the final animation, with a duration of 1/4 the total duration, finishes exactly
+        // before the collapsed holder begins expanding.
+        long startDelay = 0L;
+        final long delayIncrement = (long) (duration * ANIM_LONG_DELAY_INCREMENT_MULTIPLIER)
+                / (numberOfItems - 1);
+        deleteAnimation.setStartDelay(startDelay);
+        if (preemptiveDismissButton.getVisibility() == View.VISIBLE) {
+            startDelay += delayIncrement;
+            dismissAnimation.setStartDelay(startDelay);
+        }
+        hairLineAnimation.setStartDelay(startDelay);
+        startDelay += delayIncrement;
+        editLabelAnimation.setStartDelay(startDelay);
+        startDelay += delayIncrement;
+        vibrateAnimation.setStartDelay(startDelay);
+        ringtoneAnimation.setStartDelay(startDelay);
+        startDelay += delayIncrement;
+        if (daysVisible) {
+            repeatDaysAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        repeatAnimation.setStartDelay(startDelay);
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(backgroundAnimator, boundsAnimator, repeatAnimation,
+                repeatDaysAnimation, vibrateAnimation, ringtoneAnimation, editLabelAnimation,
+                deleteAnimation, hairLineAnimation, dismissAnimation, arrowAnimation);
+        return animatorSet;
+    }
+
+    private Animator createExpandingAnimator(ViewHolder oldHolder, long duration) {
+        final boolean daysVisible = repeatDays.getVisibility() == View.VISIBLE;
+
+        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(itemView,
+                PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 0, 255));
+        backgroundAnimator.setDuration(duration);
+        backgroundAnimator.setDuration(duration);
+
+        // Since the delete button's margin adds height to the overall container, we need to account
+        // for that in calculating the arrow's movement.
+        final View oldView = oldHolder.itemView;
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(itemView,
+                oldView.getLeft(), oldView.getTop(), oldView.getRight(), oldView.getBottom(),
+                itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom());
+        boundsAnimator.setDuration(duration);
+        boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
+        final ViewGroup.MarginLayoutParams deleteLayoutParams =
+                (ViewGroup.MarginLayoutParams) delete.getLayoutParams();
+        final View containerView = itemView.findViewById(R.id.alarm_container);
+        float movement = (containerView.getBottom() - containerView.getTop()) + hairLine.getHeight()
+                - (oldView.getBottom() - oldView.getTop()) - deleteLayoutParams.bottomMargin;
+
+        final long longDuration = (long) (duration * ANIM_LONG_DURATION_MULTIPLIER);
+        final Animator repeatAnimation = ObjectAnimator.ofFloat(repeat, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator repeatDaysAnimation = ObjectAnimator.ofFloat(repeatDays, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator ringtoneAnimation = ObjectAnimator.ofFloat(ringtone, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator dismissAnimation = ObjectAnimator.ofFloat(preemptiveDismissButton,
+                View.ALPHA, 1f).setDuration(longDuration);
+        final Animator vibrateAnimation = ObjectAnimator.ofFloat(vibrate, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator editLabelAnimation = ObjectAnimator.ofFloat(editLabel, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator hairLineAnimation = ObjectAnimator.ofFloat(hairLine, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator deleteAnimation = ObjectAnimator.ofFloat(delete, View.ALPHA, 1f)
+                .setDuration(longDuration);
+        final Animator arrowAnimation = ObjectAnimator.ofFloat(
+                arrow, View.TRANSLATION_Y, -movement, 0f).setDuration(duration);
+        arrowAnimation.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
+        // Set the stagger delays; delay the first by the amount of time it takes for the collapse
+        // to complete, then stagger the expansion with the remaining time.
+        long startDelay = (long) (duration * ANIM_STANDARD_DELAY_MULTIPLIER);
+        final int numberOfItems = countNumberOfItems();
+        final long delayIncrement = (long) (duration * ANIM_SHORT_DELAY_INCREMENT_MULTIPLIER)
+                / (numberOfItems - 1);
+        repeatAnimation.setStartDelay(startDelay);
+        startDelay += delayIncrement;
+        if (daysVisible) {
+            repeatDaysAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        ringtoneAnimation.setStartDelay(startDelay);
+        vibrateAnimation.setStartDelay(startDelay);
+        startDelay += delayIncrement;
+        editLabelAnimation.setStartDelay(startDelay);
+        startDelay += delayIncrement;
+        hairLineAnimation.setStartDelay(startDelay);
+        if (preemptiveDismissButton.getVisibility() == View.VISIBLE) {
+            dismissAnimation.setStartDelay(startDelay);
+            startDelay += delayIncrement;
+        }
+        deleteAnimation.setStartDelay(startDelay);
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(backgroundAnimator, repeatAnimation, boundsAnimator,
+                repeatDaysAnimation, vibrateAnimation, ringtoneAnimation, editLabelAnimation,
+                deleteAnimation, hairLineAnimation, dismissAnimation, arrowAnimation);
+        return animatorSet;
+    }
+
+    private int countNumberOfItems() {
+        // Always between 4 and 6 items.
+        int numberOfItems = 4;
+        if (preemptiveDismissButton.getVisibility() == View.VISIBLE) {
+            numberOfItems++;
+        }
+        if (repeatDays.getVisibility() == View.VISIBLE) {
+            numberOfItems++;
+        }
+        return numberOfItems;
+    }
+
+    private void setChangingViewsAlpha(float alpha) {
+        repeat.setAlpha(alpha);
+        editLabel.setAlpha(alpha);
+        repeatDays.setAlpha(alpha);
+        vibrate.setAlpha(alpha);
+        ringtone.setAlpha(alpha);
+        hairLine.setAlpha(alpha);
+        delete.setAlpha(alpha);
+        preemptiveDismissButton.setAlpha(alpha);
+    }
+
+    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
         private final LayoutInflater mLayoutInflator;
         private final boolean mHasVibrator;
 

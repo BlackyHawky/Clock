@@ -16,13 +16,16 @@
 
 package com.android.deskclock;
 
+import android.animation.Animator;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
+import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.Property;
 import android.view.View;
 import android.view.animation.Interpolator;
@@ -41,6 +44,9 @@ public class AnimatorUtils {
             return 0.5f + 4.0f * (x - 0.5f) * (x - 0.5f) * (x - 0.5f);
         }
     };
+
+    public static final Interpolator INTERPOLATOR_FAST_OUT_SLOW_IN =
+            new FastOutSlowInInterpolator();
 
     public static final Property<View, Integer> BACKGROUND_ALPHA =
             new Property<View, Integer>(Integer.class, "background.alpha") {
@@ -148,5 +154,78 @@ public class AnimatorUtils {
 
     public static ValueAnimator getAlphaAnimator(View view, float... values) {
         return ObjectAnimator.ofFloat(view, View.ALPHA, values);
+    }
+
+    public static final Property<View, Integer> VIEW_LEFT =
+            new Property<View, Integer>(Integer.class, "left") {
+                @Override
+                public Integer get(View view) {
+                    return view.getLeft();
+                }
+
+                @Override
+                public void set(View view, Integer left) {
+                    view.setLeft(left);
+                }
+            };
+
+    public static final Property<View, Integer> VIEW_TOP =
+            new Property<View, Integer>(Integer.class, "top") {
+                @Override
+                public Integer get(View view) {
+                    return view.getTop();
+                }
+
+                @Override
+                public void set(View view, Integer top) {
+                    view.setTop(top);
+                }
+            };
+
+    public static final Property<View, Integer> VIEW_BOTTOM =
+            new Property<View, Integer>(Integer.class, "bottom") {
+                @Override
+                public Integer get(View view) {
+                    return view.getBottom();
+                }
+
+                @Override
+                public void set(View view, Integer bottom) {
+                    view.setBottom(bottom);
+                }
+            };
+
+    public static final Property<View, Integer> VIEW_RIGHT =
+            new Property<View, Integer>(Integer.class, "right") {
+                @Override
+                public Integer get(View view) {
+                    return view.getRight();
+                }
+
+                @Override
+                public void set(View view, Integer right) {
+                    view.setRight(right);
+                }
+            };
+
+    public static Animator getBoundsAnimator(View view, int fromLeft, int fromTop, int fromRight,
+            int fromBottom, int toLeft, int toTop, int toRight, int toBottom) {
+        view.setLeft(fromLeft);
+        view.setTop(fromTop);
+        view.setRight(fromRight);
+        view.setBottom(fromBottom);
+
+        return ObjectAnimator.ofPropertyValuesHolder(view,
+                PropertyValuesHolder.ofInt(VIEW_LEFT, toLeft),
+                PropertyValuesHolder.ofInt(VIEW_TOP, toTop),
+                PropertyValuesHolder.ofInt(VIEW_RIGHT, toRight),
+                PropertyValuesHolder.ofInt(VIEW_BOTTOM, toBottom));
+    }
+
+    public static void startDrawableAnimation(ImageView view) {
+        final Drawable d = view.getDrawable();
+        if (d instanceof Animatable) {
+            ((Animatable) d).start();
+        }
     }
 }

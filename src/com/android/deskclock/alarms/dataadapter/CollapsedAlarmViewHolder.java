@@ -16,12 +16,18 @@
 
 package com.android.deskclock.alarms.dataadapter;
 
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.Animator;
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
 import com.android.deskclock.data.DataModel;
@@ -91,7 +97,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         bindRepeatText(context, alarm);
         bindReadOnlyLabel(context, alarm);
         bindUpcomingInstance(context, alarm);
-        boolean boundPreemptiveDismiss =
+        final boolean boundPreemptiveDismiss =
                 bindPreemptiveDismissButton(context, alarm, alarmInstance);
         hairLine.setVisibility(boundPreemptiveDismiss ? View.GONE : View.VISIBLE);
     }
@@ -134,8 +140,74 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         }
     }
 
-    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
+    @Override
+    public Animator onAnimateChange(final ViewHolder oldHolder, ViewHolder newHolder,
+            long duration) {
+        final boolean isCollapsing = this == newHolder;
 
+        clock.setVisibility(View.INVISIBLE);
+        onOff.setVisibility(View.INVISIBLE);
+        arrow.setVisibility(View.INVISIBLE);
+        setChangingViewsAlpha(isCollapsing ? 0f : 1f);
+        final Animator changeAnimatorSet = isCollapsing
+                ? createCollapsingAnimator(oldHolder, duration)
+                : createExpandingAnimator(duration);
+        changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                clock.setVisibility(View.VISIBLE);
+                onOff.setVisibility(View.VISIBLE);
+                arrow.setVisibility(View.VISIBLE);
+                setChangingViewsAlpha(1f);
+            }
+        });
+        return changeAnimatorSet;
+    }
+
+    private Animator createExpandingAnimator(long duration) {
+        final AnimatorSet alphaAnimatorSet = new AnimatorSet();
+        alphaAnimatorSet.playTogether(
+                ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, 0f),
+                ObjectAnimator.ofFloat(daysOfWeek, View.ALPHA, 0f),
+                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, 0f),
+                ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 0f),
+                ObjectAnimator.ofFloat(hairLine, View.ALPHA, 0f));
+        alphaAnimatorSet.setDuration((long) (duration * ANIM_SHORT_DURATION_MULTIPLIER));
+        return alphaAnimatorSet;
+    }
+
+    private Animator createCollapsingAnimator(ViewHolder oldHolder, long duration) {
+        final AnimatorSet alphaAnimatorSet = new AnimatorSet();
+        alphaAnimatorSet.playTogether(
+                ObjectAnimator.ofFloat(alarmLabel, View.ALPHA, 1f),
+                ObjectAnimator.ofFloat(daysOfWeek, View.ALPHA, 1f),
+                ObjectAnimator.ofFloat(upcomingInstanceLabel, View.ALPHA, 1f),
+                ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 1f),
+                ObjectAnimator.ofFloat(hairLine, View.ALPHA, 1f));
+        final long standardDelay = (long) (duration * ANIM_STANDARD_DELAY_MULTIPLIER);
+        alphaAnimatorSet.setDuration(standardDelay);
+        alphaAnimatorSet.setStartDelay(duration - standardDelay);
+
+        final View oldView = oldHolder.itemView;
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(itemView,
+                oldView.getLeft(), oldView.getTop(), oldView.getRight(), oldView.getBottom(),
+                itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom());
+        boundsAnimator.setDuration(duration);
+        boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(alphaAnimatorSet, boundsAnimator);
+        return animatorSet;
+    }
+
+    private void setChangingViewsAlpha(float alpha) {
+        alarmLabel.setAlpha(alpha);
+        daysOfWeek.setAlpha(alpha);
+        upcomingInstanceLabel.setAlpha(alpha);
+        hairLine.setAlpha(alpha);
+    }
+
+    public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
         private final LayoutInflater mLayoutInflater;
 
         public Factory(LayoutInflater layoutInflater) {
