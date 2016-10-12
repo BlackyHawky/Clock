@@ -130,6 +130,7 @@
         <item name="android:includeFontPadding">false</item>
         <item name="android:singleLine">true</item>
         <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/timer_setup_digit_font_size</item>
     </style>
 
     <style name="timer_setup_label" parent="sub_heading">

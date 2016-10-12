@@ -20,6 +20,7 @@
     <dimen name="time_margin_top">24dip</dimen>
 
     <dimen name="timer_setup_delete_margin">12sp</dimen>
+    <dimen name="timer_setup_digit_font_size">26sp</dimen>
 
     <dimen name="actionbar_tab_padding">32dip</dimen>
 

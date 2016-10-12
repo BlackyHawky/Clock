@@ -18,4 +18,5 @@
      for different hardware and product builds. -->
 <resources>
     <dimen name="timer_setup_delete_margin">19sp</dimen>
+    <dimen name="timer_setup_digit_font_size">76sp</dimen>
 </resources>
