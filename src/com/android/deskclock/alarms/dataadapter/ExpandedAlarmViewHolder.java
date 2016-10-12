@@ -29,6 +29,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,8 +75,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public ExpandedAlarmViewHolder(View itemView, boolean hasVibrator) {
         super(itemView);
 
-        itemView.setAccessibilityDelegate(
-                new AlarmItemAccessibilityDelegate(R.string.collapse_description));
         final Context context = itemView.getContext();
         mHasVibrator = hasVibrator;
         final Resources.Theme theme = context.getTheme();
@@ -194,6 +193,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindVibrator(alarm);
         bindRingtone(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
+        ViewCompat.setAccessibilityDelegate(itemView,
+                new AlarmItemAccessibilityDelegate(
+                        itemView.getResources().getString(R.string.collapse_description)));
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
