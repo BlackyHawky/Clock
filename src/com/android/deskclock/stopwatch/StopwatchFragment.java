@@ -22,6 +22,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
+import android.graphics.drawable.Animatable;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -57,8 +59,6 @@ import static android.graphics.drawable.GradientDrawable.Orientation.TOP_BOTTOM;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_MORPH;
 import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
 
 /**
@@ -195,16 +195,39 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
     }
 
-    @Override
-    public void onUpdateFab(@NonNull ImageView fab) {
+    private void updateFab(@NonNull ImageView fab, boolean animate) {
         if (getStopwatch().isRunning()) {
-            fab.setImageResource(R.drawable.ic_pause_white_24dp);
+            if (animate) {
+                fab.setImageResource(R.drawable.ic_play_pause_animation);
+            } else {
+                fab.setImageResource(R.drawable.ic_play_pause);
+            }
             fab.setContentDescription(fab.getResources().getString(R.string.sw_pause_button));
         } else {
-            fab.setImageResource(R.drawable.ic_start_white_24dp);
+            if (animate) {
+                fab.setImageResource(R.drawable.ic_pause_play_animation);
+            } else {
+                fab.setImageResource(R.drawable.ic_pause_play);
+            }
             fab.setContentDescription(fab.getResources().getString(R.string.sw_start_button));
         }
         fab.setVisibility(VISIBLE);
+    }
+
+    public void onUpdateFab(@NonNull ImageView fab) {
+        updateFab(fab, false);
+    }
+
+    @Override
+    public void onMorphFab(@NonNull ImageView fab) {
+        // Update the fab's drawable to match the current timer state.
+        updateFab(fab, Utils.isLMR1OrLater());
+        // Animate the drawable.
+        final Drawable icon = fab.getDrawable();
+        if (icon instanceof Animatable) {
+            final Animatable animatable = (Animatable) icon;
+            animatable.start();
+        }
     }
 
     @Override
@@ -265,8 +288,12 @@ public final class StopwatchFragment extends DeskClockFragment {
      * Reset the stopwatch.
      */
     private void doReset() {
+        final Stopwatch.State priorState = getStopwatch().getState();
         Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
         DataModel.getDataModel().resetStopwatch();
+        if (priorState == Stopwatch.State.RUNNING) {
+            updateFab(FAB_MORPH);
+        }
     }
 
     /**
@@ -309,7 +336,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         }
 
         // Update button states.
-        updateFab(FAB_AND_BUTTONS_MORPH);
+        updateFab(BUTTONS_IMMEDIATE);
 
         if (lap.getLapNumber() == 1) {
             // Child views from prior lap sets hang around and blit to the screen when adding the
@@ -432,7 +459,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     /**
      * Synchronize the UI state with the model data.
      */
-    private void updateUI(UpdateType updateType) {
+    private void updateUI(@UpdateFabFlag int updateTypes) {
         adjustWakeLock();
 
         // Draw the latest stopwatch and current lap times.
@@ -455,7 +482,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         showOrHideLaps(stopwatch.isReset());
 
         // Update button states.
-        updateFab(updateType);
+        updateFab(updateTypes);
     }
 
     /**
@@ -507,9 +534,13 @@ public final class StopwatchFragment extends DeskClockFragment {
         public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
             if (after.isReset()) {
                 mLapCount = 0;
+                if (DataModel.getDataModel().isApplicationInForeground()) {
+                    updateUI(BUTTONS_IMMEDIATE);
+                }
+                return;
             }
             if (DataModel.getDataModel().isApplicationInForeground()) {
-                updateUI(FAB_AND_BUTTONS_MORPH);
+                updateUI(FAB_MORPH | BUTTONS_IMMEDIATE);
             }
         }
 

@@ -37,8 +37,8 @@ import com.android.deskclock.uidata.UiDataModel;
 import java.io.Serializable;
 import java.util.Arrays;
 
-import static com.android.deskclock.FabContainer.UpdateType.FAB_ONLY_SHRINK_AND_EXPAND;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_REQUESTS_FOCUS;
+import static com.android.deskclock.FabContainer.FAB_REQUEST_FOCUS;
+import static com.android.deskclock.FabContainer.FAB_SHRINK_AND_EXPAND;
 
 public class TimerSetupView extends LinearLayout implements Button.OnClickListener,
         Button.OnLongClickListener {
@@ -118,7 +118,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
 
     private boolean clickButton(View button) {
         button.performClick();
-        mFabContainer.updateFab(FAB_REQUESTS_FOCUS);
+        mFabContainer.updateFab(FAB_REQUEST_FOCUS);
         return true;
     }
 
@@ -275,7 +275,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     }
 
     private void updateFab() {
-        mFabContainer.updateFab(FAB_ONLY_SHRINK_AND_EXPAND);
+        mFabContainer.updateFab(FAB_SHRINK_AND_EXPAND);
     }
 
     private CharSequence createContentDescription(int hours, int minutes, int seconds) {

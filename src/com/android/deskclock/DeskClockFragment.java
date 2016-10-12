@@ -21,11 +21,10 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.view.KeyEvent;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
-
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
 
 public abstract class DeskClockFragment extends Fragment implements FabContainer, FabController {
 
@@ -61,6 +60,11 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
         // Do nothing here, only in derived classes
     }
 
+    @Override
+    public void onMorphFab(@NonNull ImageView fab) {
+        // Do nothing here, only in derived classes
+    }
+
     /**
      * @param color the newly installed app window color
      */
@@ -71,13 +75,13 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     /**
      * Requests that the parent activity update the fab and buttons.
      *
-     * @param updateType the manner in which the fab container should be updated
+     * @param updateTypes the manner in which the fab container should be updated
      */
     @Override
-    public final void updateFab(FabContainer.UpdateType updateType) {
+    public final void updateFab(@UpdateFabFlag int updateTypes) {
         final FabContainer parentFabContainer = (FabContainer) getActivity();
         if (parentFabContainer != null) {
-            parentFabContainer.updateFab(updateType);
+            parentFabContainer.updateFab(updateTypes);
         }
     }
 

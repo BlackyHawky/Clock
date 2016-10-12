@@ -84,9 +84,7 @@ import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static com.android.deskclock.AnimatorUtils.getAlphaAnimator;
 import static com.android.deskclock.AnimatorUtils.getScaleAnimator;
-import static com.android.deskclock.FabContainer.UpdateType.FAB_AND_BUTTONS_IMMEDIATE;
 
 /**
  * The main activity of the application which displays 4 different tabs contains alarms, world
@@ -117,6 +115,9 @@ public class DeskClock extends BaseActivity
 
     /** Hides, updates, and shows only the {@link #mFab}; the buttons are untouched. */
     private final AnimatorSet mUpdateFabOnlyAnimation = new AnimatorSet();
+
+    /** Hides, updates, and shows only the {@link #mLeftButton} and {@link #mRightButton}. */
+    private final AnimatorSet mUpdateButtonsOnlyAnimation = new AnimatorSet();
 
     /** Automatically starts the {@link #mShowAnimation} after {@link #mHideAnimation} ends. */
     private final AnimatorListenerAdapter mAutoStartShowListener = new AutoStartShowListener();
@@ -283,34 +284,57 @@ public class DeskClock extends BaseActivity
             }
         });
 
-        // Build the reusable animations that hide and show the fab and left/right buttons.
-        // These may be used independently or be chained together.
         final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
-        mHideAnimation
-                .setDuration(duration)
-                .play(getScaleAnimator(mFab, 1f, 0f))
-                .with(getAlphaAnimator(mLeftButton, 1f, 0f))
-                .with(getAlphaAnimator(mRightButton, 1f, 0f));
 
-        mShowAnimation
-                .setDuration(duration)
-                .play(getScaleAnimator(mFab, 0f, 1f))
-                .with(getAlphaAnimator(mLeftButton, 0f, 1f))
-                .with(getAlphaAnimator(mRightButton, 0f, 1f));
-
-        // Build the reusable animation that hides and shows only the fab.
         final ValueAnimator hideFabAnimation = getScaleAnimator(mFab, 1f, 0f);
+        final ValueAnimator showFabAnimation = getScaleAnimator(mFab, 0f, 1f);
+
+        final ValueAnimator leftHideAnimation = getScaleAnimator(mLeftButton, 1f, 0f);
+        final ValueAnimator rightHideAnimation = getScaleAnimator(mRightButton, 1f, 0f);
+        final ValueAnimator leftShowAnimation = getScaleAnimator(mLeftButton, 0f, 1f);
+        final ValueAnimator rightShowAnimation = getScaleAnimator(mRightButton, 0f, 1f);
+
         hideFabAnimation.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 getSelectedDeskClockFragment().onUpdateFab(mFab);
             }
         });
-        final ValueAnimator showFabAnimation = getScaleAnimator(mFab, 0f, 1f);
+
+        leftHideAnimation.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                getSelectedDeskClockFragment().onUpdateFabButtons(mLeftButton, mRightButton);
+            }
+        });
+
+        // Build the reusable animations that hide and show the fab and left/right buttons.
+        // These may be used independently or be chained together.
+        mHideAnimation
+                .setDuration(duration)
+                .play(hideFabAnimation)
+                .with(leftHideAnimation)
+                .with(rightHideAnimation);
+
+        mShowAnimation
+                .setDuration(duration)
+                .play(showFabAnimation)
+                .with(leftShowAnimation)
+                .with(rightShowAnimation);
+
+        // Build the reusable animation that hides and shows only the fab.
         mUpdateFabOnlyAnimation
                 .setDuration(duration)
                 .play(showFabAnimation)
                 .after(hideFabAnimation);
+
+        // Build the reusable animation that hides and shows only the buttons.
+        mUpdateButtonsOnlyAnimation
+                .setDuration(duration)
+                .play(leftShowAnimation)
+                .with(rightShowAnimation)
+                .after(leftHideAnimation)
+                .after(rightHideAnimation);
 
         // Customize the view pager.
         mFragmentTabPagerAdapter = new TabFragmentAdapter(this);
@@ -496,35 +520,38 @@ public class DeskClock extends BaseActivity
     }
 
     @Override
-    public void updateFab(UpdateType updateType) {
-        switch (updateType) {
-            case DISABLE_BUTTONS: {
+    public void updateFab(@UpdateFabFlag int updateType) {
+        final DeskClockFragment f = getSelectedDeskClockFragment();
+
+        switch (updateType & FAB_ANIMATION_MASK) {
+            case FAB_SHRINK_AND_EXPAND:
+                mUpdateFabOnlyAnimation.start();
+                break;
+            case FAB_IMMEDIATE:
+                f.onUpdateFab(mFab);
+                break;
+            case FAB_MORPH:
+                f.onMorphFab(mFab);
+                break;
+        }
+        switch (updateType & FAB_REQUEST_FOCUS_MASK) {
+            case FAB_REQUEST_FOCUS:
+                mFab.requestFocus();
+                break;
+        }
+        switch (updateType & BUTTONS_ANIMATION_MASK) {
+            case BUTTONS_IMMEDIATE:
+                f.onUpdateFabButtons(mLeftButton, mRightButton);
+                break;
+            case BUTTONS_SHRINK_AND_EXPAND:
+                mUpdateButtonsOnlyAnimation.start();
+                break;
+        }
+        switch (updateType & BUTTONS_DISABLE_MASK) {
+            case BUTTONS_DISABLE:
                 mLeftButton.setEnabled(false);
                 mRightButton.setEnabled(false);
                 break;
-            }
-            case FAB_AND_BUTTONS_MORPH:
-            case FAB_AND_BUTTONS_IMMEDIATE: {
-                final DeskClockFragment f = getSelectedDeskClockFragment();
-                f.onUpdateFab(mFab);
-                f.onUpdateFabButtons(mLeftButton, mRightButton);
-                break;
-            }
-            case FAB_ONLY_SHRINK_AND_EXPAND: {
-                mUpdateFabOnlyAnimation.start();
-                break;
-            }
-            case FAB_AND_BUTTONS_SHRINK_AND_EXPAND: {
-                // Ensure there is never more than one mAutoStartShowListener registered.
-                mHideAnimation.removeListener(mAutoStartShowListener);
-                mHideAnimation.addListener(mAutoStartShowListener);
-                mHideAnimation.start();
-                break;
-            }
-            case FAB_REQUESTS_FOCUS: {
-                mFab.requestFocus();
-                break;
-            }
         }
     }
 
