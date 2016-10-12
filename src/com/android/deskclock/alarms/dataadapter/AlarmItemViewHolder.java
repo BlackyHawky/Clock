@@ -17,21 +17,23 @@
 package com.android.deskclock.alarms.dataadapter;
 
 import android.content.Context;
-import android.support.annotation.StringRes;
+import android.support.v4.view.AccessibilityDelegateCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat;
+import android.support.v4.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat;
 import android.view.View;
-import android.view.accessibility.AccessibilityNodeInfo;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.deskclock.AlarmUtils;
 import com.android.deskclock.ItemAdapter;
-import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 import com.android.deskclock.ItemAnimator;
+import com.android.deskclock.R;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.widget.TextTime;
+
+import static android.support.v4.view.accessibility.AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_CLICK;
 
 /**
  * Abstract ViewHolder for alarm time items.
@@ -83,27 +85,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         });
     }
 
-    static final class AlarmItemAccessibilityDelegate extends View.AccessibilityDelegate {
-
-        private final @StringRes int mLabel;
-
-        AlarmItemAccessibilityDelegate(@StringRes int label) {
-            mLabel = label;
-        }
-
-        @Override
-        public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfo info) {
-            super.onInitializeAccessibilityNodeInfo(host, info);
-
-            // Replace the default announcement on the clickable background.
-            if (Utils.isLOrLater()) {
-                info.addAction(new AccessibilityNodeInfo.AccessibilityAction
-                        (AccessibilityNodeInfo.AccessibilityAction.ACTION_CLICK.getId(),
-                                host.getResources().getString(mLabel)));
-            }
-        }
-    }
-
     @Override
     protected void onBindItemView(final AlarmItemHolder itemHolder) {
         final Alarm alarm = itemHolder.item;
@@ -140,5 +121,22 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             preemptiveDismissButton.setClickable(false);
         }
         return canBind;
+    }
+
+    static final class AlarmItemAccessibilityDelegate extends AccessibilityDelegateCompat {
+
+        String mLabel;
+
+        AlarmItemAccessibilityDelegate(String label) {
+            mLabel = label;
+        }
+
+        @Override
+        public void onInitializeAccessibilityNodeInfo(View host, AccessibilityNodeInfoCompat info) {
+            super.onInitializeAccessibilityNodeInfo(host, info);
+
+            // Replace the default announcement on the clickable background.
+            info.addAction(new AccessibilityActionCompat(ACTION_CLICK.getId(), mLabel));
+        }
     }
 }

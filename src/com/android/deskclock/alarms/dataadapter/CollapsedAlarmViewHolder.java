@@ -21,6 +21,7 @@ import android.animation.AnimatorSet;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,8 +53,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
     public CollapsedAlarmViewHolder(View itemView) {
         super(itemView);
 
-        itemView.setAccessibilityDelegate(
-                new AlarmItemAccessibilityDelegate(R.string.expand_description));
         alarmLabel = (TextView) itemView.findViewById(R.id.label);
         daysOfWeek = (TextView) itemView.findViewById(R.id.days_of_week);
         upcomingInstanceLabel = (TextView) itemView.findViewById(R.id.upcoming_instance_label);
@@ -100,6 +99,9 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean boundPreemptiveDismiss =
                 bindPreemptiveDismissButton(context, alarm, alarmInstance);
         hairLine.setVisibility(boundPreemptiveDismiss ? View.GONE : View.VISIBLE);
+        ViewCompat.setAccessibilityDelegate(itemView,
+                new AlarmItemAccessibilityDelegate(
+                        itemView.getResources().getString(R.string.expand_description)));
     }
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {
