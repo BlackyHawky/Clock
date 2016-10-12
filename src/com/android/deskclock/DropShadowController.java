@@ -141,17 +141,6 @@ public final class DropShadowController {
     }
 
     /**
-     * Update the drop shadow when dragging to switch tabs.
-     *
-     * @param scrollHasEnded {@code true} indicates the drop shadow should be hidden;
-     *      {@code false} indicates the drop shadow should be displayed
-     */
-    public void setHorizontallyScrolling(boolean scrollHasEnded) {
-        // Show if scroll started or if it's ended, but we've scrolled down the page.
-        updateDropShadow(!scrollHasEnded || !mUiDataModel.isSelectedTabScrolledToTop());
-    }
-
-    /**
      * Update the drop shadow as the scrollable entity is scrolled.
      */
     private final class ScrollChangeWatcher extends RecyclerView.OnScrollListener

@@ -672,12 +672,6 @@ public class DeskClock extends BaseActivity
                 mFabState = FabState.HIDE_ARMED;
             }
 
-            if (state == SCROLL_STATE_DRAGGING && mPriorState != SCROLL_STATE_DRAGGING) {
-                mDropShadowController.setHorizontallyScrolling(false);
-            } else if (state != SCROLL_STATE_DRAGGING && mPriorState == SCROLL_STATE_DRAGGING) {
-                mDropShadowController.setHorizontallyScrolling(true);
-            }
-
             // Update the last known state.
             mPriorState = state;
         }
