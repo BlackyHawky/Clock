@@ -277,4 +277,8 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="TimePickerTheme" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

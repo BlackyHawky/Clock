@@ -2,7 +2,6 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_RESOURCE_DIR := packages/apps/DeskClock/res
-LOCAL_RESOURCE_DIR += frameworks/opt/datetimepicker/res
 
 ifeq ($(TARGET_BUILD_APPS),)
 LOCAL_RESOURCE_DIR += frameworks/support/design/res
@@ -34,8 +33,7 @@ LOCAL_PROGUARD_FLAG_FILES := ../../../frameworks/support/design/proguard-rules.p
 LOCAL_PROGUARD_FLAG_FILES += ../../../frameworks/support/v7/preference/proguard-rules.pro
 LOCAL_PROGUARD_FLAG_FILES += ../../../frameworks/support/v7/recyclerview/proguard-rules.pro
 
-LOCAL_STATIC_JAVA_LIBRARIES := android-opt-datetimepicker
-LOCAL_STATIC_JAVA_LIBRARIES += android-support-design
+LOCAL_STATIC_JAVA_LIBRARIES := android-support-design
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-percent
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v13
 LOCAL_STATIC_JAVA_LIBRARIES += android-support-v14-preference
@@ -52,6 +50,5 @@ LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.appcompat
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.gridlayout
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.preference
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.recyclerview
-LOCAL_AAPT_FLAGS += --extra-packages com.android.datetimepicker
 
 include $(BUILD_PACKAGE)

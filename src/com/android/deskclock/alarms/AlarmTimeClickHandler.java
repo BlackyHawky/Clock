@@ -26,7 +26,6 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.text.format.DateFormat;
 
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
@@ -151,8 +150,7 @@ public final class AlarmTimeClickHandler {
 
     public void onClockClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        TimePickerCompat.showTimeEditDialog(mFragment, alarm,
-                DateFormat.is24HourFormat(mFragment.getActivity()));
+        TimePickerDialogFragment.show(mFragment, alarm.hour, alarm.minutes);
     }
 
     public void dismissAlarmInstance(AlarmInstance alarmInstance) {
@@ -193,7 +191,7 @@ public final class AlarmTimeClickHandler {
         LabelDialogFragment.show(mFragment.getFragmentManager(), fragment);
     }
 
-    public void processTimeSet(int hourOfDay, int minute) {
+    public void onTimeSet(int hourOfDay, int minute) {
         if (mSelectedAlarm == null) {
             // If mSelectedAlarm is null then we're creating a new alarm.
             final Alarm a = new Alarm();

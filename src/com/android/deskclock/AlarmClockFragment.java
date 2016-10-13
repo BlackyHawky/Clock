@@ -28,7 +28,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,7 +39,7 @@ import android.widget.TextView;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.alarms.AlarmUpdateHandler;
 import com.android.deskclock.alarms.ScrollHandler;
-import com.android.deskclock.alarms.TimePickerCompat;
+import com.android.deskclock.alarms.TimePickerDialogFragment;
 import com.android.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.android.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
 import com.android.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
@@ -62,7 +61,7 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
 public final class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
         ScrollHandler,
-        TimePickerCompat.OnTimeSetListener {
+        TimePickerDialogFragment.OnTimeSetListener {
 
     // This extra is used when receiving an intent to create an alarm, but no alarm details
     // have been passed in, so the alarm page should start the process of creating a new alarm.
@@ -99,11 +98,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
      */
     public AlarmClockFragment() {
         super(ALARMS);
-    }
-
-    @Override
-    public void processTimeSet(int hourOfDay, int minute) {
-        mAlarmTimeClickHandler.processTimeSet(hourOfDay, minute);
     }
 
     @Override
@@ -186,7 +180,7 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         super.onStart();
 
         if (!isTabSelected()) {
-            TimePickerCompat.removeTimeEditDialog(getFragmentManager());
+            TimePickerDialogFragment.removeTimeEditDialog(getFragmentManager());
         }
     }
 
@@ -395,8 +389,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     private void startCreatingAlarm() {
         // Clear the currently selected alarm.
         mAlarmTimeClickHandler.setSelectedAlarm(null);
-        TimePickerCompat.showTimeEditDialog(this, null /* alarm */,
-                DateFormat.is24HourFormat(getActivity()));
+        TimePickerDialogFragment.show(this);
+    }
+
+    @Override
+    public void onTimeSet(TimePickerDialogFragment fragment, int hourOfDay, int minute) {
+        mAlarmTimeClickHandler.onTimeSet(hourOfDay, minute);
     }
 
     /**
