@@ -101,6 +101,15 @@ public class Utils {
         }
     }
 
+    public static int indexOf(Object[] array, Object item) {
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(item)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     /**
      * @return {@code true} if the device is prior to {@link Build.VERSION_CODES#LOLLIPOP}
      */

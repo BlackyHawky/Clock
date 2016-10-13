@@ -169,15 +169,19 @@ public final class SettingsActivity extends BaseActivity {
         public boolean onPreferenceChange(Preference pref, Object newValue) {
             switch (pref.getKey()) {
                 case KEY_ALARM_CRESCENDO:
-                case KEY_VOLUME_BUTTONS:
-                case KEY_CLOCK_STYLE:
                 case KEY_HOME_TZ:
-                case KEY_WEEK_START:
                 case KEY_ALARM_SNOOZE:
                 case KEY_TIMER_CRESCENDO:
                     final ListPreference preference = (ListPreference) pref;
                     final int index = preference.findIndexOfValue((String) newValue);
                     preference.setSummary(preference.getEntries()[index]);
+                    break;
+                case KEY_CLOCK_STYLE:
+                case KEY_WEEK_START:
+                case KEY_VOLUME_BUTTONS:
+                    final SimpleMenuPreference simpleMenuPreference = (SimpleMenuPreference) pref;
+                    final int i = simpleMenuPreference.findIndexOfValue((String) newValue);
+                    pref.setSummary(simpleMenuPreference.getEntries()[i]);
                     break;
                 case KEY_AUTO_SILENCE:
                     final String delay = (String) newValue;
@@ -290,9 +294,15 @@ public final class SettingsActivity extends BaseActivity {
             updateAutoSnoozeSummary(autoSilencePref, delay);
             autoSilencePref.setOnPreferenceChangeListener(this);
 
-            final ListPreference clockStylePref = (ListPreference) findPreference(KEY_CLOCK_STYLE);
+            final SimpleMenuPreference clockStylePref = (SimpleMenuPreference)
+                    findPreference(KEY_CLOCK_STYLE);
             clockStylePref.setSummary(clockStylePref.getEntry());
             clockStylePref.setOnPreferenceChangeListener(this);
+
+            final SimpleMenuPreference volumeButtonsPref = (SimpleMenuPreference)
+                    findPreference(KEY_VOLUME_BUTTONS);
+            volumeButtonsPref.setSummary(volumeButtonsPref.getEntry());
+            volumeButtonsPref.setOnPreferenceChangeListener(this);
 
             final Preference autoHomeClockPref = findPreference(KEY_AUTO_HOME_CLOCK);
             final boolean autoHomeClockEnabled =
@@ -306,12 +316,12 @@ public final class SettingsActivity extends BaseActivity {
             refreshListPreference((ListPreference) findPreference(KEY_ALARM_CRESCENDO));
             refreshListPreference((ListPreference) findPreference(KEY_TIMER_CRESCENDO));
             refreshListPreference((ListPreference) findPreference(KEY_ALARM_SNOOZE));
-            refreshListPreference((ListPreference) findPreference(KEY_VOLUME_BUTTONS));
 
             final Preference dateAndTimeSetting = findPreference(KEY_DATE_TIME);
             dateAndTimeSetting.setOnPreferenceClickListener(this);
 
-            final ListPreference weekStartPref = (ListPreference) findPreference(KEY_WEEK_START);
+            final SimpleMenuPreference weekStartPref = (SimpleMenuPreference)
+                    findPreference(KEY_WEEK_START);
             // Set the default value programmatically
             final Weekdays.Order weekdayOrder = DataModel.getDataModel().getWeekdayOrder();
             final Integer firstDay = weekdayOrder.getCalendarDays().get(0);
