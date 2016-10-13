@@ -27,8 +27,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.annotation.StringRes;
 import android.support.v4.app.NotificationManagerCompat;
@@ -49,7 +47,7 @@ import java.util.List;
 import java.util.Set;
 
 import static android.app.AlarmManager.ELAPSED_REALTIME_WAKEUP;
-import static android.text.format.DateUtils.*;
+import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.android.deskclock.data.Timer.State.EXPIRED;
 import static com.android.deskclock.data.Timer.State.RESET;
 
@@ -74,6 +72,9 @@ final class TimerModel {
 
     /** The model from which notification data are fetched. */
     private final NotificationModel mNotificationModel;
+
+    /** The model from which ringtone data are fetched. */
+    private final RingtoneModel mRingtoneModel;
 
     /** Used to create and destroy system notifications related to timers. */
     private final NotificationManagerCompat mNotificationManager;
@@ -125,9 +126,11 @@ final class TimerModel {
      */
     private Service mService;
 
-    TimerModel(Context context, SettingsModel settingsModel, NotificationModel notificationModel) {
+    TimerModel(Context context, SettingsModel settingsModel, RingtoneModel ringtoneModel,
+            NotificationModel notificationModel) {
         mContext = context;
         mSettingsModel = settingsModel;
+        mRingtoneModel = ringtoneModel;
         mNotificationModel = notificationModel;
         mNotificationManager = NotificationManagerCompat.from(context);
 
@@ -434,8 +437,7 @@ final class TimerModel {
                     // Special case: default ringtone has a title of "Timer Expired".
                     mTimerRingtoneTitle = mContext.getString(R.string.default_timer_ringtone_title);
                 } else {
-                    final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
-                    mTimerRingtoneTitle = ringtone.getTitle(mContext);
+                    mTimerRingtoneTitle = mRingtoneModel.getRingtoneTitle(uri);
                 }
             }
         }
@@ -444,14 +446,14 @@ final class TimerModel {
     }
 
     /**
-     * @return whether vibration is enabled for timers.
+     * @return {@code true} if the device vibrates when timers expire
      */
     boolean getTimerVibrate() {
         return mSettingsModel.getTimerVibrate();
     }
 
     /**
-     * @param enabled whether the
+     * @param enabled {@code true} if the device should vibrate when timers expire
      */
     void setTimerVibrate(boolean enabled) {
         mSettingsModel.setTimerVibrate(enabled);

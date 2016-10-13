@@ -45,9 +45,6 @@ final class AlarmModel {
     /** The uri of the default ringtone to play for new alarms; mirrors last selection. */
     private Uri mDefaultAlarmRingtoneUri;
 
-    /** Maps ringtone uri to ringtone title; looking up a title from scratch is expensive. */
-    private final Map<Uri, String> mRingtoneTitles = new ArrayMap<>(8);
-
     AlarmModel(Context context, SettingsModel settingsModel) {
         mContext = context;
         mSettingsModel = settingsModel;
@@ -74,30 +71,6 @@ final class AlarmModel {
         }
     }
 
-    String getAlarmRingtoneTitle(Uri uri) {
-        // Special case: no ringtone has a title of "Silent".
-        if (Alarm.NO_RINGTONE_URI.equals(uri)) {
-            return mContext.getString(R.string.silent_ringtone_title);
-        }
-
-        // Check the cache.
-        String title = mRingtoneTitles.get(uri);
-
-        if (title == null) {
-            // This is slow because a media player is created during Ringtone object creation.
-            final Ringtone ringtone = RingtoneManager.getRingtone(mContext, uri);
-            if (ringtone == null) {
-                LogUtils.e("No ringtone for uri: %s", uri);
-                return mContext.getString(R.string.unknown_ringtone_title);
-            }
-
-            // Cache the title for later use.
-            title = ringtone.getTitle(mContext);
-            mRingtoneTitles.put(uri, title);
-        }
-        return title;
-    }
-
     /**
      * This receiver is notified when system settings change. Cached information built on
      * those system settings must be cleared.
@@ -111,13 +84,7 @@ final class AlarmModel {
         @Override
         public void onChange(boolean selfChange) {
             super.onChange(selfChange);
-
-            LogUtils.i("Detected change to system default alarm ringtone; clearing caches");
-
             mDefaultAlarmRingtoneUri = null;
-
-            // Titles such as "Default ringtone (Oxygen)" are wrong after default ringtone changes.
-            mRingtoneTitles.clear();
         }
     }
 }

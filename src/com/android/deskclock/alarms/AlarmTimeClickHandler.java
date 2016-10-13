@@ -16,12 +16,14 @@
 
 package com.android.deskclock.alarms;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.text.format.DateFormat;
@@ -29,7 +31,7 @@ import android.text.format.DateFormat;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.RingtonePickerDialogFragment;
+import com.android.deskclock.ringtone.RingtonePickerActivity;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.provider.Alarm;
@@ -65,10 +67,6 @@ public final class AlarmTimeClickHandler {
         if (mPreviousDaysOfWeekMap == null) {
             mPreviousDaysOfWeekMap = new Bundle();
         }
-    }
-
-    public Alarm getSelectedAlarm() {
-        return mSelectedAlarm;
     }
 
     public void setSelectedAlarm(Alarm selectedAlarm) {
@@ -177,12 +175,16 @@ public final class AlarmTimeClickHandler {
         }
         ft.addToBackStack(null);
 
-        new RingtonePickerDialogFragment.Builder()
-                .setTitle(R.string.alert)
-                .setDefaultRingtoneTitle(R.string.default_alarm_ringtone_title)
-                .setDefaultRingtoneUri(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM))
-                .setExistingRingtoneUri(alarm.alert)
-                .show(ft, RINGTONE_PICKER_FRAG_TAG);
+        final Activity activity = mFragment.getActivity();
+        final Uri systemDefaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        final int systemDefaultNameId = R.string.default_alarm_ringtone_title;
+        final Intent ringtoneIntent = new Intent(activity, RingtonePickerActivity.class)
+                .putExtra(RingtonePickerActivity.EXTRA_TITLE, R.string.alarm_sound)
+                .putExtra(RingtonePickerActivity.EXTRA_ALARM_ID, alarm.id)
+                .putExtra(RingtonePickerActivity.EXTRA_RINGTONE_URI, alarm.alert)
+                .putExtra(RingtonePickerActivity.EXTRA_DEFAULT_RINGTONE_URI, systemDefaultUri)
+                .putExtra(RingtonePickerActivity.EXTRA_DEFAULT_RINGTONE_NAME, systemDefaultNameId);
+        activity.startActivity(ringtoneIntent);
     }
 
     public void onEditLabelClicked(Alarm alarm) {

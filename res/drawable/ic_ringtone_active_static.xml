@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="ic_ringtone_active_static"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24"
+    android:viewportWidth="24">
+    <group
+        android:name="ic_ringtone_active_outlines_0"
+        android:rotation="12"
+        android:translateX="12"
+        android:translateY="5.99219">
+        <group
+            android:name="ic_ringtone_active_outlines_0_pivot"
+            android:translateX="-12.00098"
+            android:translateY="-5.98438">
+            <group
+                android:name="group_1"
+                android:translateX="12"
+                android:translateY="12.25">
+                <path
+                    android:name="path_2"
+                    android:fillColor="#FFFFFFFF"
+                    android:pathData="M 6.0,-1.25 c 0.0,-3.07000732422 -1.63999938965,-5.63999938965 -4.5,-6.32000732422 c 0.0,0.0 0.0,-0.679992675781 0.0,-0.679992675781 c 0.0,-0.830001831055 -0.669998168945,-1.5 -1.5,-1.5 c -0.830001831055,0.0 -1.5,0.669998168945 -1.5,1.5 c 0.0,0.0 0.0,0.679992675781 0.0,0.679992675781 c -2.86999511719,0.68000793457 -4.5,3.24000549316 -4.5,6.32000732422 c 0.0,0.0 0.0,5.0 0.0,5.0 c 0.0,0.0 -2.0,2.0 -2.0,2.0 c 0.0,0.0 0.0,1.0 0.0,1.0 c 0.0,0.0 16.0,0.0 16.0,0.0 c 0.0,0.0 0.0,-1.0 0.0,-1.0 c 0.0,0.0 -2.0,-2.0 -2.0,-2.0 c 0.0,0.0 0.0,-5.0 0.0,-5.0 Z" />
+            </group>
+            <group
+                android:name="ic_ringtone_active_outlines_1"
+                android:rotation="-8"
+                android:translateX="12.00098"
+                android:translateY="9.99219">
+                <group
+                    android:name="ic_ringtone_active_outlines_1_pivot"
+                    android:translateX="-12.00098"
+                    android:translateY="-9.99219">
+                    <group
+                        android:name="group_2"
+                        android:translateX="12"
+                        android:translateY="12.25">
+                        <path
+                            android:name="path_4_merged"
+                            android:fillColor="#FFFFFFFF"
+                            android:pathData="M -4.41999816895,-8.16999816895 c 0.0,0.0 -1.43000793457,-1.43000793457 -1.43000793457,-1.43000793457 c -2.39999389648,1.83000183105 -3.97999572754,4.65000915527 -4.11999511719,7.85000610352 c 0.0,0.0 2.0,0.0 2.0,0.0 c 0.149993896484,-2.64999389648 1.50999450684,-4.9700012207 3.55000305176,-6.41999816895 Z M 7.9700012207,-1.75 c 0.0,0.0 2.0,0.0 2.0,0.0 c -0.149993896484,-3.19999694824 -1.72999572754,-6.02000427246 -4.11999511719,-7.85000610352 c 0.0,0.0 -1.42001342773,1.43000793457 -1.42001342773,1.43000793457 c 2.02000427246,1.44999694824 3.39001464844,3.77000427246 3.54000854492,6.41999816895 Z" />
+                    </group>
+                </group>
+            </group>
+            <group
+                android:name="ic_ringtone_active_outlines_2">
+                <group
+                    android:name="ic_ringtone_active_outlines_2_pivot"
+                    android:translateX="0"
+                    android:translateY="0">
+                    <group
+                        android:name="group_3"
+                        android:translateX="12"
+                        android:translateY="12.25">
+                        <path
+                            android:name="path_1"
+                            android:fillColor="#FFFFFFFF"
+                            android:pathData="M 0.0,9.75 c 0.139999389648,0.0 0.270004272461,-0.00999450683594 0.399993896484,-0.0399932861328 c 0.650009155273,-0.139999389648 1.18000793457,-0.580001831055 1.44000244141,-1.18000793457 c 0.100006103516,-0.239990234375 0.150009155273,-0.5 0.150009155273,-0.779998779297 c 0.0,0.0 -4.0,0.0 -4.0,0.0 c 0.00999450683594,1.10000610352 0.899993896484,2.0 2.00999450684,2.0 Z" />
+                    </group>
+                </group>
+            </group>
+        </group>
+    </group>
+</vector>

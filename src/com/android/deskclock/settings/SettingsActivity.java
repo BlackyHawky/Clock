@@ -38,13 +38,13 @@ import com.android.deskclock.BaseActivity;
 import com.android.deskclock.DropShadowController;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.RingtonePickerDialogFragment;
 import com.android.deskclock.Utils;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
+import com.android.deskclock.ringtone.RingtonePickerActivity;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -137,7 +137,6 @@ public final class SettingsActivity extends BaseActivity {
     }
 
     public static class PrefsFragment extends PreferenceFragment implements
-            RingtonePickerDialogFragment.OnRingtoneSelectedListener,
             Preference.OnPreferenceChangeListener,
             Preference.OnPreferenceClickListener {
 
@@ -223,25 +222,19 @@ public final class SettingsActivity extends BaseActivity {
                     startActivity(dialogIntent);
                     return true;
                 case KEY_TIMER_RINGTONE:
-                    new RingtonePickerDialogFragment.Builder()
-                            .setTitle(R.string.timer_ringtone_title)
-                            .setDefaultRingtoneTitle(R.string.default_timer_ringtone_title)
-                            .setDefaultRingtoneUri(
-                                    DataModel.getDataModel().getDefaultTimerRingtoneUri())
-                            .setExistingRingtoneUri(DataModel.getDataModel().getTimerRingtoneUri())
-                            .show(getChildFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
-                default:
-                    return false;
+                    final int title = R.string.default_timer_ringtone_title;
+                    final Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
+                    final Uri defaultUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
+                    final Intent ringtoneIntent = new Intent(activity, RingtonePickerActivity.class)
+                            .putExtra(RingtonePickerActivity.EXTRA_TITLE, R.string.timer_sound)
+                            .putExtra(RingtonePickerActivity.EXTRA_RINGTONE_URI, uri)
+                            .putExtra(RingtonePickerActivity.EXTRA_DEFAULT_RINGTONE_URI, defaultUri)
+                            .putExtra(RingtonePickerActivity.EXTRA_DEFAULT_RINGTONE_NAME, title);
+                    startActivity(ringtoneIntent);
+                    return true;
             }
-        }
 
-        @Override
-        public void onRingtoneSelected(String tag, Uri ringtoneUri) {
-            DataModel.getDataModel().setTimerRingtoneUri(ringtoneUri);
-
-            // Manually call onPreferenceChange since PreferenceFragment doesn't listen to
-            // external changes via SharedPreferences.
-            onPreferenceChange(findPreference(KEY_TIMER_RINGTONE), ringtoneUri);
+            return false;
         }
 
         /**
