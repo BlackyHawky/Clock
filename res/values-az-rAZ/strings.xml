@@ -90,18 +90,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Rəqəmsal saat"</string>
     <string name="settings" msgid="5849739030579520686">"Ayarlar"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Ertələmə intervalı"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> dəqiqə</item>
-      <item quantity="one">1 dəqiqə</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="other">dəqiqə</item>
-      <item quantity="one">dəqiqə</item>
-    </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Tədricən həcmi artırın"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"Deaktiv"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> saniyə"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"saniyə"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Avtomatik susma"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> dəqiqə</item>
@@ -403,13 +392,8 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Sonrakı Siqnal: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Zəng yoxdur"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Yanlış vaxt <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"Alarmı tapmaq mümkün deyil."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g> vaxtına siqnal yoxdur"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Planlaşdırılmış siqnal yoxdur"</string>
-    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Zəngli saat hələ çalmayıb."</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Zəngli saat artıq buraxılıb."</string>
-    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"Zəngli saat söndürüldü"</string>
-    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Zəngli saat mürgü rejimindədir."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Heç bir etiket təyin edilməyib."</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Etiketə aid heç bir alarm yoxdur"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Bu vaxt üçün heç bir siqnal təyin olunmayıb"</string>

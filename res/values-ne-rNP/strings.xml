@@ -90,18 +90,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"डिजिटल घडी"</string>
     <string name="settings" msgid="5849739030579520686">"सेटिङहरू"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"स्नुज लम्बाइ"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> मिनेट</item>
-      <item quantity="one">1 मिनेट</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="other">मिनेट</item>
-      <item quantity="one">मिनेट</item>
-    </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"बिस्तारै मात्रा  बढाउनुहोस्"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"बन्द"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> सेकेन्ड"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"सेकेन्ड"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"यस पछि मौन"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> मिनेट</item>
@@ -403,13 +392,8 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"अर्को अलार्म: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"आलार्महरू छैनन्"</string>
     <string name="invalid_time" msgid="2782334750243998633">"अमान्य समय <xliff:g id="INVALID_HOUR">%1$d</xliff:g> : <xliff:g id="INVALID_MINUTES">%2$d</xliff:g><xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"अलार्मको स्थान पत्ता लगाउन सकिएन।"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g> : <xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>मा कुनै अलार्म छैन"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"कुनै तालिकाबद्ध अलार्म छैन"</string>
-    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"यो अलार्म अझसम्म बजेको छैन।"</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"यो अलार्म पहिले नै छुटिसकेको छ।"</string>
-    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"यस अलार्मलाई पहिले नै खारेज गरिएको छ।"</string>
-    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"यस अलार्मलाई पहिले नै स्नुज गरिएको छ।"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"कुनै लेबल निर्दष्ट गरिएको छैन"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"कुनै अलार्ममा लेबल छैन"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"यस समयका लागि कुनै कार्यतालिका मिलाइएको छैन"</string>

@@ -90,18 +90,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Jam digital"</string>
     <string name="settings" msgid="5849739030579520686">"Setelan"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Lama penundaan"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> menit</item>
-      <item quantity="one">1 menit</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="other">menit</item>
-      <item quantity="one">menit</item>
-    </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Keraskan volume secara bertahap"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"Nonaktif"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> detik"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"detik"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Senyapkan setelah"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> menit</item>
@@ -403,13 +392,8 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"Alarm berikutnya: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Tidak Ada Alarm"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Waktu tidak valid <xliff:g id="INVALID_HOUR">%1$d</xliff:g>.<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"Tidak dapat mencari lokasi alarm."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Tidak ada alarm pukul <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>.<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Tidak ada jadwal alarm"</string>
-    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"Alarm belum berdering."</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"Alarm terlewat."</string>
-    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"Alarm telah dihentikan."</string>
-    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"Alarm telah ditunda."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Tidak ada label yang ditentukan"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Tidak ada alarm yang berisi label tersebut"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Tidak ada jadwal alarm untuk waktu ini"</string>

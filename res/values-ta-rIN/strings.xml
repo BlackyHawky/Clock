@@ -90,18 +90,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"டிஜிட்டல் கடிகாரம்"</string>
     <string name="settings" msgid="5849739030579520686">"அமைப்பு"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"உறக்கநிலையின் காலஅளவு"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> நிமிடங்கள்</item>
-      <item quantity="one">1 நிமிடம்</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="other">நிமிடங்கள்</item>
-      <item quantity="one">நிமிடம்</item>
-    </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"படிப்படியாக ஒலியளவை அதிகரி"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"முடக்கத்தில்"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> வினாடிகள்"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"வினாடிகள்"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"அமைதியாக்க வெண்டியது"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> நிமிடங்கள்</item>
@@ -403,13 +392,8 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"அடுத்த அலாரம்: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"அலாரங்கள் இல்லை"</string>
     <string name="invalid_time" msgid="2782334750243998633">"தவறான நேரம் <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"அலாரத்தைக் கண்டறிய முடியவில்லை."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>க்கு அலாரம் எதுவுமில்லை"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"அலாரங்கள் எதுவும் அமைக்கப்படவில்லை"</string>
-    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"அலாரம் இன்னும் ஒலிக்கவில்லை."</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"அலாரம் ஏற்கனவே ஒலித்துவிட்டது."</string>
-    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"அலாரத்தை ஏற்கனவே நிராகரித்துவிட்டீர்கள்."</string>
-    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"அலாரத்தை ஏற்கனவே உறக்கநிலையில் வைத்துவிட்டீர்கள்."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"லேபிள் எதையும் குறிப்பிடவில்லை"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"இந்த லேபிளின் பெயரில் அலாரங்கள் இல்லை"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"இந்த நேரத்திற்கு அலாரம் எதுவும் அமைக்கப்படவில்லை"</string>
