@@ -90,18 +90,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"డిజిటల్ గడియారం"</string>
     <string name="settings" msgid="5849739030579520686">"సెట్టింగ్‌లు"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"తాత్కాలిక ఆపివేత నిడివి"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> నిమిషాలు</item>
-      <item quantity="one">1 నిమిషం</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="other">నిమిషాలు</item>
-      <item quantity="one">నిమిషం</item>
-    </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"వాల్యూమ్‌ను క్రమంగా పెంచు"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"ఆఫ్‌లో ఉంది"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> సెకన్లు"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"సెకన్లు"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"ఇంత సమయం తర్వాత నిశ్శబ్దంగా ఉండాలి"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> నిమిషాలు</item>
@@ -403,13 +392,8 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"తదుపరి అలారం: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"అలారాలు లేవు"</string>
     <string name="invalid_time" msgid="2782334750243998633">"<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g> సమయం చెల్లదు"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"అలారాన్ని గుర్తించడం సాధ్యపడలేదు."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>కి అలారం ఏదీ లేదు"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"షెడ్యూల్ చేసిన అలారాలు ఏవీ లేవు"</string>
-    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"అలారాన్ని ఇంకా మోగలేదు."</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"అలారం ఇప్పటికే మిస్ అయింది."</string>
-    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"అలారం ఇప్పటికే తీసివేయబడింది."</string>
-    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"అలారం ఇప్పటికే తాత్కాలికంగా ఆపివేయబడింది."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"లేబుల్ ఏదీ పేర్కొనలేదు"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"లేబుల్‌ను కలిగి ఉన్న అలారాలు ఏవీ లేవు"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"ఈ సమయానికి అలారం ఏదీ షెడ్యూల్ చేయబడలేదు"</string>

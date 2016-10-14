@@ -90,18 +90,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"Iwashi elidijithali"</string>
     <string name="settings" msgid="5849739030579520686">"Izilungiselelo"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Ubude bokusnuza"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> amaminithi</item>
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> amaminithi</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="one">amaminithi</item>
-      <item quantity="other">amaminithi</item>
-    </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Khuphula kancane kancane ivolumu"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"Valiwe"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> amasekhondi"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"amasekhondi"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Ukuthula ngemuva"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="one"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> amaminithi</item>
@@ -403,13 +392,8 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"I-alamu elandelayo: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Awekho ama-alamu"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Isikhathi esingavumelekile <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"Ayikwazi ukukhomba i-alamu."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"Ayikho i-alamu ngo-<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"Awekho ama-alamu ashejuliwe"</string>
-    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"I-alamu ayicishiwe okwamanje."</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"I-alamu isivele igejiwe."</string>
-    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"I-alamu isivele ilahliwe."</string>
-    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"I-alamu isivele isnuziwe."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"Ayikho ilebula ecacisiwe"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"Awekho ama-alamu aqukethe ilebula"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"Ayikho i-alamu eshejulelwe lesi sikhathi"</string>

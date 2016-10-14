@@ -102,22 +102,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"שעון דיגיטלי"</string>
     <string name="settings" msgid="5849739030579520686">"הגדרות"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"משך הנדנוד"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="two"><xliff:g id="NUMBER">%s</xliff:g> דקות</item>
-      <item quantity="many"><xliff:g id="NUMBER">%s</xliff:g> דקות</item>
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> דקות</item>
-      <item quantity="one">דקה אחת</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="two">דקות</item>
-      <item quantity="many">דקות</item>
-      <item quantity="other">דקות</item>
-      <item quantity="one">דקה</item>
-    </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"הגבר בהדרגה את עוצמת הקול"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"כבוי"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> שניות"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"שניות"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"השתק לאחר"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="two"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> דקות</item>
@@ -427,13 +412,8 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"ההתראה הבאה: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"ללא התראות"</string>
     <string name="invalid_time" msgid="2782334750243998633">"‏שעה לא חוקית ‎<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>‎"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"לא ניתן לאתר התראה."</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"‏אין התראה ב-‎<xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>‎"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"לא נקבעו התראות"</string>
-    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"ההתראה עדיין לא הופעלה."</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"ההתראה כבר לא נענתה."</string>
-    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"ההתראה כבר נדחתה."</string>
-    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"ההתראה כבר הועברה למצב נודניק."</string>
     <string name="no_label_specified" msgid="2008482054428460626">"לא צוינה תווית"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"אין התראות הכוללות את התווית"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"לא נקבעה התראה לשעה הזו"</string>

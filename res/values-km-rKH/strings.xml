@@ -90,18 +90,7 @@
     <string name="digital_gadget" msgid="2326954556720571358">"នាឡិកា​ឌីជីថល"</string>
     <string name="settings" msgid="5849739030579520686">"ការ​កំណត់"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"រយៈពេល​ផ្អាក"</string>
-    <plurals name="snooze_duration" formatted="false" msgid="3112918131095248271">
-      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> នាទី</item>
-      <item quantity="one">1 នាទី</item>
-    </plurals>
-    <plurals name="snooze_picker_label" formatted="false" msgid="322739253661747732">
-      <item quantity="other">នាទី</item>
-      <item quantity="one">នាទី</item>
-    </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"ដំឡើងសំឡេងសន្សឹមៗ"</string>
-    <string name="no_crescendo_duration" msgid="383801592865899932">"បិទ"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> វិនាទី"</string>
-    <string name="crescendo_picker_label" msgid="7758024047003091056">"វិនាទី"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"បិទ​សំឡេង​បន្ទាប់ពី"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">
       <item quantity="other"><xliff:g id="FORMATTED_NUMBER">%s</xliff:g> នាទី</item>
@@ -403,13 +392,8 @@
     <string name="next_alarm_description" msgid="2650244835760747046">"សំឡេង​រោទ៍​បន្ទាប់៖ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"គ្មាន​ការ​ជូនដំណឹង"</string>
     <string name="invalid_time" msgid="2782334750243998633">"ម៉ោងមិនត្រឹមត្រូវ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
-    <string name="cannot_locate_alarm" msgid="894518214227064316">"រកមិនឃើញទីតាំងសំឡេងរោទិ៍ទេ"</string>
     <string name="no_alarm_at" msgid="8140632482969193119">"គ្មានម៉ោងរោទិ៍នៅ <xliff:g id="ALARM_TIME_HOUR">%1$d</xliff:g>:<xliff:g id="ALARM_TIME_MINUTES">%2$d</xliff:g>"</string>
     <string name="no_scheduled_alarms" msgid="2115420148192753534">"គ្មានម៉ោងរោទិ៍បានកំណត់ទេ"</string>
-    <string name="cannot_snooze_scheduled_alarm" msgid="2396923362566219485">"ម៉ោងរោទិ៍មិនទាន់បន្លឺសំឡេងទេ"</string>
-    <string name="alarm_is_already_missed" msgid="1617099466968243562">"បានខកខានម៉ោងរោទិ៍ហើយ"</string>
-    <string name="alarm_is_already_dismissed" msgid="7883936300908258078">"បានបោះបង់ម៉ោងរោទិ៍ហើយ"</string>
-    <string name="alarm_is_already_snoozed" msgid="1284077908768374487">"បានផ្អាកម៉ោងរោទិ៍ហើយ"</string>
     <string name="no_label_specified" msgid="2008482054428460626">"គ្មានការបញ្ជាក់ស្លាកទេ"</string>
     <string name="no_alarms_with_label" msgid="6250998794542941665">"គ្មានម៉ោងរោទិ៍ដែលមានស្លាកទេ"</string>
     <string name="no_alarm_scheduled_for_this_time" msgid="4463069177414482818">"គ្មានការកំណត់ម៉ោងរោទិ៍សម្រាប់ពេលនេះទេ"</string>
