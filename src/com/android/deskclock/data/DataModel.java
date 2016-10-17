@@ -74,6 +74,9 @@ public final class DataModel {
     /** The model from which notification data are fetched. */
     private NotificationModel mNotificationModel;
 
+    /** The model from which time data are fetched. */
+    private TimeModel mTimeModel;
+
     public static DataModel getDataModel() {
         return sDataModel;
     }
@@ -87,6 +90,7 @@ public final class DataModel {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
+            mTimeModel = new TimeModel();
             mWidgetModel = new WidgetModel(mContext);
             mSettingsModel = new SettingsModel(mContext);
             mNotificationModel = new NotificationModel();
@@ -680,6 +684,24 @@ public final class DataModel {
     public long getCurrentLapTime(long time) {
         enforceMainLooper();
         return mStopwatchModel.getCurrentLapTime(time);
+    }
+
+    //
+    // Time
+    //
+
+    /**
+     * @return the current time in milliseconds.
+     */
+    public long currentTimeMillis() {
+        return mTimeModel.currentTimeMillis();
+    }
+
+    /**
+     * @return milliseconds since boot, including time spent in sleep.
+     */
+    public long elapsedRealtime() {
+        return mTimeModel.elapsedRealtime();
     }
 
     //
