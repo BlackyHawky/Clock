@@ -234,6 +234,14 @@ public final class UiDataModel {
         return mContext.getResources().getInteger(android.R.integer.config_shortAnimTime);
     }
 
+    /**
+     * @return the duration in milliseconds of long animations
+     */
+    public long getLongAnimationDuration() {
+        enforceMainLooper();
+        return mContext.getResources().getInteger(android.R.integer.config_longAnimTime);
+    }
+
     //
     // Tabs
     //
