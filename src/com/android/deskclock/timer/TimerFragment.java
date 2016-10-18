@@ -22,8 +22,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Animatable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -38,6 +36,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.DeskClock;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.R;
@@ -292,12 +291,9 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public void onMorphFab(@NonNull ImageView fab) {
         // Update the fab's drawable to match the current timer state.
-        updateFab(fab, Utils.isLMR1OrLater());
+        updateFab(fab, Utils.isNOrLater());
         // Animate the drawable.
-        final Drawable icon = fab.getDrawable();
-        if (icon instanceof Animatable) {
-            ((Animatable) icon).start();
-        }
+        AnimatorUtils.startDrawableAnimation(fab);
     }
 
     @Override
