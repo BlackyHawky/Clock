@@ -61,7 +61,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
     /** Used to determine when the time format for the total time column has changed length. */
     private int mLastFormattedAccumulatedTimeLength;
 
-    public LapsAdapter(Context context) {
+    LapsAdapter(Context context) {
         mContext = context;
         mInflater = LayoutInflater.from(context);
         setHasStableIds(true);
@@ -240,16 +240,22 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      */
     @VisibleForTesting
     static String formatTime(long maxTime, long time, String separator) {
-        final int hours = (int) (time / DateUtils.HOUR_IN_MILLIS);
-        int remainder = (int) (time % DateUtils.HOUR_IN_MILLIS);
+        final int hours, minutes, seconds, hundredths;
+        if (time <= 0) {
+            // A negative time should be impossible, but is tolerated to avoid crashing the app.
+            hours = minutes = seconds = hundredths = 0;
+        } else {
+            hours = (int) (time / DateUtils.HOUR_IN_MILLIS);
+            int remainder = (int) (time % DateUtils.HOUR_IN_MILLIS);
 
-        final int minutes = (int) (remainder / DateUtils.MINUTE_IN_MILLIS);
-        remainder = (int) (remainder % DateUtils.MINUTE_IN_MILLIS);
+            minutes = (int) (remainder / DateUtils.MINUTE_IN_MILLIS);
+            remainder = (int) (remainder % DateUtils.MINUTE_IN_MILLIS);
 
-        final int seconds = (int) (remainder / DateUtils.SECOND_IN_MILLIS);
-        remainder = (int) (remainder % DateUtils.SECOND_IN_MILLIS);
+            seconds = (int) (remainder / DateUtils.SECOND_IN_MILLIS);
+            remainder = (int) (remainder % DateUtils.SECOND_IN_MILLIS);
 
-        final int hundredths = remainder / 10;
+            hundredths = remainder / 10;
+        }
 
         final char decimalSeparator = DecimalFormatSymbols.getInstance().getDecimalSeparator();
 
@@ -342,7 +348,7 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
         private final TextView lapTime;
         private final TextView accumulatedTime;
 
-        public LapItemHolder(View itemView) {
+        LapItemHolder(View itemView) {
             super(itemView);
 
             lapTime = (TextView) itemView.findViewById(R.id.lap_time);
