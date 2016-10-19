@@ -258,7 +258,9 @@ public final class Timer {
 
         final long timeSinceBoot = now();
         final long wallClockTime = wallClock();
-        final long delta = wallClockTime - mLastStartWallClockTime;
+        // Avoid negative time deltas. They can happen in practice, but they can't be used. Simply
+        // update the recorded times and proceed with no change in accumulated time.
+        final long delta = Math.max(0, wallClockTime - mLastStartWallClockTime);
         final long remainingTime = mRemainingTime - delta;
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
                 remainingTime, mLabel, mDeleteAfterUse);
@@ -277,6 +279,9 @@ public final class Timer {
         final long delta = timeSinceBoot - mLastStartTime;
         final long remainingTime = mRemainingTime - delta;
         if (delta < 0) {
+            // Avoid negative time deltas. They typically happen following reboots when TIME_SET is
+            // broadcast before BOOT_COMPLETED. Simply ignore the time update and hope
+            // updateAfterReboot() can successfully correct the data at a later time.
             return this;
         }
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
