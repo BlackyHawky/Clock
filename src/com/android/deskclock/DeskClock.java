@@ -529,7 +529,12 @@ public class DeskClock extends BaseActivity
     }
 
     private boolean isSystemAlarmRingtoneSilent() {
-        return RingtoneManager.getActualDefaultRingtoneUri(this, TYPE_ALARM) == null;
+        try {
+            return RingtoneManager.getActualDefaultRingtoneUri(this, TYPE_ALARM) == null;
+        } catch (Exception e) {
+            // Since this is purely informational, avoid crashing the app.
+            return false;
+        }
     }
 
     private void showSilentRingtoneSnackbar() {
@@ -548,7 +553,12 @@ public class DeskClock extends BaseActivity
     }
 
     private boolean isAlarmStreamMuted() {
-        return mAudioManager.getStreamVolume(STREAM_ALARM) <= 0;
+        try {
+            return mAudioManager.getStreamVolume(STREAM_ALARM) <= 0;
+        } catch (Exception e) {
+            // Since this is purely informational, avoid crashing the app.
+            return false;
+        }
     }
 
     private void showAlarmVolumeMutedSnackbar() {
@@ -572,7 +582,13 @@ public class DeskClock extends BaseActivity
         if (!Utils.isMOrLater()) {
             return false;
         }
-        return mNotificationManager.getCurrentInterruptionFilter() == INTERRUPTION_FILTER_NONE;
+
+        try {
+            return mNotificationManager.getCurrentInterruptionFilter() == INTERRUPTION_FILTER_NONE;
+        } catch (Exception e) {
+            // Since this is purely informational, avoid crashing the app.
+            return false;
+        }
     }
 
     private void showDoNotDisturbIsBlockingAlarmsSnackbar() {
@@ -805,7 +821,7 @@ public class DeskClock extends BaseActivity
         private final FragmentManager mFragmentManager;
         private final Context mContext;
 
-        public TabFragmentAdapter(AppCompatActivity activity) {
+        TabFragmentAdapter(AppCompatActivity activity) {
             super(activity.getFragmentManager());
             mContext = activity;
             mFragmentManager = activity.getFragmentManager();
