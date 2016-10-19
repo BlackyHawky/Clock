@@ -173,6 +173,7 @@
         <item name="android:textSize">56sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:fontFeatureSettings" tools:targetApi="lollipop">tnum</item>
     </style>
 
     <style name="sub_heading">
