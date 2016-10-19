@@ -144,11 +144,7 @@ public final class Screensaver extends DreamService {
         LOGGER.v("Screensaver configuration changed");
         super.onConfigurationChanged(newConfig);
 
-        // Ignore the configuration change if no window exists.
-        if (getWindow() != null) {
-            // Restart the position updater via a PreDrawListener after layout is complete.
-            startPositionUpdater();
-        }
+        startPositionUpdater();
     }
 
     private void setClockStyle() {
@@ -164,14 +160,18 @@ public final class Screensaver extends DreamService {
      * schedule future callbacks to move the time display each minute.
      */
     private void startPositionUpdater() {
-        mContentView.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
+        if (mContentView != null) {
+            mContentView.getViewTreeObserver().addOnPreDrawListener(mStartPositionUpdater);
+        }
     }
 
     /**
      * This activity is no longer in the foreground; position callbacks should be removed.
      */
     private void stopPositionUpdater() {
-        mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+        if (mContentView != null) {
+            mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
+        }
         mPositionUpdater.stop();
     }
 
