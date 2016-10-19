@@ -22,17 +22,17 @@ import android.os.SystemClock;
  * All time data is accessed via this model. This model exists so that time can be mocked for
  * testing purposes.
  */
-class TimeModel {
+final class TimeModel {
 
     /**
-     * @return the current time in milliseconds.
+     * @return the current time in milliseconds
      */
     long currentTimeMillis() {
         return System.currentTimeMillis();
     }
 
     /**
-     * @return milliseconds since boot, including time spent in sleep.
+     * @return milliseconds since boot, including time spent in sleep
      */
     long elapsedRealtime() {
         return SystemClock.elapsedRealtime();

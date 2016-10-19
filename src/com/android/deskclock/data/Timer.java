@@ -258,7 +258,9 @@ public final class Timer {
 
         final long timeSinceBoot = now();
         final long wallClockTime = wallClock();
-        final long delta = wallClockTime - mLastStartWallClockTime;
+        // Avoid negative time deltas. They can happen in practice, but they can't be used. Simply
+        // update the recorded times and proceed with no change in accumulated time.
+        final long delta = Math.max(0, wallClockTime - mLastStartWallClockTime);
         final long remainingTime = mRemainingTime - delta;
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
                 remainingTime, mLabel, mDeleteAfterUse);
@@ -277,6 +279,9 @@ public final class Timer {
         final long delta = timeSinceBoot - mLastStartTime;
         final long remainingTime = mRemainingTime - delta;
         if (delta < 0) {
+            // Avoid negative time deltas. They typically happen following reboots when TIME_SET is
+            // broadcast before BOOT_COMPLETED. Simply ignore the time update and hope
+            // updateAfterReboot() can successfully correct the data at a later time.
             return this;
         }
         return new Timer(mId, mState, mLength, mTotalLength, timeSinceBoot, wallClockTime,
@@ -375,7 +380,7 @@ public final class Timer {
     /**
      * Orders timers by their IDs. Oldest timers are at the bottom. Newest timers are at the top.
      */
-    public static Comparator<Timer> ID_COMPARATOR = new Comparator<Timer>() {
+    static Comparator<Timer> ID_COMPARATOR = new Comparator<Timer>() {
         @Override
         public int compare(Timer timer1, Timer timer2) {
             return Integer.compare(timer2.getId(), timer1.getId());
@@ -393,7 +398,7 @@ public final class Timer {
      *     <li>{@link State#RESET RESET} timers; ties broken by {@link #getLength()}</li>
      * </ol>
      */
-    public static Comparator<Timer> EXPIRY_COMPARATOR = new Comparator<Timer>() {
+    static Comparator<Timer> EXPIRY_COMPARATOR = new Comparator<Timer>() {
 
         private final List<State> stateExpiryOrder = Arrays.asList(MISSED, EXPIRED, RUNNING, PAUSED,
                 RESET);
