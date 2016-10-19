@@ -21,7 +21,6 @@ import static com.android.deskclock.Utils.wallClock;
 import static com.android.deskclock.data.Stopwatch.State.PAUSED;
 import static com.android.deskclock.data.Stopwatch.State.RESET;
 import static com.android.deskclock.data.Stopwatch.State.RUNNING;
-import static com.android.deskclock.provider.ClockContract.AUTHORITY;
 
 /**
  * A read-only domain object representing a stopwatch.
@@ -123,7 +122,9 @@ public final class Stopwatch {
         }
         final long timeSinceBoot = now();
         final long wallClockTime = wallClock();
-        final long delta = wallClockTime - mLastStartWallClockTime;
+        // Avoid negative time deltas. They can happen in practice, but they can't be used. Simply
+        // update the recorded times and proceed with no change in accumulated time.
+        final long delta = Math.max(0, wallClockTime - mLastStartWallClockTime);
         return new Stopwatch(mState, timeSinceBoot, wallClockTime, mAccumulatedTime + delta);
     }
 
@@ -140,6 +141,9 @@ public final class Stopwatch {
         final long wallClockTime = wallClock();
         final long delta = timeSinceBoot - mLastStartTime;
         if (delta < 0) {
+            // Avoid negative time deltas. They typically happen following reboots when TIME_SET is
+            // broadcast before BOOT_COMPLETED. Simply ignore the time update and hope
+            // updateAfterReboot() can successfully correct the data at a later time.
             return this;
         }
         return new Stopwatch(mState, timeSinceBoot, wallClockTime, mAccumulatedTime + delta);
