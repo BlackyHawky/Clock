@@ -31,6 +31,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
@@ -54,7 +55,7 @@ import java.util.Arrays;
 import static android.view.View.ALPHA;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
-import static android.view.View.SCALE_X;
+import static android.view.View.TRANSLATION_Y;
 import static android.view.View.VISIBLE;
 import static com.android.deskclock.uidata.UiDataModel.Tab.TIMERS;
 
@@ -367,9 +368,6 @@ public final class TimerFragment extends DeskClockFragment {
             DataModel.getDataModel().startTimer(timer);
             Events.sendTimerEvent(R.string.action_start, R.string.label_deskclock);
 
-            // Reset the state of the create view.
-            mCreateTimerView.reset();
-
             // Display the freshly created timer view.
             mViewPager.setCurrentItem(0);
 
@@ -567,44 +565,80 @@ public final class TimerFragment extends DeskClockFragment {
      * @param timerToRemove the timer to be removed during the animation; {@code null} if no timer
      *      should be removed
      */
-    private void animateToView(View toView, final Timer timerToRemove) {
+    private void animateToView(final View toView, final Timer timerToRemove) {
         if (mCurrentView == toView) {
             return;
         }
 
         final boolean toTimers = toView == mTimersView;
-
+        if (toTimers) {
+            mTimersView.setVisibility(VISIBLE);
+        } else {
+            mCreateTimerView.setVisibility(VISIBLE);
+        }
         // Avoid double-taps by enabling/disabling the set of buttons active on the new view.
         updateFab(BUTTONS_DISABLE);
 
-        final long duration = UiDataModel.getUiDataModel().getShortAnimationDuration();
-        final Animator rotateFrom = ObjectAnimator.ofFloat(mCurrentView, SCALE_X, 1, 0);
-        rotateFrom.setDuration(duration);
-        rotateFrom.setInterpolator(new DecelerateInterpolator());
-        rotateFrom.addListener(new AnimatorListenerAdapter() {
+        final long animationDuration = UiDataModel.getUiDataModel().getLongAnimationDuration();
+
+        final ViewTreeObserver viewTreeObserver = toView.getViewTreeObserver();
+        viewTreeObserver.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
-            public void onAnimationEnd(Animator animation) {
-                mCurrentView.setScaleX(1);
-                if (toTimers) {
-                    showTimersView(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
-                } else {
-                    showCreateTimerView(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
+            public boolean onPreDraw() {
+                if (viewTreeObserver.isAlive()) {
+                    viewTreeObserver.removeOnPreDrawListener(this);
                 }
 
-                if (timerToRemove != null) {
-                    DataModel.getDataModel().removeTimer(timerToRemove);
-                    Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
-                }
+                // Arbitrary distance for smooth sliding in/out animation.
+                final float translationDistance = toTimers ? 500f : -500f;
+
+                final Animator translateCurrent = ObjectAnimator.ofFloat(mCurrentView,
+                        TRANSLATION_Y, translationDistance);
+                final Animator translateNew = ObjectAnimator.ofFloat(toView, TRANSLATION_Y, 0f);
+                final AnimatorSet translationAnimatorSet = new AnimatorSet();
+                translationAnimatorSet.playTogether(translateCurrent, translateNew);
+                translationAnimatorSet.setDuration(animationDuration);
+                translationAnimatorSet.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+                final Animator fadeOutAnimator = ObjectAnimator.ofFloat(mCurrentView, ALPHA, 0f);
+                fadeOutAnimator.setDuration(animationDuration / 2);
+                final Animator fadeInAnimator = ObjectAnimator.ofFloat(toView, ALPHA, 1f);
+                fadeInAnimator.setDuration(animationDuration / 2);
+                fadeInAnimator.setStartDelay(animationDuration / 2);
+
+                final AnimatorSet animatorSet = new AnimatorSet();
+                animatorSet.playTogether(fadeOutAnimator, fadeInAnimator, translationAnimatorSet);
+                animatorSet.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
+                        toView.setTranslationY(-translationDistance);
+                        toView.setAlpha(0f);
+                        mCurrentView.setTranslationY(0);
+                        mCurrentView.setAlpha(1f);
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        if (toTimers) {
+                            showTimersView(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
+
+                            // Reset the state of the create view.
+                            mCreateTimerView.reset();
+                        } else {
+                            showCreateTimerView(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
+                        }
+                        if (timerToRemove != null) {
+                            DataModel.getDataModel().removeTimer(timerToRemove);
+                            Events.sendTimerEvent(R.string.action_delete, R.string.label_deskclock);
+                        }
+                    }
+                });
+                animatorSet.start();
+
+                return true;
             }
         });
-
-        final Animator rotateTo = ObjectAnimator.ofFloat(toView, SCALE_X, 0, 1);
-        rotateTo.setDuration(duration);
-        rotateTo.setInterpolator(new AccelerateInterpolator());
-
-        final AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.play(rotateFrom).before(rotateTo);
-        animatorSet.start();
     }
 
     private boolean hasTimers() {
