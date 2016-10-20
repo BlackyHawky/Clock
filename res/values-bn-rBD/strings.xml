@@ -256,6 +256,8 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"শহর"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ঘড়ি"</string>
     <string name="clock_style" msgid="2265011060429742344">"শৈলী"</string>
+    <!-- no translation found for display_clock_seconds_pref (691506643469501643) -->
+    <skip />
     <string name="open_date_settings" msgid="7712226973337806152">"তারিখ এবং সময় পরিবর্তন করুন"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"অ্যানালগ"</item>
