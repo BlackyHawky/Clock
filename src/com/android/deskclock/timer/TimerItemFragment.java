@@ -17,7 +17,6 @@
 package com.android.deskclock.timer;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -115,18 +114,10 @@ public class TimerItemFragment extends Fragment {
     }
 
     private class EditLabelListener implements View.OnClickListener {
-
-        private static final String TAG = "label_dialog";
-
         @Override
         public void onClick(View v) {
-            final FragmentTransaction ft = getFragmentManager().beginTransaction();
-            final Fragment existingFragment = getFragmentManager().findFragmentByTag(TAG);
-            if (existingFragment != null) {
-                ft.remove(existingFragment);
-            }
-            ft.addToBackStack(null);
-            LabelDialogFragment.newInstance(getTimer()).show(ft, TAG);
+            final LabelDialogFragment fragment = LabelDialogFragment.newInstance(getTimer());
+            LabelDialogFragment.show(getFragmentManager(), fragment);
         }
     }
 }

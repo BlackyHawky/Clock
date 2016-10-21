@@ -186,19 +186,9 @@ public final class AlarmTimeClickHandler {
     }
 
     public void onEditLabelClicked(Alarm alarm) {
-        final FragmentManager fragmentManager = mFragment.getChildFragmentManager();
-        fragmentManager.executePendingTransactions();
-        final FragmentTransaction ft = fragmentManager.beginTransaction();
-        final Fragment prev = fragmentManager.findFragmentByTag("label_dialog");
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
-
-        // Create and show the dialog.
-        final LabelDialogFragment newFragment =
+        final LabelDialogFragment fragment =
                 LabelDialogFragment.newInstance(alarm, alarm.label, mFragment.getTag());
-        newFragment.show(ft, "label_dialog");
+        LabelDialogFragment.show(mFragment.getFragmentManager(), fragment);
     }
 
     public void processTimeSet(int hourOfDay, int minute) {

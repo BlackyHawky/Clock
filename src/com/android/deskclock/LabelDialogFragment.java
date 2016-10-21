@@ -18,6 +18,9 @@ package com.android.deskclock;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
@@ -45,6 +48,9 @@ import static android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE;
  * DialogFragment to edit label.
  */
 public class LabelDialogFragment extends DialogFragment {
+
+    /** The tag that identifies instances of LabelDialogFragment in the fragment manager. */
+    private static final String TAG = "label_dialog";
 
     private static final String KEY_LABEL = "label";
     private static final String KEY_ALARM = "alarm";
@@ -75,6 +81,25 @@ public class LabelDialogFragment extends DialogFragment {
         final LabelDialogFragment frag = new LabelDialogFragment();
         frag.setArguments(args);
         return frag;
+    }
+
+    /**
+     * Replaces any existing LabelDialogFragment with the given {@code fragment}.
+     */
+    public static void show(FragmentManager fm, LabelDialogFragment fragment) {
+        // Finish any outstanding fragment work.
+        fm.executePendingTransactions();
+
+        final FragmentTransaction ft = fm.beginTransaction();
+
+        // Remove existing instance of LabelDialogFragment if necessary.
+        final Fragment existing = fm.findFragmentByTag(TAG);
+        if (existing != null) {
+            ft.remove(existing);
+        }
+        ft.addToBackStack(null);
+
+        fragment.show(ft, TAG);
     }
 
     @Override
@@ -118,6 +143,14 @@ public class LabelDialogFragment extends DialogFragment {
         return alertDialog;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        // Stop callbacks from the IME since there is no view to process them.
+        mLabelBox.setOnEditorActionListener(null);
+    }
+
     /**
      * Sets the new label into the timer or alarm.
      */
@@ -150,7 +183,7 @@ public class LabelDialogFragment extends DialogFragment {
         private final int colorAccent;
         private final int colorControlNormal;
 
-        public TextChangeListener(Context context) {
+        private TextChangeListener(Context context) {
             colorAccent = Utils.obtainStyledColor(context, R.attr.colorAccent, RED);
             colorControlNormal = Utils.obtainStyledColor(context, R.attr.colorControlNormal, WHITE);
         }
@@ -176,7 +209,7 @@ public class LabelDialogFragment extends DialogFragment {
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 setLabel();
-                dismiss();
+                dismissAllowingStateLoss();
                 return true;
             }
             return false;
