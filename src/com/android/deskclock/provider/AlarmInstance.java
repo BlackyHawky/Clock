@@ -232,7 +232,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
                                                    String... selectionArgs) {
         final List<AlarmInstance> result = new LinkedList<>();
         try (Cursor cursor = cr.query(CONTENT_URI, QUERY_COLUMNS, selection, selectionArgs, null)) {
-            if (cursor.moveToFirst()) {
+            if (cursor != null && cursor.moveToFirst()) {
                 do {
                     result.add(new AlarmInstance(cursor, false /* joinedTable */));
                 } while (cursor.moveToNext());

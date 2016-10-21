@@ -50,6 +50,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import static android.provider.Settings.System.NEXT_ALARM_FORMATTED;
+
 /**
  * This class handles all the state changes for alarm instances. You need to
  * register all alarm instances with the state manager if you want them to
@@ -171,12 +173,10 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     /**
-     * Find and notify system what the next alarm that will fire. This is used
-     * to update text in the system and widgets.
-     *
-     * @param context application context
+     * Update the next alarm stored in framework. This value is also displayed in digital widgets
+     * and the clock tab in this app.
      */
-    public static void updateNextAlarm(Context context) {
+    private static void updateNextAlarm(Context context) {
         final AlarmInstance nextAlarm = getNextFiringAlarm(context);
 
         if (Utils.isPreL()) {
@@ -212,23 +212,24 @@ public final class AlarmStateManager extends BroadcastReceiver {
     @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private static void updateNextAlarmInSystemSettings(Context context, AlarmInstance nextAlarm) {
-        // Send broadcast message so pre-L AppWidgets will recognize an update
-        String timeString = "";
-        boolean showStatusIcon = false;
+        // Format the next alarm time if an alarm is scheduled.
+        String time = "";
         if (nextAlarm != null) {
-            timeString = AlarmUtils.getFormattedTime(context, nextAlarm.getAlarmTime());
-            showStatusIcon = true;
+            time = AlarmUtils.getFormattedTime(context, nextAlarm.getAlarmTime());
         }
 
-        // Set and notify next alarm text to system
-        LogUtils.i("Displaying next alarm time: \'" + timeString + '\'');
-        // Write directly to NEXT_ALARM_FORMATTED in all pre-L versions
-        Settings.System.putString(context.getContentResolver(),
-                Settings.System.NEXT_ALARM_FORMATTED,
-                timeString);
-        Intent alarmChanged = new Intent(ACTION_ALARM_CHANGED);
-        alarmChanged.putExtra("alarmSet", showStatusIcon);
-        context.sendBroadcast(alarmChanged);
+        try {
+            // Write directly to NEXT_ALARM_FORMATTED in all pre-L versions
+            Settings.System.putString(context.getContentResolver(), NEXT_ALARM_FORMATTED, time);
+
+            LogUtils.i("Updated next alarm time to: \'" + time + '\'');
+
+            // Send broadcast message so pre-L AppWidgets will recognize an update.
+            context.sendBroadcast(new Intent(ACTION_ALARM_CHANGED));
+        } catch (SecurityException se) {
+            // The user has most likely revoked WRITE_SETTINGS.
+            LogUtils.e("Unable to update next alarm to: \'" + time + '\'', se);
+        }
     }
 
     /**
