@@ -16,11 +16,10 @@
 
 package com.android.deskclock.data;
 
-import java.util.List;
-
 /**
- * The interface through which interested parties are notified of changes to the world cities list.
+ * The interface through which interested parties are notified of changes to device settings that
+ * silence firing alarms.
  */
-public interface CityListener {
-    void citiesChanged(List<City> oldCities, List<City> newCities);
+public interface OnSilentSettingsListener {
+    void onSilentSettingsChange(DataModel.SilentSetting before, DataModel.SilentSetting after);
 }
