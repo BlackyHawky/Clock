@@ -20,25 +20,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.NotificationManager;
-import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.ContentObserver;
 import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
 import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -66,6 +53,8 @@ import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.SettingsMenuItemController;
 import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.DataModel.SilentSetting;
+import com.android.deskclock.data.OnSilentSettingsListener;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.uidata.TabListener;
@@ -73,13 +62,6 @@ import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.RtlViewPager;
 import com.android.deskclock.widget.toast.SnackbarManager;
 
-import static android.app.NotificationManager.ACTION_INTERRUPTION_FILTER_CHANGED;
-import static android.app.NotificationManager.INTERRUPTION_FILTER_NONE;
-import static android.media.AudioManager.FLAG_SHOW_UI;
-import static android.media.AudioManager.STREAM_ALARM;
-import static android.media.RingtoneManager.TYPE_ALARM;
-import static android.provider.Settings.System.CONTENT_URI;
-import static android.provider.Settings.System.DEFAULT_ALARM_ALERT_URI;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_SETTLING;
@@ -92,14 +74,6 @@ import static com.android.deskclock.AnimatorUtils.getScaleAnimator;
  */
 public class DeskClock extends BaseActivity
         implements FabContainer, LabelDialogFragment.AlarmLabelDialogHandler {
-
-    /** The Uri to the settings entry that stores alarm stream volume. */
-    private static final Uri VOLUME_URI = Uri.withAppendedPath(CONTENT_URI, "volume_alarm_speaker");
-
-    /** The intent filter that identifies do-not-disturb change broadcasts. */
-    @SuppressLint("NewApi")
-    private static final IntentFilter DND_CHANGE_FILTER
-            = new IntentFilter(ACTION_INTERRUPTION_FILTER_CHANGED);
 
     /** Models the interesting state of display the {@link #mFab} button may inhabit. */
     private enum FabState { SHOWING, HIDE_ARMED, HIDING }
@@ -125,32 +99,12 @@ public class DeskClock extends BaseActivity
     /** Updates the user interface to reflect the selected tab from the backing model. */
     private final TabListener mTabChangeWatcher = new TabChangeWatcher();
 
-    /** Displays a snackbar explaining that the system default alarm ringtone is silent. */
-    private final Runnable mShowSilentAlarmSnackbarRunnable = new ShowSilentAlarmSnackbarRunnable();
+    /** Shows/hides a snackbar explaining which setting is suppressing alarms from firing. */
+    private final OnSilentSettingsListener mSilentSettingChangeWatcher =
+            new SilentSettingChangeWatcher();
 
-    /** Observes default alarm ringtone changes while the app is in the foreground. */
-    private final ContentObserver mAlarmRingtoneChangeObserver = new AlarmRingtoneChangeObserver();
-
-    /** Displays a snackbar explaining that the alarm volume is muted. */
-    private final Runnable mShowMutedVolumeSnackbarRunnable = new ShowMutedVolumeSnackbarRunnable();
-
-    /** Observes alarm volume changes while the app is in the foreground. */
-    private final ContentObserver mAlarmVolumeChangeObserver = new AlarmVolumeChangeObserver();
-
-    /** Displays a snackbar explaining that do-not-disturb is blocking alarms. */
-    private final Runnable mShowDNDBlockingSnackbarRunnable = new ShowDNDBlockingSnackbarRunnable();
-
-    /** Observes do-not-disturb changes while the app is in the foreground. */
-    private final BroadcastReceiver mDoNotDisturbChangeReceiver = new DoNotDisturbChangeReceiver();
-
-    /** Used to query the alarm volume and display the system control to change the alarm volume. */
-    private AudioManager mAudioManager;
-
-    /** Used to query the do-not-disturb setting value, also called "interruption filter". */
-    private NotificationManager mNotificationManager;
-
-    /** {@code true} permits the muted alarm volume snackbar to show when starting this activity. */
-    private boolean mShowSilencedAlarmsSnackbar;
+    /** Displays a snackbar explaining why alarms may not fire or may fire silently. */
+    private Runnable mShowSilentSettingSnackbarRunnable;
 
     /** The view to which snackbar items are anchored. */
     private View mSnackbarAnchor;
@@ -195,12 +149,6 @@ public class DeskClock extends BaseActivity
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.desk_clock);
-
-        mAudioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-        mNotificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-
-        // Don't show the volume muted snackbar on rotations.
-        mShowSilencedAlarmsSnackbar = savedInstanceState == null;
         mSnackbarAnchor = findViewById(R.id.content);
 
         // Configure the toolbar.
@@ -249,11 +197,9 @@ public class DeskClock extends BaseActivity
                 if (showTabHorizontally) {
                     // Remove the icon so it doesn't affect the minimum TabLayout height.
                     tab.setIcon(null);
-                    text.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            icon, null, null, null);
+                    text.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
                 } else {
-                    text.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                            null, icon, null, null);
+                    text.setCompoundDrawablesRelativeWithIntrinsicBounds(null, icon, null, null);
                 }
             }
 
@@ -368,32 +314,7 @@ public class DeskClock extends BaseActivity
     @Override
     protected void onStart() {
         super.onStart();
-
-        if (mShowSilencedAlarmsSnackbar) {
-            if (isDoNotDisturbBlockingAlarms()) {
-                mSnackbarAnchor.postDelayed(mShowDNDBlockingSnackbarRunnable, SECOND_IN_MILLIS);
-            } else if (isAlarmStreamMuted()) {
-                mSnackbarAnchor.postDelayed(mShowMutedVolumeSnackbarRunnable, SECOND_IN_MILLIS);
-            } else if (isSystemAlarmRingtoneSilent()) {
-                mSnackbarAnchor.postDelayed(mShowSilentAlarmSnackbarRunnable, SECOND_IN_MILLIS);
-            }
-        }
-
-        // Subsequent starts of this activity should show the snackbar by default.
-        mShowSilencedAlarmsSnackbar = true;
-
-        final ContentResolver cr = getContentResolver();
-        // Watch for system alarm ringtone changes while the app is in the foreground.
-        cr.registerContentObserver(DEFAULT_ALARM_ALERT_URI, false, mAlarmRingtoneChangeObserver);
-
-        // Watch for alarm volume changes while the app is in the foreground.
-        cr.registerContentObserver(VOLUME_URI, false, mAlarmVolumeChangeObserver);
-
-        if (Utils.isMOrLater()) {
-            // Watch for do-not-disturb changes while the app is in the foreground.
-            registerReceiver(mDoNotDisturbChangeReceiver, DND_CHANGE_FILTER);
-        }
-
+        DataModel.getDataModel().addSilentSettingsListener(mSilentSettingChangeWatcher);
         DataModel.getDataModel().setApplicationInForeground(true);
     }
 
@@ -437,25 +358,11 @@ public class DeskClock extends BaseActivity
 
     @Override
     protected void onStop() {
+        DataModel.getDataModel().removeSilentSettingsListener(mSilentSettingChangeWatcher);
         if (!isChangingConfigurations()) {
             DataModel.getDataModel().setApplicationInForeground(false);
         }
 
-        // Stop watching for system alarm ringtone changes while the app is in the background.
-        getContentResolver().unregisterContentObserver(mAlarmRingtoneChangeObserver);
-
-        // Stop watching for alarm volume changes while the app is in the background.
-        getContentResolver().unregisterContentObserver(mAlarmVolumeChangeObserver);
-
-        if (Utils.isMOrLater()) {
-            // Stop watching for do-not-disturb changes while the app is in the background.
-            unregisterReceiver(mDoNotDisturbChangeReceiver);
-        }
-
-        // Remove any scheduled work to show snackbars; it is no longer relevant.
-        mSnackbarAnchor.removeCallbacks(mShowSilentAlarmSnackbarRunnable);
-        mSnackbarAnchor.removeCallbacks(mShowDNDBlockingSnackbarRunnable);
-        mSnackbarAnchor.removeCallbacks(mShowMutedVolumeSnackbarRunnable);
         super.onStop();
     }
 
@@ -585,73 +492,6 @@ public class DeskClock extends BaseActivity
         return mFragmentTabPagerAdapter.getItem(index);
     }
 
-    private boolean isSystemAlarmRingtoneSilent() {
-        try {
-            return RingtoneManager.getActualDefaultRingtoneUri(this, TYPE_ALARM) == null;
-        } catch (Exception e) {
-            // Since this is purely informational, avoid crashing the app.
-            return false;
-        }
-    }
-
-    private void showSilentRingtoneSnackbar() {
-        final OnClickListener changeClickListener = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Settings.ACTION_SOUND_SETTINGS)
-                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-            }
-        };
-
-        SnackbarManager.show(
-                createSnackbar(R.string.silent_default_alarm_ringtone)
-                        .setAction(R.string.change_default_alarm_ringtone, changeClickListener)
-        );
-    }
-
-    private boolean isAlarmStreamMuted() {
-        try {
-            return mAudioManager.getStreamVolume(STREAM_ALARM) <= 0;
-        } catch (Exception e) {
-            // Since this is purely informational, avoid crashing the app.
-            return false;
-        }
-    }
-
-    private void showAlarmVolumeMutedSnackbar() {
-        final OnClickListener unmuteClickListener = new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Set the alarm volume to ~30% of max and show the slider UI.
-                final int index = mAudioManager.getStreamMaxVolume(STREAM_ALARM) / 3;
-                mAudioManager.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
-            }
-        };
-
-        SnackbarManager.show(
-                createSnackbar(R.string.alarm_volume_muted)
-                        .setAction(R.string.unmute_alarm_volume, unmuteClickListener)
-        );
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private boolean isDoNotDisturbBlockingAlarms() {
-        if (!Utils.isMOrLater()) {
-            return false;
-        }
-
-        try {
-            return mNotificationManager.getCurrentInterruptionFilter() == INTERRUPTION_FILTER_NONE;
-        } catch (Exception e) {
-            // Since this is purely informational, avoid crashing the app.
-            return false;
-        }
-    }
-
-    private void showDoNotDisturbIsBlockingAlarmsSnackbar() {
-        SnackbarManager.show(createSnackbar(R.string.alarms_blocked_by_dnd));
-    }
-
     /**
      * @return a Snackbar that displays the message with the given id for 5 seconds
      */
@@ -747,87 +587,47 @@ public class DeskClock extends BaseActivity
     }
 
     /**
-     * Displays a snackbar that indicates the system default alarm ringtone currently silent and
-     * offers an action that displays the system alarm ringtone setting to adjust it.
+     * Shows/hides a snackbar as silencing settings are enabled/disabled.
      */
-    private final class ShowSilentAlarmSnackbarRunnable implements Runnable {
+    private final class SilentSettingChangeWatcher implements OnSilentSettingsListener {
         @Override
-        public void run() {
-            showSilentRingtoneSnackbar();
-        }
-    }
+        public void onSilentSettingsChange(SilentSetting before, SilentSetting after) {
+            if (mShowSilentSettingSnackbarRunnable != null) {
+                mSnackbarAnchor.removeCallbacks(mShowSilentSettingSnackbarRunnable);
+                mShowSilentSettingSnackbarRunnable = null;
+            }
 
-    /**
-     * Displays a snackbar that indicates the alarm volume is currently muted and offers an action
-     * that displays the system volume control to adjust it.
-     */
-    private final class ShowMutedVolumeSnackbarRunnable implements Runnable {
-        @Override
-        public void run() {
-            showAlarmVolumeMutedSnackbar();
-        }
-    }
-
-    /**
-     * Displays a snackbar that indicates the do-not-disturb setting is currently blocking alarms.
-     */
-    private final class ShowDNDBlockingSnackbarRunnable implements Runnable {
-        @Override
-        public void run() {
-            showDoNotDisturbIsBlockingAlarmsSnackbar();
-        }
-    }
-
-    /**
-     * Observe changes to the system default alarm ringtone while the application is in the
-     * foreground and show/hide the snackbar that warns when the ringtone is silent.
-     */
-    private final class AlarmRingtoneChangeObserver extends ContentObserver {
-        private AlarmRingtoneChangeObserver() {
-            super(new Handler());
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            if (isSystemAlarmRingtoneSilent()) {
-                showSilentRingtoneSnackbar();
-            } else {
+            if (after == null) {
                 SnackbarManager.dismiss();
+            } else {
+                mShowSilentSettingSnackbarRunnable = new ShowSilentSettingSnackbarRunnable(after);
+                mSnackbarAnchor.postDelayed(mShowSilentSettingSnackbarRunnable, SECOND_IN_MILLIS);
             }
         }
     }
 
     /**
-     * Observe changes to the alarm stream volume while the application is in the foreground and
-     * show/hide the snackbar that warns when the alarm volume is muted.
+     * Displays a snackbar that indicates a system setting is currently silencing alarms.
      */
-    private final class AlarmVolumeChangeObserver extends ContentObserver {
-        private AlarmVolumeChangeObserver() {
-            super(new Handler());
+    private final class ShowSilentSettingSnackbarRunnable implements Runnable {
+
+        private final SilentSetting mSilentSetting;
+
+        private ShowSilentSettingSnackbarRunnable(SilentSetting silentSetting) {
+            mSilentSetting = silentSetting;
         }
 
-        @Override
-        public void onChange(boolean selfChange) {
-            if (isAlarmStreamMuted()) {
-                showAlarmVolumeMutedSnackbar();
-            } else {
-                SnackbarManager.dismiss();
-            }
-        }
-    }
+        public void run() {
+            // Create a snackbar with a message explaining the setting that is silencing alarms.
+            final Snackbar snackbar = createSnackbar(mSilentSetting.getLabelResId());
 
-    /**
-     * Observe changes to the do-not-disturb setting while the application is in the foreground
-     * and show/hide the snackbar that warns when the setting is blocking alarms.
-     */
-    private final class DoNotDisturbChangeReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (isDoNotDisturbBlockingAlarms()) {
-                showDoNotDisturbIsBlockingAlarmsSnackbar();
-            } else {
-                SnackbarManager.dismiss();
+            // Set the associated corrective action if one exists.
+            final int actionResId = mSilentSetting.getActionResId();
+            if (actionResId != 0) {
+                snackbar.setAction(actionResId, mSilentSetting.getActionListener());
             }
+
+            SnackbarManager.show(snackbar);
         }
     }
 

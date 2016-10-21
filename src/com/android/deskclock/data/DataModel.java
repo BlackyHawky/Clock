@@ -18,11 +18,16 @@ package com.android.deskclock.data;
 
 import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.annotation.StringRes;
+import android.view.View;
 
+import com.android.deskclock.R;
+import com.android.deskclock.Utils;
 import com.android.deskclock.timer.TimerService;
 
 import java.util.Calendar;
@@ -30,6 +35,12 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+import static android.content.Context.AUDIO_SERVICE;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.media.AudioManager.FLAG_SHOW_UI;
+import static android.media.AudioManager.STREAM_ALARM;
+import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
+import static android.provider.Settings.ACTION_SOUND_SETTINGS;
 import static com.android.deskclock.Utils.enforceMainLooper;
 
 /**
@@ -42,6 +53,79 @@ public final class DataModel {
 
     /** Indicates the preferred sort order of cities. */
     public enum CitySort {NAME, UTC_OFFSET}
+
+    /** Indicates the reason alarms may not fire or may fire silently. */
+    public enum SilentSetting {
+        DO_NOT_DISTURB(R.string.alarms_blocked_by_dnd, 0, null),
+        MUTED_VOLUME(R.string.alarm_volume_muted,
+                R.string.unmute_alarm_volume,
+                new UnmuteAlarmVolumeListener()),
+        SILENT_RINGTONE(R.string.silent_default_alarm_ringtone,
+                R.string.change_setting_action,
+                new ChangeSoundSettingsListener()),
+        BLOCKED_NOTIFICATIONS(R.string.app_notifications_blocked,
+                R.string.change_setting_action,
+                new ChangeAppNotificationSettingsListener());
+
+        private final @StringRes int mLabelResId;
+        private final @StringRes int mActionResId;
+        private final View.OnClickListener mActionListener;
+
+        SilentSetting(int labelResId, int actionResId, View.OnClickListener actionListener) {
+            mLabelResId = labelResId;
+            mActionResId = actionResId;
+            mActionListener = actionListener;
+        }
+
+        public @StringRes int getLabelResId() { return mLabelResId; }
+        public @StringRes int getActionResId() { return mActionResId; }
+        public View.OnClickListener getActionListener() { return mActionListener; }
+
+        private static class UnmuteAlarmVolumeListener implements View.OnClickListener {
+            @Override
+            public void onClick(View v) {
+                // Set the alarm volume to ~30% of max and show the slider UI.
+                final Context context = v.getContext();
+                final AudioManager am = (AudioManager) context.getSystemService(AUDIO_SERVICE);
+                final int index = am.getStreamMaxVolume(STREAM_ALARM) / 3;
+                am.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
+            }
+        };
+
+        private static class ChangeSoundSettingsListener implements View.OnClickListener {
+            @Override
+            public void onClick(View v) {
+                final Context context = v.getContext();
+                context.startActivity(new Intent(ACTION_SOUND_SETTINGS)
+                        .addFlags(FLAG_ACTIVITY_NEW_TASK));
+            }
+        };
+
+        private static class ChangeAppNotificationSettingsListener implements View.OnClickListener {
+            @Override
+            public void onClick(View v) {
+                final Context context = v.getContext();
+                if (Utils.isLOrLater()) {
+                    try {
+                        // Attempt to open the notification settings for this app.
+                        context.startActivity(
+                                new Intent("android.settings.APP_NOTIFICATION_SETTINGS")
+                                .putExtra("app_package", context.getPackageName())
+                                .putExtra("app_uid", context.getApplicationInfo().uid)
+                                .addFlags(FLAG_ACTIVITY_NEW_TASK));
+                        return;
+                    } catch (Exception ignored) {
+                        // best attempt only; recovery code below
+                    }
+                }
+
+                // Fall back to opening the app settings page.
+                context.startActivity(new Intent(ACTION_APPLICATION_DETAILS_SETTINGS)
+                        .setData(Uri.fromParts("package", context.getPackageName(), null))
+                        .addFlags(FLAG_ACTIVITY_NEW_TASK));
+            }
+        };
+    }
 
     public static final String ACTION_WORLD_CITIES_CHANGED =
             "com.android.deskclock.WORLD_CITIES_CHANGED";
@@ -67,6 +151,9 @@ public final class DataModel {
 
     /** The model from which widget data are fetched. */
     private WidgetModel mWidgetModel;
+
+    /** The model from which data about settings that silence alarms are fetched. */
+    private SilentSettingsModel mSilentSettingsModel;
 
     /** The model from which stopwatch data are fetched. */
     private StopwatchModel mStopwatchModel;
@@ -96,6 +183,7 @@ public final class DataModel {
             mNotificationModel = new NotificationModel();
             mCityModel = new CityModel(mContext, mSettingsModel);
             mAlarmModel = new AlarmModel(mContext, mSettingsModel);
+            mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
             mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
             mTimerModel = new TimerModel(mContext, mSettingsModel, mNotificationModel);
         }
@@ -177,6 +265,7 @@ public final class DataModel {
             mTimerModel.updateNotification();
             mTimerModel.updateMissedNotification();
             mStopwatchModel.updateNotification();
+            mSilentSettingsModel.updateSilentState();
         }
     }
 
@@ -721,6 +810,22 @@ public final class DataModel {
     //
     // Settings
     //
+
+    /**
+     * @param silentSettingsListener to be notified when alarm-silencing settings change
+     */
+    public void addSilentSettingsListener(OnSilentSettingsListener silentSettingsListener) {
+        enforceMainLooper();
+        mSilentSettingsModel.addSilentSettingsListener(silentSettingsListener);
+    }
+
+    /**
+     * @param silentSettingsListener to no longer be notified when alarm-silencing settings change
+     */
+    public void removeSilentSettingsListener(OnSilentSettingsListener silentSettingsListener) {
+        enforceMainLooper();
+        mSilentSettingsModel.removeSilentSettingsListener(silentSettingsListener);
+    }
 
     /**
      * @return the style of clock to display in the clock application

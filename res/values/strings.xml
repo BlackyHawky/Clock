@@ -395,7 +395,10 @@
     <string name="silent_default_alarm_ringtone">Default alarm ringtone is silent</string>
 
     <!-- Text for action that shows the UI that changes the default alarm ringtone. [CHAR LIMIT=20] -->
-    <string name="change_default_alarm_ringtone">Change</string>
+    <string name="change_setting_action">Change</string>
+
+    <!-- Text to display when app notifications are blocked. [CHAR LIMIT=50] -->
+    <string name="app_notifications_blocked">Clock notifications are blocked</string>
 
     <!-- Text to display when do-not-disturb is blocking alarms. [CHAR LIMIT=60] -->
     <string name="alarms_blocked_by_dnd">Device is set to total silence</string>
