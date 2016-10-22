@@ -165,7 +165,10 @@
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Äratuste helitugevus vaigistati"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Tühista vaigistus"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Äratuse vaikehelin on hääletu"</string>
-    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"Muuda"</string>
+    <!-- no translation found for change_setting_action (1224356633832430160) -->
+    <skip />
+    <!-- no translation found for app_notifications_blocked (7249150789023936889) -->
+    <skip />
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Seade on täielikult vaigistatud"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Helitugevuse nupud"</string>
   <string-array name="volume_button_setting_entries">
@@ -256,8 +259,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Linnad"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Kell"</string>
     <string name="clock_style" msgid="2265011060429742344">"Stiil"</string>
-    <!-- no translation found for display_clock_seconds_pref (691506643469501643) -->
-    <skip />
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Kuva aeg sekundites"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Kuupäeva ja kellaaja muutmine"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analoog"</item>

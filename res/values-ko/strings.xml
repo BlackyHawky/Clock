@@ -165,7 +165,10 @@
     <string name="alarm_volume_muted" msgid="6658289289695673569">"알람 볼륨이 음소거되었습니다."</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"음소거 해제"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"기본 알람 벨소리: 무음"</string>
-    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"변경"</string>
+    <!-- no translation found for change_setting_action (1224356633832430160) -->
+    <skip />
+    <!-- no translation found for app_notifications_blocked (7249150789023936889) -->
+    <skip />
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"기기가 모두 차단으로 설정됨"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"볼륨 버튼"</string>
   <string-array name="volume_button_setting_entries">
