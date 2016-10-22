@@ -346,8 +346,10 @@ public class DeskClock extends BaseActivity
 
     @Override
     public void onPause() {
-        mDropShadowController.stop();
-        mDropShadowController = null;
+        if (mDropShadowController != null) {
+            mDropShadowController.stop();
+            mDropShadowController = null;
+        }
 
         super.onPause();
     }
