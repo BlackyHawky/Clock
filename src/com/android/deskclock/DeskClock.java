@@ -51,7 +51,6 @@ import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NightModeMenuItemController;
 import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.actionbarmenu.SettingsMenuItemController;
-import com.android.deskclock.alarms.AlarmStateManager;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.DataModel.SilentSetting;
 import com.android.deskclock.data.OnSilentSettingsListener;
@@ -299,9 +298,6 @@ public class DeskClock extends BaseActivity
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
-
-        // Update the next alarm time on app startup because the user might have altered the data.
-        AlarmStateManager.updateNextAlarm(this);
 
         if (savedInstanceState == null) {
             // Set the background color to initially match the theme value so that we can
