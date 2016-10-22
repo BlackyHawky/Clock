@@ -179,7 +179,10 @@
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Hlasitosť budíka bola stlmená"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Obnoviť zvuk"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Predvolený zvuk budíka je ticho"</string>
-    <string name="change_default_alarm_ringtone" msgid="7040346397494294392">"Zmeniť"</string>
+    <!-- no translation found for change_setting_action (1224356633832430160) -->
+    <skip />
+    <!-- no translation found for app_notifications_blocked (7249150789023936889) -->
+    <skip />
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Zariadenie je nastavené na úplné ticho"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tlačidlá hlasitosti"</string>
   <string-array name="volume_button_setting_entries">
@@ -276,8 +279,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"Mestá"</string>
     <string name="clock_settings" msgid="8317286807280600391">"Hodiny"</string>
     <string name="clock_style" msgid="2265011060429742344">"Štýl"</string>
-    <!-- no translation found for display_clock_seconds_pref (691506643469501643) -->
-    <skip />
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"Zobraziť čas so sekundami"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"Zmeniť dátum a čas"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"Analógové"</item>
