@@ -55,7 +55,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
     public final TextTime clock;
     public final CompoundButton onOff;
     public final ImageView arrow;
-    public final View preemptiveDismissContainer;
     public final TextView preemptiveDismissButton;
 
     public AlarmItemViewHolder(View itemView) {
@@ -64,7 +63,6 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
         clock = (TextTime) itemView.findViewById(R.id.digital_clock);
         onOff = (CompoundButton) itemView.findViewById(R.id.onoff);
         arrow = (ImageView) itemView.findViewById(R.id.arrow);
-        preemptiveDismissContainer = itemView.findViewById(R.id.preemptive_dismiss_container);
         preemptiveDismissButton =
                 (TextView) itemView.findViewById(R.id.preemptive_dismiss_button);
         preemptiveDismissButton.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +107,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             AlarmInstance alarmInstance) {
         final boolean canBind = alarm.canPreemptivelyDismiss() && alarmInstance != null;
         if (canBind) {
-            preemptiveDismissContainer.setVisibility(View.VISIBLE);
+            preemptiveDismissButton.setVisibility(View.VISIBLE);
             final String dismissText = alarm.instanceState == AlarmInstance.SNOOZE_STATE
                     ? context.getString(R.string.alarm_alert_snooze_until,
                             AlarmUtils.getAlarmText(context, alarmInstance, false))
@@ -117,7 +115,7 @@ public abstract class AlarmItemViewHolder extends ItemAdapter.ItemViewHolder<Ala
             preemptiveDismissButton.setText(dismissText);
             preemptiveDismissButton.setClickable(true);
         } else {
-            preemptiveDismissContainer.setVisibility(View.GONE);
+            preemptiveDismissButton.setVisibility(View.GONE);
             preemptiveDismissButton.setClickable(false);
         }
         return canBind;

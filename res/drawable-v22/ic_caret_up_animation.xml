@@ -16,11 +16,14 @@
 -->
 <animated-vector
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/caret_toclose">
+    android:drawable="@drawable/ic_caret_up_static">
     <target
-        android:name="caret_l"
-        android:animation="@animator/caret_toclose_caret_l_animation" />
+        android:name="caret02"
+        android:animation="@animator/caret_collapse_base_animation" />
     <target
-        android:name="caret_r"
-        android:animation="@animator/caret_toclose_caret_r_animation" />
+        android:name="caret02_l"
+        android:animation="@animator/caret_collapse_l_animation" />
+    <target
+        android:name="caret02_r"
+        android:animation="@animator/caret_collapse_r_animation" />
 </animated-vector>

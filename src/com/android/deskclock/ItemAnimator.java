@@ -162,10 +162,14 @@ public class ItemAnimator extends SimpleItemAnimator {
             return animateMove(oldHolder, fromX, fromY, toX, toY);
         } else if (oldHolder == null || newHolder == null) {
             // Two holders are required for change animations.
+            dispatchChangeFinished(oldHolder, true);
+            dispatchChangeFinished(newHolder, true);
             return true;
         } else if (!(oldHolder instanceof OnAnimateChangeListener) ||
                 !(newHolder instanceof OnAnimateChangeListener)) {
             // Both holders must implement OnAnimateChangeListener in order to animate.
+            dispatchChangeFinished(oldHolder, true);
+            dispatchChangeFinished(newHolder, true);
             return true;
         }
 
@@ -173,39 +177,47 @@ public class ItemAnimator extends SimpleItemAnimator {
 
         final Animator oldChangeAnimator = ((OnAnimateChangeListener) oldHolder)
                 .onAnimateChange(oldHolder, newHolder, changeDuration);
-        oldChangeAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                dispatchChangeStarting(oldHolder, true);
-            }
+        if (oldChangeAnimator != null) {
+            oldChangeAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+                    dispatchChangeStarting(oldHolder, true);
+                }
 
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                animator.removeAllListeners();
-                mAnimators.remove(oldHolder);
-                dispatchChangeFinished(oldHolder, true);
-            }
-        });
-        mAnimators.put(oldHolder, oldChangeAnimator);
-        mChangeAnimatorsList.add(oldChangeAnimator);
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    animator.removeAllListeners();
+                    mAnimators.remove(oldHolder);
+                    dispatchChangeFinished(oldHolder, true);
+                }
+            });
+            mAnimators.put(oldHolder, oldChangeAnimator);
+            mChangeAnimatorsList.add(oldChangeAnimator);
+        } else {
+            dispatchChangeFinished(oldHolder, true);
+        }
 
         final Animator newChangeAnimator = ((OnAnimateChangeListener) newHolder)
                 .onAnimateChange(oldHolder, newHolder, changeDuration);
-        newChangeAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                dispatchChangeStarting(newHolder, false);
-            }
+        if (newChangeAnimator != null) {
+            newChangeAnimator.addListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+                    dispatchChangeStarting(newHolder, false);
+                }
 
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                animator.removeAllListeners();
-                mAnimators.remove(newHolder);
-                dispatchChangeFinished(newHolder, false);
-            }
-        });
-        mAnimators.put(newHolder, newChangeAnimator);
-        mChangeAnimatorsList.add(newChangeAnimator);
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    animator.removeAllListeners();
+                    mAnimators.remove(newHolder);
+                    dispatchChangeFinished(newHolder, false);
+                }
+            });
+            mAnimators.put(newHolder, newChangeAnimator);
+            mChangeAnimatorsList.add(newChangeAnimator);
+        } else {
+            dispatchChangeFinished(newHolder, false);
+        }
 
         return true;
     }

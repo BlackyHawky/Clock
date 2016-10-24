@@ -14,16 +14,11 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<animated-vector
+<objectAnimator
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/caret_toopen">
-    <target
-        android:name="caret02"
-        android:animation="@animator/caret_toopen_caret02_animation" />
-    <target
-        android:name="caret02_l"
-        android:animation="@animator/caret_toopen_caret02_l_animation" />
-    <target
-        android:name="caret02_r"
-        android:animation="@animator/caret_toopen_caret02_r_animation" />
-</animated-vector>
+    android:duration="300"
+    android:interpolator="@interpolator/caret_toclose_animation_interpolator_0"
+    android:propertyName="rotation"
+    android:valueFrom="-45.0"
+    android:valueTo="45.0"
+    android:valueType="floatType" />

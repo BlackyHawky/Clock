@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-     Copyright (C) 2016 The Android Open Source Project
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,11 +13,14 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<objectAnimator
+
+<vector
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="200"
-    android:interpolator="@interpolator/caret_toclose_animation_interpolator_0"
-    android:propertyName="rotation"
-    android:valueFrom="-45.0"
-    android:valueTo="45.0"
-    android:valueType="floatType" />
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportHeight="24.0"
+    android:viewportWidth="24.0">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M17.63,5.84C17.27,5.33 16.67,5 16,5L5,5.01C3.9,5.01 3,5.9 3,7v10c0,1.1 0.9,1.99 2,1.99L16,19c0.67,0 1.27,-0.33 1.63,-0.84L22,12l-4.37,-6.16z"/>
+</vector>
