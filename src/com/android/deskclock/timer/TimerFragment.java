@@ -201,7 +201,7 @@ public final class TimerFragment extends DeskClockFragment {
                 final int index = DataModel.getDataModel().getTimers().indexOf(timer);
                 mViewPager.setCurrentItem(index);
 
-                animateToView(mTimersView, null);
+                animateToView(mTimersView, null, false);
             }
         }
     }
@@ -372,13 +372,14 @@ public final class TimerFragment extends DeskClockFragment {
             mViewPager.setCurrentItem(0);
 
             // Return to the list of timers.
-            animateToView(mTimersView, null);
+            animateToView(mTimersView, null, true);
         }
     }
 
     @Override
     public void onLeftButtonClick(@NonNull Button left) {
         if (mCurrentView == mTimersView) {
+            // Clicking the "delete" button.
             final Timer timer = getTimer();
             if (timer == null) {
                 return;
@@ -387,16 +388,16 @@ public final class TimerFragment extends DeskClockFragment {
             if (mAdapter.getCount() > 1) {
                 animateTimerRemove(timer);
             } else {
-                animateToView(mCreateTimerView, timer);
+                animateToView(mCreateTimerView, timer, false);
             }
 
             left.announceForAccessibility(getActivity().getString(R.string.timer_deleted));
 
         } else if (mCurrentView == mCreateTimerView) {
-            // Clicking the X icon on the timer creation page returns to the timers list.
+            // Clicking the "cancel" button on the timer creation page returns to the timers list.
             mCreateTimerView.reset();
 
-            animateToView(mTimersView, null);
+            animateToView(mTimersView, null, false);
 
             left.announceForAccessibility(getActivity().getString(R.string.timer_canceled));
         }
@@ -405,7 +406,7 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public void onRightButtonClick(@NonNull Button right) {
         if (mCurrentView != mCreateTimerView) {
-            animateToView(mCreateTimerView, null);
+            animateToView(mCreateTimerView, null, true);
         }
     }
 
@@ -564,8 +565,11 @@ public final class TimerFragment extends DeskClockFragment {
      * @param toView one of {@link #mTimersView} or {@link #mCreateTimerView}
      * @param timerToRemove the timer to be removed during the animation; {@code null} if no timer
      *      should be removed
+     * @param animateDown {@code true} if the views should animate upwards, otherwise animate
+     *      downwards
      */
-    private void animateToView(final View toView, final Timer timerToRemove) {
+    private void animateToView(final View toView, final Timer timerToRemove,
+            final boolean animateDown) {
         if (mCurrentView == toView) {
             return;
         }
@@ -589,8 +593,14 @@ public final class TimerFragment extends DeskClockFragment {
                     viewTreeObserver.removeOnPreDrawListener(this);
                 }
 
-                // Arbitrary distance for smooth sliding in/out animation.
-                final float translationDistance = toTimers ? 500f : -500f;
+                final View view = mTimersView.findViewById(R.id.timer_time);
+                final float distanceY = view != null ? view.getHeight() + view.getY() : 0;
+                final float translationDistance = animateDown ? distanceY : -distanceY;
+
+                toView.setTranslationY(-translationDistance);
+                mCurrentView.setTranslationY(0f);
+                toView.setAlpha(0f);
+                mCurrentView.setAlpha(1f);
 
                 final Animator translateCurrent = ObjectAnimator.ofFloat(mCurrentView,
                         TRANSLATION_Y, translationDistance);
@@ -599,8 +609,10 @@ public final class TimerFragment extends DeskClockFragment {
                 translationAnimatorSet.playTogether(translateCurrent, translateNew);
                 translationAnimatorSet.setDuration(animationDuration);
                 translationAnimatorSet.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
                 final Animator fadeOutAnimator = ObjectAnimator.ofFloat(mCurrentView, ALPHA, 0f);
                 fadeOutAnimator.setDuration(animationDuration / 2);
+
                 final Animator fadeInAnimator = ObjectAnimator.ofFloat(toView, ALPHA, 1f);
                 fadeInAnimator.setDuration(animationDuration / 2);
                 fadeInAnimator.setStartDelay(animationDuration / 2);
@@ -609,17 +621,10 @@ public final class TimerFragment extends DeskClockFragment {
                 animatorSet.playTogether(fadeOutAnimator, fadeInAnimator, translationAnimatorSet);
                 animatorSet.addListener(new AnimatorListenerAdapter() {
                     @Override
-                    public void onAnimationStart(Animator animation) {
-                        super.onAnimationStart(animation);
-                        toView.setTranslationY(-translationDistance);
-                        toView.setAlpha(0f);
-                        mCurrentView.setTranslationY(0);
-                        mCurrentView.setAlpha(1f);
-                    }
-
-                    @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
+                        mCurrentView.setTranslationY(0f);
+                        toView.setTranslationY(0f);
                         if (toTimers) {
                             showTimersView(FAB_AND_BUTTONS_SHRINK_AND_EXPAND);
 
@@ -747,7 +752,7 @@ public final class TimerFragment extends DeskClockFragment {
 
             if (mCurrentView == mTimersView) {
                 if (mAdapter.getCount() == 0) {
-                    animateToView(mCreateTimerView, null);
+                    animateToView(mCreateTimerView, null, false);
                 } else {
                     updateFab(FAB_AND_BUTTONS_IMMEDIATE);
                 }
