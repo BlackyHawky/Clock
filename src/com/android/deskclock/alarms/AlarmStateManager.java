@@ -1016,7 +1016,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         public void scheduleInstanceStateChange(Context context, Calendar time,
                 AlarmInstance instance, int newState) {
             final long timeInMillis = time.getTimeInMillis();
-            LogUtils.v("Scheduling state change %d to instance %d at %s (%d)", newState,
+            LogUtils.i("Scheduling state change %d to instance %d at %s (%d)", newState,
                     instance.mId, AlarmUtils.getFormattedTime(context, time), timeInMillis);
             final Intent stateChangeIntent =
                     createStateChangeIntent(context, ALARM_MANAGER_TAG, instance, newState);
