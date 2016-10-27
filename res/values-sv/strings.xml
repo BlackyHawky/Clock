@@ -312,7 +312,7 @@
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Vibration för timer"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Timern har pausats"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> timer har pausats"</string>
-    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Tryck här om du vill visa timer"</string>
+    <string name="all_timers_stopped_notif" msgid="883027111895833440">"Tryck här för att visa timer"</string>
     <string name="timers_in_use" msgid="5570729467344408506">"<xliff:g id="NUMBER">%d</xliff:g> timer"</string>
     <string name="next_timer_notif" msgid="6136454740115613653">"Nästa timer: <xliff:g id="TIME_REMAINING">%s</xliff:g>"</string>
     <string name="screensaver_settings" msgid="1780742944194267226">"Inställningar för skärmsläckare"</string>
