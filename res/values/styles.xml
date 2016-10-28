@@ -196,7 +196,6 @@
     <style name="body">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="sub_text">
