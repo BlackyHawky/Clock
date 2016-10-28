@@ -94,9 +94,6 @@ public final class StopwatchFragment extends DeskClockFragment {
     /** Displays the current stopwatch time. */
     private CountingTimerView mTimeText;
 
-    /** Number of laps the stopwatch is tracking. */
-    private int mLapCount;
-
     /** The public no-arg constructor required by all fragments. */
     public StopwatchFragment() {
         super(STOPWATCH);
@@ -140,7 +137,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         super.onStart();
 
         // Conservatively assume the data in the adapter has changed while the fragment was paused.
-        mLapCount = mLapsAdapter.getItemCount();
         mLapsAdapter.notifyDataSetChanged();
 
         // Synchronize the user interface with the data model.
@@ -228,12 +224,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     @Override
     public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
         final Resources resources = getResources();
+        left.setEnabled(true);
         left.setText(R.string.sw_reset_button);
         left.setContentDescription(resources.getString(R.string.sw_reset_button));
 
         switch (getStopwatch().getState()) {
             case RESET:
                 left.setVisibility(INVISIBLE);
+                right.setEnabled(true);
                 right.setVisibility(INVISIBLE);
                 break;
             case RUNNING:
@@ -245,6 +243,7 @@ public final class StopwatchFragment extends DeskClockFragment {
                 right.setVisibility(VISIBLE);
                 break;
             case PAUSED:
+                right.setEnabled(true);
                 right.setText(R.string.sw_share_button);
                 right.setContentDescription(resources.getString(R.string.sw_share_button));
                 break;
@@ -295,6 +294,9 @@ public final class StopwatchFragment extends DeskClockFragment {
      * Send stopwatch time and lap times to an external sharing application.
      */
     private void doShare() {
+        // Disable the fab buttons to avoid double-taps on the share button.
+        updateFab(BUTTONS_DISABLE);
+
         final String[] subjects = getResources().getStringArray(R.array.sw_share_strings);
         final String subject = subjects[(int) (Math.random() * subjects.length)];
         final String text = mLapsAdapter.getShareText();
@@ -350,7 +352,6 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Ensure the newly added lap is visible on screen.
         mLapsList.scrollToPosition(0);
-        mLapCount = mLapsAdapter.getItemCount();
     }
 
     /**
@@ -528,7 +529,6 @@ public final class StopwatchFragment extends DeskClockFragment {
         @Override
         public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
             if (after.isReset()) {
-                mLapCount = 0;
                 if (DataModel.getDataModel().isApplicationInForeground()) {
                     updateUI(BUTTONS_IMMEDIATE);
                 }
