@@ -41,6 +41,7 @@ public class TimerItem extends LinearLayout {
     /** Displays the remaining time or time since expiration. */
     private TextView mTimerText;
 
+    /** Formats and displays the text in the timer. */
     private TimerTextController mTimerTextController;
 
     /** Displays timer progress as a color circle that changes from white to red. */

@@ -20,11 +20,13 @@ import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.ColorUtils;
@@ -33,23 +35,25 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.transition.TransitionManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.StopwatchTextController;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Lap;
 import com.android.deskclock.data.Stopwatch;
 import com.android.deskclock.data.StopwatchListener;
 import com.android.deskclock.events.Events;
-import com.android.deskclock.timer.CountingTimerView;
 import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
@@ -64,8 +68,11 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
  * Fragment that shows the stopwatch and recorded laps.
  */
 public final class StopwatchFragment extends DeskClockFragment {
-    /** Milliseconds between redraws. */
-    private static final int REDRAW_PERIOD = 25;
+    /** Milliseconds between redraws while running. */
+    private static final int REDRAW_PERIOD_RUNNING = 25;
+
+    /** Milliseconds between redraws while paused. */
+    private static final int REDRAW_PERIOD_PAUSED = 500;
 
     /** Keep the screen on when this tab is selected. */
     private final TabListener mTabWatcher = new TabWatcher();
@@ -88,11 +95,20 @@ public final class StopwatchFragment extends DeskClockFragment {
     /** Draws the reference lap while the stopwatch is running. */
     private StopwatchCircleView mTime;
 
+    /** The View containing both TextViews of the stopwatch. */
+    private View mStopwatchWrapper;
+
     /** Displays the recorded lap times. */
     private RecyclerView mLapsList;
 
-    /** Displays the current stopwatch time. */
-    private CountingTimerView mTimeText;
+    /** Displays the current stopwatch time (seconds and above only). */
+    private TextView mMainTimeText;
+
+    /** Displays the current stopwatch time (hundredths only). */
+    private TextView mHundredthsTimeText;
+
+    /** Formats and displays the text in the stopwatch. */
+    private StopwatchTextController mStopwatchTextController;
 
     /** The public no-arg constructor required by all fragments. */
     public StopwatchFragment() {
@@ -106,7 +122,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         mGradientItemDecoration = new GradientItemDecoration(getActivity());
 
         final View v = inflater.inflate(R.layout.stopwatch_fragment, container, false);
-        mTime = (StopwatchCircleView) v.findViewById(R.id.stopwatch_time);
+        mTime = (StopwatchCircleView) v.findViewById(R.id.stopwatch_circle);
         mLapsList = (RecyclerView) v.findViewById(R.id.laps_list);
         ((SimpleItemAnimator) mLapsList.getItemAnimator()).setSupportsChangeAnimations(false);
         mLapsList.setLayoutManager(mLapsLayoutManager);
@@ -122,12 +138,30 @@ public final class StopwatchFragment extends DeskClockFragment {
         mLapsList.setAdapter(mLapsAdapter);
 
         // Timer text serves as a virtual start/stop button.
-        mTimeText = (CountingTimerView) v.findViewById(R.id.stopwatch_time_text);
-        mTimeText.setShowBoundingCircle(mTime != null);
-        mTimeText.setVirtualButtonEnabled(true);
-        mTimeText.registerVirtualButtonAction(new ToggleStopwatchRunnable());
+        mMainTimeText = (TextView) v.findViewById(R.id.stopwatch_time_text);
+        mHundredthsTimeText = (TextView) v.findViewById(R.id.stopwatch_hundredths_text);
+        mStopwatchTextController = new StopwatchTextController(mMainTimeText, mHundredthsTimeText);
+        mStopwatchWrapper = v.findViewById(R.id.stopwatch_time_wrapper);
 
         DataModel.getDataModel().addStopwatchListener(mStopwatchWatcher);
+
+        mStopwatchWrapper.setOnClickListener(new TimeClickListener());
+        if (mTime != null) {
+            mStopwatchWrapper.setOnTouchListener(new CircleTouchListener());
+        }
+
+        final TypedArray a = v.getContext().obtainStyledAttributes(
+                new int[] { R.attr.colorAccent, android.R.attr.textColorPrimary});
+        final int colorControlActivated = a.getColor(0, Color.RED);
+        final int colorControlNormal = a.getColor(1, Color.WHITE);
+        final int[][] states = {
+                { android.R.attr.state_activated }, { android.R.attr.state_pressed }, {}
+        };
+        final int[] colors = {colorControlActivated, colorControlActivated, colorControlNormal};
+        final ColorStateList colorStateList = new ColorStateList(states, colors);
+        mMainTimeText.setTextColor(colorStateList);
+        mHundredthsTimeText.setTextColor(colorStateList);
+        a.recycle();
 
         return v;
     }
@@ -152,7 +186,6 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         // Stop all updates while the fragment is not visible.
         stopUpdatingTime();
-        mTimeText.blinkTimeStr(false);
 
         // Stop watching for page changes away from this fragment.
         UiDataModel.getUiDataModel().removeTabListener(mTabWatcher);
@@ -287,6 +320,8 @@ public final class StopwatchFragment extends DeskClockFragment {
         final Stopwatch.State priorState = getStopwatch().getState();
         Events.sendStopwatchEvent(R.string.action_reset, R.string.label_deskclock);
         DataModel.getDataModel().resetStopwatch();
+        mMainTimeText.setAlpha(1f);
+        mHundredthsTimeText.setAlpha(1f);
         if (priorState == Stopwatch.State.RUNNING) {
             updateFab(FAB_MORPH);
         }
@@ -424,14 +459,14 @@ public final class StopwatchFragment extends DeskClockFragment {
     private void startUpdatingTime() {
         // Ensure only one copy of the runnable is ever scheduled by first stopping updates.
         stopUpdatingTime();
-        mTimeText.post(mTimeUpdateRunnable);
+        mMainTimeText.post(mTimeUpdateRunnable);
     }
 
     /**
      * Remove the runnable that updates times within the UI.
      */
     private void stopUpdatingTime() {
-        mTimeText.removeCallbacks(mTimeUpdateRunnable);
+        mMainTimeText.removeCallbacks(mTimeUpdateRunnable);
     }
 
     /**
@@ -443,9 +478,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         // Compute the total time of the stopwatch.
         final Stopwatch stopwatch = getStopwatch();
         final long totalTime = stopwatch.getTotalTime();
-
-        // Update the total time display.
-        mTimeText.setTime(totalTime, true);
+        mStopwatchTextController.setTimeString(totalTime);
 
         // Update the current lap.
         final boolean currentLapIsVisible = mLapsLayoutManager.findFirstVisibleItemPosition() == 0;
@@ -467,14 +500,10 @@ public final class StopwatchFragment extends DeskClockFragment {
             mTime.update();
         }
 
-        // Start updates if the stopwatch is running.
         final Stopwatch stopwatch = getStopwatch();
-        if (stopwatch.isRunning()) {
+        if (!stopwatch.isReset()) {
             startUpdatingTime();
         }
-
-        // Blink text iff the stopwatch is paused.
-        mTimeText.blinkTimeStr(stopwatch.isPaused());
 
         // Adjust the visibility of the list of laps.
         showOrHideLaps(stopwatch.isReset());
@@ -490,16 +519,32 @@ public final class StopwatchFragment extends DeskClockFragment {
     private final class TimeUpdateRunnable implements Runnable {
         @Override
         public void run() {
-            final long startTime = SystemClock.elapsedRealtime();
+            final long startTime = Utils.now();
 
             updateTime();
 
-            if (getStopwatch().isRunning()) {
-                // Try to maintain a consistent period of time between redraws.
-                final long endTime = SystemClock.elapsedRealtime();
-                final long delay = Math.max(0, startTime + REDRAW_PERIOD - endTime);
+            // Blink text iff the stopwatch is paused and not pressed.
+            final View touchTarget = mTime != null ? mTime : mStopwatchWrapper;
+            final Stopwatch stopwatch = getStopwatch();
+            final boolean blink = stopwatch.isPaused()
+                    && startTime % 1000 < 500
+                    && !touchTarget.isPressed();
 
-                mTimeText.postDelayed(this, delay);
+            if (blink) {
+                mMainTimeText.setAlpha(0f);
+                mHundredthsTimeText.setAlpha(0f);
+            } else {
+                mMainTimeText.setAlpha(1f);
+                mHundredthsTimeText.setAlpha(1f);
+            }
+
+            if (!stopwatch.isReset()) {
+                final long period = stopwatch.isPaused()
+                        ? REDRAW_PERIOD_PAUSED
+                        : REDRAW_PERIOD_RUNNING;
+                final long endTime = Utils.now();
+                final long delay = Math.max(0, startTime + period - endTime);
+                mMainTimeText.postDelayed(this, delay);
             }
         }
     }
@@ -543,6 +588,44 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         @Override
         public void lapAdded(Lap lap) {
+        }
+    }
+
+    /**
+     * Toggles stopwatch state when user taps stopwatch.
+     */
+    private final class TimeClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+            if (getStopwatch().isRunning()) {
+                DataModel.getDataModel().pauseStopwatch();
+            } else {
+                DataModel.getDataModel().startStopwatch();
+            }
+        }
+    }
+
+    /**
+     * Checks if the user is pressing inside of the stopwatch circle.
+     */
+    private final class CircleTouchListener implements View.OnTouchListener {
+        @Override
+        public boolean onTouch(View view, MotionEvent event) {
+            final int actionMasked = event.getActionMasked();
+            if (actionMasked != MotionEvent.ACTION_DOWN) {
+                return false;
+            }
+            final float rX = view.getWidth() / 2f;
+            final float rY = (view.getHeight() - view.getPaddingBottom()) / 2f;
+            final float r = Math.min(rX, rY);
+
+            final float x = event.getX() - rX;
+            final float y = event.getY() - rY;
+
+            final boolean inCircle = Math.pow(x / r, 2.0) + Math.pow(y / r, 2.0) <= 1.0;
+
+            // Consume the event if it is outside the circle
+            return !inCircle;
         }
     }
 
@@ -609,7 +692,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         /** The height of the gradient; sized relative to the fab height. */
         private final int mGradientHeight;
 
-        public GradientItemDecoration(Context context) {
+        GradientItemDecoration(Context context) {
             mGradient.setOrientation(TOP_BOTTOM);
             updateGradientColors(UiDataModel.getUiDataModel().getWindowBackgroundColor());
 
@@ -635,7 +718,7 @@ public final class StopwatchFragment extends DeskClockFragment {
          *
          * @param baseColor a base color to which the gradient tint should be applied
          */
-        public void updateGradientColors(@ColorInt int baseColor) {
+        void updateGradientColors(@ColorInt int baseColor) {
             // Compute the tinted colors that form the gradient.
             for (int i = 0; i < mGradientColors.length; i++) {
                 mGradientColors[i] = ColorUtils.setAlphaComponent(baseColor, ALPHAS[i]);

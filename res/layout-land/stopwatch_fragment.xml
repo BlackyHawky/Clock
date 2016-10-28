@@ -33,15 +33,17 @@
         android:layout_height="match_parent"
         android:layout_weight="@integer/guttered_content_width_percent">
 
-        <!-- A circle in the stopwatch_view implies it should be sized in the remaining area. -->
+        <!-- A circle in the stopwatch_circle implies it should be sized in the remaining area. -->
         <com.android.deskclock.TimerCircleFrameLayout
-            android:id="@+id/stopwatch"
+            android:id="@+id/stopwatch_time_wrapper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:paddingBottom="@dimen/fab_height">
 
-            <include layout="@layout/stopwatch_view" />
+            <include layout="@layout/stopwatch_time" />
+
+            <include layout="@layout/stopwatch_circle" />
 
         </com.android.deskclock.TimerCircleFrameLayout>
 

@@ -30,28 +30,19 @@ import static java.lang.Integer.MAX_VALUE;
  */
 public class AutoSizingTextView extends TextView {
 
-    /**
-     * Text paint used for measuring.
-     */
+    /** Text paint used for measuring. */
     private final TextPaint mMeasurePaint = new TextPaint();
 
-    /**
-     * The maximum size the text is allowed to be (in pixels).
-     */
+    /** The maximum size the text is allowed to be (in pixels). */
     private float mMaxTextSize;
 
-    /**
-     * The maximum width the text is allows to be (in pixels).
-     */
+    /** The maximum width the text is allows to be (in pixels). */
     private int mWidthConstraint = MAX_VALUE;
-    /**
-     * The maximum height the text is allows to be (in pixels).
-     */
+
+    /** The maximum height the text is allows to be (in pixels). */
     private int mHeightConstraint = MAX_VALUE;
 
-    /**
-     * When {@code true} calls to {@link #requestLayout()} should be ignored.
-     */
+    /** When {@code true} calls to {@link #requestLayout()} should be ignored. */
     private boolean mIgnoreRequestLayout;
 
     public AutoSizingTextView(Context context) {
