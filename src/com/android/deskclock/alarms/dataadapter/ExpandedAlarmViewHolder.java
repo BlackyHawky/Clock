@@ -212,7 +212,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
-        final String title = DataModel.getDataModel().getAlarmRingtoneTitle(alarm.alert);
+        final String title = DataModel.getDataModel().getRingtoneTitle(alarm.alert);
         ringtone.setText(title);
 
         final String description = context.getString(R.string.ringtone_description);

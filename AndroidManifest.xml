@@ -71,6 +71,12 @@
         </activity>
 
         <activity
+            android:name=".ringtone.RingtonePickerActivity"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@style/RingtonePickerTheme" />
+
+        <activity
             android:name=".worldclock.CitySelectionActivity"
             android:excludeFromRecents="true"
             android:label="@string/cities_activity_title"

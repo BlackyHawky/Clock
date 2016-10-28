@@ -22,7 +22,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -45,7 +44,6 @@ import com.android.deskclock.alarms.TimePickerCompat;
 import com.android.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.android.deskclock.alarms.dataadapter.CollapsedAlarmViewHolder;
 import com.android.deskclock.alarms.dataadapter.ExpandedAlarmViewHolder;
-import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.uidata.UiDataModel;
@@ -63,7 +61,6 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.ALARMS;
  */
 public final class AlarmClockFragment extends DeskClockFragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
-        RingtonePickerDialogFragment.OnRingtoneSelectedListener,
         ScrollHandler,
         TimePickerCompat.OnTimeSetListener {
 
@@ -263,21 +260,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void setLabel(Alarm alarm, String label) {
         alarm.label = label;
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
-    }
-
-    @Override
-    public void onRingtoneSelected(String tag, Uri ringtoneUri) {
-        // Update the default ringtone for future new alarms.
-        DataModel.getDataModel().setDefaultAlarmRingtoneUri(ringtoneUri);
-
-        final Alarm alarm = mAlarmTimeClickHandler.getSelectedAlarm();
-        if (alarm == null) {
-            LogUtils.e("Could not get selected alarm to set ringtone");
-            return;
-        }
-        alarm.alert = ringtoneUri;
-        // Save the change to alarm.
-        mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false /* popToast */, true /* minorUpdate */);
     }
 
     @Override

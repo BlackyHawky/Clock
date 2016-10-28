@@ -164,6 +164,9 @@ public final class DataModel {
     /** The model from which time data are fetched. */
     private TimeModel mTimeModel;
 
+    /** The model from which ringtone data are fetched. */
+    private RingtoneModel mRingtoneModel;
+
     public static DataModel getDataModel() {
         return sDataModel;
     }
@@ -180,12 +183,14 @@ public final class DataModel {
             mTimeModel = new TimeModel();
             mWidgetModel = new WidgetModel(mContext);
             mSettingsModel = new SettingsModel(mContext);
+            mRingtoneModel = new RingtoneModel(mContext);
             mNotificationModel = new NotificationModel();
             mCityModel = new CityModel(mContext, mSettingsModel);
             mAlarmModel = new AlarmModel(mContext, mSettingsModel);
             mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
             mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
-            mTimerModel = new TimerModel(mContext, mSettingsModel, mNotificationModel);
+            mTimerModel = new TimerModel(mContext, mSettingsModel, mRingtoneModel,
+                    mNotificationModel);
         }
     }
 
@@ -673,15 +678,6 @@ public final class DataModel {
         mAlarmModel.setDefaultAlarmRingtoneUri(uri);
     }
 
-    /**
-     * @param uri the uri of a ringtone
-     * @return the title of the ringtone with the {@code uri}; {@code null} if it cannot be fetched
-     */
-    public String getAlarmRingtoneTitle(Uri uri) {
-        enforceMainLooper();
-        return mAlarmModel.getAlarmRingtoneTitle(uri);
-    }
-
     //
     // Stopwatch
     //
@@ -791,6 +787,45 @@ public final class DataModel {
      */
     public long elapsedRealtime() {
         return mTimeModel.elapsedRealtime();
+    }
+
+    //
+    // Ringtones
+    //
+
+    /**
+     * @param uri the uri of a ringtone
+     * @return the title of the ringtone with the {@code uri}; {@code null} if it cannot be fetched
+     */
+    public String getRingtoneTitle(Uri uri) {
+        enforceMainLooper();
+        return mRingtoneModel.getRingtoneTitle(uri);
+    }
+
+    /**
+     * @param uri the uri of an audio file to use as a ringtone
+     * @param title the title of the audio content at the given {@code uri}
+     * @return the ringtone instance created for the audio file
+     */
+    public CustomRingtone addCustomRingtone(Uri uri, String title) {
+        enforceMainLooper();
+        return mRingtoneModel.addCustomRingtone(uri, title);
+    }
+
+    /**
+     * @param uri identifies the ringtone to remove
+     */
+    public void removeCustomRingtone(Uri uri) {
+        enforceMainLooper();
+        mRingtoneModel.removeCustomRingtone(uri);
+    }
+
+    /**
+     * @return all available custom ringtones
+     */
+    public List<CustomRingtone> getCustomRingtones() {
+        enforceMainLooper();
+        return mRingtoneModel.getCustomRingtones();
     }
 
     //
