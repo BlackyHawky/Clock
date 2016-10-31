@@ -38,6 +38,8 @@
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/onoff"
         android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+        android:minHeight="@dimen/touch_target_min_size"
+        android:minWidth="@dimen/touch_target_min_size"
         android:theme="@style/ControlAccentThemeOverlay"
         app:layout_column="1"
         app:layout_gravity="center_vertical|end"

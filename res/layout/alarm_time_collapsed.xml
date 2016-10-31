@@ -37,23 +37,25 @@
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/onoff"
         android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
+        android:minHeight="@dimen/touch_target_min_size"
+        android:minWidth="@dimen/touch_target_min_size"
         android:theme="@style/ControlAccentThemeOverlay"
         app:layout_column="1"
-        app:layout_row="0"
-        app:layout_gravity="center_vertical|end" />
+        app:layout_gravity="center_vertical|end"
+        app:layout_row="0" />
 
     <com.android.deskclock.widget.EllipsizeLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/touch_target_min_size"
         android:layout_marginEnd="@dimen/touch_target_min_size"
+        android:gravity="center_vertical"
         app:layout_column="0"
-        app:layout_row="1"
         app:layout_gravity="center_vertical"
-        android:gravity="center_vertical">
+        app:layout_row="1">
 
         <TextView
-            style="@style/body"
             android:id="@+id/label"
+            style="@style/body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="none"
@@ -100,11 +102,11 @@
         android:contentDescription="@string/collapse_alarm"
         android:padding="@dimen/checkbox_start_padding"
         android:scaleType="center"
-        app:srcCompat="@drawable/ic_caret_down"
         app:layout_column="1"
-        app:layout_row="1"
         app:layout_gravity="bottom|end"
-        app:layout_rowSpan="2" />
+        app:layout_row="1"
+        app:layout_rowSpan="2"
+        app:srcCompat="@drawable/ic_caret_down" />
 
     <View
         android:id="@+id/hairline"
@@ -112,10 +114,10 @@
         android:layout_height="@dimen/hairline_height"
         android:layout_marginEnd="@dimen/icon_margin"
         android:layout_marginStart="@dimen/icon_margin"
+        android:background="@color/hairline"
         app:layout_column="0"
-        app:layout_row="3"
         app:layout_columnSpan="2"
         app:layout_gravity="bottom"
-        android:background="@color/hairline" />
+        app:layout_row="3" />
 
 </android.support.v7.widget.GridLayout>
