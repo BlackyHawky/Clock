@@ -18,8 +18,6 @@ package com.android.deskclock.alarms;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.media.RingtoneManager;
@@ -30,11 +28,12 @@ import android.os.Vibrator;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
-import com.android.deskclock.ringtone.RingtonePickerActivity;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
+import com.android.deskclock.ringtone.RingtonePickerActivity;
 
 import java.util.Calendar;
 
@@ -46,7 +45,6 @@ public final class AlarmTimeClickHandler {
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmTimeClickHandler");
 
     private static final String KEY_PREVIOUS_DAY_MAP = "previousDayMap";
-    private static final String RINGTONE_PICKER_FRAG_TAG = "ringtone_picker_dialog";
 
     private final Fragment mFragment;
     private final AlarmUpdateHandler mAlarmUpdateHandler;
@@ -79,6 +77,8 @@ public final class AlarmTimeClickHandler {
     public void setAlarmEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.enabled) {
             alarm.enabled = newState;
+            Events.sendAlarmEvent(newState ? R.string.action_enable : R.string.action_disable,
+                    R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, alarm.enabled, false);
             LOGGER.d("Updating alarm enabled state to " + newState);
         }
@@ -87,6 +87,7 @@ public final class AlarmTimeClickHandler {
     public void setAlarmVibrationEnabled(Alarm alarm, boolean newState) {
         if (newState != alarm.vibrate) {
             alarm.vibrate = newState;
+            Events.sendAlarmEvent(R.string.action_toggle_vibrate, R.string.label_deskclock);
             mAlarmUpdateHandler.asyncUpdateAlarm(alarm, false, true);
             LOGGER.d("Updating vibrate state to " + newState);
 
@@ -127,6 +128,7 @@ public final class AlarmTimeClickHandler {
         final Calendar newNextAlarmTime = alarm.getNextAlarmTime(now);
         final boolean popupToast = !oldNextAlarmTime.equals(newNextAlarmTime);
 
+        Events.sendAlarmEvent(R.string.action_toggle_repeat_days, R.string.label_deskclock);
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
     }
 
@@ -144,12 +146,14 @@ public final class AlarmTimeClickHandler {
     }
 
     public void onDeleteClicked(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
         mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
         LOGGER.d("Deleting alarm.");
     }
 
     public void onClockClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
+        Events.sendAlarmEvent(R.string.action_set_time, R.string.label_deskclock);
         TimePickerDialogFragment.show(mFragment, alarm.hour, alarm.minutes);
     }
 
@@ -164,14 +168,7 @@ public final class AlarmTimeClickHandler {
 
     public void onRingtoneClicked(Alarm alarm) {
         mSelectedAlarm = alarm;
-        final FragmentManager fragmentManager = mFragment.getChildFragmentManager();
-        fragmentManager.executePendingTransactions();
-        final FragmentTransaction ft = fragmentManager.beginTransaction();
-        final Fragment prev = fragmentManager.findFragmentByTag(RINGTONE_PICKER_FRAG_TAG);
-        if (prev != null) {
-            ft.remove(prev);
-        }
-        ft.addToBackStack(null);
+        Events.sendAlarmEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
         final Activity activity = mFragment.getActivity();
         final Uri systemDefaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
@@ -186,6 +183,7 @@ public final class AlarmTimeClickHandler {
     }
 
     public void onEditLabelClicked(Alarm alarm) {
+        Events.sendAlarmEvent(R.string.action_set_label, R.string.label_deskclock);
         final LabelDialogFragment fragment =
                 LabelDialogFragment.newInstance(alarm, alarm.label, mFragment.getTag());
         LabelDialogFragment.show(mFragment.getFragmentManager(), fragment);

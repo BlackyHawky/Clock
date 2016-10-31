@@ -16,13 +16,13 @@
 
 package com.android.deskclock.alarms.dataadapter;
 
+import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.support.v4.view.ViewCompat;
 import android.graphics.Rect;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +35,7 @@ import com.android.deskclock.R;
 import com.android.deskclock.Utils.ClickAccessibilityDelegate;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -64,18 +65,21 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Events.sendAlarmEvent(R.string.action_expand_implied, R.string.label_deskclock);
                 getItemHolder().expand();
             }
         });
         alarmLabel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Events.sendAlarmEvent(R.string.action_expand_implied, R.string.label_deskclock);
                 getItemHolder().expand();
             }
         });
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Events.sendAlarmEvent(R.string.action_expand, R.string.label_deskclock);
                 getItemHolder().expand();
             }
         });
@@ -84,6 +88,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
             @Override
             public void onClick(View v) {
                 getItemHolder().getAlarmTimeClickHandler().onClockClicked(getItemHolder().item);
+                Events.sendAlarmEvent(R.string.action_expand_implied, R.string.label_deskclock);
                 getItemHolder().expand();
             }
         });

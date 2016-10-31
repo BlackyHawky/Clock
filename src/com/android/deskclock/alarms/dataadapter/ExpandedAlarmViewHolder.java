@@ -47,6 +47,7 @@ import com.android.deskclock.Utils;
 import com.android.deskclock.Utils.ClickAccessibilityDelegate;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.uidata.UiDataModel;
@@ -120,12 +121,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Events.sendAlarmEvent(R.string.action_collapse_implied, R.string.label_deskclock);
                 getItemHolder().collapse();
             }
         });
         arrow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Events.sendAlarmEvent(R.string.action_collapse, R.string.label_deskclock);
                 getItemHolder().collapse();
             }
         });
