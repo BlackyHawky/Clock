@@ -98,7 +98,7 @@
         android:title="@string/timer_settings">
         <Preference
             android:key="timer_ringtone"
-            android:title="@string/timer_ringtone_title" />
+            android:title="@string/timer_sound" />
 
         <ListPreference
             android:defaultValue="0"
