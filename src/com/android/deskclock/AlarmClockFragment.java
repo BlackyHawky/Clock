@@ -116,7 +116,16 @@ public final class AlarmClockFragment extends DeskClockFragment implements
         final Context context = getActivity();
 
         mRecyclerView = (RecyclerView) v.findViewById(R.id.alarms_recycler_view);
-        mLayoutManager = new LinearLayoutManager(context);
+        mLayoutManager = new LinearLayoutManager(context) {
+            @Override
+            protected int getExtraLayoutSpace(RecyclerView.State state) {
+                final int extraSpace = super.getExtraLayoutSpace(state);
+                if (state.willRunPredictiveAnimations()) {
+                    return Math.max(getHeight(), extraSpace);
+                }
+                return extraSpace;
+            }
+        };
         mRecyclerView.setLayoutManager(mLayoutManager);
         mMainLayout = (ViewGroup) v.findViewById(R.id.main);
         mAlarmUpdateHandler = new AlarmUpdateHandler(context, this, mMainLayout);
@@ -395,6 +404,10 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     @Override
     public void onTimeSet(TimePickerDialogFragment fragment, int hourOfDay, int minute) {
         mAlarmTimeClickHandler.onTimeSet(hourOfDay, minute);
+    }
+
+    public void removeItem(AlarmItemHolder itemHolder) {
+        mItemAdapter.removeItem(itemHolder);
     }
 
     /**
