@@ -528,6 +528,11 @@
     <string name="minutes_label_description">minutes</string>
     <string name="seconds_label_description">seconds</string>
 
+    <!-- Formats the lap number display. Allows for control of the symbol preceding the lap number. [CHAR LIMIT=5] -->
+    <string name="lap_number_single_digit"># <xliff:g id="lapNumber">%d</xliff:g></string>
+    <!-- Formats the lap number display. Allows for control of the symbol preceding the lap number. [CHAR LIMIT=5] -->
+    <string name="lap_number_double_digit"># <xliff:g id="lapNumber">%02d</xliff:g></string>
+
     <!--  Stopwatch share strings -->
     <!-- Sentence within the message created to share the total time recorded within the stopwatch -->
     <string name="sw_share_main">My time is <xliff:g id="time">%s</xliff:g></string>

@@ -33,7 +33,6 @@ import com.android.deskclock.uidata.UiDataModel;
 
 import java.text.DecimalFormatSymbols;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Displays a list of lap times in reverse order. That is, the newest lap is at the top, the oldest
@@ -224,12 +223,12 @@ class LapsAdapter extends RecyclerView.Adapter<LapsAdapter.LapItemHolder> {
      * @return e.g. "# 7" if {@code lapCount} less than 10; "# 07" if {@code lapCount} is 10 or more
      */
     @VisibleForTesting
-    static String formatLapNumber(int lapCount, int lapNumber) {
+    String formatLapNumber(int lapCount, int lapNumber) {
         if (lapCount < 10) {
-            return String.format(Locale.getDefault(), "# %d", lapNumber);
+            return mContext.getString(R.string.lap_number_single_digit, lapNumber);
+        } else {
+            return mContext.getString(R.string.lap_number_double_digit, lapNumber);
         }
-
-        return String.format(Locale.getDefault(), "# %02d", lapNumber);
     }
 
     /**
