@@ -19,7 +19,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?android:attr/selectableItemBackground"
+    android:background="?attr/selectableItemBackground"
     android:gravity="center_horizontal|top"
     android:paddingEnd="16dp"
     android:paddingStart="16dp"
@@ -37,6 +37,8 @@
 
     <android.support.v7.widget.SwitchCompat
         android:id="@+id/onoff"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
         android:minHeight="@dimen/touch_target_min_size"
         android:minWidth="@dimen/touch_target_min_size"
@@ -48,6 +50,7 @@
     <CheckBox
         android:id="@+id/repeat_onoff"
         style="@style/body"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/touch_target_min_size"
         android:paddingEnd="@dimen/checkbox_start_padding"
         android:paddingStart="@dimen/checkbox_start_padding"
@@ -72,7 +75,7 @@
         style="@style/body"
         android:layout_width="0dp"
         android:layout_height="@dimen/touch_target_min_size"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:drawablePadding="@dimen/alarm_horizontal_padding"
         android:ellipsize="marquee"
@@ -103,8 +106,11 @@
         android:id="@+id/edit_label"
         style="@style/body"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
         android:drawablePadding="@dimen/alarm_horizontal_padding"
         android:ellipsize="end"
+        android:gravity="center_vertical"
         android:hint="@string/label"
         android:paddingBottom="12dp"
         android:paddingEnd="4dp"
@@ -112,6 +118,7 @@
         android:paddingTop="12dp"
         android:singleLine="true"
         app:layout_column="0"
+        app:layout_columnSpan="2"
         app:layout_gravity="fill_horizontal"
         app:layout_row="4" />
 
@@ -149,6 +156,7 @@
     <Button
         android:id="@+id/delete"
         style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
         android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
@@ -165,6 +173,7 @@
 
     <ImageButton
         android:id="@+id/arrow"
+        android:layout_width="wrap_content"
         android:layout_height="@dimen/touch_target_min_size"
         android:layout_marginBottom="@dimen/alarm_clock_vertical_margin"
         android:layout_marginTop="@dimen/alarm_clock_vertical_margin"

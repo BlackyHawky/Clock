@@ -103,9 +103,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         bindRepeatText(context, alarm);
         bindReadOnlyLabel(context, alarm);
         bindUpcomingInstance(context, alarm);
-        final boolean boundPreemptiveDismiss =
-                bindPreemptiveDismissButton(context, alarm, alarmInstance);
-        hairLine.setVisibility(boundPreemptiveDismiss ? View.GONE : View.VISIBLE);
+        bindPreemptiveDismissButton(context, alarm, alarmInstance);
         ViewCompat.setAccessibilityDelegate(itemView,
                 new ClickAccessibilityDelegate(
                         itemView.getResources().getString(R.string.expand_description)));

@@ -19,4 +19,5 @@
     android:id="@+id/digital_clock"
     style="@style/display_time"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"/>

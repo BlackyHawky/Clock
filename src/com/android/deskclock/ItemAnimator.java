@@ -248,11 +248,14 @@ public class ItemAnimator extends SimpleItemAnimator {
                 dispatchFinishedWhenDone();
             }
         });
-        // Required order: removes, then changes & moves simultaneously, then additions.
-        pendingAnimatorSet.play(changeAnimatorSet)
-                .with(moveAnimatorSet)
-                .before(addAnimatorSet)
-                .after(removeAnimatorSet);
+        // Required order: removes, then changes & moves simultaneously, then additions. There are
+        // redundant edges because changes or moves may be empty, causing the removes to incorrectly
+        // play immediately.
+        pendingAnimatorSet.play(removeAnimatorSet).before(changeAnimatorSet);
+        pendingAnimatorSet.play(removeAnimatorSet).before(moveAnimatorSet);
+        pendingAnimatorSet.play(changeAnimatorSet).with(moveAnimatorSet);
+        pendingAnimatorSet.play(addAnimatorSet).after(changeAnimatorSet);
+        pendingAnimatorSet.play(addAnimatorSet).after(moveAnimatorSet);
         pendingAnimatorSet.start();
     }
 
