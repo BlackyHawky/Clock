@@ -97,6 +97,7 @@ public class TimePickerDialogFragment extends DialogFragment {
             args.putInt(ARG_MINUTE, minute);
         }
 
+        fragment.setArguments(args);
         fragment.show(manager, TAG);
     }
 
