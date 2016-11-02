@@ -22,8 +22,20 @@
     <string name="default_label" msgid="5590025289805630372">"ඇඟවීම"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"කම්පනය වීම"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"නැවත කරන්න"</string>
-    <string name="alert" msgid="6506982899651975645">"ඇඟවීම් රිංග්ටෝනය"</string>
+    <string name="delete" msgid="5732434972457000541">"මකන්න"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"පෙරනිමි එලාම හඬ"</string>
+    <!-- no translation found for alarm_sound (1929644445093661596) -->
+    <skip />
+    <!-- no translation found for timer_sound (713786870463353608) -->
+    <skip />
+    <!-- no translation found for add_new_sound (2546936797351540244) -->
+    <skip />
+    <!-- no translation found for remove_sound (2064643204455734239) -->
+    <skip />
+    <!-- no translation found for music (3299572469993696378) -->
+    <skip />
+    <!-- no translation found for ringtones (2548286573030531045) -->
+    <skip />
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ටයිමරය කල් ඉකුත් විය"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"හෙට"</string>
     <string name="alarm_today" msgid="7873594221106531654">"අද"</string>
@@ -75,9 +87,17 @@
       <item quantity="one">පැය <xliff:g id="NUMBER">%s</xliff:g></item>
       <item quantity="other">පැය <xliff:g id="NUMBER">%s</xliff:g></item>
     </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="one">පැය <xliff:g id="NUMBER">%s</xliff:g></item>
+      <item quantity="other">පැය <xliff:g id="NUMBER">%s</xliff:g></item>
+    </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
       <item quantity="one">මිනිත්තු <xliff:g id="NUMBER">%s</xliff:g></item>
       <item quantity="other">මිනිත්තු <xliff:g id="NUMBER">%s</xliff:g></item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="one">මිනි <xliff:g id="NUMBER">%s</xliff:g></item>
+      <item quantity="other">මිනි <xliff:g id="NUMBER">%s</xliff:g></item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
       <item quantity="one">තත්පර <xliff:g id="NUMBER">%s</xliff:g></item>
@@ -165,10 +185,8 @@
     <string name="alarm_volume_muted" msgid="6658289289695673569">"එලාම හඬ නිහඬ කරන ලදී"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"නිහඬ කිරීම ඉවත් කරන්න"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"පෙරනිමි එලාම රිංටෝනය නිහඬයි"</string>
-    <!-- no translation found for change_setting_action (1224356633832430160) -->
-    <skip />
-    <!-- no translation found for app_notifications_blocked (7249150789023936889) -->
-    <skip />
+    <string name="change_setting_action" msgid="1224356633832430160">"වෙනස් කරන්න"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"ඔරලෝසු දැනුම්දීම් අවහිර කර ඇත"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"උපාංගය පූර්ණ නිහඬ බවට සකසා ඇත"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ශබ්ද බොත්තම්"</string>
   <string-array name="volume_button_setting_entries">
@@ -259,8 +277,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"නගර"</string>
     <string name="clock_settings" msgid="8317286807280600391">"ඔරලෝසුව"</string>
     <string name="clock_style" msgid="2265011060429742344">"විලාසය"</string>
-    <!-- no translation found for display_clock_seconds_pref (691506643469501643) -->
-    <skip />
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"තත්පර සහිත සංදර්ශන කාලය"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"දිනය සහ වේලාව වෙනස් කරන්න"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"ප්‍රතිසමය"</item>
@@ -379,7 +396,6 @@
     <string name="description_direction_left" msgid="7448141043674998679">"සිහි කැඳවීමට වමට ස්වයිප් කරන්න"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"යළි සිහි කැඳවීමට වමට හෝ අස් කිරීමට දකුණට ස්වයිප් කරන්න"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ටයිමර"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"ටයිමර රිගින් ටෝනය"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"කාල ගණකය කම්පනය"</string>
     <string name="timer_paused" msgid="5941160896040771462">"කාල ගණකය විරාම කරන ලදී"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"කාල ගණක <xliff:g id="NUMBER">%d</xliff:g>ක් විරාම කරන ලදී"</string>
@@ -393,7 +409,14 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"ඇඟවීම අකුලන්න"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"අස් කරන්න"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"එලාමය නොමකන ලදී"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ඉදිරියෙනි"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> පසුපසිනි"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ඉදිරියෙනි"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> පසුපසිනි"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"හෙට, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"ඊයේ, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"හෙට"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"ඊයේ"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"මීළඟ ඇඟවීම: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"සීනු නැත"</string>
     <string name="invalid_time" msgid="2782334750243998633">"වලංගු නොවන වේලාව <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>

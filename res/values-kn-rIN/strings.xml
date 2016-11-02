@@ -22,8 +22,20 @@
     <string name="default_label" msgid="5590025289805630372">"ಅಲಾರಮ್"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"ವೈಬ್ರೇಟ್‌‌"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"ಪುನರಾವರ್ತನೆ"</string>
-    <string name="alert" msgid="6506982899651975645">"ಅಲಾರಮ್ ರಿಂಗ್‌ಟೋನ್"</string>
+    <string name="delete" msgid="5732434972457000541">"ಅಳಿಸು"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ಡಿಫಾಲ್ಟ್ ಅಲಾರಮ್ ಧ್ವನಿ"</string>
+    <!-- no translation found for alarm_sound (1929644445093661596) -->
+    <skip />
+    <!-- no translation found for timer_sound (713786870463353608) -->
+    <skip />
+    <!-- no translation found for add_new_sound (2546936797351540244) -->
+    <skip />
+    <!-- no translation found for remove_sound (2064643204455734239) -->
+    <skip />
+    <!-- no translation found for music (3299572469993696378) -->
+    <skip />
+    <!-- no translation found for ringtones (2548286573030531045) -->
+    <skip />
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ಟೈಮರ್ ಅವಧಿ ಮೀರಿದೆ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"ನಾಳೆ"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ಇಂದು"</string>
@@ -75,9 +87,17 @@
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ಗಂಟೆಗಳು</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ಗಂಟೆಗಳು</item>
     </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ಗಂಟೆ</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ಗಂಟೆ</item>
+    </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ನಿಮಿಷಗಳು</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ನಿಮಿಷಗಳು</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ನಿಮಿಷ</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ನಿಮಿಷ</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ಸೆಕೆಂಡುಗಳು</item>
@@ -165,10 +185,8 @@
     <string name="alarm_volume_muted" msgid="6658289289695673569">"ಅಲಾರಮ್ ವಾಲ್ಯೂಮ್ ಮ್ಯೂಟ್ ಮಾಡಲಾಗಿದೆ"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"ಅನ್‌ಮ್ಯೂಟ್ ಮಾಡಿ"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ಡಿಫಾಲ್ಟ್‌‌ ಅಲಾರಮ್ ರಿಂಗ್‌ಟೋನ್ ನಿಶ್ಯಬ್ದವಾಗಿದೆ"</string>
-    <!-- no translation found for change_setting_action (1224356633832430160) -->
-    <skip />
-    <!-- no translation found for app_notifications_blocked (7249150789023936889) -->
-    <skip />
+    <string name="change_setting_action" msgid="1224356633832430160">"ಬದಲಾಯಿಸಿ"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"ಗಡಿಯಾರ ಅಧಿಸೂಚನೆಗಳನ್ನು ನಿರ್ಬಂಧಿಸಲಾಗಿದೆ"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ಸಾಧನವನ್ನು ಸಂಪೂರ್ಣ ನಿಶ್ಯಬ್ದವಾಗಿ ಹೊಂದಿಸಿ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ವಾಲ್ಯೂಮ್ ಬಟನ್‌ಗಳು"</string>
   <string-array name="volume_button_setting_entries">
@@ -229,7 +247,7 @@
     <string name="timer_stop" msgid="3361154678667736722">"ನಿಲ್ಲಿಸು"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"ಎಲ್ಲಾ ಟೈಮರ್‌ಗಳನ್ನು ನಿಲ್ಲಿಸಿ"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ಮರುಹೊಂದಿಸಿ"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"ರದ್ದುಮಾಡು"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"ರದ್ದುಮಾಡಿ"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"ಟೈಮರ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ಸಮಯ ಮುಗಿದಿದೆ"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ಟೈಮರ್‌ಗಳ ಅವಧಿ ಮೀರಿದೆ"</string>
@@ -269,7 +287,7 @@
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ಸಮಯವು ಭಿನ್ನವಾಗಿರುವ ಪ್ರದೇಶದಲ್ಲಿ ಪ್ರಯಾಣಿಸುವಾಗ ಹೋಮ್‌ನಲ್ಲಿ ಗಡಿಯಾರ ಸೇರಿಸಿ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"ಸ್ಥಳೀಯ ಸಮಯ ವಲಯ"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"ಸ್ಥಳೀಯ ಸಮಯ ವಲಯ"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"ರದ್ದುಮಾಡು"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"ರದ್ದುಮಾಡಿ"</string>
     <string name="time_picker_set" msgid="331153175471468051">"ಸರಿ"</string>
     <string name="city_checked" msgid="616847871968019">"<xliff:g id="CITY_NAME">%s</xliff:g> ಪರಿಶೀಲಿಸಲಾಗಿದೆ"</string>
     <string name="city_unchecked" msgid="710212932781145918">"<xliff:g id="CITY_NAME">%s</xliff:g> ಪರಿಶೀಲನೆ ರದ್ದುಮಾಡಲಾಗಿದೆ"</string>
@@ -378,7 +396,6 @@
     <string name="description_direction_left" msgid="7448141043674998679">"ಸ್ನೂಜ್ ಮಾಡಲು ಎಡಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"ಸ್ನೂಜ್ ಮಾಡಲು ಎಡಕ್ಕೆ ಅಥವಾ ವಜಾಗೊಳಿಸಲು ಬಲಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ಟೈಮರ್‌ಗಳು"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"ಟೈಮರ್ ರಿಂಗ್‌ಟೋನ್"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ಟೈಮರ್ ವೈಬ್ರೇಟ್"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ಟೈಮರ್ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ಟೈಮರ್ ವಿರಾಮಗೊಳಿಸಲಾಗಿದೆ"</string>
@@ -390,9 +407,16 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"ತೀರಾ ಮಂದ ಡಿಸ್‌ಪ್ಲೇ (ಕತ್ತಲೆ ಕೊಠಡಿಗಳಿಗಾಗಿ)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ಅಲಾರಮ್ ವಿಸ್ತರಿಸಿ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ಅಲಾರಮ್ ಸಂಕುಚಿಸು"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"ರದ್ದುಮಾಡು"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"ರದ್ದುಮಾಡಿ"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ಅಲಾರಮ್ ಅಳಿಸಲಾಗಿದೆ"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ಮುಂದಕ್ಕೆ"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> ಹಿಂದಕ್ಕೆ"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ಮುಂದಕ್ಕೆ"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ಹಿಂದಕ್ಕೆ"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"ನಾಳೆ, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"ನಿನ್ನೆ, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"ನಾಳೆ"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"ನಿನ್ನೆ"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"ಮುಂದಿನ ಅಲಾರಮ್: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"ಯಾವುದೇ ಅಲಾರಮ್‌ಗಳಿಲ್ಲ"</string>
     <string name="invalid_time" msgid="2782334750243998633">"ಅಮಾನ್ಯ ಸಮಯ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>
