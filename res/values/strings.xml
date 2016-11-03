@@ -948,6 +948,9 @@
     <!-- Toast content when an alarm was deleted  -->
     <string name="alarm_deleted">Alarm deleted</string>
 
+    <!-- slash between date and next alarm in the clock: used for the DigitalAppWidget -->
+    <string name="world_day_of_week_label"> / <xliff:g id="label">%s</xliff:g></string>
+
     <!-- Number of hours or minutes the world city is ahead of the current city [CHAR LIMIT=NONE] -->
     <string name="world_time_ahead"><xliff:g id="time" example="6 hours">%1$s</xliff:g> ahead</string>
     <!-- Number of hours or minutes the world city is behind the current city [CHAR LIMIT=NONE] -->
