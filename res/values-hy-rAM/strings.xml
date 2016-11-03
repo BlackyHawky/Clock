@@ -22,8 +22,20 @@
     <string name="default_label" msgid="5590025289805630372">"Զարթուցիչ"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"Թրթռալ"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"Կրկնել"</string>
-    <string name="alert" msgid="6506982899651975645">"Զարթուցիչի զանգերանգը"</string>
+    <string name="delete" msgid="5732434972457000541">"Ջնջել"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Զարթուցիչի կանխադրված ձայնը"</string>
+    <!-- no translation found for alarm_sound (1929644445093661596) -->
+    <skip />
+    <!-- no translation found for timer_sound (713786870463353608) -->
+    <skip />
+    <!-- no translation found for add_new_sound (2546936797351540244) -->
+    <skip />
+    <!-- no translation found for remove_sound (2064643204455734239) -->
+    <skip />
+    <!-- no translation found for music (3299572469993696378) -->
+    <skip />
+    <!-- no translation found for ringtones (2548286573030531045) -->
+    <skip />
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Ժամաչափի ժամանակը սպառվել է"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Վաղը"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Այսօր"</string>
@@ -75,8 +87,16 @@
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> ժամ</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ժամ</item>
     </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> hr</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> ժամ</item>
+    </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> րոպե</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> րոպե</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> min</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> րոպե</item>
     </plurals>
     <plurals name="seconds" formatted="false" msgid="670343577734266047">
@@ -165,10 +185,8 @@
     <string name="alarm_volume_muted" msgid="6658289289695673569">"Զարթուցիչի ձայնն անջատված է"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Միացնել ձայնը"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Զարթուցիչի զանգերանգը ըստ կանխադրման լուռ է"</string>
-    <!-- no translation found for change_setting_action (1224356633832430160) -->
-    <skip />
-    <!-- no translation found for app_notifications_blocked (7249150789023936889) -->
-    <skip />
+    <string name="change_setting_action" msgid="1224356633832430160">"Փոխել"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"Ժամացույցի ծանուցումներն արգելափակված են"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Սարքը ընդհանուր լուռ ռեժիմում է"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Ձայնի կոճակներ"</string>
   <string-array name="volume_button_setting_entries">
@@ -378,7 +396,6 @@
     <string name="description_direction_left" msgid="7448141043674998679">"Հետաձգելու համար սահեցրեք ձախ"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"Սահեցրեք ձախ՝ հետաձգելու համար։ Աջ՝ անջատելու համար։"</string>
     <string name="timer_settings" msgid="7955522143086154795">"Ժամանակաչափեր"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"Ժամանակաչափի զանգերանգ"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"Ժամաչափի թրթռում"</string>
     <string name="timer_paused" msgid="5941160896040771462">"Ժամաչափը դադարեցված է"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ժամաչափ դադարեցված է"</string>
@@ -392,7 +409,14 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Թաքցնել զարթուցիչը"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"հետարկել"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Զարթուցիչը ջնջված է"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> առաջ է"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> հետ է"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> առաջ է"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> հետ է"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"Վաղը, <xliff:g id="TIME">%1$s</xliff:g>-ին"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"Երեկ, <xliff:g id="TIME">%1$s</xliff:g>-ին"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"Վաղը"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"Երեկ"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"Հաջորդ զարթուցիչը՝ <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"Զարթուցիչներ չկան"</string>
     <string name="invalid_time" msgid="2782334750243998633">"Անվավեր ժամանակ՝ <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>

@@ -22,8 +22,20 @@
     <string name="default_label" msgid="5590025289805630372">"એલાર્મ"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"વાઇબ્રેટ"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"પુનરાવર્તન"</string>
-    <string name="alert" msgid="6506982899651975645">"એલાર્મ રિંગટોન"</string>
+    <string name="delete" msgid="5732434972457000541">"કાઢી નાખો"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ડિફોલ્ટ એલાર્મ ધ્વનિ"</string>
+    <!-- no translation found for alarm_sound (1929644445093661596) -->
+    <skip />
+    <!-- no translation found for timer_sound (713786870463353608) -->
+    <skip />
+    <!-- no translation found for add_new_sound (2546936797351540244) -->
+    <skip />
+    <!-- no translation found for remove_sound (2064643204455734239) -->
+    <skip />
+    <!-- no translation found for music (3299572469993696378) -->
+    <skip />
+    <!-- no translation found for ringtones (2548286573030531045) -->
+    <skip />
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ટાઇમરની સમય સીમા સમાપ્ત થઈ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"આવતીકાલે"</string>
     <string name="alarm_today" msgid="7873594221106531654">"આજે"</string>
@@ -75,7 +87,15 @@
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> કલાક</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> કલાક</item>
     </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> કલાક</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> કલાક</item>
+    </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> મિનિટ</item>
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> મિનિટ</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
       <item quantity="one"><xliff:g id="NUMBER">%s</xliff:g> મિનિટ</item>
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g> મિનિટ</item>
     </plurals>
@@ -165,10 +185,8 @@
     <string name="alarm_volume_muted" msgid="6658289289695673569">"એલાર્મનું વૉલ્યૂમ મ્યૂટ કર્યું"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"અનમ્યૂટ કરો"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"ડિફોલ્ટ એલાર્મ રિંગટોન શાંત છે"</string>
-    <!-- no translation found for change_setting_action (1224356633832430160) -->
-    <skip />
-    <!-- no translation found for app_notifications_blocked (7249150789023936889) -->
-    <skip />
+    <string name="change_setting_action" msgid="1224356633832430160">"બદલો"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"ઘડિયાળ સૂચનાઓ અવરોધિત કરેલ છે"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ઉપકરણ સંપૂર્ણ મૌન પર સેટ કરેલ છે"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"વૉલ્યૂમ બટન્સ"</string>
   <string-array name="volume_button_setting_entries">
@@ -378,7 +396,6 @@
     <string name="description_direction_left" msgid="7448141043674998679">"સ્નૂઝ કરવા માટે ડાબે સ્વાઇપ કરો"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"સ્નૂઝ કરવા માટે ડાબે અથવા છોડી દેવા માટે જમણે સવાઇપ કરો"</string>
     <string name="timer_settings" msgid="7955522143086154795">"ટાઇમર્સ"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"ટાઇમર રિંગટોન"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"ટાઇમર વાઇબ્રેટ"</string>
     <string name="timer_paused" msgid="5941160896040771462">"ટાઇમર થોભાવ્યું"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g> ટાઇમર્સ થોભાવ્યાં"</string>
@@ -392,7 +409,14 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"એલાર્મ સંકુચિત કરો"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"પૂર્વવત્ કરો"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"એલાર્મ કાઢી નાખ્યો"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> આગળ છે"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> પાછળ છે"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> આગળ છે"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> પાછળ છે"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"આવતીકાલે, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"ગઈકાલે, <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"આવતીકાલે"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"ગઈકાલે"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"આગલો એલાર્મ: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"એલાર્મ્સ નથી"</string>
     <string name="invalid_time" msgid="2782334750243998633">"અમાન્ય સમય <xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g> <xliff:g id="INVALID_AMPM">%3$s</xliff:g>"</string>

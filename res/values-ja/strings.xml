@@ -22,8 +22,14 @@
     <string name="default_label" msgid="5590025289805630372">"アラーム"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"バイブレーション"</string>
     <string name="alarm_repeat" msgid="7242985466344233206">"繰り返し"</string>
-    <string name="alert" msgid="6506982899651975645">"アラーム音"</string>
+    <string name="delete" msgid="5732434972457000541">"削除"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"デフォルトの警告音"</string>
+    <string name="alarm_sound" msgid="1929644445093661596">"アラームの音"</string>
+    <string name="timer_sound" msgid="713786870463353608">"タイマーの音"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"新しく追加"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"削除"</string>
+    <string name="music" msgid="3299572469993696378">"音楽"</string>
+    <string name="ringtones" msgid="2548286573030531045">"着信音"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"タイマー完了"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"明日"</string>
     <string name="alarm_today" msgid="7873594221106531654">"今日"</string>
@@ -75,7 +81,15 @@
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>時間</item>
       <item quantity="one">1時間</item>
     </plurals>
+    <plurals name="hours_short" formatted="false" msgid="3709250715691092925">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>時間</item>
+      <item quantity="one">1時間</item>
+    </plurals>
     <plurals name="minutes" formatted="false" msgid="5484431721696058697">
+      <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>分</item>
+      <item quantity="one">1分</item>
+    </plurals>
+    <plurals name="minutes_short" formatted="false" msgid="6397328304369080233">
       <item quantity="other"><xliff:g id="NUMBER">%s</xliff:g>分</item>
       <item quantity="one">1分</item>
     </plurals>
@@ -165,10 +179,8 @@
     <string name="alarm_volume_muted" msgid="6658289289695673569">"アラームの音量をミュートしました"</string>
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"ミュート解除"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"アラーム音のデフォルト設定はマナーモードです"</string>
-    <!-- no translation found for change_setting_action (1224356633832430160) -->
-    <skip />
-    <!-- no translation found for app_notifications_blocked (7249150789023936889) -->
-    <skip />
+    <string name="change_setting_action" msgid="1224356633832430160">"変更"</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"時計の通知はブロックされています"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"端末は [サイレント] に設定されています"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量ボタン"</string>
   <string-array name="volume_button_setting_entries">
@@ -259,8 +271,7 @@
     <string name="cities_activity_title" msgid="8552462751129256730">"世界時計"</string>
     <string name="clock_settings" msgid="8317286807280600391">"時計"</string>
     <string name="clock_style" msgid="2265011060429742344">"スタイル"</string>
-    <!-- no translation found for display_clock_seconds_pref (691506643469501643) -->
-    <skip />
+    <string name="display_clock_seconds_pref" msgid="691506643469501643">"時刻に秒を表示"</string>
     <string name="open_date_settings" msgid="7712226973337806152">"日付と時刻の変更"</string>
   <string-array name="clock_style_entries">
     <item msgid="917900462224167608">"アナログ"</item>
@@ -379,7 +390,6 @@
     <string name="description_direction_left" msgid="7448141043674998679">"左にスワイプするとスヌーズを設定できます"</string>
     <string name="description_direction_both" msgid="1841309486023845685">"左にスワイプでスヌーズを設定、右にスワイプで解除できます"</string>
     <string name="timer_settings" msgid="7955522143086154795">"タイマー"</string>
-    <string name="timer_ringtone_title" msgid="7630214935791599619">"アラーム音"</string>
     <string name="timer_vibrate_title" msgid="7788920024785587518">"タイマーのバイブレーション"</string>
     <string name="timer_paused" msgid="5941160896040771462">"タイマーを一時停止しました"</string>
     <string name="timers_stopped" msgid="3186191253226005149">"<xliff:g id="NUMBER">%d</xliff:g>個のタイマーを一時停止しました"</string>
@@ -393,7 +403,14 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"アラームを折りたたむ"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"元に戻す"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"アラームを削除しました"</string>
-    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
+    <string name="world_time_ahead" msgid="625559988238637652">"+ <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_time_behind" msgid="5395771290726167865">"- <xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"+ <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_minutes_behind" msgid="8978567362140923698">"- <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>
+    <string name="world_hours_tomorrow" msgid="2504465609269004794">"明日、<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_hours_yesterday" msgid="4425086322610882745">"昨日、<xliff:g id="TIME">%1$s</xliff:g>"</string>
+    <string name="world_tomorrow" msgid="7633067935455580920">"明日"</string>
+    <string name="world_yesterday" msgid="5430990920477833164">"昨日"</string>
     <string name="next_alarm_description" msgid="2650244835760747046">"次のアラーム: <xliff:g id="ALARM_TIME">%s</xliff:g>"</string>
     <string name="no_alarms" msgid="6429431324842022917">"アラームはありません"</string>
     <string name="invalid_time" msgid="2782334750243998633">"無効な時間<xliff:g id="INVALID_HOUR">%1$d</xliff:g>:<xliff:g id="INVALID_MINUTES">%2$d</xliff:g><xliff:g id="INVALID_AMPM">%3$s</xliff:g>が指定されました"</string>
