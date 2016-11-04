@@ -113,7 +113,7 @@
     </plurals>
     <string name="crescendo_duration_title" msgid="8606408542726189528">"Măriți volumul treptat"</string>
     <string name="no_crescendo_duration" msgid="383801592865899932">"Dezactivat"</string>
-    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g> (de) secunde"</string>
+    <string name="crescendo_duration" msgid="6641284876778266541">"<xliff:g id="NUMBER">%s</xliff:g>   secunde"</string>
     <string name="crescendo_picker_label" msgid="7758024047003091056">"secunde"</string>
     <string name="auto_silence_title" msgid="2012754009554434544">"Dezactivează după"</string>
     <plurals name="auto_silence_summary" formatted="false" msgid="6579258788774360396">

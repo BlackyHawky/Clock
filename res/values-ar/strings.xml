@@ -148,11 +148,11 @@
     <string name="auto_silence_never" msgid="4821982647348750809">"أبدًا"</string>
   <string-array name="auto_silence_entries">
     <item msgid="3024545954917711306">"دقيقة واحدة"</item>
-    <item msgid="5431906692406316549">"۵ دقائق"</item>
+    <item msgid="5431906692406316549">"٥ دقائق"</item>
     <item msgid="7742728812068919959">"۱۰ دقائق"</item>
-    <item msgid="2855948657259647629">"۱۵ دقيقة"</item>
+    <item msgid="2855948657259647629">"١٥ دقيقة"</item>
     <item msgid="6330196381284475079">"۲۰ دقيقة"</item>
-    <item msgid="7809240121716151904">"۲۵ دقيقة"</item>
+    <item msgid="7809240121716151904">"٢٥ دقيقة"</item>
     <item msgid="4278641338024561333">"أبدًا"</item>
   </string-array>
     <string name="week_start_title" msgid="4268917518596832096">"بداية الأسبوع يوم"</string>

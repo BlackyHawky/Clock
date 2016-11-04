@@ -162,7 +162,7 @@
     <string name="menu_alarm" msgid="4772010125376647519">"მაღვიძარა"</string>
     <string name="menu_timer" msgid="6459070074762877114">"ტაიმერი"</string>
     <string name="menu_clock" msgid="5612760670606829805">"საათი"</string>
-    <string name="menu_stopwatch" msgid="3396117705293574701">"წამზომი"</string>
+    <string name="menu_stopwatch" msgid="3396117705293574701">"წამმზომი"</string>
     <string name="button_alarms" msgid="3907838219512538763">"მაღვიძარას დამატება"</string>
     <string name="button_cities" msgid="4555761857494501363">"ქალაქები"</string>
     <string name="button_menu" msgid="6050484561842120282">"მეტი პარამეტრი"</string>

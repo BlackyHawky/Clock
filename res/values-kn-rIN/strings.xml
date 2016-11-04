@@ -20,7 +20,7 @@
     <string name="alarm_list_title" msgid="7589940465292950600">"ಅಲಾರಾಂ‌ಗಳು"</string>
     <string name="add_alarm" msgid="5976616107390962899">"ಅಲಾರಮ್ ಸೇರಿಸಿ"</string>
     <string name="menu_desk_clock" msgid="3241995064554071588">"ಡೆಸ್ಕ್ ಗಡಿಯಾರ"</string>
-    <string name="menu_edit_alarm" msgid="7204602994918829751">"ಅಲಾರಮ್ ಸಂಪಾದಿಸಿ"</string>
+    <string name="menu_edit_alarm" msgid="7204602994918829751">"ಅಲಾರಮ್ ಎಡಿಟ್ ಮಾಡಿ"</string>
     <string name="delete_alarm" msgid="3457780990646206817">"ಅಲಾರಮ್ ಅಳಿಸು"</string>
     <string name="enable_alarm" msgid="1834599140632142536">"ಅಲಾರಮ್ ಆನ್ ಮಾಡಿ"</string>
     <string name="disable_alarm" msgid="5889378670229554109">"ಅಲಾರಮ್ ಆಫ್ ಮಾಡಿ"</string>
@@ -209,7 +209,7 @@
     <string name="timer_stop" msgid="3361154678667736722">"ನಿಲ್ಲಿಸು"</string>
     <string name="timer_stop_all" msgid="9080780442843034376">"ಎಲ್ಲಾ ಟೈಮರ್‌ಗಳನ್ನು ನಿಲ್ಲಿಸಿ"</string>
     <string name="timer_reset" msgid="7848424809190171640">"ಮರುಹೊಂದಿಸಿ"</string>
-    <string name="timer_cancel" msgid="3572868404230815644">"ರದ್ದುಮಾಡು"</string>
+    <string name="timer_cancel" msgid="3572868404230815644">"ರದ್ದುಮಾಡಿ"</string>
     <string name="timer_canceled" msgid="7327923392567128060">"ಟೈಮರ್ ರದ್ದುಗೊಳಿಸಲಾಗಿದೆ"</string>
     <string name="timer_times_up" msgid="9190440395938519009">"ಸಮಯ ಮುಗಿದಿದೆ"</string>
     <string name="timer_multi_times_up" msgid="1239104626836080409">"<xliff:g id="NUM_TIMERS">%d</xliff:g> ಟೈಮರ್‌ಗಳ ಅವಧಿ ಮೀರಿದೆ"</string>
@@ -242,7 +242,7 @@
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"ಸಮಯವು ಭಿನ್ನವಾಗಿರುವ ಪ್ರದೇಶದಲ್ಲಿ ಪ್ರಯಾಣಿಸುವಾಗ ಹೋಮ್‌ನಲ್ಲಿ ಗಡಿಯಾರ ಸೇರಿಸಿ"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"ಸ್ಥಳೀಯ ಸಮಯ ವಲಯ"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"ಸ್ಥಳೀಯ ಸಮಯ ವಲಯ"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"ರದ್ದುಮಾಡು"</string>
+    <string name="time_picker_cancel" msgid="7437106489606013077">"ರದ್ದುಮಾಡಿ"</string>
     <string name="time_picker_set" msgid="331153175471468051">"ಸರಿ"</string>
     <string name="time_picker_time_seperator" msgid="7484926510054777041">":"</string>
     <string name="time_picker_ampm_label" msgid="6754113715199751083">"--"</string>
@@ -357,7 +357,7 @@
     <string name="night_mode_summary" msgid="1017350187324162631">"ತೀರಾ ಮಂದ ಡಿಸ್‌ಪ್ಲೇ (ಕತ್ತಲೆ ಕೊಠಡಿಗಳಿಗಾಗಿ)"</string>
     <string name="expand_alarm" msgid="7392616528943305020">"ಅಲಾರಮ್ ವಿಸ್ತರಿಸಿ"</string>
     <string name="collapse_alarm" msgid="3561772046433483980">"ಅಲಾರಮ್ ಸಂಕುಚಿಸು"</string>
-    <string name="alarm_undo" msgid="5710042601177655254">"ರದ್ದುಮಾಡು"</string>
+    <string name="alarm_undo" msgid="5710042601177655254">"ರದ್ದುಮಾಡಿ"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"ಅಲಾರಮ್ ಅಳಿಸಲಾಗಿದೆ"</string>
     <string name="slash" msgid="2077577763821006919">"/"</string>
     <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
