@@ -311,7 +311,12 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             mItemAdapter.setItems(items);
 
             // Show or hide the empty view as appropriate.
-            mEmptyViewController.setEmpty(items.isEmpty());
+            final boolean noAlarms = items.isEmpty();
+            mEmptyViewController.setEmpty(noAlarms);
+            if (noAlarms) {
+                // Ensure the drop shadow is hidden when no alarms exist.
+                setTabScrolledToTop(true);
+            }
 
             // Expand the correct alarm.
             if (mExpandedAlarmId != Alarm.INVALID_ID) {
