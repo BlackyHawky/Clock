@@ -153,7 +153,16 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
      */
     public static CursorLoader getAlarmsCursorLoader(Context context) {
         return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI,
-                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER);
+                QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER) {
+            @Override
+            public Cursor loadInBackground() {
+                // Prime the ringtone title cache for later access. Most alarms will refer to
+                // system ringtones.
+                DataModel.getDataModel().loadRingtoneTitles();
+
+                return super.loadInBackground();
+            }
+        };
     }
 
     /**
