@@ -204,16 +204,15 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         alphaAnimatorSet.setStartDelay(duration - standardDelay);
 
         final View oldView = oldHolder.itemView;
-        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(itemView,
-                oldView.getLeft(), oldView.getTop(), oldView.getRight(), oldView.getBottom(),
-                itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom());
+        final View newView = itemView;
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldView, newView);
         boundsAnimator.setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
         final View oldArrow = oldHolder.arrow;
         final Rect oldArrowRect = new Rect(0, 0, oldArrow.getWidth(), oldArrow.getHeight());
         final Rect newArrowRect = new Rect(0, 0, arrow.getWidth(), arrow.getHeight());
-        ((ViewGroup) itemView).offsetDescendantRectToMyCoords(arrow, newArrowRect);
+        ((ViewGroup) newView).offsetDescendantRectToMyCoords(arrow, newArrowRect);
         ((ViewGroup) oldView).offsetDescendantRectToMyCoords(oldArrow, oldArrowRect);
         final float arrowTranslationY = oldArrowRect.bottom - newArrowRect.bottom;
         arrow.setTranslationY(arrowTranslationY);
