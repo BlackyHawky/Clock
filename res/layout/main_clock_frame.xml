@@ -49,15 +49,15 @@
                 android:layout_marginStart="@dimen/analog_clock_margin"
                 android:layout_marginTop="@dimen/circle_margin_top" />
 
-            <TextClock
+            <com.android.deskclock.widget.AutoSizingTextClock
                 android:id="@+id/digital_clock"
                 style="@style/display_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="none"
-                android:maxLines="1"
-                android:paddingTop="@dimen/main_clock_digital_padding"
                 android:paddingBottom="@dimen/main_clock_digital_padding"
+                android:paddingTop="@dimen/main_clock_digital_padding"
+                android:singleLine="true"
                 android:textSize="@dimen/main_clock_digital_font_size" />
 
         </FrameLayout>
