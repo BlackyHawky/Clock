@@ -30,20 +30,22 @@
             style="@style/world_clock_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start"
+            android:gravity="center_horizontal"
             android:includeFontPadding="false" />
 
         <com.android.deskclock.AnalogClock
             android:id="@+id/analog_clock"
             android:layout_width="@dimen/world_clock_analog_size"
             android:layout_height="@dimen/world_clock_analog_size"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="@dimen/bottom_text_spacing_analog_small" />
 
         <include
             layout="@layout/world_clock_city_container"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1" />
 
     </LinearLayout>
 
