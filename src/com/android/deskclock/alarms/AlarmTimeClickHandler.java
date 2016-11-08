@@ -25,9 +25,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 
+import com.android.deskclock.AlarmClockFragment;
 import com.android.deskclock.LabelDialogFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.alarms.dataadapter.AlarmItemHolder;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.events.Events;
@@ -145,7 +147,11 @@ public final class AlarmTimeClickHandler {
         mAlarmUpdateHandler.asyncUpdateAlarm(alarm, popupToast, false);
     }
 
-    public void onDeleteClicked(Alarm alarm) {
+    public void onDeleteClicked(AlarmItemHolder itemHolder) {
+        if (mFragment instanceof AlarmClockFragment) {
+            ((AlarmClockFragment) mFragment).removeItem(itemHolder);
+        }
+        final Alarm alarm = itemHolder.item;
         Events.sendAlarmEvent(R.string.action_delete, R.string.label_deskclock);
         mAlarmUpdateHandler.asyncDeleteAlarm(alarm);
         LOGGER.d("Deleting alarm.");

@@ -165,7 +165,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getAlarmTimeClickHandler().onDeleteClicked(getItemHolder().item);
+                getAlarmTimeClickHandler().onDeleteClicked(getItemHolder());
                 v.announceForAccessibility(context.getString(R.string.alarm_deleted));
             }
         });
