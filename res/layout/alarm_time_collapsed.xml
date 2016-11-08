@@ -20,10 +20,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/selectableItemBackground"
-    android:gravity="center_horizontal|top"
     android:paddingEnd="16dp"
     android:paddingStart="16dp"
-    app:columnCount="2"
+    app:columnCount="5"
+    app:columnOrderPreserved="false"
     app:rowCount="4">
 
     <include
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/alarm_clock_vertical_margin"
         app:layout_column="0"
-        app:layout_gravity="start|center_vertical"
+        app:layout_gravity="center_vertical"
         app:layout_row="0" />
 
     <android.support.v7.widget.SwitchCompat
@@ -43,16 +43,17 @@
         android:minHeight="@dimen/touch_target_min_size"
         android:minWidth="@dimen/touch_target_min_size"
         android:theme="@style/ControlAccentThemeOverlay"
-        app:layout_column="1"
-        app:layout_gravity="center_vertical|end"
+        app:layout_column="3"
+        app:layout_columnSpan="2"
+        app:layout_gravity="center_vertical"
         app:layout_row="0" />
 
     <com.android.deskclock.widget.EllipsizeLayout
         android:layout_width="0dp"
         android:layout_height="@dimen/touch_target_min_size"
-        android:layout_marginEnd="@dimen/touch_target_min_size"
         android:gravity="center_vertical"
         app:layout_column="0"
+        app:layout_columnSpan="3"
         app:layout_gravity="fill_horizontal"
         app:layout_row="1">
 
@@ -96,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/touch_target_min_size"
         app:layout_column="0"
-        app:layout_gravity="start"
+        app:layout_columnSpan="2"
         app:layout_row="2" />
 
     <ImageButton
@@ -107,7 +108,7 @@
         android:contentDescription="@string/collapse_alarm"
         android:padding="@dimen/checkbox_start_padding"
         android:scaleType="center"
-        app:layout_column="1"
+        app:layout_column="4"
         app:layout_gravity="bottom"
         app:layout_row="1"
         app:layout_rowSpan="2"
@@ -121,7 +122,7 @@
         android:layout_marginStart="@dimen/icon_margin"
         android:background="@color/hairline"
         app:layout_column="0"
-        app:layout_columnSpan="2"
+        app:layout_columnSpan="5"
         app:layout_gravity="fill_horizontal"
         app:layout_row="3" />
 

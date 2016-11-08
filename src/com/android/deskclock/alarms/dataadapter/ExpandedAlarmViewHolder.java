@@ -22,7 +22,6 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -44,7 +43,6 @@ import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
-import com.android.deskclock.Utils.ClickAccessibilityDelegate;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
@@ -76,17 +74,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public ExpandedAlarmViewHolder(View itemView, boolean hasVibrator) {
         super(itemView);
 
-        final Context context = itemView.getContext();
         mHasVibrator = hasVibrator;
-        final Resources.Theme theme = context.getTheme();
-        int[] attrs = new int[] { android.R.attr.selectableItemBackground };
-
-        final TypedArray typedArray = theme.obtainStyledAttributes(attrs);
-        LayerDrawable background = new LayerDrawable(new Drawable[] {
-                ContextCompat.getDrawable(context, R.drawable.alarm_background_expanded),
-                typedArray.getDrawable(0) });
-        itemView.setBackground(background);
-        typedArray.recycle();
 
         delete = (TextView) itemView.findViewById(R.id.delete);
         repeat = (CheckBox) itemView.findViewById(R.id.repeat_onoff);
@@ -95,6 +83,18 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         editLabel = (TextView) itemView.findViewById(R.id.edit_label);
         repeatDays = (LinearLayout) itemView.findViewById(R.id.repeat_days);
         hairLine = itemView.findViewById(R.id.hairline);
+
+        final Context context = itemView.getContext();
+        final TypedArray a = context.obtainStyledAttributes(
+                new int[] { android.R.attr.selectableItemBackground });
+        itemView.setBackground(new LayerDrawable(new Drawable[] {
+                ContextCompat.getDrawable(context, R.drawable.alarm_background_expanded),
+                a.getDrawable(0)
+        }));
+        a.recycle();
+
+        ViewCompat.setAccessibilityDelegate(itemView, new Utils.ClickAccessibilityDelegate(
+                context.getString(R.string.collapse_description)));
 
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);
@@ -113,9 +113,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
         // Cannot set in xml since we need compat functionality for API < 21
         final Drawable labelIcon = Utils.getVectorDrawable(context, R.drawable.ic_label);
-        editLabel.setCompoundDrawablesWithIntrinsicBounds(labelIcon, null, null, null);
+        editLabel.setCompoundDrawablesRelativeWithIntrinsicBounds(labelIcon, null, null, null);
         final Drawable deleteIcon = Utils.getVectorDrawable(context, R.drawable.ic_delete_small);
-        delete.setCompoundDrawablesWithIntrinsicBounds(deleteIcon, null, null, null);
+        delete.setCompoundDrawablesRelativeWithIntrinsicBounds(deleteIcon, null, null, null);
 
         // Collapse handler
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +194,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     @Override
     protected void onBindItemView(final AlarmItemHolder itemHolder) {
         super.onBindItemView(itemHolder);
+
         final Alarm alarm = itemHolder.item;
         final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
@@ -201,17 +202,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         bindDaysOfWeekButtons(alarm);
         bindVibrator(alarm);
         bindRingtone(context, alarm);
-        ViewCompat.setAccessibilityDelegate(itemView,
-                new ClickAccessibilityDelegate(
-                        itemView.getResources().getString(R.string.collapse_description)));
-        boolean boundDismiss = bindPreemptiveDismissButton(context, alarm, alarmInstance);
-        if (boundDismiss) {
-            itemView.findViewById(R.id.hairline).setVisibility(View.GONE);
-            itemView.findViewById(R.id.lower_hairline).setVisibility(View.VISIBLE);
-        } else {
-            itemView.findViewById(R.id.hairline).setVisibility(View.VISIBLE);
-            itemView.findViewById(R.id.lower_hairline).setVisibility(View.GONE);
-        }
+        bindPreemptiveDismissButton(context, alarm, alarmInstance);
     }
 
     private void bindRingtone(Context context, Alarm alarm) {
@@ -222,9 +213,9 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone.setContentDescription(description + " " + title);
 
         final boolean silent = Utils.RINGTONE_SILENT.equals(alarm.alert);
-        final int startResId = silent ? R.drawable.ic_ringtone_silent : R.drawable.ic_ringtone;
-        final Drawable startDrawable = Utils.getVectorDrawable(context, startResId);
-        ringtone.setCompoundDrawablesWithIntrinsicBounds(startDrawable, null, null, null);
+        final Drawable icon = Utils.getVectorDrawable(context,
+                silent ? R.drawable.ic_ringtone_silent : R.drawable.ic_ringtone);
+        ringtone.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
     }
 
     private void bindDaysOfWeekButtons(Alarm alarm) {
@@ -473,18 +464,19 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
-        private final LayoutInflater mLayoutInflator;
+
+        private final LayoutInflater mLayoutInflater;
         private final boolean mHasVibrator;
 
-        public Factory(Context context, LayoutInflater layoutInflater) {
-            mLayoutInflator = layoutInflater;
+        public Factory(Context context) {
+            mLayoutInflater = LayoutInflater.from(context);
             mHasVibrator = ((Vibrator) context.getSystemService(VIBRATOR_SERVICE)).hasVibrator();
         }
 
         @Override
         public ItemAdapter.ItemViewHolder<?> createViewHolder(ViewGroup parent, int viewType) {
-            return new ExpandedAlarmViewHolder(mLayoutInflator.inflate(
-                    viewType, parent, false /* attachToRoot */), mHasVibrator);
+            final View itemView = mLayoutInflater.inflate(viewType, parent, false);
+            return new ExpandedAlarmViewHolder(itemView, mHasVibrator);
         }
     }
 }
