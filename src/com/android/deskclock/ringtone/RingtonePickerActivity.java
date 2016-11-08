@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -131,6 +132,7 @@ public class RingtonePickerActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ringtone_picker);
+        setVolumeControlStream(AudioManager.STREAM_ALARM);
 
         mOptionsMenuManager = new OptionsMenuManager();
         mOptionsMenuManager.addMenuItemController(new NavUpMenuItemController(this))
