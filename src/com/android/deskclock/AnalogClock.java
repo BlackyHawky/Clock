@@ -84,18 +84,26 @@ public class AnalogClock extends FrameLayout {
         mTime = Calendar.getInstance();
         mDescFormat = ((SimpleDateFormat) DateFormat.getTimeFormat(context)).toLocalizedPattern();
 
+        // Must call mutate on these instances, otherwise the drawables will blur, because they're
+        // sharing their size characteristics with the (smaller) world cities analog clocks.
         final ImageView dial = new AppCompatImageView(context);
         dial.setImageResource(R.drawable.clock_analog_dial);
+        dial.getDrawable().mutate();
         addView(dial);
 
         mHourHand = new AppCompatImageView(context);
         mHourHand.setImageResource(R.drawable.clock_analog_hour);
+        mHourHand.getDrawable().mutate();
         addView(mHourHand);
+
         mMinuteHand = new AppCompatImageView(context);
         mMinuteHand.setImageResource(R.drawable.clock_analog_minute);
+        mMinuteHand.getDrawable().mutate();
         addView(mMinuteHand);
+
         mSecondHand = new AppCompatImageView(context);
         mSecondHand.setImageResource(R.drawable.clock_analog_second);
+        mSecondHand.getDrawable().mutate();
         addView(mSecondHand);
     }
 
