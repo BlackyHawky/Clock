@@ -33,6 +33,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -154,6 +155,7 @@ public class AlarmActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setVolumeControlStream(AudioManager.STREAM_ALARM);
         final long instanceId = AlarmInstance.getId(getIntent().getData());
         mAlarmInstance = AlarmInstance.getInstance(getContentResolver(), instanceId);
         if (mAlarmInstance == null) {
@@ -285,31 +287,31 @@ public class AlarmActivity extends AppCompatActivity
         // Do this in dispatch to intercept a few of the system keys.
         LOGGER.v("dispatchKeyEvent: %s", keyEvent);
 
-        switch (keyEvent.getKeyCode()) {
+        final int keyCode = keyEvent.getKeyCode();
+        switch (keyCode) {
             // Volume keys and camera keys dismiss the alarm.
-            case KeyEvent.KEYCODE_POWER:
             case KeyEvent.KEYCODE_VOLUME_UP:
             case KeyEvent.KEYCODE_VOLUME_DOWN:
             case KeyEvent.KEYCODE_VOLUME_MUTE:
             case KeyEvent.KEYCODE_HEADSETHOOK:
             case KeyEvent.KEYCODE_CAMERA:
             case KeyEvent.KEYCODE_FOCUS:
-                if (!mAlarmHandled && keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                if (!mAlarmHandled) {
                     switch (mVolumeBehavior) {
                         case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE:
-                            snooze();
-                            break;
+                            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                snooze();
+                            }
+                            return true;
                         case SettingsActivity.VOLUME_BEHAVIOR_DISMISS:
-                            dismiss();
-                            break;
-                        default:
-                            break;
+                            if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
+                                dismiss();
+                            }
+                            return true;
                     }
                 }
-                return true;
-            default:
-                return super.dispatchKeyEvent(keyEvent);
         }
+        return super.dispatchKeyEvent(keyEvent);
     }
 
     @Override

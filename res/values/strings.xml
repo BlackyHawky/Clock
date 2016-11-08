@@ -443,7 +443,7 @@
     <string-array name="volume_button_setting_entries">
         <item>Snooze</item>
         <item>Dismiss</item>
-        <item>Do nothing</item>
+        <item>Control volume</item>
     </string-array>
 
     <!-- Values for the side-button setting. -->
