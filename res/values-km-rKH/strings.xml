@@ -216,6 +216,8 @@
     <string name="hours_label_description" msgid="8652842524970971830">"ម៉ោង"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"នាទី"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"វិនាទី"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"ពេលវេលា​របស់​ខ្ញុំ​គឺ <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"រយៈពេល​ជុំ៖"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ជុំទី <xliff:g id="NUMBER">%d</xliff:g>"</string>
@@ -403,6 +405,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"បង្រួម​សំឡេង​រោទ៍"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"​មិន​​ធ្វើ​វិញ"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"បានលុបម៉ោងរោទិ៍"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"លឿនជាង <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"យឺតជាង <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"លឿនជាង <xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g>"</string>

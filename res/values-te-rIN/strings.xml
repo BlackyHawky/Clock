@@ -24,18 +24,12 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"పునరావృతం చేయి"</string>
     <string name="delete" msgid="5732434972457000541">"తొలగించు"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"డిఫాల్ట్ అలారం ధ్వని"</string>
-    <!-- no translation found for alarm_sound (1929644445093661596) -->
-    <skip />
-    <!-- no translation found for timer_sound (713786870463353608) -->
-    <skip />
-    <!-- no translation found for add_new_sound (2546936797351540244) -->
-    <skip />
-    <!-- no translation found for remove_sound (2064643204455734239) -->
-    <skip />
-    <!-- no translation found for music (3299572469993696378) -->
-    <skip />
-    <!-- no translation found for ringtones (2548286573030531045) -->
-    <skip />
+    <string name="alarm_sound" msgid="1929644445093661596">"అలారం శబ్దం"</string>
+    <string name="timer_sound" msgid="713786870463353608">"టైమర్ శబ్దం"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"కొత్తదాన్ని జోడించు"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"తీసివేయి"</string>
+    <string name="music" msgid="3299572469993696378">"సంగీతం"</string>
+    <string name="ringtones" msgid="2548286573030531045">"రింగ్‌టోన్‌లు"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"టైమర్ గడువు ముగిసింది"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"రేపు"</string>
     <string name="alarm_today" msgid="7873594221106531654">"ఈ రోజు"</string>
@@ -222,6 +216,8 @@
     <string name="hours_label_description" msgid="8652842524970971830">"గంటలు"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"నిమిషాలు"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"సెకన్లు"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"నా సమయం <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"ల్యాప్ సమయాలు:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"ల్యాప్ <xliff:g id="NUMBER">%d</xliff:g>"</string>
@@ -409,6 +405,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"అలారం వివరాలు కుదించు"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"చర్య రద్దు చేయి"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"తొలగించబడింది"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> ముందు ఉంది"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> వెనుక ఉంది"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> ముందు ఉంది"</string>

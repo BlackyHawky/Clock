@@ -216,6 +216,10 @@
     <string name="hours_label_description" msgid="8652842524970971830">"saat"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"dakika"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"saniye"</string>
+    <!-- no translation found for lap_number_single_digit (1051159504304610877) -->
+    <skip />
+    <!-- no translation found for lap_number_double_digit (2138536756534362037) -->
+    <skip />
     <string name="sw_share_main" msgid="7703563468204234405">"Saatim: <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Tur süreleri:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. tur"</string>
@@ -403,6 +407,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Alarmı daralt"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"geri al"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Alarm silindi"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> önde"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> geride"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> önde"</string>

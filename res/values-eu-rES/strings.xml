@@ -24,18 +24,12 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Errepikatu"</string>
     <string name="delete" msgid="5732434972457000541">"Ezabatu"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Alarmaren soinu lehenetsia"</string>
-    <!-- no translation found for alarm_sound (1929644445093661596) -->
-    <skip />
-    <!-- no translation found for timer_sound (713786870463353608) -->
-    <skip />
-    <!-- no translation found for add_new_sound (2546936797351540244) -->
-    <skip />
-    <!-- no translation found for remove_sound (2064643204455734239) -->
-    <skip />
-    <!-- no translation found for music (3299572469993696378) -->
-    <skip />
-    <!-- no translation found for ringtones (2548286573030531045) -->
-    <skip />
+    <string name="alarm_sound" msgid="1929644445093661596">"Alarmaren soinua"</string>
+    <string name="timer_sound" msgid="713786870463353608">"Tenporizadorearen soinua"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"Gehitu beste bat"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"Kendu"</string>
+    <string name="music" msgid="3299572469993696378">"Musika"</string>
+    <string name="ringtones" msgid="2548286573030531045">"Tonuak"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Iraungi egin da tenporizadorea"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"Bihar"</string>
     <string name="alarm_today" msgid="7873594221106531654">"Gaur"</string>
@@ -222,6 +216,8 @@
     <string name="hours_label_description" msgid="8652842524970971830">"ordu"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"minutu"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"segundo"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"<xliff:g id="LAPNUMBER">%d</xliff:g>.a"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"<xliff:g id="LAPNUMBER">%02d</xliff:g>.a"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"Nire denbora <xliff:g id="TIME">%s</xliff:g> da"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"Itzulien denborak:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"<xliff:g id="NUMBER">%d</xliff:g>. itzulia"</string>
@@ -409,6 +405,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"Tolestu alarma"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"desegin"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"Ezabatu da alarma"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> aurrerago"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> atzerago"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> eta <xliff:g id="MINUTES">%2$s</xliff:g> aurrerago doaz"</string>

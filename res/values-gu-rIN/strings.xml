@@ -24,18 +24,12 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"પુનરાવર્તન"</string>
     <string name="delete" msgid="5732434972457000541">"કાઢી નાખો"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"ડિફોલ્ટ એલાર્મ ધ્વનિ"</string>
-    <!-- no translation found for alarm_sound (1929644445093661596) -->
-    <skip />
-    <!-- no translation found for timer_sound (713786870463353608) -->
-    <skip />
-    <!-- no translation found for add_new_sound (2546936797351540244) -->
-    <skip />
-    <!-- no translation found for remove_sound (2064643204455734239) -->
-    <skip />
-    <!-- no translation found for music (3299572469993696378) -->
-    <skip />
-    <!-- no translation found for ringtones (2548286573030531045) -->
-    <skip />
+    <string name="alarm_sound" msgid="1929644445093661596">"એલાર્મની ધ્વનિ"</string>
+    <string name="timer_sound" msgid="713786870463353608">"ટાઇમરની ધ્વનિ"</string>
+    <string name="add_new_sound" msgid="2546936797351540244">"નવી ઉમેરો"</string>
+    <string name="remove_sound" msgid="2064643204455734239">"દૂર કરો"</string>
+    <string name="music" msgid="3299572469993696378">"સંગીત"</string>
+    <string name="ringtones" msgid="2548286573030531045">"રિંગટોન્સ"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"ટાઇમરની સમય સીમા સમાપ્ત થઈ"</string>
     <string name="alarm_tomorrow" msgid="131356848787643420">"આવતીકાલે"</string>
     <string name="alarm_today" msgid="7873594221106531654">"આજે"</string>
@@ -222,6 +216,8 @@
     <string name="hours_label_description" msgid="8652842524970971830">"કલાક"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"મિનિટ"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"સેકંડ"</string>
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"મારો સમય છે <xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"લેપ સમય:"</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"લેપ <xliff:g id="NUMBER">%d</xliff:g>"</string>
@@ -409,6 +405,7 @@
     <string name="collapse_alarm" msgid="3561772046433483980">"એલાર્મ સંકુચિત કરો"</string>
     <string name="alarm_undo" msgid="5710042601177655254">"પૂર્વવત્ કરો"</string>
     <string name="alarm_deleted" msgid="6131529309389084785">"એલાર્મ કાઢી નાખ્યો"</string>
+    <string name="world_day_of_week_label" msgid="5911196322328341288">"/ <xliff:g id="LABEL">%s</xliff:g>"</string>
     <string name="world_time_ahead" msgid="625559988238637652">"<xliff:g id="TIME">%1$s</xliff:g> આગળ છે"</string>
     <string name="world_time_behind" msgid="5395771290726167865">"<xliff:g id="TIME">%1$s</xliff:g> પાછળ છે"</string>
     <string name="world_hours_minutes_ahead" msgid="5132012793021696377">"<xliff:g id="HOURS">%1$s</xliff:g> <xliff:g id="MINUTES">%2$s</xliff:g> આગળ છે"</string>
