@@ -531,6 +531,8 @@ public final class StopwatchFragment extends DeskClockFragment {
         @Override
         public void stopwatchUpdated(Stopwatch before, Stopwatch after) {
             if (after.isReset()) {
+                // Ensure the drop shadow is hidden when the stopwatch is reset.
+                setTabScrolledToTop(true);
                 if (DataModel.getDataModel().isApplicationInForeground()) {
                     updateUI(BUTTONS_IMMEDIATE);
                 }
