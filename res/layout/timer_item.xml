@@ -48,6 +48,8 @@
             android:gravity="center"
             android:hint="@string/label"
             android:maxLines="1"
+            android:minHeight="@dimen/touch_target_min_size"
+            android:minWidth="@dimen/touch_target_min_size"
             android:textAppearance="@style/SecondaryLabelTextAppearance" />
 
         <!-- Center the reset/add button on the third of the container above the delete button. -->
