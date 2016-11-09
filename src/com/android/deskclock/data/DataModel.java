@@ -180,7 +180,7 @@ public final class DataModel {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
-            mTimeModel = new TimeModel();
+            mTimeModel = new TimeModel(mContext);
             mWidgetModel = new WidgetModel(mContext);
             mSettingsModel = new SettingsModel(mContext);
             mRingtoneModel = new RingtoneModel(mContext);
@@ -553,7 +553,6 @@ public final class DataModel {
         mTimerModel.resetMissedTimers(eventLabelId);
     }
 
-
     /**
      * @param timer the timer to which a minute should be added to the remaining time
      */
@@ -773,20 +772,35 @@ public final class DataModel {
 
     //
     // Time
+    // (Time settings/values are accessible from any Thread so no Thread-enforcement exists.)
     //
 
     /**
-     * @return the current time in milliseconds.
+     * @return the current time in milliseconds
      */
     public long currentTimeMillis() {
         return mTimeModel.currentTimeMillis();
     }
 
     /**
-     * @return milliseconds since boot, including time spent in sleep.
+     * @return milliseconds since boot, including time spent in sleep
      */
     public long elapsedRealtime() {
         return mTimeModel.elapsedRealtime();
+    }
+
+    /**
+     * @return {@code true} if 24 hour time format is selected; {@code false} otherwise
+     */
+    public boolean is24HourFormat() {
+        return mTimeModel.is24HourFormat();
+    }
+
+    /**
+     * @return a new calendar object initialized to the {@link #currentTimeMillis()}
+     */
+    public Calendar getCalendar() {
+        return mTimeModel.getCalendar();
     }
 
     //
