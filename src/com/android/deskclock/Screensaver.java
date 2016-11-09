@@ -95,6 +95,11 @@ public final class Screensaver extends DreamService {
         mAnalogClock = findViewById(R.id.analog_clock);
         mSaverView = findViewById(R.id.main_clock);
         mContentView = (View) mSaverView.getParent();
+        mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         setClockStyle();
         Utils.setTimeFormat((TextClock) mDigitalClock, false);

@@ -108,8 +108,12 @@ public class ScreensaverActivity extends AppCompatActivity {
         mSaverView = findViewById(R.id.main_clock);
         mContentView = findViewById(R.id.saver_container);
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                | View.SYSTEM_UI_FLAG_IMMERSIVE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        mContentView.setOnSystemUiVisibilityChangeListener(new InteractionListener());
 
         Utils.setTimeFormat((TextClock) mDigitalClock, false);
         Utils.setClockStyle(mDigitalClock, mAnalogClock);
@@ -215,7 +219,7 @@ public class ScreensaverActivity extends AppCompatActivity {
         mPositionUpdater.stop();
     }
 
-    private class StartPositionUpdater implements OnPreDrawListener {
+    private final class StartPositionUpdater implements OnPreDrawListener {
         /**
          * This callback occurs after initial layout has completed. It is an appropriate place to
          * select a random position for {@link #mSaverView} and schedule future callbacks to update
@@ -233,6 +237,17 @@ public class ScreensaverActivity extends AppCompatActivity {
                 mContentView.getViewTreeObserver().removeOnPreDrawListener(mStartPositionUpdater);
             }
             return true;
+        }
+    }
+
+    private final class InteractionListener implements View.OnSystemUiVisibilityChangeListener {
+        @Override
+        public void onSystemUiVisibilityChange(int visibility) {
+            // When the user interacts with the screen, the navigation bar reappears
+            if ((visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
+                // We want the screen saver to exit upon user interaction.
+                finish();
+            }
         }
     }
 }
