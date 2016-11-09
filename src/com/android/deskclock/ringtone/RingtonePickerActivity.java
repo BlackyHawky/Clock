@@ -24,11 +24,13 @@ import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.AudioManager;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,6 +57,7 @@ import java.util.List;
 
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
+import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
 import static com.android.deskclock.ItemAdapter.ItemViewHolder.*;
 import static com.android.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
@@ -75,19 +78,19 @@ public class RingtonePickerActivity extends BaseActivity
         implements LoaderManager.LoaderCallbacks<List<ItemAdapter.ItemHolder<Uri>>> {
 
     /** Key to an extra that defines resource id to the title of this activity. */
-    public static final String EXTRA_TITLE = "extra_title";
+    private static final String EXTRA_TITLE = "extra_title";
 
     /** Key to an extra that identifies the alarm to which the selected ringtone is attached. */
-    public static final String EXTRA_ALARM_ID = "extra_alarm_id";
+    private static final String EXTRA_ALARM_ID = "extra_alarm_id";
 
     /** Key to an extra that identifies the selected ringtone. */
-    public static final String EXTRA_RINGTONE_URI = "extra_ringtone_uri";
+    private static final String EXTRA_RINGTONE_URI = "extra_ringtone_uri";
 
     /** Key to an extra that defines the uri representing the default ringtone. */
-    public static final String EXTRA_DEFAULT_RINGTONE_URI = "extra_default_ringtone_uri";
+    private static final String EXTRA_DEFAULT_RINGTONE_URI = "extra_default_ringtone_uri";
 
     /** Key to an extra that defines the name of the default ringtone. */
-    public static final String EXTRA_DEFAULT_RINGTONE_NAME = "extra_default_ringtone_name";
+    private static final String EXTRA_DEFAULT_RINGTONE_NAME = "extra_default_ringtone_name";
 
     /** Key to an instance state value indicating if the selected ringtone is currently playing. */
     private static final String STATE_KEY_PLAYING = "extra_is_playing";
@@ -127,6 +130,31 @@ public class RingtonePickerActivity extends BaseActivity
 
     /** The location of the custom ringtone to be removed. */
     private int mIndexOfRingtoneToRemove;
+
+    /**
+     * @return an intent that launches the ringtone picker to edit the ringtone of the given
+     *      {@code alarm}
+     */
+    public static Intent createAlarmRingtonePickerIntent(Context context, Alarm alarm) {
+        return new Intent(context, RingtonePickerActivity.class)
+                .putExtra(EXTRA_TITLE, R.string.alarm_sound)
+                .putExtra(EXTRA_ALARM_ID, alarm.id)
+                .putExtra(EXTRA_RINGTONE_URI, alarm.alert)
+                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, RingtoneManager.getDefaultUri(TYPE_ALARM))
+                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_alarm_ringtone_title);
+    }
+
+    /**
+     * @return an intent that launches the ringtone picker to edit the ringtone of all timers
+     */
+    public static Intent createTimerRingtonePickerIntent(Context context) {
+        final DataModel dataModel = DataModel.getDataModel();
+        return new Intent(context, RingtonePickerActivity.class)
+                .putExtra(EXTRA_TITLE, R.string.timer_sound)
+                .putExtra(EXTRA_RINGTONE_URI, dataModel.getTimerRingtoneUri())
+                .putExtra(EXTRA_DEFAULT_RINGTONE_URI, dataModel.getDefaultTimerRingtoneUri())
+                .putExtra(EXTRA_DEFAULT_RINGTONE_NAME, R.string.default_timer_ringtone_title);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -210,7 +238,7 @@ public class RingtonePickerActivity extends BaseActivity
         mDropShadowController.stop();
         mDropShadowController = null;
 
-        if (!mRequestingPermission) {
+        if (!mRequestingPermission && mSelectedRingtoneUri != null) {
             if (mAlarmId != -1) {
                 final Context context = getApplicationContext();
                 final ContentResolver cr = getContentResolver();
@@ -290,23 +318,22 @@ public class RingtonePickerActivity extends BaseActivity
         // Update the adapter with fresh data.
         mRingtoneAdapter.setItems(itemHolders);
 
-        RingtoneHolder toSelect = getRingtoneHolder(mSelectedRingtoneUri);
-
-        // If the desired selection no longer exists, fall back to the default selection.
-        if (toSelect == null) {
-            toSelect = getRingtoneHolder(mDefaultRingtoneUri);
-        }
-
         // Attempt to select the requested ringtone.
+        final RingtoneHolder toSelect = getRingtoneHolder(mSelectedRingtoneUri);
         if (toSelect != null) {
             toSelect.setSelected(true);
             mSelectedRingtoneUri = toSelect.getUri();
             toSelect.notifyItemChanged();
-        }
 
-        // Start playing the ringtone if indicated.
-        if (mIsPlaying) {
-            startPlayingRingtone(toSelect);
+            // Start playing the ringtone if indicated.
+            if (mIsPlaying) {
+                startPlayingRingtone(toSelect);
+            }
+        } else {
+            // Clear the selection since it does not exist in the data.
+            RingtonePreviewKlaxon.stop(this);
+            mSelectedRingtoneUri = null;
+            mIsPlaying = false;
         }
     }
 
@@ -377,12 +404,9 @@ public class RingtonePickerActivity extends BaseActivity
         return null;
     }
 
-    private RingtoneHolder getSelectedRingtoneHolder() {
-        final RingtoneHolder ringtone = getRingtoneHolder(mSelectedRingtoneUri);
-        if (ringtone == null) {
-            throw new IllegalStateException("Unable to locate selected ringtone");
-        }
-        return ringtone;
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    RingtoneHolder getSelectedRingtoneHolder() {
+        return getRingtoneHolder(mSelectedRingtoneUri);
     }
 
     /**
@@ -409,6 +433,10 @@ public class RingtonePickerActivity extends BaseActivity
      *      {@code false} indicates its selection state should remain unchanged
      */
     private void stopPlayingRingtone(RingtoneHolder ringtone, boolean deselect) {
+        if (ringtone == null) {
+            return;
+        }
+
         if (ringtone.isPlaying()) {
             RingtonePreviewKlaxon.stop(this);
             ringtone.setPlaying(false);
