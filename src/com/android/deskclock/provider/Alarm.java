@@ -373,8 +373,8 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
 
     /**
      *
-     * @param currentTime
-     * @return Previous firing time, or null if this is a one-time alarm.
+     * @param currentTime the current time
+     * @return previous firing time, or null if this is a one-time alarm.
      */
     public Calendar getPreviousAlarmTime(Calendar currentTime) {
         final Calendar previousInstanceTime = Calendar.getInstance(currentTime.getTimeZone());

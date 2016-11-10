@@ -308,6 +308,9 @@ public final class CitySelectionActivity extends BaseActivity {
 
                 case VIEW_TYPE_CITY:
                     final City city = getItem(position);
+                    if (city == null) {
+                        throw new IllegalStateException("The desired city does not exist");
+                    }
                     final TimeZone timeZone = city.getTimeZone();
 
                     // Inflate a new view if necessary.
@@ -402,6 +405,9 @@ public final class CitySelectionActivity extends BaseActivity {
                     // Add a section if this position should show the section index.
                     if (getShowIndex(position)) {
                         final City city = getItem(position);
+                        if (city == null) {
+                            throw new IllegalStateException("The desired city does not exist");
+                        }
                         switch (getCitySort()) {
                             case NAME:
                                 sections.add(city.getIndexString());

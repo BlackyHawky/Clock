@@ -304,7 +304,7 @@ public final class Weekdays {
     /**
      * @param context for accessing resources
      * @param order the order in which to present the weekdays
-     * @param forceLongNames if {@code true} the unabbreviated weekdays are used
+     * @param forceLongNames if {@code true} the un-abbreviated weekdays are used
      * @return the enabled weekdays in the given {@code order}
      */
     private String toString(Context context, Order order, boolean forceLongNames) {

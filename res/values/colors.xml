@@ -15,7 +15,6 @@
 -->
 
 <resources>
-    <color name="ampm_text_color">#99FFFFFF</color>
     <color name="dialog_gray">#28FFFFFF</color>
 
     <color name="black">#FF000000</color>

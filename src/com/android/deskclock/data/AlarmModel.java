@@ -19,18 +19,11 @@ package com.android.deskclock.data;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
-import android.util.ArrayMap;
 
-import com.android.deskclock.LogUtils;
-import com.android.deskclock.R;
 import com.android.deskclock.provider.Alarm;
-
-import java.util.Map;
 
 /**
  * All alarm data will eventually be accessed via this model.

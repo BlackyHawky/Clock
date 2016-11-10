@@ -166,15 +166,6 @@
         <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 
-    <style name="header">
-        <item name="android:textSize">@dimen/header_font_size</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="header_not_caps" parent="header">
-        <item name="android:textAllCaps">false</item>
-    </style>
-
     <style name="display_time">
         <item name="android:textSize">56sp</item>
         <item name="android:textColor">@color/white</item>

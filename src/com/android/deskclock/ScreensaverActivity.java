@@ -53,7 +53,6 @@ public class ScreensaverActivity extends AppCompatActivity {
     private MoveScreensaverRunnable mPositionUpdater;
 
     private View mContentView, mSaverView;
-    private View mAnalogClock, mDigitalClock;
 
     private String mDateFormat;
     private String mDateFormatForAccessibility;
@@ -103,8 +102,8 @@ public class ScreensaverActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.desk_clock_saver);
-        mDigitalClock = findViewById(R.id.digital_clock);
-        mAnalogClock = findViewById(R.id.analog_clock);
+        final View digitalClock = findViewById(R.id.digital_clock);
+        final View analogClock = findViewById(R.id.analog_clock);
         mSaverView = findViewById(R.id.main_clock);
         mContentView = findViewById(R.id.saver_container);
         mContentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
@@ -115,8 +114,8 @@ public class ScreensaverActivity extends AppCompatActivity {
 
         mContentView.setOnSystemUiVisibilityChangeListener(new InteractionListener());
 
-        Utils.setTimeFormat((TextClock) mDigitalClock, false);
-        Utils.setClockStyle(mDigitalClock, mAnalogClock);
+        Utils.setTimeFormat((TextClock) digitalClock, false);
+        Utils.setClockStyle(digitalClock, analogClock);
         Utils.dimClockView(true, mSaverView);
 
         mPositionUpdater = new MoveScreensaverRunnable(mContentView, mSaverView);

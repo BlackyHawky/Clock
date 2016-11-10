@@ -14,14 +14,13 @@
      limitations under the License.
 -->
 
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources
+    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Label shown on launcher icon -->
     <!-- Label for the this application displayed on-screen when this application must be represented to the user. -->
     <string name="app_label">Clock</string>
-
-    <!-- Context Menu Item on Alarm Settings screen: Delete alarm -->
-    <string name="delete_alarm">Delete alarm</string>
 
     <!-- Setting label on Set alarm screen: Label -->
     <string name="label">Label</string>
@@ -683,7 +682,7 @@
     <string name="city_unchecked"><xliff:g id="city_name">%s</xliff:g> unchecked</string>
 
     <!-- Choices for timezones, must be kept in sync with timezone_values. CHAR LIMIT=25] -->
-    <string-array name="timezone_labels">
+    <string-array name="timezone_labels" tools:ignore="Typos">
         <item>"Marshall Islands"</item>
         <item>"Midway Island"</item>
         <item>"Hawaii"</item>
@@ -773,7 +772,7 @@
 
     <!-- Choices for timezones, must be kept in sync with timezone_values. -->
 
-    <string-array name="timezone_values" translatable="false">
+    <string-array name="timezone_values" translatable="false" tools:ignore="Typos">
         <item>"Pacific/Majuro"</item>
         <item>"Pacific/Midway"</item>
         <item>"Pacific/Honolulu"</item>

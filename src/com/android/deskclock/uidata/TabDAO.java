@@ -18,7 +18,6 @@ package com.android.deskclock.uidata;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import com.android.deskclock.Utils;
 

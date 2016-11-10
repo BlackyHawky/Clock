@@ -33,6 +33,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
@@ -132,6 +133,9 @@ public class LabelDialogFragment extends DialogFragment {
         mLabelBox.selectAll();
 
         final int padding = getResources().getDimensionPixelSize(R.dimen.label_edittext_padding);
+        // The line at the bottom of EditText does not follow padding rules; therefore we must apply
+        // the padding to its container.
+        @SuppressWarnings("deprecation")
         final AlertDialog alertDialog = new AlertDialog.Builder(context)
                 .setView(mLabelBox, padding, 0, padding, 0)
                 .setPositiveButton(R.string.time_picker_set, new OkListener())
@@ -139,7 +143,10 @@ public class LabelDialogFragment extends DialogFragment {
                 .setMessage(R.string.label)
                 .create();
 
-        alertDialog.getWindow().setSoftInputMode(SOFT_INPUT_STATE_VISIBLE);
+        final Window alertDialogWindow = alertDialog.getWindow();
+        if (alertDialogWindow != null) {
+            alertDialogWindow.setSoftInputMode(SOFT_INPUT_STATE_VISIBLE);
+        }
         return alertDialog;
     }
 

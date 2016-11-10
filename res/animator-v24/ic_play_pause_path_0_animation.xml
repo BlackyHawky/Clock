@@ -17,7 +17,7 @@
 <objectAnimator
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="250"
-    android:interpolator="@interpolator/ic_play_pause_animation_interpolator_1"
+    android:interpolator="@anim/ic_play_pause_animation_interpolator_1"
     android:propertyName="rotation"
     android:valueFrom="90.0"
     android:valueTo="180.0"

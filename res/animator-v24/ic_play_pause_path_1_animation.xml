@@ -17,7 +17,7 @@
 <objectAnimator
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="250"
-    android:interpolator="@interpolator/ic_play_pause_animation_interpolator_0"
+    android:interpolator="@anim/ic_play_pause_animation_interpolator_0"
     android:propertyName="pathData"
     android:valueFrom="M 0.0,-14.0625 c 0.0,0.0 0.0,0.0 0.0,0.0 c 0.0,0.0 -14.0625,22.0625 -14.0625,22.0625 c 0.0,0.0 14.0625,0.0 14.0625,0.0 c 0.0,0.0 0.0,-22.0625 0.0,-22.0625 Z"
     android:valueTo="M -3.9375,-14.0625 c 0.0,0.0 -8.0625,0.0 -8.0625,0.0 c 0.0,0.0 0.0,28.125 0.0,28.125 c 0.0,0.0 8.0625,0.0 8.0625,0.0 c 0.0,0.0 0.0,-28.125 0.0,-28.125 Z"

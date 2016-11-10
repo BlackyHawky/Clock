@@ -278,12 +278,6 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
         return deletedRows == 1;
     }
 
-    /**
-     * @param context
-     * @param contentResolver provides access to the content model
-     * @param alarmId identifies the alarm in question
-     * @param instanceId identifies the instance to keep; all other instances will be removed
-     */
     public static void deleteOtherInstances(Context context, ContentResolver contentResolver,
             long alarmId, long instanceId) {
         final List<AlarmInstance> instances = getInstancesByAlarmId(contentResolver, alarmId);

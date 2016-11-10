@@ -257,13 +257,16 @@ public final class ClockFragment extends DeskClockFragment {
 
         private final GestureDetector mGestureDetector;
 
-        public CityListOnLongClickListener(Context context) {
+        private CityListOnLongClickListener(Context context) {
             mGestureDetector = new GestureDetector(context, this);
         }
 
         @Override
         public void onLongPress(MotionEvent e) {
-            getView().performLongClick();
+            final View view = getView();
+            if (view != null) {
+                view.performLongClick();
+            }
         }
 
         @Override
@@ -295,7 +298,7 @@ public final class ClockFragment extends DeskClockFragment {
      * {@link AlarmManager#ACTION_NEXT_ALARM_CLOCK_CHANGED}.
      */
     private final class AlarmObserverPreL extends ContentObserver {
-        public AlarmObserverPreL() {
+        private AlarmObserverPreL() {
             super(new Handler());
         }
 
@@ -352,7 +355,7 @@ public final class ClockFragment extends DeskClockFragment {
         private final String mDateFormat;
         private final String mDateFormatForAccessibility;
 
-        public SelectedCitiesAdapter(Context context, String dateFormat,
+        private SelectedCitiesAdapter(Context context, String dateFormat,
                 String dateFormatForAccessibility) {
             mContext = context;
             mDateFormat = dateFormat;
@@ -425,7 +428,7 @@ public final class ClockFragment extends DeskClockFragment {
             return DataModel.getDataModel().getSelectedCities();
         }
 
-        public void refreshAlarm() {
+        private void refreshAlarm() {
             if (mIsPortrait && getItemCount() > 0) {
                 notifyItemChanged(0);
             }

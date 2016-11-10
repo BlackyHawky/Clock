@@ -294,7 +294,7 @@ public class DeskClock extends BaseActivity
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
         // Selecting a tab implicitly selects a page in the view pager.
-        mTabLayout.setOnTabSelectedListener(new ViewPagerOnTabSelectedListener(mFragmentTabPager));
+        mTabLayout.addOnTabSelectedListener(new ViewPagerOnTabSelectedListener(mFragmentTabPager));
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
@@ -405,10 +405,8 @@ public class DeskClock extends BaseActivity
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (getSelectedDeskClockFragment().onKeyDown(keyCode,event)) {
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+        return getSelectedDeskClockFragment().onKeyDown(keyCode,event)
+                || super.onKeyDown(keyCode, event);
     }
 
     /**

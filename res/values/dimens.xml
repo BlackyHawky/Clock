@@ -16,7 +16,7 @@
 
 <!-- These resources are around just to allow their values to be customized
      for different hardware and product builds. -->
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="label_text_size">14sp</dimen>
     <dimen name="label_edittext_padding">21dp</dimen>
     <dimen name="time_margin_top">32dip</dimen>
@@ -92,7 +92,7 @@
     <!-- Size of notification text titles (see TextAppearance.StatusBar.EventContent.Title) -->
     <dimen name="notification_title_text_size">18dp</dimen>
     <!-- Size of margin between icon and text / title text. -->
-    <dimen name="notification_content_margin_start">8dp</dimen>
+    <dimen name="notification_content_margin_start" tools:override="true">8dp</dimen>
 
     <!-- Width of the clock, for use with alarm buttons. -->
     <!-- Bottom padding for alarm lock screen hint text -->
@@ -142,9 +142,6 @@
 
     <!-- Padding between checkbox and text. -->
     <dimen name="checkbox_start_padding">12dp</dimen>
-
-    <!-- Dimens for taller rows on Alarms tab -->
-    <dimen name="tall_row_height">58dp</dimen>
 
     <!-- Kitkat and later floating action button elevation. -->
     <dimen name="fab_elevation">8dp</dimen>

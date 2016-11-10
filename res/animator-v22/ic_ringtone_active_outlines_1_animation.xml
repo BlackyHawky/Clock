@@ -17,7 +17,7 @@
 <objectAnimator
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:duration="140"
-    android:interpolator="@interpolator/ic_ringtone_active_animation_interpolator"
+    android:interpolator="@anim/ic_ringtone_active_animation_interpolator"
     android:propertyName="rotation"
     android:repeatCount="-1"
     android:repeatMode="reverse"

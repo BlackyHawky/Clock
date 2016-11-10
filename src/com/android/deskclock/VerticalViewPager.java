@@ -17,7 +17,6 @@
 package com.android.deskclock;
 
 import android.content.Context;
-import android.support.v4.view.ViewConfigurationCompat;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -64,7 +63,7 @@ public class VerticalViewPager extends ViewPager {
     public VerticalViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
         final ViewConfiguration configuration = ViewConfiguration.get(context);
-        mTouchSlop = ViewConfigurationCompat.getScaledPagingTouchSlop(configuration);
+        mTouchSlop = configuration.getScaledPagingTouchSlop();
         init();
     }
 
@@ -118,10 +117,7 @@ public class VerticalViewPager extends ViewPager {
             final float y = ev.getY();
             switch (ev.getAction()) {
                 case MotionEvent.ACTION_DOWN: {
-                    if (!mParentViewPager.onTouchEvent(ev)) {
-                        return false;
-                    }
-                    return verticalDrag(ev);
+                    return mParentViewPager.onTouchEvent(ev) && verticalDrag(ev);
                 }
                 case MotionEvent.ACTION_MOVE: {
                     final float xDiff = Math.abs(x - mLastMotionX);
@@ -174,9 +170,10 @@ public class VerticalViewPager extends ViewPager {
     }
 
     private boolean verticalDrag(MotionEvent ev) {
-        final float x = ev.getX();
-        final float y = ev.getY();
-        ev.setLocation(y, x);
+        // Since this ViewPager is rotated, its coordinate system is also rotated.
+        final float vertical = ev.getX();
+        final float horizontal = ev.getY();
+        ev.setLocation(horizontal, vertical);
         return super.onTouchEvent(ev);
     }
 }
