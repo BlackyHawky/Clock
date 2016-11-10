@@ -78,7 +78,9 @@ public class AutoSizingTextView extends TextView {
                     - getCompoundPaddingTop() - getCompoundPaddingBottom();
         }
 
-        if (mWidthConstraint != widthConstraint || mHeightConstraint != heightConstraint) {
+        if (isLayoutRequested()
+                || mWidthConstraint != widthConstraint
+                || mHeightConstraint != heightConstraint) {
             mWidthConstraint = widthConstraint;
             mHeightConstraint = heightConstraint;
 
@@ -89,12 +91,21 @@ public class AutoSizingTextView extends TextView {
     }
 
     @Override
+    protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
+        super.onTextChanged(text, start, lengthBefore, lengthAfter);
+
+        // The length of the text has changed, request layout to recalculate the current text
+        // size. This is necessary to workaround an optimization in TextView#checkForRelayout()
+        // which will avoid re-layout when the view has a fixed layout width.
+        if (lengthBefore != lengthAfter) {
+            requestLayout();
+        }
+    }
+
+    @Override
     public void requestLayout() {
         if (!mIgnoreRequestLayout) {
             super.requestLayout();
-
-            mWidthConstraint = MAX_VALUE;
-            mHeightConstraint = MAX_VALUE;
         }
     }
 

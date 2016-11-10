@@ -24,7 +24,6 @@ import com.android.deskclock.uidata.UiDataModel;
 import static android.text.format.DateUtils.HOUR_IN_MILLIS;
 import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static android.text.format.DateUtils.SECOND_IN_MILLIS;
-import static android.text.format.DateUtils.YEAR_IN_MILLIS;
 
 /**
  * A controller which will format a provided time in millis to display as a stopwatch.
@@ -34,7 +33,6 @@ public final class StopwatchTextController {
     private final TextView mMainTextView;
     private final TextView mHundredthsTextView;
 
-    private int mLastTextLength;
     private long mLastTime = Long.MIN_VALUE;
 
     public StopwatchTextController(TextView mainTextView, TextView hundredthsTextView) {
@@ -67,13 +65,6 @@ public final class StopwatchTextController {
             final Context context = mMainTextView.getContext();
             final String time = Utils.getTimeString(context, hours, minutes, seconds);
             mMainTextView.setText(time);
-            final int textLength = time.length();
-
-            // Recalculate TextView width if text length has changed.
-            if (textLength != mLastTextLength) {
-                mLastTextLength = textLength;
-                mMainTextView.requestLayout();
-            }
         }
         mLastTime = accumulatedTime;
     }
