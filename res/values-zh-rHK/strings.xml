@@ -183,11 +183,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"已封鎖時鐘通知"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"裝置已設定為完全靜音"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按鈕"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"重響"</item>
-    <item msgid="3450979320164769576">"關閉"</item>
-    <item msgid="6302517608411378024">"不執行任何操作"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"標籤"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"鈴聲"</string>
     <string name="expand_description" msgid="4628777175148490497">"展開"</string>

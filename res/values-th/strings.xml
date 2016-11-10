@@ -183,11 +183,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"การแจ้งเตือนของนาฬิกาถูกบล็อก"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"อุปกรณ์อยู่ในโหมดปิดเสียง"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ปุ่มระดับเสียง"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"ปิดเสียงเตือนชั่วคราว"</item>
-    <item msgid="3450979320164769576">"ปิด"</item>
-    <item msgid="6302517608411378024">"ไม่ต้องทำอะไร"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"ป้ายกำกับ"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"เสียงเรียกเข้า"</string>
     <string name="expand_description" msgid="4628777175148490497">"ขยาย"</string>

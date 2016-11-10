@@ -183,11 +183,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"گھڑی کی اطلاعات مسدود ہیں"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"آلہ مکمل خاموشی پر سیٹ ہے"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"والیوم بٹنز"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"اسنوز کریں"</item>
-    <item msgid="3450979320164769576">"کالعدم کریں"</item>
-    <item msgid="6302517608411378024">"کچھ نہ کریں"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"لیبل"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"رنگ ٹون"</string>
     <string name="expand_description" msgid="4628777175148490497">"پھیلائیں"</string>

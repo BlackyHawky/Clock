@@ -183,11 +183,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"ക്ലോക്ക് അറിയിപ്പുകൾ തടഞ്ഞിരിക്കുന്നു"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ഉപകരണം സമ്പൂർണ്ണ നിശബ്ദമാക്കി സജ്ജീകരിച്ചിരിക്കുന്നു"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"വോളിയം ബട്ടണുകൾ"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"സ്‌നൂസ് ചെയ്യുക"</item>
-    <item msgid="3450979320164769576">"നിരസിക്കുക"</item>
-    <item msgid="6302517608411378024">"ഒന്നും ചെയ്യേണ്ടതില്ല"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"ലേബൽ"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"റിംഗ്ടോൺ"</string>
     <string name="expand_description" msgid="4628777175148490497">"വികസിപ്പിക്കുക"</string>

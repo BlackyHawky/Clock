@@ -192,11 +192,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"Obavijesti sata blokirane su"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Uređaj je postavljen na potpunu tišinu"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Gumbi za glasnoću"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Odgodi alarm"</item>
-    <item msgid="3450979320164769576">"Odbaci"</item>
-    <item msgid="6302517608411378024">"Ne poduzimaj ništa"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"Natpis"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Zvuk zvona"</string>
     <string name="expand_description" msgid="4628777175148490497">"Proširivanje"</string>

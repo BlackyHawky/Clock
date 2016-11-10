@@ -201,11 +201,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"Upozornenia z hodín sú blokované"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Zariadenie je nastavené na úplné ticho"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Tlačidlá hlasitosti"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Odložiť"</item>
-    <item msgid="3450979320164769576">"Zavrieť"</item>
-    <item msgid="6302517608411378024">"Nerobiť nič"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"Štítok"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Tón zvonenia"</string>
     <string name="expand_description" msgid="4628777175148490497">"Rozbaliť"</string>

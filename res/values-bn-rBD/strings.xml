@@ -183,11 +183,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"ঘড়ির বিজ্ঞপ্তিগুলি অবরুদ্ধ করা হয়েছে"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"ডিভাইসকে সম্পূর্ণ নীরব অবস্থায় সেট করা রয়েছে"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"ভলিউম বোতাম"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"স্নুজ"</item>
-    <item msgid="3450979320164769576">"খারিজ"</item>
-    <item msgid="6302517608411378024">"কিছু করবেন না"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"লেবেল"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"রিংটোন"</string>
     <string name="expand_description" msgid="4628777175148490497">"প্রসারিত করুন"</string>

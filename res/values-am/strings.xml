@@ -183,11 +183,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"የሰዓት ማሳወቂያዎች ታግደዋል"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"መሣሪያ ወደ ጠቅላላ ጸጥታ ተዘጋጅቷል"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"የድምፅ አዝራሮች"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"አሸልብ"</item>
-    <item msgid="3450979320164769576">"አሰናብት"</item>
-    <item msgid="6302517608411378024">"ምንም አትስራ"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"መለያ ስም"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"የደወል ቅላጼ"</string>
     <string name="expand_description" msgid="4628777175148490497">"ይዘርጉ"</string>

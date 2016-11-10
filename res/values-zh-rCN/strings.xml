@@ -183,11 +183,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"时钟通知已屏蔽"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"设备已设为“完全静音”"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"音量按钮"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"暂停"</item>
-    <item msgid="3450979320164769576">"关闭"</item>
-    <item msgid="6302517608411378024">"不进行任何操作"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"标签"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"铃声"</string>
     <string name="expand_description" msgid="4628777175148490497">"展开"</string>
@@ -216,10 +212,8 @@
     <string name="hours_label_description" msgid="8652842524970971830">"小时"</string>
     <string name="minutes_label_description" msgid="965686733490357796">"分钟"</string>
     <string name="seconds_label_description" msgid="3821620053141299692">"秒"</string>
-    <!-- no translation found for lap_number_single_digit (1051159504304610877) -->
-    <skip />
-    <!-- no translation found for lap_number_double_digit (2138536756534362037) -->
-    <skip />
+    <string name="lap_number_single_digit" msgid="1051159504304610877">"# <xliff:g id="LAPNUMBER">%d</xliff:g>"</string>
+    <string name="lap_number_double_digit" msgid="2138536756534362037">"# <xliff:g id="LAPNUMBER">%02d</xliff:g>"</string>
     <string name="sw_share_main" msgid="7703563468204234405">"我的时间：<xliff:g id="TIME">%s</xliff:g>"</string>
     <string name="sw_share_laps" msgid="614390674795945007">"各圈时间："</string>
     <string name="sw_notification_lap_number" msgid="3535420316052647126">"第<xliff:g id="NUMBER">%d</xliff:g>圈"</string>

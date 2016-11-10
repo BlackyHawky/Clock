@@ -201,11 +201,7 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"Obvestila o uri so blokirana"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Naprava je nastavljena na popolno tišino"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Gumbi za glasnost"</string>
-  <string-array name="volume_button_setting_entries">
-    <item msgid="7972756698723318690">"Dremež"</item>
-    <item msgid="3450979320164769576">"Opusti"</item>
-    <item msgid="6302517608411378024">"Ne naredi ničesar"</item>
-  </string-array>
+    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
     <string name="label_description" msgid="8736179296142915727">"Oznaka"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Melodija zvonjenja"</string>
     <string name="expand_description" msgid="4628777175148490497">"Razširi"</string>
