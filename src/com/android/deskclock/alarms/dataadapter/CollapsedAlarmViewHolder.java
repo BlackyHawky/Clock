@@ -22,7 +22,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Rect;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +31,6 @@ import android.widget.TextView;
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
-import com.android.deskclock.Utils.ClickAccessibilityDelegate;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.events.Events;
@@ -49,12 +47,12 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
     public static final int VIEW_TYPE = R.layout.alarm_time_collapsed;
 
-    public final TextView alarmLabel;
+    private final TextView alarmLabel;
     public final TextView daysOfWeek;
-    public final TextView upcomingInstanceLabel;
-    public final View hairLine;
+    private final TextView upcomingInstanceLabel;
+    private final View hairLine;
 
-    public CollapsedAlarmViewHolder(View itemView) {
+    private CollapsedAlarmViewHolder(View itemView) {
         super(itemView);
 
         alarmLabel = (TextView) itemView.findViewById(R.id.label);
@@ -93,6 +91,8 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
                 getItemHolder().expand();
             }
         });
+
+        itemView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
     }
 
     @Override
@@ -105,9 +105,6 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         bindReadOnlyLabel(context, alarm);
         bindUpcomingInstance(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
-        ViewCompat.setAccessibilityDelegate(itemView,
-                new ClickAccessibilityDelegate(
-                        itemView.getResources().getString(R.string.expand_description)));
     }
 
     private void bindReadOnlyLabel(Context context, Alarm alarm) {

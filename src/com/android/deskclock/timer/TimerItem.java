@@ -150,8 +150,6 @@ public class TimerItem extends LinearLayout {
                     mTimerText.setClickable(false);
                     mTimerText.setActivated(true);
                     mTimerText.setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_NO);
-                    ViewCompat.setAccessibilityDelegate(mTimerText,
-                            new ClickAccessibilityDelegate(null));
                     break;
                 }
             }

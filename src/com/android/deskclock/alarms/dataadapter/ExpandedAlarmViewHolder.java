@@ -29,7 +29,6 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -62,17 +61,17 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
     public static final int VIEW_TYPE = R.layout.alarm_time_expanded;
 
     public final CheckBox repeat;
-    public final TextView editLabel;
-    public final LinearLayout repeatDays;
-    public final CompoundButton[] dayButtons = new CompoundButton[7];
+    private final TextView editLabel;
+    private final LinearLayout repeatDays;
+    private final CompoundButton[] dayButtons = new CompoundButton[7];
     public final CheckBox vibrate;
     public final TextView ringtone;
     public final TextView delete;
-    public final View hairLine;
+    private final View hairLine;
 
     private final boolean mHasVibrator;
 
-    public ExpandedAlarmViewHolder(View itemView, boolean hasVibrator) {
+    private ExpandedAlarmViewHolder(View itemView, boolean hasVibrator) {
         super(itemView);
 
         mHasVibrator = hasVibrator;
@@ -93,9 +92,6 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 a.getDrawable(0)
         }));
         a.recycle();
-
-        ViewCompat.setAccessibilityDelegate(itemView, new Utils.ClickAccessibilityDelegate(
-                context.getString(R.string.collapse_description)));
 
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);
@@ -191,6 +187,8 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
                 }
             });
         }
+
+        itemView.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
     }
 
     @Override
