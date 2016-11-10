@@ -16,9 +16,9 @@
 
 package com.android.deskclock.alarms.dataadapter;
 
+import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
@@ -297,14 +297,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final boolean daysVisible = repeatDays.getVisibility() == View.VISIBLE;
         final int numberOfItems = countNumberOfItems();
 
-        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(itemView,
+        final View oldView = itemView;
+        final View newView = newHolder.itemView;
+
+        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(oldView,
                 PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 255, 0));
         backgroundAnimator.setDuration(duration);
 
-        final View newView = newHolder.itemView;
-        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(itemView,
-                itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom(),
-                newView.getLeft(), newView.getTop(), newView.getRight(), newView.getBottom());
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(oldView, oldView, newView);
         boundsAnimator.setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
@@ -359,20 +359,19 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     private Animator createExpandingAnimator(AlarmItemViewHolder oldHolder, long duration) {
         final View oldView = oldHolder.itemView;
-        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(itemView,
-                oldView.getLeft(), oldView.getTop(), oldView.getRight(), oldView.getBottom(),
-                itemView.getLeft(), itemView.getTop(), itemView.getRight(), itemView.getBottom());
+        final View newView = itemView;
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldView, newView);
         boundsAnimator.setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
-        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(itemView,
+        final Animator backgroundAnimator = ObjectAnimator.ofPropertyValuesHolder(newView,
                 PropertyValuesHolder.ofInt(AnimatorUtils.BACKGROUND_ALPHA, 0, 255));
         backgroundAnimator.setDuration(duration);
 
         final View oldArrow = oldHolder.arrow;
         final Rect oldArrowRect = new Rect(0, 0, oldArrow.getWidth(), oldArrow.getHeight());
         final Rect newArrowRect = new Rect(0, 0, arrow.getWidth(), arrow.getHeight());
-        ((ViewGroup) itemView).offsetDescendantRectToMyCoords(arrow, newArrowRect);
+        ((ViewGroup) newView).offsetDescendantRectToMyCoords(arrow, newArrowRect);
         ((ViewGroup) oldView).offsetDescendantRectToMyCoords(oldArrow, oldArrowRect);
         final float arrowTranslationY = oldArrowRect.bottom - newArrowRect.bottom;
 

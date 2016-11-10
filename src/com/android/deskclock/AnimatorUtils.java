@@ -22,6 +22,7 @@ import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
+import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
@@ -35,8 +36,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class AnimatorUtils {
-
-    public static final long ANIM_DURATION_SHORT = 266L;  // 8/30 frames long
 
     public static final Interpolator DECELERATE_ACCELERATE_INTERPOLATOR = new Interpolator() {
         @Override
@@ -208,18 +207,48 @@ public class AnimatorUtils {
                 }
             };
 
-    public static Animator getBoundsAnimator(View view, int fromLeft, int fromTop, int fromRight,
-            int fromBottom, int toLeft, int toTop, int toRight, int toBottom) {
-        view.setLeft(fromLeft);
-        view.setTop(fromTop);
-        view.setRight(fromRight);
-        view.setBottom(fromBottom);
+    /**
+     * @param target the view to be morphed
+     * @param from the bounds of the {@code target} before animating
+     * @param to the bounds of the {@code target} after animating
+     * @return an animator that morphs the {@code target} between the {@code from} bounds and the
+     *      {@code to} bounds. Note that it is the *content* bounds that matter here, so padding
+     *      insets contributed by the background are subtracted from the views when computing the
+     *      {@code target} bounds.
+     */
+    public static Animator getBoundsAnimator(View target, View from, View to) {
+        // Fetch the content insets for the views. Content bounds are what matter, not total bounds.
+        final Rect targetInsets = new Rect();
+        target.getBackground().getPadding(targetInsets);
+        final Rect fromInsets = new Rect();
+        from.getBackground().getPadding(fromInsets);
+        final Rect toInsets = new Rect();
+        to.getBackground().getPadding(toInsets);
 
-        return ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofInt(VIEW_LEFT, toLeft),
-                PropertyValuesHolder.ofInt(VIEW_TOP, toTop),
-                PropertyValuesHolder.ofInt(VIEW_RIGHT, toRight),
-                PropertyValuesHolder.ofInt(VIEW_BOTTOM, toBottom));
+        // Before animating, the content bounds of target must match the content bounds of from.
+        final int startLeft = from.getLeft() - fromInsets.left + targetInsets.left;
+        final int startTop = from.getTop() - fromInsets.top + targetInsets.top;
+        final int startRight = from.getRight() - fromInsets.right + targetInsets.right;
+        final int startBottom = from.getBottom() - fromInsets.bottom + targetInsets.bottom;
+
+        // After animating, the content bounds of target must match the content bounds of to.
+        final int endLeft = to.getLeft() - toInsets.left + targetInsets.left;
+        final int endTop = to.getTop() - toInsets.top + targetInsets.top;
+        final int endRight = to.getRight() - toInsets.right + targetInsets.right;
+        final int endBottom = to.getBottom() - toInsets.bottom + targetInsets.bottom;
+
+        // Set the starting bounds into target.
+        target.setLeft(startLeft);
+        target.setTop(startTop);
+        target.setRight(startRight);
+        target.setBottom(startBottom);
+
+        // Animate the bounds of target to the computed ending values.
+        return ObjectAnimator.ofPropertyValuesHolder(target,
+                PropertyValuesHolder.ofInt(VIEW_LEFT, endLeft),
+                PropertyValuesHolder.ofInt(VIEW_TOP, endTop),
+                PropertyValuesHolder.ofInt(VIEW_RIGHT, endRight),
+                PropertyValuesHolder.ofInt(VIEW_BOTTOM, endBottom));
     }
 
     public static void startDrawableAnimation(ImageView view) {
