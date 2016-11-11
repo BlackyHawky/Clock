@@ -16,12 +16,9 @@
 
 package com.android.deskclock.alarms;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 
@@ -176,16 +173,10 @@ public final class AlarmTimeClickHandler {
         mSelectedAlarm = alarm;
         Events.sendAlarmEvent(R.string.action_set_ringtone, R.string.label_deskclock);
 
-        final Activity activity = mFragment.getActivity();
-        final Uri systemDefaultUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-        final int systemDefaultNameId = R.string.default_alarm_ringtone_title;
-        final Intent ringtoneIntent = new Intent(activity, RingtonePickerActivity.class)
-                .putExtra(RingtonePickerActivity.EXTRA_TITLE, R.string.alarm_sound)
-                .putExtra(RingtonePickerActivity.EXTRA_ALARM_ID, alarm.id)
-                .putExtra(RingtonePickerActivity.EXTRA_RINGTONE_URI, alarm.alert)
-                .putExtra(RingtonePickerActivity.EXTRA_DEFAULT_RINGTONE_URI, systemDefaultUri)
-                .putExtra(RingtonePickerActivity.EXTRA_DEFAULT_RINGTONE_NAME, systemDefaultNameId);
-        activity.startActivity(ringtoneIntent);
+        final Context context = mFragment.getActivity();
+        final Intent intent =
+                RingtonePickerActivity.createAlarmRingtonePickerIntent(context, alarm);
+        context.startActivity(intent);
     }
 
     public void onEditLabelClicked(Alarm alarm) {

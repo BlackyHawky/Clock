@@ -16,10 +16,9 @@
 
 package com.android.deskclock.settings;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
@@ -210,8 +209,8 @@ public final class SettingsActivity extends BaseActivity {
 
         @Override
         public boolean onPreferenceClick(Preference pref) {
-            final Activity activity = getActivity();
-            if (activity == null) {
+            final Context context = getActivity();
+            if (context == null) {
                 return false;
             }
 
@@ -222,15 +221,7 @@ public final class SettingsActivity extends BaseActivity {
                     startActivity(dialogIntent);
                     return true;
                 case KEY_TIMER_RINGTONE:
-                    final int title = R.string.default_timer_ringtone_title;
-                    final Uri uri = DataModel.getDataModel().getTimerRingtoneUri();
-                    final Uri defaultUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
-                    final Intent ringtoneIntent = new Intent(activity, RingtonePickerActivity.class)
-                            .putExtra(RingtonePickerActivity.EXTRA_TITLE, R.string.timer_sound)
-                            .putExtra(RingtonePickerActivity.EXTRA_RINGTONE_URI, uri)
-                            .putExtra(RingtonePickerActivity.EXTRA_DEFAULT_RINGTONE_URI, defaultUri)
-                            .putExtra(RingtonePickerActivity.EXTRA_DEFAULT_RINGTONE_NAME, title);
-                    startActivity(ringtoneIntent);
+                    startActivity(RingtonePickerActivity.createTimerRingtonePickerIntent(context));
                     return true;
             }
 
