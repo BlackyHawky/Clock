@@ -42,6 +42,7 @@ import static android.media.AudioManager.STREAM_ALARM;
 import static android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS;
 import static android.provider.Settings.ACTION_SOUND_SETTINGS;
 import static com.android.deskclock.Utils.enforceMainLooper;
+import static com.android.deskclock.Utils.enforceNotMainLooper;
 
 /**
  * All application-wide data is accessible through this singleton.
@@ -806,6 +807,16 @@ public final class DataModel {
     //
     // Ringtones
     //
+
+    /**
+     * Ringtone titles are cached because loading them is expensive. This method
+     * <strong>must</strong> be called on a background thread and is responsible for priming the
+     * cache of ringtone titles to avoid later fetching titles on the main thread.
+     */
+    public void loadRingtoneTitles() {
+        enforceNotMainLooper();
+        mRingtoneModel.loadRingtoneTitles();
+    }
 
     /**
      * @param uri the uri of a ringtone

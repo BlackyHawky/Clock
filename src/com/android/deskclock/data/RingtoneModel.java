@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.ContentObserver;
+import android.database.Cursor;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -36,6 +37,9 @@ import com.android.deskclock.provider.Alarm;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+
+import static android.media.AudioManager.STREAM_ALARM;
+import static android.media.RingtoneManager.TITLE_COLUMN_INDEX;
 
 /**
  * All ringtone data is accessed via this model.
@@ -105,13 +109,26 @@ final class RingtoneModel {
         return Collections.unmodifiableList(getMutableCustomRingtones());
     }
 
-    private List<CustomRingtone> getMutableCustomRingtones() {
-        if (mCustomRingtones == null) {
-            mCustomRingtones = CustomRingtoneDAO.getCustomRingtones(mContext);
-            Collections.sort(mCustomRingtones);
+    void loadRingtoneTitles() {
+        // Early return if the cache is already primed.
+        if (!mRingtoneTitles.isEmpty()) {
+            return;
         }
 
-        return mCustomRingtones;
+        final RingtoneManager ringtoneManager = new RingtoneManager(mContext);
+        ringtoneManager.setType(STREAM_ALARM);
+
+        // Cache a title for each system ringtone.
+        try (Cursor cursor = ringtoneManager.getCursor()) {
+            for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                final String ringtoneTitle = cursor.getString(TITLE_COLUMN_INDEX);
+                final Uri ringtoneUri = ringtoneManager.getRingtoneUri(cursor.getPosition());
+                mRingtoneTitles.put(ringtoneUri, ringtoneTitle);
+            }
+        } catch (Throwable ignored) {
+            // best attempt only
+            LogUtils.e("Error loading ringtone title cache", ignored);
+        }
     }
 
     String getRingtoneTitle(Uri uri) {
@@ -142,6 +159,15 @@ final class RingtoneModel {
             mRingtoneTitles.put(uri, title);
         }
         return title;
+    }
+
+    private List<CustomRingtone> getMutableCustomRingtones() {
+        if (mCustomRingtones == null) {
+            mCustomRingtones = CustomRingtoneDAO.getCustomRingtones(mContext);
+            Collections.sort(mCustomRingtones);
+        }
+
+        return mCustomRingtones;
     }
 
     /**
