@@ -320,7 +320,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         }
 
         final boolean isExpanding = this == newHolder;
-        itemView.getBackground().setAlpha(isExpanding ? 0 : 255);
+        AnimatorUtils.setBackgroundAlpha(itemView, isExpanding ? 0 : 255);
         setChangingViewsAlpha(isExpanding ? 0f : 1f);
 
         final Animator changeAnimatorSet = isExpanding
@@ -329,7 +329,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
-                itemView.getBackground().setAlpha(255);
+                AnimatorUtils.setBackgroundAlpha(itemView, 255);
                 clock.setVisibility(View.VISIBLE);
                 onOff.setVisibility(View.VISIBLE);
                 arrow.setVisibility(View.VISIBLE);

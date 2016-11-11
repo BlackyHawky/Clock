@@ -165,7 +165,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
         final Animator changeAnimatorSet = isCollapsing
                 ? createCollapsingAnimator((AlarmItemViewHolder) oldHolder, duration)
-                : createExpandingAnimator(duration);
+                : createExpandingAnimator((AlarmItemViewHolder) newHolder, duration);
         changeAnimatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animator) {
@@ -180,7 +180,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         return changeAnimatorSet;
     }
 
-    private Animator createExpandingAnimator(long duration) {
+    private Animator createExpandingAnimator(AlarmItemViewHolder newHolder, long duration) {
         clock.setVisibility(View.INVISIBLE);
         onOff.setVisibility(View.INVISIBLE);
         arrow.setVisibility(View.INVISIBLE);
@@ -193,7 +193,16 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
                 ObjectAnimator.ofFloat(preemptiveDismissButton, View.ALPHA, 0f),
                 ObjectAnimator.ofFloat(hairLine, View.ALPHA, 0f));
         alphaAnimatorSet.setDuration((long) (duration * ANIM_SHORT_DURATION_MULTIPLIER));
-        return alphaAnimatorSet;
+
+        final View oldView = itemView;
+        final View newView = newHolder.itemView;
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(oldView, oldView, newView)
+                .setDuration(duration);
+        boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(alphaAnimatorSet, boundsAnimator);
+        return animatorSet;
     }
 
     private Animator createCollapsingAnimator(AlarmItemViewHolder oldHolder, long duration) {
@@ -210,8 +219,8 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
 
         final View oldView = oldHolder.itemView;
         final View newView = itemView;
-        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldView, newView);
-        boundsAnimator.setDuration(duration);
+        final Animator boundsAnimator = AnimatorUtils.getBoundsAnimator(newView, oldView, newView)
+                .setDuration(duration);
         boundsAnimator.setInterpolator(AnimatorUtils.INTERPOLATOR_FAST_OUT_SLOW_IN);
 
         final View oldArrow = oldHolder.arrow;

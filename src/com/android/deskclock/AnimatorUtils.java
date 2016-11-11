@@ -25,6 +25,7 @@ import android.animation.ValueAnimator;
 import android.graphics.Rect;
 import android.graphics.drawable.Animatable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.util.Property;
@@ -51,14 +52,36 @@ public class AnimatorUtils {
             new Property<View, Integer>(Integer.class, "background.alpha") {
         @Override
         public Integer get(View view) {
-            return view.getBackground().getAlpha();
+            Drawable background = view.getBackground();
+            if (background instanceof LayerDrawable
+                    && ((LayerDrawable) background).getNumberOfLayers() > 0) {
+                background = ((LayerDrawable) background).getDrawable(0);
+            }
+            return background.getAlpha();
         }
 
         @Override
         public void set(View view, Integer value) {
-            view.getBackground().setAlpha(value);
+            setBackgroundAlpha(view, value);
         }
     };
+
+    /**
+     * Sets the alpha of the top layer's drawable (of the background) only, if the background is a
+     * layer drawable, to ensure that the other layers (i.e., the selectable item background, and
+     * therefore the touch feedback RippleDrawable) are not affected.
+     *
+     * @param view the affected view
+     * @param value the alpha value (0-255)
+     */
+    public static void setBackgroundAlpha(View view, Integer value) {
+        Drawable background = view.getBackground();
+        if (background instanceof LayerDrawable
+                && ((LayerDrawable) background).getNumberOfLayers() > 0) {
+            background = ((LayerDrawable) background).getDrawable(0);
+        }
+        background.setAlpha(value);
+    }
 
     public static final Property<ImageView, Integer> DRAWABLE_ALPHA =
             new Property<ImageView, Integer>(Integer.class, "drawable.alpha") {
