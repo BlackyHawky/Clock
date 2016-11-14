@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="24dp"
             android:layout_gravity="end"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textAppearance="@style/world_clock_time"/>
 
         <com.android.deskclock.AnalogClock

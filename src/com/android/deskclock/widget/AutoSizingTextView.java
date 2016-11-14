@@ -51,6 +51,8 @@ public class AutoSizingTextView extends TextView {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
         if (mTextSizeHelper != null) {
             mTextSizeHelper.onTextChanged(lengthBefore, lengthAfter);
+        } else {
+            requestLayout();
         }
     }
 
