@@ -249,6 +249,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                 AlarmStateManager.createIndicatorIntent(context), flags);
 
         if (nextAlarm != null) {
+            LogUtils.i("Setting upcoming AlarmClockInfo for alarm: " + nextAlarm.mId);
             long alarmTime = nextAlarm.getAlarmTime().getTimeInMillis();
 
             // Create an intent that can be used to show or edit details of the next alarm.
@@ -260,6 +261,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
                     new AlarmManager.AlarmClockInfo(alarmTime, viewIntent);
             alarmManager.setAlarmClock(info, operation);
         } else if (operation != null) {
+            LogUtils.i("Canceling upcoming AlarmClockInfo");
             alarmManager.cancel(operation);
         }
     }
@@ -672,6 +674,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      */
     public static void registerInstance(Context context, AlarmInstance instance,
             boolean updateNextAlarm) {
+        LogUtils.i("Registering instance: " + instance.mId);
         final ContentResolver cr = context.getContentResolver();
         final Alarm alarm = Alarm.getAlarm(cr, instance.mAlarmId);
         final Calendar currentTime = getCurrentTime();
@@ -772,6 +775,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param alarmId to find instances to delete.
      */
     public static void deleteAllInstances(Context context, long alarmId) {
+        LogUtils.i("Deleting all instances of alarm: " + alarmId);
         ContentResolver cr = context.getContentResolver();
         List<AlarmInstance> instances = AlarmInstance.getInstancesByAlarmId(cr, alarmId);
         for (AlarmInstance instance : instances) {
@@ -786,6 +790,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * is modified superficially (label, vibrate, or ringtone change).
      */
     public static void deleteNonSnoozeInstances(Context context, long alarmId) {
+        LogUtils.i("Deleting all non-snooze instances of alarm: " + alarmId);
         ContentResolver cr = context.getContentResolver();
         List<AlarmInstance> instances = AlarmInstance.getInstancesByAlarmId(cr, alarmId);
         for (AlarmInstance instance : instances) {
@@ -804,6 +809,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
      * @param context application context
      */
     public static void fixAlarmInstances(Context context) {
+        LogUtils.i("Fixing alarm instances");
         // Register all instances after major time changes or when phone restarts
         final ContentResolver contentResolver = context.getContentResolver();
         final Calendar currentTime = getCurrentTime();
