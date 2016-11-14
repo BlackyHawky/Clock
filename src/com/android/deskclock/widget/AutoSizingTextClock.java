@@ -18,24 +18,24 @@ package com.android.deskclock.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.TextView;
+import android.widget.TextClock;
 
 /**
- * A TextView which automatically re-sizes its text to fit within its boundaries.
+ *  Wrapper around TextClock that automatically re-sizes itself to fit within the given bounds.
  */
-public class AutoSizingTextView extends TextView {
+public class AutoSizingTextClock extends TextClock {
 
     private final TextSizeHelper mTextSizeHelper;
 
-    public AutoSizingTextView(Context context) {
+    public AutoSizingTextClock(Context context) {
         this(context, null);
     }
 
-    public AutoSizingTextView(Context context, AttributeSet attrs) {
-        this(context, attrs, android.R.attr.textViewStyle);
+    public AutoSizingTextClock(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
     }
 
-    public AutoSizingTextView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AutoSizingTextClock(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mTextSizeHelper = new TextSizeHelper(this);
     }

@@ -45,7 +45,7 @@
     <dimen name="alarm_lockscreen_bottom_margin">40dp</dimen>
 
     <dimen name="main_clock_font_size">64sp</dimen>
-    <dimen name="main_clock_digital_font_size">56sp</dimen>
+    <dimen name="main_clock_digital_font_size">90sp</dimen>
     <dimen name="main_clock_digital_padding">24dp</dimen>
     <dimen name="big_font_size">32sp</dimen>
     <dimen name="label_font_size">16sp</dimen>
