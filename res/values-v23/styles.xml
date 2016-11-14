@@ -16,8 +16,6 @@
 
 <resources>
 
-    <style name="SettingsAlertDialogTheme" parent="android:ThemeOverlay.Material.Dialog.Alert" />
-
     <style name="widget_big_thin" parent="big_thin">
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:shadowRadius">@dimen/widget_shadow_radius</item>

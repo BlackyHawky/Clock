@@ -37,7 +37,7 @@
     <color name="default_background">#1A237E</color>
     <color name="status_bar">#66000000</color>
 
-    <color name="time_picker_gray">#212121</color>
+    <color name="grey_800">#FF303030</color>
 
     <!-- Values for custom notification -->
     <color name="notif_text_grey">#9C9C9C</color>

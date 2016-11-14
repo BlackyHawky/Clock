@@ -28,6 +28,12 @@
         <item name="colorControlNormal">@color/white</item>
         <item name="colorPrimaryDark">@color/status_bar</item>
         <item name="imageButtonStyle">@style/ImageButtonStyle</item>
+        <item name="popupTheme">@style/DefaultPopupTheme</item>
+    </style>
+
+    <style name="DefaultPopupTheme" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorBackground">@color/grey_800</item>
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
@@ -52,10 +58,10 @@
     </style>
 
     <style name="SettingsTheme" parent="BaseActivityTheme">
-        <item name="android:alertDialogTheme">@style/SettingsAlertDialogTheme</item>
         <item name="android:detailsElementBackground">@null</item>
 
         <!-- Attributes from support.v7.appcompat -->
+        <item name="alertDialogTheme">@style/SettingsAlertDialogTheme</item>
         <item name="actionBarStyle">@style/SettingsActionBarStyle</item>
         <item name="colorControlActivated">?attr/colorAccent</item>
         <item name="preferenceTheme">@style/SettingsPreferenceTheme</item>
@@ -76,8 +82,8 @@
         <item name="displayOptions">showTitle|homeAsUp</item>
     </style>
 
-    <style name="SettingsAlertDialogTheme" parent="android:Theme.Holo.Dialog.MinWidth">
-        <item name="android:windowBackground">@android:color/transparent</item>
+    <style name="SettingsAlertDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:colorBackground">@color/grey_800</item>
     </style>
 
     <style name="SettingsPreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
@@ -270,6 +276,7 @@
 
     <style name="TimePickerTheme" parent="android:Theme.DeviceDefault.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackground">@color/grey_800</item>
     </style>
 
 </resources>

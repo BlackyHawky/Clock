@@ -23,9 +23,11 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v14.preference.PreferenceFragment;
 import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.ListPreferenceDialogFragmentCompat;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceDialogFragmentCompat;
+import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.TwoStatePreference;
 import android.text.format.DateUtils;
 import android.view.Menu;
@@ -73,6 +75,7 @@ public final class SettingsActivity extends BaseActivity {
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
 
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
+    public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
 
     private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
@@ -92,7 +95,7 @@ public final class SettingsActivity extends BaseActivity {
 
         // Create the prefs fragment in code to ensure it's created before PreferenceDialogFragment
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .replace(R.id.main, new PrefsFragment(), PREFS_FRAGMENT_TAG)
                     .disallowAddToBackStack()
                     .commit();
@@ -105,7 +108,7 @@ public final class SettingsActivity extends BaseActivity {
 
         final View dropShadow = findViewById(R.id.drop_shadow);
         final PrefsFragment fragment =
-                (PrefsFragment) getFragmentManager().findFragmentById(R.id.main);
+                (PrefsFragment) getSupportFragmentManager().findFragmentById(R.id.main);
         mDropShadowController = new DropShadowController(dropShadow, fragment.getListView());
     }
 
@@ -133,7 +136,7 @@ public final class SettingsActivity extends BaseActivity {
                 || super.onOptionsItemSelected(item);
     }
 
-    public static class PrefsFragment extends PreferenceFragment implements
+    public static class PrefsFragment extends PreferenceFragmentCompat implements
             Preference.OnPreferenceChangeListener,
             Preference.OnPreferenceClickListener {
 
@@ -224,6 +227,31 @@ public final class SettingsActivity extends BaseActivity {
             }
 
             return false;
+        }
+
+        @Override
+        public void onDisplayPreferenceDialog(Preference preference) {
+            // Only single-selection lists are currently supported.
+            final PreferenceDialogFragmentCompat f;
+            if (preference instanceof ListPreference) {
+                f = ListPreferenceDialogFragmentCompat.newInstance(preference.getKey());
+            } else {
+                throw new IllegalArgumentException("Unsupported DialogPreference type");
+            }
+            showDialog(f);
+        }
+
+        private void showDialog(PreferenceDialogFragmentCompat fragment) {
+            // Don't show dialog if one is already shown.
+            if (getFragmentManager().findFragmentByTag(PREFERENCE_DIALOG_FRAGMENT_TAG) != null) {
+                return;
+            }
+            // Always set the target fragment, this is required by PreferenceDialogFragment
+            // internally.
+            fragment.setTargetFragment(this, 0);
+            // Don't use getChildFragmentManager(), it causes issues on older platforms when the
+            // target fragment is being restored after an orientation change.
+            fragment.show(getFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
         }
 
         /**

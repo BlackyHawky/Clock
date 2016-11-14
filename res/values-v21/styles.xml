@@ -16,10 +16,6 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="SettingsAlertDialogTheme" parent="android:Theme.Material.Dialog.Alert">
-        <item name="android:colorAccent">?attr/colorAccent</item>
-    </style>
-
     <!-- Custom notification content styles -->
     <!-- copied TextAppearance.Material.Button -->
     <style name="TextAppearance.StatusBar.EventContent.Action">
@@ -55,7 +51,7 @@
 
     <style name="TimePickerTheme" parent="android:Theme.DeviceDefault.Dialog">
         <item name="android:colorAccent">@color/color_accent</item>
-        <item name="android:colorBackground">@color/time_picker_gray</item>
+        <item name="android:colorBackground">@color/grey_800</item>
         <item name="android:textColorPrimary">@color/white</item>
         <item name="android:textColorPrimaryInverse">?android:attr/textColorPrimary</item>
         <item name="android:textColorSecondary">@color/white_50p</item>
