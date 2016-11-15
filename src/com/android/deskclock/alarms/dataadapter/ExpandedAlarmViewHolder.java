@@ -62,7 +62,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
 
     public final CheckBox repeat;
     private final TextView editLabel;
-    private final LinearLayout repeatDays;
+    public final LinearLayout repeatDays;
     private final CompoundButton[] dayButtons = new CompoundButton[7];
     public final CheckBox vibrate;
     public final TextView ringtone;
