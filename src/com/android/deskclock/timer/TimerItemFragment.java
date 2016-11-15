@@ -115,7 +115,6 @@ public class TimerItemFragment extends Fragment {
     }
 
     private final class EditLabelListener implements View.OnClickListener {
-
         @Override
         public void onClick(View v) {
             final LabelDialogFragment fragment = LabelDialogFragment.newInstance(getTimer());

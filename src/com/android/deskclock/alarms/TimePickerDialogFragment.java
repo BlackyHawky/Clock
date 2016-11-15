@@ -84,6 +84,10 @@ public class TimePickerDialogFragment extends DialogFragment {
         }
 
         final FragmentManager manager = parentFragment.getChildFragmentManager();
+        if (manager == null || manager.isDestroyed()) {
+            return;
+        }
+
         // Make sure the dialog isn't already added.
         removeTimeEditDialog(manager);
 

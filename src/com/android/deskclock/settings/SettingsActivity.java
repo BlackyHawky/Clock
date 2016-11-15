@@ -23,7 +23,6 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v14.preference.PreferenceDialogFragment;
 import android.support.v14.preference.PreferenceFragment;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
@@ -74,7 +73,6 @@ public final class SettingsActivity extends BaseActivity {
     public static final String VOLUME_BEHAVIOR_DISMISS = "2";
 
     public static final String PREFS_FRAGMENT_TAG = "prefs_fragment";
-    public static final String PREFERENCE_DIALOG_FRAGMENT_TAG = "preference_dialog";
 
     private final OptionsMenuManager mOptionsMenuManager = new OptionsMenuManager();
 
@@ -340,15 +338,6 @@ public final class SettingsActivity extends BaseActivity {
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(getActivity(),
                         R.plurals.auto_silence_summary, i));
             }
-        }
-
-        private void showDialog(PreferenceDialogFragment fragment) {
-            // Always set the target fragment, this is required by PreferenceDialogFragment
-            // internally.
-            fragment.setTargetFragment(this, 0);
-            // Don't use getChildFragmentManager(), it causes issues on older platforms when the
-            // target fragment is being restored after an orientation change.
-            fragment.show(getFragmentManager(), PREFERENCE_DIALOG_FRAGMENT_TAG);
         }
 
         private static class TimeZoneRow implements Comparable<TimeZoneRow> {

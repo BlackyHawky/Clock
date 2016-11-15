@@ -86,20 +86,24 @@ public class LabelDialogFragment extends DialogFragment {
     /**
      * Replaces any existing LabelDialogFragment with the given {@code fragment}.
      */
-    public static void show(FragmentManager fm, LabelDialogFragment fragment) {
-        // Finish any outstanding fragment work.
-        fm.executePendingTransactions();
+    public static void show(FragmentManager manager, LabelDialogFragment fragment) {
+        if (manager == null || manager.isDestroyed()) {
+            return;
+        }
 
-        final FragmentTransaction ft = fm.beginTransaction();
+        // Finish any outstanding fragment work.
+        manager.executePendingTransactions();
+
+        final FragmentTransaction tx = manager.beginTransaction();
 
         // Remove existing instance of LabelDialogFragment if necessary.
-        final Fragment existing = fm.findFragmentByTag(TAG);
+        final Fragment existing = manager.findFragmentByTag(TAG);
         if (existing != null) {
-            ft.remove(existing);
+            tx.remove(existing);
         }
-        ft.addToBackStack(null);
+        tx.addToBackStack(null);
 
-        fragment.show(ft, TAG);
+        fragment.show(tx, TAG);
     }
 
     @Override
