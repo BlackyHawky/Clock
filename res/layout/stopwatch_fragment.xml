@@ -36,7 +36,12 @@
             app:layout_widthPercent="@fraction/timer_circle_width_percent">
 
             <include layout="@layout/stopwatch_time" />
-            <include layout="@layout/stopwatch_circle" />
+
+            <!-- Sufficient space exists to include the bounding stopwatch circle. -->
+            <com.android.deskclock.stopwatch.StopwatchCircleView
+                android:id="@+id/stopwatch_circle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </com.android.deskclock.TimerCircleFrameLayout>
 
