@@ -183,7 +183,11 @@
     <string name="app_notifications_blocked" msgid="7249150789023936889">"घडी सम्बन्धी सूचनाहरूमाथि रोक लगाइएको छ"</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"यन्त्रलाई पूर्ण शान्तमा सेट गरिएको छ"</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"भोल्युम बटनहरू"</string>
-    <!-- no translation found for volume_button_setting_entries:2 (7085774139907653538) -->
+  <string-array name="volume_button_setting_entries">
+    <item msgid="7972756698723318690">"स्नुज"</item>
+    <item msgid="3450979320164769576">"खारेज गर्नुहोस्"</item>
+    <item msgid="7085774139907653538">"भोल्युम नियन्त्रण गर्नुहोस्"</item>
+  </string-array>
     <string name="label_description" msgid="8736179296142915727">"लेबल"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"रिङटोन"</string>
     <string name="expand_description" msgid="4628777175148490497">"विस्तृत गर्नुहोस्"</string>
