@@ -26,6 +26,7 @@ import android.widget.TextClock;
 public class AutoSizingTextClock extends TextClock {
 
     private final TextSizeHelper mTextSizeHelper;
+    private boolean mSuppressLayout = false;
 
     public AutoSizingTextClock(Context context) {
         this(context, null);
@@ -50,14 +51,28 @@ public class AutoSizingTextClock extends TextClock {
     protected void onTextChanged(CharSequence text, int start, int lengthBefore, int lengthAfter) {
         super.onTextChanged(text, start, lengthBefore, lengthAfter);
         if (mTextSizeHelper != null) {
+            if (lengthBefore != lengthAfter) {
+                mSuppressLayout = false;
+            }
             mTextSizeHelper.onTextChanged(lengthBefore, lengthAfter);
+        } else {
+            requestLayout();
         }
+    }
+
+    @Override
+    public void setText(CharSequence text, BufferType type) {
+        mSuppressLayout = true;
+        super.setText(text, type);
+        mSuppressLayout = false;
     }
 
     @Override
     public void requestLayout() {
         if (mTextSizeHelper == null || !mTextSizeHelper.shouldIgnoreRequestLayout()) {
-            super.requestLayout();
+            if (!mSuppressLayout) {
+                super.requestLayout();
+            }
         }
     }
 }
