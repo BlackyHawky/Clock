@@ -21,7 +21,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
@@ -29,9 +28,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -55,11 +52,10 @@ import com.android.deskclock.provider.Alarm;
 
 import java.util.List;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.media.RingtoneManager.TYPE_ALARM;
 import static android.provider.OpenableColumns.DISPLAY_NAME;
-import static com.android.deskclock.ItemAdapter.ItemViewHolder.*;
+import static com.android.deskclock.ItemAdapter.ItemViewHolder.Factory;
 import static com.android.deskclock.ringtone.AddCustomRingtoneViewHolder.VIEW_TYPE_ADD_NEW;
 import static com.android.deskclock.ringtone.HeaderViewHolder.VIEW_TYPE_ITEM_HEADER;
 import static com.android.deskclock.ringtone.RingtoneViewHolder.VIEW_TYPE_CUSTOM_SOUND;
@@ -95,17 +91,11 @@ public class RingtonePickerActivity extends BaseActivity
     /** Key to an instance state value indicating if the selected ringtone is currently playing. */
     private static final String STATE_KEY_PLAYING = "extra_is_playing";
 
-    /** Key to an instance state value indicating if READ_EXTERNAL_STORAGE is being requested. */
-    private static final String STATE_KEY_REQUESTING_PERMISSION = "requesting_permission";
-
     /** The controller that shows the drop shadow when content is not scrolled to the top. */
     private DropShadowController mDropShadowController;
 
     /** Generates the items in the activity context menu. */
     private OptionsMenuManager mOptionsMenuManager;
-
-    /** {@code true} while this activity should be obscured by a permissions request dialog. */
-    private boolean mRequestingPermission;
 
     /** Displays a set of selectable ringtones. */
     private RecyclerView mRecyclerView;
@@ -173,7 +163,6 @@ public class RingtonePickerActivity extends BaseActivity
         if (savedInstanceState != null) {
             mIsPlaying = savedInstanceState.getBoolean(STATE_KEY_PLAYING);
             mSelectedRingtoneUri = savedInstanceState.getParcelable(EXTRA_RINGTONE_URI);
-            mRequestingPermission = savedInstanceState.getBoolean(STATE_KEY_REQUESTING_PERMISSION);
         }
 
         if (mSelectedRingtoneUri == null) {
@@ -204,25 +193,9 @@ public class RingtonePickerActivity extends BaseActivity
         final int titleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
         setTitle(context.getString(titleResourceId));
 
-        if (savedInstanceState == null
-                && ContextCompat.checkSelfPermission(context, READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            mRequestingPermission = true;
-            requestPermissions(new String[] { READ_EXTERNAL_STORAGE }, 0);
-        } else if (!mRequestingPermission) {
-            getLoaderManager().initLoader(0 /* id */, null /* args */, this /* callback */);
-        }
+        getLoaderManager().initLoader(0 /* id */, null /* args */, this /* callback */);
 
         registerForContextMenu(mRecyclerView);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        mRequestingPermission = false;
-        getLoaderManager().initLoader(0 /* id */, null /* args */, this /* callback */);
     }
 
     @Override
@@ -238,7 +211,7 @@ public class RingtonePickerActivity extends BaseActivity
         mDropShadowController.stop();
         mDropShadowController = null;
 
-        if (!mRequestingPermission && mSelectedRingtoneUri != null) {
+        if (mSelectedRingtoneUri != null) {
             if (mAlarmId != -1) {
                 final Context context = getApplicationContext();
                 final ContentResolver cr = getContentResolver();
@@ -286,7 +259,6 @@ public class RingtonePickerActivity extends BaseActivity
 
         outState.putBoolean(STATE_KEY_PLAYING, mIsPlaying);
         outState.putParcelable(EXTRA_RINGTONE_URI, mSelectedRingtoneUri);
-        outState.putBoolean(STATE_KEY_REQUESTING_PERMISSION, mRequestingPermission);
     }
 
     @Override
