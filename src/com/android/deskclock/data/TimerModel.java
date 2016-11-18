@@ -140,7 +140,7 @@ final class TimerModel {
         final SharedPreferences prefs = Utils.getDefaultSharedPreferences(mContext);
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
 
-        // Update stopwatch notification when locale changes.
+        // Update timer notification when locale changes.
         final IntentFilter localeBroadcastFilter = new IntentFilter(Intent.ACTION_LOCALE_CHANGED);
         mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
     }
@@ -795,11 +795,12 @@ final class TimerModel {
     }
 
     /**
-     * Update the stopwatch notification in response to a locale change.
+     * Update the timer notification in response to a locale change.
      */
     private final class LocaleChangedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            mTimerRingtoneTitle = null;
             updateNotification();
             updateMissedNotification();
             updateHeadsUpNotification();
