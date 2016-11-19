@@ -17,7 +17,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_label" msgid="6674495003718166674">"시계"</string>
-    <string name="delete_alarm" msgid="3457780990646206817">"알람 삭제"</string>
     <string name="label" msgid="162189613902857319">"라벨"</string>
     <string name="default_label" msgid="5590025289805630372">"알람"</string>
     <string name="alarm_vibrate" msgid="3476686921490362230">"진동"</string>
