@@ -41,10 +41,10 @@
     <string name="default_alarm_ringtone_title">Default alarm sound</string>
 
     <!-- Title for alarm ringtone picker screen [CHAR LIMIT=30] -->
-    <string name="alarm_sound">Alarm Sound</string>
+    <string name="alarm_sound">Alarm sound</string>
 
     <!-- Title for timer ringtone picker screen [CHAR LIMIT=30] -->
-    <string name="timer_sound">Timer Sound</string>
+    <string name="timer_sound">Timer sound</string>
 
     <!-- Label for adding a new ringtone sound [CHAR LIMIT=30]-->
     <string name="add_new_sound">Add new</string>
