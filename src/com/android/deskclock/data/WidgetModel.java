@@ -27,19 +27,13 @@ import com.android.deskclock.events.Events;
  */
 final class WidgetModel {
 
-    private final Context mContext;
-
-    WidgetModel(Context context) {
-        mContext = context;
-    }
-
     /**
      * @param widgetClass indicates the type of widget being counted
      * @param count the number of widgets of the given type
      * @param eventCategoryId identifies the category of event to send
      */
     void updateWidgetCount(Class widgetClass, int count, @StringRes int eventCategoryId) {
-        int delta = WidgetDAO.updateWidgetCount(mContext, widgetClass, count);
+        int delta = WidgetDAO.updateWidgetCount(widgetClass, count);
         for (; delta > 0; delta--) {
             Events.sendEvent(eventCategoryId, R.string.action_create, 0);
         }

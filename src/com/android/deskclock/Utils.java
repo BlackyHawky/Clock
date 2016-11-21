@@ -24,7 +24,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -38,7 +37,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.support.annotation.AnyRes;
 import android.support.annotation.DrawableRes;
@@ -334,11 +332,15 @@ public class Utils {
             nextAlarmView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setVisibility(View.VISIBLE);
             nextAlarmIconView.setContentDescription(description);
-            nextAlarmIconView.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
         } else {
             nextAlarmView.setVisibility(View.GONE);
             nextAlarmIconView.setVisibility(View.GONE);
         }
+    }
+
+    public static void setClockIconTypeface(View clock) {
+        final TextView nextAlarmIconView = (TextView) clock.findViewById(R.id.nextAlarmIcon);
+        nextAlarmIconView.setTypeface(UiDataModel.getUiDataModel().getAlarmIconTypeface());
     }
 
     /**
@@ -523,28 +525,6 @@ public class Utils {
         final ArraySet<E> arraySet = new ArraySet<>(collection.size());
         arraySet.addAll(collection);
         return arraySet;
-    }
-
-    /**
-     * Returns the default {@link SharedPreferences} instance from the underlying storage context.
-     */
-    @TargetApi(Build.VERSION_CODES.N)
-    public static SharedPreferences getDefaultSharedPreferences(Context context) {
-        final Context storageContext;
-        if (isNOrLater()) {
-            // All N devices have split storage areas, but we may need to
-            // migrate existing preferences into the new device encrypted
-            // storage area, which is where our data lives from now on.
-            storageContext = context.createDeviceProtectedStorageContext();
-            if (!storageContext.moveSharedPreferencesFrom(context,
-                    PreferenceManager.getDefaultSharedPreferencesName(context))) {
-                LogUtils.wtf("Failed to migrate shared preferences");
-            }
-        } else {
-            storageContext = context;
-        }
-
-        return PreferenceManager.getDefaultSharedPreferences(storageContext);
     }
 
     /**

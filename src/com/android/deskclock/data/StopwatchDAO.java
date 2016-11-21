@@ -16,10 +16,8 @@
 
 package com.android.deskclock.data;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.android.deskclock.Utils;
 import com.android.deskclock.data.Stopwatch.State;
 
 import java.util.ArrayList;
@@ -57,8 +55,8 @@ final class StopwatchDAO {
     /**
      * @return the stopwatch from permanent storage or a reset stopwatch if none exists
      */
-    static Stopwatch getStopwatch(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static Stopwatch getStopwatch() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final int stateIndex = prefs.getInt(STATE, RESET.ordinal());
         final State state = State.values()[stateIndex];
         final long lastStartTime = prefs.getLong(LAST_START_TIME, Stopwatch.UNUSED);
@@ -70,8 +68,8 @@ final class StopwatchDAO {
     /**
      * @param stopwatch the last state of the stopwatch
      */
-    static void setStopwatch(Context context, Stopwatch stopwatch) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setStopwatch(Stopwatch stopwatch) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final SharedPreferences.Editor editor = prefs.edit();
 
         if (stopwatch.isReset()) {
@@ -92,8 +90,8 @@ final class StopwatchDAO {
     /**
      * @return a list of recorded laps for the stopwatch
      */
-    static List<Lap> getLaps(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static List<Lap> getLaps() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
 
         // Prepare the container to be filled with laps.
         final int lapCount = prefs.getInt(LAP_COUNT, 0);
@@ -127,8 +125,8 @@ final class StopwatchDAO {
      * @param newLapCount the number of laps including the new lap
      * @param accumulatedTime the amount of time accumulate by the stopwatch at the end of the lap
      */
-    static void addLap(Context context, int newLapCount, long accumulatedTime) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void addLap(int newLapCount, long accumulatedTime) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         prefs.edit()
                 .putInt(LAP_COUNT, newLapCount)
                 .putLong(LAP_ACCUMULATED_TIME + newLapCount, accumulatedTime)
@@ -138,8 +136,8 @@ final class StopwatchDAO {
     /**
      * Remove the recorded laps for the stopwatch
      */
-    static void clearLaps(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void clearLaps() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final SharedPreferences.Editor editor = prefs.edit();
 
         final int lapCount = prefs.getInt(LAP_COUNT, 0);

@@ -40,6 +40,7 @@ import com.android.deskclock.DeskClock;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
@@ -162,12 +163,12 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     public static int getGlobalIntentId(Context context) {
-        SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = DataModel.getSharedPreferences();
         return prefs.getInt(ALARM_GLOBAL_ID_EXTRA, -1);
     }
 
     public static void updateGlobalIntentId(Context context) {
-        SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        SharedPreferences prefs = DataModel.getSharedPreferences();
         int globalId = prefs.getInt(ALARM_GLOBAL_ID_EXTRA, -1) + 1;
         prefs.edit().putInt(ALARM_GLOBAL_ID_EXTRA, globalId).commit();
     }
@@ -494,7 +495,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
         AlarmService.stopAlarm(context, instance);
 
         // Calculate the new snooze alarm time
-        String snoozeMinutesStr = Utils.getDefaultSharedPreferences(context)
+        String snoozeMinutesStr = DataModel.getSharedPreferences()
                 .getString(SettingsActivity.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE_MINUTES);
         final int snoozeMinutes = Integer.parseInt(snoozeMinutesStr);
         Calendar newAlarmTime = Calendar.getInstance();
@@ -532,7 +533,7 @@ public final class AlarmStateManager extends BroadcastReceiver {
     }
 
     public static int getSnoozedMinutes(Context context) {
-        final String snoozeMinutesStr = Utils.getDefaultSharedPreferences(context)
+        final String snoozeMinutesStr = DataModel.getSharedPreferences()
                 .getString(SettingsActivity.KEY_ALARM_SNOOZE, DEFAULT_SNOOZE_MINUTES);
         return Integer.parseInt(snoozeMinutesStr);
     }

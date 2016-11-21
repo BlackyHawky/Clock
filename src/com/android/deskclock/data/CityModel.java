@@ -76,7 +76,7 @@ final class CityModel {
     /** A city instance representing the home timezone of the user. */
     private City mHomeCity;
 
-    CityModel(Context context, SettingsModel settingsModel) {
+    CityModel(Context context, SettingsModel settingsModel, SharedPreferences prefs) {
         mContext = context;
         mSettingsModel = settingsModel;
 
@@ -85,7 +85,6 @@ final class CityModel {
         mContext.registerReceiver(mLocaleChangedReceiver, localeBroadcastFilter);
 
         // Clear caches affected by preferences when preferences change.
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(mContext);
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
     }
 
@@ -177,7 +176,7 @@ final class CityModel {
      */
     List<City> getSelectedCities() {
         if (mSelectedCities == null) {
-            final List<City> selectedCities = CityDAO.getSelectedCities(mContext, getCityMap());
+            final List<City> selectedCities = CityDAO.getSelectedCities(getCityMap());
             Collections.sort(selectedCities, new City.UtcOffsetComparator());
             mSelectedCities = Collections.unmodifiableList(selectedCities);
         }
@@ -190,7 +189,7 @@ final class CityModel {
      */
     void setSelectedCities(Collection<City> cities) {
         final List<City> oldCities = getAllCities();
-        CityDAO.setSelectedCities(mContext, cities);
+        CityDAO.setSelectedCities(cities);
 
         // Clear caches affected by this update.
         mAllCities = null;

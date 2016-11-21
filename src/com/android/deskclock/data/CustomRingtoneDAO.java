@@ -53,8 +53,8 @@ final class CustomRingtoneDAO {
      * @param title the title of the audio content at the given {@code uri}
      * @return the newly added custom ringtone
      */
-    static CustomRingtone addCustomRingtone(Context context, Uri uri, String title) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static CustomRingtone addCustomRingtone(Uri uri, String title) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
 
         final long id = prefs.getLong(NEXT_RINGTONE_ID, 0);
         final Set<String> ids = getRingtoneIds(prefs);
@@ -73,8 +73,8 @@ final class CustomRingtoneDAO {
     /**
      * @param id identifies the ringtone to be removed
      */
-    static void removeCustomRingtone(Context context, long id) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void removeCustomRingtone(long id) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
 
         final Set<String> ids = getRingtoneIds(prefs);
         ids.remove(String.valueOf(id));
@@ -94,8 +94,8 @@ final class CustomRingtoneDAO {
     /**
      * @return a list of all known custom ringtones
      */
-    static List<CustomRingtone> getCustomRingtones(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static List<CustomRingtone> getCustomRingtones() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
 
         final Set<String> ids = prefs.getStringSet(RINGTONE_IDS, Collections.<String>emptySet());
         final List<CustomRingtone> ringtones = new ArrayList<>(ids.size());

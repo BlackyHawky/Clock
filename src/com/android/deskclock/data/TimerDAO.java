@@ -16,10 +16,8 @@
 
 package com.android.deskclock.data;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.android.deskclock.Utils;
 import com.android.deskclock.data.Timer.State;
 
 import java.util.ArrayList;
@@ -71,8 +69,8 @@ final class TimerDAO {
     /**
      * @return the timers from permanent storage
      */
-    static List<Timer> getTimers(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static List<Timer> getTimers() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
 
         // Read the set of timer ids.
         final Set<String> timerIds = prefs.getStringSet(TIMER_IDS, Collections.<String>emptySet());
@@ -106,8 +104,8 @@ final class TimerDAO {
     /**
      * @param timer the timer to be added
      */
-    static Timer addTimer(Context context, Timer timer) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static Timer addTimer(Timer timer) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final SharedPreferences.Editor editor = prefs.edit();
 
         // Fetch the next timer id.
@@ -115,7 +113,7 @@ final class TimerDAO {
         editor.putInt(NEXT_TIMER_ID, id + 1);
 
         // Add the new timer id to the set of all timer ids.
-        final Set<String> timerIds = new HashSet<>(getTimerIds(context));
+        final Set<String> timerIds = new HashSet<>(getTimerIds());
         timerIds.add(String.valueOf(id));
         editor.putStringSet(TIMER_IDS, timerIds);
 
@@ -140,8 +138,8 @@ final class TimerDAO {
     /**
      * @param timer the timer to be updated
      */
-    static void updateTimer(Context context, Timer timer) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void updateTimer(Timer timer) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final SharedPreferences.Editor editor = prefs.edit();
 
         // Record the fields of the timer.
@@ -161,14 +159,14 @@ final class TimerDAO {
     /**
      * @param timer the timer to be removed
      */
-    static void removeTimer(Context context, Timer timer) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void removeTimer(Timer timer) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final SharedPreferences.Editor editor = prefs.edit();
 
         final int id = timer.getId();
 
         // Remove the timer id from the set of all timer ids.
-        final Set<String> timerIds = new HashSet<>(getTimerIds(context));
+        final Set<String> timerIds = new HashSet<>(getTimerIds());
         timerIds.remove(String.valueOf(id));
         if (timerIds.isEmpty()) {
             editor.remove(TIMER_IDS);
@@ -190,8 +188,8 @@ final class TimerDAO {
         editor.apply();
     }
 
-    private static Set<String> getTimerIds(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    private static Set<String> getTimerIds() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         return prefs.getStringSet(TIMER_IDS, Collections.<String>emptySet());
     }
 }

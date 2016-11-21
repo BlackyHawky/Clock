@@ -25,7 +25,6 @@ import android.text.TextUtils;
 import android.util.ArrayMap;
 
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -58,8 +57,8 @@ final class CityDAO {
      * @param cityMap maps city ids to city instances
      * @return the list of city ids selected for display by the user
      */
-    static List<City> getSelectedCities(Context context, Map<String, City> cityMap) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static List<City> getSelectedCities(Map<String, City> cityMap) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final int size = prefs.getInt(NUMBER_OF_CITIES, 0);
         final List<City> selectedCities = new ArrayList<>(size);
 
@@ -77,8 +76,8 @@ final class CityDAO {
     /**
      * @param cities the collection of cities selected for display by the user
      */
-    static void setSelectedCities(Context context, Collection<City> cities) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setSelectedCities(Collection<City> cities) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(NUMBER_OF_CITIES, cities.size());
 

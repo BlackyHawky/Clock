@@ -78,7 +78,7 @@ final class RingtoneModel {
             return existing;
         }
 
-        final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mContext, uri, title);
+        final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(uri, title);
         getMutableCustomRingtones().add(ringtone);
         Collections.sort(getMutableCustomRingtones());
         return ringtone;
@@ -88,7 +88,7 @@ final class RingtoneModel {
         final List<CustomRingtone> ringtones = getMutableCustomRingtones();
         for (CustomRingtone ringtone : ringtones) {
             if (ringtone.getUri().equals(uri)) {
-                CustomRingtoneDAO.removeCustomRingtone(mContext, ringtone.getId());
+                CustomRingtoneDAO.removeCustomRingtone(ringtone.getId());
                 ringtones.remove(ringtone);
                 break;
             }
@@ -163,7 +163,7 @@ final class RingtoneModel {
 
     private List<CustomRingtone> getMutableCustomRingtones() {
         if (mCustomRingtones == null) {
-            mCustomRingtones = CustomRingtoneDAO.getCustomRingtones(mContext);
+            mCustomRingtones = CustomRingtoneDAO.getCustomRingtones();
             Collections.sort(mCustomRingtones);
         }
 

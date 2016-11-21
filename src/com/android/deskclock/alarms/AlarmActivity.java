@@ -55,6 +55,7 @@ import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
 import com.android.deskclock.settings.SettingsActivity;
@@ -172,7 +173,7 @@ public class AlarmActivity extends AppCompatActivity
         LOGGER.i("Displaying alarm for instance: %s", mAlarmInstance);
 
         // Get the volume/camera button behavior setting
-        mVolumeBehavior = Utils.getDefaultSharedPreferences(this)
+        mVolumeBehavior = DataModel.getSharedPreferences()
                 .getString(SettingsActivity.KEY_VOLUME_BUTTONS,
                         SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
 

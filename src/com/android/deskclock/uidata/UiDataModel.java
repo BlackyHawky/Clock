@@ -92,7 +92,7 @@ public final class UiDataModel {
             mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
             mFormattedStringModel = new FormattedStringModel(mContext);
             mColorModel = new ColorModel(mPeriodicCallbackModel);
-            mTabModel = new TabModel(mContext);
+            mTabModel = new TabModel();
         }
     }
 

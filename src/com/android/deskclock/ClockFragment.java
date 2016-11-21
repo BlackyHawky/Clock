@@ -112,6 +112,7 @@ public final class ClockFragment extends DeskClockFragment {
         mCityList = (RecyclerView) fragmentView.findViewById(R.id.cities);
         mCityList.setLayoutManager(new LinearLayoutManager(getActivity()));
         mCityList.setAdapter(mCityAdapter);
+        mCityList.setItemAnimator(null);
         DataModel.getDataModel().addCityListener(mCityAdapter);
 
         final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
@@ -127,6 +128,7 @@ public final class ClockFragment extends DeskClockFragment {
         if (mClockFrame != null) {
             mDigitalClock = (TextClock) mClockFrame.findViewById(R.id.digital_clock);
             mAnalogClock = (AnalogClock) mClockFrame.findViewById(R.id.analog_clock);
+            Utils.setClockIconTypeface(mClockFrame);
             Utils.refreshAlarm(context, mClockFrame);
             boolean enableSeconds = DataModel.getDataModel().getDisplayClockSeconds();
             Utils.setTimeFormat(mDigitalClock, enableSeconds);
@@ -538,6 +540,7 @@ public final class ClockFragment extends DeskClockFragment {
                 mHairline = itemView.findViewById(R.id.hairline);
                 mDigitalClock = (TextClock) itemView.findViewById(R.id.digital_clock);
                 mAnalogClock = (AnalogClock) itemView.findViewById(R.id.analog_clock);
+                Utils.setClockIconTypeface(itemView);
             }
 
             private void bind(Context context, String dateFormat,

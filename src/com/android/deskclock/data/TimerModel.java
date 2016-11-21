@@ -127,7 +127,7 @@ final class TimerModel {
     private Service mService;
 
     TimerModel(Context context, SettingsModel settingsModel, RingtoneModel ringtoneModel,
-            NotificationModel notificationModel) {
+            NotificationModel notificationModel, SharedPreferences prefs) {
         mContext = context;
         mSettingsModel = settingsModel;
         mRingtoneModel = ringtoneModel;
@@ -137,7 +137,6 @@ final class TimerModel {
         mAlarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
 
         // Clear caches affected by preferences when preferences change.
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(mContext);
         prefs.registerOnSharedPreferenceChangeListener(mPreferenceListener);
 
         // Update timer notification when locale changes.
@@ -215,7 +214,7 @@ final class TimerModel {
                 label, deleteAfterUse);
 
         // Add the timer to permanent storage.
-        timer = TimerDAO.addTimer(mContext, timer);
+        timer = TimerDAO.addTimer(timer);
 
         // Add the timer to the cache.
         getMutableTimers().add(0, timer);
@@ -461,7 +460,7 @@ final class TimerModel {
 
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
-            mTimers = TimerDAO.getTimers(mContext);
+            mTimers = TimerDAO.getTimers();
             Collections.sort(mTimers, Timer.ID_COMPARATOR);
         }
 
@@ -517,7 +516,7 @@ final class TimerModel {
         }
 
         // Update the timer in permanent storage.
-        TimerDAO.updateTimer(mContext, timer);
+        TimerDAO.updateTimer(timer);
 
         // Update the timer in the cache.
         final Timer oldTimer = timers.set(index, timer);
@@ -553,7 +552,7 @@ final class TimerModel {
      */
     void doRemoveTimer(Timer timer) {
         // Remove the timer from permanent storage.
-        TimerDAO.removeTimer(mContext, timer);
+        TimerDAO.removeTimer(timer);
 
         // Remove the timer from the cache.
         final List<Timer> timers = getMutableTimers();

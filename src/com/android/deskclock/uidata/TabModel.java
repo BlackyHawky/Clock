@@ -16,7 +16,6 @@
 
 package com.android.deskclock.uidata;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -32,8 +31,6 @@ import static com.android.deskclock.uidata.UiDataModel.Tab;
  */
 final class TabModel {
 
-    private final Context mContext;
-
     /** The listeners to notify when the selected tab is changed. */
     private final List<TabListener> mTabListeners = new ArrayList<>();
 
@@ -46,8 +43,7 @@ final class TabModel {
     /** An enumerated value indicating the currently selected tab. */
     private Tab mSelectedTab;
 
-    TabModel(Context context) {
-        mContext = context;
+    TabModel() {
         Arrays.fill(mTabScrolledToTop, true);
     }
 
@@ -103,7 +99,7 @@ final class TabModel {
      */
     Tab getSelectedTab() {
         if (mSelectedTab == null) {
-            mSelectedTab = TabDAO.getSelectedTab(mContext);
+            mSelectedTab = TabDAO.getSelectedTab();
         }
         return mSelectedTab;
     }
@@ -115,7 +111,7 @@ final class TabModel {
         final Tab oldSelectedTab = getSelectedTab();
         if (oldSelectedTab != tab) {
             mSelectedTab = tab;
-            TabDAO.setSelectedTab(mContext, tab);
+            TabDAO.setSelectedTab(tab);
 
             // Notify of the tab change.
             for (TabListener tl : mTabListeners) {

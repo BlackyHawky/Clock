@@ -16,16 +16,21 @@
 
 package com.android.deskclock.data;
 
+import android.annotation.TargetApi;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.support.annotation.StringRes;
 import android.view.View;
 
+import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.timer.TimerService;
@@ -168,8 +173,15 @@ public final class DataModel {
     /** The model from which ringtone data are fetched. */
     private RingtoneModel mRingtoneModel;
 
+    /** Single instance of SharedPreferences for the current session. */
+    private static SharedPreferences sSharedPreferences;
+
     public static DataModel getDataModel() {
         return sDataModel;
+    }
+
+    public static SharedPreferences getSharedPreferences() {
+        return sSharedPreferences;
     }
 
     private DataModel() {}
@@ -181,18 +193,41 @@ public final class DataModel {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
+            sSharedPreferences = getDefaultSharedPreferences(mContext);
             mTimeModel = new TimeModel(mContext);
-            mWidgetModel = new WidgetModel(mContext);
+            mWidgetModel = new WidgetModel();
             mSettingsModel = new SettingsModel(mContext);
             mRingtoneModel = new RingtoneModel(mContext);
             mNotificationModel = new NotificationModel();
-            mCityModel = new CityModel(mContext, mSettingsModel);
+            mCityModel = new CityModel(mContext, mSettingsModel, sSharedPreferences);
             mAlarmModel = new AlarmModel(mContext, mSettingsModel);
             mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
             mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
             mTimerModel = new TimerModel(mContext, mSettingsModel, mRingtoneModel,
-                    mNotificationModel);
+                    mNotificationModel, sSharedPreferences);
         }
+    }
+
+    /**
+     * Returns the default {@link SharedPreferences} instance from the underlying storage context.
+     */
+    @TargetApi(Build.VERSION_CODES.N)
+    private static synchronized SharedPreferences getDefaultSharedPreferences(Context context) {
+        final Context storageContext;
+        if (Utils.isNOrLater()) {
+            // All N devices have split storage areas, but we may need to
+            // migrate existing preferences into the new device encrypted
+            // storage area, which is where our data lives from now on.
+            storageContext = context.createDeviceProtectedStorageContext();
+            if (!storageContext.moveSharedPreferencesFrom(context,
+                    PreferenceManager.getDefaultSharedPreferencesName(context))) {
+                LogUtils.wtf("Failed to migrate shared preferences");
+            }
+        } else {
+            storageContext = context;
+        }
+        sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(storageContext);
+        return sSharedPreferences;
     }
 
     /**

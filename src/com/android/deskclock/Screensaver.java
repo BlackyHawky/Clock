@@ -122,6 +122,7 @@ public final class Screensaver extends DreamService {
         }
 
         Utils.updateDate(mDateFormat, mDateFormatForAccessibility, mContentView);
+        Utils.setClockIconTypeface(mContentView);
         Utils.refreshAlarm(Screensaver.this, mContentView);
 
         startPositionUpdater();

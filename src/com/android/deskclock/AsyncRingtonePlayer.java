@@ -16,6 +16,8 @@ import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.text.format.DateUtils;
 
+import com.android.deskclock.data.DataModel;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -229,7 +231,7 @@ public final class AsyncRingtonePlayer {
      * @return the duration of the crescendo in milliseconds
      */
     private long getCrescendoDurationMillis() {
-        final String crescendoSecondsStr = Utils.getDefaultSharedPreferences(mContext)
+        final String crescendoSecondsStr = DataModel.getSharedPreferences()
                 .getString(mCrescendoPrefKey, DEFAULT_CRESCENDO_LENGTH);
         return Integer.parseInt(crescendoSecondsStr) * DateUtils.SECOND_IN_MILLIS;
     }

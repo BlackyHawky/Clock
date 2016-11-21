@@ -114,6 +114,7 @@ public class ScreensaverActivity extends AppCompatActivity {
 
         mContentView.setOnSystemUiVisibilityChangeListener(new InteractionListener());
 
+        Utils.setClockIconTypeface(mSaverView);
         Utils.setTimeFormat((TextClock) digitalClock, false);
         Utils.setClockStyle(digitalClock, analogClock);
         Utils.dimClockView(true, mSaverView);

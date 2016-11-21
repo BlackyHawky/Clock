@@ -87,7 +87,7 @@ final class StopwatchModel {
      */
     Stopwatch getStopwatch() {
         if (mStopwatch == null) {
-            mStopwatch = StopwatchDAO.getStopwatch(mContext);
+            mStopwatch = StopwatchDAO.getStopwatch();
         }
 
         return mStopwatch;
@@ -99,7 +99,7 @@ final class StopwatchModel {
     Stopwatch setStopwatch(Stopwatch stopwatch) {
         final Stopwatch before = getStopwatch();
         if (before != stopwatch) {
-            StopwatchDAO.setStopwatch(mContext, stopwatch);
+            StopwatchDAO.setStopwatch(stopwatch);
             mStopwatch = stopwatch;
 
             // Refresh the stopwatch notification to reflect the latest stopwatch state.
@@ -140,7 +140,7 @@ final class StopwatchModel {
         final List<Lap> laps = getMutableLaps();
 
         final int lapNumber = laps.size() + 1;
-        StopwatchDAO.addLap(mContext, lapNumber, totalTime);
+        StopwatchDAO.addLap(lapNumber, totalTime);
 
         final long prevAccumulatedTime = laps.isEmpty() ? 0 : laps.get(0).getAccumulatedTime();
         final long lapTime = totalTime - prevAccumulatedTime;
@@ -166,7 +166,7 @@ final class StopwatchModel {
      */
     @VisibleForTesting
     void clearLaps() {
-        StopwatchDAO.clearLaps(mContext);
+        StopwatchDAO.clearLaps();
         getMutableLaps().clear();
     }
 
@@ -233,7 +233,7 @@ final class StopwatchModel {
 
     private List<Lap> getMutableLaps() {
         if (mLaps == null) {
-            mLaps = StopwatchDAO.getLaps(mContext);
+            mLaps = StopwatchDAO.getLaps();
         }
 
         return mLaps;

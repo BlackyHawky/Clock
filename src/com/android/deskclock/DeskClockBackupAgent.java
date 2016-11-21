@@ -30,6 +30,7 @@ import android.os.SystemClock;
 import android.support.annotation.NonNull;
 
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.provider.AlarmInstance;
 
@@ -87,7 +88,7 @@ public class DeskClockBackupAgent extends BackupAgent {
         }
 
         // Write a preference to indicate a data restore has been completed.
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(this);
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         prefs.edit().putBoolean(KEY_RESTORE_FINISHED, true).apply();
 
         // Create an Intent to send into DeskClock indicating restore is complete.
@@ -111,7 +112,7 @@ public class DeskClockBackupAgent extends BackupAgent {
      */
     public static boolean processRestoredData(Context context) {
         // If the preference indicates data was not recently restored, there is nothing to do.
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         if (!prefs.getBoolean(KEY_RESTORE_FINISHED, false)) {
             return false;
         }

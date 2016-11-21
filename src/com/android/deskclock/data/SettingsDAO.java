@@ -22,7 +22,6 @@ import android.net.Uri;
 import android.provider.Settings;
 
 import com.android.deskclock.R;
-import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 import com.android.deskclock.settings.ScreensaverSettingsActivity;
@@ -55,9 +54,9 @@ final class SettingsDAO {
     /**
      * @return an enumerated value indicating the order in which cities are ordered
      */
-    static CitySort getCitySort(Context context) {
+    static CitySort getCitySort() {
         final int defaultSortOrdinal = CitySort.NAME.ordinal();
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final int citySortOrdinal = prefs.getInt(KEY_SORT_PREFERENCE, defaultSortOrdinal);
         return CitySort.values()[citySortOrdinal];
     }
@@ -65,10 +64,10 @@ final class SettingsDAO {
     /**
      * Adjust the sort order of cities.
      */
-    static void toggleCitySort(Context context) {
-        final CitySort oldSort = getCitySort(context);
+    static void toggleCitySort() {
+        final CitySort oldSort = getCitySort();
         final CitySort newSort = oldSort == CitySort.NAME ? CitySort.UTC_OFFSET : CitySort.NAME;
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         prefs.edit().putInt(KEY_SORT_PREFERENCE, newSort.ordinal()).apply();
     }
 
@@ -76,16 +75,16 @@ final class SettingsDAO {
      * @return {@code true} if a clock for the user's home timezone should be automatically
      *      displayed when it doesn't match the current timezone
      */
-    static boolean getAutoShowHomeClock(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static boolean getAutoShowHomeClock() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         return prefs.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, false);
     }
 
     /**
      * @return the user's home timezone
      */
-    static TimeZone getHomeTimeZone(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static TimeZone getHomeTimeZone() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final String defaultTimeZoneId = TimeZone.getDefault().getID();
         final String timeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, defaultTimeZoneId);
         return TimeZone.getTimeZone(timeZoneId);
@@ -96,8 +95,8 @@ final class SettingsDAO {
      *
      * @param homeTimeZone the timezone to set as the user's home timezone if necessary
      */
-    static void setDefaultHomeTimeZone(Context context, TimeZone homeTimeZone) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setDefaultHomeTimeZone(TimeZone homeTimeZone) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final String homeTimeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
         if (homeTimeZoneId == null) {
             prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, homeTimeZone.getID()).apply();
@@ -114,16 +113,16 @@ final class SettingsDAO {
     /**
      * @return a value indicating whether analog or digital clocks are displayed in the app
      */
-    static boolean getDisplayClockSeconds(Context context) {
-       return Utils.getDefaultSharedPreferences(context).getBoolean(
+    static boolean getDisplayClockSeconds() {
+       return DataModel.getSharedPreferences().getBoolean(
                SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, false);
     }
 
     /**
      * @param displaySeconds whether or not to display seconds on main clock
      */
-    static void setDisplayClockSeconds(Context context, boolean displaySeconds) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setDisplayClockSeconds(boolean displaySeconds) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         prefs.edit().putBoolean(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS, displaySeconds).apply();
     }
 
@@ -132,11 +131,11 @@ final class SettingsDAO {
      * not yet been manually chosen.
      */
     static void setDefaultDisplayClockSeconds(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         if (!prefs.contains(SettingsActivity.KEY_CLOCK_DISPLAY_SECONDS)) {
             // If on analog clock style on upgrade, default to true. Otherwise, default to false.
             final boolean isAnalog = getClockStyle(context) == ClockStyle.ANALOG;
-            setDisplayClockSeconds(context, isAnalog);
+            setDisplayClockSeconds(isAnalog);
         }
     }
 
@@ -150,8 +149,8 @@ final class SettingsDAO {
     /**
      * @return {@code true} if the screen saver should be dimmed for lower contrast at night
      */
-    static boolean getScreensaverNightModeOn(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static boolean getScreensaverNightModeOn() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         return prefs.getBoolean(ScreensaverSettingsActivity.KEY_NIGHT_MODE, false);
     }
 
@@ -159,8 +158,8 @@ final class SettingsDAO {
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      *      has yet been made
      */
-    static Uri getTimerRingtoneUri(Context context, Uri defaultUri) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static Uri getTimerRingtoneUri(Uri defaultUri) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final String uriString = prefs.getString(SettingsActivity.KEY_TIMER_RINGTONE, null);
         return uriString == null ? defaultUri : Uri.parse(uriString);
     }
@@ -168,24 +167,24 @@ final class SettingsDAO {
     /**
      * @return whether timer vibration is enabled. false by default.
      */
-    static boolean getTimerVibrate(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static boolean getTimerVibrate() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         return prefs.getBoolean(SettingsActivity.KEY_TIMER_VIBRATE, false);
     }
 
     /**
      * @param enabled whether vibration will be turned on for all timers.
      */
-    static void setTimerVibrate(Context context, boolean enabled) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setTimerVibrate(boolean enabled) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         prefs.edit().putBoolean(SettingsActivity.KEY_TIMER_VIBRATE, enabled).apply();
     }
 
     /**
      * @param uri the uri of the ringtone to play for all timers
      */
-    static void setTimerRingtoneUri(Context context, Uri uri) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setTimerRingtoneUri(Uri uri) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         prefs.edit().putString(SettingsActivity.KEY_TIMER_RINGTONE, uri.toString()).apply();
     }
 
@@ -193,8 +192,8 @@ final class SettingsDAO {
      * @return the uri of the selected ringtone or the {@code defaultUri} if no explicit selection
      *      has yet been made
      */
-    static Uri getDefaultAlarmRingtoneUri(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static Uri getDefaultAlarmRingtoneUri() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final String uriString = prefs.getString(KEY_DEFAULT_ALARM_RINGTONE_URI, null);
         return uriString == null ? Settings.System.DEFAULT_ALARM_ALERT_URI : Uri.parse(uriString);
     }
@@ -202,8 +201,8 @@ final class SettingsDAO {
     /**
      * @param uri identifies the default ringtone to play for new alarms
      */
-    static void setDefaultAlarmRingtoneUri(Context context, Uri uri) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static void setDefaultAlarmRingtoneUri(Uri uri) {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         prefs.edit().putString(KEY_DEFAULT_ALARM_RINGTONE_URI, uri.toString()).apply();
     }
 
@@ -211,8 +210,8 @@ final class SettingsDAO {
      * @return the display order of the weekdays, which can start with {@link Calendar#SATURDAY},
      *      {@link Calendar#SUNDAY} or {@link Calendar#MONDAY}
      */
-    static Weekdays.Order getWeekdayOrder(Context context) {
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+    static Weekdays.Order getWeekdayOrder() {
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final String defaultValue = String.valueOf(Calendar.getInstance().getFirstDayOfWeek());
         final String value = prefs.getString(SettingsActivity.KEY_WEEK_START, defaultValue);
         final int firstCalendarDay = Integer.parseInt(value);
@@ -227,7 +226,7 @@ final class SettingsDAO {
 
     private static ClockStyle getClockStyle(Context context, String prefKey) {
         final String defaultStyle = context.getString(R.string.default_clock_style);
-        final SharedPreferences prefs = Utils.getDefaultSharedPreferences(context);
+        final SharedPreferences prefs = DataModel.getSharedPreferences();
         final String clockStyle = prefs.getString(prefKey, defaultStyle);
         // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
         // accent to character, which breaks the enum conversion.

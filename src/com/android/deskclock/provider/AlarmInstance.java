@@ -29,6 +29,7 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmStateManager;
+import com.android.deskclock.data.DataModel;
 import com.android.deskclock.settings.SettingsActivity;
 
 import java.util.Calendar;
@@ -440,7 +441,7 @@ public final class AlarmInstance implements ClockContract.InstancesColumns {
      * @return the time when alarm should be silence, or null if never
      */
     public Calendar getTimeout(Context context) {
-        String timeoutSetting = Utils.getDefaultSharedPreferences(context)
+        String timeoutSetting = DataModel.getSharedPreferences()
                 .getString(SettingsActivity.KEY_AUTO_SILENCE, DEFAULT_ALARM_TIMEOUT_SETTING);
         int timeoutMinutes = Integer.parseInt(timeoutSetting);
 
