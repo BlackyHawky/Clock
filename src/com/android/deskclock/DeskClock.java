@@ -22,6 +22,7 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -30,9 +31,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout.ViewPagerOnTabSelectedListener;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.ArrayMap;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -58,8 +61,9 @@ import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
-import com.android.deskclock.widget.RtlViewPager;
 import com.android.deskclock.widget.toast.SnackbarManager;
+
+import java.util.Map;
 
 import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
@@ -124,7 +128,7 @@ public class DeskClock extends BaseActivity
     private DropShadowController mDropShadowController;
 
     /** The ViewPager that pages through the fragments representing the content of the tabs. */
-    private RtlViewPager mFragmentTabPager;
+    private ViewPager mFragmentTabPager;
 
     /** Generates the fragments that are displayed by the {@link #mFragmentTabPager}. */
     private TabFragmentAdapter mFragmentTabPagerAdapter;
@@ -179,8 +183,9 @@ public class DeskClock extends BaseActivity
             final @StringRes int labelResId = tabModel.getLabelResId();
 
             final TabLayout.Tab tab = mTabLayout.newTab()
-                    .setContentDescription(labelResId)
-                    .setIcon(tabModel.getIconResId());
+                    .setTag(tabModel)
+                    .setIcon(tabModel.getIconResId())
+                    .setContentDescription(labelResId);
 
             if (showTabLabel) {
                 tab.setText(labelResId);
@@ -283,18 +288,31 @@ public class DeskClock extends BaseActivity
 
         // Customize the view pager.
         mFragmentTabPagerAdapter = new TabFragmentAdapter(this);
-        mFragmentTabPager = (RtlViewPager) findViewById(R.id.desk_clock_pager);
+        mFragmentTabPager = (ViewPager) findViewById(R.id.desk_clock_pager);
         // Keep all four tabs to minimize jank.
         mFragmentTabPager.setOffscreenPageLimit(3);
         // Set Accessibility Delegate to null so view pager doesn't intercept movements and
         // prevent the fab from being selected.
         mFragmentTabPager.setAccessibilityDelegate(null);
         // Mirror changes made to the selected page of the view pager into UiDataModel.
-        mFragmentTabPager.setOnRTLPageChangeListener(new PageChangeWatcher());
+        mFragmentTabPager.addOnPageChangeListener(new PageChangeWatcher());
         mFragmentTabPager.setAdapter(mFragmentTabPagerAdapter);
 
-        // Selecting a tab implicitly selects a page in the view pager.
-        mTabLayout.addOnTabSelectedListener(new ViewPagerOnTabSelectedListener(mFragmentTabPager));
+        // Mirror changes made to the selected tab into UiDataModel.
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                UiDataModel.getUiDataModel().setSelectedTab((UiDataModel.Tab) tab.getTag());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
@@ -322,8 +340,8 @@ public class DeskClock extends BaseActivity
         mDropShadowController = new DropShadowController(dropShadow, UiDataModel.getUiDataModel(),
                 mSnackbarAnchor.findViewById(R.id.tab_hairline));
 
-        // Honor the selected tab in case it changed while the app was paused.
-        updateCurrentTab(UiDataModel.getUiDataModel().getSelectedTabIndex());
+        // ViewPager does not save state; this honors the selected tab in the user interface.
+        updateCurrentTab();
     }
 
     @Override
@@ -418,7 +436,7 @@ public class DeskClock extends BaseActivity
 
         // Notify each fragment of the background color change.
         for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
-            mFragmentTabPagerAdapter.getItem(i).onAppColorChanged(color);
+            mFragmentTabPagerAdapter.getDeskClockFragment(i).onAppColorChanged(color);
         }
     }
 
@@ -468,24 +486,44 @@ public class DeskClock extends BaseActivity
     }
 
     /**
-     * Configure the {@link #mFragmentTabPager} and {@link #mTabLayout} to display the tab at the
-     * given {@code index}.
-     *
-     * @param index the index of the page to display
+     * Configure the {@link #mFragmentTabPager} and {@link #mTabLayout} to display UiDataModel's
+     * selected tab.
      */
-    private void updateCurrentTab(int index) {
-        final TabLayout.Tab tab = mTabLayout.getTabAt(index);
-        if (tab != null && !tab.isSelected()) {
-            tab.select();
+    private void updateCurrentTab() {
+        // Fetch the selected tab from the source of truth: UiDataModel.
+        final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
+
+        // Update the selected tab in the tablayout if it does not agree with UiDataModel.
+        for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+            final TabLayout.Tab tab = mTabLayout.getTabAt(i);
+            if (tab != null && tab.getTag() == selectedTab && !tab.isSelected()) {
+                tab.select();
+                break;
+            }
         }
-        if (mFragmentTabPager.getCurrentItem() != index) {
-            mFragmentTabPager.setCurrentItem(index);
+
+        // Update the selected fragment in the viewpager if it does not agree with UiDataModel.
+        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
+            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
+            if (fragment.isTabSelected() && mFragmentTabPager.getCurrentItem() != i) {
+                mFragmentTabPager.setCurrentItem(i);
+                break;
+            }
         }
     }
 
+    /**
+     * @return the DeskClockFragment that is currently selected according to UiDataModel
+     */
     private DeskClockFragment getSelectedDeskClockFragment() {
-        final int index = UiDataModel.getUiDataModel().getSelectedTabIndex();
-        return mFragmentTabPagerAdapter.getItem(index);
+        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
+            final DeskClockFragment fragment = mFragmentTabPagerAdapter.getDeskClockFragment(i);
+            if (fragment.isTabSelected()) {
+                return fragment;
+            }
+        }
+        final UiDataModel.Tab selectedTab = UiDataModel.getUiDataModel().getSelectedTab();
+        throw new IllegalStateException("Unable to locate selected fragment (" + selectedTab + ")");
     }
 
     /**
@@ -557,7 +595,7 @@ public class DeskClock extends BaseActivity
 
         @Override
         public void onPageSelected(int position) {
-            UiDataModel.getUiDataModel().setSelectedTabIndex(position);
+            mFragmentTabPagerAdapter.getDeskClockFragment(position).selectTab();
         }
     }
 
@@ -634,10 +672,8 @@ public class DeskClock extends BaseActivity
         @Override
         public void selectedTabChanged(UiDataModel.Tab oldSelectedTab,
                 UiDataModel.Tab newSelectedTab) {
-            final int index = newSelectedTab.ordinal();
-
             // Update the view pager and tab layout to agree with the model.
-            updateCurrentTab(index);
+            updateCurrentTab();
 
             // Avoid sending events for the initial tab selection on launch and re-selecting a tab
             // after a configuration change.
@@ -667,35 +703,31 @@ public class DeskClock extends BaseActivity
     }
 
     /**
-     * This adapter produces the DeskClockFragments that are the contents of the tabs.
+     * This adapter produces the DeskClockFragments that are the contents of the tabs. The adapter
+     * presents the tabs in LTR and RTL order depending on the text layout direction for the current
+     * locale. To prevent issues when switching between LTR and RTL, fragments are registered with
+     * position-independent tags, which is an important departure from FragmentPagerAdapter.
      */
-    private static final class TabFragmentAdapter extends FragmentPagerAdapter {
+    private static final class TabFragmentAdapter extends PagerAdapter {
 
-        private final FragmentManager mFragmentManager;
         private final Context mContext;
 
+        /** The manager into which fragments are added. */
+        private final FragmentManager mFragmentManager;
+
+        /** A fragment cache that can be accessed before {@link #instantiateItem} is called. */
+        private final Map<UiDataModel.Tab, DeskClockFragment> mFragmentCache;
+
+        /** The active fragment transaction if one exists. */
+        private FragmentTransaction mCurrentTransaction;
+
+        /** The current fragment displayed to the user. */
+        private Fragment mCurrentPrimaryItem;
+
         TabFragmentAdapter(AppCompatActivity activity) {
-            super(activity.getFragmentManager());
             mContext = activity;
+            mFragmentCache = new ArrayMap<>(getCount());
             mFragmentManager = activity.getFragmentManager();
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            position = UiDataModel.getUiDataModel().getTabLayoutIndex(position);
-            return super.instantiateItem(container, position);
-        }
-
-        @Override
-        public DeskClockFragment getItem(int position) {
-            final String tag = makeFragmentName(R.id.desk_clock_pager, position);
-            Fragment fragment = mFragmentManager.findFragmentByTag(tag);
-            if (fragment == null) {
-                final UiDataModel.Tab tab = UiDataModel.getUiDataModel().getTab(position);
-                final String fragmentClassName = tab.getFragmentClassName();
-                fragment = Fragment.instantiate(mContext, fragmentClassName);
-            }
-            return (DeskClockFragment) fragment;
         }
 
         @Override
@@ -703,9 +735,103 @@ public class DeskClock extends BaseActivity
             return UiDataModel.getUiDataModel().getTabCount();
         }
 
-        /** This implementation duplicated from {@link FragmentPagerAdapter#makeFragmentName}. */
-        private String makeFragmentName(int viewId, long id) {
-            return "android:switcher:" + viewId + ":" + id;
+        /**
+         * @param position the left-to-right index of the fragment to be returned
+         * @return the fragment displayed at the given {@code position}
+         */
+        private DeskClockFragment getDeskClockFragment(int position) {
+            // Fetch the tab the UiDataModel reports for the position.
+            final UiDataModel.Tab tab = UiDataModel.getUiDataModel().getTabAt(position);
+
+            // First check the local cache for the fragment.
+            DeskClockFragment fragment = mFragmentCache.get(tab);
+            if (fragment != null) {
+                return fragment;
+            }
+
+            // Next check the fragment manager; relevant when app is rebuilt after locale changes
+            // because this adapter will be new and mFragmentCache will be empty, but the fragment
+            // manager will retain the Fragments built on original application launch.
+            fragment = (DeskClockFragment) mFragmentManager.findFragmentByTag(tab.name());
+            if (fragment != null) {
+                mFragmentCache.put(tab, fragment);
+                return fragment;
+            }
+
+            // Otherwise, build the fragment from scratch.
+            final String fragmentClassName = tab.getFragmentClassName();
+            fragment = (DeskClockFragment) Fragment.instantiate(mContext, fragmentClassName);
+            mFragmentCache.put(tab, fragment);
+            return fragment;
+        }
+
+        @Override
+        public void startUpdate(ViewGroup container) {
+            if (container.getId() == View.NO_ID) {
+                throw new IllegalStateException("ViewPager with adapter " + this + " has no id");
+            }
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            if (mCurrentTransaction == null) {
+                mCurrentTransaction = mFragmentManager.beginTransaction();
+            }
+
+            // Use the fragment located in the fragment manager if one exists.
+            final UiDataModel.Tab tab = UiDataModel.getUiDataModel().getTabAt(position);
+            Fragment fragment = mFragmentManager.findFragmentByTag(tab.name());
+            if (fragment != null) {
+                mCurrentTransaction.attach(fragment);
+            } else {
+                fragment = getDeskClockFragment(position);
+                mCurrentTransaction.add(container.getId(), fragment, tab.name());
+            }
+
+            if (fragment != mCurrentPrimaryItem) {
+                FragmentCompat.setMenuVisibility(fragment, false);
+                FragmentCompat.setUserVisibleHint(fragment, false);
+            }
+
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            if (mCurrentTransaction == null) {
+                mCurrentTransaction = mFragmentManager.beginTransaction();
+            }
+            mCurrentTransaction.detach((Fragment) object);
+        }
+
+        @Override
+        public void setPrimaryItem(ViewGroup container, int position, Object object) {
+            final Fragment fragment = (Fragment) object;
+            if (fragment != mCurrentPrimaryItem) {
+                if (mCurrentPrimaryItem != null) {
+                    FragmentCompat.setMenuVisibility(mCurrentPrimaryItem, false);
+                    FragmentCompat.setUserVisibleHint(mCurrentPrimaryItem, false);
+                }
+                if (fragment != null) {
+                    FragmentCompat.setMenuVisibility(fragment, true);
+                    FragmentCompat.setUserVisibleHint(fragment, true);
+                }
+                mCurrentPrimaryItem = fragment;
+            }
+        }
+
+        @Override
+        public void finishUpdate(ViewGroup container) {
+            if (mCurrentTransaction != null) {
+                mCurrentTransaction.commitAllowingStateLoss();
+                mCurrentTransaction = null;
+                mFragmentManager.executePendingTransactions();
+            }
+        }
+
+        @Override
+        public boolean isViewFromObject(View view, Object object) {
+            return ((Fragment) object).getView() == view;
         }
     }
 }

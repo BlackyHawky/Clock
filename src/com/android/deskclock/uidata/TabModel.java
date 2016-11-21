@@ -77,25 +77,25 @@ final class TabModel {
     }
 
     /**
-     * @param index the index of the tab
-     * @return the tab at the given {@code index}
+     * @param ordinal the ordinal (left-to-right index) of the tab
+     * @return the tab at the given {@code ordinal}
      */
-    Tab getTab(int index) {
-        return Tab.values()[index];
+    Tab getTab(int ordinal) {
+        return Tab.values()[ordinal];
     }
 
     /**
-     * @return the index of the currently selected primary tab
+     * @param position the position of the tab in the user interface
+     * @return the tab at the given {@code ordinal}
      */
-    int getSelectedTabIndex() {
-        return getSelectedTab().ordinal();
-    }
-
-    /**
-     * @param index the index of the tab to select
-     */
-    void setSelectedTabIndex(int index) {
-        setSelectedTab(Tab.values()[index]);
+    Tab getTabAt(int position) {
+        final int ordinal;
+        if (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == LAYOUT_DIRECTION_RTL) {
+            ordinal = getTabCount() - position - 1;
+        } else {
+            ordinal = position;
+        }
+        return getTab(ordinal);
     }
 
     /**
@@ -130,17 +130,6 @@ final class TabModel {
                 }
             }
         }
-    }
-
-    /**
-     * @param ltrTabIndex the tab index assuming left-to-right layout direction
-     * @return the tab index in the current layout direction
-     */
-    int getTabLayoutIndex(int ltrTabIndex) {
-        if (TextUtils.getLayoutDirectionFromLocale(Locale.getDefault()) == LAYOUT_DIRECTION_RTL) {
-            return getTabCount() - ltrTabIndex - 1;
-        }
-        return ltrTabIndex;
     }
 
     //

@@ -271,28 +271,21 @@ public final class UiDataModel {
     }
 
     /**
-     * @param index the index of the tab
-     * @return the tab at the given {@code index}
+     * @param ordinal the ordinal of the tab
+     * @return the tab at the given {@code ordinal}
      */
-    public Tab getTab(int index) {
+    public Tab getTab(int ordinal) {
         enforceMainLooper();
-        return mTabModel.getTab(index);
+        return mTabModel.getTab(ordinal);
     }
 
     /**
-     * @return the index of the currently selected primary tab
+     * @param position the position of the tab in the user interface
+     * @return the tab at the given {@code ordinal}
      */
-    public int getSelectedTabIndex() {
+    public Tab getTabAt(int position) {
         enforceMainLooper();
-        return mTabModel.getSelectedTabIndex();
-    }
-
-    /**
-     * @param index the index of the tab to select
-     */
-    public void setSelectedTabIndex(int index) {
-        enforceMainLooper();
-        mTabModel.setSelectedTabIndex(index);
+        return mTabModel.getTabAt(position);
     }
 
     /**
@@ -344,19 +337,6 @@ public final class UiDataModel {
     public boolean isSelectedTabScrolledToTop() {
         enforceMainLooper();
         return mTabModel.isTabScrolledToTop(getSelectedTab());
-    }
-
-    /**
-     * This method converts the given {@code ltrTabIndex} which assumes Left-To-Right layout of the
-     * tabs into an index that respects the system layout, which may be Left-To-Right or
-     * Right-To-Left.
-     *
-     * @param ltrTabIndex the tab index assuming left-to-right layout direction
-     * @return the tab index in the current layout direction
-     */
-    public int getTabLayoutIndex(int ltrTabIndex) {
-        enforceMainLooper();
-        return mTabModel.getTabLayoutIndex(ltrTabIndex);
     }
 
     //
