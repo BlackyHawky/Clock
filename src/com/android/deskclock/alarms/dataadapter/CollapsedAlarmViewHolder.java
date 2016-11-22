@@ -254,6 +254,7 @@ public final class CollapsedAlarmViewHolder extends AlarmItemViewHolder {
         daysOfWeek.setAlpha(alpha);
         upcomingInstanceLabel.setAlpha(alpha);
         hairLine.setAlpha(alpha);
+        preemptiveDismissButton.setAlpha(alpha);
     }
 
     public static class Factory implements ItemAdapter.ItemViewHolder.Factory {
