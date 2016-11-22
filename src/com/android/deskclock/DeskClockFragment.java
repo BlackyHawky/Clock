@@ -93,6 +93,13 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     }
 
     /**
+     * Select the tab that displays this fragment.
+     */
+    public final void selectTab() {
+        UiDataModel.getUiDataModel().setSelectedTab(mTab);
+    }
+
+    /**
      * Updates the scrolling state in the {@link UiDataModel} for this tab.
      *
      * @param scrolledToTop {@code true} iff the vertical scroll position of this tab is at the top

@@ -64,10 +64,11 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <com.android.deskclock.widget.RtlViewPager
+        <android.support.v4.view.ViewPager
             android:id="@+id/desk_clock_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:saveEnabled="false" />
 
         <include layout="@layout/drop_shadow" />
 
