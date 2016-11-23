@@ -279,6 +279,7 @@ public final class TimerFragment extends DeskClockFragment {
                 fab.setContentDescription(fab.getResources().getString(R.string.timer_start));
                 fab.setVisibility(VISIBLE);
             } else {
+                fab.setContentDescription(null);
                 fab.setVisibility(INVISIBLE);
             }
         }
@@ -300,24 +301,24 @@ public final class TimerFragment extends DeskClockFragment {
     @Override
     public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
         if (mCurrentView == mTimersView) {
-            left.setEnabled(true);
+            left.setClickable(true);
             left.setText(R.string.timer_delete);
             left.setContentDescription(left.getResources().getString(R.string.timer_delete));
-            left.setVisibility(mCurrentView != mTimersView ? GONE : VISIBLE);
+            left.setVisibility(VISIBLE);
 
-            right.setEnabled(true);
+            right.setClickable(true);
             right.setText(R.string.timer_add_timer);
             right.setContentDescription(right.getResources().getString(R.string.timer_add_timer));
-            right.setVisibility(mCurrentView != mTimersView ? GONE : VISIBLE);
+            right.setVisibility(VISIBLE);
 
         } else if (mCurrentView == mCreateTimerView) {
-            left.setEnabled(true);
+            left.setClickable(true);
             left.setText(R.string.timer_cancel);
             left.setContentDescription(left.getResources().getString(R.string.timer_cancel));
             // If no timers yet exist, the user is forced to create the first one.
             left.setVisibility(hasTimers() ? VISIBLE : INVISIBLE);
 
-            right.setVisibility(GONE);
+            right.setVisibility(INVISIBLE);
         }
     }
 
@@ -717,6 +718,7 @@ public final class TimerFragment extends DeskClockFragment {
         @Override
         public void timerAdded(Timer timer) {
             updatePageIndicators();
+            updateFab(FAB_AND_BUTTONS_IMMEDIATE);
         }
 
         @Override
@@ -734,13 +736,9 @@ public final class TimerFragment extends DeskClockFragment {
                 mViewPager.setCurrentItem(index, true);
 
             } else if (mCurrentView == mTimersView && index == mViewPager.getCurrentItem()) {
-                // If the visible timer changed, update the fab to match its new state.
-
-                // No animation necessary
-                if ((before.isPaused() && after.isReset())
-                        || before.getState() == after.getState()) {
-                    updateFab(FAB_IMMEDIATE);
-                } else {
+                // Morph the fab from its old state to new state if necessary.
+                if (before.getState() != after.getState()
+                        && !(before.isPaused() && after.isReset())) {
                     updateFab(FAB_MORPH);
                 }
             }

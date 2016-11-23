@@ -264,7 +264,7 @@ public final class StopwatchFragment extends DeskClockFragment {
         switch (getStopwatch().getState()) {
             case RESET:
                 left.setVisibility(INVISIBLE);
-                right.setEnabled(true);
+                right.setClickable(true);
                 right.setVisibility(INVISIBLE);
                 break;
             case RUNNING:
@@ -272,12 +272,12 @@ public final class StopwatchFragment extends DeskClockFragment {
                 final boolean canRecordLaps = canRecordMoreLaps();
                 right.setText(R.string.sw_lap_button);
                 right.setContentDescription(resources.getString(R.string.sw_lap_button));
-                right.setEnabled(canRecordLaps);
-                right.setVisibility(VISIBLE);
+                right.setClickable(canRecordLaps);
+                right.setVisibility(canRecordLaps ? VISIBLE : INVISIBLE);
                 break;
             case PAUSED:
                 left.setVisibility(VISIBLE);
-                right.setEnabled(true);
+                right.setClickable(true);
                 right.setVisibility(VISIBLE);
                 right.setText(R.string.sw_share_button);
                 right.setContentDescription(resources.getString(R.string.sw_share_button));

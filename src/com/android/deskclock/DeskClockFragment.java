@@ -31,6 +31,9 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     /** The tab associated with this fragment. */
     private final Tab mTab;
 
+    /** The container that houses the fab and its left and right buttons. */
+    private FabContainer mFabContainer;
+
     public DeskClockFragment(Tab tab) {
         mTab = tab;
     }
@@ -73,16 +76,20 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
     }
 
     /**
+     * @param fabContainer the container that houses the fab and its left and right buttons
+     */
+    public final void setFabContainer(FabContainer fabContainer) {
+        mFabContainer = fabContainer;
+    }
+
+    /**
      * Requests that the parent activity update the fab and buttons.
      *
      * @param updateTypes the manner in which the fab container should be updated
      */
     @Override
     public final void updateFab(@UpdateFabFlag int updateTypes) {
-        final FabContainer parentFabContainer = (FabContainer) getActivity();
-        if (parentFabContainer != null) {
-            parentFabContainer.updateFab(updateTypes);
-        }
+        mFabContainer.updateFab(updateTypes);
     }
 
     /**
