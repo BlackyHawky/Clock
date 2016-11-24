@@ -52,6 +52,9 @@
     <!-- Label for removing a ringtone sound [CHAR LIMIT=30] -->
     <string name="remove_sound">Remove</string>
 
+    <!-- Text that explains what happens to alarms and timers after removing the custom ringtone sound they use [CHAR LIMIT=NONE] -->
+    <string name="confirm_remove_custom_ringtone">Alarms and timers using this sound will play the default sound instead.</string>
+
     <!-- Label for Music section on ringtone selection screen [CHAR LIMIT=30] -->
     <string name="music">Music</string>
 

@@ -54,10 +54,10 @@ public class LabelDialogFragment extends DialogFragment {
      */
     private static final String TAG = "label_dialog";
 
-    private static final String KEY_LABEL = "label";
-    private static final String KEY_ALARM = "alarm";
-    private static final String KEY_TIMER_ID = "timer_id";
-    private static final String KEY_TAG = "tag";
+    private static final String ARG_LABEL = "arg_label";
+    private static final String ARG_ALARM = "arg_alarm";
+    private static final String ARG_TIMER_ID = "arg_timer_id";
+    private static final String ARG_TAG = "arg_tag";
 
     private AppCompatEditText mLabelBox;
     private Alarm mAlarm;
@@ -66,9 +66,9 @@ public class LabelDialogFragment extends DialogFragment {
 
     public static LabelDialogFragment newInstance(Alarm alarm, String label, String tag) {
         final Bundle args = new Bundle();
-        args.putString(KEY_LABEL, label);
-        args.putParcelable(KEY_ALARM, alarm);
-        args.putString(KEY_TAG, tag);
+        args.putString(ARG_LABEL, label);
+        args.putParcelable(ARG_ALARM, alarm);
+        args.putString(ARG_TAG, tag);
 
         final LabelDialogFragment frag = new LabelDialogFragment();
         frag.setArguments(args);
@@ -77,8 +77,8 @@ public class LabelDialogFragment extends DialogFragment {
 
     public static LabelDialogFragment newInstance(Timer timer) {
         final Bundle args = new Bundle();
-        args.putString(KEY_LABEL, timer.getLabel());
-        args.putInt(KEY_TIMER_ID, timer.getId());
+        args.putString(ARG_LABEL, timer.getLabel());
+        args.putInt(ARG_TIMER_ID, timer.getId());
 
         final LabelDialogFragment frag = new LabelDialogFragment();
         frag.setArguments(args);
@@ -113,20 +113,20 @@ public class LabelDialogFragment extends DialogFragment {
         super.onSaveInstanceState(outState);
         // As long as the label box exists, save its state.
         if (mLabelBox != null) {
-            outState.putString(KEY_LABEL, mLabelBox.getText().toString());
+            outState.putString(ARG_LABEL, mLabelBox.getText().toString());
         }
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Bundle args = getArguments() == null ? Bundle.EMPTY : getArguments();
-        mAlarm = args.getParcelable(KEY_ALARM);
-        mTimerId = args.getInt(KEY_TIMER_ID, -1);
-        mTag = args.getString(KEY_TAG);
+        mAlarm = args.getParcelable(ARG_ALARM);
+        mTimerId = args.getInt(ARG_TIMER_ID, -1);
+        mTag = args.getString(ARG_TAG);
 
-        String label = args.getString(KEY_LABEL);
+        String label = args.getString(ARG_LABEL);
         if (savedInstanceState != null) {
-            label = savedInstanceState.getString(KEY_LABEL, label);
+            label = savedInstanceState.getString(ARG_LABEL, label);
         }
 
         final AlertDialog dialog = new AlertDialog.Builder(getActivity())
