@@ -21,9 +21,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -31,21 +28,16 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v13.app.FragmentCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.util.ArrayMap;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -62,8 +54,6 @@ import com.android.deskclock.provider.Alarm;
 import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.toast.SnackbarManager;
-
-import java.util.Map;
 
 import static android.support.v4.view.ViewPager.SCROLL_STATE_DRAGGING;
 import static android.support.v4.view.ViewPager.SCROLL_STATE_IDLE;
@@ -131,7 +121,7 @@ public class DeskClock extends BaseActivity
     private ViewPager mFragmentTabPager;
 
     /** Generates the fragments that are displayed by the {@link #mFragmentTabPager}. */
-    private TabFragmentAdapter mFragmentTabPagerAdapter;
+    private FragmentTabPagerAdapter mFragmentTabPagerAdapter;
 
     /** The container that stores the tab headers. */
     private TabLayout mTabLayout;
@@ -287,7 +277,7 @@ public class DeskClock extends BaseActivity
                 .after(rightHideAnimation);
 
         // Customize the view pager.
-        mFragmentTabPagerAdapter = new TabFragmentAdapter(this);
+        mFragmentTabPagerAdapter = new FragmentTabPagerAdapter(this);
         mFragmentTabPager = (ViewPager) findViewById(R.id.desk_clock_pager);
         // Keep all four tabs to minimize jank.
         mFragmentTabPager.setOffscreenPageLimit(3);
@@ -470,8 +460,8 @@ public class DeskClock extends BaseActivity
         }
         switch (updateType & BUTTONS_DISABLE_MASK) {
             case BUTTONS_DISABLE:
-                mLeftButton.setEnabled(false);
-                mRightButton.setEnabled(false);
+                mLeftButton.setClickable(false);
+                mRightButton.setClickable(false);
                 break;
         }
     }
@@ -699,139 +689,6 @@ public class DeskClock extends BaseActivity
             if (!mHideAnimation.isStarted()) {
                 updateFab(FAB_AND_BUTTONS_IMMEDIATE);
             }
-        }
-    }
-
-    /**
-     * This adapter produces the DeskClockFragments that are the contents of the tabs. The adapter
-     * presents the tabs in LTR and RTL order depending on the text layout direction for the current
-     * locale. To prevent issues when switching between LTR and RTL, fragments are registered with
-     * position-independent tags, which is an important departure from FragmentPagerAdapter.
-     */
-    private static final class TabFragmentAdapter extends PagerAdapter {
-
-        private final Context mContext;
-
-        /** The manager into which fragments are added. */
-        private final FragmentManager mFragmentManager;
-
-        /** A fragment cache that can be accessed before {@link #instantiateItem} is called. */
-        private final Map<UiDataModel.Tab, DeskClockFragment> mFragmentCache;
-
-        /** The active fragment transaction if one exists. */
-        private FragmentTransaction mCurrentTransaction;
-
-        /** The current fragment displayed to the user. */
-        private Fragment mCurrentPrimaryItem;
-
-        TabFragmentAdapter(AppCompatActivity activity) {
-            mContext = activity;
-            mFragmentCache = new ArrayMap<>(getCount());
-            mFragmentManager = activity.getFragmentManager();
-        }
-
-        @Override
-        public int getCount() {
-            return UiDataModel.getUiDataModel().getTabCount();
-        }
-
-        /**
-         * @param position the left-to-right index of the fragment to be returned
-         * @return the fragment displayed at the given {@code position}
-         */
-        private DeskClockFragment getDeskClockFragment(int position) {
-            // Fetch the tab the UiDataModel reports for the position.
-            final UiDataModel.Tab tab = UiDataModel.getUiDataModel().getTabAt(position);
-
-            // First check the local cache for the fragment.
-            DeskClockFragment fragment = mFragmentCache.get(tab);
-            if (fragment != null) {
-                return fragment;
-            }
-
-            // Next check the fragment manager; relevant when app is rebuilt after locale changes
-            // because this adapter will be new and mFragmentCache will be empty, but the fragment
-            // manager will retain the Fragments built on original application launch.
-            fragment = (DeskClockFragment) mFragmentManager.findFragmentByTag(tab.name());
-            if (fragment != null) {
-                mFragmentCache.put(tab, fragment);
-                return fragment;
-            }
-
-            // Otherwise, build the fragment from scratch.
-            final String fragmentClassName = tab.getFragmentClassName();
-            fragment = (DeskClockFragment) Fragment.instantiate(mContext, fragmentClassName);
-            mFragmentCache.put(tab, fragment);
-            return fragment;
-        }
-
-        @Override
-        public void startUpdate(ViewGroup container) {
-            if (container.getId() == View.NO_ID) {
-                throw new IllegalStateException("ViewPager with adapter " + this + " has no id");
-            }
-        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            if (mCurrentTransaction == null) {
-                mCurrentTransaction = mFragmentManager.beginTransaction();
-            }
-
-            // Use the fragment located in the fragment manager if one exists.
-            final UiDataModel.Tab tab = UiDataModel.getUiDataModel().getTabAt(position);
-            Fragment fragment = mFragmentManager.findFragmentByTag(tab.name());
-            if (fragment != null) {
-                mCurrentTransaction.attach(fragment);
-            } else {
-                fragment = getDeskClockFragment(position);
-                mCurrentTransaction.add(container.getId(), fragment, tab.name());
-            }
-
-            if (fragment != mCurrentPrimaryItem) {
-                FragmentCompat.setMenuVisibility(fragment, false);
-                FragmentCompat.setUserVisibleHint(fragment, false);
-            }
-
-            return fragment;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position, Object object) {
-            if (mCurrentTransaction == null) {
-                mCurrentTransaction = mFragmentManager.beginTransaction();
-            }
-            mCurrentTransaction.detach((Fragment) object);
-        }
-
-        @Override
-        public void setPrimaryItem(ViewGroup container, int position, Object object) {
-            final Fragment fragment = (Fragment) object;
-            if (fragment != mCurrentPrimaryItem) {
-                if (mCurrentPrimaryItem != null) {
-                    FragmentCompat.setMenuVisibility(mCurrentPrimaryItem, false);
-                    FragmentCompat.setUserVisibleHint(mCurrentPrimaryItem, false);
-                }
-                if (fragment != null) {
-                    FragmentCompat.setMenuVisibility(fragment, true);
-                    FragmentCompat.setUserVisibleHint(fragment, true);
-                }
-                mCurrentPrimaryItem = fragment;
-            }
-        }
-
-        @Override
-        public void finishUpdate(ViewGroup container) {
-            if (mCurrentTransaction != null) {
-                mCurrentTransaction.commitAllowingStateLoss();
-                mCurrentTransaction = null;
-                mFragmentManager.executePendingTransactions();
-            }
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return ((Fragment) object).getView() == view;
         }
     }
 }
