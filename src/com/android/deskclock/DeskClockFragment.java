@@ -89,7 +89,9 @@ public abstract class DeskClockFragment extends Fragment implements FabContainer
      */
     @Override
     public final void updateFab(@UpdateFabFlag int updateTypes) {
-        mFabContainer.updateFab(updateTypes);
+        if (mFabContainer != null) {
+            mFabContainer.updateFab(updateTypes);
+        }
     }
 
     /**
