@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Ulang"</string>
     <string name="delete" msgid="5732434972457000541">"Padam"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Bunyi penggera lalai"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"Bunyi Penggera"</string>
-    <string name="timer_sound" msgid="713786870463353608">"Bunyi Pemasa"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Bunyi penggera"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Bunyi pemasa"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Tambah nada dering baharu"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Alih keluar"</string>
     <string name="music" msgid="3299572469993696378">"Muzik"</string>

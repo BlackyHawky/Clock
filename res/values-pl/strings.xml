@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Powtarzanie"</string>
     <string name="delete" msgid="5732434972457000541">"Usuń"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Domyślny dźwięk alarmu"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"Dźwięk alarmu"</string>
-    <string name="timer_sound" msgid="713786870463353608">"Dźwięk minutnika"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Dźwięk alarmu"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Dźwięk minutnika"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Dodaj nowy"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Usuń"</string>
     <string name="music" msgid="3299572469993696378">"Muzyka"</string>

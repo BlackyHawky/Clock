@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Επανάληψη"</string>
     <string name="delete" msgid="5732434972457000541">"Διαγραφή"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Προεπιλεγμένος ήχος ειδοποίησης"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"Ήχος ξυπνητηριού"</string>
-    <string name="timer_sound" msgid="713786870463353608">"Ήχος ξυπνητηριού"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Ήχος ξυπνητηριού"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Ήχος αντίστροφης μέτρησης"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Προσθήκη νέου"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Κατάργηση"</string>
     <string name="music" msgid="3299572469993696378">"Μουσική"</string>

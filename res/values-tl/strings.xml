@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Ulitin"</string>
     <string name="delete" msgid="5732434972457000541">"I-delete"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Default na tunog ng alarm"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"Tunog ng Alarm"</string>
-    <string name="timer_sound" msgid="713786870463353608">"Tunog ng Timer"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Tunog ng alarm"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Tunog ng timer"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Magdagdag ng bago"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Alisin"</string>
     <string name="music" msgid="3299572469993696378">"Musika"</string>

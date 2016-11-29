@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"חוזר"</string>
     <string name="delete" msgid="5732434972457000541">"מחק"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"צליל ברירת המחדל להתראה"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"צליל התראה"</string>
-    <string name="timer_sound" msgid="713786870463353608">"צליל טיימר"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"צליל שעון מעורר"</string>
+    <string name="timer_sound" msgid="896163086604894735">"צליל טיימר"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"הוסף חדש"</string>
     <string name="remove_sound" msgid="2064643204455734239">"הסר"</string>
     <string name="music" msgid="3299572469993696378">"מוזיקה"</string>

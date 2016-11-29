@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Repetir"</string>
     <string name="delete" msgid="5732434972457000541">"Eliminar"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Sonido de alarma predeterminado"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"Sonido de la alarma"</string>
-    <string name="timer_sound" msgid="713786870463353608">"Sonido del temporizador"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Sonido de la alarma"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Sonido del temporizador"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Agregar nuevo"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Quitar"</string>
     <string name="music" msgid="3299572469993696378">"Música"</string>
