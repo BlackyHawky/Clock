@@ -17,6 +17,7 @@
 package com.android.deskclock.stopwatch;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -169,6 +170,20 @@ public final class StopwatchFragment extends DeskClockFragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        final Activity activity = getActivity();
+        final Intent intent = activity.getIntent();
+        if (intent != null) {
+            final String action = intent.getAction();
+            if (StopwatchService.ACTION_START_STOPWATCH.equals(action)) {
+                DataModel.getDataModel().startStopwatch();
+            } else if (StopwatchService.ACTION_PAUSE_STOPWATCH.equals(action)) {
+                DataModel.getDataModel().pauseStopwatch();
+            }
+
+            // Consume the intent
+            activity.setIntent(null);
+        }
 
         // Conservatively assume the data in the adapter has changed while the fragment was paused.
         mLapsAdapter.notifyDataSetChanged();
