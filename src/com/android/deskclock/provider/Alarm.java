@@ -155,6 +155,21 @@ public final class Alarm implements Parcelable, ClockContract.AlarmsColumns {
         return new CursorLoader(context, ALARMS_WITH_INSTANCES_URI,
                 QUERY_ALARMS_WITH_INSTANCES_COLUMNS, null, null, DEFAULT_SORT_ORDER) {
             @Override
+            public void onContentChanged() {
+                // There is a bug in Loader which can result in stale data if a loader is stopped
+                // immediately after a call to onContentChanged. As a workaround we stop the
+                // loader before delivering onContentChanged to ensure mContentChanged is set to
+                // true before forceLoad is called.
+                if (isStarted() && !isAbandoned()) {
+                    stopLoading();
+                    super.onContentChanged();
+                    startLoading();
+                } else {
+                    super.onContentChanged();
+                }
+            }
+
+            @Override
             public Cursor loadInBackground() {
                 // Prime the ringtone title cache for later access. Most alarms will refer to
                 // system ringtones.
