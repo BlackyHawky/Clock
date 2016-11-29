@@ -16,9 +16,13 @@
 
 package com.android.deskclock.ringtone;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.app.LoaderManager;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -29,6 +33,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.VisibleForTesting;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -119,7 +124,7 @@ public class RingtonePickerActivity extends BaseActivity
     private long mAlarmId;
 
     /** The location of the custom ringtone to be removed. */
-    private int mIndexOfRingtoneToRemove;
+    private int mIndexOfRingtoneToRemove = RecyclerView.NO_POSITION;
 
     /**
      * @return an intent that launches the ringtone picker to edit the ringtone of the given
@@ -337,29 +342,11 @@ public class RingtonePickerActivity extends BaseActivity
     public boolean onContextItemSelected(MenuItem item) {
         // Find the ringtone to be removed.
         final List<ItemAdapter.ItemHolder<Uri>> items = mRingtoneAdapter.getItems();
-        final CustomRingtoneHolder toRemove =
-                (CustomRingtoneHolder) items.get(mIndexOfRingtoneToRemove);
-
-        // If the ringtone to remove is also the selected ringtone, adjust the selection.
-        if (toRemove.isSelected()) {
-            stopPlayingRingtone(toRemove, false);
-            final RingtoneHolder defaultRingtone = getRingtoneHolder(mDefaultRingtoneUri);
-            if (defaultRingtone != null) {
-                defaultRingtone.setSelected(true);
-                mSelectedRingtoneUri = defaultRingtone.getUri();
-                defaultRingtone.notifyItemChanged();
-            }
-        }
-
-        // Remove the item from the adapter and from the data model.
+        final RingtoneHolder toRemove = (RingtoneHolder) items.get(mIndexOfRingtoneToRemove);
         mIndexOfRingtoneToRemove = -1;
-        mRingtoneAdapter.removeItem(toRemove);
-        DataModel.getDataModel().removeCustomRingtone(toRemove.getUri());
 
-        // Release the permission to read (playback) the audio at the uri.
-        final ContentResolver cr = getContentResolver();
-        cr.releasePersistableUriPermission(toRemove.getUri(), FLAG_GRANT_READ_URI_PERMISSION);
-
+        // Launch the confirmation dialog.
+        ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(), toRemove.getUri());
         return true;
     }
 
@@ -422,6 +409,55 @@ public class RingtonePickerActivity extends BaseActivity
     }
 
     /**
+     * Proceeds with removing the custom ringtone with the given uri.
+     *
+     * @param toRemove identifies the custom ringtone to be removed
+     */
+    private void removeCustomRingtone(Uri toRemove) {
+        new RemoveCustomRingtoneTask(toRemove).execute();
+    }
+
+    /**
+     * This DialogFragment informs the user of the side-effects of removing a custom ringtone while
+     * it is in use by alarms and/or timers and prompts them to confirm the removal.
+     */
+    public static class ConfirmRemoveCustomRingtoneDialogFragment extends DialogFragment {
+
+        private static final String ARG_RINGTONE_URI_TO_REMOVE = "arg_ringtone_uri_to_remove";
+
+        static void show(FragmentManager manager, Uri toRemove) {
+            if (manager.isDestroyed()) {
+                return;
+            }
+
+            final Bundle args = new Bundle();
+            args.putParcelable(ARG_RINGTONE_URI_TO_REMOVE, toRemove);
+
+            final DialogFragment fragment = new ConfirmRemoveCustomRingtoneDialogFragment();
+            fragment.setArguments(args);
+            fragment.show(manager, "confirm_ringtone_remove");
+        }
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final Uri toRemove = getArguments().getParcelable(ARG_RINGTONE_URI_TO_REMOVE);
+
+            final DialogInterface.OnClickListener okListener =
+                    new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ((RingtonePickerActivity) getActivity()).removeCustomRingtone(toRemove);
+                }
+            };
+            return new AlertDialog.Builder(getActivity())
+                    .setPositiveButton(R.string.remove_sound, okListener)
+                    .setNegativeButton(android.R.string.cancel, null /* listener */)
+                    .setMessage(R.string.confirm_remove_custom_ringtone)
+                    .create();
+        }
+    }
+
+    /**
      * This click handler alters selection and playback of ringtones. It also launches the system
      * file chooser to search for openable audio files that may serve as ringtones.
      */
@@ -478,9 +514,8 @@ public class RingtonePickerActivity extends BaseActivity
 
         @Override
         protected String doInBackground(Void... voids) {
-            Cursor cursor = null;
-            try {
-                cursor = mContext.getContentResolver().query(mUri, null, null, null, null, null);
+            final ContentResolver contentResolver = mContext.getContentResolver();
+            try (Cursor cursor = contentResolver.query(mUri, null, null, null, null)) {
                 if (cursor != null && cursor.moveToFirst()) {
                     // If the file was a media file, return its title.
                     final int titleIndex = cursor.getColumnIndex(MediaStore.Audio.Media.TITLE);
@@ -503,10 +538,6 @@ public class RingtonePickerActivity extends BaseActivity
                 }
             } catch (Exception e) {
                 LogUtils.e("Unable to locate title for custom ringtone: " + mUri, e);
-            } finally {
-                if (cursor != null) {
-                    cursor.close();
-                }
             }
 
             return mContext.getString(R.string.unknown_ringtone_title);
@@ -514,8 +545,6 @@ public class RingtonePickerActivity extends BaseActivity
 
         @Override
         protected void onPostExecute(String title) {
-            super.onPostExecute(title);
-
             // Take the long-term permission to read (playback) the audio at the uri.
             final ContentResolver cr = getContentResolver();
             cr.takePersistableUriPermission(mUri, FLAG_GRANT_READ_URI_PERMISSION);
@@ -530,6 +559,82 @@ public class RingtonePickerActivity extends BaseActivity
             // Reload the data to reflect the change in the UI.
             getLoaderManager().restartLoader(0 /* id */, null /* args */,
                     RingtonePickerActivity.this /* callback */);
+        }
+    }
+
+    /**
+     * Removes a custom ringtone with the given uri. Taking this action has side-effects because
+     * all alarms that use the custom ringtone are reassigned to the Android system default alarm
+     * ringtone. If the application's default alarm ringtone is being removed, it is reset to the
+     * Android system default alarm ringtone. If the application's timer ringtone is being removed,
+     * it is reset to the application's default timer ringtone.
+     */
+    private final class RemoveCustomRingtoneTask extends AsyncTask<Void, Void, Void> {
+
+        private final Uri mRemoveUri;
+        private Uri mSystemDefaultRingtoneUri;
+
+        private RemoveCustomRingtoneTask(Uri removeUri) {
+            mRemoveUri = removeUri;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mSystemDefaultRingtoneUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+
+            // Update all alarms that use the custom ringtone to use the system default.
+            final ContentResolver cr = getContentResolver();
+            final List<Alarm> alarms = Alarm.getAlarms(cr, null);
+            for (Alarm alarm : alarms) {
+                if (mRemoveUri.equals(alarm.alert)) {
+                    alarm.alert = mSystemDefaultRingtoneUri;
+                    // Start a second background task to persist the updated alarm.
+                    new AlarmUpdateHandler(RingtonePickerActivity.this, null, null)
+                            .asyncUpdateAlarm(alarm, false, true);
+                }
+            }
+
+            // Release the permission to read (playback) the audio at the uri.
+            cr.releasePersistableUriPermission(mRemoveUri, FLAG_GRANT_READ_URI_PERMISSION);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void v) {
+            // Reset the default alarm ringtone if it was just removed.
+            if (mRemoveUri.equals(DataModel.getDataModel().getDefaultAlarmRingtoneUri())) {
+                DataModel.getDataModel().setDefaultAlarmRingtoneUri(mSystemDefaultRingtoneUri);
+            }
+
+            // Reset the timer ringtone if it was just removed.
+            if (mRemoveUri.equals(DataModel.getDataModel().getTimerRingtoneUri())) {
+                final Uri timerRingtoneUri = DataModel.getDataModel().getDefaultTimerRingtoneUri();
+                DataModel.getDataModel().setTimerRingtoneUri(timerRingtoneUri);
+            }
+
+            // Remove the corresponding custom ringtone.
+            DataModel.getDataModel().removeCustomRingtone(mRemoveUri);
+
+            // Find the ringtone to be removed from the adapter.
+            final RingtoneHolder toRemove = getRingtoneHolder(mRemoveUri);
+            if (toRemove == null) {
+                return;
+            }
+
+            // If the ringtone to remove is also the selected ringtone, adjust the selection.
+            if (toRemove.isSelected()) {
+                stopPlayingRingtone(toRemove, false);
+                final RingtoneHolder defaultRingtone = getRingtoneHolder(mDefaultRingtoneUri);
+                if (defaultRingtone != null) {
+                    defaultRingtone.setSelected(true);
+                    mSelectedRingtoneUri = defaultRingtone.getUri();
+                    defaultRingtone.notifyItemChanged();
+                }
+            }
+
+            // Remove the ringtone from the adapter.
+            mRingtoneAdapter.removeItem(toRemove);
         }
     }
 }
