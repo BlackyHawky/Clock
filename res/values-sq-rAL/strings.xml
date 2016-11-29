@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Përsërit"</string>
     <string name="delete" msgid="5732434972457000541">"Fshi"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Tingulli i parazgjedhur i alarmit sinjalizues"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"Tingulli i alarmit"</string>
-    <string name="timer_sound" msgid="713786870463353608">"Tingulli i kohëmatësit"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Tingulli i alarmit"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Tingulli i kohëmatësit"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Shto një të ri"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Hiq"</string>
     <string name="music" msgid="3299572469993696378">"Muzika"</string>

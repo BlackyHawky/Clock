@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"மீண்டும்"</string>
     <string name="delete" msgid="5732434972457000541">"நீக்கு"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"இயல்பு அலார ஒலி"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"அலார ஒலி"</string>
-    <string name="timer_sound" msgid="713786870463353608">"டைமர் ஒலி"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"அலார ஒலி"</string>
+    <string name="timer_sound" msgid="896163086604894735">"டைமர் ஒலி"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"புதிய ரிங்டோனைச் சேர்"</string>
     <string name="remove_sound" msgid="2064643204455734239">"அகற்று"</string>
     <string name="music" msgid="3299572469993696378">"இசை"</string>

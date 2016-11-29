@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Tekrarla"</string>
     <string name="delete" msgid="5732434972457000541">"Sil"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Varsayılan alarm sesi"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"Alarm Sesi"</string>
-    <string name="timer_sound" msgid="713786870463353608">"Zamanlayıcı Sesi"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Alarm sesi"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Zamanlayıcı sesi"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Yeni ekle"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Kaldır"</string>
     <string name="music" msgid="3299572469993696378">"Müzik"</string>

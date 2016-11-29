@@ -23,8 +23,8 @@
     <string name="alarm_repeat" msgid="7242985466344233206">"Повторять"</string>
     <string name="delete" msgid="5732434972457000541">"Удалить"</string>
     <string name="default_alarm_ringtone_title" msgid="2916376768509623643">"Звуковой сигнал по умолчанию"</string>
-    <string name="alarm_sound" msgid="1929644445093661596">"Сигнал будильника"</string>
-    <string name="timer_sound" msgid="713786870463353608">"Таймер сигнала"</string>
+    <string name="alarm_sound" msgid="8754499591391638405">"Сигнал будильника"</string>
+    <string name="timer_sound" msgid="896163086604894735">"Сигнал таймера"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Добавить"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Удалить"</string>
     <string name="music" msgid="3299572469993696378">"Музыка"</string>
@@ -197,7 +197,7 @@
     <string name="unmute_alarm_volume" msgid="2655009276035357497">"Включить звук"</string>
     <string name="silent_default_alarm_ringtone" msgid="6012855475009670997">"Сигнал будильника по умолчанию – без звука"</string>
     <string name="change_setting_action" msgid="1224356633832430160">"Изменить"</string>
-    <string name="app_notifications_blocked" msgid="7249150789023936889">"Уведомления заблокированы."</string>
+    <string name="app_notifications_blocked" msgid="7249150789023936889">"Уведомления от часов заблокированы."</string>
     <string name="alarms_blocked_by_dnd" msgid="6089433757505898969">"Включен режим \"Полная тишина\""</string>
     <string name="volume_button_setting_title" msgid="6937131248843413357">"Кнопки громкости"</string>
   <string-array name="volume_button_setting_entries">
