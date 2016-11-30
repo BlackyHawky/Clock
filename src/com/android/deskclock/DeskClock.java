@@ -464,6 +464,14 @@ public class DeskClock extends BaseActivity
                 mRightButton.setClickable(false);
                 break;
         }
+        switch (updateType & FAB_AND_BUTTONS_SHRINK_EXPAND_MASK) {
+            case FAB_AND_BUTTONS_SHRINK:
+                mHideAnimation.start();
+                break;
+            case FAB_AND_BUTTONS_EXPAND:
+                mShowAnimation.start();
+                break;
+        }
     }
 
     @Override

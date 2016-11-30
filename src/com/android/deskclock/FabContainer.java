@@ -37,6 +37,13 @@ public interface FabContainer {
     /** Disable the buttons of the fab so they do not respond to clicks. */
     int BUTTONS_DISABLE = 0b100000;
 
+    /** Bit 6-7 */
+    int FAB_AND_BUTTONS_SHRINK_EXPAND_MASK = 0b11000000;
+    /** Signals the fab and buttons should be "animated away". */
+    int FAB_AND_BUTTONS_SHRINK = 0b10000000;
+    /** Signals the fab and buttons should be "animated back". */
+    int FAB_AND_BUTTONS_EXPAND = 0b01000000;
+
     /** Convenience flags */
     int FAB_AND_BUTTONS_IMMEDIATE = FAB_IMMEDIATE | BUTTONS_IMMEDIATE;
     int FAB_AND_BUTTONS_SHRINK_AND_EXPAND = FAB_SHRINK_AND_EXPAND | BUTTONS_SHRINK_AND_EXPAND;
@@ -45,7 +52,8 @@ public interface FabContainer {
             flag = true,
             value = { FAB_IMMEDIATE, FAB_SHRINK_AND_EXPAND, FAB_MORPH, FAB_REQUEST_FOCUS,
                     BUTTONS_IMMEDIATE, BUTTONS_SHRINK_AND_EXPAND, BUTTONS_DISABLE,
-                    FAB_AND_BUTTONS_IMMEDIATE, FAB_AND_BUTTONS_SHRINK_AND_EXPAND }
+                    FAB_AND_BUTTONS_IMMEDIATE, FAB_AND_BUTTONS_SHRINK_AND_EXPAND,
+                    FAB_AND_BUTTONS_SHRINK, FAB_AND_BUTTONS_EXPAND }
     )
     @interface UpdateFabFlag {}
 

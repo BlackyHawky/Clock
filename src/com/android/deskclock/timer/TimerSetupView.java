@@ -208,6 +208,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     public boolean onLongClick(View v) {
         if (v == mDelete) {
             reset();
+            updateFab();
             return true;
         }
         return false;
@@ -217,7 +218,6 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
         if (mInputPointer != -1) {
             Arrays.fill(mInput, 0);
             mInputPointer = -1;
-            updateFab();
             updateTime();
             updateDeleteButtonAndDivider();
         }
