@@ -31,26 +31,44 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/fab_height">
+                android:layout_height="@dimen/fab_height"
+                android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/timer_label"
-                    style="?attr/borderlessButtonStyle"
-                    android:layout_width="wrap_content"
+                <Space
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:clickable="false"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:hint="@string/label"
-                    android:maxLines="1"
-                    android:minHeight="@dimen/touch_target_min_size"
-                    android:minWidth="@dimen/touch_target_min_size"
-                    android:textAppearance="@style/SecondaryLabelTextAppearance" />
+                    android:layout_weight="2" />
 
-            </FrameLayout>
+                <FrameLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <Button
+                        android:id="@+id/timer_label"
+                        style="?attr/borderlessButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:clickable="false"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:hint="@string/label"
+                        android:maxLines="1"
+                        android:minHeight="@dimen/touch_target_min_size"
+                        android:minWidth="@dimen/touch_target_min_size"
+                        android:textAppearance="@style/SecondaryLabelTextAppearance" />
+
+                </FrameLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,7 +112,7 @@
 
                 </FrameLayout>
 
-                <android.support.v4.widget.Space
+                <Space
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
