@@ -194,8 +194,16 @@ public final class AlarmClockFragment extends DeskClockFragment implements
     public void onResume() {
         super.onResume();
 
+        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
+        // alarms when midnight passes.
+        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
+
         // Check if another app asked us to create a blank new alarm.
         final Intent intent = getActivity().getIntent();
+        if (intent == null) {
+            return;
+        }
+
         if (intent.hasExtra(ALARM_CREATE_NEW_INTENT_EXTRA)) {
             UiDataModel.getUiDataModel().setSelectedTab(ALARMS);
             if (intent.getBooleanExtra(ALARM_CREATE_NEW_INTENT_EXTRA, false)) {
@@ -221,10 +229,6 @@ public final class AlarmClockFragment extends DeskClockFragment implements
             // Remove the SCROLL_TO_ALARM extra now that we've processed it.
             intent.removeExtra(SCROLL_TO_ALARM_INTENT_EXTRA);
         }
-
-        // Schedule a runnable to update the "Today/Tomorrow" values displayed for non-repeating
-        // alarms when midnight passes.
-        UiDataModel.getUiDataModel().addMidnightCallback(mMidnightUpdater, 100);
     }
 
     @Override
