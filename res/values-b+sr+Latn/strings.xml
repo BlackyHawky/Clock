@@ -27,6 +27,8 @@
     <string name="timer_sound" msgid="896163086604894735">"Zvuk tajmera"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Dodaj nov"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Ukloni"</string>
+    <!-- no translation found for confirm_remove_custom_ringtone (1724111242265208553) -->
+    <skip />
     <string name="music" msgid="3299572469993696378">"Muzika"</string>
     <string name="ringtones" msgid="2548286573030531045">"Melodije zvona"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Tajmer je istekao"</string>
