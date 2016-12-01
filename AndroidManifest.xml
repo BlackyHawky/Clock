@@ -18,8 +18,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.deskclock"
-    android:versionCode="451"
-    android:versionName="4.5.1">
+    android:versionCode="500"
+    android:versionName="5.0.0">
 
     <original-package android:name="com.android.alarmclock" />
     <original-package android:name="com.android.deskclock" />
