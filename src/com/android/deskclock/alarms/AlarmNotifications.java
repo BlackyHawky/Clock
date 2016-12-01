@@ -43,8 +43,8 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Objects;
 
-public final class AlarmNotifications {
-    public static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
+final class AlarmNotifications {
+    static final String EXTRA_NOTIFICATION_ID = "extra_notification_id";
 
     /**
      * Formats times such that chronological order and lexicographical order agree.
@@ -76,7 +76,13 @@ public final class AlarmNotifications {
      */
     private static final int ALARM_GROUP_MISSED_NOTIFICATION_ID = Integer.MAX_VALUE - 5;
 
-    public static synchronized void showLowPriorityNotification(Context context,
+    /**
+     * This value is coordinated with notification ids from
+     * {@link com.android.deskclock.data.NotificationModel}
+     */
+    private static final int ALARM_FIRING_NOTIFICATION_ID = Integer.MAX_VALUE - 6;
+
+    static synchronized void showLowPriorityNotification(Context context,
             AlarmInstance instance) {
         LogUtils.v("Displaying low priority notification for alarm instance: " + instance.mId);
 
@@ -102,7 +108,8 @@ public final class AlarmNotifications {
         Intent hideIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DELETE_TAG, instance,
                 AlarmInstance.HIDE_NOTIFICATION_STATE);
-        notification.setDeleteIntent(PendingIntent.getService(context, instance.hashCode(),
+        final int id = instance.hashCode();
+        notification.setDeleteIntent(PendingIntent.getService(context, id,
                 hideIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup up dismiss action
@@ -110,20 +117,20 @@ public final class AlarmNotifications {
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.PREDISMISSED_STATE);
         notification.addAction(R.drawable.ic_alarm_off_24dp,
                 context.getString(R.string.alarm_alert_dismiss_text),
-                PendingIntent.getService(context, instance.hashCode(),
+                PendingIntent.getService(context, id,
                         dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup content action if instance is owned by alarm
         Intent viewAlarmIntent = createViewAlarmIntent(context, instance);
-        notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
+        notification.setContentIntent(PendingIntent.getActivity(context, id,
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        nm.notify(instance.hashCode(), notification.build());
+        nm.notify(id, notification.build());
         updateUpcomingAlarmGroupNotification(context);
     }
 
-    public static synchronized void showHighPriorityNotification(Context context,
+    static synchronized void showHighPriorityNotification(Context context,
             AlarmInstance instance) {
         LogUtils.v("Displaying high priority notification for alarm instance: " + instance.mId);
 
@@ -147,18 +154,19 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.PREDISMISSED_STATE);
+        final int id = instance.hashCode();
         notification.addAction(R.drawable.ic_alarm_off_24dp,
                 context.getString(R.string.alarm_alert_dismiss_text),
-                PendingIntent.getService(context, instance.hashCode(),
+                PendingIntent.getService(context, id,
                         dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup content action if instance is owned by alarm
         Intent viewAlarmIntent = createViewAlarmIntent(context, instance);
-        notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
+        notification.setContentIntent(PendingIntent.getActivity(context, id,
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        nm.notify(instance.hashCode(), notification.build());
+        nm.notify(id, notification.build());
         updateUpcomingAlarmGroupNotification(context);
     }
 
@@ -263,7 +271,7 @@ public final class AlarmNotifications {
         }
     }
 
-    public static synchronized void showSnoozeNotification(Context context,
+    static synchronized void showSnoozeNotification(Context context,
             AlarmInstance instance) {
         LogUtils.v("Displaying snoozed notification for alarm instance: " + instance.mId);
 
@@ -288,22 +296,23 @@ public final class AlarmNotifications {
         // Setup up dismiss action
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
+        final int id = instance.hashCode();
         notification.addAction(R.drawable.ic_alarm_off_24dp,
                 context.getString(R.string.alarm_alert_dismiss_text),
-                PendingIntent.getService(context, instance.hashCode(),
+                PendingIntent.getService(context, id,
                         dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup content action if instance is owned by alarm
         Intent viewAlarmIntent = createViewAlarmIntent(context, instance);
-        notification.setContentIntent(PendingIntent.getActivity(context, instance.hashCode(),
+        notification.setContentIntent(PendingIntent.getActivity(context, id,
                 viewAlarmIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        nm.notify(instance.hashCode(), notification.build());
+        nm.notify(id, notification.build());
         updateUpcomingAlarmGroupNotification(context);
     }
 
-    public static synchronized void showMissedNotification(Context context,
+    static synchronized void showMissedNotification(Context context,
             AlarmInstance instance) {
         LogUtils.v("Displaying missed notification for alarm instance: " + instance.mId);
 
@@ -326,28 +335,28 @@ public final class AlarmNotifications {
             notification.setGroup(MISSED_GROUP_KEY);
         }
 
-        final int hashCode = instance.hashCode();
+        final int id = instance.hashCode();
 
         // Setup dismiss intent
         Intent dismissIntent = AlarmStateManager.createStateChangeIntent(context,
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
-        notification.setDeleteIntent(PendingIntent.getService(context, hashCode,
+        notification.setDeleteIntent(PendingIntent.getService(context, id,
                 dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup content intent
         Intent showAndDismiss = AlarmInstance.createIntent(context, AlarmStateManager.class,
                 instance.mId);
-        showAndDismiss.putExtra(EXTRA_NOTIFICATION_ID, hashCode);
+        showAndDismiss.putExtra(EXTRA_NOTIFICATION_ID, id);
         showAndDismiss.setAction(AlarmStateManager.SHOW_AND_DISMISS_ALARM_ACTION);
-        notification.setContentIntent(PendingIntent.getBroadcast(context, hashCode,
+        notification.setContentIntent(PendingIntent.getBroadcast(context, id,
                 showAndDismiss, PendingIntent.FLAG_UPDATE_CURRENT));
 
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
-        nm.notify(hashCode, notification.build());
+        nm.notify(id, notification.build());
         updateMissedAlarmGroupNotification(context);
     }
 
-    public static synchronized void showAlarmNotification(Service service, AlarmInstance instance) {
+    static synchronized void showAlarmNotification(Service service, AlarmInstance instance) {
         LogUtils.v("Displaying alarm notification for alarm instance: " + instance.mId);
 
         Resources resources = service.getResources();
@@ -368,9 +377,8 @@ public final class AlarmNotifications {
         Intent snoozeIntent = AlarmStateManager.createStateChangeIntent(service,
                 AlarmStateManager.ALARM_SNOOZE_TAG, instance, AlarmInstance.SNOOZE_STATE);
         snoozeIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
-        PendingIntent snoozePendingIntent = PendingIntent.getService(service, instance.hashCode(),
-                snoozeIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent snoozePendingIntent = PendingIntent.getService(service,
+                ALARM_FIRING_NOTIFICATION_ID, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notification.addAction(R.drawable.ic_snooze_24dp,
                 resources.getString(R.string.alarm_alert_snooze_text), snoozePendingIntent);
 
@@ -379,7 +387,7 @@ public final class AlarmNotifications {
                 AlarmStateManager.ALARM_DISMISS_TAG, instance, AlarmInstance.DISMISSED_STATE);
         dismissIntent.putExtra(AlarmStateManager.FROM_NOTIFICATION_EXTRA, true);
         PendingIntent dismissPendingIntent = PendingIntent.getService(service,
-                instance.hashCode(), dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                ALARM_FIRING_NOTIFICATION_ID, dismissIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         notification.addAction(R.drawable.ic_alarm_off_24dp,
                 resources.getString(R.string.alarm_alert_dismiss_text),
                 dismissPendingIntent);
@@ -388,7 +396,7 @@ public final class AlarmNotifications {
         Intent contentIntent = AlarmInstance.createIntent(service, AlarmActivity.class,
                 instance.mId);
         notification.setContentIntent(PendingIntent.getActivity(service,
-                instance.hashCode(), contentIntent, PendingIntent.FLAG_UPDATE_CURRENT));
+                ALARM_FIRING_NOTIFICATION_ID, contentIntent, PendingIntent.FLAG_UPDATE_CURRENT));
 
         // Setup fullscreen intent
         Intent fullScreenIntent = AlarmInstance.createIntent(service, AlarmActivity.class,
@@ -398,14 +406,15 @@ public final class AlarmNotifications {
         fullScreenIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK |
                 Intent.FLAG_ACTIVITY_NO_USER_ACTION);
         notification.setFullScreenIntent(PendingIntent.getActivity(service,
-                instance.hashCode(), fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT), true);
+                ALARM_FIRING_NOTIFICATION_ID, fullScreenIntent, PendingIntent.FLAG_UPDATE_CURRENT),
+                true);
         notification.setPriority(NotificationCompat.PRIORITY_MAX);
 
         clearNotification(service, instance);
-        service.startForeground(instance.hashCode(), notification.build());
+        service.startForeground(ALARM_FIRING_NOTIFICATION_ID, notification.build());
     }
 
-    public static synchronized void clearNotification(Context context, AlarmInstance instance) {
+    static synchronized void clearNotification(Context context, AlarmInstance instance) {
         LogUtils.v("Clearing notifications for alarm instance: " + instance.mId);
         NotificationManagerCompat nm = NotificationManagerCompat.from(context);
         nm.cancel(instance.hashCode());
@@ -416,7 +425,7 @@ public final class AlarmNotifications {
     /**
      * Updates the notification for an existing alarm. Use if the label has changed.
      */
-    public static void updateNotification(Context context, AlarmInstance instance) {
+    static void updateNotification(Context context, AlarmInstance instance) {
         switch (instance.mAlarmState) {
             case AlarmInstance.LOW_NOTIFICATION_STATE:
                 showLowPriorityNotification(context, instance);
@@ -435,7 +444,7 @@ public final class AlarmNotifications {
         }
     }
 
-    public static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
+    static Intent createViewAlarmIntent(Context context, AlarmInstance instance) {
         final long alarmId = instance.mAlarmId == null ? Alarm.INVALID_ID : instance.mAlarmId;
         return Alarm.createIntent(context, DeskClock.class, alarmId)
                 .putExtra(AlarmClockFragment.SCROLL_TO_ALARM_INTENT_EXTRA, alarmId)
