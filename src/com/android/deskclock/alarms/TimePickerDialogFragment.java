@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,7 +16,6 @@
 
 package com.android.deskclock.alarms;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -25,10 +24,10 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
-import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 
 import java.util.Calendar;
@@ -58,16 +57,14 @@ public class TimePickerDialogFragment extends DialogFragment {
 
         if (Utils.isLOrLater()) {
             final Context context = getActivity();
-            return new TimePickerDialog(context, R.style.TimePickerTheme,
-                    new TimePickerDialog.OnTimeSetListener() {
-                        @Override
-                        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                            listener.onTimeSet(TimePickerDialogFragment.this, hourOfDay, minute);
-                        }
-                    }, hour, minute, DateFormat.is24HourFormat(context));
+            return new TimePickerDialog(context, new TimePickerDialog.OnTimeSetListener() {
+                @Override
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    listener.onTimeSet(TimePickerDialogFragment.this, hourOfDay, minute);
+                }
+            }, hour, minute, DateFormat.is24HourFormat(context));
         } else {
-            final AlertDialog.Builder builder =
-                    new AlertDialog.Builder(getActivity(), R.style.TimePickerTheme);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             final Context context = builder.getContext();
 
             final TimePicker timePicker = new TimePicker(context);

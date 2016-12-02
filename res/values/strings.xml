@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2007 The Android Open Source Project
+<!--
+  Copyright (C) 2016 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-          http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
 
 <resources
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2"
@@ -461,12 +462,6 @@
     <!-- Accessibility labels for alarm buttons -->
     <string name="label_description">Label</string>
     <string name="ringtone_description">Ringtone</string>
-    <!-- Talkback announcement for what will happen when user double taps a collapsed alarm.
-     [CHAR LIMIT=NONE] -->
-    <string name="expand_description">Expand</string>
-    <!-- Talkback announcement for what will happen when user double taps an expanded alarm.
-     [CHAR LIMIT=NONE] -->
-    <string name="collapse_description">Collapse</string>
 
     <!--  ActionBar strings -->
     <!-- Describes the purpose of the tab button which which switches the activity to the Alarm page -->
@@ -667,11 +662,6 @@
     <string name="home_time_zone">Home time zone</string>
     <!-- Title in a list dialog box to pick a time zone for the user's home -->
     <string name="home_time_zone_title">Home time zone</string>
-
-    <!-- Textual content of the button to discard the current dialog values and close the dialog -->
-    <string name="time_picker_cancel">Cancel</string>
-    <!-- Textual content of the button to update an alarm with the current dialog values -->
-    <string name="time_picker_set">OK</string>
 
     <!--
         Accessibility string read when a city checkbox is checked.
