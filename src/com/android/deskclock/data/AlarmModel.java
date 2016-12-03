@@ -30,8 +30,6 @@ import com.android.deskclock.provider.Alarm;
  */
 final class AlarmModel {
 
-    private final Context mContext;
-
     /** The model from which settings are fetched. */
     private final SettingsModel mSettingsModel;
 
@@ -39,11 +37,10 @@ final class AlarmModel {
     private Uri mDefaultAlarmRingtoneUri;
 
     AlarmModel(Context context, SettingsModel settingsModel) {
-        mContext = context;
         mSettingsModel = settingsModel;
 
         // Clear caches affected by system settings when system settings change.
-        final ContentResolver cr = mContext.getContentResolver();
+        final ContentResolver cr = context.getContentResolver();
         final ContentObserver observer = new SystemAlarmAlertChangeObserver();
         cr.registerContentObserver(Settings.System.DEFAULT_ALARM_ALERT_URI, false, observer);
     }

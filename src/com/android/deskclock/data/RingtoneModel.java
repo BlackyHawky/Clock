@@ -21,6 +21,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.ContentObserver;
 import android.database.Cursor;
 import android.media.Ringtone;
@@ -48,6 +49,8 @@ final class RingtoneModel {
 
     private final Context mContext;
 
+    private final SharedPreferences mPrefs;
+
     /** Maps ringtone uri to ringtone title; looking up a title from scratch is expensive. */
     private final Map<Uri, String> mRingtoneTitles = new ArrayMap<>(16);
 
@@ -58,8 +61,9 @@ final class RingtoneModel {
     /** A mutable copy of the custom ringtones. */
     private List<CustomRingtone> mCustomRingtones;
 
-    RingtoneModel(Context context) {
+    RingtoneModel(Context context, SharedPreferences prefs) {
         mContext = context;
+        mPrefs = prefs;
 
         // Clear caches affected by system settings when system settings change.
         final ContentResolver cr = mContext.getContentResolver();
@@ -78,7 +82,7 @@ final class RingtoneModel {
             return existing;
         }
 
-        final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(uri, title);
+        final CustomRingtone ringtone = CustomRingtoneDAO.addCustomRingtone(mPrefs, uri, title);
         getMutableCustomRingtones().add(ringtone);
         Collections.sort(getMutableCustomRingtones());
         return ringtone;
@@ -88,7 +92,7 @@ final class RingtoneModel {
         final List<CustomRingtone> ringtones = getMutableCustomRingtones();
         for (CustomRingtone ringtone : ringtones) {
             if (ringtone.getUri().equals(uri)) {
-                CustomRingtoneDAO.removeCustomRingtone(ringtone.getId());
+                CustomRingtoneDAO.removeCustomRingtone(mPrefs, ringtone.getId());
                 ringtones.remove(ringtone);
                 break;
             }
@@ -163,7 +167,7 @@ final class RingtoneModel {
 
     private List<CustomRingtone> getMutableCustomRingtones() {
         if (mCustomRingtones == null) {
-            mCustomRingtones = CustomRingtoneDAO.getCustomRingtones();
+            mCustomRingtones = CustomRingtoneDAO.getCustomRingtones(mPrefs);
             Collections.sort(mCustomRingtones);
         }
 

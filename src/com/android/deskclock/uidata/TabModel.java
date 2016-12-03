@@ -16,6 +16,7 @@
 
 package com.android.deskclock.uidata;
 
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ import static com.android.deskclock.uidata.UiDataModel.Tab;
  */
 final class TabModel {
 
+    private final SharedPreferences mPrefs;
+
     /** The listeners to notify when the selected tab is changed. */
     private final List<TabListener> mTabListeners = new ArrayList<>();
 
@@ -43,7 +46,8 @@ final class TabModel {
     /** An enumerated value indicating the currently selected tab. */
     private Tab mSelectedTab;
 
-    TabModel() {
+    TabModel(SharedPreferences prefs) {
+        mPrefs = prefs;
         Arrays.fill(mTabScrolledToTop, true);
     }
 
@@ -99,7 +103,7 @@ final class TabModel {
      */
     Tab getSelectedTab() {
         if (mSelectedTab == null) {
-            mSelectedTab = TabDAO.getSelectedTab();
+            mSelectedTab = TabDAO.getSelectedTab(mPrefs);
         }
         return mSelectedTab;
     }
@@ -111,7 +115,7 @@ final class TabModel {
         final Tab oldSelectedTab = getSelectedTab();
         if (oldSelectedTab != tab) {
             mSelectedTab = tab;
-            TabDAO.setSelectedTab(tab);
+            TabDAO.setSelectedTab(mPrefs, tab);
 
             // Notify of the tab change.
             for (TabListener tl : mTabListeners) {

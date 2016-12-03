@@ -64,6 +64,8 @@ final class TimerModel {
 
     private final Context mContext;
 
+    private final SharedPreferences mPrefs;
+
     /** The alarm manager system service that calls back when timers expire. */
     private final AlarmManager mAlarmManager;
 
@@ -126,9 +128,10 @@ final class TimerModel {
      */
     private Service mService;
 
-    TimerModel(Context context, SettingsModel settingsModel, RingtoneModel ringtoneModel,
-            NotificationModel notificationModel, SharedPreferences prefs) {
+    TimerModel(Context context, SharedPreferences prefs, SettingsModel settingsModel,
+            RingtoneModel ringtoneModel, NotificationModel notificationModel) {
         mContext = context;
+        mPrefs = prefs;
         mSettingsModel = settingsModel;
         mRingtoneModel = ringtoneModel;
         mNotificationModel = notificationModel;
@@ -175,7 +178,7 @@ final class TimerModel {
     /**
      * @return all missed timers in their expiration order
      */
-    List<Timer> getMissedTimers() {
+    private List<Timer> getMissedTimers() {
         return Collections.unmodifiableList(getMutableMissedTimers());
     }
 
@@ -214,7 +217,7 @@ final class TimerModel {
                 label, deleteAfterUse);
 
         // Add the timer to permanent storage.
-        timer = TimerDAO.addTimer(timer);
+        timer = TimerDAO.addTimer(mPrefs, timer);
 
         // Add the timer to the cache.
         getMutableTimers().add(0, timer);
@@ -460,7 +463,7 @@ final class TimerModel {
 
     private List<Timer> getMutableTimers() {
         if (mTimers == null) {
-            mTimers = TimerDAO.getTimers();
+            mTimers = TimerDAO.getTimers(mPrefs);
             Collections.sort(mTimers, Timer.ID_COMPARATOR);
         }
 
@@ -516,7 +519,7 @@ final class TimerModel {
         }
 
         // Update the timer in permanent storage.
-        TimerDAO.updateTimer(timer);
+        TimerDAO.updateTimer(mPrefs, timer);
 
         // Update the timer in the cache.
         final Timer oldTimer = timers.set(index, timer);
@@ -550,9 +553,9 @@ final class TimerModel {
      *
      * @param timer an existing timer to be removed
      */
-    void doRemoveTimer(Timer timer) {
+    private void doRemoveTimer(Timer timer) {
         // Remove the timer from permanent storage.
-        TimerDAO.removeTimer(timer);
+        TimerDAO.removeTimer(mPrefs, timer);
 
         // Remove the timer from the cache.
         final List<Timer> timers = getMutableTimers();

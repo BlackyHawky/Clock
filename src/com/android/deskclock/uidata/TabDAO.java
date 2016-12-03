@@ -18,8 +18,6 @@ package com.android.deskclock.uidata;
 
 import android.content.SharedPreferences;
 
-import com.android.deskclock.data.DataModel;
-
 import static com.android.deskclock.uidata.UiDataModel.Tab;
 
 /**
@@ -35,8 +33,7 @@ final class TabDAO {
     /**
      * @return an enumerated value indicating the currently selected primary tab
      */
-    static Tab getSelectedTab() {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    static Tab getSelectedTab(SharedPreferences prefs) {
         final int ordinal = prefs.getInt(KEY_SELECTED_TAB, Tab.CLOCKS.ordinal());
         return Tab.values()[ordinal];
     }
@@ -44,8 +41,7 @@ final class TabDAO {
     /**
      * @param tab an enumerated value indicating the newly selected primary tab
      */
-    static void setSelectedTab(Tab tab) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    static void setSelectedTab(SharedPreferences prefs, Tab tab) {
         prefs.edit().putInt(KEY_SELECTED_TAB, tab.ordinal()).apply();
     }
 }

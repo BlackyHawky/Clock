@@ -146,8 +146,7 @@ final class SilentSettingsModel {
      * associated ringtone from playing. If any of them would prevent an alarm from firing or
      * making noise, a description of the setting is reported to this model on the main thread.
      */
-    private final class CheckSilenceSettingsTask
-            extends AsyncTask<Void, Void, SilentSetting> {
+    private final class CheckSilenceSettingsTask extends AsyncTask<Void, Void, SilentSetting> {
         @Override
         protected SilentSetting doInBackground(Void... parameters) {
             if (!isCancelled() && isDoNotDisturbBlockingAlarms()) {

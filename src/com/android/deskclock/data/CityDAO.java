@@ -57,8 +57,7 @@ final class CityDAO {
      * @param cityMap maps city ids to city instances
      * @return the list of city ids selected for display by the user
      */
-    static List<City> getSelectedCities(Map<String, City> cityMap) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    static List<City> getSelectedCities(SharedPreferences prefs, Map<String, City> cityMap) {
         final int size = prefs.getInt(NUMBER_OF_CITIES, 0);
         final List<City> selectedCities = new ArrayList<>(size);
 
@@ -76,8 +75,7 @@ final class CityDAO {
     /**
      * @param cities the collection of cities selected for display by the user
      */
-    static void setSelectedCities(Collection<City> cities) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    static void setSelectedCities(SharedPreferences prefs, Collection<City> cities) {
         final SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(NUMBER_OF_CITIES, cities.size());
 
