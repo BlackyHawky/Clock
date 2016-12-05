@@ -177,12 +177,13 @@ public final class StopwatchFragment extends DeskClockFragment {
             final String action = intent.getAction();
             if (StopwatchService.ACTION_START_STOPWATCH.equals(action)) {
                 DataModel.getDataModel().startStopwatch();
+                // Consume the intent
+                activity.setIntent(null);
             } else if (StopwatchService.ACTION_PAUSE_STOPWATCH.equals(action)) {
                 DataModel.getDataModel().pauseStopwatch();
+                // Consume the intent
+                activity.setIntent(null);
             }
-
-            // Consume the intent
-            activity.setIntent(null);
         }
 
         // Conservatively assume the data in the adapter has changed while the fragment was paused.
