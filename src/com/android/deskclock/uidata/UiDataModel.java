@@ -17,6 +17,7 @@
 package com.android.deskclock.uidata;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
@@ -85,14 +86,14 @@ public final class UiDataModel {
     /**
      * The context may be set precisely once during the application life.
      */
-    public void setContext(Context context) {
+    public void init(Context context, SharedPreferences prefs) {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
             mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
             mFormattedStringModel = new FormattedStringModel(mContext);
             mColorModel = new ColorModel(mPeriodicCallbackModel);
-            mTabModel = new TabModel();
+            mTabModel = new TabModel(prefs);
         }
     }
 

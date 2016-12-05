@@ -69,9 +69,7 @@ final class TimerDAO {
     /**
      * @return the timers from permanent storage
      */
-    static List<Timer> getTimers() {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
-
+    static List<Timer> getTimers(SharedPreferences prefs) {
         // Read the set of timer ids.
         final Set<String> timerIds = prefs.getStringSet(TIMER_IDS, Collections.<String>emptySet());
         final List<Timer> timers = new ArrayList<>(timerIds.size());
@@ -104,8 +102,7 @@ final class TimerDAO {
     /**
      * @param timer the timer to be added
      */
-    static Timer addTimer(Timer timer) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    static Timer addTimer(SharedPreferences prefs, Timer timer) {
         final SharedPreferences.Editor editor = prefs.edit();
 
         // Fetch the next timer id.
@@ -113,7 +110,7 @@ final class TimerDAO {
         editor.putInt(NEXT_TIMER_ID, id + 1);
 
         // Add the new timer id to the set of all timer ids.
-        final Set<String> timerIds = new HashSet<>(getTimerIds());
+        final Set<String> timerIds = new HashSet<>(getTimerIds(prefs));
         timerIds.add(String.valueOf(id));
         editor.putStringSet(TIMER_IDS, timerIds);
 
@@ -138,8 +135,7 @@ final class TimerDAO {
     /**
      * @param timer the timer to be updated
      */
-    static void updateTimer(Timer timer) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    static void updateTimer(SharedPreferences prefs, Timer timer) {
         final SharedPreferences.Editor editor = prefs.edit();
 
         // Record the fields of the timer.
@@ -159,14 +155,13 @@ final class TimerDAO {
     /**
      * @param timer the timer to be removed
      */
-    static void removeTimer(Timer timer) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    static void removeTimer(SharedPreferences prefs, Timer timer) {
         final SharedPreferences.Editor editor = prefs.edit();
 
         final int id = timer.getId();
 
         // Remove the timer id from the set of all timer ids.
-        final Set<String> timerIds = new HashSet<>(getTimerIds());
+        final Set<String> timerIds = new HashSet<>(getTimerIds(prefs));
         timerIds.remove(String.valueOf(id));
         if (timerIds.isEmpty()) {
             editor.remove(TIMER_IDS);
@@ -188,8 +183,7 @@ final class TimerDAO {
         editor.apply();
     }
 
-    private static Set<String> getTimerIds() {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    private static Set<String> getTimerIds(SharedPreferences prefs) {
         return prefs.getStringSet(TIMER_IDS, Collections.<String>emptySet());
     }
 }

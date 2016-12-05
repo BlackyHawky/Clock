@@ -44,6 +44,8 @@ final class CityModel {
 
     private final Context mContext;
 
+    private final SharedPreferences mPrefs;
+
     /** The model from which settings are fetched. */
     private final SettingsModel mSettingsModel;
 
@@ -76,8 +78,9 @@ final class CityModel {
     /** A city instance representing the home timezone of the user. */
     private City mHomeCity;
 
-    CityModel(Context context, SettingsModel settingsModel, SharedPreferences prefs) {
+    CityModel(Context context, SharedPreferences prefs, SettingsModel settingsModel) {
         mContext = context;
+        mPrefs = prefs;
         mSettingsModel = settingsModel;
 
         // Clear caches affected by locale when locale changes.
@@ -115,22 +118,6 @@ final class CityModel {
         }
 
         return mAllCities;
-    }
-
-    /**
-     * @param cityName the case-insensitive city name to search for
-     * @return the city with the given {@code cityName}; {@code null} if no such city exists
-     */
-    City getCity(String cityName) {
-        cityName = cityName.toUpperCase();
-
-        for (City city : getAllCities()) {
-            if (cityName.equals(city.getNameUpperCase())) {
-                return city;
-            }
-        }
-
-        return null;
     }
 
     /**
@@ -176,7 +163,7 @@ final class CityModel {
      */
     List<City> getSelectedCities() {
         if (mSelectedCities == null) {
-            final List<City> selectedCities = CityDAO.getSelectedCities(getCityMap());
+            final List<City> selectedCities = CityDAO.getSelectedCities(mPrefs, getCityMap());
             Collections.sort(selectedCities, new City.UtcOffsetComparator());
             mSelectedCities = Collections.unmodifiableList(selectedCities);
         }
@@ -189,7 +176,7 @@ final class CityModel {
      */
     void setSelectedCities(Collection<City> cities) {
         final List<City> oldCities = getAllCities();
-        CityDAO.setSelectedCities(cities);
+        CityDAO.setSelectedCities(mPrefs, cities);
 
         // Clear caches affected by this update.
         mAllCities = null;

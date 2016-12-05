@@ -16,21 +16,17 @@
 
 package com.android.deskclock.data;
 
-import android.annotation.TargetApi;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import android.preference.PreferenceManager;
 import android.support.annotation.StringRes;
 import android.view.View;
 
-import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.timer.TimerService;
@@ -96,7 +92,7 @@ public final class DataModel {
                 final int index = am.getStreamMaxVolume(STREAM_ALARM) / 3;
                 am.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
             }
-        };
+        }
 
         private static class ChangeSoundSettingsListener implements View.OnClickListener {
             @Override
@@ -105,7 +101,7 @@ public final class DataModel {
                 context.startActivity(new Intent(ACTION_SOUND_SETTINGS)
                         .addFlags(FLAG_ACTIVITY_NEW_TASK));
             }
-        };
+        }
 
         private static class ChangeAppNotificationSettingsListener implements View.OnClickListener {
             @Override
@@ -130,7 +126,7 @@ public final class DataModel {
                         .setData(Uri.fromParts("package", context.getPackageName(), null))
                         .addFlags(FLAG_ACTIVITY_NEW_TASK));
             }
-        };
+        }
     }
 
     public static final String ACTION_WORLD_CITIES_CHANGED =
@@ -187,47 +183,25 @@ public final class DataModel {
     private DataModel() {}
 
     /**
-     * The context may be set precisely once during the application life.
+     * Initializes the data model with the context and shared preferences to be used.
      */
-    public void setContext(Context context) {
+    public void init(Context context, SharedPreferences prefs) {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
-            sSharedPreferences = getDefaultSharedPreferences(mContext);
+            sSharedPreferences = prefs;
             mTimeModel = new TimeModel(mContext);
-            mWidgetModel = new WidgetModel();
-            mSettingsModel = new SettingsModel(mContext);
-            mRingtoneModel = new RingtoneModel(mContext);
+            mWidgetModel = new WidgetModel(prefs);
+            mSettingsModel = new SettingsModel(mContext, prefs);
+            mRingtoneModel = new RingtoneModel(mContext, prefs);
             mNotificationModel = new NotificationModel();
-            mCityModel = new CityModel(mContext, mSettingsModel, sSharedPreferences);
+            mCityModel = new CityModel(mContext, prefs, mSettingsModel);
             mAlarmModel = new AlarmModel(mContext, mSettingsModel);
             mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
-            mStopwatchModel = new StopwatchModel(mContext, mNotificationModel);
-            mTimerModel = new TimerModel(mContext, mSettingsModel, mRingtoneModel,
-                    mNotificationModel, sSharedPreferences);
+            mStopwatchModel = new StopwatchModel(mContext, prefs, mNotificationModel);
+            mTimerModel = new TimerModel(mContext, prefs, mSettingsModel, mRingtoneModel,
+                    mNotificationModel);
         }
-    }
-
-    /**
-     * Returns the default {@link SharedPreferences} instance from the underlying storage context.
-     */
-    @TargetApi(Build.VERSION_CODES.N)
-    private static synchronized SharedPreferences getDefaultSharedPreferences(Context context) {
-        final Context storageContext;
-        if (Utils.isNOrLater()) {
-            // All N devices have split storage areas, but we may need to
-            // migrate existing preferences into the new device encrypted
-            // storage area, which is where our data lives from now on.
-            storageContext = context.createDeviceProtectedStorageContext();
-            if (!storageContext.moveSharedPreferencesFrom(context,
-                    PreferenceManager.getDefaultSharedPreferencesName(context))) {
-                LogUtils.wtf("Failed to migrate shared preferences");
-            }
-        } else {
-            storageContext = context;
-        }
-        sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(storageContext);
-        return sSharedPreferences;
     }
 
     /**
@@ -339,15 +313,6 @@ public final class DataModel {
     public List<City> getAllCities() {
         enforceMainLooper();
         return mCityModel.getAllCities();
-    }
-
-    /**
-     * @param cityName the case-insensitive city name to search for
-     * @return the city with the given {@code cityName}; {@code null} if no such city exists
-     */
-    public City getCity(String cityName) {
-        enforceMainLooper();
-        return mCityModel.getCity(cityName);
     }
 
     /**

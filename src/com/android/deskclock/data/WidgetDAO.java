@@ -34,8 +34,7 @@ final class WidgetDAO {
      * @param count the number of widgets of the given type
      * @return the delta between the new count and the old count
      */
-    static int updateWidgetCount(Class widgetProviderClass, int count) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
+    static int updateWidgetCount(SharedPreferences prefs, Class widgetProviderClass, int count) {
         final String key = widgetProviderClass.getSimpleName() + WIDGET_COUNT;
         final int oldCount = prefs.getInt(key, 0);
         if (count == 0) {

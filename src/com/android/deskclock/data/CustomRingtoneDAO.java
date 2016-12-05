@@ -16,11 +16,8 @@
 
 package com.android.deskclock.data;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-
-import com.android.deskclock.Utils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -53,9 +50,7 @@ final class CustomRingtoneDAO {
      * @param title the title of the audio content at the given {@code uri}
      * @return the newly added custom ringtone
      */
-    static CustomRingtone addCustomRingtone(Uri uri, String title) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
-
+    static CustomRingtone addCustomRingtone(SharedPreferences prefs, Uri uri, String title) {
         final long id = prefs.getLong(NEXT_RINGTONE_ID, 0);
         final Set<String> ids = getRingtoneIds(prefs);
         ids.add(String.valueOf(id));
@@ -73,9 +68,7 @@ final class CustomRingtoneDAO {
     /**
      * @param id identifies the ringtone to be removed
      */
-    static void removeCustomRingtone(long id) {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
-
+    static void removeCustomRingtone(SharedPreferences prefs, long id) {
         final Set<String> ids = getRingtoneIds(prefs);
         ids.remove(String.valueOf(id));
 
@@ -94,9 +87,7 @@ final class CustomRingtoneDAO {
     /**
      * @return a list of all known custom ringtones
      */
-    static List<CustomRingtone> getCustomRingtones() {
-        final SharedPreferences prefs = DataModel.getSharedPreferences();
-
+    static List<CustomRingtone> getCustomRingtones(SharedPreferences prefs) {
         final Set<String> ids = prefs.getStringSet(RINGTONE_IDS, Collections.<String>emptySet());
         final List<CustomRingtone> ringtones = new ArrayList<>(ids.size());
 

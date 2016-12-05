@@ -21,6 +21,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.NotificationManagerCompat;
 
@@ -34,6 +35,8 @@ import java.util.List;
 final class StopwatchModel {
 
     private final Context mContext;
+
+    private final SharedPreferences mPrefs;
 
     /** The model from which notification data are fetched. */
     private final NotificationModel mNotificationModel;
@@ -58,8 +61,9 @@ final class StopwatchModel {
     /** A mutable copy of the recorded stopwatch laps. */
     private List<Lap> mLaps;
 
-    StopwatchModel(Context context, NotificationModel notificationModel) {
+    StopwatchModel(Context context, SharedPreferences prefs, NotificationModel notificationModel) {
         mContext = context;
+        mPrefs = prefs;
         mNotificationModel = notificationModel;
         mNotificationManager = NotificationManagerCompat.from(context);
 
@@ -87,7 +91,7 @@ final class StopwatchModel {
      */
     Stopwatch getStopwatch() {
         if (mStopwatch == null) {
-            mStopwatch = StopwatchDAO.getStopwatch();
+            mStopwatch = StopwatchDAO.getStopwatch(mPrefs);
         }
 
         return mStopwatch;
@@ -99,7 +103,7 @@ final class StopwatchModel {
     Stopwatch setStopwatch(Stopwatch stopwatch) {
         final Stopwatch before = getStopwatch();
         if (before != stopwatch) {
-            StopwatchDAO.setStopwatch(stopwatch);
+            StopwatchDAO.setStopwatch(mPrefs, stopwatch);
             mStopwatch = stopwatch;
 
             // Refresh the stopwatch notification to reflect the latest stopwatch state.
@@ -140,7 +144,7 @@ final class StopwatchModel {
         final List<Lap> laps = getMutableLaps();
 
         final int lapNumber = laps.size() + 1;
-        StopwatchDAO.addLap(lapNumber, totalTime);
+        StopwatchDAO.addLap(mPrefs, lapNumber, totalTime);
 
         final long prevAccumulatedTime = laps.isEmpty() ? 0 : laps.get(0).getAccumulatedTime();
         final long lapTime = totalTime - prevAccumulatedTime;
@@ -166,7 +170,7 @@ final class StopwatchModel {
      */
     @VisibleForTesting
     void clearLaps() {
-        StopwatchDAO.clearLaps();
+        StopwatchDAO.clearLaps(mPrefs);
         getMutableLaps().clear();
     }
 
@@ -233,7 +237,7 @@ final class StopwatchModel {
 
     private List<Lap> getMutableLaps() {
         if (mLaps == null) {
-            mLaps = StopwatchDAO.getLaps();
+            mLaps = StopwatchDAO.getLaps(mPrefs);
         }
 
         return mLaps;
