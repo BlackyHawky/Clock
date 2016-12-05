@@ -14,9 +14,6 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.Message;
 import android.telephony.TelephonyManager;
-import android.text.format.DateUtils;
-
-import com.android.deskclock.data.DataModel;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
@@ -54,8 +51,6 @@ public final class AsyncRingtonePlayer {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AsyncRingtonePlayer");
 
-    private static final String DEFAULT_CRESCENDO_LENGTH = "0";
-
     // Volume suggested by media team for in-call alarms.
     private static final float IN_CALL_VOLUME = 0.125f;
 
@@ -64,6 +59,7 @@ public final class AsyncRingtonePlayer {
     private static final int EVENT_STOP = 2;
     private static final int EVENT_VOLUME = 3;
     private static final String RINGTONE_URI_KEY = "RINGTONE_URI_KEY";
+    private static final String CRESCENDO_DURATION_KEY = "CRESCENDO_DURATION_KEY";
 
     /** Handler running on the ringtone thread. */
     private Handler mHandler;
@@ -74,28 +70,20 @@ public final class AsyncRingtonePlayer {
     /** The context. */
     private final Context mContext;
 
-    /** The key of the preference that controls the crescendo behavior when playing a ringtone. */
-    private final String mCrescendoPrefKey;
-
-    /**
-     * @param crescendoPrefKey the key to the user preference that defines the crescendo behavior
-     *                         associated with this ringtone player, or null to ignore crescendo
-     */
-    public AsyncRingtonePlayer(Context context, String crescendoPrefKey) {
+    public AsyncRingtonePlayer(Context context) {
         mContext = context;
-        mCrescendoPrefKey = crescendoPrefKey;
     }
 
     /** Plays the ringtone. */
-    public void play(Uri ringtoneUri) {
+    public void play(Uri ringtoneUri, long crescendoDuration) {
         LOGGER.d("Posting play.");
-        postMessage(EVENT_PLAY, ringtoneUri, 0);
+        postMessage(EVENT_PLAY, ringtoneUri, crescendoDuration, 0);
     }
 
     /** Stops playing the ringtone. */
     public void stop() {
         LOGGER.d("Posting stop.");
-        postMessage(EVENT_STOP, null, 0);
+        postMessage(EVENT_STOP, null, 0, 0);
     }
 
     /** Schedules an adjustment of the playback volume 50ms in the future. */
@@ -106,17 +94,19 @@ public final class AsyncRingtonePlayer {
         mHandler.removeMessages(EVENT_VOLUME);
 
         // Queue the next volume adjustment.
-        postMessage(EVENT_VOLUME, null, 50);
+        postMessage(EVENT_VOLUME, null, 0, 50);
     }
 
     /**
      * Posts a message to the ringtone-thread handler.
      *
-     * @param messageCode The message to post.
-     * @param ringtoneUri The ringtone in question, if any.
-     * @param delayMillis The amount of time to delay sending the message, if any.
+     * @param messageCode the message to post
+     * @param ringtoneUri the ringtone in question, if any
+     * @param crescendoDuration the length of time, in ms, over which to crescendo the ringtone
+     * @param delayMillis the amount of time to delay sending the message, if any
      */
-    private void postMessage(int messageCode, Uri ringtoneUri, long delayMillis) {
+    private void postMessage(int messageCode, Uri ringtoneUri, long crescendoDuration,
+            long delayMillis) {
         synchronized (this) {
             if (mHandler == null) {
                 mHandler = getNewHandler();
@@ -126,6 +116,7 @@ public final class AsyncRingtonePlayer {
             if (ringtoneUri != null) {
                 final Bundle bundle = new Bundle();
                 bundle.putParcelable(RINGTONE_URI_KEY, ringtoneUri);
+                bundle.putLong(CRESCENDO_DURATION_KEY, crescendoDuration);
                 message.setData(bundle);
             }
 
@@ -146,8 +137,10 @@ public final class AsyncRingtonePlayer {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case EVENT_PLAY:
-                        final Uri ringtoneUri = msg.getData().getParcelable(RINGTONE_URI_KEY);
-                        if (getPlaybackDelegate().play(mContext, ringtoneUri)) {
+                        final Bundle data = msg.getData();
+                        final Uri ringtoneUri = data.getParcelable(RINGTONE_URI_KEY);
+                        final long crescendoDuration = data.getLong(CRESCENDO_DURATION_KEY);
+                        if (getPlaybackDelegate().play(mContext, ringtoneUri, crescendoDuration)) {
                             scheduleVolumeAdjustment();
                         }
                         break;
@@ -221,22 +214,6 @@ public final class AsyncRingtonePlayer {
     }
 
     /**
-     * @return {@code true} if the crescendo is enabled and its duration is more than 0 seconds
-     */
-    private boolean isCrescendoEnabled() {
-        return mCrescendoPrefKey != null && getCrescendoDurationMillis() > 0;
-    }
-
-    /**
-     * @return the duration of the crescendo in milliseconds
-     */
-    private long getCrescendoDurationMillis() {
-        final String crescendoSecondsStr = DataModel.getSharedPreferences()
-                .getString(mCrescendoPrefKey, DEFAULT_CRESCENDO_LENGTH);
-        return Integer.parseInt(crescendoSecondsStr) * DateUtils.SECOND_IN_MILLIS;
-    }
-
-    /**
      * @return the platform-specific playback delegate to use to play the ringtone
      */
     private PlaybackDelegate getPlaybackDelegate() {
@@ -265,7 +242,11 @@ public final class AsyncRingtonePlayer {
         /**
          * @return {@code true} iff a {@link #adjustVolume volume adjustment} should be scheduled
          */
-        boolean play(Context context, Uri ringtoneUri);
+        boolean play(Context context, Uri ringtoneUri, long crescendoDuration);
+
+        /**
+         * Stop any ongoing ringtone playback.
+         */
         void stop(Context context);
 
         /**
@@ -295,8 +276,9 @@ public final class AsyncRingtonePlayer {
          * Starts the actual playback of the ringtone. Executes on ringtone-thread.
          */
         @Override
-        public boolean play(final Context context, Uri ringtoneUri) {
+        public boolean play(final Context context, Uri ringtoneUri, long crescendoDuration) {
             checkAsyncRingtonePlayerThread();
+            mCrescendoDuration = crescendoDuration;
 
             LOGGER.i("Play ringtone via android.media.MediaPlayer.");
 
@@ -322,14 +304,13 @@ public final class AsyncRingtonePlayer {
                 }
             });
 
-            final boolean crescendo = isCrescendoEnabled();
             try {
                 // If alarmNoise is a custom ringtone on the sd card the app must be granted
                 // android.permission.READ_EXTERNAL_STORAGE. Pre-M this is ensured at app
                 // installation time. M+, this permission can be revoked by the user any time.
                 mMediaPlayer.setDataSource(context, alarmNoise);
 
-                return startPlayback(inTelephoneCall, crescendo);
+                return startPlayback(inTelephoneCall);
             } catch (Throwable t) {
                 LOGGER.e("Using the fallback ringtone, could not play " + alarmNoise, t);
                 // The alarmNoise may be on the sd card which could be busy right now.
@@ -338,7 +319,7 @@ public final class AsyncRingtonePlayer {
                     // Must reset the media player to clear the error state.
                     mMediaPlayer.reset();
                     mMediaPlayer.setDataSource(context, getFallbackRingtoneUri(context));
-                    return startPlayback(inTelephoneCall, crescendo);
+                    return startPlayback(inTelephoneCall);
                 } catch (Throwable t2) {
                     // At this point we just don't play anything.
                     LOGGER.e("Failed to play fallback ringtone", t2);
@@ -353,11 +334,10 @@ public final class AsyncRingtonePlayer {
          * playback.
          *
          * @param inTelephoneCall {@code true} if there is currently an active telephone call
-         * @param crescendo {@code true} if the playback volume should start soft and crescendo
          * @return {@code true} if a crescendo has started and future volume adjustments are
          *      required to advance the crescendo effect
          */
-        private boolean startPlayback(boolean inTelephoneCall, boolean crescendo)
+        private boolean startPlayback(boolean inTelephoneCall)
                 throws IOException {
             // Do not play alarms if stream volume is 0 (typically because ringer mode is silent).
             if (mAudioManager.getStreamVolume(STREAM_ALARM) == 0) {
@@ -378,11 +358,10 @@ public final class AsyncRingtonePlayer {
             if (inTelephoneCall) {
                 LOGGER.v("Using the in-call alarm");
                 mMediaPlayer.setVolume(IN_CALL_VOLUME, IN_CALL_VOLUME);
-            } else if (crescendo) {
+            } else if (mCrescendoDuration > 0) {
                 mMediaPlayer.setVolume(0, 0);
 
                 // Compute the time at which the crescendo will stop.
-                mCrescendoDuration = getCrescendoDurationMillis();
                 mCrescendoStopTime = Utils.now() + mCrescendoDuration;
                 scheduleVolumeAdjustment = true;
             }
@@ -494,8 +473,9 @@ public final class AsyncRingtonePlayer {
          * Starts the actual playback of the ringtone. Executes on ringtone-thread.
          */
         @Override
-        public boolean play(Context context, Uri ringtoneUri) {
+        public boolean play(Context context, Uri ringtoneUri, long crescendoDuration) {
             checkAsyncRingtonePlayerThread();
+            mCrescendoDuration = crescendoDuration;
 
             LOGGER.i("Play ringtone via android.media.Ringtone.");
 
@@ -535,15 +515,14 @@ public final class AsyncRingtonePlayer {
                 mRingtone = RingtoneManager.getRingtone(context, ringtoneUri);
             }
 
-            final boolean crescendo = isCrescendoEnabled();
             try {
-                return startPlayback(inTelephoneCall, crescendo);
+                return startPlayback(inTelephoneCall);
             } catch (Throwable t) {
                 LOGGER.e("Using the fallback ringtone, could not play " + ringtoneUri, t);
                 // Recover from any/all playback errors by attempting to play the fallback tone.
                 mRingtone = RingtoneManager.getRingtone(context, getFallbackRingtoneUri(context));
                 try {
-                    return startPlayback(inTelephoneCall, crescendo);
+                    return startPlayback(inTelephoneCall);
                 } catch (Throwable t2) {
                     // At this point we just don't play anything.
                     LOGGER.e("Failed to play fallback ringtone", t2);
@@ -557,11 +536,10 @@ public final class AsyncRingtonePlayer {
          * Prepare the Ringtone for playback, then start the playback.
          *
          * @param inTelephoneCall {@code true} if there is currently an active telephone call
-         * @param crescendo {@code true} if the playback volume should start soft and crescendo
          * @return {@code true} if a crescendo has started and future volume adjustments are
          *      required to advance the crescendo effect
          */
-        private boolean startPlayback(boolean inTelephoneCall, boolean crescendo) {
+        private boolean startPlayback(boolean inTelephoneCall) {
             // Indicate the ringtone should be played via the alarm stream.
             if (Utils.isLOrLater()) {
                 mRingtone.setAudioAttributes(new AudioAttributes.Builder()
@@ -575,11 +553,10 @@ public final class AsyncRingtonePlayer {
             if (inTelephoneCall) {
                 LOGGER.v("Using the in-call alarm");
                 setRingtoneVolume(IN_CALL_VOLUME);
-            } else if (crescendo) {
+            } else if (mCrescendoDuration > 0) {
                 setRingtoneVolume(0);
 
                 // Compute the time at which the crescendo will stop.
-                mCrescendoDuration = getCrescendoDurationMillis();
                 mCrescendoStopTime = Utils.now() + mCrescendoDuration;
                 scheduleVolumeAdjustment = true;
             }

@@ -22,6 +22,7 @@ import android.net.Uri;
 
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
+import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 
@@ -47,6 +48,14 @@ final class SettingsModel {
         SettingsDAO.setDefaultHomeTimeZone(prefs, TimeZone.getDefault());
         // Set the user's default display seconds preference if one has not yet been chosen.
         SettingsDAO.setDefaultDisplayClockSeconds(mContext, prefs);
+    }
+
+    int getGlobalIntentId() {
+        return SettingsDAO.getGlobalIntentId(mPrefs);
+    }
+
+    void updateGlobalIntentId() {
+        SettingsDAO.updateGlobalIntentId(mPrefs);
     }
 
     CitySort getCitySort() {
@@ -109,6 +118,18 @@ final class SettingsModel {
         return SettingsDAO.getTimerRingtoneUri(mPrefs, getDefaultTimerRingtoneUri());
     }
 
+    AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
+        return SettingsDAO.getAlarmVolumeButtonBehavior(mPrefs);
+    }
+
+    int getAlarmTimeout() {
+        return SettingsDAO.getAlarmTimeout(mPrefs);
+    }
+
+    int getSnoozeLength() {
+        return SettingsDAO.getSnoozeLength(mPrefs);
+    }
+
     Uri getDefaultAlarmRingtoneUri() {
         return SettingsDAO.getDefaultAlarmRingtoneUri(mPrefs);
     }
@@ -117,8 +138,24 @@ final class SettingsModel {
         SettingsDAO.setDefaultAlarmRingtoneUri(mPrefs, uri);
     }
 
+    long getAlarmCrescendoDuration() {
+        return SettingsDAO.getAlarmCrescendoDuration(mPrefs);
+    }
+
+    long getTimerCrescendoDuration() {
+        return SettingsDAO.getTimerCrescendoDuration(mPrefs);
+    }
+
     Weekdays.Order getWeekdayOrder() {
         return SettingsDAO.getWeekdayOrder(mPrefs);
+    }
+
+    boolean isRestoreBackupFinished() {
+        return SettingsDAO.isRestoreBackupFinished(mPrefs);
+    }
+
+    void setRestoreBackupFinished(boolean finished) {
+        SettingsDAO.setRestoreBackupFinished(mPrefs, finished);
     }
 
     boolean getTimerVibrate() {

@@ -20,8 +20,10 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.provider.Settings;
+import android.text.format.DateUtils;
 
 import com.android.deskclock.R;
+import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.data.DataModel.CitySort;
 import com.android.deskclock.data.DataModel.ClockStyle;
 import com.android.deskclock.settings.ScreensaverSettingsActivity;
@@ -31,6 +33,9 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.DISMISS;
+import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.NOTHING;
+import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE;
 import static com.android.deskclock.data.Weekdays.Order.MON_TO_SUN;
 import static com.android.deskclock.data.Weekdays.Order.SAT_TO_FRI;
 import static com.android.deskclock.data.Weekdays.Order.SUN_TO_SAT;
@@ -49,7 +54,28 @@ final class SettingsDAO {
     /** Key to a preference that stores the default ringtone for new alarms. */
     private static final String KEY_DEFAULT_ALARM_RINGTONE_URI = "default_alarm_ringtone_uri";
 
+    /** Key to a preference that stores the global broadcast id. */
+    private static final String KEY_ALARM_GLOBAL_ID = "intent.extra.alarm.global.id";
+
+    /** Key to a preference that indicates whether restore (of backup and restore) has completed. */
+    private static final String KEY_RESTORE_BACKUP_FINISHED = "restore_finished";
+
     private SettingsDAO() {}
+
+    /**
+     * @return the id used to discriminate relevant AlarmManager callbacks from defunct ones
+     */
+    static int getGlobalIntentId(SharedPreferences prefs) {
+        return prefs.getInt(KEY_ALARM_GLOBAL_ID, -1);
+    }
+
+    /**
+     * Update the id used to discriminate relevant AlarmManager callbacks from defunct ones
+     */
+    static void updateGlobalIntentId(SharedPreferences prefs) {
+        final int globalId = prefs.getInt(KEY_ALARM_GLOBAL_ID, -1) + 1;
+        prefs.edit().putInt(KEY_ALARM_GLOBAL_ID, globalId).apply();
+    }
 
     /**
      * @return an enumerated value indicating the order in which cities are ordered
@@ -192,6 +218,24 @@ final class SettingsDAO {
     }
 
     /**
+     * @return the duration, in milliseconds, of the crescendo to apply to alarm ringtone playback;
+     *      {@code 0} implies no crescendo should be applied
+     */
+    static long getAlarmCrescendoDuration(SharedPreferences prefs) {
+        final String crescendoSeconds = prefs.getString(SettingsActivity.KEY_ALARM_CRESCENDO, "0");
+        return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
+    }
+
+    /**
+     * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
+     *      {@code 0} implies no crescendo should be applied
+     */
+    static long getTimerCrescendoDuration(SharedPreferences prefs) {
+        final String crescendoSeconds = prefs.getString(SettingsActivity.KEY_TIMER_CRESCENDO, "0");
+        return Integer.parseInt(crescendoSeconds) * DateUtils.SECOND_IN_MILLIS;
+    }
+
+    /**
      * @return the display order of the weekdays, which can start with {@link Calendar#SATURDAY},
      *      {@link Calendar#SUNDAY} or {@link Calendar#MONDAY}
      */
@@ -206,6 +250,57 @@ final class SettingsDAO {
             default:
                 throw new IllegalArgumentException("Unknown weekday: " + firstCalendarDay);
         }
+    }
+
+    /**
+     * @return {@code true} if the restore process (of backup and restore) has completed
+     */
+    static boolean isRestoreBackupFinished(SharedPreferences prefs) {
+        return prefs.getBoolean(KEY_RESTORE_BACKUP_FINISHED, false);
+    }
+
+    /**
+     * @param finished {@code true} means the restore process (of backup and restore) has completed
+     */
+    static void setRestoreBackupFinished(SharedPreferences prefs, boolean finished) {
+        if (finished) {
+            prefs.edit().putBoolean(KEY_RESTORE_BACKUP_FINISHED, true).apply();
+        } else {
+            prefs.edit().remove(KEY_RESTORE_BACKUP_FINISHED).apply();
+        }
+    }
+
+    /**
+     * @return the behavior to execute when volume buttons are pressed while firing an alarm
+     */
+    static AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior(SharedPreferences prefs) {
+        final String defaultValue = SettingsActivity.DEFAULT_VOLUME_BEHAVIOR;
+        final String value = prefs.getString(SettingsActivity.KEY_VOLUME_BUTTONS, defaultValue);
+        switch (value) {
+            case SettingsActivity.DEFAULT_VOLUME_BEHAVIOR: return NOTHING;
+            case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE: return SNOOZE;
+            case SettingsActivity.VOLUME_BEHAVIOR_DISMISS: return DISMISS;
+            default:
+                throw new IllegalArgumentException("Unknown volume button behavior: " + value);
+        }
+    }
+
+    /**
+     * @return the number of minutes an alarm may ring before it has timed out and becomes missed
+     */
+    static int getAlarmTimeout(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings.xml
+        final String string = prefs.getString(SettingsActivity.KEY_AUTO_SILENCE, "10");
+        return Integer.parseInt(string);
+    }
+
+    /**
+     * @return the number of minutes an alarm will remain snoozed before it rings again
+     */
+    static int getSnoozeLength(SharedPreferences prefs) {
+        // Default value must match the one in res/xml/settings.xml
+        final String string = prefs.getString(SettingsActivity.KEY_ALARM_SNOOZE, "10");
+        return Integer.parseInt(string);
     }
 
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {

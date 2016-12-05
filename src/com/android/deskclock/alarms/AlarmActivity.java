@@ -56,9 +56,9 @@ import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.settings.SettingsActivity;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.CircleView;
 
@@ -127,7 +127,7 @@ public class AlarmActivity extends AppCompatActivity
 
     private AlarmInstance mAlarmInstance;
     private boolean mAlarmHandled;
-    private String mVolumeBehavior;
+    private AlarmVolumeButtonBehavior mVolumeBehavior;
     private int mCurrentHourColor;
     private boolean mReceiverRegistered;
     /** Whether the AlarmService is currently bound */
@@ -173,9 +173,7 @@ public class AlarmActivity extends AppCompatActivity
         LOGGER.i("Displaying alarm for instance: %s", mAlarmInstance);
 
         // Get the volume/camera button behavior setting
-        mVolumeBehavior = DataModel.getSharedPreferences()
-                .getString(SettingsActivity.KEY_VOLUME_BUTTONS,
-                        SettingsActivity.DEFAULT_VOLUME_BEHAVIOR);
+        mVolumeBehavior = DataModel.getDataModel().getAlarmVolumeButtonBehavior();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                 | WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD
@@ -299,12 +297,12 @@ public class AlarmActivity extends AppCompatActivity
             case KeyEvent.KEYCODE_FOCUS:
                 if (!mAlarmHandled) {
                     switch (mVolumeBehavior) {
-                        case SettingsActivity.VOLUME_BEHAVIOR_SNOOZE:
+                        case SNOOZE:
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 snooze();
                             }
                             return true;
-                        case SettingsActivity.VOLUME_BEHAVIOR_DISMISS:
+                        case DISMISS:
                             if (keyEvent.getAction() == KeyEvent.ACTION_UP) {
                                 dismiss();
                             }
@@ -491,7 +489,7 @@ public class AlarmActivity extends AppCompatActivity
         final int accentColor = Utils.obtainStyledColor(this, R.attr.colorAccent, Color.RED);
         setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
 
-        final int snoozeMinutes = AlarmStateManager.getSnoozedMinutes(this);
+        final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
         final String infoText = getResources().getQuantityString(
                 R.plurals.alarm_alert_snooze_duration, snoozeMinutes, snoozeMinutes);
         final String accessibilityText = getResources().getQuantityString(

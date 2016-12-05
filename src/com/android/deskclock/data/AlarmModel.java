@@ -23,6 +23,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.provider.Settings;
 
+import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.provider.Alarm;
 
 /**
@@ -59,6 +60,22 @@ final class AlarmModel {
             mSettingsModel.setDefaultAlarmRingtoneUri(uri);
             mDefaultAlarmRingtoneUri = uri;
         }
+    }
+
+    long getAlarmCrescendoDuration() {
+        return mSettingsModel.getAlarmCrescendoDuration();
+    }
+
+    AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
+        return mSettingsModel.getAlarmVolumeButtonBehavior();
+    }
+
+    int getAlarmTimeout() {
+        return mSettingsModel.getAlarmTimeout();
+    }
+
+    int getSnoozeLength() {
+        return mSettingsModel.getSnoozeLength();
     }
 
     /**

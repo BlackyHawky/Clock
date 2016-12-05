@@ -56,6 +56,9 @@ public final class DataModel {
     /** Indicates the preferred sort order of cities. */
     public enum CitySort {NAME, UTC_OFFSET}
 
+    /** Indicates the preferred behavior of hardware volume buttons when firing alarms. */
+    public enum AlarmVolumeButtonBehavior {NOTHING, SNOOZE, DISMISS}
+
     /** Indicates the reason alarms may not fire or may fire silently. */
     public enum SilentSetting {
         DO_NOT_DISTURB(R.string.alarms_blocked_by_dnd, 0, null),
@@ -169,15 +172,8 @@ public final class DataModel {
     /** The model from which ringtone data are fetched. */
     private RingtoneModel mRingtoneModel;
 
-    /** Single instance of SharedPreferences for the current session. */
-    private static SharedPreferences sSharedPreferences;
-
     public static DataModel getDataModel() {
         return sDataModel;
-    }
-
-    public static SharedPreferences getSharedPreferences() {
-        return sSharedPreferences;
     }
 
     private DataModel() {}
@@ -189,7 +185,6 @@ public final class DataModel {
         if (mContext != context) {
             mContext = context.getApplicationContext();
 
-            sSharedPreferences = prefs;
             mTimeModel = new TimeModel(mContext);
             mWidgetModel = new WidgetModel(prefs);
             mSettingsModel = new SettingsModel(mContext, prefs);
@@ -643,6 +638,15 @@ public final class DataModel {
     }
 
     /**
+     * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
+     *      {@code 0} implies no crescendo should be applied
+     */
+    public long getTimerCrescendoDuration() {
+        enforceMainLooper();
+        return mTimerModel.getTimerCrescendoDuration();
+    }
+
+    /**
      * @return whether vibrate is enabled for all timers.
      */
     public boolean getTimerVibrate() {
@@ -676,6 +680,37 @@ public final class DataModel {
     public void setDefaultAlarmRingtoneUri(Uri uri) {
         enforceMainLooper();
         mAlarmModel.setDefaultAlarmRingtoneUri(uri);
+    }
+
+    /**
+     * @return the duration, in milliseconds, of the crescendo to apply to alarm ringtone playback;
+     *      {@code 0} implies no crescendo should be applied
+     */
+    public long getAlarmCrescendoDuration() {
+        enforceMainLooper();
+        return mAlarmModel.getAlarmCrescendoDuration();
+    }
+
+    /**
+     * @return the behavior to execute when volume buttons are pressed while firing an alarm
+     */
+    public AlarmVolumeButtonBehavior getAlarmVolumeButtonBehavior() {
+        enforceMainLooper();
+        return mAlarmModel.getAlarmVolumeButtonBehavior();
+    }
+
+    /**
+     * @return the number of minutes an alarm may ring before it has timed out and becomes missed
+     */
+    public int getAlarmTimeout() {
+        return mAlarmModel.getAlarmTimeout();
+    }
+
+    /**
+     * @return the number of minutes an alarm will remain snoozed before it rings again
+     */
+    public int getSnoozeLength() {
+        return mAlarmModel.getSnoozeLength();
     }
 
     //
@@ -888,6 +923,21 @@ public final class DataModel {
     }
 
     /**
+     * @return the id used to discriminate relevant AlarmManager callbacks from defunct ones
+     */
+    public int getGlobalIntentId() {
+        return mSettingsModel.getGlobalIntentId();
+    }
+
+    /**
+     * Update the id used to discriminate relevant AlarmManager callbacks from defunct ones
+     */
+    public void updateGlobalIntentId() {
+        enforceMainLooper();
+        mSettingsModel.updateGlobalIntentId();
+    }
+
+    /**
      * @return the style of clock to display in the clock application
      */
     public ClockStyle getClockStyle() {
@@ -943,6 +993,20 @@ public final class DataModel {
     public Weekdays.Order getWeekdayOrder() {
         enforceMainLooper();
         return mSettingsModel.getWeekdayOrder();
+    }
+
+    /**
+     * @return {@code true} if the restore process (of backup and restore) has completed
+     */
+    public boolean isRestoreBackupFinished() {
+        return mSettingsModel.isRestoreBackupFinished();
+    }
+
+    /**
+     * @param finished {@code true} means the restore process (of backup and restore) has completed
+     */
+    public void setRestoreBackupFinished(boolean finished) {
+        mSettingsModel.setRestoreBackupFinished(finished);
     }
 
     /**

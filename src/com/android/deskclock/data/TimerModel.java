@@ -448,6 +448,14 @@ final class TimerModel {
     }
 
     /**
+     * @return the duration, in milliseconds, of the crescendo to apply to timer ringtone playback;
+     *      {@code 0} implies no crescendo should be applied
+     */
+    long getTimerCrescendoDuration() {
+        return mSettingsModel.getTimerCrescendoDuration();
+    }
+
+    /**
      * @return {@code true} if the device vibrates when timers expire
      */
     boolean getTimerVibrate() {
