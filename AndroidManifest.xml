@@ -6,7 +6,7 @@
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,7 +50,8 @@
         android:icon="@mipmap/ic_launcher_alarmclock"
         android:label="@string/app_label"
         android:requiredForAllUsers="true"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        android:theme="@style/Theme.DeskClock">
 
         <!-- ============================================================== -->
         <!-- Main app components.                                           -->
@@ -60,7 +61,6 @@
             android:name=".DeskClock"
             android:label="@string/app_label"
             android:launchMode="singleTask"
-            android:theme="@style/DeskClockTheme"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,7 +74,7 @@
             android:name=".ringtone.RingtonePickerActivity"
             android:excludeFromRecents="true"
             android:taskAffinity=""
-            android:theme="@style/RingtonePickerTheme" />
+            android:theme="@style/Theme.DeskClock.RingtonePicker" />
 
         <activity
             android:name=".worldclock.CitySelectionActivity"
@@ -82,7 +82,7 @@
             android:label="@string/cities_activity_title"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/CitiesTheme" />
+            android:theme="@style/Theme.DeskClock.CitySelection" />
 
         <activity
             android:name=".settings.SettingsActivity"
@@ -90,7 +90,7 @@
             android:label="@string/settings"
             android:parentActivityName=".DeskClock"
             android:taskAffinity=""
-            android:theme="@style/SettingsTheme" />
+            android:theme="@style/Theme.DeskClock.Settings" />
 
         <activity
             android:name=".HandleShortcuts"
@@ -144,7 +144,6 @@
             android:resizeableActivity="false"
             android:showOnLockScreen="true"
             android:taskAffinity=""
-            android:theme="@style/AlarmAlertFullScreenTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
@@ -191,8 +190,7 @@
             android:launchMode="singleInstance"
             android:resizeableActivity="false"
             android:showOnLockScreen="true"
-            android:taskAffinity=""
-            android:theme="@style/ExpiredTimersActivityTheme" />
+            android:taskAffinity="" />
 
         <!-- Legacy broadcast receiver that honors old scheduled timers across app upgrade. -->
         <receiver
@@ -226,15 +224,14 @@
             android:name=".ScreensaverActivity"
             android:excludeFromRecents="true"
             android:resizeableActivity="false"
-            android:taskAffinity=""
-            android:theme="@style/ScreensaverActivityTheme" />
+            android:taskAffinity="" />
 
         <activity
             android:name=".settings.ScreensaverSettingsActivity"
             android:excludeFromRecents="true"
             android:label="@string/screensaver_settings"
             android:taskAffinity=""
-            android:theme="@style/SettingsTheme" />
+            android:theme="@style/Theme.DeskClock.Settings" />
 
         <service
             android:name=".Screensaver"

@@ -1,11 +1,11 @@
 /*
- * Copyright (C) 2011 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -47,14 +47,13 @@ public final class Screensaver extends DreamService {
     private String mDateFormatForAccessibility;
 
     /* Register ContentObserver to see alarm changes for pre-L */
-    private final ContentObserver mSettingsContentObserver = Utils.isPreL()
-        ? new ContentObserver(new Handler()) {
-            @Override
-            public void onChange(boolean selfChange) {
-                Utils.refreshAlarm(Screensaver.this, mContentView);
-            }
-        }
-        : null;
+    private final ContentObserver mSettingsContentObserver =
+            Utils.isLOrLater() ? null : new ContentObserver(new Handler()) {
+                @Override
+                public void onChange(boolean selfChange) {
+                    Utils.refreshAlarm(Screensaver.this, mContentView);
+                }
+            };
 
     // Runs every midnight or when the time changes and refreshes the date.
     private final Runnable mMidnightUpdater = new Runnable() {
@@ -78,8 +77,6 @@ public final class Screensaver extends DreamService {
     public void onCreate() {
         LOGGER.v("Screensaver created");
         super.onCreate();
-
-        setTheme(R.style.ScreensaverActivityTheme);
 
         mDateFormat = getString(R.string.abbrev_wday_month_day_no_year);
         mDateFormatForAccessibility = getString(R.string.full_wday_month_day_no_year);
