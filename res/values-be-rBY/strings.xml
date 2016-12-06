@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-          http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
- -->
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
@@ -27,8 +28,7 @@
     <string name="timer_sound" msgid="896163086604894735">"Сігнал таймера"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Дадаць новы"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Выдаліць"</string>
-    <!-- no translation found for confirm_remove_custom_ringtone (1724111242265208553) -->
-    <skip />
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"Будзільнікі і таймеры, якія выкарыстоўваюць гэты гук, замест яго будуць прайграваць стандартны гук."</string>
     <string name="music" msgid="3299572469993696378">"Музыка"</string>
     <string name="ringtones" msgid="2548286573030531045">"Рынгтоны"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Таймер скончыўся"</string>
@@ -117,7 +117,7 @@
     <string name="every_day" msgid="4100909974923444602">"Штодзень"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Ідзе загрузка…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Гадзіннік са стрэлкамі"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"Са стрэлкамі"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Лічбавы гадзіннік"</string>
     <string name="settings" msgid="5849739030579520686">"Налады"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Iнтэрвал паўтору"</string>
@@ -209,8 +209,6 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Метка"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"Мелодыя выкліку"</string>
-    <string name="expand_description" msgid="4628777175148490497">"Разгарнуць"</string>
-    <string name="collapse_description" msgid="6990773347180422954">"Згарнуць"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Будзільнік"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Таймер"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Гадзіннік"</string>
@@ -308,8 +306,6 @@
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Паказваць на асобным гадзінніку, колькі часу дома, калі я знаходжуся ў іншым часавым поясе"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Дамашні часавы пояс"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Дамашні часавы пояс"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"Скасаваць"</string>
-    <string name="time_picker_set" msgid="331153175471468051">"ОК"</string>
     <string name="city_checked" msgid="616847871968019">"Адзначаны горад <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_unchecked" msgid="710212932781145918">"Знята адзнака з горада <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
   <string-array name="timezone_labels">

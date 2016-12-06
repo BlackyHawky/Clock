@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--  Copyright (C) 2007 The Android Open Source Project
+<!-- 
+  Copyright (C) 2016 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-          http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
- -->
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+   -->
 
 <resources xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
@@ -27,8 +28,7 @@
     <string name="timer_sound" msgid="896163086604894735">"So del temporitzador"</string>
     <string name="add_new_sound" msgid="2546936797351540244">"Afegeix-ne un"</string>
     <string name="remove_sound" msgid="2064643204455734239">"Elimina"</string>
-    <!-- no translation found for confirm_remove_custom_ringtone (1724111242265208553) -->
-    <skip />
+    <string name="confirm_remove_custom_ringtone" msgid="1724111242265208553">"A partir d\'ara, les alarmes i els temporitzadors que feien servir aquest so faran servir el predeterminat."</string>
     <string name="music" msgid="3299572469993696378">"Música"</string>
     <string name="ringtones" msgid="2548286573030531045">"Sons"</string>
     <string name="default_timer_ringtone_title" msgid="1370799536406862317">"Temporitzador finalitzat"</string>
@@ -191,8 +191,6 @@
   </string-array>
     <string name="label_description" msgid="8736179296142915727">"Nom"</string>
     <string name="ringtone_description" msgid="7580922112921069925">"So"</string>
-    <string name="expand_description" msgid="4628777175148490497">"Desplega"</string>
-    <string name="collapse_description" msgid="6990773347180422954">"Replega"</string>
     <string name="menu_alarm" msgid="4772010125376647519">"Alarma"</string>
     <string name="menu_timer" msgid="6459070074762877114">"Temporitzador"</string>
     <string name="menu_clock" msgid="5612760670606829805">"Rellotge"</string>
@@ -284,8 +282,6 @@
     <string name="automatic_home_clock_summary" msgid="6020476321040807273">"Quan viatgis a una zona amb una hora diferent, afegeix un rellotge per a l\'hora de la teva ciutat"</string>
     <string name="home_time_zone" msgid="9199730676287974501">"Zona horària de casa"</string>
     <string name="home_time_zone_title" msgid="807894493443834624">"Zona horària de casa"</string>
-    <string name="time_picker_cancel" msgid="7437106489606013077">"Cancel·la"</string>
-    <string name="time_picker_set" msgid="331153175471468051">"D\'acord"</string>
     <string name="city_checked" msgid="616847871968019">"S\'ha marcat <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
     <string name="city_unchecked" msgid="710212932781145918">"S\'ha desmarcat <xliff:g id="CITY_NAME">%s</xliff:g>"</string>
   <string-array name="timezone_labels">
