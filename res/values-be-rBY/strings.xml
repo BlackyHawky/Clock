@@ -86,7 +86,7 @@
     <string name="every_day" msgid="4100909974923444602">"Штодзень"</string>
     <string name="day_concat" msgid="971998564991636532">", "</string>
     <string name="loading_widget" msgid="5306242862476796500">"Ідзе загрузка…"</string>
-    <string name="analog_gadget" msgid="1670505720837152766">"Гадзіннік са стрэлкамі"</string>
+    <string name="analog_gadget" msgid="1670505720837152766">"Са стрэлкамі"</string>
     <string name="digital_gadget" msgid="2326954556720571358">"Лічбавы гадзіннік"</string>
     <string name="settings" msgid="5849739030579520686">"Налады"</string>
     <string name="snooze_duration_title" msgid="1097309861110780483">"Iнтэрвал паўтору"</string>
