@@ -23,9 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -49,6 +47,7 @@ import com.android.deskclock.DeskClockFragment;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.StopwatchTextController;
+import com.android.deskclock.ThemeUtils;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.Lap;
@@ -59,6 +58,8 @@ import com.android.deskclock.uidata.TabListener;
 import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.uidata.UiDataModel.Tab;
 
+import static android.R.attr.state_activated;
+import static android.R.attr.state_pressed;
 import static android.graphics.drawable.GradientDrawable.Orientation.TOP_BOTTOM;
 import static android.view.View.GONE;
 import static android.view.View.INVISIBLE;
@@ -151,18 +152,14 @@ public final class StopwatchFragment extends DeskClockFragment {
             mStopwatchWrapper.setOnTouchListener(new CircleTouchListener());
         }
 
-        final TypedArray a = v.getContext().obtainStyledAttributes(
-                new int[] { R.attr.colorAccent, android.R.attr.textColorPrimary});
-        final int colorControlActivated = a.getColor(0, Color.RED);
-        final int colorControlNormal = a.getColor(1, Color.WHITE);
-        final int[][] states = {
-                { android.R.attr.state_activated }, { android.R.attr.state_pressed }, {}
-        };
-        final int[] colors = {colorControlActivated, colorControlActivated, colorControlNormal};
-        final ColorStateList colorStateList = new ColorStateList(states, colors);
-        mMainTimeText.setTextColor(colorStateList);
-        mHundredthsTimeText.setTextColor(colorStateList);
-        a.recycle();
+        final Context c = mMainTimeText.getContext();
+        final int colorAccent = ThemeUtils.resolveColor(c, R.attr.colorAccent);
+        final int textColorPrimary = ThemeUtils.resolveColor(c, android.R.attr.textColorPrimary);
+        final ColorStateList timeTextColor = new ColorStateList(
+                new int[][] { { ~state_activated, ~state_pressed }, {} },
+                new int[] { textColorPrimary, colorAccent });
+        mMainTimeText.setTextColor(timeTextColor);
+        mHundredthsTimeText.setTextColor(timeTextColor);
 
         return v;
     }

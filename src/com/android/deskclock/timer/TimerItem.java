@@ -29,9 +29,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.deskclock.R;
+import com.android.deskclock.ThemeUtils;
 import com.android.deskclock.TimerTextController;
 import com.android.deskclock.Utils.ClickAccessibilityDelegate;
 import com.android.deskclock.data.Timer;
+
+import static android.R.attr.state_activated;
+import static android.R.attr.state_pressed;
 
 /**
  * This view is a visual representation of a {@link Timer}.
@@ -73,16 +77,12 @@ public class TimerItem extends LinearLayout {
         mTimerText = (TextView) findViewById(R.id.timer_time_text);
         mTimerTextController = new TimerTextController(mTimerText);
 
-        final TypedArray a = getContext().obtainStyledAttributes(
-                new int[] { R.attr.colorAccent, android.R.attr.textColorPrimary});
-        final int colorControlActivated = a.getColor(0, Color.RED);
-        final int colorControlNormal = a.getColor(1, Color.WHITE);
-        mTimerText.setTextColor(new ColorStateList(new int[][] {
-                { android.R.attr.state_activated }, { android.R.attr.state_pressed }, {}
-        }, new int[] {
-                colorControlActivated, colorControlActivated, colorControlNormal
-        }));
-        a.recycle();
+        final Context c = mTimerText.getContext();
+        final int colorAccent = ThemeUtils.resolveColor(c, R.attr.colorAccent);
+        final int textColorPrimary = ThemeUtils.resolveColor(c, android.R.attr.textColorPrimary);
+        mTimerText.setTextColor(new ColorStateList(
+                new int[][] { { ~state_activated, ~state_pressed }, {} },
+                new int[] { textColorPrimary, colorAccent }));
     }
 
     /**

@@ -54,6 +54,7 @@ import android.widget.TextView;
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
+import com.android.deskclock.ThemeUtils;
 import com.android.deskclock.Utils;
 import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
@@ -486,7 +487,7 @@ public class AlarmActivity extends AppCompatActivity
         mAlarmHandled = true;
         LOGGER.v("Snoozed: %s", mAlarmInstance);
 
-        final int accentColor = Utils.obtainStyledColor(this, R.attr.colorAccent, Color.RED);
+        final int colorAccent = ThemeUtils.resolveColor(this, R.attr.colorAccent);
         setAnimatedFractions(1.0f /* snoozeFraction */, 0.0f /* dismissFraction */);
 
         final int snoozeMinutes = DataModel.getDataModel().getSnoozeLength();
@@ -496,7 +497,7 @@ public class AlarmActivity extends AppCompatActivity
                 R.plurals.alarm_alert_snooze_set, snoozeMinutes, snoozeMinutes);
 
         getAlertAnimator(mSnoozeButton, R.string.alarm_alert_snoozed_text, infoText,
-                accessibilityText, accentColor, accentColor).start();
+                accessibilityText, colorAccent, colorAccent).start();
 
         AlarmStateManager.setSnoozeState(this, mAlarmInstance, false /* showToast */);
 

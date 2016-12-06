@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 
 import com.android.deskclock.FabContainer;
 import com.android.deskclock.R;
+import com.android.deskclock.ThemeUtils;
 import com.android.deskclock.Utils;
 import com.android.deskclock.uidata.UiDataModel;
 
@@ -63,7 +64,7 @@ public class TimerSetupView extends LinearLayout implements Button.OnClickListen
     public TimerSetupView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        mColorAccent = Utils.obtainStyledColor(context, R.attr.colorAccent, Color.RED);
+        mColorAccent = ThemeUtils.resolveColor(context, R.attr.colorAccent);
         mColorHairline = ContextCompat.getColor(context, R.color.hairline);
 
         LayoutInflater.from(context).inflate(R.layout.time_setup_container, this);

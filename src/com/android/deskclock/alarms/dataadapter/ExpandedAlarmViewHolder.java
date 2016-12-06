@@ -41,6 +41,7 @@ import android.widget.TextView;
 import com.android.deskclock.AnimatorUtils;
 import com.android.deskclock.ItemAdapter;
 import com.android.deskclock.R;
+import com.android.deskclock.ThemeUtils;
 import com.android.deskclock.Utils;
 import com.android.deskclock.alarms.AlarmTimeClickHandler;
 import com.android.deskclock.data.DataModel;
@@ -85,13 +86,10 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         hairLine = itemView.findViewById(R.id.hairline);
 
         final Context context = itemView.getContext();
-        final TypedArray a = context.obtainStyledAttributes(
-                new int[] { android.R.attr.selectableItemBackground });
         itemView.setBackground(new LayerDrawable(new Drawable[] {
                 ContextCompat.getDrawable(context, R.drawable.alarm_background_expanded),
-                a.getDrawable(0)
+                ThemeUtils.resolveDrawable(context, R.attr.selectableItemBackground)
         }));
-        a.recycle();
 
         // Build button for each day.
         final LayoutInflater inflater = LayoutInflater.from(context);

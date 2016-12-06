@@ -85,11 +85,6 @@ public class Utils {
      */
     public static final Uri RINGTONE_SILENT = Uri.EMPTY;
 
-    /**
-     * Temporary array used by {@link #obtainStyledColor(Context, int, int)}.
-     */
-    private static final int[] TEMP_ARRAY = new int[1];
-
     public static void enforceMainLooper() {
         if (Looper.getMainLooper() != Looper.myLooper()) {
             throw new IllegalAccessError("May only call from main thread.");
@@ -464,24 +459,6 @@ public class Utils {
         }
 
         return next == null ? null : next.getTime();
-    }
-
-    /**
-     * Convenience method for retrieving a themed color value.
-     *
-     * @param context  the {@link Context} to resolve the theme attribute against
-     * @param attr     the attribute corresponding to the color to resolve
-     * @param defValue the default color value to use if the attribute cannot be resolved
-     * @return the color value of the resolve attribute
-     */
-    public static int obtainStyledColor(Context context, int attr, int defValue) {
-        TEMP_ARRAY[0] = attr;
-        final TypedArray a = context.obtainStyledAttributes(TEMP_ARRAY);
-        try {
-            return a.getColor(0, defValue);
-        } finally {
-            a.recycle();
-        }
     }
 
     public static String getNumberFormattedQuantityString(Context context, int id, int quantity) {
