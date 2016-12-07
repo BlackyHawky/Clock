@@ -22,7 +22,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.PropertyValuesHolder;
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -197,7 +196,7 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         final AlarmInstance alarmInstance = itemHolder.getAlarmInstance();
         final Context context = itemView.getContext();
         bindEditLabel(context, alarm);
-        bindDaysOfWeekButtons(alarm);
+        bindDaysOfWeekButtons(alarm, context);
         bindVibrator(alarm);
         bindRingtone(context, alarm);
         bindPreemptiveDismissButton(context, alarm, alarmInstance);
@@ -216,13 +215,14 @@ public final class ExpandedAlarmViewHolder extends AlarmItemViewHolder {
         ringtone.setCompoundDrawablesRelativeWithIntrinsicBounds(icon, null, null, null);
     }
 
-    private void bindDaysOfWeekButtons(Alarm alarm) {
+    private void bindDaysOfWeekButtons(Alarm alarm, Context context) {
         final List<Integer> weekdays = DataModel.getDataModel().getWeekdayOrder().getCalendarDays();
         for (int i = 0; i < weekdays.size(); i++) {
             final CompoundButton dayButton = dayButtons[i];
             if (alarm.daysOfWeek.isBitOn(weekdays.get(i))) {
                 dayButton.setChecked(true);
-                dayButton.setTextColor(UiDataModel.getUiDataModel().getWindowBackgroundColor());
+                dayButton.setTextColor(ThemeUtils.resolveColor(context,
+                        android.R.attr.windowBackground));
             } else {
                 dayButton.setChecked(false);
                 dayButton.setTextColor(Color.WHITE);

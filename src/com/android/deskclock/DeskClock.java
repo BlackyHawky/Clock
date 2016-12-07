@@ -24,11 +24,9 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.ActionBar;
@@ -306,13 +304,6 @@ public class DeskClock extends BaseActivity
 
         // Honor changes to the selected tab from outside entities.
         UiDataModel.getUiDataModel().addTabListener(mTabChangeWatcher);
-
-        if (savedInstanceState == null) {
-            // Set the background color to initially match the theme value so that we can
-            // smoothly transition to the dynamic color.
-            final int backgroundColor = ContextCompat.getColor(this, R.color.default_background);
-            adjustAppColor(backgroundColor, false /* animate */);
-        }
     }
 
     @Override
@@ -415,19 +406,6 @@ public class DeskClock extends BaseActivity
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         return getSelectedDeskClockFragment().onKeyDown(keyCode,event)
                 || super.onKeyDown(keyCode, event);
-    }
-
-    /**
-     * @param color the newly installed window background color
-     */
-    @Override
-    protected void onAppColorChanged(@ColorInt int color) {
-        super.onAppColorChanged(color);
-
-        // Notify each fragment of the background color change.
-        for (int i = 0; i < mFragmentTabPagerAdapter.getCount(); i++) {
-            mFragmentTabPagerAdapter.getDeskClockFragment(i).onAppColorChanged(color);
-        }
     }
 
     @Override

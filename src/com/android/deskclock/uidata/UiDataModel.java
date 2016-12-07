@@ -19,7 +19,6 @@ package com.android.deskclock.uidata;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.support.annotation.ColorInt;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 
@@ -72,9 +71,6 @@ public final class UiDataModel {
     /** The model from which tab data are fetched. */
     private TabModel mTabModel;
 
-    /** The model from which colors are fetched. */
-    private ColorModel mColorModel;
-
     /** The model from which formatted strings are fetched. */
     private FormattedStringModel mFormattedStringModel;
 
@@ -92,7 +88,6 @@ public final class UiDataModel {
 
             mPeriodicCallbackModel = new PeriodicCallbackModel(mContext);
             mFormattedStringModel = new FormattedStringModel(mContext);
-            mColorModel = new ColorModel(mPeriodicCallbackModel);
             mTabModel = new TabModel(prefs);
         }
     }
@@ -193,34 +188,6 @@ public final class UiDataModel {
     public String getLongWeekday(int calendarDay) {
         enforceMainLooper();
         return mFormattedStringModel.getLongWeekday(calendarDay);
-    }
-
-    //
-    // Colors
-    //
-
-    /**
-     * @param colorListener to be notified when the app's color changes
-     */
-    public void addOnAppColorChangeListener(OnAppColorChangeListener colorListener) {
-        enforceMainLooper();
-        mColorModel.addOnAppColorChangeListener(colorListener);
-    }
-
-    /**
-     * @param colorListener to be notified when the app's color changes
-     */
-    public void removeOnAppColorChangeListener(OnAppColorChangeListener colorListener) {
-        enforceMainLooper();
-        mColorModel.removeOnAppColorChangeListener(colorListener);
-    }
-
-    /**
-     * @return the color of the application window background
-     */
-    public @ColorInt int getWindowBackgroundColor() {
-        enforceMainLooper();
-        return mColorModel.getAppColor();
     }
 
     //

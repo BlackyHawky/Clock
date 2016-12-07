@@ -709,7 +709,7 @@ public final class StopwatchFragment extends DeskClockFragment {
 
         GradientItemDecoration(Context context) {
             mGradient.setOrientation(TOP_BOTTOM);
-            updateGradientColors(UiDataModel.getUiDataModel().getWindowBackgroundColor());
+            updateGradientColors(ThemeUtils.resolveColor(context, android.R.attr.windowBackground));
 
             final Resources resources = context.getResources();
             final float fabHeight = resources.getDimensionPixelSize(R.dimen.fab_height);

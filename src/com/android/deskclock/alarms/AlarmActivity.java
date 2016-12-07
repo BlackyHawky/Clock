@@ -40,7 +40,6 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.graphics.ColorUtils;
 import android.support.v4.view.animation.PathInterpolatorCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -52,6 +51,7 @@ import android.widget.TextClock;
 import android.widget.TextView;
 
 import com.android.deskclock.AnimatorUtils;
+import com.android.deskclock.BaseActivity;
 import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.ThemeUtils;
@@ -60,14 +60,13 @@ import com.android.deskclock.data.DataModel;
 import com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior;
 import com.android.deskclock.events.Events;
 import com.android.deskclock.provider.AlarmInstance;
-import com.android.deskclock.uidata.UiDataModel;
 import com.android.deskclock.widget.CircleView;
 
 import java.util.List;
 
 import static android.accessibilityservice.AccessibilityServiceInfo.FEEDBACK_GENERIC;
 
-public class AlarmActivity extends AppCompatActivity
+public class AlarmActivity extends BaseActivity
         implements View.OnClickListener, View.OnTouchListener {
 
     private static final LogUtils.Logger LOGGER = new LogUtils.Logger("AlarmActivity");
@@ -214,7 +213,7 @@ public class AlarmActivity extends AppCompatActivity
         titleView.setText(mAlarmInstance.getLabelOrDefault(this));
         Utils.setTimeFormat(digitalClock, false);
 
-        mCurrentHourColor = UiDataModel.getUiDataModel().getWindowBackgroundColor();
+        mCurrentHourColor = ThemeUtils.resolveColor(this, android.R.attr.windowBackground);
         getWindow().setBackgroundDrawable(new ColorDrawable(mCurrentHourColor));
 
         mAlarmButton.setOnTouchListener(this);
