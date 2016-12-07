@@ -24,6 +24,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.android.deskclock.uidata.OnAppColorChangeListener;
 import com.android.deskclock.uidata.UiDataModel;
@@ -54,6 +55,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Allow the content to layout behind the status and navigation bars.
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
         final @ColorInt int currentColor = UiDataModel.getUiDataModel().getWindowBackgroundColor();
         final @ColorInt int bgColor = savedInstanceState == null ? currentColor
@@ -94,7 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Adjusts the current app window color of this activity; animates the change if desired.
      *
-     * @param color the ARGB value to set as the current app window color
+     * @param color   the ARGB value to set as the current app window color
      * @param animate {@code true} if the change should be animated
      */
     protected void adjustAppColor(@ColorInt int color, boolean animate) {

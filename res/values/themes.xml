@@ -26,7 +26,6 @@
         <item name="android:timePickerStyle" tools:targetApi="21">@style/Widget.TimePicker</item>
         <item name="android:windowBackground">@color/default_background</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:windowOverscan">true</item>
 
         <!-- Attributes from android.support.v7.appcompat -->
         <item name="colorAccent">#DA4336</item>
