@@ -70,6 +70,7 @@ import static com.android.deskclock.uidata.UiDataModel.Tab.STOPWATCH;
  * Fragment that shows the stopwatch and recorded laps.
  */
 public final class StopwatchFragment extends DeskClockFragment {
+
     /** Milliseconds between redraws while running. */
     private static final int REDRAW_PERIOD_RUNNING = 25;
 
@@ -136,6 +137,8 @@ public final class StopwatchFragment extends DeskClockFragment {
             final ScrollPositionWatcher scrollPositionWatcher = new ScrollPositionWatcher();
             mLapsList.addOnLayoutChangeListener(scrollPositionWatcher);
             mLapsList.addOnScrollListener(scrollPositionWatcher);
+        } else {
+            setTabScrolledToTop(true);
         }
         mLapsList.setAdapter(mLapsAdapter);
 
@@ -559,16 +562,6 @@ public final class StopwatchFragment extends DeskClockFragment {
                 final long delay = Math.max(0, startTime + period - endTime);
                 mMainTimeText.postDelayed(this, delay);
             }
-        }
-    }
-
-    /**
-     * Tapping the stopwatch text also toggles the stopwatch state, just like the fab.
-     */
-    private final class ToggleStopwatchRunnable implements Runnable {
-        @Override
-        public void run() {
-            toggleStopwatchState();
         }
     }
 
