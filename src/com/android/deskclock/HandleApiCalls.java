@@ -420,7 +420,7 @@ public class HandleApiCalls extends Activity {
 
         // Verify that the timer length is between one second and one day.
         final long lengthMillis = SECOND_IN_MILLIS * intent.getIntExtra(AlarmClock.EXTRA_LENGTH, 0);
-        if (lengthMillis < Timer.MIN_LENGTH || lengthMillis > Timer.MAX_LENGTH) {
+        if (lengthMillis < Timer.MIN_LENGTH) {
             final String voiceMessage = getString(R.string.invalid_timer_length);
             Controller.getController().notifyVoiceFailure(this, voiceMessage);
             LOGGER.i("Invalid timer length requested: " + lengthMillis);
