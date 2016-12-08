@@ -270,7 +270,7 @@ public final class StopwatchFragment extends DeskClockFragment {
     @Override
     public void onUpdateFabButtons(@NonNull Button left, @NonNull Button right) {
         final Resources resources = getResources();
-        left.setEnabled(true);
+        left.setClickable(true);
         left.setText(R.string.sw_reset_button);
         left.setContentDescription(resources.getString(R.string.sw_reset_button));
 
