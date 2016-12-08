@@ -369,7 +369,8 @@ public final class StopwatchFragment extends DeskClockFragment {
         try {
             context.startActivity(shareChooserIntent);
         } catch (ActivityNotFoundException anfe) {
-            LogUtils.e("No compatible receiver is found");
+            LogUtils.e("Cannot share lap data because no suitable receiving Activity exists");
+            updateFab(BUTTONS_IMMEDIATE);
         }
     }
 
