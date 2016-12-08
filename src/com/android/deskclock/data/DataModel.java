@@ -567,7 +567,7 @@ public final class DataModel {
     }
 
     /**
-     * @param timer  the timer whose {@code length} to change
+     * @param timer the timer whose {@code length} to change
      * @param length the new length of the timer in milliseconds
      */
     public void setTimerLength(Timer timer, long length) {
@@ -576,7 +576,7 @@ public final class DataModel {
     }
 
     /**
-     * @param timer         the timer whose {@code remainingTime} to change
+     * @param timer the timer whose {@code remainingTime} to change
      * @param remainingTime the new remaining time of the timer in milliseconds
      */
     public void setRemainingTime(Timer timer, long remainingTime) {
