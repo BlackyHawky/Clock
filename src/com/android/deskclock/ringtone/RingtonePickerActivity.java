@@ -195,6 +195,15 @@ public class RingtonePickerActivity extends BaseActivity
         mRecyclerView.setAdapter(mRingtoneAdapter);
         mRecyclerView.setItemAnimator(null);
 
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (mIndexOfRingtoneToRemove != RecyclerView.NO_POSITION) {
+                    closeContextMenu();
+                }
+            }
+        });
+
         final int titleResourceId = intent.getIntExtra(EXTRA_TITLE, 0);
         setTitle(context.getString(titleResourceId));
 
@@ -343,7 +352,7 @@ public class RingtonePickerActivity extends BaseActivity
         // Find the ringtone to be removed.
         final List<ItemAdapter.ItemHolder<Uri>> items = mRingtoneAdapter.getItems();
         final RingtoneHolder toRemove = (RingtoneHolder) items.get(mIndexOfRingtoneToRemove);
-        mIndexOfRingtoneToRemove = -1;
+        mIndexOfRingtoneToRemove = RecyclerView.NO_POSITION;
 
         // Launch the confirmation dialog.
         ConfirmRemoveCustomRingtoneDialogFragment.show(getFragmentManager(), toRemove.getUri());

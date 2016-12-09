@@ -58,13 +58,12 @@ final class RingtoneViewHolder extends ItemAdapter.ItemViewHolder<RingtoneHolder
 
     @Override
     protected void onBindItemView(RingtoneHolder itemHolder) {
-
         mNameView.setText(itemHolder.getName());
         mNameView.setAlpha(itemHolder.isSelected() ? 1f : .63f);
 
         mImageView.setAlpha(itemHolder.isSelected() ? 1f : .63f);
 
-        final int itemViewType = itemHolder.getItemViewType();
+        final int itemViewType = getItemViewType();
         if (itemViewType == VIEW_TYPE_CUSTOM_SOUND) {
             mImageView.setImageResource(R.drawable.placeholder_album_artwork);
         } else if (itemHolder.item == Utils.RINGTONE_SILENT) {
