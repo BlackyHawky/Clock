@@ -42,7 +42,6 @@
                 android:id="@+id/analog_clock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/bottom_text_spacing_analog"
                 android:layout_marginEnd="@dimen/analog_clock_margin"
                 android:layout_marginLeft="@dimen/analog_clock_margin"
                 android:layout_marginRight="@dimen/analog_clock_margin"
@@ -55,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="none"
-                android:paddingBottom="@dimen/main_clock_digital_padding"
+                android:includeFontPadding="false"
                 android:paddingTop="@dimen/main_clock_digital_padding"
                 android:singleLine="true"
                 android:textSize="@dimen/main_clock_digital_font_size" />
