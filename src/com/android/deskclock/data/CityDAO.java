@@ -122,7 +122,7 @@ final class CityDAO {
                     throw new IllegalStateException(message);
                 }
 
-                final City city =  createCity(id, cityParts[0], cityParts[1]);
+                final City city = createCity(id, cityParts[0], cityParts[1]);
                 // Skip cities whose timezone cannot be resolved.
                 if (city != null) {
                     cities.put(id, city);

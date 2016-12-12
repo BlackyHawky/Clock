@@ -187,9 +187,9 @@ public final class DataModel {
 
             mTimeModel = new TimeModel(mContext);
             mWidgetModel = new WidgetModel(prefs);
-            mSettingsModel = new SettingsModel(mContext, prefs);
-            mRingtoneModel = new RingtoneModel(mContext, prefs);
             mNotificationModel = new NotificationModel();
+            mRingtoneModel = new RingtoneModel(mContext, prefs);
+            mSettingsModel = new SettingsModel(mContext, prefs, mTimeModel);
             mCityModel = new CityModel(mContext, prefs, mSettingsModel);
             mAlarmModel = new AlarmModel(mContext, mSettingsModel);
             mSilentSettingsModel = new SilentSettingsModel(mContext, mNotificationModel);
@@ -1007,6 +1007,14 @@ public final class DataModel {
      */
     public void setRestoreBackupFinished(boolean finished) {
         mSettingsModel.setRestoreBackupFinished(finished);
+    }
+
+    /**
+     * @return a description of the time zones available for selection
+     */
+    public TimeZones getTimeZones() {
+        enforceMainLooper();
+        return mSettingsModel.getTimeZones();
     }
 
     /**

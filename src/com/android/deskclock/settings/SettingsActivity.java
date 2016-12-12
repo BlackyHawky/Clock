@@ -18,38 +18,30 @@ package com.android.deskclock.settings;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.ListPreferenceDialogFragmentCompat;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceDialogFragmentCompat;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.TwoStatePreference;
-import android.text.format.DateUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.android.deskclock.BaseActivity;
 import com.android.deskclock.DropShadowController;
-import com.android.deskclock.LogUtils;
 import com.android.deskclock.R;
 import com.android.deskclock.Utils;
 import com.android.deskclock.actionbarmenu.MenuItemControllerFactory;
 import com.android.deskclock.actionbarmenu.NavUpMenuItemController;
 import com.android.deskclock.actionbarmenu.OptionsMenuManager;
 import com.android.deskclock.data.DataModel;
+import com.android.deskclock.data.TimeZones;
 import com.android.deskclock.data.Weekdays;
 import com.android.deskclock.ringtone.RingtonePickerActivity;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Settings for the Alarm Clock.
@@ -258,47 +250,12 @@ public final class SettingsActivity extends BaseActivity {
          * Reconstruct the timezone list.
          */
         private void loadTimeZoneList() {
-            final CharSequence[][] timezones = getAllTimezones();
+            final TimeZones timezones = DataModel.getDataModel().getTimeZones();
             final ListPreference homeTimezonePref = (ListPreference) findPreference(KEY_HOME_TZ);
-            homeTimezonePref.setEntryValues(timezones[0]);
-            homeTimezonePref.setEntries(timezones[1]);
+            homeTimezonePref.setEntryValues(timezones.getTimeZoneIds());
+            homeTimezonePref.setEntries(timezones.getTimeZoneNames());
             homeTimezonePref.setSummary(homeTimezonePref.getEntry());
             homeTimezonePref.setOnPreferenceChangeListener(this);
-        }
-
-        /**
-         * Returns an array of ids/time zones. This returns a double indexed array
-         * of ids and time zones for Calendar. It is an inefficient method and
-         * shouldn't be called often, but can be used for one time generation of
-         * this list.
-         *
-         * @return double array of tz ids and tz names
-         */
-        public CharSequence[][] getAllTimezones() {
-            final Resources res = getResources();
-            final String[] ids = res.getStringArray(R.array.timezone_values);
-            final String[] labels = res.getStringArray(R.array.timezone_labels);
-
-            int minLength = ids.length;
-            if (ids.length != labels.length) {
-                minLength = Math.min(minLength, labels.length);
-                LogUtils.e("Timezone ids and labels have different length!");
-            }
-
-            final long currentTimeMillis = System.currentTimeMillis();
-            final List<TimeZoneRow> timezones = new ArrayList<>(minLength);
-            for (int i = 0; i < minLength; i++) {
-                timezones.add(new TimeZoneRow(ids[i], labels[i], currentTimeMillis));
-            }
-            Collections.sort(timezones);
-
-            final CharSequence[][] timeZones = new CharSequence[2][timezones.size()];
-            int i = 0;
-            for (TimeZoneRow row : timezones) {
-                timeZones[0][i] = row.mId;
-                timeZones[1][i++] = row.mDisplayName;
-            }
-            return timeZones;
         }
 
         private void refresh() {
@@ -365,46 +322,6 @@ public final class SettingsActivity extends BaseActivity {
             } else {
                 listPref.setSummary(Utils.getNumberFormattedQuantityString(getActivity(),
                         R.plurals.auto_silence_summary, i));
-            }
-        }
-
-        private static class TimeZoneRow implements Comparable<TimeZoneRow> {
-
-            public final String mId;
-            public final String mDisplayName;
-            public final int mOffset;
-
-            public TimeZoneRow(String id, String name, long currentTimeMillis) {
-                final TimeZone tz = TimeZone.getTimeZone(id);
-                final boolean useDaylightTime = tz.useDaylightTime();
-                mId = id;
-                mOffset = tz.getOffset(currentTimeMillis);
-                mDisplayName = buildGmtDisplayName(name, useDaylightTime);
-            }
-
-            @Override
-            public int compareTo(@NonNull TimeZoneRow another) {
-                return mOffset - another.mOffset;
-            }
-
-            public String buildGmtDisplayName(String displayName, boolean useDaylightTime) {
-                final int p = Math.abs(mOffset);
-                final StringBuilder name = new StringBuilder("(GMT");
-                name.append(mOffset < 0 ? '-' : '+');
-
-                name.append(p / DateUtils.HOUR_IN_MILLIS);
-                name.append(':');
-
-                int min = p / 60000;
-                min %= 60;
-
-                if (min < 10) {
-                    name.append('0');
-                }
-                name.append(min);
-                name.append(") ");
-                name.append(displayName);
-                return name.toString();
             }
         }
     }

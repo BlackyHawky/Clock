@@ -18,8 +18,10 @@ package com.android.deskclock.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
 
 import com.android.deskclock.R;
@@ -29,10 +31,13 @@ import com.android.deskclock.data.DataModel.ClockStyle;
 import com.android.deskclock.settings.ScreensaverSettingsActivity;
 import com.android.deskclock.settings.SettingsActivity;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static android.text.format.DateUtils.HOUR_IN_MILLIS;
+import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.DISMISS;
 import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.NOTHING;
 import static com.android.deskclock.data.DataModel.AlarmVolumeButtonBehavior.SNOOZE;
@@ -100,7 +105,7 @@ final class SettingsDAO {
      *      displayed when it doesn't match the current timezone
      */
     static boolean getAutoShowHomeClock(SharedPreferences prefs) {
-        return prefs.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, false);
+        return prefs.getBoolean(SettingsActivity.KEY_AUTO_HOME_CLOCK, true);
     }
 
     /**
@@ -113,15 +118,25 @@ final class SettingsDAO {
     }
 
     /**
-     * Sets the user's home timezone to the current system timezone if no home timezone is yet set.
+     * Sets the user's home timezone to the current system timezone if no home timezone is yet set
+     * and the given timezone exists in {@link #getTimeZones the approved list}.
      *
-     * @param homeTimeZone the timezone to set as the user's home timezone if necessary
+     * @param tz the timezone to set as the user's home timezone if necessary
      */
-    static void setDefaultHomeTimeZone(SharedPreferences prefs, TimeZone homeTimeZone) {
+    static void setDefaultHomeTimeZone(Context context, SharedPreferences prefs, TimeZone tz) {
         final String homeTimeZoneId = prefs.getString(SettingsActivity.KEY_HOME_TZ, null);
-        if (homeTimeZoneId == null) {
-            prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, homeTimeZone.getID()).apply();
+
+        // If a default home timezone has been established, bail.
+        if (homeTimeZoneId != null) {
+            return;
         }
+
+        // If the given timezone isn't allowed, bail.
+        if (!getTimeZones(context, System.currentTimeMillis()).contains(tz.getID())) {
+            return;
+        }
+
+        prefs.edit().putString(SettingsActivity.KEY_HOME_TZ, tz.getID()).apply();
     }
 
     /**
@@ -303,11 +318,78 @@ final class SettingsDAO {
         return Integer.parseInt(string);
     }
 
+    /**
+     * @param currentTime timezone offsets created relative to this time
+     * @return a description of the time zones available for selection
+     */
+    static TimeZones getTimeZones(Context context, long currentTime) {
+        final Locale locale = Locale.getDefault();
+        final Resources resources = context.getResources();
+        final String[] timeZoneIds = resources.getStringArray(R.array.timezone_values);
+        final String[] timeZoneNames = resources.getStringArray(R.array.timezone_labels);
+
+        // Verify the data is consistent.
+        if (timeZoneIds.length != timeZoneNames.length) {
+            final String message = String.format(Locale.US,
+                    "id count (%d) does not match name count (%d) for locale %s",
+                    timeZoneIds.length, timeZoneNames.length, locale);
+            throw new IllegalStateException(message);
+        }
+
+        // Create TimeZoneDescriptors for each TimeZone so they can be sorted.
+        final TimeZoneDescriptor[] descriptors = new TimeZoneDescriptor[timeZoneIds.length];
+        for (int i = 0; i < timeZoneIds.length; i++) {
+            final String id = timeZoneIds[i];
+            final String name = timeZoneNames[i].replaceAll("\"", "");
+            descriptors[i] = new TimeZoneDescriptor(locale, id, name, currentTime);
+        }
+        Arrays.sort(descriptors);
+
+        // Transfer the TimeZoneDescriptors into parallel arrays for easy consumption by the caller.
+        final CharSequence[] tzIds = new CharSequence[descriptors.length];
+        final CharSequence[] tzNames = new CharSequence[descriptors.length];
+        for (int i = 0; i < descriptors.length; i++) {
+            final TimeZoneDescriptor descriptor = descriptors[i];
+            tzIds[i] = descriptor.mTimeZoneId;
+            tzNames[i] = descriptor.mTimeZoneName;
+        }
+
+        return new TimeZones(tzIds, tzNames);
+    }
+
     private static ClockStyle getClockStyle(Context context, SharedPreferences prefs, String key) {
         final String defaultStyle = context.getString(R.string.default_clock_style);
         final String clockStyle = prefs.getString(key, defaultStyle);
         // Use hardcoded locale to perform toUpperCase, because in some languages toUpperCase adds
         // accent to character, which breaks the enum conversion.
         return ClockStyle.valueOf(clockStyle.toUpperCase(Locale.US));
+    }
+
+    /**
+     * These descriptors have a natural order from furthest ahead of GMT to furthest behind GMT.
+     */
+    private static class TimeZoneDescriptor implements Comparable<TimeZoneDescriptor> {
+
+        private final int mOffset;
+        private final String mTimeZoneId;
+        private final String mTimeZoneName;
+
+        private TimeZoneDescriptor(Locale locale, String id, String name, long currentTime) {
+            mTimeZoneId = id;
+
+            final TimeZone tz = TimeZone.getTimeZone(id);
+            mOffset = tz.getOffset(currentTime);
+
+            final char sign = mOffset < 0 ? '-' : '+';
+            final int absoluteGMTOffset = Math.abs(mOffset);
+            final long hour = absoluteGMTOffset / HOUR_IN_MILLIS;
+            final long minute = (absoluteGMTOffset / MINUTE_IN_MILLIS) % 60;
+            mTimeZoneName = String.format(locale, "(GMT%s%d:%02d) %s", sign, hour, minute, name);
+        }
+
+        @Override
+        public int compareTo(@NonNull TimeZoneDescriptor other) {
+            return mOffset - other.mOffset;
+        }
     }
 }
