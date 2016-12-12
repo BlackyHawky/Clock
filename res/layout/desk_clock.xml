@@ -70,6 +70,7 @@
             android:id="@+id/desk_clock_pager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:importantForAccessibility="no"
             android:saveEnabled="false" />
 
         <include layout="@layout/drop_shadow" />
