@@ -89,10 +89,11 @@ public final class DataModel {
         private static class UnmuteAlarmVolumeListener implements View.OnClickListener {
             @Override
             public void onClick(View v) {
-                // Set the alarm volume to ~30% of max and show the slider UI.
+                // Set the alarm volume to 11/16th of max and show the slider UI.
+                // 11/16th of max is the initial volume of the alarm stream on a fresh install.
                 final Context context = v.getContext();
                 final AudioManager am = (AudioManager) context.getSystemService(AUDIO_SERVICE);
-                final int index = am.getStreamMaxVolume(STREAM_ALARM) / 3;
+                final int index = Math.round(am.getStreamMaxVolume(STREAM_ALARM) * 11f / 16f);
                 am.setStreamVolume(STREAM_ALARM, index, FLAG_SHOW_UI);
             }
         }
