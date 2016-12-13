@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2012 The Android Open Source Project
+<!-- Copyright (C) 2016 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -14,39 +14,29 @@
      limitations under the License.
 -->
 
+<!-- Flanks the timer setup view (which has multiple layouts) with gutters. -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:gravity="center"
-    android:layoutDirection="ltr">
+    android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/key_left"
-        style="@style/dialpad"
+    <!-- Left gutter. -->
+    <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:gravity="center" />
+        android:layout_weight="@integer/gutter_width_percent" />
 
-    <Button
-        android:id="@+id/key_middle"
-        style="@style/dialpad"
+    <!-- Guttered content. -->
+    <include
+        layout="@layout/timer_setup_view"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:gravity="center" />
+        android:layout_weight="@integer/guttered_content_width_percent" />
 
-    <Button
-        android:id="@+id/key_right"
-        style="@style/dialpad"
+    <!-- Right gutter. -->
+    <Space
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:gravity="center" />
+        android:layout_weight="@integer/gutter_width_percent" />
 
 </LinearLayout>

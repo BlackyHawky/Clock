@@ -17,28 +17,9 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="alarm_list_left_column">
-        <item name="android:layout_width">68dip</item>
-        <item name="android:layout_height">68dip</item>
-    </style>
-
     <style name="no_alarms">
         <item name="android:textSize">@dimen/no_alarm_font_size</item>
         <item name="android:textColor">@color/white_63p</item>
-    </style>
-
-    <style name="timer_setup_digit" parent="display_time">
-        <item name="android:ellipsize">none</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/timer_setup_digit_font_size</item>
-    </style>
-
-    <style name="timer_setup_label" parent="sub_heading">
-        <item name="android:ellipsize">none</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="widget_medium_thin">
@@ -50,10 +31,6 @@
 
     <style name="label">
         <item name="android:textSize">@dimen/label_font_size</item>
-    </style>
-
-    <style name="label_not_caps" parent="label">
-        <item name="android:textAllCaps">false</item>
     </style>
 
     <style name="widget_label" parent="label">
@@ -75,20 +52,9 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
-    <style name="sub_heading">
-        <item name="android:textSize">24sp</item>
-        <item name="android:fontFamily">sans-serif</item>
-    </style>
-
     <style name="body">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="sub_text">
-        <item name="android:textSize">14sp</item>
-        <item name="alpha">.76</item>
-        <item name="android:fontFamily">sans-serif</item>
     </style>
 
     <style name="big_thin">
@@ -111,17 +77,8 @@
         <item name="android:textSize">@dimen/alarm_label_size</item>
     </style>
 
-    <style name="alarm_label_not_caps" parent="alarm_label">
-        <item name="android:textAllCaps">false</item>
-    </style>
-
     <style name="alarm_label_bold" parent="alarm_label">
         <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="dialpad" parent="Widget.AppCompat.Button.Borderless">
-        <item name="android:textSize">36sp</item>
-        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="PrimaryLabelTextParentAppearance">
@@ -154,7 +111,15 @@
         <!-- Attributes from android.support.v7.appcompat -->
         <item name="displayOptions">homeAsUp</item>
     </style>
-    col
+
+    <style name="Widget.Button.TimerSetupDigit" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">36sp</item>
+    </style>
 
     <style name="Widget.ImageButton" parent="Widget.AppCompat.ImageButton">
         <item name="android:background">?attr/selectableItemBackgroundBorderless</item>

@@ -74,7 +74,6 @@
 
     <!--margin should be ~ half timer_setup_font_size -->
     <dimen name="timer_setup_delete_margin">14sp</dimen>
-    <dimen name="timer_setup_delete_padding">12dp</dimen>
 
     <!-- Specified in sp to match the top margin of the time on the adjacent world clock tab. -->
     <dimen name="timer_setup_top_margin">18sp</dimen>

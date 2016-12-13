@@ -15,18 +15,12 @@
   limitations under the License.
   -->
 
-<vector
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="@dimen/backspace_icon_size"
-    android:height="@dimen/backspace_icon_size"
-    android:tint="?attr/colorControlNormal"
-    android:tintMode="src_in"
-    android:viewportHeight="24.0"
-    android:viewportWidth="24.0">
-    <path
-        android:fillColor="#FFF"
-        android:pathData="M22,3L7,3c-0.69,0 -1.23,0.35 -1.59,0.88L0,12l5.41,8.11c0.36,0.53
-        0.9,0.89 1.59,0.89h15c1.1,0 2,-0.9 2,-2L24,5c0,-1.1 -0.9,-2 -2,-2zM19,15.59L17.59,17
-        14,13.41 10.41,17 9,15.59 12.59,12 9,8.41 10.41,7 14,10.59 17.59,7 19,8.41 15.41,12
-        19,15.59z" />
-</vector>
+    android:id="@+id/timer_setup_divider"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:importantForAccessibility="no"
+    android:theme="@style/ThemeOverlay.Control.Accent"
+    android:background="?android:attr/dividerHorizontal" />

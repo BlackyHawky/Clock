@@ -32,13 +32,4 @@
         <item name="android:shadowDy">@dimen/widget_shadow_dy</item>
     </style>
 
-    <style name="timer_setup_digit" parent="display_time">
-        <item name="android:ellipsize">none</item>
-        <item name="android:fontFeatureSettings">tnum</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">@dimen/timer_setup_digit_font_size</item>
-    </style>
-
 </resources>

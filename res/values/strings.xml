@@ -520,10 +520,9 @@
     <string name="minutes_label">m</string>
     <!-- Abbreviation for temporal seconds [CHAR LIMIT=1] -->
     <string name="seconds_label">s</string>
-    <!-- Accessibility strings -->
-    <string name="hours_label_description">hours</string>
-    <string name="minutes_label_description">minutes</string>
-    <string name="seconds_label_description">seconds</string>
+
+    <!-- Accessibility description for new timer setup duration (e.g. 1 hour, 10 minutes, 30 seconds). [CHAR LIMIT=NONE] -->
+    <string name="timer_setup_description"><xliff:g id="hours" example="1 hour">%1$s</xliff:g>, <xliff:g id="minutes" example="15 minutes">%2$s</xliff:g>, <xliff:g id="seconds" example="30 seconds">%3$s</xliff:g></string>
 
     <!-- Formats the lap number display. Allows for control of the symbol preceding the lap number. [CHAR LIMIT=5] -->
     <string name="lap_number_single_digit"># <xliff:g id="lapNumber">%d</xliff:g></string>
@@ -537,26 +536,6 @@
     <string name="sw_share_laps">Lap times:</string>
     <!-- Label to enumerate the number of laps in the notification the user has counted -->
     <string name="sw_notification_lap_number">Lap <xliff:g id="number">%d</xliff:g></string>
-
-    <!-- Stopwatch accessibility strings -->
-    <plurals name="Nhours_description">
-        <!-- 1 hour -->
-        <item quantity="one">1 hour</item>
-        <!-- more -->
-        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> hours</item>
-    </plurals>
-    <plurals name="Nminutes_description">
-        <!-- 1 minute -->
-        <item quantity="one">1 minute</item>
-        <!-- more -->
-        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> minutes</item>
-    </plurals>
-    <plurals name="Nseconds_description">
-        <!-- 1 second -->
-        <item quantity="one">1 second</item>
-        <!-- more -->
-        <item quantity="other"><xliff:g id="number" example="7">%d</xliff:g> seconds</item>
-    </plurals>
 
     <!-- timer strings -->
     <!-- Describes the purpose of the button to add a new timer -->
