@@ -37,15 +37,20 @@ final class SettingsModel {
 
     private final SharedPreferences mPrefs;
 
+    /** The model from which time data are fetched. */
+    private final TimeModel mTimeModel;
+
     /** The uri of the default ringtone to use for timers until the user explicitly chooses one. */
     private Uri mDefaultTimerRingtoneUri;
 
-    SettingsModel(Context context, SharedPreferences prefs) {
+    SettingsModel(Context context, SharedPreferences prefs, TimeModel timeModel) {
         mContext = context;
         mPrefs = prefs;
+        mTimeModel = timeModel;
 
-        // Set the user's default home timezone if one has not yet been chosen.
-        SettingsDAO.setDefaultHomeTimeZone(prefs, TimeZone.getDefault());
+        // Attempt to set the user's default home timezone.
+        SettingsDAO.setDefaultHomeTimeZone(context, prefs, TimeZone.getDefault());
+
         // Set the user's default display seconds preference if one has not yet been chosen.
         SettingsDAO.setDefaultDisplayClockSeconds(mContext, prefs);
     }
@@ -164,5 +169,9 @@ final class SettingsModel {
 
     void setTimerVibrate(boolean enabled) {
         SettingsDAO.setTimerVibrate(mPrefs, enabled);
+    }
+
+    TimeZones getTimeZones() {
+        return SettingsDAO.getTimeZones(mContext, mTimeModel.currentTimeMillis());
     }
 }
