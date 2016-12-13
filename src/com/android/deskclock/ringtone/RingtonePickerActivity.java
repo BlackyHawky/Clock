@@ -603,8 +603,14 @@ public class RingtonePickerActivity extends BaseActivity
                 }
             }
 
-            // Release the permission to read (playback) the audio at the uri.
-            cr.releasePersistableUriPermission(mRemoveUri, FLAG_GRANT_READ_URI_PERMISSION);
+            try {
+                // Release the permission to read (playback) the audio at the uri.
+                cr.releasePersistableUriPermission(mRemoveUri, FLAG_GRANT_READ_URI_PERMISSION);
+            } catch (SecurityException ignore) {
+                // If the file was already deleted from the file system, a SecurityException is
+                // thrown indicating this app did not hold the read permission being released.
+                LogUtils.w("SecurityException while releasing read permission for " + mRemoveUri);
+            }
 
             return null;
         }
