@@ -19,13 +19,13 @@ package com.android.deskclock;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlarmManager;
+import android.app.AlarmManager.AlarmClockInfo;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -292,7 +292,7 @@ public class Utils {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private static String getNextAlarmLOrLater(Context context) {
         final AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        final AlarmManager.AlarmClockInfo info = am.getNextAlarmClock();
+        final AlarmClockInfo info = getNextAlarmClock(am);
         if (info != null) {
             final long triggerTime = info.getTriggerTime();
             final Calendar alarmTime = Calendar.getInstance();
@@ -301,6 +301,16 @@ public class Utils {
         }
 
         return null;
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static AlarmClockInfo getNextAlarmClock(AlarmManager am) {
+        return am.getNextAlarmClock();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public static void updateNextAlarm(AlarmManager am, AlarmClockInfo info, PendingIntent op) {
+        am.setAlarmClock(info, op);
     }
 
     public static boolean isAlarmWithin24Hours(AlarmInstance alarmInstance) {

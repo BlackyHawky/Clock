@@ -58,10 +58,7 @@ class FetchMatchingAlarmsAction implements Runnable {
 
     @Override
     public void run() {
-        // only allow on background thread
-        if (Looper.myLooper() == Looper.getMainLooper()) {
-            throw new IllegalStateException("Must be called on a background thread");
-        }
+        Utils.enforceNotMainLooper();
 
         final String searchMode = mIntent.getStringExtra(AlarmClock.EXTRA_ALARM_SEARCH_MODE);
         // if search mode isn't specified show all alarms in the UI picker
