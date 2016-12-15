@@ -29,7 +29,8 @@
         android:fadingEdgeLength="0dp"
         android:paddingBottom="@dimen/fab_height"
         android:scrollbarStyle="outsideOverlay"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"
+        android:splitMotionEvents="false" />
 
     <TextView
         android:id="@+id/alarms_empty_view"
